@@ -1,6 +1,6 @@
-import { objectStorage } from './objectStorage';
-import { memoize } from './index';
 import { randomToken } from './algo';
+import { memoize } from './index';
+import { objectStorage } from './objectStorage';
 import { log } from './permalog';
 
 // url keyed storage for very large assets
@@ -10,8 +10,8 @@ export const bigFileStorage: () => BigFileStorage = memoize(() => new BigFileSto
 type U8 = Uint8Array<ArrayBuffer>;
 
 class BigFileStorage {
-  private idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
-  private opfs = memoize(() => directoryHandleIfAvailable());
+  private readonly idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
+  private readonly opfs = memoize(() => directoryHandleIfAvailable());
 
   async get(assetUrl: string, onProgress?: (loaded: number, total: number) => void): Promise<U8> {
     const stored = await this.readFile(assetUrl).catch(() => undefined);
@@ -19,17 +19,35 @@ class BigFileStorage {
 
     const fetched = await new Promise<U8>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      let settled = false;
+
+      const settle = (value: U8) => {
+        if (settled) return;
+        settled = true;
+        resolve(value);
+      };
+      const fail = (message: string) => {
+        if (settled) return;
+        settled = true;
+        reject(new Error(message));
+      };
+
       xhr.open('GET', assetUrl, true);
       xhr.responseType = 'arraybuffer';
+
       if (onProgress) xhr.onprogress = e => onProgress(e.loaded, e.total);
-      xhr.onerror = () => reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
-      xhr.onload = () =>
-        xhr.status / 100 === 2
-          ? resolve(new Uint8Array(xhr.response))
-          : reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
+
+      xhr.onerror = () => fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
+      xhr.onabort = () => fail(`fetch '${assetUrl}' aborted`);
+      xhr.onload = () => {
+        if (Math.floor(xhr.status / 100) === 2) settle(new Uint8Array(xhr.response));
+        else fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
+      };
+
       xhr.send();
     });
-    this.writeFile(assetUrl, fetched);
+
+    await this.writeFile(assetUrl, fetched);
     return fetched;
   }
 

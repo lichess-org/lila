@@ -3,6 +3,7 @@
 
   .box__top__title {
     @extend %flex-center-nowrap;
+
     gap: 0.4em;
   }
 
@@ -22,6 +23,7 @@
     &.top50 img {
       transform: translateY(-12px);
     }
+
     &.top100 img {
       transform: translateY(-15px);
     }
@@ -131,10 +133,9 @@
 
   .resultStreak .streak,
   .playStreak .streak {
-    @extend %ellipsis;
+    @extend %nowrap-ellipsis;
 
     margin: 1em 0 1em 1.5em;
-    white-space: nowrap;
   }
 
   .playStreak {

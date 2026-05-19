@@ -1,15 +1,14 @@
 #dasher_app {
   .piece {
     piece {
+      @include inline-start(0);
+
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
-      @include inline-start(0);
       background-size: cover;
-      z-index: 2;
-
-      /* no less than 2 */
+      z-index: 2; // no less than 2
       pointer-events: none;
     }
 

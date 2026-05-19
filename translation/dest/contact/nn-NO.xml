@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Som eit problem med ein Lichess-app på GitHub</string>
   <string name="reportBugInDiscord">I Lichess discord-server</string>
   <string name="howToReportBug">Ver venleg og beskriv korleis problemet ter seg, kva du forventa skulle skje og dei trinna som skal til for å få fram feilen på ny.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ulovleg måte å slå bonden på</string>
+  <string name="illegalPawnCapture">Ulovleg måte å slå bonden på</string>
   <string name="calledEnPassant">Det blir kalla \"en passant\" (norsk: \"i forbifarta\") og er ein av sjakkreglane.</string>
   <string name="tryEnPassant">Prøv dette lille interaktive spelet for å lære meir om \"en passant\".</string>
   <string name="illegalCastling">Ulovleg eller umogleg rokade</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Det er mogleg å setja sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
   <string name="noRatingPoints">Det vart ikkje tildelt ratingpoeng</string>
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
-  <string name="botRatingAbuse">Dersom det vert slått fast at ein spelar misbrukar ein bot-konto for å manipulera ratingpoeng, kan det hende det ikkje vert gjeven poeng for spelet.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Dersom det vert slått fast at ein spelar misbrukar ein bot-konto for å manipulera ratingpoeng, kan det hende det ikkje vert gjeven poeng for spelet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
   <string name="learnHowToMakeBroadcasts">Lær deg korleis du lagar eigne sendingar på Lichess</string>

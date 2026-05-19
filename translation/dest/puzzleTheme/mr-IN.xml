@@ -26,6 +26,8 @@
   <string name="castlingDescription">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला वगळणे, त्यामुळे नवीन असुरक्षित झालेल्या सोंगटीला पुढच्या चालीत परत मारता येऊ शकते.</string>
+  <string name="collinearMove">समरेख डाव</string>
+  <string name="collinearMoveDescription">दोन विरुद्ध सोंगट्या एकमेकांसमोर येतात आणि एक शत्रूच्या सोंगट्याला न पकडता आक्रमण रेषेवर सरकतो.</string>
   <string name="cornerMate">कोपऱ्यातले मात.</string>
   <string name="cornerMateDescription">मातला गुंतवून ठेवण्यासाठी राजाला कोपऱ्यात हत्ती किंवा राणीने बंदिस्त करा.</string>
   <string name="crushing">निर्णायक</string>
@@ -53,6 +55,8 @@
   <string name="endgame">अंत्यखेळ</string>
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
   <string name="enPassantDescription">एन पसांट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
+  <string name="epauletteMate">स्कन्दपट्ट मात</string>
+  <string name="epauletteMateDescription">चेक केलेल्या राजाचे दोनी शेजारील पळण्याचे चौरस इतर सोंगट्यांने व्यापलेले आहेत.</string>
   <string name="exposedKing">उघड राजा</string>
   <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके रक्षक मोहरे असतात, ज्यामुळे अनेकदा शहमात होते.</string>
   <string name="fork">फोर्क</string>
@@ -71,9 +75,11 @@
   <string name="pillsburysMateDescription">हत्ती मात देतो व उंट बंदिस्त करण्यात मदत करतो.</string>
   <string name="morphysMate">मॉर्फीची मात</string>
   <string name="morphysMateDescription">उंट मात देतो व हत्ती बंदिस्त करण्यात मदत करतो.</string>
+  <string name="swallowstailMate">गिळण्याच्या शेपटीच्या मात</string>
+  <string name="swallowstailMateDescription">एक शहमत आकृतीबंध जी दृश्यमानपणे गिळण्याच्या शेपटीच्या आकारासारखा दिसतो, जो V आकारासारखा असतो.</string>
   <string name="triangleMate">त्रिकोणी मात</string>
   <string name="triangleMateDescription">शत्रू राजापासून एक घर अंतरावर वझीर आणि हत्ती ​​एकाच स्तंभावर किंवा पंक्तीवर असल्याने एक त्रिकोण तयार करतात.</string>
-  <string name="vukovicMate">वुकोव्हिचची शहमात</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">वुकोव्हिचची शहमात</string>
   <string name="vukovicMateDescription">राजाला शहमात करण्यासाठी एक घोडा आणि हत्ती एकत्र येतात. हत्ती तिसऱ्या सोंगट्याच्या आधारावर मात देतो आणि घोडा  राजाच्या सुटकेच्या चौकांना रोखण्यासाठी वापरला जातो.</string>
   <string name="knightEndgame">घोड्याचा अंत्यखेळ</string>
   <string name="knightEndgameDescription">फक्त घोडे आणि प्याद्यांचा अंत्यखेळ.</string>

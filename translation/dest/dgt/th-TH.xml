@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">กระดาน ดีจีที</string>
-  <string name="reloadThisPage">โหลดหน้านี้ใหม่</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">ข้อกำหนดของกระดาน DGT</string>
+  <string name="dgtBoardLimitations">ข้อจำกัดของกระดาน DGT</string>
+  <string name="thisPageAllowsConnectingDgtBoard">หน้านี้อนุญาตให้คุณเชื่อมต่อกระดาน DGT ของคุณกับ Lichess และใช้เพื่อเล่นเกมได้</string>
+  <string name="toConnectTheDgtBoard">ในการเชื่อมต่อกับบอร์ดอิเล็กทรอนิกส์ DGT คุณจะต้องติดตั้ง %s ก่อน</string>
+  <string name="downloadHere">คุณสามารถดาวน์โหลดซอฟต์แวร์ได้ที่นี่: %s</string>
+  <string name="ifLiveChessRunningOnThisComputer">หาก %1$s กำลังทำงานอยู่บนคอมพิวเตอร์เครื่องนี้ คุณสามารถตรวจสอบการเชื่อมต่อของคุณได้โดยการ %2$s</string>
+  <string name="openingThisLink">เปิดลิงก์นี้</string>
+  <string name="ifLiveChessRunningElsewhere">หาก %1$s ทำงานอยู่บนเครื่องอื่นหรือพอร์ตอื่น คุณจะต้องตั้งค่าที่อยู่ IP และพอร์ตที่นี่ใน %2$s</string>
+  <string name="configurationSection">ส่วนการกำหนดค่า</string>
+  <string name="keepPlayPageOpen">หน้าเล่นเกมต้องเปิดค้างไว้ในเบราว์เซอร์ของคุณ ไม่จำเป็นต้องแสดงให้เห็น คุณสามารถย่อขนาดหรือวางไว้ข้างๆ หน้าเกม Lichess ได้ แต่ห้ามปิด มิเช่นนั้นกระดานหมากรุกจะหยุดทำงาน</string>
+  <string name="boardWillAutoConnect">กระดานจะเชื่อมต่อกับเกมที่กำลังเล่นอยู่หรือเกมใหม่ที่เริ่มต้นโดยอัตโนมัติ ฟังก์ชันการเลือกเกมที่จะเล่นจะเพิ่มเข้ามาในเร็วๆ นี้</string>
+  <string name="timeControlsForCasualGames">หากเล่นเกมไม่คิดแต้มสามารถเล่นได้เฉพาะ: เกมคลาสสิก เกมยาวนาน และเกมแรปพิดเท่านั้น</string>
+  <string name="timeControlsForRatedGames">หากเล่นเกมคิดแต้มสามารถเล่นได้เฉพาะ: เกมคลาสสิก เกมยาวนาน และเกมแรปพิดที่ใช้เวลา 15+10 และ 20+0</string>
+  <string name="whenReadySetupBoard">เมื่อพร้อมแล้ว ให้ตั้งค่ากระดานของคุณ จากนั้นคลิก %s</string>
+  <string name="ifMoveNotDetected">หากตรวจไม่พบการเดิน</string>
+  <string name="checkYouHaveMadeOpponentsMove">ตรวจสอบให้แน่ใจว่าคุณได้เดินหมากตามคู่ต่อสู้บนกระดาน DGT หรือยัง จากนั้นให้ย้อนกลับการเดินหมากของคุณ แล้วเดินใหม่อีกครั้ง</string>
+  <string name="asALastResort">หากเป็นทางเลือกสุดท้าย ให้จัดกระดานให้เหมือนกับ Lichess ทุกประการ จากนั้น %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">โหลดหน้านี้ใหม่</string>
+  <string name="dgtConfigure">DGT - กำหนดค่า</string>
+  <string name="lichessConnectivity">การเชื่อมต่อ Lichess</string>
+  <string name="validDgtOauthToken">คุณมีโทเค็นกุญแจดิจิทัลที่เหมาะสมสำหรับการใช้งาน DGT แล้ว</string>
+  <string name="dgtPlayMenuEntryAdded">มีการเพิ่มรายการ %s ลงในเมนู PLAY ของคุณที่ด้านบนแล้ว</string>
+  <string name="noSuitableOauthToken">ไม่ได้สร้างโทเค็นกุญแจดิจิทัลที่เหมาะสม</string>
+  <string name="dgtBoardConnectivity">การเชื่อมต่อกระดาน DGT</string>
+  <string name="clickToGenerateOne">คลิกเพื่อสร้างมัน</string>
+  <string name="webSocketUrl">URL ของ WebSocket %s</string>
+  <string name="useWebSocketUrl">ใช้ \"%1$s\" เว้นแต่ว่า %2$s กำลังทำงานอยู่บนเครื่องอื่นหรือพอร์ตอื่น</string>
   <string name="textToSpeech">การแปลงข้อความเป็นเสียง</string>
+  <string name="configureVoiceNarration">ตั้งค่าให้มีการบรรยายเสียงของตาเดินแต่ละครั้ง เพื่อให้คุณสามารถจดจ่ออยู่กับการมองกระดานได้</string>
+  <string name="enableSpeechSynthesis">เปิดใช้งานการสังเคราะห์เสียงพูด</string>
+  <string name="speechSynthesisVoice">เสียงสังเคราะห์คำพูด</string>
+  <string name="announceAllMoves">ประกาศทุกความเคลื่อนไหว</string>
+  <string name="selectAnnouncePreference">เลือกใช่เพื่อพูดทั้งตาเดินของคุณและตาเดินของคู่ต่อสู้ เลือกไม่เพื่อพูดเฉพาะตาเดินของคู่ต่อสู้เท่านั้น</string>
+  <string name="announceMoveFormat">ประกาศรูปแบบการเดิน</string>
+  <string name="moveFormatDescription">SAN เป็นมาตรฐานใน Lichess เช่น \"Nf6\" ส่วน UCI เป็นมาตรฐานที่ใช้กันทั่วไปในเอนจิ้นหมากรุก เช่น \"g8f6\"</string>
   <string name="keywords">คีย์เวิร์ด</string>
+  <string name="keywordFormatDescription">คีย์เวิร์ดอยู่ในรูปแบบ JSON ใช้สำหรับแปลการเดินและผลการแข่งขันเป็นภาษาของคุณ ค่าเริ่มต้นคือภาษาอังกฤษ แต่คุณสามารถเปลี่ยนได้ตามต้องการ</string>
+  <string name="debug">แก้ปัญหา</string>
+  <string name="verboseLogging">การบันทึกข้อมูลแบบละเอียด</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">หากต้องการดูข้อความในคอนโซล ให้กด Command + Option + C (Mac) หรือ Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">เล่นด้วยกระดานดีจีที</string>
   <string name="configure">กำหนดค่า</string>
 </resources>

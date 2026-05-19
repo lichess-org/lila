@@ -5,7 +5,7 @@
   <string name="thisIsYourProfilePage">ఇది మీ ప్రొఫైల్ పేజీ.</string>
   <string name="enabledKidModeSuggestion">ఈ ఎక్కౌంట్ని చిన్నపిల్లల్లు ఉపయోగిస్తారా? అయితే, మీరు %s ని ఉపగించండి.</string>
   <string name="whatNowSuggestions">అయితే, ఇప్పుడు ఏంటంట? కొన్ని సలహాలు ఈ విధంగా ఉన్నాయి:</string>
-  <string name="learnChessRules">చదరంగం ఆట నియమాలను నేర్చుకోండి</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">చదరంగం ఆట నియమాలను నేర్చుకోండి</string>
   <string name="improveWithChessTacticsPuzzles">చిక్కుప్రశ్న వ్యూహలు మరియు పజిల్స్ ద్వారా మెఱుగవ్వండి.</string>
   <string name="playTheArtificialIntelligence">కృత్రిమ మేధతో ఆట ఆడండి.</string>
   <string name="playOpponentsFromAroundTheWorld">ప్రపంచంలోని నలు మూలలనుంచి ఉన్న ప్రత్యర్దులతో ఆడండి.</string>

@@ -1,12 +1,14 @@
 // no side effects allowed due to re-export by index.ts
 
 import { h } from 'snabbdom';
+
 import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
-import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
-import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
-import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
+import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
+import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
+
+import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
   h('button.fbt.board-menu-toggle-btn', {
@@ -36,7 +38,7 @@ export const boardMenu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = !myUserId();
+  anonymous: boolean = !myUserId(); // oxlint-disable-line no-inferrable-types The simplification collides with our TS config.
 
   constructor(readonly redraw: Redraw) {}
 

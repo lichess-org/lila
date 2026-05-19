@@ -10,16 +10,18 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.security.SecurityForm.Reopen
-import lila.web.AnnounceApi
 import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
+import lila.core.net.ValidReferrer
 
 final class Account(
     env: Env,
     auth: Auth,
     apiC: => Api
 ) extends LilaController(env):
+
+  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
@@ -77,14 +79,14 @@ final class Account(
           .full(me, perfs, withProfile = false) ++ Json
           .obj(
             "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying" -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
+            "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
             "nbChallenges" -> nbChallenges,
             "online" -> true
           )
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
-          .add("announce" -> AnnounceApi.get.map(_.json))
+          .add("announce" -> env.web.lichobileAnnounceApi.get)
       .headerCacheSeconds(15)
   }
 
@@ -94,7 +96,7 @@ final class Account(
 
   val apiMe = Scoped() { ctx ?=> me ?=>
     def limited = rateLimited:
-      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/get/apistreamevent instead."
+      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/GET/api/stream/event instead."
     val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
     if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
     else
@@ -103,7 +105,6 @@ final class Account(
           .extended(
             me.value,
             lila.api.UserApi.Opts(
-              withFollows = apiC.userWithFollows,
               withTrophies = false,
               withCanChallenge = false,
               withPlayban = getBool("playban"),
@@ -119,7 +120,7 @@ final class Account(
     env.round.proxyRepo
       .urgentGames(me)
       .map:
-        _.take((getInt("nb") | 9).atMost(50))
+        _.value.take((getInt("nb") | 9).atMost(50))
       .map:
         _.map(env.api.lobbyApi.nowPlaying)
       .map: povs =>
@@ -149,6 +150,7 @@ final class Account(
           val newPass = ClearPassword(data.newPasswd1)
           for
             _ <- env.security.authenticator.setPassword(me, newPass)
+            _ <- env.mod.logApi.setPassword
             pwned <- env.security.pwned.isPwned(newPass)
             res <- refreshSessionId(Redirect(routes.Account.passwd).flashSuccess, pwned)
           yield res
@@ -180,7 +182,7 @@ final class Account(
       JsonOk(Json.obj("email" -> email.value))
   }
 
-  def renderCheckYourEmail(using Context) =
+  def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
     views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>
@@ -200,17 +202,19 @@ final class Account(
   }
 
   def emailConfirm(token: String) = Open:
-    Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
+    Found(env.security.emailChange.confirm(token)): (me, prevEmail, newEmail) =>
+      given Me = me
       for
-        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(me))
+        _ <- env.mod.logApi.setEmail(me.userId, prevEmail, newEmail)
         res <- auth.authenticateUser(
-          user,
+          me,
           pwned = IsPwned.No,
           remember = true,
           result =
             if prevEmail.exists(_.isNoReply)
-            then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-            else Some(_ => Redirect(routes.Account.email).flashSuccess)
+            then Redirect(routes.User.show(me.username)).flashSuccess.some
+            else Redirect(routes.Account.email).flashSuccess.some
         )
       yield res
 
@@ -230,8 +234,7 @@ final class Account(
         )
 
   def twoFactor = Auth { _ ?=> me ?=>
-    if me.totpSecret.isDefined
-    then
+    if me.totpSecret.isDefined then
       env.security.forms.disableTwoFactor.flatMap: f =>
         Ok.page(views.account.twoFactor.disable(f))
     else
@@ -356,35 +359,33 @@ final class Account(
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
-    env.security.forms.reopen.map: baseForm =>
-      pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
+    pages.reopen.form(form | env.security.forms.reopen, msg)
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
       Ok.async(renderReopen(none, none))
 
   def reopenApply = OpenBody:
-    env.security.hcaptcha.verify().flatMap { captcha =>
-      if captcha.ok then
-        env.security.forms.reopen.flatMap:
-          _.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.async(renderReopen(err.some, none)),
-              data =>
-                allow:
-                  env.security.reopen
-                    .prepare(data.username, data.email, env.mod.logApi.closedByMod)
-                    .flatMap: user =>
-                      env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
-                        lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen
-                          .send(user, data.email)
-                          .inject(Redirect(routes.Account.reopenSent))
-                .rescue: (code, msg) =>
-                  lila.mon.user.auth.reopenRequest(code).increment()
-                  BadRequest.async(renderReopen(none, msg.some))
-            )
+    env.security.turnstile.verify().flatMap {
+      if _ then
+        env.security.forms.reopen
+          .bindFromRequest()
+          .fold(
+            err => BadRequest.async(renderReopen(err.some, none)),
+            data =>
+              allow:
+                env.security.reopen
+                  .prepare(data.username, data.email, env.mod.logApi.closedByMod)
+                  .flatMap: user =>
+                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                      lila.mon.user.auth.reopenRequest("success").increment()
+                      env.security.reopen
+                        .send(user, data.email)
+                        .inject(Redirect(routes.Account.reopenSent))
+              .rescue: (code, msg) =>
+                lila.mon.user.auth.reopenRequest(code).increment()
+                BadRequest.async(renderReopen(none, msg.some))
+          )
       else BadRequest.async(renderReopen(none, none))
     }
 

@@ -1,12 +1,14 @@
-import makeZerofish, { type Zerofish } from '@lichess-org/zerofish';
-import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
-import { Bot } from './bot';
-import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
-import * as xhr from '../xhr';
-import { definedMap } from '../algo';
-import { makeLichessBook } from './lichessBook';
-import { myUserId, myUsername } from '../index';
 import './filters';
+import makeZerofish, { type Zerofish } from '@lichess-org/zerofish';
+
+import { definedMap } from '@/algo';
+import { type OpeningBook, makeBookFromPolyglot } from '@/game/polyglot';
+
+import { myUserId, myUsername } from '../index';
+import * as xhr from '../xhr';
+import { Bot } from './bot';
+import { makeLichessBook } from './lichessBook';
+import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
 
 export { makeZerofish, type Zerofish };
 
@@ -31,13 +33,13 @@ export class BotLoader {
   }
 
   async init(defBots?: BotInfo[]): Promise<this> {
-    const [bots] = await Promise.all([
-      defBots ?? xhr.json('/bots').then(res => res.bots),
+    const [bots] = [
+      defBots ?? (await xhr.json('/bots').then(res => res.bots)),
       this.zerofish ??
         makeZerofish({
           locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
         }).then(zf => (this.zerofish = zf)),
-    ]);
+    ];
     for (const b of [...bots].filter(Bot.isValid)) {
       this.bots.set(b.uid, new Bot(b, this));
     }

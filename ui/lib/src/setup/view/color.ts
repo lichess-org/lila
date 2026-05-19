@@ -1,6 +1,7 @@
 import { hl, type VNode } from '@/view';
-import { option } from '../option';
+
 import { colors, type ColorChoice, type ColorProp } from '../color';
+import { option } from '../option';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
@@ -27,7 +28,7 @@ export const colorButtons = (colorProp: ColorProp): VNode =>
             on: { change: () => colorProp(key) },
           }),
           hl(`label.card-radio`, { attrs: { for: `color-picker-${key}` } }, [
-            hl('div.color-picker__button', { class: { [key]: true } }, hl('i')),
+            hl('div.color-picker__button', { class: { [key]: true } }, hl('icon')),
             hl('span.text', name),
           ]),
         ]),

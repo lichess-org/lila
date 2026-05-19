@@ -30,6 +30,7 @@ final class LoginContext(
   def isWebAuth = isAuth && oauth.isEmpty
   def isOAuth = isAuth && oauth.isDefined
   def isMobileOauth = oauth.exists(_.has(_.Web.Mobile))
+  def isTakex3 = oauth.exists(_.has(_.Web.Takex3))
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
 
@@ -82,7 +83,7 @@ case class PageData(
     teamNbRequests: Int,
     nbChallenges: Int,
     nbNotifications: UnreadCount,
-    hasClas: Boolean,
+    seesClassMenu: Boolean,
     inquiry: Option[lila.mod.Inquiry],
     nonce: Option[Nonce],
     error: Boolean = false

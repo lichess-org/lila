@@ -20,6 +20,7 @@ case class IdName(@Key("_id") id: StudyId, name: StudyName)
 
 trait Study:
   def id: StudyId
+  def name: StudyName
   def ownerId: UserId
   def visibility: Visibility
 

@@ -2,8 +2,10 @@ package lila.app
 package http
 
 import play.api.mvc.*
+
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*
+import lila.mon.extensions.*
 
 final class KeyPages(val env: Env)(using Executor)
     extends lila.web.ResponseWriter
@@ -28,12 +30,12 @@ final class KeyPages(val env: Env)(using Executor)
         simuls = env.simul.allCreatedFeaturable.get {}.recoverDefault,
         streamerSpots = env.streamer.homepageMaxSetting.get()
       )
-      .mon(_.lobby.segment("preloader.total"))
+      .mon(lila.mon.lobby.segment("preloader.total"))
       .flatMap: h =>
         ctx.me.filter(_.hasTitle).foreach(env.msg.systemMsg.twoFactorReminder(_))
         ctx.me.filterNot(_.hasEmail).foreach(env.msg.systemMsg.emailReminder(_))
         renderPage:
-          lila.mon.chronoSync(_.lobby.segment("renderSync")):
+          lila.mon.chronoSync(lila.mon.lobby.segment("renderSync")):
             views.lobby.home(h)
 
   def notFound(msg: Option[String])(using Context): Fu[Result] =

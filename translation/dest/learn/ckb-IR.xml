@@ -98,7 +98,7 @@
   <string name="youCanGetOutOfCheckByTaking">دەتوانی خۆت لە کشـکردنەکە بپارێزی بە خواردنی ئەو داشەی کشـەکەی کردووە.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">ئەو ئەسپە کش لە نێوان بەرگریکارەکانت دەکات!</string>
   <string name="escapeOrBlock">لەگەڵ پاشاکەت هەڵێن یان ڕێگری لە هێرشەکە بکە!</string>
-  <string name="outOfCheckComplete">پیرۆزە! هەرگیز پاشاکەت ناگیرێت، دڵنیابە کە دەتوانیت بەرگری لە کش بکەیت!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">پیرۆزە! هەرگیز پاشاکەت ناگیرێت، دڵنیابە کە دەتوانیت بەرگری لە کش بکەیت!</string>
   <string name="mateInOne">کشومات بە یەک جوڵە</string>
   <string name="defeatTheOpponentsKing">پاشای رکابەرەکەت بشکێنە</string>
   <string name="mateInOneIntro">تۆ براوەدەبیت کاتێک رکابەرەکەت ناتوانێت بەرگری لە کشـکردنەکەت بکات.</string>

@@ -62,7 +62,7 @@ def get_xml_links(period):
 
     # Regex matches: href="...zip"> XML </a>
     link_pattern = re.compile(
-        r"href=['\"]?(http://ratings\.fide\.com/download/([a-zA-Z0-9_]+\.zip))['\"]?[^>]*>\s*XML\s*</a>",
+        r"href=['\"]?(https?://ratings\.fide\.com/download/([a-zA-Z0-9_]+\.zip))['\"]?[^>]*>\s*XML\s*</a>",
         re.IGNORECASE
     )
 

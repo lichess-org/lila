@@ -8,6 +8,7 @@ import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
 import lila.report.Automod
+import lila.mon.extensions.*
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
@@ -80,12 +81,12 @@ private final class UblogAutomod(
           model = modelSetting.get(),
           temperature = temperature
         )
-        .map:
-          _.flatMap(normalize).so: res =>
+        .map: res =>
+          normalize(res).so: res =>
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
             res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash
-        .monSuccess(_.ublog.automod.request)
+        .monSuccess(lila.mon.ublog.automod.request)
     assessImages
       .zip(assessText)
       .map: (imgs, text) =>

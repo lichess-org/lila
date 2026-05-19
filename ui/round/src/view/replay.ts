@@ -1,12 +1,11 @@
-import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
-import * as util from '../util';
-import { displayColumns } from 'lib/device';
-import type RoundController from '../ctrl';
+import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
-import viewStatus from 'lib/game/view/status';
+import { displayColumns } from 'lib/device';
+import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
-import type { Step } from '../interfaces';
+import viewStatus from 'lib/game/view/status';
+import * as licon from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
   type VNode,
@@ -14,10 +13,13 @@ import {
   type LooseVNode,
   hl,
   onInsert,
+  dataIcon,
 } from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { Step } from '../interfaces';
+import * as util from '../util';
 import boardMenu from './boardMenu';
-import { blurIfPrimaryClick, repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -54,7 +56,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san.startsWith('P') ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');
@@ -87,7 +89,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
@@ -188,7 +190,7 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    hl('div.message', util.justIcon(licon.InfoCircle), [
+    hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],

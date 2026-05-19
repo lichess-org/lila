@@ -102,7 +102,7 @@ private final class RelayGroupForm(routeUrl: RouteUrl):
           .map(_.trim.takeWhile(' ' != _))
           .flatMap(parseId)
           .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-        RelayGroupData.Info(RelayGroup.Name(name.linesIterator.next.trim), tours).some
+        RelayGroupData.Info(RelayGroup.Name(name.linesIterator.next().trim), tours).some
 
   private def infoAsText(info: RelayGroupData.Info): String =
     val name = info.name.value

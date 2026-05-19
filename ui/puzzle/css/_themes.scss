@@ -10,7 +10,7 @@
   &__list {
     display: grid;
     column-gap: 0.5em;
-    margin-inline: calc(var(---box-padding) / 2);
+    margin-inline: calc($box-padding / 2);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -104,7 +104,7 @@
       }
 
       @media (max-width: at-most($small)) {
-        margin: 2em var(---box-padding) 2em 0;
+        margin: 2em $box-padding 2em 0;
       }
     }
   }

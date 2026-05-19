@@ -7,6 +7,7 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 import Client.Skill
@@ -30,7 +31,7 @@ final class FishnetApi(
     maxSize = Max(256),
     timeout = 5.seconds,
     name = "fishnetApi",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
@@ -50,7 +51,7 @@ final class FishnetApi(
       .match
         case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
         case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
-      .monSuccess(_.fishnet.acquire)
+      .monSuccess(lila.mon.fishnet.acquire)
       .recover { case e: Exception =>
         logger.error("Fishnet.acquire", e)
         none

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Paramètres de la partie</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défier un ami</string>
   <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
   <string name="gameMode">Mode de jeu</string>
   <string name="createLobbyGame">Créer une partie dans le salon</string>
@@ -95,6 +95,7 @@
   <string name="database">Base de données</string>
   <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
   <string name="averageRatingX">Classement moyen : %s</string>
+  <string name="minRatingX">Classement minimal de %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
   <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE >%1$s de %2$s à %3$s</string>
@@ -126,14 +127,20 @@
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>
-  <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="visualMotifs">Motifs visuels</string>
   <string name="undefendedPieces">Pièces non défendues</string>
   <string name="pinnedPieces">Pièces clouées</string>
   <string name="checkableKing">Roi pouvant être mis en échec</string>
   <string name="multipleLines">Lignes d\'analyse</string>
+  <string name="multipleLinesDescription">Définir le nombre de lignes d\'analyse et de flèches sur l\'échiquier</string>
+  <string name="searchTime">Temps d\'analyse</string>
+  <string name="searchTimeDescription">Établir le temps d\'analyse des nouvelles positions</string>
+  <string name="threads">Coeurs</string>
+  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de coeurs de votre processeur. Les flèches indiquent le choix optimal.</string>
+  <string name="threadsDescriptionMobile">Utiliser plus de coeurs consomme plus d\'énergie, mais permet une meilleure analyse.</string>
   <string name="cpus">Processeurs</string>
   <string name="memory">Mémoire</string>
+  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances.</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
   <string name="blunder">Gaffe</string>
@@ -261,9 +268,7 @@
   <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
-  <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
-  <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
-  <string name="waitForSignupHelp">Nous vous contacterons sous peu pour vous aider à compléter votre inscription.</string>
+  <string name="sendEmailForAccountVerification">Vous ne trouvez pas votre courriel de confirmation? Envoyez un courriel à %s et nous confirmerons votre compte pour vous.</string>
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un courriel de confirmation.</string>
@@ -519,6 +524,7 @@
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="endgamePositions">Positions de finale</string>
   <string name="chess960StartPosition">Position de départ – Chess960 : %s</string>
+  <string name="randomChess960Position">Position d\'échecs 960</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="loadPosition">Charger une position</string>
@@ -595,6 +601,9 @@
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
   <string name="invalidAuthenticationCode">Code d\'authentification non valide</string>
+  <string name="clearField">Vider le champ</string>
+  <string name="orSeparator">OU</string>
+  <string name="logInByEmail">Se connecter par courriel</string>
   <string name="emailMeALink">Envoyez-moi un lien</string>
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
@@ -721,7 +730,6 @@
   <string name="keyCycleSelectedVariation">Changer de variante</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
-  <string name="keyRequestComputerAnalysis">Demandez une analyse informatique, apprenez de vos erreurs</string>
   <string name="keyPreviousBranch">Branche précédente</string>
   <string name="keyNextBranch">Branche suivante</string>
   <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>
@@ -910,7 +918,6 @@
   <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (ni d\'un programme d\'échecs, ni d\'un livre, ni d\'une base de données, ni d\'autrui).</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">J\'accepte de ne pas créer de comptes multiples (sauf pour les raisons indiquées dans les %s).</string>
-  <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultrabullet</string>
@@ -1023,5 +1030,7 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="offline" comment="status of a user">hors ligne</string>
   <string name="search">Rechercher</string>
   <string name="clearSearch">Réinitialiser la recherche</string>
+  <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
+  <string name="enPassant">Prise en passant ?</string>
 </resources>

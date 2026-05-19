@@ -34,7 +34,7 @@ final class TeamApi(
     expiration = 30.seconds,
     timeout = 5.seconds,
     name = "team",
-    lila.log.asyncActorMonitor.highCardinality
+    lila.mon.asyncActorMonitor.highCardinality
   )
 
   def team(id: TeamId) = teamRepo.byId(id)
@@ -58,16 +58,18 @@ final class TeamApi(
     for
       exists <- chatApi.exists(bestId.into(ChatId))
       id = if exists then Team.randomId() else bestId
-      team = Team.make(
-        id = id,
-        name = setup.name,
-        password = setup.password,
-        intro = setup.intro,
-        description = setup.description,
-        descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
-        open = setup.isOpen,
-        createdBy = me
-      )
+      team = Team
+        .make(
+          id = id,
+          name = setup.name,
+          password = setup.password,
+          intro = setup.intro,
+          description = setup.description,
+          descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
+          open = setup.isOpen,
+          createdBy = me
+        )
+        .copy(chat = setup.chat, forum = setup.forum)
       _ <- teamRepo.coll.insert.one(team)
       _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
     yield
@@ -124,7 +126,7 @@ final class TeamApi(
       .teamIdsList(of.id)
       .map(_.take(Team.maxJoin(of).value))
       .flatMap: allIds =>
-        if Granter(_.UserModView) then fuccess(allIds)
+        if Granter(_.AccountInfo) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>

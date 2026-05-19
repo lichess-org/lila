@@ -1,9 +1,9 @@
-import * as xhr from './xhr';
-import { idleTimer, browserTaskQueueMonitor } from './event';
-import { storage, once, type LichessStorage } from './storage';
-import { pubsub, type PubsubEventKey } from './pubsub';
+import { idleTimer } from './event';
 import { defined, myUserId } from './index';
 import { log } from './permalog';
+import { pubsub, type PubsubEventKey } from './pubsub';
+import { storage, once, type LichessStorage } from './storage';
+import * as xhr from './xhr';
 
 let siteSocket: WsSocket | undefined;
 
@@ -17,17 +17,17 @@ type Sri = string;
 type Tpe = string;
 type Payload = any;
 type Version = number;
-interface MsgBase {
+type MsgBase = {
   t: Tpe;
   d?: Payload;
-}
-interface MsgIn extends MsgBase {
+};
+type MsgIn = MsgBase & {
   v?: Version;
-}
-interface MsgOut extends MsgBase {}
-interface MsgAck extends MsgOut {
+};
+type MsgOut = MsgBase;
+type MsgAck = MsgOut & {
   at: number;
-}
+};
 
 interface Options {
   idle: boolean;
@@ -46,9 +46,7 @@ interface Params extends Record<string, any> {
 
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
-  events: {
-    [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
-  };
+  events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
@@ -94,23 +92,22 @@ const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 class WsSocket {
   averageLag = 0;
 
-  private settings: Settings;
-  private options: Options;
+  private readonly settings: Settings;
+  private readonly options: Options;
   private version: number | false;
   private ws: WebSocket | undefined;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
-  private ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
+  private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   private lastPingTime: number = performance.now();
   private pongCount = 0;
   private tryOtherUrl = false;
-  private storage: LichessStorage = storage.make('surl18', 30 * 60 * 1000);
+  private readonly storage: LichessStorage = storage.make('surl18', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
-  private baseUrls = document.body.dataset.socketDomains!.split(',');
+  private readonly baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
-  private heartbeat = browserTaskQueueMonitor(1000);
 
   constructor(
     readonly url: string,
@@ -146,7 +143,7 @@ class WsSocket {
     this.ackable.sign(s);
   };
 
-  private connect = (): void => {
+  private readonly connect = (): void => {
     this.destroy();
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
       ...this.settings.params,
@@ -172,7 +169,7 @@ class WsSocket {
         this.ackable.resend();
       };
       ws.onmessage = e => {
-        if (e.data == 0) return this.pong();
+        if (e.data === '0') return this.pong();
         const m = JSON.parse(e.data);
         if (m.t === 'n') this.pong();
         this.handle(m);
@@ -218,7 +215,7 @@ class WsSocket {
     } else this.ws.send(message);
   };
 
-  private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
+  private readonly scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
@@ -232,12 +229,12 @@ class WsSocket {
     }, delay);
   };
 
-  private schedulePing = (delay: number): void => {
+  private readonly schedulePing = (delay: number): void => {
     clearTimeout(this.pingSchedule);
     this.pingSchedule = setTimeout(this.pingNow, delay);
   };
 
-  private pingNow = (): void => {
+  private readonly pingNow = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
@@ -246,7 +243,7 @@ class WsSocket {
             t: 'p',
             l: Math.round(0.1 * this.averageLag),
           })
-        : 'null';
+        : 'p';
     try {
       this.ws!.send(pingData);
       this.lastPingTime = performance.now();
@@ -256,9 +253,9 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  private computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
+  private readonly computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
 
-  private pong = (): void => {
+  private readonly pong = (): void => {
     clearTimeout(this.connectSchedule);
     this.schedulePing(this.computePingDelay());
     const currentLag = Math.min(performance.now() - this.lastPingTime, 10000);
@@ -271,7 +268,7 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private handle = (m: MsgIn, retries: number = 10): void => {
+  private readonly handle = (m: MsgIn, retries = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
@@ -311,7 +308,7 @@ class WsSocket {
     }
   };
 
-  private debug = (msg: unknown, always = false): void => {
+  private readonly debug = (msg: unknown, always = false): void => {
     if (always || this.options.debug) console.debug(msg);
   };
 
@@ -322,7 +319,7 @@ class WsSocket {
     this.ws = undefined;
   };
 
-  private disconnect = (): void => {
+  private readonly disconnect = (): void => {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
@@ -331,16 +328,13 @@ class WsSocket {
     }
   };
 
-  private onError = (e: unknown): void => {
-    if (this.heartbeat.wasSuspended) return;
+  private readonly onError = (e: unknown): void => {
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
   };
 
-  private onClose = (e: CloseEvent): void => {
+  private readonly onClose = (e: CloseEvent): void => {
     pubsub.emit('socket.close');
-
-    if (this.heartbeat.wasSuspended) return this.onSuspended();
 
     if (this.ws) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
@@ -352,7 +346,7 @@ class WsSocket {
     clearTimeout(this.pingSchedule);
   };
 
-  private onSuccess = (): void => {
+  private readonly onSuccess = (): void => {
     if (pubsub.past('socket.hasConnected')) return;
 
     pubsub.complete('socket.hasConnected');
@@ -371,14 +365,7 @@ class WsSocket {
     );
   };
 
-  private onSuspended() {
-    this.heartbeat.reset(); // not a networking error, just get our connection back
-    clearTimeout(this.pingSchedule);
-    clearTimeout(this.connectSchedule);
-    this.connect();
-  }
-
-  private nextBaseUrl = (): string => {
+  private readonly nextBaseUrl = (): string => {
     let url = this.storage.get();
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];

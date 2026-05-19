@@ -25,7 +25,7 @@ case class Activity(
     stream: Boolean = false
 ):
 
-  def date = id.day.toDate
+  def date = id.day.toInstant
 
   def interval = TimeInterval(date, date.plusDays(1))
 

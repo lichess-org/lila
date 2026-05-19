@@ -1,5 +1,6 @@
 package lila.relay
 
+import java.time.temporal.ChronoUnit
 import play.api.mvc.Call
 import io.mola.galimatias.URL
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -29,7 +30,8 @@ case class RelayRound(
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
     rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none,
-    teamCustomScoring: Option[RelayRound.CustomScoring] = none
+    teamCustomScoring: Option[RelayRound.CustomScoring] = none,
+    fideTCOverride: Option[chess.FideTC] = none
 ):
   inline def studyId = id.studyId
 
@@ -71,9 +73,17 @@ case class RelayRound(
       case Some(at) => at.isBefore(nowInstant.minusHours(3))
       case None => createdAt.isBefore(nowInstant.minusDays(1))
 
+  def daysSinceFinished = finishedAt.map(ChronoUnit.DAYS.between(_, nowInstant))
+
+  private[relay] def startsSoonOrAfterPrevious = startsAt.exists:
+    case RelayRound.Starts.At(at) => ChronoUnit.DAYS.between(nowInstant, at) <= 3
+    case RelayRound.Starts.AfterPrevious => true
+
   def withSync(f: Update[RelayRound.Sync]) = copy(sync = f(sync))
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
+
+  def ratingAndScoringFields = (rated, customScoring, teamCustomScoring, fideTCOverride)
 
   override def toString = s"""relay #$id "$name" $sync"""
 
@@ -233,6 +243,7 @@ object RelayRound:
     def display = round
     def link = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+    def fideTC = round.fideTCOverride | tour.info.fideTCOrGuess
 
   case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
       extends AndTourAndGroup:

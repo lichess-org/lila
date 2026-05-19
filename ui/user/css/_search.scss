@@ -13,11 +13,13 @@
 
       .two-columns {
         @extend %flex-wrap;
+
         gap: 1em;
 
         > * {
-          flex: 1 150px;
           @extend %flex-between-nowrap;
+
+          flex: 1 150px;
           gap: 2ch;
         }
       }

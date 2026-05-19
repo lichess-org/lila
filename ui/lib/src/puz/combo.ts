@@ -43,6 +43,6 @@ export class Combo {
           at: getNow(),
         };
     }
-    return;
+    return undefined;
   };
 }

@@ -6,14 +6,14 @@ import scalatags.Text.all.*
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
 
 final class PasswordReset(
     mailer: Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
@@ -22,7 +22,7 @@ final class PasswordReset(
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val url = s"$baseUrl/password/reset/confirm/$token"
+      val url = routeUrl(routes.Auth.passwordResetConfirm(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
@@ -44,11 +44,10 @@ ${trans.common_orPaste.txt()}"""),
         )
     }
 
-  def confirm(token: String): Fu[Option[Me]] =
+  def confirm(token: String): Fu[Option[User]] =
     tokener
       .read(token)
-      .flatMapz(userRepo.me)
-      .map(_.filter(Granter.canFullyLogin))
+      .flatMapz(userRepo.notForeverClosedById)
       .recover:
         case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 

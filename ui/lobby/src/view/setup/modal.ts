@@ -1,13 +1,15 @@
-import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
-import type LobbyController from '@/ctrl';
-import { variantPicker } from './components/variantPicker';
-import { gameModeButtons } from './components/gameModeButtons';
-import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
-import { colorButtons } from './components/colorButtons';
-import { ratingView } from './components/ratingView';
-import { fenInput } from './components/fenInput';
-import { levelButtons } from './components/levelButtons';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
+import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
+
+import type LobbyController from '@/ctrl';
+
+import { colorButtons } from './components/colorButtons';
+import { fenInput } from './components/fenInput';
+import { gameModeButtons } from './components/gameModeButtons';
+import { levelButtons } from './components/levelButtons';
+import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
+import { ratingView } from './components/ratingView';
+import { variantPicker } from './components/variantPicker';
 
 export default function setupModal(ctrl: LobbyController): VNode[] | null {
   const { setupCtrl } = ctrl;
@@ -38,7 +40,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
             {
               attrs: { disabled },
               class: { disabled },
-              on: { click: ctrl.setupCtrl.submit },
+              on: { click: setupCtrl.submit },
             },
             buttonText,
           ),
@@ -55,25 +57,25 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
 
 const views = {
   hook: (ctrl: LobbyController): LooseVNodes => [
-    variantPicker(ctrl),
+    variantPicker(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
     ratingView(ctrl),
     ratingDifferenceSliders(ctrl),
-    colorButtons(ctrl),
+    colorButtons(ctrl.setupCtrl),
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
-    variantPicker(ctrl),
+    variantPicker(ctrl.setupCtrl),
     fenInput(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
-    colorButtons(ctrl),
+    colorButtons(ctrl.setupCtrl),
   ],
-  ai: (ctrl: LobbyController): LooseVNodes => [
-    variantPicker(ctrl),
-    fenInput(ctrl.setupCtrl),
-    timePickerAndSliders(ctrl.setupCtrl.timeControl, ctrl.setupCtrl.minimumTimeIfReal()),
-    levelButtons(ctrl),
-    colorButtons(ctrl),
+  ai: ({ setupCtrl }: LobbyController): LooseVNodes => [
+    variantPicker(setupCtrl),
+    fenInput(setupCtrl),
+    timePickerAndSliders(setupCtrl.timeControl, setupCtrl.minimumTimeIfReal()),
+    levelButtons(setupCtrl),
+    colorButtons(setupCtrl),
   ],
 };

@@ -51,7 +51,7 @@ object Form:
   def stringIn[A](choices: Seq[A])(key: A => String): Mapping[A] =
     stringIn(choices.map(key).toSet).transform[A](str => choices.find(c => str == key(c)).get, key)
 
-  def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
+  def idWithSyncUniqueCheck[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
       sr: StringRuntime[Id],
       rs: SameRuntime[String, Id]
   ): Mapping[Id] =
@@ -59,9 +59,12 @@ object Form:
       .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r.matches(id))
       .into[Id]
     fixed match
-      case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
+      case Some(fixedId) => field.verifying("The ID cannot be changed now", _ == fixedId)
       case None =>
-        field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
+        field.verifying(
+          "This ID is already in use",
+          id => !scala.concurrent.Await.result(exists(id), 1.second)
+        )
 
   def empty[T]: FieldMapping[Option[T]] =
     given Formatter[Option[T]] = new:

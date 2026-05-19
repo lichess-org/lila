@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Repta un amic</string>
   <string name="playAgainstComputer">Juga contra l\'ordinador</string>
   <string name="gameMode">Tipus de partida</string>
-  <string name="createLobbyGame">Crea una sala de joc</string>
+  <string name="createLobbyGame">Crea una partida</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -95,6 +95,8 @@
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
+  <string name="minRatingX">Puntuació mínima de %s</string>
+  <string name="maxRatingX">Puntuació màxima de %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
   <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
@@ -126,14 +128,20 @@
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>
-  <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="visualMotifs">Motius visuals</string>
   <string name="undefendedPieces">Peces indefenses</string>
   <string name="pinnedPieces">Peces clavades</string>
   <string name="checkableKing">Rei exposat a escac</string>
   <string name="multipleLines">Múltiples línies</string>
+  <string name="multipleLinesDescription">Estableix el nombre de línies i moviments avaluar al tauler</string>
+  <string name="searchTime">Temps de cerca</string>
+  <string name="searchTimeDescription">Estableix un temps per avaluar les posicions fresques</string>
+  <string name="threads">Fils</string>
+  <string name="threadsDescription">Establiu el valor per sota del vostre nombre de fils del CPUs. La marca és un bon valor segur</string>
+  <string name="threadsDescriptionMobile">Més fils utilitzarà més bateria per millors anàlisis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
+  <string name="memoryDescription">Valors més alts pot millorar el rendiment</string>
   <string name="infiniteAnalysis">Anàlisi il·limitada</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i escalfa el teu ordinador</string>
   <string name="blunder">Errada greu</string>
@@ -261,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minuts i refresca la bústia d\'entrada del teu correu.</string>
   <string name="checkSpamFolder">Comprova també la carpeta de correu brossa, pot acabar allà. Si hi és, marca\'l com no brossa.</string>
-  <string name="emailForSignupHelp">Si tot això falla, envia\'ns un correu a aquesta adreça:</string>
-  <string name="copyTextToEmail">Copia i enganxa el text a continuació i envia\'l a %s</string>
-  <string name="waitForSignupHelp">Et contestarem el més breument posible per ajudar-te a completar el registre.</string>
+  <string name="sendEmailForAccountVerification">Si no pots trobar el teu correu electrònic de confirmació, envia\'ns un correu a %s i confirmarem el compte per tu.</string>
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necestites un correu de confirmació.</string>
@@ -519,6 +525,7 @@
   <string name="popularOpenings">Obertures populars</string>
   <string name="endgamePositions">Posicions de finals</string>
   <string name="chess960StartPosition">Posició inicial d\'Escacs960 Fischer: %s</string>
+  <string name="randomChess960Position">Posició d\'escacs960 Aleatòria</string>
   <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Netejar el tauler</string>
   <string name="loadPosition">Carregar la posició</string>
@@ -595,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="incorrectPassword">Contrasenya incorrecta</string>
   <string name="invalidAuthenticationCode">Codi d\'autenticació invàlid</string>
+  <string name="clearField">Neteja el camp</string>
+  <string name="orSeparator">O</string>
+  <string name="logInByEmail">Identificat amb el correu electrònic</string>
   <string name="emailMeALink">Envieu-me un enllaç per correu electrònic</string>
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
@@ -721,7 +731,6 @@
   <string name="keyCycleSelectedVariation">Canvia la variació seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
-  <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
   <string name="keyPreviousBranch">Branca anterior</string>
   <string name="keyNextBranch">Branca següent</string>
   <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
@@ -910,7 +919,6 @@
   <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estic d\'acord en no crear múltiples comptes (excepte per les raons detallades als %s).</string>
-  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-Bala</string>
@@ -934,6 +942,7 @@
   <string name="tryTheContactPage">prova la plana de contacte</string>
   <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
   <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Si us plau sigues amable al fòrum.</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>
@@ -1023,6 +1032,7 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="offline" comment="status of a user">fora de línia</string>
   <string name="search">Cerca</string>
   <string name="clearSearch">Neteja la cerca</string>
+  <string name="thereAreNoResultsForX">No hi ha resultats per \"%s\"</string>
   <string name="tags">Etiquetes</string>
   <string name="enPassant">Captura al pas</string>
 </resources>

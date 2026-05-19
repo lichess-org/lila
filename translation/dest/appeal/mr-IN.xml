@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">आम्ही याची व्याख्या अग्रस्थानी येण्यासाठी कोणत्याही अन्याय्य मार्गाचा वापर करणे अशी करतो.</string>
   <string name="closedByModerators">तुमचे खाते नियंत्रकांने बंद गेले.</string>
   <string name="hiddenBlog">तुमची अनुदिनी नियंत्रकांने लपवली आहे.</string>
-  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">आमचे %s परत वाचण्याची खात्री करा</string>
+  <string name="hiddenBlogInfo">आमचे %s परत वाचण्याची खात्री करा</string>
   <string name="playTimeout">तुमच्यावर खेळाची कालबाह्यता आहे.</string>
   <string name="communicationGuidelines">संप्रेषण मार्गदर्शक तत्त्वे</string>
-  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">अनुदिनीचे नियम</string>
+  <string name="blogRules">अनुदिनीचे नियम</string>
   <string name="fairPlay">वाजवी खेळ</string>
 </resources>

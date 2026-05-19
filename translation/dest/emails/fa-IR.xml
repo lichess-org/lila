@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بر روی این پیوند کلیک کنید تا حساب کاربری لیچس شما پویا گردد:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">اگر در Lichess نام‌نویسی نکرده‌اید، می‌توانید آسوده این پیام را نادیده گیرید. حساب تأیید نشده و تمام ردپاهای نشانیِ رایانامه‌تان پس از ۴۸ ساعت از سامانهٔ ما خواهد حذفید.</string>
+  <string name="emailConfirm_justIgnore">اگر در Lichess نام‌نویسی نکرده‌اید، می‌توانید آسوده این پیام را نادیده گیرید. حساب تأیید نشده و تمام ردپاهای نشانیِ رایانامه‌تان پس از ۴۸ ساعت از سامانهٔ ما خواهد حذفید.</string>
   <string name="passwordReset_subject">%s، رمز عبور خود در lichess.org را دوباره تعریف نمایید.</string>
   <string name="passwordReset_intro">ما یک درخواست برای تغییر رمز عبور حساب کاربری شما دریافت کرده ایم.</string>
   <string name="passwordReset_clickOrIgnore">اگر شما درخواست داده اید، بر روی لینک زیر کلیک کنید. اگر نه، میتوانید این ایمیل را نادیده بگیرید.</string>

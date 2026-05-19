@@ -104,7 +104,7 @@ duke marrë pjesën sulmuese.</string>
 përmes mbrojtjeve tuaja!</string>
   <string name="escapeOrBlock">Ik me mbretin
 ose bllokoni sulmin!</string>
-  <string name="outOfCheckComplete">Urime! Mbreti juaj s’mund të hahet kurrë, sigurohuni q mbroheni nga shahet!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Urime! Mbreti juaj s’mund të hahet kurrë, sigurohuni q mbroheni nga shahet!</string>
   <string name="mateInOne">Mat me një lëvizje</string>
   <string name="defeatTheOpponentsKing">Mposhtni mbretin e kundërshtarit</string>
   <string name="mateInOneIntro">Fitoni kur kundërshtari s’mundet të mbrohet nga shahu.</string>

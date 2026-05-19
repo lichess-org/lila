@@ -1,14 +1,15 @@
 import es from 'esbuild';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
+
+import { definedMap } from './algo.ts';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { makeTask, stopTask } from './task.ts';
-import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
-export async function esbuild(): Promise<any> {
+export async function esbuild(): Promise<[string, string] | undefined> {
   if (!env.begin('esbuild')) return;
 
   const options: es.BuildOptions = {
@@ -48,7 +49,7 @@ export async function esbuild(): Promise<any> {
         await esbuildCtx?.dispose();
         entryPoints.sort();
         esbuildCtx = await es.context({ ...options, entryPoints });
-        if (env.watch) esbuildCtx.watch();
+        if (env.watch) await esbuildCtx.watch();
         else {
           await esbuildCtx.rebuild();
           await esbuildCtx.dispose();

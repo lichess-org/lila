@@ -12,10 +12,7 @@ final class Analyser(
 )(using Executor)
     extends lila.tree.Analyser:
 
-  def get(game: Game): Fu[Option[Analysis]] =
-    analysisRepo.byGame(game)
-
-  def byId(id: Analysis.Id): Fu[Option[Analysis]] = analysisRepo.byId(id)
+  export analysisRepo.{ byId, byGame as get }
 
   def save(analysis: Analysis): Funit =
     analysis.id match

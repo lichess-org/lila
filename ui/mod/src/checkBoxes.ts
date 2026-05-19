@@ -6,7 +6,7 @@ export const shiftClickCheckboxRange = (table: HTMLTableElement): OnSelect => {
   const checkIntermediateBoxes = (first: HTMLInputElement, last: HTMLInputElement) => {
     let started = false;
     for (const input of table.querySelectorAll('tbody tr:not(.none) input:not(:disabled)')) {
-      if (first == input || last == input) {
+      if (first === input || last === input) {
         if (started) return;
         started = true;
       } else if (started) (input as HTMLInputElement).checked = last.checked;
@@ -14,7 +14,7 @@ export const shiftClickCheckboxRange = (table: HTMLTableElement): OnSelect => {
   };
 
   return (input: HTMLInputElement, shift: boolean) => {
-    if (shift && lastChecked && input != lastChecked) checkIntermediateBoxes(lastChecked, input);
+    if (shift && lastChecked && input !== lastChecked) checkIntermediateBoxes(lastChecked, input);
     lastChecked = input;
   };
 };

@@ -87,7 +87,7 @@ Mật khẩu: %3$s</string>
   <string name="timePlaying">Thời gian chơi</string>
   <string name="variantXOverLastY">%1$s qua %2$s qua</string>
   <string name="winrate">Tỉ lệ thắng</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Không xác định</string>
+  <string name="na">Không xác định</string>
   <string name="overview">Tổng quan</string>
   <string name="news">Tin tức</string>
   <string name="classNews">Tin tức mới về lớp học</string>
@@ -118,7 +118,7 @@ Mật khẩu: %3$s</string>
   <string name="allowMessagingBetweenStudentsDesc">Điều này chỉ áp dụng cho những tài khoản bạn đã tạo cho học viên của mình.</string>
   <string name="quickLoginCode">Mã đăng nhập nhanh</string>
   <string name="quickLoginCodes">Mã đăng nhập nhanh</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Sử dụng các mã này trong %s để cho học sinh của bạn đăng nhập vào Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Sử dụng các mã này trong %s để cho học sinh của bạn đăng nhập vào Lichess.</string>
   <string name="quickLoginCodesDesc2">Khi mã đăng nhập hết hạn, học sinh của bạn sẽ vẫn được đăng nhập cho đến khi họ tự đăng xuất.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Hết hạn %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Hết hạn %s</string>
 </resources>

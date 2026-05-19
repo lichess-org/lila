@@ -1,10 +1,11 @@
 .copy-me {
   @extend %box-radius, %flex-center-nowrap;
+  @include backdrop-blur-if-transparent;
 
   &__target {
-    @extend %ellipsis, %box-radius-left;
+    @extend %nowrap-ellipsis, %box-radius-left;
+
     flex: 1 1 auto;
-    white-space: nowrap;
     padding: 0 1em;
     outline: 0;
     background: none;
@@ -17,6 +18,7 @@
 
       &:focus-visible {
         @extend %box-radius-left;
+
         outline-offset: -2px;
       }
     }
@@ -24,6 +26,7 @@
 
   &__button {
     @extend %box-radius-right;
+
     flex: 0 0 auto;
     border: $border;
     border-left: 0;

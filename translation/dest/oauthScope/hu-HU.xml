@@ -29,7 +29,6 @@
   <string name="botPlay">Játszma a Bot API segítségével</string>
   <string name="engineRead">Külső motorok megtekintése és használata</string>
   <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
-  <string name="webLogin">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
   <string name="webMod">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
   <string name="personalAccessTokens">Egyéni API kulcsok</string>
   <string name="canMakeOauthRequests">OAuth-kéréseket a(z) %s nélkül is küldhetsz.</string>

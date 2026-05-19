@@ -4,7 +4,7 @@
   <string name="viewTheGames">Ойындарын көру</string>
   <string name="provisional">болжамалы</string>
   <string name="notEnoughRatedGames">Тұрақты рейтингке ие болу үшін бағалы ойын саны жеткіліксіз.</string>
-  <string name="progressOverLastXGames">Кейінгі %s ойынның қорытындысы:</string>
+  <string name="progressOverLastXGames">Соңғы %s ойынның қорытындысы:</string>
   <string name="ratingDeviation">Рейтинг ауытқуы: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Мөлшері аз болса, рейтингтің тұрақты екенін білдіреді. %1$s-дан артық болса – болжамалы. Орынға ие болу үшін бұл шама классикалық шахматта %2$s-дан, ал басқа шахмат түрлерінде %3$s-дан кем болуы керек.</string>
   <string name="totalGames">Барлық ойындар</string>

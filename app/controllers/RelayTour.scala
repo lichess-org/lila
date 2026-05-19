@@ -61,7 +61,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
           .map(JsonOk(_))
 
-  def subscribed(page: Int) = Auth { ctx ?=> me ?=>
+  def pager(pager: String, page: Int) = pager match
+    case "subscribed" => subscribed(page)
+    case "all-private" => allPrivate(page)
+    case "non-official" => nonOfficial(page)
+    case _ => Open(notFound)
+
+  private def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
       for
         pager <- env.relay.pager.subscribedBy(me.userId, page)
@@ -69,13 +75,20 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       yield page
   }
 
-  def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+  private def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .allPrivate(page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.allPrivate(pager)
+      for
+        pager <- env.relay.pager.allPrivate(page)
+        page <- Ok.async(views.relay.tour.allPrivate(pager))
+      yield page
+  }
+
+  private def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      for
+        pager <- env.relay.pager.nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
+        page <- Ok.async(views.relay.tour.nonOfficial(pager))
+      yield page
   }
 
   private def page(key: String, menu: String) = Open:
@@ -245,7 +258,11 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.tourStream
-        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+        .officialTourStream(
+          MaxPerSecond(20),
+          Max(getInt("nb") | 20).atMost(100),
+          liveOnly = getBool("live")
+        )
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):
@@ -285,7 +302,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       for
         canUpdate <- env.relay.api.canUpdate(tour)
         nav <- env.relay.api.formNavigation(tour)
-        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(nav))
+        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(tour))
       yield res
 
   private[controllers] def rateLimitCreation(

@@ -1,24 +1,28 @@
 // no side effects allowed due to re-export by index.ts
 
-import { povChances } from '../winningChances';
-import * as licon from '@/licon';
-import { stepwiseScroll, type VNode, type LooseVNodes, bind, hl } from '@/view';
-import { cmnToggle } from '@/view/cmn-toggle';
-import { blurIfPrimaryClick, defined, notNull, requestIdleCallback } from '@/index';
-import { type CevalHandler, type NodeEvals, CevalState } from '../types';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { uciToMove } from '@lichess-org/chessground/util';
 import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
-import { parseFen, makeBoardFen } from 'chessops/fen';
-import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
-import { uciToMove } from '@lichess-org/chessground/util';
-import { renderCevalSettings } from './settings';
-import type CevalCtrl from '../ctrl';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { h } from 'snabbdom';
+
 import { isTouchDevice } from '@/device';
+import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
+import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
+import { type VNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
+import { cmnToggle } from '@/view/cmn-toggle';
+import stepwiseScroll from '@/view/stepwiseScroll';
+
+import type CevalCtrl from '../ctrl';
+import { type CevalHandler, type NodeEvals, CevalState } from '../types';
+import { renderEval } from '../util';
+import { povChances } from '../winningChances';
+import { renderCevalSettings } from './settings';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -73,9 +77,8 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   const knps = ev.nodes / (ev?.millis ?? Number.POSITIVE_INFINITY);
 
   if (knps > 0) {
-    info.npsText = `${
-      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' kn/s'
-    }`;
+    info.npsText =
+      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' kn/s';
     info.knps = knps;
   }
   return info;
@@ -85,7 +88,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
   ctrl.ceval.download
     ? null
     : hl('button.show-threat', {
-        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check() },
+        class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
         attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
         hook: bind('click', e => {
           ctrl.toggleThreatMode();
@@ -95,28 +98,22 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active;
-  return engine
-    ? [
-        hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
-        ctrl.engines.isExternalEngineInfo(engine)
-          ? hl(
-              'span.technology.good',
-              { attrs: { title: 'Engine running outside of the browser' } },
-              engine.tech,
-            )
-          : engine.requires.includes('simd')
-            ? hl(
-                'span.technology.good',
-                { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
-                engine.tech,
-              )
-            : engine.requires.includes('sharedMem')
-              ? hl('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
-              : engine.requires.includes('wasm')
-                ? hl('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
-                : hl('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
-      ]
-    : [];
+  if (!engine) return [];
+  const [good, title] = ctrl.engines.isExternalEngineInfo(engine)
+    ? [true, 'Engine running outside of the browser']
+    : engine.requires.includes('relaxedSimd')
+      ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']
+      : engine.requires.includes('simd')
+        ? [true, 'Multi-threaded WebAssembly with SIMD']
+        : engine.requires.includes('sharedMem')
+          ? [true, 'Multi-threaded WebAssembly']
+          : engine.requires.includes('wasm')
+            ? [false, 'Single-threaded WebAssembly']
+            : [false, 'Single-threaded JavaScript'];
+  return [
+    hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
+    hl(`span.technology${good ? '.good' : ''}`, { attrs: { title } }, engine.tech),
+  ];
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
@@ -169,16 +166,15 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
   } else if (bestEv && typeof bestEv.cp !== 'undefined') {
-    pearl = hl('pearl', renderEval(bestEv.cp));
+    pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = hl('pearl', '#' + bestEv.mate);
+    pearl = h('pearl', '#' + bestEv.mate);
     percent = 100;
   } else {
-    if (!enabled) pearl = hl('pearl', hl('i'));
-    else if (node.outcome() || node.threefold) pearl = hl('pearl', '-');
-    else if (ceval.state === CevalState.Failed)
-      pearl = hl('pearl', hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } }));
-    else pearl = hl('pearl', hl('i.ddloader'));
+    if (!enabled) pearl = h('pearl', h('icon'));
+    else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', iconCls(licon.CautionCircle, 'is-red'));
+    else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -186,9 +182,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
-    hl(
+    h(
       'div.bar',
-      hl('span', {
+      h('span', {
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
         hook: {
@@ -309,7 +305,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
 }
 
 function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
-  requestIdleCallback(
+  requestIdleCallbackSafe(
     () => setHovering(ceval, getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
     500,
   );
@@ -358,6 +354,9 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
             if (isTouchDevice()) pvIndex = getElPvIndex(e);
             if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+              try {
+                el.setPointerCapture(e.pointerId);
+              } catch {}
               ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
               resetPvIndexAndBoard();
               e.preventDefault();
@@ -377,18 +376,20 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
           });
           el.addEventListener(
             'wheel',
-            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              if (scroll) e.preventDefault();
-              if (pvIndex !== null) {
-                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
-                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+            stepwiseScroll(
+              e => {
+                if (pvIndex === null) return; // should never be true, just for type inference
+                if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
                 const pvBoard = pvMoves[pvIndex];
                 if (pvBoard) {
                   const [fen, uci] = pvBoard.split('|');
                   ctrl.ceval.setPvBoard({ fen, uci });
                 }
-              }
-            }),
+              },
+              () => pvIndex === null,
+              true,
+            ),
           );
           el.addEventListener('mouseout', () => setHovering(ceval, null));
           el.addEventListener('mouseleave', resetPvIndexAndBoard);

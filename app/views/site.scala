@@ -8,10 +8,12 @@ val ui = lila.web.ui.SitePages(helpers)
 
 object page:
 
-  val faq = lila.web.ui.FaqUi(helpers, ui)(
+  private val faqUi = lila.web.ui.FaqUi(helpers, ui)(
     standardRankableDeviation = lila.rating.Glicko.standardRankableDeviation,
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
+
+  def faq(using Context) = faqUi.apply.js(esmInitBit("faq"))
 
   def withMenu(active: String, p: CmsPage.Render)(using Context) =
     ui.SitePage(

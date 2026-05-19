@@ -14,10 +14,14 @@ final class Coach(env: Env) extends LilaController(env):
   def homeLang =
     LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, allFlags, 1))
 
-  def all(page: Int) = search("all", CoachPager.Order.Login.key, allFlags, page)
+  def all(page: Int) = Open:
+    searchResults("all", CoachPager.Order.Login.key, allFlags, page)
 
-  def search(l: String, o: String, c: FlagCode, page: Int) = Open:
-    searchResults(l, o, c, page)
+  def search(l: String, o: String, c: FlagCode, page: Int) = Auth { _ ?=> me ?=>
+    val cost = if c == allFlags then 1 else 3
+    limit.coachSearch(me, rateLimited, cost = cost):
+      searchResults(l, o, c, page)
+  }
 
   private def searchResults(l: String, o: String, c: FlagCode, page: Int)(using Context) =
     val order = CoachPager.Order(o)

@@ -12,8 +12,10 @@
   grid-area: main;
   display: grid;
   gap: $block-gap;
+
   @include mq-is-col1 {
     gap: 0;
+
     .game__meta__players {
       display: none;
     }

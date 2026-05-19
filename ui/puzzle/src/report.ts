@@ -1,21 +1,23 @@
-import { report as xhrReport } from './xhr';
-import type PuzzleCtrl from './ctrl';
-import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
+import { plyToTurn, pieceCount } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view';
-import { plyToTurn, pieceCount } from 'lib/game/chess';
 import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
+import { domDialog } from 'lib/view';
+
+import type PuzzleCtrl from './ctrl';
+import type { PuzzleId, ThemeKey } from './interfaces';
+import { report as xhrReport } from './xhr';
 
 // bump when logic is changed, to distinguish cached clients from new ones
 const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  private reported: boolean = false;
+  private reported = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  private tsHideReportDialog: StoredProp<number>;
+  private readonly tsHideReportDialog: StoredProp<number>;
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
   // this is used to reduce the number of fps due to fluke eval
   private evalsWithMultipleSolutions = 0;
@@ -49,7 +51,7 @@ export default class Report {
       return;
     const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
-    const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
+    const nodeTurn = fenColor(node.fen);
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&
@@ -82,7 +84,7 @@ export default class Report {
     }
   }
 
-  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
+  private readonly reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle" type="checkbox">` +

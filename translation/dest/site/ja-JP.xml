@@ -94,6 +94,8 @@
   <string name="database">データベース</string>
   <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
+  <string name="minRatingX">レーティング下限 %s</string>
+  <string name="maxRatingX">レーティング上限 %s</string>
   <string name="recentGames">最近の対局</string>
   <string name="topGames">トップの対局</string>
   <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の対局が200 万局あります</string>
@@ -124,14 +126,20 @@
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
-  <string name="evaluationGauge">評価値を表示</string>
   <string name="visualMotifs">形のパターン</string>
   <string name="undefendedPieces">浮き駒</string>
   <string name="pinnedPieces">ピンされた駒</string>
   <string name="checkableKing">チェックできるキング</string>
   <string name="multipleLines">解析ライン数</string>
+  <string name="multipleLinesDescription">評価手順とボード上に表示される矢印の数を設定</string>
+  <string name="searchTime">検索時間</string>
+  <string name="searchTimeDescription">新しい局面を評価するための時間を設定</string>
+  <string name="threads">スレッド数</string>
+  <string name="threadsDescription">CPU のスレッド数より小さい値に設定してください。目盛りは安全な推奨値を示しています</string>
+  <string name="threadsDescriptionMobile">スレッド数が多いと解析精度が上がりますがバッテリー消費も増えます</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
+  <string name="memoryDescription">値が大きいほどパフォーマンスが高くなりやすい</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
   <string name="blunder">大悪手</string>
@@ -222,6 +230,7 @@
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
+  <string name="signupEmailPromise">送信されるのはあなたのアカウントについてのメールだけで、メールアドレスを他と共有することはありません。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
@@ -245,9 +254,7 @@
   <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
-  <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
-  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
-  <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
+  <string name="sendEmailForAccountVerification">確認メールが見つからない場合は %s にメールを送信してください。当方でアカウントを確認します。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
   <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
@@ -484,6 +491,7 @@
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
   <string name="chess960StartPosition">チェス960 開始局面: %s</string>
+  <string name="randomChess960Position">チェス960 のランダムな配置</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="loadPosition">局面を読み込む</string>
@@ -559,6 +567,9 @@
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
   <string name="invalidAuthenticationCode">無効な認証コード</string>
+  <string name="clearField">項目をクリア</string>
+  <string name="orSeparator">または</string>
+  <string name="logInByEmail">メールアドレスでログイン</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
@@ -682,7 +693,6 @@
   <string name="keyCycleSelectedVariation">選択した手順を切り替え</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
-  <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
   <string name="keyPreviousBranch">前の変化手順</string>
   <string name="keyNextBranch">次の変化手順</string>
   <string name="toggleVariationArrows">変化手順の矢印を切り替え</string>
@@ -866,7 +876,6 @@
   <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">私は複数のアカウントを作成しないことに同意します（%s に記載の理由による場合を除く）。</string>
-  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">ウルトラブレット</string>
@@ -890,6 +899,7 @@
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
   <string name="makeSureToRead">%1$s を必ずお読みください</string>
   <string name="theForumEtiquette">フォーラムでのマナー</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">掲示板では礼儀を忘れず。</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>
@@ -979,6 +989,7 @@
   <string name="offline" comment="status of a user">オフライン</string>
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
+  <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
   <string name="tags">タグ</string>
   <string name="enPassant">アンパッサン</string>
 </resources>

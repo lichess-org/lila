@@ -1,11 +1,12 @@
-import { formToXhr, text as xhrText } from 'lib/xhr';
 import { debounce } from 'lib/async';
-import * as licon from 'lib/licon';
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
-import { spinnerHtml, confirm } from 'lib/view';
-import { pubsub } from 'lib/pubsub';
 import { commonDateFormat, toDate } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
+import { spinnerHtml, confirm } from 'lib/view';
+import { formToXhr, text as xhrText } from 'lib/xhr';
+
+import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
@@ -15,7 +16,7 @@ site.load.then(() => {
 
   function streamLoad() {
     const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
-      callback = debounce(() => userMod($zone), 300);
+      streamDebounce = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
@@ -24,7 +25,7 @@ site.load.then(() => {
         if (prev.length) prev.replaceWith($(this));
         else $zone.append($(this).clone());
       });
-      callback();
+      streamDebounce();
     });
     source.onerror = () => source.close();
   }
@@ -89,7 +90,7 @@ site.load.then(() => {
         .each(function (this: HTMLAnchorElement, i: number) {
           const id = getLocationHash(this),
             n = '' + (i + 1);
-          $(this).prepend(`<i>${n}</i>`);
+          $(this).prepend(`<icon>${n}</icon>`);
           site.mousetrap.bind(n, () => scrollTo(id));
         });
     });

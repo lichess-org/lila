@@ -6,12 +6,16 @@
 .lpv--gamebook {
   position: relative;
 }
+
 .lpv__gamebook {
   @extend %popup-shadow;
+
   z-index: $z-cg__board_overlay-100;
   position: absolute;
   top: 50%;
+
   @include inline-start(50%);
+
   transform: translate(-50%, -50%);
   display: block;
   padding: 1.5em 3em;
@@ -19,6 +23,7 @@
   font-size: 1.5em;
   white-space: normal;
 }
+
 .lpv__pgn__text {
   font-family: monospace;
   font-size: 0.8em;

@@ -87,7 +87,7 @@
   <string name="timePlaying">プレイ時間</string>
   <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">(無関係)</string>
+  <string name="na">(無関係)</string>
   <string name="overview">概要</string>
   <string name="news">ニュース</string>
   <string name="classNews">教室ニュース</string>
@@ -118,7 +118,7 @@
   <string name="allowMessagingBetweenStudentsDesc">これはあなたが生徒のために作成したアカウントにのみ適用されます。</string>
   <string name="quickLoginCode">クイックログインコード</string>
   <string name="quickLoginCodes">クイックログインコード</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">%s でこのコードを使うと生徒たちを Lichess にログインさせることができます。</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">%s でこのコードを使うと生徒たちを Lichess にログインさせることができます。</string>
   <string name="quickLoginCodesDesc2">コードが期限切れになると、生徒は手動でログアウトするまでログイン状態のままです。</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">使用期限：%s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">使用期限：%s</string>
 </resources>

@@ -1,9 +1,11 @@
-import { storedBooleanProp } from 'lib/storage';
-import { url as xhrUrl } from 'lib/xhr';
-import * as licon from 'lib/licon';
-import type AnalyseCtrl from './ctrl';
-import { domDialog, type Dialog } from 'lib/view';
 import { opposite } from 'chessops';
+
+import * as licon from 'lib/licon';
+import { storedBooleanProp } from 'lib/storage';
+import { domDialog, type Dialog } from 'lib/view';
+import { url as xhrUrl } from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
 
 export function initModule(ctrl: AnalyseCtrl): void {
   let gifOrientation: Color = ctrl.bottomColor();

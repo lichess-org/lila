@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.*
+import lila.app.{ *, given }
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -55,6 +55,15 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
+  def emailErrorPost = SecuredScopedBody(_.SetEmail)():
+    if env.web.emailError.setFromReq().isDefined then NoContent else BadRequest
+
+  def emailErrorGet = Open: ctx ?=>
+    ctx.isAnon
+      .so(lila.security.EmailConfirm.cookie.get(ctx.req))
+      .flatMap(u => env.web.emailError.get(u.email))
+      .fold(NoContent)(Ok(_))
+
   private def runCommand(command: String)(using Me): Fu[String] =
     for
       _ <- env.mod.logApi.cli(command)
@@ -78,7 +87,7 @@ final class Dev(env: Env) extends LilaController(env):
     "Security" -> List(
       env.oAuth.originBlocklistSetting,
       env.security.proxy2faSetting,
-      env.security.alwaysCaptcha
+      env.security.lichobileLogin
     ),
     "Mailing" -> List(
       env.mailer.mailerSecondaryPermilleSetting,
@@ -116,8 +125,7 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.mobile.androidVersion,
-      env.web.mobile.iosVersion
+      env.web.lichobileAnnounceApi.lichobileUpgrade
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

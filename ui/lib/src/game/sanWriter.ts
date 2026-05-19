@@ -1,12 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
 import { charToRole, makeSquare, type Square } from 'chessops';
+
 import { fixCrazySan } from './chess';
 
 type AlmostSan = string;
 
-export type Board = { pieces: { [key: number]: string }; turn: boolean };
-export type SanToUci = { [key: AlmostSan]: Uci };
+export type Board = { pieces: Record<number, string>; turn: boolean };
+export type SanToUci = Record<AlmostSan, Uci>;
 
 function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
@@ -89,11 +90,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-export function almostSanOf(
-  board: Board,
-  uci: string,
-  legalUcis: Set<Uci> | undefined = undefined,
-): AlmostSan {
+export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci> | undefined): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -106,7 +103,7 @@ export function almostSanOf(
   // pawn moves
   if (pt === 'p') {
     let san: AlmostSan;
-    if (uci[0] === uci[2]) san = move[1];
+    if (uci.startsWith(uci[2])) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
     return san;
@@ -162,7 +159,7 @@ export function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
   for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
-  return;
+  return undefined;
 }
 
 export const sanToWords = (san: string): string =>
@@ -188,7 +185,7 @@ const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
 export function speakable(san?: San): string {
-  const text = !san
+  return !san
     ? i18n.nvui.gameStart
     : sanToWords(san)
         .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
@@ -197,5 +194,4 @@ export function speakable(san?: San): string {
         .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
         .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
         .replace(/(\d) H (\d)/, '$1H$2');
-  return text;
 }

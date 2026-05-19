@@ -5,7 +5,7 @@
   <string name="thisIsYourProfilePage">ni li lipu sina</string>
   <string name="enabledKidModeSuggestion">jan lili li kepeken ala kepeken sijelo ni? kepeken la, ken la sina wile open e %s</string>
   <string name="whatNowSuggestions">tenpo ni la seme? ken la sina wile ni:</string>
-  <string name="learnChessRules">o kama sona e lawa pi musi ni</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">o kama sona e lawa pi musi ni</string>
   <string name="improveWithChessTacticsPuzzles">o wawa e sona sina kepeken musi lili</string>
   <string name="playTheArtificialIntelligence">o utala e ilo</string>
   <string name="playOpponentsFromAroundTheWorld">o utala e jan ante lon musi ni</string>

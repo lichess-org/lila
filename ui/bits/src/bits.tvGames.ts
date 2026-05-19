@@ -1,6 +1,6 @@
-import * as xhr from 'lib/xhr';
-import { pubsub } from 'lib/pubsub';
 import { api } from 'lib/api';
+import { pubsub } from 'lib/pubsub';
+import * as xhr from 'lib/xhr';
 
 interface ReplacementResponse {
   id: string;
@@ -32,11 +32,11 @@ const requestReplacementGame = () => {
         if (data.html.includes('mini-game__result')) api.overrides.tvGamesOnFinish(data.id);
         pubsub.emit('content-loaded');
       })
-      .then(done, done);
+      .then(retryRequest, retryRequest);
   });
 };
 
-const done = () => {
+const retryRequest = () => {
   isRequestPending = false;
   requestReplacementGame();
 };

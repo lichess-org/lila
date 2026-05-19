@@ -1,8 +1,9 @@
 import * as licon from 'lib/licon';
-import { type VNode, type MaybeVNode, bind, dataIcon, hl, type VNodeData } from 'lib/view';
+import { type VNode, type MaybeVNode, bind, hl, type VNodeData, iconTag } from 'lib/view';
+
+import type PuzzleCtrl from '../ctrl';
 import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
-import type PuzzleCtrl from '../ctrl';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -20,7 +21,10 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.isDaily
-      ? hl('div.puzzle__side__theme.puzzle__side__theme--daily', backToTheme({}, [i18n.puzzle.dailyPuzzle]))
+      ? hl(
+          'div.puzzle__side__theme.puzzle__side__theme--daily',
+          backToTheme({}, ['« ', i18n.puzzle.dailyPuzzle]),
+        )
       : hl('div.puzzle__side__theme', [
           backToTheme({ class: { long: angle.name.length > 20 } }, ['« ', angle.name]),
           angle.opening
@@ -82,7 +86,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             hl(
               'div.puzzle__themes__votes',
               allThemes.static.has(key)
-                ? [hl('div.puzzle__themes__lock', hl('i', { attrs: dataIcon(licon.Padlock) }))]
+                ? [hl('div.puzzle__themes__lock', iconTag(licon.Padlock))]
                 : [
                     hl('button.puzzle__themes__vote.vote-up', {
                       class: { active: votedThemes[key] },

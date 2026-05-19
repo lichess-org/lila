@@ -9,8 +9,6 @@ sealed trait AnyChat:
 
   val loginRequired: Boolean
 
-  def forMe(using Option[Me], AllMessages): AnyChat
-
   def isEmpty = lines.isEmpty
 
   def userIds: Set[UserId]
@@ -61,13 +59,6 @@ case class MixedChat(
 
   val loginRequired = false
 
-  def forMe(using me: Option[Me], all: AllMessages): MixedChat =
-    if all.yes || me.exists(_.marks.troll) then this
-    else
-      copy(lines = lines.filter:
-        case l: UserLine => !l.troll
-        case _: PlayerLine => true)
-
   def mapLines(f: Line => Line) = copy(lines = lines.map(f))
 
   def userIds = lines
@@ -84,6 +75,8 @@ object Chat:
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, lines: JsonChatLines, restricted: Boolean)
+
+  case class RestrictedLines(lines: JsonChatLines, restricted: Boolean)
 
   // left: game chat
   // right: tournament/simul chat

@@ -3,6 +3,7 @@ package lila.mod
 import akka.actor.*
 import chess.ByColor
 import com.softwaremill.macwire.*
+import play.api.Configuration
 
 import lila.common.Bus
 import lila.core.config.*
@@ -10,9 +11,11 @@ import lila.core.forum.BusForum
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
 import lila.core.mod.{ BoardApiMark, LoginWithWeakPassword, LoginWithBlankedPassword }
+import lila.common.autoconfig.given
 
 @Module
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Db,
     perfStat: lila.core.perf.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -38,10 +41,11 @@ final class Env(
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
 
+  val mailerEventsUrl = appConfig.get[Url]("mailer.events.url")
+
   private lazy val logRepo = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo = HistoryRepo(db(CollName("mod_gaming_history")))
-  private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
   lazy val presets = wire[ModPresetsApi]
 
@@ -60,10 +64,6 @@ final class Env(
   lazy val assessApi = wire[AssessApi]
 
   lazy val gamify = wire[Gamify]
-
-  lazy val activity = wire[ModActivity]
-
-  lazy val queueStats = wire[ModQueueStats]
 
   lazy val search = wire[ModUserSearch]
 

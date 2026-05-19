@@ -103,7 +103,7 @@ lyömällä hyökkäävän nappulan.</string>
 yli puolustuksesi!</string>
   <string name="escapeOrBlock">Pakene kuninkaalla
 tai torju hyökkäys!</string>
-  <string name="outOfCheckComplete">Onnittelut! Kuningastasi ei voi lyödä. Varmista että voit puolustaa sitä shakeilta!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Onnittelut! Kuningastasi ei voi lyödä. Varmista että voit puolustaa sitä shakeilta!</string>
   <string name="mateInOne">Yhden siirron matti</string>
   <string name="defeatTheOpponentsKing">Kukista vastustajan kuningas</string>
   <string name="mateInOneIntro">Voitat jos vastustaja ei voi puolustaa shakattua kuningastaan.</string>

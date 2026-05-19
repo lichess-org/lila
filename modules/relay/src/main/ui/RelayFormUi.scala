@@ -78,13 +78,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
     )
 
-  def noAccess(nav: FormNavigation)(using Context) =
+  def noAccess(rt: RelayRound | RelayTour) =
+    val call = rt match
+      case r: RelayRound => routes.RelayRound.show("-", "-", r.id)
+      case t: RelayTour => routes.RelayTour.show("-", t.id)
     Page("Insufficient permissions").css("bits.relay.form"):
-      main(cls := "page page-menu")(
-        navigationMenu(nav),
-        div(cls := "page-menu__content box box-pad")(
+      main(cls := "page page-small")(
+        div(cls := "box box-pad")(
           boxTop(h1("Insufficient permissions")),
-          p("You are not allowed to edit this broadcast or round.")
+          p("You are not allowed to edit this broadcast."),
+          p(a(href := call)("Back to broadcast"))
         )
       )
 
@@ -380,14 +383,30 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
-              form3.group(form("rated"), raw("")): field =>
-                val withDefault =
-                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.checkboxGroup(
-                  withDefault,
-                  "Rated round",
-                  help = frag("Include this round when calculating players' rating changes").some
-                )
+              form3.split(
+                form3.group(form("rated"), raw("")): field =>
+                  val withDefault =
+                    if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
+                  form3.checkboxGroup(
+                    withDefault,
+                    "Rated round",
+                    help = frag("Include this round when calculating players' rating changes").some,
+                    half = true
+                  )
+                ,
+                form3.group(
+                  form("fideTCOverride"),
+                  trb.fideRatingCategory(),
+                  help = frag("Optional. Override the FIDE rating category for this round").some,
+                  half = true
+                ):
+                  form3.select(
+                    _,
+                    chess.FideTC.values.map: tc =>
+                      tc.toString -> tc.toString.capitalize,
+                    default = "".some
+                  )
+              )
             ),
             Color.all.map: color =>
               form3.split:
@@ -546,6 +565,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.location"),
               trb.tournamentLocation(),
+              help = frag("""e.g. "Paris, France" or "lichess.org"""").some,
               half = true
             )(form3.input(_))
           ),
@@ -553,7 +573,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.players"),
               trb.topPlayers(),
-              help = frag("Mention up to 4 of the best players participating").some,
+              help = frag("Up to 4 players, separated by commas").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -568,7 +588,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
+              help = frag("""e.g. "15 min + 10 sec / move"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -669,10 +689,10 @@ Hanna Marie ; Kozul, Zdenko"""),
                 "If the player is NM or WNM, you can:",
                 pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / FIDE ID / title / rating / new name"),
+                pre("player name / FIDE ID / title / rating / new name / new fed"),
                 "All values are optional. Example:",
                 pre("""Magnus Carlsen / / GM / 2863
-YouGotLittUp / / / 1890 / Louis Litt""")
+YouGotLittUp / / / 1890 / Louis Litt / FID""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),
@@ -826,7 +846,7 @@ Team Dogs ; Scooby Doo"""),
           p("Upload a beautiful image to represent your tournament."),
           p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
           p(
-            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+            "The event logo or promo picture is preferred. Please ensure that you have the rights to use the image."
           ),
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
           form3.file.selectImage()

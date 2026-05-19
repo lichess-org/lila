@@ -1,11 +1,13 @@
-import { Pane, RangeSetting } from './pane';
-import * as licon from 'lib/licon';
-import { frag } from 'lib';
-import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
-import type { Book } from 'lib/bot/types';
-import { renderRemoveButton } from './devUtil';
-import { env } from './devEnv';
 import { opposite } from 'chessops';
+
+import { frag } from 'lib';
+import type { Book } from 'lib/bot/types';
+import * as licon from 'lib/licon';
+
+import { env } from './devEnv';
+import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
+import { renderRemoveButton } from './devUtil';
+import { Pane, RangeSetting } from './pane';
 
 export class BooksPane extends Pane {
   info: BooksInfo;
@@ -13,7 +15,7 @@ export class BooksPane extends Pane {
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
-      frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
+      frag(`<icon role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
     this.template = {
       type: 'range',

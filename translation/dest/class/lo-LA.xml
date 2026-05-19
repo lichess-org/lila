@@ -87,7 +87,7 @@
   <string name="timePlaying">ເວລາທີ່ໃຊ້ຫຼິ້ນ</string>
   <string name="variantXOverLastY">%1$s ໃນຊ່ວງ %2$s ທີ່ຜ່ານມາ</string>
   <string name="winrate">ອັດຕາການຊະນະ</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">ບໍ່ມີຂໍ້ມູນ</string>
+  <string name="na">ບໍ່ມີຂໍ້ມູນ</string>
   <string name="overview">ພາບລວມ</string>
   <string name="news">ຂ່າວສານ</string>
   <string name="classNews">ຂ່າວສານໃນຫ້ອງຮຽນ</string>
@@ -118,7 +118,7 @@
   <string name="allowMessagingBetweenStudentsDesc">ສິ່ງນີ້ຈະໃຊ້ໄດ້ສະເພາະກັບບັນຊີທີ່ທ່ານສ້າງໃຫ້ນັກຮຽນເທົ່ານັ້ນ.</string>
   <string name="quickLoginCode">ລະຫັດເຂົ້າສູ່ລະບົບດ່ວນ</string>
   <string name="quickLoginCodes">ລະຫັດເຂົ້າສູ່ລະບົບດ່ວນ</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">ໃຊ້ລະຫັດເຫຼົ່ານີ້ຢູ່ %s ເພື່ອໃຫ້ນັກຮຽນຂອງທ່ານເຂົ້າສູ່ລະບົບ Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">ໃຊ້ລະຫັດເຫຼົ່ານີ້ຢູ່ %s ເພື່ອໃຫ້ນັກຮຽນຂອງທ່ານເຂົ້າສູ່ລະບົບ Lichess.</string>
   <string name="quickLoginCodesDesc2">ເມື່ອລະຫັດໝົດອາຍຸ, ນັກຮຽນຂອງທ່ານຈະຍັງຄົງຢູ່ໃນລະບົບ ຈົນກວ່າພວກເຂົາຈະອອກຈາກລະບົບດ້ວຍຕົນເອງ.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">ໝົດອາຍຸ %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">ໝົດອາຍຸ %s</string>
 </resources>

@@ -1,10 +1,10 @@
+import { extractHashParameters } from './hashRouting';
 import type { LearnProgress, LearnOpts } from './learn';
-import { type Stage, byId as stageById } from './stage/list';
+import { RunCtrl } from './run/runCtrl';
 import { gtz } from './score';
 import { SideCtrl } from './sideCtrl';
+import { type Stage, byId as stageById } from './stage/list';
 import { clearTimeouts } from './timeouts';
-import { extractHashParameters } from './hashRouting';
-import { RunCtrl } from './run/runCtrl';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;

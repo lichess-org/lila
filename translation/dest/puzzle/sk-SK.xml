@@ -13,7 +13,6 @@
   <string name="origin">Pôvod</string>
   <string name="specialMoves">Špeciálne ťahy</string>
   <string name="didYouLikeThisPuzzle">Páčila sa vám táto úloha?</string>
-  <string name="voteToLoadNextOne">Hlasujte a prejdite k ďalšej úlohe!</string>
   <string name="upVote">Posunúť úlohu vyššie</string>
   <string name="downVote">Posunúť úlohu nižšie</string>
   <string name="yourPuzzleRatingWillNotChange">Váš rating úloh sa nezmení. Upozorňujeme, že úlohy nie sú súťaž. Rating pomáha pri výbere najlepších úloh s prihliadnutím na vaše aktuálne zručnosti.</string>
@@ -106,6 +105,6 @@ Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlo
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
   <string name="noPuzzlesToShow">Niet čo zobraziť, vyriešte najprv zopár úloh!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
+  <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
   <string name="strengthDescription">Tieto okruhy Vám idú najlepšie</string>
 </resources>

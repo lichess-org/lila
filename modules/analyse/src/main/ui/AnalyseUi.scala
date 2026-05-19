@@ -31,6 +31,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: Context): Page =
+    val hasWiki = pov.game.synthetic && pov.game.variant.standard
     Page(trans.site.analysis.txt())
       .css("analyse.free")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
@@ -45,7 +46,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
           Json
             .obj(
               "data" -> data,
-              "wiki" -> pov.game.variant.standard
+              "wiki" -> hasWiki
             )
             .add("inlinePgn", inlinePgn) ++
             explorerAndCevalConfig
@@ -62,7 +63,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         main(
           cls := List(
             "analyse" -> true,
-            "analyse--wiki" -> pov.game.variant.standard
+            "analyse--wiki" -> hasWiki
           )
         )(
           pov.game.synthetic.option(
@@ -82,12 +83,11 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                     )(v.variantTrans())
               ),
               pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
-              pov.game.variant.standard.option(
+              hasWiki.option:
                 fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
                   legend(tabindex := 0)("WikiBook"),
                   div(cls := "analyse__wiki-text")
                 )
-              )
             )
           ),
           div(cls := "analyse__board main-board")(chessgroundBoard),

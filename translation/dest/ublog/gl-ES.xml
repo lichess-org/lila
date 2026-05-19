@@ -5,7 +5,7 @@
   <string name="byTopic">Por tema</string>
   <string name="byLichess">De Lichess</string>
   <string name="myFriends">As miñas amizades</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Os meus preferidos</string>
+  <string name="myLikes">Os meus preferidos</string>
   <string name="myBlog">O meu blog</string>
   <string name="likedBlogs">Artigos que me gustan</string>
   <plurals name="blogPosts">
@@ -27,9 +27,9 @@
   <string name="createBlogDiscussion">Activar comentarios</string>
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
-  <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
+  <string name="publishHelp">Se está marcada, a túa publicación será listada no teu blog. Se non, será privada e ficará xunto ós teus borradores</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar a publicación</string>
-  <string name="stickyPostHelp">Ó activares esta opción, esta entrada será a primeira das túas publicacións recentes no teu perfil e no teu blog.</string>
+  <string name="stickyPostHelp">Se se selecciona, este artigo será o primeiro no teu blog e no teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicou un artigo no blog</item>
     <item quantity="other">Publicou %s artigos no blog</item>
@@ -51,7 +51,7 @@
   <string name="uploadAnImageForYourPost">Sube unha imaxe para o teu artigo</string>
   <string name="imageAlt">Texto alternativo da imaxe</string>
   <string name="imageCredit">Créditos da imaxe</string>
-  <string name="deleteBlog">Borra para sempre esta publicación do blog</string>
+  <string name="deleteBlog">Borra para sempre esta publicación</string>
   <string name="safeToUseImages">É seguro usar imaxes das seguintes webs: </string>
   <string name="selectPostTopics">Selecciona os temas dos que trata este artigo</string>
   <string name="useImagesYouMadeYourself">Tamén podes usar imaxes deseñadas por ti, as túas fotos, capturas de pantalla de Lichess... calquera cousa que non teña dereitos de autor doutra persoa.</string>

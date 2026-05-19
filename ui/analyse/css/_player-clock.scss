@@ -3,8 +3,9 @@
 $clock-height: 20px;
 
 .analyse__player_strip {
-  position: absolute;
   @include inline-end(0);
+
+  position: absolute;
   display: flex;
 
   &.top {
@@ -32,7 +33,7 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
-  @extend %metal;
+  @extend %metal-bg;
 
   padding: 0 0.5em;
   margin-inline-start: 12px;
@@ -42,13 +43,14 @@ $clock-height: 20px;
 
   &.active {
     background: $m-primary_bg--mix-30;
+    box-shadow: none;
   }
 
   tenths {
     font-size: 80%;
   }
 
-  i {
+  icon {
     font-size: 0.7em;
     margin-inline-end: 0.4em;
     color: $c-accent;
@@ -66,6 +68,7 @@ $clock-height: 20px;
       margin-inline-start: -10px;
     }
   }
+
   score {
     margin-top: -2px;
   }

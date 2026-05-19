@@ -99,7 +99,7 @@ final class StormUi(helpers: Helpers):
               tbody(cls := "infinite-scroll")(
                 history.currentPageResults.map { day =>
                   tr(
-                    td(showDate(day._id.day.toDate)),
+                    td(showDate(day._id.day.toInstant)),
                     td(numberTag(cls := "score")(day.score)),
                     td(numberTag(day.moves)),
                     td(numberTag(f"${day.accuracyPercent}%1.1f"), "%"),

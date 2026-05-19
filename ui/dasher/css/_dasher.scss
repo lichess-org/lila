@@ -22,8 +22,9 @@
     border-top: $border;
 
     signal {
-      position: absolute;
       @include inline-end(1rem);
+
+      position: absolute;
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -91,6 +92,7 @@
 
       &:hover {
         @extend %box-radius-bottom;
+
         background: $c-link;
         color: $c-over;
       }
@@ -208,6 +210,7 @@
 
   .button.more {
     @extend %box-radius-bottom;
+
     width: 100%;
     color: $c-over;
     font-size: 1.2em;
@@ -234,9 +237,11 @@
     #images-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+
       @media (min-width: at-least($x-small)) {
         grid-template-columns: repeat(4, 1fr);
       }
+
       background-attachment: scroll;
 
       div {

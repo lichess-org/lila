@@ -19,7 +19,7 @@ import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.gameSearch.GameSearchApi
-import smithy4s.Timestamp
+import smithy4s.time.Timestamp
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -419,7 +419,7 @@ object GameApiV2:
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
-        analysed = analysed.map(_.so(1)),
+        analysed = analysed,
         sort = toSorting.some
       ).query.copy(
         date = DateRange(since.map(ts), until.map(ts)),

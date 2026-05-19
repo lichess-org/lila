@@ -221,15 +221,24 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     group(field, content, half = half): f =>
       div(cls := "password-wrapper")(
         input(f, typ = "password")(required)(modifiers),
-        reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))
+        reveal.option(passwordRevealButton)
       )
 
-  def passwordComplexityMeter(labelContent: Frag): Frag =
+  def passwordRevealButton = button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye)
+
+  def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(
       label(cls := "password-complexity-label")(labelContent),
       div(cls := "password-complexity-meter"):
         for _ <- 1 to 4 yield span
     )
+
+  def totpTokenInput(field: Field): Frag = input(field)(
+    attr("inputmode") := "numeric",
+    pattern := "[0-9]{6}",
+    autocomplete := "one-time-code",
+    required
+  )
 
   def globalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
@@ -247,20 +256,23 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataMinDate = attr("data-min-date")
+  private val dataMaxDate = attr("data-max-date")
   private val dataLocal = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
       local: Boolean = false,
-      minDate: Option[String] = Some("today")
+      minDate: Option[String] = Some("today"),
+      maxDate: Option[String] = None
   ): Tag =
     input(field, klass = s"flatpickr")(
       withTime.option(dataEnableTime := true),
       local.option(dataLocal := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
-        case d => d
+        case d => d,
+      dataMaxDate := maxDate
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")

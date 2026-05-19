@@ -5,8 +5,8 @@
   "dependencies": {
     "@badrap/result": "^0.3.1",
     "chart.js": "4.5.1",
+    "keyboard-move": "workspace:*",
     "lib": "workspace:*",
-    "keyboardMove": "workspace:*",
     "voice": "workspace:*"
   },
   "build": {

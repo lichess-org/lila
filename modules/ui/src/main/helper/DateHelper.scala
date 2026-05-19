@@ -16,6 +16,7 @@ trait DateHelper:
 
   private val dateTimeFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
   private val dateFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
+  private val dateFormattersShort = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
 
   private val englishDateFormatter =
     DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
@@ -28,14 +29,26 @@ trait DateHelper:
     dateFormatters.computeIfAbsentAlways(lang.code):
       DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
 
+  private def dateFormatterShort(using lang: Lang): DateTimeFormatter =
+    dateFormattersShort.computeIfAbsentAlways(lang.code):
+      DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(lang.toLocale)
+
   def showInstant(instant: Instant)(using t: Translate): String =
     dateTimeFormatter(using t.lang).print(instant)
 
-  def showDate(instant: Instant)(using t: Translate): String =
-    val date = instant.date
+  def showDate(instant: Instant)(using Translate): String = showDate(instant.date)
+
+  def showDate(date: LocalDate)(using t: Translate): String =
     given lang: Lang = t.lang
     val dateString = dateFormatter.print(date)
     if lang.language == "ar" then dateString.replaceAll("\u200f", "") else dateString
+
+  def showDateShort(instant: Instant)(using Translate): Frag = showDateShort(instant.date)
+  def showDateShort(date: LocalDate)(using t: Translate): Frag =
+    dateFormatterShort(using t.lang).print(date)
+
+  def semanticDate(date: LocalDate)(using t: Translate): Tag =
+    timeTag(datetimeAttr := date.toString)(showDate(date))
 
   def showYearMonth(month: YearMonth)(using lang: Lang): String =
     val formatter = DateTimeFormatter.ofPattern("yyyy/MM").withLocale(lang.toLocale)

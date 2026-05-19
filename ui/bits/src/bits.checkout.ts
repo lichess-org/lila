@@ -1,8 +1,9 @@
-import * as xhr from 'lib/xhr';
-import { spinnerHtml, prompt } from 'lib/view';
-import { currencyFormat, roundToCurrency } from 'lib/i18n';
-import { contactEmail } from './bits';
 import { myUserId } from 'lib';
+import { currencyFormat, roundToCurrency } from 'lib/i18n';
+import { spinnerHtml, prompt } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import { contactEmail } from './bits';
 
 export interface Pricing {
   currency: string;

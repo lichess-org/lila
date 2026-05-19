@@ -7,6 +7,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
 import lila.common.String.urlencode
+import lila.mon.extensions.*
 import lila.core.config.Secret
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
@@ -54,7 +55,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
               case JsSuccess(result, _) => fuccess(result.some)
               case JsError(err) => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
           case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
-        .monSuccess(_.irc.zulip.say(msg.stream))
+        .monSuccess(lila.mon.irc.zulip.say(msg.stream))
         .logFailure(lila.log("zulip"))
         .recoverDefault
 
@@ -86,8 +87,10 @@ private object ZulipClient:
         case _ => "mod-admin-monitor-other"
     val general = "general"
     val broadcast = "content-broadcast"
+    val broadcastDms = "content-broadcast-dms"
     val blog = "content-blog"
     val content = "content-site"
+    val bbb = "pub-org-bbb"
     type Selector = ZulipClient.stream.type => String
 
 private case class ZulipMessage(

@@ -1,13 +1,15 @@
-import { type Simul, setOnGame, isPlayerTurn } from 'lib/game';
-import { throttle } from 'lib/async';
-import { reload as xhrReload } from './xhr';
-import type RoundController from './ctrl';
+import { COLORS } from 'chessops';
+
 import { defined } from 'lib';
-import { domDialog } from 'lib/view';
+import { throttle } from 'lib/async';
+import { type Simul, setOnGame, isPlayerTurn, plyColor } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
 import { wsSign, wsVersion } from 'lib/socket';
+import { domDialog } from 'lib/view';
+
+import type RoundController from './ctrl';
 import type { RoundSocketSend, EventsWithoutPayload } from './interfaces';
-import { COLORS } from 'chessops';
+import { reload as xhrReload } from './xhr';
 
 export interface RoundSocket {
   send: RoundSocketSend;
@@ -120,7 +122,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       }
       if (by) {
         let ply = ctrl.lastPly();
-        if ((by === 'white') === (ply % 2 === 0)) ply++;
+        if (by === plyColor(ply)) ply++;
         ctrl.data.game.drawOffers = (ctrl.data.game.drawOffers || []).concat([ply]);
       }
       ctrl.redraw();

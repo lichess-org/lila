@@ -10,7 +10,6 @@ import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
 import lila.relation.Related
-import lila.relation.RelationStream.Direction
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -69,10 +68,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.block(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini")),
-        jsonOkResult
-      )
+      for
+        _ <- api.block(me, user.id).recoverDefault
+        _ <- env.relation.subs.subscribe(me, user.id, false)
+        res <- negotiate(
+          renderActions(user.name, getBool("mini")),
+          jsonOkResult
+        )
+      yield res
   }
 
   def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
@@ -97,14 +100,21 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           )
         yield res
 
-  def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> me ?=>
+  def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> _ ?=>
     apiC.jsonDownload:
       env.relation.stream
-        .follow(me, Direction.Following, MaxPerSecond(30))
+        .follow(MaxPerSecond(30))
         .mapAsync(1): ids =>
           env.user.api.listWithPerfs(ids.toList, includeClosed = false)
         .mapConcat(identity)
         .map(env.api.userApi.one(_, None))
+  }
+
+  def apiMobileFollowing = Scoped(_.Web.Mobile) { ctx ?=> _ ?=>
+    import env.user.lightUserApi.reader
+    val nb = getInt("nb").fold(10)(_.squeeze(1, 100))
+    jsToNdJson:
+      env.relation.stream.recentlySeen(nb, env.user.lightUserApi.projection, env.round.playing.apply)
   }
 
   // for lichobile, remove at some point

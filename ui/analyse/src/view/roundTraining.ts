@@ -1,10 +1,12 @@
 import { h, thunk, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import { findTag } from '../study/studyChapters';
+
 import { getPlayer } from 'lib/game';
 import * as licon from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
+
+import type AnalyseCtrl from '../ctrl';
+import { findTag } from '../study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -42,7 +44,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     sideData = d.analysis![color];
 
   return h('div.advice-summary__side', [
-    h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
+    h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', sideData.acpl),
@@ -108,7 +110,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
         'a.button-link.text',
         {
           attrs: {
-            'data-icon': licon.ArcheryTarget,
+            ...dataIcon(licon.ArcheryTarget),
             href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
           },
         },

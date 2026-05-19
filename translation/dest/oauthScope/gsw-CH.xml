@@ -29,7 +29,6 @@
   <string name="botPlay">Schpiel mit em API-Bot schpille</string>
   <string name="engineRead">Zeig und benutz dini externi Engine</string>
   <string name="engineWrite">Erschtell und aktualisier e externi Engine</string>
-  <string name="webLogin">Erschtelle vu authentifizierte Website-Sitzige (gewährt volle Zuegriff!)</string>
   <string name="webMod">Nutzig vu Moderatoretools (im Rahme vu ihrer Erlaubnis)</string>
   <string name="personalAccessTokens">Persönlichs API Zuegangs Token</string>
   <string name="canMakeOauthRequests">Du chasch au OAuth Afrage mache, ohni %s.</string>

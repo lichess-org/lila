@@ -1,6 +1,4 @@
 .learn-stages {
-  padding-top: 10px;
-
   .categ > h2 {
     @extend %roboto, %page-text-shadow;
 
@@ -12,174 +10,131 @@
   }
 
   .categ_stages {
-    ---min-width: 100vw;
+    ---min-width: 400px;
 
-    @media (min-width: at-least($xx-small)) {
-      ---min-width: 400px;
+    @media (width < $xx-small) {
+      ---min-width: calc(100vw - 2em);
+
+      padding: 0 0.5em;
     }
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     gap: 1em;
-    margin: 0.8em 0 3em 0;
+    margin: 1.5em 0 3em 0;
   }
 
   .stage {
     @extend %box-radius, %flex-center-nowrap;
-
     @include transition;
+    @include backdrop-blur-if-transparent;
 
     position: relative;
-    height: 90px;
+    min-height: 90px;
     color: #fff;
-    margin-top: 13px;
-    box-shadow:
-      0 3px 5px 0 rgba(0, 0, 0, 0.3),
-      0 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.07);
     font-size: 1.2em;
+    border: 1px solid $c-border;
+    background: $c-bg-box;
+    padding-right: 3em;
+
+    @include if-light {
+      color: $c-font;
+
+      img {
+        filter: brightness(0.15);
+      }
+    }
+
+    @media (width < $xx-small) {
+      min-height: fit-content;
+      padding: 6px 3em 6px 0;
+
+      p {
+        margin-top: 2px;
+      }
+    }
 
     img {
-      width: 80px;
-      height: 80px;
-      margin: 0 13px;
-      opacity: 0.9;
+      width: 70px;
+      height: 70px;
+      margin: 0 1em;
+      opacity: 0.6;
+
+      @media (width < $xx-small) {
+        width: 50px;
+        height: 64px;
+      }
     }
 
     h3 {
       font-size: 1.6em;
-      letter-spacing: 2px;
-      margin: 0 0 1px -1px;
-    }
-
-    &.vvv h3 {
-      font-size: 1.4em;
-      letter-spacing: 1px;
+      line-height: 1;
     }
 
     p {
-      margin: 0;
-    }
-
-    @keyframes soft-bright {
-      50% {
-        filter: brightness(0.97);
-      }
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+      opacity: 0.8;
     }
 
     &.ongoing {
-      background: $c-primary;
-      filter: brightness(0.9);
-      animation: 1.7s soft-bright ease-in-out infinite;
-    }
+      border-color: $m-primary--fade-50;
+      background: linear-gradient(0deg, $m-primary--fade-60, $m-primary--fade-80 100px);
 
-    &.ongoing:hover {
-      filter: brightness(1.2);
+      .attention-effect {
+        @include animated-border($m-primary--lighten-30, $m-primary--fade-80);
+      }
+
+      @include if-light {
+        background: linear-gradient(180deg, $m-primary--fade-60, $m-primary--fade-80 100px);
+
+        .attention-effect {
+          @include animated-border($m-primary--darken-25, $m-primary--fade-80);
+        }
+      }
     }
 
     &.done {
-      background: $c-secondary;
+      border-color: $m-secondary--fade-35;
+      background: linear-gradient(0deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+
+      img {
+        filter: brightness(0) saturate(100%) invert(81%) sepia(42%) saturate(529%) hue-rotate(38deg)
+          brightness(94%) contrast(90%);
+      }
+
+      @include if-light {
+        background: linear-gradient(180deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+
+        img {
+          filter: brightness(0) saturate(100%) invert(41%) sepia(14%) saturate(1540%) hue-rotate(47deg)
+            brightness(97%) contrast(93%);
+        }
+      }
     }
 
     &.future {
-      opacity: 0.7;
-      background: $c-accent;
-    }
+      border-color: $m-future--fade-35;
+      background: linear-gradient(0deg, $m-future--fade-60, $m-future--fade-80 100px);
 
-    &.future img {
-      opacity: 0.7;
+      @include if-light {
+        background: linear-gradient(180deg, $m-future--fade-60, $m-future--fade-80 100px);
+      }
     }
 
     &.active,
     &:hover {
-      filter: brightness(1.08);
-      transform: scale(1.02);
-      opacity: 1;
-    }
-
-    .ribbon-wrapper {
-      display: block;
-      width: 85px;
-      height: 88px;
-      overflow: hidden;
-      position: absolute;
-      top: -3px;
-      @include inline-end(-3px);
-    }
-  }
-
-  .ribbon {
-    display: block;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
-    transform: rotate(45deg);
-    @include if-rtl {
-      transform: rotate(-45deg);
-    }
-    position: relative;
-    padding: 7px 0;
-    @include inline-start(-5px);
-    top: 15px;
-    width: 120px;
-    color: #6a6340;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-
-    i {
-      color: $c-brag;
-      animation: 0.6s soft-hue ease-in-out infinite;
-      text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
-    }
-
-    i:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    i:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    &::before,
-    &::after {
-      content: '';
-      border-left: 3px solid transparent;
-      border-right: 3px solid transparent;
-      position: absolute;
-      bottom: -3px;
-    }
-
-    &::before {
-      @include inline-start(0);
-    }
-
-    &::after {
-      @include inline-end(0);
-    }
-
-    &.done {
-      background-color: #bfdc7a;
-    }
-
-    &.done::before,
-    &.done::after {
-      border-top: 3px solid #6e8900;
-    }
-
-    &.ongoing {
-      background-color: #b3e5fc;
-    }
-
-    &.ongoing::before,
-    &.ongoing::after {
-      border-top: 3px solid #536dfe;
+      transform: scale(1.025);
     }
   }
 
   .what_next > p {
     @extend %page-text-shadow !optional;
+
     width: 100%;
     text-align: center;
-    margin: 20px 0;
+    margin: 0.5em 0 1.5em;
     font-size: 1.2em;
   }
 }

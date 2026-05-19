@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Zeig Schpiller Wertige</string>
   <string name="showFlairs">Benutzer-Emojis azeige</string>
-  <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. s\'Schpiel wird immer no bewertet werde, es gaht nur drum, was mer gseht.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. s\'Schpiel wird immer no bewertet werde, es gaht nur drum, was mer gseht.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Afangsschtellig</string>
   <string name="inGameOnly">Nur im Schpiel</string>
@@ -64,11 +64,11 @@
   <string name="notifyTournamentSoon">Turnier schtarted bald</string>
   <string name="notifyBroadcasts">Vu dir abonnierti Überträgige</string>
   <string name="notifyTimeAlarm">Korreschpondänzzit lauft ab</string>
-  <string name="notifyBell">Akustischi Mäldig, innerhalb Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Akustischi Mäldig, innerhalb Lichess</string>
   <string name="notifyPush">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Grät</string>
   <string name="bellNotificationSound">Ton für Benachrichtige</string>
   <string name="blindfold" comment="As in Blindfold chess">Blind schpille</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Uf mobile Grät, links azeige</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Uf mobile Grät, links azeige</string>
 </resources>

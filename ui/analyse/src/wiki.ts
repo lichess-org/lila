@@ -1,6 +1,6 @@
 import { debounce } from 'lib/async';
-import type { TreeNode } from 'lib/tree/types';
 import { storedBooleanPropWithEffect } from 'lib/storage';
+import type { TreeNode } from 'lib/tree/types';
 import { enter } from 'lib/view';
 import { wikiBooksUrl, apiArgs, transformWikiHtml } from 'lib/wikiBooks';
 
@@ -55,7 +55,7 @@ export default function wikiTheory(): WikiTheory {
           if (res.ok) {
             const json = await res.json();
             const page = json.query.pages[0];
-            if (page.missing || page.extract.length == 0) saveAndShow('');
+            if (page.missing || page.extract.length === 0) saveAndShow('');
             else if (page.invalid) show('invalid request: ' + page.invalidreason);
             else if (!page.extract)
               show('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');

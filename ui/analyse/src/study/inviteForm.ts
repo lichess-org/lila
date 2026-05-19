@@ -1,13 +1,15 @@
-import * as licon from 'lib/licon';
-import { bind, onInsert, snabDialog } from 'lib/view';
-import { titleNameToId } from '../view/util';
 import { h, type VNode } from 'snabbdom';
+
 import { prop, type Prop } from 'lib';
-import type { StudyMemberMap } from './interfaces';
-import type { AnalyseSocketSend } from '../socket';
-import { storedSet, type StoredSet } from 'lib/storage';
-import { userComplete } from 'lib/view/userComplete';
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import { storedSet, type StoredSet } from 'lib/storage';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
+import { userComplete } from 'lib/view/userComplete';
+
+import type { AnalyseSocketSend } from '../socket';
+import { titleNameToId } from '../view/util';
+import type { StudyMemberMap } from './interfaces';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -67,7 +69,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     noScrollable: true,
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
-      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
+      h('p.info', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {

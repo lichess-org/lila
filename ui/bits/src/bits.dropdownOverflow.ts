@@ -1,6 +1,7 @@
 import { frag } from 'lib';
-import { json as xhrJson } from 'lib/xhr';
 import { isTouchDevice } from 'lib/device';
+import * as licon from 'lib/licon';
+import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';
 
@@ -43,16 +44,13 @@ function listenToReload(container: HTMLElement): void {
 
 function replaceMenuItems(container: HTMLElement, items: MenuItem[]): void {
   const menu = getMenuFromDataAttr(container);
-  const newMenuItemsByCategory: Record<string, MenuItem[]> = items.reduce(
-    (acc, item) => {
-      if (!acc[item.category ?? '']) {
-        acc[item.category ?? ''] = [];
-      }
-      acc[item.category ?? ''].push(item);
-      return acc;
-    },
-    {} as Record<string, MenuItem[]>,
-  );
+  const newMenuItemsByCategory = items.reduce<Record<string, MenuItem[]>>((acc, item) => {
+    if (!acc[item.category ?? '']) {
+      acc[item.category ?? ''] = [];
+    }
+    acc[item.category ?? ''].push(item);
+    return acc;
+  }, {});
 
   for (const [category, items] of Object.entries(newMenuItemsByCategory)) {
     const categoryIndex = menu.items.findIndex(item => item.category === category);
@@ -127,7 +125,7 @@ function renderMenu(container: HTMLElement): void {
       menuContainer.classList.remove('btn-rack');
       dropdownDiv.classList.remove('btn-rack__btn');
       moreButton.textContent = '';
-      moreButton.setAttribute('data-icon', ''); // Hamburger icon
+      moreButton.setAttribute('data-icon', licon.Hamburger);
     }
 
     const dropdownWindow = document.createElement('div');

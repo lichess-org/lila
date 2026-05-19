@@ -1,7 +1,8 @@
-import * as ps from 'node:process';
 import * as fs from 'node:fs';
+import * as ps from 'node:process';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
+
 import { findTransforms } from './src/util';
 
 let builder: Builder;
@@ -44,7 +45,7 @@ async function main() {
       ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
       : [];
 
-    for (const e of entries.filter(e => e.h != e.x)) {
+    for (const e of entries.filter(e => e.h !== e.x)) {
       parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
     }
     subMap.forEach(v => (v.freq = v.count / v.all));
@@ -123,10 +124,10 @@ function writeGrammar(out: string) {
   fs.writeFileSync(out, JSON.stringify(builder.lexicon, null, 2));
 }
 
-function getArg(arg: string): string | undefined {
+function getArg(arg: string) {
   return ps.argv
-    .filter(v => v.startsWith(`--${arg}`))
-    .pop()
+    .reverse()
+    .find(value => value.startsWith(`--${arg}`))
     ?.slice(3 + arg.length);
 }
 
@@ -312,7 +313,7 @@ class Builder {
               ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
                   .map(s => {
                     let c = s.cost.toFixed(2);
-                    if (c.slice(-1) === '0') c = c.slice(0, -1);
+                    if (c.endsWith('0')) c = c.slice(0, -1);
                     return `{ to: '${s.to}', cost: ${c} }`;
                   })
                   .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`

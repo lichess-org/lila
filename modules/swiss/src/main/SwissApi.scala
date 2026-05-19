@@ -14,6 +14,7 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -41,7 +42,7 @@ final class SwissApi(
     expiration = 20.minutes,
     timeout = 10.seconds,
     name = "swiss.api",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   import BsonHandlers.{ *, given }
@@ -186,7 +187,7 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
             if rejoin.n == 1 then fuccess(none) // if the match failed (not the update!), try a join
-            else if !initialJoin.test(me.userId) then fuccess("You are joining too many tournaments".some)
+            else if !initialJoin.hit(me.userId) then fuccess("You are joining too many tournaments".some)
             else
               for
                 user <- userApi.withPerf(me.value, swiss.perfType)
@@ -607,7 +608,7 @@ final class SwissApi(
                 )
               yield cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
-      .monSuccess(_.swiss.tick)
+      .monSuccess(lila.mon.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
     mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent.$ne(true)))

@@ -58,6 +58,8 @@ final class Env(
 
   val markdown = wire[MarkdownCache]
 
+  val viewerCount = wire[ViewerCountApi]
+
   lila.common.Cli.handle:
     case "cache" :: "clear" :: name :: Nil =>
       cacheApi.clearByName(name) match

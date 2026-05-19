@@ -1,6 +1,6 @@
 import { Chess, type Move as ChessMove } from 'chessops';
-import { makeSanAndPlay } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
+import { makeSanAndPlay } from 'chessops/san';
 
 /* The currently displayed position, not necessarily the last one played */
 export interface Board {

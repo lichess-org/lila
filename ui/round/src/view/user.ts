@@ -1,10 +1,11 @@
-import { hl, type VNode } from 'lib/view';
-import * as licon from 'lib/licon';
-import type { Player, TopOrBottom } from 'lib/game';
-import type RoundController from '../ctrl';
-import { ratingDiff, userLink } from 'lib/view/userLink';
-import { wsAverageLag } from 'lib/socket';
 import { defined } from 'lib';
+import type { Player, TopOrBottom } from 'lib/game';
+import * as licon from 'lib/licon';
+import { wsAverageLag } from 'lib/socket';
+import { dataIcon, hl, type VNode } from 'lib/view';
+import { ratingDiff, userLink } from 'lib/view/userLink';
+
+import type RoundController from '../ctrl';
 
 export function userHtml(ctrl: RoundController, player: Player, position: TopOrBottom): VNode {
   const d = ctrl.data,
@@ -33,7 +34,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
         },
       },
       [
-        hl('i.line', {
+        hl('icon.line', {
           class: user.patron
             ? {
                 patron: true,
@@ -60,7 +61,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
         !!rating && ratingDiff(player),
         player.engine &&
           hl('span', {
-            attrs: { 'data-icon': licon.CautionCircle, title: i18n.site.thisAccountViolatedTos },
+            attrs: { ...dataIcon(licon.CautionCircle), title: i18n.site.thisAccountViolatedTos },
           }),
       ],
     );
@@ -70,7 +71,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
     `div.ruser-${position}.ruser.user-link`,
     { class: { online: player.onGame, offline: !player.onGame, connecting } },
     [
-      hl('i.line', {
+      hl('icon.line', {
         attrs: {
           title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         },
@@ -82,7 +83,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
 
 const signalBars = (signal: number) => {
   const bars: VNode[] = [];
-  for (let i = 1; i <= 4; i++) bars.push(hl(i <= signal ? 'i' : 'i.off'));
+  for (let i = 1; i <= 4; i++) bars.push(hl(i <= signal ? 'icon' : 'icon.off'));
   return hl('signal.q' + signal, bars);
 };
 

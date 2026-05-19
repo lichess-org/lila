@@ -2,7 +2,7 @@ import type { GameData } from './interfaces';
 
 // https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 
-export const status: { [name in StatusName]: number } = {
+export const status: Record<StatusName, number> = {
   created: 10,
   started: 20,
   aborted: 25,

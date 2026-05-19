@@ -1,12 +1,14 @@
 import * as co from 'chessops';
-import { RoundProxy } from './roundProxy';
-import { type GameContext, type GameStatus, LocalGame } from './localGame';
-import { statusOf, clockToSpeed, playable } from 'lib/game';
 import type { ClockData } from 'round';
-import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from 'lib/bot/types';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
+
 import { myUserId, myUsername } from 'lib';
+import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from 'lib/bot/types';
+import { statusOf, clockToSpeed, playable } from 'lib/game';
+import { pubsub } from 'lib/pubsub';
+
+import { env } from './devEnv';
+import { type GameContext, type GameStatus, LocalGame } from './localGame';
+import { RoundProxy } from './roundProxy';
 
 export interface GameObserver {
   hurry: boolean;
@@ -183,7 +185,7 @@ export class GameCtrl {
   }
 
   // investigate setting rewind = live to pause
-  private jump = (ply: number) => {
+  private readonly jump = (ply: number) => {
     this.rewind = ply < this.live.moves.length ? new LocalGame(this.live, ply) : undefined;
     if (this.clock) this.clock.since = this.rewind || ply < 2 ? undefined : performance.now();
     this.updateTurn();

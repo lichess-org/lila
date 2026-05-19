@@ -110,7 +110,6 @@
   <string name="byCPL">Хаталар буенча</string>
   <string name="enable">Кабызылган</string>
   <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
-  <string name="evaluationGauge">Бәяләу шкаласы</string>
   <string name="multipleLines">Берничә вариант</string>
   <string name="cpus">Процессорлар</string>
   <string name="memory">Хәтер</string>
@@ -212,7 +211,6 @@
   <string name="youAreLeavingLichess">Сез Lichess сайтыннан чыгып китәсез</string>
   <string name="neverTypeYourPassword">Lichess серсүзегезне башка сайтларда кертмәгез!</string>
   <string name="proceedToX">%s -га дәвам итү</string>
-  <string name="copyTextToEmail">Югары текстны копияләп %s адресына җибәрегез</string>
   <string name="accountConfirmed">%s кулланучысы теркәлүе расланды.</string>
   <string name="accountCanLogin">Хәзер %s булып теркәлә аласыз.</string>
   <string name="accountClosed">%s дигән хисап ябылган.</string>
@@ -757,7 +755,6 @@
   <string name="currentMatchScore">Хәзерге матч исәбе</string>
   <string name="agreementAssistance">Минем уеннар вакытында теләсә кайсы вакытта ярдәм алуыма ризалашам (шахмат компьютерыннан, китаптан, мәгълүмат базасыннан яки бүтән кешедән).</string>
   <string name="agreementNice">Мин башка уенчыларга һәрвакыт хөрмәт күрсәтермен дип килешәм.</string>
-  <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

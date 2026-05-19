@@ -1,6 +1,7 @@
 import ps from 'node:process';
-import { deepClean, clean } from './clean.ts';
+
 import { build, stopBuild } from './build.ts';
+import { deepClean, clean } from './clean.ts';
 import { startConsole } from './console.ts';
 import { env, errorMark } from './env.ts';
 import { tasksIdle } from './task.ts';

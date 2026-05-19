@@ -5,8 +5,9 @@ function dig(chapId, node, path) {
     const c = node.n[i];
     const newPath = `${path}.n.${i}`;
     if (!c || !c.i) {
-      const set = {};
-      set[`${path}.n`] = [];
+      const set = {
+        [`${path}.n`]: [],
+      };
       printjson(set);
       db.study_chapter.update({ _id: chapId }, { $set: set });
     } else {

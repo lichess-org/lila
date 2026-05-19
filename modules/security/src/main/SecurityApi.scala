@@ -33,18 +33,18 @@ final class SecurityApi(
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
-  val AccessUri = "access_uri"
-
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  lazy val loginForm = Form:
-    tuple(
+  def loginForm = Form:
+    mapping(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
-    )
-  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
+    )(LoginForm.apply)(unapply)
+
+  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill:
+    LoginForm(login, ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
@@ -54,9 +54,10 @@ final class SecurityApi(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> loginPasswordMapping,
-        "token" -> optional(nonEmptyText)
+        "token" -> optional(nonEmptyText) // totp 2fa
       )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
+        case Success(user) =>
+          (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
         case _ => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match

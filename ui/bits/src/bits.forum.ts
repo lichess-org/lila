@@ -1,8 +1,10 @@
-import * as xhr from 'lib/xhr';
-import { domDialog } from 'lib/view';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+
 import { tempStorage } from 'lib/storage';
+import { domDialog } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
 import { setMode } from './markdownTextarea';
 
 site.load.then(() => {
@@ -19,7 +21,7 @@ site.load.then(() => {
           .attr('action', link.href)
           .on('submit', function (this: HTMLFormElement, e: Event) {
             e.preventDefault();
-            xhr.formToXhr(this);
+            void xhr.formToXhr(this);
             $(link).closest('.forum-post').hide();
             dlg.close();
           });
@@ -43,7 +45,7 @@ site.load.then(() => {
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
-      xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
+      void xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
     })
     .on('click', '.reactions-auth button', e => {
@@ -52,7 +54,7 @@ site.load.then(() => {
         const $rels = $(e.target).parent();
         if ($rels.hasClass('loading')) return;
         $rels.addClass('loading');
-        xhr.text(href, { method: 'post' }).then(
+        void xhr.text(href, { method: 'post' }).then(
           html => {
             $rels.replaceWith(html);
             $rels.removeClass('loading');
@@ -156,7 +158,7 @@ site.load.then(() => {
       {
         index: 2,
         match: /(^|\s)@([a-zA-Z_-][\w-]{0,19})$/,
-        search: function (term: string, callback: (names: string[]) => void) {
+        search: function (term: string, searchCallback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(function (participants) {
@@ -164,19 +166,19 @@ site.load.then(() => {
 
             if (forumParticipantCandidates.length !== 0) {
               // We always prefer a match on the forum thread participants' usernames
-              callback(forumParticipantCandidates);
+              searchCallback(forumParticipantCandidates);
             } else if (term.length >= 3) {
               // We fall back to every site user after 3 letters of the username have been entered
               // and there are no matches in the forum thread participants
               xhr
                 .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                .then(candidateUsers => searchCallback(searchCandidates(term, candidateUsers)))
                 .catch(error => {
                   console.error('Autocomplete request failed:', error);
-                  callback([]);
+                  searchCallback([]);
                 });
             } else {
-              callback([]);
+              searchCallback([]);
             }
           });
         },

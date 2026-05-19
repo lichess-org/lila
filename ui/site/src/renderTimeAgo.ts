@@ -53,7 +53,7 @@ export const renderLocalizedTimestamps = (): void => {
   });
 };
 
-const discordFormats: { [key: string]: Intl.DateTimeFormatOptions } = {
+const discordFormats: Record<string, Intl.DateTimeFormatOptions> = {
   d: { year: 'numeric', month: '2-digit', day: '2-digit' }, // 12/31/2025
   D: { year: 'numeric', month: 'long', day: 'numeric' }, // December 31st, 2025
   t: { hour: 'numeric', minute: 'numeric' }, // 6:26 PM

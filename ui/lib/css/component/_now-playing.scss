@@ -1,5 +1,6 @@
 .now-playing {
   display: grid;
+
   ---np-min-width: 200px;
 
   @media (max-width: at-most($xx-small)) {

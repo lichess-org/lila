@@ -3,14 +3,14 @@
   <string name="voiceCommands">Sproochbefeeler</string>
   <string name="watchTheVideoTutorial">Video-Tutorial kucken</string>
   <string name="instructions2">Mir weise Feiler fir verschidden Zich, wa mir eis net sécher sinn. Nennt d\'Faarf oder d\'Zuel vun engem Zuchfeil fir en auszewielen.</string>
-  <string name="instructions3">Wann ee Feil e Radarkrees huet, gëtt den Zuch gespillt, soubal de Krees komplett ass. Wärend där Zäit kanns de just %1$s soe fir den Zuch direkt ze maachen, %2$s fir ofzebriechen oder d\'Faarf/Zuel vun engem anere Feil nennen. Dësen Timer kann an den Astellungen ugepasst oder ausgemaach ginn.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Wann ee Feil e Radarkrees huet, gëtt den Zuch gespillt, soubal de Krees komplett ass. Wärend där Zäit kanns de just %1$s soe fir den Zuch direkt ze maachen, %2$s fir ofzebriechen oder d\'Faarf/Zuel vun engem anere Feil nennen. Dësen Timer kann an den Astellungen ugepasst oder ausgemaach ginn.</string>
   <string name="instructions4">Aktivéier %s op Plaze mat Hannergrondkaméidi. Hal beim Schwätze vu Befeeler d\'Shift-Tast gedréckt, wann dës Funktioun aktiv ass.</string>
   <string name="instructions5">Benotz d\'phoneetescht Alphabeet fir d\'Erkenne vun de Linne vum Schachbriet ze verbesseren. </string>
   <string name="thisBlogPost">Dëse Blog-Bäitrag</string>
   <string name="moveToE4OrSelectE4Piece">Op e4 réckelen oder d\'Figur op e4 auswielen</string>
   <string name="selectOrCaptureABishop">Wiel oder huel ee Leefer</string>
   <string name="takeRookWithQueen">Den Tuerm mat der Damm huelen</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rochéieren (egal wat fir eng Säit)</string>
+  <string name="castle">Rochéieren (egal wat fir eng Säit)</string>
   <string name="phoneticAlphabetIsBest">D\'phoneetescht Alphabet ass am beschten</string>
   <string name="playPreferredMoveOrConfirmSomething">De preferéierten Zuch spillen oder eppes bestätegen</string>
   <string name="sleep">Schlofen (wann d\'Wuert fir z\'erwächen aktivéiert ass)</string>

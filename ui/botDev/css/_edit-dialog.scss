@@ -7,35 +7,45 @@
   button {
     padding: 0.8em 0.8em;
   }
+
   textarea {
     white-space: pre-wrap;
     width: 100%;
     resize: none;
   }
+
   hr {
     margin: 0;
     flex: auto;
   }
+
   label {
     @extend %flex-center-nowrap;
+
     position: relative;
     flex: initial;
     gap: 12px;
   }
+
   canvas {
     min-height: 300px;
   }
+
   fieldset {
     @extend %flex-column, %box-radius;
+
     align-items: stretch;
     border: 1px solid $c-border;
     padding: 0.75em 0 1em;
     row-gap: 0.5em;
+
     > div {
       @extend %flex-column;
+
       align-items: stretch;
       row-gap: 0.5em;
     }
+
     &.disabled {
       padding: 0;
       border-left: none;
@@ -43,18 +53,23 @@
       border-bottom: none;
     }
   }
+
   legend {
     @extend %flex-center;
+
     z-index: $z-above-dialog-12; // get around safari z-index bug in legend / fieldset
     align-self: start;
     text-align: left;
     margin: 0 0.5em;
+
     > label {
       font-weight: bold;
     }
   }
+
   .deck {
     @extend %flex-between-nowrap;
+
     grid-area: deck;
     width: 100%;
     height: 100%;
@@ -66,11 +81,14 @@
       aspect-ratio: 1/1;
     }
   }
+
   .deck-legend {
     padding: 0.5em;
     row-gap: 0;
+
     label {
       @extend %flex-around;
+
       flex-wrap: nowrap;
       font-size: 12px;
       padding: 4px 12px;
@@ -98,23 +116,29 @@
     background: none;
     border: none;
     outline: none;
+
     &:hover {
       color: $c-bad;
     }
   }
+
   [data-action='remove'] {
     cursor: pointer;
     color: $c-bad;
+
     &:hover {
       color: $m-bad--lighten-11;
     }
   }
+
   [data-action='add'] {
     cursor: pointer;
     color: $c-secondary;
+
     &:hover {
       color: $m-secondary--lighten-11;
     }
+
     &.disabled {
       color: $c-border;
       pointer-events: none;
@@ -123,6 +147,7 @@
 
   .bot-card {
     @extend %flex-column;
+
     border-radius: 10px;
     gap: 1em;
     grid-area: info;
@@ -130,6 +155,7 @@
     > div {
       padding: 0;
     }
+
     .uid {
       z-index: $z-above-dialog-14;
       font-size: 1.5em;
@@ -138,15 +164,18 @@
       padding: 0 4px;
       color: $c-font-dim;
     }
+
     textarea {
       text-align: center;
     }
+
     .player {
       ---scale-factor: 0.8;
+
       aspect-ratio: 1/1;
       cursor: pointer;
-      // background-color: $c-bg-zebra2;
     }
+
     .placard {
       padding: 0;
       width: 90%;
@@ -157,6 +186,7 @@
 
   .under-bot {
     @extend %flex-column;
+
     max-height: 30%;
     gap: 1em;
     overflow: auto;
@@ -164,6 +194,7 @@
 
   .bot-actions {
     @extend %flex-wrap;
+
     justify-content: end;
     align-items: start;
     gap: 1em;
@@ -180,28 +211,35 @@
       padding: 0;
     }
   }
+
   .setting {
     @extend %flex-center-nowrap;
+
     padding: 0 1em;
     width: 100%;
     gap: 1em;
+
     input[data-type] {
       width: 60px;
       flex-grow: 1;
     }
+
     &.disabled > input[data-type] {
       opacity: 0.5;
     }
   }
+
   .books,
   .sound-events {
     input[type='text'] {
       max-width: 5ch;
     }
   }
+
   .books {
     label img {
       @extend %box-radius-force, %popup-shadow;
+
       position: absolute;
       opacity: 0;
       pointer-events: none;
@@ -212,50 +250,64 @@
       transition: opacity 0.4s ease;
       z-index: $z-powertip-120;
     }
+
     label:hover img {
       opacity: 1;
     }
+
     .btn-rack {
       gap: 4px;
       border: none;
+
       button {
         padding: 0.6em;
         border: 1px solid $c-border;
       }
+
       button.active {
         border-color: $c-primary;
         outline: 4px solid $c-primary;
       }
+
       button[data-color='white'] {
         border-radius: 0 6px 6px 0;
         background: $c-paper;
       }
+
       button[data-color='black'] {
         border-radius: 6px 0 0 6px;
         background: $c-dark;
       }
     }
   }
+
   .sound-events {
     padding: 0.5em 1em;
+
     .hide-disabled {
       width: 100%;
     }
   }
+
   .sound-event > span > label {
     width: 100%;
   }
+
   .total-chance.invalid {
     color: $c-bad;
   }
+
   fieldset.sound {
     @extend %flex-between;
+
     flex-wrap: nowrap;
     padding: 0.25em 0.5em 0.5em;
+
     label {
       gap: 6px;
     }
   }
+
   .behavior,
   .filters {
     overflow-y: auto;
@@ -276,27 +328,34 @@
       display: none;
     }
   }
+
   .behavior {
     @extend %flex-column;
+
     grid-area: behavior;
     padding: 0 1em;
     min-width: 300px;
     justify-content: start;
     gap: 1em;
   }
+
   .filters {
     @extend %flex-column;
+
     min-width: 0;
     gap: 1em;
     grid-area: filters;
   }
+
   .filter {
     @extend %flex-column, %box-radius;
+
     label {
       flex-flow: row nowrap;
       height: 32px;
       padding-inline-start: 0.5em;
     }
+
     .graph-wrapper {
       border: 1px solid $c-border-light;
       position: relative;
@@ -304,19 +363,24 @@
       background: $c-paper;
       cursor: pointer;
       padding: 1em 1em 0.5em 0.5em;
+
       &.hidden {
         background: $m-paper_dimmer--mix-50;
+
         canvas {
           display: none;
         }
       }
     }
+
     .btn-rack {
       width: 100%;
       border: none;
     }
+
     .facet {
       @extend %flex-center-nowrap, %box-radius-top;
+
       z-index: $z-above-dialog-12;
       justify-content: center;
       background: $m-paper_dimmer--mix-50;
@@ -337,6 +401,7 @@
       &:last-child {
         margin-inline-end: 0;
       }
+
       &.active {
         background: $c-paper;
         margin-bottom: -1px;
@@ -347,15 +412,13 @@
       }
 
       &:hover {
-        // :not(.active) {
         cursor: pointer;
-        // &:has(input:checked) {
         background: $m-paper_dimmer--mix-75;
         color: $c-font-clearer;
-        // }
       }
     }
   }
+
   .global-actions {
     display: flex;
     justify-content: end;

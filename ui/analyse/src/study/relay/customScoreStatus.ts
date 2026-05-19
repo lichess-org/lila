@@ -1,7 +1,9 @@
+import { opposite } from 'chessops/util';
+
 import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
+
 import type { GamePointsStr } from '../interfaces';
 import type { CustomScoring, RelayRound } from './interfaces';
-import { opposite } from 'chessops/util';
 
 type ServerPoint = '1' | '0' | '½';
 const points = (point: ServerPoint) => parseFloat(point.replace('½', '.5'));

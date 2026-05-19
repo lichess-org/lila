@@ -1,14 +1,17 @@
-import { parseUci, makeSquare } from 'chessops/util';
-import { isDrop, type Square } from 'chessops/types';
-import { winningChances } from 'lib/ceval';
-import { opposite } from '@lichess-org/chessground/util';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
-import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import type AnalyseCtrl from './ctrl';
-import { isUci } from 'lib/game/chess';
-import { parseFen } from 'chessops/fen';
-import type { ServerEval } from 'lib/tree/types';
+import { opposite } from '@lichess-org/chessground/util';
 import { between, ray, knightAttacks } from 'chessops/attacks';
+import { parseFen } from 'chessops/fen';
+import { isDrop, type Square } from 'chessops/types';
+import { parseUci, makeSquare } from 'chessops/util';
+
+import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
+import { isUci } from 'lib/game/chess';
+import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
+import type { ServerEval } from 'lib/tree/types';
+
+import type AnalyseCtrl from './ctrl';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -90,7 +93,7 @@ export function makeShapesFromUci(
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color = ctrl.node.fen.includes(' w ') ? 'white' : 'black';
+  const color = fenColor(ctrl.node.fen);
   const rcolor = opposite(color);
   if (ctrl.practice) {
     const hovering = ctrl.practice.hovering();

@@ -48,6 +48,7 @@ object PrefForm:
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
     val moretime = "moretime" -> checkedNumber(Pref.Moretime.choices)
     val clockSound = "clockSound" -> booleanNumber
+    val clockTenths = "clockTenths" -> checkedNumber(Pref.ClockTenths.choices)
     val pieceNotation = "pieceNotation" -> booleanNumber
     val ratings = "ratings" -> checkedNumber(Pref.Ratings.choices)
     val flairs = "flairs" -> boolean

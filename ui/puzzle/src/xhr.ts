@@ -1,7 +1,8 @@
-import { json as xhrJson, form as xhrForm } from 'lib/xhr';
-import type PuzzleStreak from './streak';
 import { defined } from 'lib';
+import { json as xhrJson, form as xhrForm } from 'lib/xhr';
+
 import type { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
+import type PuzzleStreak from './streak';
 
 export const complete = (
   puzzleId: string,

@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Daag een vriend uit</string>
   <string name="playAgainstComputer">Speel tegen de computer</string>
   <string name="gameMode">Spelmodus</string>
-  <string name="createLobbyGame">Maak een lobby spel aan</string>
+  <string name="createLobbyGame">Maak een lobbypartij aan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
@@ -95,6 +95,8 @@
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="minRatingX">Minimumrating van %s</string>
+  <string name="maxRatingX">Maximumrating van %s</string>
   <string name="recentGames">Recente partijen</string>
   <string name="topGames">Toppartijen</string>
   <string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
@@ -126,14 +128,20 @@
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
-  <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="visualMotifs">Visuele motieven</string>
   <string name="undefendedPieces">Onverdedigde stukken</string>
   <string name="pinnedPieces">Gepende stukken</string>
   <string name="checkableKing">Schaakbare koning</string>
   <string name="multipleLines">Meerdere varianten</string>
+  <string name="multipleLinesDescription">Stel het aantal evaluatievariaties en zetpijlen in op het bord</string>
+  <string name="searchTime">Zoektijd</string>
+  <string name="searchTimeDescription">Stel tijd in om nieuwe stellingen te evalueren</string>
+  <string name="threads">Threads</string>
+  <string name="threadsDescription">Stel dit in onder het aantal threads van uw CVE, de pijltjes markeren een goede veilige keuze</string>
+  <string name="threadsDescriptionMobile">Meer threads zullen meer accu gebruiken voor een betere analyse</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
+  <string name="memoryDescription">Hogere waarden kunnen de prestaties verbeteren</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
   <string name="blunder">Blunder</string>
@@ -261,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
-  <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
-  <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
-  <string name="waitForSignupHelp">We nemen binnenkort contact op om te helpen bij het afronden van de inschrijving.</string>
+  <string name="sendEmailForAccountVerification">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
@@ -519,6 +525,7 @@
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
+  <string name="randomChess960Position">Willekeurige Schaak960-positie</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="loadPosition">Laad een stelling</string>
@@ -595,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
+  <string name="clearField">Veld leegmaken</string>
+  <string name="orSeparator">of</string>
+  <string name="logInByEmail">Log in via e-mail</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -721,7 +731,6 @@
   <string name="keyCycleSelectedVariation">Bekijk geselecteerde variant</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
-  <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
   <string name="keyPreviousBranch">Vorige vertakking</string>
   <string name="keyNextBranch">Volgende vertakking</string>
   <string name="toggleVariationArrows">Variatiepijlen in/uitschakelen</string>
@@ -910,7 +919,6 @@
   <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken (behalve om de redenen die in de %s zijn vermeld).</string>
-  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -934,6 +942,7 @@
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="makeSureToRead">Lees zeker %1$s</string>
   <string name="theForumEtiquette">de regels van het forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Wees aardig op het forum.</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>
@@ -1023,6 +1032,7 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Zoeken</string>
   <string name="clearSearch">Zoekopdracht wissen</string>
+  <string name="thereAreNoResultsForX">Geen resultaten voor \"%s\"</string>
   <string name="tags">Labels</string>
   <string name="enPassant">En passant</string>
 </resources>

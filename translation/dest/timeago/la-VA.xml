@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">nunc</string>
-  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">nunc</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">modo</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">mox</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">abhinc %s minutam</item>
+    <item quantity="other">abhinc %s minutas</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">abhinc %s horam</item>
+    <item quantity="other">abhinc %s horas</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">abhinc %s die</item>
+    <item quantity="other">abhinc %s dies</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">abhinc %s hebdomadam</item>
+    <item quantity="other">abhinc %s hebdomadas</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">abhinc %s mensem</item>
+    <item quantity="other">abhinc %s menses</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">abhinc %s annum</item>
+    <item quantity="other">abhinc %s annos</item>
+  </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="one">%s momentum reliqua</item>
     <item quantity="other">%s momenta reliquae</item>

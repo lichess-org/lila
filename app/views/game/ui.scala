@@ -22,12 +22,11 @@ def sides(
 
 def widgets(
     games: Seq[Game],
-    notes: Map[GameId, String] = Map(),
     user: Option[User] = None,
     ownerLink: Boolean = false
 )(using ctx: lila.ui.Context): Frag =
   games.map: g =>
-    ui.widgets(g, notes.get(g.id), user, ownerLink):
+    ui.widgets(g, user = user, ownerLink = ownerLink):
       g.tournamentId
         .map: tourId =>
           views.tournament.ui.tournamentLink(tourId)(using ctx.translate)

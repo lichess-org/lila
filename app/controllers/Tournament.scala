@@ -2,13 +2,14 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.data.Preload
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import scalalib.data.Preload
 import lila.gathering.Condition.GetMyTeamIds
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
+import lila.mon.extensions.*
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -114,12 +115,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             addReloadEndpoint = env.tournament.lilaHttp.handles.some
           )
           chatOpt <- partial.not.so(loadChat(tour, json))
-          jsChat <- chatOpt.traverse: c =>
-            env.chat.json.mobile(c.chat)
+          jsChat = chatOpt.map(env.chat.json.mobile(_))
         yield Ok(json.add("chat" -> jsChat)).noCache
       )
         .monSuccess:
-          _.tournament.apiShowPartial(partial = getBool("partial"), HTTPRequest.clientName(ctx.req))
+          lila.mon.tournament.apiShowPartial(partial = getBool("partial"), HTTPRequest.clientName(ctx.req))
 
   def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
     WithVisibleTournament(id): tour =>
@@ -138,7 +138,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           withAllowList = true
         )
         chatOpt <- getBool("chat").so(loadChat(tour, data))
-        jsChat <- chatOpt.traverse(c => env.chat.json.mobile(c.chat))
+        jsChat = chatOpt.map(env.chat.json.mobile(_))
         socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
       yield JsonOk:
         data.add("chat", jsChat).add("socketVersion" -> socketVersion)

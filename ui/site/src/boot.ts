@@ -1,4 +1,13 @@
+/// <reference types="../types/ab" />
+import * as ab from 'ab/site';
+
+import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
+import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { eventuallySetupDefaultConnection } from 'lib/socket';
+import { once } from 'lib/storage';
 import {
   initMiniBoards,
   initMiniGames,
@@ -7,21 +16,16 @@ import {
   toggleBoxInit,
   alert,
 } from 'lib/view';
+import { watchers } from 'lib/view/watchers';
 import { text as xhrText } from 'lib/xhr';
+
 import { display as announceDisplay } from './announce';
+import { addDomHandlers } from './domHandlers';
 import OnlineFriends from './friends';
 import powertip from './powertip';
-import serviceWorker from './serviceWorker';
-import { watchers } from 'lib/view/watchers';
-import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
-import { scrollToInnerSelector, requestIdleCallback } from 'lib';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { addDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
-import { pubsub } from 'lib/pubsub';
-import { once } from 'lib/storage';
+import serviceWorker from './serviceWorker';
 import { addExceptionListeners } from './unhandledError';
-import { eventuallySetupDefaultConnection } from 'lib/socket';
 
 export function boot() {
   addExceptionListeners();
@@ -38,7 +42,7 @@ export function boot() {
     renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
 
@@ -62,6 +66,8 @@ export function boot() {
     toggleBoxInit();
 
     window.addEventListener('resize', dispatchChessgroundResize);
+
+    ab.init();
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 

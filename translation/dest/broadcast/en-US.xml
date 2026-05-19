@@ -21,10 +21,10 @@
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="roundName">Round name</string>
-  <string name="tournamentName">Tournament name</string>
+  <string name="tournamentName">Event name</string>
   <string name="tournamentDescription">Short tournament description</string>
-  <string name="fullDescription">Full tournament description</string>
-  <string name="fullDescriptionHelp">Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="fullDescription">Full event description</string>
+  <string name="fullDescriptionHelp">Optional long description of the event. You can use %1$s for additional formatting options. Length must be less than %2$s characters.</string>
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
@@ -39,7 +39,7 @@
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
   <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
-  <string name="showScores">Show players\' scores based on game results</string>
+  <string name="showScores">Show player scores based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="fideFederations">FIDE federations</string>
   <string name="top10Rating">Top 10 rating</string>
@@ -62,9 +62,9 @@
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
-  <string name="officialStandings">Official Standings</string>
+  <string name="officialStandings">Official standings</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
-  <string name="webmastersPage">webmasters page</string>
+  <string name="webmastersPage">Webmasters page</string>
   <string name="embedThisBroadcast">Embed this broadcast in your website</string>
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
@@ -72,7 +72,7 @@
   <string name="standingsDisclaimer">Standings are calculated using broadcasted games and may differ from official results.</string>
   <string name="allTeams">All teams</string>
   <string name="tournamentFormat">Tournament format</string>
-  <string name="tournamentLocation">Tournament Location</string>
+  <string name="tournamentLocation">Event location</string>
   <string name="topPlayers">Top players</string>
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>
@@ -104,6 +104,8 @@
   <string name="semifinals">Semifinals</string>
   <string name="finals">Finals</string>
   <string name="tiebreaks">Tiebreaks</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Game %s</string>
+  <string name="gameX">Game %s</string>
   <string name="knockouts">Knockouts</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

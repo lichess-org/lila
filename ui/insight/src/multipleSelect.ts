@@ -1,5 +1,5 @@
-import { isTouchDevice } from 'lib/device';
 import { escapeHtml } from 'lib';
+import { isTouchDevice } from 'lib/device';
 
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {
@@ -140,7 +140,7 @@ export const registerMultipleSelect = () => {
           optionalStyle = this.options.styler?.(value),
           style = optionalStyle ? `style="${optionalStyle}"` : '';
         disabled = groupDisabled || $elm.prop('disabled');
-        const $el = $(
+        return $(
           [
             `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
@@ -152,7 +152,6 @@ export const registerMultipleSelect = () => {
             '</li>',
           ].join(''),
         );
-        return $el;
       }
       if ($elm.is('optgroup')) {
         const label = that.options.labelTemplate?.($elm),
@@ -176,7 +175,7 @@ export const registerMultipleSelect = () => {
         });
         return $group.html();
       }
-      return;
+      return undefined;
     }
 
     events() {
@@ -211,17 +210,15 @@ export const registerMultipleSelect = () => {
           .off('mouseout')
           .multipleSelectHover(that.open.bind(that), that.close.bind(that));
       this.$parent.off('keydown').on('keydown', function (e) {
-        switch (e.which) {
-          case 27:
-            that.close();
-            that.$choice[0]?.focus();
-            break;
+        if (e.key === 'Escape') {
+          that.close();
+          that.$choice[0]?.focus();
         }
       });
       this.$searchInput
         .off('keydown')
         .on('keydown', function (e) {
-          if (e.keyCode === 9 && e.shiftKey) {
+          if (e.key === 'Tab' && e.shiftKey) {
             that.close();
           }
         })
@@ -229,7 +226,7 @@ export const registerMultipleSelect = () => {
         .on('keyup', function (e) {
           if (
             that.options.filterAcceptOnEnter &&
-            (e.which === 13 || e.which == 32) &&
+            (e.key === 'Enter' || e.code === 'Space') &&
             that.$searchInput.val()
           ) {
             that.$selectAll[0]?.click();
@@ -488,7 +485,7 @@ export const registerMultipleSelect = () => {
       } else {
         this.$selectItems.each(function () {
           const $parent = $(this).parent();
-          $parent[$parent.text().toLowerCase().indexOf(text) < 0 ? 'hide' : 'show']();
+          $parent[$parent.text().toLowerCase().includes(text) ? 'show' : 'hide']();
         });
         this.$disableItems.parent().hide();
         this.$selectGroups.each(function () {

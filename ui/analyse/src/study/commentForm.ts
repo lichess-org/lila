@@ -1,12 +1,14 @@
-import { prop } from 'lib';
-import { onInsert } from 'lib/view';
-import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import { currentComments, isAuthorObj } from './studyComments';
+
+import { blurOnEscape, prop } from 'lib';
+import { throttle } from 'lib/async';
 import { storage } from 'lib/storage';
 import type { TreeNode, TreePath } from 'lib/tree/types';
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
 import type { ChapterId } from './interfaces';
+import { currentComments, isAuthorObj } from './studyComments';
 
 interface Current {
   chapterId: ChapterId;
@@ -87,10 +89,7 @@ export function view(root: AnalyseCtrl): VNode {
               const heightStore = storage.make('study.comment.height');
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
-
-              $(el).on('keydown', e => {
-                if (e.code === 'Escape') el.blur();
-              });
+              blurOnEscape(el);
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },

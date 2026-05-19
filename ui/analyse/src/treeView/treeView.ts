@@ -1,15 +1,17 @@
-import type AnalyseCtrl from '../ctrl';
 import type { VNode, Hooks } from 'snabbdom';
+
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
-import { storedProp } from 'lib/storage';
-import type { ConcealOf } from '../interfaces';
-import { renderContextMenu } from './contextMenu';
-import { renderColumnView } from './columnView';
-import { renderInlineView } from './inlineView';
 import { addPointerListeners } from 'lib/pointer';
+import { storedProp } from 'lib/storage';
 import type { TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf } from '../interfaces';
+import { renderColumnView } from './columnView';
+import { renderContextMenu } from './contextMenu';
+import { renderInlineView } from './inlineView';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}

@@ -26,6 +26,8 @@
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
+  <string name="collinearMove">Kollineært trekk</string>
+  <string name="collinearMoveDescription">To brikker truer hverandre, og én av dem flytter langs angrepslinjen uten å slå.</string>
   <string name="cornerMate">Hjørnematt</string>
   <string name="cornerMateDescription">Press kongen inn i hjørnet ved hjelp av tårn eller dronning, og la springer sette matt.</string>
   <string name="crushing">Knusende</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
   <string name="enPassantDescription">En taktikk som utnytter en passant-regelen, der en bonde kan slå en motstanderbonde som har passert den ved å flytte to felt.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epålettmatt</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Kongens to fluktfelter er opptatt av andre brikker.</string>
+  <string name="epauletteMate">Epålettmatt</string>
+  <string name="epauletteMateDescription">Kongens to fluktfelter er opptatt av andre brikker.</string>
   <string name="exposedKing">Utsatt konge</string>
   <string name="exposedKingDescription">En taktikk som utnytter en konge med få forsvarsbrikker rundt seg, noe som ofte leder til sjakk matt.</string>
   <string name="fork">Gaffel</string>
@@ -73,11 +75,11 @@
   <string name="pillsburysMateDescription">Tårnet setter matt, mens løperen sperrer.</string>
   <string name="morphysMate">Morphys matt</string>
   <string name="morphysMateDescription">Løperen setter matt, mens tårnet sperrer.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Svalehalematt</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Et mattmønster som visuelt ligner halen til en svale, med en form som minner om en V.</string>
+  <string name="swallowstailMate">Svalehalematt</string>
+  <string name="swallowstailMateDescription">Et mattmønster som visuelt ligner halen til en svale, med en form som minner om en V.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, på tilstøtende felt til motstanderens konge, står på samme rad eller linje med ett felt mellom seg, slik at de tre brikkene danner en trekant.</string>
-  <string name="vukovicMate">Vuković-matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vuković-matt</string>
   <string name="vukovicMateDescription">Tårn og springer samarbeider for å sette kongen matt. Tårnet gir matt med støtte fra en tredje brikke, mens springeren brukes til å blokkere kongens fluktfelter.</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>

@@ -6,7 +6,7 @@ import scalalib.ThreadLocalRandom
 import scalalib.data.LazyFu
 
 import lila.common.Markdown
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
@@ -24,10 +24,11 @@ final class ClasApi(
     perfsRepo: lila.user.UserPerfsRepo,
     msgApi: MsgApi,
     authenticator: lila.core.security.Authenticator,
-    baseUrl: BaseUrl
+    routeUrl: RouteUrl
 )(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
+  import colls.selectArchived
   export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
@@ -59,7 +60,7 @@ final class ClasApi(
         .list(nb)
 
     def ofStudent(userId: UserId, nb: Int): Fu[List[Clas]] =
-      student.clasIdsOfUser(userId).flatMap(activeByIds(_, nb))
+      colls.clasIdsOfStudent(userId).flatMap(activeByIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = data.make(teacher)
@@ -94,7 +95,7 @@ final class ClasApi(
     def teachers(clas: Clas): Fu[List[User]] =
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
-    def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
+    def isTeacherIn(teacher: User, clasId: ClasId): Fu[Boolean] =
       Granter
         .of(_.Teacher)(teacher)
         .so:
@@ -206,9 +207,17 @@ final class ClasApi(
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
           logger.info(s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}")
         _ <- inactiveClasses.sequentiallyVoid: from =>
-          for clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+          for
+            clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+            _ <- clas.teachers.toList.sequentiallyVoid:
+              msgApi.systemPost(_, autoArchiveMsg(clas))
           yield teamSync(clas)(using None)
       yield ()
+
+  private def autoArchiveMsg(clas: Clas) =
+    s"""The class "${clas.name}" has been automatically archived due to inactivity.
+
+You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
 
   object student:
 
@@ -268,9 +277,6 @@ final class ClasApi(
         .sort($sort.asc("userId"))
         .cursor[Student]()
         .list(500)
-
-    private[ClasApi] def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
-      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false), _.sec)
 
     def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
@@ -333,7 +339,6 @@ final class ClasApi(
             passwordHash = authenticator.passEnc(password),
             email = email,
             blind = false,
-            mobileApiVersion = none,
             mustConfirmEmail = false,
             lang = teacher.lang,
             kid = KidMode.Yes
@@ -415,7 +420,7 @@ final class ClasApi(
           dest = student.id,
           text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
-$baseUrl/class/${clas.id}
+${routeUrl(routes.Clas.show(clas.id))}
 
 ${clas.desc}""",
           multi = true
@@ -423,9 +428,6 @@ ${clas.desc}""",
         .void
 
   end student
-
-  // works for clas & student
-  private def selectArchived(v: Boolean) = $doc("archived".$exists(v))
 
   object invite:
 
@@ -506,7 +508,7 @@ ${clas.desc}""",
         clas: Clas,
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
-      val url = s"$baseUrl/class/invitation/${invite.id}"
+      val url = routeUrl(routes.Clas.invitation(invite.id))
       if student.kid.yes then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.core.i18n.I18nKey.clas.*

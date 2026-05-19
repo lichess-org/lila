@@ -1,18 +1,19 @@
 import type { VNode } from 'snabbdom';
-import type { Player, Status, Source, Clock } from 'lib/game';
-import type { ForecastData } from './forecast/interfaces';
-import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
-import type { RelayData } from './study/relay/interfaces';
-import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
-import type { ExplorerOpts } from './explorer/interfaces';
-import type { StudyDataFromServer } from './study/interfaces';
-import type { AnalyseSocketSend } from './socket';
+
 import type { ExternalEngineInfo } from 'lib/ceval';
+import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
+import type { Player, Status, Source, Clock } from 'lib/game';
 import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
-
-import type * as studyDeps from './study/studyDeps';
 import type { PvDataServer, ServerEval, TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+
+import type { ExplorerOpts } from './explorer/interfaces';
+import type { ForecastData } from './forecast/interfaces';
+import type { AnalyseSocketSend } from './socket';
+import type { StudyDataFromServer } from './study/interfaces';
+import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
+import type { RelayData } from './study/relay/interfaces';
+import type * as studyDeps from './study/studyDeps';
 
 export interface NvuiPlugin {
   render(deps?: typeof studyDeps): VNode;

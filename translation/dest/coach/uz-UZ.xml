@@ -2,11 +2,29 @@
 <resources>
   <string name="lichessCoaches">Lichess murabbiylari</string>
   <string name="lichessCoach">Lichess murabbiyi</string>
-  <string name="areYouCoach">Siz %s da ajoyib shaxmat murabbiyimisiz?</string>
+  <string name="areYouCoach">Siz %s unvoniga ega tajribali shaxmat murabbiyimisiz?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM yoki FIDE</string>
-  <string name="confirmTitle">Oʻz reytingingizni kiriting va biz sizni ariznagizni koʻrib chiqamiz.</string>
+  <string name="confirmTitle">Unvoningizni bu yerda tasdiqlang va biz arizangizni koʻrib chiqamiz.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Bizga %s manziliga xat yuboring va biz arizangizni koʻrib chiqamiz.</string>
+  <string name="location">Manzil</string>
   <string name="languages">Tillar</string>
   <string name="rating">Reyting</string>
-  <string name="hourlyRate">Soatli reyting</string>
-  <string name="availability">Mavjudligi</string>
+  <string name="hourlyRate">Soatbay toʻlov</string>
+  <string name="availability">Bandlik holati</string>
+  <string name="accepting">Oʻquvchilarni qabul qilmoqda</string>
+  <string name="notAccepting">Hozirgi vaqtda oʻquvchi qabul qilmayapti</string>
+  <string name="xCoachesStudents">%s shaxmatdan dars beradi</string>
+  <string name="viewXProfile">%s Lichess profilini koʻrish</string>
+  <string name="sendPM">Shaxsiy xabar joʻnatish</string>
+  <string name="aboutMe">Men haqimda</string>
+  <string name="playingExperience">Oʻyin tajribam</string>
+  <string name="teachingExperience">Dars berish tajribam</string>
+  <string name="otherExperiences">Boshqa tajribalarim</string>
+  <string name="bestSkills">Asosiy mahoratlarim</string>
+  <string name="teachingMethod">Oʻqitish metodikam</string>
+  <string name="publicStudies">Ommaga ochiq saboqlarim</string>
+  <string name="youtubeVideos">YouTube videolarim</string>
+  <string name="allCountries" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected. it means you are not filtering by country at all. Could alternatively be stated as 'Any country' or 'Show all countries'.&#10;&#10;This string refers to the user's viewing options. A coach cannot state 'any country' on their profile.">Barcha davlatlar</string>
+  <string name="lastLogin" comment="A filter on the coach page, letting users view only coaches who last logged in over a certain period of time.">Oxirgi faollik</string>
+  <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">Lichess reyting</string>
 </resources>

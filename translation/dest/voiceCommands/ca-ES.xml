@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Veure el videotutorial</string>
   <string name="instructions1">Utilitza el botó %1$s per activar/desactivar el reconeixement per veu, el botó %2$s per obrir aquesta ajuda i el botó %3$s per canviar la configuració de la veu.</string>
   <string name="instructions2">Mostrem fletxes de múltiples moviments quan no estem segurs. Digues el color o el número de la fletxa d\'un moviment per seleccionar-lo.</string>
-  <string name="instructions3">Si una fletxa mostra un radar escombra, aquest moviment es jugarà quan el cercle es completi. Durant aquest temps, podeu dir %1$s per moure immediatament, %2$s per cancel·lar o digueu el color/número d\'una altra fletxa. Aquest temporitzador es pot ajustar o desactivar des de la configuració.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Si una fletxa mostra un radar escombra, aquest moviment es jugarà quan el cercle es completi. Durant aquest temps, podeu dir %1$s per moure immediatament, %2$s per cancel·lar o digueu el color/número d\'una altra fletxa. Aquest temporitzador es pot ajustar o desactivar des de la configuració.</string>
   <string name="instructions4">Activeu %s en entorns sorollosos. Mantingueu polsada la tecla shift mentre parleu quan aquesta funció estigui activada.</string>
   <string name="instructions5">Utilitzeu l\'alfabet fonètic per millorar el reconeixement de les columnes del tauler d\'escacs.</string>
   <string name="instructions6">%s explica la configuració del moviment per veu en més detall.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Moure a e4 o seleccionar la peça d\'e4</string>
   <string name="selectOrCaptureABishop">Seleccionar o capturar un alfil</string>
   <string name="takeRookWithQueen">Capturar una torre amb la dama</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Enrocar (a qualsevol flanc)</string>
+  <string name="castle">Enrocar (a qualsevol flanc)</string>
   <string name="phoneticAlphabetIsBest">L\'alfabet fonètic és el millor</string>
   <string name="cancelTimerOrDenyARequest">Cancel·la el comptador o denega una sol·licitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Juga el moviment preferit o confirma alguna cosa</string>

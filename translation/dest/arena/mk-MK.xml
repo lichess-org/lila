@@ -13,7 +13,7 @@
 Така што, победата ќе вреди 4 поени, ремито 2 поени, а загубата сѐ уште ќе носи 0 поени.
 
 На пример, две победи проследени со реми ќе вредат 6 поени: 2 + 2 + (2 х 1)</string>
-  <string name="berserk">Берсерк Арена</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Берсерк Арена</string>
   <string name="berserkAnswer">Кога играчот притиска на Берсерк копчето на почетокот на партијата, тој губи половина од времето, но победата вреди 1 поен повеќе.
 
 Ако се одбере Берсерк се губи и додатното време за потег (1+2 е исклучок, станува 1+0).

@@ -49,7 +49,7 @@ all.forEach(p => {
   const similar = new Map();
   p.likers.forEach(liker => {
     (likers.get(liker) || []).forEach(id => {
-      if (id != p._id) similar.set(id, (similar.get(id) || 0) + 1);
+      if (id !== p._id) similar.set(id, (similar.get(id) || 0) + 1);
     });
   });
   const sorted = Array.from(similar)

@@ -64,7 +64,7 @@ final class UblogApi(
   yield
     triggerAutomod(post).foreach: res =>
       if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, post, res)
+      then sendPostToZulip(author.light, post, blog, res)
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
@@ -179,9 +179,12 @@ final class UblogApi(
   private def sendPostToZulip(
       user: LightUser,
       post: UblogPost,
+      blog: UblogBlog,
       assessment: Option[UblogAutomod.Assessment]
   ): Funit =
-    val source = assessment.fold("unknown")(_.quality.name) + " quality"
+    val source =
+      if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier"
+      else assessment.fold("unknown")(_.quality.name) + " quality"
     val emdashes = post.markdown.value.count(_ == '—')
     val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
@@ -201,7 +204,7 @@ final class UblogApi(
     )
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
-    val retries = 5 // 30s, 1m, 2m, 4m, 8m
+    val retries = 1 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>

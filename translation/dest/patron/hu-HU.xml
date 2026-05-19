@@ -84,4 +84,5 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="paymentDetails">Fizetés részletei</string>
   <string name="updatePaymentMethod">Fizetési mód frissítése</string>
   <string name="stripeManageSub">Kezeld előfizetésed, és töltsd le a számlákat és nyugtákat</string>
+  <string name="coverFees">Hozzáadok még %s összeget a tranzakciós költségek fedezésére</string>
 </resources>

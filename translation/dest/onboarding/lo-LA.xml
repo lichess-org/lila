@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">ນີ້ແມ່ນໜ້າໂປຣໄຟລ໌ຂອງທ່ານ.</string>
   <string name="enabledKidModeSuggestion">ບັນຊີນີ້ຈະມີເດັກນ້ອຍໃຊ້ບໍ່? ທ່ານອາດຈະຕ້ອງການເປີດໃຊ້ %s.</string>
   <string name="whatNowSuggestions">ຈະເຮັດຫຍັງຕໍ່ດີ? ນີ້ແມ່ນບາງຄຳແນະນຳ:</string>
-  <string name="learnChessRules">ຮຽນຮູ້ກົດກະຕິກາໝາກຮຸກ</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">ຮຽນຮູ້ກົດກະຕິກາໝາກຮຸກ</string>
   <string name="improveWithChessTacticsPuzzles">ພັດທະນາສີມືດ້ວຍເກມປິດສະໜາແທັກຕິກໝາກຮຸກ.</string>
   <string name="playTheArtificialIntelligence">ຫຼິ້ນກັບປັນຍາປະດິດ (AI).</string>
   <string name="playOpponentsFromAroundTheWorld">ຫຼິ້ນກັບຄູ່ຕໍ່ສູ້ຈາກທົ່ວໂລກ.</string>

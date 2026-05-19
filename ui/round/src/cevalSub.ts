@@ -1,9 +1,10 @@
-import { lastStep } from './util';
+import { playedTurns } from 'lib/game';
+import { storage } from 'lib/storage';
+import { text as xhrText } from 'lib/xhr';
+
 import type RoundController from './ctrl';
 import type { ApiMove, RoundData } from './interfaces';
-import { text as xhrText } from 'lib/xhr';
-import { storage } from 'lib/storage';
-import { playedTurns } from 'lib/game';
+import { lastStep } from './util';
 
 let found = false;
 

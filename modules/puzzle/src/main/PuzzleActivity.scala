@@ -7,12 +7,7 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 
-final class PuzzleActivity(
-    colls: PuzzleColls
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem
-):
+final class PuzzleActivity(colls: PuzzleColls)(using Executor, akka.actor.ActorSystem):
 
   import PuzzleActivity.*
   import BsonHandlers.given

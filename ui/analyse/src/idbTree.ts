@@ -1,8 +1,9 @@
-import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
-import type AnalyseCtrl from './ctrl';
 import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
-import * as treeOps from 'lib/tree/ops';
 import { completeNode } from 'lib/tree/node';
+import * as treeOps from 'lib/tree/ops';
+import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from './ctrl';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 
@@ -11,7 +12,7 @@ export class IdbTree {
   private moveDb?: ObjectStorage<MoveState>;
   private collapseDb?: ObjectStorage<TreePath[]>;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
     return (

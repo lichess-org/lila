@@ -29,6 +29,7 @@
     @include if-light {
       box-shadow: 0 4px 4px #aaa inset;
     }
+
     &::-webkit-scrollbar {
       height: 0;
     }
@@ -58,6 +59,7 @@
     &.#{$active-class},
     &:hover {
       background: $c-bg-zebra;
+
       @include if-light {
         background: hsl($site-hue, 20%, 85%);
       }

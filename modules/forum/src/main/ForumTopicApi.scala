@@ -32,9 +32,6 @@ final private class ForumTopicApi(
 
   import BSONHandlers.given
 
-  def lastPage(topic: ForumTopic): Int =
-    topic.nbPosts / config.postMaxPerPage.value + 1
-
   def showLastPage(categId: ForumCategId, slug: ForumTopicSlug)(using NetDomain)(using me: Option[Me]) =
     topicRepo
       .byTree(categId, slug)
@@ -99,7 +96,6 @@ final private class ForumTopicApi(
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang.map(_.language),
-        number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )

@@ -93,7 +93,7 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="timePlaying">Timp jucat</string>
   <string name="variantXOverLastY">%1$s peste ultimele %2$s</string>
   <string name="winrate">Rată de câștig</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
+  <string name="na">N/A</string>
   <string name="overview">General</string>
   <string name="news">Noutăți</string>
   <string name="classNews">Noutățile clasei</string>
@@ -125,7 +125,7 @@ Va aparea o linie orizontală.</string>
   <string name="allowMessagingBetweenStudentsDesc">Acest lucru se aplică numai conturilor pe care le-ai creat pentru studenții tăi.</string>
   <string name="quickLoginCode">Cod autentificare rapidă</string>
   <string name="quickLoginCodes">Coduri de conectare rapidă</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Utilizați aceste coduri la %s pentru a vă înregistra elevii în Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Utilizați aceste coduri la %s pentru a vă înregistra elevii în Lichess.</string>
   <string name="quickLoginCodesDesc2">Când codurile expiră, elevii tăi vor rămâne conectați, până când se vor deconecta manual.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expiră %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiră %s</string>
 </resources>

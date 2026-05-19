@@ -70,10 +70,11 @@ final class RelayPgnStream(
     flags.copy(
       updateTags = tags =>
         val gameUrl = routeUrl(rt.call(chapter.id))
-        val site = tags(_.Site)
-          .flatMap(site => lila.common.url.parse(site).toOption)
-          .filter(_.path.sizeIs > 6)
-          .fold(gameUrl)(_.toString)
+        val site: String = tags(_.Site).fold(gameUrl.value): original =>
+          lila.common.url.parse(original).toOption match
+            case None => original
+            case Some(url) if url.path.sizeIs > 6 => url.toString
+            case _ => gameUrl.value
         tags +
           Tag("BroadcastName", rt.tour.name.value) +
           Tag("BroadcastURL", routeUrl(rt.call)) +

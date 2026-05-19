@@ -11,8 +11,10 @@
     min-width: 100%;
     z-index: $z-mz-menu-4;
   }
+
   @media (max-width: at-most($small)) {
     @include box-radius;
+
     position: fixed;
     top: 50% !important;
     left: 50%;
@@ -23,14 +25,17 @@
 
   > div {
     @extend %flex-column;
+
     gap: 2em;
     text-align: start;
   }
 
   section {
     @extend %flex-column;
+
     gap: 1.5em;
     padding: 1.2em 0;
+
     &:not(:last-child) {
       border-bottom: $border;
     }

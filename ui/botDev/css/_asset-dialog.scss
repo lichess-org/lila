@@ -1,5 +1,6 @@
 .asset-dialog {
   @extend %flex-column;
+
   align-items: stretch;
   min-width: 704px;
   width: 70vw;
@@ -9,6 +10,7 @@
     width: 90vw;
     height: 90vh;
   }
+
   .asset-grid {
     display: grid;
     width: 100%;
@@ -17,18 +19,22 @@
     grid-auto-rows: auto;
     gap: 1em;
   }
+
   .tab {
     justify-content: center;
     font-size: 1.2em;
     font-weight: bold;
   }
+
   img {
     width: 176px;
     aspect-ratio: 1/1;
     border-radius: 8px;
   }
+
   .asset-item {
     @extend %flex-column;
+
     position: relative;
     align-items: center;
     gap: 0.5em;
@@ -40,55 +46,68 @@
     .asset-preview {
       width: min-content;
     }
+
     &.local-only {
       background: $c-bg-low;
     }
+
     .upper-right {
       z-index: $z-above-dialog-14;
       top: -4px;
       right: -4px;
     }
+
     .upper-left {
       z-index: $z-above-dialog-14;
       top: -4px;
       left: -4px;
     }
+
     .asset-label {
       font-size: 0.9em;
       font-weight: bold;
     }
+
     input.asset-label {
       text-align: center;
       background-color: transparent;
       border: none;
       outline: none;
       padding: 2px 4px;
+
       &[disabled] {
         pointer-events: none;
       }
+
       &:hover {
         background-color: $m-primary_bg--mix-40;
       }
+
       &:focus:not([disabled]) {
         background-color: $c-bg-page; // $m-primary_bg--mix-60;
         outline: 1px solid;
       }
     }
+
     .preview-sound {
       @extend %flex-center-nowrap;
+
       text-transform: none;
       color: $c-font-dim;
+
       &::before {
         margin-inline-end: 0.5em;
         font-size: 24px;
       }
     }
   }
+
   .chooser .asset-item,
   .asset-item[data-action='add'] {
     &:hover {
       cursor: pointer;
     }
+
     &:hover:not(:has(button:hover)) {
       background: $m-bg_high--lighten-11;
       outline: $c-primary 2px dashed;
@@ -100,16 +119,20 @@ div.import-dialog {
   &,
   > div {
     @extend %flex-column;
+
     gap: 2em;
   }
+
   .options {
     .name {
       width: 160px;
     }
+
     .ply {
       width: 50px;
     }
   }
+
   .progress {
     .bar {
       height: 16px;
@@ -118,10 +141,12 @@ div.import-dialog {
       background-color: $c-primary;
       transition: width 0.3s;
     }
+
     .text {
       color: $c-font-dim;
     }
   }
+
   button {
     align-self: end;
   }

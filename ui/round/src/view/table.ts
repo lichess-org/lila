@@ -1,27 +1,30 @@
-import * as licon from 'lib/licon';
+import { h } from 'snabbdom';
+
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import { render as renderReplay, analysisButton } from './replay';
-import renderExpiration from './expiration';
-import { userHtml } from './user';
-import * as button from './button';
+import * as licon from 'lib/licon';
+import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, dataIcon } from 'lib/view';
+
 import type RoundController from '../ctrl';
-import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton } from 'lib/view';
+import * as button from './button';
 import { anyClockView } from './clock';
+import renderExpiration from './expiration';
+import { render as renderReplay, analysisButton } from './replay';
+import { userHtml } from './user';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   if (ctrl.nvui) return undefined;
   const player = ctrl.playerAt(position);
   return player.ai
-    ? hl('div.user-link.online.ruser.ruser-' + position, [
-        hl('i.line'),
-        hl('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
+    ? h('div.user-link.online.ruser.ruser-' + position, [
+        h('icon.line'),
+        h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
       ])
     : userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
 
-const loader = () => hl('i.ddloader');
+const loader = () => h('icon.ddloader');
 
 const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes[]) => [
   renderReplay(ctrl),
@@ -44,10 +47,10 @@ const prompt = (ctrl: RoundController) => {
   const o = ctrl.question();
   if (!o) return {};
 
-  const btn = (tpe: 'yes' | 'no', icon: string, text: string, action: () => void) =>
+  const btn = (tpe: 'yes' | 'no', icon: LiconType, text: string, action: () => void) =>
     ctrl.nvui
       ? hl('button', { hook: bind('click', action) }, text)
-      : hl(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
+      : hl(`a.${tpe}`, { attrs: dataIcon(icon), hook: bind('click', action) });
 
   const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.text || i18n.site.decline, o.no.action);
   const yesBtn =

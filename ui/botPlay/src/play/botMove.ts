@@ -1,9 +1,11 @@
 import { type Chess, makeUci, type Move, parseUci } from 'chessops';
-import type { MoveArgs, MoveSource } from 'lib/bot/types';
-import type { Game } from '../game';
 import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
+
+import type { MoveArgs, MoveSource } from 'lib/bot/types';
 import { hashBoard } from 'lib/game/hash';
+
+import type { Game } from '../game';
 
 export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
   const now = performance.now();

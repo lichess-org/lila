@@ -1,7 +1,7 @@
-import * as timeouts from './timeouts';
 import type { ChessCtrl } from './chess';
-import { decomposeUci } from './util';
 import type { Shape } from './chessground';
+import * as timeouts from './timeouts';
+import { decomposeUci } from './util';
 
 export interface Scenario {
   isComplete(): boolean;
@@ -45,7 +45,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     it++;
     opts.setFen(opts.chess.fen(), opts.chess.getColor(), opts.makeChessDests(), [move[0], move[1]]);
     if (step.shapes) timeouts.setTimeout(() => opts.setShapes(step.shapes), 500);
-    return;
+    return undefined;
   };
 
   return {

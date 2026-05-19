@@ -1,7 +1,9 @@
 import Lpv from '@lichess-org/pgn-viewer';
-import type { Opening } from './interfaces';
+
 import { set } from 'lib/data';
 import { numberFormat } from 'lib/i18n';
+
+import type { Opening } from './interfaces';
 
 interface AnimateNumber {
   duration: number;

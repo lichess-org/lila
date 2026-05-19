@@ -16,14 +16,18 @@
     top: 0;
     padding: 0.5rem;
   }
+
   .settings {
     @include inline-end(0);
+
     &:hover {
       color: $c-link;
     }
   }
+
   .delete {
     @include inline-start(0);
+
     &:hover {
       color: $c-bad;
     }
@@ -85,6 +89,7 @@
 
       &:last-child {
         @extend %ellipsis;
+
         display: block;
       }
     }
@@ -104,7 +109,7 @@
   &:hover {
     background: $c-bg-zebra;
 
-    i {
+    icon {
       color: $c-link;
       opacity: 0.9;
     }
@@ -113,20 +118,21 @@
   &.new {
     background: $m-secondary_bg-popup--mix-27;
 
-    i {
+    icon {
       color: $c-secondary;
       opacity: 0.7;
     }
 
     &:hover {
       background: $m-secondary_bg-popup--mix-36;
-      i {
+
+      icon {
         opacity: 1;
       }
     }
   }
 
-  i {
+  icon {
     font-size: 2em;
     opacity: 0.5;
     margin-inline-end: 1rem;

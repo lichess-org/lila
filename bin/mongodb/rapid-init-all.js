@@ -86,7 +86,7 @@ db.user4.find(query).forEach(u => {
     },
   };
 
-  if (classicalPerf.nb == 0) update['$unset'] = { 'perfs.classical': true };
+  if (classicalPerf.nb === 0) update['$unset'] = { 'perfs.classical': true };
   else update['$set']['perfs.classical'] = classicalPerf;
   if (rapidPerf.nb > 0) update['$set']['perfs.rapid'] = rapidPerf;
 

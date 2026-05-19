@@ -1,11 +1,12 @@
-import type { StudyChapterConfig, ReloadData } from './interfaces';
 import { text as xhrText, json as xhrJson, form as xhrForm, textRaw as xhrRaw } from 'lib/xhr';
+
+import type { StudyChapterConfig, ReloadData } from './interfaces';
 
 export const reload = (
   baseUrl: string,
   id: string,
   chapterId?: string,
-  withChapters: boolean = false,
+  withChapters = false,
 ): Promise<ReloadData> => {
   let url = `/${baseUrl}/${id}`;
   if (chapterId) url += '/' + chapterId;

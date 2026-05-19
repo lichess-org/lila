@@ -24,8 +24,9 @@
   }
 
   &__content {
-    @extend %flex-column, %break-word;
+    @extend %flex-column;
 
+    overflow-wrap: anywhere;
     flex: 0 0 auto;
     padding: 3em 3vw 1em 3vw;
   }
@@ -63,6 +64,7 @@
     font-size: 0.9em;
     color: $c-font;
     margin: 0.5em 0;
+    user-select: none;
   }
 
   mine {
@@ -90,6 +92,7 @@
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;
+    user-select: none;
   }
 
   img {
@@ -109,8 +112,8 @@
 
     &--game {
       @extend %box-neat-force;
+
       padding-bottom: 75%;
-      // @extend %game-embed;
     }
 
     &.not-found {
@@ -121,6 +124,7 @@
 
   form.unsub {
     display: inline;
+
     .button {
       text-transform: none;
     }

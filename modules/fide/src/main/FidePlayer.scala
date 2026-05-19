@@ -24,6 +24,7 @@ case class FidePlayer(
     blitzK: Option[KFactor],
     year: Option[Int],
     deceasedYear: Option[Int] = None,
+    gender: Option[FidePlayer.Gender] = None,
     inactive: Boolean
 ) extends lila.core.fide.Player:
 
@@ -32,6 +33,8 @@ case class FidePlayer(
     case FideTC.rapid => rapid
     case FideTC.blitz => blitz
 
+  def ratingOfOrStandard(tc: FideTC): Option[Elo] = ratingOf(tc).orElse(standard)
+
   def kFactorOf(tc: FideTC): KFactor = tc
     .match
       case FideTC.standard => standardK
@@ -39,7 +42,7 @@ case class FidePlayer(
       case FideTC.blitz => blitzK
     .|(KFactor.default)
 
-  def slug: String = FidePlayer.slugify(name)
+  lazy val slug: String = FidePlayer.slugify(name)
 
   def age: Option[Int] =
     val nowYear = nowInstant.date.getYear
@@ -51,7 +54,7 @@ case class FidePlayer(
   def isSame(other: FidePlayer) = fideData == other.fideData
 
   private def fideData =
-    (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, inactive)
+    (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, gender, inactive)
 
   def ratingsStr = List(
     "Standard" -> standard,
@@ -83,6 +86,9 @@ object FidePlayer:
       Form(single("photo.credit" -> optional(nonEmptyText))).fill(p.photo.flatMap(_.credit))
 
   case class WithFollow(player: FidePlayer, follow: Boolean)
+
+  opaque type Gender = Char
+  object Gender extends TotalWrapper[Gender, Char]
 
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r

@@ -10,6 +10,11 @@
     "bundle": "src/editor.ts"
   },
   "exports": {
-    ".": "./dist/editor.d.ts"
+    ".": "./dist/editor.d.ts",
+    "./chess960": {
+      "types": "./dist/chess960.d.ts",
+      "source": "./src/chess960.ts",
+      "default": "./dist/chess960.js"
+    }
   }
 }

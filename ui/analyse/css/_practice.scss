@@ -1,5 +1,6 @@
 .practice-box {
   @include prevent-select;
+
   flex: 0 0 135px;
 
   .comment {
@@ -20,6 +21,7 @@
         @extend %san;
       }
     }
+
     .next {
       border: 0;
       background: $m-primary_bg--mix-80;
@@ -110,16 +112,19 @@
 
 .ceval .practice-mode {
   @extend %flex-column;
+
   justify-content: center;
   flex: 1 0 auto;
   height: 38px;
   width: 64px;
   text-align: center;
   font-weight: bold;
+
   p {
     margin: 0;
     font-size: 1rem;
   }
+
   p.secondary {
     font-size: 0.9rem;
     opacity: 0.6;

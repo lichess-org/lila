@@ -81,6 +81,7 @@
     &:first-child {
       padding-inline-start: 2em;
     }
+
     &:last-child ::before {
       margin-inline-end: 8px;
       line-height: 0.9;
@@ -97,6 +98,7 @@
       // player name
       &:first-child {
         @include ellipsis;
+
         max-width: 25vw;
       }
     }

@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Öğretici videoyu izle</string>
   <string name="instructions1">Ses tanımayı açıp kapatmak için %1$s tuşunu, bu yardım penceresini açmak için %2$s tuşunu ve konuşma ayarlarını değiştirmek için %3$s menüsünü kullanın.</string>
   <string name="instructions2">Emin olmadığımızda birçok hamle için ok gösteririz. Seçmek için bir hamle okunun ya rengini, ya da numarasını konuşun.</string>
-  <string name="instructions3">Eğer bir ok geniş bir radar gösteriyorsa, bu hamle dairenin tamamlandığı zaman oynanacaktır. Bu süre zarfında, yalnızca hamleyi hemen oynamak için %1$s, iptal etmek için %2$s, veya farklı bir okun rengini/numarasını söylemek için konuşabilirsiniz. Bu zamanlayıcı ayarlarında ayarlanabilir veya kapatılabilir.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Eğer bir ok geniş bir radar gösteriyorsa, bu hamle dairenin tamamlandığı zaman oynanacaktır. Bu süre zarfında, yalnızca hamleyi hemen oynamak için %1$s, iptal etmek için %2$s, veya farklı bir okun rengini/numarasını söylemek için konuşabilirsiniz. Bu zamanlayıcı ayarlarında ayarlanabilir veya kapatılabilir.</string>
   <string name="instructions4">Gürültülü ortamlarda %s\'yi etkinleştirin. Bu açıkken komutları söylerken Shift tuşunu basılı tutun.</string>
   <string name="instructions5">Fonoloji alfabesini kullanarak satranç tahtası dosyalarının tanınmasını iyileştirin. </string>
   <string name="instructions6">%s ses ile hareket ayarlarını detayla anlatıyor.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">E4\'e hareket et veya e4\'teki taşı seç</string>
   <string name="selectOrCaptureABishop">Fil seçin veya yakalayın</string>
   <string name="takeRookWithQueen">Vezir ile kaleyi al</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rok at (kısa veya uzun)</string>
+  <string name="castle">Rok at (kısa veya uzun)</string>
   <string name="phoneticAlphabetIsBest">Fonetik alfabe en iyisidir</string>
   <string name="cancelTimerOrDenyARequest">Zamanlayıcıyı iptal et veya bir isteği reddet</string>
   <string name="playPreferredMoveOrConfirmSomething">Tercih edilen hamleyi oyna veya bir şeyi onayla</string>

@@ -1,8 +1,9 @@
 package lila.web
 
 import play.api.mvc.RequestHeader
+import scalalib.net.Bearer
 
-import lila.core.net.{ IpAddress, Bearer }
+import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.security.IsProxy
 import lila.memo.RateLimit
@@ -24,7 +25,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val setupBotAi = RateLimit[UserId](20, 1.day, key = "setup.post.bot.ai")
 
   val boardApiConcurrency = ConcurrencyLimit[Either[Sri, UserId]](
-    name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -144,12 +144,19 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](credits = 20 * 3, duration = 24.hour, key = "study.clone.ip")
   )
 
+  val studyCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](credits = 30 * 2, duration = 24.hour, key = "study.create.user"),
+    RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
+  )
+
   val studyPgn = RateLimit[IpAddress](credits = 31, duration = 1.minute, key = "export.study.pgn.ip")
 
   val relayPgn = RateLimit[IpAddress](credits = 61, duration = 1.minute, key = "export.relay.pgn.ip")
 
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  val coachSearch = RateLimit[UserId](credits = 15 * 3, duration = 10.minutes, key = "coach.search.user")
 
   object enumeration:
 

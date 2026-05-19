@@ -5,6 +5,7 @@ import scalalib.actor.SyncActor
 import lila.common.Bus
 import lila.core.pool.{ HookThieve, IsClockCompatible }
 import lila.core.socket.{ Sri, Sris }
+import lila.mon.extensions.*
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
@@ -98,7 +99,7 @@ final private class LobbySyncActor(
         .chronometer
         .logIfSlow(100, logger): r =>
           s"GetSris size=${r.sris.size}"
-        .mon(_.lobby.socket.getSris)
+        .mon(lila.mon.lobby.socket.getSris)
         .result
         .logFailure(logger, err => s"broom cannot get sris from socket: $err")
         .foreach { this ! WithPromise(_, promise) }

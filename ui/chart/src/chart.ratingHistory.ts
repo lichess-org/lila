@@ -1,3 +1,4 @@
+import 'chartjs-adapter-dayjs-4';
 import {
   type ChartDataset,
   type Point,
@@ -11,17 +12,18 @@ import {
   Tooltip,
   LineElement,
 } from 'chart.js';
-import type { PerfRatingHistory } from './interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
-import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
+import noUiSlider, { type Options, PipsMode } from 'nouislider';
+
 import { memoize } from 'lib';
 import { pubsub } from 'lib/pubsub';
+
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
+import type { PerfRatingHistory } from './interface';
 
 interface Opts {
   data: PerfRatingHistory[];

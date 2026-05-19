@@ -1,5 +1,3 @@
-import { fontFamily, gridColor, hoverBorderColor } from './index';
-import type { DistributionData } from './interface';
 import {
   type ChartConfiguration,
   type ChartData,
@@ -14,6 +12,9 @@ import {
   Tooltip,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+import { fontFamily, gridColor, hoverBorderColor } from './index';
+import type { DistributionData } from './interface';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 

@@ -103,7 +103,7 @@ le píosa ag iasacht a tógáil.</string>
 trí do chosaint!</string>
   <string name="escapeOrBlock">Éalaigh leis an rí
 nó an iasacht a blocáil!</string>
-  <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i mbeart amháin</string>
   <string name="defeatTheOpponentsKing">Cloígh rí an chéile comhraic</string>
   <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>

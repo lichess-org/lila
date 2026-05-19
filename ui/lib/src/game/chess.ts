@@ -1,15 +1,14 @@
 // no side effects allowed due to re-export by index.ts
 
-import { shuffle } from '../algo';
+import { type Chess, type NormalMove, parseUci, makeUci, opposite } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
-import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
 
-export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
+import { shuffle } from '@/algo';
+
+export const fixCrazySan = (san: San): San => (san.startsWith('P') ? san.slice(1) : san);
 
 export const destsToUcis = (destMap: Dests): Uci[] =>
   Array.from(destMap).reduce<Uci[]>((acc, [orig, dests]) => acc.concat(dests.map(dest => orig + dest)), []);
-
-export { uciToMove } from '@lichess-org/chessground/util';
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
@@ -17,6 +16,10 @@ export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 
 export const fenToEpd = (fen: FEN): string => fen.split(' ').slice(0, 4).join(' ');
 
 export const plyToTurn = (ply: number): number => Math.floor((ply - 1) / 2) + 1;
+
+export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
+
+export const plyOpponentColor = (ply: number): Color => opposite(plyColor(ply));
 
 export const pieceCount = (fen: FEN): number => fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1;
 

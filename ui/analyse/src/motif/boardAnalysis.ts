@@ -1,5 +1,3 @@
-import { parseSquare, opposite, squareRank, squareFile, squareFromCoords } from 'chessops/util';
-import { SquareSet } from 'chessops/squareSet';
 import {
   attacks,
   ray,
@@ -13,7 +11,10 @@ import {
 import { Board } from 'chessops/board';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
+import { SquareSet } from 'chessops/squareSet';
 import { type Role, type Color, type Piece, type NormalMove, COLORS, type Square } from 'chessops/types';
+import { parseSquare, opposite, squareRank, squareFile, squareFromCoords } from 'chessops/util';
+
 import type { Pin, Undefended, Checkable } from './interfaces';
 
 export const boardAnalysisVariants = [

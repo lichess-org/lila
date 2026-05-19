@@ -1,10 +1,32 @@
-import * as xhr from './xhr';
-import computeAutoShapes from './autoShape';
-import keyboard from './keyboard';
-import moveTest from './moveTest';
-import PuzzleSession from './session';
-import PuzzleStreak from './streak';
+import { Result } from '@badrap/result';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { Chess, normalizeMove } from 'chessops/chess';
+import { chessgroundDests } from 'chessops/compat';
+import { parseFen, makeFen } from 'chessops/fen';
+import { makeSanAndPlay } from 'chessops/san';
+import type { Role, Move, Outcome } from 'chessops/types';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboard-move';
+import { makeVoiceMove, type VoiceMove } from 'voice';
+
+import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
+import { CevalCtrl } from 'lib/ceval';
+import type { CevalHandler } from 'lib/ceval/types';
+import { plyColor } from 'lib/game/chess';
+import { type WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
+import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
+import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
+import { completeNode } from 'lib/tree/node';
+import { last } from 'lib/tree/ops';
+import type { TreeNode, TreePath } from 'lib/tree/types';
+import { alert } from 'lib/view';
+import { toggleZenMode } from 'lib/view/zen';
+
+import computeAutoShapes from './autoShape';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -14,31 +36,13 @@ import type {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
-import { Chess, normalizeMove } from 'chessops/chess';
-import { chessgroundDests } from 'chessops/compat';
-import { CevalCtrl } from 'lib/ceval';
-import { makeVoiceMove, type VoiceMove } from 'voice';
-import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
-import { makeSanAndPlay } from 'chessops/san';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import keyboard from './keyboard';
+import moveTest from './moveTest';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'lib/game/promotion';
-import type { Role, Move, Outcome } from 'chessops/types';
-import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
 import Report from './report';
-import { last } from 'lib/tree/ops';
-import { uciToMove } from '@lichess-org/chessground/util';
-import type { CevalHandler } from 'lib/ceval/types';
-import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view';
-import { type WithGround } from 'lib/game/ground';
-import type { TreeNode, TreePath } from 'lib/tree/types';
-import { completeNode } from 'lib/tree/node';
-import { Result } from '@badrap/result';
-import { toggleZenMode } from 'lib/view/zen';
+import PuzzleSession from './session';
+import PuzzleStreak from './streak';
+import * as xhr from './xhr';
 
 export default class PuzzleCtrl implements CevalHandler {
   data: PuzzleData;
@@ -54,6 +58,7 @@ export default class PuzzleCtrl implements CevalHandler {
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
+  googlyEyes?: () => DrawShape[];
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
@@ -68,15 +73,14 @@ export default class PuzzleCtrl implements CevalHandler {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
   showHint = toggle(false);
   hintHasBeenShown = toggle(false);
+  voted: boolean | undefined;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
-  voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
   cgVersion = 1;
@@ -92,13 +96,13 @@ export default class PuzzleCtrl implements CevalHandler {
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
       !!opts.data.streak,
     );
-    this.blindfolded = storedBooleanProp(`puzzle.${this.opts.data.user?.id || 'anon'}.blindfolded`, false);
+    this.blindfolded = storedBooleanProp(`puzzle.${myUserId() || 'anon'}.blindfolded`, false);
     this.streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
     if (this.streak) {
       opts.data = { ...opts.data, ...this.streak.data.current };
       this.streakFailStorage.listen(_ => this.failStreak(this.streak!));
     }
-    this.session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, !!opts.data.streak);
+    this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
     this.initiate(opts.data);
@@ -144,14 +148,20 @@ export default class PuzzleCtrl implements CevalHandler {
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
-    document.addEventListener('visibilitychange', () => requestIdleCallback(() => this.jump(this.path), 500));
+    document.addEventListener('visibilitychange', () =>
+      requestIdleCallbackSafe(() => this.jump(this.path), 500),
+    );
 
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
     $('#zentog').on('click', () => pubsub.emit('zen'));
+    (window as any).lichess.puzzle = {
+      playUci: (uci: Uci) => this.sendMove(parseUci(uci)!),
+    };
+    (window as any).lichess.chessground = this.ground;
   }
 
-  private loadSound = (name: string, volume?: number) => {
+  private readonly loadSound = (name: string, volume?: number) => {
     site.sound.load(name, site.sound.url(`${name}.mp3`));
     return () => site.sound.play(name, volume);
   };
@@ -199,7 +209,28 @@ export default class PuzzleCtrl implements CevalHandler {
         g.state.addPieceZIndex = is3d;
         g.redrawAll();
       });
+      this.setAutoShapes();
     });
+
+    this.googlyEyesAuto();
+  };
+
+  googlyEyesStart: () => void = () => {
+    if (!this.googlyEyes)
+      this.withGround(cg => {
+        site.asset
+          .loadEsm('bits.googlyHorsey', {
+            init: { cg, redraw: this.setAutoShapes },
+          })
+          .then(({ makeGooglyShapes }: { makeGooglyShapes: () => DrawShape[] }) => {
+            this.googlyEyes = makeGooglyShapes;
+            this.setAutoShapes();
+          });
+      });
+  };
+
+  private readonly googlyEyesAuto = () => {
+    if (this.isDaily && new Date().getMonth() === 3 && new Date().getDate() === 1) this.googlyEyesStart();
   };
 
   pref = this.opts.pref;
@@ -216,16 +247,16 @@ export default class PuzzleCtrl implements CevalHandler {
     this.mode = 'play';
     this.next = defer();
     this.round = undefined;
-    this.justPlayed = undefined;
     this.resultSent = false;
     this.lastFeedback = 'init';
     this.initialPath = initialPath;
     this.initialNode = this.tree.nodeAtPath(initialPath);
-    this.pov = this.initialNode.ply % 2 === 1 ? 'black' : 'white';
+    this.pov = plyColor(this.initialNode.ply);
     this.isDaily = location.href.endsWith('/daily');
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
     this.report = new Report();
+    this.voted = undefined;
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -260,7 +291,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   makeCgOpts = (): CgConfig => {
     const node = this.node;
-    const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
+    const color = plyColor(node.ply);
     const dests = chessgroundDests(this.position());
     const nextNode = this.node.children[0];
     const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle === 'fail'));
@@ -273,6 +304,7 @@ export default class PuzzleCtrl implements CevalHandler {
           color: undefined,
           dests: new Map(),
         };
+
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -315,7 +347,6 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   userMove = (orig: Key, dest: Key): void => {
-    this.justPlayed = orig;
     const isPromoting = this.promotion.start(orig, dest, {
       submit: this.playUserMove,
       show: this.voiceMove?.promotionHook(),
@@ -376,7 +407,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (recursive) node.children.forEach(child => this.reorderChildren(path + child.id, true));
   };
 
-  private instantRevertUserMove = (): void => {
+  private readonly instantRevertUserMove = (): void => {
     this.withGround(g => {
       g.cancelPremove();
       g.selectSquare(null);
@@ -464,7 +495,7 @@ export default class PuzzleCtrl implements CevalHandler {
     }
   };
 
-  private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
+  private readonly isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback !== 'win') {
@@ -513,9 +544,10 @@ export default class PuzzleCtrl implements CevalHandler {
     if (this.cevalEnabled()) this.doStartCeval();
   };
 
-  private doStartCeval = throttle(800, () =>
-    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
-  );
+  private readonly doStartCeval = throttle(800, () => {
+    this.ceval.resume();
+    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
+  });
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
@@ -569,7 +601,6 @@ export default class PuzzleCtrl implements CevalHandler {
       this.startCeval();
     }
     this.promotion.cancel();
-    this.justPlayed = undefined;
     this.autoScrollRequested = true;
     this.pluginUpdate(this.node.fen);
     pubsub.emit('ply', this.node.ply);
@@ -616,13 +647,8 @@ export default class PuzzleCtrl implements CevalHandler {
     }
 
     this.autoScrollRequested = true;
-    this.voteDisabled = true;
     this.redraw();
     this.startCeval();
-    setTimeout(() => {
-      this.voteDisabled = false;
-      this.redraw();
-    }, 500);
   };
 
   skip = () => {
@@ -643,10 +669,9 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   vote = (v: boolean) => {
-    if (!this.voteDisabled) {
-      xhr.vote(this.data.puzzle.id, v);
-      this.nextPuzzle();
-    }
+    xhr.vote(this.data.puzzle.id, v);
+    this.voted = this.voted === v ? undefined : v;
+    this.redraw();
   };
 
   voteTheme = (theme: ThemeKey, v: boolean) => {

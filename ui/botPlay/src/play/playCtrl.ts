@@ -1,17 +1,19 @@
 import { opposite, parseSquare } from 'chessops';
-import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
+
+import { prop, toggle, type Toggle } from 'lib';
+import type { TopOrBottom } from 'lib/game';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
+import type { WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+
 import type { Board } from '../chess';
+import { Game } from '../game';
+import { initialGround, updateGround } from '../ground';
+import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
-import { initialGround, updateGround } from '../ground';
-import { Game } from '../game';
-import { prop, toggle, type Toggle } from 'lib';
 import { playMoveSounds } from './sound';
-import { PromotionCtrl } from 'lib/game/promotion';
-import type { WithGround } from 'lib/game/ground';
-import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
-import type { TopOrBottom } from 'lib/game';
 
 export interface PlayOpts {
   pref: Pref;
@@ -100,7 +102,7 @@ export default class PlayCtrl {
     this.safelyRequestBotMove();
   };
 
-  private updateGround = () => {
+  private readonly updateGround = () => {
     this.withGround(cg => cg.set(updateGround(this.game, this.board)));
   };
 
@@ -108,7 +110,7 @@ export default class PlayCtrl {
 
   goToLast = () => this.goTo(this.game.ply());
 
-  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+  private readonly playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     const chessMove = normalizeMove(this.board.chess, {
       from: parseSquare(orig)!,
       to: parseSquare(dest)!,
@@ -120,7 +122,7 @@ export default class PlayCtrl {
     this.safelyRequestBotMove();
   };
 
-  private safelyRequestBotMove = async () => {
+  private readonly safelyRequestBotMove = async () => {
     const source = await this.opts.bridge;
     if (this.game.computeEnd()) return;
     if (this.game.turn() === this.game.pov) return;
@@ -141,13 +143,13 @@ export default class PlayCtrl {
     }
   };
 
-  private afterMove = (move: Move): void => {
+  private readonly afterMove = (move: Move): void => {
     playMoveSounds(this, move);
     this.opts.save(this.game);
     this.recomputeAndSetClock();
   };
 
-  private makeClockOpts: () => ClockOpts = () => ({
+  private readonly makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.onFlag,
     playable: () => true,
     bothPlayersHavePlayed: () => this.game.moves.length > 1,
@@ -156,14 +158,14 @@ export default class PlayCtrl {
     nvui: false,
   });
 
-  private recomputeAndSetClock = () => {
+  private readonly recomputeAndSetClock = () => {
     const clk = this.game.clockState();
     if (this.clock && clk) this.clock.setClock(clk);
   };
 
-  private setGround = () => this.withGround(g => g.set(initialGround(this)));
+  private readonly setGround = () => this.withGround(g => g.set(initialGround(this)));
 
-  private withGround: WithGround = f => {
+  private readonly withGround: WithGround = f => {
     const g = this.ground();
     return g ? f(g) : undefined;
   };

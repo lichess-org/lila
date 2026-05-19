@@ -13,7 +13,6 @@ import play.api.mvc.Headers
 import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.config.NetConfig
-import lila.core.data.Html
 
 private object Twitch:
 
@@ -26,7 +25,7 @@ private object Twitch:
   case class HelixStream(
       user_id: TwitchId,
       user_login: TwitchLogin,
-      title: Html,
+      title: String,
       language: String,
       `type`: String
   ):
@@ -115,7 +114,7 @@ final private class TwitchApi(
               val title = ~(event \ "title").asOpt[String]
               val lang = (event \ "language").asOpt[String].filter(_.nonEmpty).getOrElse("en")
               logger.info(s"channel update: $login ($id) title: $title lang: $lang")
-              lives.updateWith(id)(_.map(_.copy(user_login = login, title = Html(title), language = lang)))
+              lives.updateWith(id)(_.map(_.copy(user_login = login, title = title, language = lang)))
             case _ => ()
           if done.isEmpty then logger.warn(s"Unknown Twitch event notification: $js")
           fuccess(none)

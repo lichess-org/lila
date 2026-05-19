@@ -1,7 +1,9 @@
-import * as licon from 'lib/licon';
-import { toggle } from 'lib';
-import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 import flairPickerLoader from 'bits/flairPicker';
+
+import { toggle } from 'lib';
+import * as licon from 'lib/licon';
+import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
+
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
@@ -51,6 +53,7 @@ export class StudyForm {
   openIfNew = () => {
     if (this.isNew()) this.open(true);
   };
+
   save = (data: FormData, isNew: boolean) => {
     this.doSave(data, isNew);
     this.open(false);
@@ -132,17 +135,21 @@ export function view(ctrl: StudyForm): VNode {
       ]),
     ]),
     hl('div.form-split', [
-      select({
-        key: 'visibility',
-        name: i18n.study.visibility,
-        choices: [
-          ['public', i18n.study.public],
-          ['unlisted', i18n.study.unlisted],
-          ['private', i18n.study.inviteOnly],
-        ],
-        selected: data.visibility,
-        visible: isEditable,
-      }),
+      ctrl.relay
+        ? hl('input#study-visibility', {
+            attrs: { type: 'hidden', name: 'visibility', value: data.visibility },
+          })
+        : select({
+            key: 'visibility',
+            name: i18n.study.visibility,
+            choices: [
+              ['public', i18n.study.public],
+              ['unlisted', i18n.study.unlisted],
+              ['private', i18n.study.inviteOnly],
+            ],
+            selected: data.visibility,
+            visible: isEditable,
+          }),
       select({
         key: 'chat',
         name: i18n.site.chat,

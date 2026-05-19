@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Nézd meg a videós útmutatót</string>
   <string name="instructions1">Használd a %1$s parancsot a hangfelismerés ki- és bekapcsolásához, a %2$s parancsot e súgó megnyitásához, és a %3$s menüt a beszédbeállítások módosításához.</string>
   <string name="instructions2">Olykor több lehetséges lépéshez is mutatunk nyilakat. Mondd ki a nyíl színét vagy számát a lépés kiválasztásához.</string>
-  <string name="instructions3">Ha egy nyíl egy kört pásztáz, lépés akkor történik, ha a kör teljes lesz. Ezalatt mondhatod: %1$s a lépés azonnali végrehajtásához, vagy %2$s a megszakításhoz vagy mondd ki egy másik nyíl színét/számát. Az időzítő a beállításokban módosítható vagy kikapcsolható.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Ha egy nyíl egy kört pásztáz, lépés akkor történik, ha a kör teljes lesz. Ezalatt mondhatod: %1$s a lépés azonnali végrehajtásához, vagy %2$s a megszakításhoz vagy mondd ki egy másik nyíl színét/számát. Az időzítő a beállításokban módosítható vagy kikapcsolható.</string>
   <string name="instructions4">Engedélyezd %s-t zajos környezetben. Tartsd lenyomva a Shift billentyűt, miközben parancsokat mondasz, ha ez be van kapcsolva.</string>
   <string name="instructions5">Használd a fonetikus ábécét a sakktáblán lévő oszlopok jobb felismeréséhez. </string>
   <string name="instructions6">%s részletesen elmagyarázza a hangalapú lépésmegadás beállításait.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Lépj e4-re, vagy válaszd ki az e4-en lévő figurát</string>
   <string name="selectOrCaptureABishop">Válaszd vagy üsd le a futót</string>
   <string name="takeRookWithQueen">Üsd le a bástyát a vezérrel</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Sáncolj (bármelyik oldalra)</string>
+  <string name="castle">Sáncolj (bármelyik oldalra)</string>
   <string name="phoneticAlphabetIsBest">Fonetikus ábécé a legjobb</string>
   <string name="cancelTimerOrDenyARequest">Érvénytelenítsd az időzítőt, vagy utasítsd el a kérést</string>
   <string name="playPreferredMoveOrConfirmSomething">Játszd le a választott lépést, vagy erősíts meg valamit</string>

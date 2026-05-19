@@ -2,9 +2,6 @@
   @extend %page-text;
 
   font-size: 0.9em;
-
-  // min-height: 5em;
-  // max-height: 9em;
   height: 100%;
   overflow: hidden;
 
@@ -15,7 +12,9 @@
 
   &__number {
     @extend %flex-center-nowrap;
+
     margin-inline-end: 1ch;
+
     &::before {
       font-size: 1em;
       color: $c-font-dim;

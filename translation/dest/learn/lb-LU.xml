@@ -99,7 +99,7 @@ andeem du den Ugräifer schléis.</string>
 duerch deng Verdeedegung!</string>
   <string name="escapeOrBlock">Entkomm mat dengem Kinnek 
 oder block den Ugrëff!</string>
-  <string name="outOfCheckComplete">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
   <string name="mateInOne">Matt an 1</string>
   <string name="defeatTheOpponentsKing">Bezwéng dem Géigner säi Kinnek</string>
   <string name="mateInOneIntro">Du gewënns wann däin Géigner en Schach net verdeedegen kann.</string>

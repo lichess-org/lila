@@ -43,15 +43,23 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       .cursor[WebSubscription](ReadPref.sec)
       .list(max)
 
-  private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
-    coll
-      .aggregateList(100_000, _.sec): framework =>
-        import framework.*
-        Match($doc("userId".$in(userIds))) -> List(
-          Sort(Descending("seenAt")),
-          GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
-          Project($doc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
-          Unwind("subs"),
-          ReplaceRootField("subs")
-        )
-      .map(_.flatMap(webSubscriptionReader.readOpt))
+  private[push] def getSubscriptions(
+      allUserIds: Iterable[UserId],
+      maxPerUser: Int
+  ): Fu[List[WebSubscription]] =
+    allUserIds
+      .grouped(300)
+      .toList
+      .sequentially: userIds =>
+        coll
+          .aggregateList(100_000, _.sec): framework =>
+            import framework.*
+            Match($doc("userId".$in(userIds))) -> List(
+              Sort(Descending("seenAt")),
+              GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
+              Project($doc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
+              Unwind("subs"),
+              ReplaceRootField("subs")
+            )
+          .map(_.flatMap(webSubscriptionReader.readOpt))
+      .map(_.flatten)

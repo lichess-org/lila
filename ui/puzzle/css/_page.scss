@@ -4,12 +4,15 @@
 
 h2#openings {
   @extend %flex-between;
+
   a {
     font-size: 1rem;
   }
 }
+
 .help {
   @extend %box-padding-horiz, %box-radius;
+
   padding-top: 2em;
   padding-bottom: 2em;
   background: $c-bg-zebra;
@@ -17,14 +20,17 @@ h2#openings {
   &-touchscreen {
     display: none;
   }
+
   &-keyboard {
     display: block;
   }
 }
+
 @media (hover: none) {
   .help-touchscreen {
     display: block;
   }
+
   .help-keyboard {
     display: none;
   }

@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zenmodus</string>
   <string name="showPlayerRatings">Toon de rating van de spelers</string>
   <string name="showFlairs">Geef de flairs van de spelers weer</string>
-  <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="inGameOnly">Alleen tijdens partij</string>
@@ -64,11 +64,11 @@
   <string name="notifyTournamentSoon">Toernooi begint binnenkort</string>
   <string name="notifyBroadcasts">Uitzendingen waarop je bent geabonneerd</string>
   <string name="notifyTimeAlarm">Klok met correspondentie bijna leeg</string>
-  <string name="notifyBell">Bel melding binnen Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Bel melding binnen Lichess</string>
   <string name="notifyPush">Apparaatmelding wanneer je niet op Lichess bent</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Apparaat</string>
   <string name="bellNotificationSound">Meldingsgeluid</string>
   <string name="blindfold" comment="As in Blindfold chess">Geblinddoekt</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Toon links op mobiele apparaten</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Toon links op mobiele apparaten</string>
 </resources>

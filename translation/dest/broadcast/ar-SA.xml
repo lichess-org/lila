@@ -55,6 +55,7 @@
   <string name="fidePlayerNotFound">لم يتم العثور على لاعب الاتحاد الدولي (FIDE)</string>
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="federation">إتحاد</string>
+  <string name="age">العمر</string>
   <string name="unrated">غير مقيم</string>
   <string name="recentTournaments">البطولات الأخيرة</string>
   <string name="openLichess">افتح في ليتشيس</string>
@@ -76,6 +77,7 @@
   <string name="ratingDiff">فرق التقييم</string>
   <string name="gamesThisTournament">الألعاب</string>
   <string name="score">النتيجة</string>
+  <string name="standingsDisclaimer">يتم حساب المواصفات باستخدام الألعاب المبثوثة وقد تختلف عن النتائج الرسمية.</string>
   <string name="allTeams">كل الفرق</string>
   <string name="tournamentFormat">نظام البطولة</string>
   <string name="tournamentLocation">موقع البطولة</string>
@@ -90,4 +92,28 @@
   <string name="liveboard">اللوحة الآن</string>
   <string name="communityBroadcast">بث المجتمع</string>
   <string name="createdAndManagedBy">تم إنشاؤها وإدارتها بواسطة %s.</string>
+  <string name="matchPoints">نقاط المبارة</string>
+  <string name="gamePoints">نقاط اللعبة</string>
+  <string name="matches">المباريات</string>
+  <string name="matchHistory">سجل المباراة</string>
+  <string name="teamResults">نتائج الفريق</string>
+  <string name="termsAutomaticallyTranslated">المصطلحات التالية سيتم ترجمتها تلقائياً: %s.</string>
+  <string name="roundX">الجولة %s</string>
+  <string name="defaultRoundNameHelp">الحفاظ على الاسم الافتراضي سوف يترجمه تلقائياً إلى جميع اللغات الأخرى.</string>
+  <string name="openTournament">الفتح</string>
+  <string name="womenTournament">النساء</string>
+  <string name="menTournament">الرجال</string>
+  <string name="girlsTournament">البنات</string>
+  <string name="boysTournament">الأولاد</string>
+  <string name="openUnderXAgeTournament">مفتوح تحت%s</string>
+  <string name="girlsUnderXAgeTournament">البنات تحت%s</string>
+  <string name="boysUnderXAgeTournament">الأولاد تحت%s</string>
+  <string name="quarterfinals">ربع النهائي</string>
+  <string name="semifinals">نصف النهائي</string>
+  <string name="finals">النهائي</string>
+  <string name="tiebreaks">كسر التعادل</string>
+  <string name="gameX">اللعبة %s</string>
+  <string name="knockouts">الضربات القاضية</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
 </resources>

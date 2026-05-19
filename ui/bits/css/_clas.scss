@@ -1,11 +1,21 @@
-$c-clas: hsl(274, 47%, 62%);
+$c-clas-light: hsl(274, 48%, 60%);
+$c-clas-lighter: mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: $m-clas_white--mix-20;
-$c-clas-light: mix($c-clas, #fff, 86%);
+
+@mixin button-with-clas-shadow {
+  @include with-button-shadow(
+    $m-clas--lighten-38,
+    $m-clas--darken-12,
+    $m-clas--lighten-50,
+    $m-clas--darken-8
+  );
+}
 
 body {
   --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
   --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 80%), hsl(276, 97%, 79%), hsl(234, 81%, 78%));
+
   @include if-light {
     --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 52%), hsl(276, 65%, 38%), hsl(286, 37%, 30%));
     --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 86%), hsl(276, 97%, 84%), hsl(234, 81%, 83%));
@@ -15,7 +25,7 @@ body {
 .button-empty {
   &.button-clas,
   &.button-clas:hover {
-    color: $c-clas;
+    color: $c-clas-light;
   }
 }
 
@@ -39,15 +49,16 @@ body {
   }
 
   &.active {
-    color: $c-clas;
+    color: $c-clas-light;
   }
 
   &::after {
-    background: $c-clas;
+    background: $c-clas-light;
   }
 
   &.student {
     @extend %roboto;
+
     padding: 0.4rem 2vw 0.4rem 2rem;
     line-height: 1.2em;
   }
@@ -55,15 +66,21 @@ body {
 
 h1 {
   @extend %base-font;
+
   background-image: var(--bg-clas-title);
   background-clip: text;
   color: transparent;
   font-weight: bold;
 }
 
+.page .body h2 {
+  border-bottom-color: $c-clas-light;
+}
+
 .clas-index {
   .box__top {
     background: var(--bg-clas);
+
     & a {
       color: $c-bg-clas-over;
     }
@@ -73,9 +90,14 @@ h1 {
 
   .button.new {
     opacity: 0.8;
+
     &:hover {
+      @include button-with-clas-shadow;
+
       color: $c-over;
+      background: $c-clas-lighter !important;
     }
+
     &::before {
       font-size: 3em;
     }
@@ -88,19 +110,19 @@ h1 {
 
     .clas-widget {
       @extend %flex-center-nowrap, %break-word;
-
-      border-bottom: $border;
-      padding: 2em var(---box-padding);
-      position: relative;
-
       @include transition;
 
+      border-bottom: $border;
+      padding: 2em $box-padding;
+      position: relative;
+
       &::before {
-        color: $m-clas_bg--mix-80;
+        @include transition;
+
+        color: $c-clas-lighter;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
-        @include transition;
         @media (max-width: at-most($xx-small)) {
           display: none;
         }
@@ -110,7 +132,7 @@ h1 {
         background: $m-clas_bg--mix-10;
 
         &::before {
-          color: $c-clas;
+          color: $c-clas-light;
         }
       }
 
@@ -121,7 +143,7 @@ h1 {
       h3 {
         @include fluid-size('font-size', 23px, 35px);
 
-        color: $c-clas;
+        color: $c-clas-light;
       }
 
       p {
@@ -172,6 +194,7 @@ h1 {
 
   &__body {
     @extend %box-padding, %flex-column;
+
     gap: 3em;
   }
 
@@ -183,12 +206,15 @@ h1 {
     &__helps {
       margin-top: -2em;
     }
+
     &__help {
       @extend %box-radius;
+
       display: block;
       background: $c-bg-zebra2;
       margin-bottom: 1em;
       padding: 0.5em 1em;
+
       strong {
         color: $c-font-clear;
         line-height: 2em;
@@ -197,12 +223,18 @@ h1 {
   }
 }
 
+.clas-create {
+  .box__top {
+    background: var(--bg-clas);
+  }
+}
+
 .dashboard {
   .flash {
     margin: 2em;
 
     &__content {
-      padding: 2em var(---box-padding);
+      padding: 2em $box-padding;
     }
   }
 
@@ -284,7 +316,7 @@ h1 {
 
       &.active {
         background: $c-bg-box;
-        color: $c-clas;
+        color: $c-clas-light;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
@@ -320,7 +352,7 @@ h1 {
 
   &-teacher {
     .clas-show__top h1 {
-      padding: 1.5em var(---box-padding);
+      padding: 1.5em $box-padding;
       margin: 0;
     }
 
@@ -364,7 +396,7 @@ h1 {
         text-align: center;
         font-weight: bold;
         padding: 0.7em;
-        color: $c-clas;
+        color: $c-clas-light;
 
         &:hover {
           background: $m-clas_bg--mix-30;
@@ -390,7 +422,7 @@ h1 {
       }
     }
 
-    .coords i {
+    .coords icon {
       margin: 0 0.4em;
 
       &::before {
@@ -408,6 +440,7 @@ h1 {
   from {
     background: $m-accent_bg-popup--mix-80;
   }
+
   to {
     background: $m-accent_bg-popup--mix-15;
   }
@@ -417,8 +450,10 @@ h1 {
   &__archive {
     text-align: right;
   }
+
   #clas-team:target {
     @extend %box-neat;
+
     padding: 1em 1em 1em 1.5em;
     border: 1px solid $c-accent;
     animation: target-fade 1.5s forwards;
@@ -426,7 +461,10 @@ h1 {
 }
 
 .button-clas {
+  @include button-with-clas-shadow;
+
   background: $m-clas_bg--mix-75;
+
   &:hover {
     background: $m-clas_bg--mix-90 !important;
   }
@@ -444,9 +482,8 @@ h1 {
   }
 
   &__actions {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     margin-top: 4em;
 
     .button {
@@ -466,7 +503,7 @@ h1 {
   padding-bottom: 3em;
 
   &__top {
-    padding: calc(#{$box-padding-vert} - 1rem) var(---box-padding);
+    padding: calc(#{$box-padding-vert} - 1rem) $box-padding;
     background: var(--bg-clas);
     margin-bottom: 3em;
 
@@ -503,10 +540,12 @@ h1 {
 
     &__meta {
       @extend %flex-between;
+
       justify-items: center;
 
       .button-empty {
         color: rgba(255, 255, 255, 0.7);
+
         &:hover {
           background: rgba(255, 255, 255, 0.1) !important;
           color: inherit;
@@ -579,7 +618,7 @@ h1 {
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-    gap: var(---box-padding);
+    gap: $box-padding;
     align-items: center;
 
     h2 {
@@ -618,6 +657,7 @@ h1 {
     }
   }
 }
+
 .student-add-many {
   form {
     margin-top: 2em;
@@ -642,18 +682,26 @@ h1 {
     text-align: center;
 
     .button {
+      @include button-with-clas-shadow;
+
       margin-bottom: 2em;
       display: inline-block;
-      background: $c-clas-light;
+      background: $c-clas-lighter;
+
+      &:hover {
+        background: $c-clas-light;
+      }
     }
   }
 
   &__login {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     form {
       @extend %flex-center;
+
       align-items: stretch;
+
       input {
         @extend %box-radius-inline-start;
 
@@ -663,7 +711,8 @@ h1 {
 
       .button {
         @extend %box-radius-inline-end;
-        background: $c-clas-light;
+
+        background: $c-clas-lighter;
         padding: 0 1.5em;
         border-inline-start: 0;
       }
@@ -677,38 +726,49 @@ h1 {
 
 .clas-login {
   @extend %flex-column;
+
   gap: 2em;
+
   &__title {
     @extend %flex-between;
   }
+
   &__expiration {
     @extend %box-radius;
+
     background: $c-bg-zebra;
     font-size: 1.2em;
     padding: 0.3em 1em;
+
     .timeago {
       font-weight: bold;
       color: $c-font-clear;
     }
   }
+
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1em;
   }
+
   &__card {
     @extend %box-neat, %flex-column;
+
     padding: 1em;
     background: $c-bg-zebra;
     border: $border;
     font-size: 1.5em;
+
     h3 {
       color: $c-font-clear;
     }
+
     a {
       font-size: 0.7em;
       color: $c-font-dim;
     }
+
     code {
       font-size: 1.8em;
       text-align: center;
@@ -716,7 +776,8 @@ h1 {
       margin-top: 1rem;
       color: $c-font-dim;
     }
-    i {
+
+    icon {
       font-size: 0.8em;
       color: $c-bad;
       text-align: center;

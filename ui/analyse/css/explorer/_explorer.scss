@@ -1,22 +1,21 @@
 @import './config';
 
 .explorer-box {
-  position: relative;
-  flex: 3 1 0px;
-  white-space: nowrap;
-
   @include transition;
 
+  position: relative;
+  flex: 3 1 0;
+  white-space: nowrap;
   transition-delay: 0.3s;
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 0.9em;
 
   &.reduced {
-    flex: 0.3 3 0px;
+    flex: 0.3 3 0;
 
     &:hover {
-      flex: 1 2 0px;
+      flex: 1 2 0;
     }
   }
 
@@ -39,12 +38,14 @@
   }
 
   .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
+
     user-select: text;
   }
+
   .explorer-title {
     @extend %flex-center-nowrap;
+
     align-items: stretch;
     font-size: 0.9rem;
     line-height: 1.9em;
@@ -54,27 +55,34 @@
     .ddloader {
       padding-inline-start: 7px;
     }
+
     .active {
       @extend %flex-center-nowrap;
+
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
       background: $m-secondary_bg--mix-40;
+
       strong {
         margin-inline-end: 0.5ch;
       }
+
       &.player {
         cursor: pointer;
       }
     }
+
     .long {
       letter-spacing: -0.1ch;
     }
+
     button {
       display: inline-block;
       padding: 0 0.5ch;
       margin-inline-start: 1px;
       color: $c-font-dim;
+
       &:hover {
         color: $c-font-clear;
         background: $m-secondary_bg--mix-50;
@@ -111,11 +119,13 @@
     will-change: transform, opacity; /* Prevents flicker in Safari */
     th {
       @extend %roboto;
+
       font-size: 0.8rem;
       line-height: 1.8em;
       background: $m-secondary_bg--mix-40;
       padding-inline-start: 7px;
     }
+
     td:first-child {
       @extend %san;
 
@@ -186,6 +196,7 @@
   .white {
     background: #ccc;
     box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.25) inset;
+
     @include if-light {
       background: #fff;
       box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.1) inset;
@@ -200,6 +211,7 @@
   .black {
     color: #ddd;
     box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1) inset;
+
     @include if-light {
       color: #fff;
       box-shadow: 0 5px 7px rgba(255, 255, 255, 0.2) inset;
@@ -208,6 +220,7 @@
 
   .draws {
     background: #666;
+
     @include if-light {
       background: #a0a0a0;
     }
@@ -215,9 +228,11 @@
 
   .black {
     background: #333;
+
     @include if-light {
       background: #555;
     }
+
     color: #ddd;
   }
 
@@ -228,6 +243,7 @@
       @include padding-direction(5px, 0, 5px, 7px);
 
       max-width: 110px;
+
       &:nth-child(2) {
         max-width: none;
       }
@@ -300,9 +316,10 @@
   }
 
   .toconf {
+    @include inline-end(0);
+
     position: absolute;
     top: 0;
-    @include inline-end(0);
     cursor: pointer;
     display: block;
     font-size: 1.2em;
@@ -318,14 +335,11 @@
 
   .message {
     @extend %flex-column;
+
     flex: 1 1 auto;
     justify-content: center;
     text-align: center;
     font-style: italic;
-  }
-
-  &.reduced .message {
-    justify-content: flex-start;
   }
 
   .message strong {
@@ -354,8 +368,8 @@
     display: block;
   }
 
-  .message button {
-    margin: 0 30px;
+  .message .button {
+    margin: 0 2em;
   }
 }
 
@@ -363,6 +377,7 @@
   .explorer-box .explorer-title {
     line-height: 3em;
   }
+
   .explorer-box button.toconf {
     font-size: 1.5em;
     margin-top: 2px;

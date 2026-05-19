@@ -19,16 +19,16 @@
 
     button {
       @extend %metal;
+      @include transition;
+
       flex-grow: 1;
       padding: 5px 0;
       text-align: center;
       cursor: pointer;
-
-      @include transition;
-
       border: $border;
       border-width: 1px 0 1px 1px;
       text-transform: capitalize;
+      text-shadow: 0 1px 0 $c-font-shadow;
 
       &:first-child {
         @extend %box-radius-left;
@@ -40,19 +40,20 @@
         border-right-width: 1px;
       }
 
-      &:hover {
-        @extend %metal-hover;
-      }
-
       &[aria-pressed='true'],
       &.active {
         background: $c-secondary;
         color: $c-over;
-        text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
         font-weight: bold;
-      }
-      &[aria-pressed='true'] {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset !important;
+
+        @include if-light {
+          text-shadow: 0 1px 0 $c-font !important;
+        }
+
+        &:hover {
+          background: $m-secondary--lighten-5;
+        }
       }
     }
   }
@@ -61,6 +62,7 @@
     > div {
       @extend %flex-center;
     }
+
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
@@ -68,10 +70,12 @@
       padding-right: 1em;
       text-transform: none;
       margin-inline-end: 0.5em;
+
       &.active:hover {
         background: $m-secondary_white--mix-80;
       }
     }
+
     .color {
       margin-inline-start: 1ch;
     }
@@ -87,10 +91,12 @@
     label {
       @extend %flex-between-nowrap;
     }
+
     input {
       border: none;
       background: none;
       padding: 0.1em 0.5em;
+
       &:invalid {
         background: $m-bad_bg--mix-30;
       }
@@ -110,20 +116,25 @@
       overflow: visible !important;
       position: relative;
       display: inline-block;
-
       padding-top: 2em;
       margin-bottom: 2em;
     }
+
     .previous {
       @extend %flex-wrap;
+
       gap: 0.4em;
+
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
       }
+
       .remove {
         $remove-button-diameter: 1.75em;
+
         @include inline-end(-0.65em);
+
         margin-inline-start: -$remove-button-diameter;
         width: $remove-button-diameter;
         height: $remove-button-diameter;
@@ -131,6 +142,7 @@
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;
+
         &:hover {
           background-color: $c-error;
         }

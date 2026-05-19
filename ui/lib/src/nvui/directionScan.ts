@@ -1,5 +1,6 @@
 import type { Pieces, Pos } from '@lichess-org/chessground/types';
 import { key2pos, pos2key } from '@lichess-org/chessground/util';
+
 import { keyFromAttrs, type MoveStyle, renderKey, transPieceStr } from './chess';
 
 const directions = ['top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'];

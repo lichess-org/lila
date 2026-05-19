@@ -1,5 +1,5 @@
-import type { Outcome, Position } from 'chessops';
 import type { Result } from '@badrap/result';
+import type { Outcome, Position } from 'chessops';
 
 export type TreeNodeId = string;
 export type TreePath = string;
@@ -90,7 +90,7 @@ export interface NodeCrazy {
   pockets: [CrazyPocket, CrazyPocket];
 }
 
-export type CrazyPocket = { [role in Exclude<Role, 'king'>]?: number };
+export type CrazyPocket = Record<Exclude<Role, 'king'>, number>;
 
 export interface TreeComment {
   id: string;

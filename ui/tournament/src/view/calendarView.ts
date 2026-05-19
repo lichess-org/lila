@@ -1,14 +1,17 @@
-import { type Classes, h, type VNode } from 'snabbdom';
-import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
+import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
+import format from 'date-fns/format';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
-import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
-import format from 'date-fns/format';
+import { type Classes, h, type VNode } from 'snabbdom';
+
+import perfIcons from 'lib/game/perfIcons';
+import * as licon from 'lib/licon';
+import { dataIcon } from 'lib/view';
+
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
-import * as licon from 'lib/licon';
-import perfIcons from 'lib/game/perfIcons';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
   const classes = {
@@ -41,10 +44,7 @@ function renderTournament(tour: Tournament, day: Date) {
         title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`,
       },
     },
-    [
-      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour) } } : {}),
-      h('span.body', [tour.fullName]),
-    ],
+    [h('span.icon', tour.perf ? { attrs: dataIcon(iconOf(tour)) } : {}), h('span.body', [tour.fullName])],
   );
 }
 

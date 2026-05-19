@@ -1,7 +1,8 @@
 .trophies {
+  @include inline-end(1.5em);
+
   position: absolute;
   top: 35px;
-  @include inline-end(1.5em);
   height: 40px;
   display: flex;
   flex-flow: row wrap;
@@ -143,9 +144,11 @@
   font-size: 60px;
   margin: 0 -10px 0 30px;
   transform: scaleX(-1);
+
   @include if-rtl {
     transform: none;
   }
+
   color: $c-brag;
   transition: margin-top 0.5s;
 

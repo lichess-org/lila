@@ -73,6 +73,7 @@
 
   .instruction {
     @extend %flex-column;
+
     flex: 1;
   }
 
@@ -83,6 +84,7 @@
 
   .choices {
     @extend %flex-between;
+
     line-height: 1.6em;
     margin: 5px 0 -5px 0;
   }

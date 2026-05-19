@@ -1,6 +1,16 @@
 // no side effects allowed due to re-export by index.ts
 
-import { throttle } from '../async';
+import type { Rules } from 'chessops';
+import { lichessRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
+
+import { clamp } from '@/algo';
+import { throttle } from '@/async';
+import { storedIntProp, storage } from '@/storage';
+import type { LocalEval, PvData } from '@/tree/types';
+
+import { prop, type Prop, type Toggle, toggle } from '../index';
 import { Engines } from './engines/engines';
 import {
   type CevalOpts,
@@ -14,15 +24,7 @@ import {
   CevalState,
 } from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
-import { setupPosition } from 'chessops/variant';
-import { parseFen } from 'chessops/fen';
-import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, type Prop, type Toggle, toggle } from '../index';
-import { clamp } from '../algo';
-import { storedIntProp, storage } from '../storage';
-import type { Rules } from 'chessops';
-import type { LocalEval, PvData, TreePath } from '@/tree/types';
 
 export default class CevalCtrl {
   opts: CevalOpts;
@@ -45,6 +47,7 @@ export default class CevalCtrl {
     this.init(opts);
     this.engines = new Engines(this);
 
+    // another tab has started ceval, we should stop:
     storage.make('ceval.disable').listen(() => {
       this.stop();
       this.worker?.destroy();
@@ -100,49 +103,53 @@ export default class CevalCtrl {
   });
 
   available(): boolean {
-    return !document.hidden && this.analysable;
+    return this.analysable;
   }
 
-  private doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
-    const step = steps[steps.length - 1];
+  private readonly doStart = (s: Started) => {
+    if (document.hidden) {
+      this.lastStarted = s;
+      return;
+    }
+    const step = s.steps[s.steps.length - 1];
     if (
       !this.isDeeper() &&
       'movetime' in this.search.by &&
-      ((threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.search.by.movetime
+      ((s.threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.search.by.movetime
     ) {
-      this.lastStarted = { path, steps, gameId, threatMode };
+      this.lastStarted = s;
       return;
     }
     const work: Work = {
       variant: this.opts.variant.key,
       threads: this.threads,
       hashSize: this.hashSize,
-      gameId,
+      gameId: s.gameId,
       stopRequested: false,
-      initialFen: steps[0].fen,
+      initialFen: s.steps[0].fen,
       moves: [],
       currentFen: step.fen,
-      path,
+      path: s.path,
       ply: step.ply,
       search: this.search.by,
       multiPv: this.search.multiPv,
-      threatMode,
+      threatMode: s.threatMode,
       emit: (ev: LocalEval) => this.onEmit(ev, work),
     };
 
-    if (threatMode) {
+    if (s.threatMode) {
       const c = step.ply % 2 === 1 ? 'w' : 'b';
       const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
       // send fen after latest castling move and the following moves
-      for (let i = 1; i < steps.length; i++) {
-        const s = steps[i];
-        if (sanIrreversible(this.opts.variant.key, s.san!)) {
+      for (let i = 1; i < s.steps.length; i++) {
+        const step = s.steps[i];
+        if (sanIrreversible(this.opts.variant.key, step.san!)) {
           work.moves = [];
-          work.initialFen = s.fen;
-        } else work.moves.push(s.uci!);
+          work.initialFen = step.fen;
+        } else work.moves.push(step.uci!);
       }
     }
 
@@ -151,23 +158,13 @@ export default class CevalCtrl {
 
     this.resume(work);
 
-    this.lastStarted = {
-      path,
-      steps,
-      gameId,
-      threatMode,
-    };
+    this.lastStarted = s;
   };
 
   goDeeper = (): void => {
     if (!this.lastStarted) return;
     this.isDeeper(true);
-    this.doStart(
-      this.lastStarted.path,
-      this.lastStarted.steps,
-      this.lastStarted.gameId,
-      this.lastStarted.threatMode,
-    );
+    this.doStart(this.lastStarted);
   };
 
   stop = (): void => {
@@ -178,7 +175,7 @@ export default class CevalCtrl {
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
     if (!this.available() || this.isPaused) return;
     this.isDeeper(false);
-    this.doStart(path, steps, gameId, !!threatMode);
+    this.doStart({ path, steps, gameId, threatMode: !!threatMode });
   };
 
   get state(): CevalState {
@@ -284,6 +281,6 @@ export default class CevalCtrl {
   }
 
   private lastEmitFen: string | null = null;
-  private sortPvsInPlace = (pvs: PvData[], color: Color) =>
+  private readonly sortPvsInPlace = (pvs: PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 }

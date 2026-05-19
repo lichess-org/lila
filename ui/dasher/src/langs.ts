@@ -1,8 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
-import { header } from './util';
-import { PaneCtrl } from './interfaces';
 import { onInsert } from 'lib/view';
+
+import { PaneCtrl } from './interfaces';
+import { header } from './util';
 
 type Code = string;
 type Name = string;
@@ -46,7 +48,7 @@ export class LangsCtrl extends PaneCtrl {
     return this.root.data.lang;
   }
 
-  private list = () => [
+  private readonly list = () => [
     ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
     ...this.data.list,
   ];

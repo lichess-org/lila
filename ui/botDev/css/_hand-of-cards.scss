@@ -3,6 +3,7 @@
 
   .card {
     @include prevent-select;
+
     cursor: pointer;
     position: absolute;
     border-radius: 6px;
@@ -15,12 +16,13 @@
       transform 0.3s ease,
       background-color 0.2s,
       border-color 0.2s;
+
     img {
       -webkit-touch-callout: none;
       width: calc(192px * var(---scale-factor, 1));
     }
+
     label {
-      // font-weight: bold;
       font-size: 1.3em;
       text-align: center;
       white-space: nowrap;
@@ -30,6 +32,7 @@
       transform: translateX(-50%);
       display: none;
     }
+
     &.left label {
       font-weight: bold;
       text-align: start;
@@ -37,21 +40,26 @@
       left: 110%;
       transform: none;
     }
+
     &.dragging {
       transition: 0.05s;
+
       @media (hover: none) {
         z-index: $z-above-dialog-14;
         transition: none;
       }
     }
+
     &.selected {
       pointer-events: none;
       border-color: transparent;
       overflow: hidden;
     }
+
     &.hovered:not(&.selected) label {
       display: inline-block;
     }
+
     &:focus {
       background-color: $c-bad;
       outline: $c-primary solid 2px;
@@ -76,12 +84,13 @@
   width: 20px;
   top: 5px;
   right: 5px;
-
   cursor: pointer;
   filter: grayscale(1);
+
   &.show {
     display: block;
   }
+
   &:hover {
     filter: saturate(1);
   }

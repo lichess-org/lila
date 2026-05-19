@@ -1,18 +1,20 @@
-import { type PromotionRole, arrow } from './util';
-import { type Items, ctrl as makeItems } from './item';
-import type { Level } from './stage/list';
-import { scenario as scoreScenario, pieceValue, capture, apple, getLevelBonus } from './score';
-import * as timeouts from './timeouts';
-import { failure, levelStart, levelEnd, take, move as moveSound } from './sound';
-import makeChess, { type ChessCtrl } from './chess';
-import makeScenario, { type Scenario } from './scenario';
-import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
-import type { CgMove } from './chessground';
-import { PromotionCtrl } from './promotionCtrl';
-import { type Prop, prop } from 'lib';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { makeAppleShape } from './apple';
+import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
+
+import { type Prop, prop } from 'lib';
 import { type WithGround } from 'lib/game/ground';
+
+import { makeAppleShape } from './apple';
+import makeChess, { type ChessCtrl } from './chess';
+import type { CgMove } from './chessground';
+import { type Items, ctrl as makeItems } from './item';
+import { PromotionCtrl } from './promotionCtrl';
+import makeScenario, { type Scenario } from './scenario';
+import { scenario as scoreScenario, pieceValue, capture, apple, getLevelBonus } from './score';
+import { failure, levelStart, levelEnd, take, move as moveSound } from './sound';
+import type { Level } from './stage/list';
+import * as timeouts from './timeouts';
+import { type PromotionRole, arrow } from './util';
 
 export interface LevelVm {
   score: number;

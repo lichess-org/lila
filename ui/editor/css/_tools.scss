@@ -62,6 +62,7 @@
           margin: 3px;
           vertical-align: middle;
         }
+
         input.not-allowed {
           visibility: hidden;
         }
@@ -69,18 +70,31 @@
 
       .enpassant {
         @extend %flex-between;
+
         margin-top: 1em;
+
         label {
           font-weight: bold;
         }
+
         select {
           width: 9ch;
         }
       }
 
       .chess960-position-row {
-        @extend %flex-center-nowrap;
+        @extend %flex-center;
+
         gap: 0.5rem;
+
+        .form-label {
+          flex: 0 0 100%;
+          margin: 0;
+        }
+
+        .button {
+          width: auto;
+        }
       }
 
       #chess960-position-id {
@@ -92,6 +106,7 @@
 
     .actions {
       @extend %flex-column;
+      @include backdrop-blur-if-transparent;
 
       justify-content: stretch;
 
@@ -100,6 +115,17 @@
 
         width: 100%;
         text-align: start;
+        display: flex;
+        align-items: center;
+        text-transform: none;
+
+        &.disabled {
+          cursor: default;
+        }
+
+        &::before {
+          color: var(--c-font);
+        }
       }
     }
   }

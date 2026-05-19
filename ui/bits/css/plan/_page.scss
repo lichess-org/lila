@@ -26,6 +26,7 @@
       &.up {
         color: #639b24;
       }
+
       &.down {
         color: #ac524f;
       }
@@ -46,9 +47,11 @@
         width: 5em;
         padding: 3px 5px;
       }
+
       p {
         margin-bottom: 1em;
       }
+
       button,
       a {
         margin-inline-start: 10px;
@@ -82,7 +85,7 @@
     min-height: 200px;
     padding: 1em 0;
 
-    > i {
+    > icon {
       @include fluid-size('font-size', 40px, 120px);
 
       margin: 0 0.4em;
@@ -101,6 +104,7 @@
 
   .wrapper {
     @extend %flex-between;
+
     align-items: flex-start;
     font-size: 1.3em;
   }
@@ -108,11 +112,13 @@
   .text,
   .content {
     @extend %flex-center;
+
     flex: 1 1 50%;
   }
 
   .text {
     @extend %flex-column;
+
     flex: 1 1 45%;
     margin-inline-end: 1em;
   }
@@ -122,6 +128,7 @@
 
     h3 {
       @extend %roboto;
+
       display: block;
       text-transform: uppercase;
       margin: 0;
@@ -131,6 +138,10 @@
     .amount_fixed label,
     .lifetime-check + label {
       @extend %active-secondary;
+
+      &:hover {
+        background: $m-secondary--lighten-5;
+      }
     }
 
     group {
@@ -156,6 +167,7 @@
 
     .cover-fees {
       @extend %flex-center-nowrap;
+
       margin-bottom: 1.5em;
       font-size: 0.95em;
 
@@ -163,6 +175,7 @@
         margin-inline-end: 0.5em;
         transform: scale(1.2);
       }
+
       label {
         cursor: pointer;
         color: $c-font-dim;
@@ -173,6 +186,7 @@
     .service {
       .buttons {
         @extend %flex-between;
+
         font-size: 1.1em;
         gap: 1em;
 
@@ -180,13 +194,16 @@
         .paypal {
           height: 55px;
         }
+
         .button {
           flex: 1 1 auto;
           font-weight: normal;
         }
+
         .paypal {
           display: flex;
           overflow: hidden;
+
           iframe {
             color-scheme: normal;
           }
@@ -201,8 +218,8 @@
     }
 
     .gift {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
+
       margin: -1em 0 1em 0;
     }
   }
@@ -216,6 +233,7 @@
 
   .faq {
     @extend %flex-between;
+
     align-items: flex-start;
     margin: 50px 0 40px 0;
     padding: 30px 0;
@@ -229,6 +247,7 @@
     dt {
       font-size: 1.3em;
       margin-bottom: 1em;
+
       &:nth-of-type(2) {
         margin-top: 1.5em;
       }
@@ -237,6 +256,7 @@
     dd {
       margin: 0;
     }
+
     code {
       font-size: 0.9em;
     }
@@ -262,10 +282,12 @@
 
     .list {
       @extend %flex-center;
+
       font-size: 1.1em;
 
       div {
         @extend %ellipsis;
+
         flex: 1 1 25%;
         min-width: 17ch;
       }
@@ -280,12 +302,16 @@
     }
 
     h2 {
-      margin: 300px 0 0.4em 0;
+      margin: 188px 0 0.4em 0;
       border-bottom: $border;
     }
 
     a {
       color: $c-font-page;
+
+      &:hover {
+        color: $c-link;
+      }
     }
   }
 }

@@ -61,7 +61,7 @@ for (let i = 0; i < nbGames; i++) {
     date: new Date(Date.now() - intRandom(118719488)),
     analysed: !!intRandom(2),
   });
-  if (i % 1000 == 0) print(`${i} / ${nbGames}`);
+  if (i % 1000 === 0) print(`${i} / ${nbGames}`);
 }
 
 const indexes = [

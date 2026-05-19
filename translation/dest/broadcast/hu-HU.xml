@@ -69,6 +69,7 @@
   <string name="ratingDiff">Értékszám eltérés</string>
   <string name="gamesThisTournament">E verseny játszmái</string>
   <string name="score">Pontszám</string>
+  <string name="standingsDisclaimer">Az állások a közvetített játékok alapján kerülnek számításra, így azok eltérhetnek a hivatalos eredményektől.</string>
   <string name="allTeams">Összes csapat</string>
   <string name="tournamentFormat">Versenytípus</string>
   <string name="tournamentLocation">Verseny helye</string>
@@ -83,7 +84,14 @@
   <string name="liveboard">Élő tábla</string>
   <string name="communityBroadcast">Közösségi közvetítés</string>
   <string name="createdAndManagedBy">Létrehozta és felügyeli: %s.</string>
+  <string name="matchPoints">Mérkőzés pontok</string>
+  <string name="gamePoints">Játék pontok</string>
+  <string name="matches">Mérkőzések</string>
+  <string name="matchHistory">Mérkőzés előzmények</string>
+  <string name="teamResults">Csapat eredmények</string>
+  <string name="termsAutomaticallyTranslated">A következő kifejezés(ek) automatikusan fordításra kerülnek: %s.</string>
   <string name="roundX">%s. forduló</string>
+  <string name="defaultRoundNameHelp">Ha az alapértelmezett név megtartásra kerül, akkor automatikusan fordításra kerül minden más nyelvre.</string>
   <string name="openTournament">Nyílt</string>
   <string name="womenTournament">Nők</string>
   <string name="menTournament">Férfiak</string>
@@ -92,4 +100,10 @@
   <string name="openUnderXAgeTournament">Nyílt U%s</string>
   <string name="girlsUnderXAgeTournament">Lány U%s</string>
   <string name="boysUnderXAgeTournament">Fiú U%s</string>
+  <string name="quarterfinals">Negyeddöntő</string>
+  <string name="semifinals">Elődöntő</string>
+  <string name="finals">Döntő</string>
+  <string name="tiebreaks">Rövidítés</string>
+  <string name="gameX">Játszma %s</string>
+  <string name="knockouts">Kiütések</string>
 </resources>

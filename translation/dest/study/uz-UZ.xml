@@ -1,167 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Yashirin</string>
-  <string name="myStudies">Mening ta\'limlarim</string>
-  <string name="studiesIContributeTo">Men ishtirok etayotgan ta\'limlar</string>
-  <string name="myPublicStudies">Mening ochiq ta\'limlarim</string>
-  <string name="myPrivateStudies">Mening yashirin ta\'limlarim</string>
-  <string name="myFavoriteStudies">Mening yoqtirgan ta\'limlarim</string>
-  <string name="whatAreStudies">Ta\'limlar nima o\'zi?</string>
-  <string name="allStudies">Barcha ta\'limlar</string>
-  <string name="studiesCreatedByX">%s tomonidan yaratilgan ta\'limlar</string>
-  <string name="noneYet">Xozircha yo\'q.</string>
-  <string name="hot">Qaynoq</string>
-  <string name="dateAddedNewest">Qo\'shilgan vaqt (yangiroq)</string>
-  <string name="dateAddedOldest">Qo\'shilgan vaqt (eskiroq)</string>
+  <string name="private">Maxfiy</string>
+  <string name="myStudies">Saboqlarim</string>
+  <string name="studiesIContributeTo">Men hammuallif boʻlgan saboqlar</string>
+  <string name="myPublicStudies">Ochiq saboqlarim</string>
+  <string name="myPrivateStudies">Maxfiy saboqlarim</string>
+  <string name="myFavoriteStudies">Saralangan saboqlarim</string>
+  <string name="whatAreStudies">Saboqlar oʻzi nima?</string>
+  <string name="allStudies">Barcha saboqlar</string>
+  <string name="studiesCreatedByX">%s tomonidan yaratilgan saboqlar</string>
+  <string name="noneYet">Hali saboqlar yoʻq.</string>
+  <string name="hot">Trendda</string>
+  <string name="dateAddedNewest">Avval yangilari</string>
+  <string name="dateAddedOldest">Avval eskilari</string>
   <string name="recentlyUpdated">Yaqinda yangilangan</string>
-  <string name="mostPopular">Eng ommabop</string>
-  <string name="alphabetical">Alfavitli</string>
-  <string name="addNewChapter">Yangi bo\'lim qo\'shish</string>
+  <string name="mostPopular">Eng mashhur</string>
+  <string name="alphabetical">Alifbo tartibida</string>
+  <string name="relevant">Aloqador</string>
+  <string name="addNewChapter">Yangi bob qoʻshish</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s bo\'lim</item>
-    <item quantity="other">%s bo\'limlar</item>
+    <item quantity="one">%s ta bob</item>
+    <item quantity="other">%s ta bob</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s o\'yin</item>
-    <item quantity="other">%s o\'yinlar</item>
+    <item quantity="one">%s ta oʻyin</item>
+    <item quantity="other">%s ta oʻyin</item>
   </plurals>
-  <string name="addMembers">A’zo qo‘shish</string>
+  <string name="addMembers">Aʼzo qoʻshish</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s a\'zo</item>
-    <item quantity="other">%s a\'zolar</item>
+    <item quantity="one">%s ta aʼzo</item>
+    <item quantity="other">%s ta aʼzo</item>
   </plurals>
-  <string name="inviteToTheStudy">Ta\'lim uchun chorlash</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Iltimos faqat o\'zingiz taniydigan odamlarni va haqiqatdan ham qo\'shilishni xohlayotganlarni ta\'limga qo\'shing.</string>
-  <string name="searchByUsername">Foydalanuvchi nomi bo\'yicha qidirish</string>
+  <string name="inviteToTheStudy">Saboqqa taklif qilish</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Iltimos, faqat sizni taniydigan va ushbu saboqqa qoʻshilishni chin dildan xohlaydigan kishilarni taklif qiling.</string>
+  <string name="searchByUsername">Foydalanuvchi nomi boʻyicha qidirish</string>
   <string name="spectator">Kuzatuvchi</string>
-  <string name="contributor">Yordamchi</string>
-  <string name="kick">Ro\'yhatdan chiqarish</string>
-  <string name="leaveTheStudy">Ta\'limni tark etish</string>
-  <string name="youAreNowAContributor">Siz xozir yordamchisiz</string>
-  <string name="youAreNowASpectator">Siz xozir kuzatuvchisiz</string>
-  <string name="pgnTags">PGN yorliqlar</string>
+  <string name="contributor">Hammuallif</string>
+  <string name="kick">Haydash</string>
+  <string name="leaveTheStudy">Saboqni tark etish</string>
+  <string name="youAreNowAContributor">Siz endi hammuallifsiz</string>
+  <string name="youAreNowASpectator">Siz endi kuzatuvchisiz</string>
+  <string name="pgnTags">PGN teglar</string>
   <string name="like">Yoqdi</string>
-  <string name="unlike">O‘xshamagan</string>
-  <string name="newTag">Yangi yorliq</string>
-  <string name="commentThisPosition">Ushbu holatga izoh berish</string>
-  <string name="commentThisMove">Ushbu yurishga izoh berish</string>
-  <string name="annotateWithGlyphs">Gliflar bilan izohlash</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Ushbu bo\'lim tahlil uchun juda ham qisqa.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Faqat ta\'lim ishtirokchilari kompyuter tahlilini so\'rashi mumkin.</string>
-  <string name="getAFullComputerAnalysis">Asosiy qatorni server tomonidagi tahlilini olish.</string>
-  <string name="makeSureTheChapterIsComplete">Bo\'lim tugaganiga ishonch xosil qiling. Siz bir marta so\'rov yuborishingiz mumkin.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Barcha SYNC a\'zolari o\'sha joyida saqlanib qoladi</string>
-  <string name="shareChanges">O\'zgarishlarni serverda saqlab juzatuvchilar bilan baham ko\'ring</string>
-  <string name="playing">O\'ynash</string>
+  <string name="unlike">Yoqmadi</string>
+  <string name="newTag">Yangi teg</string>
+  <string name="commentThisPosition">Ushbu pozitsiyaga sharh berish</string>
+  <string name="commentThisMove">Ushbu yurishga sharh berish</string>
+  <string name="annotateWithGlyphs">Gliflar bilan belgilash</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Tahlil qilish uchun ushbu bob juda qisqa.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Kompyuter tahlilini faqat saboq hammualliflari soʻrashi mumkin.</string>
+  <string name="getAFullComputerAnalysis">Asosiy variantni server yordamida toʻliq kompyuter tahlilidan oʻtkazish.</string>
+  <string name="makeSureTheChapterIsComplete">Eʼtibor bering, bob yakunlangan boʻlishi kerak. Tahlilni faqat bir marta soʻrash mumkin.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Barcha sinxronlangan aʼzolar bir xil pozitsiyada qoladilar</string>
+  <string name="shareChanges">Oʻzgarishlarni kuzatuvchilar bilan boʻlishing va serverda saqlab qoʻying</string>
+  <string name="playing">Oʻynalmoqda</string>
   <string name="showResults">Natijalar</string>
-  <string name="showEvalBar">Baholash chiziqlari</string>
+  <string name="showEvalBar">Baholash paneli</string>
   <string name="next">Keyingi</string>
-  <string name="shareAndExport">Ulashish &amp; eksport</string>
-  <string name="cloneStudy">Klonlash</string>
-  <string name="studyPgn">PGN o\'rganish</string>
-  <string name="chapterPgn">PGN bo\'limi</string>
-  <string name="copyChapterPgn">PGN ni nusxalash</string>
+  <string name="shareAndExport">Ulashish va eksport</string>
+  <string name="cloneStudy">Nusxalash</string>
+  <string name="studyPgn">Saboq PGNʼi</string>
+  <string name="chapterPgn">Bob PGNʼi</string>
+  <string name="copyChapterPgn">PGNʼdan nusxa olish</string>
+  <string name="copyRawChapterPgn">Sof PGNʼdan nusxa olish</string>
   <string name="downloadGame">Oʻyinni yuklab olish</string>
-  <string name="studyUrl">URL o\'rganish</string>
-  <string name="currentChapterUrl">Joriy bo\'lim URL i</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Siz buni bo\'limga bog\'lash uchun forumga joylashingiz mumkin</string>
-  <string name="startAtInitialPosition">Boshlang\'ich holatdan boshlash</string>
-  <string name="startAtX">%s da boshlash</string>
-  <string name="embedInYourWebsite">Oʻz websaytingizda yoki blogingizda joylang</string>
-  <string name="readMoreAboutEmbedding">Joylash haqida koʻproq oʻqing</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Faqat ochiq taʻlimlar joylanishi mumkin!</string>
+  <string name="studyUrl">Saboq havolasi</string>
+  <string name="currentChapterUrl">Joriy bob havolasi</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Saboqni joylashtirish uchun ushbu havoladan forumda yoki Lichess blogingizda foydalanishingiz mumkin</string>
+  <string name="startAtInitialPosition">Boshlangʻich pozitsiyadan boshlash</string>
+  <string name="startAtX">%s pozitsiyasidan boshlash</string>
+  <string name="embedInYourWebsite">Veb‑saytingizda joylashtirish uchun havola</string>
+  <string name="readMoreAboutEmbedding">Joylashtirish haqida batafsil maʼlumot</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Faqat ochiq saboqlarni joylashtirish mumkin!</string>
   <string name="open">Ochish</string>
-  <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
-  <string name="studyNotFound">Ta\'lim topilmadi</string>
-  <string name="editChapter">Bo\'limni tahrirlash</string>
-  <string name="newChapter">Yangi bo\'lim</string>
-  <string name="importFromChapterX">%s dan import qilish</string>
-  <string name="orientation">Joylashuv</string>
-  <string name="analysisMode">Tahlil qilish holati</string>
-  <string name="pinnedChapterComment">Bo\'lim mahkamlangan kommenti</string>
-  <string name="saveChapter">Bo\'limni saqlash</string>
+  <string name="xBroughtToYouByY">%2$s taqdim etadi: %1$s</string>
+  <string name="studyNotFound">Saboq topilmadi</string>
+  <string name="editChapter">Bobni tahrirlash</string>
+  <string name="newChapter">Yangi bob</string>
+  <string name="importFromChapterX">%sdan import qilish</string>
+  <string name="orientation">Taxta tomoni</string>
+  <string name="analysisMode">Tahlil rejimi</string>
+  <string name="pinnedChapterComment">Bobning qadalgan sharh</string>
+  <string name="saveChapter">Bobni saqlash</string>
   <string name="clearAnnotations">Annotatsiyalarni tozalash</string>
   <string name="clearVariations">Variantlarni tozalash</string>
-  <string name="deleteChapter">Bo\'limni o\'chirish</string>
-  <string name="deleteThisChapter">Ushbu bo\'lim o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
-  <string name="clearAllCommentsInThisChapter">Ushbu bo\'limdagi barcha kommentlar, rasmlar, sipohlar, shakllar tozalansinmi?</string>
-  <string name="rightUnderTheBoard">Shunday doskani tagida</string>
-  <string name="noPinnedComment">Hech qayerda</string>
+  <string name="deleteChapter">Bobni oʻchirish</string>
+  <string name="deleteThisChapter">Ushbu bob oʻchirilsinmi? Bu amalni ortga qaytarib boʻlmaydi!</string>
+  <string name="clearAllCommentsInThisChapter">Ushbu bobdagi barcha sharhlar, belgilar va chizmalarni oʻchirish</string>
+  <string name="rightUnderTheBoard">Taxta ostida</string>
+  <string name="noPinnedComment">Yoʻq</string>
   <string name="normalAnalysis">Normal tahlil</string>
   <string name="hideNextMoves">Navbatdagi yurishni yashirish</string>
-  <string name="interactiveLesson">Faol dars</string>
-  <string name="chapterX">%s bo\'limi</string>
-  <string name="empty">Bo‘sh</string>
-  <string name="startFromInitialPosition">Boshlang\'ich holatdan boshlash</string>
-  <string name="editor">Tahrirlovchi</string>
-  <string name="startFromCustomPosition">Ko\'rsatilgan holatdan boshlash</string>
-  <string name="loadAGameByUrl">O\'yinni URL dan o\'qib olish</string>
-  <string name="loadAPositionFromFen">Boshlang\'ich hiolatni FEN dan yuklab olish</string>
-  <string name="loadAGameFromPgn">PGN dan o\'yinni o\'qib olish</string>
+  <string name="interactiveLesson">Interaktiv dars</string>
+  <string name="chapterX">%s‑bob</string>
+  <string name="empty">Boʻsh</string>
+  <string name="startFromInitialPosition">Boshlangʻich pozitsiyadan boshlash</string>
+  <string name="editor">Redaktor</string>
+  <string name="startFromCustomPosition">Koʻrsatilgan pozitsiyadan boshlash</string>
+  <string name="loadAGameByUrl">Havola orqali oʻyinni yuklash</string>
+  <string name="loadAPositionFromFen">FEN orqali oʻyinni yuklash</string>
+  <string name="loadAGameFromPgn">PGN orqali oʻyinni yuklash</string>
   <string name="automatic">Avtomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">%s o\'yinni yuklash uchun PGN matnni shu yerga qo\'ying</item>
-    <item quantity="other">%s o\'yinlarni yuklash uchun PGN matnni shu yerga qo\'ying</item>
+    <item quantity="one">PGN matnini kiriting (maksimum %s ta oʻyin)</item>
+    <item quantity="other">PGN oʻyinlarni kiriting. Har biri uchun yangi bob yaratiladi (jami %s tagacha).</item>
   </plurals>
-  <string name="urlOfTheGame">O\'yin URL i</string>
-  <string name="createChapter">Bo\'lim yaratish</string>
-  <string name="createStudy">Ta\'lim yaratish</string>
-  <string name="editStudy">Ta\'limni tahrirlash</string>
-  <string name="visibility">Ko\'rinishi</string>
-  <string name="public">Ommaviy</string>
-  <string name="unlisted">Ro\'yhatga olinmagan</string>
-  <string name="inviteOnly">Faqat taklif</string>
-  <string name="allowCloning">Klonlash uchun ruhsat</string>
+  <string name="urlOfTheGame">Oʻyinlar havolasi (har bir qatorda bittadan)</string>
+  <string name="createChapter">Bob yaratish</string>
+  <string name="createStudy">Saboq yaratish</string>
+  <string name="editStudy">Saboqni tahrirlash</string>
+  <string name="visibility">Koʻrinuvchanlik</string>
+  <string name="public">Hammaga ochiq</string>
+  <string name="unlisted">Yashirin</string>
+  <string name="inviteOnly">Faqat taklifnoma orqali</string>
+  <string name="allowCloning">Nusxalashga ruxsat berish</string>
   <string name="nobody">Hech kim</string>
-  <string name="onlyMe">Faqat menga</string>
-  <string name="contributors">Yordamchilar</string>
-  <string name="members">A\'zolar</string>
-  <string name="everyone">Har kim</string>
-  <string name="enableSync">Sinxronizatsiya yoqilgan</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ha: hamma o\'z o\'rnida saqlansin</string>
-  <string name="noLetPeopleBrowseFreely">Yo\'q: odamlarga bemalol sharhlashga imkon berilsin</string>
-  <string name="pinnedStudyComment">Ta\'lim mahkamlangan kommenti</string>
+  <string name="onlyMe">Faqat men</string>
+  <string name="contributors">Hammualliflar</string>
+  <string name="members">Aʼzolar</string>
+  <string name="everyone">Hamma</string>
+  <string name="enableSync">Sinxronizatsiyani yoqish</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ha: hamma bir xil pozitsiyada qoladi</string>
+  <string name="noLetPeopleBrowseFreely">Yoʻq: erkin koʻrib chiqishga ruxsat berish</string>
+  <string name="pinnedStudyComment">Qadalgan saboq sharhi</string>
   <string name="start">Boshlash</string>
   <string name="save">Saqlash</string>
-  <string name="clearChat">Suhbatni tozalash</string>
-  <string name="deleteTheStudyChatHistory">Ta\'lim suhbatini o\'chirilsinmi? Bundan keyin uni ortga qaytarib bo\'lmaydi!</string>
-  <string name="deleteStudy">Ta\'limni o\'chirish</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ta‘limni to‘laligicha o‘chirilsinmi? Ortga yo‘l yo‘q! Tasdiqlash uchun %s ta‘lim nomini kiriting</string>
-  <string name="whereDoYouWantToStudyThat">Buni qayerda o\'rganmoqchisiz?</string>
+  <string name="clearChat">Chatni oʻchirish</string>
+  <string name="deleteTheStudyChatHistory">Saboq chat tarixi oʻchirilsinmi? Bu amalni ortga qaytarib boʻlmaydi!</string>
+  <string name="deleteStudy">Saboqni oʻchirish</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Butun saboq oʻchirib tashlansinmi? Bu amalni ortga qaytarib boʻlmaydi! Tasdiqlash uchun saboq nomini yozing: %s</string>
+  <string name="whereDoYouWantToStudyThat">Saboqni qayerdan boshlamoqchisiz?</string>
   <string name="goodMove">Yaxshi yurish</string>
   <string name="mistake">Xato</string>
-  <string name="brilliantMove">Zo‘r yurish</string>
-  <string name="blunder">Qo\'pol xato</string>
+  <string name="brilliantMove">Ajoyib yurish</string>
+  <string name="blunder">Qoʻpol xato</string>
   <string name="interestingMove">Qiziq yurish</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Shubhali yurish</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Yagona yurish</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Sugsvang</string>
-  <string name="equalPosition">Teng holat</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Noaniq holat</string>
-  <string name="whiteIsSlightlyBetter">Oqlarda vaziyat yaxshiroq</string>
-  <string name="blackIsSlightlyBetter">Qoralarda vaziyat yaxshiroq</string>
-  <string name="whiteIsBetter">Oqlarda vaziyat zo‘r</string>
-  <string name="blackIsBetter">Qoralarda vaziyat zo‘r</string>
-  <string name="whiteIsWinning">Oqlar yutayabdi</string>
-  <string name="blackIsWinning">Qoralar yutayabdi</string>
-  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Yangi</string>
-  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Ishlab chiqish</string>
-  <string name="initiative">Initsiativa</string>
+  <string name="equalPosition">Teng pozitsiya</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Noaniq pozitsiya</string>
+  <string name="whiteIsSlightlyBetter">Oqlar biroz ustun</string>
+  <string name="blackIsSlightlyBetter">Qoralar biroz ustun</string>
+  <string name="whiteIsBetter">Oqlar ustun</string>
+  <string name="blackIsBetter">Qoralar ustun</string>
+  <string name="whiteIsWinning">Oqlar gʻalaba qozonmoqda</string>
+  <string name="blackIsWinning">Qoralar gʻalaba qozonmoqda</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nazariy yangilik</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Rivojlanish</string>
+  <string name="initiative">Tashabbus</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Hujum</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Qarshi o‘yin</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vaqt yetishmovchiligi</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Qarshi oʻyin</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vaqt tanqisligi</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompensatsiya bilan</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">G‘oya bilan</string>
-  <string name="nextChapter">Navbatdagi bo‘lim</string>
-  <string name="prevChapter">Avvalgi bo‘lim</string>
-  <string name="studyActions">Ta‘lim harakatlari</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Gʻoya bilan</string>
+  <string name="nextChapter">Keyingi bob</string>
+  <string name="prevChapter">Oldingi bob</string>
+  <string name="studyActions">Saboq amallari</string>
   <string name="topics">Mavzular</string>
   <string name="myTopics">Mening mavzularim</string>
-  <string name="popularTopics">Nomdor mavzular</string>
+  <string name="popularTopics">Mashhur mavzular</string>
   <string name="manageTopics">Mavzularni boshqarish</string>
   <string name="back">Ortga</string>
-  <string name="playAgain">Qayta o‘ynash</string>
-  <string name="whatWouldYouPlay">Ushbu holatda qanday o‘ynagan bo‘lardingiz?</string>
-  <string name="youCompletedThisLesson">Tabriklaymiz! Siz bu darsni tugatdingiz.</string>
-  <string name="perPage">Har bir sahifaga %s</string>
+  <string name="playAgain">Qayta oʻynash</string>
+  <string name="whatWouldYouPlay">Ushbu pozitsiyada qanday yurgan boʻlardingiz?</string>
+  <string name="youCompletedThisLesson">Tabriklaymiz! Siz ushbu darsni yakunladingiz.</string>
+  <string name="perPage">Har bir sahifada %s ta</string>
+  <string name="getTheTour">Yordam kerakmi? Platforma bilan tanishing!</string>
+  <string name="welcomeToLichessStudyTitle">Lichess saboqlariga xush kelibsiz!</string>
+  <string name="welcomeToLichessStudyText">Bu birgalikda tahlil qilish taxtasi.&lt;br&gt;&lt;br&gt;Undan oʻyinlarni tahlil qilish va sharh berish,&lt;br&gt;doʻstlar bilan pozitsiyalarni muhokama qilish&lt;br&gt;va albatta, shaxmat darslari uchun foydalanishingiz mumkin!&lt;br&gt;&lt;br&gt;Bu juda keng imkoniyatli vosita, keling, uning qanday ishlashini koʻrib chiqamiz.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Ulashilgan va saqlangan</string>
+  <string name="sharedAndSavedText">Boshqa aʼzolar yurishlaringizni real vaqtda koʻrib turishadi!&lt;br&gt;Bundan tashqari, hamma narsa abadiy saqlab qolinadi.</string>
+  <string name="studyMembersTitle">Saboq aʼzolari</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Kuzatuvchilar saboqni koʻrishlari va chatda gaplashishlari mumkin.&lt;br&gt;&lt;br&gt;%2$s Hammualliflar yurishlar qilishlari va saboqni yangilashlari mumkin.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s tugmasini bosing.&lt;br&gt;Keyin kim hammuallif boʻlishi yoki boʻlmasligini belgilang.</string>
+  <string name="studyChaptersTitle">Saboq boblari</string>
+  <string name="studyChaptersText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bob oʻzining boshlangʻich pozitsiyasi va yurishlar iyerarxiyasiga ega.</string>
+  <string name="commentPositionTitle">Pozitsiyaga sharh berish</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchaning oʻng tugmasini bosing.&lt;br&gt;Sharhlar saqlanadi va hamma uchun koʻrinadi.</string>
+  <string name="annotatePositionTitle">Pozitsiyaga belgilar qoʻshish</string>
+  <string name="annotatePositionText">!? tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchani oʻng tugmasini bosing.&lt;br&gt;Tahlil belgilari saqlanadi va hamma uchun koʻrinadi.</string>
+  <string name="conclusionTitle">Vaqt ajratganingiz uchun rahmat</string>
+  <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Oldingi saboqlaringizni&lt;/a&gt; profil sahifangizdan topishingiz mumkin.&lt;br&gt;Shuningdek, &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;saboqlar haqidagi blog‑post&lt;/a&gt; bilan ham tanishib chiqing.&lt;br&gt;Tajribali foydalanuvchilar klaviatura yorliqlarini koʻrish uchun \"?\" belgisini bosishlari mumkin.&lt;br&gt;Omad tilaymiz!</string>
+  <string name="createChapterTitle">Saboq uchun bob yaratamiz</string>
+  <string name="createChapterText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bobda alohida yurishlar varianti mavjud&lt;br&gt;va ularni turli usullar bilan yaratish mumkin.</string>
+  <string name="fromInitialPositionTitle">Boshlangʻich pozitsiyadan</string>
+  <string name="fromInitialPositionText">Yangi oʻyin uchun tayyorlangan pozitsiya.&lt;br&gt;Debyutlarni oʻrganish uchun qulay.</string>
+  <string name="customPositionTitle">Maxsus pozitsiya</string>
+  <string name="customPositionText">Pozitsiyani oʻzingiz xohlagancha tering.&lt;br&gt;Endshpillarni oʻrganish uchun qulay.</string>
+  <string name="loadExistingLichessGameTitle">Mavjud Lichess oʻyinini yuklash</string>
+  <string name="loadExistingLichessGameText">Bobga oʻyinni yuklash uchun&lt;br&gt;Lichess oʻyini havolasini (URL) kiriting&lt;br&gt;(masalan: lichess.org/7fHIU0XI).</string>
+  <string name="fromFenStringTitle">FEN satridan</string>
+  <string name="fromFenStringText">Bobni maʼlum bir pozitsiyadan boshlash uchun&lt;br&gt;FEN formatidagi pozitsiyani kiriting:&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;</string>
+  <string name="fromPgnGameTitle">PGN oʻyinidan</string>
+  <string name="fromPgnGameText">Bobga yurishlar, sharhlar va variantlarni yuklash uchun&lt;br&gt;PGN formatidagi oʻyinni kiriting.</string>
+  <string name="variantsAreSupportedTitle">Saboqlarda shaxmat variantlari ham mavjud</string>
+  <string name="variantsAreSupportedText">Ha, siz Kreyzihaus va boshqa&lt;br&gt;Lichess variantlarini oʻrganishingiz mumkin!</string>
+  <string name="chapterConclusionText">Boblar abadiy saqlanadi.&lt;br&gt;Shaxmat materiallaringizni zavq bilan tartiblang!</string>
+  <string name="doubleDefeat">Ikki tomonlama magʻlubiyat</string>
+  <string name="blackDefeatWhiteCanNotWin">Qoralar magʻlubiyati, ammo oqlar gʻalaba qozona olmaydi</string>
+  <string name="whiteDefeatBlackCanNotWin">Oqlar magʻlubiyati, ammo qoralar gʻalaba qozona olmaydi</string>
 </resources>

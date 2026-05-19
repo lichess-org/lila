@@ -124,7 +124,6 @@
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="showVariationArrows">Sýna afbrigðaörvar</string>
-  <string name="evaluationGauge">Stöðumat</string>
   <string name="multipleLines">Mismunandi línur</string>
   <string name="cpus">Örgjörvar</string>
   <string name="memory">Minni</string>
@@ -253,9 +252,6 @@
   <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
   <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
   <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
-  <string name="emailForSignupHelp">Ef allt annað bregst skaltu þá senda okkur þennan tölvupóst:</string>
-  <string name="copyTextToEmail">Afritaðu og límdu ofangreindan texta og sendu hann til %s</string>
-  <string name="waitForSignupHelp">Við munum hafa samband við þig innan skamms til þess að hjálpa þér að ljúka við skráninguna þína.</string>
   <string name="accountConfirmed">Notandinn %s hefur verið staðfestur.</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
@@ -710,7 +706,6 @@
   <string name="keyCycleSelectedVariation">Fletta í gegnum valda afbrigðið</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
-  <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
   <string name="toggleVariationArrows">Víxla afbrigðisörvum</string>
@@ -898,7 +893,6 @@
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég lýsi yfir því að ég muni alltaf koma vel fram við aðra skákmenn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég lýsi yfir því að ég muni ekki stofna marga aðganga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
-  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Örskák</string>

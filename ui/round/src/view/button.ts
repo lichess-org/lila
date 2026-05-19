@@ -1,13 +1,22 @@
 import type { VNode, Hooks } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { spinnerVdom as spinner, type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/view';
-import { justIcon } from '../util';
+
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
-import { game as gameRoute } from 'lib/game/router';
-import type { EventsWithoutPayload, RoundData } from '../interfaces';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
-import type RoundController from '../ctrl';
+import { game as gameRoute } from 'lib/game/router';
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import {
+  spinnerVdom as spinner,
+  type LooseVNodes,
+  type LooseVNode,
+  hl,
+  bind,
+  onInsert,
+  dataIcon,
+} from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { EventsWithoutPayload, RoundData } from '../interfaces';
 
 export interface ButtonState {
   enabled: boolean;
@@ -103,7 +112,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
 export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => ButtonState) | undefined,
-  icon: string,
+  icon: LiconType,
   hint: string,
   socketMsg: EventsWithoutPayload,
   onclick?: () => void,
@@ -119,7 +128,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    ctrl.nvui ? [hintFn()] : [hl('span', justIcon(icon))],
+    ctrl.nvui ? [hintFn()] : [hl('span', { attrs: dataIcon(icon) })],
   );
 }
 
@@ -208,7 +217,7 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
         i18n.site.backToTournament,
       ),
       hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        hl('button.text.fbt.weak', justIcon(licon.Pause), i18n.site.pause),
+        hl('button.text.fbt.weak', { attrs: dataIcon(licon.Pause) }, i18n.site.pause),
       ]),
       analysisButton(ctrl),
     ])

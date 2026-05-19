@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
+
 import { type MaybeVNodes, onInsert } from 'lib/view';
+
 import type TournamentController from '../ctrl';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
-import teamInfo from './teamInfo';
 import header from './header';
+import teamInfo from './teamInfo';
 
 export const name = 'created';
 

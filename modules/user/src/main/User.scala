@@ -12,6 +12,8 @@ object TotpToken extends OpaqueString[TotpToken]
 
 case class UserDelete(requested: Instant, done: Boolean = false)
 
+case class ClosedFlags(forever: Boolean, deleted: Boolean)
+
 object PlayTime:
   extension (p: PlayTime)
     def totalDuration = Duration.ofSeconds(p.total)

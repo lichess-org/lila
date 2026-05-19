@@ -9,6 +9,7 @@
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
   <string name="orLetYourOpponentScanQrCode">Або дазвольце апаненту адсканаваць гэты QR-код</string>
+  <string name="reusableChallengeUrl">Выклік шматразовага карыстаньня</string>
   <string name="waiting">Чакаем</string>
   <string name="yourTurn">Ваша чарга</string>
   <string name="aiNameLevelAiLevel">%1$s узровень %2$s</string>
@@ -126,7 +127,6 @@
   <string name="byCPL">Цікавае</string>
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
-  <string name="evaluationGauge">Шкала ацэнкі</string>
   <string name="multipleLines">Дадатковыя хады</string>
   <string name="cpus">Працэсары</string>
   <string name="memory">Памяць</string>
@@ -273,9 +273,6 @@
   <string name="emailCanTakeSomeTime">Ён можа прыйсці праз некаторы час.</string>
   <string name="refreshInboxAfterFiveMinutes">Пачакайце 5 хвілін і абнавіце паштовую скрыню.</string>
   <string name="checkSpamFolder">Таксама праверце папку са спамам, ён можа апынуцца там. Калі так, адзначце гэта як не спам.</string>
-  <string name="emailForSignupHelp">Калі ўсё астатняе не дапамагае, адпраўце нам гэты ліст:</string>
-  <string name="copyTextToEmail">Скапіруйце і ўстаўце прыведзены вышэй тэкст і адпраўце яго %s</string>
-  <string name="waitForSignupHelp">Мы звяжамся з вамі ў бліжэйшы час, каб дапамагчы вам завяршыць рэгістрацыю.</string>
   <string name="accountConfirmed">Карыстальнік %s паспяхова пацверджаны.</string>
   <string name="accountCanLogin">Вы можаце ўвайсці зараз як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не патрэбна пацвярджэнне па электроннай пошце.</string>
@@ -930,7 +927,6 @@
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
   <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я пагаджаюся не ствараць некалькі ўліковых запісаў (акрамя выпадкаў апісаных у %s).</string>
-  <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультракуля</string>

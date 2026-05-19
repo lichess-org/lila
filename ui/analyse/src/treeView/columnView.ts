@@ -1,9 +1,10 @@
+import type { TreeNode } from 'lib/tree/types';
 import { type LooseVNodes, hl, type VNode } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import { renderIndex } from '../view/components';
 import { InlineView, type Args } from './inlineView';
-import type { TreeNode } from 'lib/tree/types';
 
 export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () => () => null): VNode {
   const renderer = new ColumnView(ctrl, concealOf);

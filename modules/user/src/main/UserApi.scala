@@ -239,13 +239,14 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .sequence
 
   def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
+    val max = 512
     userRepo.coll
-      .aggregateList(onlineBotVisible.value, _.sec): framework =>
+      .aggregateList(max, _.sec): framework =>
         import framework.*
         val inIds = ids.nonEmpty.so($inIds(ids))
         Match(inIds ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
-          Limit(onlineBotVisible.value),
+          Limit(max),
           PipelineOperator(perfsRepo.aggregate.lookup)
         )
       .map: docs =>

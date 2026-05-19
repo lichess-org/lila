@@ -8,6 +8,7 @@ import {
   Filler,
   type ChartData,
 } from 'chart.js';
+
 import { currentTheme } from 'lib/device';
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Tooltip, Filler);

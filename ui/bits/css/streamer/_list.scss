@@ -18,11 +18,12 @@
   }
 
   .streamer {
+    @include transition;
+
     border-top: $border;
     position: relative;
     display: flex;
 
-    @include transition;
     @include mq-subnav-top {
       overflow-x: hidden;
     }
@@ -47,6 +48,7 @@
     &:nth-child(even) {
       background: $c-bg-zebra;
       justify-content: space-between;
+
       div.picture {
         order: 3;
       }
@@ -63,7 +65,6 @@
 
   img.picture {
     flex: 0 0 300px;
-
     display: none;
 
     @include mq-at-least-picture {

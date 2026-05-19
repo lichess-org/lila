@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Zertan lagun zaitzakegu?</string>
   <string name="visitThisPage">Ikusi orrialde hau zure arazoa konpontzeko</string>
   <string name="iCantLogIn">Ezin naiz sartu</string>
-  <string name="noConfirmationEmail">Ez dut nire baieztapen eposta jaso</string>
+  <string name="noConfirmationEmail">Ez dut nire baieztapen emailik jaso</string>
   <string name="forgotPassword">Pasahitza ahaztu dut</string>
   <string name="forgotUsername">Erabiltzaile-izena ahaztu dut</string>
-  <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun eposta helbidearekin sar zaitezke</string>
+  <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun emailarekin sar zaitezke</string>
   <string name="lost2FA">Nire bi faktoreko autentikazio kodeak galdu ditut</string>
   <string name="doPasswordReset">Berrezarri pasahitza bi faktoreko autentikazioa desgaitzeko</string>
   <string name="accountSupport">Kontuaren inguruko laguntza behar dut</string>
@@ -16,10 +16,10 @@
   <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren baieztapenaren orrialdera</string>
   <string name="wantCloseAccount">Nire kontua itxi egin nahi dut</string>
   <string name="closeYourAccount">Zure kontua orrialde honetan itxi dezakezu</string>
-  <string name="doNotAskByEmail">Ez iezaguzu epostaz eskatu zure kontua ixteko, ez dugu egingo.</string>
+  <string name="doNotAskByEmail">Ez iezaguzu zure kontua ixteko emailez eskatu, ez dugu egingo.</string>
   <string name="wantReopen">Nire kontua berriz ireki nahi dut</string>
   <string name="reopenOnThisPage">Zure kontua orrialde honetan ireki dezakezu berriro. Behin bakarrik egin dezakezu.</string>
-  <string name="doNotAskByEmailToReopen">Ez iezaguzu epostaz eskatu zure kontua berriz irekitzeko, ez dugu egingo.</string>
+  <string name="doNotAskByEmailToReopen">Ez iezaguzu zure kontua berriz irekitzeko emailez eskatu, ez dugu egingo.</string>
   <string name="wantChangeUsername">Nire erabiltzaile-izena aldatu nahi dut</string>
   <string name="changeUsernameCase">Joan orrialde honetara zure erabiltzaile-izena aldatzeko</string>
   <string name="cantChangeMore">Ezin dugu zure erabiltzaile-izena berriz aldatu. Arrazoi teknikoak direla-eta ezin dugu egin.</string>
@@ -30,7 +30,7 @@
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
   <string name="doNotReportInForum">Ez erabili foroa jokalarien inguruko kexa bidaltzeko.</string>
-  <string name="doNotSendReportEmails">Ez bidali epostaz kexak.</string>
+  <string name="doNotSendReportEmails">Ez bidali emailez kexarik.</string>
   <string name="doNotMessageModerators">Ez bidali mezu zuzenak moderatzaileei.</string>
   <string name="onlyReports">Formularioa erabiliz bakarrik egingo dizugu kasu.</string>
   <string name="wantReportBug">Errore baten berri eman nahi dut</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
   <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
   <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
   <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Posible izan daiteke zaldun edo alfil batekin aurkariari xake-mate ematea, aurkariak erregeaz gain beste piezaren bat badu.</string>
   <string name="noRatingPoints">Ez da puntuaziorik jaso</string>
   <string name="ratedGame">Ziurtatu puntuaziorako baliogarria den partida bat jokatu duzula. Lagunarteko partidek ez dute eraginik jokalarien puntuazioan.</string>
-  <string name="botRatingAbuse">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
   <string name="errorPage">Errore orrialdea</string>
   <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
   <string name="learnHowToMakeBroadcasts">Ikasi nola egin emanaldiak Lichessen</string>
@@ -72,6 +72,6 @@
   <string name="videosAndBooks">Zure bideoetan erabili dezakezu eta pantaila-irudiak liburuetan ere argitaratu ditzakezu.</string>
   <string name="creditAppreciated">Erabili gaituzula esatea ondo dago baina ez da beharrezkoa.</string>
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>
-  <string name="sendEmailAt">Bidali eposta mezu bat hona %s.</string>
+  <string name="sendEmailAt">Bidali email bat hona %s.</string>
   <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
 </resources>

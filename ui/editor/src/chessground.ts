@@ -1,12 +1,15 @@
-import { h, type VNode } from 'snabbdom';
-import resizeHandle from 'lib/chessgroundResize';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
-import type EditorCtrl from './ctrl';
-import { storage } from 'lib/storage';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { pubsub } from 'lib/pubsub';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle } from 'lib/prefs';
+import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+
+import type EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -120,6 +123,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
+    jsHover: isSafari(),
     movable: {
       free: true,
       color: 'both',

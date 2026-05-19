@@ -91,7 +91,7 @@ to speed things up!</string>
   <string name="youCanGetOutOfCheckByTaking">आप पर हमला करने वाला टुकड़ा ले जाकर चेक से बाहर निकल सकते हैं।</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">यह घोड़ा अपने बचाव के माध्यम से जांच रहा है|</string>
   <string name="escapeOrBlock">राजा से बच या हमले को रोकें</string>
-  <string name="outOfCheckComplete">बधाई! आपके राजा को कभी भी नहीं ले जाया जा सकता है, सुनिश्चित करें कि आप किसी चेक से बचाव कर सकते हैं!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">बधाई! आपके राजा को कभी भी नहीं ले जाया जा सकता है, सुनिश्चित करें कि आप किसी चेक से बचाव कर सकते हैं!</string>
   <string name="mateInOne">एक कदम में चेकमेट</string>
   <string name="defeatTheOpponentsKing">प्रतिद्वंद्वी के राजा को हार</string>
   <string name="mateInOneIntro">आप तब जीतते हैं जब आपका प्रतिद्वंद्वी किसी शह से बचाव नहीं कर सकता।</string>

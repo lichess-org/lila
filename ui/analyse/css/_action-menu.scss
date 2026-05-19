@@ -4,6 +4,7 @@
 
 .action-menu {
   @extend %border-bottom-active, %flex-column;
+
   position: absolute;
   z-index: $z-action-menu-99;
   inset: 0;
@@ -66,13 +67,14 @@
     @extend %flex-wrap;
 
     .button {
-      &-empty {
-        color: $c-font-dim;
-      }
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;
       text-align: center;
+
+      &-empty {
+        color: $c-font-dim;
+      }
     }
   }
 
@@ -114,6 +116,7 @@
 
   span {
     @extend %flex-center;
+
     justify-content: start;
     gap: 0.6em;
   }

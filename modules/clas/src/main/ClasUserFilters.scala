@@ -8,13 +8,14 @@ import reactivemongo.api.bson.BSONNull
 import play.api.Mode
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls)(using mode: Mode):
 
   private val loadImmediately = false && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
-    estimatedCount = if mode == Mode.Dev then 1_000 else 100_000,
+    estimatedCount = if mode == Mode.Dev then 1_000 else 64_000,
     source = colls.clas
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -45,7 +46,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   )
 
   val teacher = ClasUserCache("teacher")(
-    estimatedCount = if mode == Mode.Dev then 50 else 8_000,
+    estimatedCount = if mode == Mode.Dev then 50 else 5_000,
     source = colls.clas
       .find($doc("archived".$exists(false)), $doc("teachers" -> true, "_id" -> false).some)
       .cursor[Bdoc](ReadPref.sec)
@@ -84,7 +85,7 @@ private final class ClasUserCache(name: String)(
         lila.mon.clas.bloomFilter(name).count.update(nb)
         bloomFilter.dispose()
         bloomFilter = nextBloom
-      .monSuccess(_.clas.bloomFilter(name).fu)
+      .monSuccess(lila.mon.clas.bloomFilter(name).fu)
 
   scheduler.scheduleWithFixedDelay(initialDelay, 7.days): () =>
     rebuildBloomFilter()

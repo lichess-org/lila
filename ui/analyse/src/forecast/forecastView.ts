@@ -1,12 +1,14 @@
 import { h, type VNode } from 'snabbdom';
+
+import { playable } from 'lib/game';
+import { fixCrazySan } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, spinnerVdom as spinner } from 'lib/view';
-import type { ForecastStep } from './interfaces';
+
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { fixCrazySan } from 'lib/game/chess';
 import type ForecastCtrl from './forecastCtrl';
-import { playable } from 'lib/game';
+import type { ForecastStep } from './interfaces';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];

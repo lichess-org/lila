@@ -1,7 +1,6 @@
 .storm {
   &--play {
     display: grid;
-
     row-gap: $block-gap;
     column-gap: $block-gap;
     grid-template-areas: 'board' 'side';

@@ -104,7 +104,7 @@ með því að taka árásarmanninn.</string>
 í gegnum varnir þínar!</string>
   <string name="escapeOrBlock">Flýðu með kónginum
 eða verstu árásinni!</string>
-  <string name="outOfCheckComplete">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
   <string name="mateInOne">Mát í einum</string>
   <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
   <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið skák.</string>

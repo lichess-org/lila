@@ -48,6 +48,7 @@ case class Modlog(
     case Modlog.setTitle => "set FIDE title"
     case Modlog.removeTitle => "remove FIDE title"
     case Modlog.setEmail => "set email address"
+    case Modlog.setPassword => "set password"
     case Modlog.practiceConfig => "update practice config"
     case Modlog.deleteTeam => "delete team"
     case Modlog.disableTeam => "disable team"
@@ -89,11 +90,12 @@ case class Modlog(
     case Modlog.unsetKidMode => "unset kid mode"
     case Modlog.weakPassword => "log in with weak password"
     case Modlog.blankPassword => "blank password"
-    case Modlog.blankedPassword => "log in with blanked password"
+    case Modlog.blankedPassword => "log in attempt with blanked password"
     case Modlog.giftPatronMonth => "gift patron month"
     case Modlog.setCarouselSize => "set blog carousel size"
     case Modlog.imagePass => "approve flagged image"
     case Modlog.imagePurge => "purge flagged image"
+    case Modlog.studyUnfeature => "unfeature study"
     case a => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -203,6 +205,7 @@ object Modlog:
   val setTitle = "setTitle"
   val removeTitle = "removeTitle"
   val setEmail = "setEmail"
+  val setPassword = "setPassword"
   val practiceConfig = "practiceConfig"
   val deleteTeam = "deleteTeam"
   val disableTeam = "disableTeam"
@@ -242,6 +245,7 @@ object Modlog:
   val setCarouselSize = "setCarouselSize"
   val imagePass = "imagePass"
   val imagePurge = "imagePurge"
+  val studyUnfeature = "studyUnfeature"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = e.index.has("team").so(~e.details) match

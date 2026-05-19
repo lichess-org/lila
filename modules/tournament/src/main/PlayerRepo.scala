@@ -7,6 +7,7 @@ import reactivemongo.api.bson.*
 import lila.core.chess.Rank
 import lila.core.user.WithPerf
 import lila.core.userId.UserSearch
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.tournament.BSONHandlers.given
 

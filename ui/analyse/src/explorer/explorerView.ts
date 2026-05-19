@@ -1,11 +1,14 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { displayLocale, numberFormat } from 'lib/i18n';
+
 import perfIcons from 'lib/game/perfIcons';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
-import { view as renderConfig } from './explorerConfig';
-import { moveArrowAttributes, ucfirst } from './explorerUtil';
+import { displayLocale, numberFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
+import { view as renderConfig } from './explorerConfig';
+import type ExplorerCtrl from './explorerCtrl';
+import { MAX_ANALYSE_DEPTH, moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
   isTablebase,
@@ -15,7 +18,6 @@ import {
   type OpeningGame,
   type ExplorerDb,
 } from './interfaces';
-import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -139,11 +141,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl('td', showResult(game.winner)),
               hl('td', game.month || game.year),
               !isMasters &&
-                hl(
-                  'td',
-                  game.speed &&
-                    hl('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
-                ),
+                hl('td', game.speed && iconTag(perfIcons[game.speed], { title: ucfirst(game.speed) })),
             ]);
       }),
     ),
@@ -206,7 +204,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
-  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_DEPTH;
+  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
   return hl('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
@@ -223,7 +221,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [hl('i', { attrs: dataIcon(licon.InfoCircle) }), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [iconTag(licon.InfoCircle), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -246,6 +244,7 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
+    if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
     const moveTable = showMoveTable(ctrl, data),
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -348,7 +347,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
                 !explorer.config.data.open() &&
-                hl('i.ddloader', {
+                hl('icon.ddloader', {
                   attrs: {
                     title: queuePosition
                       ? `Indexing ${queuePosition} other players first ...`
@@ -374,9 +373,23 @@ const showConfig = (ctrl: AnalyseCtrl): VNode =>
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
     hl('div.title', showTitle(ctrl.data.game.variant)),
-    hl('div.failing.message', [
+    hl('div.message', [
       hl('h3', 'Oops, sorry!'),
       hl('p.explanation', ctrl.explorer.failing()?.toString()),
+      closeButton(ctrl),
+    ]),
+  ]);
+
+const showAnon = (ctrl: AnalyseCtrl) =>
+  hl('div.data.empty', [
+    hl('div.title', i18n.site.openingExplorer),
+    hl('div.message', [
+      hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
+      hl(
+        'a.button.button-empty.text',
+        { attrs: { ...dataIcon(licon.Checkmark), href: '/signup' } },
+        i18n.site.signUp,
+      ),
       closeButton(ctrl),
     ]),
   ]);

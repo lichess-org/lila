@@ -29,7 +29,6 @@
   <string name="botPlay">봇 API로 게임하기</string>
   <string name="engineRead">외부 엔진 보기 및 사용하기</string>
   <string name="engineWrite">외부 엔진 제작 및 업데이트</string>
-  <string name="webLogin">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
   <string name="webMod">운영자 도구 사용(허용 범위 내에서)</string>
   <string name="personalAccessTokens">개인 API 액세스 토큰</string>
   <string name="canMakeOauthRequests">%s을 거치지 않고 OAuth 요청을 할 수 있습니다.</string>

@@ -11,6 +11,7 @@
     <item quantity="other">%s spektantoj</item>
   </plurals>
   <string name="liveBroadcasts">Nuntempaj turniraj elsendoj</string>
+  <string name="broadcastCalendar">Kalendaro de elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
   <string name="subscribedBroadcasts">Abonitaj elsendoj</string>
   <string name="aboutBroadcasts">Pri elsendoj</string>
@@ -50,11 +51,34 @@
   <string name="teams">Teamoj</string>
   <string name="boards">Tabuloj</string>
   <string name="overview">Superrigardo</string>
+  <string name="uploadImage">Alŝuti bildon por la turniro</string>
   <string name="startsAfter">Komenciĝo post %s</string>
   <string name="officialWebsite">Oficiala retejo</string>
   <string name="ratingDiff">Ranga malsamo</string>
-  <string name="gamesThisTournament">Ludoj en ĉi tiun turniron</string>
+  <string name="gamesThisTournament">Ludoj en tiu ĉi turniro</string>
+  <string name="score">Rezulto</string>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="tournamentFormat">Formo de turniro</string>
+  <string name="tournamentLocation">Loko de turniro</string>
+  <string name="topPlayers">Plej bonaj ludantoj</string>
   <string name="timezone">Horzono</string>
   <string name="fideRatingCategory">Kategorio de rango de FIDE</string>
+  <string name="pastBroadcasts">Antaŭaj elsendoj</string>
+  <string name="allBroadcastsByMonth">Montri ĉiujn elsendoj laŭ monato</string>
+  <string name="teamResults">Rezultoj de teamo</string>
+  <string name="roundX">Rondo %s</string>
+  <string name="defaultRoundNameHelp">Se vi gardas la norman nomon, ĝi estos aŭtomate tradukita al ĉiuj aliaj lingvoj.</string>
+  <string name="openTournament">Malfermita</string>
+  <string name="womenTournament">Virina</string>
+  <string name="menTournament">Vira</string>
+  <string name="girlsTournament">Knabina</string>
+  <string name="boysTournament">Knaba</string>
+  <string name="openUnderXAgeTournament">Malfermita - aĝlimo %s</string>
+  <string name="girlsUnderXAgeTournament">Knabina - aĝlimo %s</string>
+  <string name="boysUnderXAgeTournament">Knaba - aĝlimo %s</string>
+  <string name="quarterfinals">Kvaronfinaloj</string>
+  <string name="semifinals">Duonfinaloj</string>
+  <string name="finals">Finaloj</string>
+  <string name="tiebreaks">Egalrompoj</string>
+  <string name="gameX">Ludo %s</string>
 </resources>

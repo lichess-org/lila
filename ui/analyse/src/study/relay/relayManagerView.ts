@@ -1,11 +1,12 @@
+import { memoize } from 'lib';
 import * as licon from 'lib/licon';
 import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
+
+import type StudyCtrl from '../studyCtrl';
+import { studySideNodes } from '../studyView';
+import { broadcasterDeepLink } from './deepLink';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
-import { memoize } from 'lib';
-import { studySideNodes } from '../studyView';
-import type StudyCtrl from '../studyCtrl';
-import { broadcasterDeepLink } from './deepLink';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),
@@ -47,7 +48,7 @@ function renderLog(ctrl: RelayCtrl) {
         [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
       );
     });
-  if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('i.ddloader'), 'Polling source...']));
+  if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('icon.ddloader'), 'Polling source...']));
   return hl('div.log', logLines);
 }
 

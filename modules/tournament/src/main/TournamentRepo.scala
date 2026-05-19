@@ -6,6 +6,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import lila.core.config.CollName
 import lila.core.tournament.Status
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
@@ -173,7 +174,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           Project($id(true))
         )
       .map(_.flatMap(_.getAsOpt[TourId]("_id")))
-      .monSuccess(_.tournament.withdrawableIds(reason))
+      .monSuccess(lila.mon.tournament.withdrawableIds(reason))
 
   def setStatus(tourId: TourId, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void

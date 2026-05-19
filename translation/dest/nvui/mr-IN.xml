@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">वैशिष्ट्यीकृत कार्यक्रम</string>
+  <string name="moveList">डावांची सूची</string>
+  <string name="gameInfo">खेळाची माहिती</string>
+  <string name="pieces">सोंगट्या</string>
+  <string name="gameStatus">खेळाची स्थिती</string>
+  <string name="lastMove">अंतिम डाव</string>
+  <string name="inputForm">आज्ञा आदान आकृती</string>
+  <string name="actions">क्रिया</string>
+  <string name="yourClock">तुमचे घड्याळ</string>
+  <string name="opponentClock">प्रतिस्पर्धीचे घड्याळ</string>
+  <string name="gameStart">खेळ चालू</string>
+  <string name="boardCommandList">आज्ञा सूची जेव्हा पटावर लक्ष केंद्रित आहे</string>
+  <string name="inputFormCommandList">हे आज्ञा आदान आकृतीप्रमाणे लिहा.</string>
+  <string name="goToInputForm">आज्ञा आदान आकृती कडे जा.</string>
+  <string name="announceCurrentSquare">वर्तमान घराची घोषणा करा.</string>
+  <string name="announceLastMove">अंतिम डावाची घोषणा करा.</string>
+  <string name="announceLastMoveCapture">अंतिम डावात पकडलेल्या सोंगट्याची घोषणा करा.</string>
+  <string name="announcePossibleMoves">निवडलेल्या सोंगट्याची शक्य डावांची घोषणा करा.</string>
+  <string name="announcePossibleCaptures">निवडलेल्या सोंगट्याची शक्य दुसऱ्या सोंगट्यांना पकडण्याची डावांची घोषणा करा.</string>
+  <string name="moveWithArrows">समीप घरात जा डावीकडे, उजवीकडे, वरती किंवा खाली.</string>
+  <string name="moveToPieceByType">सोंगट्यांचे नाव घेऊन घराकडे जा. उदाहरण: k ची पुनरावृत्ती केल्यास मोहरा प्रत्येक घर जिथे एक घोडा असेल तिथे जाईल. मोठे अक्षर उलट क्रमासाठी वापरा.</string>
+  <string name="moveToRank">रांग 1 ते 8 वर जा.</string>
+  <string name="moveToFile">स्तंभ a ते h वर जा.</string>
+  <string name="announcePieceLocations">सोंगट्यांच्या स्थानाची घोषणा करा. उदाहरण: p मोठा अक्षर N पांढऱ्या घोड्यांसाठी, p छोटा अक्षर k काळ्या राजासाठी, p मोठा अक्षर A सगळ्या पांढऱ्या मोहऱ्यांसाठी.</string>
+  <string name="announcePiecesOnRankOrFile">रांगेत किंवा स्तंभावर असलेल्या सोंगट्यांची घोषणा करा. उदाहरण: s a, s 1.</string>
+  <string name="goToBoard">पटावर जा. नेहमीचा घर e-4 आहे. तुम्ही एक घर निदिष्ट करू शकता: पट a-1 किंवा b a-1 तुम्हाला a-1 घरावर घेऊन जाईल.</string>
   <string name="movePiece">मोहरा हालवण्यासाठी, पारंपारिक बीजगणीतीय नोंदपद्धती वापरा.</string>
   <string name="promotion">वझिराशिवाय इतर सोंगटीमध्ये बढती देण्यासाठी = कळ वापरा, उदाहरणार्थ a-8-equals-n वापरल्यास प्याद्याला घोडा म्हणून बढती मिळेल.</string>
+  <string name="king">राजा</string>
+  <string name="whiteKing">पांढरा राजा</string>
+  <string name="blackKing">काळा राजा</string>
+  <string name="queen">राणी</string>
+  <string name="whiteQueen">पांढरी राणी</string>
+  <string name="blackQueen">काळी राणी</string>
+  <string name="rook">हत्ती</string>
+  <string name="whiteRook">पांढरा हत्ती</string>
+  <string name="blackRook">काळा हत्ती</string>
+  <string name="bishop">उंट</string>
+  <string name="whiteBishop">पांढरा उंट</string>
+  <string name="blackBishop">काळा उंट</string>
+  <string name="knight">घोडा</string>
+  <string name="whiteKnight">पांढरा घोडा</string>
+  <string name="blackKnight">काळा घोडा</string>
+  <string name="pawn">प्यादा</string>
+  <string name="whitePawn">पांढरा प्यादा</string>
+  <string name="blackPawn">काळा प्यादा</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">ने घेतले</string>
   <string name="sanCheck" comment="+ in standard notation">शह</string>
   <string name="sanCheckmate" comment="# in standard notation">शहमात</string>
   <string name="sanPromotesTo" comment="= in standard notation">ची बढत झाली</string>
   <string name="sanShortCastling" comment="O-O in standard notation">जवळचा किल्लेकोट</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">लांबचा किल्लेकोट</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">वर ठेवले गेले</string>
+  <string name="invalidMove">अवैध डाव</string>
+  <string name="premoveCancelled">पूर्व-चाल रद्द केले</string>
+  <string name="premoveRecorded">पूर्व-चालची नोंद घेतली: %s. रद्द करण्यासाठी एंटर दाबा</string>
+  <string name="pockets" comment="Crazyhouse pockets">खिसे</string>
+  <string name="copyToClipboard">%s ची क्लिपफलक वर प्रत करा</string>
+  <string name="copiedToClipboard">%s ची क्लिपफलक वर प्रत झाली</string>
+  <string name="pgnAndFen">PGN आणि FEN</string>
 </resources>

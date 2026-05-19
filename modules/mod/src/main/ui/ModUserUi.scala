@@ -5,21 +5,21 @@ import lila.core.perm.Permission
 import lila.core.playban.RageSit
 import lila.evaluation.Display
 import lila.ui.*
-import lila.user.WithPerfsAndEmails
+import lila.user.{ ClosedFlags, WithPerfsAndEmails }
 
 import ScalatagsTemplate.{ *, given }
 import lila.report.Report
 
-def mzSection(key: String) =
+def mzSection(key: String): Tag =
   div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
-final class ModUserUi(helpers: Helpers, modUi: ModUi):
+final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   import helpers.{ *, given }
 
   val dataValue = attr("data-value")
   val dataTags = attr("data-tags")
   val playban = iconTag(Icon.Clock)
-  val alt: Frag = i("A")
+  val alt: Frag = iconTag("A")
   val shadowban: Frag = iconTag(Icon.BubbleSpeech)
   val boosting: Frag = iconTag(Icon.LineGraph)
   val engine: Frag = iconTag(Icon.Cogs)
@@ -28,7 +28,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val clean: Frag = iconTag(Icon.User)
   val reportban = iconTag(Icon.CautionTriangle)
   val notesText = iconTag(Icon.Pencil)
-  val rankban = i("R")
+  val rankban = iconTag("R")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),
@@ -43,159 +43,159 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   def actions(
       u: User,
       emails: lila.core.user.Emails,
-      deleted: Boolean,
+      closedFlags: Option[ClosedFlags],
       pmPresets: ModPresets
   )(using Context, Me): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
-        Granter.opt(_.ModMessage).option {
-          postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
-            submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(i)
-          )
-        },
-        Granter.opt(_.UserEvaluate).option {
+        Granter(_.ModMessage).option:
+          postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry"):
+            submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(iconTag)
+        ,
+        Granter(_.UserEvaluate).option:
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
             title := "Collect data and ask irwin and Kaladin",
             cls := "xhr"
           ):
             submitButton(cls := "btn-rack__btn")("Evaluate")
-        },
-        Granter.opt(_.GamesModView).option {
+        ,
+        Granter(_.GamesModView).option:
           a(
             cls := "btn-rack__btn",
             href := routes.GameMod.index(u.username),
             title := "View games"
           )("Games")
-        },
-        Granter.opt(_.Shadowban).option {
+        ,
+        Granter(_.Shadowban).option:
           a(
             cls := "btn-rack__btn",
             href := routes.Mod.communicationPublic(u.id),
             title := "View communications"
           )("Comms")
-        }
       ),
-      div(cls := "btn-rack")(
-        postForm(
-          action := routes.Mod.alt(u.username, !u.marks.alt),
-          title := "Preemptively close unauthorized alt.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List(
-              "btn-rack__btn" -> true,
-              "active" -> u.marks.alt
-            ),
-            ModUserTableUi.canCloseAlt.not.option(disabled)
-          )("Alt")
-        ,
-        postForm(
-          action := routes.Mod.engine(u.username, !u.marks.engine),
-          title := "This user is clearly cheating.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine),
-            Granter.opt(_.MarkEngine).not.option(disabled)
-          )("Engine")
-        ,
-        postForm(
-          action := routes.Mod.booster(u.username, !u.marks.boost),
-          title := "Marks the user as a booster or sandbagger.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost),
-            Granter.opt(_.MarkBooster).not.option(disabled)
-          )("Booster")
-        ,
-        frag(
+      Granter(_.AccountInfo).option:
+        div(cls := "btn-rack")(
           postForm(
-            action := routes.Mod.troll(u.username, !u.marks.troll),
-            title := "Enable/disable communication features for this user.",
+            action := routes.Mod.alt(u.username, !u.marks.alt),
+            title := "Preemptively close unauthorized alt.",
             cls := "xhr"
-          )(
+          ):
             submitButton(
-              cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll),
-              Granter.opt(_.Shadowban).not.option(disabled)
-            )("Shadowban")
-          ),
-          u.marks.troll.option:
-            frag(
-              postForm(
-                action := routes.Mod.deletePmsAndChats(u.username),
-                title := "Delete all PMs and public chat messages",
-                cls := "xhr"
-              ):
-                submitButton(
-                  cls := "btn-rack__btn yes-no-confirm",
-                  Granter.opt(_.Shadowban).not.option(disabled)
+              cls := List(
+                "btn-rack__btn" -> true,
+                "active" -> u.marks.alt
+              ),
+              ModUserTableUi.canCloseAlt.not.option(disabled)
+            )("Alt")
+          ,
+          postForm(
+            action := routes.Mod.engine(u.username, !u.marks.engine),
+            title := "This user is clearly cheating.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine),
+              Granter(_.MarkEngine).not.option(disabled)
+            )("Engine")
+          ,
+          postForm(
+            action := routes.Mod.booster(u.username, !u.marks.boost),
+            title := "Marks the user as a booster or sandbagger.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost),
+              Granter(_.MarkBooster).not.option(disabled)
+            )("Booster")
+          ,
+          frag(
+            postForm(
+              action := routes.Mod.troll(u.username, !u.marks.troll),
+              title := "Enable/disable communication features for this user.",
+              cls := "xhr"
+            )(
+              submitButton(
+                cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll),
+                Granter(_.Shadowban).not.option(disabled)
+              )("Shadowban")
+            ),
+            u.marks.troll.option:
+              frag(
+                postForm(
+                  action := routes.Mod.deletePmsAndChats(u.username),
+                  title := "Delete all PMs and public chat messages",
+                  cls := "xhr"
                 ):
-                  "Clear PMs & chats"
-              ,
-              postForm(
-                action := routes.Mod.isolate(u.username, !u.marks.isolate),
-                title := "Isolate user by preventing all PMs, follows and challenges",
-                cls := "xhr"
-              )(
-                submitButton(
-                  cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate),
-                  Granter.opt(_.Shadowban).not.option(disabled)
-                )("Isolate")
+                  submitButton(
+                    cls := "btn-rack__btn yes-no-confirm",
+                    Granter(_.Shadowban).not.option(disabled)
+                  ):
+                    "Clear PMs & chats"
+                ,
+                postForm(
+                  action := routes.Mod.isolate(u.username, !u.marks.isolate),
+                  title := "Isolate user by preventing all PMs, follows and challenges",
+                  cls := "xhr"
+                )(
+                  submitButton(
+                    cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate),
+                    Granter(_.Shadowban).not.option(disabled)
+                  )("Isolate")
+                )
               )
-            )
-        ),
-        postForm(
-          action := routes.Mod.kid(u.username, !u.kid.value),
-          title := "Activate kid mode if not already the case",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.kid.yes),
-            Granter.opt(_.SetKidMode).not.option(disabled)
-          )("Kid")
-        ,
-        postForm(
-          action := routes.Mod.rankban(u.username, !u.marks.rankban),
-          title := "Include/exclude this user from the rankings.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban),
-            Granter.opt(_.RemoveRanking).not.option(disabled)
-          )("Rankban")
-        ,
-        postForm(
-          action := routes.Mod.arenaBan(u.username, !u.marks.arenaBan),
-          title := "Enable/disable this user from joining all arenas.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.arenaBan),
-            Granter.opt(_.ArenaBan).not.option(disabled)
-          )("Arena ban")
-        ,
-        postForm(
-          action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
-          title := "Enable/disable this user from joining prized tournaments.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban),
-            Granter.opt(_.PrizeBan).not.option(disabled)
-          )("Prizeban")
-        ,
-        postForm(
-          action := routes.Mod.reportban(u.username, !u.marks.reportban),
-          title := "Enable/disable the report feature for this user.",
-          cls := "xhr"
-        ):
-          submitButton(
-            cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban),
-            Granter.opt(_.ReportBan).not.option(disabled)
-          )("Reportban")
-      ),
+          ),
+          postForm(
+            action := routes.Mod.kid(u.username, !u.kid.value),
+            title := "Activate kid mode if not already the case",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.kid.yes),
+              Granter(_.SetKidMode).not.option(disabled)
+            )("Kid")
+          ,
+          postForm(
+            action := routes.Mod.rankban(u.username, !u.marks.rankban),
+            title := "Include/exclude this user from the rankings.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban),
+              Granter(_.RemoveRanking).not.option(disabled)
+            )("Rankban")
+          ,
+          postForm(
+            action := routes.Mod.arenaBan(u.username, !u.marks.arenaBan),
+            title := "Enable/disable this user from joining all arenas.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.arenaBan),
+              Granter(_.ArenaBan).not.option(disabled)
+            )("Arena ban")
+          ,
+          postForm(
+            action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
+            title := "Enable/disable this user from joining prized tournaments.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban),
+              Granter(_.PrizeBan).not.option(disabled)
+            )("Prizeban")
+          ,
+          postForm(
+            action := routes.Mod.reportban(u.username, !u.marks.reportban),
+            title := "Enable/disable the report feature for this user.",
+            cls := "xhr"
+          ):
+            submitButton(
+              cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban),
+              Granter(_.ReportBan).not.option(disabled)
+            )("Reportban")
+        )
+      ,
       Granter
         .opt(_.CloseAccount)
         .option(
@@ -208,19 +208,22 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               )(
                 submitButton(cls := "btn-rack__btn")("Close")
               )
-            else if deleted then "Deleted"
+            else if closedFlags.exists(_.deleted) then "Deleted"
             else
               frag(
-                postForm(
-                  action := routes.Mod.reopenAccount(u.username),
-                  title := "Re-activates this account.",
-                  cls := "xhr"
-                )(submitButton(cls := "btn-rack__btn active")("Closed")),
-                Granter.opt(_.GdprErase).option(gdprEraseForm(u))
+                if closedFlags.exists(_.forever) then "Forever closed"
+                else
+                  postForm(
+                    action := routes.Mod.reopenAccount(u.username),
+                    title := "Re-activates this account.",
+                    cls := "xhr"
+                  )(submitButton(cls := "btn-rack__btn active")("Closed"))
+                ,
+                Granter(_.GdprErase).option(gdprEraseForm(u))
               )
           )
         ),
-      (u.totpSecret.isDefined).option:
+      (u.totpSecret.isDefined && Granter(_.AccountInfo)).option:
         div(cls := "btn-rack")(
           postForm(
             action := routes.Mod.disableTwoFactor(u.username),
@@ -229,7 +232,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           ):
             submitButton(
               cls := "btn-rack__btn yes-no-confirm",
-              Granter.opt(_.DisableTwoFactor).not.option(disabled)
+              Granter(_.DisableTwoFactor).not.option(disabled)
             )(
               "Disable 2FA"
             )
@@ -246,7 +249,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             )
           )
         },
-      Granter.opt(_.SetTitle).option {
+      Granter(_.SetTitle).option {
         postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
             lila.user.UserForm.title.fill(u.title)("title"),
@@ -271,6 +274,17 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             ),
             emails.previous.map: email =>
               s"Previously $email",
+            a(
+              href := mailerEventsUrl.value +
+                List(
+                  emails.current.so(_.value),
+                  emails.previous.map(_.value).mkString("+OR+"),
+                  u.username.value
+                ).filter(_.nonEmpty).mkString("+OR+"),
+              target := "_blank",
+              title := "View email history",
+              cls := "btn-rack btn-rack__btn"
+            )("Email Logs"),
             postForm(
               action := routes.Mod.blankPassword(u.username),
               title := "Blank the password",
@@ -279,7 +293,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               submitButton(cls := "btn-rack__btn yes-no-confirm")("Blank password")
           )
       ,
-      Granter.opt(_.FreePatron).option {
+      Granter(_.FreePatron).option {
         postForm(
           action := routes.Mod.freePatron(u.username),
           title := "Give free Patron wings for a month",
@@ -298,19 +312,10 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
-  def prefs(u: User, hasKeyboardMove: Boolean, hasVoice: Boolean, botCompatible: Boolean)(using Context) =
+  def prefs(u: User, hasKeyboardMove: Boolean, hasVoice: Boolean)(using Context) =
     val prefList = List(
       hasKeyboardMove.option(li("keyboard moves")),
-      hasVoice.option(li("voice moves")),
-      botCompatible.option:
-        li:
-          strong:
-            a(
-              cls := "text",
-              dataIcon := Icon.CautionCircle,
-              href := lila.common.String.base64
-                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-            )("BOT-COMPATIBLE SETTINGS")
+      hasVoice.option(li("voice moves"))
     ).flatten
     frag(
       canViewRolesOf(u).option(

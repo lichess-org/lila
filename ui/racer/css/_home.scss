@@ -5,6 +5,7 @@
 
   &__buttons {
     @extend %flex-between;
+
     margin: 4em 0 3em 0;
   }
 
@@ -14,6 +15,7 @@
 
   .button {
     @extend %flex-column;
+
     align-items: center;
     font-size: 1.5em;
     padding: 4em 0;
@@ -21,7 +23,9 @@
     opacity: 0.75;
     overflow: hidden;
     white-space: normal;
+
     @include transition;
+
     .car {
       position: relative;
       font-family: racer-car;
@@ -30,15 +34,20 @@
       display: block;
       margin-top: -0.5em;
     }
+
     &:hover {
       opacity: 1;
+
       .car {
         transform: translateX(0.1em) scaleX(0.95) skewX(6deg) rotate(-3deg);
         transition: all 0.15s ease-out;
+
         &::before {
           content: 'A';
           position: absolute;
+
           @include inline-start(-0.9em);
+
           bottom: 0.6em;
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;
@@ -52,6 +61,7 @@
       transform: translateX(0%);
       opacity: 1;
     }
+
     to {
       transform: translateX(-3px);
       opacity: 0.6;

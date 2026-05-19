@@ -1,4 +1,4 @@
-import { json, text, form } from '../xhr';
+import { json, text, form } from '@/xhr';
 
 export const userModInfo = (username: string): Promise<any> => json('/mod/chat-user/' + username);
 

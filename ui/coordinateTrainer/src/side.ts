@@ -1,9 +1,11 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
+
+import { colors, type ColorChoice } from 'lib/setup/color';
 import { bind } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
+
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
-import { colors, type ColorChoice } from 'lib/setup/color';
 
 const timeControls: [TimeControl, string][] = [
   ['untimed', '∞'],
@@ -173,7 +175,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: name } }, h('i')),
+          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: name } }, h('icon')),
         ]),
       ),
     ),
@@ -192,7 +194,7 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
       ].map(([color, fmt, scoreList]: [Color, I18nFormat, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
-              h('p', fmt.asArray(h('strong', `${average(scoreList).toFixed(2)}`))),
+              h('p', fmt.asArray(h('strong', average(scoreList).toFixed(2)))),
               h('div.sparkline-box', [
                 h('svg.sparkline', {
                   attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
@@ -254,7 +256,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
 
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.box.current-status.current-status--color', [
-    h(`label.color_${ctrl.orientation}`, h('i')),
+    h(`label.color_${ctrl.orientation}`, h('icon')),
     h('em', i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']),
   ]);
 };

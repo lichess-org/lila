@@ -12,7 +12,7 @@
 Хожилд 4 оноо, тэнцээнд 2 оноо өгнө харин хожигдолд оноо өгөхгүй хэвээр байна.
 
 Жишээлбэл, та дараалж 2 хожоод нэг тэнцвэл 6 оноо авах юм: 2 + 2 + (2 * 1)</string>
-  <string name="berserk">Цагийн Дэнчин</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Цагийн Дэнчин</string>
   <string name="berserkAnswer">Тоглогч цагийн Дэнчин товчийг тэмцээний эхлэх үед дарсанаар оногдсон цагийнхаа талыг алдах ба хожвол нэг оноо нэмэлтээр авна.
 
 Нүүдэлд цаг нэмэгдэх өрөг дээр цагийн Дэнчин тавибал нүүдлийн цагийн нэмэгдэл арилна. (Дүрмийн бус 1м + 2с тоглолт дээр цаг 1м + 0с болдог)

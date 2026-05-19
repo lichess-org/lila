@@ -12,9 +12,10 @@
 }
 
 .data-count::after {
+  @include inline-end(0);
+
   content: attr(data-count);
   top: -5px;
-  @include inline-end(0);
   position: absolute;
   padding: 0 3px;
   height: 15px;

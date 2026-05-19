@@ -49,7 +49,7 @@ trait PageContext extends Context:
   def teamNbRequests: Int
   def nbChallenges: Int
   def nbNotifications: UnreadCount
-  def hasClas: Boolean
+  def seesClassMenu: Boolean
   def hasInquiry: Boolean
   def nonce: Option[Nonce]
   def error: Boolean

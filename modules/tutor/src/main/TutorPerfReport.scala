@@ -24,6 +24,9 @@ case class TutorPerfReport(
     pieces: TutorPieces,
     flagging: TutorFlagging
 ):
+
+  def variant = lila.rating.PerfType.variantOf(perf)
+
   lazy val estimateTotalTime: Option[FiniteDuration] =
     (perf != PerfType.Correspondence).option(stats.time * 2)
 
@@ -101,6 +104,8 @@ private object TutorPerfReport:
   case class PeerMatch(report: TutorPerfReport):
     export report.*
 
+  case class Preview(perf: PerfType, stats: InsightPerfStats)
+
   import TutorBuilder.*
 
   private val accuracyQuestion = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
@@ -111,7 +116,9 @@ private object TutorPerfReport:
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
 
-  def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(
+      users: NonEmptyList[TutorPlayer]
+  )(using TutorConfig, InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)

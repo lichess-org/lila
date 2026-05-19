@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Бу сезнеж хисап битегез.</string>
   <string name="enabledKidModeSuggestion">Бу аккаунтны бала кулланачакмы? %s кабыза аласыз.</string>
   <string name="whatNowSuggestions">Ә хәзер нәрсә? Менә берничә киңәш:</string>
-  <string name="learnChessRules">Шахмат кагыйдәләрен өйрәнегез</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Шахмат кагыйдәләрен өйрәнегез</string>
   <string name="improveWithChessTacticsPuzzles">Шахмат мәсьәләләре ярдәмендә остарыгыз.</string>
   <string name="playTheArtificialIntelligence">Ясалма Акыл белән уйнагыз.</string>
   <string name="playOpponentsFromAroundTheWorld">Бөтен дөнья буеннан көндәшләр белән уйнагыз.</string>

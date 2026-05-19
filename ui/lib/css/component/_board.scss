@@ -14,11 +14,15 @@
 
 cg-board {
   @extend %box-radius;
+
+  -webkit-tap-highlight-color: transparent;
 }
+
 .mini-board cg-board,
 .mini-game cg-board {
-  border-radius: 4px;
+  border-radius: $miniboard-radius-size;
 }
+
 .mini-board:not(.manipulable) cg-board,
 .mini-game cg-board {
   overflow: hidden;
@@ -28,6 +32,7 @@ cg-board {
 .mini-game .cg-wrap {
   @extend %square;
 }
+
 .gauge-on .main-board cg-board {
   @extend %box-radius-left;
 }

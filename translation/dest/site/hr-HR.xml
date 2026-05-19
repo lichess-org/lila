@@ -119,7 +119,6 @@
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Pokaži strelice varijacija</string>
-  <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Višestrukih varijanti</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
@@ -259,9 +258,6 @@
   <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok ne stigne.</string>
   <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite stranicu pristigle pošte.</string>
   <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označite ju da nije neželjena.</string>
-  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
-  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst te ga pošaljite na %s</string>
-  <string name="waitForSignupHelp">Javit ćemo Vam se uskoro kako bismo Vam pomogli dovršiti Vašu registraciju.</string>
   <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
   <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nije Vam potrebna potvrdna e-pošta.</string>
@@ -729,7 +725,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyCycleSelectedVariation">Promijeni odabranu varijaciju</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
-  <string name="keyRequestComputerAnalysis">Zatraži računalnu analizu, Uči na svojim greškama</string>
   <string name="keyPreviousBranch">Prethodna grana</string>
   <string name="keyNextBranch">Sljedeća grana</string>
   <string name="toggleVariationArrows">Uključi/Isključi strelice za varijacije</string>
@@ -804,6 +799,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="anonymous">Anoniman igrač</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
+  <string name="allLanguages">Svi jezici</string>
   <string name="background">Pozadina</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
@@ -910,7 +906,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računala, knjige, baze podataka ili neke druge osobe).</string>
   <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Slažem se da neću kreirati više računa (osim iz razloga navedenih u %s).</string>
-  <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

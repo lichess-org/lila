@@ -11,10 +11,13 @@
 .opening {
   h1 {
     @extend %flex-center;
+
     gap: 1rem;
   }
+
   &__beta {
     @extend %box-radius;
+
     display: inline-block;
     vertical-align: text-top;
     margin-left: 1em;
@@ -22,12 +25,23 @@
     font-size: 1rem;
     font-weight: bold;
   }
+
+  &__warning {
+    @extend %box-neat;
+
+    background: $m-brag_bg--mix-20;
+    border: 1px solid $c-brag;
+    padding: 1em 2em;
+  }
+
   &__error {
     @extend %box-neat;
+
     background: $m-bad_bg--mix-20;
     border: 1px solid $c-error;
     padding: 1em 2em;
   }
+
   .box__top__actions a {
     margin-left: 2em;
   }

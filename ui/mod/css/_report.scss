@@ -106,8 +106,9 @@ $c-report-high-over: white;
     }
 
     .text {
-      max-height: 100px;
       overflow: hidden;
+      overflow-wrap: anywhere;
+      max-height: 100px;
       font-size: 0.9em;
 
       &.large {
@@ -138,18 +139,20 @@ $c-report-high-over: white;
     border-inline-start: 4px solid $c-report-high;
   }
 
-  .user_marks i {
+  .user_marks icon {
     @include user-marks;
   }
 
   .marked-by-me {
     @include user-marks;
+
     background: $m-brag_bg--mix-60;
   }
 
   .appeal-queue {
     td p {
       margin: 0.5em 0 0 0;
+      overflow-wrap: anywhere;
     }
   }
 }

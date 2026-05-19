@@ -28,7 +28,7 @@ final class Export(env: Env) extends LilaController(env):
         val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
         stream(filename, cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
           for
-            analysis <- options.glyphs.so(env.analyse.analysisRepo.byGame(g.game))
+            analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
             source <- env.game.gifExport.fromPov(
               Pov(g.game, color),
               g.fen,

@@ -1,5 +1,6 @@
-import { promises as fs } from 'node:fs';
 import fg from 'fast-glob';
+import { promises as fs } from 'node:fs';
+
 import { env, c } from './env.ts';
 
 const globOpts: fg.Options = {

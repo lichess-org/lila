@@ -1,1 +1,88 @@
 @use '../../node_modules/shepherd.js/dist/css/shepherd.css';
+@import '../../../lib/css/plugin';
+
+.shepherd {
+  &-element {
+    border: $border;
+    background-color: $m-bg--alpha-92;
+    backdrop-filter: blur(6px);
+
+    @include if-light {
+      background-color: $m-bg--alpha-84;
+    }
+
+    @include if-transp {
+      background-color: $m-bg--alpha-82;
+    }
+  }
+
+  &-has-title &-content &-header {
+    @extend %metal;
+
+    border-bottom: $border;
+
+    h3 {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: $c-font;
+    }
+
+    .shepherd-cancel-icon:hover {
+      color: $c-bad;
+    }
+  }
+
+  &-text {
+    color: $c-font;
+  }
+
+  &-button {
+    @extend %roboto;
+
+    background-color: $c-primary;
+    color: $c-over;
+    font-weight: bold;
+
+    &:not(:disabled):hover {
+      color: $c-over;
+      background: $m-primary--lighten-7;
+    }
+  }
+
+  &-arrow::before {
+    background-color: $c-bg;
+    border: $border;
+  }
+
+  &-element[data-popper-placement^='top'] > &-arrow {
+    clip-path: polygon(-20% 50%, 120% 50%, 50% 120%);
+
+    &::before {
+      border-width: 0 1px 1px 0;
+    }
+  }
+
+  &-element[data-popper-placement^='bottom'] > &-arrow {
+    clip-path: polygon(-20% 50%, 120% 50%, 50% -20%);
+
+    &::before {
+      border-width: 1px 0 0 1px;
+    }
+  }
+
+  &-element[data-popper-placement^='left'] > &-arrow {
+    clip-path: polygon(49% -20%, 49% 120%, 120% 50%);
+
+    &::before {
+      border-width: 1px 1px 0 0;
+    }
+  }
+
+  &-element[data-popper-placement^='right'] > &-arrow {
+    clip-path: polygon(51% -20%, 51% 120%, -20% 50%);
+
+    &::before {
+      border-width: 0 0 1px 1px;
+    }
+  }
+}

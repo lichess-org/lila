@@ -13,7 +13,6 @@
   <string name="origin">Opphav</string>
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne oppgåva?</string>
-  <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
   <string name="upVote">God oppgåve</string>
   <string name="downVote">Mindre god oppgåve</string>
   <string name="yourPuzzleRatingWillNotChange">Oppgåve-ratinga di vil ikkje endre seg. Merk at oppgåver ikkje er konkurranse. Ratinga er til hjelp når det gjeld å finne dei mest passande oppgåvene for ditt noverande dugleiksnivå.</string>
@@ -93,6 +92,6 @@ Spel parti i snøggsjakk og klassisk sjakk for å auke sjansen for å få med ei
   </plurals>
   <string name="percentSolved">%s løyst</string>
   <string name="noPuzzlesToShow">Ikkje noko å visa, spel nokre oppgåver fyrst!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Øv på desse for å betra framgongen!</string>
+  <string name="improvementAreasDescription">Øv på desse for å betra framgongen!</string>
   <string name="strengthDescription">Du klarar deg best i disse temaa</string>
 </resources>

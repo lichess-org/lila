@@ -55,10 +55,10 @@
     &__in,
     &__in-full {
       @extend %box-radius;
+      @include inline-start(0);
 
       position: absolute;
       bottom: 0;
-      @include inline-start(0);
       height: 100%;
     }
 
@@ -108,7 +108,6 @@
 
   &__levels {
     @extend %flex-center;
-
     @include margin-direction(0.3em, 0, 0, -0.6em);
   }
 
@@ -117,9 +116,11 @@
 
     direction: ltr;
     transform: skewX(-45deg);
+
     @include if-rtl {
       transform: skewX(45deg);
     }
+
     flex: 21% 0 0;
     margin-inline-end: 4%;
     font-size: 0.9em;
@@ -133,9 +134,11 @@
 
     span {
       transform: skewX(45deg);
+
       @include if-rtl {
         transform: skewX(-45deg);
       }
+
       display: block;
     }
 

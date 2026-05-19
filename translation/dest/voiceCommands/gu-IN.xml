@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">વિડિઓ ટ્યુટોરીયલ જુઓ</string>
   <string name="instructions1">વોઇસ રેકગ્નિશન ટૉગલ કરવા માટે %1$s બટનનો, આ મદદ સંવાદ ખોલવા માટે %2$s બટનનો, અને સ્પીચ સેટિંગ્સ બદલવા માટે %3$s મેનૂનો ઉપયોગ કરો.</string>
   <string name="instructions2">જ્યારે અમે ચોક્કસ ન હોઈએ ત્યારે અમે બહુવિધ ચાલ માટે તીર બતાવીએ છીએ. તેને પસંદ કરવા માટે ચાલના તીરનો રંગ અથવા નંબર બોલો.</string>
-  <string name="instructions3">જો કોઈ તીર ફરતું રડાર બતાવે છે, તો વર્તુળ પૂર્ણ થાય ત્યારે તે ચાલ રમવામાં આવશે. આ સમય દરમિયાન, તમે તરત જ ચાલ રમવા માટે ફક્ત %1$s, રદ કરવા માટે %2$s, અથવા અલગ તીરનો રંગ/નંબર બોલી શકો છો. આ ટાઈમર સેટિંગ્સમાં એડજસ્ટ કરી શકાય છે અથવા બંધ કરી શકાય છે.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">જો કોઈ તીર ફરતું રડાર બતાવે છે, તો વર્તુળ પૂર્ણ થાય ત્યારે તે ચાલ રમવામાં આવશે. આ સમય દરમિયાન, તમે તરત જ ચાલ રમવા માટે ફક્ત %1$s, રદ કરવા માટે %2$s, અથવા અલગ તીરનો રંગ/નંબર બોલી શકો છો. આ ટાઈમર સેટિંગ્સમાં એડજસ્ટ કરી શકાય છે અથવા બંધ કરી શકાય છે.</string>
   <string name="instructions4">ઘોંઘાટવાળા વાતાવરણમાં %s સક્ષમ કરો. જ્યારે આ ચાલુ હોય ત્યારે આદેશો બોલતી વખતે શિફ્ટ દબાવી રાખો.</string>
   <string name="instructions5">ચેસબોર્ડ ફાઇલોની ઓળખ સુધારવા માટે ફોનેટિક આલ્ફાબેટનો ઉપયોગ કરો.</string>
   <string name="instructions6">%s વોઇસ મૂવ સેટિંગ્સને વિગતવાર સમજાવે છે.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 પર ખસેડો અથવા e4 ટુકડો પસંદ કરો</string>
   <string name="selectOrCaptureABishop">એક ઊંટ પસંદ કરો અથવા પકડો</string>
   <string name="takeRookWithQueen">રાણી સાથે હાથી ને પકડો</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">કેસલ (કોઈપણ બાજુ)</string>
+  <string name="castle">કેસલ (કોઈપણ બાજુ)</string>
   <string name="phoneticAlphabetIsBest">ફોનેટિક આલ્ફાબેટ શ્રેષ્ઠ છે</string>
   <string name="cancelTimerOrDenyARequest">ટાઈમર રદ કરો અથવા વિનંતી નકારો</string>
   <string name="playPreferredMoveOrConfirmSomething">પસંદગીની ચાલ રમો અથવા કંઈક પુષ્ટિ કરો</string>

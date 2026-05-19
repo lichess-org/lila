@@ -15,12 +15,11 @@ final class Env(
     puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.core.msg.MsgApi,
     lightUserAsync: lila.core.LightUser.Getter,
-    signupForm: lila.core.security.SignupForm,
+    signupForm: lila.core.security.SignupFormFields,
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
-    hcaptcha: lila.core.security.Hcaptcha,
-    baseUrl: BaseUrl
+    routeUrl: RouteUrl
 )(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
 ):
@@ -45,11 +44,12 @@ final class Env(
 
   lazy val bulk = wire[ClasBulkApi]
 
-  def isTeacher(using me: Me) =
-    lila.core.perm.Granter(_.Teacher) && filters.teacher(me)
+  def isAnyTeacher(using me: Me) = lila.core.perm.Granter(_.Teacher)
 
-  def hasClas(using me: Me) =
-    filters.student(me) || isTeacher
+  def isActiveTeacher(using me: Me) = isAnyTeacher && filters.teacher(me)
+
+  def seesClassMenu(using me: Me) =
+    filters.student(me) || isAnyTeacher || me.hasTitle || me.roles.contains("ROLE_COACH")
 
   scheduler.scheduleWithFixedDelay(44.minutes, 1.hour)(() => api.clas.archiveAllInactive)
 
@@ -63,9 +63,3 @@ final class Env(
       promise.completeWith(api.clas.canKidsUseMessages(kid1, kid2))
     case ClasBus.ClasMatesAndTeachers(kid, promise) =>
       promise.completeWith(mates.get(kid.id))
-
-private final class ClasColls(db: lila.db.Db):
-  val clas = db(CollName("clas_clas"))
-  val student = db(CollName("clas_student"))
-  val invite = db(CollName("clas_invite"))
-  val login = db(CollName("clas_login"))

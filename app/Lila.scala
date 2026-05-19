@@ -81,7 +81,7 @@ final class LilaComponents(
 
   val env: lila.app.Env =
     lila.log("boot").info(s"Start loading lila modules")
-    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
+    val c = lila.mon.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 

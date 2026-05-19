@@ -26,6 +26,8 @@
   <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
+  <string name="collinearMove">Movimiento colinear</string>
+  <string name="collinearMoveDescription">Dos piezas opuestas se enfrentan entre sí, y una se desliza a lo largo de la línea de ataque sin capturar la pieza enemiga.</string>
   <string name="cornerMate">Mate de la esquina</string>
   <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
@@ -77,7 +79,7 @@
   <string name="swallowstailMateDescription">Un patrón de mate que se asemeja visualmente a la cola de una golondrina, en forma de V.</string>
   <string name="triangleMate">Mate del triángulo</string>
   <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
-  <string name="vukovicMate">Mate de Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Una torre y un caballo se unen para dar mate al rey. La torre da mate apoyada por una tercera pieza y el caballo se utiliza para bloquear las casillas de escape del rey.</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="knightEndgameDescription">Un final solo con caballos y peones.</string>

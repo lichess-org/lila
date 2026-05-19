@@ -1,4 +1,5 @@
 import { storedJsonProp } from 'lib/storage';
+
 import { Game } from './game';
 import type { GameData } from './interfaces';
 
