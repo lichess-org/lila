@@ -19,7 +19,7 @@ site.load.then(() => {
           })
           .then(likes => {
             const label = $('.ublog-post__like .button-label');
-            const newText = liked ? i18n.study.unlike : i18n.study.like;
+            const newText = liked ? i18n.site.liked : i18n.site.like;
             label.text(newText);
             $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
             $('.ublog-post__like__nb').text(likes);

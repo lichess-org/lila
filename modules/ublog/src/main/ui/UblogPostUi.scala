@@ -152,7 +152,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
-    val text = if liked then trans.study.unlike.txt() else trans.study.like.txt()
+    val text = if liked then trans.site.liked.txt() else trans.site.like.txt()
     button(
       tpe := "button",
       cls := List(
