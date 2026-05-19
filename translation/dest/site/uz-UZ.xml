@@ -134,9 +134,9 @@
   <string name="checkableKing">Kisht qilib boʻladigan shoh</string>
   <string name="multipleLines">Bir nechta variant</string>
   <string name="multipleLinesDescription">Tahlil variantlar sonini va taxtadagi yurish strelkalarni sonini sozlash</string>
-  <string name="searchTime" comment="A setting for game analysis using a chess engine.&#10;&#10;Description (translateable separately): Set time to evaluate fresh positions">Qidiruv vaqti</string>
-  <string name="searchTimeDescription" comment="Description for the &quot;Search time&quot; setting, for analysing a game using a chess engine.">Yangi pozitsiyalarni tahlil qilish vaqtini belgilash</string>
-  <string name="threads" comment="As in CPU threads, used for chess engine analysis.">Oqimlar (Threads)</string>
+  <string name="searchTime">Qidiruv vaqti</string>
+  <string name="searchTimeDescription">Yangi pozitsiyalarni tahlil qilish vaqtini belgilash</string>
+  <string name="threads">Oqimlar (Threads)</string>
   <string name="threadsDescription">Buni protsessoringiz oqimlari sonidan kamroq qilib sozlang; belgilangan chiziqlar xavfsiz tanlovni koʻrsatadi</string>
   <string name="threadsDescriptionMobile">Koʻproq oqimlar tahlilni kuchaytiradi, ammo batareyani tezroq sarflaydi</string>
   <string name="cpus">Protsessorlar</string>
@@ -942,7 +942,7 @@
   <string name="tryTheContactPage">aloqa sahifasiga oʻting</string>
   <string name="makeSureToRead">%1$s bilan tanishib chiqqaningizga ishonch hosil qiling</string>
   <string name="theForumEtiquette">Forum odob‑axloq qoidalari</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Forumda odob saqlang.</string>
+  <string name="pleaseBeNiceInTheForum">Forumda odob saqlang.</string>
   <string name="thisTopicIsArchived">Bu mavzu arxivlangan, unga endi javob yozib boʻlmaydi.</string>
   <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$sga qoʻshiling</string>
   <string name="teamNamedX">%1$s jamoasi</string>
