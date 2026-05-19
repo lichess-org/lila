@@ -943,7 +943,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tryTheContactPage">prova la pagina dei contatti</string>
   <string name="makeSureToRead">Assicurati di leggere %1$s</string>
   <string name="theForumEtiquette">le regole del forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Per favore sii rispettoso nel forum.</string>
+  <string name="pleaseBeNiceInTheForum">Per favore sii rispettoso nel forum.</string>
   <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
   <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
   <string name="teamNamedX">Squadra %1$s</string>
