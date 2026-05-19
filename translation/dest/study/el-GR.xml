@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
   <string name="pgnTags">Ετικέτες PGN</string>
   <string name="like">Μου αρέσει</string>
-  <string name="unlike">Δε μου αρέσει</string>
   <string name="newTag">Νέα ετικέτα</string>
   <string name="commentThisPosition">Νέο σχόλιο σε αυτήν τη θέση</string>
   <string name="commentThisMove">Νέο σχόλιο σε αυτήν την κίνηση</string>
