@@ -37,3 +37,4 @@ POST  /class/$id<\w{8}>/student/:username/move/$to<\w{8}> controllers.clas.Clas.
 POST  /class/$id<\w{8}>/login          controllers.clas.Clas.loginCreate(id: ClasId)
 GET   /class/$id<\w{8}>/bulk-actions   controllers.clas.Clas.bulkActions(id: ClasId)
 POST  /class/$id<\w{8}>/bulk-actions   controllers.clas.Clas.bulkActionsPost(id: ClasId)
+POST  /class/$id<\w{8}>/oauth-tokens    controllers.clas.Clas.makeStudentOauthTokens(id: ClasId)
