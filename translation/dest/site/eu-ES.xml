@@ -942,7 +942,7 @@
   <string name="tryTheContactPage">erabili kontakturako orrialdea</string>
   <string name="makeSureToRead">Ziurtatu %1$s irakurri duzula</string>
   <string name="theForumEtiquette">foroko etiketa</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Mesedez izan atsegina foroan.</string>
+  <string name="pleaseBeNiceInTheForum">Mesedez izan atsegina foroan.</string>
   <string name="thisTopicIsArchived">Mezu hau artxibatu egin da eta jada ezin da erantzunik utzi bertan.</string>
   <string name="joinTheTeamXToPost">Egin bat %1$s taldearekin foro honetan idazteko</string>
   <string name="teamNamedX">%1$s taldea</string>
