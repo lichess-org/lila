@@ -35,7 +35,7 @@ object String:
         .map(word =>
           if Set("O-O", "O-O-O").contains(word.filter(c => c.isLetter || c == '-')) || (
               word.length < 100 &&
-                Set(8, 9).contains(word.split('/').filter(_.nonEmpty).length) &&
+                Set(8, 9).contains(word.split('/').count(_.nonEmpty)) &&
                 Fen.makeBoard(Crazyhouse, word).isDefined
             )
           then word.toLowerCase
