@@ -343,7 +343,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
-            title: d.liked ? i18n.study.unlike : i18n.study.like,
+            title: d.liked ? i18n.site.liked : i18n.site.like,
           },
           hook: bind('click', ctrl.toggleLike),
         },
