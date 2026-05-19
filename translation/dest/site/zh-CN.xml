@@ -766,6 +766,8 @@
   <string name="xHostsY">%1$s 主持了 %2$s</string>
   <string name="xJoinsY">%1$s 加入了 %2$s</string>
   <string name="xLikesY">%1$s 喜欢 %2$s</string>
+  <string name="like">点赞</string>
+  <string name="liked">已赞</string>
   <string name="quickPairing">快速匹配</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
