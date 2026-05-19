@@ -157,8 +157,6 @@ export class LevelCtrl {
         redraw();
         return;
       }
-      // Todo: refactor so that flows for scenario / non-scenario / apple level get their own functions?
-      // E.g., currently the semantics for `took` vary depending on the flow we're in.
       let took = false,
         inScenario,
         captured = false;
