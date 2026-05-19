@@ -30,7 +30,7 @@
   <string name="otherAmount">Other</string>
   <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
-  <string name="logInToDonate">Log in to donate</string>
+  <string name="logInToDonate">Sign in to donate</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
   <string name="celebratedPatrons">The celebrated Patrons who make Lichess possible</string>
   <string name="whereMoneyGoes">Where does the money go?</string>
@@ -85,4 +85,5 @@ However, Patrons get bragging rights with cool new Patron wings that show up on 
   <string name="paymentDetails">Payment details</string>
   <string name="updatePaymentMethod">Update payment method</string>
   <string name="stripeManageSub">Manage your subscription and download your invoices and receipts</string>
+  <string name="coverFees">I'll add %s to help cover the cost of processing this transaction</string>
 </resources>

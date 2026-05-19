@@ -126,4 +126,9 @@ Prikazal bo horizontalno črto.</string>
   <string name="moveToAnotherClass">Premakni se v drug razred</string>
   <string name="allowMessagingBetweenStudents">Dovoli sporočila med študenti</string>
   <string name="allowMessagingBetweenStudentsDesc">To velja samo za račune, ki ste jih ustvarili za svoje učence.</string>
+  <string name="quickLoginCode">Koda za hitro prijavo</string>
+  <string name="quickLoginCodes">Kode za hitro prijavo</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Uporabite te kode na %s za prijavo svojih učencev v Lichess.</string>
+  <string name="quickLoginCodesDesc2">Ko kode potečejo, bodo vaši učenci ostali prijavljeni, dokler se ročno ne odjavijo.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Potek: %s</string>
 </resources>

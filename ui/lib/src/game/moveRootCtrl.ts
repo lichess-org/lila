@@ -16,7 +16,7 @@ export interface MoveRootCtrl {
 }
 
 export interface MoveUpdate {
-  fen: string;
+  fen: FEN;
   canMove: boolean;
   cg?: CgApi;
 }

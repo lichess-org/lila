@@ -1,11 +1,13 @@
-import { domDialog, type Dialog } from 'lib/view';
-import { frag, escapeHtml, myUserId } from 'lib';
-import * as licon from 'lib/licon';
-import type { EditDialog } from './editDialog';
-import { env } from './devEnv';
-import type { BotInfo } from 'lib/bot/types';
-import stringify from 'json-stringify-pretty-compact';
 import diff from 'fast-diff';
+import stringify from 'json-stringify-pretty-compact';
+
+import { frag, escapeHtml, myUserId } from 'lib';
+import type { BotInfo } from 'lib/bot/types';
+import * as licon from 'lib/licon';
+import { domDialog, type Dialog } from 'lib/view';
+
+import { env } from './devEnv';
+import type { EditDialog } from './editDialog';
 
 interface BotVersionInfo extends Omit<BotInfo, 'version'> {
   author: string;
@@ -79,7 +81,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(frag(`<i data-icon="${licon.Checkmark}" class="live">`));
+      if (isLive) span.appendChild(frag(`<icon data-icon="${licon.Checkmark}" class="live">`));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }

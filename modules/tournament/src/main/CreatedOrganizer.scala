@@ -1,6 +1,7 @@
 package lila.tournament
 
 import lila.common.LilaScheduler
+import lila.mon.extensions.*
 
 final private class CreatedOrganizer(
     api: TournamentApi,
@@ -17,5 +18,5 @@ final private class CreatedOrganizer(
       .documentSource()
       .mapAsync(1)(api.start)
       .run()
-      .monSuccess(_.tournament.createdOrganizer.tick)
+      .monSuccess(lila.mon.tournament.createdOrganizer.tick)
       .void

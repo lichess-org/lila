@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">இது உங்கள் சுயவிவரப் பக்கம்.</string>
   <string name="enabledKidModeSuggestion">இந்தக் கணக்கை ஒரு சிறுவர் பயன்படுத்துவாரா? நீங்கள் %s ஐ இயக்க விரும்பலாம்.</string>
   <string name="whatNowSuggestions">இப்போது என்ன? இங்கே சில பரிந்துரைகள் உள்ளன:</string>
-  <string name="learnChessRules">சதுரங்க விதிமுறைகளைக் கற்க</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">சதுரங்க விதிமுறைகளைக் கற்க</string>
   <string name="improveWithChessTacticsPuzzles">சதுரங்க வித்தை புதிர்களுடன் முன்னேற்றம் அடைதல்.</string>
   <string name="playTheArtificialIntelligence">செயற்கை நுண்ணறிவுடன் விளையாடுங்கள்.</string>
   <string name="playOpponentsFromAroundTheWorld">உலகெங்கிலும் உள்ள எதிரிகளுடன் விளையாடுங்கள்.</string>

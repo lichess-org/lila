@@ -39,9 +39,11 @@ trait ScalatagsAttrs:
     val allowfullscreen = attr("allowfullscreen").empty
     val credentialless = attr("credentialless").empty
 
-  val thSortNumber = th(attr("data-sort-method") := "number")
+  val thSortNumber = th(attrData("sort-method") := "number")
   val dataSort = attrData("sort")
   val dataSortDefault = attrData("sort-default").empty
+  val dataSortAsc = attrData("sort-reverse") := "true"
+  val dataSortDisabled = attrData("sort-method") := "none"
 
 // collection of lila snippets
 trait ScalatagsSnippets:
@@ -51,8 +53,9 @@ trait ScalatagsSnippets:
 
   val nbsp: Frag = raw("&nbsp;")
   val amp: Frag = raw("&amp;")
-  def iconTag(icon: Icon): Tag = i(dataIcon := icon)
-  def iconTag(icon: Icon, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+  val iconTag: Tag = tag("icon")
+  def iconTag(i: Icon): Tag = iconTag(dataIcon := i)
+  def iconTag(i: Icon, text: Frag): Tag = iconTag(dataIcon := i, cls := "text")(text)
   val styleTag = tag("style")
   val ratingTag = tag("rating")
   val countTag = tag("count")

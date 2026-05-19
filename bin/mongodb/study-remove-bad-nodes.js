@@ -1,12 +1,13 @@
 // var studyId = '0Obg93mv';
 
 function dig(chapId, node, path) {
-  for (var i in node.n) {
-    var c = node.n[i];
-    var newPath = `${path}.n.${i}`;
+  for (let i in node.n) {
+    const c = node.n[i];
+    const newPath = `${path}.n.${i}`;
     if (!c || !c.i) {
-      var set = {};
-      set[`${path}.n`] = [];
+      const set = {
+        [`${path}.n`]: [],
+      };
       printjson(set);
       db.study_chapter.update({ _id: chapId }, { $set: set });
     } else {

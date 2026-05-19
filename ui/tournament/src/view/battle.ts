@@ -1,8 +1,10 @@
-import type TournamentController from '../ctrl';
-import { bind, type MaybeVNode } from 'lib/view';
-import { fullName, userFlair } from 'lib/view/userLink';
-import { snabDialog } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
+
+import { shuffle } from 'lib/algo';
+import { bind, type MaybeVNode, snabDialog } from 'lib/view';
+import { fullName, userFlair } from 'lib/view/userLink';
+
+import type TournamentController from '../ctrl';
 import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
@@ -41,7 +43,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               h('p', i18n.arena.youMustJoinOneOfTheseTeamsToParticipate),
               h(
                 'ul',
-                shuffleArray(Object.keys(tb.teams)).map((id: string) =>
+                shuffle(Object.keys(tb.teams)).map((id: string) =>
                   h('li', h('a', { attrs: { href: '/team/' + id } }, renderTeamArray(tb.teams[id]))),
                 ),
               ),
@@ -51,7 +53,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   });
 }
 
-const renderTeamArray = (team: LightTeam) => [team[0], userFlair({ flair: team[1] })];
+const renderTeamArray = (team: LightTeam | undefined) => team && [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle,
@@ -90,7 +92,7 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 export function teamName(battle: TeamBattle, teamId: string): VNode {
   return h(
     battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
-    renderTeamArray(battle.teams[teamId]),
+    renderTeamArray(battle.teams[teamId]) || teamId,
   );
 }
 
@@ -137,13 +139,4 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
       h('td.total', [h('strong', '' + team.score)]),
     ],
   );
-}
-
-/* Randomize array element order in-place. Using Durstenfeld shuffle algorithm. */
-function shuffleArray<A>(array: A[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
 }

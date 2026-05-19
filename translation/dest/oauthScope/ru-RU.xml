@@ -29,7 +29,6 @@
   <string name="botPlay">Играть партии с API ботов</string>
   <string name="engineRead">Просмотр и использование ваших внешних движков</string>
   <string name="engineWrite">Создание и изменение внешних движков</string>
-  <string name="webLogin">Создание авторизованных сеансов на сайте (предоставляет полный доступ!)</string>
   <string name="webMod">Использование инструментов модератора (в рамках вашего доступа)</string>
   <string name="personalAccessTokens">Персональный токен доступа к API</string>
   <string name="canMakeOauthRequests">Вы можете делать запросы OAuth, не проходя через %s.</string>

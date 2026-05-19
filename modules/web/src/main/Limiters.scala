@@ -1,8 +1,9 @@
 package lila.web
 
 import play.api.mvc.RequestHeader
+import scalalib.net.Bearer
 
-import lila.core.net.{ IpAddress, Bearer }
+import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.security.IsProxy
 import lila.memo.RateLimit
@@ -24,7 +25,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val setupBotAi = RateLimit[UserId](20, 1.day, key = "setup.post.bot.ai")
 
   val boardApiConcurrency = ConcurrencyLimit[Either[Sri, UserId]](
-    name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -132,7 +132,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 
-  val streamerOnlineCheck = RateLimit[UserId](1, 1.minutes, "streamer.checkOnline")
+  val streamerOnlineCheck: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](1, 1.minute, "streamer.checkOnline.user"),
+    RateLimit[IpAddress](1, 1.minute, "streamer.checkOnline.ip")
+  )
 
   val studyPgnImport = RateLimit[UserId](credits = 1000, duration = 24.hour, key = "study.import-pgn.user")
 
@@ -141,12 +144,19 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](credits = 20 * 3, duration = 24.hour, key = "study.clone.ip")
   )
 
+  val studyCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](credits = 30 * 2, duration = 24.hour, key = "study.create.user"),
+    RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
+  )
+
   val studyPgn = RateLimit[IpAddress](credits = 31, duration = 1.minute, key = "export.study.pgn.ip")
 
   val relayPgn = RateLimit[IpAddress](credits = 61, duration = 1.minute, key = "export.relay.pgn.ip")
 
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  val coachSearch = RateLimit[UserId](credits = 15 * 3, duration = 10.minutes, key = "coach.search.user")
 
   object enumeration:
 
@@ -163,6 +173,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     private val cloudEvalLimiter = RateLimit[IsProxy](30 * maxCost, 1.minute, "cloudEval.proxy")
     def cloudEval[A]: ProxyLimit[A] = proxyLimit(cloudEvalLimiter)
+
+    private val fidePlayerLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "fide.player.proxy")
+    def fidePlayer[A]: ProxyLimit[A] = proxyLimit(fidePlayerLimiter)
 
     private val signupLimiter = RateLimit[IsProxy](20 * maxCost, 1.minute, "user.signup.proxy")
     def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))

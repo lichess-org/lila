@@ -5,23 +5,25 @@ import scalalib.SecureRandom
 import lila.core.game.{ Game, NewGame }
 import lila.core.id.GameId
 import lila.common.BatchProvider
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends lila.core.game.IdGenerator:
 
   import lila.core.game.IdGenerator.*
 
-  private val batchProvider = BatchProvider[GameId]("idGenerator", timeout = 3.seconds): () =>
-    // must NOT use `games(nb)` for it would cause a deadlock
-    // due to `games` calling `game` which calls `batchProvider.one`
-    val ids = List.fill(256)(uncheckedGame).distinct
-    gameRepo.coll
-      .distinctEasy[GameId, List]("_id", $inIds(ids))
-      .monValue: collisions =>
-        _.game.idGenerator(collisions.size)
-      .map:
-        case Nil => ids
-        case collisions => ids.filterNot(collisions.contains)
+  private val batchProvider =
+    BatchProvider[GameId]("idGenerator", timeout = 3.seconds, lila.mon.asyncActorMonitor.full): () =>
+      // must NOT use `games(nb)` for it would cause a deadlock
+      // due to `games` calling `game` which calls `batchProvider.one`
+      val ids = List.fill(256)(uncheckedGame).distinct
+      gameRepo.coll
+        .distinctEasy[GameId, List]("_id", $inIds(ids))
+        .monValue: collisions =>
+          lila.mon.game.idGenerator(collisions.size)
+        .map:
+          case Nil => ids
+          case collisions => ids.filterNot(collisions.contains)
 
   def game: Fu[GameId] = batchProvider.one
 
@@ -34,7 +36,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
       gameRepo.coll
         .distinctEasy[GameId, Set]("_id", $inIds(ids))
         .monValue: collisions =>
-          _.game.idGenerator(collisions.size)
+          lila.mon.game.idGenerator(collisions.size)
         .flatMap: collisions =>
           games(collisions.size).dmap { _ ++ (ids.diff(collisions)) }
         .map(_.toList)

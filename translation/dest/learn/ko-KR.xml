@@ -6,7 +6,7 @@
   <string name="progressX">진행도: %s</string>
   <string name="resetMyProgress">진행도 초기화</string>
   <string name="youWillLoseAllYourProgress">모든 진행도가 사라집니다!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">시작!</string>
+  <string name="play">시작!</string>
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
@@ -99,7 +99,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">나이트가 방어를 뚫고 공격합니다!</string>
   <string name="escapeOrBlock">폐하를 피신시키거나
 공격을 막으세요!</string>
-  <string name="outOfCheckComplete">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
   <string name="mateInOne">한 수 안에 체크메이트하기</string>
   <string name="defeatTheOpponentsKing">상대 킹을 벗어날 수 없는 위협에 가두자</string>
   <string name="mateInOneIntro">체크메이트란 더 이상 방어할 수 없는 체크 상태입니다. 한마디로 승리죠!</string>
@@ -141,7 +141,6 @@
   <string name="findAWayToCastleKingSide">킹 사이드 캐슬링을 할 방법을 찾아내세요!</string>
   <string name="findAWayToCastleQueenSide">퀸 사이드 캐슬링을 할 방법을 찾아내세요!</string>
   <string name="castlingComplete">축하합니다! 이제 거의 모든 게임에서 캐슬링을 하겠네요!</string>
-  <string name="enPassant">앙파상</string>
   <string name="theSpecialPawnMove">폰의 특별한 수</string>
   <string name="enPassantIntro">상대 폰이 두 칸씩 움직였다 하더라도 폰이 한 칸만 움직인 상황처럼 잡을 수 있습니다.</string>
   <string name="blackJustMovedThePawnByTwoSquares">방금 흑이 폰을 두 칸

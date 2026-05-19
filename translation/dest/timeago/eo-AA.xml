@@ -7,7 +7,7 @@
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">en %s minuto</item>
-    <item quantity="other">en %s minutoj</item>
+    <item quantity="other">post %s minutoj</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">en %s horo</item>
@@ -55,8 +55,8 @@
     <item quantity="other">antaŭ %s jaroj</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
-    <item quantity="one">%s minuto restas</item>
-    <item quantity="other">%s minutoj restas</item>
+    <item quantity="one">restas %s minuto</item>
+    <item quantity="other">restas %s minutoj</item>
   </plurals>
   <plurals name="nbHoursRemaining">
     <item quantity="one">%s horo restas</item>

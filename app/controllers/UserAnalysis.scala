@@ -35,7 +35,7 @@ final class UserAnalysis(
     val chess960PositionNum: Option[Int] = variant.chess960.so:
       getInt("position").orElse: // no input fen or num defaults to standard start position
         Chess960.positionNumber(inputFen | variant.initialFen)
-    val decodedFen: Option[Fen.Full] = chess960PositionNum.flatMap(Chess960.positionToFen).orElse(inputFen)
+    val decodedFen: Option[Fen.Full] = inputFen.orElse(chess960PositionNum.flatMap(Chess960.positionToFen))
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
     for
@@ -100,6 +100,7 @@ final class UserAnalysis(
     )
 
   // correspondence premove aka forecast
+  // also used by lichobile for post-game analysis
   def game(id: GameId, color: Color) = Open:
     Found(env.game.gameRepo.game(id)): g =>
       env.round.proxyRepo.upgradeIfPresent(g).flatMap { game =>
@@ -110,10 +111,16 @@ final class UserAnalysis(
             else
               val owner = isMyPov(pov)
               for
-                initialFen <- env.game.gameRepo.initialFen(game.id)
+                initialFen <- env.game.gameRepo.initialFen(game)
                 data <-
                   env.api.roundApi
-                    .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
+                    .userAnalysisJson(
+                      pov,
+                      ctx.pref,
+                      initialFen,
+                      pov.color,
+                      owner = owner
+                    )
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
                   views.analyse.ui.userAnalysis(data, pov, withForecast = withForecast)
@@ -124,7 +131,7 @@ final class UserAnalysis(
       }
 
   private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
-    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+    initialFen <- env.game.gameRepo.initialFen(pov.game)
     users <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _ = gameC.preloadUsers(users)
@@ -138,7 +145,6 @@ final class UserAnalysis(
       initialFen = initialFen,
       withFlags = ExportOptions(
         division = true,
-        opening = true,
         clocks = true,
         movetimes = true,
         rating = ctx.pref.showRatings,

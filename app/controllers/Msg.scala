@@ -4,44 +4,43 @@ import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.net.ApiVersion
 
 final class Msg(env: Env) extends LilaController(env):
 
-  private val newMobileApi = ApiVersion(5)
-
-  def home = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
-    negotiateApi(
-      html = Ok.async(inboxJson.map(views.msg.home)).map(_.hasPersonalData),
-      api = v =>
+  def home(before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
+    before match
+      case None =>
+        negotiateApi(
+          html = Ok.async(inboxJson(none).map(views.msg.home)).map(_.hasPersonalData),
+          api = _ => JsonOk(inboxJson(none))
+        )
+      case Some(before) =>
         JsonOk:
-          if v >= newMobileApi then inboxJson
-          else env.msg.compat.inbox(getInt("page"))
-    )
+          for
+            threads <- env.msg.api.moreContacts(millisToInstant(before))
+            contacts <- env.msg.json.contacts(threads)
+          yield contacts
   }
 
   def convo(username: UserStr, before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     if username.is(UserStr("new"))
-    then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
+    then Redirect(getUserStr("user").fold(routes.Msg.home())(routes.Msg.convo(_)))
     else
       env.msg.api
         .convoWithMe(username, before)
         .flatMap:
-          case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
+          case None => negotiate(Redirect(routes.Msg.home()), notFoundJson())
           case Some(c) =>
-            def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
+            def json = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(
-              html = Ok.async(newJson.map(views.msg.home)),
-              api = v =>
-                JsonOk:
-                  if v >= newMobileApi then newJson
-                  else fuccess(env.msg.compat.thread(c))
+              html = Ok.async(json.map(views.msg.home)),
+              api = _ => JsonOk(json)
             ).map(_.hasPersonalData)
   }
 
   def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
-      q.trim.some.filter(_.nonEmpty) match
+      q.trim.nonEmptyOption match
         case None => env.msg.json.searchResult(env.msg.search.empty)
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }
@@ -53,20 +52,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def convoDelete(username: UserStr) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     env.msg.api.delete(username) >>
-      JsonOk(inboxJson)
-  }
-
-  def compatCreate = AuthBody { ctx ?=> me ?=>
-    ctx.kid.no
-      .so(ctx.noBot)
-      .so(
-        env.msg.compat.create
-          .fold(
-            doubleJsonFormError,
-            _.map: id =>
-              Ok(Json.obj("ok" -> true, "id" -> id))
-          )
-      )
+      JsonOk(inboxJson(none))
   }
 
   def apiPost(username: UserStr) = AuthOrScopedBody(_.Msg.Write) { ctx ?=> me ?=>
@@ -89,10 +75,15 @@ final class Msg(env: Env) extends LilaController(env):
         )
   }
 
-  private def inboxJson(using me: Me) =
+  private def inboxJson(withConvo: Option[UserId])(using me: Me) =
     import lila.common.Json.lightUserWrites
-    for threads <- env.msg.api.myThreads.flatMap(env.msg.json.threads)
+    for
+      threads <- env.msg.api.myThreads
+      contactIds = withConvo.toList ::: threads.map(_.other)
+      studentNames <- env.clas.api.clas.myPotentialStudentNames(contactIds)
+      contacts <- env.msg.json.threadsJson(threads)
     yield Json.obj(
       "me" -> Json.toJsObject(me.light).add("bot" -> me.isBot),
-      "contacts" -> threads
+      "contacts" -> contacts,
+      "names" -> studentNames
     )

@@ -2,4 +2,5 @@
 <resources>
   <string name="donate">Sustine</string>
   <string name="lichessPatron">Patronus Lichess</string>
+  <string name="newPatrons">Patroni Novi</string>
 </resources>

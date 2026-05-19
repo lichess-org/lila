@@ -5,6 +5,7 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.core.i18n.I18nKey
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, MongoCache }
 import lila.memo.CacheApi.buildAsyncTimeout

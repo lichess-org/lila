@@ -31,7 +31,7 @@ final class StudyApi(
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer)
+)(using Executor, akka.stream.Materializer)(using scheduler: Scheduler)
     extends lila.core.study.StudyApi:
 
   import sequencer.*
@@ -152,9 +152,16 @@ final class StudyApi(
   ): Fu[Option[Study.WithChapter]] = for
     pre <- studyMaker(data, user, withRatings)
     sc = pre.copy(study = transform(pre.study))
-    _ <- studyRepo.insert(sc.study)
     _ <- chapterRepo.insert(sc.chapter)
+    _ <- studyRepo.insert(sc.study)
   yield sc.some
+
+  def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =
+    for
+      sc = studyMaker(data).focus(_.study.flair).replace(data.flair.flatMap(flairApi.find))
+      _ <- chapterRepo.insert(sc.chapter)
+      _ <- studyRepo.insert(sc.study)
+    yield sc
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
@@ -172,8 +179,7 @@ final class StudyApi(
       .map(_.cloneFor(study1))
       .mapAsync(1): c =>
         chapterRepo.insert(c).inject(c)
-      .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
-      .run()
+      .runWith(Sink.reduce[Chapter] { (prev, _) => prev })
       .flatMap: first =>
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
@@ -209,7 +215,7 @@ final class StudyApi(
           study.id.into(ChatId),
           userId = userId,
           text = text,
-          publicSource = study.isPublic.option(lila.core.shutup.PublicSource.Study(studyId)),
+          publicSource = study.isPublic.option(lila.core.chat.PublicSource.Study(studyId)),
           busChan = _.study
         )
 
@@ -242,34 +248,41 @@ final class StudyApi(
       position: Position
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
-    val singleNode = args.node.withoutChildren
-    if position.chapter.isOverweight then
-      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
-      fuccess(none)
-    else
-      position.chapter.addNode(singleNode, position.path, relay) match
-        case None =>
-          reloadSriBecauseOf(study, who.sri, position.chapter.id)
-          fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
-        case Some(chapter) =>
-          chapter.root.nodeAt(position.path).so { parent =>
-            parent.children.get(singleNode.id).so { node =>
-              val newPosition = position.ref + node
-              for
-                _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
-                _ <-
-                  if opts.sticky
-                  then studyRepo.setPosition(study.id, newPosition)
-                  else studyRepo.updateNow(study)
-                _ = sendTo(study.id):
-                  _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                isMainline = newPosition.path.isMainline(chapter.root)
-                promoteToMainline = opts.promoteToMainline && !isMainline
-              yield promoteToMainline.option: () =>
-                promote(study.id, position.ref + node, toMainline = true)
-            }
-          }
+    args
+      .node(position.chapter.setup.variant)
+      .map(_.withoutChildren)
+      .fold(
+        err => fufail(err.toString),
+        node =>
+          if node.ply >= Node.MAX_PLIES then fuccess(none)
+          else if position.chapter.isOverweight then
+            logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+            reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
+            fuccess(none)
+          else
+            position.chapter.addNode(node, position.path, relay) match
+              case None =>
+                reloadSriBecauseOf(study, who.sri, position.chapter.id)
+                fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+              case Some(chapter) =>
+                chapter.root.nodeAt(position.path).so { parent =>
+                  parent.children.get(node.id).so { node =>
+                    val newPosition = position.ref + node
+                    for
+                      _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
+                      _ <-
+                        if opts.sticky
+                        then studyRepo.setPosition(study.id, newPosition)
+                        else fuccess(setStudyUpdated(study))
+                      _ = sendTo(study.id):
+                        _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
+                      isMainline = newPosition.path.isMainline(chapter.root)
+                      promoteToMainline = opts.promoteToMainline && !isMainline
+                    yield promoteToMainline.option: () =>
+                      promote(study.id, position.ref + node, toMainline = true)
+                  }
+                }
+      )
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -282,7 +295,7 @@ final class StudyApi(
               for _ <- chapterRepo.update(newChapter)
               yield
                 sendTo(study.id)(_.deleteNode(position, who))
-                studyRepo.updateNow(study)
+                setStudyUpdated(study)
             case None =>
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid delNode $studyId $position")
@@ -301,7 +314,7 @@ final class StudyApi(
           .replace(newVariant)
         for
           _ <- chapterRepo.update(chapter)
-          _ = onChapterChange(studyId, chapterId, who)
+          _ = reloadStudy(studyId, who)
         yield chapter.some
 
   def clearAnnotations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -309,14 +322,14 @@ final class StudyApi(
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
-          for _ <- chapterRepo.update(newChapter) yield onChapterChange(study.id, chapter.id, who)
+          for _ <- chapterRepo.update(newChapter) yield reloadStudy(study.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           for _ <- chapterRepo.update(chapter.copy(root = chapter.root.clearVariations))
-          yield onChapterChange(study.id, chapter.id, who)
+          yield reloadStudy(study.id, who)
 
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
   def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(using who: Who): Funit =
@@ -340,6 +353,7 @@ final class StudyApi(
                     .parallel
                     .map: _ =>
                       sendTo(study.id)(_.promote(position, toMainline, who))
+                      setStudyUpdated(study)
               case None =>
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid promoteToMainline $studyId $position")
@@ -390,9 +404,9 @@ final class StudyApi(
 
   export studyRepo.{ isMember, isContributor }
 
-  private def onChapterChange(id: StudyId, chapterId: StudyChapterId, who: Who) =
-    sendTo(id)(_.updateChapter(chapterId, who))
-    studyRepo.updateNow(id)
+  private def reloadStudy(id: StudyId, who: Who) =
+    sendTo(id)(_.reloadStudy(who))
+    setStudyUpdated(id)
 
   private def onMembersChange(
       study: Study,
@@ -400,7 +414,7 @@ final class StudyApi(
       sendToUserIds: Iterable[UserId]
   ): Unit =
     sendTo(study.id)(_.reloadMembers(members, sendToUserIds))
-    studyRepo.updateNow(study)
+    setStudyUpdated(study)
     Bus.pub(StudyMembers.OnChange(study))
 
   def setShapes(studyId: StudyId, position: Position.Ref, shapes: Shapes)(who: Who) =
@@ -411,7 +425,7 @@ final class StudyApi(
           .flatMapz: chapter =>
             chapter.setShapes(shapes, position.path) match
               case Some(newChapter) =>
-                studyRepo.updateNow(study)
+                setStudyUpdated(study)
                 for _ <- chapterRepo.setShapes(shapes)(newChapter, position.path)
                 yield sendTo(study.id)(_.setShapes(position, shapes, who))
               case None =>
@@ -427,7 +441,7 @@ final class StudyApi(
   ): Funit =
     sc.chapter.setClock(clock.some, position.path) match
       case Some(chapter, newCurrentClocks) =>
-        studyRepo.updateNow(sc.study)
+        setStudyUpdated(sc.study)
         for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
         yield sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks))
       case None =>
@@ -454,7 +468,7 @@ final class StudyApi(
           for
             _ <- newName.so(chapterRepo.setName(chapterId, _))
             _ <- doSetTags(study, chapter, tags, who)
-          yield studyRepo.updateNow(study)
+          yield setStudyUpdated(study)
 
   private def doSetTags(study: Study, oldChapter: Chapter, tags: Tags, who: Who): Funit =
     (tags != oldChapter.tags).so:
@@ -466,7 +480,9 @@ final class StudyApi(
           .so: c =>
             c.root.clock.so: clock =>
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
-      yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+      yield
+        sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+        setStudyUpdated(study)
 
   def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -490,7 +506,7 @@ final class StudyApi(
             for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
-              studyRepo.updateNow(study)
+              setStudyUpdated(study)
           }
         }
       case None =>
@@ -506,7 +522,7 @@ final class StudyApi(
               for _ <- chapterRepo.update(newChapter)
               yield
                 sendTo(study.id)(_.deleteComment(position, id, who))
-                studyRepo.updateNow(study)
+                setStudyUpdated(study)
             case None =>
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid deleteComment $studyId $position $id")
@@ -517,7 +533,7 @@ final class StudyApi(
         Contribute(who.u, study):
           chapter.toggleGlyph(glyph, position.path) match
             case Some(newChapter) =>
-              studyRepo.updateNow(study)
+              setStudyUpdated(study)
               newChapter.root.nodeAt(position.path).so { node =>
                 for _ <- chapterRepo.setGlyphs(node.glyphs)(newChapter, position.path)
                 yield newChapter.root.nodeAt(position.path).foreach { node =>
@@ -534,7 +550,7 @@ final class StudyApi(
         Contribute(who.u, study):
           chapter.setGamebook(gamebook, position.path) match
             case Some(newChapter) =>
-              studyRepo.updateNow(study)
+              setStudyUpdated(study)
               chapterRepo.setGamebook(gamebook)(newChapter, position.path)
             case None =>
               reloadSriBecauseOf(study, who.sri, chapter.id)
@@ -552,7 +568,7 @@ final class StudyApi(
                   reloadSriBecauseOf(study, who.sri, chapter.id)
                   fufail(s"Invalid explorerGame insert $studyId $data")
                 case Some(chapter, path) =>
-                  studyRepo.updateNow(study)
+                  setStudyUpdated(study)
                   chapter.root.nodeAt(path).so { parent =>
                     for _ <- chapterRepo.setChildren(parent.children)(chapter, path)
                     yield sendTo(study.id)(_.reloadAll)
@@ -588,7 +604,7 @@ final class StudyApi(
         order <- chapterRepo.nextOrderByStudy(study.id)
         chapter <- chapterMaker(study, data, order, who.u, withRatings)
           .recoverWith:
-            case ChapterMaker.ValidationException(error) =>
+            case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
         _ <- doAddChapter(study, chapter, sticky, who)
@@ -612,7 +628,7 @@ final class StudyApi(
     for
       _ <- chapterRepo.insert(chapter)
       newStudy = study.withChapter(chapter)
-      _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
+      _ <- if sticky then studyRepo.updateSomeFields(newStudy) else fuccess(setStudyUpdated(study))
       _ = preview.invalidate(study.id)
     yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
 
@@ -662,12 +678,13 @@ final class StudyApi(
                   newChapter.practice != chapter.practice ||
                   newChapter.gamebook != chapter.gamebook ||
                   newChapter.description != chapter.description
+              shouldSendChapterPreviews = newChapter.name != chapter.name
               _ <- shouldResetPosition.so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
             yield
-              if shouldReload // `updateChapter` makes the client reload the whole thing with XHR
-              then sendTo(study.id)(_.updateChapter(chapter.id, who))
-              else reloadChapters(study)
+              if shouldReload then sendTo(study.id)(_.reloadStudy(who))
+              if shouldSendChapterPreviews then sendChapterPreviews(study)
+              setStudyUpdated(study)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -702,15 +719,42 @@ final class StudyApi(
               // deleting the current chapter? Automatically move to another one
               else
                 (study.position.chapterId == chapterId).so:
-                  chaps
-                    .find(_.id != chapterId)
-                    .so: newChap =>
-                      doSetChapter(study, newChap.id, who)
+                  val ids = chaps.map(_.id)
+                  val i = ids.indexOf(chapterId)
+                  val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
+                  newIdOpt.so: newId =>
+                    doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
-            reloadChapters(study)
-            studyRepo.updateNow(study)
+            sendChapterPreviews(study)
+            setStudyUpdated(study)
         }
+
+  def replaceChapterPgnMoves(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      pgn: chess.format.pgn.PgnStr
+  )(using me: Me): Fu[Boolean] =
+    byIdWithChapter(studyId, chapterId).flatMapz:
+      case Study.WithChapter(study, chapter) =>
+        study.isRelay.not.so:
+          Contribute(me, study):
+            for
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              newChapter = chapter.copy(
+                root = parsed.root,
+                setup = chapter.setup.copy(variant = parsed.variant),
+                conceal = chapter.conceal.map(_ => parsed.root.ply),
+                serverEval = None
+              )
+              _ <- chapterRepo.update(newChapter)
+              _ <- (study.position.chapterId == chapter.id).so:
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+              _ = preview.invalidate(study.id)
+            yield
+              sendChapterPreviews(study)
+              reloadStudy(study.id, Who(me.userId, Sri("api")))
+              true
 
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
@@ -726,7 +770,10 @@ final class StudyApi(
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        for _ <- chapterRepo.sort(study, chapterIds) yield reloadChapters(study)
+        for _ <- chapterRepo.sort(study, chapterIds)
+        yield
+          sendChapterPreviews(study)
+          setStudyUpdated(study)
 
   def descStudy(studyId: StudyId, desc: String)(who: Who) =
     sequenceStudy(studyId): study =>
@@ -760,7 +807,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       studyRepo.updateTopics(study.addTopics(StudyTopics.fromStrs(topics, StudyTopics.studyMax)))
 
-  def editStudy(studyId: StudyId, data: Study.Data)(who: Who) =
+  def editStudy(studyId: StudyId, data: StudyForm.FormData)(who: Who) =
     sequenceStudy(studyId): study =>
       canActAsOwner(study, who.u).flatMap: asOwner =>
         asOwner
@@ -768,7 +815,7 @@ final class StudyApi(
           .so: settings =>
             val newStudy = study
               .copy(
-                name = Study.toName(data.name),
+                name = data.studyName,
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
                 visibility = data.visibility,
@@ -832,6 +879,13 @@ final class StudyApi(
       for _ <- inviter.becomeAdmin(me)(study)
       yield Bus.pub(StudyMembers.OnChange(study))
 
+  private object setStudyUpdated:
+    private val debouncer =
+      scalalib.Debouncer[StudyId](scheduler.scheduleOnce(5.seconds, _), 64): studyId =>
+        studyRepo.setUpdatedNow(studyId)
+    def apply(studyId: StudyId): Unit = debouncer.push(studyId)
+    def apply(study: Study): Unit = apply(study.id)
+
   private def reloadSriBecauseOf(
       study: Study,
       sri: Sri,
@@ -840,11 +894,9 @@ final class StudyApi(
   ) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
-  def reloadChapters(study: Study) =
-    preview
-      .jsonList(study.id)
-      .foreach: previews =>
-        sendTo(study.id)(_.reloadChapters(previews))
+  def sendChapterPreviews(study: Study) =
+    for previews <- preview.jsonList(study.id)
+    do sendTo(study.id)(_.sendChapterPreviews(previews))
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId) >>|

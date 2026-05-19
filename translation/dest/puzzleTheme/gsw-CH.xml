@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Vorgruckte Puur</string>
-  <string name="advancedPawnDescription">En Pur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
+  <string name="advancedPawn">Vorgruckte Pur</string>
+  <string name="advancedPawnDescription">Eine vu dine Pure isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpure ≤ Bewertung ≤ 600 Hundertstelpure)</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>
@@ -26,12 +26,14 @@
   <string name="castlingDescription">Bring de König in Sicherheit und schick de Turm in Agriff.</string>
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
+  <string name="collinearMove">Kollineare Zug</string>
+  <string name="collinearMoveDescription">Zwei gägnerischi Figure stöhnd sich gägenüber, und eini gaht entlang vu de Agriffslinie, ohni die Ander z\'schlah.</string>
   <string name="cornerMate">Arabischs Matt (Eck-Matt)</string>
   <string name="cornerMateDescription">De König wird mit Turm - oder Dame - und Springer, imeme Egge, Matt gsetzt.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Abzugs-Schach</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Beweg e Figur und deck so es verdeckts Schach uf, was oft zume entscheidende Vorteil füert.</string>
+  <string name="discoveredCheck">Abzugs-Schach</string>
+  <string name="discoveredCheckDescription">Beweg e Figur und deck so es verdeckts Schach uf, was oft zume entscheidende Vorteil füert.</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei Läufer, uf näbenand ligende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Ändschpil</string>
   <string name="endgameDescription">E Taktik für die letscht Fase vum Schpiel.</string>
   <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Pur cha en gägnerische Pur schlaa, wänn de ihn mit em \"Zwei-Fälder-Zug\" übergange hät.</string>
+  <string name="epauletteMate">Epaulette Matt</string>
+  <string name="epauletteMateDescription">Zwei benachbarti Fluchtfälder, für en schach-g\'schtellte König, sind vu andere Figure b\'setzt.</string>
   <string name="exposedKing">Exponierte König</string>
   <string name="exposedKingDescription">E Taktik wo de König nu vu wenige Figure verteidigt wird und oft zu Schachmatt fühert.</string>
   <string name="fork">Gable</string>
@@ -67,9 +71,15 @@
   <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de Gägner muess reagiere. Isch au bekannt als \"Zwüschezug\".</string>
   <string name="killBoxMate">Kill Box Matt</string>
   <string name="killBoxMateDescription">En Turm staht näbem gegnerische König und wird vu de Dame unterschtützt, wo au d\'Fluchtfälder vum König blockiert. De Turm und d\'Dame fanged so de König inere 3x3 Fälder grosse, sogenannte „Killbox“.</string>
+  <string name="pillsburysMate">Pillsbury Matt</string>
+  <string name="pillsburysMateDescription">Schachmatt mit em Turm, wobi de Läufer hilft, de König z\'fange.</string>
+  <string name="morphysMate">Morphy Matt</string>
+  <string name="morphysMateDescription">Schachmatt mit em Läufer, wobi de Turm hilft, de König z\'fange.</string>
+  <string name="swallowstailMate">Schwalbeschwanz Matt</string>
+  <string name="swallowstailMateDescription">Es Schachmattmuschter - optisch inere V-Form, ähnlich wie en Schwalbeschwanz.</string>
   <string name="triangleMate">Drüeck-Matt</string>
   <string name="triangleMateDescription">Es Matt vu Turm und Dame, wo zämme mit em gägnerische König es Drüegg bilded.</string>
-  <string name="vukovicMate">Vuković-Matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vuković-Matt</string>
   <string name="vukovicMateDescription">En Turm und es Rössli schpanned zämme, zum de König matt setze: De Turm setzt de König mit Hilf vunere dritte Figur matt und s\'Rössli blockiert em König d\'Fluchtfälder.</string>
   <string name="knightEndgame">Schpringer Ändschpil</string>
   <string name="knightEndgameDescription">Es Ändschpiel, nur mit Schpringer und Pure.</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">E Ufgab, mit nur 1 Zug.</string>
   <string name="opening">Eröffnig</string>
   <string name="openingDescription">E Taktik für die erscht Fase vum Schpiel.</string>
+  <string name="operaMate">Opern Matt</string>
+  <string name="operaMateDescription">Schachmatt mit em Turm, wo vum Läufer gschützt wird.</string>
   <string name="pawnEndgame">Pure Ändschpiel</string>
   <string name="pawnEndgameDescription">Es Ändschpiel nur mit Pure.</string>
   <string name="pin">Fesslig</string>

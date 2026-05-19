@@ -117,7 +117,6 @@
   <string name="enable">Fur</string>
   <string name="bestMoveArrow">Falaadha tallaabada ugu fiican</string>
   <string name="showVariationArrows">Tus falaadhaha faracyada</string>
-  <string name="evaluationGauge">Qiinqaynta tallaabada</string>
   <string name="multipleLines">Shaxo badan</string>
   <string name="cpus">CPUyada</string>
   <string name="memory">Baaxadda</string>
@@ -221,7 +220,6 @@
   <string name="changeUsernameNotSame">Weynida xarfaha oo kaliiyaa is bedeli kara. Tusaale ahaan \"hebel\" iyo \"Hebel\".</string>
   <string name="changeUsernameDescription">Magac-koonkaaga beddel. Mar keliyaa kuu banana oo aad bedeli karto weynida xarfaha uun.</string>
   <string name="signupUsernameHint">Magac-akoon edeb leh dooro. Ma bedeli kartid mar dambe waana la xidhi doonaa magicii edeb darro ah!</string>
-  <string name="signupEmailHint">Waxan u isticmaalaynaa cusbaynta furahaaga oo keli ah.</string>
   <string name="password">Erey sir</string>
   <string name="changePassword">Beddel furaha</string>
   <string name="changeEmail">Beddel iimaylka</string>
@@ -245,9 +243,6 @@
   <string name="emailCanTakeSomeTime">Wakhti yar sii si ay kuu soo gaadho.</string>
   <string name="refreshInboxAfterFiveMinutes">Sug 5 mirir oo ka dib baadh iimaylkaaga.</string>
   <string name="checkSpamFolder">Sidoo kale eeg spam folderkaaga, halkaasaad ka heli kartaa. Haddii ay sidaa tahay, u beddel \"not spam\".</string>
-  <string name="emailForSignupHelp">Haddii ay waxba shaqayn waayaan, noosoo dir iimaylkan:</string>
-  <string name="copyTextToEmail">Koobi garee qoraalka sare oo u soo dir %s</string>
-  <string name="waitForSignupHelp">Waanu kuu soo laaban in yar ka dib si an kaaga caawinno diwaangelinta.</string>
   <string name="accountConfirmed">Akoonka %s waa la hubiyay si guul leh.</string>
   <string name="accountCanLogin">Hadda waxad ku geli kartaa %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Uma baahnid iimayl hubsasho ah.</string>

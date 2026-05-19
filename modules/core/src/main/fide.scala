@@ -13,8 +13,8 @@ object Federation:
 
   type Name = String
   type ByFideIds = Map[FideId, Id]
-  type NamesOf = List[FideId] => Fu[Map[Federation.Id, Federation.Name]]
   type FedsOf = List[FideId] => Fu[Federation.ByFideIds]
+  type Guess = String => Option[Federation.Id]
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
 
@@ -25,6 +25,7 @@ trait Player:
   def title: Option[PlayerTitle]
   def year: Option[Int]
   def ratingOf(tc: FideTC): Option[Elo]
+  def ratingOfOrStandard(tc: FideTC): Option[Elo]
   def kFactorOf(tc: FideTC): KFactor
   def ratingsMap: Map[FideTC, Elo]
 

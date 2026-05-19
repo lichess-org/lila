@@ -1,4 +1,5 @@
 import type { SquareName } from 'chessops';
+
 import { readKeys } from './util';
 
 export interface Items {

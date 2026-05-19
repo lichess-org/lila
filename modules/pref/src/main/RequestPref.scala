@@ -33,6 +33,7 @@ object RequestPref:
         board = default.board.copy(
           opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
           brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,
+          contrast = paramOrSession("boardContrast").flatMap(_.toIntOption) | default.board.contrast,
           hue = paramOrSession("boardHue").flatMap(_.toIntOption) | default.board.hue
         )
       )

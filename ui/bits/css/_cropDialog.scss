@@ -1,5 +1,6 @@
 .crop-viewer {
   @extend %flex-column;
+
   row-gap: 2em;
 
   .spinner {

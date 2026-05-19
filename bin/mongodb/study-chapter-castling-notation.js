@@ -29,7 +29,7 @@ const repairChapter = idOrDiag => {
   if (debug) console.log('https://lichess.org/study/' + chapter.studyId + '/' + chapter._id);
   const moves = chapter.root;
   const moveList = Object.entries(moves);
-  const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k == d.k));
+  const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k === d.k));
   diag.root.forEach((d, index) => {
     const move = moveList[moveIndexes[index]];
     if (!move) {
@@ -66,7 +66,7 @@ const updateChapterRoot = (oldChapter, newRoot) => {
   if (dry) return;
   try {
     db.study_chapter_castling_backup.insertOne(oldChapter);
-  } catch (e) {}
+  } catch {}
   db.study_chapter_flat.updateOne({ _id: oldChapter._id }, { $set: { root: newRoot } });
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
 };
@@ -88,7 +88,7 @@ const findCorruptedChapters = selector => {
   db.study_chapter_flat.aggregate([
     {
       $match: {
-        ...(selector || {}),
+        ...selector,
         // 'setup.variant': { $nin: [2, 3] }, // chess960, from position. The later contains chess960 games.
         // createdAt: { $gte: new Date('2025-09-19') }
       },
@@ -137,7 +137,7 @@ const repairAll = nb => {
       const [c, r] = repairChapter(diag);
       if (c && r) updateChapterRoot(c, r);
       nb--;
-      if (nb % 100 == 0) {
+      if (nb % 100 === 0) {
         console.log(nb + ' remaining');
       }
     });

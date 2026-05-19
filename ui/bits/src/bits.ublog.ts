@@ -1,7 +1,7 @@
-import * as xhr from 'lib/xhr';
-import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
-import { throttlePromiseDelay } from 'lib/async';
 import { escapeHtml } from 'lib';
+import { throttlePromiseDelay } from 'lib/async';
+import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -123,12 +123,12 @@ function rewireModPost() {
       submitBtn.disabled = false;
     }),
   );
-  submitBtn.addEventListener('click', () => {
+  submitBtn.addEventListener('click', async () => {
     const form: Record<string, any> = {};
     for (const input of submitFields.querySelectorAll<HTMLInputElement>('input')) {
       form[input.id] = input.type === 'checkbox' ? input.checked : input.value;
     }
-    submit(form);
+    await submit(form);
   });
   modTools
     .querySelector<HTMLElement>('.carousel-add-btn')
@@ -138,7 +138,7 @@ function rewireModPost() {
     ?.addEventListener('click', () => submit({ featured: false }));
   modTools.querySelector<HTMLElement>('.carousel-pin-btn')?.addEventListener('click', async () => {
     const days = await prompt('How many days?', '7', (n: string) => Number(n) > 0 && Number(n) < 31);
-    if (days) submit({ featured: true, featuredUntil: Number(days) });
+    if (days) await submit({ featured: true, featuredUntil: Number(days) });
   });
   assessBtn.addEventListener('click', async () => {
     assessBtn.insertAdjacentHTML('afterend', spinnerHtml);

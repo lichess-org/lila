@@ -1,7 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
+import { onInsert } from 'lib/view';
+
+import { PaneCtrl } from './interfaces';
 import { header } from './util';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
 
 type Code = string;
 type Name = string;
@@ -15,10 +18,6 @@ export interface LangsData {
 }
 
 export class LangsCtrl extends PaneCtrl {
-  constructor(root: DasherCtrl) {
-    super(root);
-  }
-
   render = (): VNode =>
     h('div.sub.langs', [
       header(i18n.site.language, this.close),
@@ -30,7 +29,10 @@ export class LangsCtrl extends PaneCtrl {
             'button' +
               (this.data.current === code ? '.current' : '') +
               (this.data.accepted.includes(code) ? '.accepted' : ''),
-            { attrs: { type: 'submit', name: 'lang', value: code, title: code } },
+            {
+              attrs: { type: 'submit', name: 'lang', value: code, title: code },
+              hook: this.data.current === code ? onInsert(el => el.scrollIntoView({ block: 'center' })) : {},
+            },
             name,
           ),
         ),
@@ -46,7 +48,7 @@ export class LangsCtrl extends PaneCtrl {
     return this.root.data.lang;
   }
 
-  private list = () => [
+  private readonly list = () => [
     ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
     ...this.data.list,
   ];

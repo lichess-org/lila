@@ -1,7 +1,7 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -14,41 +14,53 @@
       "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
     }
   },
-  "dependencies": {
-    "@lichess-org/chessground": "9.9.0",
-    "@lichess-org/pgn-viewer": "^2.5.4",
+  "devDependencies": {
+    "@lichess-org/chessground": "^10.1.1",
+    "@lichess-org/pgn-viewer": "^2.6.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.3",
-    "@typescript-eslint/parser": "^8.46.3",
+    "@types/node": "^24.12.2",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.15",
-    "eslint": "^9.39.1",
-    "eslint-plugin-compat": "^6.0.2",
-    "eslint-plugin-import": "^2.32.0",
-    "jsdom": "^27.1.0",
-    "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2",
+    "chessops": "^0.15.0",
+    "jsdom": "^27.4.0",
+    "lint-staged": "^16.4.0",
+    "oxfmt": "0.45.0",
+    "oxlint": "1.60.0",
+    "oxlint-tsgolint": "0.21.1",
     "snabbdom": "3.5.1",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "stylelint": "^17.9.1",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-scss": "^7.0.0",
+    "svgo": "^4.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
-    "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
+    "typescript above just to allow manual tsc. ui/.build/package.json's typescript version is the truth"
   ],
   "scripts": {
-    "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
-    "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
-    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
-    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
-    "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
-    "lint-staged": "lint-staged --config=ui/lint-staged.config.mjs",
+    "format": "oxfmt",
+    "format:scala": "./lila.sh scalafmtAll",
+    "check-format": "oxfmt --check",
+    "lint": "pnpm lint:code && pnpm lint:style",
+    "lint:code": "oxlint --type-aware",
+    "lint:style": "stylelint \"ui/**/*.scss\"",
+    "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
+    "assets:optimize": "svgo -rf ./public/ ./public/",
+    "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
-    "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
-    "serverlog": "pnpm journal & pnpm metals",
+    "metals": "tail -F .metals/metals.log",
+    "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "multilog": "pnpm serverlog & ui/build -w"
+    "icon-files-gen": "python3 bin/gen/licon.py",
+    "multilog": "pnpm serverlog & ui/build -w",
+    "workspace-check": "pnpx @manypnk/cli check",
+    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
+    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
+  },
+  "lint-staged": {
+    "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
+    "*.scss": "pnpm lint:style --fix && pnpm format"
   },
   "browserslist": [
     "defaults",

@@ -6,7 +6,7 @@
   <string name="progressX">Napredak: %s</string>
   <string name="resetMyProgress">Resetujte moj napredak</string>
   <string name="youWillLoseAllYourProgress">Izgubit ćete sav svoj napredak!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">igraj!</string>
+  <string name="play">igraj!</string>
   <string name="chessPieces">Šahovske figure</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Kreće se po ravnim linijama</string>
@@ -103,7 +103,7 @@ protivničke figure koja je dala šah.</string>
 preko Vaše odbrane!</string>
   <string name="escapeOrBlock">Pobjegnite kraljem
 ili blokirajte napad!</string>
-  <string name="outOfCheckComplete">Čestitke! Vaš kralj ne može nikada biti uzet, pobrinite se da se možete odbraniti od šaha!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Čestitke! Vaš kralj ne može nikada biti uzet, pobrinite se da se možete odbraniti od šaha!</string>
   <string name="mateInOne">Mat u jednom potezu</string>
   <string name="defeatTheOpponentsKing">Porazite protivnikovog kralja</string>
   <string name="mateInOneIntro">Pobjeda je Vaša kada Vaš protivnik ne može da se odbrani od šaha.</string>
@@ -154,7 +154,6 @@ za malu rokadu!</string>
   <string name="findAWayToCastleQueenSide">Pronađite način 
 za veliku rokadu!</string>
   <string name="castlingComplete">Čestitke! Gotovo uvijek biste trebali napraviti rokadu u partiji.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Poseban potez pješaka</string>
   <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možete ga uzeti kao da se pomaknuo za jedno polje.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Crni je upravo pomaknuo 

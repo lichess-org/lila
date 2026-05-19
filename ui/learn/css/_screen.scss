@@ -17,7 +17,7 @@
   max-height: 100%;
   overflow: auto;
 
-  @keyframes slideIn {
+  @keyframes slide-in {
     0% {
       opacity: 0;
       filter: blur(15px);
@@ -25,28 +25,28 @@
 
     100% {
       opacity: 1;
-      filter: blur(0px);
+      filter: blur(0);
     }
   }
 
   > :nth-child(1) {
-    animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
+    animation: slide-in 1s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   > :nth-child(2) {
-    animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+    animation: slide-in 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   > :nth-child(3) {
-    animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
+    animation: slide-in 2s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   > :nth-child(4) {
-    animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+    animation: slide-in 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   > :nth-child(5) {
-    animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
+    animation: slide-in 3s cubic-bezier(0.37, 0.82, 0.2, 1);
   }
 
   .stars {
@@ -82,14 +82,15 @@
   }
 
   .stars .star-wrap::before {
+    @include inline-start(5px);
+
     position: absolute;
     top: 5px;
-    @include inline-start(5px);
     display: block;
     width: 45px;
     height: 45px;
     content: '';
-    background-image: url(../images/learn/star.png);
+    background-image: url('../images/learn/star.png');
     background-size: cover;
     filter: saturate(0);
     opacity: 0.2;
@@ -97,7 +98,7 @@
 
   .stars .star {
     display: inline-block;
-    background-image: url(../images/learn/star.png);
+    background-image: url('../images/learn/star.png');
     background-size: cover;
     width: 55px;
     height: 55px;
@@ -135,23 +136,24 @@
   }
 
   .round-svg {
+    display: flex;
     width: 240px;
     height: 240px;
-    padding: 0px;
+    padding: 0;
     background: #f57c00;
     border-radius: 50%;
     margin: 0 auto 10px auto;
   }
 
   .round-svg img {
-    width: 240px;
-    height: 240px;
-    padding: 20px;
+    width: 180px;
+    height: 180px;
+    margin: auto;
   }
 
   .score {
     text-transform: uppercase;
-    color: #0288d1;
+    color: $c-brag;
     font-size: 0.85em;
     display: block;
     letter-spacing: 1px;
@@ -171,35 +173,17 @@
   }
 
   .buttons {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 10% 24px 10%;
 
-    a {
-      @extend %box-radius;
-
-      display: block;
-      text-decoration: none;
-      text-transform: uppercase;
-      line-height: 48px;
-      margin: 8px 10% 0 10%;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       height: 48px;
-      color: #fff;
-      transition: all 0.3s;
-    }
-
-    .next {
-      font-size: 0.9em;
-      background: #3692e7;
-    }
-
-    .back {
-      font-size: 0.85em;
-      background: #e53935f0;
-    }
-
-    a:hover {
-      filter: brightness(0.9);
     }
   }
 

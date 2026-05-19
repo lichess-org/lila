@@ -31,8 +31,11 @@ final class DisposableEmailAttempt(
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt)
     byId.underlying.asMap.compute(u.id, (_, attempts) => ~Option(attempts) + attempt)
 
-  def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
-    val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
+  def prevAttempts(user: UserStr, ip: IpAddress) =
+    ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
+
+  def onSuccess(user: UserStr, email: EmailAddress, ip: IpAddress) =
+    val attempts = prevAttempts(user, ip)
     if attempts.sizeIs > 3 || (
         attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d))
       )
@@ -40,7 +43,7 @@ final class DisposableEmailAttempt(
       val dispEmails = attempts.map(_.email)
       logger
         .branch("disposableEmailAttempt")
-        .info(s"User ${user.username} signed up with $email after trying ${dispEmails.mkString(", ")}")
+        .info(s"User $user signed up with $email after trying ${dispEmails.mkString(", ")}")
 
 private object DisposableEmailAttempt:
 

@@ -29,7 +29,6 @@
   <string name="botPlay">Ludi ludojn per robota API</string>
   <string name="engineRead">Vidi kaj uzi viajn eksterajn motorojn</string>
   <string name="engineWrite">Krei kaj ĝisdatigi eksterajn motorojn</string>
-  <string name="webLogin">Krei aŭtentigitajn retejajn sesiojn (donas plena atingo!)</string>
   <string name="webMod">Uzi administrantajn ilojn (ene la limoj de via permeso)</string>
   <string name="personalAccessTokens">Persona API atingaj ĵetonoj</string>
   <string name="canMakeOauthRequests">Vi povas krei OAuth petoj sen voje tra la %s.</string>

@@ -95,7 +95,6 @@
   <string name="byCPL">la cypycyc.</string>
   <string name="enable">fasnu</string>
   <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
-  <string name="evaluationGauge">arco lo se xamgu be lo ci\'erkei zazyfau</string>
   <string name="multipleLines">xo linji</string>
   <string name="cpus">lo mijykemructerci\'e</string>
   <string name="memory">mo\'isro</string>
@@ -299,7 +298,6 @@
   <string name="leaderboard">raiste</string>
   <string name="pasteTheFenStringHere">vi ciska lo me la FEN datni</string>
   <string name="pasteThePgnStringHere">vi ciska lo me PGN datni</string>
-  <string name="fromPosition">nalcfa kelci</string>
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>

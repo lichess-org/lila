@@ -1,14 +1,13 @@
 package lila.chat
 
 import reactivemongo.api.bson.BSONDocumentHandler
+import lila.core.chat.PublicSource
 
 sealed trait AnyChat:
   def id: ChatId
   def lines: List[Line]
 
   val loginRequired: Boolean
-
-  def forMe(using Option[Me], AllMessages): AnyChat
 
   def isEmpty = lines.isEmpty
 
@@ -60,13 +59,6 @@ case class MixedChat(
 
   val loginRequired = false
 
-  def forMe(using me: Option[Me], all: AllMessages): MixedChat =
-    if all.yes || me.exists(_.marks.troll) then this
-    else
-      copy(lines = lines.filter:
-        case l: UserLine => !l.troll
-        case _: PlayerLine => true)
-
   def mapLines(f: Line => Line) = copy(lines = lines.map(f))
 
   def userIds = lines
@@ -76,11 +68,6 @@ case class MixedChat(
 
 object Chat:
 
-  opaque type ResourceId = String
-  object ResourceId extends OpaqueString[ResourceId]
-
-  import lila.core.shutup.PublicSource
-
   case class Setup(id: ChatId, publicSource: PublicSource)
 
   def tournamentSetup(tourId: TourId) = Setup(tourId.into(ChatId), PublicSource.Tournament(tourId))
@@ -89,9 +76,11 @@ object Chat:
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, lines: JsonChatLines, restricted: Boolean)
 
+  case class RestrictedLines(lines: JsonChatLines, restricted: Boolean)
+
   // left: game chat
   // right: tournament/simul chat
-  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, ResourceId)]):
+  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, PublicSource)]):
     def game = either.left.toOption
 
   import lila.db.BSON

@@ -7,7 +7,7 @@
   <string name="progressX">Ахиц: %s</string>
   <string name="resetMyProgress">Шинээр эхлэх</string>
   <string name="youWillLoseAllYourProgress">Таны бүх ахиц арилах болно!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Тоглоё!</string>
+  <string name="play">Тоглоё!</string>
   <string name="chessPieces">Шатрын дүрсүүд</string>
   <string name="theRook">Тэрэг</string>
   <string name="itMovesInStraightLines">Тэрэг шулуун шугамаар нүүдэг</string>
@@ -84,7 +84,7 @@
   <string name="youCanGetOutOfCheckByTaking">Та шаглаж буй хөлгийг идэж шагнаас гарах боломжтой.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Морь хамгаалалтын дундуур таныг шаглаж байна!</string>
   <string name="escapeOrBlock">Ноёноо зугатаалга эсвэл довтолгооныг хаа!</string>
-  <string name="outOfCheckComplete">Баяр хүргэе! Таны ноёнг хэзээ ч буулгаж авч чадахааргүй боллоо. Ноёноо хамгаалалттай эсэхийг үргэлж шалгаарай!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Баяр хүргэе! Таны ноёнг хэзээ ч буулгаж авч чадахааргүй боллоо. Ноёноо хамгаалалттай эсэхийг үргэлж шалгаарай!</string>
   <string name="mateInOne">Мад</string>
   <string name="defeatTheOpponentsKing">Өрсөлдөгчийнхөө ноёныг буулгаж ав</string>
   <string name="mateInOneIntro">Таны шагыг хамгаалж, түүнээс зугатаж чадахгүй болвол мад болж та ялна.</string>
@@ -115,7 +115,6 @@
   <string name="findAWayToCastleKingSide">Ноён талдаа сэлгээ хийх гарцыг ол!</string>
   <string name="findAWayToCastleQueenSide">Бэрс талдаа сэлгээ хийх гарцыг ол!</string>
   <string name="castlingComplete">Баяр хүргэе! Та ихэнх өрөгт сэлгээ хийж байх хэрэгтэй.</string>
-  <string name="enPassant">Ан-пассан дүрэм</string>
   <string name="theSpecialPawnMove">Хүүгийн онцгой нүүдэл</string>
   <string name="enPassantIntro">Хэрэв эсрэг талын хүү 2 нүд урагш нүүсэн бол, түүнийг нэг нүд урагш нүүсэн мэт идэж болно.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Хар дөнгөж сая хүүгээ урагш хоёр нүүлээ! Тэр хүүг нь ан-пассан дүрмийн дагуу ид.</string>

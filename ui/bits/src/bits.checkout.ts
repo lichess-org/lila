@@ -1,8 +1,9 @@
-import * as xhr from 'lib/xhr';
-import { spinnerHtml, prompt } from 'lib/view';
-import { currencyFormat } from 'lib/i18n';
-import { contactEmail } from './bits';
 import { myUserId } from 'lib';
+import { currencyFormat, roundToCurrency } from 'lib/i18n';
+import { spinnerHtml, prompt } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import { contactEmail } from './bits';
 
 export interface Pricing {
   currency: string;
@@ -11,6 +12,8 @@ export interface Pricing {
   max: number;
   lifetime: number;
   giftMin: number;
+  feeRate: number;
+  feeFixed: number;
 }
 
 const $checkout = $('div.plan_checkout');
@@ -35,6 +38,8 @@ export function initModule({
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
+  const $coverFees = $('#cover-fees');
+  const $coverFeesLabel = $('label[for="cover-fees"]');
 
   const toggleInput = ($input: Cash, enable: boolean) =>
     $input.prop('disabled', !enable).toggleClass('disabled', !enable);
@@ -44,6 +49,27 @@ export function initModule({
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
+  const calculateFee = (amount: number) => {
+    const fee = Math.max(pricing.feeFixed, pricing.feeRate * amount);
+    return roundToCurrency(fee, pricing.currency);
+  };
+
+  const getBaseAmount = (): number => {
+    const freq = getFreq();
+    if (freq === 'lifetime') return pricing.lifetime;
+
+    const $input = $checkout.find('group.amount input:checked');
+    const val = parseFloat($input.data('amount'));
+    return isNaN(val) ? pricing.default : val;
+  };
+
+  const updateFeeLabel = () => {
+    const amount = getBaseAmount();
+    const fee = calculateFee(amount);
+    const feeStr = currencyFormat(fee, pricing.currency);
+    $coverFeesLabel.text(i18n.patron.coverFees(feeStr));
+  };
+
   const onFreqChange = function () {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq !== 'lifetime');
@@ -51,10 +77,13 @@ export function initModule({
     const sub = freq === 'monthly';
     $checkout.find('.paypal--order').toggle(!sub);
     $checkout.find('.paypal--subscription').toggle(sub);
+    updateFeeLabel();
   };
   onFreqChange();
 
   $checkout.find('group.freq input').on('change', onFreqChange);
+
+  $checkout.find('group.amount input').on('change', updateFeeLabel);
 
   $checkout.find('group.dest input').on('change', () => {
     const isGift = getDest() === 'gift';
@@ -67,7 +96,7 @@ export function initModule({
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
-    } else if (hasLifetime && $lifetime.is(':checked')) $('#freq_monthly').trigger('click');
+    } else if (hasLifetime && $lifetime.is(':checked')) $monthly.trigger('click');
     toggleCheckout();
   });
 
@@ -82,13 +111,16 @@ export function initModule({
     if (!amount) {
       $(this).text($(this).data('trans-other'));
       $checkout.find('input.default').trigger('click');
+      updateFeeLabel();
       return false;
     }
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
     amount = Math.max(min, Math.min(pricing.max, amount));
+    amount = roundToCurrency(amount, pricing.currency); // Make sure label and input agree on amount
     $(this).text(currencyFormat(amount, pricing.currency));
     ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
+    updateFeeLabel();
   });
 
   const $userInput = $checkout.find('input.user-autocomplete');
@@ -108,40 +140,49 @@ export function initModule({
 
   $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
-  const getAmountToCharge = (): number | undefined => {
-    const freq = getFreq(),
-      amount =
-        freq === 'lifetime'
-          ? pricing.lifetime
-          : parseFloat($checkout.find('group.amount input:checked').data('amount'));
+  const getTotalToCharge = (): number | undefined => {
+    const base = getBaseAmount();
     const isGift = !!$checkout.find('.gift input').val();
-    const min = isGift ? pricing.giftMin : pricing.min;
+    const { currency, min, giftMin, max } = pricing;
+    const minimumRequired = isGift ? giftMin : min;
 
-    if (amount < min) {
+    // Validate BASE against MINIMUM
+    if (base < minimumRequired) {
       const message = isGift
-        ? `Minimum gift amount is ${currencyFormat(min, pricing.currency)}`
-        : `Minimum amount is ${currencyFormat(min, pricing.currency)}`;
+        ? `Minimum gift amount is ${currencyFormat(minimumRequired, currency)}`
+        : `Minimum amount is ${currencyFormat(minimumRequired, currency)}`;
       alert(message);
       return undefined;
     }
 
-    if (amount > pricing.max) {
-      alert(`Maximum amount is ${currencyFormat(pricing.max, pricing.currency)}`);
+    const total = $coverFees.prop('checked')
+      ? roundToCurrency(base + calculateFee(base), pricing.currency)
+      : base;
+
+    // Validate TOTAL against MAXIMUM
+    if (total > max) {
+      alert(
+        `Including fees, the total amount of ${currencyFormat(
+          total,
+          currency,
+        )} exceeds the maximum of ${currencyFormat(max, currency)}.`,
+      );
       return undefined;
     }
-    return amount;
+
+    return total;
   };
 
   const $currencyForm = $('form.currency');
   $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
-  $currencyForm.find('select').on('change', () => {
-    ['freq', 'dest'].forEach(name =>
-      $('<input type="hidden">')
-        .attr('name', name)
-        .val($(`input[name=${name}]:checked`).val())
-        .appendTo($currencyForm),
-    );
-    ($currencyForm[0] as HTMLFormElement).submit();
+  $currencyForm.find('select').on('change', function (this: HTMLSelectElement) {
+    const params = new URLSearchParams();
+    params.set('currency', this.value);
+    ['freq', 'dest'].forEach(name => {
+      const val = $(`input[name=${name}]:checked`).val();
+      if (val) params.set(name, val as string);
+    });
+    location.assign(`/patron?${params.toString()}`);
   });
 
   const queryParams = new URLSearchParams(location.search);
@@ -154,11 +195,12 @@ export function initModule({
       $(`input[name=${name}]`).val(queryParams.get(name)!.replace(/[^a-z0-9_-]/gi, ''));
   }
 
+  updateFeeLabel();
   toggleCheckout();
 
-  payPalOrderStart($checkout, pricing, getAmountToCharge);
-  payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
-  stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
+  payPalOrderStart($checkout, pricing, getTotalToCharge);
+  payPalSubscriptionStart($checkout, pricing, getTotalToCharge);
+  stripeStart($checkout, stripePublicKey, pricing, getTotalToCharge);
 }
 
 const xhrFormData = ($checkout: Cash, amount: number) =>
@@ -167,6 +209,7 @@ const xhrFormData = ($checkout: Cash, amount: number) =>
     amount,
     freq: getFreq(),
     gift: $checkout.find('.gift input').val(),
+    coverFees: $checkout.find('#cover-fees').prop('checked'),
   });
 
 const payPalStyle = {

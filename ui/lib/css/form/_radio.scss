@@ -1,4 +1,5 @@
-$c-border: hsl(37deg, 5%, 13%) !default;
+$c-border: hsl(37, 5%, 13%) !default;
+
 group.radio {
   @extend %box-neat, %flex-wrap;
 
@@ -10,23 +11,29 @@ group.radio {
   }
 
   input {
-    position: absolute;
-    left: -99999px;
+    @extend %visually-hidden;
   }
 
   label,
   .label {
-    @extend %metal, %flex-center;
+    @extend %metal, %flex-center-center;
     @include prevent-select;
 
-    justify-content: center;
     padding: 10px;
     height: 100%;
     cursor: pointer;
     border-inline-end: $border;
 
+    &.disabled {
+      background: $c-metal-top;
+
+      @include if-light {
+        background: $c-metal-bottom;
+      }
+    }
+
     @media (hover: hover) {
-      &:hover {
+      &:not(.disabled):hover {
         background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
         text-shadow: 0 1px 0 $c-font-shadow;
       }
@@ -39,5 +46,10 @@ group.radio {
 
   input:checked + label {
     @extend %active;
+  }
+
+  input:focus-visible + label {
+    outline: $outline;
+    outline-offset: -2px;
   }
 }

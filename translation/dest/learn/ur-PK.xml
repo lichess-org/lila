@@ -6,7 +6,7 @@
   <string name="progressX">ترقی: %s</string>
   <string name="resetMyProgress">Shuru se taraki karien</string>
   <string name="youWillLoseAllYourProgress">App ki sari pesharab mithai jaye gi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">کھیلیں!</string>
+  <string name="play">کھیلیں!</string>
   <string name="chessPieces">شطرنج کے مہرے</string>
   <string name="theRook">رخ</string>
   <string name="itMovesInStraightLines">یہ سیدھی لکیروں میں حرکت کرتا ہے</string>

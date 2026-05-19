@@ -6,7 +6,7 @@
   <string name="progressX">Үтелгән: %s</string>
   <string name="resetMyProgress">Яңадан башларга</string>
   <string name="youWillLoseAllYourProgress">Сез бөтен прогрессыгызны югалтырсыз!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">уйна!</string>
+  <string name="play">уйна!</string>
   <string name="chessPieces">Шахмат сыннары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Туры юл буенча йөри</string>
@@ -103,7 +103,7 @@
 сезнең химаягыз аркылы!</string>
   <string name="escapeOrBlock">Шаһ белән качыш
 яки хөҗүмне той!</string>
-  <string name="outOfCheckComplete">Котлыйбыз! Сезнең шаһны беркайчан да алып булмый, тикшерелгән саклый алуыгызга инаныгыз!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Котлыйбыз! Сезнең шаһны беркайчан да алып булмый, тикшерелгән саклый алуыгызга инаныгыз!</string>
   <string name="mateInOne">Мат бер</string>
   <string name="defeatTheOpponentsKing">Рәкыйпнең шаһы җиңелә</string>
   <string name="mateInOneIntro">Рәкыйбыгыз хамая кыла алмаса тикшерүдә сез җиңдегез.</string>
@@ -114,7 +114,6 @@
 Алар атчылар янына китәләр.</string>
   <string name="castling">Рокировка</string>
   <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
-  <string name="enPassant">Бик вакытлы</string>
   <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
   <string name="enPassantIntro">Рәкыйпнең җәяүле ике квадрат белән хәрәкәтләнгәндә, сез аны бер квадрат хәрәкәт кебек кабул итә аласыз.</string>
   <string name="stalemate">Пат</string>

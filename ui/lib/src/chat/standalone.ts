@@ -1,8 +1,8 @@
 import { init, attributesModule, classModule } from 'snabbdom';
 
-import { renderChat } from './renderChat';
-import type { ChatOpts } from './interfaces';
 import { ChatCtrl } from './chatCtrl';
+import type { ChatOpts } from './interfaces';
+import { renderChat } from './renderChat';
 
 // standalone chat app, can be instanciated outside of a snabbdom context
 export default function standaloneChat(data: Partial<ChatOpts>): ChatCtrl {

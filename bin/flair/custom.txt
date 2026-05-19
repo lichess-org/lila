@@ -1,5 +1,6 @@
 activity.2025
 activity.chess
+activity.googly-eye
 activity.lichess
 activity.lichess-berserk
 activity.lichess-blitz

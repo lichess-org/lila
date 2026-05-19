@@ -1,4 +1,6 @@
+import { blurIfEscape } from 'lib';
 import { sanWriter, destsToUcis } from 'lib/game';
+
 import type { KeyboardMoveHandler, Opts, ArrowKey } from '@/exports';
 import { type Submit, makeSubmit } from '@/keyboardSubmit';
 
@@ -15,10 +17,12 @@ export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
     // update legal SAN moves
     opts.ctrl.legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // play a premove if it is available in the input
-    submit(opts.input.value, {
-      isTrusted: true,
-      yourMove: yourMove,
-    });
+    setTimeout(() => {
+      submit(opts.input.value, {
+        isTrusted: true,
+        yourMove: yourMove,
+      });
+    }, 1);
   };
 }
 
@@ -34,7 +38,7 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
   const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
 
-  site.mousetrap.bind('enter', () => opts.input.focus());
+  site.mousetrap.bind('m', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:
@@ -55,15 +59,22 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
       });
     }
   });
-  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
-  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
-  // prevent default on arrow keys: they only replay moves
+  opts.input.addEventListener('keypress', (e: KeyboardEvent) => {
+    const v = (e.target as HTMLInputElement).value;
+    // If UCI/ICCF and the user starts typing the dest before releasing the second key for orig,
+    // submit orig now (before the dest key is added to the input field):
+    if (e.isTrusted && v.length === 2 && /^\w$/.test(e.key) && !opts.ctrl.hasSelected())
+      submit(v, { isTrusted: true });
+  });
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
+    // prevent default on arrow keys: they only replay moves
     if (isArrowKey(e.key)) {
       opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
-    }
+    } else blurIfEscape(e);
   });
+  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
 }
 
 function focusChat() {

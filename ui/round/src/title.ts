@@ -1,5 +1,6 @@
-import type RoundController from './ctrl';
 import { aborted, finished, isPlayerTurn } from 'lib/game';
+
+import type RoundController from './ctrl';
 
 const initialTitle = document.title;
 
@@ -33,18 +34,17 @@ function startTicker() {
 
 export const init = (): void => window.addEventListener('focus', resetTicker);
 
-export function set(ctrl: RoundController, text?: string): void {
+export function set(ctrl: RoundController): void {
   if (ctrl.data.player.spectator) return;
-  if (!text) {
-    if (aborted(ctrl.data) || finished(ctrl.data)) {
-      text = i18n.site.gameOver;
-    } else if (isPlayerTurn(ctrl.data)) {
-      text = i18n.site.yourTurn;
-      if (!document.hasFocus()) startTicker();
-    } else {
-      text = i18n.site.waitingForOpponent;
-      resetTicker();
-    }
+  let text = '';
+  if (aborted(ctrl.data) || finished(ctrl.data)) {
+    text = i18n.site.gameOver;
+  } else if (isPlayerTurn(ctrl.data)) {
+    text = i18n.site.yourTurn;
+    if (!document.hasFocus()) startTicker();
+  } else {
+    text = i18n.site.waitingForOpponent;
+    resetTicker();
   }
   document.title = `${text} - ${initialTitle}`;
 }

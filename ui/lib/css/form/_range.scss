@@ -18,7 +18,7 @@
 }
 
 input.range {
-  -webkit-appearance: none;
+  appearance: none;
   background: none;
   border: 0;
 
@@ -33,7 +33,7 @@ input.range {
   &::-webkit-slider-thumb {
     @include range-thumb;
 
-    -webkit-appearance: none;
+    appearance: none;
   }
 
   &::-moz-range-track {
@@ -63,5 +63,15 @@ input.range {
 
     border-color: transparent;
     color: transparent;
+  }
+
+  &:-moz-focusring::-moz-range-thumb {
+    outline: $outline;
+  }
+
+  &:focus-visible {
+    &::-webkit-slider-thumb {
+      outline: $outline;
+    }
   }
 }

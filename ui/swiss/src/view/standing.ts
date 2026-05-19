@@ -1,9 +1,11 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
-import { bind, type MaybeVNodes, onInsert } from 'lib/view';
+import { bind, iconTag, type MaybeVNodes, onInsert } from 'lib/view';
+
 import type SwissCtrl from '../ctrl';
+import type { Player } from '../interfaces';
 import { player as renderPlayer } from './util';
-import type { Player, Pager } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;
@@ -18,7 +20,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       h(
         'td.rank',
         player.absent && ctrl.data.status !== 'finished'
-          ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
+          ? iconTag(licon.Pause, { title: 'Absent' })
           : [player.rank],
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
@@ -28,16 +30,16 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           'div',
           player.sheet
             .map(p =>
-              p == 'absent'
+              p === 'absent'
                 ? h(p, title('Absent'), '-')
-                : p == 'bye'
+                : p === 'bye'
                   ? h(p, title('Bye'), '1')
-                  : p == 'late'
+                  : p === 'late'
                     ? h(p, title('Late'), '½')
                     : h(
-                        'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
+                        'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
                         { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
-                        p.o ? '*' : !!p.w ? '1' : p.w === false ? '0' : '½',
+                        p.o ? '*' : p.w ? '1' : p.w === false ? '0' : '½',
                       ),
             )
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),
@@ -55,7 +57,8 @@ let lastBody: MaybeVNodes | undefined;
 
 const preloadUserTips = (vn: VNode) => site.powertip.manualUserIn(vn.elm as HTMLElement);
 
-export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
+export default function standing(ctrl: SwissCtrl, klass?: string): VNode {
+  const pag = ctrl.pager();
   const tableBody = pag.currentPageResults
     ? pag.currentPageResults.map(res => playerTr(ctrl, res))
     : lastBody;

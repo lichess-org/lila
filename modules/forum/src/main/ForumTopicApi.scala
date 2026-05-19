@@ -7,7 +7,8 @@ import lila.common.String.noShouting
 import lila.core.config.NetDomain
 import lila.core.forum.BusForum.CreatePost
 import lila.core.perm.Granter as MasterGranter
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
+import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }
@@ -30,9 +31,6 @@ final private class ForumTopicApi(
 )(using Executor):
 
   import BSONHandlers.given
-
-  def lastPage(topic: ForumTopic): Int =
-    topic.nbPosts / config.postMaxPerPage.value + 1
 
   def showLastPage(categId: ForumCategId, slug: ForumTopicSlug)(using NetDomain)(using me: Option[Me]) =
     topicRepo
@@ -98,7 +96,6 @@ final private class ForumTopicApi(
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang.map(_.language),
-        number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )
@@ -158,13 +155,13 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
-  def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] = for
+  def getSticky(categ: ForumCateg)(using me: Option[Me]): Fu[List[TopicView]] = for
     topics <- topicRepo.stickyByCateg(categ.id)
     views <- topics.sequentially: topic =>
       postRepo.coll
-        .byId[ForumPost](topic.lastPostId(forUser))
+        .byId[ForumPost](topic.lastPostId(me))
         .map: post =>
-          TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), forUser)
+          TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), me)
   yield views
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit = for
@@ -178,10 +175,10 @@ final private class ForumTopicApi(
   def closedByMod(topic: ForumTopic)(using Me): Fu[Boolean] =
     topic.closed.so(topicRepo.closedByMod(topic.id))
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
-    topicRepo.sticky(topic.id, topic.toggleSticky) >>
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
+    topicRepo.sticky(topic.id, topic.sticky.isEmpty.option(me.userId)) >>
       MasterGranter(_.ModerateForum).so:
-        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
+        modLog.toggleStickyTopic(categ.id, topic.slug, topic.sticky.isEmpty)
 
   private[forum] def denormalize(topic: ForumTopic): Funit = for
     nbPosts <- postRepo.countByTopic(topic)

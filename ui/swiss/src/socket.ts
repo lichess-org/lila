@@ -1,3 +1,5 @@
+import { redirectFirst } from 'lib/tournament';
+
 import type SwissCtrl from './ctrl';
 
 export interface SwissSocket {
@@ -13,7 +15,7 @@ export function makeSocket(send: SocketSend, ctrl: SwissCtrl) {
       else ctrl.askReload();
     },
     redirect(fullId: string) {
-      ctrl.redirectFirst(fullId.slice(0, 8), true);
+      redirectFirst(fullId.slice(0, 8), true);
       return true;
     },
   };

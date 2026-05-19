@@ -1,10 +1,8 @@
 package lila.study
 
 import chess.{ ByColor, PlayerName, PlayerTitle, FideId, Centis, IntRating }
-import chess.format.pgn.Tags
+import chess.format.pgn.{ Tag, Tags }
 import lila.core.fide.Federation
-
-type Players = ByColor[StudyPlayer]
 
 case class StudyPlayer(
     fideId: Option[FideId],
@@ -22,11 +20,19 @@ object StudyPlayer:
 
   type Id = FideId | PlayerName
 
-  def fromTags(tags: Tags): Option[Players] =
+  object country:
+    val tagNames = ByColor("WhiteCountry", "BlackCountry")
+    val tagTypes = tagNames.map(Tag.tagType)
+    def feds(tags: Tags): ByColor[Option[String]] =
+      ByColor(color => tags.apply(tagNames(color)))
+
+  def fromTags(tags: Tags)(using guessFed: Federation.Guess): Option[ByColor[StudyPlayer.WithFed]] =
     val names = tags.names
     Option.when(names.exists(_.isDefined)):
       val ratings = tags.ratings.map(_.filter(_ > IntRating(0)))
-      (tags.fideIds, tags.titles, names, ratings, tags.teams).mapN(StudyPlayer.apply)
+      val players = (tags.fideIds, tags.titles, names, ratings, tags.teams).mapN(StudyPlayer.apply)
+      val feds = country.feds(tags).map(_.flatMap(guessFed))
+      players.zip(feds).map(StudyPlayer.WithFed.apply)
 
   object json:
     import play.api.libs.json.*
@@ -49,9 +55,11 @@ case class ChapterPlayer(player: StudyPlayer, fed: Option[Federation.Id], clock:
 
 object ChapterPlayer:
 
-  def fromTags(tags: Tags, clocks: Chapter.BothClocks): Option[ByColor[ChapterPlayer]] =
+  def fromTags(tags: Tags, clocks: Chapter.BothClocks)(using
+      Federation.Guess
+  ): Option[ByColor[ChapterPlayer]] =
     StudyPlayer
       .fromTags(tags)
       .map:
         _.zip(clocks).map: (player, clock) =>
-          ChapterPlayer(player, fed = none, clock)
+          ChapterPlayer(player.player, fed = player.fed, clock)

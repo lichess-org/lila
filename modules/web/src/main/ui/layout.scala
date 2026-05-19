@@ -23,7 +23,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
   val charset = raw("""<meta charset="utf-8">""")
   val viewport = raw:
-    """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
+    """<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
@@ -81,7 +81,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src := staticAssetUrl("images/icons/bot.png"),
+    src := staticAssetUrl("images/icons/bot.webp"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
@@ -99,14 +99,20 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
       )
   def blindModeForm(using ctx: Context) = raw:
+    val btnText =
+      if ctx.blind
+      then trans.site.disableBlindMode.txt()
+      else s"${trans.site.accessibility.txt()} - ${trans.site.enableBlindMode.txt()}"
+    def tutorialLink = ctx.blind.so:
+      val url = routes.Cms.lonePage(lila.core.id.CmsPageKey("blind-mode-tutorial"))
+      s"""&nbsp;-&nbsp;${a(href := url)("Blind mode tutorial")}"""
+
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
-      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">${trans.site.accessibility
-        .txt()} - ${
-        if ctx.blind then trans.site.disableBlindMode.txt() else trans.site.enableBlindMode.txt()
-      } </button>&nbsp;-&nbsp;${a(href := "https://lichess.org/page/blind-mode-tutorial")(
-        "Blind mode tutorial"
-      )}</form>"""
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button id="nvui-button" type="submit">$btnText</button>$tutorialLink</form>"""
+
+  val assetsMissingTroubleshooting = raw:
+    """<h2 id="assets-missing"><a href="/page/network-administrators">Your network blocks the Lichess assets!</a></h2>"""
 
   def zenZone(using Translate) = spaceless:
     s"""
@@ -118,7 +124,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
+      button(id := "user_tag", cls := "toggle link")(me.username),
       div(id := "dasher_app", cls := "dropdown")
     )
 
@@ -126,7 +132,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       div(cls := "signin-or-signup")(
-        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "button button-empty signin")(
+          trans.site.signIn()
+        ),
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
       ),
       div(cls := "dasher")(
@@ -198,7 +206,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val dataAssetVersion = attr("data-asset-version")
 
   val spinnerMask = raw:
-    """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
+    """<svg width="0" height="0"><mask id="spinner-mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
   val networkAlert = a(id := "network-status", cls := "link text", dataIcon := Icon.ChasingArrows)
 
@@ -267,7 +275,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(
             cls := "link",
             title := "Content",
-            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some),
             dataIcon := Icon.InkQuill
           )
         )
@@ -309,7 +317,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
                 a(cls := "site-title-nav__donate")(
                   href := routes.Plan.index()
-                )(trans.patron.donate())
+                )(span(trans.patron.donate()))
               )
             )
           ),

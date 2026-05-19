@@ -4,9 +4,8 @@ export interface Hovering {
 }
 
 export type ExplorerDb = 'lichess' | 'masters' | 'player';
-
-export type ExplorerSpeed = Speed;
 export type ExplorerMode = 'casual' | 'rated';
+export type ExplorerSpeed = Speed;
 
 export interface PlayerOpts {
   name: string;
@@ -114,12 +113,9 @@ export interface TablebaseMoveStats extends MoveStats {
   category: TablebaseCategory;
 }
 
-export function isOpening(m: ExplorerData): m is OpeningData {
-  return !!m.isOpening;
-}
-export function isTablebase(m: ExplorerData): m is TablebaseData {
-  return !!m.tablebase;
-}
+export const isOpening = (m: ExplorerData): m is OpeningData => !!m.isOpening;
+
+export const isTablebase = (m: ExplorerData): m is TablebaseData => !!m.tablebase;
 
 export interface SimpleTablebaseHit {
   fen: FEN;

@@ -1,12 +1,15 @@
-import * as licon from 'lib/licon';
-import { bind, bindNonPassive, type MaybeVNodes } from 'lib/view';
-import { spinnerVdom as spinner, toggle } from 'lib/view';
 import { h, thunk, type VNode } from 'snabbdom';
+
+import * as licon from 'lib/licon';
 import { richHTML } from 'lib/richText';
+import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
+
 import { option, plural } from '@/view/util';
+
 import { view as descView } from '../description';
-import type { StudyPracticeData } from './interfaces';
 import type StudyCtrl from '../studyCtrl';
+import type { StudyPracticeData } from './interfaces';
 import type StudyPracticeCtrl from './studyPracticeCtrl';
 
 const selector = (data: StudyPracticeData) =>
@@ -82,15 +85,12 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
           pinned ? h('div.comment', { hook: richHTML(pinned) }) : null,
         ]),
-        toggle(
-          {
-            name: 'Load next exercise immediately',
-            id: 'autoNext',
-            checked: p.autoNext(),
-            change: p.autoNext,
-          },
-          ctrl.redraw,
-        ),
+        cmnToggleWrapProp({
+          id: 'autoNext',
+          name: 'Load next exercise immediately',
+          prop: p.autoNext,
+          redraw: ctrl.redraw,
+        }),
       ];
   }
 }
@@ -101,7 +101,7 @@ export function side(ctrl: StudyCtrl): VNode {
 
   return h('div.practice__side', [
     h('div.practice__side__title', [
-      h('i.' + data.study.id),
+      h('icon.' + data.study.id),
       h('div.text', [h('h1', data.study.name), h('em', data.study.desc)]),
     ]),
     h(
@@ -115,33 +115,29 @@ export function side(ctrl: StudyCtrl): VNode {
           return false;
         }),
       },
-      ctrl.chapters.list
-        .all()
-        .map(chapter => {
-          const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-            active = !ctrl.vm.loading && current && current.id === chapter.id,
-            completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
-          return [
-            h(
-              'a.ps__chapter',
-              {
-                key: chapter.id,
-                attrs: { href: data.url + '/' + chapter.id, 'data-id': chapter.id },
-                class: { active, loading },
-              },
-              [
-                h('span.status.' + completion, {
-                  attrs: {
-                    'data-icon':
-                      (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
-                  },
-                }),
-                h('h3', chapter.name),
-              ],
-            ),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ctrl.chapters.list.all().flatMap(({ id, name }) => {
+        const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId,
+          active = !ctrl.vm.loading && current && current.id === id,
+          completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
+        return [
+          h(
+            'a.ps__chapter',
+            {
+              key: id,
+              attrs: { href: data.url + '/' + id, 'data-id': id },
+              class: { active, loading },
+            },
+            [
+              h('span.status.' + completion, {
+                attrs: dataIcon(
+                  (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
+                ),
+              }),
+              h('h3', name),
+            ],
+          ),
+        ];
+      }),
     ),
     h('div.finally', [
       h('a.back', { attrs: { 'data-icon': licon.LessThan, href: '/practice', title: 'More practice' } }),

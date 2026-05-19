@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Ohikoa</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Xakearen Lege arruntak (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">960 xakea</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Lehenengo lerroko piezen kokalekua ausaz erabakitzen da.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Muinoko erregea</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Eraman zure erregea taularen erdira partida irabazteko.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Hiru xake</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Egin xake hiru aldiz aurkariari partida irabazteko.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antixakea</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Galdu zure pieza guztiak (edo zure erregea ito) partida irabazteko.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomikoa</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Aurkariaren erregea akabatu partida irabazteko.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Tropela</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Jokalari baten peoi asko ditu eta besteak ohiko piezak.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Errege korrikalariak</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Ereman zure erregea taularen beste aldera partida irabazteko.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Auto-fitxa-pasa</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Harrapatutako piezak berriz ere xake-taulak jarri ditzakezu jokaldi bat egin beharrean.</string>
+  <string name="standard">Ohikoa</string>
+  <string name="standardTitle">Xakearen Lege arruntak (FIDE)</string>
+  <string name="chess960">960 xakea</string>
+  <string name="chess960Title">Lehenengo lerroko piezen kokalekua ausaz erabakitzen da.</string>
+  <string name="kingOfTheHill">Muinoko erregea</string>
+  <string name="kingOfTheHillTitle">Eraman zure erregea taularen erdira partida irabazteko.</string>
+  <string name="threeCheck">Hiru xake</string>
+  <string name="threeCheckTitle">Egin xake hiru aldiz aurkariari partida irabazteko.</string>
+  <string name="antichess">Antixakea</string>
+  <string name="antichessTitle">Galdu zure pieza guztiak (edo zure erregea ito) partida irabazteko.</string>
+  <string name="atomic">Atomikoa</string>
+  <string name="atomicTitle">Aurkariaren erregea akabatu partida irabazteko.</string>
+  <string name="horde">Tropela</string>
+  <string name="hordeTitle">Jokalari baten peoi asko ditu eta besteak ohiko piezak.</string>
+  <string name="racingKings">Errege korrikalariak</string>
+  <string name="racingKingsTitle">Ereman zure erregea taularen beste aldera partida irabazteko.</string>
+  <string name="crazyhouse">Auto-fitxa-pasa</string>
+  <string name="crazyhouseTitle">Harrapatutako piezak berriz ere xake-taulak jarri ditzakezu jokaldi bat egin beharrean.</string>
+  <string name="fromPosition">Posizio jakin batetik</string>
+  <string name="fromPositionTitle">Xake estandarra posizio jakin batetik abiatuta</string>
 </resources>

@@ -1,8 +1,8 @@
-var gamesToMigrate = db.game2.find();
-var max = gamesToMigrate.count();
-var batchSize = 10000;
-var collection = db.game3;
-var pgnCollection = db.pgn;
+const gamesToMigrate = db.game2.find();
+const max = gamesToMigrate.count();
+const batchSize = 10000;
+const collection = db.game3;
+const pgnCollection = db.pgn;
 
 print('Migrating ' + max + ' games');
 
@@ -47,10 +47,10 @@ function finishedOrAborted(game) {
   return game.status >= 25;
 }
 
-var c, z, pgn;
-var it = 0;
-var dat = new Date().getTime() / 1000;
-var finishedPlayerFieldsToRemove = [
+let c, z, pgn;
+let it = 0;
+let dat = Date.now() / 1000;
+const finishedPlayerFieldsToRemove = [
   'previousMoveTs',
   'lastDrawOffer',
   'isOfferingDraw',
@@ -77,10 +77,10 @@ gamesToMigrate.forEach(function (g) {
   cleanOrRename(g, 'updatedAt', 'ua');
   cleanOrRename(g, 'winId', 'wid');
   delete g.r960;
-  if (typeof g.v !== 'undefined' && g.v != 2) {
+  if (typeof g.v !== 'undefined' && g.v !== 2) {
     delete g.v;
   }
-  if (typeof g.isRated != 'undefined' && g.isRated !== true) {
+  if (typeof g.isRated !== 'undefined' && g.isRated !== true) {
     delete g.isRated;
   } else {
     cleanOrRename(g, 'isRated', 'ra');
@@ -112,7 +112,7 @@ gamesToMigrate.forEach(function (g) {
       cleanOrRename(p, 'blurs', 'bs');
     }
     if (finishedOrAborted(g)) {
-      for (z in finishedPlayerFieldsToRemove) {
+      for (z of finishedPlayerFieldsToRemove) {
         delete p[z];
       }
     }
@@ -126,10 +126,10 @@ gamesToMigrate.forEach(function (g) {
     pgnCollection.insert({ _id: g._id, p: pgn });
   }
   ++it;
-  if (it % batchSize == 0) {
-    var percent = Math.round((it / max) * 100);
-    var dat2 = new Date().getTime() / 1000;
-    var perSec = Math.round(batchSize / (dat2 - dat));
+  if (it % batchSize === 0) {
+    const percent = Math.round((it / max) * 100);
+    const dat2 = Date.now() / 1000;
+    const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');
   }

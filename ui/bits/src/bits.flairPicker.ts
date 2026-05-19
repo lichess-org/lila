@@ -37,7 +37,7 @@ const makeEmojiData = async () => {
   const res = await fetch(site.asset.url('flair/list.txt', { pathVersion: true }));
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);
-  const data = {
+  return {
     categories: categories.map(([id, name]) => ({
       id: id,
       name: name,
@@ -62,7 +62,6 @@ const makeEmojiData = async () => {
       }),
     ),
   };
-  return data;
 };
 
 const categories: [string, string][] = [

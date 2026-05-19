@@ -30,10 +30,12 @@ case class RelayTour(
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
+    showTeamScores: Boolean = false,
     image: Option[ImageId] = None,
     dates: Option[RelayTour.Dates] = None, // denormalized from round dates
     pinnedStream: Option[RelayPinnedStream] = None,
-    note: Option[String] = None
+    note: Option[String] = None,
+    orphanWarn: Boolean = true
 ):
   def slug = name.toSlug
 
@@ -63,6 +65,10 @@ case class RelayTour(
 
   def canView(using me: Option[Me]) = !isPrivate || me.so(isOwnedBy)
 
+  def daysSinceFinished =
+    import java.time.temporal.ChronoUnit
+    dates.flatMap(_.end).map(ChronoUnit.DAYS.between(_, nowInstant))
+
 object RelayTour:
 
   val maxRelays = Max(64)
@@ -70,6 +76,7 @@ object RelayTour:
   opaque type Name = String
   object Name extends OpaqueString[Name]:
     extension (name: Name)
+      def translate(using lila.core.i18n.Translate): String = RelayI18n(name)
       def toSlug =
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s
@@ -98,16 +105,16 @@ object RelayTour:
   case class Info(
       format: Option[String],
       tc: Option[String],
-      fideTc: Option[FideTC],
+      fideTC: Option[FideTC],
       location: Option[String],
       timeZone: Option[ZoneId],
       players: Option[String],
       website: Option[URL],
       standings: Option[URL]
   ):
-    def nonEmpty = List(format, tc, fideTc, location, players, website, standings).exists(_.nonEmpty)
-    override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
-    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
+    def nonEmpty = List(format, tc, fideTC, location, players, website, standings).exists(_.nonEmpty)
+    override def toString = List(format, tc, fideTC, location, players).flatten.mkString(" | ")
+    lazy val fideTCOrGuess: FideTC = fideTC | FideTC.standard
     def timeZoneOrDefault: ZoneId = timeZone | ZoneId.systemDefault
     def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse(false))
 

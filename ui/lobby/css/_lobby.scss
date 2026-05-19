@@ -4,6 +4,7 @@
 @import 'table';
 @import 'stream';
 @import 'spotlight';
+@import 'clas';
 @import 'timeline';
 @import 'box';
 @import 'support';
@@ -21,7 +22,7 @@ body {
   ---main-max-width: 1400px;
 }
 
-%lobby__side__more {
+%lobby-side-more {
   @extend %roboto;
 
   font-size: 0.9em;
@@ -37,7 +38,9 @@ body {
 
 .lobby__side {
   @extend %flex-column;
+  @include backdrop-blur-if-transparent;
 
+  gap: $block-gap;
   overflow: hidden;
 }
 
@@ -78,6 +81,10 @@ body {
 
 .lobby__tv .mini-game {
   overflow: visible;
+
+  &__player {
+    padding-top: 0;
+  }
 }
 
 .lobby__puzzle .text {
@@ -87,25 +94,44 @@ body {
   display: block;
   text-align: right;
   margin-inline-end: 1ch;
+
+  @include mq-at-least-col2 {
+    min-height: 19px;
+  }
+
+  @include mq-at-least-col3 {
+    min-height: 21px;
+  }
 }
 
 .lobby__blog {
   gap: $block-gap;
   font-size: 0.9em;
+
   h2 {
     @extend %page-text-shadow !optional;
-    @include line-clamp(4);
+    @include line-clamp(3);
+
     font-size: 1.3em;
   }
+
   .ublog-post-card {
     background: $c-bg-box;
+
     &:hover {
-      box-shadow: none;
+      @extend %box-shadow;
+
+      background: $c-bg-zebra;
     }
+
     .user-link {
       border-radius: $box-radius-size 0 0 0;
     }
   }
+}
+
+.lobby__support {
+  visibility: hidden;
 }
 
 .tour-team-icon {

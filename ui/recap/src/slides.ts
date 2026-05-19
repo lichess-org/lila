@@ -1,14 +1,16 @@
-import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
-import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
-import { loadOpeningLpv } from './ui';
+import { COLORS } from 'chessops';
+
 import { shuffle } from 'lib/algo';
-import { fullName, userFlair, userTitle } from 'lib/view/userLink';
-import { spinnerVdom } from 'lib/view';
-import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, iconCls } from 'lib/view';
+import { fullName, userFlair, userTitle } from 'lib/view/userLink';
+
+import { pieceGrams, totalGames } from './constants';
+import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
+import { loadOpeningLpv } from './ui';
+import { formatDuration, perfIsSpeed, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
@@ -315,7 +317,7 @@ export const patron = (opts: Opts): VNode =>
       ),
     ),
     hl('p', i18n.recap.patronCharity),
-    hl('i.text', { attrs: dataIcon(licon.Wings) }),
+    iconCls(licon.Wings, 'text'),
 
     opts.user.patron
       ? hl('p', i18n.patron.thankYou)
@@ -329,7 +331,7 @@ export const patron = (opts: Opts): VNode =>
 
 const renderPerf = (perf: RecapPerf): VNode => {
   return hl('span', [
-    hl('i.text', { attrs: dataIcon(perfIcons[perf.key]) }),
+    iconCls(perfIcons[perf.key], 'text'),
     !perfIsSpeed(perf.key)
       ? i18n.variant[perf.key]
       : perf.key !== 'ultraBullet'
@@ -362,7 +364,7 @@ export const shareable = (r: Recap): VNode =>
       ]),
       hl(
         'div.openings',
-        (['white', 'black'] as const).map(
+        COLORS.map(
           c =>
             r.games.openings[c].count &&
             stat(r.games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack']),
@@ -372,7 +374,7 @@ export const shareable = (r: Recap): VNode =>
   ]);
 
 const slideTag =
-  (key: string, millis: number = 5000) =>
+  (key: string, millis = 5000) =>
   (content: LooseVNodes) =>
     hl(
       `div.swiper-slide.recap__slide--${key}`,

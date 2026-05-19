@@ -59,16 +59,7 @@
 }
 
 .analyse__underboard {
-  .setting {
-    @extend %flex-center;
-
+  .cmn-toggle-wrap {
     margin-top: 1em;
-
-    > label {
-      order: 1;
-      flex: 1 0;
-      cursor: pointer;
-      margin-inline-start: 0.8em;
-    }
   }
 }

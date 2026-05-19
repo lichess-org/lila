@@ -1,6 +1,6 @@
 package lila.video
 
-import lila.core.net.Crawler
+import scalalib.net.Crawler
 
 case class TagNb(_id: Tag, nb: Int):
 

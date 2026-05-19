@@ -6,7 +6,7 @@
   <string name="progressX">Fortschritt: %s</string>
   <string name="resetMyProgress">Fortschritt zurücksetzen</string>
   <string name="youWillLoseAllYourProgress">Du verlierst all deinen Fortschritt!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Spielen!</string>
+  <string name="play">Spielen!</string>
   <string name="chessPieces">Schachfiguren</string>
   <string name="theRook">Der Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich in geraden Linien</string>
@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Du kannst dem Schach entkommen, indem du die angreifende Figur schlägst.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Dieser Springer bietet durch deine Verteidigung hindurch Schach!</string>
   <string name="escapeOrBlock">Entkomme mit dem König oder blocke den Angriff!</string>
-  <string name="outOfCheckComplete">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
   <string name="mateInOne">Matt in einem Zug</string>
   <string name="defeatTheOpponentsKing">Besiege den gegnerischen König</string>
   <string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>
@@ -116,7 +116,6 @@ kurz zu rochieren!</string>
   <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
 lang zu rochieren!</string>
   <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Der besondere Bauernzug</string>
   <string name="enPassantIntro">Wenn der gegnerische Bauer zwei Felder gezogen ist, kannst du ihn schlagen als wenn er nur ein Feld gezogen wäre.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hat seinen Bauern um zwei Felder bewegt!

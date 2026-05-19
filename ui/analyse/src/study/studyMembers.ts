@@ -1,20 +1,22 @@
-import type { AnalyseSocketSend } from '../socket';
-import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
-import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
-import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { once } from 'lib/storage';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { userLink } from 'lib/view/userLink';
+import { textRaw as xhrTextRaw } from 'lib/xhr';
+
+import type { AnalyseSocketSend } from '../socket';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { textRaw as xhrTextRaw } from 'lib/xhr';
-import { userLink } from 'lib/view/userLink';
+import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import type { NotifCtrl } from './notif';
 import type StudyCtrl from './studyCtrl';
-import { once } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId: string | undefined;
+  myId?: string;
   ownerId: string;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
@@ -40,12 +42,12 @@ export class StudyMemberCtrl {
   confing = prop<string | null>(null);
   inviteForm: StudyInviteFormCtrl;
   readonly active: Map<string, () => void> = new Map();
-  online: { [id: string]: boolean } = {};
+  online: Record<string, boolean> = {};
   spectatorIds: string[] = [];
   max = 30;
 
   constructor(readonly opts: Opts) {
-    this.dict = prop<StudyMemberMap>(opts.initDict);
+    this.dict = prop(opts.initDict);
     this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
@@ -153,7 +155,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return hl('i.act', {
+      return hl('icon.act', {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
@@ -162,7 +164,7 @@ export function view(ctrl: StudyCtrl): VNode {
         ),
       });
     if (!isOwner && member.user.id === members.opts.myId)
-      return hl('i.act.leave', {
+      return hl('icon.act.leave', {
         attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
         hook: bind('click', members.leave, ctrl.redraw),
       });
@@ -178,20 +180,13 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
-        hl('div.role', [
-          hl('div.switch', [
-            hl('input.cmn-toggle', {
-              attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
-              hook: bind(
-                'change',
-                e => members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r'),
-                ctrl.redraw,
-              ),
-            }),
-            hl('label', { attrs: { for: roleId } }),
-          ]),
-          hl('label', { attrs: { for: roleId } }, i18n.study.contributor),
-        ]),
+        cmnToggleWrap({
+          id: roleId,
+          name: i18n.study.contributor,
+          checked: member.role === 'w',
+          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          redraw: ctrl.redraw,
+        }),
         hl(
           'div.kick',
           hl(
@@ -209,18 +204,16 @@ export function view(ctrl: StudyCtrl): VNode {
   return hl('div.study__members', [
     hl(
       'div.study-list',
-      ordered
-        .map(member => {
-          const confing = members.confing() === member.user.id;
-          return [
-            hl('div', { key: member.user.id, class: { editing: !!confing } }, [
-              hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
-              configButton(ctrl, member),
-            ]),
-            confing && memberConfig(member),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ordered.flatMap(member => {
+        const confing = members.confing() === member.user.id;
+        return [
+          hl('div', { key: member.user.id, class: { editing: !!confing } }, [
+            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            configButton(ctrl, member),
+          ]),
+          confing && memberConfig(member),
+        ];
+      }),
     ),
     isOwner &&
       ordered.length < members.max &&

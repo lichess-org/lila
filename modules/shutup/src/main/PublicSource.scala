@@ -2,7 +2,7 @@ package lila.shutup
 
 import scala.util.{ Success, Failure, Try }
 
-import lila.core.shutup.PublicSource as Source
+import lila.core.chat.PublicSource as Source
 import lila.core.id.RelayRoundId
 
 object PublicSource:
@@ -35,3 +35,4 @@ object PublicSource:
       case Source.Forum(id) => s"f:$id"
       case Source.Ublog(id) => s"b:$id"
       case Source.Relay(id) => s"r:$id"
+      case Source.Player(gameId) => s"_:$gameId" // should not happen

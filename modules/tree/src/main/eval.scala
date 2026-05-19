@@ -1,6 +1,5 @@
 package lila.tree
 
-import cats.data.NonEmptyList
 import chess.format.Uci
 import chess.Position
 import chess.eval.{ Eval as Ev, * }
@@ -44,7 +43,7 @@ object Knodes extends OpaqueInt[Knodes]:
 
 case class Pv(score: Score, moves: Moves)
 
-case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth, by: UserId)
+case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth)
 
 object CloudEval:
   type GetSinglePvEval = Position => Fu[Option[CloudEval]]

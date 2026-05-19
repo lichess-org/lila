@@ -6,7 +6,7 @@
   <string name="progressX">Framvinda: %s</string>
   <string name="resetMyProgress">Núllstilla framvindu</string>
   <string name="youWillLoseAllYourProgress">Þú munt tapa öllum skráðum árangri!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">tefla!</string>
+  <string name="play">tefla!</string>
   <string name="chessPieces">Taflmenn</string>
   <string name="theRook">Hrókurinn</string>
   <string name="itMovesInStraightLines">Hann ferðast eftir beinni línu</string>
@@ -104,7 +104,7 @@ með því að taka árásarmanninn.</string>
 í gegnum varnir þínar!</string>
   <string name="escapeOrBlock">Flýðu með kónginum
 eða verstu árásinni!</string>
-  <string name="outOfCheckComplete">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
   <string name="mateInOne">Mát í einum</string>
   <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
   <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið skák.</string>
@@ -155,7 +155,6 @@ hrókera á kóngsvæng!</string>
   <string name="findAWayToCastleQueenSide">Finndu leið til að
 hrókera á drottningarvæng!</string>
   <string name="castlingComplete">Til hamingju! Þú ættir næstum alltaf að hrókera í tafli.</string>
-  <string name="enPassant">Framhjáhlaup</string>
   <string name="theSpecialPawnMove">Óvenjuleg hreyfing peðsins</string>
   <string name="enPassantIntro">Þegar peð andstæðingsins hefur færst um tvo reiti máttu drepa það líkt og það hefði verið fært um einn reit.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svartur færði peðið

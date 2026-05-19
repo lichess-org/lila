@@ -5,6 +5,7 @@ import {
   type ServerMessagePartialResult,
   createVoskClient,
 } from '@lichess-org/vosk-browser';
+
 import type { RecognizerOpts, VoskModule } from './interfaces';
 import { type Selectable, Switch } from './switch';
 
@@ -57,7 +58,7 @@ export function initModule(): VoskModule {
 
     if (LOG_LEVEL >= -1)
       console.info(
-        `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${
+        `Created ${opts.audioCtx.sampleRate.toFixed(0)}Hz recognizer '${
           opts.recId
         }' with buffer size ${bufSize}`,
         opts.words,

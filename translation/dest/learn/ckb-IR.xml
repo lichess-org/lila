@@ -6,7 +6,7 @@
   <string name="progressX">پێشکەوتن: %s</string>
   <string name="resetMyProgress">پێشکەوتنەکانم رێکبخەوە</string>
   <string name="youWillLoseAllYourProgress">ھەموو پێشکەوتنەکانت لەدەست دەدەیت!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">یاری بکە!</string>
+  <string name="play">یاری بکە!</string>
   <string name="chessPieces">داشەکانی شەتڕەنج</string>
   <string name="theRook">قەڵا</string>
   <string name="itMovesInStraightLines">لەسەر ھێڵێکی ڕاست دەجووڵێت</string>
@@ -98,7 +98,7 @@
   <string name="youCanGetOutOfCheckByTaking">دەتوانی خۆت لە کشـکردنەکە بپارێزی بە خواردنی ئەو داشەی کشـەکەی کردووە.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">ئەو ئەسپە کش لە نێوان بەرگریکارەکانت دەکات!</string>
   <string name="escapeOrBlock">لەگەڵ پاشاکەت هەڵێن یان ڕێگری لە هێرشەکە بکە!</string>
-  <string name="outOfCheckComplete">پیرۆزە! هەرگیز پاشاکەت ناگیرێت، دڵنیابە کە دەتوانیت بەرگری لە کش بکەیت!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">پیرۆزە! هەرگیز پاشاکەت ناگیرێت، دڵنیابە کە دەتوانیت بەرگری لە کش بکەیت!</string>
   <string name="mateInOne">کشومات بە یەک جوڵە</string>
   <string name="defeatTheOpponentsKing">پاشای رکابەرەکەت بشکێنە</string>
   <string name="mateInOneIntro">تۆ براوەدەبیت کاتێک رکابەرەکەت ناتوانێت بەرگری لە کشـکردنەکەت بکات.</string>
@@ -144,7 +144,6 @@
   <string name="findAWayToCastleQueenSide">رێگەیەک بدۆزەوە بۆ
 کاستڵینگ لە لای شاژن!</string>
   <string name="castlingComplete">پیرۆزە، تا ڕاددەیەکی زۆر لە هەموویارییەک پێویستە کاستڵینگ بکەی.</string>
-  <string name="enPassant">ئانپاسانت</string>
   <string name="theSpecialPawnMove">جوڵەیەکی تایبەتی سەرباز</string>
   <string name="enPassantIntro">ئەگەر سەربازی رکابەرەکەت دوو چوارگۆشە جوڵەیکرد و هاتە بەرانبەر سەربازەکەت، سەربازەکەت دەتوانێت بیبات و بچێتە پشت خانەکەی.</string>
   <string name="blackJustMovedThePawnByTwoSquares">رەش دوو خانە هاتە پێش!

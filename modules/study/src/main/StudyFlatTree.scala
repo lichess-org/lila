@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.common.Chronometer
+import lila.mon.Chronometer.syncMon
 import lila.db.dsl.*
 import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree, Root }
 
@@ -14,18 +14,16 @@ private object StudyFlatTree:
     val depth = path.depth
 
     def toNodeWithChildren(children: Option[Branches]): Option[Branch] =
-      path.lastId
-        .flatMap { readBranch(data, _) }
-        .map:
-          _.copy(children = children | Branches.empty)
+      readBranch(data).map:
+        _.copy(children = children | Branches.empty)
 
     def toNodeWithChild(child: Option[NewTree]): Option[NewTree] =
-      readNewBranch(data, path).map(NewTree(_, child, Nil))
+      readNewBranch(data).map(NewTree(_, child, Nil))
 
   object reader:
 
     def rootChildren(flatTree: Bdoc): Branches =
-      Chronometer.syncMon(_.study.tree.read):
+      syncMon(lila.mon.study.tree.read):
         traverse:
           flatTree.elements.toList
             .collect:
@@ -34,7 +32,7 @@ private object StudyFlatTree:
             .sortBy(-_.depth)
 
     def newRoot(flatTree: Bdoc): Option[NewTree] =
-      Chronometer.syncMon(_.study.tree.read):
+      syncMon(lila.mon.study.tree.read):
         traverseN:
           flatTree.elements.toList
             .collect:
@@ -74,11 +72,11 @@ private object StudyFlatTree:
   object writer:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
-      Chronometer.syncMon(_.study.tree.write):
-        root.children.nodes.flatMap { traverse(_, UciPath.root) }
+      syncMon(lila.mon.study.tree.write):
+        root.children.toList.flatMap { traverse(_, UciPath.root) }
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
-      Chronometer.syncMon(_.study.tree.write):
+      syncMon(lila.mon.study.tree.write):
         root.tree.so:
           _.mapAccuml_(UciPath.root)((acc, branch) =>
             val path = acc + branch.id
@@ -88,7 +86,7 @@ private object StudyFlatTree:
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES).so:
         val path = parentPath + node.id
-        node.children.nodes
+        node.children.toList
           .flatMap:
             traverse(_, path)
           .appended(UciPathDb.encodeDbKey(path) -> writeBranch(node))

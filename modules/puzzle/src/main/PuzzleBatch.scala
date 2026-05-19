@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import lila.db.dsl.*
+import lila.mon.extensions.*
 
 // mobile app
 final class PuzzleBatch(
@@ -35,7 +36,7 @@ final class PuzzleBatch(
           .orFail(s"No puzzle path for batch ${me.username} $angle $tier")
           .flatMap: pathId =>
             colls.path:
-              _.aggregateList(nb, _.sec): framework =>
+              _.aggregateList(nb): framework =>
                 import framework.*
                 Match($id(pathId)) -> List(
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
@@ -55,4 +56,4 @@ final class PuzzleBatch(
                 )
               .map:
                 _.view.flatMap(puzzleReader.readOpt).toVector
-          .mon(_.puzzle.selector.user.batch(nb = nb))
+          .mon(lila.mon.puzzle.selector.user.batch(nb = nb))

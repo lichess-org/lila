@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Log masuk sebagai %s</string>
   <string name="welcome">Selamat Datang!</string>
   <string name="welcomeToLichess">Selamat datang ke lichess.org!</string>
+  <string name="thisIsYourProfilePage">Ini laman profil anda.</string>
+  <string name="enabledKidModeSuggestion">Adakah kanak-kanak yang akan menggunakan akaun ini? Anda mungkin ingin mengaktifkan %s.</string>
+  <string name="whatNowSuggestions">Sekarang, apa? Berikut merupakan beberapa cadangan:</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Belajar peraturan-peraturan catur</string>
+  <string name="improveWithChessTacticsPuzzles">Main Teka-teki taktikal catur untuk memperbaiki kemahiran catur anda.</string>
+  <string name="playTheArtificialIntelligence">Main dengan Kecerdasan Buatan.</string>
+  <string name="playOpponentsFromAroundTheWorld">Main dengan lawan dari seluruh dunia.</string>
+  <string name="followYourFriendsOnLichess">Ikuti rakan-rakan anda di Lichess.</string>
+  <string name="playInTournaments">Main dalam Pertandingan.</string>
+  <string name="learnFromXAndY">Belajar dengan %1$s dan %2$s.</string>
+  <string name="configureLichess">Tetapkan Lichess mengikut cita rasa anda.</string>
+  <string name="exploreTheSiteAndHaveFun">Terokai laman ini dan jangan lupa untuk berseronok :)</string>
 </resources>

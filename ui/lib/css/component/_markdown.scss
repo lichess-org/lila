@@ -62,6 +62,7 @@
       &:not(:first-child) {
         margin-top: calc(0.9 * #{$element-margin});
       }
+
       border-bottom: 1px solid $c-brag;
       line-height: 1.5em;
       padding-bottom: calc(0.25 * #{$element-margin});
@@ -92,7 +93,7 @@
       &::before {
         color: $c-font-dimmer;
         content: $licon-Link;
-        font-family: 'lichess';
+        font-family: lichess;
         margin-left: -3rem;
         width: 3rem;
         position: absolute;
@@ -119,26 +120,49 @@
     table {
       margin: $element-margin 0;
     }
+
     th,
     td {
       &[align='left'] {
         text-align: left;
       }
+
       &[align='center'] {
         text-align: center;
       }
+
       &[align='right'] {
         text-align: right;
       }
     }
   }
+
+  p {
+    time {
+      border-bottom: 1px dashed $c-font-dim;
+      cursor: help;
+      font-size: 100%;
+    }
+
+    a {
+      & > time {
+        border-color: $c-link;
+      }
+
+      &:hover > time {
+        border-color: $c-link-hover;
+      }
+    }
+  }
 }
 
-@mixin rendered-markdown--code {
+@mixin rendered-markdown-code {
   $c-code-bg: $c-bg-zebra;
   $c-code-font: $c-font-clear;
+
   code {
     @extend %box-radius;
+
     font-family: monospace;
     padding: 0.2em 0.5em;
     background: $c-code-bg;
@@ -149,9 +173,11 @@
 
   pre {
     @extend %box-neat;
+
     background: $c-code-bg;
     padding: 1em 1.5em;
     line-height: 1.4em;
+
     code {
       background: none;
       padding: 0;
@@ -159,7 +185,7 @@
   }
 }
 
-@mixin rendered-markdown--quote {
+@mixin rendered-markdown-quote {
   blockquote {
     color: $c-font-dim;
     border-inline-start: 0.3em solid $c-font-dimmer;
@@ -167,15 +193,18 @@
   }
 }
 
-@mixin rendered-markdown--img {
+@mixin rendered-markdown-img {
   img {
     @extend %box-neat;
+
     max-width: 100%;
   }
+
   /* image caption */
   img + br:has(+ em) {
     display: none;
   }
+
   img + em,
   img + br + em {
     color: $c-font-dim;
@@ -186,10 +215,12 @@
   }
 }
 
-@mixin rendered-markdown--embed {
+@mixin rendered-markdown-embed {
   .embed {
     @extend %video;
+
     margin: $block-gap auto;
+
     > iframe {
       left: 0;
     }

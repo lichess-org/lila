@@ -134,15 +134,21 @@ final class UserGamesDownload(helpers: Helpers):
       )
     )
 
-  private def perfToggle(pk: PerfKey)(using Context): Frag = div(
-    form3.cmnToggle(
+  private def perfToggle(pk: PerfKey)(using Context): Frag = div(cls := "form-check__container")(
+    form3.nativeCheckbox(
       s"dl-perf-${pk}",
       "",
       true,
       value = pk
     ),
-    label(`for` := s"dl-perf-${pk}")(pk.perfTrans)
+    label(`for` := s"dl-perf-${pk}", cls := "form-label")(pk.perfTrans)
   )
+
+  private def includeToggle(name: String, checked: Boolean, text: Frag): Frag =
+    div(cls := "form-check__container")(
+      form3.nativeCheckbox(s"dl-include-$name", name, checked),
+      label(`for` := s"dl-include-$name", cls := "form-label")(text)
+    )
 
   private def includeToggles(using Context): Frag = tr(
     th(cls := "top")(
@@ -150,23 +156,11 @@ final class UserGamesDownload(helpers: Helpers):
     ),
     td(
       div(id := "dl-includes", cls := "toggle-columns")(
-        div(form3.cmnToggle("dl-tags", "tags", true), label(`for` := "dl-tags")(trans.study.pgnTags())),
-        div(
-          form3.cmnToggle("dl-clocks", "clocks", false),
-          label(`for` := "dl-clocks")(trans.site.moveTimes())
-        ),
-        div(
-          form3.cmnToggle("dl-evals", "evals", false),
-          label(`for` := "dl-evals")(trans.search.evaluation())
-        ),
-        div(
-          form3.cmnToggle("dl-opening", "opening", false),
-          label(`for` := "dl-opening")(trans.site.opening())
-        ),
-        div(
-          form3.cmnToggle("dl-literate", "literate", false),
-          label(`for` := "dl-literate")("Textual annotations")
-        )
+        includeToggle("tags", true, trans.study.pgnTags()),
+        includeToggle("clocks", false, trans.site.moveTimes()),
+        includeToggle("evals", false, trans.search.evaluation()),
+        includeToggle("opening", false, trans.site.opening()),
+        includeToggle("literate", false, "Textual annotations")
       )
     )
   )

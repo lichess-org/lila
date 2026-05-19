@@ -20,7 +20,7 @@
     <item quantity="one">Топ жетекшісі</item>
     <item quantity="other">Топ жетекшілері</item>
   </plurals>
-  <string name="teamRecentMembers">Кейінгі мүшелер</string>
+  <string name="teamRecentMembers">Соңғы мүшелер</string>
   <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
   <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
   <plurals name="xJoinRequests">

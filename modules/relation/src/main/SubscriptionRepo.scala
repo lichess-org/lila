@@ -35,17 +35,17 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
         )
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
-  def subscribe(userId: UserId, streamerId: UserId): Funit =
-    coll.update
-      .one(
-        $id(makeId(userId, streamerId)),
-        $doc("u" -> userId, "s" -> streamerId),
-        upsert = true
-      )
-      .void
-
-  def unsubscribe(userId: UserId, streamerId: UserId): Funit =
-    coll.delete.one($id(makeId(userId, streamerId))).void
+  def subscribe(userId: UserId, streamerId: UserId, v: Boolean): Funit =
+    if v
+    then
+      coll.update
+        .one(
+          $id(makeId(userId, streamerId)),
+          $doc("u" -> userId, "s" -> streamerId),
+          upsert = true
+        )
+        .void
+    else coll.delete.one($id(makeId(userId, streamerId))).void
 
   def isSubscribed[U: UserIdOf, S: UserIdOf](userId: U, streamerId: S): Fu[Boolean] =
     coll.exists($id(makeId(userId.id, streamerId.id)))

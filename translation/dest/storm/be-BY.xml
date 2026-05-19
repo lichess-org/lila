@@ -56,6 +56,7 @@
   <string name="skipExplanation">Прапусціце ход, каб захаваць серыю! Працуе адзін раз на гонку.</string>
   <string name="failedPuzzles">Нявырашыная задачы</string>
   <string name="slowPuzzles">Павольныя задачы</string>
+  <string name="skippedPuzzle">Прапушчаная задача</string>
   <string name="thisWeek">На гэтым тыдні</string>
   <string name="thisMonth">У гэтым месяцы</string>
   <string name="allTime">За ўвесь час</string>

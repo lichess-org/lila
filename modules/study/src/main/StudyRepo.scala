@@ -82,7 +82,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
   def selectMemberId(memberId: UserId) = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc("visibility" -> Visibility.public)
+  private[study] val selectPublicFeaturable = selectPublic ++ "trash".$ne(true)
   private[study] val selectPrivateOrUnlisted = "visibility".$ne(Visibility.public)
+  private[study] val selectUnlisted = $doc("visibility" -> Visibility.unlisted)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: UserId): Bdoc =
     selectMemberId(userId) ++ // use the index
@@ -172,10 +174,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       )
     .void
 
-  def updateNow(s: Study): Funit =
-    updateNow(s.id)
-
-  def updateNow(id: StudyId): Funit =
+  def setUpdatedNow(id: StudyId): Funit =
     coll.map(_.updateFieldUnchecked($id(id), "updatedAt", nowInstant))
 
   def addMember(study: Study, member: StudyMember): Funit =
@@ -291,6 +290,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     studyIds.nonEmpty.so(
       coll(_.primitive[StudyId]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
     )
+
+  def unfeature(id: StudyId, v: Boolean): Funit =
+    coll(_.updateOrUnsetField($id(id), "trash", v.option(true))).void
 
   def resetAllRanks: Fu[Int] =
     coll:

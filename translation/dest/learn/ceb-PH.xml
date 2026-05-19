@@ -6,7 +6,7 @@
   <string name="progressX">Naagi: %s</string>
   <string name="resetMyProgress">Ibalik akong naagi</string>
   <string name="youWillLoseAllYourProgress">Mawala ang imong tanang naagi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">magduwa!</string>
+  <string name="play">magduwa!</string>
   <string name="chessPieces">Pyesa sa chess</string>
   <string name="theRook">Ang rook</string>
   <string name="itMovesInStraightLines">Molihok sa tul-id ng linya</string>

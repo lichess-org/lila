@@ -1,38 +1,17 @@
-import type AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
-import { type MaybeVNodes } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
+import { h } from 'snabbdom';
+
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import { plyPrefix, renderNodesTxt } from 'lib/game/nodePGN';
+import type { TreeNode } from 'lib/tree/types';
+import { type MaybeVNodes } from 'lib/view';
+
+import type AnalyseCtrl from './ctrl';
 import type { Game } from './interfaces';
 
 interface PgnNode {
   ply: Ply;
   san?: San;
-}
-
-const plyPrefix = (node: Tree.Node): string =>
-  `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
-
-function renderNodesTxt(node: Tree.Node, forcePly: boolean): string {
-  if (node.children.length === 0) return '';
-
-  let s = '';
-  const first = node.children[0];
-  if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
-  s += fixCrazySan(first.san!);
-
-  for (let i = 1; i < node.children.length; i++) {
-    const child = node.children[i];
-    s += ` (${plyPrefix(child)}${fixCrazySan(child.san!)}`;
-    const variation = renderNodesTxt(child, false);
-    if (variation) s += ' ' + variation;
-    s += ')';
-  }
-
-  const mainline = renderNodesTxt(first, node.children.length > 1);
-  if (mainline) s += ' ' + mainline;
-
-  return s;
 }
 
 function renderPgnTags(game: Game): string {
@@ -44,10 +23,8 @@ function renderPgnTags(game: Game): string {
   return txt;
 }
 
-export function renderFullTxt(ctrl: AnalyseCtrl): string {
-  const g = ctrl.data.game;
-  return renderPgnTags(g) + renderNodesTxt(ctrl.tree.root, true);
-}
+export const renderFullTxt = (ctrl: AnalyseCtrl): string =>
+  renderPgnTags(ctrl.data.game) + renderNodesTxt(ctrl.tree.root, true);
 
 export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   if (!nodes[0]) return [];
@@ -63,7 +40,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderVariationPgn(game: Game, nodeList: Tree.Node[]): string {
+export function renderVariationPgn(game: Game, nodeList: TreeNode[]): string {
   const filteredNodeList = nodeList.filter(node => node.san);
   if (filteredNodeList.length === 0) return '';
 

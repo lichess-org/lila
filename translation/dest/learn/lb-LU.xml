@@ -6,7 +6,7 @@
   <string name="progressX">Progrès: %s</string>
   <string name="resetMyProgress">Progrès zerécksetzen</string>
   <string name="youWillLoseAllYourProgress">Du wäers däin ganzen Progrès verléieren!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Spill!</string>
+  <string name="play">Spill!</string>
   <string name="chessPieces">Schachfiguren</string>
   <string name="theRook">Den Tuerm</string>
   <string name="itMovesInStraightLines">Hien beweegt sech an riichten Linnen</string>
@@ -99,7 +99,7 @@ andeem du den Ugräifer schléis.</string>
 duerch deng Verdeedegung!</string>
   <string name="escapeOrBlock">Entkomm mat dengem Kinnek 
 oder block den Ugrëff!</string>
-  <string name="outOfCheckComplete">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
   <string name="mateInOne">Matt an 1</string>
   <string name="defeatTheOpponentsKing">Bezwéng dem Géigner säi Kinnek</string>
   <string name="mateInOneIntro">Du gewënns wann däin Géigner en Schach net verdeedegen kann.</string>
@@ -150,7 +150,6 @@ kuerz ze rochéieren!</string>
   <string name="findAWayToCastleQueenSide">Fann e Wee fir 
 laang ze rochéieren!</string>
   <string name="castlingComplete">Felicitatioun! D\'Rochade ass bal all Partie nëtzlech.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speziellen Bauerenzuch</string>
   <string name="enPassantIntro">Wann sech dem Géigner säin Bauer zwee Felder beweegt, kanns du en schloen wéi wann en sech just een Feld beweegt hätt.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwaarz huet säin Bauer

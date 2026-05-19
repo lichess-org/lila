@@ -132,4 +132,9 @@
   <string name="moveToAnotherClass">نقل إلى صف آخر</string>
   <string name="allowMessagingBetweenStudents">السماح بالرسائل بين التلاميذ</string>
   <string name="allowMessagingBetweenStudentsDesc">هذا ينطبق على الحسابات التي أنشأنها من أجل الدراسة فقط</string>
+  <string name="quickLoginCode">رمز تسجيل الدخول السريع</string>
+  <string name="quickLoginCodes">رموز تسجيل الدخول السريع</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">استخدم هذه الرموز على %s لتسجيل طلابك في Lichess.</string>
+  <string name="quickLoginCodesDesc2">عند انتهاء صَلاحِيَة الرموز، سيبقى طلابك مسجلين الدخول، حتى يسجلوا الخروج يدويا.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">انتهاء الصَّلاحِيَة %s</string>
 </resources>

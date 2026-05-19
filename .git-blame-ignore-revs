@@ -99,3 +99,12 @@ e2478dfc217e5bf034a810a5449494b76d471282
 
 # Scala Steward: Reformat with scalafmt 3.10.2
 94063c367bc120efdbb548e3692a4c260f4ef662
+
+# Scala Steward: Reformat with scalafmt 3.10.4
+0b0545e15ad527e7fc99c5b854123727ac5f6b5e
+
+# stylelint https://github.com/lichess-org/lila/pull/19445
+1e8dd3f03b5b8bb7fa00195bb45f04208f6170e6
+
+# https://github.com/lichess-org/lila/pull/19530
+02e1b5a25b222b5bce1b7c4f87044d027b6c506e

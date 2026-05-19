@@ -12,13 +12,10 @@
   $tags-border-color: $c-border !default;
   $tags-hover-border-color: $m-dimmer_clearer--mix-63 !default;
   $tags-focus-border-color: $c-primary !default;
-
   $tagMargin: 5px !default;
   $tag-pad: 0.3em 0.5em !default;
-
   $tag-min-width: 1ch !default;
   $tag-max-width: auto !default;
-
   $tag-text-color: $c-font-clearer !default;
   $tag-text-color--edit: $c-font-clearer !default;
   $tag-bg: $c-bg-zebra2 !default;
@@ -31,7 +28,6 @@
   $tag-invalid-bg: $m-bad_bg-zebra2--mix-20 !default;
   $tag-inset-shadow-size: 1.5em !default;
   $tag-hide-transition: 0.3s !default;
-
   $placeholder-color: $m-font--fade-50 !default;
   $placeholder-color-focus: $m-font--fade-70 !default;
   $input-color: inherit !default;
@@ -63,12 +59,8 @@
   --loader-size: 0.8em;
 
   @mixin firefox {
-    @at-root {
-      @-moz-document url-prefix() {
-        & {
-          @content;
-        }
-      }
+    @supports (-moz-appearance: none) {
+      @content;
     }
   }
 
@@ -80,7 +72,7 @@
       transform: none;
     } @else {
       opacity: 0;
-      transform: translatex(6px);
+      transform: translateX(6px);
     }
   }
 
@@ -94,10 +86,10 @@
     border: 3px solid;
     border-color: #eee #bbb #888 transparent;
     border-radius: 50%;
-    animation: rotateLoader 0.4s infinite linear;
+    animation: rotate-loader 0.4s infinite linear;
   }
 
-  @mixin tagReadonlyBG {
+  @mixin tag-readonly-bg {
     background: linear-gradient(
         45deg,
         var(--tag-bg) 25%,
@@ -113,13 +105,13 @@
     filter: brightness(0.95);
   }
 
-  @keyframes tags--bump {
+  @keyframes tags-bump {
     30% {
       transform: scale(1.2);
     }
   }
 
-  @keyframes rotateLoader {
+  @keyframes rotate-loader {
     to {
       transform: rotate(1turn);
     }
@@ -174,7 +166,7 @@
         padding: var(--tag-pad);
 
         &::before {
-          @include tagReadonlyBG;
+          @include tag-readonly-bg;
         }
       }
     }
@@ -192,6 +184,7 @@
 
       &::after {
         @include loader;
+
         content: '' !important;
         margin: -2px 0 -2px 0.5em;
       }
@@ -216,7 +209,9 @@
   &__tag {
     display: inline-flex;
     align-items: center;
+
     @include margin-direction($tagMargin, 0, $tagMargin, $tagMargin);
+
     position: relative;
     z-index: 1;
     outline: none;
@@ -242,9 +237,9 @@
       transition: 0.13s ease-out;
 
       > * {
+        @extend %ellipsis;
+
         white-space: pre-wrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         display: inline-block;
         vertical-align: top;
         min-width: var(--tag--min-width, $tag-min-width);
@@ -270,15 +265,11 @@
         content: '';
         position: absolute;
         border-radius: inherit;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+        inset: 0;
         z-index: -1;
         pointer-events: none;
         transition: 120ms ease;
-        animation: tags--bump 0.3s ease-out 1;
-
+        animation: tags-bump 0.3s ease-out 1;
         box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-bg, $tag-bg) inset;
       }
     }
@@ -288,10 +279,8 @@
         &::before {
           $size: -$tagMargin / 2;
           $size: -2px;
-          top: $size;
-          left: $size;
-          bottom: $size;
-          right: $size;
+
+          inset: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover)
             inset;
@@ -308,7 +297,9 @@
 
       &::after {
         --loader-size: 0.4em;
+
         @include loader;
+
         margin: 0 0.5em 0 -0.1em;
       }
     }
@@ -367,7 +358,7 @@
       > div {
         // padding: $tag-pad;
         &::before {
-          @include tagReadonlyBG;
+          @include tag-readonly-bg;
         }
       }
     }
@@ -416,12 +407,10 @@
       background: var(--tag-remove-btn-bg, $tag-remove-btn-bg);
       color: $tag-remove-btn-color;
       color: var(--tag-remove-btn-color, $tag-remove-btn-color);
-
       width: $size;
       height: $size;
       margin-inline-end: $size / 3;
       margin-inline-start: auto;
-
       overflow: hidden;
       transition: 0.2s ease-out;
 
@@ -480,7 +469,6 @@
 
     // #160 Line break (\n) as delimiter
     white-space: pre-wrap;
-
     color: $input-color;
     color: var(--input-color, $input-color);
     box-sizing: inherit;
@@ -494,8 +482,8 @@
 
       &::before {
         @include placeholder;
-        display: inline-block;
 
+        display: inline-block;
         width: auto;
 
         #{ $self }--mix & {
@@ -511,10 +499,12 @@
         @include placeholder(false);
 
         /* ALL MS BROWSERS: hide placeholder (on focus) otherwise the caret is places after it, which is weird */
+
         /* IE10+ CSS styles go here */
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
           display: none;
         }
+
         /* IE Edge 12+ CSS styles go here */
         @supports (-ms-ime-align: auto) {
           display: none;
@@ -631,7 +621,9 @@
       opacity: 0.5;
       position: absolute;
       top: 50%;
+
       @include inline-end(0);
+
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -650,7 +642,9 @@
     #{$self}__tag {
       position: absolute;
       top: 0;
+
       @include inline-end(1.8em);
+
       bottom: 0;
 
       div {

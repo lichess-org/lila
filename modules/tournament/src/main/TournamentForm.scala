@@ -18,13 +18,15 @@ final class TournamentForm:
   import TournamentForm.*
   import GatheringClock.*
 
-  def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
-    form(leaderTeams, none).fill(empty(teamBattleId))
+  def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None, forClas: Boolean = false)(
+      using me: Me
+  ) =
+    form(leaderTeams, none).fill(empty(teamBattleId, forClas))
 
-  private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
+  private[tournament] def empty(teamBattleId: Option[TeamId] = None, forClas: Boolean)(using me: Me) =
     TournamentSetup(
       name = teamBattleId.isEmpty.option(me.titleUsername),
-      clockTime = timeDefault,
+      clockTime = if forClas then 5d else timeDefault,
       clockIncrement = incrementDefault,
       minutes = minuteDefault,
       waitMinutes = waitMinuteDefault.some,
@@ -35,10 +37,10 @@ final class TournamentForm:
       rated = Rated.Yes.some,
       conditions = TournamentCondition.All.empty,
       teamBattleByTeam = teamBattleId,
-      berserkable = true.some,
-      streakable = true.some,
+      berserkable = forClas.not.some,
+      streakable = forClas.not.some,
       description = none,
-      hasChat = true.some
+      hasChat = forClas.not.some
     )
 
   def edit(leaderTeams: List[LightTeam], tour: Tournament)(using Me) =
@@ -106,11 +108,11 @@ final class TournamentForm:
       "description" -> optional(cleanNonEmptyText),
       "hasChat" -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
-      .verifying("Invalid clock", _.validClock)
-      .verifying("Invalid clock for bot games", _.validClockForBots)
-      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
-      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
+      .verifying("Invalid clock", _.validClock(prev))
+      .verifying("Invalid clock for bot games", _.validClockForBots(prev))
+      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant(prev))
+      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration(prev))
+      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration(prev))
 
 object TournamentForm:
 
@@ -169,9 +171,17 @@ private[tournament] case class TournamentSetup(
     description: Option[String],
     hasChat: Option[Boolean]
 ):
-  def validClock = (clockTime + clockIncrement.value) > 0
+  def validClock(prev: Option[Tournament]) =
+    sameClock(prev) ||
+      (clockTime + clockIncrement.value) > 0
 
-  def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
+  def validClockForBots(prev: Option[Tournament]) =
+    (sameClock(prev) && sameBots(prev)) ||
+      !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
+
+  private def sameClock(prev: Option[Tournament]) = prev.exists(_.clock == clockConfig)
+  private def sameBots(prev: Option[Tournament]) =
+    prev.exists(_.conditions.allowsBots == conditions.allowsBots)
 
   def realRated: Rated =
     if realPosition.isDefined && !thematicPosition then Rated.No
@@ -186,11 +196,12 @@ private[tournament] case class TournamentSetup(
 
   def speed = chess.Speed(clockConfig)
 
-  def validRatedVariant =
-    realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
+  def validRatedVariant(prev: Option[Tournament]) =
+    (prev.exists(p => p.rated == realRated && p.variant == realVariant) && sameClock(prev)) ||
+      realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
 
-  def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 150
+  def sufficientDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
@@ -237,7 +248,7 @@ private[tournament] case class TournamentSetup(
         rated = if rated.isDefined then realRated else old.rated,
         variant = newVariant,
         startsAt = startDate | old.startsAt,
-        password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
+        password = password.fold(old.password)(_.nonEmptyOption),
         position = newVariant.standard.so {
           if position.isDefined && (old.isCreated || old.position.isDefined) then realPosition
           else old.position
@@ -245,7 +256,7 @@ private[tournament] case class TournamentSetup(
         noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,
         noStreak = streakable.fold(old.noStreak)(!_),
         teamBattle = old.teamBattle,
-        description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
+        description = description.fold(old.description)(_.nonEmptyOption),
         hasChat = hasChat | old.hasChat
       )
 

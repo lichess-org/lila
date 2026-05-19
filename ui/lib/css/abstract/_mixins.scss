@@ -2,11 +2,15 @@
   border-radius: $box-radius-size;
 }
 
+@mixin box-radius-top {
+  border-radius: $box-radius-size $box-radius-size 0 0;
+}
+
 @mixin box-shadow {
   box-shadow:
-    0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    0 2px 2px 0 rgba(0, 0, 0, 0.08),
+    0 3px 1px -2px rgba(0, 0, 0, 0.18),
+    0 1px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
 @mixin box-neat {
@@ -19,34 +23,38 @@
     display: none;
 
     @include mq-zoom-enabled {
+      @include inline-end(3px);
+
       display: block;
       position: fixed;
       bottom: 3px;
-      @include inline-end(3px);
       width: 10vw;
     }
   }
 }
 
-@mixin transition($prop: all, $dur: $transition-duration) {
-  transition: $prop $dur;
+@mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
+  @if type-of($prop) == 'list' and length($prop) > 1 {
+    $out: ();
+
+    @for $i from 1 through length($prop) {
+      $out: append($out, nth($prop, $i) $dur $timing, comma);
+    }
+
+    transition: $out;
+  } @else {
+    transition: $prop $dur $timing;
+  }
 }
 
 @mixin hoverflow {
   scrollbar-gutter: stable;
   overflow-y: auto;
+
   @media (hover: hover) {
     &:not(:hover) {
       overflow: hidden;
     }
-  }
-}
-
-@mixin hide {
-  display: none;
-
-  .blind-mode & {
-    display: inherit;
   }
 }
 
@@ -74,16 +82,6 @@
   }
 }
 
-@mixin margin-inline-start($amount) {
-  margin-inline-start: $amount;
-  margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
-}
-
-@mixin margin-inline-end($amount) {
-  margin-inline-end: $amount;
-  margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
-}
-
 @mixin back-blur($size: 6px) {
   &::before {
     content: '';
@@ -94,7 +92,12 @@
     height: 100%;
     z-index: -1;
     backdrop-filter: blur($size);
-    -webkit-backdrop-filter: blur($size);
+  }
+}
+
+@mixin backdrop-blur-if-transparent($size: 6px) {
+  @include if-transp {
+    backdrop-filter: blur($size);
   }
 }
 
@@ -106,9 +109,10 @@
     padding: 0;
     width: unset;
     background: unset;
-    border-bottom: unset;
+    border-bottom-color: transparent;
     transform: unset;
-    ---site-header-sticky-padding: 0px;
+
+    ---site-header-sticky-padding: 0;
 
     #topnav,
     .dropdown {
@@ -118,8 +122,9 @@
       transition: unset;
     }
   }
+
   #main-wrap {
-    margin-top: $site-header-margin;
+    margin-top: var(---sticky-gap);
   }
 }
 
@@ -127,9 +132,10 @@
   display: block;
   position: relative;
   aspect-ratio: $aspect-ratio;
+
   &::after {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     content: attr(alt);
     position: absolute;
     top: 0;
@@ -142,10 +148,10 @@
 }
 
 @mixin gradient-border($c, $ltr-dir, $rtl-dir) {
-  background: linear-gradient($ltr-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient($ltr-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
 
   @include if-rtl {
-    background: linear-gradient($rtl-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient($rtl-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 }
 
@@ -159,5 +165,60 @@
 
 @mixin prevent-select {
   user-select: none;
-  -webkit-user-select: none;
+}
+
+@mixin with-metal-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
+  box-shadow:
+    inset 0 if($soft == true, 1px, 2px) 3px -2px hsl(0, 0%, if($soft == true, 30%, 45%)),
+    inset 0 -4px 6px -3px $m-body-gradient--lighten-3,
+    if($defaultShadow != (), 0 1px 3px 0 $defaultShadow, ());
+
+  @include if-light {
+    box-shadow:
+      inset 0 if($soft == true, 2px, 3px) 3px -2px #fff,
+      inset 0 -4px 6px -3px $m-body-gradient--lighten-5,
+      if($defaultShadow != (), 0 1px 3px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
+  }
+}
+
+@mixin with-metal-hover-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
+  box-shadow:
+    inset 0 if($soft == true, 2px, 3px) 3px -2px $c-border-light,
+    inset 0 -5px 8px -3px $m-body-gradient--lighten-5,
+    if($defaultShadow != (), 0 2px 4px 0 $defaultShadow, ());
+
+  @include if-light {
+    box-shadow:
+      inset 0 if($soft == true, 3px, 4px) 3px -2px #fff,
+      inset 0 -5px 8px -3px $m-body-gradient--lighten-7,
+      if($defaultShadow != (), 0 2px 4px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
+  }
+}
+
+@mixin with-button-shadow($topShadow: (), $bottomShadow: (), $lighTopShadow: (), $lightBottomShadow: ()) {
+  box-shadow:
+    inset 0 2px 3px -2px $topShadow,
+    inset 0 -4px 6pt -3pt $bottomShadow,
+    0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+
+  @include if-light {
+    box-shadow:
+      inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
+      inset 0 -4px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
+      0 1px 3px 0 hsla(0, 0, 0%, 0.18);
+  }
+
+  &:not(.disabled, :disabled, [disabled]):hover {
+    box-shadow:
+      inset 0 2px 3px -2px $topShadow,
+      inset 0 -5px 6pt -3pt $bottomShadow,
+      0 2px 4px 0 hsla(0, 0, 0%, 0.24);
+
+    @include if-light {
+      box-shadow:
+        inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
+        inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
+        0 2px 4px 0 hsla(0, 0, 0%, 0.21);
+    }
+  }
 }

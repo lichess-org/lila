@@ -3,7 +3,7 @@
   <string name="donate">Doação</string>
   <string name="donateAsX">Doar como %s</string>
   <string name="lichessPatron">Apoie o Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patrono desde %s</string>
+  <string name="patronSince" comment="string is a date">Patrono desde %s</string>
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Seja um Patrono Lichess</string>
   <string name="xBecamePatron">%s se tornou um Patrono Lichess</string>
@@ -84,4 +84,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="paymentDetails">Detalhes de pagamento</string>
   <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
   <string name="stripeManageSub">Gerencie sua assinatura e faça o download de suas faturas e recibos</string>
+  <string name="coverFees">Vou adicionar %s para ajudar a cobrir o custo do processamento desta transação</string>
 </resources>

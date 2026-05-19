@@ -1,32 +1,33 @@
-import { RateBot, rateBotMatchup } from './rateBot';
-import type { BotInfo, LocalSpeed } from 'lib/bot/types';
-import { statusOf } from 'lib/game';
 import { defined, type Prop } from 'lib';
 import { shuffle } from 'lib/algo';
+import type { BotInfo, LocalSpeed } from 'lib/bot/types';
+import { statusOf } from 'lib/game';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { storedBooleanProp } from 'lib/storage';
-import type { GameStatus, GameContext } from './localGame';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
 import { type PermaLog, makeLog } from 'lib/permalog';
-import type { GameObserver } from './gameCtrl';
+import { pubsub } from 'lib/pubsub';
+import { storedBooleanProp } from 'lib/storage';
 
-export interface Result {
-  winner: Color | undefined;
+import { env } from './devEnv';
+import type { GameObserver } from './gameCtrl';
+import type { GameStatus, GameContext } from './localGame';
+import { RateBot, rateBotMatchup } from './rateBot';
+
+export type Result = {
+  winner?: Color;
   white?: string;
   black?: string;
-}
+};
 
-interface Test {
+type Test = {
   type: 'matchup' | 'roundRobin' | 'rate';
   players: string[];
   initialFen?: string;
-}
+};
 
-export interface Matchup {
+export type Matchup = {
   white: string;
   black: string;
-}
+};
 
 interface Script extends Test {
   games: Matchup[];
@@ -34,7 +35,7 @@ interface Script extends Test {
 
 export type Glicko = { r: number; rd: number };
 
-type DevRatings = { [speed in LocalSpeed]?: Glicko };
+type DevRatings = Record<LocalSpeed, Glicko>;
 
 export class DevCtrl implements GameObserver {
   hurryProp: Prop<boolean> = storedBooleanProp('botdev.hurry', false);
@@ -43,12 +44,12 @@ export class DevCtrl implements GameObserver {
   log: Result[];
   private traceDb: PermaLog;
   private trace: string[] = [];
-  ratings: { [uid: string]: DevRatings } = {};
+  ratings: Record<string, DevRatings> = {};
   private localRatings: ObjectStorage<DevRatings>;
 
   async init(): Promise<void> {
     this.resetScript();
-    [this.traceDb] = await Promise.all([makeLog({ store: 'botmove' }, 1), this.getStoredRatings()]);
+    [this.traceDb] = [makeLog({ store: 'botmove' }, 1), this.getStoredRatings()];
     pubsub.on('theme', env.redraw);
   }
 
@@ -56,7 +57,7 @@ export class DevCtrl implements GameObserver {
     return this.hurryProp() || (this.gameInProgress && env.bot.playing.some(x => 'level' in x));
   }
 
-  run(test?: Test, iterations: number = 1): boolean {
+  run(test?: Test, iterations = 1): boolean {
     if (test) {
       this.resetScript(test);
       this.script.games.push(...this.matchups(test, iterations));
@@ -72,7 +73,7 @@ export class DevCtrl implements GameObserver {
   resetScript(test?: Test): void {
     this.log ??= [];
     this.trace = [];
-    const players = [env.game.white, env.game.black].filter(x => defined(x)) as string[];
+    const players = [env.game.white, env.game.black].filter(x => defined(x));
     this.script = {
       type: 'matchup',
       players,
@@ -90,14 +91,12 @@ export class DevCtrl implements GameObserver {
     if (ply === 0) {
       const white = env.game.nameOf('white');
       const black = env.game.nameOf('black');
-      const stringify = (obj: any) =>
-        JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
       this.trace.push(
         `\n${white} vs ${black} ${env.game.speed} ${env.game.initial ?? ''}` +
           `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.live.initialFen}`,
       );
-      this.trace.push(`\nWhite: '${white}' ${env.bot.white ? stringify(env.bot.white) : ''}`);
-      this.trace.push(`Black: '${black}' ${env.bot.black ? stringify(env.bot.black) : ''}`);
+      this.trace.push(`\nWhite: '${white}' ${env.bot.white ? this.stringify(env.bot.white) : ''}`);
+      this.trace.push(`Black: '${black}' ${env.bot.black ? this.stringify(env.bot.black) : ''}`);
     }
     if (ply % 2 === 0) this.trace.push(`\n ${'-'.repeat(64)} Move ${ply / 2 + 1} ${'-'.repeat(64)}`);
     if (!env.bot[turn]) this.trace.push(`  ${ply}. '${env.game.nameOf(turn)}' at '${fen}': '${uci}'`);
@@ -130,7 +129,7 @@ export class DevCtrl implements GameObserver {
     this.updateRatings(this.white.uid, this.black.uid, winner);
 
     if (this.script.type === 'rate') {
-      const uid = this.script.players[0]!;
+      const uid = this.script.players[0];
       const rating = this.getRating(uid, env.game.speed);
       this.script.games.push(...rateBotMatchup(uid, rating, last));
     }
@@ -147,9 +146,8 @@ export class DevCtrl implements GameObserver {
     else return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
   }
 
-  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
+  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<void | IDBValidKey> {
     if (!uid || !env.bot.bots.has(uid)) return Promise.resolve();
-    this.ratings[uid] ??= {};
     this.ratings[uid][speed] = rating;
     return this.localRatings.put(uid, this.ratings[uid]);
   }
@@ -203,7 +201,7 @@ export class DevCtrl implements GameObserver {
     );
   }
 
-  private updateRatings(whiteUid: string, blackUid: string, winner: Color | undefined): Promise<any> {
+  private updateRatings(whiteUid: string, blackUid: string, winner?: Color): Promise<(void | IDBValidKey)[]> {
     const whiteScore = winner === 'white' ? 1 : winner === 'black' ? 0 : 0.5;
     const rats = [whiteUid, blackUid].map(uid => this.getRating(uid, env.game.speed));
 
@@ -235,5 +233,9 @@ export class DevCtrl implements GameObserver {
 
   private get testInProgress(): boolean {
     return this.script.games.length !== 0;
+  }
+
+  private stringify(obj: any) {
+    return JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
   }
 }

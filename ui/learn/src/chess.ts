@@ -1,4 +1,3 @@
-import { parseFen, makeBoardFen } from 'chessops/fen';
 import {
   parseSquare,
   makeSquare,
@@ -8,10 +7,12 @@ import {
   charToRole,
   opposite,
 } from 'chessops';
-import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
-import type { CgMove } from './chessground';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSan } from 'chessops/san';
+import { Antichess, type Context } from 'chessops/variant';
+
+import type { CgMove } from './chessground';
 import { isRole, type PromotionChar, type PromotionRole } from './util';
 
 type LearnVariant = Chess | Antichess;
@@ -152,7 +153,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       const maybeCapture = findCaptures(pos).find(capture => {
         const clone = cloneWithCtx(pos);
         clone.play({ from: capture.from, to: capture.to });
-        return !findCaptures(clone).find(m => m.to === capture.to);
+        return !findCaptures(clone).some(m => m.to === capture.to);
       });
       return maybeCapture ? moveToCgMove(maybeCapture) : undefined;
     },

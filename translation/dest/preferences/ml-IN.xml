@@ -20,7 +20,7 @@
   <string name="inGameOnly">കളിയിൽ മാത്രം</string>
   <string name="chessClock">ചതുരംഗ സമയം</string>
   <string name="tenthsOfSeconds">സെക്കന്റിന്റെ പത്തിലൊരംശം</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
   <string name="horizontalGreenProgressBars">തിരശ്ചീന പച്ച നിലവാര രേഖകൾ</string>
   <string name="soundWhenTimeGetsCritical">നിർണായക സമയത്തു ധ്വനിപ്പിക്കുക</string>
   <string name="giveMoreTime">കൂടുതൽ സമയം കൊടുക്കുക</string>
@@ -34,7 +34,7 @@
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
   <string name="whenPremoving">മുൻകൂട്ടിയുള്ള നീക്കത്തിൽ</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3 തവണ ഒരേ നീക്കം തുടർന്നാൽ താനെ ഗെയിം സമനിലയായി മാറ്റുക</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
   <string name="moveConfirmation">നീക്കം സ്ഥിരീകരണം</string>
   <string name="inCorrespondenceGames">തത്തുല്യമായ കളികൾ</string>
   <string name="correspondenceAndUnlimited">തത്തുല്യമായതും അതീതമായതും</string>
@@ -48,5 +48,5 @@
   <string name="notifyWeb">പരുതുന്നതു്</string>
   <string name="notifyDevice">ഉപകരണം</string>
   <string name="bellNotificationSound">മണയടിശബ്ദം</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">കണ്ണുകെട്ടു്</string>
+  <string name="blindfold" comment="As in Blindfold chess">കണ്ണുകെട്ടു്</string>
 </resources>

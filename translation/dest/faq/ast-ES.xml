@@ -10,14 +10,14 @@
   <string name="whyIsLilaCalledLila">De la mesma manera, el códigu fonte de Lichess, %1$s, significa li[chess en sca]la , cuidao que la mayor parte de Lichess ta escritu en %2$s, un intuitivu llinguaxe de programación.</string>
   <string name="howCanIContributeToLichess">¿Cómo puedo contribuyir a Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantiene por les donaciones de patrocinadores y los esfuerzos d\'un equipu de voluntarios.</string>
-  <string name="findMoreAndSeeHowHelp">Pues aprender más sobro %1$s (incluyendo un %2$s). Si quies ayudar a Lichess voluntariamente col to tiempu y habilidaes, hai munches %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">Puedes aprender más sobro %1$s (incluyendo un %2$s). Si quies ayudar a Lichess voluntariamente col to tiempu y habilidaes, hai munches %3$s.</string>
   <string name="beingAPatron">ser patrón</string>
   <string name="breakdownOfOurCosts">desglose de los nuestros gastos</string>
   <string name="otherWaysToHelp">otres formes d\'ayudar</string>
   <string name="areThereWebsitesBasedOnLichess">¿Hai páxinas web basaes en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess inspiró otres páxines de códigu abiertu qu\'utilicen el nuestru %1$s, %2$s, o %3$s.</string>
   <string name="keyboardShortcuts">¿Qué atayos de tecláu hai?</string>
-  <string name="keyboardShortcutsExplanation">Delles páxines de Lichess tienen atayos de tecláu que pues utilizar. Prime la tecla \'?\' nun estudiu , análisis, exerciciu o partida para listar los atayos de tecláu disponibles.</string>
+  <string name="keyboardShortcutsExplanation">Delles páxines de Lichess tienen atayos de tecláu que puedes utilizar. Prime la tecla \'?\' nun estudiu, análisis, exerciciu o partida para listar los atayos de tecláu disponibles.</string>
   <string name="fairPlay">Xuego llimpiu</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdíos contra un tramposu?</string>
   <string name="ratingRefundExplanation">Un minutu dempués de marcar a un xugador como tramposu, tómense les sos últimes 40 partíes por puntos de los trés últimos díes. Si tu fuisti el so oponente neses partíes, perdisti puntos nelles (bien porque perdisti, bien porque empatasti), y la to puntuación nun yera provisional, entós devuélvensete puntos. Esti reembolsu ta limitao pola to puntuación máxima y por cómo progresara la to puntuación dempués d\'aquella partida.
@@ -74,12 +74,12 @@ Mira el capítulu del %3$s sobro esti movimientu pa practicar un pocu con él.</
   <string name="repeatedPositionsThatMatters">La triple repetición dese por repetición de %1$s, non de movimientos. La repetición nun tien porqué asoceder consecutivamente.</string>
   <string name="positions">posiciones</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Repitimos una posición trés vegaes. ¿Por qué la partida nun se declara tables?</string>
-  <string name="threeFoldHasToBeClaimed">Les tables por triple repetición tienen que ser reclamaes por unu de los xugadores. Pues faelo pulsiando el botón que s\'amuesa, o ufiertando tables antes de faer el movimientu que cause la tercer repetición, nun va importar qu\'el to oponente refugue la ufierta de tables, les tables por triple repetición van ser reclamaes de toes formes. Tamién pues %1$s Lichess por que reclame automáticamente les repeticiones por ti. Además, la quinta repetición siempres termina la partida al momentu.</string>
+  <string name="threeFoldHasToBeClaimed">Les tables por triple repetición tienen que ser reclamaes por unu de los xugadores. Puedes faelo pulsiando el botón que s\'amuesa, o ufiertando tables antes de faer el movimientu que cause la tercer repetición, nun va importar qu\'el to oponente refugue la ufierta de tables, les tables por triple repetición van ser reclamaes de toes formes. Tamién puedes %1$s Lichess por que reclame automáticamente les repeticiones por ti. Además, la quinta repetición siempres termina la partida al momentu.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Cuentes</string>
   <string name="titlesAvailableOnLichess">¿Qué títulos hai en Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess reconoz tolos títulos FIDE llograos en torneos presenciales, según %1$s. Equí hai una llista de títulos FIDE:</string>
-  <string name="showYourTitle">Si tienes un títulu llográu nun tornéu presencial, pues solicitar que s\'amuese na to cuenta completando el %1$s, incluyendo una imaxe clara d\'un documentu/tarxeta d\'identificación y una foto de ti portando dichu documento/tarjeta.
+  <string name="showYourTitle">Si tienes un títulu llográu nun tornéu presencial, puedes solicitar que s\'amuese na to cuenta completando el %1$s, incluyendo una imaxe clara d\'un documentu/tarxeta d\'identificación y una foto de ti portando dichu documento/tarjeta.
 
 La verificación como xugador tituláu en Lichess da accesu a xugar nos torneos pa titulaos.
 
@@ -94,10 +94,10 @@ Dacuando otorgamos a xugadores bien destacaos que son bonos ciudadanos de Liches
 
 Nun solicites el títulu de LM.</string>
   <string name="whatUsernameCanIchoose">¿Cuál pue ser el mio nome d\'usuariu?</string>
-  <string name="usernamesNotOffensive">Polo xeneral, los nomes d\'usuariu nun deben: ser ofensivos, suplantar a daquién o faer publicidá. Pues lleer más sobre les %1$s.</string>
+  <string name="usernamesNotOffensive">Polo xeneral, los nomes d\'usuariu nun deben: ser ofensivos, suplantar a daquién o facer publicidá. Puedes lleer más sobre les %1$s.</string>
   <string name="guidelines">pautes</string>
   <string name="canIChangeMyUsername">¿Puedo camudar el mio nome d\'usuariu?</string>
-  <string name="usernamesCannotBeChanged">Non, los nomes d\'usuariu nun pudeen camudase por razones técniques y práctiques. Los nomes d\'usuariu materialicense en munchos llugares: bases de datos, esportaciones, rexistros y na mente de les persones. Pues camudar les mayúscules/minúscules solo una vegada.</string>
+  <string name="usernamesCannotBeChanged">Non, los nomes d\'usuariu nun pueden camudase por razones técniques y práctiques. Los nomes d\'usuariu materialicense en munchos llugares: bases de datos, esportaciones, rexistros y na mente de les persones. Puedes camudar les mayúscules/minúscules solo una vegada.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Esi troféu ye únicu na hestoria de Lichess, naide más que %1$s va tenerlo xamás.</string>
   <string name="aHourlyBulletTournament">un tornéu Bullet per hora</string>
@@ -143,7 +143,7 @@ Fai clic nel iconu de bloquéu al pie de la dirección de lichess.org, na barra 
 
 llueu escueye si dexar o bloquiar notificaciones de Lichess.</string>
   <string name="enableAutoplayForSoundsQ">¿Habilitar la reproducción automática de soníos?</string>
-  <string name="enableAutoplayForSoundsA">La mayoría de los navegadores puen evitar que se reproduza soníu nuna páxina recién cargada pa protexer a los usuarios. Imaxínate si tolos sitios web pudieren bombardearte darréu con anuncios d\'audiu.
+  <string name="enableAutoplayForSoundsA">La mayoría de los navegadores pueden evitar que se reproduza soníu nuna páxina recién cargada pa protexer a los usuarios. Imaxínate si tolos sitios web pudieren bombardearte darréu con anuncios d\'audiu.
 
 L\'iconu coloráu de silenciu apaez cuando el to navegador impide que lichess.org reproduza un soníu. Polo xeneral, esta restricción eliminase una vegada que fexes clic en daqué. En dellos navegadores móviles, tocar y arrastrar una pieza nun cunta como un clic. Nesi casu tienes que tocar el tableru pa dexar el soníu al entamu de cada xuegu.
 

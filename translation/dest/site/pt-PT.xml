@@ -5,11 +5,10 @@
   <string name="playAgainstComputer">Jogar contra o computador</string>
   <string name="gameMode">Modo de jogo</string>
   <string name="createLobbyGame">Criar jogo no lobby</string>
-  <string name="youPlayAs">Jogas com</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -125,7 +124,9 @@
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Ver setas de variação</string>
-  <string name="evaluationGauge">Medidor da avaliação</string>
+  <string name="undefendedPieces">Peças não defendidas</string>
+  <string name="pinnedPieces">Peças pregadas</string>
+  <string name="checkableKing">Rei checável</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -231,7 +232,6 @@
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
-  <string name="signupEmailHint">Só o usaremos para redefinir a palavra-passe.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
@@ -255,9 +255,6 @@
   <string name="emailCanTakeSomeTime">Pode demorar algum tempo a chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize a sua caixa de entrada de correio eletrónico.</string>
   <string name="checkSpamFolder">Verifique também a sua pasta de “spam”, pode estar lá. Se sim, assinale como não “spam”.</string>
-  <string name="emailForSignupHelp">Se tudo falhar, então envie-nos este correio eletrónico:</string>
-  <string name="copyTextToEmail">Copie e cole o texto acima e envie-o para %s</string>
-  <string name="waitForSignupHelp">Nós entraremos brevemente em contacto para ajudá-lo a completar a inscrição.</string>
   <string name="accountConfirmed">O utilizador %s foi confirmado com sucesso.</string>
   <string name="accountCanLogin">Pode agora aceder como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Não precisa de um endereço eletrónico de confirmação.</string>
@@ -424,10 +421,11 @@
   <string name="leaderboard">Tabela de liderança</string>
   <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
   <string name="gameAsGIF">Jogo como GIF</string>
+  <string name="playerNames">Nomes dos jogadores</string>
+  <string name="moveAnnotations">Anotação de movimentos</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
-  <string name="fromPosition">A partir de uma posição</string>
   <string name="continueFromHere">Continuar a partir daqui</string>
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar uma partida</string>
@@ -714,17 +712,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
-  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprenda com os seus erros)</string>
-  <string name="keyNextBlunder">Próxima gafe</string>
-  <string name="keyNextMistake">Próximo erro</string>
-  <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="keyPreviousBranch">Ramo anterior</string>
   <string name="keyNextBranch">Próximo ramo</string>
   <string name="toggleVariationArrows">Ativar/desactivar seta da variante</string>
   <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
   <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="toggleObservationAnnotations">Ativar/desativar anotações</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
@@ -810,6 +804,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="size">Tamanho</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brilho</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Tonalidade</string>
   <string name="boardReset">Redefinir cores para o padrão</string>
   <string name="pieceSet">Peças</string>
@@ -905,9 +900,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementAssistance">Concordo que nunca recorrerei a assistência durante as minhas partidas (de um computador de xadrez, livro, base de dados ou outra pessoa).</string>
   <string name="agreementNice">Concordo que serei sempre repeitoso para os outros jogadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Concordo que não criarei várias contas (exceto pelas razões indicadas em %s).</string>
-  <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-Bala</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
@@ -972,6 +967,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="simulFeaturedHelp">Mostre a sua simultânea a todos em %s. Desativar para simultâneas privadas.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Quer dizer alguma coisa aos participantes?</string>
+  <string name="markdownIsAvailable">%s está disponível para formatação.</string>
   <string name="embedsAvailable">Cole o URL de um jogo ou um URL de um capítulo de estudo para integrá-lo.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário local</string>
   <string name="tournChat">Chat do torneio</string>
@@ -1017,4 +1013,5 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="search">Pesquisar</string>
   <string name="clearSearch">Limpar pesquisa</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">En passant</string>
 </resources>

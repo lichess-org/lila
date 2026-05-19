@@ -5,6 +5,7 @@ import cats.derived.*
 
 import lila.core.perm.Granter
 import lila.memo.CacheApi.*
+import lila.mon.extensions.*
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
@@ -27,8 +28,8 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: Cached)(using
-    Executor
+final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: TeamCached)(
+    using Executor
 ):
 
   import TeamSecurity.*

@@ -120,4 +120,9 @@ Do të shfaqë një vijë horizontale.</string>
   <string name="moveToAnotherClass">Kalo te një klasë tjetër</string>
   <string name="allowMessagingBetweenStudents">Lejo mesazhe mes nxënësish</string>
   <string name="allowMessagingBetweenStudentsDesc">Kjo vlen vetëm për llogari që keni krijuar për nxënësit tuaj.</string>
+  <string name="quickLoginCode">Kod hyrjeje të shpejtë</string>
+  <string name="quickLoginCodes">Kode hyrjesh të shpejta</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Përdorini këto kode në %s që studentët tuaj të bëjnë hyrjen në Lichess.</string>
+  <string name="quickLoginCodesDesc2">Kor kodet skadojnë, studentët tuaj do të mbetet të futur, deri sa të dalin dorazi.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Skadim për %s</string>
 </resources>

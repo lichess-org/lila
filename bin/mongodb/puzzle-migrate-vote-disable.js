@@ -1,4 +1,4 @@
-var puzzles = db.puzzle;
+const puzzles = db.puzzle;
 
 modified = 0;
 

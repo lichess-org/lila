@@ -1,27 +1,3 @@
 #blind-mode {
-  margin-inline-start: -99999px;
-  height: 0;
-
-  .blind-mode & {
-    text-align: center;
-    padding: 5px 0;
-    background: #888;
-    margin-inline-start: 0;
-    height: auto;
-  }
-}
-
-.blind-mode {
-  @include topnav-unsticky;
-  .is::before,
-  .is::after,
-  [data-icon]::before {
-    content: none;
-    display: none;
-    visibility: hidden;
-  }
-
-  .uflair {
-    display: none;
-  }
+  @extend %visually-hidden;
 }

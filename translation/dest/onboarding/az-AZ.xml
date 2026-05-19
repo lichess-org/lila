@@ -4,7 +4,7 @@
   <string name="welcomeToLichess">Lichess.org\'a xoş gəldiniz!</string>
   <string name="thisIsYourProfilePage">Bu sizin profil səhifənizdir.</string>
   <string name="enabledKidModeSuggestion">Bir uşaq bu hesabdan istifadə edəcək? əgər elə isə %s\'u aktivləşdirə bilərsiniz.</string>
-  <string name="learnChessRules">Şahmat qaydalarını öyrən</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Şahmat qaydalarını öyrən</string>
   <string name="improveWithChessTacticsPuzzles">Taktiki şahmat tapmacalar ilə təkmilləş.</string>
   <string name="playTheArtificialIntelligence">Süni İntellektlə oyna.</string>
   <string name="playOpponentsFromAroundTheWorld">Dünyanın hər yerindən oyunçular.</string>

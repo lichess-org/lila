@@ -19,7 +19,7 @@ final class BotLimit(lightUserApi: LightUserApi)(using Executor, lila.core.confi
   lila.common.Bus.sub[lila.core.game.StartGame]: g =>
     g.users.sequence.foreach: users =>
       if users.forall(_.isBot)
-      then users.foreach(u => botGamesPerDay.test(u.id))
+      then users.foreach(u => botGamesPerDay.hit(u.id))
 
   def challengeLimitError(orig: LightUser, dest: LightUser): Option[EitherBotLimit] =
     (orig.isBot && dest.isBot).so:

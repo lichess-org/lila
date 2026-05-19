@@ -160,7 +160,7 @@ def games(
                     ,
                     td(dataSort := pov.game.movedAt.toSeconds.toString):
                       a(href := routes.Round.watcher(pov.gameId, pov.color), cls := "glpt"):
-                        momentFromNowServerText(pov.game.movedAt)
+                        pastMomentServerText(pov.game.movedAt)
                   )
               }
             )

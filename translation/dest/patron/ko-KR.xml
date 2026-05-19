@@ -3,7 +3,7 @@
   <string name="donate">기부</string>
   <string name="donateAsX">%s로 기부</string>
   <string name="lichessPatron">Lichess 후원자</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">%s 부터 후원 중</string>
+  <string name="patronSince" comment="string is a date">%s 부터 후원 중</string>
   <string name="freeAccount">무료 계정</string>
   <string name="becomePatron">Lichess 후원자가 되세요</string>
   <string name="xBecamePatron">%s가 Lichess 후원자가 되었습니다</string>
@@ -82,4 +82,5 @@
   <string name="paymentDetails">결제 세부사항</string>
   <string name="updatePaymentMethod">결제 수단 업데이트</string>
   <string name="stripeManageSub">구독 관리 및 청구서 및 영수증 다운로드</string>
+  <string name="coverFees">거래 수수료를 충당하기 위해서 %s만큼을 더하겠습니다</string>
 </resources>

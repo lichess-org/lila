@@ -6,7 +6,7 @@
   <string name="progressX">Wedi cwblhau: %s</string>
   <string name="resetMyProgress">Clirio ac ailgychwyn</string>
   <string name="youWillLoseAllYourProgress">Byddwch yn colli pob cofnod!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">chwarae!</string>
+  <string name="play">chwarae!</string>
   <string name="chessPieces">Darnau Gwyddbwyll</string>
   <string name="theRook">Y castell</string>
   <string name="itMovesInStraightLines">Mae\'n symud mewn llinell syth</string>

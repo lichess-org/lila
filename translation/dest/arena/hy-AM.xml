@@ -13,7 +13,7 @@
 Այսինքն` հաղթանակը 4 միավոր է, ոչ-ոքին՝ 2 , իսկ պարտությունը՝ 0:
 
 Օրինակ, երկու հաղթանակը և ոչ-ոքին իրար հետ ընդհանուր կդառնան 6 միավոր՝ 2 + 2 + (2 х 1)։</string>
-  <string name="berserk">Բերսերքն Արենայում</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Բերսերքն Արենայում</string>
   <string name="berserkAnswer">Եթե խաղից առաջ խաղացողը սեղմում է Բերսերքի կոճակը, ապա կորցնում է իր ժամանակի կեսը, սակայն հաղթանակի դեպքում ստանում է լրացուցիչ միավոր:
 
 Ժամանակի ավելացման դեպքում էլ Բերսերքը չեղարկում է այդ ավելացումը (1+2-ը բացառություն է՝ այն դառնում է 1+0)։

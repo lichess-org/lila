@@ -1,20 +1,22 @@
 import { defined } from 'lib';
+import { isTouchDevice } from 'lib/device';
+import { addPointerListeners } from 'lib/pointer';
+import type { TreeNode } from 'lib/tree/types';
 import { onInsert, hl } from 'lib/view';
+
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/components';
-import { isTouchDevice } from 'lib/device';
-import { addPointerListeners } from 'lib/pointer';
 
 export class ForkCtrl {
   selectedIndex = 0;
 
   private hoveringIndex: number | undefined;
-  private mostRecent: Tree.Node | undefined;
+  private mostRecent: TreeNode | undefined;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
-  get forks(): Tree.Node[] {
+  get forks(): TreeNode[] {
     return this.ctrl.visibleChildren();
   }
 
@@ -22,7 +24,7 @@ export class ForkCtrl {
     return this.forks.length > 1;
   }
 
-  get selected(): Tree.Node | undefined {
+  get selected(): TreeNode | undefined {
     return this.forks[this.hoveringIndex ?? this.selectedIndex];
   }
 

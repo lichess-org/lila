@@ -34,7 +34,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules())
-      .js(isGranted(_.UserModView).option(esmInit("mod.autolink")))
+      .js(isGranted(_.AccountInfo).option(esmInit("mod.autolink")))
       .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):
@@ -51,8 +51,7 @@ object page:
       games: scalalib.paginator.Paginator[Game],
       filters: lila.game.GameFilterMenu,
       searchForm: Option[Form[?]],
-      social: UserInfo.Social,
-      notes: Map[GameId, String]
+      social: UserInfo.Social
   )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
@@ -68,9 +67,8 @@ object page:
           st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
           div(cls := "page-menu__content box user-show")(
             views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
-            div(cls := "angle-content")(
-              gamesContent(u, info.nbs, games, filters, filters.current.name, notes)
-            )
+            div(cls := "angle-content"):
+              gamesContent(u, info.nbs, games, filters, filters.current.name)
           )
         )
 
@@ -99,19 +97,19 @@ object page:
       Context,
       Translate
   ): Frag =
-    if filter == GameFilter.Search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
+    if filter == GameFilter.search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
     else lila.web.ui.bits.splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
     import ui.transLocalize
     filter match
-      case GameFilter.All => transLocalize(trans.site.nbGames, u.count.game)
-      case GameFilter.Me => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
-      case GameFilter.Rated => transLocalize(trans.site.nbRated, u.count.rated)
-      case GameFilter.Win => transLocalize(trans.site.nbWins, u.count.win)
-      case GameFilter.Loss => transLocalize(trans.site.nbLosses, u.count.loss)
-      case GameFilter.Draw => transLocalize(trans.site.nbDraws, u.count.draw)
-      case GameFilter.Playing => transLocalize(trans.site.nbPlaying, nbs.playing)
-      case GameFilter.Bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
-      case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
-      case GameFilter.Search => trans.search.advancedSearch.txt()
+      case GameFilter.all => transLocalize(trans.site.nbGames, u.count.game)
+      case GameFilter.me => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.rated => transLocalize(trans.site.nbRated, u.count.rated)
+      case GameFilter.win => transLocalize(trans.site.nbWins, u.count.win)
+      case GameFilter.loss => transLocalize(trans.site.nbLosses, u.count.loss)
+      case GameFilter.draw => transLocalize(trans.site.nbDraws, u.count.draw)
+      case GameFilter.playing => transLocalize(trans.site.nbPlaying, nbs.playing)
+      case GameFilter.bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
+      case GameFilter.imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
+      case GameFilter.search => trans.search.advancedSearch.txt()

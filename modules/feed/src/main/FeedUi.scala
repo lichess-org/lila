@@ -165,7 +165,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           help = raw("Set in the future to schedule an update.").some,
           half = true
         )(form3.flatpickr(_, minDate = none)(required)),
-        form3.checkbox(form("public"), raw("Publish"), half = true)
+        form3.checkboxGroup(form("public"), "Publish", half = true)
       ),
       form3.group(
         form("content"),

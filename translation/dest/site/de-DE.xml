@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
   <string name="createLobbyGame">Neue Partie erstellen</string>
-  <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass deinen Gegner diesen QR-Code scannen</string>
+  <string name="reusableChallengeUrl">Wiederverwendbare Herausforderungs-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ein permanenter Link für jeden, der dich mit genau diesen Einstellungen herausfordert.</string>
   <string name="waiting">Warten</string>
   <string name="yourTurn">Du bist am Zug</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
@@ -94,6 +95,8 @@
   <string name="database">Datenbank</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
+  <string name="minRatingX">Minimale Wertungszahl von %s</string>
+  <string name="maxRatingX">Maximale Wertungszahl von %s</string>
   <string name="recentGames">Neueste Partien</string>
   <string name="topGames">Spitzenpartien</string>
   <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
@@ -125,10 +128,20 @@
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
-  <string name="evaluationGauge">Bewertungsanzeige</string>
+  <string name="visualMotifs">Visuelle Motive</string>
+  <string name="undefendedPieces">Nicht verteidigte Figuren</string>
+  <string name="pinnedPieces">Gefesselte Figuren</string>
+  <string name="checkableKing">König, dem Schach geboten werden kann</string>
   <string name="multipleLines">Mehrere Varianten</string>
+  <string name="multipleLinesDescription">Anzahl der besten Züge und Zug-Pfeile auf dem Brett festlegen</string>
+  <string name="searchTime">Suchzeit</string>
+  <string name="searchTimeDescription">Zeit für die Bewertung neuer Positionen</string>
+  <string name="threads">Threads</string>
+  <string name="threadsDescription">Setze sie unterhalb deiner CPU-Kernanzahl fest, die Ticks markieren eine gute und sichere Wahl</string>
+  <string name="threadsDescriptionMobile">Mehr Threads verbrauchen mehr Akku für eine bessere Analyse</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
+  <string name="memoryDescription">Höhere Werte können die Leistung verbessern</string>
   <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
   <string name="blunder">Grober Patzer</string>
@@ -205,6 +218,7 @@
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
+  <string name="variantsDescription">Weitere Spielarten</string>
   <string name="timeControl">Bedenkzeit</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
@@ -231,7 +245,7 @@
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
   <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
-  <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
+  <string name="signupEmailPromise">Wir werden dir nur E-Mails bezüglich deines Kontos senden und niemals deine E-Mail-Adresse weitergeben.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
@@ -255,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Es kann etwas dauern, bis sie ankommt.</string>
   <string name="refreshInboxAfterFiveMinutes">Warte 5 Minuten und aktualisiere dein E-Mail-Postfach.</string>
   <string name="checkSpamFolder">Überprüfe auch dein Spam-Verzeichnis, sie könnte darin gelandet sein. Falls dem so ist, markiere sie als kein Spam.</string>
-  <string name="emailForSignupHelp">Falls alles andere fehlschlägt, dann sende uns folgende E-Mail:</string>
-  <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
-  <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
+  <string name="sendEmailForAccountVerification">Wenn du deine Bestätigungs-Mail nicht finden kannst, sende eine E-Mail an %s und wir bestätigen deinen Account.</string>
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
   <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
@@ -299,6 +311,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Benutzerdefinierte Stellung</string>
   <string name="unlimited">Unbegrenzt</string>
+  <string name="unlimitedDescription">Nimm dir so viel Zeit, wie du brauchst</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
   <string name="rated">Gewertet</string>
@@ -424,10 +437,11 @@
   <string name="leaderboard">Rangliste</string>
   <string name="screenshotCurrentPosition">Eine Bildschirmaufnahme der aktuellen Stellung anfertigen</string>
   <string name="gameAsGIF">Partie als GIF</string>
+  <string name="playerNames">Spielernamen</string>
+  <string name="moveAnnotations">Zugnotation</string>
   <string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
   <string name="orUploadPgnFile">Oder lade eine PGN-Datei hoch</string>
-  <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Partie importieren</string>
@@ -510,7 +524,8 @@
   <string name="setTheBoard">Brett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="endgamePositions">Endspielstellungen</string>
-  <string name="chess960StartPosition">Schach960 Anfangsstellung: %s</string>
+  <string name="chess960StartPosition">Chess960-Anfangsstellung: %s</string>
+  <string name="randomChess960Position">Zufällige Chess960-Stellung</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
   <string name="loadPosition">Stellung laden</string>
@@ -587,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falsches Passwort</string>
   <string name="invalidAuthenticationCode">Ungültiger Authentifizierungscode</string>
+  <string name="clearField">Feld leeren</string>
+  <string name="orSeparator">Oder</string>
+  <string name="logInByEmail">Per E-Mail anmelden</string>
   <string name="emailMeALink">Schicke mir einen Link per E-Mail</string>
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
@@ -713,11 +731,6 @@
   <string name="keyCycleSelectedVariation">Durch die ausgewählte Variante schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
-  <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
-  <string name="keyNextLearnFromYourMistakes">Als Nächstes (Lerne aus deinen Fehlern)</string>
-  <string name="keyNextBlunder">Der nächste grobe Patzer</string>
-  <string name="keyNextMistake">Der nächste Fehler</string>
-  <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
   <string name="keyPreviousBranch">Vorherige Verzweigung</string>
   <string name="keyNextBranch">Nächste Verzweigung</string>
   <string name="toggleVariationArrows">Varianten-Pfeile ein-/auschalten</string>
@@ -810,6 +823,7 @@
   <string name="size">Größe</string>
   <string name="opacity">Transparenz</string>
   <string name="brightness">Helligkeit</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Farbton</string>
   <string name="boardReset">Farben auf Standardwerte zurücksetzen</string>
   <string name="pieceSet">Figurenstil</string>
@@ -905,7 +919,6 @@
   <string name="agreementAssistance">Ich stimme zu, dass ich zu keiner Zeit während meiner Partien Hilfe in Anspruch nehmen werde (durch einen Schachcomputer, Buch, Datenbank oder eine andere Person).</string>
   <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern immer respektvoll gegenübertreten werde.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde (außer aus den in den %s angegebenen Gründen).</string>
-  <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
   <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Konversation</string>
   <string name="edit">Bearbeiten</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -929,6 +942,7 @@
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
   <string name="theForumEtiquette">Die Forums-Etikette</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Bitte sei freundlich im Forum.</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -1018,5 +1032,7 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Suchen</string>
   <string name="clearSearch">Neue Suche</string>
+  <string name="thereAreNoResultsForX">Keine Ergebnisse für \"%s\"</string>
   <string name="tags">Schlagwörter</string>
+  <string name="enPassant">En passant</string>
 </resources>

@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Tenê ser pozîyona pêşî</string>
   <string name="chessClock">Demjimêra kişikê</string>
   <string name="tenthsOfSeconds">Ji deha yekê saniyeyan</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gava wext kêmtirî 10 saniyeyan be</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gava wext kêmtirî 10 saniyeyan be</string>
   <string name="horizontalGreenProgressBars">Benda pêşveçûna kesk ya asoyî</string>
   <string name="soundWhenTimeGetsCritical">Hişyariya dengî gava ku dem kêm bû</string>
   <string name="giveMoreTime">Zêdetir wext bide</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Bi otomatîkî bike Wezîr</string>
   <string name="whenPremoving">Gava pêş-hemleyê</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Di tekrara sêgavî debi otomatîkî wekheviyê teklîf bike</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gava wext &lt; 30 saniye mabe</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gava wext &lt; 30 saniye mabe</string>
   <string name="moveConfirmation">Tesdîqkirina hemleyê</string>
   <string name="inCorrespondenceGames">Lîstikên bi muxabere</string>
   <string name="correspondenceAndUnlimited">Bipêwendî û bêsînor</string>

@@ -1,8 +1,8 @@
-import * as xhr from 'lib/xhr';
-import { wsConnect, wsSend } from 'lib/socket';
-import { userComplete } from 'lib/view/userComplete';
 import { isTouchDevice, isIos } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
+import { wsConnect, wsSend } from 'lib/socket';
+import { userComplete } from 'lib/view/userComplete';
+import * as xhr from 'lib/xhr';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -41,7 +41,7 @@ export function initModule(opts: ChallengeOpts): void {
       .find('form.xhr')
       .on('submit', function (this: HTMLFormElement, e) {
         e.preventDefault();
-        xhr.formToXhr(this);
+        void xhr.formToXhr(this);
         $(this).html('<span class="ddloader"></span>');
       });
     $(selector)

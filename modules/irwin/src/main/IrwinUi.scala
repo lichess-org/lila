@@ -23,7 +23,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       iconTag(pov.game.perfKey.perfIcon),
       shortClockName(pov.game.clock.map(_.config)),
       " ",
-      momentFromNowServer(pov.game.createdAt)
+      pastMomentServer(pov.game.createdAt)
     )
 
   def percentClass(p: Int) =
@@ -37,7 +37,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       header(
         a(cls := "title", href := "/irwin")("Irwin AI"),
         div(cls := "infos")(
-          p("Updated ", momentFromNowServer(report.report.date))
+          p("Updated ", pastMomentServer(report.report.date))
         ),
         div(cls := "assess text")(
           strong(cls := percentClass(report.report.activation))(report.report.activation, "%"),
@@ -142,7 +142,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             a(href := "/kaladin")("Kaladin")
           ),
           div(cls := "infos")(
-            p("Updated ", momentFromNowServer(response.at))
+            p("Updated ", pastMomentServer(response.at))
           ),
           response.pred.map: pred =>
             div(cls := "assess text")(

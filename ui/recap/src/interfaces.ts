@@ -21,10 +21,6 @@ export interface Counted<A> {
   value: A;
   count: number;
 }
-export interface ByColor<A> {
-  white: A;
-  black: A;
-}
 export interface Sources {
   friend: number;
   simul: number;

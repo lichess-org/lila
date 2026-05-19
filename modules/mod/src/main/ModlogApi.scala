@@ -15,6 +15,7 @@ import lila.core.user.KidMode
 import lila.core.LightUser
 import lila.core.id.ForumTopicSlug
 import lila.memo.PicfitImage
+import lila.core.study.Study
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -115,7 +116,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.selfCloseAccount,
       details = {
         forever.so("forever ") + openReports.map(r => s"${r.room.name} report").mkString(", ")
-      }.some.filter(_.nonEmpty)
+      }.nonEmptyOption
     )
 
   def closedByMod(user: User): Fu[Boolean] =
@@ -133,8 +134,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def removeTitle(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.removeTitle)
 
-  def setEmail(user: UserId)(using Me) = add:
-    Modlog(user.some, Modlog.setEmail)
+  def setEmail(user: UserId, from: Option[EmailAddress], to: EmailAddress)(using Me) =
+    from
+      .forall(_ != to)
+      .so:
+        add(Modlog(user.some, Modlog.setEmail, s"${from | "none"} -> $to".some))
+
+  def setPassword(using me: Me) = add:
+    Modlog(me.some, Modlog.setPassword)
 
   def deletePost(user: Option[UserId], text: String)(using MyId) = add:
     Modlog(
@@ -282,11 +289,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = image.automod.flatMap(_.flagged)
     )
 
-  def wasUnengined(sus: Suspect) = coll.exists:
+  def studyUnfeature(study: Study)(using myId: MyId) = add:
+    Modlog(myId.modId, study.ownerId.some, Modlog.studyUnfeature, details = study.name.value.some)
+
+  def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
     $doc(
       "user" -> sus.user.id,
       "action" -> Modlog.unengine
-    )
+    ) ++ after.so(d => $doc("date".$gte(d)))
 
   def wasUnbooster(userId: UserId) = coll.exists:
     $doc(
@@ -393,12 +403,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             case u => u
 
   private def add(m: Modlog): Funit =
-    lila.mon.mod.log.create.increment()
+    lila.mon.mod.log.create(m.mod.userId, m.action).increment()
     lila.log("mod").info(m.toString)
     m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
-      } >> (m.notableZulip.so(zulipMonitor(m)))
+      } >> m.notableZulip.so(zulipMonitor(m))
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M

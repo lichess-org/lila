@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Azzera i progressi</string>
   <string name="youWillLoseAllYourProgress">Perderai tutti i tuoi progressi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">gioca!</string>
+  <string name="play">gioca!</string>
   <string name="chessPieces">I pezzi degli scacchi</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Si muove in linea retta</string>
@@ -100,7 +100,7 @@ catturando il pezzo che sta attaccando.</string>
 nonostante la tua difesa!</string>
   <string name="escapeOrBlock">Fuggi con il re
 o para l\'attacco!</string>
-  <string name="outOfCheckComplete">Congratulazioni! Il tuo re non verrà mai catturato, assicurati di poter difenderdelo da uno scacco!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Congratulazioni! Il tuo re non verrà mai catturato, assicurati di poter difenderdelo da uno scacco!</string>
   <string name="mateInOne">Matto in una mossa</string>
   <string name="defeatTheOpponentsKing">Sconfiggi il re avversario</string>
   <string name="mateInOneIntro">Vincerai quando il tuo avversario non potrà difendersi dallo scacco.</string>
@@ -150,7 +150,6 @@ arroccare sull\'ala di re!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo per
 arroccare sull\'ala di regina!</string>
   <string name="castlingComplete">Congratulazioni! Dovrai arroccare quasi in ogni partita.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">La mossa speciale del pedone</string>
   <string name="enPassantIntro">Quando il pedone avversario si muove di due case, lo puoi catturare come se si fosse mosso di una casa sola.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Il nero ha mosso il pedone

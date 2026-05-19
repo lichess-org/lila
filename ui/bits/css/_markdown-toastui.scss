@@ -3,41 +3,59 @@
 
 .markdown-toastui {
   height: 60vh;
+
   .tab-item {
     background: $c-bg-box;
+
     &.active {
       @extend %metal;
     }
   }
+
   .toastui-editor {
     &-defaultUI {
-      border: none;
+      @extend %base-font;
+
+      border-radius: $box-radius-size;
+      border-color: $c-border;
+      overflow: hidden;
+
       &-toolbar {
-        @extend %metal, %box-radius-top;
-        border-radius: 3px 3px 0 0 !important;
-        border: 1px solid $c-border;
-        border-width: 1px 1px 0 1px;
+        @extend %metal-bg;
+
+        padding: 0 6px;
+        border-bottom: $border;
         flex-flow: row wrap;
       }
     }
+
     &-toolbar {
+      height: auto;
+
       &-icons {
         border-color: $c-border;
+
         &:not(:disabled) {
+          background-color: $c-bg-zebra;
+
           &:hover {
             background-color: $c-bg-box;
-          }
-          &.active {
-            background-color: $c-bg-zebra;
+            border-color: $c-border-light;
           }
         }
       }
     }
+
+    &-toolbar-group button {
+      margin: 6px 3px;
+    }
+
     &-dropdown {
       &-toolbar {
         display: flex;
         flex-flow: column;
         border: 0;
+
         .toastui-editor {
           &-toolbar {
             &-group {
@@ -49,75 +67,182 @@
         }
       }
     }
+
     &-md-tab-container {
-      background: none;
-      /* preview is not accurate to what lichess shows */
       display: none;
-      width: 0;
     }
+
     &-tabs {
       @extend %flex-center;
+
       align-content: flex-end;
       margin: 0 1ch 0 0;
+
       .tab-item {
         height: 2em;
         line-height: 2em;
         margin: 0 0 -1px 0;
+
         /* preview is not accurate to what lichess shows */
         display: none;
       }
     }
+
     &-popup {
+      @extend %box-radius;
+
+      border: $border;
+      background-color: $c-bg-page;
       margin-left: 0;
+
+      @include if-light {
+        background-color: $c-bg;
+      }
+
+      button {
+        text-align: center;
+      }
     }
-    &-ww-container,
-    &-md-container {
-      border: 1px solid $c-border;
-      border-width: 0 1px 1px 1px;
-      border-radius: 0 0 3px 3px;
+
+    &-ok-button {
+      background-color: $c-primary !important;
     }
+
     &.ww-mode,
     &.md-mode,
     &-md-preview {
       @extend %base-font;
+
       font-size: 1rem;
       background: $c-bg-input;
       color: $c-font;
     }
+
     &-contents {
+      @extend %base-font;
+
       font-size: 1rem;
+
       & p,
+      & del,
       & h2,
       & h3,
       & h4 {
         color: $c-font;
       }
+
       & h2 {
+        font-weight: 300;
+        padding-bottom: 0.5em;
         border-color: $c-brag;
       }
+
       & h3 {
         border: none;
+        margin: 1.6em 0 1em 0;
+      }
+
+      & h4 {
+        font-weight: 300;
+      }
+
+      blockquote {
+        border-color: $c-font-dimmer;
+
+        p {
+          margin: 2em 0;
+        }
+      }
+
+      pre {
+        @extend %box-shadow, %box-radius;
+
+        margin: 2em 0;
+        padding: 1em 1.5em;
+        background-color: $c-bg-zebra !important;
+
+        code {
+          background: none;
+        }
+      }
+
+      code {
+        @extend %box-radius;
+
+        font-family: monospace;
+        padding: 0.2em 0.5em;
+        background: $c-bg-zebra;
+        color: $c-font-clear;
+      }
+
+      ul,
+      ol {
+        margin: 2em 0;
+      }
+
+      ol li::before {
+        color: $c-font;
+      }
+
+      ul li::before {
+        margin-top: 8px;
+        margin-left: -13px;
+        background-color: $c-font;
+      }
+
+      table {
+        th,
+        td {
+          height: auto;
+        }
+
+        th {
+          @extend %metal-bg;
+
+          padding: 0.5rem 0.8rem;
+        }
+
+        td {
+          padding: 1rem;
+        }
       }
     }
+
     .ProseMirror {
       font-size: 1rem;
       padding: 0.8em 1.2em;
     }
+
     &-mode-switch {
       background: none;
       border: none;
     }
-    &-popup-body li[data-type='Heading'] {
-      &[data-level='1'],
-      &[data-level='5'],
-      &[data-level='6'] {
-        display: none;
+
+    &-popup-body {
+      li[data-type='Heading'] {
+        &[data-level='1'],
+        &[data-level='5'],
+        &[data-level='6'] {
+          display: none;
+        }
       }
+
+      input {
+        width: 100%;
+        border: $border;
+        border-radius: $box-radius-size !important;
+      }
+    }
+
+    &-tooltip {
+      @extend %base-font;
     }
   }
 }
+
 .toastui-editor-popup-add-image {
   padding-top: 20px;
+
   &::before {
     padding-inline: 20px;
     content: 'Drag an edge to resize your image.';

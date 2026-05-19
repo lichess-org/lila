@@ -120,4 +120,9 @@ Es wird als horizontali Linie azeigt.</string>
   <string name="moveToAnotherClass">Gang ine anderi Klass</string>
   <string name="allowMessagingBetweenStudents">Kontaktustusch zwüsche de Schüeler erlaube</string>
   <string name="allowMessagingBetweenStudentsDesc">Das gilt nur für d\'Konte, wo du für dini Schüeler erschtellt häsch.</string>
+  <string name="quickLoginCode">Schnäll-Login-Code</string>
+  <string name="quickLoginCodes">Schnäll-Login-Code</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Benutz die Codes bi de %s zum dini Schüeler bi Lichess ilogge.</string>
+  <string name="quickLoginCodesDesc2">Wänn die Code ablaufed, blibed dini Schüeler agmäldet, bis sie sich manuell abmälded.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Ablaufzit: %s</string>
 </resources>

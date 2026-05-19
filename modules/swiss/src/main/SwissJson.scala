@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.socket.SocketVersion
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -72,7 +73,7 @@ final class SwissJson(
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
-  }.monSuccess(_.swiss.json)
+  }.monSuccess(lila.mon.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value).flatMapz { player =>

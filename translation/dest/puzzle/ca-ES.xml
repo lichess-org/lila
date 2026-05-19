@@ -13,7 +13,6 @@
   <string name="origin">Origen</string>
   <string name="specialMoves">Jugades especials</string>
   <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
-  <string name="voteToLoadNextOne">Vota per passar al següent!</string>
   <string name="upVote">Vota positivament el problema</string>
   <string name="downVote">Vota negativament el problema</string>
   <string name="yourPuzzleRatingWillNotChange">La teva puntuació de problemes no canviarà. Tingues en compte que els problemes no són una competició. La puntuació indica els problemes que més s\'assimilen a les teves habilitats.</string>

@@ -6,7 +6,7 @@
   <string name="progressX">Garapena: %s</string>
   <string name="resetMyProgress">Nire garapena hasieratu</string>
   <string name="youWillLoseAllYourProgress">Zure garapen guztia galduko duzu!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">jokatu!</string>
+  <string name="play">jokatu!</string>
   <string name="chessPieces">Xake piezak</string>
   <string name="theRook">Gaztelua edo Dorrea</string>
   <string name="itMovesInStraightLines">Lerro zuzenetan zehar mugitzen da</string>
@@ -104,7 +104,7 @@ erasotzen zaituen pieza harrapatuz.</string>
 zure defentsen artetik!</string>
   <string name="escapeOrBlock">Egin ihes erregearekin
 edo oztopatu erasoa!</string>
-  <string name="outOfCheckComplete">Zorionak! Zure erregea ezin da harrapatu, baina ziurtatu xaketik defendatu dezakezula!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Zorionak! Zure erregea ezin da harrapatu, baina ziurtatu xaketik defendatu dezakezula!</string>
   <string name="mateInOne">Xake-mate jokaldi baten</string>
   <string name="defeatTheOpponentsKing">Aurkariaren erregea garaitu</string>
   <string name="mateInOneIntro">Zure aurkaria xaketik defendatu ezin denean irabazi egiten duzu.</string>
@@ -155,7 +155,6 @@ erregearen aldean endrokatzeko!</string>
   <string name="findAWayToCastleQueenSide">Aurkitu modua
 erregearen aldean endrokatzeko!</string>
   <string name="castlingComplete">Zorionak! Ia edozein partidatan endrokatu zaitezke.</string>
-  <string name="enPassant">Igarotzean harrapatzea</string>
   <string name="theSpecialPawnMove">Peoiaren jokaldi berezia</string>
   <string name="enPassantIntro">Aurkariak peoi bat bi lauki aurreratu duenean, bat mugitu balu bezala harrapatu dezakezu.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Beltzak peoia bi laukiz

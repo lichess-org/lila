@@ -110,7 +110,6 @@
   <string name="byCPL">Хаталар буенча</string>
   <string name="enable">Кабызылган</string>
   <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
-  <string name="evaluationGauge">Бәяләу шкаласы</string>
   <string name="multipleLines">Берничә вариант</string>
   <string name="cpus">Процессорлар</string>
   <string name="memory">Хәтер</string>
@@ -201,7 +200,6 @@
   <string name="changeUsername">Кулланучы исемен үзгәртү</string>
   <string name="changeUsernameNotSame">Хәрефләр регистрын гына үзгәртеп була. Мәсәлән, \"johndoe\"ны \"JohnDoe\"га.</string>
   <string name="changeUsernameDescription">Кулланучы исемегезне үзгәртегез. Сез моны бер тапкыр гына ясый аласыз һәм хәрефләрнен зурлыгын гына үзгәртә аласыз.</string>
-  <string name="signupEmailHint">Без аны серсүзне яңарту өчен генә кулланырбыз.</string>
   <string name="password">Серсүз</string>
   <string name="changePassword">Серсүзне үзгәртү</string>
   <string name="changeEmail">Emailны үзгәртү</string>
@@ -213,7 +211,6 @@
   <string name="youAreLeavingLichess">Сез Lichess сайтыннан чыгып китәсез</string>
   <string name="neverTypeYourPassword">Lichess серсүзегезне башка сайтларда кертмәгез!</string>
   <string name="proceedToX">%s -га дәвам итү</string>
-  <string name="copyTextToEmail">Югары текстны копияләп %s адресына җибәрегез</string>
   <string name="accountConfirmed">%s кулланучысы теркәлүе расланды.</string>
   <string name="accountCanLogin">Хәзер %s булып теркәлә аласыз.</string>
   <string name="accountClosed">%s дигән хисап ябылган.</string>
@@ -349,7 +346,6 @@
   <string name="gameAsGIF">GIF итеп саклау</string>
   <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
-  <string name="fromPosition">Позициядән</string>
   <string name="continueFromHere">Бу җирдән дәвам итү</string>
   <string name="toStudy">Өйрәнү</string>
   <string name="importGame">Уенны импортлау</string>
@@ -759,7 +755,6 @@
   <string name="currentMatchScore">Хәзерге матч исәбе</string>
   <string name="agreementAssistance">Минем уеннар вакытында теләсә кайсы вакытта ярдәм алуыма ризалашам (шахмат компьютерыннан, китаптан, мәгълүмат базасыннан яки бүтән кешедән).</string>
   <string name="agreementNice">Мин башка уенчыларга һәрвакыт хөрмәт күрсәтермен дип килешәм.</string>
-  <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

@@ -1,11 +1,10 @@
 # [lichess.org](https://lichess.org)
 
-[![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
-[![Build assets](https://github.com/lichess-org/lila/actions/workflows/assets.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/assets.yml)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Mastodon](https://img.shields.io/mastodon/follow/109298525492334687?domain=mastodon.online)](https://mastodon.online/@lichess)
 [![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/lichess.org)
 [![Discord](https://img.shields.io/discord/280713822073913354?label=Discord&logo=discord&style=flat)](https://discord.gg/lichess)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lichess-org/lila)
 
 <img src="https://raw.githubusercontent.com/lichess-org/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
 
@@ -18,18 +17,18 @@ It features a [search engine](https://lichess.org/games/search),
 [forums](https://lichess.org/forum),
 [teams](https://lichess.org/team),
 [tactic trainer](https://lichess.org/training),
-a [mobile app](https://lichess.org/mobile),
+a [mobile app](https://lichess.org/app),
 and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [140 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 3](https://www.scala-lang.org/),
-and relies on the [Play 2.8](https://www.playframework.com/) framework.
+and relies on a modified [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/lichess-org/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
-It uses [MongoDB](https://www.mongodb.com) to store more than 4.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
+It uses [MongoDB](https://www.mongodb.com) to store more than 12 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 All rated games are published in a [free PGN database](https://database.lichess.org).
@@ -57,13 +56,13 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 
 ## Supported browsers
 
-| Name              | Version | Notes                                             |
-| ----------------- | ------- | ------------------------------------------------- |
-| Firefox           | 115+    | Full support (recommended)                        |
-| Chromium / Chrome | 112+    | Full support                                      |
-| Edge              | 109+    | Full support                                      |
-| Opera             | 91+     | Reasonable support                                |
-| Safari            | 13.1+   | Reasonable support                                |
+| Name              | Version | Notes                      |
+| ----------------- | ------- | -------------------------- |
+| Firefox           | 115+    | Full support (recommended) |
+| Chromium / Chrome | 112+    | Full support               |
+| Edge              | 109+    | Full support               |
+| Opera             | 91+     | Reasonable support         |
+| Safari            | 13.1+   | Reasonable support         |
 
 Older browsers will not work.
 For your own sake, please upgrade. Security and performance, think about it!

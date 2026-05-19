@@ -1,11 +1,12 @@
-import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
-import { botAssetUrl } from 'lib/bot/botLoader';
-import { alert } from 'lib/view';
-import { zip } from 'lib/algo';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
+import { zip } from 'lib/algo';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/view';
+
+import { env } from './devEnv';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // dev asset names are strictly cosmetic and can be renamed at any time
@@ -83,7 +84,7 @@ export class DevAssets {
   }
 
   isLocalOnly(key: string): boolean {
-    return Boolean(this.find(k => k === key, 'local') && !this.find(k => k === key, 'server'));
+    return Boolean(this.findAsset(k => k === key, 'local') && !this.findAsset(k => k === key, 'server'));
   }
 
   isDeleted(key: string): boolean {
@@ -94,7 +95,7 @@ export class DevAssets {
   }
 
   nameOf(key: string): string | undefined {
-    return this.find(k => k === key)?.[1];
+    return this.findAsset(k => k === key)?.[1];
   }
 
   assetBlob(type: AssetType, key: string): AssetBlob | undefined {
@@ -188,7 +189,7 @@ export class DevAssets {
     const cover = { blob: result.cover, name, user: myUserId() ?? 'anonymous' };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
 
-    const promises: Promise<void>[] = [];
+    const promises: Promise<void | IDBValidKey>[] = [];
     if (oldKey && oldKey !== key) {
       for (const bot of env.bot.all) {
         const existing = bot.books?.find(b => b.key === oldKey);
@@ -220,7 +221,7 @@ export class DevAssets {
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
   }
 
-  private onStorageEvent = async (e: StorageEvent) => {
+  private readonly onStorageEvent = async (e: StorageEvent) => {
     if (e.key !== 'botdev.import.book' || !e.newValue) return;
 
     await this.init();
@@ -228,7 +229,7 @@ export class DevAssets {
     pubsub.emit('botdev.import.book', key, oldKey);
   };
 
-  private find(
+  private findAsset(
     fn: (key: string, name: string, type: AssetType) => boolean,
     maps: 'local' | 'server' | 'both' = 'both',
   ): [key: string, name: string, type: AssetType] | undefined {
@@ -255,7 +256,7 @@ class Store {
 
   constructor(readonly type: AssetType) {}
 
-  async init(): Promise<any> {
+  async init(): Promise<[string, IdbAsset][]> {
     this.keyNames.clear();
     this.store = await objectStorage<IdbAsset, string>({ store: `botdev.${this.type}` });
     const [keys, assets] = await Promise.all([this.store.list(), this.store.getMany()]);
@@ -288,7 +289,7 @@ class Store {
   }
 }
 
-function valueSorted(map: Map<string, string> | undefined) {
+function valueSorted(map?: Map<string, string>) {
   return new Map(map ? [...map.entries()].sort((a, b) => a[1].localeCompare(b[1])) : []);
 }
 
@@ -309,15 +310,6 @@ function blobArrayBuffer(file: Blob): Promise<ArrayBuffer> {
     reader.readAsArrayBuffer(file);
   });
 }
-
-// function blobString(file: Blob): Promise<string> {
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.onload = () => resolve(reader.result as string);
-//     reader.onerror = reject;
-//     reader.readAsText(file);
-//   });
-// }
 
 function mimeOf(filename: string) {
   // go live with webp and mp3 only, but support more formats during dev work

@@ -1,10 +1,11 @@
-import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
-import type { MouchEvent } from '@lichess-org/chessground/types';
-import { onInsert } from 'lib/view';
-import type AnalyseCtrl from '../ctrl';
 
-const eventNames = ['mousedown', 'touchstart'];
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import { drag } from './crazyCtrl';
+
+const eventNames = ['mousedown', 'touchstart'] as const;
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;
 
 type Position = 'top' | 'bottom';
@@ -23,7 +24,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
       class: { usable },
       hook: onInsert(el => {
         eventNames.forEach(name => {
-          el.addEventListener(name, e => drag(ctrl, color, e as MouchEvent));
+          el.addEventListener(name, e => drag(ctrl, color, e));
         });
       }),
     },

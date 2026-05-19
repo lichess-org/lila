@@ -109,7 +109,6 @@
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
-  <string name="evaluationGauge">Шинжилгээний хэм</string>
   <string name="multipleLines">Олон хувилбарууд</string>
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
@@ -192,7 +191,6 @@
   <string name="changeUsernameNotSame">Зөвхөн үсэг нь зөвхөн өөрчлөгдөж болно. Жишээ нь \"johndoe\" нь \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Хэрэглэгчийн нэрээ өөрчил. Энэ нь зөвхөн нэг удаа хийгдэж болох ба зөвхөн хэрэглэгчийн нэр дээр үсгээ засах боломжтой.</string>
   <string name="signupUsernameHint">Та өөрийнхөө нэрийг зохистой зохиогоорой. Та дараа нь нэрээ сольж болохгүй бөгөөд, зүй бус, зохисгүй нэрстэй хэрэглэгчдийн бүртгэлийг хаах болно!</string>
-  <string name="signupEmailHint">Би зөвхөн нууц үг сэргээхэд ашиглана.</string>
   <string name="password">Нууц үг</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>
@@ -216,8 +214,6 @@
   <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
   <string name="checkSpamFolder">Баталгаажуулах email тань мөн spam хэсэг дээр байж магадгүй тул бас шалгаад үзээрэй.</string>
-  <string name="emailForSignupHelp">Урд дурдсан алхмууд бүтэлгүйтвэл, бидэнд ийм email бичээрэй:</string>
-  <string name="copyTextToEmail">Дээр гарсан текстыг хуулаад %s-луу илгээгээрэй</string>
   <string name="accountConfirmed">Ашиглагч %s бүртгэлийг амжилттай баталгаажууллаа.</string>
   <string name="accountCanLogin">Та одооноос %s нэрээр нэвтрэх боломжтой боллоо.</string>
   <string name="accountConfirmationEmailNotNeeded">Танд баталгаажуулах email хэрэггүй.</string>
@@ -363,7 +359,6 @@
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
   <string name="orUploadPgnFile">Эсвэл PGN файл байршуулах</string>
-  <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
   <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>
@@ -618,9 +613,6 @@
   <string name="keyGoToStartOrEnd">эхлэл/төгсгөл рүү хүргэх</string>
   <string name="keyShowOrHideComments">сэтгэгдлийг ил эсвэл далд болгох</string>
   <string name="keyEnterOrExitVariation">хувилбараас гарах/орох</string>
-  <string name="keyNextBlunder">Дараагийн том алдаа</string>
-  <string name="keyNextMistake">Дараагийн алдаа</string>
-  <string name="keyNextInaccuracy">Дараагийн жижиг алдаа</string>
   <string name="keyPreviousBranch">Өмнөх салаа нүүдлүүд</string>
   <string name="keyNextBranch">Дараагийн салаа нүүдлүүд</string>
   <string name="toggleVariationArrows">Хувилбаруудыг сумаар харуулах</string>
@@ -759,7 +751,6 @@
   <string name="wishYouGreatGames">та lichess.org дээр олон сайхан тоглолтуудыг тоглоно гэж найдъя.</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
   <string name="lifetimeScore">Амьдралын оноо</string>
-  <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
   <string name="edit">Засаж янзлах</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Сум</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блитц</string>

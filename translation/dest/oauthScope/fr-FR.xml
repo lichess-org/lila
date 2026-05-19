@@ -29,7 +29,6 @@
   <string name="botPlay">Jouer des parties avec un moteur d\'échecs (BOT)</string>
   <string name="engineRead">Voir et utiliser vos moteurs externes</string>
   <string name="engineWrite">Créer et modifier des moteurs externes</string>
-  <string name="webLogin">Créer des sessions Web authentifiées (donne un accès complet !)</string>
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
   <string name="personalAccessTokens">Jetons d\'accès personnel API</string>
   <string name="canMakeOauthRequests">Vous pouvez faire des demandes OAuth sans passer par le %s.</string>

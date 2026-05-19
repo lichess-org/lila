@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Oglejte si video vadnico</string>
   <string name="instructions1">Uporabite gumb %1$s, da preklopite prepoznavanje glasu, gumb %2$s, da odprete to pogovorno okno za pomoč, in meni %3$s, da spremenite nastavitve govora.</string>
   <string name="instructions2">Puščice prikazujemo za več potez, ko nismo prepričani. Izgovorite barvo ali številko puščice za premikanje, da jo izberete.</string>
-  <string name="instructions3">Če puščica prikazuje Radar, se ta poteza predvaja, ko je krog končan. V tem času lahko izgovorite samo %1$s, da takoj predvajate potezo, %2$s, da prekličete, ali izgovorite barvo/številko druge puščice. Ta časovnik lahko nastavite ali izklopite v nastavitvah.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Če puščica prikazuje Radar, se ta poteza predvaja, ko je krog končan. V tem času lahko izgovorite samo %1$s, da takoj predvajate potezo, %2$s, da prekličete, ali izgovorite barvo/številko druge puščice. Ta časovnik lahko nastavite ali izklopite v nastavitvah.</string>
   <string name="instructions4">Omogoči %s v hrupnem okolju. Držite shift, medtem ko govorite ukaze, ko je ta vklopljen.</string>
   <string name="instructions5">Uporabite fonetično abecedo za izboljšanje prepoznavanja datotek šahovnice.</string>
   <string name="instructions6">%s podrobno razloži nastavitve glasovnega premikanja.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Premaknite se na E4 ali izberite kos e4</string>
   <string name="selectOrCaptureABishop">Izberite ali zajemite škofa</string>
   <string name="takeRookWithQueen">Vzemite top s kraljico</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Grad (na obeh straneh)</string>
+  <string name="castle">Grad (na obeh straneh)</string>
   <string name="phoneticAlphabetIsBest">Fonetična abeceda je najboljša</string>
   <string name="cancelTimerOrDenyARequest">Prekliči časovnik ali Zavrni zahtevo</string>
   <string name="playPreferredMoveOrConfirmSomething">Igrajte želeno potezo ali potrdite nekaj</string>

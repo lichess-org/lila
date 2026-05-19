@@ -14,6 +14,7 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     notifier: RelayNotifier,
     tagManualOverride: RelayTagManualOverride
 )(using Executor)(using scheduler: Scheduler):
@@ -26,8 +27,9 @@ final private class RelaySync(
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt, study, chapter, game)
-    appends <- plan.append.toList.sequentially: game =>
-      createChapter(rt, study, game)
+    allowedNbChapters <- plan.append.nonEmpty.so:
+      chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
+    appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _ = lila.common.Bus.publishDyn(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
@@ -39,8 +41,9 @@ final private class RelaySync(
     reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
     _ = if reloadChapters then
       preview.invalidate(study.id)
-      studyApi.reloadChapters(study)
+      studyApi.sendChapterPreviews(study)
       players.invalidate(rt.tour.id)
+      teamLeaderboard.invalidate(rt.tour.id)
   yield result
 
   private def updateChapter(
@@ -50,6 +53,7 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[SyncResult.ChapterResult] = for
     chapter <- updateInitialPosition(study.id, chapter, game)
+    chapter <- ensureChapterRelayField(chapter, game)(using rt.tour)
     (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
     nbMoves <- updateChapterTree(study, chapter, game)(using rt.tour)
     _ = if nbMoves > 0 then notifier.onUpdate(rt, newTags.foldLeft(chapter)(_.withTags(_)))
@@ -75,6 +79,16 @@ final private class RelaySync(
       studyApi
         .resetRoot(studyId, chapter.id, game.root.withoutChildren, game.variant)(who(chapter.ownerId))
         .dmap(_ | chapter)
+
+  // because a study always has at least one chapter,
+  // the first chapter is updated when the board data arrives, instead of created.
+  // make sure it has the chapter.relay field set.
+  private def ensureChapterRelayField(chapter: Chapter, game: RelayGame)(using RelayTour): Fu[Chapter] =
+    val desiredRelay = makeRelayFor(game, chapter.relay.fold(game.root.mainlinePath)(_.path))
+    if chapter.relay.exists(_.fideIds == desiredRelay.fideIds) then fuccess(chapter)
+    else
+      for _ <- chapterRepo.setRelay(chapter.id, desiredRelay)
+      yield chapter.copy(relay = desiredRelay.some)
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using
@@ -114,7 +128,7 @@ final private class RelaySync(
               val node = AddNode(
                 studyId = study.id,
                 positionRef = position,
-                node = n,
+                node = _ => Right(n),
                 opts = moveOpts,
                 relay = makeRelayFor(game, position.path + n.id).some
               )(using by)
@@ -139,7 +153,7 @@ final private class RelaySync(
                     AddNode(
                       studyId = study.id,
                       positionRef = Position(chapter, gameMainlinePath.parent).ref,
-                      node = lastMainlineNode,
+                      node = _ => Right(lastMainlineNode),
                       opts = moveOpts,
                       relay = makeRelayFor(game, gameMainlinePath).some
                     )(using by)
@@ -187,16 +201,20 @@ final private class RelaySync(
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
     yield
-      if tour.official && chapter.root.mainline.sizeIs > 4 then
-        scheduler.scheduleOnce(15.seconds):
+      if tour.official && !study.isMember(UserId("no-analysis")) && chapter.root.mainline.sizeIs > 4 then
+        scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
       path = path,
       lastMoveAt = path.nonEmpty.option(nowInstant),
-      fideIds = tour.official.so(game.fideIdsPair)
+      fideIds = chapterFideIds(game)
     )
+
+  // we only set the FIDE IDs in official tours
+  // because we don't want random users to assign real OTB players to imaginary tournaments
+  private def chapterFideIds(game: RelayGame)(using tour: RelayTour) = tour.official.so(game.fideIdsPair)
 
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
     Chapter.nameFromPlayerTags(game.tags) | StudyChapterName(s"Board $order")
@@ -220,7 +238,6 @@ final private class RelaySync(
   yield chapter
 
   private val moveOpts = MoveOpts(
-    write = true,
     sticky = false,
     promoteToMainline = true
   )

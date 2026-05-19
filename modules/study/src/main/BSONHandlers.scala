@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.{ ByColor, Centis, FideId, Ply, PromotableRole, Role, Square }
 import chess.eval.*
 import reactivemongo.api.bson.*
 
@@ -126,14 +126,13 @@ object BSONHandlers:
     )
 
   // shallow read, as not reading children
-  private[study] def readBranch(doc: Bdoc, id: UciCharPair): Option[Branch] =
+  private[study] def readBranch(doc: Bdoc): Option[Branch] =
     import Node.BsonFields as F
     for
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Full](F.fen)
-      check = ~doc.getAsOpt[Check](F.check)
       shapes = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
@@ -143,11 +142,9 @@ object BSONHandlers:
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
-      id = id,
       ply = ply,
       move = Uci.WithSan(uci, san),
       fen = fen,
-      check = check,
       shapes = shapes,
       comments = comments,
       gamebook = gamebook,
@@ -160,15 +157,13 @@ object BSONHandlers:
     )
 
   // shallow read, as not reading children
-  private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
+  private[study] def readNewBranch(doc: Bdoc): Option[NewBranch] =
     import Node.BsonFields as F
     for
-      id <- path.lastId
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Full](F.fen)
-      check = ~doc.getAsOpt[Check](F.check)
       shapes = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
@@ -178,13 +173,11 @@ object BSONHandlers:
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
-      id = id,
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
         ply = ply,
         fen = fen,
-        check = check,
         shapes = shapes,
         comments = comments,
         gamebook = gamebook,
@@ -204,7 +197,6 @@ object BSONHandlers:
       F.uci -> n.move.uci,
       F.san -> n.move.san,
       F.fen -> n.fen,
-      F.check -> w.yesnoO(n.check),
       F.shapes -> n.shapes.value.nonEmpty.option(n.shapes),
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
       F.gamebook -> n.gamebook,
@@ -223,7 +215,6 @@ object BSONHandlers:
       F.uci -> n.move.uci,
       F.san -> n.move.san,
       F.fen -> n.metas.fen,
-      F.check -> w.yesnoO(n.metas.check),
       F.shapes -> n.metas.shapes.value.nonEmpty.option(n.metas.shapes),
       F.comments -> n.metas.comments.value.nonEmpty.option(n.metas.comments),
       F.gamebook -> n.metas.gamebook,
@@ -242,7 +233,6 @@ object BSONHandlers:
       Root(
         ply = r.get[Ply](F.ply),
         fen = r.get[Fen.Full](F.fen),
-        check = r.yesnoD(F.check),
         shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
@@ -257,7 +247,6 @@ object BSONHandlers:
         UciPathDb.rootDbKey -> $doc(
           F.ply -> r.ply,
           F.fen -> r.fen,
-          F.check -> w.yesnoO(r.check),
           F.shapes -> r.shapes.value.nonEmpty.option(r.shapes),
           F.comments -> r.comments.value.nonEmpty.option(r.comments),
           F.gamebook -> r.gamebook,
@@ -278,7 +267,6 @@ object BSONHandlers:
         Metas(
           ply = r.get[Ply](F.ply),
           fen = r.get[Fen.Full](F.fen),
-          check = r.yesnoD(F.check),
           shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
@@ -294,7 +282,6 @@ object BSONHandlers:
         UciPathDb.rootDbKey -> $doc(
           F.ply -> r.metas.ply,
           F.fen -> r.metas.fen,
-          F.check -> w.yesnoO(r.metas.check),
           F.shapes -> r.metas.shapes.value.nonEmpty.option(r.metas.shapes),
           F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
           F.gamebook -> r.metas.gamebook,

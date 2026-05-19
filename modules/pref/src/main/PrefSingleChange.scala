@@ -44,6 +44,8 @@ object PrefSingleChange:
       _.copy(confirmResign = v),
     changing(_.moretime): v =>
       _.copy(moretime = v),
+    changing(_.clockTenths): v =>
+      _.copy(clockTenths = v),
     changing(_.clockSound): v =>
       _.copy(clockSound = v == 1),
     changing(_.pieceNotation): v =>
@@ -58,6 +60,8 @@ object PrefSingleChange:
       _.copy(message = v),
     changing(_.board.brightness): v =>
       _.focus(_.board.brightness).replace(v),
+    changing(_.board.contrast): v =>
+      _.focus(_.board.contrast).replace(v),
     changing(_.board.opacity): v =>
       _.focus(_.board.opacity).replace(v),
     changing(_.board.hue): v =>

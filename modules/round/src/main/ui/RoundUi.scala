@@ -29,21 +29,18 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       description = describePov(pov)
     )
 
-  def others(playing: List[Pov], simul: Option[Frag])(using Context) =
+  def others(playing: UrgentGames, simul: Option[Frag])(using Context) =
     val switchId = "round-toggle-autoswitch"
     frag(
       h3(
         simul | frag(trans.site.currentGames()),
-        span(
-          cls := "move-on switcher",
-          st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt()
-        )(
-          label(`for` := switchId)(trans.site.autoSwitch()),
-          span(cls := "switch")(form3.cmnToggle(switchId, switchId, checked = false))
+        form3.cmnToggleWrap(st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt())(
+          trans.site.autoSwitch(),
+          form3.cmnToggle(switchId, switchId, checked = false)
         )
       ),
       div(cls := "now-playing"):
-        val (myTurn, otherTurn) = playing.partition(_.isMyTurn)
+        val (myTurn, otherTurn) = playing.value.partition(_.isMyTurn)
         (myTurn ++ otherTurn.take(8 - myTurn.size))
           .take(12)
           .map: pov =>

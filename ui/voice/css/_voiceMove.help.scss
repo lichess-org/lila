@@ -1,11 +1,12 @@
 .voice-move-help {
   max-width: 800px;
+
   td.tips li {
     list-style: disc;
     font-size: 1.1em;
     margin: 0.8em 10%;
 
-    i[data-icon]::before {
+    icon[data-icon]::before {
       vertical-align: sub;
     }
   }
@@ -21,12 +22,14 @@
   }
 
   .commands {
+    display: flex;
+    flex-direction: row;
+
     td:first-child {
       padding-inline-start: 2em;
     }
-    display: flex;
-    flex-direction: row;
-    @media (max-width: 600px) {
+
+    @media (width <= 600px) {
       flex-direction: column;
     }
   }
@@ -38,14 +41,16 @@
 
   .big-table {
     td {
+      @extend %nowrap-ellipsis;
+
       padding: 0 1em;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
+
     tr {
       td:nth-child(even) {
         border-right: 1px solid $c-brag;
       }
+
       td:last-child {
         border-right: none;
       }

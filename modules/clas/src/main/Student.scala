@@ -10,7 +10,7 @@ case class Student(
     @Key("_id") id: StudentId, // userId:clasId
     userId: UserId,
     clasId: ClasId,
-    realName: String,
+    realName: Student.RealName,
     notes: String,
     managed: Boolean, // created for the class by the teacher
     created: Clas.Recorded,
@@ -25,9 +25,14 @@ object Student:
 
   given UserIdOf[Student] = _.userId
 
-  def makeId(userId: UserId, clasId: ClasId) = StudentId(s"$userId:$clasId")
+  opaque type RealName = String
+  object RealName extends OpaqueString[RealName]
 
-  def make(user: User, clas: Clas, teacherId: UserId, realName: String, managed: Boolean) =
+  private[clas] val idSeparator = ":"
+
+  def makeId(userId: UserId, clasId: ClasId) = StudentId(s"$userId$idSeparator$clasId")
+
+  def make(user: User, clas: Clas, teacherId: UserId, realName: RealName, managed: Boolean) =
     Student(
       id = makeId(user.id, clas.id),
       userId = user.id,

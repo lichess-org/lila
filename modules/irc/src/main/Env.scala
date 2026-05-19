@@ -15,7 +15,7 @@ final class Env(
     ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,
     mode: Mode,
-    getLightUser: lila.core.LightUser.Getter
+    lightUser: lila.core.LightUser.GetterSyncFallback
 )(using Executor):
 
   import ZulipClient.given

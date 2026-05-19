@@ -1,3 +1,5 @@
+import type { TreeNode } from 'lib/tree/types';
+
 import type AnalyseCtrl from './ctrl';
 
 export type AutoplayDelay = number | 'realtime' | 'cpl';
@@ -9,7 +11,7 @@ export class Autoplay {
 
   lastMoveAt: number | undefined;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
   private move(): boolean {
     const child = this.ctrl.node.children[0];
@@ -27,7 +29,7 @@ export class Autoplay {
     return false;
   }
 
-  private evalToCp(node: Tree.Node): number {
+  private evalToCp(node: TreeNode): number {
     if (!node.eval) return node.ply % 2 ? 990 : -990; // game over
     if (node.eval.mate) return node.eval.mate > 0 ? 990 : -990;
     return node.eval.cp!;

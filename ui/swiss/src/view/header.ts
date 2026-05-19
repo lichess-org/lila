@@ -1,8 +1,10 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { dataIcon, onInsert } from 'lib/view';
-import type SwissCtrl from '../ctrl';
+
 import { setClockWidget } from 'lib/game/clock/clockWidget';
+import * as licon from 'lib/licon';
+import { iconCls, onInsert } from 'lib/view';
+
+import type SwissCtrl from '../ctrl';
 
 const startClock = (time: number): Hooks => ({
   insert: (vnode: VNode) => setClockWidget(vnode.elm as HTMLElement, { time }),
@@ -34,7 +36,7 @@ function ongoing(ctrl: SwissCtrl): VNode | undefined {
 export default function (ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
-    h('i.img', dataIcon(licon.Trophy)),
+    iconCls(licon.Trophy, 'img'),
     h(
       'h1',
       greatPlayer

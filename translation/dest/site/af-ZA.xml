@@ -117,7 +117,6 @@
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="showVariationArrows">Wys variasiepyle</string>
-  <string name="evaluationGauge">Evaluering meter</string>
   <string name="multipleLines">Aantal lyne</string>
   <string name="cpus">CPU</string>
   <string name="memory">Geheue</string>
@@ -222,7 +221,6 @@
   <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
   <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
   <string name="signupUsernameHint">Kies asseblief \'n aanvaarbare gebruikersnaam. Dit kan nie later verander word nie, en enige onaanvaarbare gebruikersname sal gesluit word!</string>
-  <string name="signupEmailHint">Dit sal slegs gebruik word om wagwoorde te herstel.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
@@ -246,9 +244,6 @@
   <string name="emailCanTakeSomeTime">Dit mag \'n rukkie neem om te ontvang.</string>
   <string name="refreshInboxAfterFiveMinutes">Wag 5 minute en verfris jou e-pos.</string>
   <string name="checkSpamFolder">Kyk ook in jou strooipos lêer, dit mag dalk daarin opeinding. In dien dit die geval is, merk dit as nie strooipos nie.</string>
-  <string name="emailForSignupHelp">Indien niks werk nie, stuur die volgende boodskap:</string>
-  <string name="copyTextToEmail">Kopieer en plak die teks hierbo en stuur dit na %s</string>
-  <string name="waitForSignupHelp">Ons sal spoedig na jou terugkom en jou help met die intekenproses.</string>
   <string name="accountConfirmed">Die gebruiker %s is bevestig.</string>
   <string name="accountCanLogin">Jy kan nou inteken as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Jy benodig nie \'n bevestigingsboodskap nie.</string>
@@ -408,7 +403,6 @@
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
   <string name="orUploadPgnFile">Of laai ‘n PGN-lêer op</string>
-  <string name="fromPosition">Van posisie</string>
   <string name="continueFromHere">Gaan voort van hier af</string>
   <string name="toStudy">Bestudeer</string>
   <string name="importGame">Voer spel in</string>
@@ -688,11 +682,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="keyCycleSelectedVariation">Wissel geselekteerde variasie</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
-  <string name="keyRequestComputerAnalysis">Vra rekenaaranalise aan, Leer uit jou foute</string>
-  <string name="keyNextLearnFromYourMistakes">Volgende (Leer uit jou foute)</string>
-  <string name="keyNextBlunder">Volgende flater</string>
-  <string name="keyNextMistake">Volgende fout</string>
-  <string name="keyNextInaccuracy">Volgende onakkuraatheid</string>
   <string name="keyPreviousBranch">Vorige tak</string>
   <string name="keyNextBranch">Volgende tak</string>
   <string name="toggleVariationArrows">Wissel variasie pyle</string>
@@ -871,7 +860,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
   <string name="agreementNice">Ek stem in om altyd respek aan ander spelers te betoon.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ek verklaar dat ek nie meer as een rekening sal skep nie (met die uitsondering van redes genoem in die %s).</string>
-  <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

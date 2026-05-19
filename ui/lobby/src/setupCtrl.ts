@@ -1,19 +1,21 @@
-import { type Prop, propWithEffect } from 'lib';
-import { debounce } from 'lib/async';
-import * as xhr from 'lib/xhr';
-import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
-import type LobbyController from './ctrl';
-import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variants } from './options';
+
+import { type Prop, propWithEffect, toggle } from 'lib';
+import { debounce } from 'lib/async';
+import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
   allTimeModeKeys,
   timeControlFromStoredValues,
   timeModes,
   type TimeControl,
 } from 'lib/setup/timeControl';
-import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import { storedJsonProp } from 'lib/storage';
+import { alert } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import type LobbyController from './ctrl';
+import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
+import { keyToId, variants } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -27,6 +29,7 @@ export default class SetupController {
   friendUser = '';
   loading = false;
   color: ColorProp;
+  forced?: ForceSetupOptions;
 
   // Store props
   variant: Prop<VariantKey>;
@@ -35,6 +38,8 @@ export default class SetupController {
   ratingMin: Prop<number>;
   ratingMax: Prop<number>;
   aiLevel: Prop<number>;
+
+  variantMenuOpen = toggle(false);
 
   timeControl: TimeControl;
 
@@ -50,7 +55,8 @@ export default class SetupController {
   }
 
   // Namespace the store by username for user specific modal settings
-  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
+  private readonly storeKey = (gameType: GameType) =>
+    `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
   makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -66,7 +72,7 @@ export default class SetupController {
       aiLevel: 1,
     }));
 
-  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+  private readonly loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
@@ -77,13 +83,15 @@ export default class SetupController {
       canChangeTimeMode ? allTimeModeKeys : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
-      storeProps.days,
+      forceOptions?.days ?? storeProps.days,
       this.onPropChange,
+      this.root.pools,
     );
-    this.gameMode = this.propWithApply(storeProps.gameMode);
+    this.gameMode = this.propWithApply(forceOptions?.mode ?? storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
+    this.color(forceOptions?.color || 'random');
 
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
@@ -92,7 +100,7 @@ export default class SetupController {
     this.savePropsToStore();
   };
 
-  private enforcePropRules = () => {
+  private readonly enforcePropRules = () => {
     // reassign with this.propWithApply in this function to avoid calling this.onPropChange
 
     // replace underscores with spaces in FEN
@@ -109,7 +117,7 @@ export default class SetupController {
     }
   };
 
-  private savePropsToStore = (override: Partial<SetupStore> = {}) =>
+  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) =>
     this.gameType &&
     this.store[this.gameType]({
       variant: this.variant(),
@@ -125,25 +133,23 @@ export default class SetupController {
       ...override,
     });
 
-  private savePropsToStoreExceptRating = () =>
+  private readonly savePropsToStoreExceptRating = () =>
     this.gameType &&
     this.savePropsToStore({
       ratingMin: this.store[this.gameType]().ratingMin,
       ratingMax: this.store[this.gameType]().ratingMax,
     });
 
-  private isProvisional = () => {
-    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
-    return rating ? !!rating.prov : true;
-  };
+  myRating = () => this.root.data.ratingMap && Math.abs(this.root.data.ratingMap[this.selectedPerf()]);
+  isProvisional = () => (this.root.data.ratingMap ? this.root.data.ratingMap[this.selectedPerf()] < 0 : true);
 
-  private onPropChange = () => {
+  private readonly onPropChange = () => {
     if (this.isProvisional()) this.savePropsToStoreExceptRating();
     else this.savePropsToStore();
     this.root.redraw();
   };
 
-  private onDropdownChange = () => {
+  private readonly onDropdownChange = () => {
     // Handle rating update here
     this.enforcePropRules();
     if (this.isProvisional()) {
@@ -160,7 +166,7 @@ export default class SetupController {
     this.root.redraw();
   };
 
-  private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
+  private readonly propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
   openModal = (
     gameType: Exclude<GameType, 'local'>,
@@ -173,10 +179,17 @@ export default class SetupController {
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
+    this.variantMenuOpen(false);
+    this.forced = forceOptions;
     this.loadPropsFromStore(forceOptions);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
+
+  toggleVariantMenu = () => {
+    this.variantMenuOpen.toggle();
+    this.root.redraw();
+  };
 
   validateFen = debounce(() => {
     const fen = this.fen();
@@ -201,7 +214,7 @@ export default class SetupController {
       );
   }, 300);
 
-  ratedModeDisabled = (): boolean =>
+  ratedModeDisabled = () =>
     // anonymous games cannot be rated
     !this.root.me ||
     this.timeControl.mode() === 'unlimited' ||
@@ -212,9 +225,8 @@ export default class SetupController {
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeControl);
 
   ratingRange = (): string => {
-    if (!this.root.data.ratingMap) return '';
-    const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
-    return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
+    const rating = this.myRating();
+    return rating ? `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}` : '';
   };
 
   hookToPoolMember = (color: ColorChoice): PoolMember | null => {
@@ -225,7 +237,7 @@ export default class SetupController {
       this.gameMode() === 'rated' &&
       this.timeControl.isRealTime();
     const id = this.timeControl.clockStr();
-    return valid && this.root.pools.find(p => p.id === id)
+    return valid && this.root.pools.some(p => p.id === id)
       ? {
           id,
           range: this.ratingRange(),
@@ -233,7 +245,7 @@ export default class SetupController {
       : null;
   };
 
-  propsToFormData = (color: ColorChoice): FormData =>
+  propsToFormData = (color: ColorChoice) =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
@@ -252,11 +264,35 @@ export default class SetupController {
       color,
     });
 
-  validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
+  validFen = () => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
-  valid = (): boolean => this.validFen() && this.timeControl.valid(this.minimumTimeIfReal());
+  valid = () =>
+    this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints();
 
-  minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
+  private readonly invalid = <A>(forced: A | undefined, current: A) =>
+    forced !== undefined && forced !== current;
+
+  private readonly validConstraints = () => {
+    if (this.forced) {
+      if (this.invalid(this.forced.variant, this.variant())) return false;
+      if (this.invalid(this.forced.mode, this.gameMode())) return false;
+      if (this.invalid(this.forced.timeMode, this.timeControl.mode())) return false;
+      if (this.invalid(this.forced.color, this.color())) return false;
+      if (
+        this.timeControl.mode() === 'correspondence' &&
+        this.invalid(this.forced.days, this.timeControl.days())
+      )
+        return false;
+      if (this.timeControl.mode() === 'realTime') {
+        if (this.invalid(this.forced.time, this.timeControl.time())) return false;
+        if (this.invalid(this.forced.increment, this.timeControl.increment())) return false;
+      }
+      if (this.invalid(this.forced.fen?.replace(/_/g, ' '), this.fen())) return false;
+    }
+    return true;
+  };
+
+  minimumTimeIfReal = () => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
     const color = this.color();
@@ -283,14 +319,14 @@ export default class SetupController {
     } catch (_) {
       this.loading = false;
       this.root.redraw();
-      alert('Sorry, we encountered an error while creating your game. Please try again.');
+      await alert('Sorry, we encountered an error while creating your game. Please try again.');
       return;
     }
 
     const { ok, redirected, url } = response;
 
     if (!ok) {
-      const errs: { [key: string]: string } = await response.json();
+      const errs: Record<string, string> = await response.json();
       await alert(
         errs
           ? Object.keys(errs)

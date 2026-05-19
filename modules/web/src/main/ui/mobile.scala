@@ -26,14 +26,25 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
     <img alt="Android app on Google Play"
     width="172"
     height="50"
-    src="${assetUrl("images/mobile/google-play.png")}" />
+    src="${assetUrl("images/mobile/google-play.webp")}" />
+  </a>
+  """
+
+  val fdroidButton = raw:
+    s"""
+  <a class="store"
+    href="${StaticContent.mobileFdroidUrl}">
+    <img alt="Android app on F-Droid"
+    width="172"
+    height="50"
+    src="${assetUrl("images/mobile/fdroid.svg")}" />
   </a>
   """
 
   Page("Mobile")
     .js(Esm("bits.qrcode"))
     .css("bits.mobile")
-    .hrefLangs(lila.ui.LangPath(routes.Main.mobile)):
+    .hrefLangs(lila.ui.LangPath(routes.Main.app)):
       main(
         div(cls := "mobile page-small box box-pad")(
           h1(cls := "box__top")("Lichess mobile app"),
@@ -41,6 +52,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
             div(cls := "left-side")(
               div(cls := "stores")(
                 googlePlayButton,
+                fdroidButton,
                 appleStoreButton
               ),
               renderedCmsPage,
@@ -53,7 +65,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
                   widthA := "358",
                   heightA := "766",
                   cls := "mobile-playing",
-                  src := assetUrl("images/mobile/lichess-mobile-screen.png"),
+                  src := assetUrl("images/mobile/lichess-mobile-screen.webp"),
                   alt := "Lichess mobile screen"
                 )
             )

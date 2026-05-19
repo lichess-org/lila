@@ -2,7 +2,9 @@ package lila
 package tournament
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
+
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 final class TournamentFeaturing(
     api: TournamentApi,
@@ -39,23 +41,10 @@ final class TournamentFeaturing(
         yield (started ::: created)
           .sortBy(_.startsAt.toSeconds)
           .foldLeft(List.empty[Tournament]): (acc, tour) =>
-            if !canShowOnHomepage(tour) then acc
+            if !tour.homepageSince.exists(_.isBefore(nowInstant)) then acc
             else if acc.exists(_.similarSchedule(tour)) then acc
             else tour :: acc
           .reverse
-
-    private def canShowOnHomepage(tour: Tournament): Boolean =
-      tour.scheduleFreq.exists: freq =>
-        tour.startsAt.isBefore(nowInstant.plusMinutes:
-          import Schedule.Freq.*
-          val base = freq match
-            case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
-            case Unique | Yearly | Marathon => 24 * 60
-            case Monthly | Shield => 6 * 60
-            case Weekly | Weekend => 3 * 45
-            case Daily => 1 * 30
-            case _ => 20
-          if tour.variant.exotic && freq != Unique then base / 3 else base)
 
   private def visibleForTeams(
       teamIds: List[TeamId],
@@ -65,9 +54,4 @@ final class TournamentFeaturing(
     teamIds.nonEmpty.so:
       repo
         .visibleForTeams(teamIds, aheadMinutes)
-        // .map:
-        //   _.foldLeft(List.empty[Tournament]): (dedup, tour) =>
-        //     if dedup.exists(_ sameNameAndTeam tour) then dedup
-        //     else tour :: dedup
-        //   .reverse
-        .monSuccess(_.tournament.featuring.forTeams(page))
+        .monSuccess(lila.mon.tournament.featuring.forTeams(page))

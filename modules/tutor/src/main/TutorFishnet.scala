@@ -28,4 +28,4 @@ final private class TutorFishnet(
       .map(_.flatten)
       .flatMap: games =>
         games.foreach(g => analyser.tutor(g.id))
-        awaiter(games.map(_.id), maxTime)
+        awaiter(games.map(_.id), maxTime).map(lila.mon.tutor.fishnetMissing.record(_))

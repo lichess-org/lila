@@ -12,32 +12,23 @@ import lila.tutor.TutorCompare.AnyComparison
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
-    accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[GoodPercent],
-    resourcefulness: TutorBothValueOptions[GoodPercent],
-    conversion: TutorBothValueOptions[GoodPercent],
-    globalClock: TutorBothValueOptions[ClockPercent],
-    clockUsage: TutorBothValueOptions[ClockPercent],
+    peers: PeersRatingRange,
+    accuracy: TutorBothOption[AccuracyPercent],
+    awareness: TutorBothOption[GoodPercent],
+    resourcefulness: TutorBothOption[GoodPercent],
+    conversion: TutorBothOption[GoodPercent],
+    globalClock: TutorBothOption[ClockPercent],
+    clockUsage: TutorBothOption[ClockPercent],
     openings: ByColor[TutorColorOpenings],
-    phases: List[TutorPhase],
+    phases: TutorPhases,
+    pieces: TutorPieces,
     flagging: TutorFlagging
 ):
+
+  def variant = lila.rating.PerfType.variantOf(perf)
+
   lazy val estimateTotalTime: Option[FiniteDuration] =
     (perf != PerfType.Correspondence).option(stats.time * 2)
-
-  // Dimension comparison is not interesting for phase accuracy (opening always better)
-  // But peer comparison is gold
-  lazy val phaseAccuracyCompare = TutorCompare[Phase, AccuracyPercent](
-    InsightDimension.Phase,
-    TutorMetric.Accuracy,
-    phases.map { phase => (phase.phase, phase.accuracy) }
-  )
-
-  lazy val phaseAwarenessCompare = TutorCompare[Phase, GoodPercent](
-    InsightDimension.Phase,
-    TutorMetric.Awareness,
-    phases.map { phase => (phase.phase, phase.awareness) }
-  )
 
   lazy val globalAccuracyCompare = TutorCompare[PerfType, AccuracyPercent](
     InsightDimension.Perf,
@@ -84,27 +75,23 @@ case class TutorPerfReport(
   def skillCompares =
     List(globalAccuracyCompare, globalAwarenessCompare, globalResourcefulnessCompare, globalConversionCompare)
 
-  def phaseCompares = List(phaseAccuracyCompare, phaseAwarenessCompare)
-
   val clockCompares = List(globalPressureCompare, timeUsageCompare)
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap: color =>
     val op = openings(color)
     List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_.as(color))
 
-  lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
+  lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phases.compares
 
   val skillHighlights = TutorCompare.mixedBag(skillCompares.flatMap(_.peerComparisons))
 
   val openingHighlights = TutorCompare.mixedBag(openingCompares.flatMap(_.allComparisons))
 
-  val phaseHighlights = TutorCompare.mixedBag(phaseCompares.flatMap(_.peerComparisons))
-
   val timeHighlights = TutorCompare.mixedBag(clockCompares.flatMap(_.peerComparisons))
 
   val relevantComparisons: List[AnyComparison] =
     openingCompares.flatMap(_.allComparisons) :::
-      phaseCompares.flatMap(_.peerComparisons) :::
+      phases.compares.flatMap(_.peerComparisons) :::
       clockCompares.flatMap(_.peerComparisons) :::
       skillCompares.flatMap(_.peerComparisons)
   val relevantHighlights = TutorCompare.mixedBag(relevantComparisons)
@@ -117,6 +104,8 @@ private object TutorPerfReport:
   case class PeerMatch(report: TutorPerfReport):
     export report.*
 
+  case class Preview(perf: PerfType, stats: InsightPerfStats)
+
   import TutorBuilder.*
 
   private val accuracyQuestion = Question(InsightDimension.Perf, InsightMetric.MeanAccuracy)
@@ -126,9 +115,10 @@ private object TutorPerfReport:
     InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
-  private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(
+      users: NonEmptyList[TutorPlayer]
+  )(using TutorConfig, InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)
@@ -137,14 +127,16 @@ private object TutorPerfReport:
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.traverse(answerManyPerfs(globalClockQuestion, _))
       clockUsage <- clockUsers.traverse(TutorClockUsage.compute)
-      perfReports <- Future.sequence(users.toList.map { user =>
+      perfReports <- users.toList.sequentially: user =>
         for
           openings <- TutorOpening.compute(user)
           phases <- TutorPhases.compute(user)
-          flagging <- hasClock(user.perfType).so(TutorFlagging.compute(user))
+          pieces <- TutorPieces.compute(user)
+          flagging <- TutorFlagging.computeIfRelevant(user)
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
+          user.perfStats.peers,
           accuracy = AccuracyPercent.from(accuracy.valueMetric(user.perfType)),
           awareness = GoodPercent.from(awareness.valueMetric(user.perfType)),
           resourcefulness = GoodPercent.from(resourcefulness.valueMetric(user.perfType)),
@@ -153,7 +145,7 @@ private object TutorPerfReport:
           clockUsage = ClockPercent.from(clockUsage.so(_.valueMetric(user.perfType))),
           openings,
           phases,
+          pieces,
           flagging
         )
-      })
     yield perfReports

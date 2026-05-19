@@ -1,11 +1,19 @@
+$marker-margin-top: -14px;
+
 .daily-feed {
+  .box {
+    overflow: visible;
+  }
+
   &__updates {
     margin: 3em 3em 0 3em;
     border-inline-start: 3px solid $c-contours;
   }
+
   .atom {
     font-size: 2.6em;
     color: $c-font-dimmer;
+
     &:hover {
       color: $c-accent;
     }
@@ -14,13 +22,20 @@
   &__update {
     padding-inline-start: 45px;
     margin-bottom: 4em;
+    scroll-margin-top: -$marker-margin-top;
+
+    @include mq-sticky-header {
+      &:target {
+        scroll-margin-top: calc(#{$site-header-outer-height} - #{$marker-margin-top});
+      }
+    }
 
     &__marker {
       float: inline-start;
       width: 54px;
       height: 54px;
       padding: 7px;
-      margin-top: -14px;
+      margin-top: $marker-margin-top;
       margin-inline-start: -74px;
       background-color: $c-contours;
       border: 3px solid $c-bg-box;
@@ -34,18 +49,22 @@
 
     &__day {
       @extend %flex-center;
+
       h2 {
         display: inline;
         font-size: 1.5em;
       }
+
       a {
         font-weight: bold;
         color: $c-contours;
       }
+
       time {
         font-size: 1em;
         opacity: 1;
       }
+
       margin-bottom: 1rem;
     }
 
@@ -58,11 +77,13 @@
         $img: false,
         $list: false
       );
+
       h3 {
         font-size: 1.3em;
         color: $c-font-dim;
         border-bottom: $border;
       }
+
       h4 {
         font-size: 1.25em;
       }

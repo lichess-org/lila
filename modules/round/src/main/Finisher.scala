@@ -146,8 +146,7 @@ final private class Finisher(
   ): Fu[Option[ByColor[IntRatingDiff]]] =
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
-      users.tupled
-        .map(ByColor.fromPair)
+      users.sequence
         .so: users =>
           crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
         .zip(users.white.so(incNbGames(game, users.black)))

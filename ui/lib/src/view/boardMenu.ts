@@ -1,18 +1,27 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { h } from 'snabbdom';
-import { type Toggle, myUserId, onClickAway } from '@/index';
-import { addPointerListeners } from '@/pointer';
+
+import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
 import * as licon from '@/licon';
-import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
-import { type ToggleSettings, toggle } from '@/view/controls';
+import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
+import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
+
+import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
-  h('button.fbt.board-menu-toggle', {
+  h('button.fbt.board-menu-toggle-btn', {
     class: { active: toggle() },
     attrs: { title, 'data-icon': licon.Hamburger },
-    hook: onInsert(el => addPointerListeners(el, { click: toggle.toggle })),
+    hook: onInsert(el =>
+      addPointerListeners(el, {
+        click: e => {
+          toggle.toggle();
+          blurIfPrimaryClick(e);
+        },
+      }),
+    ),
   });
 
 export const boardMenu = (
@@ -29,7 +38,7 @@ export const boardMenu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = !myUserId();
+  anonymous: boolean = !myUserId(); // oxlint-disable-line no-inferrable-types The simplification collides with our TS config.
 
   constructor(readonly redraw: Redraw) {}
 
@@ -45,51 +54,50 @@ export class BoardMenu {
     );
 
   zenMode = (enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.zenMode,
+    cmnToggleWrap({
       id: 'zen',
+      name: i18n.preferences.zenMode,
       checked: $('body').hasClass('zen'),
       change: () => pubsub.emit('zen'),
       disabled: !enabled,
+      redraw: this.redraw,
     });
 
   voiceInput = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.inputMovesWithVoice,
+    cmnToggleWrapProp({
       id: 'voice',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.inputMovesWithVoice,
+      prop: toggle,
       title: this.anonymous ? 'Must be logged in' : '',
       disabled: this.anonymous || !enabled,
+      redraw: this.redraw,
     });
 
   keyboardInput = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.inputMovesWithTheKeyboard,
+    cmnToggleWrapProp({
       id: 'keyboard',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.inputMovesWithTheKeyboard,
+      prop: toggle,
       title: this.anonymous ? 'Must be logged in' : '',
       disabled: this.anonymous || !enabled,
+      redraw: this.redraw,
     });
 
   blindfold = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.blindfold,
+    cmnToggleWrapProp({
       id: 'blindfold',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.blindfold,
+      prop: toggle,
       disabled: !enabled,
+      redraw: this.redraw,
     });
 
   confirmMove = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.moveConfirmation,
+    cmnToggleWrapProp({
       id: 'confirmmove',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.moveConfirmation,
+      prop: toggle,
       disabled: !enabled,
+      redraw: this.redraw,
     });
-
-  private cmnToggle = (t: ToggleSettings) => toggle(t, this.redraw);
 }

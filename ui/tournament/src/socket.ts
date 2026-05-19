@@ -1,3 +1,5 @@
+import { redirectFirst } from 'lib/tournament';
+
 import type TournamentController from './ctrl';
 
 export interface TournamentSocket {
@@ -9,7 +11,7 @@ export function makeSocket(send: SocketSend, ctrl: TournamentController) {
   const handlers = {
     reload: ctrl.askReload,
     redirect(fullId: string) {
-      ctrl.redirectFirst(fullId.slice(0, 8), true);
+      redirectFirst(fullId.slice(0, 8), true);
       return true; // prevent default redirect
     },
   };

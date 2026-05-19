@@ -18,11 +18,11 @@ case class RelayGame(
   override def toString =
     s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names} ${tags.fideIds}"
 
-  def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
+  def isEmpty = tags.value.isEmpty && root.children.isEmpty
 
   def isBye = tags.names.exists(_.exists(_.value.toLowerCase == "bye"))
 
-  def hasMoves = root.children.nodes.nonEmpty
+  def hasMoves = root.children.nonEmpty
 
   def withoutMoves = copy(root = root.withoutChildren)
 

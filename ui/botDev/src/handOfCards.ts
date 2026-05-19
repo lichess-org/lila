@@ -159,7 +159,7 @@ class HandOfCardsImpl {
   createCard(c: CardData) {
     const card = frag<HTMLElement>($html`
       <div id="${c.domId}" class="card">
-        <img src="${c.imageUrl}">
+        <img src="${c.imageUrl}" alt="${c.label}">
         <label>${c.label}</label>
       </div>`);
     c.classList.forEach(x => card.classList.add(x));

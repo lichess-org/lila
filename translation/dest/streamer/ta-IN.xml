@@ -36,8 +36,8 @@
     <item quantity="one">சுருக்கமாக வைக்கவும்: அதிகபட்சம் %s எழுத்து</item>
     <item quantity="other">சுருக்கமாக வைத்திருங்கள்: அதிகபட்சம் %s எழுத்துக்கள்</item>
   </plurals>
-  <string name="visibility">தொடரோடிகள் பக்கத்தில் புலப்படும்</string>
-  <string name="whenApproved">மட்டுநிறுத்துனர்களால் அங்கீகரிக்கப்படும்போது</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">தொடரோடிகள் பக்கத்தில் புலப்படும்</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">மட்டுநிறுத்துனர்களால் அங்கீகரிக்கப்படும்போது</string>
   <string name="headline">தலையங்கம்</string>
   <string name="tellUsAboutTheStream">உங்கள் தொடரோட்டம் பற்றி ஒரே வாக்கியத்தில் சொல்லுங்கள்</string>
   <string name="longDescription">நீண்ட விளக்கம்</string>

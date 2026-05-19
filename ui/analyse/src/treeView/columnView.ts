@@ -1,4 +1,6 @@
+import type { TreeNode } from 'lib/tree/types';
 import { type LooseVNodes, hl, type VNode } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import { renderIndex } from '../view/components';
@@ -30,7 +32,7 @@ class ColumnView extends InlineView {
     super(ctrl);
   }
 
-  renderNodes([child, ...siblings]: Tree.Node[], opts: Args): LooseVNodes {
+  renderNodes([child, ...siblings]: TreeNode[], opts: Args): LooseVNodes {
     if (!child) return;
     const { parentPath, parentDisclose } = opts;
     const childPath = parentPath + child.id;

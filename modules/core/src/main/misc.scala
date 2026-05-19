@@ -1,15 +1,10 @@
 package lila.core
 package misc
 
-import lila.core.id.GameId
+import scalalib.data.LazyFu
+import lila.core.id.{ GameId, ClasId }
 import lila.core.userId.*
 import lila.core.user.Me
-
-trait AtInstant[A]:
-  def apply(a: A): Instant
-  extension (a: A) inline def atInstant: Instant = apply(a)
-object AtInstant:
-  given atInstantOrdering: [A: AtInstant] => Ordering[A] = Ordering.by[A, Instant](_.atInstant)
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -18,10 +13,14 @@ package streamer:
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
 
 package clas:
+
   enum ClasBus:
     case CanKidsUseMessages(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
+
+  case class ClasTeamConfig(name: String, teacherIds: NonEmptyList[UserId], studentIds: LazyFu[List[UserId]])
+  case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(using val teacher: Option[Me])
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)

@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Reinitiar mi progresso</string>
   <string name="youWillLoseAllYourProgress">Tu perdera omne progresso!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joca!</string>
+  <string name="play">joca!</string>
   <string name="chessPieces">Le pecias de chacos</string>
   <string name="theRook">Le turre</string>
   <string name="itMovesInStraightLines">Illo move se in lineas recte</string>
@@ -102,7 +102,7 @@ capturante le pecia attaccator.</string>
 a transverso de tu defensas!</string>
   <string name="escapeOrBlock">Escappa con le rege 
 o bloca le attacco!</string>
-  <string name="outOfCheckComplete">Congratulationes! Tu rege es san e salve. Assecura te que tu pote defender te contra un chaco!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Congratulationes! Tu rege es san e salve. Assecura te que tu pote defender te contra un chaco!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Vince le rege del adversario</string>
   <string name="mateInOneIntro">Tu gania quando tu adversario non pote defender se contra un chaco.</string>
@@ -153,7 +153,6 @@ facer le roc curte!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo pro
 facer le roc longe!</string>
   <string name="castlingComplete">Congratulationes! Tu debe roccar in quasi tote le partitas.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
   <string name="enPassantIntro">Quando le pedon del adversario move se duo quadratos, tu pote capturar lo como si illo habeva movite un sol quadrato.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Le nigro ha movite le pedon duo quadratos!

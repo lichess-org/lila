@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { defined, notNull, type Prop, withEffect } from './common';
 
@@ -13,12 +13,17 @@ export function storedProp<V>(
   key: string,
   defaultValue: V,
   fromStr: (str: string) => V,
-  toStr: (v: V) => string,
+  toStr: (v: V) => string = (v: V) => {
+    if (v !== undefined && v !== null && typeof v.toString === 'function') {
+      return v.toString();
+    }
+    throw new Error(`storedProp: value ${typeof v} has no toString method, provide a custom stringifier`);
+  },
 ): StoredProp<V> {
   const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
-    if (defined(replacement) && replacement != cached) {
+    if (defined(replacement) && replacement !== cached) {
       cached = replacement;
       storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
@@ -35,20 +40,10 @@ export function storedProp<V>(
 }
 
 export const storedStringProp = (k: string, defaultValue: string): StoredProp<string> =>
-  storedProp<string>(
-    k,
-    defaultValue,
-    str => str,
-    v => v,
-  );
+  storedProp(k, defaultValue, str => str);
 
 export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<boolean> =>
-  storedProp<boolean>(
-    k,
-    defaultValue,
-    str => str === 'true',
-    v => v.toString(),
-  );
+  storedProp(k, defaultValue, str => str === 'true');
 
 export const storedStringPropWithEffect = (
   k: string,
@@ -63,12 +58,7 @@ export const storedBooleanPropWithEffect = (
 ): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
 
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
-  storedProp<number>(
-    k,
-    defaultValue,
-    str => Number(str),
-    v => v + '',
-  );
+  storedProp(k, defaultValue, str => Number(str));
 
 export const storedIntPropWithEffect = (
   k: string,

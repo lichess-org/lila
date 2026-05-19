@@ -104,7 +104,6 @@
   <string name="byCPL">Við CPL</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
-  <string name="evaluationGauge">Eftirmetingarmát</string>
   <string name="multipleLines">Fleiri linjur</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
@@ -352,7 +351,6 @@
   <string name="leaderboard">Stigatalva</string>
   <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
-  <string name="fromPosition">Frá støðuni</string>
   <string name="continueFromHere">Halt fram hiðani</string>
   <string name="toStudy">Rannsókn</string>
   <string name="importGame">Les inn talv</string>
@@ -755,7 +753,6 @@
   <string name="agreementAssistance">Eg lovi, at eg ongantíð taki ímóti hjálp, meðan eg telvi (frá telvingarteldum, bókum, dátugrunnum ella øðrum telvarum).</string>
   <string name="agreementNice">Eg lovi altíð at sýna virðing móti øðrum telvarum.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg játti at eg ikki fari at stovna fleiri kontur (uttan so at tað fellur undir grundirnar í %s).</string>
-  <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
   <string name="rapid">Kviktalv</string>

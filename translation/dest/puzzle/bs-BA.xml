@@ -13,7 +13,6 @@
   <string name="origin">Porijeklo</string>
   <string name="specialMoves">Specijalni potezi</string>
   <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
-  <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
   <string name="upVote">Pozitivno ocijenite problem</string>
   <string name="downVote">Negativno ocijenite problem</string>
   <string name="yourPuzzleRatingWillNotChange">Vaša ocjena slagalice se neće promijeniti. Imajte na umu da zagonetke nisu takmičenje. Vaša ocjena pomaže u odabiru najboljih zagonetki za vašu trenutnu vještinu.</string>

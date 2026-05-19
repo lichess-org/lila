@@ -107,14 +107,16 @@ object SettingStore:
   final class Formable[A](val form: A => Form[?])
   object Formable:
     import lila.common.Form.*
+    def stringIsoForm[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
+      Form(single("v" -> text)).fill(iso.to(v))
     given Formable[Regex] =
       Formable(v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))).fill(v.toString))
     given Formable[Boolean] = Formable[Boolean](v => Form(single("v" -> boolean)).fill(v))
     given Formable[Int] = Formable[Int](v => Form(single("v" -> number)).fill(v))
     given Formable[Float] = Formable[Float](v => Form(single("v" -> bigDecimal)).fill(BigDecimal(v)))
-    given Formable[String] = Formable[String](v => Form(single("v" -> text)).fill(v))
-    given Formable[Strings] = Formable[Strings](v => Form(single("v" -> text)).fill(Strings.stringsIso.to(v)))
-    given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)).fill(UserIds.userIdsIso.to(v)))
+    given Formable[String] = stringIsoForm(using Iso.string(identity, identity))
+    given Formable[Strings] = stringIsoForm(using Strings.stringsIso)
+    given Formable[UserIds] = stringIsoForm(using UserIds.userIdsIso)
     given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)
     given Formable[HostOption] = stringPair(using HostPortOption.hostPortIso)
     given Formable[Text] = Formable(v => Form(single[Text]("v" -> text.iso(using Text.textIso))).fill(v))

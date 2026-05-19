@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Luani kundër kompjuterit</string>
   <string name="gameMode">Mënyrë loje</string>
   <string name="createLobbyGame">Krijoni lojë holli</string>
-  <string name="youPlayAs">Ju luani si</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="orLetYourOpponentScanQrCode">Ose lëreni kundërshtarin tuaj të skanojë këtë kod QR</string>
+  <string name="reusableChallengeUrl">URL e ripërdorshme sfide</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Një lidhje e përhershme, për këdo që dëshiron t’ju sfidojë me saktësisht këto rregullime.</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
@@ -94,6 +95,8 @@
   <string name="database">Bazë të dhënash</string>
   <string name="whiteDrawBlack">I bardhi / Barazim / I ziu</string>
   <string name="averageRatingX">Vlerësim mesatar: %s</string>
+  <string name="minRatingX">Vlerësim minimum prej %s</string>
+  <string name="maxRatingX">Vlerësim maksimum prej %s</string>
   <string name="recentGames">Lojëra së fundi</string>
   <string name="topGames">Lojërat më të mira</string>
   <string name="masterDbExplanation">Dy milionë lojëra OTB nga %1$s + lojëtarë me klasifikim FIDE nga %2$s në %3$s</string>
@@ -125,10 +128,20 @@
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
-  <string name="evaluationGauge">Matësi i vlerësimit</string>
+  <string name="visualMotifs">Motive pamore</string>
+  <string name="undefendedPieces">Gurë të pambrojtur</string>
+  <string name="pinnedPieces">Gurë të fiksuar</string>
+  <string name="checkableKing">Mbret të cilit mund t’i jepet shah</string>
   <string name="multipleLines">Linja të shumta</string>
+  <string name="multipleLinesDescription">Caktoni numër rreshtash vleftësimi dhe kalojini shigjetat te fusha</string>
+  <string name="searchTime">Kohë kërkimi</string>
+  <string name="searchTimeDescription">Caktoni kohën për vleftësim pozicionesh të freskëta</string>
+  <string name="threads">Rrjedha</string>
+  <string name="threadsDescription">Vëreni këtë nën numër rrjedhash të CPU-së tuaj, shenjat tregojnë një zgjedhje të mirë të parrezik</string>
+  <string name="threadsDescriptionMobile">Më tepër rrjedha do të përdorin më tepër bateri për analizim më të mirë</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>
+  <string name="memoryDescription">Vlera më të mëdha mund të përmirësojnë funksionimin</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq kufirin e thellësisë dhe e mban të ngrohtë kompjuterin tuaj</string>
   <string name="blunder">Gafë</string>
@@ -205,6 +218,7 @@
   <string name="minutesPerSide">Minuta për palë</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Më tepër mënyra për luajtje</string>
   <string name="timeControl">Kontroll kohe</string>
   <string name="realTime">Kohë reale</string>
   <string name="correspondence">Korrespondencë</string>
@@ -231,7 +245,7 @@
   <string name="changeUsernameNotSame">Mund të bëhet vetëm ndryshim nga shkronjë e madhe në të vogël dhe anasjelltas. Për shembull, “neshatbishti” në “NeshatBishti”.</string>
   <string name="changeUsernameDescription">Ndryshoni emrin tuaj të përdoruesit. Kjo mund të bëhet vetëm një herë edhe ju lejohet vetëm të ndryshoni shkronja të vogla në të mëdha dhe anasjelltas te emri juaj i përdoruesit.</string>
   <string name="signupUsernameHint">Sigurohuni se zgjidhni një emër përdoruesi të përshtatshëm për familje. S’mund ta ndryshoni më vonë dhe cilado llogari me emra përdoruesish të papërshtatshëm do të mbyllet!</string>
-  <string name="signupEmailHint">Do ta përdorim vetëm për ricaktim fjalëkalimi.</string>
+  <string name="signupEmailPromise">Do t’ju dërgojmë email-e vetëm rreth llogarisë tuaj dhe s’do ta japim kurrë email-in tuaj gjetkë.</string>
   <string name="password">Fjalëkalim</string>
   <string name="changePassword">Ndryshoni fjalëkalimin</string>
   <string name="changeEmail">Ndryshoni email-in</string>
@@ -255,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Mund të duhet pak kohë që të mbërrijë.</string>
   <string name="refreshInboxAfterFiveMinutes">Pritni 5 minuta dhe rifreksoni “Të marrët” tuaj</string>
   <string name="checkSpamFolder">Shihni gjithashtu edhe te dosja juaj e të padëshiruarve, mund të përfundojë atje. Në ndodhtë kështu, i hiqni shenjën si i padëshiruar.</string>
-  <string name="emailForSignupHelp">Nëse gjithçka tjetër dështon, atëherë dërgonani këtë email:</string>
-  <string name="copyTextToEmail">Kopjoni dhe ngjitni tekstin më poshtë dhe dërgojeni te %s</string>
-  <string name="waitForSignupHelp">Do të lidhemi me ju së shpejti, për t’ju ndihmuar të plotësoni regjistrimin tuaj.</string>
+  <string name="sendEmailForAccountVerification">Nëse s’gjeni dot email-in e ripohimit, dërgoni një email te %s dhe do të miratojmë llogarinë tuaj për ju.</string>
   <string name="accountConfirmed">Përdoruesi %s u ripohua me sukses.</string>
   <string name="accountCanLogin">Mund të bëni hyrjen mu tani si %s.</string>
   <string name="accountConfirmationEmailNotNeeded">S’ju duhe një email ripohimi.</string>
@@ -299,6 +311,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Pozicion vetjak</string>
   <string name="unlimited">E pakufizuar</string>
+  <string name="unlimitedDescription">Mendohuni aq kohë sa ju duhet</string>
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
   <string name="rated">Me vlerësim</string>
@@ -424,10 +437,11 @@
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
   <string name="gameAsGIF">GIF i lojës</string>
+  <string name="playerNames">Emra lojtarësh</string>
+  <string name="moveAnnotations">Shënime lëvizjesh</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
-  <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
   <string name="toStudy">Mësim</string>
   <string name="importGame">Importo lojën</string>
@@ -513,6 +527,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="popularOpenings">Hapje popullore</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
+  <string name="randomChess960Position">Pozicion Chess960 kuturu</string>
   <string name="startPosition">Pozicioni fillestar</string>
   <string name="clearBoard">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
@@ -589,6 +604,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidUsernameOrPassword">Emër përdorues ose fjalëkalim i pavlefshëm</string>
   <string name="incorrectPassword">Fjalëkalim i pasaktë</string>
   <string name="invalidAuthenticationCode">Kod i pavlefshëm mirëfilltësimi</string>
+  <string name="clearField">Spatroje fushën</string>
+  <string name="orSeparator">Ose</string>
+  <string name="logInByEmail">Hyni me email</string>
   <string name="emailMeALink">Dërgomëni lidhjen me email</string>
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
@@ -687,7 +705,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="yourPendingSimuls">Simulat tuaja në pritje</string>
   <string name="createdSimuls">Simultane të krijuara së fundi</string>
   <string name="hostANewSimul">Organizoni një simultane të re</string>
-  <string name="signUpToHostOrJoinASimul">Regjistrohu për të pritur ose bashkuar një simul</string>
+  <string name="signUpToHostOrJoinASimul">Regjistrohuni që të organizoni, ose të merrni pjesë, në një simultane</string>
   <string name="noSimulFound">S’u gjet simultane</string>
   <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
@@ -714,11 +732,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyGoToStartOrEnd">shko në fillim/fund</string>
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <string name="keyEnterOrExitVariation">hyr/dil nga varianti</string>
-  <string name="keyRequestComputerAnalysis">Kërkoni analizim nga kompjuteri, Mësoni nga gabimet tuaja</string>
-  <string name="keyNextLearnFromYourMistakes">Pasuesi (Mësoni nga gabimet tuaja)</string>
-  <string name="keyNextBlunder">Gafa pasuese</string>
-  <string name="keyNextMistake">Gabimi pasues</string>
-  <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
   <string name="keyPreviousBranch">Dega e mëparshme</string>
   <string name="keyNextBranch">Dega pasuese</string>
   <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
@@ -807,6 +820,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="size">Madhësi</string>
   <string name="opacity">Patejdukshmëri</string>
   <string name="brightness">Ndriçim</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Ngjyrim</string>
   <string name="boardReset">Riktheji ngjyrat te parazgjedhjet</string>
   <string name="pieceSet">Figura</string>
@@ -902,7 +916,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="agreementAssistance">Pranoj se s’do të marr kurrë asistencë gjatë lojërave të mia (nga një kompjuter, libër apo bazë të dhënash shahu, ose nga persona tjetër).</string>
   <string name="agreementNice">Pranoj se do të tregoj përherë respekt për lojtarët e tjerë.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Pranoj se nuk do të krijoj disa llogari (hiq për arsyet e deklaruara te %s).</string>
-  <string name="agreementPolicy">Jam dakord se do të ndjek krejt rregullat e Lichess-it.</string>
   <string name="searchOrStartNewDiscussion">Kërkoni ose filloni bisedë të re</string>
   <string name="edit">Përpunojeni</string>
   <string name="rapid">E shpejtë</string>
@@ -923,6 +936,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
   <string name="makeSureToRead">Mos harroni të lexoni %1$s</string>
   <string name="theForumEtiquette">rregullat e etiketës në forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Ju lutemi, jini i sjellshëm në forum.</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>
@@ -1012,5 +1026,6 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="offline" comment="status of a user">jashtë linje</string>
   <string name="search">Kërko</string>
   <string name="clearSearch">Spastro kërkimin</string>
+  <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="tags">Etiketa</string>
 </resources>

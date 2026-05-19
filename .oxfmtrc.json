@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "printWidth": 110,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "ignorePatterns": ["/ui/@types/lichess/licon.d.ts", "**/public", "COPYING.md", "README.md"],
+  "sortPackageJson": false,
+  "sortImports": {
+    "customGroups": [
+      {
+        "groupName": "libs",
+        "elementNamePattern": ["lib", "lib/**"]
+      }
+    ],
+    "groups": [
+      ["builtin", "external"],
+      ["libs"],
+      ["internal", "subpath"],
+      ["parent", "sibling", "index"],
+      "style",
+      "unknown"
+    ]
+  }
+}

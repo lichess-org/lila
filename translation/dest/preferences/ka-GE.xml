@@ -13,7 +13,7 @@
   <string name="pgnLetter">ასო-ბგერა (K, Q, R, B, N)</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="giveMoreTime">მომეცი მეტი დრო</string>
@@ -27,7 +27,7 @@
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
   <string name="whenPremoving">წინასწარი სვლისას</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ავტომატურად მოიპოვეთ ყაიმი სვლის სამჯერ გამეორებაზე</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
   <string name="moveConfirmation">სვლის დადასტურება</string>
   <string name="inCorrespondenceGames">საკორესპონდენტო თამაშები</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>

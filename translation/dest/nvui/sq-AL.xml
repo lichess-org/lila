@@ -23,7 +23,7 @@
   <string name="moveToPieceByType">Kalojini në kuadrate duke përdorur emra gurësh. Për shembull: k e përsëritur do ta kalojë te çdo kuadrat ku ka një kalë. Përdorni shkronjë të madhe për lëvizje në kah të kundërt.</string>
   <string name="moveToRank">Kalo te rreshti 1 deri në 8.</string>
   <string name="moveToFile">Kalo te shtylla a deri në h.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Kaloni te fusha. Kuadrati parazgjedhje është e-4. Mund të përcaktoni një kuadrat: “board a-1” ose “b a-1” do t’ju kalojë te kuadrati a-1.</string>
+  <string name="goToBoard">Kaloni te fusha. Kuadrati parazgjedhje është e-4. Mund të përcaktoni një kuadrat: “board a-1” ose “b a-1” do t’ju kalojë te kuadrati a-1.</string>
   <string name="movePiece">Që të lëvizni një gur, përdorni paraqitjen standarde algjebrike.</string>
   <string name="king">mbret</string>
   <string name="whiteKing">mbreti i bardhë</string>
@@ -48,8 +48,8 @@
   <string name="invalidMove">Lëvizje e pavlefshme</string>
   <string name="premoveCancelled">Lëvizja paraprake u anulua</string>
   <string name="premoveRecorded">Lëvizja paraprake u regjistrua: %s. Që të anulohet, shtypni tastin Enter</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Xhepa</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopjojey %s në të papastër</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s u kopjua në të papastër</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN dhe FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Xhepa</string>
+  <string name="copyToClipboard">Kopjojey %s në të papastër</string>
+  <string name="copiedToClipboard">%s u kopjua në të papastër</string>
+  <string name="pgnAndFen">PGN dhe FEN</string>
 </resources>

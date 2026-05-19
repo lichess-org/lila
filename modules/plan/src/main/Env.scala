@@ -30,7 +30,8 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    ip2proxy: lila.core.security.Ip2ProxyApi
+    ip2proxy: lila.core.security.Ip2ProxyApi,
+    routeUrl: RouteUrl
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, Scheduler):
 
   private val config = appConfig.get[PlanConfig]("plan")(using AutoConfig.loader)
@@ -79,7 +80,9 @@ final class Env(
     case "patron" :: "lifetime" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
     case "patron" :: "gift-month" :: user :: Nil =>
-      userApi.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
+      api.freeMonths(user, 1).inject("ok")
+    case "patron" :: "gift-months" :: user :: nbMonths :: Nil =>
+      nbMonths.toIntOption.so(api.freeMonths(user, _)).inject("ok")
     case "patron" :: "remove" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
     case "patron" :: "set-months" :: user :: months :: Nil =>

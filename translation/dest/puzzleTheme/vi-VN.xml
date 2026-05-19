@@ -17,7 +17,7 @@
   <string name="balestraMate">Chiếu hết kiểu Nỏ thần</string>
   <string name="balestraMateDescription">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
   <string name="blindSwineMate">Chiếu hết kiểu Chú lợn mù</string>
-  <string name="blindSwineMateDescription">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2 ô vuông.</string>
+  <string name="blindSwineMateDescription">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2.</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
@@ -26,16 +26,18 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
+  <string name="collinearMove">Nước cờ trên cùng một đường thẳng</string>
+  <string name="collinearMoveDescription">Hai quân cờ đối diện nhau, và một quân di chuyển dọc theo đường tấn công mà không bắt được quân cờ đối phương.</string>
   <string name="cornerMate">Góc chiếu hết chết chóc</string>
   <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Đòn chiếu mở</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Đi một quân để lộ ra quân cờ tấn công đang ẩn núp, điều này thường dẫn đến lợi thế quyết định.</string>
+  <string name="discoveredCheck">Đòn chiếu mở</string>
+  <string name="discoveredCheckDescription">Đi một quân để lộ ra quân cờ tấn công đang ẩn núp, điều này thường dẫn đến lợi thế quyết định.</string>
   <string name="doubleBishopMate">Chiếu hết bằng cặp Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một quân vua bị cản trở bởi quân cờ.</string>
-  <string name="dovetailMate">Chiếu hết kiểu Đuôi én</string>
-  <string name="dovetailMateDescription">Một Hậu chiếu hết vua ở ô liền kề, hai ô duy nhất quân vua có thể chạy được lúc này đều bị chặn.</string>
+  <string name="dovetailMate">Chiếu hết kiểu đuôi chim bồ câu</string>
+  <string name="dovetailMateDescription">Một Hậu chiếu hết vua ở ô liền kề, trong khi hai ô trốn thoát duy nhất của vua đã bị chặn bởi quân đồng minh.</string>
   <string name="equality">Cân bằng</string>
   <string name="equalityDescription">Lật kèo từ một thế cờ thua và giành được một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
   <string name="kingsideAttack">Tấn công cánh vua</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một quân tốt có thể ăn một quân tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
+  <string name="epauletteMate">Chiếu hết kiểu cầu vai</string>
+  <string name="epauletteMateDescription">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
   <string name="exposedKing">Vua bị hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Tấn công đôi</string>
@@ -67,9 +71,15 @@
   <string name="intermezzoDescription">Thay vì chơi nước đi dự kiến, trước tiên hãy xen vào một nước đi khác gây ra mối đe dọa ngay lập tức mà đối thủ phải đáp trả. Còn được gọi là \"Zwischenzug\" hoặc \"Ở giữa\".</string>
   <string name="killBoxMate">Hộp chết chiếu hết</string>
   <string name="killBoxMateDescription">Một quân xe ở cạnh vua địch và được hỗ trợ bởi quân hậu cũng chặn các ô trốn thoát của vua địch. Xe và hậu bắt vua địch trong ô \"kill box\" chết chóc 3 x 3.</string>
+  <string name="pillsburysMate">Chiếu hết kiểu Pillsbury</string>
+  <string name="pillsburysMateDescription">Quân xe chiếu hết, trong khi quân tượng giúp khống chế nước đi đó.</string>
+  <string name="morphysMate">Chiếu hết kiểu Morphy</string>
+  <string name="morphysMateDescription">Dùng quân tượng để chiếu vua, trong khi quân xe giúp kìm hãm vua.</string>
+  <string name="swallowstailMate">Chiếu hết kiểu đuôi chim én</string>
+  <string name="swallowstailMateDescription">Một kiểu chiếu tướng có hình dáng trực quan giống đuôi chim én, tương tự như hình chữ V.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
   <string name="triangleMateDescription">Quân hậu và quân xe, cách quân vua của đối phương một ô, nằm trên cùng một hàng, cách nhau một ô, tạo thành một hình tam giác.</string>
-  <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Chiếu hết kiểu Vukovic</string>
   <string name="vukovicMateDescription">Một quân xe và mã hợp tác với vua. Quân xe thực hiện chiếu hết trong khi được hỗ trợ bởi quân thứ ba, và quân mã được sử dụng để chặn các ô thoát hiểm của vua.</string>
   <string name="knightEndgame">Tàn cuộc Mã</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">Câu đố mà chỉ có một nước đi.</string>
   <string name="opening">Khai cuộc</string>
   <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
+  <string name="operaMate">Chiếu hết kiểu Opera</string>
+  <string name="operaMateDescription">Dùng quân xe chiếu vua và dùng quân tượng để bảo vệ quân xe.</string>
   <string name="pawnEndgame">Tàn cuộc Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
   <string name="pin">Ghim</string>

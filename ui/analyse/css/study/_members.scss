@@ -2,8 +2,6 @@
   @extend %study-list;
 
   button {
-    @extend %button-none;
-
     width: 100%;
     text-align: start;
   }
@@ -23,30 +21,29 @@
   }
 
   .status {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     width: 2.4em;
     margin-inline-end: 0.1em;
     transition: 2.5s;
   }
 
-  i {
+  icon {
     font-size: 1.2em;
     opacity: 0.5;
     transition: 2.5s;
   }
 
-  .contrib i {
+  .contrib icon {
     opacity: 0.7;
   }
 
-  .online i {
+  .online icon {
     opacity: 0.8;
     color: $c-good;
   }
 
-  .online.contrib i {
+  .online.contrib icon {
     opacity: 1;
   }
 
@@ -69,7 +66,7 @@
   .status.active {
     transition: none;
 
-    i {
+    icon {
       transition: none;
       opacity: 1;
       color: #fff;
@@ -88,7 +85,7 @@
   .add {
     @extend %roboto;
 
-    &:hover i {
+    &:hover icon {
       color: $c-link;
       opacity: 1;
       transition: none;
@@ -110,19 +107,6 @@
 
   m-config {
     @extend %flex-between;
-
     @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
-
-    .role {
-      @extend %flex-center;
-
-      label {
-        cursor: pointer;
-      }
-    }
-
-    .switch {
-      margin-inline-end: 0.5em;
-    }
   }
 }

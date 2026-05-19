@@ -29,7 +29,6 @@
   <string name="botPlay">Spel parti med bot-api</string>
   <string name="engineRead">Sjå og bruk din eksterne sjakkmotor</string>
   <string name="engineWrite">Opprett og oppdater ekstern motor</string>
-  <string name="webLogin">Opprett autentiserte nettstadsesjonar (gjev full tilgjenge!)</string>
   <string name="webMod">Bruk moderatorverktøy (som er innanfor dine tilgangsrettar)</string>
   <string name="personalAccessTokens">Personlege API-tilgangsnøklar</string>
   <string name="canMakeOauthRequests">Du kan lage OAuth-førespurnader utan å gå gjennom %s.</string>

@@ -1,10 +1,10 @@
 package lila.shutup
 
-import lila.core.shutup.{ PublicLine, PublicSource as Source }
+import lila.core.shutup.PublicLine
 
 object PublicLine:
 
-  def make(text: String, from: Source): PublicLine =
+  def make(text: String, from: lila.core.chat.PublicSource): PublicLine =
     lila.core.shutup.PublicLine(text.take(200), from, nowInstant)
 
   import reactivemongo.api.bson.*

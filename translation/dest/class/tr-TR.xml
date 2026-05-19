@@ -120,4 +120,9 @@ Bu yatay bir çizgi oluşturacaktır.</string>
   <string name="moveToAnotherClass">Başka bir satrança geç</string>
   <string name="allowMessagingBetweenStudents">Öğrenciler arası mesajlaşmaya izin ver</string>
   <string name="allowMessagingBetweenStudentsDesc">Bu, yalnızca öğrencilerinize oluşturduğunuz hesaplar için geçerlidir.</string>
+  <string name="quickLoginCode">Hızlı giriş kodu</string>
+  <string name="quickLoginCodes">Hızlı giriş kodları</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Öğrencilerinizin Lichess\'e giriş yapması için bu kodları %s üzerinde kullanın.</string>
+  <string name="quickLoginCodesDesc2">Kodların süresi dolduğunda, öğrencileriniz manuel olarak çıkış yapana kadar oturum açmış olarak kalacaklardır.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Son Kullanım Tarihi: %s</string>
 </resources>

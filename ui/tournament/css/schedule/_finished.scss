@@ -5,6 +5,7 @@
         display: none;
       }
     }
+
     .players {
       @media (max-width: at-most($xx-small)) {
         display: none;
@@ -15,14 +16,14 @@
       > span,
       > a > span {
         display: block;
-        margin: 0.5em 0;
+        margin: 0.25em 0;
       }
 
       &.players {
         white-space: nowrap;
       }
 
-      i {
+      icon {
         color: $c-brag;
       }
     }
@@ -56,16 +57,16 @@
     .name {
       font-size: 1.5em;
       display: block;
-
-      @media (min-width: at-least($large)) {
-        letter-spacing: 3px;
-      }
     }
   }
 
-  .icon i {
-    font-size: 4em;
-    color: $c-brag;
-    opacity: 0.8;
+  .icon {
+    width: 0;
+
+    icon {
+      font-size: 3em;
+      color: $c-brag;
+      opacity: 0.8;
+    }
   }
 }

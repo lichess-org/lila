@@ -1,7 +1,9 @@
 import { h, type VNode } from 'snabbdom';
+
 import { defined } from 'lib';
-import type { DasherCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+
+import type { DasherCtrl } from '@/ctrl';
 
 export class PingCtrl {
   ping: number | undefined;
@@ -47,7 +49,7 @@ export class PingCtrl {
   signalBars(): VNode {
     const lagRating = !this.ping ? 0 : this.ping < 150 ? 4 : this.ping < 300 ? 3 : this.ping < 500 ? 2 : 1;
     const bars = [];
-    for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'i' : 'i.off'));
+    for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'icon' : 'icon.off'));
     return h('signal.q' + lagRating, bars);
   }
 

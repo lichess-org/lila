@@ -25,7 +25,7 @@ final private[puzzle] class PuzzleFinisher(
     expiration = 5.minutes,
     timeout = 5.seconds,
     name = "puzzle.finish",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private val calculator = GlickoCalculator()
@@ -130,7 +130,7 @@ final private[puzzle] class PuzzleFinisher(
                             date = now
                           )
                         val userPerf = perf
-                          .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userGlicko, now)
+                          .addOrReset(lila.mon.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userGlicko, now)
                           .pipe: p =>
                             p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
                         (round, newPuzzleGlicko, userPerf)

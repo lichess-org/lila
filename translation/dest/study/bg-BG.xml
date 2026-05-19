@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Лични</string>
-  <string name="myStudies">Моите казуси</string>
-  <string name="studiesIContributeTo">Казуси, към които допринасям</string>
-  <string name="myPublicStudies">Моите публични казуси</string>
-  <string name="myPrivateStudies">Моите лични казуси</string>
-  <string name="myFavoriteStudies">Моите любими казуси</string>
-  <string name="whatAreStudies">Какво представляват казусите?</string>
-  <string name="allStudies">Всички казуси</string>
-  <string name="studiesCreatedByX">Казуси от %s</string>
+  <string name="myStudies">Моите студии</string>
+  <string name="studiesIContributeTo">Студии, в които участвам</string>
+  <string name="myPublicStudies">Моите публични студии</string>
+  <string name="myPrivateStudies">Моите лични студии</string>
+  <string name="myFavoriteStudies">Моите любими студии</string>
+  <string name="whatAreStudies">Какво представляват студиите?</string>
+  <string name="allStudies">Всички студии</string>
+  <string name="studiesCreatedByX">Студии, създадени от %s</string>
   <string name="noneYet">Все още няма.</string>
   <string name="hot">Популярни</string>
   <string name="dateAddedNewest">Дата на добавяне (най-нови)</string>
@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Скоро обновени</string>
   <string name="mostPopular">Най-популярни</string>
   <string name="alphabetical">Азбучно</string>
+  <string name="relevant">Релевантни</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Глава</item>
@@ -30,15 +31,15 @@
     <item quantity="one">%s Член</item>
     <item quantity="other">%s Членове</item>
   </plurals>
-  <string name="inviteToTheStudy">Покани към казуса</string>
+  <string name="inviteToTheStudy">Покани в студията</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Моля канете само хора, които познавате и които биха искали да се присъединят.</string>
   <string name="searchByUsername">Търсене по потребителско име</string>
   <string name="spectator">Зрител</string>
   <string name="contributor">Сътрудник</string>
   <string name="kick">Изритване</string>
   <string name="leaveTheStudy">Напусни казуса</string>
-  <string name="youAreNowAContributor">Вие сте сътрудник</string>
-  <string name="youAreNowASpectator">Вие сте зрител</string>
+  <string name="youAreNowAContributor">Вече си сътрудник</string>
+  <string name="youAreNowASpectator">Вече си зрител</string>
   <string name="pgnTags">PGN тагове</string>
   <string name="like">Харесай</string>
   <string name="unlike">Не харесвам</string>
@@ -47,21 +48,23 @@
   <string name="commentThisMove">Коментирай хода</string>
   <string name="annotateWithGlyphs">Анотация със специални символи</string>
   <string name="theChapterIsTooShortToBeAnalysed">Тази глава е твърде къса и не може да бъде анализирана.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Само сътрудниците в студията могат да поискат компютърен анализ.</string>
   <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
   <string name="playing">Играе се</string>
   <string name="showResults">Резултати</string>
+  <string name="showEvalBar">Ленти за оценка</string>
   <string name="next">Следваща</string>
   <string name="shareAndExport">Сподели</string>
   <string name="cloneStudy">Клонирай</string>
-  <string name="studyPgn">PGN на казуса</string>
+  <string name="studyPgn">PGN на студията</string>
   <string name="chapterPgn">PGN на главата</string>
   <string name="copyChapterPgn">Копирай PGN</string>
+  <string name="copyRawChapterPgn">Копирай чистия PGN</string>
   <string name="downloadGame">Изтегли партия</string>
-  <string name="studyUrl">URL на казуса</string>
+  <string name="studyUrl">URL на студията</string>
   <string name="currentChapterUrl">URL на настоящата глава</string>
   <string name="youCanPasteThisInTheForumToEmbed">Можете да поставите това във форум и ще бъде вградено</string>
   <string name="startAtInitialPosition">Започни от начална позиция</string>
@@ -71,7 +74,7 @@
   <string name="onlyPublicStudiesCanBeEmbedded">Само публични казуси могат да бъдат вграждани!</string>
   <string name="open">Отвори</string>
   <string name="xBroughtToYouByY">%1$s, предоставени от %2$s</string>
-  <string name="studyNotFound">Казусът не бе открит</string>
+  <string name="studyNotFound">Студията не е намерена</string>
   <string name="editChapter">Промени глава</string>
   <string name="newChapter">Нова глава</string>
   <string name="importFromChapterX">Импортиране от %s</string>
@@ -163,12 +166,37 @@
   <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>
   <string name="youCompletedThisLesson">Поздравления! Вие завършихте този урок.</string>
   <string name="perPage">%s на страница</string>
+  <string name="getTheTour">Нужда от помощ? Направи обиколка!</string>
   <string name="welcomeToLichessStudyTitle">Добре дошли в Lichess Study!</string>
+  <string name="welcomeToLichessStudyText">Това е споделена дъска за анализ.&lt;br&gt;&lt;br&gt;Използвай я за анализиране и анотиране на партии,&lt;br&gt;обсъждане на позиции с приятели,&lt;br&gt;и разбира се, за шахматни уроци!&lt;br&gt;&lt;br&gt;Това е мощен инструмент, нека отделим време, за да видим как работи.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Споделено и запазено</string>
+  <string name="sharedAndSavedText">Другите членове виждат твоите ходове в реално време!&lt;br&gt;Освен това, всичко се запазва завинаги.</string>
+  <string name="studyMembersTitle">Членове на студията</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Зрителите могат да разглеждат студията и да разговарят в чата.&lt;br&gt;&lt;br&gt;%2$s Сътрудниците могат да правят ходове и да обновяват студията.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Кликни върху бутона %s.&lt;br&gt;След това реши кой може да сътрудничи и кой не.</string>
+  <string name="studyChaptersTitle">Глави на студията</string>
+  <string name="studyChaptersText">Една студия може да съдържа няколко глави.&lt;br&gt;Всяка глава има собствена начална позиция и дърво с ходове.</string>
+  <string name="commentPositionTitle">Коментирай позиция</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Кликни върху бутона %s или кликни с десен бутон върху списъка с ходове вдясно.&lt;br&gt;Коментарите се споделят и запазват.</string>
+  <string name="annotatePositionTitle">Анотирай позиция</string>
+  <string name="annotatePositionText">Кликни върху бутона !? или кликни с десен бутон върху списъка с ходове вдясно.&lt;br&gt;Анотационните символи се споделят и запазват.</string>
+  <string name="conclusionTitle">Благодарим за отделеното време</string>
+  <string name="conclusionText">Можеш да намериш своите &lt;a href=\'/study/mine/hot\'&gt;предишни студии&lt;/a&gt; в страницата на профила си.&lt;br&gt;Има също и &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;блог публикация за студиите&lt;/a&gt;.&lt;br&gt;Напредналите потребители може да натиснат „?“ за преглед на клавишните комбинации.&lt;br&gt;Приятно забавление!</string>
+  <string name="createChapterTitle">Нека създадем глава към студията</string>
+  <string name="createChapterText">Една студия може да има няколко глави.&lt;br&gt;Всяка глава има различно дърво с ходове&lt;br&gt;и може да бъде създадена по различни начини.</string>
   <string name="fromInitialPositionTitle">От начална позиция</string>
+  <string name="fromInitialPositionText">Просто начална подредба на дъската за нова партия.&lt;br&gt;Подходящо за изследване на дебюти.</string>
   <string name="customPositionTitle">От позиция</string>
+  <string name="customPositionText">Подреди дъската по свой начин.&lt;br&gt;Подходящо за изследване на ендшпили.</string>
+  <string name="loadExistingLichessGameTitle">Зареди съществуваща партия от Lichess</string>
+  <string name="loadExistingLichessGameText">Постави URL адрес на партия от Lichess&lt;br&gt;(например lichess.org/7fHIU0XI)&lt;br&gt;за да заредиш ходовете на партията в главата.</string>
   <string name="fromFenStringTitle">От FEN нотация</string>
+  <string name="fromFenStringText">Постави позиция във FEN формат&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;за да започнеш главата от конкретна позиция.</string>
   <string name="fromPgnGameTitle">От PGN нотация</string>
+  <string name="fromPgnGameText">Постави партия в PGN формат.&lt;br&gt;за да заредиш ходове, коментари и варианти в главата.</string>
+  <string name="variantsAreSupportedTitle">Студиите поддържат варианти</string>
+  <string name="variantsAreSupportedText">Да, можеш да изучаваш crazyhouse&lt;br&gt;и всички варианти в Lichess!</string>
+  <string name="chapterConclusionText">Главите се запазват завинаги.&lt;br&gt;Приятно организиране на твоето шахматно съдържание!</string>
   <string name="doubleDefeat">Взаимна загуба</string>
   <string name="blackDefeatWhiteCanNotWin">Черните са победени, но белите не могат да спечелят</string>
   <string name="whiteDefeatBlackCanNotWin">Белите са победени, но черните не могат да спечелят</string>

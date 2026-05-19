@@ -48,9 +48,16 @@ final class RelayJsonView(
       .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.TourPreview] = Json.writes
+  given (using Translate): OWrites[RelayTour.TourPreview] = OWrites: t =>
+    Json
+      .obj(
+        "id" -> t.id,
+        "name" -> t.name.translate,
+        "active" -> t.active
+      )
+      .add("live" -> t.live)
 
-  given OWrites[RelayGroup.WithTours] = OWrites: g =>
+  given (using Translate): OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
       "id" -> g.group.id,
       "slug" -> g.group.name.toSlug,
@@ -65,6 +72,7 @@ final class RelayJsonView(
         if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
       })
       .add("teamTable" -> tour.teamTable)
+      .add("showTeamScores" -> tour.showTeamScores)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using
@@ -180,7 +188,7 @@ final class RelayJsonView(
 
   def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound),
+      "active" -> active.sortBy(-_.tour.tier.so(_.v)).map(tourWithAnyRound), // sort like on /broadcast
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
@@ -210,7 +218,7 @@ object RelayJsonView:
     Json
       .obj(
         "id" -> r.id,
-        "name" -> r.transName,
+        "name" -> r.name.translate,
         "slug" -> r.slug,
         "createdAt" -> r.createdAt,
         "rated" -> r.rated
@@ -222,11 +230,13 @@ object RelayJsonView:
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
       .add("customScoring" -> r.customScoring)
 
-  def statsJson(stats: RelayStats.RoundStats) =
-    Json.obj(
-      "viewers" -> stats.viewers.map: (minute, crowd) =>
-        Json.arr(minute * 60, crowd)
-    )
+  private[relay] def statsJson(stats: RelayStats.RoundStats, unique: Int) =
+    Json
+      .obj(
+        "viewers" -> stats.viewers.map: (minute, crowd) =>
+          Json.arr(minute * 60, crowd)
+      )
+      .add("unique" -> Option.when(unique > 0)(unique))
 
   import RelayRound.Sync
 

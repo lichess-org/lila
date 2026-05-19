@@ -1,6 +1,6 @@
-var user = 'thibault';
+const user = 'thibault';
 // var kind = 'moderator';
-var kind = 'marathonSurvivor';
+const kind = 'marathonSurvivor';
 
 db.trophy.insert({
   _id: kind + '/' + user,

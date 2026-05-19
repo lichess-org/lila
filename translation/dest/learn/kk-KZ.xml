@@ -6,7 +6,7 @@
   <string name="progressX">Жетістік: %s</string>
   <string name="resetMyProgress">Өшіріп қайта санау</string>
   <string name="youWillLoseAllYourProgress">Бүкіл жетістігіңізден айырыласыз!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ойнаңыз!</string>
+  <string name="play">ойнаңыз!</string>
   <string name="chessPieces">Шахмат тастары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Ол түзу жолмен жүреді</string>
@@ -102,7 +102,7 @@
 шах қоюға қабілетті!</string>
   <string name="escapeOrBlock">Патшамен қашыңыз
 не шабуылды бөгеңіз!</string>
-  <string name="outOfCheckComplete">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
   <string name="mateInOne">Бір қадамды мат</string>
   <string name="defeatTheOpponentsKing">Қарсыластың патшасын жеңіңіз</string>
   <string name="mateInOneIntro">Қарсыластың шахтан құтылу жолы болмағанда, сіз жеңесіз.</string>
@@ -153,7 +153,6 @@
   <string name="findAWayToCastleQueenSide">Уәзір жаққа бекінудің
 жолын табыңыз!</string>
   <string name="castlingComplete">Құтты болсын! Ойында ылғи бекініп жүріңіз.</string>
-  <string name="enPassant">Жолай басу</string>
   <string name="theSpecialPawnMove">Сарбаздың ерекше жүрісі</string>
   <string name="enPassantIntro">Егер қарсыластың сарбазы екі шаршы жүрсе, ол бір шаршы жүргендей оны басып ала аласыз.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Қара сарбаз жаңа ғана

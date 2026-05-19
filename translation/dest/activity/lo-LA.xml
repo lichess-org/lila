@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">ກິດຈະກຳ</string>
+  <string name="hostedALiveStream">ຈັດການຖ່າຍທອດສົດ</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="other">ໄດ້ສະໜັບສະໜູນ lichess.org ເປັນເວລາ %1$s ເດືອນ ໃນຖານະ %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="other">ໄດ້ຝຶກຊ້ອມ %1$s ຕຳແໜ່ງ ໃນ %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">ແກ້ໂຈດໝາກຮຸກ %s ຂໍ້</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">ຫຼິ້ນເກມ %2$s ທັງໝົດ %1$s ເກມ</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="other">ສົ່ງຂໍ້ຄວາມ %1$s ຂໍ້ຄວາມ ໃນ %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">ເດີນໝາກ %1$s ຄັ້ງ</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">ໃນເກມໝາກຮຸກທາງໄກ %1$s ເກມ</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="other">ຈົບເກມໝາກຮຸກທາງໄກ %s ເກມ</item>
+  </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="other">ຈົບເກມໝາກຮຸກທາງໄກ %2$s ທັງໝົດ %1$s ເກມ</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">ເລີ່ມຕິດຕາມຜູ້ຫຼິ້ນ %s ຄົນ</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="other">ມີຜູ້ຕິດຕາມໃໝ່ %s ຄົນ</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="other">ຈັດການແຂ່ງຂັນຫຼາຍກະດານພ້ອມກັນ %s ຄັ້ງ</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="other">ເຂົ້າຮ່ວມການແຂ່ງຂັນຫຼາຍກະດານພ້ອມກັນ %s ຄັ້ງ</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="other">ສ້າງບົດຮຽນໃໝ່ %s ບົດ</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="other">ເຂົ້າຮ່ວມການແຂ່ງຂັນ Arena %s ລາຍການ</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">ໄດ້ອັນດັບ #%1$s (ກຸ່ມສູງສຸດ %2$s%%) ດ້ວຍການຫຼິ້ນ %3$s ເກມ ໃນ %4$s</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="other">ເຂົ້າຮ່ວມການແຂ່ງຂັນລະບົບ Swiss %s ລາຍການ</item>
+  </plurals>
+  <string name="rankedInSwissTournament">ໄດ້ອັນດັບ #%1$s ໃນ %2$s</string>
+  <string name="signedUp">ສະໝັກສະມາຊິກ lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">ເຂົ້າຮ່ວມ %s ທີມ</item>
+  </plurals>
+</resources>

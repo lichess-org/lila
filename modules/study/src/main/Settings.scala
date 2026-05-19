@@ -23,11 +23,7 @@ object Settings:
   )
 
   enum UserSelection:
-    case Nobody extends UserSelection
-    case Owner extends UserSelection
-    case Contributor extends UserSelection
-    case Member extends UserSelection
-    case Everyone extends UserSelection
+    case Nobody, Owner, Contributor, Member, Everyone
     val key = UserSelection.this.toString.toLowerCase
 
   object UserSelection:

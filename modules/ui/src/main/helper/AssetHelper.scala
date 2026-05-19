@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.{ BaseUrl, AssetBaseUrl, ImageGetOrigin }
+import lila.core.config.{ BaseUrl, RouteUrl, AssetBaseUrl, ImageGetOrigin }
 import lila.core.data.SafeJsonStr
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -11,7 +11,7 @@ trait AssetHelper:
   export lila.ui.Esm
 
   def netBaseUrl: BaseUrl
-  def routeUrl: Call => Url
+  def routeUrl: RouteUrl
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
@@ -79,9 +79,6 @@ trait AssetHelper:
       s"""<link rel="preload" href="$url" as="$as"$linkType${crossorigin.so(" crossorigin")}>"""
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
-
-  def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
-    re.enabled.so(esmInitBit("hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
 

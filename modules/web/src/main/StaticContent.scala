@@ -36,17 +36,24 @@ Allow: /game/export/gif/thumbnail/
       "related_applications" -> Json.arr(
         Json.obj(
           "platform" -> "play",
-          "url" -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+          "url" -> mobileAndroidUrl,
+          "id" -> mobileAndroidId
         ),
         Json.obj(
           "platform" -> "itunes",
-          "url" -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
+          "url" -> mobileIosUrl
+        ),
+        Json.obj(
+          "platform" -> "ios",
+          "url" -> mobileIosUrl
         )
       )
     )
 
-  val mobileAndroidUrl = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
+  val mobileAndroidId = "org.lichess.mobileV2"
+  val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
   val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
+  val mobileFdroidUrl = s"https://f-droid.org/packages/$mobileAndroidId"
 
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
@@ -84,15 +91,6 @@ Allow: /game/export/gif/thumbnail/
       )
     })
 
-  val externalLinks = Map(
-    "mastodon" -> "https://mastodon.online/@lichess",
-    "github" -> "https://github.com/lichess-org",
-    "discord" -> "https://discord.gg/lichess",
-    "bluesky" -> "https://bsky.app/profile/lichess.org",
-    "youtube" -> "https://youtube.com/@LichessDotOrg",
-    "twitch" -> "https://www.twitch.tv/lichessdotorg"
-  )
-
   def legacyQaQuestion(id: Int) =
     val faq = routes.Main.faq.url
     id match
@@ -103,7 +101,7 @@ Allow: /game/export/gif/thumbnail/
       case 110 => s"$faq#name"
       case 29 => s"$faq#titles"
       case 4811 => s"$faq#lm"
-      case 216 => routes.Main.mobile.url
+      case 216 => routes.Main.app.url
       case 340 => s"$faq#trophies"
       case 6 => s"$faq#ratings"
       case 207 => s"$faq#hide-ratings"

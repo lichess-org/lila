@@ -3,12 +3,14 @@ package lila.swiss
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   import BsonHandlers.given
 
-  def compute(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
+  def compute(id: SwissId): Fu[Option[SwissScoring.Result]] =
+    sequencer(id).monSuccess(lila.mon.swiss.scoringGet)
 
   private val sequencer = scalalib.actor.AskPipelines[SwissId, Option[SwissScoring.Result]](
     compute = recompute,
@@ -20,39 +22,38 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
   private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
     mongo.swiss
       .byId[Swiss](id)
-      .flatMap:
-        _.so { swiss =>
-          for
-            (prevPlayers, pairings) <- fetchPlayers(swiss).zip(fetchPairings(swiss))
-            pairingMap = SwissPairing.toMap(pairings)
-            sheets = SwissSheet.many(swiss, prevPlayers, pairingMap)
-            withSheets = prevPlayers.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
-            players = SwissScoring.computePlayers(swiss.round, withSheets, pairingMap)
-            _ <- SwissPlayer.fields: f =>
-              prevPlayers
-                .zip(players)
-                .withFilter(_ != _)
-                .map: (_, player) =>
-                  mongo.player.update
-                    .one(
-                      $id(player.id),
-                      $set(
-                        f.points -> player.points,
-                        f.tieBreak -> player.tieBreak,
-                        f.performance -> player.performance,
-                        f.score -> player.score
-                      )
+      .flatMapz: swiss =>
+        for
+          (prevPlayers, pairings) <- fetchPlayers(swiss).zip(fetchPairings(swiss))
+          pairingMap = SwissPairing.toMap(pairings)
+          sheets = SwissSheet.many(swiss, prevPlayers, pairingMap)
+          withSheets = prevPlayers.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
+          players = SwissScoring.computePlayers(swiss.round, withSheets, pairingMap)
+          _ <- SwissPlayer.fields: f =>
+            prevPlayers
+              .zip(players)
+              .withFilter(_ != _)
+              .map: (_, player) =>
+                mongo.player.update
+                  .one(
+                    $id(player.id),
+                    $set(
+                      f.points -> player.points,
+                      f.tieBreak -> player.tieBreak,
+                      f.performance -> player.performance,
+                      f.score -> player.score
                     )
-                .parallelVoid
-          yield SwissScoring
-            .Result(
-              swiss,
-              players.zip(sheets).sortBy(-_._1.score.value),
-              players.mapBy(_.userId),
-              pairingMap
-            )
-            .some
-        }.monSuccess(_.swiss.scoringRecompute)
+                  )
+              .parallelVoid
+        yield SwissScoring
+          .Result(
+            swiss,
+            players.zip(sheets).sortBy(-_._1.score.value),
+            players.mapBy(_.userId),
+            pairingMap
+          )
+          .some
+      .monSuccess(lila.mon.swiss.scoringRecompute)
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields: f =>

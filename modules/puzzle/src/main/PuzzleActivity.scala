@@ -7,12 +7,7 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 
-final class PuzzleActivity(
-    colls: PuzzleColls
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem
-):
+final class PuzzleActivity(colls: PuzzleColls)(using Executor, akka.actor.ActorSystem):
 
   import PuzzleActivity.*
   import BsonHandlers.given
@@ -32,7 +27,7 @@ final class PuzzleActivity(
         .map(_.find(finalQuery))
         .map(_.sort($sort.desc(PuzzleRound.BSONFields.date)))
         .map(_.batchSize(perSecond.value))
-        .map(_.cursor[PuzzleRound](ReadPref.sec))
+        .map(_.cursor[PuzzleRound]())
         .map(_.documentSource(config.max.fold(Int.MaxValue)(_.value)))
         .map(_.grouped(perSecond.value))
         .map(_.throttle(1, 1.second))
@@ -41,10 +36,7 @@ final class PuzzleActivity(
 
   private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:
-      _.optionsByOrderedIds[Puzzle, PuzzleId](
-        rounds.map(_.id.puzzleId),
-        readPref = _.sec
-      )(_.id).map: puzzles =>
+      _.optionsByOrderedIds[Puzzle, PuzzleId](rounds.map(_.id.puzzleId))(_.id).map: puzzles =>
         rounds.zip(puzzles).collect { case (round, Some(puzzle)) =>
           Json.obj(
             "date" -> round.date,

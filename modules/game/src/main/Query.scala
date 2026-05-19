@@ -110,7 +110,7 @@ object Query:
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e".$gt(v), "p1.e".$gt(v))
 
   def turnsGt(nb: Int) = F.turns.$gt(nb)
-  def turns(range: Range) = F.turns.$inRange(range)
+  def turns(range: PairOf[Int]) = F.turns.$inRange(range)
 
   def checkable = F.checkAt.$lt(nowInstant)
 
@@ -119,21 +119,12 @@ object Query:
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> (if v.standard then $exists(false) else $int(v.id)))
 
-  lazy val variantStandard = variant(chess.variant.Standard)
-
-  lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
-    F.variant.$ne(chess.variant.Horde.id),
-    sinceHordePawnsAreWhite
-  )
-
-  lazy val sinceHordePawnsAreWhite: Bdoc =
-    createdSince(Game.hordeWhitePawnsSince)
+  val variantStandard = variant(chess.variant.Standard)
 
   val notFromPosition: Bdoc =
     F.variant.$ne(chess.variant.FromPosition.id)
 
-  def createdSince(d: Instant): Bdoc =
-    F.createdAt.$gte(d)
+  def createdSince(d: Instant): Bdoc = F.createdAt.$gte(d)
 
   def createdBetween(since: Option[Instant], until: Option[Instant]): Bdoc =
     dateBetween(F.createdAt, since, until)

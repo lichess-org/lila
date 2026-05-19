@@ -74,6 +74,7 @@
   <string name="studyPgn">PGN الدراسة</string>
   <string name="chapterPgn">PGN الفصل</string>
   <string name="copyChapterPgn">نسخ PGN</string>
+  <string name="copyRawChapterPgn">نسخ PGN الخام</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>

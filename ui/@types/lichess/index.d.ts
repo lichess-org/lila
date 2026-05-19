@@ -1,7 +1,7 @@
-/// <reference path="./tree.d.ts" />
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
 /// <reference path="./i18n.d.ts" />
+/// <reference path="./licon.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -89,7 +89,7 @@ interface LichessPowertip {
 interface QuestionChoice {
   // file://./../../round/src/ctrl.ts
   action: () => void;
-  icon?: string;
+  icon?: LiconType;
   text?: string;
 }
 
@@ -151,9 +151,7 @@ interface AssetUrlOpts {
   pathVersion?: true | string;
 }
 
-interface Dictionary<T> {
-  [key: string]: T | undefined;
-}
+type Dictionary<T> = Record<string, T | undefined>;
 
 type SocketHandlers = Dictionary<(d: any) => void>;
 
@@ -189,6 +187,7 @@ interface Window {
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
   readonly webkitAudioContext?: typeof AudioContext;
+  readonly turnstile: any;
 }
 
 interface Study {
@@ -245,7 +244,7 @@ type Seconds = number;
 type Centis = number;
 type Millis = number;
 
-type ByColor<T> = { [C in Color]: T };
+type ByColor<T> = Record<Color, T>;
 
 interface Variant {
   key: VariantKey;
@@ -278,20 +277,8 @@ interface Cash {
 }
 
 declare namespace PowerTip {
-  type Placement =
-    | 'n'
-    | 'e'
-    | 's'
-    | 'w'
-    | 'nw'
-    | 'ne'
-    | 'sw'
-    | 'se'
-    | 'nw-alt'
-    | 'ne-alt'
-    | 'sw-alt'
-    | 'se-alt';
-
+  type BasePlacement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se';
+  type Placement = BasePlacement | 'n-alt' | 'e-alt' | 's-alt' | 'w-alt';
   interface Options {
     preRender?: (el: HTMLElement) => void;
     placement?: Placement;
@@ -307,12 +294,30 @@ declare namespace PowerTip {
     manual?: boolean;
     openEvents?: string[];
     closeEvents?: string[];
+    defaultSize?: [number, number];
   }
 }
 
 declare const site: Site;
 declare const fipr: Fipr;
 declare const i18n: I18n;
-declare module 'tablesort';
+declare module 'tablesort' {
+  interface TablesortInstance {
+    refresh(): void;
+  }
+
+  interface TablesortStatic {
+    (el: HTMLTableElement, options?: { descending?: boolean }): TablesortInstance;
+    extend(
+      name: string,
+      pattern: (item: string) => RegExpMatchArray | null,
+      sort: (a: string, b: string) => number,
+    ): void;
+  }
+
+  const tablesort: TablesortStatic;
+  export default tablesort;
+  export type Tablesort = TablesortInstance;
+}
 declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
 declare const $trim: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts

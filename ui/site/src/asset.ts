@@ -1,5 +1,7 @@
-import { script as xhrScript } from 'lib/xhr';
+import { COLORS } from 'chessops';
+
 import { memoize } from 'lib';
+import { script as xhrScript } from 'lib/xhr';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
@@ -52,7 +54,7 @@ export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remo
 
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
-export const jsModule = (name: string, prefix: string = 'compiled/') => {
+export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
   const hash = site.manifest.js[name];
   return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
@@ -83,7 +85,7 @@ export const loadEsmPage = async (name: string) => {
 export const loadI18n = async (catalog: string) => {
   await import(document.body.dataset.i18nCatalog!);
   const s = window.site;
-  const path = `compiled/i18n/${catalog}.${s.displayLocale}.${s.manifest.i18n![catalog]}.js`;
+  const path = `compiled/i18n/${catalog}.${document.documentElement.lang}.${s.manifest.i18n![catalog]}.js`;
   await import(url(path));
 };
 
@@ -94,8 +96,9 @@ export function embedChessground() {
 export const loadPieces = new Promise<void>((resolve, reject) => {
   if (document.getElementById('main-wrap')?.classList.contains('is3d')) return resolve();
   const style = window.getComputedStyle(document.body);
-  const urls = ['white', 'black']
-    .flatMap(c => ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'].map(r => `---${c}-${r}`))
+  const urls = COLORS.flatMap(c =>
+    ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'].map(r => `---${c}-${r}`),
+  )
     .map(
       u =>
         style

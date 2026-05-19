@@ -1,11 +1,14 @@
 import { h } from 'snabbdom';
-import type LobbyController from '@/ctrl';
-import * as licon from 'lib/licon';
-import { bind } from 'lib/view';
-import { tds, perfNames } from '../util';
+
 import perfIcons from 'lib/game/perfIcons';
+import * as licon from 'lib/licon';
+import { bind, dataIcon } from 'lib/view';
+
+import type LobbyController from '@/ctrl';
 import * as hookRepo from '@/hookRepo';
 import type { Hook } from '@/interfaces';
+
+import { tds, perfNames } from '../util';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   return h(
@@ -29,7 +32,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         : i18n.site.anonymous,
       ...(!ctrl.me ? [] : !ctrl.opts.showRatings ? [''] : [hook.rating + (hook.prov ? '?' : '')]),
       hook.clock,
-      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
+      h('span', { attrs: dataIcon(perfIcons[hook.perf]) }, i18n.site[hook.ra ? 'rated' : 'casual']),
     ]),
   );
 }
@@ -41,10 +44,10 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 const isNotMine = (hook: Hook) => !isMine(hook);
 
 export const toggle = (ctrl: LobbyController) =>
-  h('i.toggle', {
+  h('button.toggle', {
     key: 'set-mode-chart',
     attrs: { title: i18n.site.graph, 'data-icon': licon.LineGraph },
-    hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
+    hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
@@ -74,32 +77,30 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        ...[
+        ctrl.me
+          ? h(
+              'th',
+              {
+                class: { sortable: true, sort: ctrl.sort === 'rating' },
+                hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+              },
+              [h('icon.is'), i18n.site.rating],
+            )
+          : null,
+        h(
+          'th',
           ctrl.me
-            ? h(
-                'th',
-                {
-                  class: { sortable: true, sort: ctrl.sort === 'rating' },
-                  hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-                },
-                [h('i.is'), i18n.site.rating],
-              )
-            : null,
-          h(
-            'th',
-            ctrl.me
-              ? {
-                  key: 'time-header-with-rating',
-                  class: { sortable: true, sort: ctrl.sort === 'time' },
-                  hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
-                }
-              : {
-                  key: 'time-header-without-rating',
-                },
-            [h('i.is'), i18n.site.time],
-          ),
-        ],
-        h('th', [h('i.is'), i18n.site.mode]),
+            ? {
+                key: 'time-header-with-rating',
+                class: { sortable: true, sort: ctrl.sort === 'time' },
+                hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
+              }
+            : {
+                key: 'time-header-without-rating',
+              },
+          [h('icon.is'), i18n.site.time],
+        ),
+        h('th', [h('icon.is'), i18n.site.mode]),
       ]),
     ),
     h(

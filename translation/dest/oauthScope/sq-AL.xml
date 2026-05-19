@@ -29,7 +29,6 @@
   <string name="botPlay">Luaj lojëra me API-në e robotëve</string>
   <string name="engineRead">Shikoni dhe përdorni motorët tuaj të jashtëm</string>
   <string name="engineWrite">Krijoni dhe përditësoni motorë të jashtëm</string>
-  <string name="webLogin">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
   <string name="webMod">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
   <string name="personalAccessTokens">Token-ë personalë përdorimi API</string>
   <string name="canMakeOauthRequests">Mund të kryeni kërkessa OAuth pa kaluar nëpër %s.</string>

@@ -1,15 +1,15 @@
-var puzzles = db.puzzle;
-var count = 0;
+const puzzles = db.puzzle;
+let count = 0;
 
 function depthOf(obj) {
-  var level = 1;
-  var key;
+  let level = 1;
+  let key;
 
   for (key in obj) {
     if (!obj.hasOwnProperty(key)) continue;
 
     if (typeof obj[key] === 'object') {
-      var depth = depthOf(obj[key]) + 1;
+      const depth = depthOf(obj[key]) + 1;
       level = Math.max(depth, level);
     }
   }
@@ -27,7 +27,7 @@ puzzles
     },
   })
   .forEach(function (p) {
-    var depth = depthOf(p);
+    const depth = depthOf(p);
     if (depth % 2 === 1) {
       count++;
       puzzles.update(

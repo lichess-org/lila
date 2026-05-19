@@ -6,7 +6,7 @@
   <string name="progressX">Fortschritt: %s</string>
   <string name="resetMyProgress">De Fortschritt zruggsetze</string>
   <string name="youWillLoseAllYourProgress">Aber so verlürsch du din ganze Fortschritt!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">schpill!</string>
+  <string name="play">schpill!</string>
   <string name="chessPieces">Schachfigure</string>
   <string name="theRook">De Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich nur i grade Linie</string>
@@ -88,7 +88,7 @@ Umwandle muesch nöd.</string>
   <string name="youCanGetOutOfCheckByTaking">Du chunnsch us em Schach, wänn du de Agrifer schlahsch.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur dini Verteidigung!</string>
   <string name="escapeOrBlock">Mit em König flüchte oder de Agriff blockiere!</string>
-  <string name="outOfCheckComplete">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
   <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
   <string name="mateInOneIntro">Du günnsch, wänn din Gägner dis Schachgebot nöd abwehre cha.</string>
@@ -127,7 +127,6 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="findAWayToCastleKingSide">Find en Wäg für die churz Rochade!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De schpezielli Purezug</string>
   <string name="enPassantIntro">Isch en Pur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Pur 2 Fälder vor gschobe!

@@ -29,7 +29,6 @@
   <string name="botPlay">Rozgrywanie partii z botami za pomocą API</string>
   <string name="engineRead">Podgląd i używanie zewnętrznego silnika szachowego</string>
   <string name="engineWrite">Tworzenie i edycja zewnętrznego silnika szachowego</string>
-  <string name="webLogin">Tworzenie uwierzytelnionych sesji (nadanie pełnego dostępu!)</string>
   <string name="webMod">Używanie narzędzi moderatora (w granicach nadanych uprawnień)</string>
   <string name="personalAccessTokens">Osobiste tokeny dostępu do API</string>
   <string name="canMakeOauthRequests">Możesz wysyłać autoryzowane żądania bez przechodzenia przez %s.</string>

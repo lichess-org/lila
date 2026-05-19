@@ -4,7 +4,7 @@ import monocle.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.tree.{ Analysis, Tree }
+import lila.tree.Analysis
 
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
@@ -12,10 +12,7 @@ final class Analyser(
 )(using Executor)
     extends lila.tree.Analyser:
 
-  def get(game: Game): Fu[Option[Analysis]] =
-    analysisRepo.byGame(game)
-
-  def byId(id: Analysis.Id): Fu[Option[Analysis]] = analysisRepo.byId(id)
+  export analysisRepo.{ byId, byGame as get }
 
   def save(analysis: Analysis): Funit =
     analysis.id match
@@ -54,12 +51,9 @@ final class Analyser(
       game: Game,
       initialFen: chess.format.Fen.Full
   ): JsObject =
+    import lila.tree.{ TreeBuilder, ExportOptions, Node }
+    val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log("analyser").warn)
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree" -> Tree.makeMinimalJsonString(
-        game,
-        analysis.some,
-        initialFen,
-        logChessError = lila.log("analyser").warn
-      )
+      "tree" -> Node.lichobileNodeJsonWriter.writes(tree)
     )

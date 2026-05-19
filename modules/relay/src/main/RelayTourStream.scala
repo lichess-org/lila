@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 
 final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using akka.stream.Materializer):
 
@@ -20,21 +20,22 @@ final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using ak
     pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
   )
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Max)(using
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max, liveOnly: Boolean)(using
       RelayJsonView.Config,
       lila.core.i18n.Translate
   ): Source[JsObject, ?] =
-    val activeStream = colls.tour
+
+    def activeStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(selectors.officialActive),
+          Match(selectors.officialActive ++ liveOnly.so(selectors.live)),
           Sort(Descending("tier")),
           PipelineOperator(roundLookup)
         )
       .documentSource(nb.value)
 
-    val inactiveStream = colls.tour
+    def inactiveStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
@@ -44,8 +45,10 @@ final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using ak
         )
       .documentSource(nb.value)
 
-    activeStream
-      .concat(inactiveStream)
+    val fullStream = if liveOnly then activeStream
+    else activeStream.concat(inactiveStream)
+
+    fullStream
       .mapConcat: doc =>
         doc
           .asOpt[RelayTour]

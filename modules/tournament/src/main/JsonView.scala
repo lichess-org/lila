@@ -141,7 +141,7 @@ final class JsonView(
           .add("botsAllowed", tour.conditions.allowsBots)
           .add("minAccountAgeInDays", tour.conditions.accountAge.map(_.days))
           .add("onlyTitled", tour.conditions.titled.isDefined)
-          .add("teamMember", tour.conditions.teamMember.map(_.teamId))
+          .add("teamMember", tour.singleTeamId)
           .add("allowList", withAllowList.so(tour.conditions.allowList).map(_.userIds))
           .add("reloadEndpoint" -> addReloadEndpoint.map: useLilaHttp =>
             JsString({

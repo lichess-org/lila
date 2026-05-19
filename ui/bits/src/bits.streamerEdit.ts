@@ -1,13 +1,14 @@
-import { wireCropDialog } from './crop';
-import { prompt, choose, alert } from 'lib/view';
 import { scopedQuery, frag } from 'lib';
+import { prompt, choose, alert } from 'lib/view';
+
+import { wireCropDialog } from './crop';
 
 type Platform = 'youtube' | 'twitch';
 type MaybeEl = HTMLElement | null;
 type OAuthBox = { div: HTMLElement; linkBtn: MaybeEl; unlinkBtn: MaybeEl; url: HTMLAnchorElement | null };
-type OAuthBoxes = { [key in Platform]: OAuthBox };
+type OAuthBoxes = Record<Platform, OAuthBox>;
 
-export function initModule(): any {
+export function initModule(): void {
   const el = scopedQuery(document.querySelector('.streamer-edit')!);
   const platforms: Platform[] = ['twitch', 'youtube'];
   const oauths = platforms.reduce((acc, platform) => {
@@ -97,8 +98,12 @@ export function initModule(): any {
       box.url.href = href;
       box.url.textContent = ev.data.result.replace(/^https?:\/\//, '');
       box.div.classList.add('linked');
-    } catch (e: any) {
-      alert(e?.message ?? (typeof e === 'string' ? e : JSON.stringify(e)));
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        await alert(e.message ?? JSON.stringify(e));
+      } else if (typeof e === 'string') {
+        await alert(e);
+      }
     }
     setSubmitEnabled();
   });

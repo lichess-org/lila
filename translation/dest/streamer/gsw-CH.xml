@@ -40,8 +40,8 @@
     <item quantity="one">Churz fasse: Maximal %s Zeiche</item>
     <item quantity="other">Churz fasse: Maximal %s Zeiche</item>
   </plurals>
-  <string name="visibility">Sichtbar uf de Streamersite</string>
-  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sichtbar uf de Streamersite</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
   <string name="tellUsAboutTheStream">Verzell üs i eim Satz öppis über din Stream</string>
   <string name="longDescription">Ausführliche Beschreibung</string>

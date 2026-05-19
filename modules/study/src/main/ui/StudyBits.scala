@@ -49,6 +49,7 @@ final class StudyBits(helpers: Helpers):
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
+      canUnfeature.option(unfeatureForm(s)),
       div(cls := "top")(
         div(cls := "study__icon")(
           s.study.flair
@@ -93,3 +94,11 @@ final class StudyBits(helpers: Helpers):
         )
       )
     )
+
+  private def unfeatureForm(s: Study.WithChaptersAndLiked) =
+    postForm(cls := "study-unfeature", action := s"${routes.Study.admin(s.study.id)}?unfeature=1"):
+      submitButton(
+        cls := "button button-red button-empty yes-no-confirm",
+        dataIcon := Icon.Trash,
+        title := "Unfeature trash study"
+      )

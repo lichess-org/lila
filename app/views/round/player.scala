@@ -5,6 +5,7 @@ import play.api.libs.json.Json
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
+import lila.round.UrgentGames
 
 def player(
     pov: Pov,
@@ -12,7 +13,7 @@ def player(
     tour: Option[lila.tournament.GameView],
     simul: Option[lila.simul.Simul],
     cross: Option[lila.game.Crosstable.WithMatchup],
-    playing: List[Pov],
+    playing: UrgentGames,
     chatOption: Option[lila.chat.Chat.GameOrEvent],
     bookmarked: Boolean
 )(using ctx: Context) =
@@ -28,7 +29,7 @@ def player(
           timeout = false,
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
-          resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+          resource = lila.core.chat.PublicSource.Player(pov.gameId),
           voiceChat = ctx.canVoiceChat,
           opponentId = pov.opponent.userId
         )
@@ -39,7 +40,7 @@ def player(
           name = trans.site.chatRoom.txt(),
           timeout = c.timeout,
           public = true,
-          resourceId = res,
+          resource = res,
           opponentId = pov.opponent.userId
         )
 
@@ -68,7 +69,7 @@ def player(
         ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
           views.game.ui.crosstable.option(cross, pov.game),
-          (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
+          (playing.value.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
             div(cls := "round__now-playing")(
               ui.others(playing, simul.filter(_.isHost(ctx.me)).map(views.simul.ui.roundOtherGames))
             )

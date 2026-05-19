@@ -6,7 +6,7 @@
   <string name="progressX">Haladás: %s</string>
   <string name="resetMyProgress">Haladásom nullázása</string>
   <string name="youWillLoseAllYourProgress">Az összes eddigi haladásod el fog veszni!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">játssz!</string>
+  <string name="play">játssz!</string>
   <string name="chessPieces">Sakkfigurák</string>
   <string name="theRook">A bástya</string>
   <string name="itMovesInStraightLines">Egyenes vonalban mozog</string>
@@ -103,7 +103,7 @@ az ellenfél figurájának leütésével.</string>
 keresztül is sakkot ad!</string>
   <string name="escapeOrBlock">Lépj el a királlyal
 vagy védd ki a támadást!</string>
-  <string name="outOfCheckComplete">Gratulálunk! A királyt ugyan nem lehet leütni, de ügyelj, hogy mindig el tudd hárítani a sakkot!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulálunk! A királyt ugyan nem lehet leütni, de ügyelj, hogy mindig el tudd hárítani a sakkot!</string>
   <string name="mateInOne">Egylépéses matt</string>
   <string name="defeatTheOpponentsKing">Győzd le az ellenfél királyát</string>
   <string name="mateInOneIntro">Győzöl, ha az ellenfeled nem tudja elhárítani a sakkot.</string>
@@ -153,7 +153,6 @@ hogy királyszárnyra sáncolj!</string>
   <string name="findAWayToCastleQueenSide">Találd meg a módját,
 hogy vezérszárnyra sáncolj!</string>
   <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">A gyalog különleges lépése</string>
   <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, leütheted úgy, mintha csak egyet lépett volna.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett

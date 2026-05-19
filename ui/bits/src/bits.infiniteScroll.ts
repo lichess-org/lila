@@ -1,16 +1,16 @@
-import * as xhr from 'lib/xhr';
-import { spinnerHtml } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
+import { spinnerHtml } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
-export function initModule(selector: string = '.infinite-scroll'): void {
+export function initModule(selector = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {
     register(this, selector);
   });
 }
 
 function register(el: HTMLElement, selector: string, backoff = 500) {
-  const nav = el.querySelector('.pager') as HTMLAnchorElement | null,
-    next = nav?.querySelector('.pager a') as HTMLAnchorElement | null,
+  const nav = el.querySelector<HTMLAnchorElement>('.pager'),
+    next = nav?.querySelector<HTMLAnchorElement>('a'),
     nextUrl = next?.href;
 
   if (nav && nextUrl)

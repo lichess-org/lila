@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.core.net.UserAgent
+import scalalib.net.UserAgent
 
 class UserAgentTrustTest extends munit.FunSuite:
 

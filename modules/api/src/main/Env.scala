@@ -57,7 +57,7 @@ final class Env(
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
-    webMobile: lila.web.Mobile
+    clasApi: lila.clas.ClasApi
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,
@@ -96,6 +96,10 @@ final class Env(
   lazy val cli = wire[Cli]
 
   lazy val mobile = wire[MobileApi]
+
+  lazy val clas = wire[ClasApi]
+
+  lazy val gameStreamByOauthOrigin = wire[GameStreamByOauthOrigin]
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness = wire[ChatFreshness]

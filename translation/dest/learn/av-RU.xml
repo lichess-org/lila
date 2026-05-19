@@ -6,7 +6,7 @@
   <string name="progressX">Лъазабуна: %s</string>
   <string name="resetMyProgress">ЦӀидасан байбихьизе</string>
   <string name="youWillLoseAllYourProgress">Дур киналго хӀасилал тӀагӀуна!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">хӀазе!</string>
+  <string name="play">хӀазе!</string>
   <string name="chessPieces">Шахматазул кескал</string>
   <string name="theRook">Хъала</string>
   <string name="itMovesInStraightLines">РитӀарал хӀуччазда хъурщула</string>
@@ -100,7 +100,7 @@
 цӀунулел кесказдасан!</string>
   <string name="escapeOrBlock">Къирал борчӀизабе
 яги тӀадекӀанцӀи нахъчӀвай!</string>
-  <string name="outOfCheckComplete">Баркула! Дур къирал чӀвазе рес гьечӀо, шахалдаса цӀунулеб куц кӀочон тоге!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Баркула! Дур къирал чӀвазе рес гьечӀо, шахалдаса цӀунулеб куц кӀочон тоге!</string>
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
@@ -151,7 +151,6 @@
   <string name="findAWayToCastleQueenSide">Къиралалъул рахъалде
 рокировка гьабизе рес балагье!</string>
   <string name="castlingComplete">Баркула! Дуца хӀаялда гӀемерисеб мехалъ рокировка гьабизе ккола.</string>
-  <string name="enPassant">Нахъаса чӀвай</string>
   <string name="theSpecialPawnMove">Пешкаялъул батӀияб хъурщи</string>
   <string name="enPassantIntro">Дандияс пешка кӀиго майдан бахинабураб мехалъ, дуда гьеб чӀвазе кӀола гьелъ цо майдан бахун бугеб гӀадин.</string>
   <string name="blackJustMovedThePawnByTwoSquares">ЧӀегӀераз гьале гьабсагӀат

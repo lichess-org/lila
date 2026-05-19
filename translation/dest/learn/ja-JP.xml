@@ -6,7 +6,7 @@
   <string name="progressX">修了: %s</string>
   <string name="resetMyProgress">学習履歴をリセット</string>
   <string name="youWillLoseAllYourProgress">修了の数字はゼロになります！</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">今ここ</string>
+  <string name="play">今ここ</string>
   <string name="chessPieces">チェスの駒</string>
   <string name="theRook">ルーク</string>
   <string name="itMovesInStraightLines">タテヨコに動く</string>
@@ -104,7 +104,7 @@
 チェックしてくる！</string>
   <string name="escapeOrBlock">キングを逃がすか
 合い駒で防ぐか</string>
-  <string name="outOfCheckComplete">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
   <string name="mateInOne">1 手でメイト</string>
   <string name="defeatTheOpponentsKing">相手のキングをメイトする</string>
   <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
@@ -155,7 +155,6 @@
   <string name="findAWayToCastleQueenSide">準備してから
 左にキャスリング</string>
   <string name="castlingComplete">おめでとう！　ほとんどの場合キャスリングはしておくべきです。</string>
-  <string name="enPassant">アンパッサン</string>
   <string name="theSpecialPawnMove">ポーンの特殊な動き</string>
   <string name="enPassantIntro">相手のポーンが 2 マス進んだら、1 マス進んだ時と同じように取ることができます。</string>
   <string name="blackJustMovedThePawnByTwoSquares">黒は今ポーンを

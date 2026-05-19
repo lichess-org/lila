@@ -6,10 +6,12 @@ import {
   propsModule,
   styleModule,
 } from 'snabbdom';
+
 import menuHover from 'lib/menuHover';
-import view from './view';
-import type { CoordinateTrainerConfig } from './interfaces';
+
 import CoordinateTrainerCtrl from './ctrl';
+import type { CoordinateTrainerConfig } from './interfaces';
+import view from './view';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 

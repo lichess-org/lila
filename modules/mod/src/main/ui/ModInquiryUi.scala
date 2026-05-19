@@ -5,7 +5,7 @@ import lila.core.config.NetDomain
 import lila.report.Report
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 import lila.core.i18n.Translate
 import lila.core.perm.Permission
 
@@ -19,7 +19,7 @@ final class ModInquiryUi(helpers: Helpers)(
   def apply(in: Inquiry)(using Context, Me) =
     val presets = getPmPresets.byPermission
     div(id := "inquiry", data("username") := in.user.user.username)(
-      i(title := "Costello the Inquiry Octopus", cls := "costello"),
+      iconTag(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user.user, withPerfRating = in.user.perfs.some, params = "?mod"),
         div(cls := "docs reports")(
@@ -148,7 +148,7 @@ final class ModInquiryUi(helpers: Helpers)(
           boostOpponents(in.report, in.allReports, in.user.user).map { opponents =>
             a(
               cls := "fbt",
-              href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(", ")}"
+              href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(",")}"
             )("With these opponents")
           }
         )
@@ -252,9 +252,7 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def closeInquiry(in: Inquiry) =
     div(cls := "actions close")(
-      span(cls := "switcher", title := "Automatically open next report")(
-        span(cls := "switch")(form3.cmnToggle("auto-next", "auto-next", checked = true))
-      ),
+      form3.cmnToggle("auto-next", "auto-next", checked = true)(title := "Automatically open next report"),
       postForm(
         action := routes.Report.process(in.report.id),
         title := "Dismiss this report as processed. (Hotkey: d)",
@@ -295,6 +293,7 @@ final class ModInquiryUi(helpers: Helpers)(
         .flatMap(UserStr.read)
         .flatMap(_.validateId)
         .distinct
+        .take(6)
         .toNel
 
   private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate) =
@@ -316,7 +315,7 @@ final class ModInquiryUi(helpers: Helpers)(
   private def markButton(active: Boolean, icon: Either[Icon, String]) = submitButton(
     cls := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
     dataIcon := icon.left.toOption
-  )(icon.toOption.map(str => frag(i(str), " ")))
+  )(icon.toOption.map(str => frag(iconTag(str), " ")))
 
   private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Me) =
     (Granter(_.ModMessage) && presets.nonEmpty).option:

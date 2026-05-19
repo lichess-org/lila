@@ -4,8 +4,8 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.security.TurnstilePublicConfig
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }
@@ -31,12 +31,24 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.checkbox(
-              form("forever"),
-              raw("Forever close: make it impossible to reopen"),
-              help = raw(
-                "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-              ).some
+            form3.split(
+              if me.totpSecret.isDefined
+              then
+                form3.group(
+                  form("token"),
+                  trans.tfa.authenticationCode(),
+                  half = true,
+                  help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
+                )(form3.totpTokenInput)
+              else form3.hidden(form("token")),
+              form3.checkboxGroup(
+                form("forever"),
+                raw("Forever close: make it impossible to reopen"),
+                half = me.totpSecret.isDefined,
+                help = raw(
+                  "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
+                ).some
+              )
             ),
             form3.actions(
               frag(
@@ -69,7 +81,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               " instead?"
             ),
             myUsernamePasswordFields(form),
-            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.checkboxGroup(form("understand"), "I understand that deleted accounts aren't recoverable"),
             form3.errors(form("understand")),
             me.marks.dirty.option:
               div(cls := "form-group")(
@@ -248,16 +260,20 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         )
       )
 
-  def email(form: Form[?])(using Context) =
+  def email(form: Form[?], managed: Boolean)(using Context) =
     AccountPage(trans.site.changeEmail.txt(), "email"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changeEmail()),
-        standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
-        postForm(cls := "form3", action := routes.Account.emailApply)(
-          form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
-          form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.site.apply()))
-        )
+        if managed then p("Your account is managed. Ask your teacher to graduate it.")
+        else
+          frag(
+            standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
+            postForm(cls := "form3", action := routes.Account.emailApply)(
+              form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
+              form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
+              form3.action(form3.submit(trans.site.apply()))
+            )
+          )
       )
 
   def data(u: User)(using Context) =
@@ -273,11 +289,10 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
 
   object reopen:
 
-    def form(form: lila.core.security.HcaptchaForm[?], error: Option[String] = None)(using ctx: Context) =
+    def form(form: Form[?], error: Option[String] = None)(using ctx: Context)(using TurnstilePublicConfig) =
       Page(trans.site.reopenYourAccount.txt())
         .css("bits.auth")
-        .js(hcaptchaScript(form))
-        .csp(_.withHcaptcha):
+        .csp(_.withTurnstile):
           main(cls := "page-small box box-pad")(
             h1(cls := "box__top")(trans.site.reopenYourAccount()),
             p(trans.site.reopenYourAccountDescription()),
@@ -290,7 +305,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 .group(form("email"), trans.site.email(), help = trans.site.emailAssociatedToaccount().some)(
                   form3.input(_, typ = "email")
                 ),
-              lila.ui.bits.hcaptcha(form),
+              turnstile.widget(),
               form3.action(form3.submit(trans.site.emailMeALink()))
             )
           )

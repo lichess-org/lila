@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Rated, Position, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
+import chess.{ Rated, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
 import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus

@@ -29,7 +29,6 @@
   <string name="botPlay">ボット API を使って対局する</string>
   <string name="engineRead">自作外部エンジンの表示と使用</string>
   <string name="engineWrite">外部エンジンの作成と更新</string>
-  <string name="webLogin">認証済みウェブサイトセッションの作成（フルアクセス可能！）</string>
   <string name="webMod">モデレーター用ツールの使用（権限の範囲内で）</string>
   <string name="personalAccessTokens">個人 API アクセストークン</string>
   <string name="canMakeOauthRequests">OAuth リクエストは %s を経由せずにできます。</string>

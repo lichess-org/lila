@@ -19,7 +19,7 @@ final class TeamBattleUi(helpers: Helpers):
       .js(Esm("bits.teamBattleForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
-            h1(cls := "box__top")(tour.name()),
+            h1(cls := "box__top")(a(href := routes.Tournament.show(tour.id))(tour.name())),
             standardFlash,
             if tour.isFinished then p(trans.team.thisTeamBattleIsOver())
             else p(trans.team.listTheTeamsThatWillCompete()),
@@ -36,7 +36,7 @@ final class TeamBattleUi(helpers: Helpers):
                 trans.team.numberOfLeadsPerTeam(),
                 help = trans.team.numberOfLeadsPerTeamHelp().some
               )(
-                form3.input(_)(tpe := "number")
+                form3.input(_)(tpe := "number", tour.isFinished.option(disabled))
               ),
               form3.globalError(form),
               form3.submit(trans.site.save())(tour.isFinished.option(disabled))

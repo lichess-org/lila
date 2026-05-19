@@ -1,46 +1,42 @@
-import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
 import { parseFen } from 'chessops/fen';
+import { h } from 'snabbdom';
+
 import { defined } from 'lib';
+import { renderEval as normalizeEval } from 'lib/ceval';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
+import { isMobile } from 'lib/device';
+import { playable } from 'lib/game';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import statusView from 'lib/game/view/status';
 import * as licon from 'lib/licon';
+import * as Prefs from 'lib/prefs';
+import { storage } from 'lib/storage';
+import { path as treePath } from 'lib/tree/tree';
+import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import {
   type VNode,
-  type LooseVNode,
   type LooseVNodes,
   bind,
   bindNonPassive,
   onInsert,
   dataIcon,
   hl,
+  spinnerVdom as spinner,
 } from 'lib/view';
-import { playable } from 'lib/game';
-import { isMobile } from 'lib/device';
-import * as materialView from 'lib/game/view/material';
-import { path as treePath } from 'lib/tree/tree';
-import { view as actionMenu } from './actionMenu';
-import retroView from '../retrospect/retroView';
-import practiceView from '../practice/practiceView';
-import explorerView from '../explorer/explorerView';
-import { view as forkView } from '../fork';
-import renderClocks from './clocks';
-import * as control from '../control';
-import * as chessground from '../ground';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
+
 import type AnalyseCtrl from '../ctrl';
+import * as chessground from '../ground';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view';
-import * as Prefs from 'lib/prefs';
-import statusView from 'lib/game/view/status';
-import { renderNextChapter } from '../study/nextChapter';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import serverSideUnderboard from '../serverSideUnderboard';
-import type StudyCtrl from '../study/studyCtrl';
-import type RelayCtrl from '../study/relay/relayCtrl';
-import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
-import { storage } from 'lib/storage';
-import { backToLiveView } from '../study/relay/relayView';
+import serverSideUnderboard from '../serverSideUnderboard';
+import type RelayCtrl from '../study/relay/relayCtrl';
 import { findTag } from '../study/studyChapters';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import type StudyCtrl from '../study/studyCtrl';
+import type * as studyDeps from '../study/studyDeps';
+import renderClocks from './clocks';
+import { renderMaterialDiffs } from './materialDiffs';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -104,7 +100,6 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
-          ctx.relay?.setBodyClass();
         },
         postpatch(old, vnode) {
           if (old.data!.gaugeOn !== gaugeOn) dispatchChessgroundResize();
@@ -127,23 +122,8 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {
-  const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
-  return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
-    allowVideo && embeddedVideo,
-    showCeval && cevalView.renderCeval(ctrl),
-    showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-    renderMoveList(ctrl, deps, concealOf),
-    deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-    backToLiveView(ctrl),
-    forkView(ctrl, concealOf),
-    retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
-    ctrl.actionMenu() && actionMenu(ctrl),
-  ]);
-}
-
-export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewContext) {
-  return hl(
+export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode =>
+  hl(
     addChapterId(study, 'div.analyse__board.main-board'),
     {
       hook:
@@ -151,22 +131,16 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
           ? undefined
           : bindNonPassive(
               'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (ctrl.gamebookPlay()) return;
-                const target = e.target as HTMLElement;
-                if (
-                  target.tagName !== 'PIECE' &&
-                  target.tagName !== 'SQUARE' &&
-                  target.tagName !== 'CG-BOARD'
-                )
-                  return;
-                if (scroll) {
-                  e.preventDefault();
-                  if (e.deltaY > 0) control.next(ctrl);
-                  else if (e.deltaY < 0) control.prev(ctrl);
+              stepwiseScroll(
+                e => {
+                  if (e.deltaY > 0) ctrl.navigate.next();
+                  else if (e.deltaY < 0) ctrl.navigate.prev();
                   ctrl.redraw();
-                }
-              }),
+                },
+                e =>
+                  !!ctrl.gamebookPlay() ||
+                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+              ),
             ),
     },
     [
@@ -177,10 +151,9 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
       ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
     ],
   );
-}
 
-export function renderUnderboard({ ctrl, deps, study }: ViewContext) {
-  return hl(
+export const renderUnderboard = ({ ctrl, deps, study }: ViewContext): VNode =>
+  hl(
     'div.analyse__underboard',
     {
       hook:
@@ -188,7 +161,6 @@ export function renderUnderboard({ ctrl, deps, study }: ViewContext) {
     },
     study ? deps?.studyView.underboard(ctrl) : [renderInputs(ctrl)],
   );
-}
 
 export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
@@ -236,7 +208,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
                 if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
-                  return;
+                  return undefined;
                 else if (changePgnIfDifferent()) e.preventDefault();
               });
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
@@ -293,18 +265,18 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   return [];
 }
 
-export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes =>
-  node.san ? [renderIndex(node.ply, true), renderMoveNodes(node, withEval, withGlyphs)] : undefined;
+export const renderIndexAndMove = (node: TreeNode, withEval: boolean, withGlyphs: boolean): VNode[] =>
+  node.san ? [renderIndex(node.ply, true), ...renderMoveNodes(node, withEval, withGlyphs)] : [];
 
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
-  hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
 export function renderMoveNodes(
-  node: Tree.Node,
+  node: TreeNode,
   withEval: boolean,
   withGlyphs: boolean,
-  ev?: Tree.ClientEval | Tree.ServerEval | false,
-): LooseVNodes {
+  ev?: ClientEval | ServerEval | false,
+): VNode[] {
   ev ??= node.ceval ?? node.eval; // ev = false will override withEval
   const evalText = !ev
     ? ''
@@ -313,29 +285,13 @@ export function renderMoveNodes(
       : ev?.mate !== undefined
         ? `#${ev.mate}`
         : '';
-  return [
-    hl('san', fixCrazySan(node.san!)),
-    withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),
-    withEval && !!node.shapes?.length && hl('shapes'),
-    withEval && evalText && hl('eval', evalText.replace('-', '−')),
-  ];
+  const nodes = [h('san', fixCrazySan(node.san!))];
+  if (withGlyphs && node.glyphs)
+    node.glyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
+  if (withEval && node.shapes?.length) nodes.push(h('shapes'));
+  if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
+  return nodes;
 }
-
-const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
-    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
-    !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
-  ]);
-
-export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
-  materialView.renderMaterialDiffs(
-    !!ctrl.data.pref.showCaptured,
-    ctrl.bottomColor(),
-    ctrl.node.fen,
-    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
-    ctrl.nodeList,
-    ctrl.node.ply,
-  );
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
@@ -343,7 +299,7 @@ export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {
     if (!ctrl.study.multiBoard.showResults()) {
-      return _ => (path: Tree.Path, _) =>
+      return _ => (path: TreePath, _) =>
         treePath.contains(ctrl.path, ctrl.onMainline ? path : treePath.init(path)) ? null : 'hide';
     }
     return undefined;
@@ -357,9 +313,9 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
         }
       : null;
   if (conceal)
-    return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
-      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-      if (treePath.contains(ctrl.path, path)) return null;
+    return (isMainline: boolean) => (path: TreePath, node: TreeNode) => {
+      if (!conceal || (isMainline && conceal.ply >= node.ply) || treePath.contains(ctrl.path, path))
+        return null;
       return conceal.owner ? 'conceal' : 'hide';
     };
   return undefined;

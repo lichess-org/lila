@@ -120,4 +120,9 @@ Mostrarà una línia separadora horitzontal.</string>
   <string name="moveToAnotherClass">Moure a una altra classe</string>
   <string name="allowMessagingBetweenStudents">Permetre missatges entre estudiants</string>
   <string name="allowMessagingBetweenStudentsDesc">Això només aplica pels comptes que heu creat pels vostres estudiants.</string>
+  <string name="quickLoginCode">Codi d\'accés ràpid</string>
+  <string name="quickLoginCodes">Codis d\'accés ràpid</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Utilitza aquests codis a %s per autentificar els teus estudiants a Lichess.</string>
+  <string name="quickLoginCodesDesc2">Quan el codi caduqui, els teus estudiants seguiran autentificats fins que surtin manualment.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Caducitat %s</string>
 </resources>

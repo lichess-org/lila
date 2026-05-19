@@ -1,11 +1,16 @@
+@import 'flash';
+
 main.page-menu {
   position: relative;
 }
+
 .flash {
+  @include inline-end(0);
+
   position: absolute;
   top: 0;
-  @include inline-end(0);
   margin: 0;
+
   &.fade {
     opacity: 0;
     transition: 3s;

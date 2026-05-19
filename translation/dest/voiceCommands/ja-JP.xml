@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">チュートリアル動画を見る</string>
   <string name="instructions1">%1$s ボタンで音声認識の切り替え、 %2$s ボタンでこのヘルプダイアログの表示、 %3$s メニューで音声設定の変更ができます。</string>
   <string name="instructions2">はっきりしない場合は複数の手が矢印で表示されます。矢印の色や数字を発声すると選択できます。</string>
-  <string name="instructions3">矢印に回転するタイマーがついていると、1 周した時点でその手が指されます。この間、%1$s と言えば手がすぐに指され、%2$s で手がキャンセルされ、色・数字を言えば別の矢印に移ります。このタイマーの調整や停止は設定で行なえます。</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">矢印に回転するタイマーがついていると、1 周した時点でその手が指されます。この間、%1$s と言えば手がすぐに指され、%2$s で手がキャンセルされ、色・数字を言えば別の矢印に移ります。このタイマーの調整や停止は設定で行なえます。</string>
   <string name="instructions4">騒がしい環境では %s を有効にしてください。これがオンの場合、Shift キーを押したままコマンドを発話します。</string>
   <string name="instructions5">a - h に英語のフォネティック・アルファベットを使うと認識されやすくなります。 </string>
   <string name="instructions6">%s に音声入力設定の詳しい説明があります。</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 に移動か e4 の駒を選択</string>
   <string name="selectOrCaptureABishop">ビショップを選択する、または取る</string>
   <string name="takeRookWithQueen">クイーンでルークを取る</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">キャスリング（どちら側でも）</string>
+  <string name="castle">キャスリング（どちら側でも）</string>
   <string name="phoneticAlphabetIsBest">フォネティック・アルファベット推奨</string>
   <string name="cancelTimerOrDenyARequest">タイマーのキャンセルかリクエストの拒否</string>
   <string name="playPreferredMoveOrConfirmSomething">選んだ手を指すか yes と答えてください。</string>

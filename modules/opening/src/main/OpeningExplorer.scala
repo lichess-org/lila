@@ -4,17 +4,19 @@ import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.opening.Opening
 import chess.IntRating
-import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.util.{ Failure, Success, Try }
+import scalalib.net.Crawler
 
-import lila.core.net.Crawler
+import lila.core.config.Secret
+import lila.mon.extensions.*
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
-    explorerEndpoint: String @@ ExplorerEndpoint
+    explorerEndpoint: Url,
+    oauthToken: Secret
 )(using Executor):
   import OpeningExplorer.*
 
@@ -23,6 +25,7 @@ final private class OpeningExplorer(
   // weird looking return type, but it was convenient here
   def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Try[Option[Position]]] =
     ws.url(s"$explorerEndpoint/lichess")
+      .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
       .withQueryStringParameters(
         "since" -> OpeningQuery.firstMonth,
         "play" -> play.map(_.uci).mkString(","),
@@ -45,14 +48,16 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
             )
+      .monSuccess(lila.mon.opening.explorer.stats)
       .map(Success(_))
       .recover:
         case e: Exception =>
           logger.warn(s"Opening stats $play $config", e)
           Failure(e)
 
-  def simplePopularity(opening: Opening): Fu[Option[Long]] =
+  private[opening] def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
+      .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
       .withQueryStringParameters(
         "since" -> OpeningQuery.firstMonth,
         "play" -> opening.uci.value.replace(" ", ","),
@@ -80,7 +85,7 @@ final private class OpeningExplorer(
         none
       }
 
-object OpeningExplorer:
+private object OpeningExplorer:
 
   case class Position(
       white: Long,

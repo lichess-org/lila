@@ -1,10 +1,12 @@
-import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { spinnerVdom, initMiniBoard } from 'lib/view';
-import { userLink } from 'lib/view/userLink';
 import { opposite } from '@lichess-org/chessground/util';
+import { h, type VNode } from 'snabbdom';
+
+import * as licon from 'lib/licon';
+import { spinnerVdom, initMiniBoard, dataIcon, iconCls } from 'lib/view';
+import { userLink } from 'lib/view/userLink';
+
 import type ChallengeCtrl from './ctrl';
+import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 
 export const loaded = (ctrl: ChallengeCtrl): VNode =>
   ctrl.redirecting
@@ -55,7 +57,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
               ),
             ]),
           ]),
-          h('i.perf', { attrs: { 'data-icon': c.perf.icon } }),
+          iconCls(c.perf.icon, 'perf'),
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
@@ -141,10 +143,10 @@ const renderUser = (u: ChallengeUser | undefined, showRating: boolean): VNode =>
     : h('span', 'Open challenge');
 
 const renderLag = (u?: ChallengeUser) =>
-  u && h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('i', { class: { off: u.lag! < i } })));
+  u &&
+  h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('icon', { class: { off: u.lag! < i } })));
 
-const empty = (): VNode =>
-  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.site.noChallenges);
+const empty = (): VNode => h('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.noChallenges);
 
 const onClick = (f: (e: Event) => void) => ({
   insert: (vnode: VNode) => {

@@ -1,5 +1,6 @@
-import type { Tab, Mode, Sort } from './interfaces';
 import { storage } from 'lib/storage';
+
+import type { Tab, Mode, Sort } from './interfaces';
 
 interface Store<A> {
   set(v: string): A;

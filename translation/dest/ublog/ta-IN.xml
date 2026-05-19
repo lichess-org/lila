@@ -3,6 +3,9 @@
   <string name="community">சமூகம்</string>
   <string name="byMonth">மாத வாரியாக</string>
   <string name="byTopic">தலைப்பு வாரியாக</string>
+  <string name="byLichess">Lichessன் பதிவுகள்</string>
+  <string name="myFriends">எனது நண்பர்கள்</string>
+  <string name="myLikes">நான் விரும்பியவை</string>
   <string name="myBlog">எனது வலைப்பதிவு</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
   <plurals name="blogPosts">

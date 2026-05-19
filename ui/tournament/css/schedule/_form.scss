@@ -1,8 +1,10 @@
 .tour__form {
   .tour-name > div {
     @extend %flex-center-nowrap;
+
     overflow: hidden;
     gap: 1em;
+
     > * {
       flex: 1 1 auto;
     }

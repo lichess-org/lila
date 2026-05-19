@@ -11,6 +11,7 @@ import scala.util.matching.Regex.quote
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
+import lila.mon.extensions.*
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
 
@@ -24,11 +25,7 @@ final class PicfitApi(
 
   import PicfitApi.{ *, given }
 
-  Bus.sub[lila.core.user.UserDelete]: del =>
-    for
-      ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-      _ <- deleteByIds(ids)
-    yield ()
+  Bus.sub[lila.core.user.UserDelete](del => deleteByUser(del.id))
 
   def uploadFile(
       file: FilePart,
@@ -153,11 +150,11 @@ final class PicfitApi(
         )
         .void
 
-  private def deleteByIds(ids: Seq[ImageId]): Funit =
-    ids.toList.sequentiallyVoid: id =>
-      coll
-        .findAndRemove($id(id))
-        .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
+  def deleteByUser(userId: UserId): Funit =
+    for
+      ids <- coll.primitive[ImageId]($doc("user" -> userId), "_id")
+      _ <- ids.toList.sequentiallyVoid(deleteById)
+    yield ()
 
   private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
@@ -186,7 +183,7 @@ final class PicfitApi(
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+        .monSuccess(lila.mon.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")

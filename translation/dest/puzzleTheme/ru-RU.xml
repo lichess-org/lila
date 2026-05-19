@@ -26,12 +26,14 @@
   <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
+  <string name="collinearMove">Коллинеарный ход</string>
+  <string name="collinearMoveDescription">Две противоположные фигуры видят друг друга, и одна передвигается по линии боя, не снимая фигуру противника.</string>
   <string name="cornerMate">Угловой мат</string>
   <string name="cornerMateDescription">Загоните короля в угол ладьёй или ферзём, и поставьте там мат конём.</string>
   <string name="crushing">Разгром</string>
   <string name="crushingDescription">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Вскрытый шах</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Переместите фигуру и поставьте шах скрытой до этого атакующей фигурой, чтобы получить решающее преимущество.</string>
+  <string name="discoveredCheck">Вскрытый шах</string>
+  <string name="discoveredCheckDescription">Переместите фигуру и поставьте шах скрытой до этого атакующей фигурой, чтобы получить решающее преимущество.</string>
   <string name="doubleBishopMate">Мат двумя слонами</string>
   <string name="doubleBishopMateDescription">Два слона атакующей стороны ставят мат на смежных диагоналях королю противника, окружённому своими же фигурами.</string>
   <string name="dovetailMate">Мат «ласточкин хвост»</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика в последней стадии игры.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где своя пешка может взять пешку противника, сходившую на две клетки из своего начального положения, и при этом пропущенное поле было под боем своей пешки.</string>
+  <string name="epauletteMate">Эполетный мат</string>
+  <string name="epauletteMateDescription">Две соседние клетки для спасения короля, оказавшегося под шахом, заняты другими фигурами.</string>
   <string name="exposedKing">Открытый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
   <string name="fork">Вилка</string>
@@ -67,9 +71,15 @@
   <string name="intermezzoDescription">Вместо того, чтобы сделать ожидаемый ход, сначала делается другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как «Zwischenzug» или «Intermezzo».</string>
   <string name="killBoxMate">Мат «Смертельная коробка»</string>
   <string name="killBoxMateDescription">Ладья ставится рядом с королём противника под защитой ферзя, который одновременно препятствует побегу короля. Ладья и ферзь ловят вражеского короля в «смертельную коробку» 3×3.</string>
+  <string name="pillsburysMate">Мат Пиллсбери</string>
+  <string name="pillsburysMateDescription">Ладья ставит мат, в то время как слон контролирует угловое поле.</string>
+  <string name="morphysMate">Мат Морфи</string>
+  <string name="morphysMateDescription">Слон ставит мат, в то время как ладья контролирует соседнюю вертикаль.</string>
+  <string name="swallowstailMate">Мат \"Ласточкин хвост\"</string>
+  <string name="swallowstailMateDescription">Матовая конструкция, напоминающая собой хвост ласточки; также напоминает букву \"V\".</string>
   <string name="triangleMate">Треугольный мат</string>
   <string name="triangleMateDescription">Ферзь и ладья находятся на соседних полях с вражеским королём, на той же горизонтали или вертикали, образуюя треугольник.</string>
-  <string name="vukovicMate">Мат Вуковича</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Мат Вуковича</string>
   <string name="vukovicMateDescription">Ладья и конь совместно матуют короля. Ладья, защищённая ещё одной фигурой, ставит мат, а конь отрезает поля отступления вражеского короля.</string>
   <string name="knightEndgame">Коневой эндшпиль</string>
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">Задача, где нужно сделать только один выигрывающий ход.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика в первой стадии игры.</string>
+  <string name="operaMate">Оперный мат</string>
+  <string name="operaMateDescription">Ладья ставит мат под защитой слона.</string>
   <string name="pawnEndgame">Пешечный эндшпиль</string>
   <string name="pawnEndgameDescription">Эндшпиль с пешками.</string>
   <string name="pin">Связка</string>

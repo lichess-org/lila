@@ -1,10 +1,18 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { COLORS } from 'chessops';
+import { lichessRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { makeSan } from 'chessops/san';
+import { charToRole, opposite, parseUci } from 'chessops/util';
+import { setupPosition } from 'chessops/variant';
+
 import { defined } from 'lib';
-import { text as xhrText } from 'lib/xhr';
-import type AnalyseCtrl from '../ctrl';
-import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData } from '../interfaces';
-import type { Player } from 'lib/game';
+import { throttle } from 'lib/async';
+import { view as cevalView, renderEval } from 'lib/ceval';
+import { renderChat } from 'lib/chat/renderChat';
+import { isTouchDevice } from 'lib/device';
+import { type Player, plyOpponentColor } from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
 import {
   renderSan,
   renderPieces,
@@ -25,32 +33,29 @@ import {
   pocketsStr,
   leaveSquareHandler,
 } from 'lib/nvui/chess';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import explorerView from '../explorer/explorerView';
-import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval } from 'lib/ceval';
-import { next, prev } from '../control';
-import { lichessRules } from 'chessops/compat';
-import { makeSan } from 'chessops/san';
-import { charToRole, opposite, parseUci } from 'chessops/util';
-import { parseFen } from 'chessops/fen';
-import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from 'lib/game/chess';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
-import { renderResult, viewContext, type RelayViewContext } from '../view/components';
-import { view as chapterNewFormView } from '../study/chapterNewForm';
-import { view as chapterEditFormView } from '../study/chapterEditForm';
-import renderClocks from '../view/clocks';
-import { renderChat } from 'lib/chat/renderChat';
-import { throttle } from 'lib/async';
+import { ops, path as treePath } from 'lib/tree/tree';
+import type { ClientEval, PvData } from 'lib/tree/types';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
+
+import type { AnalyseNvuiContext } from '../analyse.nvui';
+import type AnalyseCtrl from '../ctrl';
+import explorerView from '../explorer/explorerView';
+import { makeConfig as makeCgConfig } from '../ground';
+import type { AnalyseData } from '../interfaces';
+import { clickHook, currentLineIndex, renderCurrentNode } from '../nvuiUtil';
 import { renderRetro } from '../retrospect/nvuiRetroView';
+import { view as chapterEditFormView } from '../study/chapterEditForm';
+import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
-import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import renderClocks from '../view/clocks';
+import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -67,7 +72,8 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
-  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
+    ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -78,13 +84,37 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     drawable: { enabled: false },
     coordinates: false,
   });
+  const boardFirst = isTouchDevice() && pageStyle.get() === 'board-actions';
+
+  if (boardFirst) {
+    pieceStyle.set('name');
+    prefixStyle.set('name');
+    boardStyle.set('plain');
+  }
+
+  const boardView = [
+    hl('h2', i18n.site.board),
+    hl(
+      'div.board',
+      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      renderBoard(
+        ctrl.chessground.state.pieces,
+        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+  ];
+
   return hl('main.analyse', [
     hl('div.nvui', [
+      ...(boardFirst ? boardView : []),
+      boardFirst && renderTouchDeviceCommands(ctx),
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
-      ...['white', 'black'].map((color: Color) =>
-        hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
-      ),
+      ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
       hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
@@ -101,7 +131,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         explorerView(ctrl),
       ],
       hl('h2', i18n.nvui.pieces),
-      renderPieces(ctrl.chessground.state.pieces, style),
+      renderPieces(ctrl.chessground.state.pieces, style, ctrl.bottomColor()),
       pockets && hl('h2', i18n.nvui.pockets),
       pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
@@ -109,7 +139,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
-          hl('h2', `${i18n.site.clock}`),
+          hl('h2', i18n.site.clock),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
       hl('h2', i18n.nvui.inputForm),
@@ -137,23 +167,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       renderRetro(ctx),
       !ctrl.retro && [
         hl('h2', i18n.site.computerAnalysis),
-        cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
+        cevalView.renderCeval(ctrl), // beware unsolicited redraws hosing the screen reader
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
-      hl('h2', i18n.site.board),
-      hl(
-        'div.board',
-        { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
-        renderBoard(
-          ctrl.chessground.state.pieces,
-          ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
-          pieceStyle.get(),
-          prefixStyle.get(),
-          positionStyle.get(),
-          boardStyle.get(),
-        ),
-      ),
+      ...(boardFirst ? [] : boardView),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('div.content', {
         hook: {
@@ -166,11 +184,12 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
               });
             });
             root.find('.copy-fen').on('click', function (this: HTMLElement) {
-              const inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement;
-              const fen = inputFen.value;
-              navigator.clipboard.writeText(fen).then(() => {
-                notify.set(i18n.nvui.copiedToClipboard('FEN'));
-              });
+              const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
+              if (fen) {
+                navigator.clipboard.writeText(fen).then(() => {
+                  notify.set(i18n.nvui.copiedToClipboard('FEN'));
+                });
+              }
             });
           },
         },
@@ -215,26 +234,36 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   ]);
 }
 
-export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
-  return {
-    // put unique identifying props on the button container (such as class)
-    // because snabbdom WILL mix plain adjacent buttons up.
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => {
-          main?.(el);
-          post?.();
-        });
-        el.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'Enter') {
-            main?.(el);
-            post?.();
-          }
-        });
-      },
-    },
-  };
+function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
+  const { notify, ctrl, moveStyle } = ctx;
+  return [
+    hl('div.actions', [
+      hl('button', { hook: bind('click', ctrl.navigate.prev) }, 'previous move'),
+      hl('button', { hook: bind('click', ctrl.navigate.next) }, 'next move'),
+      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evaluation'),
+      hl(
+        'button',
+        { hook: bind('click', () => notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext))) },
+        'top engine move',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            notify.set(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
+          }),
+        },
+        'clocks',
+      ),
+      hl('button', { hook: bind('click', ctrl.navigate.first) }, 'first move'),
+      hl('button', { hook: bind('click', ctrl.navigate.last) }, 'last move'),
+      hl(
+        'button',
+        { hook: bind('click', () => toggleLocalEvaluation(ctrl)) },
+        noEvalStr(ctrl) ? noEvalStr(ctrl) : 'local evaluation is enabled',
+      ),
+    ]),
+  ];
 }
 
 function boardEventsHook(
@@ -245,9 +274,11 @@ function boardEventsHook(
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
-  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
   $buttons.on('blur', leaveSquareHandler($buttons));
-  $buttons.on('click', selectionHandler(opponentColor));
+  $buttons.on(
+    'click',
+    selectionHandler(() => plyOpponentColor(ctrl.node.ply)),
+  );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))
@@ -288,7 +319,7 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
       ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
       : '';
 
-const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+const depthInfo = (clientEv: ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
 const noEvalStr = (ctrl: AnalyseCtrl) =>
@@ -298,12 +329,16 @@ const noEvalStr = (ctrl: AnalyseCtrl) =>
       ? 'local evaluation not enabled'
       : '';
 
+function toggleLocalEvaluation(ctrl: AnalyseCtrl): void {
+  if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+}
+
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl);
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
-  let pvs: Tree.PvData[] = [];
+  let pvs: PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
@@ -345,7 +380,7 @@ function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
     if (command && !command.invalid?.(ctrl)) command.cb(ctx, input);
     else {
       const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
-      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
+      const isDrop = (u?: string | DropMove) => !!(u && typeof u !== 'string');
       const isInvalidDrop = (d: DropMove) =>
         !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
       const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
@@ -403,9 +438,13 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'prev',
     help: noTrans('return to the previous move'),
-    cb: ({ ctrl }) => doAndRedraw(ctrl, prev),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.prev),
   },
-  { cmd: 'next', help: noTrans('go to the next move'), cb: ({ ctrl }) => doAndRedraw(ctrl, next) },
+  {
+    cmd: 'next',
+    help: noTrans('go to the next move'),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.next),
+  },
   {
     cmd: 'prev line',
     help: noTrans('switch to the previous variation'),
@@ -460,7 +499,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
-  ['white', 'black'].forEach((color: Color) => {
+  COLORS.forEach(color => {
     res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
       hl(
@@ -480,7 +519,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
               { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
               [
                 plyToTurn(node.ply),
-                renderSan(node.san!, node.uci, moveStyle.get()),
+                renderSan(node.san, node.uci, moveStyle.get()),
                 renderComments(node, moveStyle.get()),
               ].join(' '),
             ),
@@ -509,38 +548,6 @@ const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiCon
         i18n.site.requestAComputerAnalysis,
       );
 };
-
-function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
-  if (ctrl.path === treePath.root) return { i: 1, of: 1 };
-  const prevNode = ctrl.tree.parentNode(ctrl.path);
-  return {
-    i: prevNode.children.findIndex(node => node.id === ctrl.node.id),
-    of: prevNode.children.length,
-  };
-}
-
-function renderLineIndex(ctrl: AnalyseCtrl): string {
-  const { i, of } = currentLineIndex(ctrl);
-  return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
-}
-
-export function renderCurrentNode({
-  ctrl,
-  moveStyle,
-}: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
-  const node = ctrl.node;
-  if (!node.san || !node.uci) return i18n.nvui.gameStart;
-  return [
-    plyToTurn(node.ply),
-    node.ply % 2 === 1 ? i18n.site.white : i18n.site.black,
-    renderSan(node.san, node.uci, moveStyle.get()),
-    renderLineIndex(ctrl),
-    !ctrl.retro && renderComments(node, moveStyle.get()),
-  ]
-    .filter(x => x)
-    .join(' ')
-    .trim();
-}
 
 const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
   player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
@@ -580,9 +587,13 @@ function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
     hl(
       'span',
       keys
-        .reduce<
-          string[]
-        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs), [])
+        .reduce<string[]>(
+          (strs, [key, i18n]) =>
+            player[key]
+              ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`)
+              : strs,
+          [],
+        )
         .join(' '),
     )
   );
@@ -626,7 +637,7 @@ function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
       clickHook(() => ctx.relay.tab('players'), ctrl.redraw),
       'Load player list',
     ),
-    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players, ctx.relay.data.tour)),
+    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players)),
   ];
 }
 
@@ -747,7 +758,7 @@ const doAndRedraw = (ctrl: AnalyseCtrl, fn: (ctrl: AnalyseCtrl) => void): void =
 
 function jumpMoveOrLine(ctrl: AnalyseCtrl) {
   return (e: KeyboardEvent) => {
-    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
-    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : ctrl.navigate.prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : ctrl.navigate.next);
   };
 }

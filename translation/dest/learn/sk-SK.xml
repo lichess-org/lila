@@ -6,7 +6,7 @@
   <string name="progressX">Priebeh: %s</string>
   <string name="resetMyProgress">Vynulovať môj progres</string>
   <string name="youWillLoseAllYourProgress">Stratíte celý váš progres!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">hrať!</string>
+  <string name="play">hrať!</string>
   <string name="chessPieces">Šachové figúrky</string>
   <string name="theRook">Veža</string>
   <string name="itMovesInStraightLines">Pohybuje sa vodorovne a zvislo</string>
@@ -93,7 +93,7 @@ ale môžete sa brániť!</string>
   <string name="youCanGetOutOfCheckByTaking">Môžete sa dostať zo šachu tým, že vezmete šachujúcu figúrku.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Tento jazdec Vás šachuje aj cez Vašu obranu!</string>
   <string name="escapeOrBlock">Ustúpte kráľom alebo napadnutie predkryte!</string>
-  <string name="outOfCheckComplete">Gratulujeme! Na Vášho kráľa si len tak niekto nepríde! Vždy sa uistite, že sa proti šachu dokážete brániť!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulujeme! Na Vášho kráľa si len tak niekto nepríde! Vždy sa uistite, že sa proti šachu dokážete brániť!</string>
   <string name="mateInOne">Mat 1. ťahom</string>
   <string name="defeatTheOpponentsKing">Porazenie súperovho kráľa</string>
   <string name="mateInOneIntro">Vyhráte vtedy, keď sa Váš súper nedokáže brániť proti šachu.</string>
@@ -124,7 +124,6 @@ ale môžete sa brániť!</string>
   <string name="findAWayToCastleKingSide">Nájdite spôsob ako urobiť malú rošádu!</string>
   <string name="findAWayToCastleQueenSide">Nájdite spôsob ako urobiť veľkú rošádu!</string>
   <string name="castlingComplete">Gratulujeme! Rošádu by ste v mali urobiť takmer v každej partii.</string>
-  <string name="enPassant">Branie mimochodom</string>
   <string name="theSpecialPawnMove">Osobitý ťah pešiakom</string>
   <string name="enPassantIntro">Keď súper potiahne pešiakom o dve políčka, môžete ho vziať akoby potiahol len o jedno.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Čierny práve potiahol pešiakom o dve políčka. Vezmite ho mimochodom!</string>

@@ -108,15 +108,6 @@ case class Pref(
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
-  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-  def botCompatible =
-    theme == "brown" &&
-      pieceSet == "cburnett" &&
-      is2d &&
-      animation == Animation.NONE &&
-      highlight &&
-      coords == Coords.OUTSIDE
-
   def isolate(value: Boolean) =
     if !value then this
     else
@@ -127,7 +118,7 @@ case class Pref(
       )
 
   def simpleBoard =
-    board.hue == 0 && board.brightness == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
+    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
 
   def currentTheme = Theme(theme)
   def currentTheme3d = Theme3d(theme3d)
@@ -148,6 +139,7 @@ object Pref:
 
   case class BoardPref(
       brightness: Int,
+      contrast: Int,
       opacity: Int,
       hue: Int // in turns, 1turn = 2pi
   )
@@ -454,18 +446,13 @@ object Pref:
       DRAW -> "When losing or drawing"
     )
 
-  val darkByDefaultSince = instantOf(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
-
   def create(id: UserId) = default.copy(id = id)
 
   def create(user: User) = default.copy(
     id = user.id,
-    bg =
-      if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
-      else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
-      else Bg.LIGHT,
-    agreement = if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
+    bg = Bg.SYSTEM,
+    agreement =
+      Agreement.current // if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
   )
 
   lazy val default = Pref(
@@ -510,7 +497,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
-    board = BoardPref(brightness = 100, opacity = 100, hue = 0),
+    board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
     tags = Map.empty

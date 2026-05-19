@@ -22,7 +22,7 @@ def communication(
     .js(isGranted(_.UserModView).option(Esm("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         commUi.commsHeader(u, priv),
-        isGranted(_.UserModView).option:
+        isGranted(_.AccountInfo).option:
           frag(
             div(cls := "mod-zone mod-zone-full none"),
             views.user.mod.otherUsers(u, logins, appeals)(cls := "mod-zone communication__logins")
@@ -60,7 +60,7 @@ def communication(
                         modConvo.msgs.reverse.map: msg =>
                           val author = msg.user.is(u)
                           tr(cls := List("post" -> true, "author" -> author))(
-                            td(momentFromNowServer(msg.date)),
+                            td(pastMomentServer(msg.date)),
                             td(strong(if author then u.username else modConvo.contact.username)),
                             td(cls := "message")(Analyser.highlightBad(msg.text))
                           )

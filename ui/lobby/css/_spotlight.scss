@@ -5,7 +5,7 @@
 }
 
 .tour-spotlight {
-  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal-bg;
+  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal;
   @include transition;
 
   flex: 0 0 auto;
@@ -20,7 +20,6 @@
   &.invert,
   &.event-spotlight,
   &:hover {
-    @extend %metal-hover;
     text-shadow: none;
 
     @include if-light {
@@ -32,13 +31,17 @@
     opacity: 1;
   }
 
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+
   .img {
     flex: 0 0 42px;
     width: 44px;
     margin: 0 0.7em 0 0.4em;
   }
 
-  i.img::before {
+  icon.img::before {
     color: #fff;
     font-size: 42px;
 

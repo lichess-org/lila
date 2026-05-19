@@ -2,11 +2,11 @@
 
 ## Repository Overview
 
-Lila (li[chess in sca]la) is the free, open-source chess server powering lichess.org - one of the world's largest chess platforms with 4.7+ billion games. This is a production-scale application serving millions of users with real-time gameplay, computer analysis, tournaments, and comprehensive chess features.
+Lila (li[chess in sca]la) is the free, open-source chess server powering lichess.org - one of the world's largest chess platforms with 12+ billion games. This is a production-scale application serving millions of users with real-time gameplay, computer analysis, tournaments, and comprehensive chess features.
 
 **Technology Stack:**
 
-- **Backend**: Scala 3.7.2 with Play Framework 2.8, SBT build system
+- **Backend**: Scala 3.8.2 with Play Framework 2.8, SBT build system
 - **Frontend**: TypeScript with Snabbdom, PNPM workspace monorepo
 - **Database**: MongoDB with Elasticsearch indexing
 - **Real-time**: WebSocket connections via separate lila-ws server, Redis for communication
@@ -18,14 +18,14 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 **CRITICAL**: These exact versions are required - the build will fail without them:
 
 - **Java 21** (JDK, not JRE - needs jdk.compiler module)
-- **Node.js 24.1.0+** (specified in `.node-version`)
-- **PNPM 10.4.1+** (specified in `package.json`)
+- **Node.js 24.14.0+** (specified in `.node-version`)
+- **PNPM 10.32.1+** (specified in `package.json`)
 
 **Installation:**
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@10.4.1
+npm install -g pnpm@10.32.1
 
 # Install dependencies (always run this first)
 pnpm install
@@ -79,14 +79,17 @@ pnpm test
 # Watch mode for tests
 pnpm test:watch
 
-# Check code formatting (Prettier)
+# Check code formatting (Oxfmt)
 pnpm check-format
 
 # Auto-format code
 pnpm format
 
 # Lint TypeScript code
-pnpm lint [path]
+pnpm lint
+
+# Auto-fix lint issues
+pnpm lint:fix
 
 # Backend formatting check (Scalafmt) - via lila.sh wrapper
 ./lila.sh scalafmtCheckAll
@@ -122,9 +125,9 @@ pnpm lint [path]
 
 ## Common Issues & Solutions
 
-**Node Version Error:** `Nodejs v24.1.0 or later is required`
+**Node Version Error:** `Nodejs v24.14.0 or later is required`
 
-- Install Node 24+ using nvm or package manager
+- Install Node 24.14+ using nvm or package manager
 - Check with: `node -v`
 
 **Java Version Issues:**
@@ -187,7 +190,8 @@ pnpm lint [path]
 - **pnpm-workspace.yaml**: Defines workspace packages
 - **ui/.build/**: Custom frontend build system
 - **.scalafmt.conf**: Scala formatting rules
-- **ui/.prettierrc.json**: TypeScript/CSS formatting rules
+- **ui/.oxlint.json**: TypeScript formatting rules (Oxlint)
+- **ui/.oxfmt.json**: TypeScript/CSS/JSON/MD formatting rules (Oxfmt)
 - **conf/routes**: HTTP route definitions
 - **conf/application.conf.default**: Main application configuration template
 

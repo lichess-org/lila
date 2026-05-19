@@ -14,6 +14,7 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -41,7 +42,7 @@ final class SwissApi(
     expiration = 20.minutes,
     timeout = 10.seconds,
     name = "swiss.api",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   import BsonHandlers.{ *, given }
@@ -186,7 +187,7 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
             if rejoin.n == 1 then fuccess(none) // if the match failed (not the update!), try a join
-            else if !initialJoin.test(me.userId) then fuccess("You are joining too many tournaments".some)
+            else if !initialJoin.hit(me.userId) then fuccess("You are joining too many tournaments".some)
             else
               for
                 user <- userApi.withPerf(me.value, swiss.perfType)
@@ -199,13 +200,26 @@ final class SwissApi(
                 _ <- error.isEmpty.so:
                   mongo.player.insert
                     .one(SwissPlayer.make(swiss.id, user))
-                    .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)))
+                    .zip(mongo.swiss.incField($id(swiss.id), Swiss.Fields.nbPlayers, 1))
                     .void
               yield
                 cache.swissCache.clear(swiss.id)
                 error
           .flatMap: res =>
             recomputeAndUpdateAll(id).inject(res)
+
+  def joinManyNoChecks(id: SwissId, userIds: List[UserId]): Funit =
+    Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
+      for
+        users <- userApi.enabledByIds(userIds)
+        _ <- users.sequentiallyVoid: user =>
+          for
+            user <- userApi.withPerf(user, swiss.perfType)
+            _ <- mongo.player.insert.one(SwissPlayer.make(swiss.id, user))
+          yield ()
+        nbPlayers <- mongo.player.countSel($doc(SwissPlayer.Fields.swissId -> swiss.id))
+        _ <- mongo.swiss.updateField($id(swiss.id), Swiss.Fields.nbPlayers, nbPlayers)
+      yield cache.swissCache.clear(swiss.id)
 
   def gameIdSource(
       swissId: SwissId,
@@ -380,7 +394,7 @@ final class SwissApi(
         else
           mongo.player.delete.one(selId).flatMap { res =>
             (res.n == 1).so:
-              for _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1))
+              for _ <- mongo.swiss.incField($id(swiss.id), Swiss.Fields.nbPlayers, -1)
               yield cache.swissCache.clear(swiss.id)
           }
     .void >> recomputeAndUpdateAll(id)
@@ -413,7 +427,7 @@ final class SwissApi(
               else
                 for
                   _ <-
-                    if swiss.nbOngoing > 0 then mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
+                    if swiss.nbOngoing > 0 then mongo.swiss.incField($id(swiss.id), "nbOngoing", -1)
                     else
                       fuccess:
                         logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
@@ -558,8 +572,11 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
         _.sequentiallyVoid: id =>
-          Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-            if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
+          Sequencing(id)(cache.swissCache.byId) { swiss =>
+            if swiss.isFinished then
+              logger.info(s"Swiss ${swiss.id} is finished but still has a pending round, cleaning up.")
+              mongo.swiss.update.one($id(swiss.id), $unset("nextRoundAt")).void
+            else if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
             else if swiss.nbPlayers >= 2 then
               countPresentPlayers(swiss).flatMap { nbPresent =>
                 if nbPresent < 2 then
@@ -591,7 +608,7 @@ final class SwissApi(
                 )
               yield cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
-      .monSuccess(_.swiss.tick)
+      .monSuccess(lila.mon.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
     mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent.$ne(true)))
@@ -645,7 +662,9 @@ final class SwissApi(
     mongo.swiss
       .aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("finishedAt".$exists(false), "nbPlayers".$gt(0), "teamId".$in(teamIds))) -> List(
+        Match(
+          $doc("finishedAt".$exists(false), Swiss.Fields.nbPlayers.$gt(0), "teamId".$in(teamIds))
+        ) -> List(
           PipelineOperator(
             $lookup.pipelineFull(
               from = mongo.player.name,

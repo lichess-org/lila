@@ -29,7 +29,6 @@
   <string name="botPlay">使用机器人 API 进行对局</string>
   <string name="engineRead">查看和使用您的外部引擎</string>
   <string name="engineWrite">创建和更新外部引擎</string>
-  <string name="webLogin">创建经过身份验证的网站会话（授予完全访问权限！）</string>
   <string name="webMod">使用版主工具（在您的权限范围内）</string>
   <string name="personalAccessTokens">个人 API 访问令牌</string>
   <string name="canMakeOauthRequests">您可以在不通过 %s 的情况下发起 OAuth 请求。</string>

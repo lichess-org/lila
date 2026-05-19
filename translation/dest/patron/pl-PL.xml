@@ -3,7 +3,7 @@
   <string name="donate">Przekaż datek</string>
   <string name="donateAsX">Wesprzyj jako %s</string>
   <string name="lichessPatron">Patron Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patron od %s</string>
+  <string name="patronSince" comment="string is a date">Patron od %s</string>
   <string name="freeAccount">Darmowe konto</string>
   <string name="becomePatron">Zostań patronem Lichess</string>
   <string name="xBecamePatron">%s został patronem Lichess</string>
@@ -88,4 +88,5 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="paymentDetails">Szczegóły płatności</string>
   <string name="updatePaymentMethod">Aktualizuj metodę płatności</string>
   <string name="stripeManageSub">Zarządzaj swoją subskrypcją i pobierz faktury i paragony</string>
+  <string name="coverFees">Dodam %s, aby pomóc pokryć koszty realizacji tej transakcji</string>
 </resources>

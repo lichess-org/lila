@@ -1,13 +1,18 @@
 html {
-  box-sizing: border-box;
   min-height: 100%;
   color-scheme: light dark;
+
+  @include mq-sticky-header {
+    :target {
+      scroll-margin-top: $site-header-outer-height;
+    }
+  }
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 
@@ -20,10 +25,9 @@ html {
 body {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
-
   text-align: start;
-
   overflow-x: hidden;
+
   &.fixed-scroll {
     /* prevents scroll bar flicker when dragging a piece out */
     overflow-y: scroll;
@@ -39,6 +43,19 @@ a {
   &:focus {
     color: $c-link-hover;
   }
+
+  &:focus-visible {
+    outline: $outline;
+    border-radius: $box-radius-size / 2;
+  }
+}
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  color: $c-font;
+  text-align: inherit;
 }
 
 p {
@@ -46,8 +63,7 @@ p {
   unicode-bidi: plaintext;
 }
 
-em,
-i {
+em {
   font-style: normal;
 }
 

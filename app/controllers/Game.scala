@@ -10,7 +10,7 @@ import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile, _.Preference.Write) { _ ?=> me ?=>
     env.bookmark.api
       .toggle(env.round.gameProxy.updateIfPresent)(gameId, me, getBoolOpt("v"))
       .inject(NoContent)
@@ -22,7 +22,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         for
           _ <- env.bookmark.api.removeByGameId(game.id)
           _ <- env.game.gameRepo.remove(game.id)
-          _ <- env.analyse.analysisRepo.remove(game.id)
+          _ <- env.analyse.repo.remove(game.id)
           _ <- env.game.cached.clearNbImportedByCache(me)
         yield Redirect(routes.User.show(me.username))
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation))
@@ -147,7 +147,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         _.fold[Fu[Result]](notFoundJson(s"No such opponent: $name")): user =>
           f(user.some)
 
-  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader) =
+  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader, Option[Me]) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves") | true,
       tags = getBoolOpt("tags") | true,
@@ -163,8 +163,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       bookmark = getBool("withBookmarked")
     )
 
-  private[controllers] def delayMovesFromReq(using RequestHeader) =
-    !get("key").exists(env.web.settings.noDelaySecret.get().value.contains)
+  private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
+    val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
+      me.exists(_.is(UserId.t3))
+    !trusted
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match

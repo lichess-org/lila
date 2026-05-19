@@ -1,10 +1,14 @@
 import { h, type VNode } from 'snabbdom';
+
+import { blurOnEscape } from 'lib';
 import { throttle } from 'lib/async';
-import type MsgCtrl from '../ctrl';
-import type { SearchResult, User } from '../interfaces';
-import renderContacts, { userIcon } from './contact';
+import { hookMobileMousedown } from 'lib/mobileEvents';
 import { fullName } from 'lib/view/userLink';
-import { hookMobileMousedown } from 'lib/device';
+
+import type MsgCtrl from '@/ctrl';
+import type { SearchResult, User } from '@/interfaces';
+
+import renderContacts, { userIcon } from './contact';
 
 export const renderInput = (ctrl: MsgCtrl): VNode =>
   h('div.msg-app__side__search', [
@@ -17,6 +21,7 @@ export const renderInput = (ctrl: MsgCtrl): VNode =>
             'input',
             throttle(500, () => ctrl.searchInput(input.value.trim())),
           );
+          blurOnEscape(input);
           input.addEventListener('blur', () =>
             setTimeout(() => {
               input.value = '';

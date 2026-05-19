@@ -119,7 +119,6 @@
   <string name="enable">இயக்க</string>
   <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறி</string>
   <string name="showVariationArrows">பிறழ்வுகளின் அம்புக்குறிகளைக் காட்டு</string>
-  <string name="evaluationGauge">மதிப்பாய்வு அளவு</string>
   <string name="multipleLines">பற்பல வரிகள்</string>
   <string name="cpus">CPU கள்</string>
   <string name="memory">ஞாபகம்</string>
@@ -225,7 +224,6 @@
   <string name="changeUsernameNotSame">எழுத்துகளின் வழக்கு மட்டும்தான் மாறலாம். உதாரணமாக: \"johndoe\" இலிருந்து \"JohnDoe\".</string>
   <string name="changeUsernameDescription">உங்கள் பேரை மாற்றுங்கள். எழுத்துக்களின் வழக்கு மட்டும்தான் மாறலாம்.</string>
   <string name="signupUsernameHint">குடும்ப-நட்புறவான பயனர் பெயரைத் தேர்ந்தெடுப்பதை உறுதிப்படுத்துங்கள். இந்தப் பெயரைப் பின்னர் மாற்ற முடியாது என்பதுடன் பொருத்தமில்லாத பயனர்பெயர்கள் நீக்கப்படும்!</string>
-  <string name="signupEmailHint">கடவுச்சொல்லை மாற்றுவதற்கு மட்டுமே மின்னஞ்சல் முகவரியைப் பயன்படுத்துவோம்.</string>
   <string name="password">கடவுச்சொல்</string>
   <string name="changePassword">இரகசிய இலக்கத்தை மாற்று</string>
   <string name="changeEmail">மின்னஞ்சலை மாற்று</string>
@@ -249,9 +247,6 @@
   <string name="emailCanTakeSomeTime">அது வந்து சேர்வதற்குச் சிறிது நேரம் எடுக்கலாம்.</string>
   <string name="refreshInboxAfterFiveMinutes">5 மணித்துளிகள் காத்திருந்து மடல் மின்னஞ்சலைப் புதுப்பிக்கவும்.</string>
   <string name="checkSpamFolder">உங்களின் எரிதக் கோப்புறையைப் பார்க்கவும், உங்களின் மின்னஞ்சல் அங்கிருந்தால் அதை எரிதம் இல்லை என்று அடையாளப்படுத்தவும்.</string>
-  <string name="emailForSignupHelp">ஒன்றும் சரிவரவில்லை எனின், எங்களுக்கு இந்த மின்னஞ்சலை அனுப்புங்கள்:</string>
-  <string name="copyTextToEmail">மேலுள்ளவற்றை நகலெடுத்து ஒட்டி %s இற்கு அனுப்புங்கள்</string>
-  <string name="waitForSignupHelp">உங்கள் பதிவுசெய்தலை முடிக்க உங்களுக்கு உதவ நாங்கள் விரைவில் உங்களிடம் வருவோம்.</string>
   <string name="accountConfirmed">பயனீட்டாளர்%s வெற்றிகரமாக உறுதிப்படுத்தப்பட்டுள்ளது.</string>
   <string name="accountCanLogin">நீங்கள் இப்போது %s ஆக உள்நுழையலாம்.</string>
   <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
@@ -411,7 +406,6 @@
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
   <string name="orUploadPgnFile">அல்லது PGN கோப்புவை பதிவேற்று</string>
-  <string name="fromPosition">நிலையிலிருந்து</string>
   <string name="continueFromHere">இங்கிருந்து தொடர்க</string>
   <string name="toStudy">கற்கை</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
@@ -697,11 +691,6 @@
   <string name="keyCycleSelectedVariation">தேர்ந்தெடுக்கப்பட்ட மாறுபட்ட வரி சுழற்சி</string>
   <string name="keyShowOrHideComments">கருத்துகளை காட்டு/மறை</string>
   <string name="keyEnterOrExitVariation">மாறுபட்ட வரி உள்ளீடு/வெளியேறு</string>
-  <string name="keyRequestComputerAnalysis">கணினி பகுப்பாய்வைக் கோருங்கள், உங்கள் தவறுகளிலிருந்து கற்றுக்கொள்ளுங்கள்</string>
-  <string name="keyNextLearnFromYourMistakes">அடுத்து (உங்கள் தவறுகளிலிருந்து கற்றுக்கொள்ளுங்கள்)</string>
-  <string name="keyNextBlunder">அடுத்த பெருந்தவறு</string>
-  <string name="keyNextMistake">அடுத்த தவறு</string>
-  <string name="keyNextInaccuracy">அடுத்த செவ்வைப்பிழை</string>
   <string name="keyPreviousBranch">முந்தைய கிளை</string>
   <string name="keyNextBranch">அடுத்த கிளை</string>
   <string name="toggleVariationArrows">மாறுபட்ட வரிகளின் அம்புகளை நிலைமாற்று</string>
@@ -885,7 +874,6 @@
   <string name="agreementAssistance">எனது விளையாட்டுகளின்போது (சதுரங்க கணினி, புத்தகம், தரவுத்தளம் அல்லது வேறு ஒருவரிடமிருந்து) எந்த நேரத்திலும் உதவியைப் பெறமாட்டேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="agreementNice">மற்ற வீரர்களிடம் நான் எப்போதும் மரியாதையுடன் இருப்பேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">நான் பல கணக்குகளை உருவாக்க மாட்டேன் என்பதை ஒப்புக்கொள்கிறேன் (%s இல் கூறப்பட்டுள்ள காரணங்களைத் தவிர).</string>
-  <string name="agreementPolicy">நான் அனைத்து லிசெஸ் கொள்கைகளையும் பின்பற்றுவேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="searchOrStartNewDiscussion">தேடவும் அல்லது புதிய உரையாடலைத் தொடங்கவும்</string>
   <string name="edit">திருத்துதல்</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">தெறிக்கை</string>

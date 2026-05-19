@@ -69,15 +69,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll.secondary.primitiveOne[Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty.so(
-      coll.secondary
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
-    )
+    ids.nonEmpty.so:
+      coll.secondary.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so:
-      coll.secondary
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
+      coll.secondary.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
   def onUserDelete(userId: UserId): Funit = for
     _ <- coll.update.one($doc("createdBy" -> userId), $set("createdBy" -> UserId.ghost), multi = true)
@@ -87,6 +84,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def deleteNewlyCreatedBy(userId: UserId): Funit =
     coll.delete.one($doc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(2)))).void
 
+  def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists($id(id) ++ clasSelect)
+  def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team]($id(id) ++ clasSelect)
+
   private[team] val enabledSelect = $doc("enabled" -> true)
+  private val clasSelect = $doc("ofClas" -> true)
+  val noClasSelect = "ofClas".$ne(true)
 
   private[team] val sortPopular = $sort.desc("nbMembers")

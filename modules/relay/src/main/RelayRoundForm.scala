@@ -26,14 +26,18 @@ final class RelayRoundForm(using mode: Mode):
 
   import RelayRoundForm.*
 
-  private given (using Me): Formatter[Upstream.Url] =
-    formatter.stringTryFormatter(str => validateUpstreamUrl(str).map(Upstream.Url.apply), _.url.toString)
+  private def urlFormatter(prev: Option[RelayRound])(using Me): Formatter[Upstream.Url] =
+    val prevUrl = prev.flatMap(_.sync.upstream).flatMap(_.asUrl)
+    formatter.stringTryFormatter(
+      str => validateUpstreamUrl(str, prevUrl).map(Upstream.Url.apply),
+      _.url.toString
+    )
 
   private given (using Me): Formatter[Upstream.Urls] = formatter.stringTryFormatter(
     _.linesIterator.toList
       .map(_.trim)
       .filter(_.nonEmpty)
-      .traverse(validateUpstreamUrl)
+      .traverse(validateUpstreamUrl(_, none))
       .map(_.distinct)
       .map(Upstream.Urls.apply),
     _.urls.mkString("\n")
@@ -61,7 +65,7 @@ final class RelayRoundForm(using mode: Mode):
     _.users.mkString(" ")
   )
 
-  def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
+  def roundMapping(tour: RelayTour, prev: Option[RelayRound])(using Me): Mapping[Data] =
     import RelayRound.{ CustomPoints, CustomScoring }
     val customPointMapping: Mapping[CustomPoints] =
       bigDecimal(5, 2)
@@ -76,7 +80,7 @@ final class RelayRoundForm(using mode: Mode):
       "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncSource" -> optional(stringIn(sourceTypes._1F.toSet)),
-      "syncUrl" -> optional(of[Upstream.Url]),
+      "syncUrl" -> optional(of[Upstream.Url](using urlFormatter(prev))),
       "syncUrls" -> optional(of[Upstream.Urls]),
       "syncIds" -> optional(of[Upstream.Ids]),
       "syncUsers" -> optional(of[Upstream.Users]),
@@ -93,11 +97,13 @@ final class RelayRoundForm(using mode: Mode):
       ,
       "reorder" -> optional(nonEmptyText.into[RelayGame.ReorderNames]),
       "rated" -> optional(boolean.into[Rated]),
-      "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
+      "customScoring" -> optional(byColor.mappingOf(customScoringMapping)),
+      "teamCustomScoring" -> optional(customScoringMapping),
+      "fideTCOverride" -> optional(RelayTourForm.fideTCMapping)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
-    roundMapping(trs.tour)
+    roundMapping(trs.tour, none)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays.value
@@ -105,7 +111,7 @@ final class RelayRoundForm(using mode: Mode):
   ).fill(fillFromPrevRounds(trs.rounds))
 
   def edit(t: RelayTour, r: RelayRound)(using Me) = Form(
-    roundMapping(t)
+    roundMapping(t, r.some)
       .verifying(
         "The round source cannot be itself",
         d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
@@ -168,7 +174,9 @@ object RelayRoundForm:
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices),
       rated = prev.map(_.rated),
-      customScoring = prev.flatMap(_.customScoring)
+      customScoring = prev.flatMap(_.customScoring),
+      teamCustomScoring = prev.flatMap(_.teamCustomScoring),
+      fideTCOverride = prev.flatMap(_.fideTCOverride)
     )
 
   case class GameIds(ids: List[GameId])
@@ -182,20 +190,24 @@ object RelayRoundForm:
       if mode.notProd || !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
         .startsWith("https://www.chess.com/events/v1/api")
+      if !subdomain(host, "chess-results.com") ||
+        """\bchess-results\.com/livepartien/.+/games\.pgn$""".r.unanchored.matches(url.toString)
     yield url
 
-  private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
-    url <- cleanUrl(s).toRight("Invalid source URL")
-    url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
-    url <-
-      if url.looksLikeLcc && !url.lcc.isDefined
-      then Left("LCC URLs must end with /{round-number}, e.g. /5 for round 5")
-      else Right(url)
-    url <-
-      if url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
-      then Left("Invalid source URL")
-      else Right(url)
-  yield url
+  private def validateUpstreamUrl(s: String, prev: Option[URL])(using Me, Mode): Either[String, URL] =
+    for
+      url <- cleanUrl(s).toRight("Invalid source URL")
+      url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
+      url <-
+        if url.looksLikeLcc && !url.lcc.isDefined
+        then Left("LCC URLs must end with /{round-number}, e.g. /5 for round 5")
+        else Right(url)
+      sameAsBefore = prev.exists(_ == url)
+      url <-
+        if !sameAsBefore && url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
+        then Left("Invalid source URL")
+        else Right(url)
+    yield url
 
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
@@ -214,7 +226,6 @@ object RelayRoundForm:
     "youtu.be",
     "google.com",
     "vk.com",
-    "chess-results.com",
     "chessgames.com",
     "zoom.us",
     "facebook.com",
@@ -238,7 +249,9 @@ object RelayRoundForm:
       slices: Option[List[RelayGame.Slice]] = None,
       reorder: Option[RelayGame.ReorderNames] = None,
       rated: Option[Rated] = None,
-      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
+      teamCustomScoring: Option[RelayRound.CustomScoring] = None,
+      fideTCOverride: Option[chess.FideTC] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
@@ -264,7 +277,9 @@ object RelayRoundForm:
           case _ => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
         rated = rated | Rated.No,
-        customScoring = customScoring
+        customScoring = customScoring,
+        teamCustomScoring = teamCustomScoring,
+        fideTCOverride = fideTCOverride
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -293,7 +308,9 @@ object RelayRoundForm:
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
         rated = rated | Rated.No,
-        customScoring = customScoring
+        customScoring = customScoring,
+        teamCustomScoring = teamCustomScoring,
+        fideTCOverride = fideTCOverride
       )
 
   object Data:
@@ -333,5 +350,7 @@ object RelayRoundForm:
         reorder = round.sync.reorder,
         delay = round.sync.delay,
         rated = round.rated.some,
-        customScoring = round.customScoring
+        customScoring = round.customScoring,
+        teamCustomScoring = round.teamCustomScoring,
+        fideTCOverride = round.fideTCOverride
       )

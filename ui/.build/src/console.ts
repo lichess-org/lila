@@ -1,7 +1,8 @@
-import { createServer, IncomingMessage, ServerResponse } from 'node:http';
-import { env, errorMark, warnMark, c } from './env.ts';
 import { transform } from 'esbuild';
 import stringify from 'json-stringify-pretty-compact';
+import { createServer, IncomingMessage, ServerResponse } from 'node:http';
+
+import { env, errorMark, warnMark, c } from './env.ts';
 
 export async function startConsole() {
   if (!env.remoteLog || !env.watch) return;
@@ -70,7 +71,7 @@ export async function jsLogger(): Promise<string> {
             return;
           Object.assign(console, o);
         }
-        r('log', (window as any).navigator.userAgent);
+        r('log', window.navigator.userAgent);
       }.toString(),
       { loader: 'ts', minify: true, target: 'es2018' },
     )

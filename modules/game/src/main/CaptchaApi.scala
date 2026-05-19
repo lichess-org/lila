@@ -8,6 +8,7 @@ import scala.util.Success
 
 import lila.core.captcha.{ Captcha, CaptchaApi as ICaptchaApi, Solutions, WithCaptcha }
 import lila.core.game.Game
+import lila.mon.extensions.*
 
 // only works with standard chess (not chess960)
 final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICaptchaApi:

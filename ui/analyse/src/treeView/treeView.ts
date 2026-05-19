@@ -1,25 +1,25 @@
-import type AnalyseCtrl from '../ctrl';
 import type { VNode, Hooks } from 'snabbdom';
+
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
-import { storedProp } from 'lib/storage';
-import type { ConcealOf } from '../interfaces';
-import { renderContextMenu } from './contextMenu';
-import { renderColumnView } from './columnView';
-import { renderInlineView } from './inlineView';
 import { addPointerListeners } from 'lib/pointer';
+import { storedProp } from 'lib/storage';
+import type { TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf } from '../interfaces';
+import { renderColumnView } from './columnView';
+import { renderContextMenu } from './contextMenu';
+import { renderInlineView } from './inlineView';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
-  private autoScrollRequest: 'instant' | 'smooth' | false = false;
+  private autoScrollRequest: ScrollBehavior | false = false;
 
   hidden = true;
-  modePreference = storedProp<'column' | 'inline'>(
-    'treeView',
-    'column',
-    str => (str === 'column' ? 'column' : 'inline'),
-    v => v,
+  modePreference = storedProp<'column' | 'inline'>('treeView', 'column', str =>
+    str === 'column' ? 'column' : 'inline',
   );
   mode: 'column' | 'inline';
 
@@ -32,7 +32,7 @@ export class TreeView {
     return this.mode === 'column' ? renderColumnView(this.ctrl, concealOf) : renderInlineView(this.ctrl);
   }
 
-  requestAutoScroll(request: 'instant' | 'smooth' | false) {
+  requestAutoScroll(request: ScrollBehavior | false) {
     this.autoScrollRequest = request;
   }
 
@@ -75,13 +75,10 @@ export class TreeView {
   }
 }
 
-function eventPath(e: MouseEvent): Tree.Path | null {
-  return (
-    (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p')
-  );
-}
+const eventPath = (e: MouseEvent): TreePath | null =>
+  (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
 
-const autoScroll = throttle(200, (behavior: 'instant' | 'smooth' = 'instant') => {
+const autoScroll = throttle(200, (behavior: ScrollBehavior = 'instant') => {
   const scrollView = document.querySelector<HTMLElement>('.analyse__moves')!;
   const moveEl = scrollView.querySelector<HTMLElement>('.active');
   if (!moveEl) return scrollView.scrollTo({ top: 0, behavior });

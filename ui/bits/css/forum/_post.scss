@@ -3,15 +3,11 @@
   border-top: $border;
   padding: 0.5rem 0 0.5rem 0;
 
-  @include mq-sticky-header {
-    scroll-margin-top: $site-header-outer-height;
-  }
-
   &__metas {
-    @extend %flex-between;
-
     > div {
       @extend %flex-center;
+
+      flex: 1;
     }
 
     .author {
@@ -23,64 +19,31 @@
 
     a.author--op {
       @extend %box-radius;
+
       padding: 0.2em;
       padding-inline-end: 0.8em;
       background: $m-primary_bg--mix-12;
     }
 
-    .anchor {
-      @extend %break-nope;
-
-      color: $c-link-dim;
-      font-weight: bold;
+    &__actions {
+      @extend %flex-center-nowrap;
     }
 
     time {
       margin-inline-end: 1em;
     }
-
-    .delete {
-      color: $c-font;
-      &:hover {
-        color: $c-bad;
-      }
-    }
   }
 
-  .mod {
-    @media (hover: hover) {
-      visibility: hidden;
-    }
-
-    font-size: 0.9em;
-    color: $c-font;
-    &:hover {
-      color: $c-bad;
-
-      &.quote,
-      &.edit {
-        color: $c-primary;
-      }
-    }
-
-    &.postip {
-      margin-inline-start: 1rem;
-      max-width: 50vw;
-      overflow: hidden;
-      display: none;
-
-      @media (min-width: at-least($small)) {
-        display: block;
-      }
-    }
-  }
-
-  &:hover .mod {
+  &:hover .forum-post__button {
     visibility: visible;
   }
 
   &:last-child {
     border-bottom: $border;
+  }
+
+  &__message a {
+    overflow-wrap: anywhere;
   }
 
   &.erased {
@@ -91,6 +54,7 @@
       text-align: center;
       margin-bottom: 2em;
     }
+
     .forum-post__metas {
       justify-content: flex-end;
     }
@@ -100,6 +64,7 @@
     .forum-post__message {
       display: none;
     }
+
     > button {
       margin: 2em;
     }
@@ -124,16 +89,44 @@
   }
 }
 
+.button.forum-post__button {
+  @media (hover: hover) {
+    visibility: hidden;
+  }
+
+  font-size: 0.9em;
+  color: $c-font;
+
+  &:hover {
+    color: $c-primary;
+
+    &.delete {
+      color: $c-bad;
+    }
+  }
+
+  &.postip {
+    margin-inline-start: 1rem;
+    max-width: 50vw;
+    overflow: hidden;
+    display: none;
+
+    @media (min-width: at-least($small)) {
+      display: block;
+    }
+  }
+}
+
 .forum-post__message {
   @extend %break-word, %zalgoverflow;
 
   p {
     margin-block: 0;
+    overflow-wrap: anywhere;
   }
 
   margin-top: 1em;
   margin-bottom: 1em;
-
   text-align: start;
 
   .lpv {
@@ -172,10 +165,10 @@
 .forum-topic .forum-post__message,
 .forum-topic .comment-preview {
   @include rendered-markdown(1em, 1600px);
-  @include rendered-markdown--code;
-  @include rendered-markdown--quote;
-  @include rendered-markdown--img;
-  @include rendered-markdown--embed;
+  @include rendered-markdown-code;
+  @include rendered-markdown-quote;
+  @include rendered-markdown-img;
+  @include rendered-markdown-embed;
 
   blockquote {
     padding: 0 0.7em;

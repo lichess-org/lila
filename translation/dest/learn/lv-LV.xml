@@ -6,7 +6,7 @@
   <string name="progressX">Izpilde: %s</string>
   <string name="resetMyProgress">Atiestatīt savu izpildes progresu</string>
   <string name="youWillLoseAllYourProgress">Jūs zaudēsiet visu, ko esat izpildījis!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spēlēt!</string>
+  <string name="play">spēlēt!</string>
   <string name="chessPieces">Šaha figūras</string>
   <string name="theRook">Tornis</string>
   <string name="itMovesInStraightLines">Pārvietojas taisnās līnijās</string>
@@ -89,7 +89,7 @@ bet varat bloķēt uzbrukumu!</string>
 nositot uzbrūkošo figūru.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Šis zirdziņš piesaka šahu cauri jūsu aizsardzībai!</string>
   <string name="escapeOrBlock">Bēdziet ar karali vai bloķē uzbrukumu!</string>
-  <string name="outOfCheckComplete">Apsveicam! Jūsu karalis nekad nekritīs gūstā, bet pārliecinieties, vai varēsiet aizstāvēties pret pieteikto šahu!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Apsveicam! Jūsu karalis nekad nekritīs gūstā, bet pārliecinieties, vai varēsiet aizstāvēties pret pieteikto šahu!</string>
   <string name="mateInOne">Mats vienā gājienā</string>
   <string name="defeatTheOpponentsKing">Sakaujiet pretinieka karali</string>
   <string name="mateInOneIntro">Ja pretinieks nevar aizstāvēties pret šahu, esat uzvarējis.</string>
@@ -127,7 +127,6 @@ Veiciet jebkādu gājienu lai turpinātu.</string>
   <string name="findAWayToCastleKingSide">Izdomājiet, kā roķēties karaļa spārnā!</string>
   <string name="findAWayToCastleQueenSide">Atrodiet veidu kā roķēties dāmas spārnā!</string>
   <string name="castlingComplete">Apsveicam! Rokāde ir ieteicama gandrīz katrā spēlē.</string>
-  <string name="enPassant">Garāmejot</string>
   <string name="theSpecialPawnMove">Īpašais bandinieka gājiens</string>
   <string name="enPassantIntro">Kad pretinieka bandinieks pārvietojas par diviem lauciņiem, varat to sist it kā tas būtu pārvietojies par vienu.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Melnie tikko pagāja ar bandinieku par diviem lauciņiem! Sit to garāmejot.</string>

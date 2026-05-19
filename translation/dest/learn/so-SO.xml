@@ -6,7 +6,7 @@
   <string name="progressX">Horumar: %s</string>
   <string name="resetMyProgress">Soo bilow horumarkayga</string>
   <string name="youWillLoseAllYourProgress">Wuu lumayaa horumarkaagi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ciyaar!</string>
+  <string name="play">ciyaar!</string>
   <string name="chessPieces">Dhagxanta jesta</string>
   <string name="theRook">Qalcadda</string>
   <string name="itMovesInStraightLines">Waxay u dhaqaaqdaa toos afarta jiho</string>

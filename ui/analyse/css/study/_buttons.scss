@@ -3,9 +3,10 @@ $c-study-button: $c-accent;
 .study__buttons {
   @extend %flex-between;
 
-  span {
+  button {
     font-size: 1.15em;
     min-width: 0;
+    overflow: visible;
   }
 
   .left-buttons {
@@ -33,14 +34,14 @@ $c-study-button: $c-accent;
     padding: 0 0.4em;
     opacity: 0.8;
 
-    i::before {
+    icon::before {
       font-size: 1.4em;
       content: $licon-X;
       color: $c-bad;
       margin-inline-end: 0.2rem;
     }
 
-    &.on i::before {
+    &.on icon::before {
       content: $licon-Checkmark;
       color: $c-good;
     }

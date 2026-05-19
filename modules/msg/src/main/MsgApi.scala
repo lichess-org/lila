@@ -21,12 +21,14 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.core.security.SpamApi
+    spam: lila.core.security.SpamApi,
+    ircApi: lila.core.irc.IrcApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
   val msgsPerPage = MaxPerPage(100)
   val inboxSize = 50
+  val contactsPerPage = 30
 
   import BsonHandlers.{ *, given }
 
@@ -73,6 +75,13 @@ final class MsgApi(
       .find(_.isPriority)
       .fold(threads): found =>
         found :: threads.filterNot(_.isPriority)
+
+  def moreContacts(before: Instant)(using me: Me): Fu[List[MsgThread]] =
+    colls.thread
+      .find(selectMyThreads ++ $doc("lastMsg.date".$lt(before)))
+      .sort($sort.desc("lastMsg.date"))
+      .cursor[MsgThread](ReadPref.sec)
+      .list(contactsPerPage)
 
   def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
     val userId = username.id
@@ -168,7 +177,11 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.pub(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))))
-              if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
+              if send == Ok && !multi then
+                shutupApi.privateMessage(orig, dest, text)
+                if List(orig, dest).has(UserId.broadcaster) then
+                  val topicUser = if orig == UserId.broadcaster then dest else orig
+                  ircApi.broadcasterDm(topicUser, orig, msg.text)
               PostResult.Success
       yield res
     }
@@ -205,8 +218,7 @@ final class MsgApi(
         post(me, _, text, multi = true, date = now)
           .logFailure(logger)
           .recoverDefault(PostResult.Invalid)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
     userApi

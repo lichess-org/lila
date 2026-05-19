@@ -11,14 +11,19 @@ case class Clas(
     wall: Markdown = Markdown(""),
     teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
-    viewedAt: Instant,
+    viewedAt: Instant, // updated when a teacher views the class
     archived: Option[Clas.Recorded],
-    canMsg: Option[Boolean]
+    canMsg: Option[Boolean],
+    hasTeam: Option[Boolean]
 ):
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
   def isArchived = archived.isDefined
   def isActive = !isArchived
+
+  def isTeacher(using me: MyId) = teachers.toList.has(me.userId)
+
+  def teamId: Option[TeamId] = Option.when(~hasTeam)(id.into(TeamId))
 
 object Clas:
 
@@ -33,7 +38,8 @@ object Clas:
       created = Recorded(teacher.id, nowInstant),
       viewedAt = nowInstant,
       archived = none,
-      canMsg = false.some
+      canMsg = false.some,
+      hasTeam = false.some
     )
 
   case class Recorded(by: UserId, at: Instant)

@@ -1,15 +1,17 @@
-import type AnalyseCtrl from './ctrl';
-import { baseUrl } from './view/util';
-import * as licon from 'lib/licon';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
-import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
-import { escapeHtml } from 'lib';
-import { storage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
-export const stockfishName = 'Stockfish 17.1';
+import { escapeHtml } from 'lib';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
+import type { AnalyseData } from './interfaces';
+import { baseUrl } from './view/util';
+
+export const stockfishName = 'Stockfish 18';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -17,7 +19,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    gameGifLink = document.querySelector<HTMLAnchorElement>('.game-gif a'),
     positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
@@ -34,29 +35,26 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         theme: ds.board,
         piece: ds.pieceSet,
       });
-    if (gameGifLink)
-      gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-        theme: ds.board,
-        piece: ds.pieceSet,
-      });
   };
 
-  pubsub.on('analysis.change', (fen: FEN, _) => {
+  const onFenChange = (fen: FEN) => {
     const nextInputHash = `${fen}${ctrl.bottomColor()}`;
     if (fen && nextInputHash !== lastInputHash) {
       if (inputFen) inputFen.value = fen;
       if (!site.blindMode) updateGifLinks(fen);
       lastInputHash = nextInputHash;
     }
-  });
+  };
+  onFenChange(ctrl.node.fen);
+  pubsub.on('analysis.change', onFenChange);
 
   if (!site.blindMode) {
     pubsub.on('board.change', () => inputFen && updateGifLinks(inputFen.value));
     pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
-        setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
+        setTimeout(() => $menu.find('.computer-analysis').first().trigger('click'), 50);
       } else {
-        $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
+        $menu.find('button:not(.computer-analysis)').first().trigger('click');
       }
     });
     pubsub.on('analysis.server.progress', (d: AnalyseData) => {
@@ -104,7 +102,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel === 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
-  $menu.on('mousedown', 'span', function (this: HTMLElement) {
+  $menu.on('click', 'button', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
     store.set(panel);
     setPanel(panel);
@@ -119,7 +117,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (foundStored) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
-    ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
+    ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('click');
   }
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
@@ -172,5 +170,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '<br /><br />' +
         `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
+  });
+
+  document.querySelector<HTMLAnchorElement>('a.game-gif')?.addEventListener('click', e => {
+    e.preventDefault();
+    site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
   });
 }

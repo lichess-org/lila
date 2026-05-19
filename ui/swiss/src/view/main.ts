@@ -1,20 +1,31 @@
-import * as licon from 'lib/licon';
-import { spinnerVdom, initMiniGames, prompt } from 'lib/view';
-import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, hl } from 'lib/view';
-import { numberRow } from 'lib/view/util';
-import type SwissCtrl from '../ctrl';
-import { players, renderPager } from '../pagination';
-import type { SwissData, Pager } from '../interfaces';
-import header from './header';
-import standing from './standing';
-import * as boards from './boards';
-import podium from './podium';
-import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
-import { use24h } from 'lib/i18n';
-import { once } from 'lib/storage';
-import { watchers } from 'lib/view/watchers';
+
 import standaloneChat from 'lib/chat/standalone';
+import { use24h } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { once } from 'lib/storage';
+import {
+  spinnerVdom,
+  initMiniGames,
+  prompt,
+  type VNode,
+  dataIcon,
+  bind,
+  onInsert,
+  type LooseVNodes,
+  hl,
+} from 'lib/view';
+import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
+import { numberRow } from 'lib/view/util';
+import { watchers } from 'lib/view/watchers';
+
+import type SwissCtrl from '../ctrl';
+import type { SwissData } from '../interfaces';
+import * as boards from './boards';
+import header from './header';
+import playerInfo from './playerInfo';
+import podium from './podium';
+import standing from './standing';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -37,12 +48,11 @@ export default function (ctrl: SwissCtrl) {
 }
 
 function created(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     header(ctrl),
     nextRound(ctrl),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'created'),
+    controls(ctrl),
+    standing(ctrl, 'created'),
     ctrl.data.quote &&
       hl('blockquote.pull-quote', [hl('p', ctrl.data.quote.text), hl('footer', ctrl.data.quote.author)]),
   ];
@@ -60,27 +70,28 @@ const notice = (ctrl: SwissCtrl) => {
 };
 
 function started(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     header(ctrl),
     joinTheGame(ctrl) || notice(ctrl),
     nextRound(ctrl),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'started'),
+    controls(ctrl),
+    standing(ctrl, 'started'),
   ];
 }
 
 function finished(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     hl('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)]),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'finished'),
+    controls(ctrl),
+    standing(ctrl, 'finished'),
   ];
 }
 
-function controls(ctrl: SwissCtrl, pag: Pager): VNode {
-  return hl('div.swiss__controls', [hl('div.pager', renderPager(ctrl, pag)), joinButton(ctrl)]);
+function controls(ctrl: SwissCtrl): VNode {
+  return hl('div.swiss__controls', [
+    hl('div.pager', renderPager(ctrl, searchButton(ctrl), searchInput(ctrl, { swiss: ctrl.data.id }))),
+    joinButton(ctrl),
+  ]);
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
@@ -168,7 +179,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
             i18n.site.withdraw,
           );
 
-  return;
+  return undefined;
 }
 
 function joinTheGame(ctrl: SwissCtrl) {

@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Ito ang iyong profile page.</string>
   <string name="enabledKidModeSuggestion">Gagamitin ba ang isang bata ng account na ito? Baka gusto mong i-enable ang %s.</string>
   <string name="whatNowSuggestions">Anong gagawin ngayon? Heto ang ilang mga suggestion:</string>
-  <string name="learnChessRules">Mag-aral ng mga tuntunin sa chess</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Mag-aral ng mga tuntunin sa chess</string>
   <string name="improveWithChessTacticsPuzzles">Gumaling gamit ang mga palaisipan ng taktika ng chess.</string>
   <string name="playTheArtificialIntelligence">Laruin ang Artificial Intelligence.</string>
   <string name="playOpponentsFromAroundTheWorld">Laruin ang mga kalaban sa buong mundo.</string>

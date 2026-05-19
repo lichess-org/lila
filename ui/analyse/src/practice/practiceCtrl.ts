@@ -1,20 +1,23 @@
-import { winningChances, type CustomCeval } from 'lib/ceval';
-import { path as treePath } from 'lib/tree/tree';
-import { detectThreefold } from '../nodeFinder';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import type AnalyseCtrl from '../ctrl';
-import { defined, prop, type Prop, requestIdleCallback } from 'lib';
-import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
+import { parseUci } from 'chessops/util';
+
+import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
+import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
+import { path as treePath } from 'lib/tree/tree';
+import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
+import { detectThreefold } from '../nodeFinder';
 import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
 export interface Comment {
-  prev: Tree.Node;
-  node: Tree.Node;
-  path: Tree.Path;
+  prev: TreeNode;
+  node: TreeNode;
+  path: TreePath;
   verdict: Verdict;
   best?: {
     uci: Uci;
@@ -37,13 +40,13 @@ export interface PracticeCtrl {
   hinting: Prop<Hinting | null>;
   resume(): void;
   reset(): void;
-  preUserJump(from: Tree.Path, to: Tree.Path): void;
-  postUserJump(from: Tree.Path, to: Tree.Path): void;
+  preUserJump(from: TreePath, to: TreePath): void;
+  postUserJump(from: TreePath, to: TreePath): void;
   onUserMove(): void;
   playCommentBest(): void;
   commentShape(enable: boolean): void;
   hint(): void;
-  currentNode(): Tree.Node;
+  currentNode(): TreeNode;
   bottomColor(): Color;
   customCeval: CustomCeval;
   redraw: Redraw;
@@ -65,15 +68,15 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       e8h8: 'e8g8',
     };
 
-  function commentable(node: Tree.Node, bonus = 0): boolean {
-    if (node.tbhit || root.outcome(node)) return true;
+  function commentable(node: TreeNode, bonus = 0): boolean {
+    if (node.tbhit || node.outcome()) return true;
     const ceval = node.ceval;
     return ceval
       ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000)
       : false;
   }
 
-  function playable(node: Tree.Node): boolean {
+  function playable(node: TreeNode): boolean {
     const ceval = node.ceval;
     return ceval
       ? masteryMode()
@@ -82,25 +85,22 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       : false;
   }
 
-  function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
-    return (
-      hit &&
-      (hit.winner
-        ? {
-            mate: hit.winner === 'white' ? 10 : -10,
-          }
-        : { cp: 0 })
-    );
-  }
-  function nodeBestUci(node: Tree.Node): Uci | undefined {
-    return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
-  }
+  const tbhitToEval = (hit: TablebaseHit | undefined | null) =>
+    hit &&
+    (hit.winner
+      ? {
+          mate: hit.winner === 'white' ? 10 : -10,
+        }
+      : { cp: 0 });
 
-  function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
+  const nodeBestUci = (node: TreeNode): Uci | undefined =>
+    (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+
+  function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
     let verdict: Verdict, best: Uci | undefined;
-    const outcome = root.outcome(node);
+    const outcome = node.outcome();
 
-    if (outcome && outcome.winner) verdict = 'goodMove';
+    if (outcome?.winner) verdict = 'goodMove';
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
       const nodeEval: EvalScore =
@@ -133,7 +133,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       best: best
         ? {
             uci: best,
-            san: root.position(prev).unwrap(
+            san: prev.pos().unwrap(
               pos => makeSan(pos, parseUci(best)!),
               _ => '--',
             ),
@@ -142,9 +142,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     };
   }
 
-  function isMyTurn(): boolean {
-    return root.turnColor() === root.bottomColor();
-  }
+  const isMyTurn = (): boolean => root.turnColor() === root.bottomColor();
 
   function checkCeval() {
     const node = root.node;
@@ -203,7 +201,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     checkCevalOrTablebase();
   }
 
-  requestIdleCallback(checkCevalOrTablebase, 800);
+  requestIdleCallbackSafe(checkCevalOrTablebase, 800);
 
   return {
     onCeval: checkCeval,
@@ -223,13 +221,13 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       comment(null);
       hinting(null);
     },
-    preUserJump(from: Tree.Path, to: Tree.Path) {
+    preUserJump(from: TreePath, to: TreePath) {
       if (from !== to) {
         running(false);
         comment(null);
       }
     },
-    postUserJump(from: Tree.Path, to: Tree.Path) {
+    postUserJump(from: TreePath, to: TreePath) {
       if (from !== to && isMyTurn()) resume();
     },
     onUserMove() {

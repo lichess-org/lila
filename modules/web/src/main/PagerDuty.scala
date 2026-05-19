@@ -6,6 +6,10 @@ import play.api.libs.ws.StandaloneWSClient
 
 final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDuty)(using Executor):
 
+  lila.common.Bus.sub[lila.core.socket.Announce]:
+    case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
+      lilaRestart(date)
+
   def lilaRestart(date: Instant): Funit =
     (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty).so(
       ws.url("https://api.pagerduty.com/maintenance_windows")

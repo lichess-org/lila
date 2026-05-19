@@ -75,6 +75,9 @@ final class RemoteSocket(
     case Announce(_, _, json) =>
       send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
 
+  Bus.sub[AnnounceUpdate]: s =>
+    send.exec(Out.announceUpdate(s))
+
   Bus.sub[Mlat]: lat =>
     send.exec(Out.mlat(lat.millis))
 
@@ -269,6 +272,7 @@ object RemoteSocket:
       private given OWrites[StreamInfo] = Json.writes[StreamInfo]
       def streamersOnline(streamers: Map[UserId, StreamInfo]) =
         s"streamers/online ${Json.stringify(Json.toJson(streamers.mapKeys(_.value)))}"
+      def announceUpdate(up: AnnounceUpdate) = s"announce/update ${up.current.map(_.json).so(Json.stringify)}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
       def stop(reqId: Int) = s"lila/stop $reqId"
 

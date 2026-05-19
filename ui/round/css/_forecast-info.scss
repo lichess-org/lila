@@ -1,7 +1,7 @@
 #powerTip {
   .forecast-info {
     .title {
-      @extend %metal;
+      @extend %metal-bg;
 
       display: block;
       padding: 0.7em;

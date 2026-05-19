@@ -1,5 +1,6 @@
 .keyboard-move {
   @extend %flex-center-nowrap;
+
   height: fit-content;
 
   input {
@@ -19,6 +20,10 @@
 
   em {
     color: $c-font-dim;
+  }
+
+  kbd {
+    margin-inline: 3px;
   }
 }
 

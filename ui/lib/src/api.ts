@@ -1,6 +1,8 @@
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+
+import { domDialog, alert, confirm, prompt } from '@/view';
+
 import { type PubsubEventKey, type PubsubEvents, pubsub } from './pubsub';
-import { domDialog } from './view/dialog';
-import { alert, confirm, prompt } from './view/dialogs';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'] as const;
@@ -49,10 +51,10 @@ export interface Api {
     prompt: typeof prompt;
     domDialog: typeof domDialog;
   };
-  overrides: {
-    [key: string]: (...args: any[]) => unknown;
-  };
+  overrides: Record<string, (...args: any[]) => unknown>;
   analysis?: any;
+  puzzle?: any;
+  chessground?: () => CgApi;
 }
 
 // this object is available to extensions as window.lichess
@@ -91,7 +93,7 @@ export const api: Api = {
     request: () => pubsub.emit('socket.send', 'following_onlines'),
     events: {
       on<K extends FriendsEventKey>(key: K, cb: FriendsCallback<K>): void {
-        if (!friendsEvents.includes(key as FriendsEventKey)) throw 'This event is not part of the public API';
+        if (!friendsEvents.includes(key)) throw 'This event is not part of the public API';
         pubsub.on(`socket.in.following_${key}`, cb);
       },
       off<K extends FriendsEventKey>(key: K, cb: FriendsCallback<K>): void {

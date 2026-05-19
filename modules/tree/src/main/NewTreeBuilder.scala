@@ -1,14 +1,12 @@
 package lila.tree
 
 import chess.format.pgn.{ Comment, Glyphs }
-import chess.format.{ Fen, Uci, UciCharPair }
-import chess.opening.*
-import chess.variant.Variant
+import chess.format.{ Fen, Uci }
 import chess.{ Centis, Position, Ply, Variation }
 
 object NewTreeBuilder:
 
-  import TreeBuilder.{ OpeningOf, LogChessError }
+  import TreeBuilder.LogChessError
 
   def apply(
       game: Game,
@@ -21,20 +19,12 @@ object NewTreeBuilder:
     val drawOfferPlies = game.drawOffers.normalizedPlies
 
     val setup = chess.Position.AndFullMoveNumber(game.variant, initialFen)
-    val openingOf: OpeningOf =
-      if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
-      then OpeningDb.findByFullFen
-      else _ => None
-
-    val fen = Fen.write(setup)
     val infos: Vector[Info] = analysis.so(_.infos.toVector)
     val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
 
     val metas = Metas(
       ply = setup.ply,
-      fen = fen,
-      check = setup.position.check,
-      opening = openingOf(fen),
+      fen = Fen.write(setup),
       clock = withFlags.clocks.so(
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
       ),
@@ -50,13 +40,10 @@ object NewTreeBuilder:
       val advice = advices.get(ply)
 
       val value = NewBranch(
-        id = UciCharPair(move.toUci),
         move = Uci.WithSan(move.toUci, move.toSanStr),
         metas = Metas(
           ply = ply,
           fen = fen,
-          check = move.after.position.check,
-          opening = openingOf(fen),
           clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
           crazyData = move.after.position.crazyData,
           eval = info.map(TreeBuilder.makeEval),
@@ -76,7 +63,7 @@ object NewTreeBuilder:
       val variations = advices
         .get(ply)
         .flatMap: adv =>
-          withAnalysisChild(game.id, move.before, ply - 1, openingOf, logChessError)(adv.info)
+          withAnalysisChild(game.id, move.before, ply - 1, logChessError)(adv.info)
         .toList
 
       chess.Node(value, none, variations)
@@ -91,7 +78,6 @@ object NewTreeBuilder:
       id: GameId,
       position: Position,
       ply: Ply,
-      openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Option[Variation[NewBranch]] =
 
@@ -99,13 +85,10 @@ object NewTreeBuilder:
       val fen = Fen.write(move.after, ply.fullMoveNumber)
       chess.Node(
         NewBranch(
-          id = UciCharPair(move.toUci),
           move = Uci.WithSan(move.toUci, move.toSanStr),
           metas = Metas(
             ply = ply,
             fen = fen,
-            check = move.after.check,
-            opening = openingOf(fen),
             crazyData = move.after.position.crazyData,
             eval = none
           )

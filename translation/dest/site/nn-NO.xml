@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Spel mot datamaskin</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
-  <string name="youPlayAs">Du spelar som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="orLetYourOpponentScanQrCode">Eller la motspelaren din skanna denne QR-koden</string>
+  <string name="reusableChallengeUrl">Ombrukeleg utfordrings-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ei permanent lenke der kven som helst kan utfordra deg med eksakt desse innstillingane.</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -125,10 +126,19 @@
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
-  <string name="evaluationGauge">Syn evaluering</string>
+  <string name="visualMotifs">Visuelt motiv</string>
+  <string name="undefendedPieces">Hengande konge</string>
+  <string name="pinnedPieces">Spidda brikker</string>
+  <string name="checkableKing">Konge som kan setjas i sjakk</string>
   <string name="multipleLines">Fleire variantar</string>
+  <string name="multipleLinesDescription">Angje antal evalueringslinjer og trekkpiler på brettet</string>
+  <string name="searchTime">Søketid</string>
+  <string name="threads">Trådar</string>
+  <string name="threadsDescription">Sett til færre enn antal trådar din CPU har, det er kryssa av for eit godt og sikkert val</string>
+  <string name="threadsDescriptionMobile">Fleire trådar vil bruka meir batteri til betre analyse</string>
   <string name="cpus">Prosessorar</string>
   <string name="memory">Minne</string>
+  <string name="memoryDescription">Høgare verdiar kan forbetra ytinga</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
   <string name="blunder">Bukk</string>
@@ -205,6 +215,7 @@
   <string name="minutesPerSide">Minutt per spelar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantar</string>
+  <string name="variantsDescription">Fleire spelemåtar</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -231,7 +242,7 @@
   <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
   <string name="signupUsernameHint">Gå for eit familievenleg brukarnamn. Namnet kan ikkje endrast seinare og kontoar med upassande brukarnamn vert stengde!</string>
-  <string name="signupEmailHint">Vi vil berre bruka den dersom det vert naudsynt å nullstilla passordet.</string>
+  <string name="signupEmailPromise">Vi vil berre sende deg epost om kontoen din og deler aldri epostadressa di.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
@@ -255,9 +266,7 @@
   <string name="emailCanTakeSomeTime">Det kan ta litt tid før den kjem.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutt før du oppdaterer innboksen.</string>
   <string name="checkSpamFolder">Kontroller at e-posten ikkje har hamna i mappa for søplepost. Om det har skjedd må du markere e-posten som ikkje-spam.</string>
-  <string name="emailForSignupHelp">Om alt anna feilar kan du sende oss denne e-posten:</string>
-  <string name="copyTextToEmail">Kopier og lim inn teksten ovanfor og send den til %s</string>
-  <string name="waitForSignupHelp">Vi tek om kort tid kontakt med deg for å hjelpa til med å fullføre registreringa.</string>
+  <string name="sendEmailForAccountVerification">Send ein e-post til %s om du ikkje finn stadfesting i e-posten din, så stadfestar vi kontoen din for deg.</string>
   <string name="accountConfirmed">Brukar %s vart stadfesta.</string>
   <string name="accountCanLogin">Du kan no logga inn som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du treng ikkje stadfesting på e-post.</string>
@@ -299,6 +308,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
+  <string name="unlimitedDescription">Ta den tida du treng</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
@@ -424,10 +434,11 @@
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
+  <string name="playerNames">Namn på spelarane</string>
+  <string name="moveAnnotations">Trekknotasjon</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
-  <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
@@ -512,6 +523,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="popularOpenings">Omtykte opningar</string>
   <string name="endgamePositions">Sluttspelstillingar</string>
   <string name="chess960StartPosition">Fishersjakk, startoppstilling %s</string>
+  <string name="randomChess960Position">Tilfeldig Sjakk-960 oppstilling</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="loadPosition">Last inn stilling</string>
@@ -588,6 +600,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidUsernameOrPassword">Feil brukarnamn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
+  <string name="clearField">Tøm felt</string>
+  <string name="orSeparator">Eller</string>
+  <string name="logInByEmail">Logg inn via e-post</string>
   <string name="emailMeALink">Send lekkje til meg på epost</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -714,11 +729,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyCycleSelectedVariation">Gå gjennom den valde varianten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
-  <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
-  <string name="keyNextLearnFromYourMistakes">Neste (lær av feila dine)</string>
-  <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
-  <string name="keyNextMistake">Neste mistak</string>
-  <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="keyPreviousBranch">Førre grein</string>
   <string name="keyNextBranch">Neste grein</string>
   <string name="toggleVariationArrows">Slå variantpilar på/av</string>
@@ -811,6 +821,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="size">Storleik</string>
   <string name="opacity">Opasitet</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Fargetone</string>
   <string name="boardReset">Sttendestill til standardfargar</string>
   <string name="pieceSet">Brikkesett</string>
@@ -906,7 +917,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg er innforstått med at eg ikkje kan oppretta fleire kontoar, så sant årsakene ikkje fell inn under %s.</string>
-  <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -1019,5 +1029,7 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
+  <string name="thereAreNoResultsForX">Inga resultat for \"%s\"</string>
   <string name="tags">Etikettar</string>
+  <string name="enPassant">En passant</string>
 </resources>

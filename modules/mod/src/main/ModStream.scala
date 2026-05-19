@@ -34,7 +34,7 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
     private val blueprint = Source
       .queue[UserSignup | TeamCreate](32, akka.stream.OverflowStrategy.dropHead)
       .map:
-        case UserSignup(user, email, req, fp, suspIp, apiVersion) =>
+        case UserSignup(user, email, req, fp, suspIp) =>
           Json
             .obj(
               "t" -> "signup",
@@ -44,9 +44,6 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
               "suspIp" -> suspIp,
               "userAgent" -> HTTPRequest.userAgent(req),
               "fingerPrint" -> fp
-            )
-            .add(
-              "apiVersion" -> apiVersion
             )
         case TeamCreate(team) =>
           Json.obj(

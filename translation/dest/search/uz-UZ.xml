@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Qidirish</string>
-  <string name="advancedSearch">Qo\'shimcha qidirish</string>
+  <string name="advancedSearch">Kengaytirilgan qidiruv</string>
   <plurals name="searchInXGames">
-    <item quantity="one">%s shaxmat oʻyinidan qidirish</item>
-    <item quantity="other">%s shaxmat oʻyinlaridan qidirish</item>
+    <item quantity="one">%s ta shaxmat oʻyinidan qidirish</item>
+    <item quantity="other">%s ta shaxmat oʻyinidan qidirish</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Bitta oʻyin topildi</item>
-    <item quantity="other">%s oʻyinlar topildi</item>
+    <item quantity="other">%s ta oʻyin topildi</item>
   </plurals>
-  <string name="opponentName">Sherigingiz nomi</string>
-  <string name="loser">Yutqazuvchi</string>
-  <string name="from">Dan</string>
-  <string name="to">Ga</string>
-  <string name="humanOrComputer">Oʻyinchining raqibi kompyutermi yoki odammi</string>
-  <string name="aiLevel">S.I. bosqichi</string>
+  <string name="opponentName">Raqib ismi</string>
+  <string name="loser">Magʻlub</string>
+  <string name="from">Shundan</string>
+  <string name="to">Shungacha</string>
+  <string name="humanOrComputer">Oʻyinchining raqibi odam yoki kompyutermidi</string>
+  <string name="aiLevel">S.I. darajasi</string>
   <string name="source">Manba</string>
   <string name="nbTurns">Yurishlar soni</string>
   <string name="result">Natija</string>
-  <string name="winnerColor">Gʻalaba rangi</string>
+  <string name="winnerColor">Gʻolib rangi</string>
   <string name="date">Sana</string>
-  <string name="sortBy">Saralash turi</string>
-  <string name="analysis">Tahlillar</string>
-  <string name="onlyAnalysed">Kompyuter tahlil qilish imkoni mavjud oʻyinlar</string>
+  <string name="sortBy">Saralash</string>
+  <string name="analysis">Tahlil</string>
+  <string name="onlyAnalysed">Faqat kompyuter tahlili mavjud boʻlgan oʻyinlar</string>
   <string name="color">Rang</string>
   <string name="evaluation">Baholash</string>
   <string name="maxNumber">Maksimal son</string>
-  <string name="maxNumberExplanation">Qaytarmoq uchun maksimum o‘yinlar soni</string>
-  <string name="include">O‘z ichiga olgan</string>
-  <string name="descending">Kamayish bo\'yicha</string>
-  <string name="ascending">O‘sish tartibida</string>
+  <string name="maxNumberExplanation">Koʻrsatiladigan oʻyinlarning maksimal soni</string>
+  <string name="include">Oʻz ichiga oladi</string>
+  <string name="descending">Kamayish tartibida</string>
+  <string name="ascending">Oʻsish tartibida</string>
   <plurals name="gamesFound">
-    <item quantity="one">%s o‘yin topildi</item>
-    <item quantity="other">%s o‘yinlar topildi</item>
+    <item quantity="one">%s ta oʻyin topildi</item>
+    <item quantity="other">%s ta oʻyin topildi</item>
   </plurals>
-  <string name="ratingExplanation">Ikkala o‘yinchining o‘rtacha ballari</string>
+  <string name="ratingExplanation">Ikkala oʻyinchining oʻrtacha reytingi</string>
 </resources>

@@ -26,12 +26,14 @@
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
+  <string name="collinearMove">Mutare coliniară</string>
+  <string name="collinearMoveDescription">Două piese opuse se înfruntă una pe cealaltă, iar una mută de-a lungul liniei de atac fără a captura piesa inamică.</string>
   <string name="cornerMate">Mat în colț</string>
   <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
   <string name="crushing">Zdrobitor</string>
   <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Șah prin descoperire</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mută o piesă pentru a descoperi un șah de la o piesă de atac ascunsă, ceea ce duce adesea la un avantaj decisiv.</string>
+  <string name="discoveredCheck">Șah prin descoperire</string>
+  <string name="discoveredCheckDescription">Mută o piesă pentru a descoperi un șah de la o piesă de atac ascunsă, ceea ce duce adesea la un avantaj decisiv.</string>
   <string name="doubleBishopMate">Mat-ul cu doi nebuni</string>
   <string name="doubleBishopMateDescription">Doi nebuni care atacă pe diagonale adiacente livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="dovetailMate">Mat-ul dovertail</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Final de partidă</string>
   <string name="endgameDescription">O tactică în ultima etapă a jocului.</string>
   <string name="enPassantDescription">O tactică cu regula en passant, unde un pion poate captura un pion adversar care l-a întrecut folosind mutarea sa inițială de două pătrate.</string>
+  <string name="epauletteMate">Mat cu epoleți</string>
+  <string name="epauletteMateDescription">Două pătrate de evacuare adiacente pentru un rege în șah sunt ocupate de alte piese.</string>
   <string name="exposedKing">Rege expus</string>
   <string name="exposedKingDescription">O tactică ce implică un rege cu puțini apărători în jurul său, adeseori rezultând în șah mat.</string>
   <string name="fork">Bifurcare</string>
@@ -67,9 +71,15 @@
   <string name="intermezzoDescription">În loc să faci mutarea așteptată, mai întâi intervii cu o altă mutare care e o amenințare imediată, căreia adversarul trebuie să-i răspundă. Cunoscut și ca \"Zwischenzug\" sau \"In between\".</string>
   <string name="killBoxMate">Mat în casetă mortală</string>
   <string name="killBoxMateDescription">O tură este lingă regele inamic și susținută de o regină care de asemenea blochează pătratele pe unde ar putea evada regele. Tura și regina îl prind pe rege într-o \"casetă mortală\" de 3x3.</string>
+  <string name="pillsburysMate">Mat Pillsbury</string>
+  <string name="pillsburysMateDescription">Tura dă mat, iar nebunul ajută la constrângerea regelui.</string>
+  <string name="morphysMate">Mat Morphy</string>
+  <string name="morphysMateDescription">Folosește nebunul ca să dai șah regelui, în timp ce tura îl constrânge.</string>
+  <string name="swallowstailMate">Mat coadă de rândunică</string>
+  <string name="swallowstailMateDescription">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>
   <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
-  <string name="vukovicMate">Mat Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vuković</string>
   <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">Un puzzle care are doar o mutare.</string>
   <string name="opening">Deschidere</string>
   <string name="openingDescription">O tactică în prima etapă a jocului.</string>
+  <string name="operaMate">Mat Opera</string>
+  <string name="operaMateDescription">Dă șah la rege cu o tură si folosește un nebun ca sa aperi tura.</string>
   <string name="pawnEndgame">Final cu pioni</string>
   <string name="pawnEndgameDescription">Un final de partidă doar cu pioni.</string>
   <string name="pin">Blocare</string>
@@ -110,7 +122,7 @@
   <string name="queensideAttack">Atac pe partea reginei</string>
   <string name="queensideAttackDescription">Un atac asupra regelui adversarului, după ce a făcut rocada pe partea reginei.</string>
   <string name="quietMove">Mutare silențioasă</string>
-  <string name="quietMoveDescription">O mutare care nu capturează sau dă șah, dar care pregătește o amenințare inevitabilă pentru o mutare ulterioară.</string>
+  <string name="quietMoveDescription">O mutare care nu dă șah, capturează sau crează o amenințare imediată, dar care pregătește o amenințare ascunsă și inevitabilă pentru o mutare ulterioară.</string>
   <string name="rookEndgame">Final cu turnuri</string>
   <string name="rookEndgameDescription">Un final de partidă doar cu turnuri și pioni.</string>
   <string name="sacrifice">Sacrificiu</string>

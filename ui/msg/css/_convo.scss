@@ -51,6 +51,7 @@
         .line {
           flex: 0 0 auto;
           font-size: 1.5em;
+
           @include if-rtl {
             transform: scaleX(-1);
           }
@@ -59,6 +60,7 @@
 
       bad {
         @extend %flex-center-nowrap;
+
         margin-inline-start: 0.5em;
       }
 

@@ -12,7 +12,7 @@
   <string name="opponentClock">Relógio do oponente</string>
   <string name="gameStart">Início do jogo</string>
   <string name="moveToRank">Mova da coluna 1 para 8.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Anuncia a localização das peças. Por exemplo: um N maiúsculo para cavalo branco, um k minúsculo para o rei preto, um A maiúsculo para todas as peças brancas.</string>
+  <string name="announcePieceLocations">Anuncia a localização das peças. Por exemplo: um N maiúsculo para cavalo branco, um k minúsculo para o rei preto, um A maiúsculo para todas as peças brancas.</string>
   <string name="king">rei</string>
   <string name="whiteKing">rei branco</string>
   <string name="blackKing">rei preto</string>
@@ -32,7 +32,7 @@
   <string name="whitePawn">peão branco</string>
   <string name="blackPawn">peão preto</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T B C x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">toma</string>
+  <string name="sanTakes" comment="x in standard notation">toma</string>
   <string name="invalidMove">Movimento inválido</string>
   <string name="premoveCancelled">Premove cancelado</string>
 </resources>

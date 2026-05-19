@@ -162,6 +162,7 @@ object JsonApi:
               "type" -> "analysis",
               "id" -> a.id,
               "nodes" -> Json.obj(
+                "sf18" -> a.nodes,
                 "sf17_1" -> a.nodes,
                 "sf16" -> a.nodes,
                 "classical" -> a.nodes * 3

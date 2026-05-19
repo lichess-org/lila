@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.format.{ Fen, Uci, UciPath }
 import play.api.libs.json.*
 
 import lila.core.perm.Granter
@@ -67,7 +67,7 @@ object ServerEval:
                 .foldM(UciPath.root):
                   case (path, (node, (info, advOpt))) =>
                     saveAnalysis(chapter, node, path, info, advOpt)
-                .andDo(sendProgress(studyId, chapterId, analysis, complete))
+                .andDo(sendProgress(studyId, chapterId, analysis))
                 .logFailure(logger)
             yield ()
       case _ => funit
@@ -141,11 +141,9 @@ object ServerEval:
 
     private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
       Branch(
-        id = UciCharPair(m.toUci),
         ply = ply,
         move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = Fen.write(m.after, ply.fullMoveNumber),
-        check = m.after.position.check,
         crazyData = m.after.position.crazyData,
         clock = none,
         forceVariation = false
@@ -154,30 +152,29 @@ object ServerEval:
     private def sendProgress(
         studyId: StudyId,
         chapterId: StudyChapterId,
-        analysis: Analysis,
-        complete: Boolean
+        analysis: Analysis
     ): Funit =
       chapterRepo
         .byId(chapterId)
         .flatMapz: chapter =>
-          reallySendToChapter(studyId, chapter, complete).mapz:
+          reallySendToChapter(studyId, chapter).mapz:
             socket.onServerEval(
               studyId,
               ServerEval.Progress(
                 chapterId = chapter.id,
-                tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                tree = chapter.root,
                 analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
             )
 
-    private def reallySendToChapter(studyId: StudyId, chapter: Chapter, complete: Boolean): Fu[Boolean] =
-      if complete || chapter.relay.isEmpty
+    private def reallySendToChapter(studyId: StudyId, chapter: Chapter): Fu[Boolean] =
+      if chapter.relay.isEmpty
       then fuTrue
       else
         lila.common.Bus
           .ask[Int, GetCrowd](GetCrowd(studyId, _))
-          .map(_ < 5000)
+          .map(_ < 1000)
 
     def divisionOf(chapter: Chapter) =
       divider(

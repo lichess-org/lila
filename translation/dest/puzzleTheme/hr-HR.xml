@@ -59,7 +59,7 @@
   <string name="intermezzoDescription">Potez koji se igra prije očekivanog poteza koji predstavlja direktnu prijetnju na koju protivnik mora odgovoriti.</string>
   <string name="killBoxMate">Mat u mreži</string>
   <string name="killBoxMateDescription">Top je pored protivničkog kralja i podržan je kraljicom koja također blokira kraljeva polja za bijeg. Top i kraljica zarobljavaju protivničkog kralja u 3 sa 3 matnoj mreži.</string>
-  <string name="vukovicMate">Vukovic mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic mat</string>
   <string name="vukovicMateDescription">Top i skakač se udruže da matiraju kralja. Top matira podržan trećom figurom, i skakač se koristi da blokira kraljeva polja za bijeg.</string>
   <string name="knightEndgame">Skakačeva završnica</string>
   <string name="knightEndgameDescription">Završnica u kojoj sudjeluju samo skakači i pješaci.</string>

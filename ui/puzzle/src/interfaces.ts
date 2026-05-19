@@ -1,16 +1,13 @@
 import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
-import type { Coords } from 'lib/prefs';
-import perfIcons from 'lib/game/perfIcons';
+
 import type { ExternalEngineInfo } from 'lib/ceval';
+import perfIcons from 'lib/game/perfIcons';
+import type { Coords } from 'lib/prefs';
+import type { TreePath } from 'lib/tree/types';
 
 export type PuzzleId = string;
 export type ThemeKey = keyof I18n['puzzleTheme'];
-
-export interface AllThemes {
-  dynamic: ThemeKey[];
-  static: Set<ThemeKey>;
-}
 
 export interface NvuiPlugin {
   render(): VNode;
@@ -68,7 +65,7 @@ export interface PuzzleData {
   puzzle: Puzzle;
   angle: Angle;
   game: PuzzleGame;
-  user: PuzzleUser | undefined;
+  user?: PuzzleUser;
   replay?: PuzzleReplay;
   streak?: string;
   externalEngines?: ExternalEngineInfo[];
@@ -101,7 +98,6 @@ export interface PuzzlePlayer {
 }
 
 export interface PuzzleUser {
-  id: string;
   rating: number;
   provisional?: boolean;
 }
@@ -121,9 +117,7 @@ export interface PuzzleResult {
   replayComplete?: boolean;
 }
 
-export type RoundThemes = {
-  [key in ThemeKey]: boolean;
-};
+export type RoundThemes = Record<ThemeKey, boolean>;
 
 export interface PuzzleRound {
   win: boolean;
@@ -134,5 +128,5 @@ export interface PuzzleRound {
 export interface MoveTest {
   move: Move;
   fen: FEN;
-  path: Tree.Path;
+  path: TreePath;
 }

@@ -1,7 +1,4 @@
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import type Ctrl from './ctrl';
-import type { InsightChart, InsightData } from './interfaces';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, colorSeries } from 'chart';
 import {
   Chart,
   type ChartDataset,
@@ -14,11 +11,16 @@ import {
   Tooltip,
   type ChartOptions,
 } from 'chart.js';
-import { currentTheme } from 'lib/device';
-import { gridColor, tooltipBgColor, fontFamily, maybeChart, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { h, type VNode } from 'snabbdom';
+
+import { currentTheme } from 'lib/device';
+import * as licon from 'lib/licon';
+import { iconTag, spinnerHtml } from 'lib/view';
+
+import type Ctrl from './ctrl';
+import type { InsightChart, InsightData } from './interfaces';
 import { formatNumber } from './table';
-import { spinnerHtml } from 'lib/view';
 
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();
@@ -56,7 +58,7 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           position: 'bottom',
         },
         tooltip: {
-          filter: tooltipItem => (tooltipItem.raw as number) != 0,
+          filter: tooltipItem => (tooltipItem.raw as number) !== 0,
           itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
           backgroundColor: tooltipBgColor,
           borderColor: gridColor,
@@ -121,7 +123,7 @@ function barBuilder(
             textStrokeWidth: 1.2,
             font: fontFamily(12, 'bold'),
             formatter: val =>
-              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+              val === 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
           },
   };
 }
@@ -176,12 +178,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [
-    h('i', {
-      attrs: { 'data-icon': licon.Target },
-    }),
-    txt,
-  ]);
+  return h('div.chart.empty', [iconTag(licon.Target), txt]);
 }
 
 let chart: InsightChart;

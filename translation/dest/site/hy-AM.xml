@@ -117,7 +117,6 @@
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
-  <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
   <string name="memory">Հիշողություն</string>
@@ -221,7 +220,6 @@
   <string name="changeUsernameNotSame">Կարելի է փոխել միայն նշանների ստեղնաշարքը։ Օրինակ, «hayktadevosyan»-ը դարձնել «HaykTadevosyan»։</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="signupUsernameHint">Համոզվեք, որ ընտրել եք պարկեշտ մասնակցային անուն։ Հետագայում այն փոխել չեք կարողանա, ընդ որում, անպարկեշտ անուններով մասնակցային հաշիվները կփակվեն։</string>
-  <string name="signupEmailHint">Մենք այն օգտագործելու ենք միայն գաղտնաբառը չեղարկելու համար։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
@@ -245,9 +243,6 @@
   <string name="emailCanTakeSomeTime">Հասնելու համար կարող է որոշ ժամանակ պահանջվել։</string>
   <string name="refreshInboxAfterFiveMinutes">Սպասեք 5 րոպե և թարմացրեք Ձեր էլփոստի մուտքային արկղը։</string>
   <string name="checkSpamFolder">Ստուգեք նաև սպամի պանակը, նամակը կարող է հայտնվել այնտեղ: Եթե ​​այդպես է, այն նշեք որպես ոչ սպամ:</string>
-  <string name="emailForSignupHelp">Եթե ​​մնացած ամեն ինչը ձախողվի, ապա գրեք մեզ այս էլեկտրոնային հասցեով.</string>
-  <string name="copyTextToEmail">Պատճենեք և տեղադրեք վերը նշված տեքստը և այն ուղարկեք %s-ին</string>
-  <string name="waitForSignupHelp">Մենք շուտով կվերադառնանք Ձեզ, որպեսզի օգնենք լրացնել Ձեր գրանցումը:</string>
   <string name="accountConfirmed">%s օգտատերը հաջողությամբ հաստատվել է:</string>
   <string name="accountCanLogin">Դուք կարող եք մուտք գործել հենց հիմա որպես %s:</string>
   <string name="accountConfirmationEmailNotNeeded">Ձեզ անհրաժեշտ չէ հաստատման նամակ։</string>
@@ -407,7 +402,6 @@
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
-  <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
@@ -686,11 +680,6 @@
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="keyShowOrHideComments">ցույց տալ/թաքցնել մեկնաբանությունները</string>
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
-  <string name="keyRequestComputerAnalysis">Պատվիրեք համակարգչային վերլուծություն, սովորեք սեփական սխալներից</string>
-  <string name="keyNextLearnFromYourMistakes">Հաջորդը (Սովորեք ձեր սխալներից)</string>
-  <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
-  <string name="keyNextMistake">Հաջորդ սխալը</string>
-  <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
   <string name="keyPreviousBranch">Նախորդ ճյուղ</string>
   <string name="keyNextBranch">Հաջորդ ճյուղ</string>
   <string name="newTournament">Նոր մրցաշար</string>
@@ -852,7 +841,6 @@
   <string name="agreementAssistance">Հաստատում եմ, որ իմ խաղերում երբեք չեմ օգտվի կողմնակի օգնությունից (շախմատային ծրագրերից, գրքերից, տվյալների բազաներից և այլ խաղացողներից)։</string>
   <string name="agreementNice">Հաստատում եմ, որ հարգանքով եմ վերաբերվելու այլ խաղացողներին։</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Համաձայն եմ, որ չպետք է ստեղծեմ բազմաթիվ մասնակցային հաշիվներ (բացառությամբ %sում նշված պատճառների)։</string>
-  <string name="agreementPolicy">Հաստատում եմ, որ հետևելու եմ Lichess-ի բոլոր կանոններին։</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Բլից</string>

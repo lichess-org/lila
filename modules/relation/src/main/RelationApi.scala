@@ -38,6 +38,7 @@ final class RelationApi(
     following as fetchFollowing,
     freshFollowersFromSecondary,
     filterBlocked,
+    filterBlocking,
     removeAllFollowers
   }
 
@@ -118,8 +119,8 @@ final class RelationApi(
       sort = $empty
     ).map(_.userId)
 
-  def follow(u1: User, u2: UserId): Funit =
-    (u1 != u2).so(prefApi.followable(u2).flatMapz {
+  def follow(u1: User, u2: UserId): Funit = (u1 != u2).so:
+    prefApi.followable(u2).flatMapz {
       userApi.isEnabled(u2).flatMapz {
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {
           case (Some(Follow), _) => funit
@@ -136,7 +137,7 @@ final class RelationApi(
                 Bus.pub(lila.core.relation.Follow(u1.id, u2))
         }
       }
-    })
+    }
 
   private def limitFollow(u: UserId) =
     countFollowing(u).flatMap: nb =>

@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Lueg s\'Video-Tutorial</string>
   <string name="instructions1">Benutz d\'Schaltflächi %1$s, zum d\'Spracherkännig aktivieren, d\'Schaltflächi %2$s, zum de Hilfedialog ufmache, und s\'Menü %3$s, zum d\'Sprachinschtellige ändere.</string>
   <string name="instructions2">Mir zeiged Pfil für mehreri Züg a, wänn mir nöd sicher sind. Sprich eifach d\'Farb oder d\'Nummere vu dem Zugpfil, wo du wotsch wähle.</string>
-  <string name="instructions3">Wänn en Pfil en drehende Timer zeigt, wird de Zug g\'schpillt, sobald de Chreis g\'schlosse isch. I dere Zit chasch nur %1$s säge, um de Zug sofort z\'schpille, %2$s, um de Zug abzbräche, oder d\'Farb/d\'Nummere vume andere Pfil. Die Zitvorgab, vum Timer, chann i de Ischtellige g\'änderet- oder abgschalte werde.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Wänn en Pfil en drehende Timer zeigt, wird de Zug g\'schpillt, sobald de Chreis g\'schlosse isch. I dere Zit chasch nur %1$s säge, um de Zug sofort z\'schpille, %2$s, um de Zug abzbräche, oder d\'Farb/d\'Nummere vume andere Pfil. Die Zitvorgab, vum Timer, chann i de Ischtellige g\'änderet- oder abgschalte werde.</string>
   <string name="instructions4">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
   <string name="instructions5">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
   <string name="instructions6">%s erchlärt d\'Ischtellige vu de Sprachschtürig im Detail.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Zug uf e4 oder Uswahl vu de Figur uf e4</string>
   <string name="selectOrCaptureABishop">En Läufer wähle oder schlah</string>
   <string name="takeRookWithQueen">Schlag de Turm mit de Dame</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rochade (beidi Site)</string>
+  <string name="castle">Rochade (beidi Site)</string>
   <string name="phoneticAlphabetIsBest">Phonetischs Alphabet isch s\'Bescht</string>
   <string name="cancelTimerOrDenyARequest">Timer abbräche oder e Afrag ablehne</string>
   <string name="playPreferredMoveOrConfirmSomething">Bevorzugte Zug spiele oder öppis bestätige</string>

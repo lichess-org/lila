@@ -1,5 +1,6 @@
+import type { GameData } from '@/game';
+
 import { defined } from './index';
-import type { GameData } from './game/interfaces';
 import { storage } from './storage';
 
 const makeKey = (username: string | undefined, poolId: string) =>

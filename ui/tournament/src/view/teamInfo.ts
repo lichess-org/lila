@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
 import { spinnerVdom, bind, dataIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
+
 import type TournamentController from '../ctrl';
-import { player as renderPlayer } from './util';
 import { teamName } from './battle';
+import { player as renderPlayer } from './util';
 
 export default function (ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
@@ -20,7 +22,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     site.powertip.manualUserIn(vnode.elm as HTMLElement);
   };
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    h('a.close', {
+    h('button.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
     }),

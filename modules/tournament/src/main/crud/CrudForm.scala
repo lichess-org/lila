@@ -12,7 +12,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   def apply(tour: Option[Tournament])(using me: Me) = Form(
     mapping(
-      "id" -> id[TourId](8, tour.map(_.id))(repo.exists),
+      "id" -> idWithSyncUniqueCheck[TourId](8, tour.map(_.id))(repo.exists),
       "homepageHours" -> number(min = 0, max = maxHomepageHours),
       "image" -> stringIn(imageChoices),
       "headline" -> text(minLength = 5, maxLength = 30),
@@ -26,7 +26,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       image = "",
       headline = "",
       teamBattle = false,
-      setup = forms.empty()
+      setup = forms.empty(forClas = false)
     )
   )
 
@@ -70,8 +70,7 @@ object CrudForm:
       )
     def update(old: Tournament) =
       withCrud(
-        setup
-          .updateAll(old)
+        setup.updateAll(old)
       )
 
     private def withCrud(tour: Tournament) =
@@ -81,7 +80,7 @@ object CrudForm:
           headline = headline,
           homepageHours = homepageHours.some.filterNot(0 ==),
           iconFont = none,
-          iconImg = image.some.filter(_.nonEmpty)
+          iconImg = image.nonEmptyOption
         ).some,
         teamBattle = teamBattle.option(tour.teamBattle | TeamBattle(Set.empty, 10))
       )

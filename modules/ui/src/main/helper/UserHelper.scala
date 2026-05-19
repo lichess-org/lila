@@ -132,12 +132,13 @@ trait UserHelper:
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      name: Option[Frag] = None
+      name: Option[Frag] = None,
+      withFlair: Boolean = true
   )(using Translate): Tag =
     span(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
 
   def userLinkContent(
       user: User,
@@ -254,15 +255,15 @@ trait UserHelper:
   val patronIconChar = Icon.Wings
   val lineIconChar = Icon.Disc
 
-  val lineIcon: Frag = i(cls := "line")
+  val lineIcon: Frag = iconTag(cls := "line")
 
   def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
-    i(
+    iconTag(
       cls := s"line patron ${p.color.value.cssClass}",
       title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
     )
 
-  val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
+  val moderatorIcon: Frag = iconTag(cls := "line moderator", title := "Lichess Mod")
   @targetName("lineIconPatron")
   private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
     p.fold(lineIcon)(patronIcon)

@@ -19,7 +19,7 @@ final class TeamMemberStream(
       .mapAsync(1): members =>
         val users =
           if fullUser
-          then userApi.listWithPerfs(members._1F.toList)
+          then userApi.listWithPerfs(members._1F.toList, includeClosed = false)
           else lightApi.asyncManyFallback(members._1F.toList)
         users.map(_.zip(members._2F))
       .mapConcat(identity)

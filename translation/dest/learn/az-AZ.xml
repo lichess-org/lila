@@ -6,7 +6,7 @@
   <string name="progressX">İrəliləyiş: %s</string>
   <string name="resetMyProgress">Irəliləyiş tarixini sıfırla</string>
   <string name="youWillLoseAllYourProgress">İrəliləyiş tarixi itəcək!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oyna!</string>
+  <string name="play">oyna!</string>
   <string name="chessPieces">Şahmat fiqurları</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Düz xətlə gedir</string>
@@ -102,7 +102,7 @@ lakin hücumun bloklaya bilərsiz!</string>
 üstündən şah verdi!</string>
   <string name="escapeOrBlock">Şahla qaç
 və ya hücumu blokla!</string>
-  <string name="outOfCheckComplete">Təbriklər! Şahınız heç vaxt vurula bilməz, şah verilməkdən müdafiə müdafiə olunduğunuzdan əmin olun!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Təbriklər! Şahınız heç vaxt vurula bilməz, şah verilməkdən müdafiə müdafiə olunduğunuzdan əmin olun!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
   <string name="mateInOneIntro">Rəqib, verdiyiniz şahın qarşısını ala bilmədikdə qalib sayılırsız.</string>
@@ -151,7 +151,6 @@ Hücumu bloklayın sonra qalaqurma edin!</string>
   <string name="findAWayToCastleKingSide">Qısa qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
-  <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
   <string name="enPassantIntro">Rəqib piyada iki xana hərəkət etdikdə, onu bir xana hərəkət etdiyi kimi qəbul edə bilərsiniz.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 

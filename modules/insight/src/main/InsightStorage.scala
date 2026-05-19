@@ -30,8 +30,6 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
   def update(p: InsightEntry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 
-  def remove(p: InsightEntry) = coll(_.delete.one(selectId(p.id)).void)
-
   def removeAll(userId: UserId) = coll(_.delete.one(selectUserId(userId)).void)
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
@@ -41,6 +39,8 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
       _.aggregateOne() { framework =>
         import framework.*
         Match(selectUserId(userId) ++ $doc(F.opening.$exists(true))) -> List(
+          Sort(Descending(F.date)),
+          Limit(maxGames.value),
           Facet(
             List(
               "families" -> List(
@@ -79,11 +79,14 @@ object InsightStorage:
 
   def selectId(id: String) = $doc(F.id -> id)
   def selectUserId(id: UserId) = $doc(F.userId -> id)
-  def selectPeers(peers: Question.Peers) = $doc(F.rating.$inRange(peers.ratingRange))
+  def selectPeers(peers: PeersRatingRange) = $doc(F.rating.$inRange(peers.value))
   val sortChronological = $sort.asc(F.date)
   val sortAntiChronological = $sort.desc(F.date)
 
+  def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
+    case f if f.dimension.isInGame => f.matcher
+  })
+
   def combineDocs(docs: List[BSONDocument]) =
-    docs.foldLeft(BSONDocument()) { case (acc, doc) =>
+    docs.foldLeft(BSONDocument()): (acc, doc) =>
       acc ++ doc
-    }

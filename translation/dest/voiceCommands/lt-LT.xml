@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Žiūrėkite vaizdo pamoką</string>
   <string name="instructions1">Balso atpažinimui įjungti ir išjungti naudokite mygtuką %1$s, šiam pagalbos dialogo langui atidaryti – mygtuką %2$s, o kalbos nustatymams pakeisti – meniu %3$s.</string>
   <string name="instructions2">Rodome rodykles keliems ėjimams, kai nesame tikri. Norėdami pasirinkti ėjimo rodyklę, ištarkite jos spalvą arba numerį.</string>
-  <string name="instructions3">Jei rodyklė rodo besisukantį ratą, ėjimas bus atliktas, kai ratas bus užbaigtas. Šiuo laikotarpiu galite pasakyti %1$s, jei norite atlikti ėjimą nedelsiant, %2$s, jei norite atšaukti, arba pasakyti kitos rodyklės spalvą/numerį. Šį laikmatį galima reguliuoti arba išjungti nustatymuose.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Jei rodyklė rodo besisukantį ratą, ėjimas bus atliktas, kai ratas bus užbaigtas. Šiuo laikotarpiu galite pasakyti %1$s, jei norite atlikti ėjimą nedelsiant, %2$s, jei norite atšaukti, arba pasakyti kitos rodyklės spalvą/numerį. Šį laikmatį galima reguliuoti arba išjungti nustatymuose.</string>
   <string name="instructions4">Įjunkite %s triukšmingoje aplinkoje. Kai ši funkcija įjungta, tardami komandas laikykite nuspaudę shift.</string>
   <string name="instructions5">Naudokite fonetinę abėcėlę, kad pagerintumėte šachmatų lentos failų atpažinimą. </string>
   <string name="instructions6">%s išsamiai paaiškina balsu ėjimo nustatymus.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Eiti į e4 arba pasirinkti figūrą e4 langelyje</string>
   <string name="selectOrCaptureABishop">Pasirinkti arba kirsti rikį</string>
   <string name="takeRookWithQueen">Valdove kirsti bokštą</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokiruotė (į bet kurią pusę)</string>
+  <string name="castle">Rokiruotė (į bet kurią pusę)</string>
   <string name="phoneticAlphabetIsBest">Geriausia veikia fonetinė abėcėlė</string>
   <string name="cancelTimerOrDenyARequest">Atšaukti laikmatį arba atmesti prašymą</string>
   <string name="playPreferredMoveOrConfirmSomething">Žaisti norimą ėjimą arba ką nors patvirtinti</string>

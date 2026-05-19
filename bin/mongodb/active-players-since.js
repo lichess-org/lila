@@ -1,4 +1,4 @@
-var result = db.game5.aggregate(
+const result = db.game5.aggregate(
   {
     $match: {
       ca: {

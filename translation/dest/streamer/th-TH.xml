@@ -6,11 +6,46 @@
   <string name="offline">ออฟไลน์</string>
   <string name="currentlyStreaming">กำลังถ่ายทอดสดอยู่ขณะนี้: %s</string>
   <string name="lastStream">ถ่ายทอดสดครั้งล่าสุด %s</string>
+  <string name="becomeStreamer">มาเป็นสตรีมเมอร์ Lichess</string>
+  <string name="doYouHaveStream">คุณมีช่อง Twitch หรือ YouTube หรือไม่</string>
   <string name="hereWeGo">ไปกันเลย!</string>
   <string name="allStreamers">สตรีมเมอร์ทั้งหมด</string>
   <string name="editPage">แก้ไขหน้าสตรีมเมอร์</string>
   <string name="yourPage">หน้าสครีมเมอร์ของคุณ</string>
+  <string name="downloadKit">โหลดอุปกรณ์สำหรับถ่ายทอดสด</string>
   <string name="xIsStreaming">%s กำลังสตรีม</string>
   <string name="rules">กฎในการสตรีม</string>
+  <string name="rule1">ใส่คีย์เวิร์ดว่า \"lichess.org\" ในชื่อสตรีมของคุณ และใช้หมวดหมู่ \"หมากรุก\" เมื่อคุณสตรีมบน Lichess</string>
+  <string name="rule2">ลบคีย์เวิร์ดออกเมื่อคุณสตรีมเนื้อหาที่ไม่ใช่ของ Lichess</string>
+  <string name="rule3">Lichess จะตรวจจับสตรีมของคุณโดยอัตโนมัติและเปิดใช้งานสิทธิพิเศษต่อไปนี้:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">อ่าน %s ของเราเพื่อการเล่นอย่างยุติธรรมในระหว่างการสตรีมของคุณ</string>
+  <string name="streamingFairplayFAQ">คำถามที่พบบ่อยของการเล่นบนสตรีมแบบยุติธรรม</string>
+  <string name="perks">ประโยชน์ของการสตรีมที่มีคีย์เวิร์ด</string>
+  <string name="perk1">รับไอคอนสตรีมเมอร์เปลวไฟบนโปรไฟล์ Lichess ของคุณ</string>
+  <string name="perk2">เลื่อนอันดับขึ้นไปอยู่ด้านบนสุดของรายชื่อสตรีมเมอร์</string>
+  <string name="perk3">แจ้งให้ผู้ติดตามบน Lichess ของคุณทราบ</string>
+  <string name="perk4">แสดงสตรีมของคุณในเกม การแข่งขัน และเป็นกรณีศึกษา</string>
+  <string name="approved">การสตรีมของคุณได้รับการอนุมัติแล้ว</string>
+  <string name="pendingReview">สตรีมของคุณกำลังอยู่ระหว่างการตรวจสอบโดยผู้ดูแลระบบ</string>
+  <string name="pleaseFillIn">กรุณากรอกข้อมูลผู้สตรีมและอัปโหลดรูปภาพของคุณ</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">เมื่อคุณพร้อมที่จะลงทะเบียนเป็นสตรีมเมอร์ของ Lichess แล้ว %s</string>
+  <string name="submitForReview">ส่งเพื่อตรวจสอบ</string>
+  <string name="streamerLanguageSettings">หน้าผู้ถ่ายทอดสดของ Lichess จะกำหนดเป้าหมายผู้ชมของคุณด้วยภาษาที่แพลตฟอร์มการถ่ายทอดสดของคุณรองรับ ตั้งค่าภาษาเริ่มต้นที่ถูกต้องสำหรับการถ่ายทอดสดหมากรุกของคุณในแอปหรือบริการที่คุณใช้ในการออกอากาศ</string>
+  <string name="pleaseAllow">โปรดรอประมาณ 72 ชั่วโมงก่อนที่ตราสัญลักษณ์และรายชื่อสตรีมเมอร์ของคุณจะได้รับการอนุมัติ</string>
+  <string name="chooseYoutubeChannel">เลือกช่อง YouTube ที่คุณจะใช้บน Lichess</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">เชื่อมต่อ</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ยกเลิกการเชื่อมต่อ</string>
+  <string name="streamerName">ชื่อสตรีมเมอร์ของคุณบน Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="other">ตั้งชื่อให้กระชับสูงสุด %s ตัวอักษร</item>
+  </plurals>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">สามารถมองเห็นได้ในหน้าของสตรีมเมอร์</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">เมื่อได้รับการอนุมัติจากผู้ดูแลระบบ</string>
+  <string name="headline">หัวเรื่อง</string>
+  <string name="tellUsAboutTheStream">อธิบายสตรีมของคุณในประโยคเดียว</string>
+  <string name="longDescription">คำอธิบายยาว</string>
+  <string name="xStreamerPicture">ภาพสตรีมเมอร์ของ %s</string>
+  <string name="changePicture">เปลี่ยน/ลบรูปภาพของคุณ</string>
   <string name="uploadPicture">อัพโหลดรูปภาพ</string>
+  <string name="maxSize">ขนาดใหญ่สุด: %s</string>
 </resources>

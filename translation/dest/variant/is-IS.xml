@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Hefðbundin</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Hinar almennu reglur skákar (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Slembiskák</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Upphafsstaða taflmannanna á endaröðinni er valin af handahófi.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Yfirráðaskák</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Komdu kónginum þínum í miðjuna til þess að sigra skákina.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Þrískák</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Skákaðu andstæðingi þínum þrívegis til að sigra skákina.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Andskák</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Láttu alla taflmennina þína drepast (eða láta máta þig) til þess að sigra skákina.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Kjarnorka</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Sprengdu kóng mótherja þíns til að sigra.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Hjarðarskák</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Annar aðilinn ræður yfir miklum fjölda peða, en hinn hefur hefðbundna taflmannauppstillingu.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Kóngakappskák</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Komdu kónginum á hinn enda borðsins til að sigra.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Geðveikraskák</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Taflmenn sem hafa verið drepnir geta verið settir aftur inn á borðið í stað þess að hreyfa taflmann.</string>
+  <string name="standard">Hefðbundin</string>
+  <string name="standardTitle">Hinar almennu reglur skákar (FIDE)</string>
+  <string name="chess960">Slembiskák</string>
+  <string name="chess960Title">Upphafsstaða taflmannanna á endaröðinni er valin af handahófi.</string>
+  <string name="kingOfTheHill">Yfirráðaskák</string>
+  <string name="kingOfTheHillTitle">Komdu kónginum þínum í miðjuna til þess að sigra skákina.</string>
+  <string name="threeCheck">Þrískák</string>
+  <string name="threeCheckTitle">Skákaðu andstæðingi þínum þrívegis til að sigra skákina.</string>
+  <string name="antichess">Andskák</string>
+  <string name="antichessTitle">Láttu alla taflmennina þína drepast (eða láta máta þig) til þess að sigra skákina.</string>
+  <string name="atomic">Kjarnorka</string>
+  <string name="atomicTitle">Sprengdu kóng mótherja þíns til að sigra.</string>
+  <string name="horde">Hjarðarskák</string>
+  <string name="hordeTitle">Annar aðilinn ræður yfir miklum fjölda peða, en hinn hefur hefðbundna taflmannauppstillingu.</string>
+  <string name="racingKings">Kóngakappskák</string>
+  <string name="racingKingsTitle">Komdu kónginum á hinn enda borðsins til að sigra.</string>
+  <string name="crazyhouse">Geðveikraskák</string>
+  <string name="crazyhouseTitle">Taflmenn sem hafa verið drepnir geta verið settir aftur inn á borðið í stað þess að hreyfa taflmann.</string>
 </resources>

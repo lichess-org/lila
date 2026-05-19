@@ -35,8 +35,8 @@
     <item quantity="one">এটি সংক্ষিপ্ত রাখুন: %s অক্ষর সর্বাধিক</item>
     <item quantity="other">এটি সংক্ষিপ্ত রাখুন: %s অক্ষরগুলি সর্বাধিক</item>
   </plurals>
-  <string name="visibility">স্ট্রিমারদের পেজে সদৃশ থাক</string>
-  <string name="whenApproved">যখন মোডারেটর প্যানেল অনুমোদন দেবেন</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">স্ট্রিমারদের পেজে সদৃশ থাক</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">যখন মোডারেটর প্যানেল অনুমোদন দেবেন</string>
   <string name="headline">হেডলাইন</string>
   <string name="tellUsAboutTheStream">আপনার স্ট্রিম সম্পর্কে ১ বাক্যে কিছু বলুন</string>
   <string name="longDescription">দীর্ঘ বিবরণ</string>

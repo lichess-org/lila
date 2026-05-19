@@ -71,9 +71,11 @@
       .ruser {
         justify-content: end;
       }
+
       .rclock {
         justify-self: start;
       }
+
       .material {
         justify-self: end;
         margin-inline-end: 6px;
@@ -82,6 +84,7 @@
 
     .ricons {
       margin: 0.5em 0;
+
       &.empty {
         margin-bottom: 0;
       }
@@ -112,7 +115,7 @@
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
     grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
-    grid-column-gap: $block-gap;
+    column-gap: $block-gap;
 
     &__table {
       grid-area: 5 / 2 / 11 / 3;

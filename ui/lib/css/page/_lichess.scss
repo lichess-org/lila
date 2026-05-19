@@ -4,15 +4,13 @@
 @import '../base/data-icon';
 @import '../base/unread';
 @import '../base/util';
-
-@include theme-style;
-
+@import '../base/scrollbar';
+@import '../base/ltr';
+@import '../layout/vars';
 @import '../layout/base';
 @import '../layout/page-menu';
-
 @import '../theme/board/chessground';
-
 @import '../header/header';
 @import '../../../cli/css/clinput';
-
 @import 'components';
+@include theme-style;

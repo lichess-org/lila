@@ -5,13 +5,12 @@ import java.time.YearMonth
 import chess.format.Fen
 
 import lila.core.i18n.Translate
-import lila.core.security.HcaptchaForm
 import lila.core.config.ImageGetOrigin
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  val engineFullName = "Stockfish 17.1"
+  val engineFullName = "Stockfish 18"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
@@ -26,9 +25,9 @@ object bits:
         st.id := s"mselect-$id",
         autocomplete := "off"
       ),
-      label(`for` := s"mselect-$id", cls := "mselect__label")(current),
+      label(`for` := s"mselect-$id", cls := "mselect__label", role := "menu")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
+      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item", role := "menuitem")))
     )
 
   // url: (year: Int, month: Int)
@@ -85,11 +84,6 @@ object bits:
     a(href := routes.UserAnalysis.parseArg(ChessHelper.underscoreFen(fen)))(
       lila.core.i18n.I18nKey.site.analysis()
     )
-
-  private val dataSitekey = attr("data-sitekey")
-
-  def hcaptcha(form: HcaptchaForm[?]) =
-    div(cls := "h-captcha form-group", dataSitekey := form.config.key)
 
   def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := scalalib.StringOps.base64.encode(email))

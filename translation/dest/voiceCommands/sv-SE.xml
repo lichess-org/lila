@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Titta på videoinstruktionen</string>
   <string name="instructions1">Använd %1$s -knappen för att växla röstigenkänning, %2$s -knappen för att öppna den här hjälpdialogrutan och %3$s -menyn för att ändra talinställningar.</string>
   <string name="instructions2">Vi visar pilarna för flera drag när vi inte är säkra. Tala färg eller antal på en dragpil för att välja den.</string>
-  <string name="instructions3">Om en pil visar en svepande radar, så kommer draget att spelas när cirkeln är klar. Under denna tid kan du bara säga %1$s att spela draget omedelbart, %2$s för att avbryta, eller tala färg/antal av en annan pil. Denna timer kan justeras eller stängas av i inställningarna.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Om en pil visar en svepande radar, så kommer draget att spelas när cirkeln är klar. Under denna tid kan du bara säga %1$s att spela draget omedelbart, %2$s för att avbryta, eller tala färg/antal av en annan pil. Denna timer kan justeras eller stängas av i inställningarna.</string>
   <string name="instructions4">Aktivera %s i bullriga omgivningar. Håll shift medan du talar kommandon när detta är på.</string>
   <string name="instructions5">Använd det fonetiska alfabetet för att förbättra igenkänningen av schackfiler. </string>
   <string name="instructions6">%s förklarar inställningarna för röstflyttning i detalj.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Flytta till e4 eller välj e4 bit</string>
   <string name="selectOrCaptureABishop">Välj eller fånga en löpare</string>
   <string name="takeRookWithQueen">Ta torn med drottning</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rockad (oavsett sida)</string>
+  <string name="castle">Rockad (oavsett sida)</string>
   <string name="phoneticAlphabetIsBest">Fonetiskt alfabet är bäst</string>
   <string name="cancelTimerOrDenyARequest">Avbryt timer eller neka en begäran</string>
   <string name="playPreferredMoveOrConfirmSomething">Spela föredraget drag eller bekräfta något</string>

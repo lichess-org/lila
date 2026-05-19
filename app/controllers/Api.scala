@@ -40,26 +40,29 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       userApi
         .extended(
           name,
-          withFollows = userWithFollows,
-          withTrophies = getBool("trophies"),
-          withCanChallenge = getBool("challenge"),
-          withProfile = getBoolOpt("profile") | true,
-          withRank = getBool("rank")
+          lila.api.UserApi.Opts(
+            withTrophies = getBool("trophies"),
+            withCanChallenge = getBool("challenge"),
+            withProfile = getBoolOpt("profile") | true,
+            withRank = getBool("rank"),
+            withFideId = getBool("fideId")
+          )
         )
         .map(toApiResult)
         .map(toHttp)
 
-  private[controllers] def userWithFollows(using req: RequestHeader) =
-    HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
-
   def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
-    val cost = usernames.size / (if ctx.me.exists(_.isVerified) then 20 else 4)
+    val cost = usernames.size / {
+      if ctx.me.exists(_.isVerified) then 20
+      else if ctx.isAuth then 6
+      else 3
+    }
     val withRanks = getBool("rank")
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost.atLeast(1)):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
-        .listWithPerfs(usernames)
+        .listWithPerfs(usernames, includeClosed = true)
         .map:
           _.map: u =>
             env.user.jsonView.full(
@@ -122,18 +125,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           .map(toApiResult)
       }
 
-  private def gameFlagsFromRequest(using RequestHeader) =
-    lila.api.GameApi.WithFlags(
-      analysis = getBool("with_analysis"),
-      moves = getBool("with_moves"),
-      fens = getBool("with_fens"),
-      opening = getBool("with_opening"),
-      moveTimes = getBool("with_movetimes"),
-      token = get("token")
-    )
-
   def game(id: GameId) = ApiRequest:
-    gameApi.one(id, gameFlagsFromRequest).map(toApiResult)
+    gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
     limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
@@ -264,6 +257,15 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     if ids.size > max then JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
+  def gamesByOauthOriginStream = Scoped():
+    val extraUsers = get("extraUsers").so(_.split(',').view.flatMap(UserStr.read).map(_.id).toSet)
+    env.api
+      .gameStreamByOauthOrigin(getTimestamp("since"), extraUsers)
+      .fold(
+        error => JsonBadRequest(error).toFuccess,
+        source => jsOptToNdJson(ndJson.addKeepAlive(source))
+      )
+
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
     Anon:
@@ -286,15 +288,19 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
-        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/bot/get/apibotgamestreamgameid."
+        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer(ctx.req).so { bearer =>
         limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
-          yield jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges, bearer))
+          yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
       }
     }
+
+  def gameChat(gameId: GameId) = Anon:
+    Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
+      JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
 
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
@@ -310,17 +316,16 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
     lila.web.ConcurrencyLimit[IpAddress](
-      name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
       maxConcurrency = 8
     )
 
-  def moveStream(gameId: GameId) = Anon:
+  def moveStream(gameId: GameId) = AnonOrScoped():
     Found(env.round.proxyRepo.game(gameId)): game =>
-      ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
-        ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-      )(jsOptToNdJson)
+      def source = ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
+      if ctx.is(UserId.t3) then jsOptToNdJson(source)
+      else ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(source)(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
@@ -328,7 +333,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 
-  def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+  def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList).map(GameId.take)
     ids.nonEmpty.so:
       env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
@@ -341,10 +346,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /tournament/featured
    * /inbox/unread-count
    * /api/challenge
+   * /api/mobile/following
    */
-  def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
+  def mobileHome = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):
-      JsonOk(env.api.mobile.home)
+      JsonOk(env.api.mobile.home(ctx.oauth))
   }
 
   /* aggregates, for the new mobile app:
@@ -364,7 +370,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/user/:id/current-game
    * /api/crosstable/:id1/:id2
    */
-  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile) { _ ?=>
+  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { _ ?=>
     Found(meOrFetch(username)): user =>
       JsonOk(env.api.mobile.profile(user))
   }
@@ -394,39 +400,44 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Ok.chunked(source.map(_ + "\n")).as(csvContentType).noProxyBuffer
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
-    val events = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API events concurrency per IP",
-      key = "api.ip.events",
+
+    def events(using ctx: Context) =
+      if ctx.isAnon then eventsForAnon
+      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
+      else eventsForUser
+
+    private val eventsForAnon = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.anon",
       ttl = 1.hour,
       maxConcurrency = 4
     )
-    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API verified events concurrency per IP",
+    private val eventsForUser = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.user",
+      ttl = 1.hour,
+      maxConcurrency = 8
+    )
+    private val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
       key = "api.ip.events.verified",
       ttl = 1.hour,
-      maxConcurrency = 12
+      maxConcurrency = 16
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API download concurrency per IP",
       key = "api.ip.download",
       ttl = 1.hour,
       maxConcurrency = 2
     )
     val generous = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API generous concurrency per IP",
       key = "api.ip.generous",
       ttl = 1.hour,
       maxConcurrency = 20
     )
 
   private[controllers] val GlobalConcurrencyLimitUser = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
     maxConcurrency = 2
   )
   private[controllers] val GlobalConcurrencyLimitUserMobile = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per mobile user",
     key = "api.user.mobile",
     ttl = 1.hour,
     maxConcurrency = 3

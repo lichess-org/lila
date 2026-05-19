@@ -110,7 +110,6 @@
   <string name="byCPL">Par CPP Centi Puntu Persu</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
-  <string name="evaluationGauge">Stazza di valutazione</string>
   <string name="multipleLines">Parechje linee</string>
   <string name="cpus">Parechji CPU urdinatore d\' analisa</string>
   <string name="memory">Memoria</string>
@@ -209,7 +208,6 @@
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
   <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
-  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
@@ -362,7 +360,6 @@
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
   <string name="orUploadPgnFile">O telecarigate un ducumentu PGN</string>
-  <string name="fromPosition">Partendu di a pusizione</string>
   <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
   <string name="toStudy">Studià</string>
   <string name="importGame">Impurtà a partita</string>
@@ -779,7 +776,6 @@
   <string name="agreementAssistance">Sò d\' accunsentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, d\'un libru, d\'una databasa o d\' una altra persona).</string>
   <string name="agreementNice">Sò d\' accunsentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
-  <string name="agreementPolicy">Sò d\' accunsentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>

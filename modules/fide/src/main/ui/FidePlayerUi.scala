@@ -25,7 +25,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       playerList(
         players,
         order,
-        np => routes.Fide.index(np, query.some.filter(_.nonEmpty)),
+        np => routes.Fide.index(np, query.nonEmptyOption),
         sortable = query.isEmpty
       )
     )
@@ -114,7 +114,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                   player.fed.map: fed =>
                     span(cls := "player-intro__fed")(
                       fideUi.federation.flag(fed, none),
-                      Federation.names.get(fed)
+                      Federation.i18nName(fed)
                     )
                 )
               )
@@ -138,7 +138,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fieldName = id,
         checked = p.follow,
         action = Some(routes.Fide.follow(p.player.id, p.follow).url),
-        styleClass = "cmn-favourite"
+        cssClass = "cmn-favourite"
       )
     )
 
@@ -165,7 +165,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         div(cls := "fide-player__header__info")(
           h1(cls := "fide-player__header__name")(
             span(titleTag(player.title), player.name),
-            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+            user.map(userLink(_, withTitle = false))
           ),
           ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow())),
           table(cls := "fide-player__header__table")(
@@ -179,7 +179,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                       href := routes.Fide.federation(Federation.idToSlug(fed))
                     )(
                       fideUi.federation.flag(fed, none),
-                      Federation.name(fed)
+                      Federation.i18nName(fed)
                     )
                   )
                 ),

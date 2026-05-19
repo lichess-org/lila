@@ -1,7 +1,9 @@
-import * as ps from 'node:process';
 import * as fs from 'node:fs';
+import * as ps from 'node:process';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
+
+import { findTransforms } from './src/util';
 
 let builder: Builder;
 
@@ -15,7 +17,7 @@ function buildCostMap(
   const costMax = 0.9;
   const subCostMin = 0.4;
 
-  const costs = [...subMap.entries()]
+  const costs = Array.from(subMap.entries())
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
 
@@ -43,7 +45,7 @@ async function main() {
       ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
       : [];
 
-    for (const e of entries.filter(e => e.h != e.x)) {
+    for (const e of entries.filter(e => e.h !== e.x)) {
       parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
     }
     subMap.forEach(v => (v.freq = v.count / v.all));
@@ -84,54 +86,9 @@ function parseTransforms(xss: Transform[][], entry: LexEntry, subMap: Map<string
     );
 }
 
-// find transforms to turn h (heard) into x (exact)
-function findTransforms(
-  h: string,
-  x: string,
-  mode: SubRestriction,
-  pos = 0, // for recursion
-  line: Transform[] = [],
-  lines: Transform[][] = [],
-  crumbs = new Map<string, number>(),
-): Transform[][] {
-  if (h === x) return [line];
-  if (pos >= x.length && !mode.del) return [];
-  if (crumbs.has(h + pos) && crumbs.get(h + pos)! <= line.length) return [];
-  crumbs.set(h + pos, line.length);
-
-  return validOps(h, x, pos, mode).flatMap(({ hnext, op }) =>
-    findTransforms(
-      hnext,
-      x,
-      mode,
-      pos + (op === 'skip' ? 1 : op.to.length),
-      op === 'skip' ? line : [...line, op],
-      lines,
-      crumbs,
-    ),
-  );
-}
-
-function validOps(h: string, x: string, pos: number, mode: SubRestriction) {
-  const validOps: { hnext: string; op: Transform | 'skip' }[] = [];
-  if (h[pos] === x[pos]) validOps.push({ hnext: h, op: 'skip' });
-  const minSlice = !mode.del || validOps.length > 0 ? 1 : 0;
-  let slen = Math.min(mode.sub ?? 0, x.length - pos);
-  while (slen >= minSlice) {
-    const slice = x.slice(pos, pos + slen);
-    if (pos < h.length && !(slen > 0 && h.startsWith(slice, pos)))
-      validOps.push({
-        hnext: h.slice(0, pos) + slice + h.slice(pos + 1),
-        op: { from: h[pos], at: pos, to: slice }, // replace h[pos] with slice
-      });
-    slen--;
-  }
-  return validOps;
-}
-
 function makeLexEntry(entry: CrowdvData): LexEntry | undefined {
-  const xset = new Set([...builder.encode(entry.exact)]);
-  const hunique = [...new Set([...builder.encode(entry.heard)])];
+  const xset = new Set(builder.encode(entry.exact));
+  const hunique = Array.from(new Set(builder.encode(entry.heard)));
   if (hunique.filter(h => xset.has(h)).length < xset.size - 2) return undefined;
   if (entry.heard.endsWith(' next')) entry.heard = entry.heard.slice(0, -5);
   builder.addOccurrence(entry.heard); // for token frequency
@@ -167,10 +124,10 @@ function writeGrammar(out: string) {
   fs.writeFileSync(out, JSON.stringify(builder.lexicon, null, 2));
 }
 
-function getArg(arg: string): string | undefined {
+function getArg(arg: string) {
   return ps.argv
-    .filter(v => v.startsWith(`--${arg}`))
-    .pop()
+    .reverse()
+    .find(value => value.startsWith(`--${arg}`))
     ?.slice(3 + arg.length);
 }
 
@@ -304,7 +261,7 @@ class Builder {
     }
   }
   addOccurrence(phrase: string) {
-    [...this.encode(phrase)].forEach(token =>
+    Array.from(this.encode(phrase)).forEach(token =>
       this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1),
     );
   }
@@ -332,11 +289,13 @@ class Builder {
           .join('');
   }
   decode(tokens: string) {
-    return [...tokens].map(token => this.fromToken(token)).join(' ');
+    return Array.from(tokens)
+      .map(token => this.fromToken(token))
+      .join(' ');
   }
   wordsOf(tokens: string) {
-    return [...tokens]
-      .map(token => [...this.wordTok.entries()].find(([_, tok]) => tok === token)?.[0])
+    return Array.from(tokens)
+      .map(token => Array.from(this.wordTok.entries()).find(([_, tok]) => tok === token)?.[0])
       .join(' ');
   }
   stringify() {
@@ -354,7 +313,7 @@ class Builder {
               ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
                   .map(s => {
                     let c = s.cost.toFixed(2);
-                    if (c.slice(-1) === '0') c = c.slice(0, -1);
+                    if (c.endsWith('0')) c = c.slice(0, -1);
                     return `{ to: '${s.to}', cost: ${c} }`;
                   })
                   .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`

@@ -2,13 +2,16 @@ package lila.api
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.data.Preload
 
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.config.*
 import lila.core.perf.UserWithPerfs
+import lila.core.user.PublicFideIdOf
 import lila.rating.PerfType
 import lila.user.Trophy
+import lila.round.UrgentGames
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -29,10 +32,12 @@ final class UserApi(
     challengeGranter: lila.challenge.ChallengeGranter,
     playbanApi: lila.playban.PlaybanApi,
     rankingsOf: UserId => lila.core.rating.UserRankMap,
+    fideIdOf: PublicFideIdOf,
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
   export userApi.withPerfs
+  import UserApi.Opts
 
   def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
     val (light, userJson) = u match
@@ -44,26 +49,16 @@ final class UserApi(
 
   def extended(
       username: UserStr,
-      withFollows: Boolean,
-      withTrophies: Boolean,
-      withCanChallenge: Boolean,
-      withProfile: Boolean,
-      withRank: Boolean
+      opts: Opts
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
-        extended(_, withFollows, withTrophies, withCanChallenge, withProfile, withRank).dmap(some)
+        extended(_, opts).dmap(some)
 
   def extended(
       u: User | UserWithPerfs,
-      withFollows: Boolean,
-      withTrophies: Boolean,
-      withCanChallenge: Boolean,
-      withProfile: Boolean = true,
-      withRank: Boolean = false,
-      withPlayban: Boolean = false,
-      forWiki: Boolean = false
+      opts: Opts
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User => userApi.withPerfs(u)
@@ -72,10 +67,10 @@ final class UserApi(
         if u.enabled.no
         then fuccess(jsonView.disabled(u.light))
         else
+          import opts.*
           (
-            gameProxyRepo.urgentGames(u).dmap(_.headOption),
-            as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            withFollows.optionFu(relationApi.countFollowing(u.id)),
+            opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption),
+            as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
@@ -85,12 +80,12 @@ final class UserApi(
             streamerApi.listed(u.user),
             withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
             forWiki.optionFu(userRepo.email(u.id)),
-            withPlayban.so(playbanApi.currentBan(u))
+            withPlayban.so(playbanApi.currentBan(u)),
+            withFideId.so(fideIdOf(u.user.light))
           ).mapN:
             (
                 gameOption,
                 nbGamesWithMe,
-                following,
                 followable,
                 relation,
                 nbBookmarks,
@@ -100,7 +95,8 @@ final class UserApi(
                 streamer,
                 canChallenge,
                 email,
-                playban
+                playban,
+                fideId
             ) =>
               val rankMap = withRank.option(rankingsOf(u.id))
               jsonView.full(u.user, u.perfs.some, withProfile = withProfile, rankMap) ++ {
@@ -124,11 +120,10 @@ final class UserApi(
                   .add("email", email)
                   .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
-                  .add("nbFollowing", following)
-                  .add("nbFollowers", withFollows.option(0))
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add("canChallenge", canChallenge)
                   .add("playban", playban)
+                  .add("fideId", fideId)
                   .add(
                     "streamer",
                     streamer.map: s =>
@@ -153,12 +148,14 @@ final class UserApi(
                     )
               }.noNull
 
-  def mobile(user: User)(using me: Option[Me])(using Lang) = extended(
+  def mobile(user: UserWithPerfs, urgent: Preload[UrgentGames])(using me: Option[Me])(using Lang) = extended(
     user,
-    withFollows = false,
-    withTrophies = false,
-    withCanChallenge = me.exists(_.isnt(user)),
-    withPlayban = me.exists(_.is(user))
+    Opts(
+      withTrophies = false,
+      withCanChallenge = me.exists(_.isnt(user)),
+      withPlayban = me.exists(_.is(user)),
+      urgent = urgent
+    )
   )
 
   def getTrophiesAndAwards(u: User) =
@@ -214,3 +211,14 @@ object UserApi:
       revolutions: List[lila.tournament.Revolution.Award]
   ):
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
+
+  case class Opts(
+      withTrophies: Boolean,
+      withCanChallenge: Boolean,
+      withProfile: Boolean = true,
+      withRank: Boolean = false,
+      withPlayban: Boolean = false,
+      withFideId: Boolean = false,
+      forWiki: Boolean = false,
+      urgent: Preload[UrgentGames] = Preload.none
+  )

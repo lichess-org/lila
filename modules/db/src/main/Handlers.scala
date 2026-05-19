@@ -8,7 +8,6 @@ import scalalib.model.Percent
 
 import lila.common.Iso.{ *, given }
 import lila.core.net.IpAddress
-import lila.core.game.Blurs
 
 trait Handlers:
 
@@ -33,7 +32,8 @@ trait Handlers:
   )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
-  given NoDbHandler[Blurs] with {}
+  given NoDbHandler[lila.core.game.Blurs] with {}
+  given NoDbHandler[chess.eval.WinPercent] with {}
 
   given NoBSONWriter[UserId] with {}
   given userIdHandler: BSONHandler[UserId] = stringIsoHandler

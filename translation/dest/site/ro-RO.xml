@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configurație joc</string>
+  <string name="gameSetup">Configurare joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
   <string name="createLobbyGame">Creează un joc nou</string>
-  <string name="youPlayAs">Tu joci ca</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, oferiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
   <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
+  <string name="reusableChallengeUrl">URL provocare reutilizabil</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un link permanent pentru oricine să vă provoace cu exact aceste setări.</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
@@ -17,14 +18,14 @@
   <string name="strength">Putere</string>
   <string name="toggleTheChat">Comută conversația</string>
   <string name="chat">Discuție</string>
-  <string name="resign">Renunță</string>
+  <string name="resign">Cedează jocul</string>
   <string name="checkmate">Șah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="asWhite">cu albele</string>
   <string name="asBlack">cu negrele</string>
-  <string name="randomColor">Culoare aleatorie</string>
+  <string name="randomColor">Orice culoare</string>
   <string name="createAGame">Creează un joc</string>
   <string name="createTheGame">Creează jocul</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -35,7 +36,7 @@
   <string name="cheatDetected">Trișare detectată</string>
   <string name="kingInTheCenter">Regele în centru</string>
   <string name="threeChecks">Trei șahuri</string>
-  <string name="raceFinished">Competiție terminată</string>
+  <string name="raceFinished">Competiția s-a terminat</string>
   <string name="variantEnding">Sfârșit prin variantă</string>
   <string name="newOpponent">Adversar nou</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Adversarul dvs. vă propune o nouă partidă</string>
@@ -61,7 +62,7 @@
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza calculatorului</string>
   <string name="computerAnalysisAvailable">Analiza calculatorului este disponibilă</string>
-  <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
+  <string name="computerAnalysisDisabled">Analiza calculatorului dezactivată</string>
   <string name="analysis">Tablă de analiză</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
@@ -78,12 +79,12 @@
   <string name="deleteFromHere">Șterge de aici</string>
   <string name="collapseVariations">Restrânge variațiile</string>
   <string name="expandVariations">Extinde variațiile</string>
-  <string name="forceVariation">Forțează variația</string>
-  <string name="copyVariationPgn">Copiază variația PGN</string>
-  <string name="copyMainLinePgn">Copiază linia PGN principală</string>
+  <string name="forceVariation">Forțeaz-o ca variație</string>
+  <string name="copyVariationPgn">Copiază PGN-ul variației</string>
+  <string name="copyMainLinePgn">Copiază PGN-ul variației principale</string>
   <string name="move">Mutare</string>
-  <string name="variantLoss">Variantă pierdere</string>
-  <string name="variantWin">Variantă câștig</string>
+  <string name="variantLoss">Victorie de variantă</string>
+  <string name="variantWin">Pierdere de variantă</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Mutare de pion</string>
   <string name="capture">Captură</string>
@@ -95,6 +96,8 @@
   <string name="database">Bază de date</string>
   <string name="whiteDrawBlack">Alb / Remiză / Negru</string>
   <string name="averageRatingX">Medie evaluare: %s</string>
+  <string name="minRatingX">Rating minim %s</string>
+  <string name="maxRatingX">Rating maxim %s</string>
   <string name="recentGames">Jocuri recente</string>
   <string name="topGames">Cele mai bune jocuri</string>
   <string name="masterDbExplanation">Jocuri reale OTB ale jucătorilor cu evaluare FIDE %1$s+ între %2$s și %3$s</string>
@@ -105,8 +108,8 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Niciun joc găsit</string>
-  <string name="maxDepthReached">Adâncime maximă atinsă!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
+  <string name="maxDepthReached">S-a atins profunzimea maximă!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri prin meniul de preferințe?</string>
   <string name="openings">Deschideri</string>
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
@@ -127,10 +130,20 @@
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
-  <string name="evaluationGauge">Indicator de evaluare</string>
+  <string name="visualMotifs">Motive vizuale</string>
+  <string name="undefendedPieces">Piese neapărate</string>
+  <string name="pinnedPieces">Piese țintuite</string>
+  <string name="checkableKing">Rege expus la șah</string>
   <string name="multipleLines">Mutări multiple</string>
+  <string name="multipleLinesDescription">Setaţi numărul de linii de evaluare şi de săgeţi pe tablă</string>
+  <string name="searchTime">Timp de căutare</string>
+  <string name="searchTimeDescription">Setează timpul pentru evaluarea pozițiilor noi</string>
+  <string name="threads">Fire de execuție</string>
+  <string name="threadsDescription">Setați această valoare sub numărul maxim de fire de execuție al procesorului, bifele marchează o alegere sigură</string>
+  <string name="threadsDescriptionMobile">Mai multe fire de execuţie vor folosi mai multă baterie pentru o analiză mai bună</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
+  <string name="memoryDescription">Valori mai mari pot îmbunătăți performanța</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
   <string name="blunder">Gafă</string>
@@ -217,6 +230,7 @@
   <string name="minutesPerSide">Minute pe fiecare parte</string>
   <string name="variant">Variantă</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Mai multe moduri de a juca</string>
   <string name="timeControl">Controlul de timp</string>
   <string name="realTime">În timp real</string>
   <string name="correspondence">Corespondență</string>
@@ -246,7 +260,7 @@
   <string name="changeUsernameNotSame">Se poate interschimba doar din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
   <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="signupUsernameHint">Asigurați-vă că alegeți un nume de utilizator decent. Nu îl puteți schimba mai târziu și orice cont cu nume de utilizator indecent va fi închis!</string>
-  <string name="signupEmailHint">Îl vom folosi doar pentru resetarea parolei.</string>
+  <string name="signupEmailPromise">Îți vom trimite doar e-mailuri despre contul tău și niciodată nu îți vom distribui e-mailul.</string>
   <string name="password">Parolă</string>
   <string name="changePassword">Schimbă parola</string>
   <string name="changeEmail">Schimbă emailul</string>
@@ -270,9 +284,7 @@
   <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
-  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu funcționează, trimiteți-ne acest email:</string>
-  <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
-  <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
+  <string name="sendEmailForAccountVerification">Dacă nu găsești e-mailul de confirmare, trimite un e-mail la %s și îți vom confirma contul.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
   <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nu aveți nevoie de un email de confirmare.</string>
@@ -317,6 +329,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Poziție personalizată</string>
   <string name="unlimited">Nelimitat</string>
+  <string name="unlimitedDescription">Ia tot timpul de care ai nevoie</string>
   <string name="mode">Mod</string>
   <string name="casual">Amical</string>
   <string name="rated">Oficial</string>
@@ -417,7 +430,7 @@
     <item quantity="other">%s de partide oficiale jucate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ o partidă %2$s jucată</item>
+    <item quantity="one">≥ o partidă %2$s oficială jucată</item>
     <item quantity="few">≥ %1$s partide oficiale %2$s jucate</item>
     <item quantity="other">≥ %1$s de partide oficiale %2$s jucate</item>
   </plurals>
@@ -455,10 +468,11 @@
   <string name="leaderboard">Clasament</string>
   <string name="screenshotCurrentPosition">Captură de ecran cu poziția curentă</string>
   <string name="gameAsGIF">Salvați jocul ca fișier GIF</string>
+  <string name="playerNames">Nume jucători</string>
+  <string name="moveAnnotations">Notație mutări</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
-  <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
@@ -546,6 +560,7 @@
   <string name="popularOpenings">Deschideri populare</string>
   <string name="endgamePositions">Poziții de sfârșit</string>
   <string name="chess960StartPosition">Poziție de start Chess960: %s</string>
+  <string name="randomChess960Position">Poziție aleatoare Chess960</string>
   <string name="startPosition">Poziția de start</string>
   <string name="clearBoard">Curăță tabla</string>
   <string name="loadPosition">Încarcă poziția</string>
@@ -609,7 +624,7 @@
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la comportamentul acestui utilizator. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
-  <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"e ofensator/inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
+  <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"jignește/e inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
   <string name="reportProcessedFasterInEnglish">Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
@@ -623,6 +638,9 @@
   <string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
   <string name="incorrectPassword">Parolă greșită</string>
   <string name="invalidAuthenticationCode">Cod de autentificare incorect</string>
+  <string name="clearField">Șterge câmpul</string>
+  <string name="orSeparator">Sau</string>
+  <string name="logInByEmail">Autentificare prin e-mail</string>
   <string name="emailMeALink">Trimite-mi un email cu link-ul</string>
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
@@ -736,7 +754,7 @@
   <string name="create">Creează</string>
   <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales ce variantă va juca.</string>
-  <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
+  <string name="simulClockHint">Cu cât joci împotriva mai multor jucători, cu atât mai mult vei avea nevoie de timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
   <string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
   <string name="simulAddExtraTimePerPlayer">Adaugă timp inițial la ceasul tău pentru fiecare jucător care se alătură jocului simultan.</string>
@@ -752,17 +770,13 @@
   <string name="keyCycleSelectedVariation">Următoarea variație</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
-  <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
-  <string name="keyNextLearnFromYourMistakes">Următorul (Învață din greșelile tale)</string>
-  <string name="keyNextBlunder">Următoarea greșeală gravă</string>
-  <string name="keyNextMistake">Următoarea greșeală</string>
-  <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
   <string name="toggleVariationArrows">Comută săgețile de variație</string>
   <string name="cyclePreviousOrNextVariation">Ciclu de variație precedentă/următoare</string>
   <string name="toggleGlyphAnnotations">Comută comentarii la mutări</string>
   <string name="togglePositionAnnotations">Activează/Dezactivează adnotările pozițiilor</string>
+  <string name="toggleObservationAnnotations">Comută adnotări observaționale</string>
   <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista mutărilor.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
@@ -850,6 +864,7 @@
   <string name="size">Dimensiune</string>
   <string name="opacity">Opacitate</string>
   <string name="brightness">Luminozitate</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Nuanță</string>
   <string name="boardReset">Resetează culorile la valorile implicite</string>
   <string name="pieceSet">Set de piese</string>
@@ -948,9 +963,9 @@
   <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul partidelor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Sunt de acord să nu creez conturi multiple (cu excepția motivelor declarate în %s).</string>
-  <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -971,6 +986,7 @@
   <string name="tryTheContactPage">încercați pagina de contact</string>
   <string name="makeSureToRead">Asigură-te că ai citit %1$s</string>
   <string name="theForumEtiquette">normele de comportare în forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Te rugăm să fii cu bun simț pe forum.</string>
   <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>
@@ -1060,5 +1076,7 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="offline" comment="status of a user">deconectat</string>
   <string name="search">Căutare</string>
   <string name="clearSearch">Șterge căutarea</string>
+  <string name="thereAreNoResultsForX">Niciun rezultat pentru \"%s\"</string>
   <string name="tags">Etichete</string>
+  <string name="enPassant">En passant legale</string>
 </resources>

@@ -1,11 +1,11 @@
 package lila.app
 package mashup
 import lila.core.forum.ForumPostMiniView
-import lila.core.user.User
-import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo }
+import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRepo, TeamRequestRepo }
 import lila.tournament.{ Tournament, TournamentApi }
+import lila.clas.Clas
+import alleycats.Zero
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
@@ -14,8 +14,7 @@ case class TeamInfo(
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forum: Option[List[ForumPostMiniView]],
-    tours: TeamInfo.PastAndNext,
-    simuls: Seq[Simul]
+    tours: TeamInfo.PastAndNext
 ):
   export withLeaders.{ team, leaders, publicLeaders }
 
@@ -30,23 +29,23 @@ object TeamInfo:
   opaque type AnyTour = Tournament | Swiss
   object AnyTour extends TotalWrapper[AnyTour, Tournament | Swiss]:
     extension (e: AnyTour)
-      def isEnterable = e.fold(_.isEnterable, _.isEnterable)
       def startsAt = e.fold(_.startsAt, _.startsAt)
-      def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
-      def nbPlayers = e.fold(_.nbPlayers, _.nbPlayers)
+      def isRecent = e.startsAt.isAfter(nowInstant.minusDays(1))
       inline def fold[A](ft: Tournament => A, fs: Swiss => A): A = e match
         case t: Tournament => ft(t)
         case s: Swiss => fs(s)
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
+  object PastAndNext:
+    given Zero[PastAndNext] = Zero(PastAndNext(Nil, Nil))
 
 final class TeamInfoApi(
     api: TeamApi,
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
-    simulApi: SimulApi,
+    teamRepo: TeamRepo,
     requestRepo: TeamRequestRepo
 )(using Executor):
 
@@ -54,16 +53,14 @@ final class TeamInfoApi(
 
   def apply(
       team: Team.WithLeaders,
-      me: Option[User],
       withForum: Option[TeamMember] => Boolean
-  ): Fu[TeamInfo] = for
-    member <- me.so(api.memberOf(team.id, _))
+  )(using me: Option[Me]): Fu[TeamInfo] = for
+    member <- me.soUse(api.memberOf(team.id))
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
-    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
-    simuls <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
   yield TeamInfo(
     withLeaders = team,
     member = member,
@@ -71,8 +68,7 @@ final class TeamInfoApi(
     subscribed = subscribed,
     requests = requests,
     forum = forumPosts,
-    tours = tours,
-    simuls = simuls
+    tours = tours
   )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
@@ -88,3 +84,7 @@ final class TeamInfoApi(
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
           }.sortBy(_.startsAt.toSeconds)
         )
+
+  def clasTournaments(clas: Clas): Fu[PastAndNext] =
+    (clas.isActive && clas.hasTeam.orZero).so:
+      teamRepo.byClasId(clas.id.into(TeamId)).flatMapz(tournaments(_, 1, 1))

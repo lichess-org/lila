@@ -1,3 +1,5 @@
+import { embedYoutubeUrl, parseYoutubeUrl } from './youtubeLinkProcessor';
+
 type LinkType = 'youtube';
 
 interface Parsed {
@@ -13,25 +15,10 @@ interface Candidate {
 }
 
 function toYoutubeEmbedUrl(url: string): string | undefined {
-  const m = url?.match(
-    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(watch|embed)?(?:\?v=|\/)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
-  );
-  if (!m) return;
-  const [, linkType, videoId, linkParams] = m;
-  if (linkType === 'embed') return url.startsWith('https://') ? url : 'https://' + url;
-  let start = 0;
-  linkParams.split('&').forEach(p => {
-    const s = p.split('=');
-    if (s[0] === 't' || s[0] === 'start') {
-      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
-      else {
-        const n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
-        start = n ? (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0) : 0;
-      }
-    }
-  });
-  const params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
-  return 'https://www.youtube-nocookie.com/embed/' + videoId + '?' + params;
+  const result = parseYoutubeUrl(url);
+  if (result) {
+    return embedYoutubeUrl(result);
+  }
 }
 
 site.load.then(() => {

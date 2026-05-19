@@ -29,6 +29,5 @@
   <string name="botPlay">Speel spelle met die robot api</string>
   <string name="engineRead">Wys en gebruik you eksterne enjins</string>
   <string name="engineWrite">Skep en opdateer eksterne enjins</string>
-  <string name="webLogin">Skep geverifieered webwerf sessies (staan volle toegaan af!)</string>
   <string name="webMod">Gebruik moderator gereedskap (binne die perke van jou toestemming)</string>
 </resources>

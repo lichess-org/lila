@@ -29,6 +29,5 @@
   <string name="botPlay">Spēlēt spēles ar robotu API</string>
   <string name="engineRead">Skatīt un izmantot jūsu arējās šaha programmas</string>
   <string name="engineWrite">Izveidot un mainīt ārējās šaha programmas</string>
-  <string name="webLogin">Izveidot autentificētas mājaslapas sesijas (šis piešķir pilnu piekļuvi!)</string>
   <string name="webMod">Izmantot moderatoru rīkus (jūsu piekļuves robežās)</string>
 </resources>

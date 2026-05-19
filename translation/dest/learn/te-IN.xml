@@ -6,7 +6,7 @@
   <string name="progressX">పురోగతి:%s</string>
   <string name="resetMyProgress">పురోగతిని తిరిగి ప్రారంభించు</string>
   <string name="youWillLoseAllYourProgress">మీ ప్రస్తుత పురోగతిని మొత్తం కోల్పోతారు!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ఆడు!</string>
+  <string name="play">ఆడు!</string>
   <string name="chessPieces">చెస్ ముక్కలు</string>
   <string name="theRook">ఏనుగు</string>
   <string name="itMovesInStraightLines">ఇది సరళ రేఖల్లో కదులుతుంది</string>

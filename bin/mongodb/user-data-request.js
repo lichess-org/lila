@@ -1,5 +1,5 @@
-var user = db.user4.findOne({ _id: 'thibault' });
-var connections = [];
+const user = db.user4.findOne({ _id: 'thibault' });
+const connections = [];
 db.security
   .find({
     user: user._id,
@@ -7,7 +7,7 @@ db.security
   })
   .map(o => `${o.ip} ${o.ua}`)
   .forEach(conn => {
-    if (!connections.find(c => c === conn)) connections.push(conn);
+    if (!connections.some(c => c === conn)) connections.push(conn);
   });
 
 print(`\n${user.username} ${user.email}`);

@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE Schpiller nöd g\'funde</string>
   <string name="fideProfile">FIDE Profil</string>
   <string name="federation">Verband</string>
-  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Alter</string>
+  <string name="age">Alter</string>
   <string name="unrated">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
   <string name="openLichess">In Lichess öffne</string>
@@ -69,6 +69,7 @@
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
   <string name="score">Resultat</string>
+  <string name="standingsDisclaimer">D\'Ranglischte wird dur die übertreite Schpiel berächnet und chann vu de offizielle Resultate abwiche.</string>
   <string name="allTeams">Alli Teams</string>
   <string name="tournamentFormat">Turnier-Format</string>
   <string name="tournamentLocation">Turnier-Lokal</string>
@@ -83,6 +84,26 @@
   <string name="liveboard">Live-Brätt</string>
   <string name="communityBroadcast">Gmeinschafts-Überträgig</string>
   <string name="createdAndManagedBy">Kreiert und betreut vu %s.</string>
+  <string name="matchPoints">Matschpünkt</string>
+  <string name="gamePoints">Schpielpünkt</string>
+  <string name="matches">Mätsch</string>
+  <string name="matchHistory">Matschverlauf</string>
+  <string name="teamResults">Teamresultat</string>
+  <string name="termsAutomaticallyTranslated">Folgendi Begriff werded automatisch übersetzt: %s.</string>
   <string name="roundX">Rundi %s</string>
   <string name="defaultRoundNameHelp">Wänn du de Standardname b\'haltsch, wird er automatisch i alli andere Schprache übersetzt.</string>
+  <string name="openTournament">Open</string>
+  <string name="womenTournament">Fraue</string>
+  <string name="menTournament">Manne</string>
+  <string name="girlsTournament">Meitli</string>
+  <string name="boysTournament">Buebe</string>
+  <string name="openUnderXAgeTournament">Open U%s</string>
+  <string name="girlsUnderXAgeTournament">Meitli U%s</string>
+  <string name="boysUnderXAgeTournament">Buebe U%s</string>
+  <string name="quarterfinals">Viertelfinals</string>
+  <string name="semifinals">Halbfinals</string>
+  <string name="finals">Finals</string>
+  <string name="tiebreaks">Tiebreaks</string>
+  <string name="gameX">Schpiel %s</string>
+  <string name="knockouts">Usscheidigskämpf</string>
 </resources>

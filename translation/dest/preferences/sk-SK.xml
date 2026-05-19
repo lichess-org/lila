@@ -16,14 +16,14 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
   <string name="showPlayerRatings">Ukázať hráčove ratingy</string>
   <string name="showFlairs">Zobraziť u hráčov ikonky štýlu</string>
-  <string name="explainShowPlayerRatings">Týmto môžete na webovej stránke skryť všetky hodnotenia, aby ste sa mohli sústrediť na šach. Partie môžu byť stále hodnotené, ide len o to, čo sa Vám zobrazí.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Týmto môžete na webovej stránke skryť všetky hodnotenia, aby ste sa mohli sústrediť na šach. Partie môžu byť stále hodnotené, ide len o to, čo sa Vám zobrazí.</string>
   <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
   <string name="onlyOnInitialPosition">Iba v základnom postavení</string>
   <string name="inGameOnly">Iba pri partii</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Nie počas partie</string>
+  <string name="exceptInGame">Nie počas partie</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Keď ostáva &lt; 10 sekúnd</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Keď ostáva &lt; 10 sekúnd</string>
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstva času</string>
   <string name="giveMoreTime">Pridať čas</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Keď ostáva &lt; 30 sekúnd a menej</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd a menej</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="explainCanThenBeTemporarilyDisabled">Dá sa zrušiť počas partie cez \"hamburgerové menu\" pri šachovnici</string>
   <string name="inCorrespondenceGames">Korešpondenčné partie</string>
@@ -63,10 +63,10 @@
   <string name="notifyChallenge">Výzvy</string>
   <string name="notifyTournamentSoon">Onedlho začínajúci turnaj</string>
   <string name="notifyTimeAlarm">Dochádza čas v korešpondenčnej partii</string>
-  <string name="notifyBell">Upozornenie zvončekom v rámci Lichess-u</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Upozornenie zvončekom v rámci Lichess-u</string>
   <string name="notifyPush">Upozornenie zariadenia v čase keď nie ste na Lichess-e</string>
   <string name="notifyWeb">Prehliadač</string>
   <string name="notifyDevice">Zariadenie</string>
   <string name="bellNotificationSound">Zvuk upozornenia</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Naslepo</string>
+  <string name="blindfold" comment="As in Blindfold chess">Naslepo</string>
 </resources>

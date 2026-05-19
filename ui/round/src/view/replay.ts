@@ -1,17 +1,25 @@
-import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
-import * as util from '../util';
-import { displayColumns } from 'lib/device';
-import type RoundController from '../ctrl';
+import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
-import viewStatus from 'lib/game/view/status';
+import { displayColumns } from 'lib/device';
+import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
-import type { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'lib/view';
-import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/view';
-import boardMenu from './boardMenu';
-import { repeater } from 'lib';
+import viewStatus from 'lib/game/view/status';
+import * as licon from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
+import {
+  toggleButton as boardMenuToggleButton,
+  type VNode,
+  type LooseVNodes,
+  type LooseVNode,
+  hl,
+  onInsert,
+  dataIcon,
+} from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { Step } from '../interfaces';
+import * as util from '../util';
+import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -28,7 +36,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
     else {
-      const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
+      const plyEl = movesEl.querySelector<HTMLElement>('.a1t');
       if (plyEl)
         st =
           displayColumns() === 1
@@ -48,7 +56,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san.startsWith('P') ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');
@@ -81,7 +89,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
@@ -160,7 +168,15 @@ function renderButtons(ctrl: RoundController) {
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
+        hook: onInsert(el =>
+          addPointerListeners(el, {
+            click: e => {
+              goThroughMoves(ctrl, e);
+              blurIfPrimaryClick(e);
+            },
+            hold: 'click',
+          }),
+        ),
       });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -174,7 +190,7 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    hl('div.message', util.justIcon(licon.InfoCircle), [
+    hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],

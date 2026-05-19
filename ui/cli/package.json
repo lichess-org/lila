@@ -3,8 +3,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "lib": "workspace:*",
-    "dasher": "workspace:*"
+    "@types/debounce-promise": "^3.1.9",
+    "dasher": "workspace:*",
+    "debounce-promise": "^3.1.2",
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/cli.ts"

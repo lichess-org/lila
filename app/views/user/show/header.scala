@@ -34,7 +34,7 @@ object header:
             blocked = social.blocked
           )
       ,
-      ctx.me.soUse(lila.mod.canImpersonate(u.id))
+      ctx.useMe(lila.mod.canImpersonate(u.id))
     )
 
   private def userDom(u: User)(using ctx: Context) =
@@ -64,12 +64,7 @@ object header:
               userDom(u)
             )
           case None => h1(userDom(u)),
-        div(
-          cls := List(
-            "trophies" -> true,
-            "packed" -> (info.trophies.countTrophiesAndPerfCups > 7)
-          )
-        )(
+        div(cls := "trophies")(
           views.user.bits.perfTrophies(u, info.ranks),
           otherTrophies(info),
           u.plan.active.option(
@@ -144,8 +139,9 @@ object header:
         case _ =>
           val profile = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
+          val showProfile = ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.AccountInfo)
           div(id := "us_profile")(
-            if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
+            if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.AccountInfo)) then
               views.user.perfStat.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
@@ -156,27 +152,29 @@ object header:
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
-                (ctx.kid.no && u.kid.no && !hideTroll)
+                showProfile
                   .so(profile.nonEmptyRealName)
-                  .map(strong(cls := "name")(_)),
+                  .map(strong(cls := List("name" -> true, "muted" -> hideTroll))(_)),
                 info.publicFideId.map: id =>
                   p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
-                (showLinks && ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.UserModView))
+                (showLinks && showProfile || isGranted(_.AccountInfo))
                   .so(profile.nonEmptyBio)
                   .map: bio =>
                     p(cls := List("bio" -> true, "muted" -> hideTroll))(richText(bio, nl2br = true)),
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),
-                  profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
-                    span(cls := "location")(l)
-                  },
-                  profile.flagInfo.map: c =>
-                    span(cls := "flag")(
-                      img(src := assetUrl(s"flags/${c.code}.png")),
-                      " ",
-                      c.name
-                    ),
+                  div(cls := "location")(
+                    profile.nonEmptyLocation
+                      .ifTrue(showProfile)
+                      .map: l =>
+                        span(cls := List("muted" -> hideTroll))(l),
+                    profile.flagInfo.map: c =>
+                      frag(
+                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.png")),
+                        c.name
+                      )
+                  ),
                   p(cls := "thin")(trans.site.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map: seen =>
                     p(cls := "thin")(trans.site.lastSeenActive(momentFromNow(seen))),

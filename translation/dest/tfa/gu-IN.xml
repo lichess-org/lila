@@ -7,7 +7,7 @@
   <string name="enterPassword">સેટઅપ પૂર્ણ કરવા માટે તમારો પાસવર્ડ અને એપ્લિકેશન દ્વારા જનરેટ થયેલ પ્રમાણીકરણ કોડ દાખલ કરો. દર વખતે લોગ ઇન કરતી વખતે તમારે પ્રમાણીકરણ કોડની જરૂર પડશે.</string>
   <string name="ifYouCannotScanEnterX">જો તમે કોડ સ્કેન કરી શકતા નથી, તો તમારી એપ્લિકેશનમાં ગુપ્ત કી %s દાખલ કરો.</string>
   <string name="authenticationCode">પ્રમાણીકરણ કોડ</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">નોંધ: જો તમે તમારા ટુ-ફેક્ટર ઓથેન્ટિકેશન કોડ્સની ઍક્સેસ ગુમાવો છો, તો તમે ઇમેઇલ દ્વારા %s કરી શકો છો.</string>
+  <string name="ifYouLoseAccessTwoFactor">નોંધ: જો તમે તમારા ટુ-ફેક્ટર ઓથેન્ટિકેશન કોડ્સની ઍક્સેસ ગુમાવો છો, તો તમે ઇમેઇલ દ્વારા %s કરી શકો છો.</string>
   <string name="enableTwoFactor">દ્વિ-પરિબળ પ્રમાણીકરણ સક્ષમ કરો</string>
   <string name="disableTwoFactor">દ્વિ-પરિબળ પ્રમાણીકરણ અક્ષમ કરો</string>
   <string name="twoFactorEnabled">દ્વિ-પરિબળ પ્રમાણીકરણ સક્ષમ કર્યું</string>

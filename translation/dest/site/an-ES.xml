@@ -117,7 +117,6 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la millor chugada</string>
   <string name="showVariationArrows">Amostrar las flechas d\'as variants</string>
-  <string name="evaluationGauge">Indicador d\'avaluación</string>
   <string name="multipleLines">Multiples linias</string>
   <string name="cpus">Procesadors</string>
   <string name="memory">Memoria</string>
@@ -221,7 +220,6 @@
   <string name="changeUsernameNotSame">Nomás ye posible cambiar mayusclas per minusclas y viceversa. Per eixemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar lo tuyo nombre d\'usuario. Esto nomás puede fer-se una vegada, y nomás se puede cambiar mayusclas per minusclas y viceversa.</string>
   <string name="signupUsernameHint">Tría un nombre d\'usuario amigable. No lo podrás cambiar dimpués y cualsequier cuenta con nombre d\'usuario inapropiau se zarrará.</string>
-  <string name="signupEmailHint">Nomás se fará servir pa reiniciar la clau.</string>
   <string name="password">Clau</string>
   <string name="changePassword">Cambiar clau</string>
   <string name="changeEmail">Cambiar correu</string>
@@ -245,9 +243,6 @@
   <string name="emailCanTakeSomeTime">Pueda tardar un ratet a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarda 5 minutos y refresca lo tuyo buzón de dentrada.</string>
   <string name="checkSpamFolder">Compreba tamién la carpeta de correu vasuera, puede estar astí. Si ye astí, maca-lo como \"no vasuera\".</string>
-  <string name="emailForSignupHelp">Si tot ixo falla, ninvia-nos este correu:</string>
-  <string name="copyTextToEmail">Copia y pega este texto y ninva-lo a %s</string>
-  <string name="waitForSignupHelp">Te contestaremos decamín pa aduyar-te a completar lo rechistro.</string>
   <string name="accountConfirmed">L\'usuario %s ha estau confirmau correctament.</string>
   <string name="accountCanLogin">Puez identificar-te agora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No te cal un correu de confirmación.</string>
@@ -407,7 +402,6 @@
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
   <string name="orUploadPgnFile">U penchar un fichero PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continar dende aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -691,11 +685,6 @@
   <string name="keyCycleSelectedVariation">Cambia la variant seleccionada</string>
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
-  <string name="keyRequestComputerAnalysis">Demanda una analisi d\'ordinador, aprende d\'as tuyas errors</string>
-  <string name="keyNextLearnFromYourMistakes">Siguient (Aprende d\'as tuyas errors)</string>
-  <string name="keyNextBlunder">Siguient error grieu</string>
-  <string name="keyNextMistake">Siguient error</string>
-  <string name="keyNextInaccuracy">Siguient imprecisión</string>
   <string name="keyPreviousBranch">Branca anterior</string>
   <string name="keyNextBranch">Siguient branca</string>
   <string name="toggleVariationArrows">Amuestra/amaga las flechas d\'as variants</string>
@@ -874,7 +863,6 @@
   <string name="agreementAssistance">Me comprometo a no recibir aduya externa entre las mías partidas (d\'un ordinador, un libro, una base de datos u unatra persona).</string>
   <string name="agreementNice">Me comprometo a respectar siempre a atros chugadors.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Soi d\'acuerdo en no crear cuentas multiples (fueras de por las razons indicadas en as %s).</string>
-  <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

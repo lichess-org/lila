@@ -29,7 +29,6 @@
   <string name="botPlay">以 bot API 開局</string>
   <string name="engineRead">查看並使用你的外部引擎</string>
   <string name="engineWrite">建立並更新外部引擎</string>
-  <string name="webLogin">成立認證裝置（給予完整權限！）</string>
   <string name="webMod">使用管理工具（在您的權限內）</string>
   <string name="personalAccessTokens">個人 API 取用權杖</string>
   <string name="canMakeOauthRequests">您可以在不用經過%s的情況下使用 OAuth 請求。</string>

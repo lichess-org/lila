@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Khel ka shuruaat</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">दोस्त को चुनौती</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
@@ -119,7 +121,6 @@
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
   <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
-  <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
   <string name="memory">स्मृति (मेमोरी)</string>
@@ -222,7 +223,6 @@
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
   <string name="signupUsernameHint">कृपया उचित यूज़रनेम ही चुनें। आप इसे बाद में बदल नहीं पाएंगे और अनुचित यूज़रनेम वाले कोई भी खाते बंद कर दिए जाएंगे।</string>
-  <string name="signupEmailHint">हम इस का इस्तेमाल सिर्फ़ पासवर्ड रीसेट के लिए करेंगे।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
@@ -246,9 +246,6 @@
   <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
   <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
   <string name="checkSpamFolder">अपना स्पैम फ़ोल्डर भी जांचें, हो सकता है कि वह वहां हो। यदि हां, तो इसे स्पैम नहीं के रूप में चिह्नित करें।</string>
-  <string name="emailForSignupHelp">यदि बाकी सब विफल हो जाए तो हमें यह ईमेल भेजें</string>
-  <string name="copyTextToEmail">उपरोक्त टेक्स्ट को कॉपी और पेस्ट करें और %s पर भेजें</string>
-  <string name="waitForSignupHelp">आपका साइनअप पूरा करने में मदद करने के लिए हम जल्द ही आपके पास वापस आएंगे।</string>
   <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
   <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
   <string name="accountClosed">%s खाता बंद है.</string>
@@ -406,7 +403,6 @@
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
-  <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
@@ -673,10 +669,6 @@
   <string name="keyGoToStartOrEnd">शुरूआत मे हिलाए</string>
   <string name="keyShowOrHideComments">टिपण्णी दिखाएँ/छिपाएँ</string>
   <string name="keyEnterOrExitVariation">अंदर बाहर करे</string>
-  <string name="keyRequestComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें, अपनी गलतियों से सीखें</string>
-  <string name="keyNextLearnFromYourMistakes">आगे (अपनी गलतियों से सीखें)</string>
-  <string name="keyNextBlunder">अगली बड़ी गलती</string>
-  <string name="keyNextMistake">अगली गलती</string>
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
   <string name="tournamentHomeTitle">शतरंज का टूर्नमेंट, अलग अलग खेल समय और प्रकार के साथ</string>
   <string name="tournamentHomeDescription">तेज़ रफ़्तार वाले शतरंज टूर्नमेंट खेलिए! आधिकारिक अन्यूसशीट टूर्नमेंट मे भाग लें, या खुद का टूर्नमेंट बनायें! Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck और अधिक प्रकार के मज़ेदार शतरंज के किस्म खेलिए!</string>
@@ -835,7 +827,6 @@
   <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मैं मानता हूं कि मैं एकाधिक खाते नहीं बना सकता (%s में बताए गए कारणों को छोड़कर)।</string>
-  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>
   <string name="rapid">रैपिड</string>

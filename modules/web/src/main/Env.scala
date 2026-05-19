@@ -20,25 +20,26 @@ final class Env(
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
   lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
 
-  lazy val mobile = wire[Mobile]
-
   val manifest = wire[AssetManifest]
 
   val referrerRedirect = wire[ReferrerRedirect]
 
   val github = wire[GitHub]
 
-  private lazy val influxEvent = new InfluxEvent(
+  lazy val emailError = wire[EmailError]
+
+  private lazy val influxEvent = InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
   if mode.isProd then scheduler.scheduleOnce(5.seconds)(influxEvent.start())
-  private lazy val pagerDuty = wire[PagerDuty]
 
-  lila.common.Bus.sub[lila.core.socket.Announce]:
-    case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
-      pagerDuty.lilaRestart(date)
+  wire[PagerDuty]
+
+  val lichobileAnnounceApi = wire[LichobileAnnounceApi]
+
+  AnnounceApi.setupPeriodicUpdate()
 
   object settings:
     import lila.core.data.{ Strings, UserIds }
@@ -65,9 +66,4 @@ final class Env(
       "apiExplorerGamesPerSecond",
       default = 300,
       text = "Opening explorer games per second".some
-    )
-    val sitewideCoepCredentiallessHeader = settingStore[Boolean](
-      "sitewideCoepCredentiallessHeader",
-      default = true,
-      text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
     )

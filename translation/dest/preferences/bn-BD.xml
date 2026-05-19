@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">জেন মোড</string>
   <string name="chessClock">দাবার ঘড়ি</string>
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">যখন সময় বাকি &lt; 10 সেকেন্ড</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">যখন সময় বাকি &lt; 10 সেকেন্ড</string>
   <string name="horizontalGreenProgressBars">সমতল সবুজ অগ্রগতি বার</string>
   <string name="soundWhenTimeGetsCritical">যখন সময় জটিল হয়ে যায় শব্দ</string>
   <string name="giveMoreTime">আরো কিছু সময় দিন</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">সংক্রিয়ভাবে রানীর জন্য প্রচার</string>
   <string name="whenPremoving">যখন পূনার‍য়সারান</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">সংক্রিয়ভাবে দাবি আঁকা বিষয়ে তিনগুন অনুবর্তন</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">যখন সময় বাকি &lt; 30 সেকেন্ড</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">যখন সময় বাকি &lt; 30 সেকেন্ড</string>
   <string name="moveConfirmation">অনুমোদন সরান</string>
   <string name="inCorrespondenceGames">সাদৃশ্য খেলাগুলো</string>
   <string name="correspondenceAndUnlimited">সাদৃশ্য এবং সীমাহীন</string>

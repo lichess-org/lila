@@ -46,6 +46,7 @@ final class StudyUi(helpers: Helpers):
         form3.hidden("fen", data.fen.map(_.value)),
         form3.hidden("pgn", data.pgnStr),
         form3.hidden("variant", data.variant.map(_.key)),
+        form3.hidden("mode", data.mode.map(_.key)),
         h2(trans.study.whereDoYouWantToStudyThat()),
         p(
           submitButton(

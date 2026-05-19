@@ -11,6 +11,7 @@ import lila.common.HTTPRequest
 import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
+import lila.core.security.TurnstilePublicConfig
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.ui.{ Page, Snippet }
@@ -42,6 +43,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
+  given TurnstilePublicConfig = env.security.turnstilePublicConfig
 
   inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
@@ -313,10 +315,13 @@ abstract private[controllers] class LilaController(val env: Env)
           withSecure(perm)(f)
         }
 
-  /* everyone on dev/stage, beta perm on prod */
-  def Beta[A](f: Context ?=> Fu[Result]): EssentialAction =
-    Open: ctx ?=>
-      if env.mode.notProd || isGrantedOpt(_.Beta) then f else authorizationFailed
+  /* everyone on dev/stage, beta perm or https://lichess.org/team/lichess-beta-testers on prod */
+  def Beta[A](f: Context ?=> Me ?=> Fu[Result]): EssentialAction =
+    Auth { ctx ?=> _ ?=>
+      if env.mode.notProd || isGrantedOpt(_.Beta)
+      then f
+      else ctx.myId.soUse(env.team.isBetaTester).flatMap(if _ then f else authorizationFailed)
+    }
 
   def FormFuResult[A, B: Writeable](
       form: Form[A]

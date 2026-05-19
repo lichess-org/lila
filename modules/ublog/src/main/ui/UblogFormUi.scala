@@ -103,13 +103,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 form3.select(_, langList.popularLanguagesForm.choices)
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("discuss"),
                 trans.ublog.createBlogDiscussion(),
                 help = trans.ublog.createBlogDiscussionHelp().some,
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("live"),
                 trans.ublog.publishOnYourBlog(),
                 help = trans.ublog.publishHelp().some,
@@ -117,13 +117,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               )
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("sticky"),
                 trans.ublog.stickyPost(),
                 help = trans.ublog.stickyPostHelp().some,
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("ads"),
                 "Includes promoted/sponsored content or referral links",
                 help = ads.some,

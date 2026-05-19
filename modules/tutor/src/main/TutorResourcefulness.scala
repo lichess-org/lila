@@ -4,16 +4,17 @@ import chess.eval.WinPercent
 import lila.db.dsl.{ *, given }
 import lila.insight.*
 import lila.insight.InsightEntry.BSONFields as F
+import lila.insight.BSONHandlers.given
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
 object TutorResourcefulness:
 
-  val maxGames = Max(10_000)
+  val maxGamesPerPerf = Max(10_000)
 
   private[tutor] def compute(
-      users: NonEmptyList[TutorUser]
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
+      users: NonEmptyList[TutorPlayer]
+  )(using config: TutorConfig, insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
@@ -43,14 +44,14 @@ object TutorResourcefulness:
       )
       compute(coll)(
         aggregateMine = mineSelect =>
-          Match(select ++ mineSelect ++ $doc(F.perf.$in(perfs))) -> List(
+          Match(select ++ mineSelect) -> List(
             Sort(Descending(F.date)),
-            Limit(maxGames.value),
+            Limit(maxGamesPerPerf.value),
             groupByPerf
           ),
         aggregatePeer = peerSelect =>
           Match(select ++ peerSelect) -> List(
-            Limit(maxGames.value / 2),
+            Limit(maxGamesPerPerf.value / 3),
             groupByPerf
           )
       )

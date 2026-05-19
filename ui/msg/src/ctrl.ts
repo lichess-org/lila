@@ -1,3 +1,7 @@
+import { throttle } from 'lib/async';
+import { pubsub } from 'lib/pubsub';
+import { storage, type LichessStorage } from 'lib/storage';
+
 import type {
   MsgData,
   Contact,
@@ -10,11 +14,8 @@ import type {
   Pane,
   Redraw,
 } from './interfaces';
-import { throttle } from 'lib/async';
 import * as network from './network';
 import { scroller } from './view/scroller';
-import { storage, type LichessStorage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;
@@ -23,9 +24,11 @@ export default class MsgCtrl {
   };
   pane: Pane;
   loading = false;
+  loadingContacts = false;
   connected = () => true;
   msgsPerPage = 100;
   canGetMoreSince?: Date;
+  canGetMoreContacts = true;
   typing?: Typing;
   textStore?: LichessStorage;
 
@@ -46,7 +49,11 @@ export default class MsgCtrl {
       this.loading = true;
     }
     network.loadConvo(userId).then(data => {
-      this.data = data;
+      const existingIds = new Set(this.data.contacts.map(c => c.user.id));
+      this.data = {
+        ...data,
+        contacts: this.data.contacts.concat(data.contacts.filter(c => !existingIds.has(c.user.id))),
+      };
       this.search.result = undefined;
       this.loading = false;
       if (data.convo) {
@@ -83,7 +90,7 @@ export default class MsgCtrl {
     this.redraw();
   };
 
-  private onLoadConvo = (convo: Convo) => {
+  private readonly onLoadConvo = (convo: Convo) => {
     this.textStore = storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
     if (this.typing) {
@@ -92,7 +99,7 @@ export default class MsgCtrl {
     }
     setTimeout(this.setRead, 500);
   };
-  private onLoadMsgs = (msgs: Msg[]) => {
+  private readonly onLoadMsgs = (msgs: Msg[]) => {
     const oldFirstMsg = msgs[this.msgsPerPage - 1];
     this.canGetMoreSince = oldFirstMsg?.date;
   };
@@ -141,17 +148,17 @@ export default class MsgCtrl {
       });
   };
 
-  private addMsg = (msg: LastMsg, contact?: Contact) => {
+  private readonly addMsg = (msg: LastMsg, contact?: Contact) => {
     if (contact) {
       contact.lastMsg = msg;
       this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id !== contact.user.id));
     }
   };
 
-  private findContact = (userId: string): Contact | undefined =>
+  private readonly findContact = (userId: string): Contact | undefined =>
     this.data.contacts.find(c => c.user.id === userId);
 
-  private currentContact = (): Contact | undefined =>
+  private readonly currentContact = (): Contact | undefined =>
     this.data.convo && this.findContact(this.data.convo.user.id);
 
   searchInput = (q: string) => {
@@ -165,6 +172,23 @@ export default class MsgCtrl {
       this.search.result = undefined;
       this.redraw();
     }
+  };
+
+  loadMoreContacts = () => {
+    if (this.loadingContacts || !this.canGetMoreContacts) return;
+    const lastContact = this.data.contacts[this.data.contacts.length - 1];
+    if (!lastContact) return;
+    this.loadingContacts = true;
+    this.redraw();
+    network.loadMoreContacts(lastContact.lastMsg.date).then(contacts => {
+      if (contacts.length === 0) {
+        this.canGetMoreContacts = false;
+      } else {
+        this.data.contacts = this.data.contacts.concat(contacts);
+      }
+      this.loadingContacts = false;
+      this.redraw();
+    });
   };
 
   setRead = () => {
@@ -184,7 +208,8 @@ export default class MsgCtrl {
     const userId = this.data.convo?.user.id;
     if (userId)
       network.del(userId).then(data => {
-        this.data = data;
+        this.data.convo = data.convo;
+        this.data.contacts = this.data.contacts.filter(c => c.user.id !== userId);
         this.redraw();
         history.replaceState({}, '', '/inbox');
       });
@@ -208,7 +233,7 @@ export default class MsgCtrl {
     if (this.textStore?.get()) network.typing(user);
   });
 
-  receiveTyping = (userId: string, cancel?: any) => {
+  receiveTyping = (userId: string, cancel?: boolean) => {
     if (this.typing) {
       clearTimeout(this.typing.timeout);
       this.typing = undefined;

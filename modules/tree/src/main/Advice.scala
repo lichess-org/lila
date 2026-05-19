@@ -19,7 +19,7 @@ sealed trait Advice:
         s" $move was best."
 
   def evalComment: Option[String] =
-    List(prev.evalComment, info.evalComment).flatten.mkString(" → ").some.filter(_.nonEmpty)
+    List(prev.evalComment, info.evalComment).flatten.mkString(" → ").nonEmptyOption
 
 object Advice:
 

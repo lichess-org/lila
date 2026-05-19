@@ -1,35 +1,39 @@
 /// <reference types="../types/ab" />
 
-import * as ab from 'ab';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { opposite, uciToMove } from '@lichess-org/chessground/util';
+import * as ab from 'ab/round';
+import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
+import { makeVoiceMove, type VoiceMove } from 'voice';
+
+import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
 import * as game from 'lib/game';
+import { plyOpponentColor } from 'lib/game';
+import { plyToTurn, plyColor } from 'lib/game/chess';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
+import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
+import { PromotionCtrl, promote } from 'lib/game/promotion';
 import { game as gameRoute } from 'lib/game/router';
+import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { playing } from 'lib/game/status';
-import { boardOrientation, reload as groundReload } from './ground';
+import viewStatus from 'lib/game/view/status';
 import * as licon from 'lib/licon';
 import notify from 'lib/notification';
-import { make as makeSocket, type RoundSocket } from './socket';
-import * as title from './title';
-import * as blur from './blur';
-import viewStatus from 'lib/game/view/status';
-import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
-import { CorresClockController } from './corresClock/corresClockCtrl';
-import MoveOn from './moveOn';
-import TransientMove from './transientMove';
-import * as atomic from './atomic';
-import * as util from './util';
-import * as xhr from './xhr';
-import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
-import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
-import { makeVoiceMove, type VoiceMove } from 'voice';
-import { userTxt } from './view/user';
-import * as cevalSub from './cevalSub';
-import { init as keyboardInit } from './keyboard';
-import { PromotionCtrl, promote } from 'lib/game/promotion';
-import * as wakeLock from 'lib/wakeLock';
-import { opposite, uciToMove } from '@lichess-org/chessground/util';
+import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
-import { endGameView } from './view/main';
+import { pubsub } from 'lib/pubsub';
+import { type SocketSendOpts } from 'lib/socket';
+import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
+import type { NodeCrazy } from 'lib/tree/types';
+import { toggleZenMode } from 'lib/view/zen';
+import * as wakeLock from 'lib/wakeLock';
+
+import * as atomic from './atomic';
+import * as blur from './blur';
+import * as cevalSub from './cevalSub';
+import { CorresClockController } from './corresClock/corresClockCtrl';
+import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { boardOrientation, reload as groundReload } from './ground';
 import type {
   Step,
   RoundOpts,
@@ -43,14 +47,16 @@ import type {
   ApiEnd,
   EventsWithPayload,
 } from './interfaces';
-import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
-import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
-import * as poolRangeStorage from 'lib/poolRangeStorage';
-import { pubsub } from 'lib/pubsub';
-import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
-import { plyToTurn } from 'lib/game/chess';
-import { type SocketSendOpts } from 'lib/socket';
+import { init as keyboardInit } from './keyboard';
+import MoveOn from './moveOn';
 import Server from './server';
+import { make as makeSocket, type RoundSocket } from './socket';
+import * as title from './title';
+import TransientMove from './transientMove';
+import * as util from './util';
+import { endGameView } from './view/main';
+import { userTxt } from './view/user';
+import * as xhr from './xhr';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 
@@ -143,35 +149,29 @@ export default class RoundController implements MoveRootCtrl {
       this.redraw();
     });
 
-    pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-auto')) {
-        xhr.setZen(zen);
-      }
-    });
+    pubsub.on('zen', toggleZenMode);
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
 
-  private showExpiration = () => {
+  private readonly showExpiration = () => {
     if (!this.data.expiration) return;
     this.redraw();
     setTimeout(this.showExpiration, 250);
   };
 
-  private onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
+  private readonly onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
-  private onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
+  private readonly onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
     if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
 
-  private onMove = (orig: Key, dest: Key, captured?: Piece) => {
+  private readonly onMove = (orig: Key, dest: Key, captured?: Piece) => {
     if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
         site.sound.play('explosion');
@@ -180,7 +180,7 @@ export default class RoundController implements MoveRootCtrl {
     } else site.sound.move({ name: 'move', filter: 'game' });
   };
 
-  private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
+  private readonly startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
@@ -192,24 +192,25 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove?.justSelected(),
     );
 
-  private onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
+  private readonly onPremove = (orig: Key, dest: Key, meta: MoveMetadata) =>
+    this.startPromotion(orig, dest, meta);
 
-  private onCancelPremove = () => this.promotion.cancelPrePromotion();
+  private readonly onCancelPremove = () => this.promotion.cancelPrePromotion();
 
-  private onNewPiece = (piece: Piece, key: Key): void => {
+  private readonly onNewPiece = (piece: Piece, key: Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
     site.sound.move();
   };
 
-  private onPredrop = (role: Role | undefined, _?: Key) => {
+  private readonly onPredrop = (role: Role | undefined) => {
     this.preDrop = role;
     this.redraw();
   };
 
-  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
+  private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
-  private enpassant = (orig: Key, dest: Key): boolean => {
-    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+  private readonly enpassant = (orig: Key, dest: Key): boolean => {
+    if (dest.startsWith(orig[0]) || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
@@ -251,7 +252,7 @@ export default class RoundController implements MoveRootCtrl {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
         check: !!s.check,
-        turnColor: this.ply % 2 === 0 ? 'white' : 'black',
+        turnColor: plyColor(this.ply),
       };
     if (this.replaying()) this.chessground.stop();
     else
@@ -384,7 +385,7 @@ export default class RoundController implements MoveRootCtrl {
         let txt = i18n.site.yourTurn;
         if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
-          let move = d.steps[d.steps.length - 1].san;
+          let move = util.lastStep(this.data).san;
           const turn = plyToTurn(this.ply);
           move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
           txt = `${opponent}\nplayed ${move}.\n${txt}`;
@@ -397,12 +398,12 @@ export default class RoundController implements MoveRootCtrl {
   playerByColor = (c: Color): game.Player => this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): true => {
-    const d = this.data,
-      playing = this.isPlaying();
+    const d = this.data;
+    const playing = this.isPlaying();
     d.game.turns = o.ply;
-    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
-    const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-      activeColor = d.player.color === d.game.player;
+    d.game.player = plyColor(o.ply);
+    const playedColor = plyOpponentColor(o.ply);
+    const activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;
@@ -441,6 +442,7 @@ export default class RoundController implements MoveRootCtrl {
         },
         check: !!o.check,
       });
+      if (this.googlyEyes) this.chessground.setAutoShapes(this.googlyEyes());
       if (o.status?.name === 'mate') {
         site.sound.play('checkmate', o.volume);
       } else if (o.check) {
@@ -511,9 +513,9 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = (): Tree.NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
-  private playPredrop = () => {
+  private readonly playPredrop = () => {
     return this.chessground.playPredrop(drop => {
       return crazyValid(this.data, drop.role, drop.key);
     });
@@ -526,7 +528,8 @@ export default class RoundController implements MoveRootCtrl {
   }
 
   reload = (d: RoundData): void => {
-    if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
+    const posChanged = d.steps.length !== this.data.steps.length;
+    if (posChanged) this.ply = util.lastPly(d);
     util.upgradeServerData(d);
     this.data = d;
     this.clearJust();
@@ -540,6 +543,7 @@ export default class RoundController implements MoveRootCtrl {
       });
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) groundReload(this);
+    if (posChanged) this.chessground.cancelPremove();
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -547,7 +551,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.pluginUpdate(d.steps[d.steps.length - 1].fen);
+    this.pluginUpdate(util.lastStep(this.data).fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -557,7 +561,7 @@ export default class RoundController implements MoveRootCtrl {
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
     this.userJump(this.lastPly());
-    d.game.fen = d.steps[d.steps.length - 1].fen;
+    d.game.fen = util.lastStep(this.data).fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
       o.status.name === 'outoftime' &&
@@ -640,7 +644,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   }
 
-  private makeClockOpts: () => ClockOpts = () => ({
+  private readonly makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.socket.outoftime,
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
@@ -650,12 +654,12 @@ export default class RoundController implements MoveRootCtrl {
         : this.data.player.color,
   });
 
-  private tickingClockColor = (): Color | undefined =>
+  private readonly tickingClockColor = (): Color | undefined =>
     game.playable(this.data) && (game.playedTurns(this.data) > 1 || this.data.clock?.running)
       ? this.data.game.player
       : undefined;
 
-  private setQuietMode = () => {
+  private readonly setQuietMode = () => {
     const was = site.quietMode;
     const is = this.isPlaying();
     if (was !== is) {
@@ -741,7 +745,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
+    $(`<icon data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {
@@ -782,7 +786,7 @@ export default class RoundController implements MoveRootCtrl {
     } else this.jump(this.ply);
   };
 
-  private onChange = () => {
+  private readonly onChange = () => {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
@@ -856,7 +860,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  private doOfferDraw = () => {
+  private readonly doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
     this.socket.sendLoading('draw-yes');
   };
@@ -887,6 +891,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   blindfold = (v?: boolean): boolean => {
+    this.data.player.blindfold ??= false;
     if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
     this.blindfoldStorage.set(v);
     this.data.player.blindfold = v;
@@ -905,13 +910,24 @@ export default class RoundController implements MoveRootCtrl {
     if (!this.data.player.spectator) this.doYeet();
   };
 
-  private doYeet = memoize(() => {
+  private readonly doYeet = memoize(() => {
     this.chessground.stop();
     site.asset.loadEsm('round.yeet');
   });
 
-  private delayedInit = () =>
-    requestIdleCallback(
+  private googlyEyes?: () => DrawShape[];
+
+  googlyEyesStart: () => void = memoize(async () => {
+    const redraw = () => this.googlyEyes && this.chessground.setAutoShapes(this.googlyEyes());
+    const { makeGooglyShapes }: any = await site.asset.loadEsm('bits.googlyHorsey', {
+      init: { cg: this.chessground, redraw },
+    });
+    this.googlyEyes = makeGooglyShapes;
+    redraw();
+  });
+
+  private readonly delayedInit = () =>
+    requestIdleCallbackSafe(
       () => {
         const d = this.data;
         if (this.isPlaying()) {

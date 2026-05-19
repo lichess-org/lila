@@ -15,13 +15,13 @@
   <string name="pgnLetter">ಪತ್ರ (ಕೆ, ಕ್ಯೂ, ಆರ್, ಬಿ, ಎನ್)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ಝೆನ್ ಮೋಡ್</string>
   <string name="showPlayerRatings">ಆಟಗಾರರ ರೇಟಿಂಗ್‌ಗಳನ್ನು ತೋರಿಸಿ</string>
-  <string name="explainShowPlayerRatings">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
   <string name="displayBoardResizeHandle">ಬೋರ್ಡ್ ಮರುಗಾತ್ರದ ಹ್ಯಾಂಡಲ್ ಅನ್ನು ತೋರಿಸಿ</string>
   <string name="onlyOnInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="inGameOnly">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="chessClock">ಚೆಸ್ ಗಡಿಯಾರ</string>
   <string name="tenthsOfSeconds">ಹತ್ತನೇ ಸೆಕೆಂಡುಗಳು</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 10 ಸೆಕೆಂಡುಗಳು</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 10 ಸೆಕೆಂಡುಗಳು</string>
   <string name="horizontalGreenProgressBars">ಸಮತಲ ಹಸಿರು ಪ್ರಗತಿ ಪಟ್ಟಿಗಳು</string>
   <string name="soundWhenTimeGetsCritical">ಸಮಯ ನಿರ್ಣಾಯಕವಾದಾಗ ಧ್ವನಿ</string>
   <string name="giveMoreTime">ಹೆಚ್ಚು ಸಮಯ ಕೊಡಿ</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; ಸ್ವಯಂ ಪ್ರಚಾರವನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ಪ್ರಚಾರ ಮಾಡುವಾಗ ಕೀ</string>
   <string name="whenPremoving">ಮುನ್ನುಗ್ಗುತ್ತಿರುವಾಗ</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ಮೂರು ಪಟ್ಟು ಪುನರಾವರ್ತನೆಯ ಮೇಲೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಡ್ರಾ ಕ್ಲೈಮ್ ಮಾಡಿ</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 30 ಸೆಕೆಂಡುಗಳು</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 30 ಸೆಕೆಂಡುಗಳು</string>
   <string name="moveConfirmation">ದೃಢೀಕರಣವನ್ನು ಸರಿಸಿ</string>
   <string name="explainCanThenBeTemporarilyDisabled">ಬೋರ್ಡ್ ಮೆನುವಿನೊಂದಿಗೆ ಆಟದ ಸಮಯದಲ್ಲಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬಹುದು</string>
   <string name="inCorrespondenceGames">ಪತ್ರವ್ಯವಹಾರ ಆಟಗಳು</string>
@@ -61,7 +61,7 @@
   <string name="notifyChallenge">ಸವಾಲುಗಳು</string>
   <string name="notifyTournamentSoon">ಶೀಘ್ರದಲ್ಲೇ ಟೂರ್ನಿ ಆರಂಭ</string>
   <string name="notifyTimeAlarm">ಪತ್ರವ್ಯವಹಾರ ಗಡಿಯಾರ ಮುಗಿಯುತ್ತಿದೆ</string>
-  <string name="notifyBell">Lichess ಒಳಗೆ ಬೆಲ್ ಅಧಿಸೂಚನೆ</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Lichess ಒಳಗೆ ಬೆಲ್ ಅಧಿಸೂಚನೆ</string>
   <string name="notifyPush">ನೀವು Lichess ನಲ್ಲಿ ಇಲ್ಲದಿರುವಾಗ ಸಾಧನದ ಅಧಿಸೂಚನೆ</string>
   <string name="notifyWeb">ಬ್ರೌಸರ್</string>
   <string name="notifyDevice">ಸಾಧನ</string>

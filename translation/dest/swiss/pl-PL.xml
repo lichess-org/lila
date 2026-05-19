@@ -36,7 +36,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">%s minunta między rundami</item>
     <item quantity="few">%s minuty między rundami</item>
-    <item quantity="many">%s minunt między rundami</item>
+    <item quantity="many">%s minut między rundami</item>
     <item quantity="other">%s minut między rundami</item>
   </plurals>
   <string name="nextRound">Następna runda</string>

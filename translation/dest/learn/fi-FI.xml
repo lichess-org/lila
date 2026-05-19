@@ -6,7 +6,7 @@
   <string name="progressX">Edistyminen: %s</string>
   <string name="resetMyProgress">Nollaa edistymiseni</string>
   <string name="youWillLoseAllYourProgress">Menetät kaiken edistymisesi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">pelaa!</string>
+  <string name="play">pelaa!</string>
   <string name="chessPieces">Shakkinappulat</string>
   <string name="theRook">Torni</string>
   <string name="itMovesInStraightLines">Liikkuu suoria linjoja pitkin</string>
@@ -103,7 +103,7 @@ lyömällä hyökkäävän nappulan.</string>
 yli puolustuksesi!</string>
   <string name="escapeOrBlock">Pakene kuninkaalla
 tai torju hyökkäys!</string>
-  <string name="outOfCheckComplete">Onnittelut! Kuningastasi ei voi lyödä. Varmista että voit puolustaa sitä shakeilta!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Onnittelut! Kuningastasi ei voi lyödä. Varmista että voit puolustaa sitä shakeilta!</string>
   <string name="mateInOne">Yhden siirron matti</string>
   <string name="defeatTheOpponentsKing">Kukista vastustajan kuningas</string>
   <string name="mateInOneIntro">Voitat jos vastustaja ei voi puolustaa shakattua kuningastaan.</string>
@@ -154,7 +154,6 @@ linnoittautua kuningassivustalle!</string>
   <string name="findAWayToCastleQueenSide">Keksi tapa
 linnoittautua daamisivustalle!</string>
   <string name="castlingComplete">Onneksi olkoon! Kannattaa linnoittautua lähes aina.</string>
-  <string name="enPassant">Ohestalyönti</string>
   <string name="theSpecialPawnMove">Sotilaan erikoissiirto</string>
   <string name="enPassantIntro">Kun vastustajan sotilas siirtyy kaksi ruutua, voit lyödä sen aivan kuin se olisi siirtynyt vain yhden.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Musta liikkui sotilaallaan

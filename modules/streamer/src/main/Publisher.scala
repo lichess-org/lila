@@ -30,7 +30,7 @@ final private class Publisher(
           .liveMatching(
             streamers,
             s =>
-              s.status.value.toLowerCase.contains(keyword.toLowerCase) ||
+              s.status.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.streamer.id)
           )
           .zip(ytApi.liveMatching(streamers))
@@ -63,13 +63,14 @@ final private class Publisher(
           if streamStartOnceEvery(userId) then
             Bus.pub(lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value))
     liveStreams = newStreams
+    lila.mon.streamer.online.update(liveStreams.streams.size)
     streamers.foreach: streamer =>
       streamer.twitch.foreach: t =>
         if liveStreams.streams.exists(s => s.platform == "twitch" && s.is(streamer)) then
-          lila.mon.tv.streamer.present(s"${t.login}@twitch").increment()
+          lila.mon.streamer.present(s"${t.login}@twitch").increment()
       streamer.youtube.foreach: t =>
         if liveStreams.streams.exists(s => s.platform == "youtube" && s.is(streamer)) then
-          lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
+          lila.mon.streamer.present(s"${t.channelId}@youtube").increment()
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams

@@ -3,7 +3,7 @@
   <string name="donate">Dhuroni</string>
   <string name="donateAsX">Dhuroni si %s</string>
   <string name="lichessPatron">Bamirës Lichess-i</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Bamirës që prej %s</string>
+  <string name="patronSince" comment="string is a date">Bamirës që prej %s</string>
   <string name="freeAccount">Llogari falas</string>
   <string name="becomePatron">Bëhuni një Bamirës Lichess-i</string>
   <string name="xBecamePatron">%s u bë Bamirës Lichess-i</string>
@@ -84,4 +84,5 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="paymentDetails">Hollësi pagese</string>
   <string name="updatePaymentMethod">Përditësoni metodë pagesash</string>
   <string name="stripeManageSub">Administroni pajtimin tuaj dhe shkarkoni faturat dhe dëftesat tuaja</string>
+  <string name="coverFees">Do të shtoj %s, që të ndihmoj të mbulohet kostoja e përpunimit të këtij transaksioni</string>
 </resources>

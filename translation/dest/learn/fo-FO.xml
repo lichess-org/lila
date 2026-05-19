@@ -6,7 +6,7 @@
   <string name="progressX">Framgongd: %s</string>
   <string name="resetMyProgress">Nullstilla mína framgongd</string>
   <string name="youWillLoseAllYourProgress">Tú missir alla tína framgongd!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">telva!</string>
+  <string name="play">telva!</string>
   <string name="chessPieces">Talvfólk</string>
   <string name="theRook">Rókurin</string>
   <string name="itMovesInStraightLines">Gongur í beinum linjum</string>
@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Tú sleppur úr skákinum við at taka fólkið, ið skákar.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Hesin riddarin skákar gjøgnum tína verju!</string>
   <string name="escapeOrBlock">Rým við konginum, ella set eitt fólk fyri!</string>
-  <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
   <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart seg ímóti skáki.</string>
@@ -114,7 +114,6 @@
   <string name="findAWayToCastleKingSide">Finn útav einum máta at leypa í borg kongamegin (stuttu borg)!</string>
   <string name="findAWayToCastleQueenSide">Finn ein hátt at leypa í borg frúgvamegin (longu borg)!</string>
   <string name="castlingComplete">Til lukku! Tú eigur næstan altíð at leypa í borg í einum talvi.</string>
-  <string name="enPassant">At taka í framlopi</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
   <string name="enPassantIntro">Tá ið mótstøðufinnan loypur tveir puntar fram og kemur at standa undir liðini á einari finnu hjá tær, kanst tú drepa finnuna sum um, at hon bert flutti ein punt fram.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svartur flutti eina finnu tveir puntar fram! Tak hana í framlopi (en passant).</string>

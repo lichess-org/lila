@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">여기는 프로필 페이지 입니다.</string>
   <string name="enabledKidModeSuggestion">아이가 이 계정을 사용할까요? %s를 사용하도록 설정할 수 있습니다.</string>
   <string name="whatNowSuggestions">이제 뭘 하죠? 여기 몇 가지 추천해 드릴게요:</string>
-  <string name="learnChessRules">체스 규칙 배우기</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">체스 규칙 배우기</string>
   <string name="improveWithChessTacticsPuzzles">체스 전술 퍼즐로 실력을 향상시키세요.</string>
   <string name="playTheArtificialIntelligence">인공지능을 상대로 플레이하세요.</string>
   <string name="playOpponentsFromAroundTheWorld">전 세계의 상대들과 플레이하세요.</string>

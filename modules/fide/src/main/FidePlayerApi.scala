@@ -6,12 +6,14 @@ import reactivemongo.api.bson.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
+import lila.memo.PicfitImage
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitApi)(using Executor):
 
   import repo.player.handler
 
   export repo.player.{ fetch, setPhotoCredit }
+  export repo.rating.get as getRatings
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:
@@ -27,12 +29,6 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
             case (k, Some(v)) => k -> v
           .toMap
 
-  def federationNamesOf(ids: List[FideId]): Fu[Map[Federation.Id, Federation.Name]] =
-    idToPlayerCache
-      .getAll(ids)
-      .map: players =>
-        lila.fide.Federation.namesByIds(players.values.flatMap(_.flatMap(_.fed)))
-
   def withFollow(id: FideId)(using me: Option[Me]): Fu[Option[FidePlayer.WithFollow]] =
     idToPlayerCache
       .get(id)
@@ -41,11 +37,11 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
           .so(repo.follower.isFollowing(_, id))
           .map(FidePlayer.WithFollow(player, _).some)
 
-  def uploadPhoto(p: FidePlayer, photo: PicfitApi.FilePart)(using me: Me): Funit =
+  def uploadPhoto(p: FidePlayer, photo: PicfitApi.FilePart)(using me: Me): Fu[PicfitImage] =
     for
       pic <- picfitApi.uploadFile(photo, me.userId, s"fidePlayer:${p.id}".some, requestAutomod = false)
       _ <- repo.player.setPhoto(p.id, FidePlayer.PlayerPhoto(pic.id, none))
-    yield ()
+    yield pic
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](8_192, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
@@ -59,6 +55,9 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
         _.flatten.flatMap: p =>
           p.photo.map(p.id -> _)
       .map(_.toMap)
+
+  private[fide] def delete(id: FideId): Funit =
+    repo.playerColl.delete.one($id(id)).void
 
   object guessPlayer:
 
