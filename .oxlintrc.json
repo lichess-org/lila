@@ -256,7 +256,8 @@
     {
       "files": ["bin/**", "cron/**"],
       "rules": {
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "await-thenable": "off"
       }
     },
     {

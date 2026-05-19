@@ -2211,6 +2211,8 @@ object I18nKey:
     val `xHostsY`: I18nKey = "xHostsY"
     val `xJoinsY`: I18nKey = "xJoinsY"
     val `xLikesY`: I18nKey = "xLikesY"
+    val `like`: I18nKey = "like"
+    val `liked`: I18nKey = "liked"
     val `quickPairing`: I18nKey = "quickPairing"
     val `lobby`: I18nKey = "lobby"
     val `anonymous`: I18nKey = "anonymous"

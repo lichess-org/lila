@@ -3773,6 +3773,10 @@ interface I18n {
     lifetimeScore: string;
     /** Light */
     light: string;
+    /** Like */
+    like: string;
+    /** Liked */
+    liked: string;
     /** List */
     list: string;
     /** List players you have blocked */
@@ -5373,8 +5377,6 @@ interface I18n {
     topics: string;
     /** Unclear position */
     unclearPosition: string;
-    /** Unlike */
-    unlike: string;
     /** Unlisted */
     unlisted: string;
     /** URL of the games, one per line */

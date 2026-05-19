@@ -221,6 +221,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       )
   }
 
+  def makeStudentOauthTokens(id: ClasId) = SecuredScopedBody(_.Teacher)(_.Team.Lead) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      students
+        .filter(_.managed)
+        .sequentially: student =>
+          for
+            token <- env.oAuth.tokenApi.clasStudentToken(clas.name, student.userId)
+            user <- env.user.lightUserApi.asyncFallback(student.userId)
+          yield s"${user.name}, ${student.realName}, ${token.plain}"
+        .map: lines =>
+          Ok(lines.mkString("\n")).asAttachment(s"lichess-student-tokens.${clas.id}.csv")
+  }
+
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       for
