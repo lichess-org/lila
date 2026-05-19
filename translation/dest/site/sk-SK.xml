@@ -138,9 +138,9 @@
   <string name="checkableKing">Kráľ, ktorého možno šachovať</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="multipleLinesDescription">Nastavte počet hodnotených variantov a šípok na šachovnici</string>
-  <string name="searchTime" comment="A setting for game analysis using a chess engine.&#10;&#10;Description (translateable separately): Set time to evaluate fresh positions">Doba vyhľadávania</string>
-  <string name="searchTimeDescription" comment="Description for the &quot;Search time&quot; setting, for analysing a game using a chess engine.">Nastavte čas na vyhodnotenie nových pozícií</string>
-  <string name="threads" comment="As in CPU threads, used for chess engine analysis.">Vlákna</string>
+  <string name="searchTime">Doba vyhľadávania</string>
+  <string name="searchTimeDescription">Nastavte čas na vyhodnotenie nových pozícií</string>
+  <string name="threads">Vlákna</string>
   <string name="threadsDescription">Nastavte túto hodnotu na číslo nižšie, ako je počet vlákien vášho procesora; hodnoty označené bodkami predstavujú dobrú a bezpečnú voľbu</string>
   <string name="threadsDescriptionMobile">Čím viac vlákien, tým väčšia spotreba batérie, ale aj lepšia analýza</string>
   <string name="cpus">Procesory</string>
@@ -1030,7 +1030,7 @@
   <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
   <string name="makeSureToRead">Určite si prečítajte %1$s</string>
   <string name="theForumEtiquette">etiketu fóra</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Prosím, správajte sa na fóre slušne.</string>
+  <string name="pleaseBeNiceInTheForum">Prosím, správajte sa na fóre slušne.</string>
   <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
   <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>
