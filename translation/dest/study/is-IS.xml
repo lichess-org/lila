@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Nú ert þú áhorfandi</string>
   <string name="pgnTags">PGN-merki</string>
   <string name="like">Líka við</string>
-  <string name="unlike">Hætta að líka við</string>
   <string name="newTag">Nýtt merki</string>
   <string name="commentThisPosition">Gera athugasemd við þessa stöðu</string>
   <string name="commentThisMove">Gera athugasemd við þennan leik</string>
