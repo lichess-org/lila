@@ -3,7 +3,6 @@ import { throttlePromiseDelay } from 'lib/async';
 import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
-site.asset.loadI18n('study');
 site.load.then(() => {
   $('.flash').addClass('fade');
   $('.ublog-post__like').on(
