@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
+  <string name="like">Tykkää</string>
+  <string name="liked">Tykätty</string>
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
