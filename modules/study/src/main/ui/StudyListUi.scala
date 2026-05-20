@@ -9,7 +9,6 @@ import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
-import lila.core.study.StudyGroup
 
 final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }

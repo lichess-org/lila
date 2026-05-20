@@ -6,7 +6,6 @@ import lila.core.study.StudyOrder
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
-import lila.core.study.StudyGroup
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }

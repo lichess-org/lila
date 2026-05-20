@@ -44,13 +44,3 @@ enum StudyOrder:
 object StudyOrder:
   def all: List[StudyOrder] = values.toList
   val byKey = values.mapBy(_.key)
-
-enum StudyGroup:
-  case all, mine, mineMember, minePublic, minePrivate, mineLikes, byOwner, staffPicks, search
-  case topic(topicName: Option[String])
-  def isTopic: Boolean = this match
-    case StudyGroup.topic(_) => true
-    case _ => false
-  def isPersonal: Boolean = this match
-    case StudyGroup.mine | StudyGroup.mineMember | StudyGroup.minePublic | StudyGroup.minePrivate => true
-    case _ => false
