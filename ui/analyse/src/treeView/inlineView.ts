@@ -164,7 +164,8 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
-    const glyphs = ctrl.liveGlyphs.get(path) ?? node.glyphs;
+    const liveGlyph = ctrl.liveGlyphs.get(path);
+    const glyphs = liveGlyph ? [liveGlyph] : node.glyphs;
     if (ctrl.showMoveGlyphs()) {
       glyphs
         ?.map(g => this.glyphs[g.id - 1])

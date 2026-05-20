@@ -52,7 +52,7 @@ import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
-import { isLocalEval, liveNodeGlyphs } from './liveAnnotate';
+import { isLocalEval, liveNodeGlyph } from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -123,7 +123,7 @@ export default class AnalyseCtrl implements CevalHandler {
   );
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
-  liveGlyphs = new Map<TreePath, Glyph[]>();
+  liveGlyphs = new Map<TreePath, Glyph | undefined>();
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -760,10 +760,8 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private annotateLivePath(path: TreePath): void {
-    if (path.length < 2) return;
-    const glyphs = liveNodeGlyphs(this.tree.nodeAtPath(path), this.tree.parentNode(path));
-    if (glyphs) this.liveGlyphs.set(path, glyphs);
-    else this.liveGlyphs.delete(path);
+    if (path.length)
+      this.liveGlyphs.set(path, liveNodeGlyph(this.tree.nodeAtPath(path), this.tree.parentNode(path)));
   }
 
   private annotateLiveChildren(path: TreePath, node: TreeNode): void {

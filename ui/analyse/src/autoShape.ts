@@ -177,11 +177,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotationsOnBoard()) {
-    const liveGlyphs = ctrl.liveGlyphs.get(ctrl.path);
-    const glyphs = liveGlyphs ?? ctrl.node.glyphs;
+    const liveGlyph = ctrl.liveGlyphs.get(ctrl.path);
     shapes = shapes.concat(
       // Override server analysis glyphs as local eval also overrides the eval score
-      annotationShapes(liveGlyphs ? { ...ctrl.node, glyphs } : ctrl.node),
+      annotationShapes(liveGlyph ? { ...ctrl.node, glyphs: [liveGlyph] } : ctrl.node),
     );
   }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);

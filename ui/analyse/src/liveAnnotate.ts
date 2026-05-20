@@ -18,8 +18,7 @@ export function liveGlyph(parentEval: EvalScore, currentEval: EvalScore, ply: Pl
   return undefined;
 }
 
-export function liveNodeGlyphs(node: TreeNode, parentNode: TreeNode): Glyph[] | undefined {
+export function liveNodeGlyph(node: TreeNode, parentNode: TreeNode): Glyph | undefined {
   if (!isLocalEval(parentNode.ceval) || !isLocalEval(node.ceval)) return;
-  const glyph = liveGlyph(parentNode.ceval, node.ceval, node.ply);
-  return glyph ? [glyph] : [];
+  return liveGlyph(parentNode.ceval, node.ceval, node.ply);
 }
