@@ -63,6 +63,7 @@
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
   <string name="officialStandings">Clasificación oficial</string>
+  <string name="regulations">Regulamento</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Atopar máis opcións na %s.</string>
   <string name="webmastersPage">páxina do administrador web</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
