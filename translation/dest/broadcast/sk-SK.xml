@@ -88,8 +88,8 @@
   <string name="liveboard">Aktuálna pozícia</string>
   <string name="communityBroadcast">Vysielanie člena komunity</string>
   <string name="createdAndManagedBy">Vytvoril a spravuje %s.</string>
-  <string name="matchPoints" comment="Appears in broadcasts of team tournaments, under the 'Team results' tab.&#10;&#10;Match points are points awarded to a team based on the overall outcome of their games against another team.">Body za zápasy</string>
-  <string name="gamePoints" comment="Appears in broadcasts of team tournaments, under the 'Team results' tab.&#10;&#10;Game points are the sum of points earned by individual players on their specific boards during a single team match. We normally display them on a round-by-round basis.">Body za partie</string>
+  <string name="matchPoints">Body za zápasy</string>
+  <string name="gamePoints">Body za partie</string>
   <string name="matches">Zápasy</string>
   <string name="matchHistory">História zápasov</string>
   <string name="teamResults">Výsledky tímov</string>
@@ -110,6 +110,6 @@
   <string name="tiebreaks">Tajbrejk</string>
   <string name="gameX">Partia %s</string>
   <string name="knockouts">Play-off</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
 </resources>
