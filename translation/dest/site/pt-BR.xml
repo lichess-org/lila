@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
+  <string name="like">Curtir</string>
+  <string name="liked">Descurtir</string>
   <string name="quickPairing">Pareamento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
