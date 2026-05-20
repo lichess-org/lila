@@ -1,13 +1,11 @@
 import { povChances } from 'lib/ceval/winningChances';
-import type { ClientEval, Glyph, LocalEval, TreeNode } from 'lib/tree/types';
+import type { Glyph, TreeNode } from 'lib/tree/types';
 
 const glyphs = {
   inaccuracy: { id: 6, symbol: '?!', name: 'Inaccuracy' } as Glyph,
   mistake: { id: 2, symbol: '?', name: 'Mistake' } as Glyph,
   blunder: { id: 4, symbol: '??', name: 'Blunder' } as Glyph,
 };
-
-export const isLocalEval = (ev?: ClientEval): ev is LocalEval => !!ev && !ev.cloud;
 
 export function liveGlyph(parentEval: EvalScore, currentEval: EvalScore, ply: Ply): Glyph | undefined {
   const color: Color = ply % 2 === 1 ? 'white' : 'black';
@@ -19,6 +17,5 @@ export function liveGlyph(parentEval: EvalScore, currentEval: EvalScore, ply: Pl
 }
 
 export function liveNodeGlyph(node: TreeNode, parentNode: TreeNode): Glyph | undefined {
-  if (!isLocalEval(parentNode.ceval) || !isLocalEval(node.ceval)) return;
-  return liveGlyph(parentNode.ceval, node.ceval, node.ply);
+  return parentNode.ceval && node.ceval && liveGlyph(parentNode.ceval, node.ceval, node.ply);
 }

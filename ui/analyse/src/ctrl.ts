@@ -52,7 +52,7 @@ import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
-import { isLocalEval, liveNodeGlyph } from './liveAnnotate';
+import { liveNodeGlyph } from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -740,7 +740,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
-      if (!isThreat && isLocalEval(ev)) {
+      if (!isThreat && ev) {
         this.annotateLivePath(path);
         this.annotateLiveChildren(path, node);
       }
