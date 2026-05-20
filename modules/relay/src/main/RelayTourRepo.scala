@@ -195,6 +195,13 @@ private object RelayTourRepo:
     if rounds.nonEmpty
   yield tour.withRounds(rounds)
 
+  private[relay] def readTourWithRoundsAndGroup(
+      doc: Bdoc
+  ): Option[(RelayTour.WithRounds, Option[RelayGroup.Name])] = for
+    tour <- readTourWithRounds(doc)
+    group = RelayTourRepo.group.readFrom(doc)
+  yield tour -> group
+
   private[relay] def readToursWithRoundAndGroup[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
   )(docs: List[Bdoc]): List[A] = for
