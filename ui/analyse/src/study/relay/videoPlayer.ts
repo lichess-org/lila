@@ -1,14 +1,13 @@
 import { hl, type VNode, onInsert } from 'lib/view';
-import { allowVideo } from './relayView';
 
 export class VideoPlayer {
-  private iframe: HTMLIFrameElement;
-  private close: HTMLImageElement;
+  private readonly iframe: HTMLIFrameElement;
+  private readonly close: HTMLImageElement;
   private animationFrameId?: number;
 
   constructor(
-    private o: { embed: string | false; redirect?: string; image?: string; text?: string },
-    private redraw: Redraw,
+    private readonly o: { embed: string | false; redirect?: string; image?: string; text?: string },
+    private readonly redraw: Redraw,
   ) {
     if (!o.embed) return;
 
@@ -121,3 +120,6 @@ export class VideoPlayer {
     window.location.href = urlWithEmbed.toString();
   };
 }
+
+export const allowVideo = (): boolean =>
+  window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';

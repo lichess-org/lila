@@ -1,8 +1,11 @@
-import type { Prop } from '../index';
-import type { Feature } from '../device';
-import type CevalCtrl from './ctrl';
 import type { VNode } from 'snabbdom';
-import type { ClientEval, LocalEval, ServerEval, TreeNode } from '@/tree/types';
+
+import type { Feature } from '@/device';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from '@/tree/types';
+import type { MaybeVNode } from '@/view';
+
+import type { Prop } from '../index';
+import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
@@ -12,8 +15,8 @@ export type Millis = number;
 export interface Work {
   variant: VariantKey;
   threads: number;
-  hashSize: number | undefined;
-  gameId: string | undefined; // send ucinewgame when changed
+  hashSize?: number;
+  gameId?: string; // send ucinewgame when changed
   stopRequested: boolean;
 
   path: string;
@@ -97,12 +100,12 @@ export type Progress = (p?: { bytes: number; total: number }) => void;
 export interface CustomCeval {
   search?: () => Search | Millis; // pass number as millis to cap user defined search
   pearlNode?: () => VNode | undefined;
-  statusNode?: () => VNode | string | undefined;
+  statusNode?: () => MaybeVNode;
 }
 
 export interface CevalOpts {
   variant: Variant;
-  initialFen: string | undefined;
+  initialFen?: string;
   emit: (ev: LocalEval, meta: EvalMeta) => void;
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
@@ -122,9 +125,9 @@ export interface PvBoard {
 }
 
 export interface Started {
-  path: string;
+  path: TreePath;
   steps: Step[];
-  gameId: string | undefined;
+  gameId?: string;
   threatMode: boolean;
 }
 

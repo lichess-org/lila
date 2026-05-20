@@ -31,7 +31,7 @@ db.user4
     );
 
     ++it;
-    if (it % batchSize == 0) {
+    if (it % batchSize === 0) {
       print(it);
       sleep(100);
     }

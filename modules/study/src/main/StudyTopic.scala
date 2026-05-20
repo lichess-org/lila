@@ -23,14 +23,14 @@ opaque type StudyTopics = List[StudyTopic]
 object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
   extension (e: StudyTopics)
     def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
-    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct
+    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct.take(StudyTopics.userMax)
 
   val empty: StudyTopics = Nil
   val studyMax = 30
-  val userMax = 128
+  val userMax = 200
 
   def fromStrs(strs: Seq[String], max: Int): StudyTopics =
-    strs.view.flatMap(StudyTopic.fromStr).take(max).toList.distinct
+    strs.view.flatMap(StudyTopic.fromStr).toList.distinct.take(max)
 
 final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
@@ -117,10 +117,10 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     maxSize = Max(1),
     timeout = 61.seconds,
     name = "studyTopicAggregation",
-    lila.log.asyncActorMonitor.unhandled
+    lila.mon.asyncActorMonitor.unhandled
   )
 
-  def recompute(): Unit =
+  private[study] def recompute(): Unit =
     recomputeWorkQueue(LilaFuture.makeItLast(60.seconds)(recomputeNow)).recover:
       case _: scalalib.actor.AsyncActorBounded.EnqueueException => ()
       case e: Exception => logger.warn("Can't recompute study topics!", e)
@@ -133,7 +133,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           List(
             Match(
               $doc(
-                "topics".$exists(true),
+                "topics" -> $doc("$exists" -> true, "$ne" -> StudyTopic.broadcast),
                 "visibility" -> "public"
               )
             ),

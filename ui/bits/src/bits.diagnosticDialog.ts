@@ -1,9 +1,9 @@
-import { isTouchDevice } from 'lib/device';
-import { domDialog } from 'lib/view';
-import * as licon from 'lib/licon';
 import { escapeHtml, myUserId } from 'lib';
-import { storage } from 'lib/storage';
+import { isTouchDevice } from 'lib/device';
+import * as licon from 'lib/licon';
 import { log } from 'lib/permalog';
+import { storage } from 'lib/storage';
+import { domDialog } from 'lib/view';
 
 interface DiagnosticOpts {
   text: string;
@@ -71,10 +71,10 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
       setTimeout(() => copied.remove(), 2000);
     }),
   );
-  dlg.show();
+  await dlg.show();
 }
 
-const storageProxy: { [key: string]: { storageKey: string; validate: (val?: string) => boolean } } = {
+const storageProxy: Record<string, { storageKey: string; validate: (val?: string) => boolean }> = {
   wsPing: {
     storageKey: 'socket.ping.interval',
     validate: (val?: string) => parseInt(val ?? '') > 249,
@@ -89,7 +89,7 @@ const storageProxy: { [key: string]: { storageKey: string; validate: (val?: stri
   },
 };
 
-const ops: { [op: string]: (val?: string) => boolean } = {
+const ops: Record<string, (val?: string) => boolean> = {
   set: (data: string) => {
     try {
       const kv = atob(data).split('=');
@@ -117,7 +117,7 @@ const ops: { [op: string]: (val?: string) => boolean } = {
 function processQueryParams() {
   let changed = 0;
   for (const p of location.hash.split('?')[1]?.split('&') ?? []) {
-    const op = p.indexOf('=') > -1 ? p.slice(0, p.indexOf('=')) : p;
+    const op = p.includes('=') ? p.slice(0, p.indexOf('=')) : p;
     if (op in ops) changed += ops[op](p.slice(op.length + 1)) ? 1 : 0;
     else console.warn('Invalid query op', op);
   }

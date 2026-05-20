@@ -1,11 +1,14 @@
-import { h, type VNode } from 'snabbdom';
-import { bind, type MaybeVNodes, confirm } from 'lib/view';
-import { tds, perfNames } from './util';
-import type LobbyController from '../ctrl';
-import type { Seek } from '../interfaces';
-import perfIcons from 'lib/game/perfIcons';
+import { h } from 'snabbdom';
 
-function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
+import perfIcons from 'lib/game/perfIcons';
+import { bind, type MaybeVNodes, confirm, dataIcon } from 'lib/view';
+
+import type LobbyController from '@/ctrl';
+import type { Seek } from '@/interfaces';
+
+import { tds, perfNames } from './util';
+
+function renderSeek(ctrl: LobbyController, seek: Seek) {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
   return h(
     'tr.seek.' + klass,
@@ -27,18 +30,18 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? i18n.site.nbDays(seek.days) : '∞',
       h('span', [
-        h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
+        h('span.varicon', { attrs: dataIcon(perfIcons[seek.perf.key]) }),
         seek.mode === 1 ? i18n.site.rated : i18n.site.casual,
       ]),
     ]),
   );
 }
 
-function createSeek(ctrl: LobbyController): VNode | undefined {
+function createSeek(ctrl: LobbyController) {
   if (ctrl.me && ctrl.data.seeks.length < 8)
     return h('div.create', [
       h(
-        'a.button',
+        'button.button',
         {
           hook: bind(
             'click',
@@ -49,7 +52,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
         i18n.site.createAGame,
       ),
     ]);
-  return;
+  return undefined;
 }
 
 export default function (ctrl: LobbyController): MaybeVNodes {
@@ -62,7 +65,6 @@ export default function (ctrl: LobbyController): MaybeVNodes {
           (['player', 'rating', 'time', 'mode'] as const).map(k => h('th', i18n.site[k])),
         ),
       ),
-
       h(
         'tbody',
         {

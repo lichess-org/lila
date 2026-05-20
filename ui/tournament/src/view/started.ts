@@ -1,12 +1,14 @@
 import { h, type VNode } from 'snabbdom';
+
+import type { MaybeVNodes } from 'lib/view';
+
+import type TournamentController from '../ctrl';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
-import tourTable from './table';
 import playerInfo from './playerInfo';
+import tourTable from './table';
 import teamInfo from './teamInfo';
-import type TournamentController from '../ctrl';
-import type { MaybeVNodes } from 'lib/view';
 
 function joinTheGame(gameId: string) {
   return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [

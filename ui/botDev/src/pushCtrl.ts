@@ -1,5 +1,6 @@
-import type { BotInfo } from 'lib/bot/types';
 import { defined, myUserId } from 'lib';
+import type { BotInfo } from 'lib/bot/types';
+
 import type { AssetBlob, AssetType } from './devAssets';
 import { env } from './devEnv';
 
@@ -28,7 +29,7 @@ export class PushCtrl {
     }
 
     try {
-      await Promise.all(localBlobs.map(b => b && this.postFile(b, progress)));
+      localBlobs.map(b => b && this.postFile(b, progress));
       const res = await fetch('/bots/dev/bot', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },

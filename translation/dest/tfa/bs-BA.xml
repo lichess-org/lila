@@ -7,7 +7,7 @@
   <string name="enterPassword">Unesite lozinku i kod za provjeru autentičnosti koji je generisala aplikacija da biste dovršili postavke. Kod za provjeru autentičnosti će Vam trebati svaki put kada se prijavljujete.</string>
   <string name="ifYouCannotScanEnterX">Ako ne možete skenirati kod, ukucajte tajni %s u Vašoj aplikaciji.</string>
   <string name="authenticationCode">Kod za provjeru autentičnosti</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Napomena: Ako izgubite pristup svojim kodovima za dvofaktorsku autentifikaciju, možete to učiniti putem e-pošte %s.</string>
+  <string name="ifYouLoseAccessTwoFactor">Napomena: Ako izgubite pristup svojim kodovima za dvofaktorsku autentifikaciju, možete to učiniti putem e-pošte %s.</string>
   <string name="enableTwoFactor">Uključite dvofaktorsku provjeru autentičnosti</string>
   <string name="disableTwoFactor">Isključite dvofaktorsku provjeru autentičnosti</string>
   <string name="twoFactorEnabled">Dvofaktorska provjera autentičnosti uključena</string>

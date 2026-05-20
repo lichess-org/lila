@@ -6,6 +6,7 @@ import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
 
 import lila.core.lilaism.LilaException
+import lila.mon.extensions.*
 
 /* Extra generic features for play WS client,
  * without any knowledge of broadcast specifics.
@@ -66,13 +67,14 @@ private final class HttpClient(
         if etag.startsWith("W/\"") then etag.drop(3).dropRight(1) else etag
 
   private def fetchResponse(req: StandaloneWSRequest): Fu[StandaloneWSResponse] =
-    Future
-      .fromTry(lila.common.url.parse(req.url))
+    lila.common.url
+      .parse(req.url)
+      .toFuture
       .flatMap: url =>
         req
           .get()
           .monValue: res =>
-            _.relay.httpGet(
+            lila.mon.relay.httpGet(
               res.status,
               url.host.toString,
               etag = monitorEtagHit(req, res),
@@ -89,7 +91,7 @@ private final class HttpClient(
     val charset = Option(extractContentTypeCharsetAttribute(res.contentType))
       .orElse(res.contentType.startsWith("text/").option(StandardCharsets.ISO_8859_1))
     charset match
-      case None => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
+      case None => charsetGuess.andDecode(res.bodyAsBytes)
       case Some(known) => res.bodyAsBytes.decodeString(known)
 
   private def toRequest(url: URL)(using CanProxy): StandaloneWSRequest =
@@ -106,6 +108,20 @@ private final class HttpClient(
       case (Some(_), _) if res.status == 304 => "hit" // cache hit
       case (Some(_), Some(_)) => "miss" // new data from the endpoint
       case (Some(_), None) => "fail" // we sent an etag but the endpoint doesn't support it?
+
+private object charsetGuess:
+  import akka.util.ByteString
+  import com.ibm.icu.text.CharsetDetector
+
+  def andDecode(str: ByteString): String =
+    str.decodeString(guess(str) | "UTF-8")
+
+  private def guess(str: ByteString): Option[String] =
+    Option:
+      val cd = new CharsetDetector
+      cd.setText(str.take(10000).toArray)
+      cd.detect()
+    .map(_.getName)
 
 private object HttpClient:
   type Etag = String

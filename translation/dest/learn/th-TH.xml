@@ -103,7 +103,7 @@
 ผ่านการป้องกันของคุณ!</string>
   <string name="escapeOrBlock">จงหลีกหนีด้วยคิง
 หรือกีดกันการโจมตี!</string>
-  <string name="outOfCheckComplete">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
   <string name="mateInOne">จนในหนึ่งครั้ง</string>
   <string name="defeatTheOpponentsKing">ปราบคิงของคู่แข่ง</string>
   <string name="mateInOneIntro">คุณจะชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>

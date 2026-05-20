@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT 보드 요구사항</string>
   <string name="dgtBoardLimitations">DGT 보드 제약사항</string>
   <string name="thisPageAllowsConnectingDgtBoard">이 페이지에서는 DGT 보드를 Lichess에 연결하여 사용 할 수 있습니다.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
+  <string name="toConnectTheDgtBoard">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
   <string name="downloadHere">소프트웨어 다운로드가 가능합니다: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">만약 %1$s가 이 컴퓨터에서 작동하고 있다면, %2$s하여 연결을 확인할 수 있습니다.</string>
   <string name="openingThisLink">이 링크를 클릭</string>
@@ -18,8 +18,8 @@
   <string name="whenReadySetupBoard">준비가 되셨으면 보드를 설치한 다음 %s를 클릭하세요.</string>
   <string name="ifMoveNotDetected">움직임이 감지되지 않을 경우</string>
   <string name="checkYouHaveMadeOpponentsMove">DGT 보드에서 먼저 상대방이 말을 움직였는지 확인하고, 다시 시도해주세요.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
-  <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
+  <string name="asALastResort">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">이 페이지를 다시 로드하세요</string>
   <string name="dgtConfigure">DGT - 설정</string>
   <string name="lichessConnectivity">Lichess 연결</string>
   <string name="validDgtOauthToken">DGT 플레이에 적합한 OAuth 토큰이 있습니다.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
   <string name="debug">디버깅</string>
   <string name="verboseLogging">자세한 로그</string>
-  <string name="toSeeConsoleMessage">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
   <string name="playWithDgtBoard">DGT 보드로 게임하기</string>
   <string name="configure">설정</string>
 </resources>

@@ -2,6 +2,7 @@ package lila.api
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.data.Preload
 
 import lila.common.Json.given
 import lila.core.LightUser
@@ -10,6 +11,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.user.PublicFideIdOf
 import lila.rating.PerfType
 import lila.user.Trophy
+import lila.round.UrgentGames
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -67,9 +69,8 @@ final class UserApi(
         else
           import opts.*
           (
-            gameProxyRepo.urgentGames(u).dmap(_.headOption),
-            as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            withFollows.optionFu(relationApi.countFollowing(u.id)),
+            opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption),
+            as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
@@ -85,7 +86,6 @@ final class UserApi(
             (
                 gameOption,
                 nbGamesWithMe,
-                following,
                 followable,
                 relation,
                 nbBookmarks,
@@ -120,8 +120,6 @@ final class UserApi(
                   .add("email", email)
                   .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
-                  .add("nbFollowing", following)
-                  .add("nbFollowers", withFollows.option(0))
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add("canChallenge", canChallenge)
                   .add("playban", playban)
@@ -150,13 +148,13 @@ final class UserApi(
                     )
               }.noNull
 
-  def mobile(user: User)(using me: Option[Me])(using Lang) = extended(
+  def mobile(user: UserWithPerfs, urgent: Preload[UrgentGames])(using me: Option[Me])(using Lang) = extended(
     user,
     Opts(
-      withFollows = false,
       withTrophies = false,
       withCanChallenge = me.exists(_.isnt(user)),
-      withPlayban = me.exists(_.is(user))
+      withPlayban = me.exists(_.is(user)),
+      urgent = urgent
     )
   )
 
@@ -215,12 +213,12 @@ object UserApi:
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 
   case class Opts(
-      withFollows: Boolean,
       withTrophies: Boolean,
       withCanChallenge: Boolean,
       withProfile: Boolean = true,
       withRank: Boolean = false,
       withPlayban: Boolean = false,
       withFideId: Boolean = false,
-      forWiki: Boolean = false
+      forWiki: Boolean = false,
+      urgent: Preload[UrgentGames] = Preload.none
   )

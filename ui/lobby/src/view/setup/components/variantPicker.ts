@@ -1,12 +1,10 @@
-import { enter, hl } from 'lib/view';
-import type LobbyController from '@/ctrl';
-import { variants, variantsForGameType } from '@/options';
 import { option } from 'lib/setup/option';
-import type { VNode } from 'snabbdom';
+import { dataIcon, enter, hl } from 'lib/view';
 
-export const variantPicker = (ctrl: LobbyController) => {
-  const { setupCtrl } = ctrl;
+import { variants, variantsForGameType } from '@/options';
+import type SetupController from '@/setupCtrl';
 
+export const variantPicker = (setupCtrl: SetupController) => {
   if (site.blindMode) {
     return hl('div.variant.label-select', [
       hl('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
@@ -35,7 +33,7 @@ export const variantPicker = (ctrl: LobbyController) => {
     toggleVariant();
   };
 
-  const children: (VNode | string)[] = [
+  const children = [
     hl('input.mselect__toggle', {
       attrs: { type: 'checkbox', id: inputId },
       on: { change: toggleVariant },
@@ -46,7 +44,7 @@ export const variantPicker = (ctrl: LobbyController) => {
         attrs: { for: inputId },
       },
       [
-        hl('span.icon', { attrs: { 'data-icon': currentVariant.icon } }),
+        hl('span.icon', { attrs: dataIcon(currentVariant.icon) }),
         hl('div.text', [hl('span.name', currentVariant.name), hl('span.desc', currentVariant.description)]),
       ],
     ),
@@ -79,7 +77,7 @@ export const variantPicker = (ctrl: LobbyController) => {
                   },
                 },
                 [
-                  hl('td.icon', hl('span', { attrs: { 'data-icon': v.icon } })),
+                  hl('td.icon', hl('span', { attrs: dataIcon(v.icon) })),
                   hl('td.name', v.name),
                   hl('td.desc', v.description),
                 ],

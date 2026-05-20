@@ -8,12 +8,13 @@ import {
   Title,
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
-import { fontColor, fontFamily } from './index';
+
 import { pubsub } from 'lib/pubsub';
 import { wsSend, wsAverageLag } from 'lib/socket';
 
+import { fontColor, fontFamily } from './index';
+
 declare module 'chart.js' {
-  // oxlint-disable-next-line no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     needle?: {
       value: number;

@@ -1,8 +1,9 @@
-import type { Prop } from 'lib';
-
-import { storedBooleanPropWithEffect } from 'lib/storage';
-import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } from './boardAnalysis';
 import type { Board, Square, SquareSet } from 'chessops';
+
+import type { Prop } from 'lib';
+import { storedBooleanPropWithEffect } from 'lib/storage';
+
+import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } from './boardAnalysis';
 import type { Checkable, Pin, Undefended } from './interfaces';
 
 export default class MotifCtrl {

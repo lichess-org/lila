@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT வாரியத் தேவைகள்</string>
   <string name="dgtBoardLimitations">DGT வாரிய வரம்புகள்</string>
   <string name="thisPageAllowsConnectingDgtBoard">இந்தப் பக்கம் உங்கள் DGT பலகையை Lichess உடன் இணைக்கவும், கேம்களை விளையாடவும் பயன்படுத்த அனுமதிக்கிறது.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT மின்னணு வாரியத்துடன் இணைக்க நீங்கள் %s ஐ நிறுவ வேண்டும்.</string>
+  <string name="toConnectTheDgtBoard">DGT மின்னணு வாரியத்துடன் இணைக்க நீங்கள் %s ஐ நிறுவ வேண்டும்.</string>
   <string name="downloadHere">நீங்கள் மென்பொருளை இங்கே பதிவிறக்கம் செய்யலாம்: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">இந்தக் கணினியில் %1$s இயங்கினால், அதனுடனான உங்கள் இணைப்பை %2$s மூலம் சரிபார்க்கலாம்.</string>
   <string name="openingThisLink">இந்த இணைப்பை திறக்கும்</string>
@@ -18,8 +18,8 @@
   <string name="whenReadySetupBoard">தயாரானதும், உங்கள் பலகையை அமைத்து, %sஐக் கிளிக் செய்யவும்.</string>
   <string name="ifMoveNotDetected">ஒரு நகர்வு கண்டறியப்படவில்லை என்றால்</string>
   <string name="checkYouHaveMadeOpponentsMove">முதலில் DGT போர்டில் உங்கள் எதிரியின் நகர்வைச் செய்துள்ளீர்களா என்பதைச் சரிபார்க்கவும். உங்கள் நகர்வை மாற்றவும். மீண்டும் விளையாடு.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">கடைசி முயற்சியாக, பலகையை Lichess ஐப் போலவே அமைக்கவும், பிறகு %s</string>
-  <string name="reloadThisPage">இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்</string>
+  <string name="asALastResort">கடைசி முயற்சியாக, பலகையை Lichess ஐப் போலவே அமைக்கவும், பிறகு %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்</string>
   <string name="dgtConfigure">DGT - கட்டமைக்கவும்</string>
   <string name="lichessConnectivity">லிச்சஸ் இணைப்பு</string>
   <string name="validDgtOauthToken">DGT விளையாடுவதற்கு ஏற்ற OAuth டோக்கன் உங்களிடம் உள்ளது.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">முக்கிய வார்த்தைகள் JSON வடிவத்தில் உள்ளன. நகர்வுகள் மற்றும் முடிவுகளை உங்கள் மொழியில் மொழிபெயர்க்க அவை பயன்படுத்தப்படுகின்றன. இயல்புநிலை ஆங்கிலம், ஆனால் அதை மாற்ற தயங்க வேண்டாம்.</string>
   <string name="debug">பிழைத்திருத்தம்</string>
   <string name="verboseLogging">வாய்மொழியாக பதிவு செய்தல்</string>
-  <string name="toSeeConsoleMessage">கன்சோல் செய்தியைப் பார்க்க, Command + Option + C (Mac) அல்லது Control + Shift + C (Windows, Linux, Chrome OS) அழுத்தவும்</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">கன்சோல் செய்தியைப் பார்க்க, Command + Option + C (Mac) அல்லது Control + Shift + C (Windows, Linux, Chrome OS) அழுத்தவும்</string>
   <string name="playWithDgtBoard">டிஜிடி போர்டுடன் விளையாடுங்கள்</string>
   <string name="configure">கட்டமைக்கவும்</string>
 </resources>

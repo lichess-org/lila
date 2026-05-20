@@ -1,9 +1,10 @@
 import { defined, prop } from 'lib';
 import { throttle } from 'lib/async';
+import { pubsub, type PubsubEvents } from 'lib/pubsub';
+import type { ClientEval, PvData, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import type { AnalyseSocketSend } from './socket';
-import { pubsub } from 'lib/pubsub';
-import type { ClientEval, PvData, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
@@ -71,13 +72,17 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  private fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
+  private readonly fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
   upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
     this.upgradable(opts.upgradable);
-    pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
+    pubsub.on('socket.in.crowd', this.onCrowd);
   }
+
+  destroy = () => pubsub.off('socket.in.crowd', this.onCrowd);
+
+  private readonly onCrowd: PubsubEvents['socket.in.crowd'] = d => this.upgradable(d.nb > 2 && d.nb < 99999);
 
   onLocalCeval = throttle(500, () => {
     const node = this.opts.getNode(),
@@ -96,7 +101,7 @@ export default class EvalCache {
   });
 
   fetch = (path: TreePath, multiPv: number): void => {
-    if (document.visibilityState === 'hidden') return;
+    if (document.hidden) return;
     const node = this.opts.getNode();
     if ((node.ceval && node.ceval.cloud) || !this.opts.canGet()) return;
     const fetched = this.fetchedByFen.get(node.fen);
@@ -119,7 +124,7 @@ export default class EvalCache {
 
   clear = () => this.fetchedByFen.clear();
 
-  private fetchThrottled = throttle(700, (obj: EvalGetData) => {
+  private readonly fetchThrottled = throttle(700, (obj: EvalGetData) => {
     this.fetchedByFen.set(obj.fen, awaitingEval); // waiting for response
     this.opts.send('evalGet', obj);
   });

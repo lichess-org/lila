@@ -32,7 +32,7 @@ final class ChapterPreviewApi(
     chapterRepo: ChapterRepo,
     federationsOf: Federation.FedsOf,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Federation.Guess, Executor):
 
   import ChapterPreview.AsJsons
   import ChapterPreview.json.given
@@ -83,10 +83,10 @@ final class ChapterPreviewApi(
       chap.copy(
         players = chap.players.map:
           _.map: player =>
-            player.copy(fed = player.fideId.flatMap(federations.get))
+            player.copy(fed = player.fed orElse player.fideId.flatMap(federations.get))
       )
 
-  def fromChapter(chapter: Chapter) =
+  def fromChapter(chapter: Chapter)(using Federation.Guess) =
     import chapter.*
     ChapterPreview(
       id = id,
@@ -148,7 +148,7 @@ object ChapterPreview:
       "rootFen" -> "$root._.f"
     )
 
-    given BSONDocumentReader[ChapterPreview] =
+    given (using Federation.Guess): BSONDocumentReader[ChapterPreview] =
       BSONDocumentReader.option[ChapterPreview]: doc =>
         for
           id <- doc.getAsOpt[StudyChapterId]("_id")

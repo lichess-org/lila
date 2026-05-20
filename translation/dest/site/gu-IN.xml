@@ -124,7 +124,6 @@
   <string name="enable">સક્ષમ કરો</string>
   <string name="bestMoveArrow">શ્રેષ્ઠ ચાલ નિર્દેશ</string>
   <string name="showVariationArrows">વિવિધતા તીરો બતાવો</string>
-  <string name="evaluationGauge">મૂલ્યાંકન ગેજ</string>
   <string name="multipleLines">બહુવિધ લીટી</string>
   <string name="cpus">સીપીયુ</string>
   <string name="memory">મેમરી</string>
@@ -256,9 +255,6 @@
   <string name="emailCanTakeSomeTime">તેને પહોંચવામાં થોડો સમય લાગી શકે છે.</string>
   <string name="refreshInboxAfterFiveMinutes">5 મિનિટ રાહ જુઓ અને તમારા ઇમેઇલ ઇનબોક્સને તાજું કરો.</string>
   <string name="checkSpamFolder">તમારું સ્પામ ફોલ્ડર પણ તપાસો, તે ત્યાં જ સમાપ્ત થઈ શકે છે. જો એમ હોય, તો તેને સ્પામ નથી તરીકે ચિહ્નિત કરો.</string>
-  <string name="emailForSignupHelp">જો બીજું બધું નિષ્ફળ જાય, તો અમને આ ઇમેઇલ મોકલો:</string>
-  <string name="copyTextToEmail">ઉપરોક્ત ટેક્સ્ટ કોપી અને પેસ્ટ કરો અને તેને %s પર મોકલો</string>
-  <string name="waitForSignupHelp">તમારું સાઇનઅપ પૂર્ણ કરવામાં તમારી મદદ કરવા અમે ટૂંક સમયમાં તમારી પાસે પાછા આવીશું.</string>
   <string name="accountConfirmed">વપરાશકર્તા %s સફળતાપૂર્વક પુષ્ટિ થયેલ છે.</string>
   <string name="accountCanLogin">તમે હમણાં %s તરીકે લૉગિન કરી શકો છો.</string>
   <string name="accountConfirmationEmailNotNeeded">તમારે પુષ્ટિકરણ ઇમેઇલની જરૂર નથી.</string>
@@ -718,7 +714,6 @@
   <string name="keyCycleSelectedVariation">ચક્ર પસંદ કરેલ ભિન્નતા</string>
   <string name="keyShowOrHideComments">ટિપ્પણીઓ બતાવો/છુપાવો</string>
   <string name="keyEnterOrExitVariation">દાખલ/બહાર નીકળવાની વિવિધતા</string>
-  <string name="keyRequestComputerAnalysis">કમ્પ્યુટર વિશ્લેષણની વિનંતી કરો, તમારી ભૂલોમાંથી શીખો</string>
   <string name="keyPreviousBranch">પાછલી શાખા</string>
   <string name="keyNextBranch">આગામી શાખા</string>
   <string name="toggleVariationArrows">ભિન્નતા તીરો ટૉગલ કરો</string>
@@ -906,7 +901,6 @@
   <string name="agreementAssistance">હું સંમત છું કે મને મારી રમતો દરમિયાન (ચેસ કમ્પ્યુટર, પુસ્તક, ડેટાબેઝ અથવા અન્ય કોઈ વ્યક્તિ તરફથી) ક્યારેય સહાય મળશે નહીં.</string>
   <string name="agreementNice">હું સંમત છું કે હું હંમેશા અન્ય ખેલાડીઓ પ્રત્યે આદર રાખીશ.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">હું સંમત છું કે હું બહુવિધ એકાઉન્ટ્સ બનાવીશ નહીં (%s માં દર્શાવેલ કારણો સિવાય).</string>
-  <string name="agreementPolicy">હું સંમત છું કે હું લાઇચેસની બધી નીતિઓનું પાલન કરીશ.</string>
   <string name="searchOrStartNewDiscussion">નવી વાતચીત શોધો અથવા શરૂ કરો</string>
   <string name="edit">ફેરફાર કરો</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">અલ્ટ્રાબુલેટ</string>

@@ -4,6 +4,7 @@ import chess.ByColor
 import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class SwissDirector(
     mongo: SwissMongo,
@@ -75,7 +76,7 @@ final private class SwissDirector(
           logger.info(s"BBPairing ${from.id} $input")
           from.some
       }
-      .monSuccess(_.swiss.startRound)
+      .monSuccess(lila.mon.swiss.startRound)
 
   private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
     lila.core.game

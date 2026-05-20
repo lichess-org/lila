@@ -1,6 +1,6 @@
 function toInt(obj) {
   return function (prop) {
-    if (typeof obj[prop] != 'undefined') obj[prop] = NumberInt(obj[prop]);
+    if (typeof obj[prop] !== 'undefined') obj[prop] = NumberInt(obj[prop]);
   };
 }
 // db.tournament.find({_id:'fefNHKaL'}).forEach(function(tour) {

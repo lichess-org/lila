@@ -1,4 +1,5 @@
 import type { Chart } from 'chart.js';
+
 import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
 
 export interface PlyChart extends Chart<'line'> {

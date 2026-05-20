@@ -1,6 +1,6 @@
+import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
-import type { ColorChoice } from 'lib/setup/color';
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
@@ -12,7 +12,7 @@ export interface Variant {
   id: number;
   key: VariantKey;
   name: string;
-  icon: string;
+  icon: LiconType;
   description: string;
 }
 

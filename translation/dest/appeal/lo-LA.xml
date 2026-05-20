@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">ພວກເຮົາກຳນົດສິ່ງນີ້ວ່າແມ່ນການໃຊ້ວິທີການທີ່ບໍ່ຍຸດຕິທຳໃດໆ ເພື່ອໃຫ້ຕິດອັນດັບໃນຕາຕະລາງຜູ້ນຳ.</string>
   <string name="closedByModerators">ບັນຊີຂອງທ່ານຖືກປິດໂດຍຜູ້ດູແລລະບົບ.</string>
   <string name="hiddenBlog">ບລັອກຂອງທ່ານຖືກເຊື່ອງໄວ້ໂດຍຜູ້ດູແລລະບົບ.</string>
-  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">ກະລຸນາກວດສອບ ແລະ ອ່ານ %s ຂອງພວກເຮົາຄືນໃໝ່.</string>
+  <string name="hiddenBlogInfo">ກະລຸນາກວດສອບ ແລະ ອ່ານ %s ຂອງພວກເຮົາຄືນໃໝ່.</string>
   <string name="playTimeout">ທ່ານຖືກພັກການຫຼິ້ນຊົ່ວຄາວ.</string>
   <string name="communicationGuidelines">ຂໍ້ກຳນົດໃນການສື່ສານ</string>
-  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">ກົດລະບຽບຂອງບລັອກ</string>
+  <string name="blogRules">ກົດລະບຽບຂອງບລັອກ</string>
   <string name="fairPlay">ການຫຼິ້ນທີ່ຍຸດຕິທຳ</string>
 </resources>

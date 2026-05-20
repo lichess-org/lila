@@ -1,12 +1,13 @@
-import { onInsert, hl, initMiniGames } from 'lib/view';
-import type SimulCtrl from '../ctrl';
-import { title } from './util';
-import created from './created';
-import { richHTML } from 'lib/richText';
-import results from './results';
-import pairings from './pairings';
-import { watchers } from 'lib/view/watchers';
 import standaloneChat from 'lib/chat/standalone';
+import { richHTML } from 'lib/richText';
+import { onInsert, hl, initMiniGames } from 'lib/view';
+import { watchers } from 'lib/view/watchers';
+
+import type SimulCtrl from '../ctrl';
+import created from './created';
+import pairings from './pairings';
+import results from './results';
+import { title } from './util';
 
 export default function (ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);

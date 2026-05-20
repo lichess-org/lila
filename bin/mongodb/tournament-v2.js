@@ -56,7 +56,7 @@ function uid() {
 
 let it = 0;
 const max = cursor.count();
-let dat = new Date().getTime() / 1000;
+let dat = Date.now() / 1000;
 
 cursor.forEach(function (o) {
   dest.insert(mkTour(o));
@@ -64,11 +64,10 @@ cursor.forEach(function (o) {
   insertPairings(o);
 
   ++it;
-  if (it % batchSize == 0) {
+  if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const ms = Math.round(1000 * (dat2 - dat - pause / 1000));
-    const perSec = Math.round(batchSize / ms);
     dat = dat2;
     print(it + ' ' + percent + '% ' + ms + 'ms');
     sleep(pause);
@@ -106,7 +105,7 @@ function insertPairings(o) {
       u: p.u,
       t: int(p.t),
     };
-    if (p.w) n.w = p.w == p.u[0];
+    if (p.w) n.w = p.w === p.u[0];
     if (p.b1) n.b1 = int(p.b1);
     if (p.b2) n.b2 = int(p.b2);
     bulk.insert(n);
@@ -127,9 +126,9 @@ function mkTour(o) {
     createdBy: o.createdBy,
     startsAt: o.schedule ? o.schedule.at : o.createdAt,
   };
-  if (o.system && o.system != 1) n.system = int(o.system);
-  if (o.variant && o.variant != 1) n.variant = int(o.variant);
-  if (o.mode && o.mode != 1) n.mode = int(o.mode);
+  if (o.system && o.system !== 1) n.system = int(o.system);
+  if (o.variant && o.variant !== 1) n.variant = int(o.variant);
+  if (o.mode && o.mode !== 1) n.mode = int(o.mode);
   if (o.schedule)
     n.schedule = {
       freq: o.schedule.freq,

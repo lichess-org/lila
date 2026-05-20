@@ -1,8 +1,8 @@
-import * as xhr from 'lib/xhr';
-import { spinnerHtml } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
+import { spinnerHtml } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
-export function initModule(selector: string = '.infinite-scroll'): void {
+export function initModule(selector = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {
     register(this, selector);
   });

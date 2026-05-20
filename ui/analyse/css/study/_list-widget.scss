@@ -49,6 +49,7 @@
 
     .top {
       @extend %flex-center-nowrap, %break-word, %roboto;
+
       gap: 1rem;
 
       .study-name {
@@ -76,6 +77,7 @@
         flex: 0 0 auto;
         color: $m-primary_bg--mix-80;
         font-size: 3em;
+
         img {
           margin: 0;
         }
@@ -92,6 +94,17 @@
       .top::before {
         color: $c-link;
       }
+    }
+  }
+
+  .study-unfeature {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    z-index: 3;
+
+    .button {
+      padding: 0.3em 0.5em;
     }
   }
 }

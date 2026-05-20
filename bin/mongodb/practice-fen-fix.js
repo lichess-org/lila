@@ -23,7 +23,7 @@ const chapters = db.study_chapter
   .forEach(function (chapter) {
     const fen = chapter.root.f;
     const fixed = fixFen(fen);
-    if (fixed != fen) {
+    if (fixed !== fen) {
       print('Fix chapter FEN ' + chapter._id + ': ' + fixed);
       db.study_chapter.update(
         {
@@ -38,7 +38,7 @@ const chapters = db.study_chapter
     }
 
     const ply = makePly(fixed);
-    if (chapter.root.p != ply) {
+    if (chapter.root.p !== ply) {
       print('Fix chapter root ply ' + chapter._id);
       db.study_chapter.update(
         {

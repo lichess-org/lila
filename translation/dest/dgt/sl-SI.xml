@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Zahteve plošče DGT</string>
   <string name="dgtBoardLimitations">Omejitve DGT plošče</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ta stran vam omogoča, da svojo desko DGT povežete z Lichessom in jo uporabite za igranje iger.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Za povezavo z elektronsko ploščo DGT boste morali namestiti %s.</string>
+  <string name="toConnectTheDgtBoard">Za povezavo z elektronsko ploščo DGT boste morali namestiti %s.</string>
   <string name="downloadHere">Programsko opremo lahko prenesete tukaj: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Če se %1$s izvaja v tem računalniku, lahko preverite povezavo z njim do %2$s.</string>
   <string name="openingThisLink">odpiranje te povezave</string>
@@ -18,8 +18,8 @@
   <string name="whenReadySetupBoard">Ko ste pripravljeni, nastavite svojo ploščo in kliknite %s.</string>
   <string name="ifMoveNotDetected">Če poteza ni zaznana</string>
   <string name="checkYouHaveMadeOpponentsMove">Najprej preverite, ali ste izvedli nasprotnikovo potezo na plošči DGT. Povrni svojo potezo. Igraj ponovno.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">V skrajnem primeru nastavite ploščo enako kot Lichess, nato %s</string>
-  <string name="reloadThisPage">Ponovno naloži to stran</string>
+  <string name="asALastResort">V skrajnem primeru nastavite ploščo enako kot Lichess, nato %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Ponovno naloži to stran</string>
   <string name="dgtConfigure">DGT - Konfiguriraj</string>
   <string name="lichessConnectivity">Lichess povezljivost</string>
   <string name="validDgtOauthToken">Imate žeton OAuth, primeren za igranje DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Ključne besede so v formatu JSON. Uporabljajo se za prevajanje potez in rezultatov v vaš jezik. Privzeto je angleščina, vendar jo lahko spremenite.</string>
   <string name="debug">Razhroščevanje</string>
   <string name="verboseLogging">Podrobno vodenje dnevnika</string>
-  <string name="toSeeConsoleMessage">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Igrajte s ploščo DGT</string>
   <string name="configure">Nastavi</string>
 </resources>

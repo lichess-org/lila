@@ -3,17 +3,15 @@ package lila.clas
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
-import lila.core.security.{ Hcaptcha, HcaptchaForm }
 import lila.clas.Student.RealName
+import lila.mon.extensions.*
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
-    signupForm: lila.core.security.SignupForm,
-    nameGenerator: NameGenerator,
-    hcaptcha: Hcaptcha
+    signupForm: lila.core.security.SignupFormFields,
+    nameGenerator: NameGenerator
 )(using Executor):
 
   import ClasForm.*
@@ -35,8 +33,6 @@ final class ClasForm(
         "hasTeam" -> boolean
       )(ClasData.apply)(unapply)
 
-    def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
-
     def edit(c: Clas): Form[ClasData] = form.fill:
       ClasData(
         name = c.name,
@@ -54,7 +50,7 @@ final class ClasForm(
 
     val create: Form[CreateStudent] = Form:
       mapping(
-        "create-username" -> signupForm.username,
+        "create-username" -> signupForm.uniqueUsername,
         "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 

@@ -11,7 +11,7 @@
   <string name="howAreScoresCalculatedAnswer">En seier gir to basispoeng, en remis ett poeng og et tap null poeng. Vinner du to partier på rad startes en dobbelpoeng-serie som illustreres ved hjelp av et flammelignende ikon. Etterfølgende partier er da verd doble poeng inntil du mislykkes i å vinne et parti. Dette innebærer at en seier er verdt fire poeng, en remis to poeng og et tap null poeng.
 
 Eksempelvis gir to seire etterfulgt av en remis seks poeng: 2 + 2 + (2 *1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
   <string name="berserkAnswer">Dersom en spiller klikker Berserk-knappen ved spillestart, halveres spillerens betenkningstid, men til gjengjeld vil en eventuell seier gi ett ekstra turneringspoeng. For tidskontroller med tidstillegg vil det å gå Berserk dessuten medføre at tidstillegget mistes. 
 (Unntaket er 1+2, det gir 1+0)
 
@@ -61,7 +61,7 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket lag vil du spille for i denne kampen?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du må bli med i et av disse lagene for å kunne delta!</string>
   <string name="created">Opprettet</string>
-  <string name="recentlyPlayed">Nylig spilt</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Nylig spilt</string>
   <string name="bestResults">Beste resultater</string>
   <string name="tournamentStats">Turneringsstatistikk</string>
   <string name="rankAvgHelp">Prosentrangering er plasseringen din uttrykt som en prosentverdi. Lavere er bedre.

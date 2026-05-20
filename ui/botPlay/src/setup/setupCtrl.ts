@@ -1,12 +1,13 @@
-import type { Bot, BotOpts } from '../interfaces';
-import { type BotInfo } from 'lib/bot/types';
-import { Game } from '../game';
 import { type Prop, prop, propWithEffect } from 'lib';
-import { type TimeControl, timeControlFromStoredValues } from 'lib/setup/timeControl';
-import { storedJsonProp } from 'lib/storage';
+import { type BotInfo } from 'lib/bot/types';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import { type TimeControl, timeControlFromStoredValues } from 'lib/setup/timeControl';
+import { storedJsonProp } from 'lib/storage';
 import type { Dialog } from 'lib/view';
+
+import { Game } from '../game';
+import type { Bot, BotOpts } from '../interfaces';
 
 interface Settings {
   color: ColorChoice;
@@ -66,7 +67,7 @@ export default class SetupCtrl {
     this.start(this.selectedBot, this.color(), clockConfig(this.timeControl));
   };
 
-  private saveSettings = () => {
+  private readonly saveSettings = () => {
     this.settings({
       color: this.color(),
       clock: this.timeControl.mode() === 'realTime',

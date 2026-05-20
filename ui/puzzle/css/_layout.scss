@@ -26,6 +26,7 @@ $puzzle-block-gap: $block-gap;
 
   &__side {
     @extend %zen;
+
     grid-area: side;
   }
 
@@ -39,11 +40,13 @@ $puzzle-block-gap: $block-gap;
 
   &__controls {
     @extend %zen;
+
     grid-area: controls;
   }
 
   &__session {
     @extend %zen;
+
     grid-area: session;
     align-self: start;
   }

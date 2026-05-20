@@ -18,6 +18,10 @@ final private class FideRepo(
 
   object player:
     given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
+    given BSONHandler[FidePlayer.Gender] = quickHandler(
+      { case BSONString(g) if g.nonEmpty => FidePlayer.Gender(g.head) },
+      g => BSONString(g.toString)
+    )
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)

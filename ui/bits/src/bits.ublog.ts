@@ -1,7 +1,7 @@
-import * as xhr from 'lib/xhr';
-import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
-import { throttlePromiseDelay } from 'lib/async';
 import { escapeHtml } from 'lib';
+import { throttlePromiseDelay } from 'lib/async';
+import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -10,16 +10,16 @@ site.load.then(() => {
     throttlePromiseDelay(
       () => 1000,
       async function (this: HTMLButtonElement) {
-        const button = $(this),
-          likeClass = 'ublog-post__like--liked',
-          liked = !button.hasClass(likeClass);
+        const button = $(this);
+        const likeClass = 'ublog-post__like--liked';
+        const liked = !button.hasClass(likeClass);
         return await xhr
           .text(`/ublog/${button.data('rel')}/like?v=${liked}`, {
             method: 'post',
           })
           .then(likes => {
             const label = $('.ublog-post__like .button-label');
-            const newText = label.data(`i18n-${liked ? 'unlike' : 'like'}`);
+            const newText = liked ? i18n.site.liked : i18n.site.like;
             label.text(newText);
             $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
             $('.ublog-post__like__nb').text(likes);
@@ -27,18 +27,24 @@ site.load.then(() => {
       },
     ),
   );
-  $('.ublog-post__follow button').on(
+  $('.ublog-post__follow').on(
     'click',
     throttlePromiseDelay(
       () => 1000,
       async function (this: HTMLButtonElement) {
-        const button = $(this),
-          followClass = 'followed';
+        const button = $(this);
+        const followClass = 'ublog-post__follow__followed';
+        const followed = !button.hasClass(followClass);
         return await xhr
           .text(button.data('rel'), {
             method: 'post',
           })
-          .then(() => button.parent().toggleClass(followClass));
+          .then(() => {
+            button.toggleClass(followClass);
+            const label = button.find('.button-label');
+            const username = label.data('username');
+            label.text(followed ? i18n.site.unfollowX(username) : i18n.site.followX(username));
+          });
       },
     ),
   );
@@ -123,12 +129,12 @@ function rewireModPost() {
       submitBtn.disabled = false;
     }),
   );
-  submitBtn.addEventListener('click', () => {
+  submitBtn.addEventListener('click', async () => {
     const form: Record<string, any> = {};
     for (const input of submitFields.querySelectorAll<HTMLInputElement>('input')) {
       form[input.id] = input.type === 'checkbox' ? input.checked : input.value;
     }
-    submit(form);
+    await submit(form);
   });
   modTools
     .querySelector<HTMLElement>('.carousel-add-btn')
@@ -138,7 +144,7 @@ function rewireModPost() {
     ?.addEventListener('click', () => submit({ featured: false }));
   modTools.querySelector<HTMLElement>('.carousel-pin-btn')?.addEventListener('click', async () => {
     const days = await prompt('How many days?', '7', (n: string) => Number(n) > 0 && Number(n) < 31);
-    if (days) submit({ featured: true, featuredUntil: Number(days) });
+    if (days) await submit({ featured: true, featuredUntil: Number(days) });
   });
   assessBtn.addEventListener('click', async () => {
     assessBtn.insertAdjacentHTML('afterend', spinnerHtml);

@@ -9,6 +9,7 @@ import lila.core.misc.mailer.*
 import lila.core.notify.NotifyApi
 import lila.db.dsl.{ *, given }
 import lila.user.UserRepo
+import lila.mon.extensions.*
 
 final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyApi: NotifyApi)(using
     Executor,
@@ -26,7 +27,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .map { Bus.pub(_) }
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
-      .monSuccess(_.round.correspondenceEmail.time)
+      .monSuccess(lila.mon.round.correspondenceEmail.time)
 
   private def opponentStream =
     notifyApi.prefColl

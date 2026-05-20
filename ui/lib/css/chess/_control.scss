@@ -9,6 +9,7 @@
   .fbt {
     @extend %box-radius-bottom;
     @include prevent-select;
+
     -webkit-touch-callout: none;
     text-align: center;
   }
@@ -30,11 +31,13 @@
       &[data-act='last'] {
         font-size: 0.7em;
       }
+
       &[data-act='line'] {
         font-size: 0.9em;
       }
     }
   }
+
   @include mq-is-col1 {
     .jumps .fbt[data-act='prev'],
     .jumps .fbt[data-act='next'] {
@@ -42,6 +45,7 @@
       font-size: 1.2em;
     }
   }
+
   @media (hover: hover) {
     .jumps .fbt:hover:not(.disabled, :disabled) {
       background-color: $m-primary_bg--mix-30;

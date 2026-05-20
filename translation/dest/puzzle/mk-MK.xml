@@ -12,7 +12,6 @@
   <string name="origin">Потекло</string>
   <string name="specialMoves">Специјални потези</string>
   <string name="didYouLikeThisPuzzle">Дали Ви се допадна оваа загатка?</string>
-  <string name="voteToLoadNextOne">Гласај и премини на наредната!</string>
   <string name="yourPuzzleRatingWillNotChange">Вашиот рејтинг нема да се промени. Имајте на ум дека загатките не се натпреварување. Вашиот рејтинг помага во изборот на најсоодветните загатки за вашата моментална вештина.</string>
   <string name="findTheBestMoveForWhite">Најди го најдобриот потег на белиот.</string>
   <string name="findTheBestMoveForBlack">Најди го најдобриот потег на црниот.</string>
@@ -80,6 +79,6 @@
   </plurals>
   <string name="percentSolved">%s решени</string>
   <string name="noPuzzlesToShow">Нема што да се покаже овде, прво одиграјте неколку загатки!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
+  <string name="improvementAreasDescription">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
   <string name="strengthDescription">Најдобро играте во овие теми</string>
 </resources>

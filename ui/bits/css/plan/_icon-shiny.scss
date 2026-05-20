@@ -5,24 +5,27 @@
 }
 
 .patron-icon--shiny {
-  i {
+  icon {
     @extend %data-icon;
   }
-  i::before {
+
+  icon::before {
     content: $licon-Wings !important;
     background-clip: text;
     color: transparent;
   }
+
   @each $id, $color in $patron-colors-dark {
     &--#{$id} {
-      i::before {
+      icon::before {
         @include dynamic-text-gradient($color);
       }
     }
   }
+
   @each $id, $color in $patron-colors-light {
     html.light &--#{$id} {
-      i::before {
+      icon::before {
         @include dynamic-text-gradient($color);
       }
     }

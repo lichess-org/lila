@@ -1,6 +1,7 @@
 import { dragNewPiece } from '@lichess-org/chessground/drag';
-import type AnalyseCtrl from '../ctrl';
 import type { MouchEvent } from '@lichess-org/chessground/types';
+
+import type AnalyseCtrl from '../ctrl';
 
 export function drag(ctrl: AnalyseCtrl, color: Color, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click

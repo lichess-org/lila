@@ -95,6 +95,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Hvid / Remis / Sort</string>
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
+  <string name="minRatingX">Minimum rating på %s</string>
+  <string name="maxRatingX">Maksimal rating på %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
   <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
@@ -126,14 +128,20 @@
   <string name="enable">Aktivér</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
-  <string name="evaluationGauge">Evalueringsindikator</string>
   <string name="visualMotifs">Visuelle motiver</string>
   <string name="undefendedPieces">Uforsvarede brikker</string>
   <string name="pinnedPieces">Bundne brikker</string>
   <string name="checkableKing">Konge der kan sættes i skak</string>
   <string name="multipleLines">Flere linjer</string>
+  <string name="multipleLinesDescription">Angiv antal evalueringslinjer og trækpile på brættet</string>
+  <string name="searchTime">Søgetid</string>
+  <string name="searchTimeDescription">Indstil tid til evaluering af friske positioner</string>
+  <string name="threads">Tråde</string>
+  <string name="threadsDescription">Indstil dette til under din CPU\'s trådantal, afkrydsningerne markerer er et godt og sikkert valg</string>
+  <string name="threadsDescriptionMobile">Flere tråde vil bruge mere batteri til bedre analyse</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
+  <string name="memoryDescription">Højere værdier kan forbedre ydeevnen</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
   <string name="blunder">Brøler</string>
@@ -261,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
   <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
-  <string name="emailForSignupHelp">Hvis alt andet mislykkes, så send os denne e-mail:</string>
-  <string name="copyTextToEmail">Kopier og indsæt ovenstående tekst og send det til %s</string>
-  <string name="waitForSignupHelp">Vi vil snart vende tilbage til dig for at hjælpe dig med at fuldføre din tilmelding.</string>
+  <string name="sendEmailForAccountVerification">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
   <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
   <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du behøver ikke en bekræftelsesmail.</string>
@@ -519,6 +525,7 @@
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
+  <string name="randomChess960Position">Tilfældig Chess960-position</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="loadPosition">Indlæs stilling</string>
@@ -595,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
+  <string name="clearField">Ryd felt</string>
+  <string name="orSeparator">Eller</string>
+  <string name="logInByEmail">Log ind via e-mail</string>
   <string name="emailMeALink">E-mail mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>
@@ -721,7 +731,6 @@
   <string name="keyCycleSelectedVariation">Gennemgå den valgte variant</string>
   <string name="keyShowOrHideComments">vis/skjul kommentar</string>
   <string name="keyEnterOrExitVariation">Start/slut variant</string>
-  <string name="keyRequestComputerAnalysis">Anmod om computeranalyse, Lær af dine fejl</string>
   <string name="keyPreviousBranch">Forrige gren</string>
   <string name="keyNextBranch">Næste gren</string>
   <string name="toggleVariationArrows">Slå variantpile til/fra</string>
@@ -910,7 +919,6 @@
   <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
   <string name="agreementNice">Jeg lover, at jeg altid vil være respektfuld mod andre spillere.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jeg er indforstået med, at jeg ikke opretter flere konti (undtagen af de grunde, der er angivet i %s).</string>
-  <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -934,6 +942,7 @@
   <string name="tryTheContactPage">prøv kontakt-siden</string>
   <string name="makeSureToRead">Sørg for at læse %1$s</string>
   <string name="theForumEtiquette">forummets etikette</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Hold en god tone i forummet.</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>
@@ -1023,6 +1032,7 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søg</string>
   <string name="clearSearch">Ryd søgning</string>
+  <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>
 </resources>

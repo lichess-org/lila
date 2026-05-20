@@ -29,7 +29,6 @@
   <string name="botPlay">Leika skákir með forritaskil þjarka</string>
   <string name="engineRead">Skoða og nota útværu skákforritin þín</string>
   <string name="engineWrite">Búa til og uppfæra útvær skákforrit</string>
-  <string name="webLogin">Búa til sannvottaðar vefsíðulotur (veitir ótakmarkaðan aðgang!)</string>
   <string name="webMod">Nota gæslutól (innan marka leyfis þíns)</string>
   <string name="personalAccessTokens">Persónulegir aðgangstókar fyrir forritaskil</string>
   <string name="canMakeOauthRequests">Þú getur gert OAuth-beiðnir án þess að fara í gegnum %s.</string>

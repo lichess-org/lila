@@ -8,6 +8,7 @@ import lila.core.round.{ Abandon, RoundBus }
 import lila.db.dsl.*
 import lila.game.GameExt.abandoned
 import lila.game.{ GameRepo, Query }
+import lila.mon.extensions.*
 
 /*
  * Cleans up unfinished games
@@ -47,14 +48,13 @@ final private class Titivate(
           .documentSource(100)
           .via(gameRead)
           .via(gameFlow)
-          .toMat(LilaStream.sinkCount)(Keep.right)
-          .run()
+          .runWith(LilaStream.sinkCount)
         _ = lila.mon.round.titivate.game.record(done)
         old <- gameRepo.countSec(_.checkableOld)
       yield lila.mon.round.titivate.old.record(old)
 
       run
-        .monSuccess(_.round.titivate.time)
+        .monSuccess(lila.mon.round.titivate.time)
         .logFailure(logBranch)
         .addEffectAnyway(scheduleNext())
 

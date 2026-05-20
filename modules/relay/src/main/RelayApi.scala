@@ -347,7 +347,8 @@ final class RelayApi(
           ("startedAt", _.startedAt),
           ("finishedAt", _.finishedAt),
           ("customScoring", _.customScoring),
-          ("teamCustomScoring", _.teamCustomScoring)
+          ("teamCustomScoring", _.teamCustomScoring),
+          ("fideTCOverride", _.fideTCOverride)
         )
         _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
@@ -358,6 +359,9 @@ final class RelayApi(
         _ <- (!round.isFinished && updated.startsAt != from.startsAt).so:
           autoStart(round.id.some)
       yield
+        if round.ratingAndScoringFields != from.ratingAndScoringFields then
+          players.invalidate(round.tourId)
+          teamLeaderboard.invalidate(round.tourId)
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
           .foreach: event =>
@@ -556,7 +560,7 @@ final class RelayApi(
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one($id(studyId.into(RelayRoundId))).void
 
-  private[relay] def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
+  def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
     roundRepo
       .tourIdByStudyId(studyId)
       .flatMapz: tourId =>

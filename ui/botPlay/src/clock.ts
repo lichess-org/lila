@@ -1,6 +1,7 @@
 import type { SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import type { DateMillis } from './interfaces';
+
 import type { Game } from './game';
+import type { DateMillis } from './interfaces';
 
 export const computeClockState = (g: Game): ClockState | undefined => {
   const config = g.clockConfig;

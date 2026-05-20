@@ -12,7 +12,6 @@
   <string name="origin">မူလ</string>
   <string name="specialMoves">အထူးကွက်များ</string>
   <string name="didYouLikeThisPuzzle">ဤပုစ္ဆာကို သင် သဘောကျပါသလား?</string>
-  <string name="voteToLoadNextOne">လာမည့် ပုစ္ဆာ အတွက် ဆန္ဒပြုပါ!</string>
   <string name="yourPuzzleRatingWillNotChange">သင့်၏ ရှာကွက်အမှတ် များလျော့သွားမည် မဟုတ်ပါ။ ရှာကွက်များသည် ပြိုင်ဆိုင်ခြင်း မဟုတ်သည်ကို သင်သိဖို့လိုသည်။ သင်၏လက်ရှိ အမှတ်များကို အသုံးပြု၍ သင့်အဆင့်နှင့်ကိုက်ညီသော အကောင်းဆုံးသော ရှာကွက်ပုစ္ဆာများ ကိုပေးရန်အတွက်သာဖြစ်သည်။.</string>
   <string name="findTheBestMoveForWhite">အဖြူ အတွက် အကောင်းဆုံး ရွှေ့ကွက်ကို ရှာပါ</string>
   <string name="findTheBestMoveForBlack">အနက် အတွက် အကောင်းဆုံး ရွှေ့ကွက်ကို ရှာပါ</string>
@@ -73,5 +72,5 @@
   </plurals>
   <string name="percentSolved">%s ပုဒ် ဖြေရှင်းခဲ့သည်</string>
   <string name="noPuzzlesToShow">ပြစရာဘာမှမရှိ၊ ရှာကွက်ပုစ္ဆာများ သွား၍ဖြေရှင်းပါ!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">တိုးတက်ဖို့ ဤအရာများလေ့ကျင့်ပါ!</string>
+  <string name="improvementAreasDescription">တိုးတက်ဖို့ ဤအရာများလေ့ကျင့်ပါ!</string>
 </resources>

@@ -38,7 +38,7 @@
   <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
 Bạn có thể dùng chức năng này để gọi các kỳ thủ đến tham gia một giải đấu hoặc giải đa đội.
 Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ rời khỏi đội.</string>
-  <string name="teamsIlead">Tôi làm chỉ huy của những đội</string>
+  <string name="teamsIlead">Những đội tôi đang chỉ huy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
   <string name="leadersChat">Chỉ huy trò chuyện</string>
   <string name="introduction">Giới thiệu</string>

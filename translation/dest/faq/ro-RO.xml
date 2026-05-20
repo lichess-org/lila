@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">De se cheamă Lichess așa?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess e o combinație între live/light/liber și șah. E pronunțat %1$s.</string>
   <string name="leechess">lii-ces</string>
-  <string name="hearItPronouncedBySpecialist">Auziți-l pronunțat de un specialist.</string>
+  <string name="hearItPronouncedBySpecialist">Auziți-l pronunțat de un expert.</string>
   <string name="whyLiveLightLibre">Live, pentru că jocurile sunt jucate și urmărite în timp real 24/7; light și liber pentru că Lichess e open-source și neîngreunat de prostii proprietare care afectează alte websiteuri.</string>
   <string name="whyIsLilaCalledLila">De asemenea, codul sursă pentru Lichess, %1$s, vine de la li[șah în sca]la, considerând că cea mai mare parte din Lichess e scrisă în %2$s, un limbaj de programare intuitiv.</string>
   <string name="howCanIContributeToLichess">Cum pot contribui la Lichess?</string>
@@ -149,8 +149,8 @@ Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedic
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
   <string name="desktop">desktop</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
-2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
+  <string name="enableAutoplayForSoundsFirefox">1. Deschideți lichess.org
+2. Apăsați Ctrl-i în Linux/Windows sau cmd-i în MacOS
 3. Faceți clic pe fila Permisiuni
 4. Permiteți audio și video pe lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Mergeți la lichess.org

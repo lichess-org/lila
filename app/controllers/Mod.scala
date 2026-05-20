@@ -1,10 +1,10 @@
 package controllers
 
+import scala.annotation.nowarn
+
 import alleycats.Zero
 import play.api.libs.json.Json
 import play.api.mvc.*
-
-import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -15,6 +15,7 @@ import lila.core.security.FingerHash
 import lila.core.userId.ModId
 import lila.mod.{ Modlog, ModUserSearch }
 import lila.report.{ Mod as AsMod, Suspect }
+import lila.mon.extensions.*
 
 final class Mod(
     env: Env,
@@ -253,26 +254,28 @@ final class Mod(
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
-          .mon(_.mod.comm.segment("recentPovs"))
+          .mon(lila.mon.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
             (
-              env.api.modTimeline.load(user, withPlayBans = false).mon(_.mod.comm.segment("modTimeline")),
+              env.api.modTimeline
+                .load(user, withPlayBans = false)
+                .mon(lila.mon.mod.comm.segment("modTimeline")),
               priv.so:
                 env.chat.api.playerChat
                   .optionsByOrderedIds(povs.map(_.gameId.into(ChatId)))
-                  .mon(_.mod.comm.segment("playerChats"))
+                  .mon(lila.mon.mod.comm.segment("playerChats"))
               ,
               priv.so:
                 env.msg.api
                   .recentByForMod(user, 30)
-                  .mon(_.mod.comm.segment("pms"))
+                  .mon(lila.mon.mod.comm.segment("pms"))
               ,
               env.shutup.api
                 .getPublicLines(user.id)
-                .mon(_.mod.comm.segment("publicChats")),
+                .mon(lila.mon.mod.comm.segment("publicChats")),
               env.report.api.inquiries
                 .ofModId(me.id)
-                .mon(_.mod.comm.segment("inquiries")),
+                .mon(lila.mon.mod.comm.segment("inquiries")),
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
               }
@@ -370,22 +373,10 @@ final class Mod(
           views.mod.gamify.period(_, period)
   }
 
-  def activity = activityOf("team", "month")
-
-  def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me ?=>
-    Ok.async:
-      env.mod.activity(who, period)(me.user).map(views.mod.ui.activity(_))
-  }
-
-  def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    Ok.async:
-      env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
-  }
-
   def search = SecureOrScopedBody(_.UserSearch) { ctx ?=> me ?=>
     negotiate(
       bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm),
-      get("q").so(q => JsonOk(env.mod.search.apiSearch(q)))
+      get("q").so(q => JsonOk(env.mod.search.apiSearch(q, getBool("closed"))))
     )
   }
 
@@ -458,7 +449,7 @@ final class Mod(
   def freePatron(username: UserStr) = Secure(_.FreePatron) { _ ?=> me ?=>
     Found(env.user.repo.enabledById(username)): dest =>
       for
-        _ <- env.plan.api.freeMonth(dest)
+        _ <- env.plan.api.freeMonths(dest, 1)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
         _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
@@ -470,7 +461,7 @@ final class Mod(
   }
 
   def permissions(username: UserStr) = Secure(_.LichessTeam) { _ ?=> me ?=>
-    Found(env.user.repo.byId(username)): user =>
+    Found(meOrFetch(username)): user =>
       if user.is(me) || isGranted(_.ChangePermission)
       then Ok.page(views.mod.permissions(user))
       else notFound
@@ -497,7 +488,7 @@ final class Mod(
       )
   }
 
-  def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
+  def emailConfirmGet = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
       case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
@@ -511,8 +502,8 @@ final class Mod(
             .flatMap:
               case List(lila.user.WithPerfsAndEmails(user, _)) =>
                 for
-                  _ <- (!user.everLoggedIn).so:
-                    lila.mon.user.register.modConfirmEmail.increment()
+                  _ <- user.everLoggedIn.not.so:
+                    lila.mon.user.register.modConfirmEmail(by = "mod", "success").increment()
                     api.setEmail(user.id, setEmail.some)
                   email <- env.user.repo.email(user.id)
                   page <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
@@ -524,6 +515,19 @@ final class Mod(
               .orElse(username.so { tryWith(em, _) })
               .recover(lila.db.recoverDuplicateKey(_ => none))
           .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
+  }
+
+  def emailConfirmApi = SecuredScopedBody(_.SetEmail)(_.Web.Mod) { ctx ?=> me ?=>
+    bindForm(env.security.emailConfirmByUserSend.workerForm)(
+      jsonFormError,
+      data =>
+        env.security.emailConfirmByUserSend
+          .process(data)
+          .flatMap:
+            _.fold(fuccess(BadRequest)): (user, email) =>
+              for _ <- api.setEmail(user.id, email.some)
+              yield NoContent
+    )
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>

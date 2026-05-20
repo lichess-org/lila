@@ -25,14 +25,32 @@ object String:
   def isShouting(text: String) =
     text.lengthIs >= 5 && {
       import java.lang.Character.*
-      // true if >1/2 of the latin letters are uppercase
-      text.take(80).replace("O-O", "o-o").foldLeft(0) { (i, c) =>
-        getType(c) match
-          case UPPERCASE_LETTER => i + 1
-          case LOWERCASE_LETTER => i - 1
-          case _ => i
-      } > 0
+      import chess.format.Fen
+      import chess.variant.Crazyhouse
+      // true if >1/2 of the latin letters are uppercase (or castling notation / fen board field)
+      text
+        .take(1000)
+        .split("\\s+")
+        .filter(_.nonEmpty)
+        .map(word =>
+          if Set("O-O", "O-O-O").contains(word.filter(c => c.isLetter || c == '-')) || (
+              word.length < 100 &&
+                Set(8, 9).contains(word.split('/').count(_.nonEmpty)) &&
+                Fen.makeBoard(Crazyhouse, word).isDefined
+            )
+          then word.toLowerCase
+          else word
+        )
+        .mkString
+        .take(80)
+        .foldLeft(0) { (i, c) =>
+          getType(c) match
+            case UPPERCASE_LETTER => i + 1
+            case LOWERCASE_LETTER => i - 1
+            case _ => i
+        } > 0
     }
+
   def noShouting(str: String): String = if isShouting(str) then str.toLowerCase else str
 
   val atUsernameRegex = RawHtml.atUsernameRegex
@@ -76,17 +94,3 @@ object String:
             .map: (k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
-
-  object charset:
-    import akka.util.ByteString
-    import com.ibm.icu.text.CharsetDetector
-
-    def guessAndDecode(str: ByteString): String =
-      str.decodeString(guess(str) | "UTF-8")
-
-    def guess(str: ByteString): Option[String] =
-      Option:
-        val cd = new CharsetDetector
-        cd.setText(str.take(10000).toArray)
-        cd.detect()
-      .map(_.getName)

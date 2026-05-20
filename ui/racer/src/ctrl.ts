@@ -1,16 +1,24 @@
-import config from './config';
-import CurrentPuzzle from 'lib/puz/current';
+import { parseUci } from 'chessops/util';
+
+import { type Prop, defined, prop } from 'lib';
 import { throttle } from 'lib/async';
-import { Boost } from './boost';
+import { type WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
-import { Countdown } from './countdown';
-import { getNow, puzzlePov, sound } from 'lib/puz/util';
-import { makeCgOpts } from 'lib/puz/run';
-import { parseUci } from 'chessops/util';
-import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
-import { type Prop, defined, prop } from 'lib';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { makeCgOpts } from 'lib/puz/run';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
+import { wsConnect, wsSend } from 'lib/socket';
+import { storedBooleanProp } from 'lib/storage';
+import { toggleZenMode } from 'lib/view/zen';
+
+import { Boost } from './boost';
+import config from './config';
+import { Countdown } from './countdown';
 import type {
   RacerOpts,
   RacerData,
@@ -21,16 +29,10 @@ import type {
   RaceStatus,
   Vehicle,
 } from './interfaces';
-import { storedBooleanProp } from 'lib/storage';
-import { PromotionCtrl } from 'lib/game/promotion';
-import { wsConnect, wsSend } from 'lib/socket';
-import { pubsub } from 'lib/pubsub';
-import { type WithGround } from 'lib/game/ground';
-import { toggleZenMode } from 'lib/view/zen';
 
 export default class RacerCtrl implements PuzCtrl {
-  private data: RacerData;
-  private sign = Math.random().toString(36);
+  private readonly data: RacerData;
+  private readonly sign = Math.random().toString(36);
   private localScore = 0;
   race: Race;
   pref: RacerPrefs;
@@ -215,7 +217,7 @@ export default class RacerCtrl implements PuzCtrl {
     pubsub.emit('ply', this.run.moves);
   };
 
-  private makeVehicles = (raceId: string): Vehicle[] => {
+  private readonly makeVehicles = (raceId: string): Vehicle[] => {
     const vehicle = [];
     for (let c = 0; c < 10; c++) {
       let h = 0;
@@ -226,19 +228,19 @@ export default class RacerCtrl implements PuzCtrl {
     return vehicle;
   };
 
-  private redrawQuick = () => setTimeout(this.redraw, 100);
-  private redrawSlow = () => setTimeout(this.redraw, 1000);
+  private readonly redrawQuick = () => setTimeout(this.redraw, 100);
+  private readonly redrawSlow = () => setTimeout(this.redraw, 1000);
 
-  private cgOpts = () =>
+  private readonly cgOpts = () =>
     this.isPlayer()
       ? makeCgOpts(this.run, this.isRacing(), this.flipped)
       : {
           orientation: this.run.pov,
         };
 
-  private setGround = () => this.withGround(g => g.set(this.cgOpts()));
+  private readonly setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
-  private incPuzzle = (win: boolean): boolean => {
+  private readonly incPuzzle = (win: boolean): boolean => {
     this.pushToHistory(win);
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
@@ -248,7 +250,7 @@ export default class RacerCtrl implements PuzCtrl {
     return false;
   };
 
-  private pushToHistory = (win: boolean) =>
+  private readonly pushToHistory = (win: boolean) =>
     this.run.history.push({
       puzzle: this.data.puzzles[this.run.current.index],
       win,
@@ -266,12 +268,12 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = <K extends 'racerScore' | 'racerStart' | 'racerJoin'>(
+  private readonly socketSend = <K extends 'racerScore' | 'racerStart' | 'racerJoin'>(
     tpe: K,
     data: K extends 'racerScore' ? number : undefined,
   ) => wsSend(tpe, data, { sign: this.sign, ackable: false });
 
-  private toggleZen = () => pubsub.emit('zen');
+  private readonly toggleZen = () => pubsub.emit('zen');
 
-  private hotkeys = () => site.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
+  private readonly hotkeys = () => site.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

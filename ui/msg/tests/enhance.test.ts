@@ -1,7 +1,8 @@
-import { describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { enhance, imgurRegex } from '../src/view/enhance';
+import { describe } from 'node:test';
+
 import { each } from '../../.test/helpers.mts';
+import { enhance, imgurRegex } from '../src/view/enhance';
 
 describe('test imgur matching', () => {
   each<[string, string]>([
@@ -11,7 +12,7 @@ describe('test imgur matching', () => {
     assert.strictEqual(imgurRegex.test(input), true);
     assert.strictEqual(
       enhance(input),
-      `<a target="_blank" rel="nofollow noreferrer" href="${link}"><img src="${link}"/></a>`,
+      `<a target="_blank" rel="nofollow noreferrer" href="${link}"><img src="${link}" alt="${link}"/></a>`,
     );
   });
 

@@ -12,7 +12,6 @@ case class Who(u: UserId, sri: lila.core.socket.Sri):
   def myId = u.into(MyId)
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
 case class Kick(studyId: StudyId, userId: UserId, who: MyId)
-case class BecomeStudyAdmin(studyId: StudyId, me: Me)
 case class IsOfficialRelay(studyId: StudyId, promise: Promise[Boolean])
 
 case class AddNode(

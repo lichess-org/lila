@@ -1,11 +1,12 @@
-import { prev } from '@/control';
-import type AnalyseCtrl from '@/ctrl';
-import { requestIdleCallback } from 'lib';
-import * as licon from 'lib/licon';
-import { throttle } from 'lib/async';
-import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 import { h, type Hooks, type VNode } from 'snabbdom';
+
+import { requestIdleCallbackSafe } from 'lib';
+import { throttle } from 'lib/async';
+import * as licon from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
+import { iconTag, bind, type MaybeVNodes } from 'lib/view';
+
+import type AnalyseCtrl from '@/ctrl';
 
 export const running = (ctrl: AnalyseCtrl): boolean =>
   !!ctrl.study &&
@@ -16,7 +17,7 @@ export const running = (ctrl: AnalyseCtrl): boolean =>
 export function render(ctrl: AnalyseCtrl): VNode {
   const study = ctrl.study!,
     isMyMove = ctrl.turnColor() === ctrl.data.orientation,
-    isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2),
+    isCommented = (ctrl.node.comments || []).some(c => c.text.length > 2),
     hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
 
   let content: MaybeVNodes;
@@ -26,7 +27,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      requestIdleCallback(
+      requestIdleCallbackSafe(
         () =>
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();
@@ -77,7 +78,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         ]),
         hasVariation
           ? null
-          : h('div.legend.clickable', { hook: bind('click', () => prev(ctrl), ctrl.redraw) }, [
+          : h('div.legend.clickable', { hook: bind('click', ctrl.navigate.prev, ctrl.redraw) }, [
               iconTag(licon.PlayTriangle),
               h('p', 'Add variation moves to explain why specific other moves are wrong.'),
             ]),

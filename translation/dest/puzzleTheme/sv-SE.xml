@@ -59,7 +59,7 @@
   <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"zwischenzug\" eller \"intermezzo\".</string>
   <string name="killBoxMate">Dödsbox-matt</string>
   <string name="killBoxMateDescription">Ett torn ligger bredvid motståndarens kung och understöds av en dam som också stänger kungens flyktrutor. Tornet och damen fångar fiendens kung i en 3 gånger 3-kvadrat, \"dödsbox\".</string>
-  <string name="vukovicMate">Vukovic matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic matt</string>
   <string name="vukovicMateDescription">Ett torn och en springare samarbetar för att fånga kungen. Tornen ger matt med stöd av en tredje pjäs, och springaren används för att blockera kungens flyktrutor.</string>
   <string name="knightEndgame">Springareslutspel</string>
   <string name="knightEndgameDescription">Ett slutspel med bara springare och bönder.</string>

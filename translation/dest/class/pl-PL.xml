@@ -96,7 +96,7 @@ Oto link do klasy.</string>
   <string name="timePlaying">Czas w grze</string>
   <string name="variantXOverLastY">%1$s przez ostatni %2$s</string>
   <string name="winrate">Współczynnik zwycięstw</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Niedostępne</string>
+  <string name="na">Niedostępne</string>
   <string name="overview">Przegląd</string>
   <string name="news">Wiadomości</string>
   <string name="classNews">Aktualności klasowe</string>
@@ -127,7 +127,7 @@ Oto link do klasy.</string>
   <string name="allowMessagingBetweenStudentsDesc">Dotyczy to tylko kont, które utworzyłeś dla swoich uczniów.</string>
   <string name="quickLoginCode">Kod szybkiego logowania</string>
   <string name="quickLoginCodes">Kody szybkiego logowania</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Te kody pozwolą Twoim uczniom zalogować się do klasy Lichess na %s.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Te kody pozwolą Twoim uczniom zalogować się do klasy Lichess na %s.</string>
   <string name="quickLoginCodesDesc2">Po wygaśnięciu kodów, Twoi uczniowie pozostaną zalogowani, dopóki się nie wylogują.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Wygasa %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Wygasa %s</string>
 </resources>

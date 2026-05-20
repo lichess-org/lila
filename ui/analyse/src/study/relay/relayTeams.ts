@@ -1,14 +1,16 @@
 import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
+import { userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
-import type { RelayRound, RelayTour } from './interfaces';
+
+import { playerFedFlag } from '@/view/util';
+
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { userTitle } from 'lib/view/userLink';
-import type RelayPlayers from './relayPlayers';
 import { coloredStatusStr } from './customScoreStatus';
-import { teamLinkData } from './relayTeamLeaderboard';
+import { teamLinkData } from './deepLink';
+import type { RelayRound, RelayTour } from './interfaces';
+import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -180,7 +182,7 @@ const evalGauge = (
             const prevNodeCloud = old.data?.cloud;
             const fen = chapters.get(game.id)?.fen;
             const cev = (fen && cloudEval.getCloudEval(fen)) || prevNodeCloud;
-            if (cev?.chances != prevNodeCloud?.chances) {
+            if (cev?.chances !== prevNodeCloud?.chances) {
               const elm = vnode.elm as HTMLElement;
               const gauge = elm.parentNode as HTMLElement;
               elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;

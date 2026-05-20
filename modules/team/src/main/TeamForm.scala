@@ -15,6 +15,7 @@ import lila.common.Form.{
 import lila.core.captcha.CaptchaApi
 import lila.core.team.Access
 import lila.core.user.FlairApi
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
@@ -30,6 +31,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.description,
       Fields.descPrivate,
       Fields.request,
+      Fields.chat,
+      Fields.forum,
       "flair" -> flairApi.formField(),
       Fields.gameId,
       Fields.move
@@ -123,6 +126,8 @@ private case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
+    chat: Access,
+    forum: Access,
     flair: Option[Flair],
     gameId: GameId,
     move: String

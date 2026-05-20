@@ -90,25 +90,31 @@
 
   .tutor-link {
     @extend %flex-center;
+
     padding: 0.3em 1em;
     border-top: $border;
     gap: 1em;
+
     img {
       height: 2.5em;
     }
+
     strong {
       font-weight: normal;
       font-size: 1.5em;
     }
+
     > span {
       @extend %flex-column;
     }
+
     background: $m-primary_bg--mix-10;
   }
 
   .col2 {
     display: flex;
     flex-flow: row wrap;
+
     + .col2 {
       margin-top: 0.5em;
     }
@@ -118,6 +124,7 @@
 
       flex: 0 0 50%;
     }
+
     > strong {
       flex: 0 0 100%;
       margin-bottom: 0.3em;
@@ -132,6 +139,7 @@
       max-height: 300px;
     }
   }
+
   .muted {
     color: $c-font-dimmer;
   }

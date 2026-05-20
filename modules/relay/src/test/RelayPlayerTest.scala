@@ -31,14 +31,17 @@ class RelayPlayerTest extends munit.FunSuite:
     )
     val p2 = p1.copy(player = dummyPlayer("Bob", 2100), score = Some(4.0f))
     val p3 = p1.copy(player = dummyPlayer("Carol", 2200), score = Some(2.0f))
-    val sorted = List(p1, p2, p3).sorted
-    assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some, "Carol".some))
+    val p4 = p1.copy(player = dummyPlayer("Dave", 2300), score = None)
+    val sorted = List(p1, p2, p3, p4).sortedReverse
+    assertEquals(
+      sorted.map(_.player.player.name.map(_.value)),
+      List("Bob".some, "Alice".some, "Carol".some, "Dave".some)
+    )
 
   test("sorting by tiebreakpoints"):
     import chess.tiebreak.*
-    val tiebreaks = Tiebreak.preset.take(2)
-    val tb1 = Seq(tiebreaks(0) -> TiebreakPoint(10), tiebreaks(1) -> TiebreakPoint(5))
-    val tb2 = Seq(tiebreaks(0) -> TiebreakPoint(12), tiebreaks(1) -> TiebreakPoint(4))
+    val tb1 = Seq(DirectEncounter -> TiebreakPoint(2), SonnebornBerger(CutModifier.None) -> TiebreakPoint(5))
+    val tb2 = Seq(DirectEncounter -> TiebreakPoint(1), SonnebornBerger(CutModifier.None) -> TiebreakPoint(4))
     val p1 = RelayPlayer(
       dummyPlayer("Alice", 2000),
       ratingsMap(2000),
@@ -59,7 +62,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p1, p2).sorted
+    val sorted = List(p1, p2).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some))
 
   test("sorting by rating"):
@@ -83,7 +86,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p1, p2).sorted
+    val sorted = List(p1, p2).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some))
 
   test("sorting by name"):
@@ -107,7 +110,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p2, p1).sorted
+    val sorted = List(p2, p1).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Alice".some, "Bob".some))
 
   def dummyPlayer(name: String, rating: Int): lila.study.StudyPlayer.WithFed =

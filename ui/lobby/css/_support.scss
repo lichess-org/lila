@@ -15,12 +15,12 @@ $c-support: $c-brag;
     }
 
     &:hover .lobby__support__text,
-    &:hover i::before {
+    &:hover icon::before {
       color: #fff;
     }
   }
 
-  i {
+  icon {
     flex: 0 0 auto;
     margin: 0 0.5em;
 

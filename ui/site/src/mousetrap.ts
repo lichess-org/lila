@@ -34,51 +34,41 @@ interface Binding {
   action: Action;
 }
 
-const MAP: Record<string, string> = {
-  8: 'backspace',
-  9: 'tab',
-  13: 'enter',
-  16: 'shift',
-  17: 'ctrl',
-  18: 'alt',
-  20: 'capslock',
-  27: 'esc',
-  32: 'space',
-  33: 'pageup',
-  34: 'pagedown',
-  35: 'end',
-  36: 'home',
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down',
-  45: 'ins',
-  46: 'del',
-  91: 'meta',
-  93: 'meta',
-  224: 'meta',
+const KEY_MAP: Record<string, string> = {
+  Backspace: 'backspace',
+  Tab: 'tab',
+  Enter: 'enter',
+  Shift: 'shift',
+  Control: 'ctrl',
+  Alt: 'alt',
+  CapsLock: 'capslock',
+  Escape: 'esc',
+  ' ': 'space',
+  PageUp: 'pageup',
+  PageDown: 'pagedown',
+  End: 'end',
+  Home: 'home',
+  ArrowLeft: 'left',
+  ArrowUp: 'up',
+  ArrowRight: 'right',
+  ArrowDown: 'down',
+  Insert: 'ins',
+  Delete: 'del',
+  Meta: 'meta',
+  Digit1: '1',
+  Digit2: '2',
+  Digit3: '3',
+  Digit4: '4',
+  Digit5: '5',
+  Digit6: '6',
+  Digit7: '7',
+  Digit8: '8',
+  Digit9: '9',
+  Digit0: '0',
 };
-for (let i = 1; i < 20; ++i) MAP[111 + i] = 'f' + i;
-for (let i = 0; i <= 9; ++i) MAP[i + 96] = i.toString();
 
-const KEYCODE_MAP: Record<string, string> = {
-  106: '*',
-  107: '+',
-  109: '-',
-  110: '.',
-  111: '/',
-  186: ';',
-  187: '=',
-  188: ',',
-  189: '-',
-  190: '.',
-  191: '/',
-  192: '`',
-  219: '[',
-  220: '\\',
-  221: ']',
-  222: "'",
-};
+const SPECIAL_KEYS: Set<string> = new Set(Object.values(KEY_MAP));
+for (let i = 1; i < 20; ++i) SPECIAL_KEYS.add('f' + i);
 
 const SPECIAL_ALIASES: Record<string, string> = {
   option: 'alt',
@@ -91,10 +81,9 @@ const SPECIAL_ALIASES: Record<string, string> = {
 
 const keyFromEvent = (e: KeyboardEvent): string => {
   if (e.type === 'keypress') {
-    const character = String.fromCharCode(e.which);
-    return e.shiftKey ? character : character.toLowerCase(); // ignore caps lock
+    return e.shiftKey ? e.key : e.key?.toLowerCase();
   }
-  return MAP[e.which] || KEYCODE_MAP[e.which] || String.fromCharCode(e.which).toLowerCase();
+  return KEY_MAP[e.key] ?? KEY_MAP[e.code] ?? e.key?.toLowerCase();
 };
 
 const modifiersMatch = (a: string[], b: string[]): boolean => a.sort().join(',') === b.sort().join(',');
@@ -111,24 +100,8 @@ const eventModifiers = (e: KeyboardEvent): string[] => {
 const isModifier = (key: string): boolean =>
   key === 'shift' || key === 'ctrl' || key === 'alt' || key === 'meta';
 
-const getReverseMap = (() => {
-  let REVERSE_MAP: Record<string, string> | undefined;
-  return () => {
-    if (!REVERSE_MAP) {
-      REVERSE_MAP = {};
-      for (const key in MAP) {
-        if (parseInt(key, 10) > 95 && parseInt(key, 10) < 112) continue; // skip numeric keypad
-        if (Object.prototype.hasOwnProperty.call(MAP, key)) {
-          REVERSE_MAP[MAP[key]] = key;
-        }
-      }
-    }
-    return REVERSE_MAP;
-  };
-})();
-
 const pickBestAction = (key: string, modifiers: string[], action?: Action): Action => {
-  action = action || (getReverseMap()[key] ? 'keydown' : 'keypress');
+  action = action || (SPECIAL_KEYS.has(key) ? 'keydown' : 'keypress');
   if (action === 'keypress' && modifiers.length) return 'keydown'; // modifiers incompatible with keypress
   return action;
 };
@@ -153,13 +126,12 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
 };
 
 export default class Mousetrap {
-  private bindings: Record<string, Binding[]> = {};
+  private readonly bindings: Record<string, Binding[]> = {};
 
-  constructor(targetElement?: HTMLElement | Document) {
-    targetElement = targetElement || document;
-    targetElement.addEventListener('keypress', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keydown', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keyup', e => this.handleKeyEvent(e as KeyboardEvent));
+  constructor(targetElement: HTMLElement | Document = document) {
+    targetElement.addEventListener('keypress', this.handleKeyEvent);
+    targetElement.addEventListener('keydown', this.handleKeyEvent);
+    targetElement.addEventListener('keyup', this.handleKeyEvent);
   }
 
   /**
@@ -196,11 +168,8 @@ export default class Mousetrap {
     });
   };
 
-  private handleKeyEvent = (e: KeyboardEvent) => {
-    if (typeof e.which !== 'number') (e as any).which = e.keyCode; // normalize
-
+  private readonly handleKeyEvent = (e: KeyboardEvent) => {
     const el = e.target as HTMLElement;
-
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination === 'esc' ||
@@ -217,7 +186,7 @@ export default class Mousetrap {
     }
   };
 
-  private getMatches = (e: KeyboardEvent): Binding[] => {
+  private readonly getMatches = (e: KeyboardEvent): Binding[] => {
     const key = keyFromEvent(e);
     const action = e.type;
     const modifiers = action === 'keyup' && isModifier(key) ? [key] : eventModifiers(e);

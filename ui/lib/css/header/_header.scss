@@ -3,8 +3,9 @@
 @import 'title';
 @import 'buttons';
 
-body > header {
+#top {
   @include prevent-select;
+
   height: $site-header-height;
   display: flex;
   justify-content: space-between;
@@ -14,17 +15,19 @@ body > header {
   margin: 0 auto;
 
   @include mq-sticky-header {
+    @include transition(transform border-color, $transition-duration, ease-in-out);
+
     max-width: unset;
     position: fixed;
     top: 0;
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
     border-bottom: 1px solid transparent;
-    @include transition(transform border-color, $transition-duration, ease-in-out);
 
     &.scrolled {
       background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);
       border-color: black;
+
       @include if-light {
         border-color: hsl(0, 0%, 70%);
       }
@@ -32,8 +35,9 @@ body > header {
 
     @include if-transp {
       @include back-blur(6px);
+
       border: none;
-      background: hsla(0, 0, 60%, 0.14);
+      background: hsla(0, 0, 20%, 0.15);
     }
 
     .dropdown {
@@ -63,6 +67,7 @@ body > header {
 
 body.zen {
   @include topnav-unsticky;
+
   header::before {
     display: none;
   }
@@ -70,13 +75,16 @@ body.zen {
 
 #topnav .community-patron {
   @extend %flex-center;
+
   &::after {
     @extend %data-icon;
+    @include margin-direction(0, 0, 0.08ch, 0.3ch);
+
     content: $licon-Wings;
     font-size: 1.3em;
     color: $c-brag;
-    @include margin-direction(0, 0, 0.08ch, 0.3ch);
     transform: scaleX(-1);
+
     @include if-rtl {
       transform: none;
     }
@@ -88,17 +96,52 @@ body.zen {
   justify-content: flex-start;
 
   &__donate {
-    @extend %flex-center;
-    color: $c-brag;
-    padding: 0 1rem;
-    text-transform: uppercase;
-    line-height: $site-header-height;
-    @media (max-width: at-most($xx-small)) {
-      display: none;
+    @extend %nowrap-ellipsis;
+
+    padding: 16px 0;
+    max-width: 30vw;
+
+    span {
+      color: $c-brag;
+      text-transform: uppercase;
+      text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+      border-radius: 20px;
+      line-height: 28px;
+      padding: 8px 1rem 8px 1.2rem;
+
+      &::before {
+        @extend %data-icon;
+        @include inline-end(4px);
+
+        position: relative;
+        top: -2px;
+        content: $licon-Wings;
+        font-size: 1em;
+        color: $c-brag;
+      }
+    }
+
+    &:hover span {
+      color: $c-brag;
+      background-color: $m-brag--fade-85;
     }
 
     &:focus-visible {
       outline-offset: -2px;
     }
+
+    @media (width <= $x-small) {
+      display: none;
+    }
+
+    @media (width <= $small) {
+      body.clinput & {
+        display: none;
+      }
+    }
   }
+}
+
+html.transp body[data-board3d] #top::before {
+  display: none;
 }

@@ -3,6 +3,7 @@
     border-bottom: $border;
     background: $c-bg-zebra;
     padding-top: 3vh;
+
     h2 {
       margin: 0 0 1em 0;
     }
@@ -10,7 +11,7 @@
 
   &__list {
     display: grid;
-    margin: 0 0 3em var(---box-padding);
+    margin: 0 0 3em $box-padding;
     grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -31,6 +32,7 @@
     &.opening-mine {
       color: $c-brag;
       font-weight: bold;
+
       &:hover {
         background: $m-brag_bg--mix-20;
       }

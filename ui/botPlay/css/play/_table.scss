@@ -1,17 +1,22 @@
 .bot-game__table {
   @extend %box-neat;
+
   border-radius: $box-radius-size 0 $box-radius-size 0;
   background: $c-bg-box;
 }
+
 .bot-game__nav {
   @extend %box-shadow;
-  position: relative;
+
   $buttons-height: 2.5rem;
+
+  position: relative;
   flex: 0 0 $buttons-height;
   display: flex;
   justify-content: stretch;
   background: $c-bg-zebra;
   font-size: 0.9em;
+
   .fbt,
   .noop {
     flex: 0 0 calc(100% / 6);
@@ -19,16 +24,20 @@
     height: $buttons-height;
     line-height: calc($buttons-height - 0.1rem);
   }
+
   .board-menu {
     @include mq-at-least-col2 {
       @include box-radius-top;
+
       bottom: $buttons-height;
       border-bottom: 2px solid $c-secondary;
     }
   }
 }
+
 .bot-game__moves {
   @include prevent-select;
+
   height: 8em;
   display: flex;
   flex-flow: row wrap;
@@ -87,19 +96,23 @@
     margin-bottom: 0.5em;
   }
 }
+
 .bot-game__actions {
   @extend %flex-between;
+
   .bot-game__close,
   .bot-game__restart {
     font-size: 0.9em;
     padding: 0.7em 1.2em;
   }
+
   .bot-game__rematch {
     width: 100%;
     background: $m-primary_bg--mix-70;
     color: $c-over;
     padding: 1em 2em;
     font-size: 1.5em;
+
     &:hover {
       background: $c-primary;
     }
@@ -118,6 +131,7 @@
       margin-inline-start: -10px;
     }
   }
+
   score {
     margin-top: -2px;
   }

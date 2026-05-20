@@ -1,6 +1,6 @@
-import * as treePath from './path';
-import * as ops from './ops';
 import { defined } from '../index';
+import * as ops from './ops';
+import * as treePath from './path';
 import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath } from './types';
 
 export { treePath as path, ops };
@@ -86,7 +86,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
 
   const pathExists = (path: TreePath): boolean => !!nodeAtPathOrNull(path);
 
-  const pathIsForcedVariation = (path: TreePath): boolean => !!getNodeList(path).find(n => n.forceVariation);
+  const pathIsForcedVariation = (path: TreePath): boolean => getNodeList(path).some(n => n.forceVariation);
 
   function lastMainlineNodeFrom(node: TreeNode, path: TreePath): TreeNode {
     if (path === '') return node;
@@ -190,7 +190,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
   function walkUntilTrue(
     fn: (node: TreeNode, isMainline: boolean) => boolean,
     from: TreePath = '',
-    branchOnly: boolean = false,
+    branchOnly = false,
   ) {
     function traverse(node: TreeNode, isMainline: boolean): boolean {
       if (fn(node, isMainline)) return true;

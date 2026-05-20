@@ -14,7 +14,7 @@
 এটা হবে একট ৪ পয়েন্টের জয়, সমান: ২ পয়েন্ট, এবং হারায় দেখার মতো কোন পয়েন্ট থাকবে না.
 
 যেমন, দুটি জয় করে অনুসরন করা হবে একটি সমান ৬ পয়েন্ট: ২ + ২ +২ (২ x ১)</string>
-  <string name="berserk">ক্ষিপ্ত রণক্ষেত্র</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">ক্ষিপ্ত রণক্ষেত্র</string>
   <string name="berserkAnswer">যখন একজন খেলোয়াড় খেলার শুরুতে ক্ষিপ্ত বাটনে ক্লিক করে, তারা তাদের ঘড়ির অর্ধেক সময় হারায়, কিন্তু জয় হয় অতিরিক্ত প্রতিযোগিতা পয়েন্টে
 
 ক্ষিপ্ত সময় বাড়ানোর সাথে সাথে বাড়তি সময় বৃদ্ধিও করা যাবে (0+1, 0+2).

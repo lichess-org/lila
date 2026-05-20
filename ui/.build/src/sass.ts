@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
 import clr from 'tinycolor2';
+
 import { clamp, isEquivalent } from './algo.ts';
 import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -26,7 +27,7 @@ export function stopSass(): void {
   themeColorMap.clear();
 }
 
-export async function sass(): Promise<any> {
+export async function sass(): Promise<string | undefined> {
   if (!env.begin('sass')) return;
 
   await Promise.allSettled([
@@ -217,6 +218,8 @@ async function buildColorMixes() {
             return clr.mix(c2, c1, clamp(mix.val, { min: 0, max: 100 }));
           case 'lighten':
             return c1.lighten(clamp(mix.val, { min: 0, max: 100 }));
+          case 'darken':
+            return c1.darken(clamp(mix.val, { min: 0, max: 100 }));
           case 'alpha':
             return c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }));
           case 'fade':
@@ -239,7 +242,7 @@ async function buildColorWrap() {
   for (const file of await glob(join(env.themeDir, '_*.scss'))) {
     if (!file.includes('theme.')) continue;
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (line.indexOf('--') === -1) continue;
+      if (!line.includes('--')) continue;
       const commentIndex = line.indexOf('//');
       if (commentIndex !== -1 && commentIndex < line.indexOf(':')) continue;
       if (!/--[cm]/.test(line)) continue;
@@ -268,7 +271,7 @@ function parseColor(colorMix: string) {
   const validColor = (c: string) => themeColorMap.get('default')?.has(c) || clr(c).isValid();
   return validColor(c1) &&
     (op !== 'mix' || validColor(c2)) &&
-    ['mix', 'lighten', 'alpha', 'fade'].includes(op) &&
+    ['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op) &&
     val >= 0 &&
     val <= 100
     ? { c1, c2, op, val }

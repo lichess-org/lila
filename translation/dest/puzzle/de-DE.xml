@@ -13,7 +13,6 @@
   <string name="origin">Herkunft</string>
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
-  <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
   <string name="upVote">Die Aufgabe gut bewerten</string>
   <string name="downVote">Die Aufgabe schlecht bewerten</string>
   <string name="yourPuzzleRatingWillNotChange">Deine Aufgabenwertung wird sich nicht ändern. Beachte, dass Aufgaben kein Wettbewerb sind. Deine Wertung hilft, die geeignetsten Aufgaben für deine aktuelle Spielstärke auszuwählen.</string>
@@ -94,6 +93,6 @@ Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass 
   </plurals>
   <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Es gibt nichts zu zeigen, löse zuerst ein paar Aufgaben!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Übe das, um deinen Fortschritt zu optimieren!</string>
+  <string name="improvementAreasDescription">Übe das, um deinen Fortschritt zu optimieren!</string>
   <string name="strengthDescription">Bei diesen Themen schneidest du am besten ab</string>
 </resources>

@@ -12,7 +12,6 @@
   <string name="noVideosForTheseTags">Žiadne video pre tieto kľúčové slová:</string>
   <string name="thatsAllWeGotForTheseTags">Toto je všetko, čo sme našli pre tieto kľúčové slová:</string>
   <string name="thatsAllWeGotForThisSearchX">Toto je všetko, čo sme našli pre toto vyhľadávanie: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Žiadny výsledok pre \"%s\"</string>
   <string name="viewMoreTags">Pozri viac kľúčových slov</string>
   <string name="videoNotFound">Video sa nenašlo!</string>
   <string name="xByY">%1$s od %2$s</string>

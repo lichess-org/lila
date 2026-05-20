@@ -12,7 +12,6 @@
   <string name="origin">Pinagmulan</string>
   <string name="specialMoves">Di-pangkaraniwan na tira</string>
   <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
-  <string name="voteToLoadNextOne">Bumoto ka upang mapunta ka sa susunod na palaisipan!</string>
   <string name="upVote">I-up vote ang palaisipan</string>
   <string name="downVote">I-down vote ang palaisipan</string>
   <string name="yourPuzzleRatingWillNotChange">Ang iyong palaisipang marka ay hindi magbabago. Tandaan na ang mga palaisipan ay hindi isang kompetisyon. Ang iyong marka ay tumutulong sa pagpili ng pinakamahusay na mga palaisipan para sa iyong antas na kasanayan.</string>
@@ -93,6 +92,6 @@ Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na m
   </plurals>
   <string name="percentSolved">%s nalutas</string>
   <string name="noPuzzlesToShow">Walang maipapakita, maglaro ka muna ng mga palaisipan!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Sanayin ang mga ito upang mapabilis ang iyong pag-unlad!</string>
+  <string name="improvementAreasDescription">Sanayin ang mga ito upang mapabilis ang iyong pag-unlad!</string>
   <string name="strengthDescription">Pinakamahusay ka sa mga temang nito</string>
 </resources>

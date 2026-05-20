@@ -88,7 +88,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
-  <string name="outOfCheckComplete">Gratulacje! Twojego króla nie można zbić, upewnij się, czy potrafisz bronić się przed szachem!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulacje! Twojego króla nie można zbić, upewnij się, czy potrafisz bronić się przed szachem!</string>
   <string name="mateInOne">Mat w 1 ruchu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
   <string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>

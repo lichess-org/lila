@@ -1,11 +1,11 @@
 package lila.core
 package security
 
-import play.api.data.{ Form, Mapping }
+import play.api.data.Mapping
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.net.IpAddress
 import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
 
@@ -34,19 +34,11 @@ trait SecurityApi:
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
 
-case class HcaptchaPublicConfig(key: String, enabled: Boolean)
-case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
-  def enabled = config.enabled && !skip
-  def apply(key: String) = form(key)
-  def withForm[B](f: Form[B]) = copy(form = f)
-  def fill(data: A) = copy(form = form.fill(data))
+case class TurnstilePublicConfig(key: String, enabled: Boolean)
 
-trait Hcaptcha:
-  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
-
-trait SignupForm:
+trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
-  val username: Mapping[UserName]
+  val uniqueUsername: Mapping[UserName]
 
 opaque type FingerHash = String
 object FingerHash extends OpaqueString[FingerHash]
@@ -56,14 +48,14 @@ case class UserSignup(
     email: EmailAddress,
     req: RequestHeader,
     fingerPrint: Option[FingerHash],
-    suspIp: Boolean,
-    apiVersion: Option[ApiVersion]
+    suspIp: Boolean
 )
 
 case class ClearPassword(value: String) extends AnyVal:
   override def toString = "ClearPassword(****)"
 
-case class HashedPassword(bytes: Array[Byte])
+case class HashedPassword(bytes: Array[Byte]):
+  def isBlank = bytes.isEmpty
 
 trait Authenticator:
   def passEnc(p: ClearPassword): HashedPassword

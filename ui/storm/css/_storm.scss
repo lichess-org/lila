@@ -21,20 +21,17 @@
   }
 
   &-dashboard__high__periods {
-    @media (max-width: at-most($xx-small)) {
-      display: none;
-    }
-
     @extend %zen;
   }
 
   &--reload {
     @extend %flex-column;
 
+    min-width: min(100vw, $x-small);
     justify-content: stretch;
     text-align: center;
 
-    i {
+    icon {
       font-size: 15em;
       line-height: 1.2em;
     }

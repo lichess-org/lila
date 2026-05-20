@@ -1,12 +1,18 @@
+import flairPickerLoader from 'bits/flairPicker';
+import { createSelectSearch } from 'bits/selectSearch';
+
 import * as licon from 'lib/licon';
-import * as xhr from 'lib/xhr';
 import { storage } from 'lib/storage';
 import { addPasswordVisibilityToggleListener, confirm } from 'lib/view';
-import flairPickerLoader from 'bits/flairPicker';
+import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
     flairPickerLoader(this);
+  });
+
+  $('#form3-flag').each(function (this: HTMLSelectElement) {
+    createSelectSearch(this);
   });
 
   addPasswordVisibilityToggleListener();

@@ -28,7 +28,7 @@ final class Env(
 
   private val builder = wire[RecapBuilder]
 
-  private val queue = lila.memo.ParallelMongoQueue[UserId](
+  private val queue = ParallelMongoQueue[UserId](
     coll = colls.queue,
     parallelism = () => parallelismSetting.get(),
     computationTimeout = 2.minutes,

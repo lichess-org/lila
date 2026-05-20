@@ -1,9 +1,11 @@
 .lobby__feed {
   @extend %box-neat;
   @include hoverflow;
+
   background: $c-bg-box;
   min-height: 20em;
 }
+
 .daily-feed {
   &__updates {
     margin-inline-start: 24px;
@@ -38,18 +40,22 @@
 
     &__day {
       @extend %flex-center;
+
       display: inline;
       font-size: 1.15em;
       font-weight: bold;
       color: $c-contours;
+
       time {
         font-size: 1em;
         opacity: 1;
       }
+
       &:hover {
         color: $c-brag;
       }
     }
+
     @include rendered-markdown(
       $element-margin: 0.6em,
       $h1: false,
@@ -58,11 +64,13 @@
       $img: false,
       $list: false
     );
+
     h3 {
       font-size: 1.2em;
       color: $c-font-dim;
       border-bottom: $border;
     }
+
     h4 {
       font-size: 1.15em;
     }

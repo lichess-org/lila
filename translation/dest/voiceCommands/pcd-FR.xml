@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Visionner le tutoriel vidéo</string>
   <string name="instructions1">Utilisez le bouton %1$s pour activer/désactiver la reconnaissance vocale, le bouton %2$s pour ouvrir cette fenêtre d\'aide et le menu %3$s pour modifier les paramètres vocaux.</string>
   <string name="instructions2">Nous montrons des flèches pour plusieurs coups en cas d\'incertitude. Dites la couleur ou le numéro d\'une flèche pour la sélectionner.</string>
-  <string name="instructions3">Si une flèche montre une radar actif, le coup sera joué lorsque le radar deviendra inactif. Durant ce temps, vous pouvez seulement dire %1$s pour jouer le coup immédiatement, %2$s pour l\'annuler, ou dire la couleur/le numéro d\'une flèche différente. Ce minuteur peut être réglé ou désactivé dans les paramètres.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Si une flèche montre une radar actif, le coup sera joué lorsque le radar deviendra inactif. Durant ce temps, vous pouvez seulement dire %1$s pour jouer le coup immédiatement, %2$s pour l\'annuler, ou dire la couleur/le numéro d\'une flèche différente. Ce minuteur peut être réglé ou désactivé dans les paramètres.</string>
   <string name="instructions4">Activer %s dans un environnement bruyant. Maintenir la touche Maj enfoncée pour dire une commande pendant que cette fonction est activée.</string>
   <string name="instructions5">Utilisez l\'alphabet phonétique pour améliorer la reconnaissance des colonnes de l\'échiquier. </string>
   <string name="instructions6">%s explique en détail les paramètres des commandes de déplacement vocales.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Déplacer à e4 ou sélectionner une pièce à e4</string>
   <string name="selectOrCaptureABishop">Sélectionner ou capturer un fou</string>
   <string name="takeRookWithQueen">Capturer la tour avec la dame</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Roquer (petit ou grand roque)</string>
+  <string name="castle">Roquer (petit ou grand roque)</string>
   <string name="phoneticAlphabetIsBest">L\'alphabet phonétique est l\'idéal</string>
   <string name="cancelTimerOrDenyARequest">Annuler la minuterie ou refuser une demande</string>
   <string name="playPreferredMoveOrConfirmSomething">Jouer le coup préféré ou confirmer quelque chose</string>

@@ -3,6 +3,7 @@ package lila.fishnet
 import chess.Ply
 import scalalib.cache.OnceEvery
 
+import lila.mon.extensions.*
 import lila.analyse.AnalysisRepo
 import lila.core.id
 import lila.fishnet.Work.{ Origin, Sender }
@@ -68,7 +69,7 @@ final class Analyser(
                         lila.mon.fishnet.analysis.requestCount("game").increment()
                         evalCache
                           .skipPositions(work.game)
-                          .monSuccess(_.fishnet.analysis.skipPositionsGame)
+                          .monSuccess(lila.mon.fishnet.analysis.skipPositionsGame)
                           .flatMap: skipPositions =>
                             lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                             repo.addAnalysis(work.copy(skipPositions = skipPositions))
@@ -119,7 +120,7 @@ final class Analyser(
                       lila.mon.fishnet.analysis.requestCount("study").increment()
                       evalCache
                         .skipPositions(work.game)
-                        .monSuccess(_.fishnet.analysis.skipPositionsStudy)
+                        .monSuccess(lila.mon.fishnet.analysis.skipPositionsStudy)
                         .withTimeout(2.seconds, s"study analysis skipPositions $work")
                         .recoverDefault
                         .flatMap: skipPositions =>

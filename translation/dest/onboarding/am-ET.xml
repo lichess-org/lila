@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">ይህ የእርስዎ የመገለጫ ገጽ ነው።.</string>
   <string name="enabledKidModeSuggestion">አንድ ልጅ ይህን መለያ ይጠቀማል? %sን ማንቃት ይፈልጉ ይሆናል።.</string>
   <string name="whatNowSuggestions">አሁንስ? ጥቂት ጥቆማዎች እነሆ፡-:</string>
-  <string name="learnChessRules">የቼዝ ህጎችን ይማሩ</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">የቼዝ ህጎችን ይማሩ</string>
   <string name="improveWithChessTacticsPuzzles">በቼዝ ስልቶች እንቆቅልሽ አሻሽል።.</string>
   <string name="playTheArtificialIntelligence">አርቴፊሻል ኢንተለጀንስ ይጫወቱ።.</string>
   <string name="playOpponentsFromAroundTheWorld">በዓለም ዙሪያ ያሉ ተቃዋሚዎችን ይጫወቱ።.</string>

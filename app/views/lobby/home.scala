@@ -134,11 +134,7 @@ object home:
           ),
           puzzle.map: p =>
             views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
-          div(cls := "lobby__blog carousel")(
-            ublogPosts.map:
-              views.ublog.ui
-                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
-          ),
+          views.ublog.ui.homeCarousel(ublogPosts),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,
@@ -148,7 +144,7 @@ object home:
             a(href := "/about")(trans.site.aboutX("Lichess")),
             a(href := "/faq")(trans.faq.faqAbbreviation()),
             a(href := "/contact")(trans.contact.contact()),
-            a(href := "/mobile")(trans.site.mobileApp()),
+            a(href := "/app")(trans.site.mobileApp()),
             a(href := routes.Cms.tos)(trans.site.termsOfService()),
             a(href := "/privacy")(trans.site.privacy()),
             a(href := "/source")(trans.site.sourceCode()),

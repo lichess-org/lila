@@ -1,6 +1,8 @@
-import type Ctrl from './ctrl';
-import type { MaybeVNode } from 'lib/view';
 import { h, type VNodeData } from 'snabbdom';
+
+import type { MaybeVNode } from 'lib/view';
+
+import type Ctrl from './ctrl';
 import type { Categ, Dimension, Metric } from './interfaces';
 
 const selectData = (onClick: (v: { value: string }) => void, getValue: () => string): VNodeData => ({
@@ -33,7 +35,7 @@ const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimensio
     item.name,
   );
 
-export default function (ctrl: Ctrl, attrs: any = null) {
+export default function (ctrl: Ctrl, attrs: VNodeData | null = null) {
   return h('div.axis-form', attrs, [
     h(
       'select.ms.metric',

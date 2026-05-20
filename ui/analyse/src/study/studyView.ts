@@ -1,41 +1,45 @@
-import * as commentForm from './commentForm';
-import * as glyphForm from './studyGlyph';
-import * as practiceView from './practice/studyPracticeView';
+import { render as renderKeyboardMove } from 'keyboard-move';
+
+import { blurIfPrimaryClick } from 'lib';
+import { view as cevalView } from 'lib/ceval';
+import { renderChat } from 'lib/chat/renderChat';
+import { displayColumns, shareIcon } from 'lib/device';
 import * as licon from 'lib/licon';
-import type * as studyDeps from '../study/studyDeps';
-import type AnalyseCtrl from '../ctrl';
-import type { Tab, ToolTab } from './interfaces';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
-import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
+import { verticalResize } from 'lib/view/verticalResize';
+import { watchers } from 'lib/view/watchers';
+
+import { viewContext, renderBoard, renderMain, renderUnderboard } from '@/view/components';
+import { renderControls } from '@/view/controls';
+import { renderTools } from '@/view/tools';
+import { wikiToggleBox } from '@/wiki';
+
+import crazyView from '../crazy/crazyView';
+import type AnalyseCtrl from '../ctrl';
+import { view as keyboardView } from '../keyboard';
+import type * as studyDeps from '../study/studyDeps';
+import { render as trainingView } from '../view/roundTraining';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
-import { view as chapterView } from './studyChapters';
+import * as commentForm from './commentForm';
 import { view as descView } from './description';
+import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
+import type { Tab, ToolTab } from './interfaces';
 import { view as inviteFormView } from './inviteForm';
-import { view as memberView } from './studyMembers';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
+import * as practiceView from './practice/studyPracticeView';
 import { view as serverEvalView } from './serverEval';
+import { view as chapterView } from './studyChapters';
+import type StudyCtrl from './studyCtrl';
 import { view as studyFormView } from './studyForm';
+import * as glyphForm from './studyGlyph';
+import { view as memberView } from './studyMembers';
+import { view as searchView } from './studySearch';
 import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
-import { view as searchView } from './studySearch';
-import { view as keyboardView } from '../keyboard';
-import { view as cevalView } from 'lib/ceval';
-import { render as trainingView } from '../view/roundTraining';
-import { render as renderKeyboardMove } from 'keyboardMove';
-import { renderChat } from 'lib/chat/renderChat';
-import { wikiToggleBox } from '../wiki';
-import crazyView from '../crazy/crazyView';
-import { watchers } from 'lib/view/watchers';
-import type StudyCtrl from './studyCtrl';
-import { verticalResize } from 'lib/view/verticalResize';
-import { displayColumns, shareIcon } from 'lib/device';
-import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
-import { renderControls } from '../view/controls';
-import type { TreeNode, TreePath } from 'lib/tree/types';
-import { blurIfPrimaryClick } from 'lib';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
@@ -251,7 +255,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('i.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -261,7 +265,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.write },
             hook: bind('click', ctrl.toggleWrite),
           },
-          [hl('i.is'), 'REC'],
+          [hl('icon.is'), 'REC'],
         ),
       toolButton({
         ctrl,
@@ -286,7 +290,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'glyphs',
           hint: i18n.study.annotateWithGlyphs,
-          icon: hl('i.glyph-icon'),
+          icon: hl('icon.glyph-icon'),
           count: (root.node.glyphs || []).length,
           shouldBlurIfPrimaryClick: true,
         }),
@@ -315,7 +319,7 @@ function buttons(root: AnalyseCtrl): VNode {
       }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
-        hl('span.help', {
+        hl('button.help', {
           attrs: { title: i18n.study.getTheTour, ...dataIcon(licon.InfoCircle) },
           hook: bind('click', ctrl.startTour),
         }),
@@ -339,7 +343,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
-            title: d.liked ? i18n.study.unlike : i18n.study.like,
+            title: d.liked ? i18n.site.liked : i18n.site.like,
           },
           hook: bind('click', ctrl.toggleLike),
         },

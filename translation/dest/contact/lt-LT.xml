@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Kaip Lichess mobilios programėlės problemą GitHub</string>
   <string name="reportBugInDiscord">Lichess Discord serveryje</string>
   <string name="howToReportBug">Apibūdinkite kaip atrodo klaida, ko tikėjotės, kas įvyko, ir žingsnius, kaip atkartoti klaidą.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Neteisingas pėstininko kirtimas</string>
+  <string name="illegalPawnCapture">Neteisingas pėstininko kirtimas</string>
   <string name="calledEnPassant">Toks kirtimas vadinamas \"en passant\" ir yra viena iš šachmatų taisyklių.</string>
   <string name="tryEnPassant">Šis mažas interaktyvus žaidimas padės sužinoti daugiau apie \"en passant\".</string>
   <string name="illegalCastling">Netinkama arba neįmanoma rokiruotė</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Yra įmanoma atlikti matą tik su žirgu ar rikiu jeigu priešininkas ant lentos turi daugiau negu tik karalių.</string>
   <string name="noRatingPoints">Nebuvo skirta reitingo taškų</string>
   <string name="ratedGame">Įsitikinkite, kad žaidėte reitinguotą partiją. Nevertinamos partijos nedaro įtakos žaidėjų reitingams.</string>
-  <string name="botRatingAbuse">Tam tikromis aplinkybėmis, jei nustatoma, kad žmogus išnaudoja robotą norėdamas gauti daugiau reitingo taškų, reitinguotas žaidimas prieš roboto paskyrą gali nesuteikti reitingo taškų.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Tam tikromis aplinkybėmis, jei nustatoma, kad žmogus išnaudoja robotą norėdamas gauti daugiau reitingo taškų, reitinguotas žaidimas prieš roboto paskyrą gali nesuteikti reitingo taškų.</string>
   <string name="errorPage">Klaidos puslapis</string>
   <string name="reportErrorPage">Jei susidūrėte su klaidos puslapiu galite apie jį pranešti:</string>
   <string name="learnHowToMakeBroadcasts">Išmokite kurti savo transliacijas per Lichess</string>

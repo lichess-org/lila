@@ -1,16 +1,17 @@
-import { getLevelRank } from './score';
-import type { Level } from './stage/list';
 import { h } from 'snabbdom';
+
+import * as licon from 'lib/licon';
+import { iconTag } from 'lib/view';
+
 import { hashHref } from './hashRouting';
 import type { RunCtrl } from './run/runCtrl';
-import * as licon from 'lib/licon';
-
-const star = h('i', { attrs: { 'data-icon': licon.Star } });
+import { getLevelRank } from './score';
+import type { Level } from './stage/list';
 
 export function makeStars(level: Level, score: number) {
   const rank = getLevelRank(level, score);
   const stars = [];
-  for (let i = 3; i >= rank; i--) stars.push(star);
+  for (let i = 3; i >= rank; i--) stars.push(iconTag(licon.Star));
   return h('span.stars.st' + stars.length, stars);
 }
 

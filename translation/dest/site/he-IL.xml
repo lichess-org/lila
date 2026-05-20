@@ -127,7 +127,6 @@
   <string name="enable">הפעלה</string>
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="showVariationArrows">הצגת חצי ההמשכים האלטרנטיביים</string>
-  <string name="evaluationGauge">מד הערכה</string>
   <string name="multipleLines">המשכים מקבילים</string>
   <string name="cpus">מעבדים</string>
   <string name="memory">זיכרון</string>
@@ -282,9 +281,6 @@
   <string name="emailCanTakeSomeTime">יתכן שלהודעה יקח זמן־מה להגיע.</string>
   <string name="refreshInboxAfterFiveMinutes">חכו 5 דקות ולאחר מכן בצעו ריענון לתיבת המייל.</string>
   <string name="checkSpamFolder">בדקו גם את תיבת דואר הזבל (״ספאם״). יתכן שההודעה הגיעה לשם בטעות. אם זה מה שקרה, סמנו אותה כלא־ספאם.</string>
-  <string name="emailForSignupHelp">אם עדיין לא הצלחתם לפתור את הבעיה, שלחו לנו את המייל הבא:</string>
-  <string name="copyTextToEmail">הדביקו את הטקסט הנ״ל ושלחו אותו ל־%s</string>
-  <string name="waitForSignupHelp">אנו נחזור אליכם בהקדם כדי לסייע לכם להשלים את ההרשמה.</string>
   <string name="accountConfirmed">המשתמש %s אושר בהצלחה.</string>
   <string name="accountCanLogin">כעת תוכל/י להתחבר כ־%s.</string>
   <string name="accountConfirmationEmailNotNeeded">אין צורך במייל אישור.</string>
@@ -654,6 +650,7 @@
   <string name="invalidUsernameOrPassword">שגיאה בשם המשתמש או בסיסמה</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
+  <string name="orSeparator">או</string>
   <string name="emailMeALink">שלחו לי קישור בדוא״ל</string>
   <string name="currentPassword">הסיסמה הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
@@ -785,7 +782,6 @@
   <string name="keyCycleSelectedVariation">מחזור הוריאציה שנבחרה </string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
-  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
   <string name="keyPreviousBranch">הענף הקודם</string>
   <string name="keyNextBranch">הענף הבא</string>
   <string name="toggleVariationArrows">הפעלת חיצים בנגזרות שחמט</string>
@@ -981,7 +977,6 @@
   <string name="agreementAssistance">אני מסכימ/ה שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד־נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים/ה תמיד להיות אדיב/ה כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכימ/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

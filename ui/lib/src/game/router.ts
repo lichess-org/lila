@@ -1,9 +1,7 @@
 import type { GameData, ContinueMode } from './interfaces';
 
-export function game(data: GameData, color?: Color, embed?: boolean): string;
-export function game(data: string, color?: Color, embed?: boolean): string;
-export function game(data: any, color?: Color, embed?: boolean): string {
-  const id = data.game ? data.game.id : data;
+export function game(data: GameData | string, color?: Color, embed?: boolean): string {
+  const id = typeof data === 'string' ? data : data.game.id;
   return (embed ? '/embed/' : '/') + id + (color ? '/' + color : '');
 }
 

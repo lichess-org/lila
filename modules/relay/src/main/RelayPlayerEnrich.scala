@@ -4,15 +4,16 @@ import chess.format.pgn.{ Tag, Tags }
 import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
 
 import lila.core.socket.Sri
-import lila.core.fide.{ PlayerToken, diacritics }
-import lila.study.{ Chapter, ChapterRepo, StudyApi }
+import lila.core.fide.{ PlayerToken, Federation, diacritics }
+import lila.study.{ Chapter, ChapterRepo, StudyApi, StudyPlayer }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayerLine(
     name: Option[PlayerName],
     rating: Option[IntRating],
     title: Option[PlayerTitle],
-    fideId: Option[FideId] = none
+    fideId: Option[FideId] = none,
+    fideFed: Option[String] = none // unvalidated
 )
 
 private object RelayPlayerLine:
@@ -60,7 +61,8 @@ private case class RelayPlayersTextarea(text: String):
           name = PlayerName.from(arr.lift(4).filter(_.nonEmpty)),
           rating = IntRating.from(arr.lift(3).flatMap(_.toIntOption)),
           title = arr.lift(2).flatMap(PlayerTitle.get),
-          fideId = arr.lift(1).flatMap(_.toIntOption).map(FideId(_))
+          fideId = arr.lift(1).flatMap(_.toIntOption).map(FideId(_)),
+          fideFed = arr.lift(5)
         )
 
 private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
@@ -103,13 +105,13 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
       .mapValues(_.distinct)
       .toMap
 
-  def update(games: RelayGames): (RelayGames, List[RelayPlayerLine.Ambiguous]) =
+  def update(games: RelayGames)(using Federation.Guess): (RelayGames, List[RelayPlayerLine.Ambiguous]) =
     games.foldLeft(Vector.empty -> Nil):
       case ((games, ambiguous), game) =>
         val (tags, ambi) = update(game.tags)
         (games :+ game.copy(tags = tags)) -> (ambi ::: ambiguous)
 
-  def update(tags: Tags): (Tags, List[RelayPlayerLine.Ambiguous]) =
+  def update(tags: Tags)(using guessFed: Federation.Guess): (Tags, List[RelayPlayerLine.Ambiguous]) =
     Color.all.foldLeft(tags -> Nil):
       case ((tags, ambiguous), color) =>
         val name = tags.names(color)
@@ -121,7 +123,8 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
                 rp.fideId.map(id => Tag(_.fideIds(color), id.toString)),
                 rp.name.map(name => Tag(_.names(color), name)),
                 rp.rating.map(rating => Tag(_.elos(color), rating.toString)),
-                rp.title.map(title => Tag(_.titles(color), title.value))
+                rp.title.map(title => Tag(_.titles(color), title.value)),
+                rp.fideFed.flatMap(guessFed).map(fed => Tag(StudyPlayer.country.tagNames(color), fed.value))
               ).flatten
             case _ => Nil
         val newAmbiguous = matching match
@@ -159,7 +162,7 @@ private final class RelayPlayerEnrich(
     fidePlayerApi: RelayFidePlayerApi,
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
-)(using Executor, akka.stream.Materializer):
+)(using Federation.Guess, Executor, akka.stream.Materializer):
 
   private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1.hour)
 

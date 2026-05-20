@@ -1,13 +1,27 @@
 kbd {
+  --c-kbd-border: #{$m-border--lighten-5};
+  --c-kbd-border-bottom: #{$m-border--lighten-15};
+  --c-kbd-bg: #{$c-bg-zebra2};
+  --c-kbd-color: #{$c-font};
+
+  @include if-light {
+    --c-kbd-border: #{$m-border--darken-5};
+    --c-kbd-border-bottom: #{$m-border--darken-15};
+    --c-kbd-bg: #{$c-bg-zebra};
+  }
+
   display: inline-block;
-  padding: 0 5px;
+  padding: 0 4px 2px;
   margin-inline-start: 3px;
   font-family: monospace;
-  color: #444;
+  color: var(--c-kbd-color);
   vertical-align: middle;
-  background-color: #fcfcfc;
-  border: solid 1px #ccc;
-  border-bottom-color: #bbb;
+  background-color: var(--c-kbd-bg);
+  border: solid 1px var(--c-kbd-border);
+  border-bottom-color: var(--c-kbd-border-bottom);
   border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #bbb;
+  box-shadow:
+    inset 0 -1px 0 var(--c-kbd-border-bottom),
+    0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  line-height: 15px;
 }

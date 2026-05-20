@@ -1,12 +1,10 @@
 .sub-ratings {
   a {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
-
     @include padding-direction(0.7em, $block-gap, 0.7em, 0.4em);
+    @include transition(background);
 
     white-space: nowrap;
-
-    @include transition(background);
 
     &.empty {
       opacity: 0.5;
@@ -16,6 +14,7 @@
       font-size: 3em;
       opacity: 0.5;
       margin-inline-end: 0.2em;
+
       @include transition(opacity color);
     }
 
@@ -56,7 +55,7 @@
       font-size: 0.9em;
     }
 
-    i {
+    icon {
       font-size: 0.75em;
       opacity: 0.2;
       color: $c-font-dim;
@@ -64,12 +63,12 @@
       @include transition;
     }
 
-    &:hover i {
+    &:hover icon {
       color: $c-link;
       opacity: 0.7;
     }
 
-    &.active i {
+    &.active icon {
       display: none;
     }
 
@@ -106,7 +105,7 @@
       padding: 0.3em;
     }
 
-    a > i,
+    a > icon,
     h3,
     hr,
     rating .rp,

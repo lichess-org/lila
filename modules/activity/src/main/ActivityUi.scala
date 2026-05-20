@@ -41,7 +41,7 @@ final class ActivityUi(helpers: Helpers)(
               a.follows.map(renderFollows),
               a.simuls.map(renderSimuls(u.user)),
               a.studies.map(renderStudies),
-              a.tours.map(renderTours),
+              a.tours.map(renderTours(u.user)),
               a.swisses.map(renderSwisses),
               a.teams.map(renderTeams),
               a.stream.option(renderStream(u.user)),
@@ -300,7 +300,7 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderTours(tours: lila.activity.ActivityView.Tours)(using Context) =
+  private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context) =
     entryTag(
       iconTag(Icon.Trophy),
       div(
@@ -319,7 +319,9 @@ final class ActivityUi(helpers: Helpers)(
                 strong(t.rank),
                 t.rankRatio.percent,
                 t.nbGames,
-                a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
+                a(href := addQueryParam(routes.Tournament.show(t.tourId).url, "player", u.username.value))(
+                  tournamentIdToName(t.tourId)
+                )
               ),
               br
             )

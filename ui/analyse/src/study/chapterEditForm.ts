@@ -1,6 +1,12 @@
-import { fieldValue, modeChoices } from './chapterNewForm';
+import { COLORS } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import { defined, prop } from 'lib';
 import { bind, bindSubmit, onInsert, spinnerVdom as spinner, snabDialog, confirm } from 'lib/view';
+
+import type { StudySocketSend } from '../socket';
 import { option, emptyRedButton } from '../view/util';
+import { fieldValue, modeChoices } from './chapterNewForm';
 import type {
   ChapterMode,
   EditChapterData,
@@ -8,10 +14,6 @@ import type {
   StudyChapterConfig,
   ChapterPreview,
 } from './interfaces';
-import { defined, prop } from 'lib';
-import { h, type VNode } from 'snabbdom';
-import type { StudySocketSend } from '../socket';
-import { COLORS } from 'chessops';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);

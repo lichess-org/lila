@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Ver el videotutorial</string>
   <string name="instructions1">Utiliza el botón %1$s para activar o desactivar el reconocimiento de voz, el botón %2$s para abrir este diálogo de ayuda y el menú %3$s para cambiar la configuración de voz.</string>
   <string name="instructions2">Mostramos flechas para múltiples movimientos cuando no estamos seguros. Di el color o el número de una flecha de movimiento para seleccionarla.</string>
-  <string name="instructions3">Si la flecha muestra un radar circular, se realizará la jugada cuando se complete el círculo. Durante este tiempo, únicamente puedes decir %1$s para hacer la jugada inmediatamente, %2$s para cancelar o di el color/número de una flecha diferente. Este temporizador se puede ajustar o desactivar en las preferencias.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Si la flecha muestra un radar circular, se realizará la jugada cuando se complete el círculo. Durante este tiempo, únicamente puedes decir %1$s para hacer la jugada inmediatamente, %2$s para cancelar o di el color/número de una flecha diferente. Este temporizador se puede ajustar o desactivar en las preferencias.</string>
   <string name="instructions4">Activa %s en entornos ruidosos. Mantén pulsado Mayúsculas mientras digas comandos cuando esté encendido.</string>
   <string name="instructions5">Utilice el alfabeto fonético para mejorar el reconocimiento de los archivos de tablero de ajedrez. </string>
   <string name="instructions6">%s explica detalladamente la configuración de movimiento de voz.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Mover a e4 o seleccionar la pieza en e4</string>
   <string name="selectOrCaptureABishop">Seleccionar o capturar un alfil</string>
   <string name="takeRookWithQueen">Capturar la torre con la dama</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Enroque (cualquier lado)</string>
+  <string name="castle">Enroque (cualquier lado)</string>
   <string name="phoneticAlphabetIsBest">El alfabeto fonético es mejor</string>
   <string name="cancelTimerOrDenyARequest">Cancelar temporizador o denegar una solicitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Hacer el movimiento preferido o confirmar algo</string>

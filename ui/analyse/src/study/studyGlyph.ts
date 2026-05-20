@@ -1,10 +1,12 @@
-import { blurIfPrimaryClick, prop } from 'lib';
-import { bind, spinnerVdom } from 'lib/view';
-import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
+
+import { blurIfPrimaryClick, prop } from 'lib';
+import { throttle } from 'lib/async';
+import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
+import { bind, spinnerVdom } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';
-import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
 
 interface AllGlyphs {
   move: Glyph[];
@@ -21,7 +23,7 @@ const renderGlyph = (ctrl: GlyphForm, node: TreeNode) => (glyph: Glyph) =>
         blurIfPrimaryClick(e);
       }),
       attrs: { 'data-symbol': glyph.symbol, type: 'button' },
-      class: { active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id) },
+      class: { active: !!node.glyphs && node.glyphs.some(g => g.id === glyph.id) },
     },
     [glyph.name],
   );

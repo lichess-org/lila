@@ -124,7 +124,7 @@ notify url users {username1,username2,username3} {url} {link title} | {link desc
 notify url titled {url} {link title} | {link description}
 notify url titled-arena {url} {link title} | {link description}
 patron lifetime {username}
-patron gift-month {username}
+patron gift-months {username} 3
 patron remove {username}
 patron set-months {username} {months}
 tournament feature {id}
@@ -132,6 +132,7 @@ tournament unfeature {id}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
+test-email {primary | secondary} {email}
 video sheet
 puzzle issue {id} {longer-win | ambiguous | ...}
 cache clear security.session.info

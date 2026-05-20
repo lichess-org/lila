@@ -9,7 +9,6 @@ import scalalib.model.{ Days, LangTag }
 
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
-import lila.core.net.ApiVersion
 import lila.core.security.HashedPassword
 import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode }
 import lila.core.userId.UserSearch
@@ -45,6 +44,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     u.id.noGhost.so:
       recoverDeleted:
         coll.one[User](enabledSelect ++ $id(u.id))
+
+  def notForeverClosedById[U: UserIdOf](u: U): Fu[Option[User]] =
+    u.id.noGhost.so:
+      recoverDeleted:
+        coll.one[User](notForeverClosedSelect ++ $id(u.id))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
@@ -196,6 +200,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
+  val notForeverClosedSelect = F.foreverClosed.$ne(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
@@ -242,13 +247,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[LangTag] = None,
       kid: KidMode = KidMode.No
   ): Fu[Option[User]] =
     exists(name).not.flatMapz:
-      val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang, kid) ++
+      val doc = newUser(name, passwordHash, email, blind, mustConfirmEmail, lang, kid) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
 
@@ -276,8 +280,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .map:
         _.flatMap { _.getAsOpt[UserId](F.id) }
 
-  def idLikeCanBeVeryExpensive(regex: String): Fu[List[User]] =
-    coll.find(F.id.$regex(regex) ++ enabledSelect).cursor[User](ReadPref.sec).list(200)
+  def idLikeCanBeVeryExpensive(regex: String, closed: Boolean): Fu[List[User]] =
+    coll.find(F.id.$regex(regex) ++ $doc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
 
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
@@ -456,9 +460,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one[Bdoc]
       .mapz(anyEmailOrPrevious)
 
-  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+  def notClosedForeverWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
-      .find($doc(F.email -> email, F.enabled -> true))
+      .find($doc(F.email -> email, notForeverClosedSelect))
       .one[Bdoc]
       .map: maybeDoc =>
         for
@@ -566,22 +570,18 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 
-  def isDeleted(user: User): Fu[Boolean] =
+  def closedFlags(user: User): Fu[Option[ClosedFlags]] =
     user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true))
-
-  def isForeverClosed(user: User): Fu[Boolean] =
-    user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(F.foreverClosed -> true))
+      coll
+        .exists($id(user.id) ++ $doc(F.foreverClosed -> true))
+        .zip(coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true)))
+        .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
   def filterSeenSince(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ F.seenAt.$gt(since), _.sec)
-
-  def createdWithApiVersion(userId: UserId) =
-    coll.primitiveOne[ApiVersion]($id(userId), F.createdWithApiVersion)
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 
@@ -590,7 +590,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[LangTag],
       kid: KidMode
@@ -606,7 +605,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       F.count -> defaultCount,
       F.enabled -> true,
       F.createdAt -> now,
-      F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> now,
       F.playTime -> PlayTime(0, 0, none),
       F.lang -> lang

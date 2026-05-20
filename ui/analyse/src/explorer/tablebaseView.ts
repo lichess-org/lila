@@ -1,4 +1,5 @@
 import { h, type VNode } from 'snabbdom';
+
 import type AnalyseCtrl from '../ctrl';
 import { moveArrowAttributes, winnerOf } from './explorerUtil';
 import type { TablebaseMoveStats } from './interfaces';

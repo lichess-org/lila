@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Αυτή είναι η σελίδα προφίλ σας.</string>
   <string name="enabledKidModeSuggestion">Εάν ο λογαριασμός αυτός πρόκειται να χρησιμοποιηθεί από ένα παιδί, προτείνεται η ενεργοποίηση της %s.</string>
   <string name="whatNowSuggestions">Και τώρα; Ιδού ορισμένες συμβουλές:</string>
-  <string name="learnChessRules">Μάθετε τους κανόνες του παιχνιδιού.</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Μάθετε τους κανόνες του παιχνιδιού.</string>
   <string name="improveWithChessTacticsPuzzles">Βελτιώστε τις επιδόσεις σας λύνοντας τακτικά.</string>
   <string name="playTheArtificialIntelligence">Παίξτε με αντίπαλο την τεχνητή νοημοσύνη.</string>
   <string name="playOpponentsFromAroundTheWorld">Παίξτε με αντιπάλους από όλο τον κόσμο.</string>

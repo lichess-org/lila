@@ -11,9 +11,9 @@ final class Event(env: Env) extends LilaController(env):
       for html <- env.event.markdown.of(event)
       yield views.event.show(event, html)
 
-  def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
+  def manager(page: Int) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     Ok.async:
-      api.list.map(views.event.manager)
+      api.pager(page).map(views.event.manager)
   }
 
   def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>

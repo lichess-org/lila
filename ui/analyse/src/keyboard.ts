@@ -1,9 +1,10 @@
-import * as control from './control';
-import type AnalyseCtrl from './ctrl';
-import * as xhr from 'lib/xhr';
-import { snabDialog } from 'lib/view';
 import type { VNode } from 'snabbdom';
+
 import { pubsub } from 'lib/pubsub';
+import { snabDialog } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
 
 export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
   window.site.mousetrap.bind(key, () =>
@@ -17,21 +18,21 @@ export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
-      control.prev(ctrl);
+      ctrl.navigate.prev();
       ctrl.redraw();
     })
     .bind(['right', 'j'], () => {
-      control.next(ctrl);
+      ctrl.navigate.next();
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
       if (e.key === 'ArrowUp' && ctrl.fork.select('prev')) ctrl.setAutoShapes();
-      else control.first(ctrl);
+      else ctrl.navigate.first();
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
       if (e.key === 'ArrowDown' && ctrl.fork.select('next')) ctrl.setAutoShapes();
-      else control.last(ctrl);
+      else ctrl.navigate.last();
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -46,7 +47,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.practice || ctrl.study?.practice) return;
+    else if (ctrl.practice || ctrl.study?.practice) return undefined;
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
     else if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
   });
@@ -54,6 +55,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
   if (ctrl.study?.practice) return;
 
   kbd
+    .bind('h', () => {
+      ctrl.toggleActionMenu();
+      ctrl.redraw();
+    })
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
@@ -83,11 +88,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
     });
   kbd
     .bind(['shift+left', 'shift+k'], () => {
-      control.previousBranch(ctrl);
+      ctrl.navigate.previousBranch();
       ctrl.redraw();
     })
     .bind(['shift+right', 'shift+j'], () => {
-      control.nextBranch(ctrl);
+      ctrl.navigate.nextBranch();
       ctrl.redraw();
     })
     .bind('shift+down', () => {
@@ -98,13 +103,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'prev'), true);
       ctrl.redraw();
     });
-
-  //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
-  keyToMouseEvent(
-    'r',
-    'click',
-    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
-  );
 
   //First explorer move
   kbd.bind('shift+space', () => {

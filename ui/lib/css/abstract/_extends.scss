@@ -24,6 +24,7 @@
 
   draw {
     @extend %roboto;
+
     margin-inline-start: 1ch;
     font-weight: normal;
   }
@@ -48,22 +49,37 @@
 
 %page-link {
   @extend %page-link-font !optional;
-
   @extend %page-text-shadow !optional;
 }
 
 %metal-bg {
+  @include with-metal-shadow;
+
   background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
 }
 
 %metal {
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0 1px 0 $c-font-shadow;
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20 !important;
+
+  &:hover:not(.disabled, :disabled, [disabled]) {
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
+
+    background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+  }
 }
 
-%metal-hover {
-  background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
-  text-shadow: 0 1px 0 $c-font-shadow;
+%metal-with-border {
+  @extend %metal;
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.1), hsla(0, 0, 0%, 0.08), true);
+
+  border: 1px solid $c-border;
+
+  &:hover:not(.disabled, :disabled, [disabled]) {
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.12), hsla(0, 0, 0%, 0.1), true);
+  }
 }
 
 %metal-inverse {
@@ -97,7 +113,7 @@
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset !important;
 }
 
 %active {
@@ -106,9 +122,17 @@
   background: $c-accent;
   color: #fff;
   text-shadow: 0 1px 1px black !important;
+
+  &:not(.disabled):hover {
+    @extend %active-inset-shadow;
+
+    background: $m-accent--lighten-5;
+  }
 }
 
 %active-hover {
+  @extend %active-inset-shadow;
+
   background: $m-accent_white--mix-80;
 }
 
@@ -139,6 +163,7 @@
   @include if-transp {
     @include back-blur;
   }
+
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -146,17 +171,26 @@
   @include if-transp {
     @include back-blur;
   }
+
   box-shadow:
     0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 %button-shadow {
-  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
+  box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+
+  @include if-light {
+    box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.15);
+  }
 }
 
 %button-raised-shadow {
-  box-shadow: 0 4px 10px 0 hsla(0, 0, 0, 0.225);
+  box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.225);
+
+  @include if-light {
+    box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.18);
+  }
 }
 
 %checkbox {
@@ -195,15 +229,15 @@
 }
 
 %box-padding {
-  padding: $box-padding-vert var(---box-padding);
+  padding: $box-padding-vert $box-padding;
 }
 
 %box-padding-horiz {
-  padding: 0 var(---box-padding);
+  padding: 0 $box-padding;
 }
 %box-margin-horiz {
-  margin-left: var(---box-padding);
-  margin-right: var(---box-padding);
+  margin-left: $box-padding;
+  margin-right: $box-padding;
 }
 
 %break-word {
@@ -302,5 +336,5 @@
 // hide an input element while keeping it accessible to screen readers
 %visually-hidden {
   position: absolute;
-  left: -99999px;
+  inset-inline-start: -99999px;
 }

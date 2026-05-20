@@ -10,13 +10,16 @@ body {
   .vertical-resize {
     display: flex;
   }
+
   .mchat {
     margin-top: 0;
     min-height: 52px;
   }
+
   .chat__members {
     margin: 2px;
   }
+
   .relay-admin {
     margin-top: 0;
   }
@@ -25,27 +28,33 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
+
     &__side {
       grid-area: side;
     }
   }
+
   &:not(.has-relay-tour) {
     // room for extra player heights
     margin-top: $player-height;
+
     @include mq-at-least-col2 {
       .relay-tour__side {
         margin-top: #{-$player-height};
       }
     }
+
     @include mq-at-least-col3 {
       .analyse__tools {
         margin-top: #{-$player-height};
+
         .ceval {
           flex: 0 0 $player-height;
         }
       }
     }
   }
+
   .analyse__round-training,
   .relay-admin__container {
     grid-area: relay-admin;
@@ -55,10 +64,12 @@ main.is-relay {
     button.streamer-show {
       display: block;
     }
+
     @media (pointer: fine) {
       .relay-admin__container {
         grid-area: none;
       }
+
       @include resizable-side;
     }
   }
@@ -71,6 +82,7 @@ main.is-relay.has-relay-tour {
     'relay-tour'
     'side'
     'relay-admin';
+
   .relay-games {
     height: 40vh;
   }
@@ -78,6 +90,7 @@ main.is-relay.has-relay-tour {
   @include mq-at-least-col2 {
     grid-template-areas: 'relay-tour . side';
     grid-template-columns: minmax(auto, 80vw) var(---block-gap) 350px;
+
     @media (pointer: fine) {
       @include resizable-side;
     }
@@ -102,10 +115,12 @@ main.analyse.is-relay:not(.has-relay-tour) {
     'side'
     'relay-admin'
     'under';
+
   .mchat,
   .chat__members {
     display: none;
   }
+
   @include mq-at-least-col2 {
     grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) $player-height;
     grid-template-areas:
@@ -114,47 +129,60 @@ main.analyse.is-relay:not(.has-relay-tour) {
       'board        .     controls'
       'under        under under'
       'relay-admin  .     .';
+
     .analyse__underboard {
       margin-top: unset;
+
       .is3d & {
         margin-top: calc(var(---cg-height) * 2 / 100);
       }
     }
+
     .eval-chart-and-training {
       flex-wrap: nowrap;
     }
+
     .analyse__controls {
       height: $player-height;
+
       .jumps {
         padding-bottom: 0;
       }
     }
   }
+
   @include mq-at-least-col3 {
     grid-template-rows: var(---cg-height) $player-height;
     grid-template-areas:
       'side           . board gauge tools'
       'side           . board .     controls'
       'side           . under under under';
+
     .mchat,
     .chat__members {
       display: flex;
     }
+
     .mchat:has(.liveboard.mchat__tab-active) {
-      max-height: 380px;
-      min-height: 380px; // constrain height set by vertical-resize
+      max-height: calc(var(---cg-height) + 91px);
+      min-height: calc(var(---cg-height) + 91px);
     }
   }
+
   .eval-chart-and-training {
     @extend %flex-center;
+
     gap: $analyse-block-gap;
+
     .study__server-eval {
       flex: 1 1 100%;
     }
+
     .analyse__round-training {
       flex: 1 0 200px;
     }
   }
+
   &.relay-in-variation {
     .main-board cg-board {
       filter: saturate(0.7) brightness(0.9);

@@ -10,6 +10,7 @@
 
   #{$moves-tag} {
     @include prevent-select;
+
     display: flex;
     flex-flow: row wrap;
     align-items: center;

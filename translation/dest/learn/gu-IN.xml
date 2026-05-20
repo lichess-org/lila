@@ -99,7 +99,7 @@
 બહાર નીકળી શકો છો.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">આ ઘોડેસવાર તમારા બચાવની તપાસ કરી રહ્યો છે!</string>
   <string name="escapeOrBlock">રાજા સાથે ભાગી જાઓ - અથવા હુમલો રોકો!</string>
-  <string name="outOfCheckComplete">અભિનંદન! તમારા રાજાને ક્યારેય છીનવી શકાશે નહીં, ખાતરી કરો કે તમે ચેક સામે બચાવ કરી શકો છો!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">અભિનંદન! તમારા રાજાને ક્યારેય છીનવી શકાશે નહીં, ખાતરી કરો કે તમે ચેક સામે બચાવ કરી શકો છો!</string>
   <string name="mateInOne">એક જ ચાલમાં મેટ </string>
   <string name="defeatTheOpponentsKing">વિરોધીના રાજાને હરાવો</string>
   <string name="mateInOneIntro">જ્યારે તમારો વિરોધી ચેક સામે બચાવ ન કરી શકે ત્યારે તમે જીતો છો.</string>

@@ -22,9 +22,8 @@
 }
 
 .storm-play-again {
-  @extend %flex-center;
+  @extend %flex-center-center;
 
-  justify-content: center;
   font-size: 1.5em;
   letter-spacing: 0.4em;
   padding: 1em 0;

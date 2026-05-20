@@ -1,9 +1,5 @@
 import { propWithEffect, toggle as commonToggle } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import type { VoiceCtrl, VoiceModule } from './interfaces';
-import type { VoiceMove } from './move/interfaces';
-import { Mic } from './mic';
-import { flash } from './view';
 import {
   once,
   storedBooleanProp,
@@ -11,25 +7,14 @@ import {
   storedBooleanPropWithEffect,
 } from 'lib/storage';
 
+import type { VoiceCtrl, VoiceModule } from './interfaces';
+import { Mic } from './mic';
+import type { VoiceMove } from './move/interfaces';
+import { flash } from './util';
+
 export * from './interfaces';
 export * from './move/interfaces';
 export { renderVoiceBar } from './view';
-
-export const supportedLangs: [string, string][] = [
-  ['en', 'English'],
-  ['fr', 'Français'],
-  ['pl', 'Polski'],
-];
-
-if (site.debug)
-  supportedLangs.push(
-    ['de', 'Deutsch'],
-    ['tr', 'Türkçe'],
-    ['vi', 'Tiếng Việt'],
-    ['ru', 'Русский'],
-    ['it', 'Italiano'],
-    ['sv', 'Svenska'],
-  );
 
 export function makeVoice(opts: {
   redraw: () => void;

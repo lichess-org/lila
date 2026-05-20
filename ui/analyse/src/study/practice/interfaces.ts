@@ -11,9 +11,7 @@ export interface StudyPracticeData {
     desc: string;
   };
   url: string;
-  completion: {
-    [key: string]: number;
-  };
+  completion: Record<string, number>;
   structure: PracticeSection[];
 }
 

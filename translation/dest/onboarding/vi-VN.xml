@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Đây là trang hồ sơ của bạn.</string>
   <string name="enabledKidModeSuggestion">Một đứa trẻ sẽ sử dụng tài khoản này? Bạn có thể muốn kích hoạt %s.</string>
   <string name="whatNowSuggestions">Làm gì bây giờ? Dưới đây là một vài gợi ý:</string>
-  <string name="learnChessRules">Học các luật chơi cờ vua</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Học các luật chơi cờ vua</string>
   <string name="improveWithChessTacticsPuzzles">Cải thiện với các câu đố cờ vua chiến thuật.</string>
   <string name="playTheArtificialIntelligence">Chơi với trí tuệ nhân tạo.</string>
   <string name="playOpponentsFromAroundTheWorld">Đánh cờ với đối thủ từ khắp nơi trên thế giới.</string>

@@ -27,7 +27,7 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       val command = s"$executable --$flavour $file -p"
       val stdout = new collection.mutable.ListBuffer[String]
       val stderr = new StringBuilder
-      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
+      val status = lila.mon.Chronometer.syncMon(lila.mon.swiss.bbpairing):
         blocking:
           command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then
@@ -61,11 +61,10 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       .intersperse("\n")
       .map(ByteString.apply)
       .runWith(FileIO.toPath(file.toPath))
-      .map { _ =>
+      .map: _ =>
         val res = f(file)
         file.delete()
         res
-      }
 
 private object PairingSystem:
   case class BBPairingException(message: String, swiss: Swiss) extends lila.core.lilaism.LilaException

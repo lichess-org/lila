@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Lichessin mobiilisovellusongelmaksi GitHubissa</string>
   <string name="reportBugInDiscord">Lichessin Discord-palvelimella</string>
   <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Laiton sotilaan lyönti</string>
+  <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
   <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
   <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
   <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">On mahdollista matittaa pelkällä ratsulla ja lähetillä, jos vastustajalla on pelkkä kuningas laudalla.</string>
   <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
-  <string name="botRatingAbuse">Joissakin tilanteissa bottia vastaan pelatusta pisteytetystä pelistä ei välttämättä saa pisteitä, jos pelaajan katsotaan käyttävän bottia hyväkseen pisteiden saamiseksi.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Joissakin tilanteissa bottia vastaan pelatusta pisteytetystä pelistä ei välttämättä saa pisteitä, jos pelaajan katsotaan käyttävän bottia hyväkseen pisteiden saamiseksi.</string>
   <string name="errorPage">Virhesivu</string>
   <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
   <string name="learnHowToMakeBroadcasts">Opi pitämään omia lähetyksiä Lichessissä</string>

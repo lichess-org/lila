@@ -1,8 +1,10 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, hl } from 'lib/view';
-import type SetupCtrl from '../setupCtrl';
+
 import { miniBoard } from '@/ground';
 import { type Bot } from '@/interfaces';
+
+import type SetupCtrl from '../setupCtrl';
 import { setupDialog } from './setupDialog';
 
 export const setupView = (ctrl: SetupCtrl) =>

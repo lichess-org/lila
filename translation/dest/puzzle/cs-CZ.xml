@@ -13,7 +13,6 @@
   <string name="origin">Původ</string>
   <string name="specialMoves">Speciální tahy</string>
   <string name="didYouLikeThisPuzzle">Líbila se vám tato úloha?</string>
-  <string name="voteToLoadNextOne">Hlasujte pro načtení další úlohy!</string>
   <string name="upVote">Dobrá úloha</string>
   <string name="downVote">Špatná úloha</string>
   <string name="yourPuzzleRatingWillNotChange">Vaše hodnocení hádanky se nezmění. Hádanky nejsou soutěží. Hodnocení pomáhá vybírat nejlepší hádanky pro vaši aktuální dovednost.</string>
@@ -99,6 +98,6 @@ Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!
   </plurals>
   <string name="percentSolved">%s vyřešeno</string>
   <string name="noPuzzlesToShow">Nic k zobrazení, jděte nejdříve zkusit nějaké úlohy!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Tyto procvičujte pro zlepšení!</string>
+  <string name="improvementAreasDescription">Tyto procvičujte pro zlepšení!</string>
   <string name="strengthDescription">V těchto tématech se vám daří nejvíc</string>
 </resources>

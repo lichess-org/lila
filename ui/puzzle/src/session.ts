@@ -1,5 +1,6 @@
 import { prop } from 'lib';
 import { storedJsonProp } from 'lib/storage';
+
 import type { ThemeKey } from './interfaces';
 
 interface SessionRound {
@@ -19,7 +20,7 @@ export default class PuzzleSession {
 
   constructor(
     readonly theme: ThemeKey,
-    readonly userId: string | undefined,
+    readonly userId: UserId | undefined,
     readonly streak: boolean,
   ) {}
 

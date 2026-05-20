@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Postuloj de DGT Tabulo</string>
   <string name="dgtBoardLimitations">Limoj de DGT Tabulo</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ĉi tiu paĝo lasas vin konekti vian DGT tabulon al Lichess, kaj uzi ĝin por ludi ludojn.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Por konekti al la DGT elektronika tabulo vi bezonos instali %s.</string>
+  <string name="toConnectTheDgtBoard">Por konekti al la DGT elektronika tabulo vi bezonos instali %s.</string>
   <string name="downloadHere">Vi povas instali la programaron tie: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Se %1$s ruliĝas sur ĉi komputilo, vi povas kontroli vian konekton al ĝi per %2$s.</string>
   <string name="openingThisLink">per alklaki ĉi tiun ligilon</string>
@@ -18,8 +18,8 @@
   <string name="whenReadySetupBoard">Kiam preta, agordu vian tabulon, tiam alklaku %s.</string>
   <string name="ifMoveNotDetected">Se movo ne estas detektita</string>
   <string name="checkYouHaveMadeOpponentsMove">Kontroli, ke vi ludis la movon de via kontraŭulo unue. Malfaru vian movon. Reludu.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Kiel fina rimedo, agordi la tabulo kiel Lichess, tiam %s</string>
-  <string name="reloadThisPage">Reŝargi ĉi tiun paĝon</string>
+  <string name="asALastResort">Kiel fina rimedo, agordi la tabulo kiel Lichess, tiam %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Reŝargi ĉi tiun paĝon</string>
   <string name="dgtConfigure">DGT - Agordo</string>
   <string name="lichessConnectivity">Lichess konekteco</string>
   <string name="validDgtOauthToken">Vi havas OAuth ĵetonon taŭga por DGT ludo.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Ŝlosilvortoj estas aranĝata JSON-e. Ilin uzas por traduki movojn kaj rezultojn al via lingvo. Defaŭlto estas la angla, sed bonvolu ŝanĝi ĝin, se tio plaĉas al vi.</string>
   <string name="debug">Sencimigi</string>
   <string name="verboseLogging">Malkonciza protokolado</string>
-  <string name="toSeeConsoleMessage">Por vidi konzola mesaĝo premi Komandon + Opcion + C (Mac) aŭ Stiron + Majuskligon + C (Vindozo, Linukso, Krom OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Por vidi konzola mesaĝo premi Komandon + Opcion + C (Mac) aŭ Stiron + Majuskligon + C (Vindozo, Linukso, Krom OS)</string>
   <string name="playWithDgtBoard">Ludi per DGT tabulo</string>
   <string name="configure">Agordoj</string>
 </resources>

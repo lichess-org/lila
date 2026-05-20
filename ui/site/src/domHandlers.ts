@@ -1,9 +1,11 @@
+import { blurIfPrimaryClick } from 'lib';
 import * as licon from 'lib/licon';
-import { writeTextClipboard, text as xhrText } from 'lib/xhr';
-import topBar from './topBar';
-import { userComplete } from 'lib/view/userComplete';
-import { confirm } from 'lib/view';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
+import { confirm } from 'lib/view';
+import { userComplete } from 'lib/view/userComplete';
+import { writeTextClipboard, text as xhrText } from 'lib/xhr';
+
+import topBar from './topBar';
 
 export function addWindowHandlers() {
   let animFrame: number;
@@ -24,16 +26,21 @@ export function addDomHandlers() {
   menuKeyboardInteractions();
 
   $('#main-wrap')
-    .on('click', '.copy-me__button', function (this: HTMLElement) {
+    .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
+      blurIfPrimaryClick(e);
       const showCheckmark = () => {
         $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
         setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
       };
       const fetchContent = $(this).parent().hasClass('fetch-content');
-      $(this.parentElement!.firstElementChild).each(function (this: any) {
+      $(this.parentElement!.firstElementChild).each(function (this: HTMLInputElement | HTMLAnchorElement) {
         try {
-          if (fetchContent) writeTextClipboard(this.href, showCheckmark);
-          else navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
+          if (this instanceof HTMLAnchorElement) {
+            if (fetchContent) writeTextClipboard(this.href, showCheckmark);
+            else navigator.clipboard.writeText(this.href).then(showCheckmark);
+          } else if (this instanceof HTMLInputElement) {
+            navigator.clipboard.writeText(this.value).then(showCheckmark);
+          }
         } catch (e) {
           console.error(e);
         }

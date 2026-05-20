@@ -10,10 +10,10 @@ import play.api.data.Forms.*
 import play.api.libs.json.Json
 import scalalib.ThreadLocalRandom
 import scalalib.model.Days
+import scalalib.net.Bearer
 
 import lila.core.data.Template
 import lila.core.game.GameRule
-import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.common.Form.into

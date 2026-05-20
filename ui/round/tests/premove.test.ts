@@ -1,11 +1,11 @@
-import { describe, test } from 'node:test';
-import assert from 'node:assert/strict';
-
-import { premove } from '@lichess-org/chessground/premove';
-import * as cg from '@lichess-org/chessground/types';
-import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
 import * as fen from '@lichess-org/chessground/fen';
+import { premove } from '@lichess-org/chessground/premove';
+import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
+import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
+import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
+
 import { Premove } from '../src/premove';
 
 const diagonallyOpposite = (square: cg.Key): cg.Key =>
@@ -122,7 +122,7 @@ describe('premoves', () => {
       ['g7', new Set(['g6', 'f6'])],
       ['e5', new Set(['e4', 'd4'])],
       ['b5', new Set(['b4'])],
-      ['a3', new Set([])],
+      ['a3', new Set()],
     ]);
     testPosition(
       fen.read('k1n2r1r/2bP2p1/3r3p/Ppq1pPr1/qP4n1/p3r1P1/PbnP2KP/R4r1q w - - 0 1'),
@@ -141,7 +141,7 @@ describe('premoves', () => {
       ['h3', new Set(['g3', 'f3', 'e3', 'd3', 'h4', 'h5'])],
       ['f5', new Set(['e5', 'd5', 'c5', 'b5', 'a5', 'f6', 'f7', 'f8', 'f4', 'f3'])],
       ['c4', new Set(['c5'])],
-      ['f4', new Set([])],
+      ['f4', new Set()],
       ['g5', new Set(['g6'])],
       ['d3', new Set(['d4', 'e4'])],
     ]);

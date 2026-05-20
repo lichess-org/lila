@@ -1,5 +1,6 @@
-import type { OpeningPage } from './interfaces';
 import { wikiBooksUrl, apiArgs, transformWikiHtml } from 'lib/wikiBooks';
+
+import type { OpeningPage } from './interfaces';
 
 export default function wikiTheory(data: OpeningPage): void {
   $('.opening__wiki__markup__placeholder').each(function (this: HTMLDivElement) {
@@ -19,19 +20,17 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
     if (res.ok) {
       const json = await res.json();
       const page = json.query.pages[0];
-      if (page.missing) return;
-      else if (page.invalid) {
-        console.warn('invalid request: ' + page.invalidreason);
-        return;
-      } else if (!page.extract) {
-        console.warn('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
-        return;
-      } else {
-        return render(transformWikiHtml(page.extract, title));
+      if (!page.missing) {
+        if (page.invalid) {
+          console.warn('invalid request: ' + page.invalidreason);
+        } else if (!page.extract) {
+          console.warn('error: unexpected API response: ' + JSON.stringify(page));
+        } else {
+          return render(transformWikiHtml(page.extract, title));
+        }
       }
-    } else return;
+    }
   } catch (err) {
     console.warn(err);
-    return;
   }
 }

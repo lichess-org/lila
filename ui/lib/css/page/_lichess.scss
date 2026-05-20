@@ -6,16 +6,11 @@
 @import '../base/util';
 @import '../base/scrollbar';
 @import '../base/ltr';
-
-@include theme-style;
-
 @import '../layout/vars';
 @import '../layout/base';
 @import '../layout/page-menu';
-
 @import '../theme/board/chessground';
-
 @import '../header/header';
 @import '../../../cli/css/clinput';
-
 @import 'components';
+@include theme-style;

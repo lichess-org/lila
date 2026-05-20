@@ -1,9 +1,10 @@
+import * as licon from 'lib/licon';
+import type { TreeNode } from 'lib/tree/types';
+import { bind, hl, type VNode, spinnerVdom as spinner, iconTag } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../view/components';
 import type { RetroCtrl } from './retroCtrl';
-import type AnalyseCtrl from '../ctrl';
-import * as licon from 'lib/licon';
-import { bind, dataIcon, hl, type VNode, spinnerVdom as spinner } from 'lib/view';
-import type { TreeNode } from 'lib/tree/types';
 
 const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
   hl('div.choices', [
@@ -13,7 +14,7 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
-    hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
+    iconTag(licon.PlayTriangle),
     i18n.site.next,
   ]);
 

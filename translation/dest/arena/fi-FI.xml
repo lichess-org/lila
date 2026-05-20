@@ -14,7 +14,7 @@ Saat tuplapisteitä peleistäsi aina siihen asti, kunnes et voita peliä.
 Siis voitosta saat 4 pistettä ja tasapelistä kaksi; tappiosta et saa pisteitä edelleenkään.
 
 Esimerkiksi kaksi voittoa joiden jälkeen tasapeli tuottaa 6 pistettä: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Areenaberserkki</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Areenaberserkki</string>
   <string name="berserkAnswer">Kun pelaaja klikkaa berserkkinappulaa pelin alkaessa, hän menettää puolet ajastaan pelikellossa, mutta ansaitsee voittaessaan lisäpisteen turnauksen pistetaulukkoon.
 
 Berserkkitilassa ei saa myöskään lisäaikaa siirroista, vaikka turnauksen kelloasetukset olisivat sellaiset (1+2 on poikkeus, berserkkitilassa käytössä on 1+0)
@@ -67,7 +67,7 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="whichTeamWillYouRepresentInThisBattle">Mitä joukkuetta edustat tässä taistossa?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Sinun täytyy liittyä johonkin näistä joukkueista osallistuaksesi turnaukseen!</string>
   <string name="created">Luodut</string>
-  <string name="recentlyPlayed">Äskettäin pelatut</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Äskettäin pelatut</string>
   <string name="bestResults">Parhaat tulokset</string>
   <string name="tournamentStats">Turnauksen tilastot</string>
   <string name="rankAvgHelp">Sijoitusten keskiarvo on sijoituksesi prosenttiarvo. Matalampi luku on parempi.

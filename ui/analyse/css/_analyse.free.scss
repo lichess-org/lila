@@ -6,6 +6,7 @@ $label-width: 5ch;
 .copyables {
   .pair {
     @extend %flex-center;
+
     position: relative;
   }
 
@@ -66,8 +67,8 @@ $label-width: 5ch;
 
   .bottom-action {
     @extend %box-radius-bottom;
-
     @include inline-end(0);
+
     text-align: right;
   }
 
@@ -97,6 +98,7 @@ $label-width: 5ch;
   margin-bottom: 1em; // col1
   .control-960 {
     margin-top: 0.7em;
+
     button {
       margin-left: 1em;
     }

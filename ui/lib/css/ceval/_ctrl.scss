@@ -1,5 +1,6 @@
 .ceval {
   @extend %metal-bg;
+
   position: relative;
   display: flex;
   column-gap: 6px;
@@ -10,10 +11,9 @@
     visibility: visible;
   }
 
-  // [ div.cmn-toggle, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
-
   .cmn-toggle {
     @extend %flex-center;
+
     flex: 0 0 40px;
     margin-inline-start: 6px;
   }
@@ -32,6 +32,7 @@
 
   .engine {
     @extend %nowrap-hidden;
+
     flex: 2 1 auto;
     font-size: 12px;
     line-height: 16px;
@@ -44,6 +45,7 @@
     .cloud,
     .infinite {
       @extend %roboto, %box-radius;
+
       margin-inline-start: 4px;
       background: $c-secondary-dim;
       color: $c-over;
@@ -51,6 +53,7 @@
       text-transform: uppercase;
       font-size: 11px;
     }
+
     .info {
       display: block;
       white-space: nowrap;
@@ -147,6 +150,7 @@
 
 .engine-error {
   @extend %flex-column;
+
   align-items: center;
   row-gap: 1em;
   padding: 3em;
@@ -156,6 +160,7 @@
   @media (max-width: at-most($medium)) {
     max-width: 80vw;
   }
+
   @media (max-width: at-most($xx-small)) {
     max-width: unset;
     width: 96vw;
@@ -163,13 +168,16 @@
 
   h2 {
     @extend %base-font;
+
     font-size: 1.3em;
   }
+
   li {
     margin: 0 2em;
     line-height: 1.5em;
     list-style: disc;
   }
+
   pre {
     width: 100%;
     border: 1px solid #888;

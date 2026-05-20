@@ -68,6 +68,7 @@ body {
   }
 
   ---chat-height: fit-content(0);
+
   &--wiki {
     ---chat-height: 0;
   }
@@ -104,6 +105,7 @@ body {
     &__side {
       margin: $analyse-block-gap 0 0 0;
     }
+
     .chat__members {
       margin: calc($analyse-block-gap / 2) 0 0 0;
     }

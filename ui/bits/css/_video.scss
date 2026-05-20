@@ -24,12 +24,10 @@
 
   .card {
     @extend %box-radius, %button-shadow;
+    @include transition;
 
     position: relative;
     overflow: hidden;
-
-    @include transition;
-
     color: $c-font;
 
     &:hover {
@@ -66,6 +64,8 @@
 
     .reveal {
       @extend %metal;
+      @include transition;
+      @include backdrop-blur-if-transparent;
 
       position: absolute;
       top: 100%;
@@ -75,8 +75,6 @@
       z-index: 1;
       padding: 10px 10px 0 10px;
       opacity: 0;
-
-      @include transition;
     }
 
     &:hover .reveal {
@@ -131,6 +129,7 @@
 
     .meta {
       @extend %box-padding-horiz;
+
       padding-bottom: 10px;
 
       .target__wrapper {

@@ -38,35 +38,37 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
             ),
             postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
               globalError(permsForm).map(_(cls := "box__pad text", dataIcon := Icon.CautionTriangle)),
-              table(cls := "slist slist-pad slist-resp")(
-                thead:
-                  tr(
-                    th,
-                    t.leaders.mapWithIndex: (l, i) =>
-                      th(
-                        userIdLink(l.user.some, withOnline = false),
-                        form3.hidden(s"leaders[$i].name", l.user)
-                      )
-                  )
-                ,
-                tbody:
-                  TeamSecurity.Permission.values.toList.map: perm =>
+              div(cls := "team-permissions__table"):
+                table(cls := "slist slist-pad slist-resp")(
+                  thead:
                     tr(
-                      th(
-                        strong(perm.name),
-                        p(perm.desc)
-                      ),
-                      t.leaders.mapWithIndex: (l, li) =>
-                        td(dataLabel := l.user):
-                          form3.nativeCheckbox(
-                            fieldId = s"leaders-$li-perms-${perm.key}",
-                            fieldName = s"leaders[$li].perms[]",
-                            checked = (0 to TeamSecurity.Permission.values.size).exists: i =>
-                              permsForm.data.get(s"leaders[$li].perms[$i]").contains(perm.key),
-                            value = perm.key
-                          )
+                      th,
+                      t.leaders.mapWithIndex: (l, i) =>
+                        th(
+                          userIdLink(l.user.some, withOnline = false),
+                          form3.hidden(s"leaders[$i].name", l.user)
+                        )
                     )
-              ),
+                  ,
+                  tbody:
+                    TeamSecurity.Permission.values.toList.map: perm =>
+                      tr(
+                        th(
+                          strong(perm.name),
+                          p(perm.desc)
+                        ),
+                        t.leaders.mapWithIndex: (l, li) =>
+                          td(dataLabel := l.user):
+                            form3.nativeCheckbox(
+                              fieldId = s"leaders-$li-perms-${perm.key}",
+                              fieldName = s"leaders[$li].perms[]",
+                              checked = (0 to TeamSecurity.Permission.values.size).exists: i =>
+                                permsForm.data.get(s"leaders[$li].perms[$i]").contains(perm.key),
+                              value = perm.key
+                            )
+                      )
+                )
+              ,
               p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
               form3.actions(cls := "box__pad")(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),

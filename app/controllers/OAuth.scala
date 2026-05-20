@@ -3,45 +3,36 @@ package controllers
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalalib.ThreadLocalRandom
+import scalalib.net.Bearer
 import scalatags.Text.all.stringFrag
 import cats.mtl.Handle.*
 
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.net.Bearer
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
 import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def reqToAuthorizationRequest(using RequestHeader) =
-    import lila.oauth.Protocol.*
-    AuthorizationRequest.Raw(
-      clientId = getAs[ClientId]("client_id"),
-      responseType = get("response_type"),
-      redirectUri = get("redirect_uri"),
-      state = getAs[State]("state"),
-      codeChallengeMethod = get("code_challenge_method"),
-      codeChallenge = getAs[CodeChallenge]("code_challenge"),
-      scope = get("scope"),
-      username = getAs[UserStr]("username")
-    )
-
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
-    reqToAuthorizationRequest.prompt match
-      case Right(prompt) =>
-        AuthorizationRequest.logPrompt(prompt, ctx.me)
-        f(prompt)
+    AuthorizationRequest.fromReq match
+      case Right(prompt) => f(prompt)
       case Left(error) =>
         BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
-        Ok.page:
-          views.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
+      ctx.me match
+        case Some(me) =>
+          given Me = me
+          Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+        case None =>
+          Redirect(
+            if getBool("signup") then routes.Auth.signup.url else routes.Auth.login.url,
+            Map("referrer" -> List(req.uri))
+          ).toFuccess
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")

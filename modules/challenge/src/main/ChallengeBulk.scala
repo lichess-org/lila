@@ -35,7 +35,7 @@ final class ChallengeBulkApi(
     expiration = 10.minutes,
     timeout = 10.seconds,
     name = "challenge.bulk",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
@@ -121,8 +121,7 @@ final class ChallengeBulkApi(
         msgApi
           .onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
           .recover(e => logger.error(s"Bulk.sendMsg ${game.id} ${e.getMessage}"))
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by).increment(_))
       .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
       coll.updateField($id(bulk.id), "pairedAt", nowInstant)

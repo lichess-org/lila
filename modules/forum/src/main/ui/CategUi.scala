@@ -50,7 +50,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         td(
           topic.lastPost.map: post =>
             frag(
-              a(href := s"${routes.ForumTopic.show(categ.id, topic.slug, topic.lastPage)}#${post.number}")(
+              a(href := s"${routes.ForumTopic.show(categ.id, topic.slug, topic.lastPage)}#${post.id}")(
                 momentFromNow(post.createdAt)
               ),
               br,
@@ -139,7 +139,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               val canBrowse = !view.categ.hidden
                 || Granter.opt(_.ModerateForum)
                 || (view.categ.isDiagnostic && Granter.opt(_.Diagnostics))
-              val postUrl = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
+              val postUrl = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.id}"
               val categUrl =
                 if canBrowse then routes.ForumCateg.show(view.slug)
                 else routes.ForumTopic.show(view.slug, topic.slug, 1)

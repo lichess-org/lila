@@ -46,13 +46,13 @@ trait CtrlErrors extends ControllerHelpers:
     json.validate(using jsonGlobalErrorRenamer).getOrElse(json)
 
   /* This is what we want
-   * { "error" -> { "key" -> "value" } }
+   * { "error" -> { "key" -> ["value"] } }
    */
   def jsonFormError(form: Form[?])(using Translate): Result =
     BadRequest(jsonError(errorsAsJson(form)))
 
   /* For compat with old clients
-   * { "error" -> { "key" -> "value" }, "key" -> "value" }
+   * { "error" -> { "key" -> ["value"] }, "key" -> ["value"] }
    */
   def doubleJsonFormErrorBody(form: Form[?])(using Translate): JsObject =
     val json = errorsAsJson(form)

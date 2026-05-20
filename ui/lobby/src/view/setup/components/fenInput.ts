@@ -1,6 +1,8 @@
 import { h } from 'snabbdom';
+
 import * as licon from 'lib/licon';
 import { initMiniBoard } from 'lib/view';
+
 import type SetupController from '@/setupCtrl';
 
 export const fenInput = (ctrl: SetupController) => {

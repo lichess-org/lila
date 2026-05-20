@@ -84,4 +84,5 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="paymentDetails">Dettagli del pagamento</string>
   <string name="updatePaymentMethod">Aggiorna il metodo di pagamento</string>
   <string name="stripeManageSub">Gestisci il tuo abbonamento e scarica le tue fatture e ricevute</string>
+  <string name="coverFees">Aggiungerò %s per coprire il costo di questa transazione</string>
 </resources>

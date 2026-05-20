@@ -29,6 +29,5 @@
   <string name="botPlay">Chugar con l\'API de bot</string>
   <string name="engineRead">Veyer y usar los tuyos modulos externos</string>
   <string name="engineWrite">Crear y esviellar modulos externos</string>
-  <string name="webLogin">Crear sesions web autentificadas (da acceso completo!)</string>
   <string name="webMod">Usar ferramientas de moderador (con los limites d\'os tuyos permisos)</string>
 </resources>

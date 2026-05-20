@@ -100,7 +100,7 @@ trait ResponseBuilder(using Executor)
           HTTPRequest.queryStringGet("login") match
             case Some(login) => s"${routes.Auth.login.url}?as=$login"
             case _ => routes.Auth.signup.url
-      ).withCookies(env.security.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
+      ),
       json = env.security.lilaCookie.ensure(ctx.req):
         Unauthorized(jsonError("Login required"))
     )

@@ -8,11 +8,12 @@ $c-tour-yearly: $c-brag;
 $c-tour-weekend: $c-brag;
 $c-tour-marathon: #66558c;
 $c-tour-unique: $c-brag;
-$c-tour-max-rating: #8572ff;
+$c-tour-max-rating: #6b55fc;
 $c-tour-variant: #7c5133;
 
 .tour-chart {
   @include prevent-select;
+
   min-height: 400px;
   position: relative;
 
@@ -59,11 +60,14 @@ $c-tour-variant: #7c5133;
       height: calc(100% - 2em);
       margin-inline-start: 1px;
       border-inline-start: 3px dashed $c-accent;
+
       &::after {
         content: '';
         position: absolute;
         top: -24px;
+
         @include inline-start(-10px);
+
         width: 0;
         height: 0;
         border-left: 8px solid transparent;
@@ -170,7 +174,7 @@ $c-tour-variant: #7c5133;
     margin-inline-end: 4px;
   }
 
-  .icon {
+  icon {
     font-size: 2.4em;
     line-height: 1;
     margin: 0 0.2em 0 0.2em;

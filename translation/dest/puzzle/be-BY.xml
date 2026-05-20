@@ -13,7 +13,6 @@
   <string name="origin">Паходжанне</string>
   <string name="specialMoves">Адмысловыя хады</string>
   <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
-  <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
   <string name="upVote">Задача спадабалася</string>
   <string name="downVote">Задача не спадабалася</string>
   <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачы гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага бягучага ўзроўню.</string>
@@ -105,6 +104,6 @@
   </plurals>
   <string name="percentSolved">%s вырашана правільна</string>
   <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Трэніруйце гэта, каб палепшыць прагрэс!</string>
+  <string name="improvementAreasDescription">Трэніруйце гэта, каб палепшыць прагрэс!</string>
   <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>

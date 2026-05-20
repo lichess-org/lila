@@ -104,7 +104,7 @@ tomando a peza atacante.</string>
 a través das túas defensas!</string>
   <string name="escapeOrBlock">Escapa co rei
 ou bloquea o ataque!</string>
-  <string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser tomado, asegúrate de que podes defenderte dun xaque!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Parabéns! O teu rei nunca pode ser capturado, así que asegúrate de que podes defenderte dun xaque!</string>
   <string name="mateInOne">Mate nunha</string>
   <string name="defeatTheOpponentsKing">Derrota o rei rival</string>
   <string name="mateInOneIntro">Gañas cando o teu rival non pode defenderse dun xaque.</string>
@@ -154,7 +154,7 @@ Bloquea o xaque e despois enroca!</string>
   <string name="findAWayToCastleQueenSide">Atopa o xeito de enrocar en longo!</string>
   <string name="castlingComplete">Parabéns! Case sempre deberías enrocar nas túas partidas.</string>
   <string name="theSpecialPawnMove">O movemento especial do peón</string>
-  <string name="enPassantIntro">Cando o peón rival moveu dúas casas, podes tomalo como se tivese movido unha casa.</string>
+  <string name="enPassantIntro">Cando o peón rival move dúas casas podes capturalo como se só tivese movido unha.</string>
   <string name="blackJustMovedThePawnByTwoSquares">As negras moveron o peón
 dúas casas!
 Captúrao ao paso.</string>

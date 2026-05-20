@@ -13,7 +13,6 @@
   <string name="origin">ต้นกำเนิดเกม</string>
   <string name="specialMoves">การเดินพิเศษ</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
-  <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
   <string name="upVote">อัพโหวตปริศนา</string>
   <string name="downVote">ดาวน์โหวตปริศนา</string>
   <string name="yourPuzzleRatingWillNotChange">ระดับคะแนนแก้ปริศนาของคุณจะไม่เปลี่ยนแปลง อย่าลืมว่าปริศนานั้นไม่ใช่การแข่งขัน ระดับคะแนนของคุณช่วยในการเลือกปริศนาที่ดีที่สุดสำหรับฝีมือปัจจุบันของคุณ</string>
@@ -88,6 +87,6 @@
   </plurals>
   <string name="percentSolved">%s เล่นผ่าน</string>
   <string name="noPuzzlesToShow">ไม่มีอะไรให้แสดง เล่นปริศนาสักหน่อยสิ!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ฝึกฝนปริศนาเหล่านี้เพื่อพัฒนาความก้าวหน้าของคุณ!</string>
+  <string name="improvementAreasDescription">ฝึกฝนปริศนาเหล่านี้เพื่อพัฒนาความก้าวหน้าของคุณ!</string>
   <string name="strengthDescription">คุณทำได้ดีที่สุดในรูปแบบปริศนาเหล่านี้</string>
 </resources>

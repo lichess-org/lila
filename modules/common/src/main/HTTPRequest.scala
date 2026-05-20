@@ -1,10 +1,11 @@
 package lila.common
 
+import scala.util.matching.Regex
+
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-
-import scala.util.matching.Regex
+import scalalib.net.{ UserAgent, Crawler, Bearer }
 
 import lila.common.Form.trueish
 import lila.core.net.*
@@ -24,16 +25,17 @@ object HTTPRequest:
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
 
-  private val appOrigins = List(
-    "capacitor://localhost", // ios
-    "ionic://localhost", // ios
-    "http://localhost" // android/dev/flutter
-  )
+  private val appOrigins: List[Origin] = Origin.from:
+    List(
+      "capacitor://localhost", // ios
+      "ionic://localhost", // ios
+      "http://localhost" // android/dev/flutter
+    )
 
-  def appOrigin(req: RequestHeader): Option[String] =
+  def appOrigin(req: RequestHeader): Option[Origin] =
     origin(req).filter: reqOrigin =>
       appOrigins.exists: appOrigin =>
-        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+        reqOrigin == appOrigin || reqOrigin.value.startsWith(s"$appOrigin:")
 
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
@@ -51,9 +53,8 @@ object HTTPRequest:
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
-  def isLichobile(req: RequestHeader) = userAgent(req).value.contains("Lichobile/")
-  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
-    isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
+  def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
+  def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
@@ -67,7 +68,7 @@ object HTTPRequest:
           case _ => none
       yield version
 
-  def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
+  def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
   def ipAddress(req: RequestHeader): IpAddress =
@@ -81,7 +82,7 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs
@@ -111,7 +112,9 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).value}"
+    s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
+
+  def printReqAndClient(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
@@ -158,6 +161,9 @@ object HTTPRequest:
 
   def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
     queryStringGet(name).map(trueish)
+
+  def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
+    queryStringGet(name).map(sr.apply)
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value

@@ -118,7 +118,6 @@
   <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="showVariationArrows">o sitelen linja e tawa ante</string>
-  <string name="evaluationGauge">palisa wawa</string>
   <string name="multipleLines">mute linja</string>
   <string name="cpus">pilin pi ilo sona</string>
   <string name="memory">awen sona ilo</string>
@@ -242,8 +241,6 @@
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
-  <string name="emailForSignupHelp">ale ante li pakala, la pana tawa mi e lipu toki ni:</string>
-  <string name="copyTextToEmail">jasima en pana e sitelen sewi, en pana tawa %s</string>
   <string name="accountConfirmed">jan %s li lon</string>
   <string name="accountClosed">lipu jan %s lon ala.</string>
   <string name="rank">nanpa</string>
@@ -847,7 +844,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="agreementAssistance">mi toki wawa e ni: mi musi la, jan ante en lipu en ilo sona li pona ala e musi mi.</string>
   <string name="agreementNice">mi toki wawa e ni: mi pona tawa jan ante lon tenpo ale.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">mi pilin sama tawa ni: mi pali ala e sinpin mute (tan lon %s li ala e ni).</string>
-  <string name="agreementPolicy">mi toki wawa e ni: mi pali ala e ijo ni: ona li ike tawa nasin lawa pi ilo Lichess.</string>
   <string name="searchOrStartNewDiscussion">o lukin anu open e toki</string>
   <string name="edit">o ante</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">nasin Bullet</string>

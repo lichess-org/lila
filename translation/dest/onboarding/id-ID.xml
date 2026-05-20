@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Ini adalah halaman profil Anda.</string>
   <string name="enabledKidModeSuggestion">Apakah anak dibawah umur akan menggunakan akun ini? Mungkin Anda ingin mengaktifkan %s.</string>
   <string name="whatNowSuggestions">Apa selanjutnya? Berikut ini ada beberapa saran:</string>
-  <string name="learnChessRules">Pelajari aturan catur</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Pelajari aturan catur</string>
   <string name="improveWithChessTacticsPuzzles">Tingkatkan kemampuan Anda dengan puzzle taktik catur.</string>
   <string name="playTheArtificialIntelligence">bermain melawan AI.</string>
   <string name="playOpponentsFromAroundTheWorld">Bermain dengan lawan dari seluruh dunia.</string>

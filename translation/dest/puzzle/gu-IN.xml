@@ -13,7 +13,6 @@
   <string name="origin">મૂળ</string>
   <string name="specialMoves">ખાસ ચાલ</string>
   <string name="didYouLikeThisPuzzle">શું તમને આ પઝલ ગમી?</string>
-  <string name="voteToLoadNextOne">આગળની પઝલ લોડ કરવા માટે વોટ કરો!</string>
   <string name="upVote">પઝલને અપ વોટ કરો</string>
   <string name="downVote">પઝલને ડાઉન વોટ કરો</string>
   <string name="yourPuzzleRatingWillNotChange">તમારું પઝલ રેટિંગ બદલાશે નહીં. નોંધ લો કે પઝલ કોઈ સ્પર્ધા નથી. તમારું રેટિંગ તમારી વર્તમાન કુશળતા માટે શ્રેષ્ઠ પઝલ પસંદ કરવામાં મદદ કરે છે.</string>
@@ -92,6 +91,6 @@
   </plurals>
   <string name="percentSolved">%s ઉકેલાયા</string>
   <string name="noPuzzlesToShow">દર્શાવવા માટે કંઈ નથી, પહેલા કેટલીક પઝલ રમો!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">તમારી પ્રગતિને શ્રેષ્ઠ બનાવવા માટે આની તાલીમ લો!</string>
+  <string name="improvementAreasDescription">તમારી પ્રગતિને શ્રેષ્ઠ બનાવવા માટે આની તાલીમ લો!</string>
   <string name="strengthDescription">તમે આ થીમ્સમાં શ્રેષ્ઠ પ્રદર્શન કરો છો</string>
 </resources>

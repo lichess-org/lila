@@ -1,7 +1,8 @@
-import { hl, onInsert, initMiniBoard } from 'lib/view';
-import type LobbyController from '../ctrl';
-import type { NowPlaying } from '../interfaces';
 import { timeago } from 'lib/i18n';
+import { hl, onInsert, initMiniBoard } from 'lib/view';
+
+import type LobbyController from '@/ctrl';
+import type { NowPlaying } from '@/interfaces';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;

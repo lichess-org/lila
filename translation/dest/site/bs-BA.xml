@@ -126,7 +126,6 @@
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Prikaži strelice za varijante</string>
-  <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Više varijacija</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
@@ -268,9 +267,6 @@
   <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok stigne.</string>
   <string name="refreshInboxAfterFiveMinutes">Pričekajte pet minuta i osvježite pristiglu poštu.</string>
   <string name="checkSpamFolder">Također provjerite neželjenu poštu, možda je poruka završila tamo. Ako jest, označite da nije neželjena.</string>
-  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu poruku:</string>
-  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
-  <string name="waitForSignupHelp">Ubrzo ćemo Vam se javiti i pomoći Vam da završite Vašu registraciju.</string>
   <string name="accountConfirmed">Korisnik %s uspješno je potvrđen.</string>
   <string name="accountCanLogin">Možete se prijaviti odmah kao %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nije Vam potrebna e-poruka za potvrdu.</string>
@@ -750,7 +746,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="keyCycleSelectedVariation">Ciklus odabrane varijacije</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijaciju</string>
-  <string name="keyRequestComputerAnalysis">Zatražite računarsku analizu, učite na svojim greškama</string>
   <string name="keyPreviousBranch">Prethodna grana</string>
   <string name="keyNextBranch">Sljedeća grana</string>
   <string name="toggleVariationArrows">Uključi/isključi strelice za varijacije</string>
@@ -943,7 +938,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računara, knjige, baze podataka ili neke druge osobe).</string>
   <string name="agreementNice">Slažem se da ću uvijek poštovati druge igrače.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Slažem se da neću napraviti više računa (osim zbog razloga navedenih u %s).</string>
-  <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
   <string name="edit">Uredite</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Metak</string>

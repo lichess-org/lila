@@ -46,7 +46,7 @@ ASSETS_FILES = [
 ]
 
 SERVER_FILES = [
-    ".github/workflows/server.yml",
+    ".github/workflows/server2.yml",
     "app",
     "conf",
     "modules",
@@ -60,7 +60,7 @@ SERVER_FILES = [
 
 ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs?per_page=100"
 
-SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
+SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server2.yml/runs?per_page=100"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
@@ -293,6 +293,7 @@ def deploy_script(profile, session, run, url):
             f"echo '\n# git -C {deploy_dir} checkout {commit}'",
             f"git -C {deploy_dir} checkout {commit}",
             f"git -C {deploy_dir} lfs pull",
+            f"make -C {deploy_dir}/public/lifat/nnue -j4",
             f"echo '\n# rsync -a {artifact_unzipped}/d/public {deploy_dir}/'",
             f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
         ]

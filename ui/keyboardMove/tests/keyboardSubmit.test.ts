@@ -1,8 +1,10 @@
-import { beforeEach, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { type Prop, propWithEffect } from 'lib/index';
-import { makeSubmit } from '../src/keyboardSubmit.js';
+import { beforeEach, describe, test } from 'node:test';
+
 import { destsToUcis, sanWriter } from 'lib/game';
+import { type Prop, propWithEffect } from 'lib/index';
+
+import { makeSubmit } from '../src/keyboardSubmit.js';
 
 function spy() {
   const f: any = (...args: any[]) => {
@@ -59,7 +61,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, resign: mockResign } },
       mockClear,
     );
-    submit('resign', { isTrusted: true } as any);
+    submit('resign', { isTrusted: true });
     mockResign.calledTimes(1);
     mockClear.calledTimes(1);
   });
@@ -70,7 +72,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, draw: mockDraw } },
       mockClear,
     );
-    submit('draw', { isTrusted: true } as any);
+    submit('draw', { isTrusted: true });
     mockDraw.calledTimes(1);
     mockClear.calledTimes(1);
   });
@@ -81,7 +83,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, next: mockNext } },
       mockClear,
     );
-    submit('next', { isTrusted: true } as any);
+    submit('next', { isTrusted: true });
     mockNext.calledTimes(1);
     mockClear.calledTimes(1);
   });
@@ -92,7 +94,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, vote: mockVote } },
       mockClear,
     );
-    submit('upv', { isTrusted: true } as any);
+    submit('upv', { isTrusted: true });
     mockVote.calledTimes(1);
     mockVote.calledWith(true);
     mockClear.calledTimes(1);
@@ -104,7 +106,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, vote: mockVote } },
       mockClear,
     );
-    submit('downv', { isTrusted: true } as any);
+    submit('downv', { isTrusted: true });
     mockVote.calledTimes(1);
     mockVote.calledWith(false);
     mockClear.calledTimes(1);
@@ -116,7 +118,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, speakClock: mockSpeakClock } },
       mockClear,
     );
-    submit('clock', { isTrusted: true } as any);
+    submit('clock', { isTrusted: true });
     mockSpeakClock.calledTimes(1);
     mockClear.calledTimes(1);
   });
@@ -127,7 +129,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, goBerserk: mockGoBerserk } },
       mockClear,
     );
-    submit('zerk', { isTrusted: true } as any);
+    submit('zerk', { isTrusted: true });
     mockGoBerserk.calledTimes(1);
     mockClear.calledTimes(1);
   });
@@ -139,7 +141,7 @@ describe('keyboardSubmit', () => {
       { input: document.createElement('input'), ctrl: { ...defaultCtrl, opponent: 'opponent-name' } },
       mockClear,
     );
-    submit('who', { isTrusted: true } as any);
+    submit('who', { isTrusted: true });
     say.calledTimes(1);
     say.calledWith('opponent-name', false, true);
   });
@@ -153,7 +155,7 @@ describe('keyboardSubmit', () => {
       },
       mockClear,
     );
-    submit('?', { isTrusted: true } as any);
+    submit('?', { isTrusted: true });
     mockSetHelpModalOpen.calledTimes(1);
     mockSetHelpModalOpen.calledWith(true);
     mockClear.calledTimes(1);
@@ -169,7 +171,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('e4', { isTrusted: true } as any);
+      submit('e4', { isTrusted: true });
       mockSan.calledTimes(1);
       mockSan.calledWith('e2', 'e4');
       mockClear.calledTimes(1);
@@ -188,7 +190,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('e2', { isTrusted: true } as any);
+      submit('e2', { isTrusted: true });
       mockSelect.calledTimes(1);
       mockSelect.calledWith('e2');
       mockClear.calledTimes(1);
@@ -210,7 +212,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('e4', { isTrusted: true } as any);
+      submit('e4', { isTrusted: true });
       mockSelect.calledTimes(1);
       mockSelect.calledWith('e4');
       mockSan.calledTimes(1);
@@ -231,7 +233,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('52', { isTrusted: true } as any);
+      submit('52', { isTrusted: true });
       mockSelect.calledTimes(1);
       mockSelect.calledWith('e2');
       mockClear.calledTimes(1);
@@ -253,7 +255,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('54', { isTrusted: true } as any);
+      submit('54', { isTrusted: true });
       mockSelect.calledTimes(1);
       mockSelect.calledWith('e4');
       mockSan.calledTimes(1);
@@ -279,7 +281,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('bc3', { isTrusted: true } as any);
+      submit('bc3', { isTrusted: true });
       mockSan.calledTimes(1);
       mockSan.calledWith('b2', 'c3');
       mockClear.calledTimes(1);
@@ -298,7 +300,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('Bc3', { isTrusted: true } as any);
+      submit('Bc3', { isTrusted: true });
       mockSan.calledTimes(1);
       mockSan.calledWith('d2', 'c3');
       mockClear.calledTimes(1);
@@ -316,7 +318,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('o-o', { isTrusted: true } as any);
+      submit('o-o', { isTrusted: true });
       assert.equal(mockClear.calls.length, 0);
     });
 
@@ -333,7 +335,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('o-o-o', { isTrusted: true } as any);
+      submit('o-o-o', { isTrusted: true });
       mockSan.calledTimes(1);
       mockSan.calledWith('e1', 'c1');
       mockClear.calledTimes(1);
@@ -356,7 +358,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('b8', { isTrusted: true } as any);
+      submit('b8', { isTrusted: true });
       mockPromote.calledTimes(0);
       assert.equal(mockClear.calls.length, 0);
     });
@@ -374,7 +376,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('b8=q', { isTrusted: true } as any);
+      submit('b8=q', { isTrusted: true });
       mockPromote.calledTimes(1);
       mockClear.calledTimes(1);
     });
@@ -392,7 +394,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('ba8', { isTrusted: true } as any);
+      submit('ba8', { isTrusted: true });
       mockPromote.calledTimes(0);
       assert.equal(mockClear.calls.length, 0);
     });
@@ -410,7 +412,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('ba8=b', { isTrusted: true } as any);
+      submit('ba8=b', { isTrusted: true });
       mockPromote.calledTimes(1);
       mockClear.calledTimes(1);
     });
@@ -430,7 +432,7 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-        submit('b8', { isTrusted: true } as any);
+        submit('b8', { isTrusted: true });
         mockPromote.calledTimes(0);
         assert.equal(mockClear.calls.length, 0);
       });
@@ -449,7 +451,7 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-        submit('b8=r', { isTrusted: true } as any);
+        submit('b8=r', { isTrusted: true });
         mockPromote.calledTimes(1);
         mockClear.calledTimes(1);
       });
@@ -468,7 +470,7 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-        submit('ba8', { isTrusted: true } as any);
+        submit('ba8', { isTrusted: true });
         mockPromote.calledTimes(0);
         assert.equal(mockClear.calls.length, 0);
       });
@@ -487,7 +489,7 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-        submit('a8=n', { isTrusted: true } as any);
+        submit('a8=n', { isTrusted: true });
         mockPromote.calledTimes(1);
         mockClear.calledTimes(1);
       });
@@ -504,7 +506,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('Q@a', { isTrusted: true } as any);
+      submit('Q@a', { isTrusted: true });
       mockDrop.calledTimes(0);
       assert.equal(mockClear.calls.length, 0);
     });
@@ -518,7 +520,7 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-      submit('Q@a5', { isTrusted: true } as any);
+      submit('Q@a5', { isTrusted: true });
       mockDrop.calledTimes(1);
       mockClear.calledTimes(1);
     });

@@ -4,7 +4,7 @@
   <string name="watchTheVideoTutorial">Vis videoveiledningen</string>
   <string name="instructions1">Bruk %1$s-knappen for å skru talegjenkjenning av eller på, %2$s-knappen for å åpne denne hjelpedialogen, og %3$s-menyen for å endre taleinnstillinger.</string>
   <string name="instructions2">Vi viser piler for flere trekk når vi er usikre. Si fargen eller nummeret på en trekkpil for å velge den.</string>
-  <string name="instructions3">Hvis en pil viser en sveipende radar, vil det trekket bli spilt når sirkelen er fullført. I løpet av denne tiden kan du kun si %1$s for å spille trekket umiddelbart, %2$s for å avbryte, eller si fargen/nummeret på en annen pil. Denne timeren kan justeres eller skrus av i innstillingene.</string>
+  <string name="instructions3" comment="%1$s is &quot;yes&quot;, %2$s is &quot;no&quot;. Both of these are deliberately in English, which is the only language supported for voice commands.&#10;&#10;This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Hvis en pil viser en sveipende radar, vil det trekket bli spilt når sirkelen er fullført. I løpet av denne tiden kan du kun si %1$s for å spille trekket umiddelbart, %2$s for å avbryte, eller si fargen/nummeret på en annen pil. Denne timeren kan justeres eller skrus av i innstillingene.</string>
   <string name="instructions4">Aktiver %s i støyende omgivelser. Hold inne Shift mens du gir kommandoer når dette er på.</string>
   <string name="instructions5">Bruk det fonetiske alfabetet for å forbedre gjenkjenning av sjakkbrettets linjer.</string>
   <string name="instructions6">%s forklarer innstillingene for stemmetrekk i detalj.</string>
@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Flytt til e4 eller velg brikken på e4</string>
   <string name="selectOrCaptureABishop">Velg eller slå en løper</string>
   <string name="takeRookWithQueen">Slå tårn med dronningen</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokade (kort eller lang)</string>
+  <string name="castle">Rokade (kort eller lang)</string>
   <string name="phoneticAlphabetIsBest">Det fonetiske alfabetet er best</string>
   <string name="cancelTimerOrDenyARequest">Avbryt timeren eller avslå en forespørsel</string>
   <string name="playPreferredMoveOrConfirmSomething">Spill foretrukket trekk eller bekreft noe</string>

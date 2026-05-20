@@ -1,7 +1,8 @@
 import { objectStorage } from 'lib/objectStorage';
-import { Switch, type Selectable } from './switch';
 import { storedStringProp } from 'lib/storage';
+
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
+import { Switch, type Selectable } from './switch';
 
 export class Mic implements Microphone {
   recId = 'default';
@@ -11,9 +12,10 @@ export class Mic implements Microphone {
   private mediaStream: MediaStream;
   private micSource: AudioNode;
   private vosk: VoskModule;
-  private deviceId = storedStringProp('voice.micDeviceId', 'default');
-  private recs = new Switch<string, RecNode>();
-  private ctrl: Listener;
+  private readonly deviceId = storedStringProp('voice.micDeviceId', 'default');
+  private readonly recs = new Switch<string, RecNode>();
+  private ctrl: Listener = () => {};
+  private ctrlState: [string, MsgType] = ['', 'status'];
   private download?: XMLHttpRequest;
   private broadcastTimeout?: number;
   private voskStatus = '';
@@ -53,7 +55,7 @@ export class Mic implements Microphone {
 
   setController(ctrl: Listener): void {
     this.ctrl = ctrl;
-    this.ctrl('', 'status'); // hello
+    this.ctrl(...this.ctrlState); // hello
   }
 
   addListener(listener: Listener, also: { recId?: string; listenerId?: string } = {}): void {
@@ -194,7 +196,8 @@ export class Mic implements Microphone {
   }
 
   private broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
-    this.ctrl?.call(this, text, msgType);
+    this.ctrlState = [text, msgType];
+    this.ctrl(text, msgType);
     if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
     this.voskStatus = text;
     for (const li of this.recs.items.get(this.recId)?.listeners ?? []) {
@@ -205,7 +208,7 @@ export class Mic implements Microphone {
   }
 
   private async downloadModel(emscriptenPath: string): Promise<void> {
-    const voskStore = await objectStorage<any>({
+    const voskStore = await objectStorage({
       db: '/vosk',
       store: 'FILE_DATA',
       version: 21,
@@ -252,7 +255,7 @@ export class Mic implements Microphone {
     voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp'); // just to throw on failure
   }
 
-  private soundListener = (event: 'start' | 'stop') => {
+  private readonly soundListener = (event: 'start' | 'stop') => {
     switch (event) {
       case 'start':
         return this.pause();

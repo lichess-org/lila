@@ -1,6 +1,7 @@
 package lila.opening
 package ui
 
+import scala.util.{ Failure, Success }
 import chess.opening.{ Opening, OpeningKey }
 import play.api.libs.json.*
 
@@ -22,32 +23,45 @@ final class OpeningBits(helpers: Helpers):
             Json.obj("history" -> p.exploredOption.so[List[Float]](_.history), "sans" -> p.query.sans)
         )
 
-  def whatsNext(page: OpeningPage): Option[Tag] =
-    page.exploredOption.map: explored =>
-      div(cls := "opening__nexts")(
-        explored.next.map: next =>
-          val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
-          a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
-            span(cls := "opening__next__popularity"):
-              span(
-                style := s"width:${percentNumber(Math.max(next.percent, 10))}%",
-                title := "Popularity"
-              ):
-                s"${Math.round(next.percent)}%"
-            ,
-            span(cls := "opening__next__title")(
-              span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
-              span(cls := "opening__next__san")(next.san)
-            ),
-            span(cls := "opening__next__result-board")(
-              span(cls := "opening__next__result result-bar"):
-                resultSegments(next.result)
+  def exploredOrError(page: OpeningPage): Either[Tag, OpeningExplored] =
+    page.explored match
+      case Failure(lila.opening.WaitOrLogin(message)) =>
+        Left(p(cls := "opening__warning")(message))
+      case Failure(_) =>
+        Left(p(cls := "opening__error")("Couldn't fetch the next moves, try again later."))
+      case Success(None) =>
+        Left(p(cls := "opening__warning")("This opening is not in our database."))
+      case Success(Some(explored)) => Right(explored)
+
+  def whatsNext(page: OpeningPage): Tag =
+    exploredOrError(page).fold(
+      identity,
+      explored =>
+        div(cls := "opening__nexts")(
+          explored.next.map: next =>
+            val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
+            a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
+              span(cls := "opening__next__popularity"):
+                span(
+                  style := s"width:${percentNumber(Math.max(next.percent, 10))}%",
+                  title := "Popularity"
+                ):
+                  s"${Math.round(next.percent)}%"
               ,
-              span(cls := "opening__next__board"):
-                chessgroundMini(next.fen.board, lastMove = next.uci.some)(span)
+              span(cls := "opening__next__title")(
+                span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
+                span(cls := "opening__next__san")(next.san)
+              ),
+              span(cls := "opening__next__result-board")(
+                span(cls := "opening__next__result result-bar"):
+                  resultSegments(next.result)
+                ,
+                span(cls := "opening__next__board"):
+                  chessgroundMini(next.fen.board, lastMove = next.uci.some)(span)
+              )
             )
-          )
-      )
+        )
+    )
 
   def configForm(config: OpeningConfig, thenTo: String)(using Context) =
     import OpeningConfig.*

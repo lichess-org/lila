@@ -97,6 +97,8 @@
   <string name="database">Архив партий</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
+  <string name="minRatingX">Минимальный рейтинг %s</string>
+  <string name="maxRatingX">Максимальный рейтинг %s</string>
   <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
   <string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
@@ -130,14 +132,20 @@
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
-  <string name="evaluationGauge">Шкала оценки</string>
   <string name="visualMotifs">Шахматные мотивы</string>
   <string name="undefendedPieces">Незащищённые фигуры</string>
   <string name="pinnedPieces">Связанные фигуры</string>
   <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
+  <string name="multipleLinesDescription">Задаёт число строк вариантов и стрелок ходов на доске</string>
+  <string name="searchTime">Время поиска</string>
+  <string name="searchTimeDescription">Задаёт время для оценки новой позиции</string>
+  <string name="threads">Потоки</string>
+  <string name="threadsDescription">Установите количество не больше числа потоков процессора, лучше на предлагаемой отметке</string>
+  <string name="threadsDescriptionMobile">Больше потоков быстрее расходует заряд батареи, но лучше для анализа</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
+  <string name="memoryDescription">Более высокие значения могут повысить производительность</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
@@ -291,9 +299,7 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
-  <string name="emailForSignupHelp">Если ничего не получилось, отправьте нам это письмо:</string>
-  <string name="copyTextToEmail">Скопируйте и вставьте текст выше и отправьте его по адресу %s</string>
-  <string name="waitForSignupHelp">Мы скоро вернёмся к вам чтобы помочь завершить регистрацию.</string>
+  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не требуется подтверждение по электронной почте.</string>
@@ -589,6 +595,7 @@
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
   <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
+  <string name="randomChess960Position">Случайная позиция в шахматах Фишера</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="loadPosition">Загрузить позицию</string>
@@ -667,6 +674,9 @@
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="invalidAuthenticationCode">Неверный код аутентификации</string>
+  <string name="clearField">Очистить поле</string>
+  <string name="orSeparator">Или</string>
+  <string name="logInByEmail">Авторизация через электронную почту</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -799,7 +809,6 @@
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
-  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь над своими ошибками</string>
   <string name="keyPreviousBranch">Предыдущая ветка</string>
   <string name="keyNextBranch">Следующая ветка</string>
   <string name="toggleVariationArrows">Переключить стрелки вариантов</string>
@@ -998,7 +1007,6 @@
   <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я согласен с тем, что не должен создавать множество учётных записей (за исключением причин, указанных в %s).</string>
-  <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультра-пуля</string>
@@ -1022,6 +1030,7 @@
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
   <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
   <string name="theForumEtiquette">форумный этикет</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Пожалуйста, будьте вежливы на форуме.</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
@@ -1111,6 +1120,7 @@
   <string name="offline" comment="status of a user">офлайн</string>
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
+  <string name="thereAreNoResultsForX">Нет результатов для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взятие на проходе</string>
 </resources>

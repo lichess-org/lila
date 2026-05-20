@@ -1,5 +1,6 @@
 .emoji-details {
   position: relative;
+
   // ensure the emoji picker is above the text and its licon
   z-index: 2;
   width: 50px;
@@ -30,6 +31,7 @@
     position: absolute;
     width: 50px;
   }
+
   img {
     display: none;
     position: absolute;

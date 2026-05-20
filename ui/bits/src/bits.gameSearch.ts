@@ -66,7 +66,7 @@ site.load.then(() => {
   function serialize() {
     const params = new URLSearchParams();
     for (const [k, v] of new FormData(form ?? undefined).entries()) {
-      if (v != '') params.set(k, v.toString());
+      if (v !== '') params.set(k, v.toString());
     }
     return params.toString();
   }

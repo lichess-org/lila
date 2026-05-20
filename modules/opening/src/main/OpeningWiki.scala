@@ -7,6 +7,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.core.perm.Granter
 
 case class OpeningWiki(
     markup: Option[Html],
@@ -24,8 +25,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   given BSONDocumentHandler[Revision] = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
-  def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
+  def apply(op: Opening)(using Option[Me]): Fu[OpeningWiki] = for
     wiki <- cache.get(op.key)
+    withRevisions = Granter.opt(_.OpeningWiki)
     revisions <- withRevisions.so:
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
   yield wiki.copy(revisions = (~revisions).take(25))

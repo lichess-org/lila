@@ -1,22 +1,23 @@
 import { view as cevalView } from 'lib/ceval';
-import { onClickAway } from 'lib';
-import { bind, dataIcon, hl, onInsert, type VNode } from 'lib/view';
-import * as licon from 'lib/licon';
+import { displayColumns, isTouchDevice } from 'lib/device';
+import { type VNode } from 'lib/view';
+
 import type AnalyseCtrl from '@/ctrl';
 import { view as keyboardView } from '@/keyboard';
-import type * as studyDeps from '../studyDeps';
-import { tourSide, renderRelayTour } from './relayTourView';
 import {
   type RelayViewContext,
   viewContext,
   renderBoard,
   renderMain,
-  renderTools,
   renderUnderboard,
 } from '@/view/components';
-import { displayColumns, isTouchDevice } from 'lib/device';
-import type RelayCtrl from './relayCtrl';
 import { renderControls } from '@/view/controls';
+import { renderTools } from '@/view/tools';
+
+import type * as studyDeps from '../studyDeps';
+import type RelayCtrl from './relayCtrl';
+import { tourSide, renderRelayTour } from './relayTourView';
+import { allowVideo } from './videoPlayer';
 
 export function relayView(
   ctrl: AnalyseCtrl,
@@ -43,56 +44,6 @@ export function relayView(
     ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx),
   );
 }
-
-export const backToLiveView = (ctrl: AnalyseCtrl) =>
-  ctrl.study?.isRelayAwayFromLive()
-    ? hl(
-        'button.fbt.relay-back-to-live.text',
-        {
-          attrs: dataIcon(licon.PlayTriangle),
-          hook: bind(
-            'click',
-            () => {
-              const p = ctrl.study?.data.chapter.relayPath;
-              if (p) ctrl.userJump(p);
-            },
-            ctrl.redraw,
-          ),
-        },
-        i18n.broadcast.backToLiveMove,
-      )
-    : undefined;
-
-export function renderStreamerMenu(relay: RelayCtrl): VNode {
-  const makeUrl = (id: string) => {
-    const url = new URL(location.href);
-    url.searchParams.set('embed', id);
-    return url.toString();
-  };
-  return hl(
-    'div.streamer-menu-anchor',
-    hl(
-      'div.streamer-menu',
-      {
-        hook: onInsert(
-          onClickAway(() => {
-            relay.showStreamerMenu(false);
-            relay.redraw();
-          }),
-        ),
-      },
-      relay.streams.map(([id, info]) =>
-        hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
-          info.name,
-          hl('i', info.lang),
-        ]),
-      ),
-    ),
-  );
-}
-
-export const allowVideo = (): boolean =>
-  window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;

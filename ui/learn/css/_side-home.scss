@@ -1,20 +1,13 @@
 .learn__side-home {
-  @extend %box-neat;
+  @import '../../bits/css/learn/progress';
+  @extend %box-radius, %flex-column;
+  @include backdrop-blur-if-transparent;
 
-  background: $c-primary;
-  color: $c-over;
+  gap: 1em;
+  background: $c-bg-box;
+  border: $border;
   text-align: center;
-  padding: 1em 0;
-
-  h1 {
-    font-size: 2.5em;
-    margin: 0;
-  }
-
-  h2 {
-    font-size: 1.8em;
-    margin: 0.4em 0 1em 0;
-  }
+  padding: 1.25em 1.25em 1em;
 
   @keyframes fat-glide {
     50% {
@@ -22,78 +15,56 @@
     }
   }
 
-  i.fat {
+  img.decoration {
     display: block;
-    width: 200px;
-    height: 200px;
-    background: url('../images/learn/brutal-helm.svg');
+    width: 160px;
+    aspect-ratio: 1;
     margin: auto;
-    opacity: 0.8;
-  }
+    opacity: 0.7;
 
-  &:hover i.fat {
-    animation: 1.2s fat-glide ease-in-out infinite;
-  }
-
-  .progress {
-    position: relative;
-    width: 100%;
-    height: 30px;
-
-    /* border-top: 3px solid #1566b2; */
-    background: #1a7edb;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-
-  @keyframes animated-background {
-    from {
-      background-position: 0 0;
-    }
-
-    to {
-      background-position: 0 1000%;
+    @include if-light {
+      filter: brightness(0.15);
     }
   }
 
-  @keyframes animated-bar {
-    from {
-      transform: translateX(-100px);
+  &:hover img.decoration {
+    animation: 1.5s fat-glide ease-in-out infinite;
+  }
+
+  &__header {
+    @extend %flex-column;
+
+    gap: 1em;
+
+    .learn__side-home__title {
+      @extend %flex-column;
+
+      justify-content: center;
     }
 
-    to {
-      transform: translateX(0);
+    h1 {
+      font-size: 2.5em;
     }
-  }
 
-  .progress .bar {
-    height: 100%;
-    background: #1566b2;
-    border-radius: 0 5px 5px 0;
-    background-image: url('../images/grain.png');
-    transform: translateX(-100px);
-    animation:
-      animated-background 50s linear infinite,
-      animated-bar 1s forwards;
-  }
+    h2 {
+      font-size: 1.8em;
+    }
 
-  .progress .text {
-    position: absolute;
-    top: 0;
-    @include inline-start(0);
-    width: 100%;
-    line-height: 30px;
-    z-index: 3;
-  }
+    @media (width < $small) {
+      flex-flow: row nowrap;
+      gap: $block-gap;
+      text-align: left;
 
-  .actions {
-    padding: 20px 10px;
-    text-align: left;
+      img.decoration {
+        width: min(100px, 30vw);
+        margin: 0;
+      }
+    }
   }
 
   a {
     opacity: 0.6;
-    color: #fff;
+    color: $c-font;
 
     &:hover {
       opacity: 1;

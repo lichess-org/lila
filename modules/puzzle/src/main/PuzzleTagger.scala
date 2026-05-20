@@ -5,6 +5,7 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
     ec: Executor,

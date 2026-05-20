@@ -26,6 +26,8 @@
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
+  <string name="collinearMove">Mutare coliniară</string>
+  <string name="collinearMoveDescription">Două piese opuse se înfruntă una pe cealaltă, iar una mută de-a lungul liniei de atac fără a captura piesa inamică.</string>
   <string name="cornerMate">Mat în colț</string>
   <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
   <string name="crushing">Zdrobitor</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Final de partidă</string>
   <string name="endgameDescription">O tactică în ultima etapă a jocului.</string>
   <string name="enPassantDescription">O tactică cu regula en passant, unde un pion poate captura un pion adversar care l-a întrecut folosind mutarea sa inițială de două pătrate.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat cu epoleți</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Două pătrate de evacuare adiacente pentru un rege în șah sunt ocupate de alte piese.</string>
+  <string name="epauletteMate">Mat cu epoleți</string>
+  <string name="epauletteMateDescription">Două pătrate de evacuare adiacente pentru un rege în șah sunt ocupate de alte piese.</string>
   <string name="exposedKing">Rege expus</string>
   <string name="exposedKingDescription">O tactică ce implică un rege cu puțini apărători în jurul său, adeseori rezultând în șah mat.</string>
   <string name="fork">Bifurcare</string>
@@ -73,11 +75,11 @@
   <string name="pillsburysMateDescription">Tura dă mat, iar nebunul ajută la constrângerea regelui.</string>
   <string name="morphysMate">Mat Morphy</string>
   <string name="morphysMateDescription">Folosește nebunul ca să dai șah regelui, în timp ce tura îl constrânge.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mat coadă de rândunică</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
+  <string name="swallowstailMate">Mat coadă de rândunică</string>
+  <string name="swallowstailMateDescription">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>
   <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
-  <string name="vukovicMate">Mat Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vuković</string>
   <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
@@ -120,7 +122,7 @@
   <string name="queensideAttack">Atac pe partea reginei</string>
   <string name="queensideAttackDescription">Un atac asupra regelui adversarului, după ce a făcut rocada pe partea reginei.</string>
   <string name="quietMove">Mutare silențioasă</string>
-  <string name="quietMoveDescription">O mutare care nu capturează sau dă șah, dar care pregătește o amenințare inevitabilă pentru o mutare ulterioară.</string>
+  <string name="quietMoveDescription">O mutare care nu dă șah, capturează sau crează o amenințare imediată, dar care pregătește o amenințare ascunsă și inevitabilă pentru o mutare ulterioară.</string>
   <string name="rookEndgame">Final cu turnuri</string>
   <string name="rookEndgameDescription">Un final de partidă doar cu turnuri și pioni.</string>
   <string name="sacrifice">Sacrificiu</string>

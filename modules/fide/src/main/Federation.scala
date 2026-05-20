@@ -24,7 +24,7 @@ case class Federation(
   def slug = Federation.nameToSlug(name)
 
 // https://ratings.fide.com/top_federations.phtml
-// all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
+// all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(14,16),$(this).find('a,strong').text().trim(),$(this).find('a,strong').attr('href').slice(23,26)])})
 object Federation:
 
   def nameToSlug(name: Name) = FidePlayer.slugify(chess.PlayerName(name))
@@ -43,15 +43,15 @@ object Federation:
       .orElse(fed.map(_._1))
       .getOrElse(id.value)
 
-  def find(str: String): Option[Id] =
+  given find: Guess = str =>
     Id(str.toUpperCase).some
       .filter(names.contains)
-      .orElse(bySlug.get(str))
-      .orElse(bySlug.get(nameToSlug(str)))
+      .orElse(byLowerSlug.get(str.toLowerCase))
+      .orElse(byLowerSlug.get(nameToSlug(str).toLowerCase))
 
-  lazy val bySlug: Map[String, Id] =
+  private lazy val byLowerSlug: Map[String, Id] =
     names.map: (id, name) =>
-      nameToSlug(name._1) -> id
+      nameToSlug(name._1).toLowerCase -> id
 
   // FIDE follows IOC country codes with some exceptions
   // https://en.wikipedia.org/wiki/List_of_IOC_country_codes
@@ -108,6 +108,7 @@ object Federation:
     Id("CRC") -> ("Costa Rica", Some("CR")),
     Id("CRO") -> ("Croatia", Some("HR")),
     Id("CUB") -> ("Cuba", Some("CU")),
+    Id("CUR") -> ("Curacao", Some("CW")),
     Id("CYP") -> ("Cyprus", Some("CY")),
     Id("CZE") -> ("Czech Republic", Some("CZ")),
     Id("DEN") -> ("Denmark", Some("DK")),
@@ -138,6 +139,7 @@ object Federation:
     Id("GRL") -> ("Greenland", Some("GL")),
     Id("GRN") -> ("Grenada", Some("GD")),
     Id("GUA") -> ("Guatemala", Some("GT")),
+    Id("GUI") -> ("Guinea", Some("GN")),
     Id("GUM") -> ("Guam", Some("GU")),
     Id("GUY") -> ("Guyana", Some("GY")),
     Id("HAI") -> ("Haiti", Some("HT")),
@@ -162,6 +164,7 @@ object Federation:
     Id("KAZ") -> ("Kazakhstan", Some("KZ")),
     Id("KEN") -> ("Kenya", Some("KE")),
     Id("KGZ") -> ("Kyrgyzstan", Some("KG")),
+    Id("KIR") -> ("Kiribati", Some("KI")),
     Id("KOR") -> ("South Korea", Some("KR")),
     Id("KOS") -> ("Kosovo *", None),
     Id("KSA") -> ("Saudi Arabia", Some("SA")),
@@ -185,6 +188,7 @@ object Federation:
     Id("MDV") -> ("Maldives", Some("MV")),
     Id("MEX") -> ("Mexico", Some("MX")),
     Id("MGL") -> ("Mongolia", Some("MN")),
+    Id("MHL") -> ("Marshall Islands", Some("MH")),
     Id("MKD") -> ("North Macedonia", Some("MK")),
     Id("MLI") -> ("Mali", Some("ML")),
     Id("MLT") -> ("Malta", Some("MT")),

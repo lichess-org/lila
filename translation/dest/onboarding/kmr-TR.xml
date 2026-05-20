@@ -5,7 +5,7 @@
   <string name="thisIsYourProfilePage">Ev rûpela profîla te ye.</string>
   <string name="enabledKidModeSuggestion">Wê zarokekî vê hesabê biemilîne? Dibe ku tu bixwazî %s aktîv bikî.</string>
   <string name="whatNowSuggestions">Vêga çi bikim? Vayê çend pêşnîyar:</string>
-  <string name="learnChessRules">Qaîdeyên kişikê hîn bibe</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Qaîdeyên kişikê hîn bibe</string>
   <string name="improveWithChessTacticsPuzzles">Bi pazila taktîkên kişikê xwe bi pêş bixe.</string>
   <string name="playTheArtificialIntelligence">Bi Zîrekîya Çêkirî re bilîze.</string>
   <string name="playOpponentsFromAroundTheWorld">Bi reqîbên ji seranserê dinyayê re bilîze.</string>

@@ -1,5 +1,7 @@
 package lila.mailer
 
+import scala.concurrent.blocking
+
 import akka.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
@@ -7,8 +9,7 @@ import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
 import org.apache.commons.mail.EmailException
 
-import scala.concurrent.blocking
-
+import lila.mon.extensions.*
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -23,22 +24,36 @@ final class Mailer(
   private given blockingExecutor: Executor =
     system.dispatchers.lookup("blocking-smtp-dispatcher")
 
-  private val primaryClient = SMTPMailer(config.primary.toClientConfig)
-  private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
+  enum Client(val mailer: SMTPMailer, val config: Mailer.Smtp):
+    case primary extends Client(SMTPMailer(config.primary.toClientConfig), config.primary)
+    case secondary extends Client(SMTPMailer(config.secondary.toClientConfig), config.secondary)
 
-  private def randomClientFor(recipient: EmailAddress): (SMTPMailer, Mailer.Smtp) =
+  private[mailer] def getClient(name: String): Option[Client] = name.toLowerCase match
+    case "primary" => Client.primary.some
+    case "secondary" => Client.secondary.some
+    case _ => none
+
+  private def randomClientFor(recipient: EmailAddress): Client =
     // Stick to one mailer for each recipient, because each mailer may have its
     // own supression list.
-    if recipient.normalize.value.hashCode.abs % 1000 < getSecondaryPermille() then
-      (secondaryClient, config.secondary)
-    else (primaryClient, config.primary)
+    if recipient.normalize.value.hashCode.abs % 1000 < getSecondaryPermille()
+    then Client.secondary
+    else Client.primary
 
   def canSend = canSendEmails.get()
 
   def sendOrFail(msg: Mailer.Message): Funit = send(msg, orFail = true, retry = Mailer.Retry(3))
   def sendOrSkip(msg: Mailer.Message): Funit = send(msg, orFail = false, retry = Mailer.Retry(0))
 
-  private def send(msg: Mailer.Message, orFail: Boolean, retry: Mailer.Retry): Funit =
+  def sendTest(msg: Mailer.Message, client: Client): Funit =
+    send(msg, orFail = true, retry = Mailer.Retry(0), forceClient = client.some)
+
+  private def send(
+      msg: Mailer.Message,
+      orFail: Boolean,
+      retry: Mailer.Retry,
+      forceClient: Option[Client] = None
+  ): Funit =
     if !canSend then
       logger.warn("Can't send any emails due to live setting")
       funit
@@ -46,31 +61,32 @@ final class Mailer(
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else
+      val client = forceClient.getOrElse(randomClientFor(msg.to))
       Future:
-        val (client, config) = randomClientFor(msg.to)
         val email = Email(
           subject = msg.subject,
-          from = config.sender,
+          from = client.config.sender,
           to = Seq(msg.to.value),
           bodyText = msg.text.some,
           bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
         )
         blocking:
-          client.send(email)
-      .monSuccess(_.email.send.time)
+          client.mailer.send(email)
+      .monSuccess(lila.mon.email.send.time(client.toString))
         .recoverWith:
           case _: EmailException if msg.to.normalize.value != msg.to.value =>
             logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
-            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail, retry)
+            send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail, retry, forceClient)
           case e: Exception =>
             retry.again match
               case None if orFail => throw e
               case None =>
-                logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+                logger.warn(s"Couldn't send email via ${client.toString} to ${msg.to}: ${e.getMessage}")
                 funit
               case Some(nextTry) =>
-                logger.info(s"Will retry to send email to ${msg.to} after: ${e.getMessage}")
-                scheduler.scheduleOnce(nextTry.delay)(send(msg, orFail, nextTry))
+                logger.info:
+                  s"Will retry to send email via ${client.toString} to ${msg.to} after: ${e.getMessage}"
+                scheduler.scheduleOnce(nextTry.delay)(send(msg, orFail, nextTry, forceClient))
                 funit
         .void
 
@@ -164,10 +180,10 @@ $serviceNote"""
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(using Translate) =
+    def url(u: Url, clickOrPaste: Boolean = true)(using Translate) =
       frag(
-        meta(itemprop := "url", content := u),
-        p(a(itemprop := "target", href := u)(u)),
+        meta(itemprop := "url", content := u.value),
+        p(a(itemprop := "target", href := u.value)(u.value)),
         clickOrPaste.option(p(trans.common_orPaste()))
       )
 

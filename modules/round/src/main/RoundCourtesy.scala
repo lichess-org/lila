@@ -19,7 +19,8 @@ private final class RoundCourtesy(messenger: Messenger, prefApi: PrefApi)(using 
     val (drawn, lost) = (pov.game.drawn, pov.game.loser.exists(_.color == pov.color))
     (drawn || lost).so:
       prefApi
-        .get(user, _.sayGG)
+        .get(user)
+        .dmap(_.sayGG)
         .map:
           case Pref.SayGG.DEFEAT if lost => true
           case Pref.SayGG.DRAW if lost || drawn => true

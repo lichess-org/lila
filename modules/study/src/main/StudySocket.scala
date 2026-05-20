@@ -178,7 +178,7 @@ final private class StudySocket(
 
         case "editStudy" =>
           (o \ "d")
-            .asOpt[Study.Data]
+            .asOpt[StudyForm.FormData]
             .foreach: data =>
               applyWho(api.editStudy(studyId, data))
 
@@ -456,7 +456,7 @@ object StudySocket:
       given Reads[ChapterMaker.EditData] = Json.reads
       given Reads[ChapterMaker.DescData] = Json.reads
       given Reads[Visibility] = stringRead(v => Visibility.byKey.getOrElse(v, Visibility.public))
-      given studyDataReads: Reads[Study.Data] = Json.reads
+      given Reads[StudyForm.FormData] = Json.reads
       given Reads[SetTag] = Json.reads
       given Reads[Gamebook] = Json.reads
       given Reads[ExplorerGame] = Json.reads

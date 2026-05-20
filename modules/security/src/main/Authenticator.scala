@@ -1,12 +1,14 @@
 package lila.security
 
 import com.roundeights.hasher.Implicits.*
+import play.api.data.{ Form, FormError }
 
-import lila.core.email.NormalizedEmailAddress
+import lila.core.email.{ UserStrOrEmail, NormalizedEmailAddress }
 import lila.core.security.{ ClearPassword, HashedPassword }
 import lila.db.dsl.{ *, given }
 import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }
 
+case class LoginForm(username: UserStrOrEmail, password: ClearPassword)
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 type CredentialCheck = ClearPassword => Boolean
 case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean, must2fa: Boolean = false):
@@ -15,11 +17,11 @@ case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean
   def apply(p: PasswordAndToken): Result =
     val res =
       if user.totpSecret.isEmpty && must2fa then Result.Must2fa
+      else if isBlanked then Result.BlankedPassword
       else if check(p.password) then
         user.totpSecret.fold[Result](Result.Success(user)): tp =>
           p.token.fold[Result](Result.MissingTotpToken): token =>
             if tp.verify(token) then Result.Success(user) else Result.InvalidTotpToken
-      else if isBlanked then Result.BlankedPassword
       else Result.InvalidUsernameOrPassword
     lila.mon.user.auth.count(res.success).increment()
     res
@@ -34,6 +36,11 @@ object LoginCandidate:
     case WeakPassword extends Result(none)
     case MissingTotpToken extends Result(none)
     case InvalidTotpToken extends Result(none)
+
+  def totpError(form: Form[?]) = form.errors match
+    case List(FormError("", Seq(err), _)) =>
+      (err == "MissingTotpToken" || err == "InvalidTotpToken").option(err)
+    case _ => none
 
 final class Authenticator(
     passHasher: PasswordHasher,
@@ -89,7 +96,7 @@ final class Authenticator(
       .zip(userRepo.coll.one[User](select))
       .map:
         case (Some(authData), Some(user)) =>
-          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.bytes.isEmpty).some
+          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.isBlank).some
         case _ => none
   }.recover:
     case _: reactivemongo.api.bson.exceptions.HandlerException => none

@@ -117,7 +117,6 @@
   <string name="byCPL">De réir CPL</string>
   <string name="enable">Cumasaigh</string>
   <string name="bestMoveArrow">Saighead don bheart is fearr</string>
-  <string name="evaluationGauge">Tomhsaire measúnachta</string>
   <string name="multipleLines">Línte ar leith</string>
   <string name="cpus">LAPanna</string>
   <string name="memory">Cuimhne</string>
@@ -275,9 +274,6 @@
   <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
   <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
   <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
-  <string name="emailForSignupHelp">Má theipeann ar gach rud eile, seol an ríomhphost seo chugainn:</string>
-  <string name="copyTextToEmail">Cóipeáil agus greamaigh an téacs thuas agus seol chuig %s é</string>
-  <string name="waitForSignupHelp">Beimid ar ais chugat go luath chun cabhrú leat do chlárú a chur i gcrích.</string>
   <string name="accountConfirmed">D\'éirigh leis an úsáideoir %s a dhearbhú.</string>
   <string name="accountCanLogin">Is féidir leat logáil isteach anois mar %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ní gá duit ríomhphost deimhnithe.</string>
@@ -938,7 +934,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
   <string name="agreementNice">Aontaím go mbeidh meas agam i gcónaí ar fhicheallaithe eile.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Aontaím nach gcruthóidh mé cuntais iolracha (ach amháin ar na cúiseanna atá luaite sa %s).</string>
-  <string name="agreementPolicy">Aontaím go leanfaidh mé gach polasaí Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cuardaigh nó cuir tús le comhrá nua</string>
   <string name="edit">Athraigh</string>
   <string name="rapid">Mear</string>

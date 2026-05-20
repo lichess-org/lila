@@ -34,7 +34,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules())
-      .js(isGranted(_.UserModView).option(esmInit("mod.autolink")))
+      .js(isGranted(_.AccountInfo).option(esmInit("mod.autolink")))
       .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):
@@ -51,8 +51,7 @@ object page:
       games: scalalib.paginator.Paginator[Game],
       filters: lila.game.GameFilterMenu,
       searchForm: Option[Form[?]],
-      social: UserInfo.Social,
-      notes: Map[GameId, String]
+      social: UserInfo.Social
   )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
@@ -68,9 +67,8 @@ object page:
           st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
           div(cls := "page-menu__content box user-show")(
             views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
-            div(cls := "angle-content")(
-              gamesContent(u, info.nbs, games, filters, filters.current.name, notes)
-            )
+            div(cls := "angle-content"):
+              gamesContent(u, info.nbs, games, filters, filters.current.name)
           )
         )
 

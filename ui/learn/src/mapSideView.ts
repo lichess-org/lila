@@ -1,10 +1,12 @@
-import { assetUrl } from './util';
-import { categs } from './stage/list';
-import type { SideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
+
 import { bind, confirm } from 'lib/view';
-import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+
 import type { LearnCtrl } from './ctrl';
+import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+import type { SideCtrl } from './sideCtrl';
+import { categs } from './stage/list';
+import { assetUrl } from './util';
 
 export function mapSideView(ctrl: LearnCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);
@@ -19,7 +21,7 @@ function renderInStage(ctrl: SideCtrl) {
         {
           attrs: { href: BASE_LEARN_PATH },
         },
-        [h('img', { attrs: { src: assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
+        [h('img', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
       ),
       ...categs.map((categ, categId) =>
         h(
@@ -53,9 +55,10 @@ function renderInStage(ctrl: SideCtrl) {
 function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return h('div.learn__side-home', [
-    h('i.fat'),
-    h('h1', i18n.learn.learnChess),
-    h('h2', i18n.learn.byPlaying),
+    h('div.learn__side-home__header', [
+      h('img.decoration', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }),
+      h('div.learn__side-home__title', [h('h1', i18n.learn.learnChess), h('h2', i18n.learn.byPlaying)]),
+    ]),
     h('div.progress', [
       h('div.text', i18n.learn.progressX(progress + '%')),
       h('div.bar', {
@@ -64,9 +67,10 @@ function renderHome(ctrl: SideCtrl) {
         },
       }),
     ]),
-    h('div.actions', [
-      progress > 0
-        ? h(
+    progress > 0
+      ? h(
+          'div.actions',
+          h(
             'a.confirm',
             {
               hook: bind('click', async () => {
@@ -74,8 +78,8 @@ function renderHome(ctrl: SideCtrl) {
               }),
             },
             i18n.learn.resetMyProgress,
-          )
-        : null,
-    ]),
+          ),
+        )
+      : null,
   ]);
 }

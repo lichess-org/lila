@@ -19,7 +19,7 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
   private def loadFromFile(): Unit =
     if config.file.nonEmpty then
       try
-        val time = lila.common.Chronometer.sync:
+        val time = lila.mon.Chronometer.sync:
           reader = DatabaseReader.Builder(java.io.File(config.file)).fileMode(FileMode.MEMORY).build.some
         reader.foreach: r =>
           val meta = r.getMetadata

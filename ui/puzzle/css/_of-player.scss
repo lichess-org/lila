@@ -25,12 +25,14 @@
 
     &__meta {
       @extend %flex-between;
+
       font-size: 0.9em;
       padding: 0 0.3em;
     }
 
     &__id {
       opacity: 0;
+
       @include transition;
     }
 

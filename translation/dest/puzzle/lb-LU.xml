@@ -12,7 +12,6 @@
   <string name="origin">Ursprong</string>
   <string name="specialMoves">Besonnesch Zich</string>
   <string name="didYouLikeThisPuzzle">Huet dir dës Aufgab gefall?</string>
-  <string name="voteToLoadNextOne">Stëmm of fir déi nächst ze lueden!</string>
   <string name="upVote">Puzzle gudd bewäerten</string>
   <string name="downVote">Puzzle schlecht bewäerten</string>
   <string name="yourPuzzleRatingWillNotChange">Deng Aufgabenwäertung wäert sech net änneren. Aufgaben sinn keng Competitioun. D\'Wäertung hëlleft déi bescht Aufgaben fir deng Fähegkeeten auszewielen.</string>
@@ -88,6 +87,6 @@ Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun 
   </plurals>
   <string name="percentSolved">%s geléist</string>
   <string name="noPuzzlesToShow">Näicht ze weisen, spill fir d\'éischt e puer Aufgaben!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
+  <string name="improvementAreasDescription">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
   <string name="strengthDescription">Dës Aufgabe leien dir am beschten</string>
 </resources>

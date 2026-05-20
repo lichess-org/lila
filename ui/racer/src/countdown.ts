@@ -27,7 +27,7 @@ export class Countdown {
     countdown();
   };
 
-  private playOnce = (i: number) => {
+  private readonly playOnce = (i: number) => {
     if (!this.played.has(i)) {
       this.played.add(i);
       site.sound.play(`countDown${i}`);

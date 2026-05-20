@@ -16,7 +16,7 @@ export type NotifyData = {
   unread: number;
 };
 
-export type BumpUnread = {};
+export type BumpUnread = object;
 
 type NotificationUser = {
   id: string;

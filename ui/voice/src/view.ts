@@ -1,10 +1,11 @@
+import { onClickAway } from 'lib';
 import * as licon from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
-import { onClickAway } from 'lib';
+
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
-import { supportedLangs } from './voice';
+import { supportedLangs } from './languages';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
   return hl(`div#voice-bar${cls ? '.' + cls : ''}`, [
@@ -16,11 +17,11 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       hl('button#voice-help-button', {
-        attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
+        attrs: { ...dataIcon(licon.InfoCircle), title: 'Voice help' },
         hook: bind('click', () => ctrl.showHelp(true), undefined, false),
       }),
       hl('button#voice-settings-button', {
-        attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
+        attrs: { ...dataIcon(licon.Gear), title: 'Voice settings' },
         class: { active: ctrl.showPrefs() },
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
@@ -36,19 +37,16 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
   ]);
 }
 
-export function flash(): void {
-  const div = document.querySelector<HTMLElement>('#voice-status-row')!;
-  div.classList.add('flash');
-  div.onanimationend = () => div.classList.remove('flash');
-}
-
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
   return (txt: string, tpe: MsgType) => {
     voiceBtn.toggleClass('listening', ctrl.mic.isListening);
-    voiceBtn.toggleClass('busy', ctrl.mic.isBusy);
+    voiceBtn.toggleClass('error', tpe === 'error');
     voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
-    voiceBtn.attr('data-icon', ctrl.mic.isBusy ? licon.Cancel : licon.Voice);
+    voiceBtn.html(ctrl.mic.isBusy ? '<span class="ddloader"></span>' : '');
+
+    if (ctrl.mic.isBusy) voiceBtn.removeAttr('data-icon');
+    else voiceBtn.attr('data-icon', tpe === 'error' ? licon.Cancel : licon.Voice);
 
     if (tpe !== 'partial') el.innerText = txt;
   };

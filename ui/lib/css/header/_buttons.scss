@@ -6,18 +6,20 @@
 
 .site-buttons {
   @extend %flex-center-nowrap;
+
   position: relative;
 
   .link {
     @include transition(color);
     @extend %top-icon;
+
     color: $c-font;
+    font-size: 1.1rem;
+    padding: 0 20px;
+
     @include if-transp {
       @extend %page-text;
     }
-
-    font-size: 1.1rem;
-    padding: 0 20px;
 
     body[data-user] & {
       padding: 0 0.7rem;
@@ -42,19 +44,18 @@
   }
 
   .initiating {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     height: 300px;
     width: 225px;
   }
 
   .dropdown {
     @extend %dropdown-shadow;
+    @include inline-end(0);
 
     display: none;
     position: absolute;
-    @include inline-end(0);
     top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: $z-dropdown-109;
@@ -78,13 +79,8 @@
 
   .signin-or-signup {
     @extend %flex-center;
-    gap: 1em;
-    .signup {
-      background: none;
-      border: 2px solid $c-link;
-      color: $c-link;
-      order: -1;
-    }
+
+    gap: 0.5em;
   }
 
   .link-center {
@@ -99,6 +95,7 @@
       text-shadow: none;
       font-weight: normal;
     }
+
     &--low::after {
       color: $c-good !important;
     }
@@ -127,16 +124,19 @@
 }
 
 #user_tag {
-  @extend %flex-center-nowrap;
-  white-space: nowrap;
-  gap: 0.5rem;
+  @extend %flex-center-nowrap, %nowrap-ellipsis;
+
+  max-width: 40vw;
+  display: inline-block;
 
   &::after {
     @include transition(color);
     @extend %data-icon;
+
     color: $m-font_dimmer--mix-85;
     content: $licon-AccountCircle;
     font-size: 2rem;
+    margin-left: 0.5rem;
   }
 
   &:hover::after {

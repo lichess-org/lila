@@ -120,7 +120,6 @@
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="showVariationArrows">Tampilkan variasi panah</string>
-  <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
@@ -237,9 +236,6 @@
   <string name="emailCanTakeSomeTime">Dapat membutuhkan beberapa waktu hingga sampai.</string>
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 menit dan refresh kotak masuk Anda.</string>
   <string name="checkSpamFolder">Cek juga folder spam Anda, mungkin ada disana. Jika ada, tandai sebagai bukan spam.</string>
-  <string name="emailForSignupHelp">Jika semuanya gagal, kirim kami email ini:</string>
-  <string name="copyTextToEmail">Salin dan tempel teks diatas dan kirimkan ke %s</string>
-  <string name="waitForSignupHelp">Kami akan kembali sejenak untuk membantu penyelesaian signup anda.</string>
   <string name="accountConfirmed">User %s berhasil dikonfirmasi.</string>
   <string name="accountCanLogin">Anda sekarang dapat masuk sebagai %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Anda tidak butuh email konfirmasi.</string>
@@ -667,7 +663,6 @@
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
-  <string name="keyRequestComputerAnalysis">Minta analisis komputer, belajar dari kesalahan anda</string>
   <string name="keyPreviousBranch">Cabang sebelumnya</string>
   <string name="keyNextBranch">Cabang selanjutnya</string>
   <string name="toggleVariationArrows">Alihkan panah variasi</string>
@@ -846,7 +841,6 @@
   <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Saya setuju untuk tidak membuat banyak akun (kecuali untuk alasan yang tertera di %s).</string>
-  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Peluru</string>

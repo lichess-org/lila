@@ -11,7 +11,7 @@
 यसपछि तपाई जित्न असफल हुन्जेल सबै खेलहरुको दोहोरो अंक प्राप्त हुनेछ| अर्थात्, जित को ४ अंक, बराबर को 2 अंक, र हारको अझै कुनै अंक प्राप्त हुने छैन|
 
 उदाहरण को लागि दुइ जित पछी एक बराबरी भएमा जम्मा ६ अंक प्राप्त हुनेछ: २ + २ + (२ x १)</string>
-  <string name="berserk">अरिना बर्सर्क</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">अरिना बर्सर्क</string>
   <string name="berserkAnswer">जब खेलाडीले खेलको शुरुमा बर्सर्क बटन थिच्छ, तब उसले आफ्नो घडीको आधा समय गुमाउछ तर जितले उसलाई प्रतियोगिता मा एक अंक थप प्रदान गर्छ|
 
 हरेक चाल पछी समय थप हुने खेलमा बर्सर्क जादा त्यो इन्क्रिमेंट पनि गुमाउनु पर्छ| (१+२ मा भने यसो हुदैन, १+० प्राप्त हुन्छ)

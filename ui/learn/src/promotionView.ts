@@ -1,8 +1,10 @@
+import { opposite, key2pos } from '@lichess-org/chessground/util';
+import { h } from 'snabbdom';
+
+import { bind } from 'lib/view';
+
 import type { RunCtrl } from './run/runCtrl';
 import type { PromotionRole } from './util';
-import { h } from 'snabbdom';
-import { bind } from 'lib/view';
-import { opposite, key2pos } from '@lichess-org/chessground/util';
 
 const pieces: PromotionRole[] = ['queen', 'knight', 'rook', 'bishop'];
 

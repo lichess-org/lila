@@ -1,4 +1,5 @@
 import { initMiniGame, updateMiniGame } from 'lib/view';
+
 import { embedChessground } from './asset';
 
 function resize() {
@@ -18,10 +19,10 @@ window.onload = async () => {
       'message',
       e => {
         const msg = JSON.parse(e.data);
-        if (msg.t == 'featured') {
+        if (msg.t === 'featured') {
           document.getElementById('featured-game')!.innerHTML = msg.d.html;
           setup();
-        } else if (msg.t == 'fen') {
+        } else if (msg.t === 'fen') {
           updateMiniGame(findGame(), msg.d);
         }
       },

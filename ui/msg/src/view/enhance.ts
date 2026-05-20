@@ -1,7 +1,8 @@
-import { scroller } from './scroller';
+import { escapeHtml } from 'lib/index';
 import * as licon from 'lib/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'lib/richText';
-import { escapeHtml } from 'lib/index';
+
+import { scroller } from './scroller';
 export { isMoreThanText } from 'lib/richText';
 
 export const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(?!gallery\b)(\w{7})(?:\.jpe?g|\.png|\.gif)?/;
@@ -10,7 +11,7 @@ const giphyRegex =
 const teamMessageRegex =
   /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
-const img = (src: string) => `<img src="${src}"/>`;
+const img = (src: string) => `<img src="${src}" alt="${src}"/>`;
 
 const aImg = (src: string) => linkReplace(src, img(src));
 

@@ -23,9 +23,11 @@
 
   .links .line {
     width: auto;
+
     &::before {
       display: inline-block;
       margin-inline: 0 0.4em;
+
       @include if-rtl {
         transform: scaleX(-1);
       }

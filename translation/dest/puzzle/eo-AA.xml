@@ -12,7 +12,6 @@
   <string name="origin">Originoj</string>
   <string name="specialMoves">Specialaj movoj</string>
   <string name="didYouLikeThisPuzzle">Ĉu vi ŝatis la puzlon?</string>
-  <string name="voteToLoadNextOne">Voĉdonu por iri al la venonta puzlo!</string>
   <string name="upVote">Supren voĉdoni puzlo</string>
   <string name="downVote">Malsupren voĉdoni puzlo</string>
   <string name="yourPuzzleRatingWillNotChange">Via puzla rango ne ŝanĝiĝos. Notu, ke puzloj ne estas konkurso. Via rango helpis elekti la plej bonaj puzloj por via nuna lerto.</string>
@@ -89,6 +88,6 @@ Ludu rapidaj kaj klasikaj ludoj por pliigi viajn ŝancojn de aldoni puzlon de vi
   </plurals>
   <string name="percentSolved">%s solvita</string>
   <string name="noPuzzlesToShow">Nenio por montri, ludu iujn puzlojn unue!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trajnu ĉi tiujn por optimumigi vian progreson!</string>
+  <string name="improvementAreasDescription">Trajnu ĉi tiujn por optimumigi vian progreson!</string>
   <string name="strengthDescription">Via rendimento estas plej bona en ĉi tiuj temoj</string>
 </resources>

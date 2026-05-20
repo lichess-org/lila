@@ -84,3 +84,12 @@ private case class TutorPlayer(
     perfStats: InsightPerfStats,
     peerMatch: Option[TutorPerfReport.PeerMatch]
 )
+
+case class TutorHome(
+    user: UserId,
+    previews: List[TutorFullReport.Preview],
+    awaiting: Option[TutorQueue.Awaiting]
+)
+enum TutorAvailability:
+  case Available(home: TutorHome)
+  case InsufficientGames

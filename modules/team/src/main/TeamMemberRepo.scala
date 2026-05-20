@@ -139,7 +139,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
         teams.view.map(t => Team.WithMyLeadership(t, myTeams contains t.id)).toList
 
   private[team] def countUnsub(teamId: TeamId): Fu[Int] =
-    coll.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))
+    coll.secondary.countSel(teamQuery(teamId) ++ $doc("unsub" -> true))
 
   def teamQuery(teamId: TeamId) = $doc("team" -> teamId)
   def teamQuery(teamIds: Seq[TeamId]) = $doc("team".$in(teamIds))

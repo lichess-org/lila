@@ -111,7 +111,7 @@ final class UserAnalysis(
             else
               val owner = isMyPov(pov)
               for
-                initialFen <- env.game.gameRepo.initialFen(game.id)
+                initialFen <- env.game.gameRepo.initialFen(game)
                 data <-
                   env.api.roundApi
                     .userAnalysisJson(
@@ -119,8 +119,7 @@ final class UserAnalysis(
                       ctx.pref,
                       initialFen,
                       pov.color,
-                      owner = owner,
-                      addLichobileCompat = true
+                      owner = owner
                     )
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
@@ -132,7 +131,7 @@ final class UserAnalysis(
       }
 
   private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
-    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+    initialFen <- env.game.gameRepo.initialFen(pov.game)
     users <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _ = gameC.preloadUsers(users)

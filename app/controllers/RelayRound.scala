@@ -51,13 +51,18 @@ final class RelayRound(
         )
   }
 
+  private def accessDenied(id: RelayRoundId)(using Context) =
+    negotiate(
+      Found(env.relay.api.byId(id)): r =>
+        Forbidden.page(views.relay.form.noAccess(r)),
+      forbiddenJson()
+    )
+
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     env.relay.api
       .byIdAndContributor(id)
       .flatMap:
-        case None =>
-          Found(env.relay.api.formNavigation(id)): (_, nav) =>
-            Forbidden.page(views.relay.form.noAccess(nav))
+        case None => accessDenied(id)
         case Some(rt) =>
           env.relay.api
             .formNavigation(rt)
@@ -67,30 +72,32 @@ final class RelayRound(
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     env.relay.api
-      .formNavigation(id)
-      .flatMapz: (round, nav) =>
-        bindForm(env.relay.roundForm.edit(nav.tour, round))(
-          err => fuccess(Left((round, nav) -> err)),
-          data =>
-            env.relay.api
-              .update(round)(data.update(nav.tour.official))
-              .dmap(_.withTour(nav.tour))
-              .dmap(Right(_))
-        ).dmap(some)
-      .orNotFound:
-        _.fold(
-          { case ((round, nav), err) =>
-            negotiate(
-              BadRequest.page(views.relay.form.round.edit(round, err, nav)),
-              jsonFormError(err)
-            )
-          },
-          _ =>
-            negotiate(
-              Redirect(routes.RelayRound.edit(id)).flashSuccess,
-              doApiShow(id)
-            )
-        )
+      .byIdAndContributor(id)
+      .flatMap:
+        case None => accessDenied(id)
+        case Some(rt) =>
+          env.relay.api
+            .formNavigation(rt)
+            .flatMap: (round, nav) =>
+              bindForm(env.relay.roundForm.edit(nav.tour, round))(
+                err => fuccess(Left((round, nav, err))),
+                data =>
+                  env.relay.api
+                    .update(round)(data.update(nav.tour.official))
+                    .dmap(_.withTour(nav.tour))
+                    .dmap(Right(_))
+              )
+            .flatMap:
+              case Left((round, nav, err)) =>
+                negotiate(
+                  BadRequest.page(views.relay.form.round.edit(round, err, nav)),
+                  jsonFormError(err)
+                )
+              case Right(_) =>
+                negotiate(
+                  Redirect(routes.RelayRound.edit(id)).flashSuccess,
+                  doApiShow(id)
+                )
   }
 
   def reset(id: RelayRoundId) = AuthOrScoped(_.Study.Write) { ctx ?=> me ?=>
@@ -164,6 +171,7 @@ final class RelayRound(
           )
           sVersion <- NoCrawlers(env.study.version(sc.study.id))
           embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+          _ = env.relay.stats.viewers.hit(rt)
         yield Ok(embed).enforceCrossSiteIsolation
       )(
         studyC.privateUnauthorizedFu(sc.study),
@@ -183,6 +191,7 @@ final class RelayRound(
           isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
           sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
           photos <- env.relay.playerApi.photosJson(rt.tour.id)
+          _ = env.relay.stats.viewers.hit(rt)
         yield JsonOk:
           env.relay.jsonView
             .withUrlAndPreviews(
@@ -221,10 +230,7 @@ final class RelayRound(
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
-      val limiter =
-        if ctx.me.exists(_.isVerified)
-        then apiC.GlobalConcurrencyLimitPerIP.eventsForVerifiedUser
-        else apiC.GlobalConcurrencyLimitPerIP.events
+      val limiter = apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
         limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
           Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
@@ -255,7 +261,8 @@ final class RelayRound(
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:
-    env.relay.statsJson(id).map(JsonOk)
+    Found(env.relay.api.byIdWithTour(id)): rt =>
+      env.relay.stats.getJson(rt).map(JsonOk)
 
   private def WithRoundAndTour(
       @nowarn ts: String,
@@ -329,6 +336,7 @@ final class RelayRound(
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
       yield
+        env.relay.stats.viewers.hit(rt)
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)
     )(

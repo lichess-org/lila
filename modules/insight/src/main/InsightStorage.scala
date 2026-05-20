@@ -83,7 +83,10 @@ object InsightStorage:
   val sortChronological = $sort.asc(F.date)
   val sortAntiChronological = $sort.desc(F.date)
 
+  def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
+    case f if f.dimension.isInGame => f.matcher
+  })
+
   def combineDocs(docs: List[BSONDocument]) =
-    docs.foldLeft(BSONDocument()) { case (acc, doc) =>
+    docs.foldLeft(BSONDocument()): (acc, doc) =>
       acc ++ doc
-    }

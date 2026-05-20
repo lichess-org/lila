@@ -1,12 +1,13 @@
+import { status } from 'lib/game';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
-import { player as renderPlayer } from './util';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
-import { teamName } from './battle';
-import { status } from 'lib/game';
+
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
+import { teamName } from './battle';
+import { player as renderPlayer } from './util';
 
 const playerTitle = (player: Player, tourId: string) =>
   hl('h2', [
@@ -93,4 +94,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? hl('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : hl('td.berserk');
+  b ? hl('td.berserk', { attrs: { ...dataIcon(licon.Berserk), title: 'Berserk' } }) : hl('td.berserk');

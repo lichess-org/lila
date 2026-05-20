@@ -1,8 +1,9 @@
 import { throttlePromiseDelay } from 'lib/async';
 import { json, form } from 'lib/xhr';
+
 import type SwissCtrl from './ctrl';
-import { isOutcome } from './util';
 import type { Sheet } from './interfaces';
+import { isOutcome } from './util';
 
 // when the tournament no longer exists
 const onFail = () => site.reload();
@@ -18,10 +19,9 @@ const join = (ctrl: SwissCtrl, password?: string) =>
 const withdraw = (ctrl: SwissCtrl) =>
   json(`/api/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
-const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
+const loadPage = (ctrl: SwissCtrl, p: number) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
-    callback?.();
     ctrl.redraw();
   });
 

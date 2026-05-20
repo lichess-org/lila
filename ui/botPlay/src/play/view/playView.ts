@@ -1,4 +1,14 @@
+import { Chessground } from '@lichess-org/chessground';
+
+import { repeater } from 'lib';
+import { type BotInfo, Bot } from 'lib/bot/bot';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { type TopOrBottom } from 'lib/game';
+import { renderClock } from 'lib/game/clock/clockView';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import * as licon from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
   hl,
@@ -6,25 +16,20 @@ import {
   type LooseVNodes,
   dataIcon,
   type VNode,
-  stepwiseScroll,
   toggleButton as boardMenuToggleButton,
 } from 'lib/view';
-import { Chessground } from '@lichess-org/chessground';
-import type PlayCtrl from '../playCtrl';
+import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
+
 import { initialGround } from '@/ground';
-import { botAssetUrl } from 'lib/bot/botLoader';
-import { type BotInfo, Bot } from 'lib/bot/bot';
+
+import type PlayCtrl from '../playCtrl';
 import { autoScroll } from './autoScroll';
-import { repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
-import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import boardMenu from './boardMenu';
-import { renderMaterialDiffs } from 'lib/game/view/material';
-import { type TopOrBottom } from 'lib/game';
-import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
   hl(`main.bot-app.bot-game.unique-game-${ctrl.game.id}.bot-color--${ctrl.opts.bot.key}`, [
+    renderBlindfoldToggle(ctrl.blindfold),
     viewBoard(ctrl),
     hl('div.bot-game__table'),
     viewTable(ctrl),
@@ -145,7 +150,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
       [licon.JumpPrev, ctrl.board.onPly - 1],
       [licon.JumpNext, ctrl.board.onPly + 1],
       [licon.JumpLast, ctrl.game.ply()],
-    ].map((b: [string, number], i) => {
+    ].map((b: [LiconType, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
@@ -191,11 +196,13 @@ const boardScroll = (ctrl: PlayCtrl) =>
     ? undefined
     : bind(
         'wheel',
-        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-          e.preventDefault();
-          if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
-          else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
-        }),
+        stepwiseScroll(
+          e => {
+            if (e.deltaY > 0) ctrl.goDiff(1);
+            else if (e.deltaY < 0) ctrl.goDiff(-1);
+          },
+          () => false,
+        ),
         undefined,
         false,
       );

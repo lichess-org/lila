@@ -1,11 +1,13 @@
-import { isPlayerTurn } from 'lib/game';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
-import type RoundController from '../ctrl';
 import type { MouchEvent } from '@lichess-org/chessground/types';
-import type { RoundData } from '../interfaces';
-import { storage } from 'lib/storage';
+
+import { isPlayerTurn } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+
+import type RoundController from '../ctrl';
+import type { RoundData } from '../interfaces';
 
 export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 

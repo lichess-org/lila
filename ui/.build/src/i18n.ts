@@ -1,25 +1,27 @@
+import { transform } from 'esbuild';
+import fg from 'fast-glob';
+import { XMLParser } from 'fast-xml-parser';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
-import fg from 'fast-glob';
 import { join, basename } from 'node:path';
-import { XMLParser } from 'fast-xml-parser';
+
+import { zip } from './algo.ts';
 import { env } from './env.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
 import { readable, isClose } from './parse.ts';
 import { makeTask } from './task.ts';
-import { type Manifest, updateManifest } from './manifest.ts';
-import { zip } from './algo.ts';
-import { transform } from 'esbuild';
 
-type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
+type PluralMode = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
+type Plural = Record<PluralMode, string>;
 type Dict = Map<string, string | Plural>;
 
 const formatStringRe = /%(?:[\d]\$)?s/;
 
-let dicts: Map<string, Dict> = new Map();
+let dicts = new Map<string, Dict>();
 let locales: string[];
 let cats: string[];
 
-export function i18n(): Promise<any> {
+export function i18n(): Promise<void | string> {
   if (!env.begin('i18n')) return Promise.resolve();
 
   return makeTask({
@@ -88,7 +90,7 @@ async function compileTypings(): Promise<void> {
   }
 }
 
-function compileJavascripts(): Promise<any> {
+function compileJavascripts(): Promise<void[]> {
   return Promise.all(
     cats.map(async cat => {
       const u = await updated(cat);
@@ -157,7 +159,7 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
 }
 
 function parseXml(xmlData: string): Map<string, string | Plural> {
-  const i18nMap: Map<string, string | Plural> = new Map();
+  const i18nMap = new Map<string, string | Plural>();
   if (!xmlData) return i18nMap;
 
   const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
@@ -169,7 +171,7 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
     for (const item of Array.isArray(plural.item) ? plural.item : [plural.item]) {
       group[item.quantity] = item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'");
     }
-    i18nMap.set(plural.name, group);
+    i18nMap.set(plural.name, group as Plural);
   }
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }

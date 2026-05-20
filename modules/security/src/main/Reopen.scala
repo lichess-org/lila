@@ -11,7 +11,7 @@ import lila.user.{ User, UserRepo }
 final class Reopen(
     mailer: lila.mailer.Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator):
 
@@ -22,8 +22,8 @@ final class Reopen(
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
   ): FuRaise[(String, String), User] = for
-    existing <- userRepo.enabledWithEmail(email.normalize)
-    _ <- raiseIf(existing.isDefined):
+    existing <- userRepo.byEmail(email.normalize)
+    _ <- raiseIf(existing.exists(_.enabled.yes)):
       "emailUsed" -> "This email address is already in use by an active account."
     user <- userRepo.byId(u)
     user <- user.raiseIfNone("noUser" -> "No account found with this username.")
@@ -37,15 +37,15 @@ final class Reopen(
     modClosed <- closedByMod(user)
     _ <- raiseIf(modClosed):
       "nope" -> "Sorry, that account can no longer be reopened."
-    forever <- userRepo.isForeverClosed(user)
-    _ <- raiseIf(forever):
+    flags <- userRepo.closedFlags(user)
+    _ <- raiseIf(flags.exists(_.forever)):
       "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
   yield user
 
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.reopen.increment()
-      val url = s"$baseUrl/account/reopen/login/$token"
+      val url = routeUrl(routes.Account.reopenLogin(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
@@ -67,9 +67,10 @@ ${trans.common_orPaste.txt()}"""),
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.disabledById).flatMapz { user =>
       for
-        forever <- userRepo.isForeverClosed(user)
-        _ <- forever.not.so(userRepo.reopen(user.id))
-        reopened = forever.not.option(user)
+        flags <- userRepo.closedFlags(user)
+        canReopen = flags.exists(_.forever).not
+        _ <- canReopen.so(userRepo.reopen(user.id))
+        reopened = canReopen.option(user)
       yield
         if reopened.isDefined
         then lila.common.Bus.pub(lila.core.security.ReopenAccount(user))

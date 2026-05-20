@@ -29,7 +29,6 @@
   <string name="botPlay">Spil partier med bot-api</string>
   <string name="engineRead">Se og brug dit eksterne skakprogram</string>
   <string name="engineWrite">Opret og opdater eksternt skakprogram</string>
-  <string name="webLogin">Opret godkendte hjemmesidesessioner (giver fuld adgang!)</string>
   <string name="webMod">Brug moderatorværktøjer (inden for rammerne af din tilladelse)</string>
   <string name="personalAccessTokens">Personlige API-adgangstokens</string>
   <string name="canMakeOauthRequests">Du kan lave OAuth-anmodninger uden at gå gennem %s.</string>

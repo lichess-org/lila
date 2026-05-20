@@ -1,7 +1,8 @@
-import debounce from 'debounce-promise';
-import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 import Tagify from '@yaireo/tagify';
+import debounce from 'debounce-promise';
 import Sortable from 'sortablejs';
+
+import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 
 site.load.then(() => {
   const input = document.getElementById('form3-topics') as HTMLInputElement;

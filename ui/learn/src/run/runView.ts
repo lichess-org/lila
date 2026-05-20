@@ -1,16 +1,18 @@
-import { withLinebreaks } from '../util';
-import chessground from '../chessground';
-import congrats from './congrats';
-import stageStarting from './stageStarting';
-import stageComplete from './stageComplete';
-import type { LevelCtrl } from '../levelCtrl';
-import type { RunCtrl } from './runCtrl';
-import { mapSideView } from '../mapSideView';
-import type { LearnCtrl } from '../ctrl';
 import { h, type Classes, type VNode } from 'snabbdom';
+
 import { bind } from 'lib/view';
+
+import chessground from '../chessground';
+import type { LearnCtrl } from '../ctrl';
+import type { LevelCtrl } from '../levelCtrl';
+import { mapSideView } from '../mapSideView';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';
+import { withLinebreaks } from '../util';
+import congrats from './congrats';
+import type { RunCtrl } from './runCtrl';
+import stageComplete from './stageComplete';
+import stageStarting from './stageStarting';
 
 const renderFailed = (ctrl: RunCtrl): VNode =>
   h('div.result.failed', { hook: bind('click', ctrl.restart) }, [

@@ -204,7 +204,7 @@
   <string name="fromPgnGameText">Вставте гру в форматі PGN,&lt;br&gt;щоб завантажити до розділу ходи, коментарі та варіації.</string>
   <string name="variantsAreSupportedTitle">Студії доступні для різних режимів</string>
   <string name="variantsAreSupportedText">Так, Ви можете вивчати Crazyhouse&lt;br&gt;та усі інші режими Lichess!</string>
-  <string name="chapterConclusionText">Розділі зберігаються назавжди.&lt;br&gt;Насолоджуйтесь організацією власного шахового контенту!</string>
+  <string name="chapterConclusionText">Розділи зберігаються назавжди.&lt;br&gt;Насолоджуйтесь організацією власного шахового контенту!</string>
   <string name="doubleDefeat">Подвійна поразка</string>
   <string name="blackDefeatWhiteCanNotWin">Чорні програють, але Білі не можуть виграти</string>
   <string name="whiteDefeatBlackCanNotWin">Білі програють, але Чорні не можуть виграти</string>

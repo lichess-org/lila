@@ -1,5 +1,7 @@
-import { json as xhrJson, form } from 'lib/xhr';
 import debounce from 'debounce-promise';
+
+import { json as xhrJson, form } from 'lib/xhr';
+
 import type { Pool, Seek } from './interfaces';
 
 export const seeks: () => Promise<Seek[]> = debounce(() => xhrJson('/lobby/seeks'), 3000, { leading: true });

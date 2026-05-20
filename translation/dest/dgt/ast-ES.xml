@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Requerimientos del tableru DGT</string>
   <string name="dgtBoardLimitations">Llimitaciones de los tableros DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Esta páxina déxate conectar el to tableru DGT a Lichess y usalo pa les tos partíes.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Pa conectar el tableru electrónicu DGT precises instalar %s.</string>
+  <string name="toConnectTheDgtBoard">Pa conectar el tableru electrónicu DGT precises instalar %s.</string>
   <string name="downloadHere">Puedes descargar el programa equí: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Si %1$s ta executándose nel to ordenador, puedes comprobar la to conexón %2$s.</string>
   <string name="openingThisLink">abriendo esti enllaz</string>
@@ -18,8 +18,8 @@
   <string name="whenReadySetupBoard">Cuando teas llistu, configura el to tableru y fai clic en %s.</string>
   <string name="ifMoveNotDetected">Si nun se detecta un movimientu</string>
   <string name="checkYouHaveMadeOpponentsMove">Comprueba que fixisti primero la xugada del to oponente nel tableru DGT. Revierte la to xugada. Xuega de nuevu.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Como últimu recursu, configura el tableru idénticu a cómo ta en Lichess, depués %s</string>
-  <string name="reloadThisPage">Recargar esta páxina</string>
+  <string name="asALastResort">Como últimu recursu, configura el tableru idénticu a cómo ta en Lichess, depués %s</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Recargar esta páxina</string>
   <string name="dgtConfigure">DGT - Configurar</string>
   <string name="lichessConnectivity">Conectividad de Lichess</string>
   <string name="validDgtOauthToken">Tienes un token de OAuth fayadizu pa xugar con DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Les palabres clave tán en formatu JSON. Utilizar pa traducir movimientos y resultancies al to idioma. Por defectu ye l\'inglés, pero nun duldes en camudalo.</string>
   <string name="debug">Depurar fallos</string>
   <string name="verboseLogging">Rexistru detalláu</string>
-  <string name="toSeeConsoleMessage">Pa ver mensaxes de consola prime Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome VOS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Pa ver mensaxes de consola prime Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome VOS)</string>
   <string name="playWithDgtBoard">Xugar con un tablero DGT</string>
   <string name="configure">Configurar</string>
 </resources>

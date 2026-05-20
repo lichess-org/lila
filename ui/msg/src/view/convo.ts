@@ -1,12 +1,16 @@
-import type MsgCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+
+import * as licon from 'lib/licon';
+import { hookMobileMousedown } from 'lib/mobileEvents';
+import { dataIcon } from 'lib/view';
+import { userLine, userLink, userLinkData } from 'lib/view/userLink';
+
+import type MsgCtrl from '@/ctrl';
+import type { Convo, User } from '@/interfaces';
+
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
-import type { Convo, User } from '../interfaces';
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { hookMobileMousedown } from 'lib/device';
-import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
@@ -14,7 +18,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__left', [
         h('span.msg-app__convo__head__back', {
-          attrs: { 'data-icon': licon.LessThan },
+          attrs: dataIcon(licon.LessThan),
           hook: hookMobileMousedown(ctrl.showSide),
         }),
         contactLink(user, ctrl),
@@ -44,4 +48,4 @@ const contactLink = (user: User, ctrl: MsgCtrl): VNode => {
 };
 
 const blocked = (msg: string) =>
-  h('div.msg-app__convo__reply__block.text', { attrs: { 'data-icon': licon.NotAllowed } }, msg);
+  h('div.msg-app__convo__reply__block.text', { attrs: dataIcon(licon.NotAllowed) }, msg);

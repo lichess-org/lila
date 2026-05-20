@@ -4,21 +4,21 @@
   <string name="swissTournaments">Shveysarcha turnirlar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Turni koʻrish</item>
-    <item quantity="other">Barcha %s ta turni koʻrish</item>
+    <item quantity="other">Barcha %s ta turni koʻrish</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s ta tur</item>
-    <item quantity="other">%s ta tur</item>
+    <item quantity="one">%s ta tur</item>
+    <item quantity="other">%s ta tur</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s ta Shveysarcha tur</item>
-    <item quantity="other">%s ta Shveysarcha tur</item>
+    <item quantity="one">%s turdan iborat shveysarcha</item>
+    <item quantity="other">%s turdan iborat shveysarcha</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Kuniga bitta tur</item>
     <item quantity="other">Har %s kunda bitta tur</item>
   </plurals>
-  <string name="roundsAreStartedManually">Turlar qo\'lda boshlanadi</string>
+  <string name="roundsAreStartedManually">Turlar qoʻlda boshlanadi</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">Turlar orasida %s soniya</item>
     <item quantity="other">Turlar orasida %s soniya</item>
@@ -29,15 +29,15 @@
   </plurals>
   <string name="nextRound">Keyingi tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Davom etayotgan o\'yin</item>
-    <item quantity="other">Davom etayotgan o\'yinlar</item>
+    <item quantity="one">Davom etayotgan oʻyin</item>
+    <item quantity="other">Davom etayotgan oʻyinlar</item>
   </plurals>
   <string name="tournStartDate">Turnir boshlanish sanasi</string>
   <string name="numberOfRounds">Turlar soni</string>
   <string name="numberOfRoundsHelp">Toq son boʻlsa oʻyinchilar orasidagi rang muvozanati optimal boʻladi.</string>
   <string name="roundInterval">Turlar orasidagi tanaffus</string>
   <string name="forbiddenPairings">Taqiqlangan juftliklar</string>
-  <string name="forbiddenPairingsHelp">Oʻzaro oʻynamasligi kerak boʻlgan oʻyinchilarning (masalan, aka-ukalar) foydalanuvchi nomlarini kiriting. Har bir qatorga ikkitadan foydalanuvchi nomini boʻshliq bilan ajratgan holda yozing.</string>
+  <string name="forbiddenPairingsHelp">Oʻzaro oʻynamasligi kerak boʻlgan oʻyinchilarning (masalan, aka‑ukalar) foydalanuvchi nomlarini kiriting. Har bir qatorga ikkitadan foydalanuvchi nomini boʻshliq bilan ajratgan holda yozing.</string>
   <string name="manualPairings">Keyingi turda qoʻlda juftliklarni aniqlash</string>
   <string name="manualPairingsHelp">Keyingi turning barcha juftliklarini qoʻlda belgilang. Har bir satrda bir juftlik boʻlsin. Masalan:
 OʻyinchiA OʻyinchiB
@@ -50,12 +50,12 @@ Lichess juftliklarni avtomatik tarzda yaratishi uchun bu maydonni boʻsh qoldiri
   <string name="mustHavePlayedTheirLastSwissGameHelp">Faqat oxirgi shveysarcha oʻyinda qatnashgan oʻyinchilarga qoʻshilishga ruxsat berish. Agar oʻyinchi yaqindagi shveytsarcha turnirlardan birida qatnashmagan boʻlsa, u sizning turniringizga kira olmaydi. Bu turnirga chin dildan qatnashadigan o‘yinchilar uchun sifatliroq turnir muhitini yaratadi.</string>
   <string name="newSwiss">Yangi shveysarcha turnir</string>
   <string name="swissVsArenaQ">Qay hollarda arena oʻrniga shveysarcha turnir ishlatish kerak?</string>
-  <string name="swissVsArenaA">Shveysarcha turnirda barcha ishtirokchilar bir xil miqdorda oʻyin oʻynashadi va bir-biri bilan faqat bir marta oʻynashadi. Bu klublar va rasmiy tadbirlar uchun yaxshiroq tanlovdir.</string>
+  <string name="swissVsArenaA">Shveysarcha turnirda barcha ishtirokchilar bir xil miqdorda oʻyin oʻynashadi va bir‑biri bilan faqat bir marta oʻynashadi. Bu klublar va rasmiy tadbirlar uchun yaxshiroq tanlovdir.</string>
   <string name="pointsCalculationQ">Ochkolar qanday hisoblanadi?</string>
   <string name="pointsCalculationA">Gʻalaba — bir ochko, durang — yarim ochko, magʻlubiyat — nol ochko.
 Tur davomida oʻyinchi uchun raqib topilmasa, unga bir ochkolik “bye” beriladi.</string>
-  <string name="tiebreaksCalculationQ">Tay-breyk qanday hisoblanadi?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger tizimi</string>
+  <string name="tiebreaksCalculationQ">Tay‑breyk qanday hisoblanadi?</string>
+  <string name="sonnebornBergerScore">Sonneborn‑Berger tizimi</string>
   <string name="tiebreaksCalculationA">%s orqali.
 Bunda oʻyinchi yutgan barcha raqiblarning toʻplagan ochkolari hamda durang oʻynagan raqiblarining toʻplagan ochkolarining yarmi qoʻshib hisoblanadi.</string>
   <string name="pairingsQ">Qura qanday aniqlanadi?</string>
@@ -63,9 +63,9 @@ Bunda oʻyinchi yutgan barcha raqiblarning toʻplagan ochkolari hamda durang oʻ
   <string name="FIDEHandbook">FIDE qoʻllanmasi</string>
   <string name="pairingsA">%3$sga muvofiq, %2$s tomonidan joriy etilgan %1$s asosida.</string>
   <string name="moreRoundsThanPlayersQ">Agar turnirda turlar soni oʻyinchilar sonidan koʻp boʻlsa nima boʻladi?</string>
-  <string name="moreRoundsThanPlayersA">Barcha mumkin bo\'lgan juftliklar o\'ynalgach, turnir yakunlanadi va g\'olib e\'lon qilinadi.</string>
+  <string name="moreRoundsThanPlayersA">Barcha mumkin boʻlgan juftliklar oʻynab boʻlingach, turnir yakunlanadi va gʻolib eʼlon qilinadi.</string>
   <string name="restrictedToTeamsQ">Nima uchun u jamoalar bilan cheklangan?</string>
-  <string name="restrictedToTeamsA">Shveysarcha turnirlar onlayn shaxmat uchun moʻljallanmagan. Oʻyinchilardan punktuallik, masʼuliyat va sabr-toqatni talab qiladi.
+  <string name="restrictedToTeamsA">Shveysarcha turnirlar onlayn shaxmat uchun moʻljallanmagan. Oʻyinchilardan punktuallik, masʼuliyat va sabr‑toqatni talab qiladi.
 Bizningcha, bu shartlarga global turnirlarga qaraganda jamoa ichida amal qilinishi ehtimoli yuqoriroq.</string>
   <string name="numberOfByesQ">Oʻyinchi necha marta “bye” olishi mumkin?</string>
   <string name="numberOfByesA">Qura tashlash tizimi oʻyinchi uchun raqib topa olmasa unga bir ochkolik “bye” beriladi.
@@ -81,17 +81,17 @@ Oʻyinchi istalgan vaqtda turnirga qaytadan qoʻshilishi mumkin.</string>
 Ushbu muammoning oldini olish uchun, Lichess oʻyinda qatnashmagan oʻyinchilarni maʻlum vaqt davomida yangi shveysarcha turnirlarga kirishini cheklaydi.
 Shunga qaramay, turnir tashkilotchisi bunday oʻyinchilarga oʻz musobaqasiga kirishga ruxsat berish-bermaslikni oʻzi hal qilishi ham mumkin.</string>
   <string name="lateJoinQ">Oʻyinchilar turnirga kechikib qoʻshila oladilarmi?</string>
-  <string name="lateJoinA">Ha, turlarning yarmidan koʻpi boshlanmaguncha qoʻshilish mumkin. Masalan, 11 turdan iborat shveysarcha turnirda oʻyinchilar 6-tur boshlanguncha, 12 turdan iborat turnirda esa 7-tur boshlanguncha qoʻshila oladilar.
+  <string name="lateJoinA">Ha, turlarning yarimi yakunlanmagan boʻlsa qoʻshilish mumkin. Masalan, 11 turdan iborat shveysarcha turnirda oʻyinchilar 6‑tur boshlanguncha, 12 turdan iborat turnirda esa 7‑tur boshlanguncha qoʻshila oladilar.
 Kechikib qoʻshilganlarga, hatto bir nechta turni oʻtkazib yuborgan boʻlsalar ham, faqat bir marta “bye” (oʻyinsiz ochko) beriladi.</string>
   <string name="willSwissReplaceArenasQ">Arena turnirlari shveysarcha turnirlar bilan almashtiriladimi?</string>
-  <string name="willSwissReplaceArenasA">Yoʻq. Ular bir-birini toʻldiruvchi funksiyalardir.</string>
-  <string name="roundRobinQ">Round-robin (aylanma) tizimi-chi?</string>
-  <string name="roundRobinA">Biz bu tizimni qoʻshishni istagan edik, biroq, afsuski, round-robin tizimi onlayn formatda ishlamaydi.
-Buning sababi — turnirni barvaqt tark etadigan oʻyinchilar masalasini adolatli hal qilishning imkoni yoʻqligidadir. Onlayn musobaqalarda barcha oʻyinchilar oxirigacha oʻynashini kutib boʻlmaydi. Bu deyarli imkonsiz, natijada koʻpgina round-robin turnirlari nuqsonli va adolatsiz boʻlib qoladi. Bu esa bunday turnirlarning oʻtkazilishidan koʻzlangan asosiy maqsadga ziddir.
-Onlayn formatda round-robin tizimiga eng yaqin narsa — turlar soni juda koʻp boʻlgan shveysarcha turnir oʻtkazishdir. Bunda turnir yakunlangunga qadar barcha mumkin boʻlgan juftliklar oʻzaro oʻynab boʻlishadi.</string>
-  <string name="otherSystemsQ">Boshqa turnir tizimlari-chi?</string>
+  <string name="willSwissReplaceArenasA">Yoʻq. Ular bir‑birini toʻldiruvchi funksiyalardir.</string>
+  <string name="roundRobinQ">Round-robin (aylanma) tizimi‑chi?</string>
+  <string name="roundRobinA">Biz bu tizimni qoʻshishni istagan edik, biroq, afsuski, round‑robin tizimi onlayn formatda ishlamaydi.
+Buning sababi — turnirni barvaqt tark etadigan oʻyinchilar masalasini adolatli hal qilishning imkoni yoʻqligidadir. Onlayn musobaqalarda barcha oʻyinchilar oxirigacha oʻynashini kutib boʻlmaydi. Bu deyarli imkonsiz, natijada koʻpgina round‑robin turnirlari nuqsonli va adolatsiz boʻlib qoladi. Bu esa bunday turnirlarning oʻtkazilishidan koʻzlangan asosiy maqsadga ziddir.
+Onlayn formatda round‑robin tizimiga eng yaqin narsa — turlar soni juda koʻp boʻlgan shveysarcha turnir oʻtkazishdir. Bunda turnir yakunlangunga qadar barcha mumkin boʻlgan juftliklar oʻzaro oʻynab boʻlishadi.</string>
+  <string name="otherSystemsQ">Boshqa turnir tizimlari‑chi?</string>
   <string name="otherSystemsA">Biz hozircha Lichessga boshqa turnir tizimlarini qo‘shishni rejalashtirmayapmiz.</string>
-  <string name="swissDescription">Shveysarcha turnirda %1$s har bir ishtirokchi barcha qatnashchilar bilan oʻynashi shart emas. Ishtirokchilar har bir turda yakkama-yakka tartibda oʻynashadi. Bunda qoidalar shunday tuzilganki, oʻyinchilar oʻziga oʻxshash ochko toʻplab borayotgan raqiblar bilan roʻbaroʻ kelishadi, lekin bitta raqib bilan ikki marta oʻynamaydilar. Barcha turlar yakuniga koʻra eng koʻp umumiy ochko toʻplagan ishtirokchi gʻolib deb topiladi. Agar oʻyinchilar soni toq boʻlmasa, barcha ishtirokchilar har bir turda qatnashadilar.</string>
+  <string name="swissDescription">Shveysarcha turnirda %1$s har bir ishtirokchi barcha qatnashchilar bilan oʻynashi shart emas. Ishtirokchilar har bir turda yakkama‑yakka tartibda oʻynashadi. Bunda qoidalar shunday tuzilganki, oʻyinchilar oʻziga oʻxshash ochko toʻplab borayotgan raqiblar bilan roʻbaroʻ kelishadi, lekin bitta raqib bilan ikki marta oʻynamaydilar. Barcha turlar yakuniga koʻra eng koʻp umumiy ochko toʻplagan ishtirokchi gʻolib deb topiladi. Agar oʻyinchilar soni juft son boʻlsa barcha ishtirokchilar har bir turda qatnashadilar.</string>
   <string name="teamOnly">Shveysarcha turnirlar faqat jamoa yetakchilari tomonidan yaratilishi mumkin va ularda faqat jamoa aʼzolari oʻynashi mumkin.
 Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="joinOrCreateTeam">biron bir jamoaga qoʻshiling yoki yangi jamoa yarating</string>
@@ -106,24 +106,24 @@ Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="numberOfGamesPreDefined">Oldindan belgilangan va barcha oʻyinchilar uchun bir xil</string>
   <string name="pairingSystem">Qura tashlash tizimi</string>
   <string name="pairingSystemArena">Reytingi oʻxshash boʻlgan har qanday boʻsh raqib</string>
-  <string name="pairingSystemSwiss">Ochko va tay-breyk natijalariga koʻra eng mos keladigan raqib</string>
+  <string name="pairingSystemSwiss">Ochko va tay‑breyk natijalariga koʻra eng mos keladigan raqib</string>
   <string name="pairingWaitTime">Qura tashlashni kutish vaqti</string>
   <string name="pairingWaitTimeArena">Tez: boshqa oʻyinchilarni kutmaydi</string>
   <string name="pairingWaitTimeSwiss">Sekin: boshqa oʻyinchilarni kutadi</string>
   <string name="identicalPairing">Bir xil raqiblar</string>
-  <string name="possibleButNotConsecutive">Mumkin, lekin ketma-ket emas</string>
+  <string name="possibleButNotConsecutive">Mumkin, lekin ketma‑ket emas</string>
   <string name="identicalForbidden">Taqiqlangan</string>
   <string name="lateJoin">Kech qoʻshilish mumkinmi</string>
-  <string name="lateJoinUntil">Mumkin, agar ketma-ket boʻlmasa</string>
+  <string name="lateJoinUntil">Ha, lekin turlarning yarimi yakunlanmagan boʻlsa</string>
   <string name="pause">Tanaffusga chiqish mumkinmi</string>
   <string name="pauseSwiss">Mumkin, lekin turlar sonini kamaytirib yuborishi mumkin</string>
   <string name="streaksAndBerserk">Gʻalabalar seriyasi va Berserk bormi</string>
-  <string name="similarToOTB">Yuzma-yuz turnirlarga oʻxshaydimi</string>
+  <string name="similarToOTB">Rasmiy yuzma‑yuz turnirlarga oʻxshaydimi</string>
   <string name="unlimitedAndFree">Cheklanmagan va bepulmi</string>
   <string name="predefinedUsers">Faqat belgilangan foydalanuvchilarga kirishga ruxsat berish</string>
   <string name="forbiddedUsers">Agar ushbu roʻyxat boʻsh boʻlmasa, roʻyxatda boʻlmagan foydalanuvchilarning turnirga qoʻshilishi taqiqlanadi. Har bir qatorga bittadan foydalanuvchi nomini yozing.</string>
   <string name="playYourGames">Oʻyinlaringizni oʻynang</string>
   <string name="byes">Oʻyinsiz ochkolar, “bye”</string>
   <string name="absences">Qatnashmaslik</string>
-  <string name="tieBreak">Tay-breyk</string>
+  <string name="tieBreak">Tay‑breyk</string>
 </resources>

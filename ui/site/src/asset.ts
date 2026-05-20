@@ -1,6 +1,7 @@
-import { script as xhrScript } from 'lib/xhr';
-import { memoize } from 'lib';
 import { COLORS } from 'chessops';
+
+import { memoize } from 'lib';
+import { script as xhrScript } from 'lib/xhr';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
@@ -53,7 +54,7 @@ export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remo
 
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
-export const jsModule = (name: string, prefix: string = 'compiled/') => {
+export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
   const hash = site.manifest.js[name];
   return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;

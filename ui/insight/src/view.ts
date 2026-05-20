@@ -1,17 +1,20 @@
 import { thunk } from 'snabbdom';
+
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
+import { bind, dataIcon, hl, iconTag } from 'lib/view';
+
 import axis from './axis';
-import filters from './filters';
-import presets from './presets';
+import boards from './boards';
 import chart from './chart';
-import { vert } from './table';
+import type Ctrl from './ctrl';
+import filters from './filters';
 import help from './help';
 import { info, tutor } from './info';
-import boards from './boards';
-import type Ctrl from './ctrl';
 import type { ViewTab } from './interfaces';
-import { bind, hl } from 'lib/view';
+import presets from './presets';
+import { vert } from './table';
+import { isAtLeastSmall, isAtLeastXSmall, isAtLeastXXSmall, isLandscapeLayout } from './util';
 
 let forceRender = false;
 
@@ -30,10 +33,6 @@ export function view(ctrl: Ctrl) {
   return portraitView(ctrl);
 }
 
-export function isLandscapeLayout() {
-  return isAtLeastXSmall() || window.innerWidth > window.innerHeight;
-}
-
 // Key that determines whether or not renderMain needs to get rerendered
 const cacheKey = (ctrl: Ctrl) => {
   if (forceRender) {
@@ -49,7 +48,7 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
     return hl('div'); // returning undefined breaks snabbdom's thunks
   } else if (ctrl.vm.broken) {
     return hl('div.broken', [
-      hl('i', { attrs: { 'data-icon': licon.DiscBig } }),
+      iconTag(licon.DiscBig),
       'Insights are unavailable.',
       hl('br'),
       'Please try again later.',
@@ -73,9 +72,9 @@ const viewTabData = (ctrl: Ctrl, view: ViewTab) => ({
 function header(ctrl: Ctrl) {
   return hl('header', widthStyle(mainW()), [
     isAtLeastXSmall(mainW())
-      ? hl('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Chess Insights')
+      ? hl('h2.text', { attrs: dataIcon(licon.Target) }, 'Chess Insights')
       : isAtLeastXXSmall(mainW())
-        ? hl('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Insights')
+        ? hl('h2.text', { attrs: dataIcon(licon.Target) }, 'Insights')
         : mainW() >= 460 && hl('h2.text', 'Insights'),
     axis(ctrl, mainW() < 460 ? { attrs: { style: 'justify-content: space-evenly;' } } : null),
   ]);
@@ -175,7 +174,3 @@ const containerStyle = () => ({
       ` ---chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
-
-const isAtLeastXXSmall = (w = window.innerWidth) => w >= 500; // $mq-xx-small
-const isAtLeastXSmall = (w = window.innerWidth) => w >= 650; // $mq-x-small
-const isAtLeastSmall = (w = window.innerWidth) => w >= 800; // $mq-small

@@ -1,8 +1,9 @@
-import { hl, alert } from 'lib/view';
-import * as licon from 'lib/licon';
 import Peer from 'peerjs';
-import { pubsub } from 'lib/pubsub';
+
 import type { VoiceChat } from 'lib/chat/interfaces';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { hl, alert } from 'lib/view';
 
 type State =
   | 'off'
@@ -156,7 +157,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
     if (!peer) return;
     for (const otherPeer in peer.connections) {
       peer.connections[otherPeer].forEach((c: any) => {
-        if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
+        if (c.peerConnection && c.peerConnection.connectionState === 'disconnected') {
           log(`close disconnected call to ${c.peer}`);
           c.close();
           opts.redraw();

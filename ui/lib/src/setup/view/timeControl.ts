@@ -1,6 +1,8 @@
 import type { Prop } from '@/index';
-import { hl, type VNode } from '@/view';
+import { hl, type MaybeVNode, type VNode } from '@/view';
+
 import type { InputValue } from '../interfaces';
+import { option } from '../option';
 import {
   timeModes,
   sliderTimes,
@@ -11,7 +13,6 @@ import {
   type TimeControl,
   type TimeMode,
 } from '../timeControl';
-import { option } from '../option';
 
 const showTime = (v: number) => {
   if (v === 1 / 4) return '¼';
@@ -106,7 +107,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
   });
 
-export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode => {
+export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal = 0): VNode => {
   if (site.blindMode) return hl('div.config-group', blindModeTimePickers(tc));
 
   const activeMode = tc.mode();
@@ -134,7 +135,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
       )
     : null;
 
-  let panelContent: VNode | null = null;
+  let panelContent: MaybeVNode = null;
 
   if (activeMode === 'realTime') {
     const [tcTime, tcIncrement] = [tc.time(), tc.increment()];

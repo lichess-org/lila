@@ -1,11 +1,10 @@
 .relay-back-to-live {
-  @extend %flex-center;
-  justify-content: center;
+  @extend %flex-center-center;
+
   padding: 0.5em 0;
   background: $c-accent;
   color: $c-over;
   cursor: pointer;
-
   flex: 0 0 auto;
 
   @include mq-is-col1 {
@@ -14,17 +13,19 @@
 }
 
 .chat-liveboard {
-  display: flex;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+  .mini-game__gauge {
+    flex: 0 0 3%;
+  }
+
+  .cg-gauge {
+    height: var(---cg-height);
+  }
 }
 
 .mchat:has(.chat-liveboard) {
   box-shadow: none;
 }
-.mchat .liveboard {
-  cg-board {
-    border-top-right-radius: 0;
-  }
+
+.mchat__content.liveboard {
+  padding: 1ch;
 }

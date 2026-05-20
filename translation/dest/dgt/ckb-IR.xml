@@ -13,7 +13,7 @@
   <string name="whenReadySetupBoard">کاتێک ئامادەبووی، بۆڕدەکەت ڕێکبخە و کرتە بکە لە %s.</string>
   <string name="ifMoveNotDetected">ئەگەر جوڵەکە دیارینەکرا</string>
   <string name="checkYouHaveMadeOpponentsMove">بزانە بەرامبەرەکەت چ جوڵەیەک دەکات و ئەو جوڵەیە لەسەر بۆڕدی DGT ی بکە سەرەتا، بەرپەرچی بدەوە.  یاریەکە دەستپێبکەوە.</string>
-  <string name="reloadThisPage">نوێکردنەوەی ئەم پەڕەیە</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">نوێکردنەوەی ئەم پەڕەیە</string>
   <string name="dgtConfigure">ڕێکخستنی - DGT</string>
   <string name="lichessConnectivity">پەیوەستبون بە لیچێس</string>
   <string name="dgtPlayMenuEntryAdded">%s هاتە ژوورەوە و زیادکرا بۆ ڕێکخستنی یاری لە بەشی سەرەوە.</string>

@@ -1,5 +1,6 @@
-import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
+
 import { freshImport } from '../../.test/helpers.mts';
 
 describe('test formatter', () => {

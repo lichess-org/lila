@@ -12,7 +12,6 @@
   <string name="origin">Izcelsme</string>
   <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šis uzdevums?</string>
-  <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
   <string name="upVote">Patīk puzle</string>
   <string name="downVote">Nepatīk puzle</string>
   <string name="yourPuzzleRatingWillNotChange">Jūsu uzdevumu reitings nemainīsies. Ievērojiet, ka uzdevumu risināšana nav sacensības. Reitings mums palīdz atlasīt labākos uzdevumus jūsu prasmju līmenim.</string>
@@ -94,6 +93,6 @@ Spēlējiet ātrās vai klasiskajās spēlēs, lai paaugstinātu varbūtību, ka
   </plurals>
   <string name="percentSolved">%s atrisinātas</string>
   <string name="noPuzzlesToShow">Nav ko parādīt; vispirms izspēlējiet kādu uzdevumu!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Apgūstiet šīs tēmas, lai ātrāk uzlabotu prasmes!</string>
+  <string name="improvementAreasDescription">Apgūstiet šīs tēmas, lai ātrāk uzlabotu prasmes!</string>
   <string name="strengthDescription">Vislabāk jums padodas šīs prasmes</string>
 </resources>

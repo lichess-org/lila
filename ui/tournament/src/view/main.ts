@@ -1,12 +1,14 @@
 import { h, type VNode } from 'snabbdom';
-import { onInsert, type MaybeVNodes } from 'lib/view';
-import * as created from './created';
-import * as started from './started';
-import * as finished from './finished';
-import { joinWithTeamSelector } from './battle';
-import type TournamentController from '../ctrl';
-import { watchers } from 'lib/view/watchers';
+
 import standaloneChat from 'lib/chat/standalone';
+import { onInsert, type MaybeVNodes } from 'lib/view';
+import { watchers } from 'lib/view/watchers';
+
+import type TournamentController from '../ctrl';
+import { joinWithTeamSelector } from './battle';
+import * as created from './created';
+import * as finished from './finished';
+import * as started from './started';
 
 export default function (ctrl: TournamentController) {
   let handler: {

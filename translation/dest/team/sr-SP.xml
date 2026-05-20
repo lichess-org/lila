@@ -36,9 +36,9 @@
   <string name="teamTournamentOverview">Арена турнир којем се само чланови твог тима могу придружити</string>
   <string name="messageAllMembers">Пошаљи поруку свим члановима</string>
   <string name="messageAllMembersOverview">Пошаљи приватну поруку сваком члану тима</string>
-  <string name="messageAllMembersLongDescription">Пошаљите приватну поруку СВИМ члановима тима.
-Ово можете користити за позивање свих играча да се придруже турниру или борби тимова.
-Играчи који не воле да примају Ваше поруке можда напусте тим.</string>
+  <string name="messageAllMembersLongDescription">Пошаљи приватну поруку СВИМ члановима тима.
+Ово можеш користити да позовеш све играче да се придруже турниру или тимској бици.
+Играчи који не воле примати твоје поруке можда напусте тим.</string>
   <string name="teamsIlead">Тимови које ја водим</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових предстојећих турнира?</string>
   <string name="leadersChat">Ћаскање за вође</string>

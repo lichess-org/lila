@@ -4,6 +4,7 @@
 /.bloop/
 /.metals/
 /.pnpm-store/
+/.devenv/
 /bin/flair/download-flair.sh
 /bin/flair/emoji.txt
 /bin/flair/emojipedia.html
@@ -23,6 +24,9 @@ logs/
 /public/data/*
 !/public/data/README.md
 /public/hashed/
+/public/lifat/nnue/*.tmp
+/public/lifat/nnue/*.gz
+/public/lifat/nnue/*.br
 /public/npm/
 /public/css/
 /public/json/

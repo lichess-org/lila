@@ -71,11 +71,11 @@ const piotr = {
 };
 
 function decodePiotr(pp) {
-  return pp == '_' ? null : (piotr[pp[0]] + piotr[pp[1]]).toLowerCase();
+  return pp === '_' ? null : (piotr[pp[0]] + piotr[pp[1]]).toLowerCase();
 }
 
 function decodeScore(pp) {
-  return pp == '_' ? null : parseInt(pp);
+  return pp === '_' ? null : parseInt(pp);
 }
 
 print('Migrating ' + max + ' analysis');
@@ -83,11 +83,11 @@ print('Migrating ' + max + ' analysis');
 collection.drop();
 
 let nb = 0,
-  dat = new Date().getTime() / 1000;
+  dat = Date.now() / 1000;
 gamesToMigrate.forEach(function (a) {
   const encoded = a.encoded;
   if (!encoded) return;
-  if (typeof encoded == 'undefined') return;
+  if (typeof encoded === 'undefined') return;
   try {
     const splitted = encoded.split(' ');
     const data = [];
@@ -98,7 +98,7 @@ gamesToMigrate.forEach(function (a) {
         best = decodePiotr(cur[1]),
         score = decodeScore(next[2]),
         mate = decodeScore(next[3]);
-      data.push([score, mate == null ? null : it % 2 == 1 ? mate : -mate].join(','));
+      data.push([score, mate == null ? null : it % 2 === 1 ? mate : -mate].join(','));
     }
     a.data = data.join(';');
     delete a.encoded;
@@ -112,9 +112,9 @@ gamesToMigrate.forEach(function (a) {
     print(e);
   }
   ++nb;
-  if (nb % batchSize == 0) {
+  if (nb % batchSize === 0) {
     const percent = Math.round((nb / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(nb / 1000 + 'k ' + percent + '% ' + perSec + '/s');

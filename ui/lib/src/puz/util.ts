@@ -1,6 +1,7 @@
-import type { Puzzle } from './interfaces';
 import { opposite } from 'chessops';
 import { parseFen } from 'chessops/fen';
+
+import type { Puzzle } from './interfaces';
 
 export const getNow = (): number => Math.round(performance.now());
 

@@ -29,7 +29,6 @@
   <string name="botPlay">Spela partier med bot-API</string>
   <string name="engineRead">Visa och använd dina externa schackmotorer</string>
   <string name="engineWrite">Skapa och uppdatera externa schackmotorer</string>
-  <string name="webLogin">Skapa autentiserade webbplatssessioner (ger fullständig åtkomst!)</string>
   <string name="webMod">Använda moderatorverktyg (inom dina behörigheter)</string>
   <string name="personalAccessTokens">Personlig API-åtkomsttoken</string>
   <string name="canMakeOauthRequests">Du kan göra OAuth-förfrågningar utan att gå igenom %s.</string>

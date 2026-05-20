@@ -29,7 +29,6 @@
   <string name="botPlay">பாட் ஏபிஐ மூலம் கேம்களை விளையாடுங்கள்</string>
   <string name="engineRead">உங்கள் வெளிப்புற இயந்திரங்களைப் பார்த்து பயன்படுத்தவும்</string>
   <string name="engineWrite">வெளிப்புற இயந்திரங்களை உருவாக்கி புதுப்பிக்கவும்</string>
-  <string name="webLogin">அங்கீகரிக்கப்பட்ட இணையதள அமர்வுகளை உருவாக்கவும் (முழு அணுகலை வழங்குகிறது!)</string>
   <string name="webMod">மதிப்பீட்டாளர் கருவிகளைப் பயன்படுத்தவும் (உங்கள் அனுமதியின் எல்லைக்குள்)</string>
   <string name="personalAccessTokens">தனிப்பட்ட API அணுகல் டோக்கன்கள்</string>
   <string name="canMakeOauthRequests">OAuth கோரிக்கைகளை %s வழியாகச் செல்லாமல் செய்யலாம்.</string>

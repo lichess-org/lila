@@ -1,6 +1,8 @@
+import Cropper from 'cropperjs';
+
 import { defined } from 'lib';
 import { domDialog, spinnerHtml } from 'lib/view';
-import Cropper from 'cropperjs';
+
 import { supported, mimeAccept } from './crop';
 
 export interface CropOpts {
@@ -34,7 +36,6 @@ export async function initModule(o?: CropOpts): Promise<void> {
   }).catch(e => {
     URL.revokeObjectURL(url);
     opts.onCropped?.(false, `Image load failed: ${url} ${e.toString()}`);
-    return;
   });
 
   const viewBounds = constrain(image.naturalWidth / image.naturalHeight, {

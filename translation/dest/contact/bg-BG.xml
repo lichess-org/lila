@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Като проблем за мобилно приложение Lichess в GitHub</string>
   <string name="reportBugInDiscord">В Discord сървъра на Lichess</string>
   <string name="howToReportBug">Моля, опишете как изглежда грешката, какво очаквате да се случи вместо това и стъпките за възпроизвеждане на грешката.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Нелегално взимане на пешка</string>
+  <string name="illegalPawnCapture">Нелегално взимане на пешка</string>
   <string name="calledEnPassant">Нарича се \"ан пасан\" и е едно от правилата на шаха.</string>
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
   <string name="illegalCastling">Нелегална или невъзможна рокада</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Възможно е да дадете мат само с кон или офицер, ако противникът има и други фигури освен един цар на дъската.</string>
   <string name="noRatingPoints">Не бяха присъдени рейтинг точки</string>
   <string name="ratedGame">Уверете се, че сте играли игра с рейтинг. Приятелските игри не влияят на рейтинга на играчите.</string>
-  <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
   <string name="reportErrorPage">Ако сте се сблъскали с грешна страница, можете да съобщите за нея:</string>
   <string name="learnHowToMakeBroadcasts">Научете се как да правите излъчвания в Lichess</string>

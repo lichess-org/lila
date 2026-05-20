@@ -1,19 +1,29 @@
+import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
+
+import { blurIfEscape } from '@/common';
+import { pubsub } from '@/pubsub';
+import { tempStorage } from '@/storage';
+import { enter, alert } from '@/view';
+import { userLink } from '@/view/userLink';
+
 import * as licon from '../licon';
 import * as enhance from '../richText';
-import { userLink } from '../view/userLink';
-import * as spam from './spam';
+import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
-import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
-import type { ChatCtrl } from './chatCtrl';
-import { tempStorage } from '../storage';
-import { pubsub } from '../pubsub';
-import { alert } from '../view/dialogs';
-import { enter } from '@/view';
+import * as spam from './spam';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
+let resizeObserver: ResizeObserver | null = null;
+
+const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
+  if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
+  else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  scrollState.lastScrollTop = el.scrollTop;
+};
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
@@ -51,17 +61,19 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.lastScrollTop = el.scrollTop;
             });
 
-            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
+            resizeObserver?.disconnect();
+            resizeObserver = new ResizeObserver(() => {
+              if (scrollState.pinToBottom) scrollToBottom(el, false);
+            });
+            resizeObserver.observe(el);
+            requestAnimationFrame(() => scrollToBottom(el, false));
           },
           postpatch: (_, vnode) => {
-            const el = vnode.elm as HTMLElement;
-            if (!scrollState.pinToBottom) return;
-
-            if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
-            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
-              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-
-            scrollState.lastScrollTop = el.scrollTop;
+            if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
+          },
+          destroy(_) {
+            resizeObserver?.disconnect();
+            resizeObserver = null;
           },
         },
       },
@@ -112,7 +124,7 @@ let mouchListener: EventListener;
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   const inner = tempStorage.make(`chat.input`);
   const storage = {
-    get: (): string | undefined => {
+    get: () => {
       const v = inner.get();
       if (v) {
         try {
@@ -124,7 +136,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           console.log(`Could not parse "chat.input" value ${v}`);
         }
       }
-      return;
+      return undefined;
     },
     set: (txt: string) => {
       inner.set(JSON.stringify([ctrl.data.opponentId || '', txt]));
@@ -138,8 +150,8 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
-  chatEl.addEventListener(
-    'keydown',
+  chatEl.addEventListener('keydown', e => {
+    blurIfEscape(e);
     enter(target => {
       setTimeout(() => {
         const el = target as HTMLInputElement,
@@ -162,8 +174,8 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           if (!pub) el.classList.remove('whisper');
         }
       });
-    }),
-  );
+    })(e);
+  });
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {

@@ -1,9 +1,11 @@
-import type LobbyController from '@/ctrl';
+import { h, type VNode } from 'snabbdom';
+
+import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
 import { bind } from 'lib/view';
-import { h, type VNode } from 'snabbdom';
+
+import type LobbyController from '@/ctrl';
 import type { Hook } from '@/interfaces';
-import perfIcons from 'lib/game/perfIcons';
 
 const percents = (v: number) => v + '%';
 
@@ -45,8 +47,9 @@ function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, numbe
     hook: {
       insert(vnode) {
         $(vnode.elm as HTMLElement).powerTip({
-          placement: hook.rating && hook.rating > 1800 ? 'se' : 'ne',
+          placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
           closeDelay: 200,
+          defaultSize: [120, 80],
           popupId: 'hook',
           preRender() {
             $('#hook')
@@ -76,7 +79,8 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</i>';
+  html +=
+    '<icon data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</icon>';
   html += '</div></div>';
   return html;
 }
@@ -106,10 +110,10 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('i.toggle', {
+  return h('button.toggle', {
     key: 'set-mode-list',
     attrs: { title: i18n.site.list, 'data-icon': licon.List },
-    hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
+    hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }
 

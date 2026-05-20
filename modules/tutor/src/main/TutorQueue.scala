@@ -18,12 +18,13 @@ final private class TutorQueue(
 )(using Executor, Scheduler):
 
   import TutorQueue.*
+  import TutorBsonHandlers.given
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 5.seconds,
     "tutorQueue",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:
@@ -39,59 +40,71 @@ final private class TutorQueue(
           ~_.flatMap(_.getAsOpt[Double](TutorFullReport.F.millis))
         .map(_.toInt.millis)
 
-  def status(user: User): Fu[Status] = workQueue { fetchStatus(user) }
+  def enqueue(config: TutorConfig): Fu[Status] = workQueue:
+    for
+      _ <- colls.queue:
+        _.insert
+          .one($doc(F.id -> config.user, F.config -> config, F.requestedAt -> nowInstant))
+          .recover(lila.db.ignoreDuplicateKey)
+      status <- fetchStatus(config.user)
+    yield status
 
-  def enqueue(user: User): Fu[Status] = workQueue:
-    colls.queue:
-      _.insert
-        .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
-        .recover(lila.db.ignoreDuplicateKey)
-        .void >> fetchStatus(user)
-
-  def next: Fu[List[Next]] =
-    colls.queue(_.find($empty).sort($sort.asc(F.requestedAt)).cursor[Next]().list(parallelism.get()))
+  def next: Fu[List[Item]] =
+    colls.queue(_.find($empty).sort($sort.asc(F.requestedAt)).cursor[Item]().list(parallelism.get()))
   def start(userId: UserId): Funit = colls.queue(_.updateField($id(userId), F.startedAt, nowInstant).void)
   def remove(userId: UserId): Funit = colls.queue(_.delete.one($id(userId)).void)
 
-  def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
+  private def waitingGames(user: UserId): Fu[List[(Pov, PgnStr)]] = for
     all <- gameRepo.recentPovsByUserFromSecondary(
       user,
       60,
-      lila.game.Query.turnsGt(10) ++ lila.game.Query.variantStandard ++ lila.game.Query.rated
+      lila.game.Query.turnsGt(10) ++ lila.game.Query.rated
     )
     povs = scalalib.ThreadLocalRandom.shuffle(all).take(30)
+    initialFens <- povs.parallel(pov => gameRepo.initialFen(pov.game))
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
-  yield povs.map { pov =>
+  yield povs.zip(initialFens).map { (pov, initialFen) =>
     import chess.format.pgn.*
     def playerTag(player: lila.core.game.Player) =
       player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
+    val fen = initialFen.orElse(pov.game.variant.exotic.option(pov.game.variant.initialFen))
     val tags = Tags(pov.game.players.flatMap(playerTag))
-    pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")
+    val allTags = fen.map(f => Tag(_.FEN, f)).foldLeft(tags)(_ + _)
+    val pgn = PgnStr(s"$allTags\n\n${pov.game.chess.sans.mkString(" ")}")
+    (pov, pgn)
   }
 
-  private def fetchStatus(user: User): Fu[Status] =
+  def awaiting(user: UserId): Fu[Option[Awaiting]] =
+    fetchStatus(user).flatMap:
+      case q: InQueue => waitingGames(user).map(Awaiting(q, _).some)
+      case _ => fuccess(none)
+
+  def fetchStatus(user: UserId): Fu[Status] =
     colls.queue:
-      _.primitiveOne[Instant]($id(user.id), F.requestedAt)
-        .flatMap:
-          _.fold(fuccess(NotInQueue)): at =>
-            for
-              position <- colls.queue(_.countSel($doc(F.requestedAt.$lte(at))))
-              avgDuration <- durationCache.get({})
-            yield InQueue(position, avgDuration)
+      _.byId[Item](user).flatMap:
+        _.fold(fuccess(NotInQueue)): item =>
+          for
+            position <- colls.queue(_.countSel($doc(F.requestedAt.$lte(item.requestedAt))))
+            avgDuration <- durationCache.get({})
+            eta = ((position * avgDuration) / parallelism.get())
+          yield InQueue(item, position, eta)
 
 object TutorQueue:
 
+  case class Item(config: TutorConfig, requestedAt: Instant, startedAt: Option[Instant] = none)
+
   sealed trait Status
   case object NotInQueue extends Status
-  case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
-    def eta = avgDuration * position
+  case class InQueue(item: Item, position: Int, eta: FiniteDuration) extends Status
 
-  case class Next(_id: UserId, startedAt: Option[Instant]):
-    def userId = _id
-  object Next:
-    given BSONDocumentReader[Next] = Macros.reader
+  case class Awaiting(q: InQueue, games: List[(Pov, PgnStr)]):
+    export q.item.config
+
+  import TutorBsonHandlers.given
+  private given BSONDocumentReader[Item] = Macros.reader
 
   object F:
     val id = "_id"
     val requestedAt = "requestedAt"
     val startedAt = "startedAt"
+    val config = "config"

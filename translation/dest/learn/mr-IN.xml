@@ -2,8 +2,8 @@
 <resources>
   <string name="learnChess">बुद्धिबळ शिका</string>
   <string name="byPlaying">खेळून!</string>
-  <string name="menu">मेनू</string>
-  <string name="progressX">प्रगती:%s</string>
+  <string name="menu">सूची</string>
+  <string name="progressX">प्रगती: %s</string>
   <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
   <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
   <string name="play">खेळा!</string>
@@ -104,7 +104,7 @@
 हा घोडा तुम्हाला शह देत आहे!</string>
   <string name="escapeOrBlock">राजा सोबत पळून जा
 किंवा हल्ला अवरोधित करा!</string>
-  <string name="outOfCheckComplete">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
   <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
   <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
@@ -130,7 +130,7 @@
 त्याच्या वझीराच्या शेजारी.</string>
   <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
 पुढे जाण्यासाठी कोणतीही चाल करा.</string>
-  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
+  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ पट कसे लावायचे ते आपल्याला माहित आहे.</string>
   <string name="castling">किल्लेकोट</string>
   <string name="theSpecialKingMove">राजाची विशेष चाल</string>
   <string name="castlingIntro">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा!</string>
@@ -157,10 +157,10 @@
   <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तेव्हा तुम्ही ते जणू एकच घर चालले आहे असे मानून मारू शकता.</string>
   <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!
 तुम्ही एन पसांट नियमाने ते मारा.</string>
-  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पासंट फक्त लगेचच्या चालीसाठी वैध असेल.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच एन पसांट नियम वापरता येतो.</string>
-  <string name="takeAllThePawnsEnPassant">एन पसांट नियमाने सर्व प्यादी मारा!</string>
-  <string name="enPassantComplete">अभिनंदन! आपण आता एन पसांट नियमाने मारू शकता.</string>
+  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पासंट (उत्तीर्ण मध्ये) फक्त लगेचच्या चालीसाठी वैध असेल.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच उत्तीर्ण मध्ये नियम वापरता येतो.</string>
+  <string name="takeAllThePawnsEnPassant">उत्तीर्ण मध्ये नियमाने सर्व प्यादी मारा!</string>
+  <string name="enPassantComplete">अभिनंदन! आपण आता उत्तीर्ण मध्ये नियमाने मारू शकता.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
   <string name="stalemateIntro">जेव्हा एखादा खेळाडू शहामध्ये नसेल आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. अशा परिस्थितीत खेळ बरोबरीत संपतो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
@@ -172,11 +172,11 @@
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
   <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तीचे मूल्यमापन करा</string>
   <string name="pieceValueIntro">सोंगट्यांच्या हालचाली प्रमाणे त्यांना जास्त किंमत असते!
-वजीर = 9
-हत्ती = 5
-उंट = 3
-घोडा = 3
-प्यादे = 1
+वजीर = ९
+हत्ती = ५
+उंट = ३
+घोडा = ३
+प्यादे = १
 राजा अनमोल आहे! राजा गमावला म्हणजे खेळ हरला.</string>
   <string name="queenOverBishop">सर्वाधिक मुल्य असलेली सोंगटी मारा!
 वझीर &gt; उंट</string>
@@ -186,11 +186,11 @@
 पण चाल वैध आहे याची खात्री करा!</string>
   <string name="takeThePieceWithTheHighestValue">सर्वाधिक मूल्य असलेली सोंगटी मारा!</string>
   <string name="pieceValueComplete">अभिनंदन! आता तुम्हाला सोंगट्यांची किंमत समजली आहे!
-वझीर = 9
-हत्ती = 5
-उंट = 3
-घोडा = 3
-प्यादे = 1</string>
+वझीर = ९
+हत्ती = ५
+उंट = ३
+घोडा = ३
+प्यादे = १</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
   <string name="checkInTwoIntro">विरोधकाच्या राजाला शह देता येईल असे २ चालींचे संयोजन शोधा!</string>
@@ -199,16 +199,16 @@
   <string name="whatNext">पुढे काय?</string>
   <string name="youKnowHowToPlayChess">तुम्हाला बुद्धिबळ कसे खेळायचे ते समजले आहे, अभिनंदन! तुम्हाला अजून मजबूत खेळाडू व्ह्यायचे आहे का?</string>
   <string name="register">सदस्य खाते तयार करा</string>
-  <string name="getAFreeLichessAccount">फुकट lichess खाते घ्या</string>
+  <string name="getAFreeLichessAccount">फुकट Lichess खाते घ्या</string>
   <string name="practice">सराव</string>
   <string name="learnCommonChessPositions">बुद्धिबळाच्या सामान्य स्थिति शिका</string>
   <string name="puzzles">कोडी</string>
   <string name="exerciseYourTacticalSkills">तुमच्या डावपेच कौशल्याचा सराव करा</string>
-  <string name="videos">व्हिडिओ</string>
-  <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
+  <string name="videos">चित्रफीतल्या</string>
+  <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धिबळ चित्रफीतल्या पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
   <string name="opponentsFromAroundTheWorld">जगभरातील बुद्धिबळपटू</string>
-  <string name="playMachine">मशीन सोबत खेळा</string>
+  <string name="playMachine">संगणक सोबत खेळा</string>
   <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्यांची संगणकासोबत चाचणी करा</string>
   <string name="letsGo">चला!</string>
   <string name="stageX">पायरी %s</string>

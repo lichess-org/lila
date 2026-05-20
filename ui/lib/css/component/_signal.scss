@@ -6,7 +6,7 @@ signal {
   white-space: nowrap;
 }
 
-signal > i {
+signal > icon {
   width: 20%;
   margin-inline-start: 1px;
   display: inline-block;
@@ -14,26 +14,26 @@ signal > i {
   background-color: $m-secondary_dimmer--mix-82;
 }
 
-signal > i:nth-child(2) {
+signal > icon:nth-child(2) {
   height: 60%;
 }
 
-signal > i:nth-child(3) {
+signal > icon:nth-child(3) {
   height: 80%;
 }
 
-signal > i:nth-child(4) {
+signal > icon:nth-child(4) {
   height: 100%;
 }
 
-signal.q1 > i {
+signal.q1 > icon {
   background-color: $c-bad;
 }
 
-signal.q2 > i {
+signal.q2 > icon {
   background-color: $c-warn;
 }
 
-signal > i.off {
+signal > icon.off {
   background-color: $c-shade;
 }

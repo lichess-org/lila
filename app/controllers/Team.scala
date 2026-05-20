@@ -361,7 +361,7 @@ final class Team(env: Env) extends LilaController(env):
       .join(team, request = request, password = password)
       .flatMap:
         case Requesting.Joined =>
-          Redirect(env.web.referrerRedirect.fromReq | routes.Team.show(team.id).url).flashSuccess
+          Redirect(env.web.referrerRedirect.fromReq.fold(routes.Team.show(team.id).url)(_.value)).flashSuccess
         case Requesting.NeedRequest | Requesting.NeedPassword =>
           Redirect(routes.Team.requestForm(team.id)).flashSuccess
         case _ => Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")

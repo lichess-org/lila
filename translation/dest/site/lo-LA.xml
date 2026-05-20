@@ -122,7 +122,6 @@
   <string name="enable">ເປີດໃຊ້</string>
   <string name="bestMoveArrow">ລູກສອນແນະນຳທ່າທີ່ດີທີ່ສຸດ</string>
   <string name="showVariationArrows">ສະແດງລູກສອນຮູບແບບການເດີນ</string>
-  <string name="evaluationGauge">ແຖບວັດແທກການໄດ້ປຽບ</string>
   <string name="multipleLines">ຫຼາຍເສັ້ນທາງວິເຄາະ</string>
   <string name="cpus">ຊີພີຢູ (CPUs)</string>
   <string name="memory">ໜ່ວຍຄວາມຈຳ</string>
@@ -238,9 +237,6 @@
   <string name="emailCanTakeSomeTime">ມັນອາດຈະໃຊ້ເວລາຄາວໜຶ່ງເພື່ອສົ່ງໄປເຖິງ.</string>
   <string name="refreshInboxAfterFiveMinutes">ກະລຸນາລໍຖ້າ 5 ນາທີ ແລ້ວຣີເຟຣຊ (Refresh) ກ່ອງຂໍ້ຄວາມອີເມວຂອງທ່ານ.</string>
   <string name="checkSpamFolder">ກະລຸນາກວດເບິ່ງໃນກ່ອງຈົດໝາຍຂີ້ເຫຍື້ອ (Spam) ນຳ, ມັນອາດຈະໄປຢູ່ຫັ້ນ. ຖ້າມີ, ໃຫ້ໝາຍວ່າມັນບໍ່ແມ່ນຈົດໝາຍຂີ້ເຫຍື້ອ.</string>
-  <string name="emailForSignupHelp">ຖ້າວິທີອື່ນບໍ່ໄດ້ຜົນ, ໃຫ້ສົ່ງອີເມວຫາພວກເຮົາ:</string>
-  <string name="copyTextToEmail">ກັອບປີ້ (Copy) ຂໍ້ຄວາມຂ້າງເທິງ ແລ້ວສົ່ງໄປທີ່ %s</string>
-  <string name="waitForSignupHelp">ພວກເຮົາຈະຕິດຕໍ່ກັບທ່ານໃນໄວໆນີ້ເພື່ອຊ່ວຍໃຫ້ການລົງທະບຽນສຳເລັດ.</string>
   <string name="accountConfirmed">ຜູ້ໃຊ້ %s ໄດ້ຖືກຢືນຢັນສຳເລັດແລ້ວ.</string>
   <string name="accountCanLogin">ທ່ານສາມາດເຂົ້າສູ່ລະບົບໄດ້ຕອນນີ້ໃນຊື່ %s.</string>
   <string name="accountConfirmationEmailNotNeeded">ທ່ານບໍ່ຈຳເປັນຕ້ອງໃຊ້ອີເມວຢືນຢັນ.</string>
@@ -671,7 +667,6 @@
   <string name="keyCycleSelectedVariation">ໝູນວຽນຮູບແບບການເດີນທີ່ເລືອກ</string>
   <string name="keyShowOrHideComments">ສະແດງ/ຊ່ອນ ຄຳຄິດເຫັນ</string>
   <string name="keyEnterOrExitVariation">ເຂົ້າ/ອອກ ຈາກຮູບແບບການເດີນ (Variation)</string>
-  <string name="keyRequestComputerAnalysis">ຂໍການວິເຄາະດ້ວຍຄອມພິວເຕີ, ຮຽນຮູ້ຈາກຂໍ້ຜິດພາດຂອງທ່ານ</string>
   <string name="keyPreviousBranch">ສາຂາ (Branch) ກ່ອນໜ້າ</string>
   <string name="keyNextBranch">ສາຂາ (Branch) ຖັດໄປ</string>
   <string name="toggleVariationArrows">ເປີດ/ປິດ ລູກສອນສະແດງຮູບແບບການເດີນ</string>
@@ -854,7 +849,6 @@
   <string name="agreementAssistance">ຂ້ອຍຕົກລົງວ່າຂ້ອຍຈະບໍ່ຮັບການຊ່ວຍເຫຼືອໃນລະຫວ່າງການຫຼິ້ນ (ຈາກຄອມພິວເຕີ, ປຶ້ມ, ຖານຂໍ້ມູນ ຫຼື ບຸກຄົນອື່ນ).</string>
   <string name="agreementNice">ຂ້ອຍຕົກລົງວ່າຂ້ອຍຈະໃຫ້ກຽດຜູ້ຫຼິ້ນຄົນອື່ນສະເໝີ.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ຂ້ອຍຕົກລົງວ່າຂ້ອຍຈະບໍ່ສ້າງຫຼາຍບັນຊີ (ຍົກເວັ້ນເຫດຜົນທີ່ລະບຸໄວ້ໃນ %s).</string>
-  <string name="agreementPolicy">ຂ້ອຍຕົກລົງວ່າຂ້ອຍຈະປະຕິບັດຕາມນະໂຍບາຍທັງໝົດຂອງ Lichess.</string>
   <string name="searchOrStartNewDiscussion">ຄົ້ນຫາ ຫຼື ເລີ່ມການສົນທະນາໃໝ່</string>
   <string name="edit">ແກ້ໄຂ</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

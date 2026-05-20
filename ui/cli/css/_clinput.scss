@@ -60,6 +60,7 @@ body.clinput #top {
   .complete-result--menu {
     &::before {
       @extend %data-icon;
+
       content: $licon-GreaterThan;
       display: inline-block;
       text-align: center;
@@ -67,6 +68,7 @@ body.clinput #top {
       color: $c-link;
       opacity: 0.5;
     }
+
     &:has(+ .user-link) {
       border-bottom: $border;
     }

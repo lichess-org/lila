@@ -55,9 +55,18 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(
-              bits.postTextarea(_)()
-            ),
+            form3.group(
+              form("post")("text"),
+              trans.site.message(),
+              help = span(cls := "space-between")(
+                span(markdownIsAvailable),
+                a(
+                  dataIcon := Icon.InfoCircle,
+                  cls := "text",
+                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                )(trans.site.theForumEtiquette())
+              ).some
+            )(bits.postTextarea(_)()),
             renderCaptcha(form("post"), captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
@@ -96,6 +105,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
+    val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
@@ -115,17 +125,18 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             )
           ),
           pager,
-          div(cls := "forum-topic__posts")(
+          div(cls := "forum-topic__posts"):
             posts.currentPageResults.map: p =>
               postUi.show(
                 topic,
                 p,
-                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.number}",
+                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.id}",
                 canReply = formWithCaptcha.isDefined,
                 canModCateg = canModCateg,
-                canReact = teamOnly.isEmpty
+                canReact = teamOnly.isEmpty,
+                isTopicFirst = topicFirstPostId.has(p.post.id)
               )
-          ),
+          ,
           pager,
           div(cls := "forum-topic__actions")(
             if topic.isOld then p(trans.site.thisTopicIsArchived())
@@ -189,7 +200,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                )("Forum etiquette")
+                )(trans.site.theForumEtiquette())
               ).some
             ): f =>
               if plaintext then

@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Ca o problemă a aplicației mobile Lichess pe GitHub</string>
   <string name="reportBugInDiscord">Pe serverul de Discord Lichess</string>
   <string name="howToReportBug">Vă rugăm să descrieți cum arată eroarea, ce v-ați așteptat să se întâmple în schimb, și pașii pentru a reproduce eroarea.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Capturarea ilegală a pionului</string>
+  <string name="illegalPawnCapture">Capturarea ilegală a pionului</string>
   <string name="calledEnPassant">Se numește „en passant” și este una dintre regulile șahului.</string>
   <string name="tryEnPassant">Încearcă acest mic joc interactiv pentru a afla mai multe despre \"en passant\".</string>
   <string name="illegalCastling">Rocadă ilegală sau imposibilă</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Este posibil șah mat-ul cu doar un cal sau un nebun, dacă oponentul are mai mult de un rege pe masă.</string>
   <string name="noRatingPoints">Nu au fost acordate puncte de scor</string>
   <string name="ratedGame">Asigură-te ca ai jucat un meci oficial. Jocurile neoficiale nu sunt afectate de scorurile jucătorilor.</string>
-  <string name="botRatingAbuse">În anumite circumstanțe, atunci când se joacă cu un cont de bot, un joc evaluat nu poate acorda puncte dacă se stabilește că jucătorul abuzează de bot pentru a obține puncte de evaluare.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">În anumite circumstanțe, atunci când se joacă cu un cont de bot, un joc evaluat nu poate acorda puncte dacă se stabilește că jucătorul abuzează de bot pentru a obține puncte de evaluare.</string>
   <string name="errorPage">Pagina de eroare</string>
   <string name="reportErrorPage">Dacă ai primit o pagină de eroare, o poți raporta:</string>
   <string name="learnHowToMakeBroadcasts">Învață cum să îți faci propriile transmisiuni pe Lichess</string>

@@ -87,7 +87,7 @@
   <string name="youCanGetOutOfCheckByTaking">يمكنك الخروج من الكش بأخذ القطعة المهاجمة.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">هذا الحصان يعطي كش متجاوزًا دفاعاتك!</string>
   <string name="escapeOrBlock">اهرب بالملك أو أعق الهجوم!</string>
-  <string name="outOfCheckComplete">تهانينا! لا يمكن ابدأ أن يؤخذ ملكك، تأكد دائما أنك تستطيع الدفاع ضد الكش!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">تهانينا! لا يمكن ابدأ أن يؤخذ ملكك، تأكد دائما أنك تستطيع الدفاع ضد الكش!</string>
   <string name="mateInOne">كش مات بنقلة واحدة</string>
   <string name="defeatTheOpponentsKing">اقتل ملك خصمك</string>
   <string name="mateInOneIntro">ستفوز إذا لم يتمكن خصمك من الدفاع عن ملكه من الكش.</string>

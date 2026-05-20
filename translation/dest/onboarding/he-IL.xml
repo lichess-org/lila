@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">התחברו בתור %s</string>
   <string name="welcome">ברוכים הבאים!</string>
-  <string name="welcomeToLichess">ברוכים הבאים ל־lichess.org!</string>
+  <string name="welcomeToLichess">ברוכים הבאים ל־Lichess!</string>
   <string name="thisIsYourProfilePage">זה עמוד הפרופיל שלך.</string>
   <string name="enabledKidModeSuggestion">אם החשבון הזה מיועד לילד/ה, מומלץ להפעיל את %s.</string>
   <string name="whatNowSuggestions">מה עכשיו? הנה כמה הצעות:</string>
-  <string name="learnChessRules">למדו את חוקי השחמט</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">למדו את חוקי השחמט.</string>
   <string name="improveWithChessTacticsPuzzles">השתפרו על ידי פתירת חידות שחמט.</string>
   <string name="playTheArtificialIntelligence">שחקו נגד בינה מלאכותית.</string>
   <string name="playOpponentsFromAroundTheWorld">שחקו נגד יריבים מרחבי העולם.</string>

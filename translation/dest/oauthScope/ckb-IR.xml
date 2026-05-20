@@ -29,7 +29,6 @@
   <string name="botPlay">یاری لەگەڵ تەختەی APIـیەکە بکە</string>
   <string name="engineRead">بینین یان بەکارهێنانی بزوێنەرە دەرەکییەکان</string>
   <string name="engineWrite">دروستکردن یان نوێکردنەوەی بزوێنەری دەرەکی</string>
-  <string name="webLogin">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>
   <string name="webMod">ئامرازەکانی بەڕێوەبەر بەکاربهێنە (لە سنووری مۆڵەتەکەتدا)</string>
   <string name="personalAccessTokens">نیشانەی نوێ کەسی تایبەت بە API</string>
   <string name="canMakeOauthRequests">دەتوانیت داوای OAuth بکەیت بەبێ ئەوەی بچیتە %sەوە.</string>

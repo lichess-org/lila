@@ -9,6 +9,7 @@ import lila.ui.*
 import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
+import lila.ublog.UblogPost.PreviewPost
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
     picfitUrl: lila.memo.PicfitUrl
@@ -416,6 +417,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       )
     )
 
+  def homeCarousel(posts: List[PreviewPost])(using Context) =
+    div(cls := "lobby__blog carousel")(
+      div(cls := "carousel__track"):
+        posts.map:
+          card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
+      ,
+      div(cls := "carousel__controls")(
+        button(cls := "carousel__prev", dataIcon := Icon.LessThan),
+        button(cls := "carousel__next", dataIcon := Icon.GreaterThan)
+      )
+    )
+
   private def list(
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
@@ -480,7 +493,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )
 
   private def btnCls(active: Boolean, other: String = ""): Modifier =
-    cls := s"btn-rack__btn $other" + (if active then " lit" else "")
+    cls := List("btn-rack__btn" -> true, "active" -> active, other -> other.nonEmpty)
 
   private def modForm(blog: UblogBlog) =
     val colorCls = if blog.modNote.isDefined then "button-red" else "button-dim"

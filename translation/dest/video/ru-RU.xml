@@ -18,7 +18,6 @@
   <string name="noVideosForTheseTags">По следующим тегам видео не найдены:</string>
   <string name="thatsAllWeGotForTheseTags">Вот что мы нашли по следующим тегам:</string>
   <string name="thatsAllWeGotForThisSearchX">Это всё, что мы нашли для такого запроса: \"%s\"</string>
-  <string name="thereAreNoResultsForX">По запросу \"%s\" не нашлось видео</string>
   <string name="viewMoreTags">Посмотреть больше тегов</string>
   <string name="videoNotFound">Видео не найдено!</string>
   <string name="xByY">%1$s от %2$s</string>

@@ -371,8 +371,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                         "%"
                       ),
                       td(dataSort := coord.white, cls := "coords")(
-                        i(cls := "color-icon is white")(coord.white),
-                        i(cls := "color-icon is black")(coord.black)
+                        iconTag(cls := "color-icon is white")(coord.white),
+                        iconTag(cls := "color-icon is black")(coord.black)
                       )
                     )
                   }
