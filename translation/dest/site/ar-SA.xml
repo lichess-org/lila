@@ -974,6 +974,8 @@ https://lichess. org/report.</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
+  <string name="like">إعجاب</string>
+  <string name="liked">إعجاب</string>
   <string name="quickPairing">مزاوجة سريعة</string>
   <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
