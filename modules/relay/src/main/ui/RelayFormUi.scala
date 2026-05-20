@@ -752,7 +752,7 @@ Team Dogs ; Scooby Doo"""),
           )
         ,
         tg.map: t =>
-          form3.fieldset("Grouping", toggle = false.some):
+          form3.fieldset("Grouping", toggle = form.errors("grouping").nonEmpty.some):
             grouping(form, t)
         ,
         if Granter.opt(_.Relay) then
@@ -878,7 +878,6 @@ Team Dogs ; Scooby Doo"""),
 
   private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
     val tour = twg.tour
-    val group = twg.group
     val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
     def scoreGroupInput(sgIndex: Int) =
       form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
@@ -927,9 +926,11 @@ Team Dogs ; Scooby Doo"""),
           br,
           "A score group combines players and games between two or more broadcasts.",
           br,
-          "Each input defines a new score group with comma-separated tournament IDs.",
+          "Each input defines a new score group.",
           br,
           "Only tournaments that are part of this group can be used in score groups.",
+          br,
+          "Score groups cannot overlap.",
           br,
           "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
           br,
@@ -944,9 +945,10 @@ Team Dogs ; Scooby Doo"""),
           br,
           "2) Combines the women's section"
         ).some
-      )(_ =>
-        group
-          .flatMap(_.group.scoreGroups)
-          .fold(scoreGroupInput(0))(sgs => sgs.zipWithIndex.map((_, i) => scoreGroupInput(i)))
+      )(field =>
+        frag(
+          errMsg(form("grouping")),
+          (field.indexes.toList.nonEmptyOption.fold(scoreGroupInput(0))(_.map(scoreGroupInput)))
+        )
       )
     )
