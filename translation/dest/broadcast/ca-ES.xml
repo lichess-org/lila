@@ -63,6 +63,7 @@
   <string name="notYetStarted">La retransmissió encara no ha començat.</string>
   <string name="officialWebsite">Lloc web oficial</string>
   <string name="officialStandings">Classificació oficial</string>
+  <string name="regulations">Normativa</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Més opcions a la %s</string>
   <string name="webmastersPage">pàgina d\'administració</string>
   <string name="embedThisBroadcast">Incrusta aquesta retransmissió al vostre lloc web</string>
