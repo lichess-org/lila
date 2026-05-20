@@ -75,15 +75,16 @@ private final class RelayGroupForm:
           case _ => none
       yield RelayTourId(id)
 
-  private val scoreGroupsMapping = nonEmptyText.transform[List[ScoreGroup]](
-    _.split("\n").toList
+  private def scoreGroupAsText(scoreGroup: ScoreGroup): String =
+    scoreGroup.toList.map(_.value).mkString(",")
+
+  private def scoreGroupParse(value: String): Option[ScoreGroup] =
+    value
+      .split(",")
+      .toList
       .map(_.trim)
-      .filter(_.nonEmpty)
-      .flatMap:
-        _.split(",").take(50).map(_.trim).filter(_.nonEmpty).flatMap(parseId).distinct.toList.toNel
-    ,
-    _.map(_.toList.mkString(",")).mkString("\n")
-  )
+      .flatMap(parseId)
+      .toNel
 
   private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
@@ -119,7 +120,9 @@ private final class RelayGroupForm:
   val mapping = Forms
     .mapping(
       "info" -> optional(infoMapping),
-      "scoreGroups" -> optional(scoreGroupsMapping)
+      "scoreGroups" -> optional(
+        list(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse)))
+      )
     )((info, scoreGroups) =>
       RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
     )(data => Some(data.info.some, data.scoreGroups))

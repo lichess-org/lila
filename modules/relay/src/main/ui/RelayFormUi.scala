@@ -753,7 +753,7 @@ Team Dogs ; Scooby Doo"""),
         ,
         tg.map: t =>
           form3.fieldset("Grouping", toggle = false.some):
-            grouping(form, t.tour)
+            grouping(form, t)
         ,
         if Granter.opt(_.Relay) then
           frag(
@@ -876,8 +876,14 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def grouping(form: Form[RelayTourForm.Data], tour: RelayTour)(using Context) =
+  private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
+    val tour = twg.tour
+    val group = twg.group
     val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+    def scoreGroupInput(sgIndex: Int) =
+      form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disabledGroup)
+      )
     div(cls := "relay-form__grouping")(
       form3.group(
         form("grouping.info.name"),
@@ -903,6 +909,7 @@ Team Dogs ; Scooby Doo"""),
   https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
   https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
   https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
+  https://lichess.org/broadcast/dutch-championships-2025--women--quarterfinals/xfLp6UlH
   """)
         ).some
       )(
@@ -917,20 +924,29 @@ Team Dogs ; Scooby Doo"""),
         form("grouping.scoreGroups"),
         "Optional: Divide the group into score groups",
         help = frag(
-          "Each line defines a new score group with comma-separated tournament IDs.",
+          br,
+          "A score group combines players and games between two or more broadcasts.",
+          br,
+          "Each input defines a new score group with comma-separated tournament IDs.",
           br,
           "Only tournaments that are part of this group can be used in score groups.",
           br,
           "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
           br,
-          "Example:",
-          pre("""ISdmqct3,Zi12QchK
-PGFBkEha"""),
+          "Example: " +
+            "Score group 1",
+          pre("""ISdmqct3,Zi12QchK"""),
+          "Score group 2",
+          pre("""PGFBkEha, xfLp6UlH"""),
           "Using the same example as above, this will create 2 score groups:",
           br,
           "1) Combines the open sections",
           br,
-          "2) Is the lone women's section"
+          "2) Combines the women's section"
         ).some
-      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace", disabledGroup))
+      )(_ =>
+        group
+          .flatMap(_.group.scoreGroups)
+          .fold(scoreGroupInput(0))(sgs => sgs.zipWithIndex.map((_, i) => scoreGroupInput(i)))
+      )
     )
