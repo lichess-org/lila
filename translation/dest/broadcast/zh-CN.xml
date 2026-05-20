@@ -61,6 +61,7 @@
   <string name="notYetStarted">转播尚未开始。</string>
   <string name="officialWebsite">官方网站</string>
   <string name="officialStandings">官方排名</string>
+  <string name="regulations">规定</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">更多选项位于 %s</string>
   <string name="webmastersPage">站长页面</string>
   <string name="embedThisBroadcast">将此转播嵌入您的网站</string>
