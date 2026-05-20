@@ -84,8 +84,8 @@
   <string name="liveboard">Ζωντανά</string>
   <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
   <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
-  <string name="matchPoints" comment="Appears in broadcasts of team tournaments, under the 'Team results' tab.&#10;&#10;Match points are points awarded to a team based on the overall outcome of their games against another team.">Βαθμοί αγώνα</string>
-  <string name="gamePoints" comment="Appears in broadcasts of team tournaments, under the 'Team results' tab.&#10;&#10;Game points are the sum of points earned by individual players on their specific boards during a single team match. We normally display them on a round-by-round basis.">Βαθμοί παρτιδών</string>
+  <string name="matchPoints">Βαθμοί αγώνα</string>
+  <string name="gamePoints">Βαθμοί παρτιδών</string>
   <string name="matches">Παρτίδες</string>
   <string name="matchHistory">Ιστορικό παιχνιδιών</string>
   <string name="teamResults">Αποτελέσματα Ομάδας</string>
@@ -106,6 +106,6 @@
   <string name="tiebreaks">Μπαράζ</string>
   <string name="gameX">Παρτίδα %s</string>
   <string name="knockouts">Νοκ άουτ</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
 </resources>
