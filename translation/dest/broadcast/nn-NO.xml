@@ -63,6 +63,7 @@
   <string name="notYetStarted">Sendinga har førebels ikkje starta.</string>
   <string name="officialWebsite">Offisiell nettside</string>
   <string name="officialStandings">Offisiell tabell</string>
+  <string name="regulations">Reglement</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleire alternativ på %s</string>
   <string name="webmastersPage">administratoren si side</string>
   <string name="embedThisBroadcast">Bygg inn denne sendinga på nettstaden din</string>
