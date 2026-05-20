@@ -17,7 +17,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context) =
     page(
       title = trs.allStudies.txt(),
-      active = "all",
+      active = StudyGroup.all,
       order = order,
       pag = pag,
       searchFilter = "",
@@ -28,7 +28,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, owner: User)(using Context) =
     page(
       title = trs.studiesCreatedByX.txt(owner.titleUsername),
-      active = "owner",
+      active = StudyGroup.byOwner,
       order = order,
       pag = pag,
       searchFilter = s"owner:${owner.username}",
@@ -41,7 +41,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   ) =
     page(
       title = trs.myStudies.txt(),
-      active = "mine",
+      active = StudyGroup.mine,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
@@ -55,7 +55,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   )(using Context) =
     page(
       title = trs.myFavoriteStudies.txt(),
-      active = "mineLikes",
+      active = StudyGroup.mineLikes,
       order = order,
       pag = pag,
       searchFilter = "",
@@ -68,7 +68,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   ) =
     page(
       title = trs.studiesIContributeTo.txt(),
-      active = "mineMember",
+      active = StudyGroup.mineMember,
       order = order,
       pag = pag,
       searchFilter = s"member:${me.username}",
@@ -79,7 +79,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   def minePublic(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
     page(
       title = trs.myPublicStudies.txt(),
-      active = "minePublic",
+      active = StudyGroup.minePublic,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
@@ -89,7 +89,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   def minePrivate(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
     page(
       title = trs.myPrivateStudies.txt(),
-      active = "minePrivate",
+      active = StudyGroup.minePrivate,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
@@ -101,11 +101,11 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu("search", Orders.default),
+          menu(StudyGroup.search, Some(order)),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text, order),
-              bits.orderSelect(order, "search", url = o => routes.Study.search(text, 1, o.some)),
+              bits.orderSelect(order, StudyGroup.search, url = o => routes.Study.search(text, 1, o.some)),
               bits.newForm()
             ),
             paginate(pag, routes.Study.search(text, 1, order.some))
@@ -114,7 +114,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
 
   private def page(
       title: String,
-      active: String,
+      active: StudyGroup,
       order: StudyOrder,
       pag: Paginator[WithChaptersAndLiked],
       url: StudyOrder => Call,
@@ -125,7 +125,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu(active, order, topics.so(_.value)),
+          menu(active, Some(order), topics.so(_.value)),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
@@ -152,19 +152,33 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
       )
 
-  def menu(active: String, order: StudyOrder, topics: List[StudyTopic] = Nil)(using ctx: Context) =
-    val nonMineOrder = if order == StudyOrder.mine then StudyOrder.hot else order
+  def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil)(using
+      ctx: Context
+  ) =
+    def defaultOrder(group: StudyGroup): Option[StudyOrder] =
+      if group == StudyGroup.search || group == StudyGroup.staffPicks then None
+      else if group.isTopic then Some(StudyOrder.mine)
+      else if group.isPersonal then Some(StudyOrder.updated)
+      else Some(StudyOrder.hot)
+    def newOrder(newGroup: StudyGroup): StudyOrder =
+      (if defaultOrder(active).forall(order.contains) then defaultOrder(newGroup) else order)
+        .getOrElse(Orders.default)
+    def activeCls(group: StudyGroup) = cls := (
+      group match
+        case StudyGroup.topic(None) => active.isTopic
+        case _ => group == active
+    ).option("active")
     lila.ui.bits.pageMenuSubnav(
-      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder))(trs.allStudies()),
-      ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
-      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
-        trs.topics()
-      ,
+      a(activeCls(StudyGroup.all), href := routes.Study.all(newOrder(StudyGroup.all)))(trs.allStudies()),
+      ctx.isAuth.option(bits.authLinks(activeCls, newOrder)),
+      a(activeCls(StudyGroup.topic(None)), href := routes.Study.topics)(trs.topics()),
       topics.map: topic =>
-        a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order))(
+        val group = StudyGroup.topic(topic.some)
+        a(activeCls(group), href := routes.Study.byTopic(topic.value, newOrder(group)))(
           topic.value
-        ),
-      a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
+        )
+      ,
+      a(activeCls(StudyGroup.staffPicks), href := routes.Study.staffPicks)("Staff picks"),
       a(
         dataIcon := Icon.InfoCircle,
         href := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
@@ -191,7 +205,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         .css("analyse.study.index", "bits.form3", "bits.tagify")
         .js(Esm("analyse.study.topic.form")):
           main(cls := "page-menu")(
-            menu("topic", StudyOrder.mine, mine.so(_.value)),
+            menu(StudyGroup.topic(None), Some(StudyOrder.mine), mine.so(_.value)),
             main(cls := "page-menu__content study-topics box box-pad")(
               h1(cls := "box__top")(trans.study.topics()),
               myForm.map { form =>
@@ -214,13 +228,13 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         order: StudyOrder,
         myTopics: Option[StudyTopics]
     )(using Context) =
-      val active = s"topic:$topic"
+      val active = StudyGroup.topic(topic.some)
       val url = (o: StudyOrder) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("analyse.study.index")
         .js(infiniteScrollEsmInit):
           main(cls := "page-menu")(
-            menu(active, order, myTopics.so(_.value)),
+            menu(active, Some(order), myTopics.so(_.value)),
             main(cls := "page-menu__content study-index box")(
               boxTop(
                 h1(topic.value),

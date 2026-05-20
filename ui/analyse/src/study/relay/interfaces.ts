@@ -70,6 +70,7 @@ export interface RelayTourInfo {
   players?: string;
   website?: string;
   standings?: string;
+  regulations?: string;
 }
 
 export type RelayTourDates = [number] | [number, number];
