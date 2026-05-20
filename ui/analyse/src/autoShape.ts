@@ -177,7 +177,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotationsOnBoard()) {
-    const liveGlyphs = ctrl.liveGlyphsOf(ctrl.path);
+    const liveGlyphs = ctrl.liveGlyphs.get(ctrl.path);
     const glyphs = liveGlyphs ?? ctrl.node.glyphs;
     shapes = shapes.concat(
       // Override server analysis glyphs as local eval also overrides the eval score

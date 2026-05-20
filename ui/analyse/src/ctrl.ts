@@ -123,7 +123,6 @@ export default class AnalyseCtrl implements CevalHandler {
   );
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
-  liveAnnotationsProp = storedBooleanProp('analyse.live-annotations', false);
   liveGlyphs = new Map<TreePath, Glyph[]>();
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -741,7 +740,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
-      if (this.liveAnnotationsProp() && !isThreat && isLocalEval(ev)) {
+      if (!isThreat && isLocalEval(ev)) {
         this.annotateLivePath(path);
         this.annotateLiveChildren(path, node);
       }
@@ -778,9 +777,6 @@ export default class AnalyseCtrl implements CevalHandler {
       this.rebuildLiveGlyphs(child, childPath);
     });
   }
-
-  liveGlyphsOf = (path: TreePath): Glyph[] | undefined =>
-    this.liveAnnotationsProp() ? this.liveGlyphs.get(path) : undefined;
 
   private initCeval(): void {
     const opts: CevalOpts = {
@@ -855,8 +851,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean =>
-    (this.study && !this.study.relay) || this.showFishnetAnalysis() || this.liveAnnotationsProp();
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
 
   showMoveAnnotationsOnBoard = (): boolean =>
     this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
@@ -929,14 +924,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.showFishnetAnalysis(!this.showFishnetAnalysis());
     this.resetAutoShapes();
     pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
-  };
-
-  toggleLiveAnnotations = () => {
-    this.liveAnnotationsProp(!this.liveAnnotationsProp());
-    this.liveGlyphs.clear();
-    if (this.liveAnnotationsProp()) this.rebuildLiveGlyphs();
-    this.resetAutoShapes();
-    this.redraw();
   };
 
   toggleActionMenu = () => {

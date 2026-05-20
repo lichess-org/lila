@@ -184,14 +184,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
         prop: ctrl.showManeuverMoveArrowsProp,
         redraw: ctrl.redraw,
       }),
-    cmnToggleWrap({
-      id: 'live-annotations',
-      name: 'Live move annotations',
-      title: 'Show inaccuracy/mistake/blunder from local engine eval',
-      checked: ctrl.liveAnnotationsProp(),
-      change: ctrl.toggleLiveAnnotations,
-      redraw: ctrl.redraw,
-    }),
     displayColumns() > 1 &&
       cmnToggleWrapProp({
         id: 'gauge',
