@@ -63,6 +63,7 @@
   <string name="notYetStarted">Zuzenekoa ez da oraindik hasi.</string>
   <string name="officialWebsite">Webgune ofiziala</string>
   <string name="officialStandings">Sailkapen ofiziala</string>
+  <string name="regulations">Arauak</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Aukera gehiago %sean</string>
   <string name="webmastersPage">webmasterraren webgune</string>
   <string name="embedThisBroadcast">Txertatu zuzeneko hau zure webgunean</string>
