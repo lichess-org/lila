@@ -52,6 +52,7 @@ import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
+import LiveAnnotate from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -75,6 +76,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
+  liveAnnotate: LiveAnnotate;
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -177,6 +179,7 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
+    this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -737,6 +740,8 @@ export default class AnalyseCtrl implements CevalHandler {
       else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
+
+      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
 
       if (path === this.path) {
         this.setAutoShapes();

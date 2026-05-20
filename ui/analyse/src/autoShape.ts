@@ -176,7 +176,13 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotationsOnBoard()) shapes = shapes.concat(annotationShapes(ctrl.node));
+  if (ctrl.showMoveAnnotationsOnBoard()) {
+    const liveGlyph = ctrl.liveAnnotate.get(ctrl.path);
+    shapes = shapes.concat(
+      // Override server analysis glyphs as local eval also overrides the eval score
+      annotationShapes(liveGlyph ? { ...ctrl.node, glyphs: [liveGlyph] } : ctrl.node),
+    );
+  }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
 
   if (ctrl.isCevalAllowed()) {
