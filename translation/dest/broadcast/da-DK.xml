@@ -63,6 +63,7 @@
   <string name="notYetStarted">Udsendelsen er endnu ikke startet.</string>
   <string name="officialWebsite">Officielt websted</string>
   <string name="officialStandings">Officiel stilling</string>
+  <string name="regulations">Regulativer</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere muligheder på %s</string>
   <string name="webmastersPage">webmasters side</string>
   <string name="embedThisBroadcast">Indlejr denne udsendelse på dit website</string>
