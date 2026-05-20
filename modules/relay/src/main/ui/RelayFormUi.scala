@@ -6,6 +6,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
 import chess.tiebreak.Tiebreak
+import play.api.libs.json.Json
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -96,8 +97,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .js(
+          List(
+            Esm("bits.flatpickr"),
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck")
+          ).map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -467,9 +473,18 @@ Hanna Marie ; Kozul, Zdenko"""),
 
     private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
-        .css("bits.relay.form")
-        .js(Esm("bits.relayForm"))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .css("bits.relay.form", "bits.tagify")
+        .js(
+          List(
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck"),
+            esmInitObj(
+              "bits.broadcastGroup",
+              Json.obj("studyadmin" -> Granter.opt(_.StudyAdmin), "broadcaster" -> Granter.opt(_.Relay))
+            )
+          )
+            .map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -862,30 +877,40 @@ Team Dogs ; Scooby Doo"""),
       )
 
   private def grouping(form: Form[RelayTourForm.Data], tour: RelayTour)(using Context) =
+    val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
     div(cls := "relay-form__grouping")(
       form3.group(
-        form("grouping.info"),
-        "Optional: assign tournaments to a group",
+        form("grouping.info.name"),
+        "Optional: Group name",
+        help = frag("Name of the overall group. Example: Dutch Championships 2025").some
+      )(
+        form3.input(_)(disabledGroup)
+      ),
+      form3.group(
+        form("grouping.info.tours"),
+        "Optional: Broadcasts part of this group",
         help = frag( // do not translate
-          "First line is the group name.",
+          "Select tournaments from your 20 most recent broadcasts.",
           br,
-          "Subsequent lines are URLs of tournaments that will be part of the group.",
+          "You can add and remove tournaments.",
           br,
-          "You can add, remove, and re-order tournaments; and you can rename the group.",
+          "You can also re-order tournaments by dragging.",
+          br,
+          "If the tournament you want is not listed in the dropdown you can paste the link to the tournament.",
           br,
           "Example:",
-          pre("""Dutch Championships 2025
-https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
-https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
-https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
-""")
+          pre("""
+  https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
+  https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
+  https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
+  """)
         ).some
       )(
         form3.textarea(_)(
           rows := 5,
           spellcheck := "false",
           cls := "monospace",
-          (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+          disabledGroup
         )
       ),
       form3.group(
@@ -907,5 +932,5 @@ PGFBkEha"""),
           br,
           "2) Is the lone women's section"
         ).some
-      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace"))
+      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace", disabledGroup))
     )

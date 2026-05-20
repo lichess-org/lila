@@ -1,8 +1,9 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.config.RouteUrl
 import lila.relay.RelayGroup.ScoreGroup
+import lila.relay.RelayTour.TourPreview
+import lila.common.Form.cleanNonEmptyText
 
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,
@@ -51,10 +52,9 @@ object RelayGroupData:
       tours: List[RelayTour.TourPreview]
   )
 
-private final class RelayGroupForm(routeUrl: RouteUrl):
+private final class RelayGroupForm:
   import play.api.data.*
   import play.api.data.Forms.*
-  import play.api.data.format.Formatter
   import lila.common.Form.formatter
 
   def data(group: RelayGroup.WithTours) =
@@ -93,28 +93,32 @@ private final class RelayGroupForm(routeUrl: RouteUrl):
     val ids = scoreGroups.flatMap(_.toList)
     ids.distinct.size == ids.size
 
-  private def infoParse(value: String): Option[RelayGroupData.Info] =
-    value.split("\n").toList match
-      case Nil => none
-      case name :: tourIds =>
-        val tours = tourIds
+  private def toursParse(value: String): Option[List[TourPreview]] =
+    value
+      .split("\n")
+      .toList
+      .nonEmptyOption
+      .map: lines =>
+        lines
           .take(50)
           .map(_.trim.takeWhile(' ' != _))
           .flatMap(parseId)
           .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-        RelayGroupData.Info(RelayGroup.Name(name.linesIterator.next().trim), tours).some
 
-  private def infoAsText(info: RelayGroupData.Info): String =
-    val name = info.name.value
-    val tourUrls = info.tours.map(t => s"${routeUrl(routes.RelayTour.show(t.name.toSlug, t.id))}")
-    (name :: tourUrls).mkString("\n")
+  private def toursAsText(tours: List[TourPreview]): String =
+    tours.map(t => s"${t.name},${t.id}").mkString("\n")
 
-  given Formatter[RelayGroupData.Info] = formatter.stringOptionFormatter(infoAsText, infoParse)
-  val infoMapping: Mapping[Option[RelayGroupData.Info]] = optional(of[RelayGroupData.Info])
+  val infoMapping: Mapping[RelayGroupData.Info] =
+    Forms.mapping(
+      "name" -> cleanNonEmptyText,
+      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
+    )((name, tours) => RelayGroupData.Info(RelayGroup.Name(name), tours))(info =>
+      Some((info.name.value, info.tours))
+    )
 
   val mapping = Forms
     .mapping(
-      "info" -> infoMapping,
+      "info" -> optional(infoMapping),
       "scoreGroups" -> optional(scoreGroupsMapping)
     )((info, scoreGroups) =>
       RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
