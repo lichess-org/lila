@@ -173,7 +173,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       ctx.isAuth.option(bits.authLinks(activeCls, newOrder)),
       a(activeCls(StudyGroup.topic(None)), href := routes.Study.topics)(trs.topics()),
       topics.map: topic =>
-        val group = StudyGroup.topic(Some(topic.value))
+        val group = StudyGroup.topic(topic.some)
         a(activeCls(group), href := routes.Study.byTopic(topic.value, newOrder(group)))(
           topic.value
         )
@@ -228,7 +228,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         order: StudyOrder,
         myTopics: Option[StudyTopics]
     )(using Context) =
-      val active = StudyGroup.topic(Some(topic.value))
+      val active = StudyGroup.topic(topic.some)
       val url = (o: StudyOrder) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("analyse.study.index")

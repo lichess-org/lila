@@ -24,7 +24,7 @@ case class AddNode(
 
 enum StudyGroup:
   case all, mine, mineMember, minePublic, minePrivate, mineLikes, byOwner, staffPicks, search
-  case topic(topicName: Option[String])
+  case topic(name: Option[StudyTopic])
   def isTopic: Boolean = this match
     case StudyGroup.topic(_) => true
     case _ => false
