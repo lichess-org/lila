@@ -357,6 +357,8 @@ interface I18n {
     ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
+    /** Regulations */
+    regulations: string;
     /** Optional: replace player names, ratings and titles */
     replacePlayerTags: string;
     /** Reset this round */
