@@ -620,7 +620,7 @@ Hanna Marie ; Kozul, Zdenko"""),
           form3.split(
             form3.group(
               form("info.regulations"),
-              trb.officialRegulations(),
+              trb.regulations(),
               help = frag("External regulations URL").some,
               half = true
             )(form3.input(_))

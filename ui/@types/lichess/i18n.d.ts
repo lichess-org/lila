@@ -333,8 +333,6 @@ interface I18n {
     noBoardsYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
-    /** Official regulations */
-    officialRegulations: string;
     /** Official standings */
     officialStandings: string;
     /** Official website */

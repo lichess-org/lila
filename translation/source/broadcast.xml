@@ -63,7 +63,6 @@
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
   <string name="officialStandings">Official standings</string>
-  <string name="officialRegulations">Official regulations</string>
   <string name="regulations">Regulations</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Find more options on the %s.</string>
   <string name="webmastersPage">Webmasters page</string>
