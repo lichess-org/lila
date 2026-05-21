@@ -122,7 +122,7 @@
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">تشغيل أول حركة فتح/نهاية اللعبة</string>
   <string name="winPreventedBy50MoveRule">قاعدة الخمسين-50 حركة منعت الفوز</string>
-  <string name="lossSavedBy50MoveRule">قاعدة الخمسين حركة منعت الخسارة</string>
+  <string name="lossSavedBy50MoveRule">قاعدة 50 حركة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
   <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
   <string name="unknownDueToRounding">بسبب احتمال وجود تقريب في قيم DTZ ضمن قواعد بيانات Syzygy للنهايات، فإن الفوز أو الخسارة يكون مضمونًا فقط إذا تم اتباع خط اللعب الموصى به من قاعدة البيانات منذ آخر عملية أسر أو آخر نقلة بيدق.</string>
@@ -132,7 +132,7 @@
   <string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
   <string name="replayMode">نمط إعادة العرض</string>
   <string name="realtimeReplay">ذات الوقت</string>
-  <string name="byCPL">بالاثارة</string>
+  <string name="byCPL">حساب CPL</string>
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
