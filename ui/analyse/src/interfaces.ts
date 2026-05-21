@@ -5,7 +5,14 @@ import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
 import type { Player, Status, Source, Clock } from 'lib/game';
 import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
-import type { PvDataServer, ServerEval, TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+import type {
+  PvDataServer,
+  ServerEval,
+  TreeNode,
+  TreeNodeBase,
+  TreeNodeLite,
+  TreePath,
+} from 'lib/tree/types';
 
 import type { ExplorerOpts } from './explorer/interfaces';
 import type { ForecastData } from './forecast/interfaces';
@@ -44,7 +51,7 @@ export interface AnalyseData {
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
-  treeParts: TreeNodeIncomplete[];
+  treeParts: TreeNodeBase[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -71,7 +78,7 @@ export interface AnalysePref {
 export interface ServerEvalData {
   ch: string;
   analysis?: Analysis;
-  tree: TreeNodeIncomplete;
+  tree: TreeNodeLite;
   division?: Division;
 }
 
