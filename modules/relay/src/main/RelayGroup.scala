@@ -117,22 +117,23 @@ private final class RelayGroupForm:
       Some((info.name.value, info.tours))
     )
 
+  val scoreGroupsMapping: Mapping[Option[List[ScoreGroup]]] = optional(
+    list(optional(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))))
+      .transform(_.flatten, _.map(some))
+  )
+    .verifying("Too many score groups (max 10)", _.forall(_.sizeIs <= 10))
+    .verifying("Score groups cannot have overlapping broadcasts", _.forall(noOverlappingScoreGroups))
+
   val mapping = Forms
     .mapping(
       "info" -> optional(infoMapping),
-      "scoreGroups" -> optional(
-        list(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse)))
-      )
+      "scoreGroups" -> scoreGroupsMapping
     )((info, scoreGroups) =>
       RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
     )(data => Some(data.info.some, data.scoreGroups))
     .verifying(
-      "score groups cannot contain broadcasts not present in this group",
+      "Score groups cannot contain broadcasts not present in this group",
       data => data.scoreGroups.forall(allIdsFromGroup(data.tourIds, _))
-    )
-    .verifying(
-      "score groups cannot have overlapping broadcasts",
-      data => data.scoreGroups.forall(noOverlappingScoreGroups)
     )
 
 import lila.db.dsl.{ *, given }
