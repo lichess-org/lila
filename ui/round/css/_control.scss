@@ -6,6 +6,17 @@
     margin: 0;
   }
 
+  button {
+    @extend %box-radius;
+
+    &.resign,
+    &.abort {
+      &:hover {
+        background: $c-bad;
+      }
+    }
+  }
+
   .disabled {
     opacity: 0.5;
     cursor: not-allowed;
