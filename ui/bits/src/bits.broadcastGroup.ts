@@ -21,49 +21,55 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
     .map(t => t.trim())
     .filter(t => t.length > 0);
 
-  const groups = new Tagify<BroadcastTag>(textArea, {
-    enforceWhitelist: true,
-    keepInvalidTags: true, // Persist bad tags so that users can hover and see the reason why it was rejected
-    duplicates: false,
-    dropdown: {
-      enabled: 0,
-      mapValueTo: 'name',
-      searchKeys: ['name'],
-    },
-    tagTextProp: 'name',
-    maxTags: 50,
-    originalInputValueFormat: tags => tags.map(t => t.value).join('\n'),
-    readonly: textArea.disabled,
-  });
+  const makeTourTagify = (el: HTMLTextAreaElement) =>
+    new Tagify<BroadcastTag>(el, {
+      enforceWhitelist: true,
+      keepInvalidTags: true, // Persist bad tags so that users can hover and see the reason why it was rejected
+      duplicates: false,
+      dropdown: {
+        enabled: 0,
+        mapValueTo: 'name',
+        searchKeys: ['name'],
+      },
+      tagTextProp: 'name',
+      maxTags: 50,
+      originalInputValueFormat: tags => tags.map(t => t.value).join('\n'),
+      readonly: textArea.disabled,
+    });
 
-  groups.removeAllTags();
+  const group = makeTourTagify(textArea);
+
+  group.removeAllTags();
   const preExisting = fromServer.map<BroadcastTag>(t => ({ value: t.slice(-8), name: t.slice(0, -9) }));
-  if (preExisting.length) {
-    groups.whitelist = preExisting;
-    groups.addTags(preExisting);
-  }
+  group.whitelist = preExisting;
+  group.addTags(preExisting);
 
-  Sortable.create(groups.DOM.scope, {
+  Sortable.create(group.DOM.scope, {
     filter: '.tagify__input',
     onEnd: () => {
-      groups.updateValueByDOMTags();
+      group.updateValueByDOMTags();
     },
   });
 
   const fetchMyBroadcasts = async () => {
     if (myBroadcasts === null) {
-      groups.loading(true);
+      group.loading(true);
       const resp = await xhrJson(`/api/broadcast/by/${myUserId()}`);
       const results = resp['currentPageResults'] as CurrentPageResults;
-      myBroadcasts = results.map(t => t.tour).filter(t => opts.broadcaster || !t.tier);
-      groups.whitelist = groups.whitelist.map(t => (typeof t === 'string' ? { value: t, name: t } : t));
-      groups.whitelist = groups.whitelist.concat(
+      myBroadcasts = results.map(t => t.tour).filter(t => opts.broadcaster || !t.tier); // Fetching our own broadcasts so no need to check for communityOwner
+      group.whitelist = group.whitelist.map(t => (typeof t === 'string' ? { value: t, name: t } : t));
+      group.whitelist = group.whitelist.concat(
         myBroadcasts
           .map(b => ({ value: b.id, name: b.name }))
-          .filter(b => !groups.whitelist.some(t => typeof t !== 'string' && t.value === b.value)),
+          .filter(
+            fetched =>
+              !group.whitelist.some(
+                existing => typeof existing !== 'string' && existing.value === fetched.value,
+              ),
+          ),
       );
-      groups.loading(false);
-      groups.dropdown.show();
+      group.loading(false);
+      group.dropdown.show();
     }
   };
 
@@ -72,9 +78,9 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
   const fetchBroadcastAndVerify = throttle(
     3000,
     async (invalidData: InvalidTagEventData<BroadcastTag>, broadcastId: string) => {
-      groups.loading(true);
+      group.loading(true);
       const replaceErrTag = (msg: string) =>
-        groups.replaceTag(invalidData.tag, {
+        group.replaceTag(invalidData.tag, {
           ...invalidData.data,
           // @ts-ignore
           __isValid: msg,
@@ -89,11 +95,11 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
               replaceErrTag('Insufficient permissions to group this broadcast');
             else {
               const newTag = { value: tour.id, name: tour.name };
-              groups.whitelist = [
-                ...(groups.whitelist as BroadcastTag[]).filter(t => t.value !== tour.id),
+              group.whitelist = [
+                ...(group.whitelist as BroadcastTag[]).filter(t => t.value !== tour.id),
                 newTag,
               ];
-              groups.replaceTag(invalidData.tag, newTag);
+              group.replaceTag(invalidData.tag, newTag);
             }
           },
           () => {
@@ -101,13 +107,13 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
           },
         )
         .finally(() => {
-          groups.loading(false);
+          group.loading(false);
         });
     },
   );
 
-  groups.on('focus', fetchMyBroadcasts);
-  groups.on('invalid', e => {
+  group.on('focus', fetchMyBroadcasts);
+  group.on('invalid', e => {
     const data = e.detail.data;
     const validIDRegex = /(?:^|(?:broadcast(?:\/.*)?\/))(\w{8})(?:\/edit)?$/; // 8 character ID OR Tour URL OR edit URL
     const match = data?.name.match(validIDRegex);
@@ -140,24 +146,26 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
   $('[id*="_scoreGroups_"]').last().parent()[0]?.insertAdjacentElement('afterend', plusButton);
 
   const makeSgTagify = (el: HTMLTextAreaElement) => {
-    const sgTagify = new Tagify<BroadcastTag>(el, {
+    const sgTagify = makeTourTagify(el);
+    sgTagify.settings = {
+      ...sgTagify.settings,
       enforceWhitelist: true,
-      whitelist: groups.whitelist,
-      dropdown: {
-        enabled: 0,
-        mapValueTo: 'name',
-        searchKeys: ['name'],
-      },
-      tagTextProp: 'name',
+      keepInvalidTags: false,
+      whitelist: group.value,
       originalInputValueFormat: tags => tags.map(t => t.value).join(','),
-    });
+    };
     const preExisting = el.value
       .split(',')
-      .map(id => groups.whitelist.find(t => typeof t !== 'string' && t.value === id))
+      .map(id => group.whitelist.find(t => typeof t !== 'string' && t.value === id))
       .filter(t => typeof t === 'object');
     sgTagify.removeAllTags();
     sgTagify.addTags(preExisting);
-    groups.on('edit:updated', () => (sgTagify.whitelist = groups.whitelist));
+    group.on('add', () => {
+      sgTagify.whitelist = group.value;
+    });
+    group.on('remove', tag => {
+      if (tag.detail.data?.value) sgTagify.removeTags(tag.detail.data.value);
+    });
   };
 
   $('[id*="_scoreGroups_"]').each((_, el) => makeSgTagify(el as HTMLTextAreaElement));
