@@ -752,7 +752,10 @@ Team Dogs ; Scooby Doo"""),
           )
         ,
         tg.map: t =>
-          form3.fieldset("Grouping", toggle = form.errors("grouping").nonEmpty.some):
+          form3.fieldset(
+            "Grouping",
+            toggle = form.errors.exists(_.key.contains("grouping")).some
+          ):
             grouping(form, t)
         ,
         if Granter.opt(_.Relay) then
