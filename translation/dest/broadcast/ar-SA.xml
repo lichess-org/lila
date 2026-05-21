@@ -71,6 +71,7 @@
   <string name="notYetStarted">البث لم يبدأ بعد.</string>
   <string name="officialWebsite">الموقع الرسمي</string>
   <string name="officialStandings">الترتيب الرسمي</string>
+  <string name="regulations">لوائح</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>
   <string name="embedThisBroadcast">ادمج هذا البث في موقع الويب الخاص بك</string>
