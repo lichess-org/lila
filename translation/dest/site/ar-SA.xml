@@ -139,7 +139,7 @@
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">ملك يمكن تهديده بـ-كش</string>
+  <string name="checkableKing">ملك قابل للكش</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>
@@ -304,7 +304,7 @@
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
-  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا، والحسابات التي تحتوي على أسماء مستخدمين غير ملائمة سوف تُغلق!</string>
   <string name="signupEmailPromise">لن نرسل لك سوى رسائل البريد الإلكتروني حول حسابك ولن نشارك بريدك الإلكتروني أبدا.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
@@ -318,12 +318,12 @@
   <string name="youAreLeavingLichess">أنت تغادر Lichess</string>
   <string name="neverTypeYourPassword">لا تكتب كلمة مرور Lichess الخاصة بك على موقع آخر!</string>
   <string name="proceedToX">انتقل إلى %s</string>
-  <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
+  <string name="passwordSuggestion">لا تستخدم كلمة مرور اقترحها شخص آخر، فقد يستخدمها لسرقة حسابك.</string>
   <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
   <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
   <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
-  <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
-  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
+  <string name="whatSignupUsername">ما اسم المستخدم الذي سجلت به؟</string>
+  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم:%s.</string>
   <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
   <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
