@@ -144,6 +144,7 @@ export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['players', i.players, 'activity.sparkles', 'Star players'],
     ['website', i.website, null, null, i18n.broadcast.officialWebsite],
     ['standings', i.standings, null, null, i18n.site.standings],
+    ['regulations', i.regulations, null, null, i18n.broadcast.regulations],
   ]
     .map(
       ([key, value, icon, textAlternative, linkName]) =>

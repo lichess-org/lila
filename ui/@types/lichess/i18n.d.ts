@@ -357,6 +357,8 @@ interface I18n {
     ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
+    /** Regulations */
+    regulations: string;
     /** Optional: replace player names, ratings and titles */
     replacePlayerTags: string;
     /** Reset this round */
@@ -3773,6 +3775,10 @@ interface I18n {
     lifetimeScore: string;
     /** Light */
     light: string;
+    /** Like */
+    like: string;
+    /** Liked */
+    liked: string;
     /** List */
     list: string;
     /** List players you have blocked */
@@ -5373,8 +5379,6 @@ interface I18n {
     topics: string;
     /** Unclear position */
     unclearPosition: string;
-    /** Unlike */
-    unlike: string;
     /** Unlisted */
     unlisted: string;
     /** URL of the games, one per line */

@@ -29,7 +29,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     "timeZone" -> optional(lila.common.Form.timeZone.field),
     "players" -> optional(cleanText(maxLength = 120)),
     "website" -> optional(url.field),
-    "standings" -> optional(url.field)
+    "standings" -> optional(url.field),
+    "regulations" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(
@@ -190,5 +191,5 @@ object RelayTourForm:
 
     val empty = Data(
       RelayTour.Name(""),
-      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
+      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none, none)
     )
