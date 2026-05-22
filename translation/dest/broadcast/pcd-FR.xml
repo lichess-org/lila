@@ -63,6 +63,7 @@
   <string name="notYetStarted">La diffusion n\'a pas encore commencé.</string>
   <string name="officialWebsite">Site Web officiel</string>
   <string name="officialStandings">Résultats officiels</string>
+  <string name="regulations">Règlements</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Plus d\'options sur la %s</string>
   <string name="webmastersPage">page des webmestres</string>
   <string name="embedThisBroadcast">Intégrer cette diffusion dans votre site Web</string>
