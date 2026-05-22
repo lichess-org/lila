@@ -4,7 +4,7 @@ import chess.{ ByColor, Color, DecayingStats, Status }
 import chess.rating.IntRatingDiff
 
 import lila.common.{ Bus, Uptime }
-import lila.core.game.{ AbortedBy, FinishGame }
+import lila.core.game.{ AbortReason, AbortedBy, FinishGame }
 import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.perf.UserWithPerfs
 import lila.game.GameExt.finish
@@ -28,7 +28,7 @@ final private class Finisher(
 
   def abort(pov: Pov)(using GameProxy): Fu[Events] =
     for
-      events <- apply(pov.game, _.Aborted, None)
+      events <- apply(pov.game, _.Aborted, None, abortReason = AbortReason.abortedBy(pov.color).some)
       _ = getSocketStatus(pov.game).foreach: ss =>
         playban.abort(pov, ss.colorsOnGame)
       _ = Bus.pub(AbortedBy(pov.copy(game = pov.game.abort)))
@@ -65,16 +65,24 @@ final private class Finisher(
       playban.noStart(Pov(game, culprit))
       if game.isMandatory || game.metadata.hasRule(_.noAbort) then
         apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
+      else
+        apply(
+          game,
+          _.Aborted,
+          None,
+          Messenger.SystemMessage.Persistent("Game aborted by server").some,
+          abortReason = AbortReason.didNotMove(culprit.color).some
+        )
 
   def other(
       game: Game,
       status: Status.type => Status,
       winner: Option[Color],
-      message: Option[Messenger.SystemMessage] = None
+      message: Option[Messenger.SystemMessage] = None,
+      abortReason: Option[AbortReason] = None
   )(using GameProxy): Fu[Events] =
     for
-      events <- apply(game, status, winner, message)
+      events <- apply(game, status, winner, message, abortReason)
       _ = playban.other(game, status(Status), winner)
     yield events
 
@@ -109,7 +117,8 @@ final private class Finisher(
       prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
-      message: Option[Messenger.SystemMessage] = None
+      message: Option[Messenger.SystemMessage] = None,
+      abortReason: Option[AbortReason] = None
   )(using proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
     val prog = lila.game.Progress(prev, prev.finish(status, winnerC))
@@ -125,7 +134,8 @@ final private class Finisher(
         id = game.id,
         winnerColor = winnerC,
         winnerId = winnerC.flatMap(game.player(_).userId),
-        status = prog.game.status
+        status = prog.game.status,
+        abortReason = abortReason
       )
       users <- userApi.pairWithPerfs(game.userIdPair)
       ratingDiffs <- updateCountAndPerfs(game, users)

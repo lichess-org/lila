@@ -115,7 +115,13 @@ abstract class GameRepo(val coll: BSONCollection):
   def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]]
   def analysed(id: GameId): Fu[Option[Game]]
   def setAnalysed(id: GameId, v: Boolean): Funit
-  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit
+  def finish(
+      id: GameId,
+      winnerColor: Option[Color],
+      winnerId: Option[UserId],
+      status: Status,
+      abortReason: Option[AbortReason] = None
+  ): Funit
   def remove(id: GameId): Funit
   def countWhereUserTurn(userId: UserId): Fu[Int]
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
@@ -187,6 +193,7 @@ object BSONFields:
   val id = "_id"
   val playerUids = "us"
   val winnerId = "wid"
+  val abortReason = "ar"
   val createdAt = "ca"
   val movedAt = "ua" // ua = updatedAt (bc)
   val turns = "t"

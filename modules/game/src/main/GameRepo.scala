@@ -369,7 +369,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     ("p1." + PF.proposeTakebackAt) -> true
   )
 
-  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit =
+  def finish(
+      id: GameId,
+      winnerColor: Option[Color],
+      winnerId: Option[UserId],
+      status: Status,
+      abortReason: Option[AbortReason] = None
+  ): Funit =
     coll.update
       .one(
         $id(id),
@@ -378,13 +384,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           $doc(
             F.winnerId -> winnerId,
             F.winnerColor -> winnerColor.map(_.white),
-            F.status -> status
+            F.status -> status,
+            F.abortReason -> abortReason
           )
         ) ++ $doc(
           "$unset" -> finishUnsets.++ {
             // keep the checkAt field when game is aborted,
             // so it gets deleted in 24h
-            (status >= Status.Mate).so($doc(F.checkAt -> true))
+            (status >= Status.Mate).so($doc(F.checkAt -> true)) ++
+              abortReason.isEmpty.so($doc(F.abortReason -> true))
           }
         )
       )

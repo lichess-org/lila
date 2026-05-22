@@ -40,7 +40,8 @@ case class Game(
     bookmarks: Int = 0,
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
-    metadata: GameMetadata
+    metadata: GameMetadata,
+    abortReason: Option[AbortReason] = None
 ):
 
   export chess.{ position, ply, clock, sans, startedAtPly, player as turnColor, history, variant }
