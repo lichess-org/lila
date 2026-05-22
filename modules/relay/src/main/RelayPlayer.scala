@@ -249,7 +249,7 @@ private final class RelayPlayerApi(
     tours.headOption
       .flatMap(_.dates.map(_.start))
       .exists: firstStart =>
-        tours.tailOption.exists(_.forall(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+        tours.tailOption.exists(_.exists(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
 
   private def readGamesAndPlayers(tourIds: List[RelayTourId]): Fu[RelayPlayers] =
     for
