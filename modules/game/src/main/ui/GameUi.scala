@@ -109,7 +109,7 @@ final class GameUi(helpers: Helpers):
     import lila.game.GameExt.drawReason
     game.status match
       case S.Aborted =>
-          abortReasonText.getOrElse(trans.site.gameAborted.txt())
+        abortReasonText.getOrElse(trans.site.gameAborted.txt())
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
