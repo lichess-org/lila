@@ -4,7 +4,7 @@ package ui
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 
-import lila.core.game.{ Game, Player }
+import lila.core.game.{ AbortReason, Game, Player }
 import lila.game.GameExt.*
 import lila.ui.*
 
@@ -101,9 +101,15 @@ final class GameUi(helpers: Helpers):
 
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
+    val abortReasonText = game.abortReason.map:
+      case AbortReason.WhiteDidNotMove => trans.site.whiteDidntMove.txt()
+      case AbortReason.BlackDidNotMove => trans.site.blackDidntMove.txt()
+      case AbortReason.WhiteAborted => "White aborted"
+      case AbortReason.BlackAborted => "Black aborted"
     import lila.game.GameExt.drawReason
     game.status match
-      case S.Aborted => trans.site.gameAborted.txt()
+      case S.Aborted =>
+        trans.site.gameAborted.txt() + abortReasonText.fold("")(r => s" • $r")
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)

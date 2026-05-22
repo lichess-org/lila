@@ -39,6 +39,7 @@ final class JsonView(rematches: Rematches):
       )
       .add("threefold" -> game.history.threefoldRepetition)
       .add("winner" -> game.winnerColor)
+      .add("abortReason" -> game.abortReason.map(_.toString))
       .add("rematch" -> rematches.getAcceptedId(game.id))
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 

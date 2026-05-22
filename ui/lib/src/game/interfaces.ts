@@ -26,6 +26,7 @@ export interface Game {
   speed: Speed;
   variant: Variant;
   winner?: Color;
+  abortReason?: AbortReason;
   drawOffers?: number[];
   moveCentis?: number[];
   initialFen?: string;
@@ -38,6 +39,12 @@ export interface Game {
   perf: string;
   rules?: GameRule[];
 }
+
+export type AbortReason =
+  | 'WhiteDidNotMove'
+  | 'BlackDidNotMove'
+  | 'WhiteAborted'
+  | 'BlackAborted';
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export type TopOrBottom = 'top' | 'bottom';
