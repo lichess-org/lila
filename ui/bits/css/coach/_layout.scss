@@ -7,6 +7,7 @@
 main {
   .coach-main {
     grid-area: main;
+    min-height: 70vh;
   }
 
   &.coach-full-page {

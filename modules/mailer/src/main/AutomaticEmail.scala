@@ -44,6 +44,32 @@ The Lichess team"""
       import lila.core.i18n.I18nKey as trans
       s"""${trans.onboarding.welcome.txt()}\n${trans.site.lichessPatronInfo.txt()}"""
 
+  def emailAlreadyInUse(email: EmailAddress): Funit =
+    given Lang = lila.core.i18n.defaultLang
+    mailer.canSend.so:
+      mailer.sendOrSkip:
+        val text = """Sorry, but it's not possible to register a new account with this email address.
+  If you already have an account linked to this email, you can try to log in with it, or reset your password if you forgot it."""
+        Mailer.Message(
+          to = email,
+          subject = "Could not verify your new Lichess account",
+          text = text,
+          htmlBody = standardEmail(text).some
+        )
+
+  def alreadyConfirmed(email: EmailAddress): Funit =
+    given Lang = lila.core.i18n.defaultLang
+    mailer.canSend.so:
+      mailer.sendOrSkip:
+        val text =
+          """Your new Lichess account has already been verified, so you can log in and start playing right away."""
+        Mailer.Message(
+          to = email,
+          subject = "Your account is verified and ready to use",
+          text = text,
+          htmlBody = standardEmail(text).some
+        )
+
   def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for
       user <- userApi.byId(username).orFail(s"No such user $username")

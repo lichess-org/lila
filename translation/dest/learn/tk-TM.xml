@@ -104,7 +104,7 @@ hüjüm edýän çöpi iýmek bilen.</string>
 goragyňyzyň bar bolmagyna garamazdan!</string>
   <string name="escapeOrBlock">Şany gaçyryň
 ýa-da hüjümi gabzaň!</string>
-  <string name="outOfCheckComplete">Gutlaýarys! Şaňyz asla ele geçirilmez, şaha garşy häzir boluň!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gutlaýarys! Şaňyz asla ele geçirilmez, şaha garşy häzir boluň!</string>
   <string name="mateInOne">1 göçümde mat</string>
   <string name="defeatTheOpponentsKing">Garşydaşyň şasyny ýeňiň</string>
   <string name="mateInOneIntro">Garşydaşyňyz şahdan goranyp bilmeýän wagty ýeňiş gazanýaňyz.</string>

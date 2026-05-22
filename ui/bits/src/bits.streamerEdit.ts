@@ -8,7 +8,7 @@ type MaybeEl = HTMLElement | null;
 type OAuthBox = { div: HTMLElement; linkBtn: MaybeEl; unlinkBtn: MaybeEl; url: HTMLAnchorElement | null };
 type OAuthBoxes = Record<Platform, OAuthBox>;
 
-export function initModule(): any {
+export function initModule(): void {
   const el = scopedQuery(document.querySelector('.streamer-edit')!);
   const platforms: Platform[] = ['twitch', 'youtube'];
   const oauths = platforms.reduce((acc, platform) => {

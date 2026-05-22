@@ -31,7 +31,7 @@ export interface SimulData {
 export interface Variant {
   key: VariantKey;
   name: string;
-  icon: string;
+  icon: LiconType;
 }
 
 export interface Player extends LightUserOnline {

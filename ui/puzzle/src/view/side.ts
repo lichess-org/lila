@@ -229,7 +229,7 @@ export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
             {
               attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: i18n.site[i18nKey] },
             },
-            hl('i'),
+            hl('icon'),
           ),
         ]),
       ),

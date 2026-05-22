@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">الگوی مات که از نظر ظاهری شبیه دم چلچله است، مشابه شکل V.</string>
   <string name="triangleMate">ماتِ مثلث</string>
   <string name="triangleMateDescription">وزیر و رخ، در خانهٔ اُریبِ شاه حریف، روی عرض یا ستونِ یکسان و با یک خانه فاصله از یکدیگر، مثلثی تشکیل می‌دهند.</string>
-  <string name="vukovicMate">مات ووکویچ</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">مات ووکویچ</string>
   <string name="vukovicMateDescription">یک رخ و یک اسب برای مات کردن شاه همکاری می‌کنند. رخ در حالی که توسط مهرهٔ سومی پشتیبانی می‌شود، مات می‌کند و اسب برای مسدود کردن خانه‌های فرار شاه استفاده می‌شود.</string>
   <string name="knightEndgame">آخربازی اسب</string>
   <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>

@@ -3,6 +3,7 @@ import type { NormalMove } from 'chessops/types';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 
 import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
 import { annotationShapes } from 'lib/game/glyphs';
 import type { Glyph, TreeNode } from 'lib/tree/types';
 
@@ -26,9 +27,9 @@ function makeAutoShapesFromUci(
 }
 
 export default function (ctrl: PuzzleCtrl): DrawShape[] {
-  const n = ctrl.node,
-    hovering = ctrl.ceval.hovering(),
-    color = n.fen.includes(' w ') ? 'white' : 'black';
+  const n = ctrl.node;
+  const hovering = ctrl.ceval.hovering();
+  const color = fenColor(n.fen);
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
     shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));

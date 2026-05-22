@@ -357,6 +357,8 @@ interface I18n {
     ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
+    /** Regulations */
+    regulations: string;
     /** Optional: replace player names, ratings and titles */
     replacePlayerTags: string;
     /** Reset this round */
@@ -1057,6 +1059,8 @@ interface I18n {
     emailChange_subject: I18nFormat;
     /** Click the link to enable your Lichess account: */
     emailConfirm_click: string;
+    /** Thanks for registering with Lichess! */
+    emailConfirm_intro: string;
     /** If you did not register with Lichess, you can safely ignore this message. The unconfirmed account and all traces of your email address will be deleted from our system after 48 hours. */
     emailConfirm_justIgnore: string;
     /** Confirm your lichess.org account, %s */
@@ -1794,6 +1798,12 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  msg: {
+    /** There is a new Lichess mobile app available! */
+    lichobileNewAppAvailable: string;
+    /** Please download the new official Lichess app at %s. */
+    lichobileNewAppDownload: I18nFormat;
+  };
   nvui: {
     /** Actions */
     actions: string;
@@ -2429,7 +2439,7 @@ interface I18n {
     didYouLikeThisPuzzle: string;
     /** Difficulty level */
     difficultyLevel: string;
-    /** Rate puzzle negatively */
+    /** Bad puzzle! */
     downVote: string;
     /** Easier */
     easier: string;
@@ -2549,14 +2559,12 @@ interface I18n {
     toGetPersonalizedPuzzles: string;
     /** Try something else. */
     trySomethingElse: string;
-    /** Rate puzzle positively */
+    /** Great puzzle! */
     upVote: string;
     /** Use Ctrl+f to find your favourite opening! */
     useCtrlF: string;
     /** Use "Find in page" in the browser menu to find your favourite opening! */
     useFindInPage: string;
-    /** Vote to load the next one! */
-    voteToLoadNextOne: string;
     /** Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps select the most appropriate puzzles for your skill level. */
     yourPuzzleRatingWillNotChange: string;
     /** Your streak: %s */
@@ -3349,8 +3357,6 @@ interface I18n {
     contribute: string;
     /** Copy main line PGN */
     copyMainLinePgn: string;
-    /** Copy and paste the above text and send it to %s */
-    copyTextToEmail: I18nFormat;
     /** Copy to clipboard */
     copyToClipboard: string;
     /** Copy variation PGN */
@@ -3483,8 +3489,6 @@ interface I18n {
     emailConfirmHelp: string;
     /** Didn't receive your confirmation email after signing up? */
     emailConfirmNotReceived: string;
-    /** If everything else fails, then send us this email: */
-    emailForSignupHelp: string;
     /** Email me a link */
     emailMeALink: string;
     /** We have sent an email to %s. */
@@ -3541,8 +3545,6 @@ interface I18n {
     estimatedStart: string;
     /** Evaluating your move ... */
     evaluatingYourMove: string;
-    /** Evaluation gauge */
-    evaluationGauge: string;
     /** Playing now */
     eventInProgress: string;
     /** Everybody gets all features for free */
@@ -3765,7 +3767,7 @@ interface I18n {
     level: string;
     /** Rated games played on Lichess */
     lichessDbExplanation: string;
-    /** Lichess is a charity and entirely free/libre open source software. */
+    /** Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us! */
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;
@@ -3773,6 +3775,10 @@ interface I18n {
     lifetimeScore: string;
     /** Light */
     light: string;
+    /** Like */
+    like: string;
+    /** Liked */
+    liked: string;
     /** List */
     list: string;
     /** List players you have blocked */
@@ -3821,6 +3827,8 @@ interface I18n {
     maximumNbCharacters: I18nPlural;
     /** Maximum weekly rating */
     maximumWeeklyRating: string;
+    /** Maximum rating of %s */
+    maxRatingX: I18nFormat;
     /** Maybe include more games from the preferences menu? */
     maybeIncludeMoreGamesFromThePreferencesMenu: string;
     /** Member since */
@@ -3841,6 +3849,8 @@ interface I18n {
     minimumRatedGames: string;
     /** Minimum rating */
     minimumRating: string;
+    /** Minimum rating of %s */
+    minRatingX: I18nFormat;
     /** Minutes per side */
     minutesPerSide: string;
     /** Mistake */
@@ -4119,6 +4129,8 @@ interface I18n {
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
     pleasantChessExperience: string;
+    /** Please be nice in the forum. */
+    pleaseBeNiceInTheForum: string;
     /** Points */
     points: string;
     /** Popular openings */
@@ -4307,6 +4319,8 @@ interface I18n {
     seeBestMove: string;
     /** Send */
     send: string;
+    /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */
+    sendEmailForAccountVerification: I18nFormat;
     /** We've sent you an email with a link. */
     sentEmailWithLink: string;
     /** Sessions */
@@ -4647,8 +4661,6 @@ interface I18n {
     viewTournament: string;
     /** Visual motifs */
     visualMotifs: string;
-    /** We will respond shortly to help you complete your registration. */
-    waitForSignupHelp: string;
     /** Waiting */
     waiting: string;
     /** Waiting for analysis */
@@ -5367,8 +5379,6 @@ interface I18n {
     topics: string;
     /** Unclear position */
     unclearPosition: string;
-    /** Unlike */
-    unlike: string;
     /** Unlisted */
     unlisted: string;
     /** URL of the games, one per line */

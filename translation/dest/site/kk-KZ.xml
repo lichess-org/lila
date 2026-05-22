@@ -88,7 +88,7 @@
   <string name="database">Дерекқор</string>
   <string name="whiteDrawBlack">Ақ / Тең / Қара</string>
   <string name="averageRatingX">Орташа рейтинг: %s</string>
-  <string name="recentGames">Кейінгі ойындар</string>
+  <string name="recentGames">Соңғы ойындар</string>
   <string name="topGames">Үздік ойындар</string>
   <string name="masterDbExplanation">%2$s - %3$s жж FIDE-дәрежесі %1$s+ ойыншылар қатысқан 2 миллион шынайы ойын</string>
   <plurals name="mateInXHalfMoves">
@@ -119,7 +119,6 @@
   <string name="enable">Қосу</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
-  <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
@@ -247,9 +246,6 @@
   <string name="emailCanTakeSomeTime">Жетуіне біршама уақыт керек.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
   <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
-  <string name="emailForSignupHelp">Егер де осы амалдардың бәрі жарамаса, бізге осындай хат жіберіңіз:</string>
-  <string name="copyTextToEmail">Осы мәтінді көшіріп, %s жіберіңіз</string>
-  <string name="waitForSignupHelp">Тіркелуді аяқтау үшін біз тез арада жауап береміз.</string>
   <string name="accountConfirmed">%s тіркелгісі расталды.</string>
   <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>
   <string name="accountConfirmationEmailNotNeeded">Сізге растау хаты керек емес.</string>
@@ -539,7 +535,7 @@
   <string name="createANewTopic">Жаңа тақырып құру</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
-  <string name="lastPost">Кейінгі хабар</string>
+  <string name="lastPost">Соңғы хабар</string>
   <string name="views">Қаралған</string>
   <string name="replies">Жауаптар</string>
   <string name="replyToThisTopic">Осы тақырыпта жауап беру</string>

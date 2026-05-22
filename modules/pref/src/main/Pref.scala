@@ -108,15 +108,6 @@ case class Pref(
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
-  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-  def botCompatible =
-    theme == "brown" &&
-      pieceSet == "cburnett" &&
-      is2d &&
-      animation == Animation.NONE &&
-      highlight &&
-      coords == Coords.OUTSIDE
-
   def isolate(value: Boolean) =
     if !value then this
     else

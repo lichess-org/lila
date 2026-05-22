@@ -1,4 +1,4 @@
-import { requestIdleCallback } from 'lib';
+import { requestIdleCallbackSafe } from 'lib';
 import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { spinnerHtml } from 'lib/view';
@@ -58,7 +58,7 @@ function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) 
 }
 
 function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
-  requestIdleCallback(
+  requestIdleCallbackSafe(
     () => Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)), // do not codegolf to `f`
     800,
   );
@@ -137,7 +137,7 @@ $.fn.powerTip = function (opts) {
     tipController = new TooltipController(options);
 
   // hook mouse and viewport dimension tracking, causes layout reflow
-  requestIdleCallback(() => initTracking());
+  requestIdleCallbackSafe(() => initTracking());
 
   // setup the elements
   this.each((_, el: WithTooltip) => {

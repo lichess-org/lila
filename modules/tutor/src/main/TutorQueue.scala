@@ -24,7 +24,7 @@ final private class TutorQueue(
     maxSize = Max(64),
     timeout = 5.seconds,
     "tutorQueue",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:

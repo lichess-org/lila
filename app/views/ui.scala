@@ -49,7 +49,7 @@ object account:
   val pages = lila.pref.ui.AccountPages(helpers, ui, flagApi)
   val pref = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
-  val security = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
+  val security = lila.security.ui.AccountSecurity(helpers)(ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.bits.cspExternalEngine,

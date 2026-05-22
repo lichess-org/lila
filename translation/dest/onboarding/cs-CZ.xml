@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Toto je vaše profilová stránka.</string>
   <string name="enabledKidModeSuggestion">Bude tento účet používat dítě? Možná budete chtít povolit %s.</string>
   <string name="whatNowSuggestions">Co teď? Zde je několik návrhů:</string>
-  <string name="learnChessRules">Naučte se pravidla šachu</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Naučte se pravidla šachu</string>
   <string name="improveWithChessTacticsPuzzles">Zlepšete se pomocí taktických šachových úloh.</string>
   <string name="playTheArtificialIntelligence">Zahrajte si s umělou inteligencí.</string>
   <string name="playOpponentsFromAroundTheWorld">Zahrajte si se soupeři z celého světa.</string>

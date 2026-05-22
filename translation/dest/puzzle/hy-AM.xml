@@ -12,7 +12,6 @@
   <string name="origin">Պարտիաներից</string>
   <string name="specialMoves">Հատուկ քայլեր</string>
   <string name="didYouLikeThisPuzzle">Հավանեցի՞ք խնդիրը։</string>
-  <string name="voteToLoadNextOne">Քվեարկե՛ք և անցե՛ք հաջորդին։</string>
   <string name="upVote">Խնդիրը հավանեցի</string>
   <string name="downVote">Խնդիրը չհավանեցի</string>
   <string name="yourPuzzleRatingWillNotChange">Խնդիրներ լուծելու Ձեր վարկանիշը չի փոփոխվի։ Խնդիրների լուծումը մրցություն չէ։ Վարկանիշը հնարավորություն է տալիս ավելի լավ ընտրել խնդիրները ըստ Ձեր մակարդակի։</string>

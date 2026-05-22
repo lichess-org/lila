@@ -38,7 +38,7 @@ case class TurnstilePublicConfig(key: String, enabled: Boolean)
 
 trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
-  val username: Mapping[UserName]
+  val uniqueUsername: Mapping[UserName]
 
 opaque type FingerHash = String
 object FingerHash extends OpaqueString[FingerHash]

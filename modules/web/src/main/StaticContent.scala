@@ -101,7 +101,7 @@ Allow: /game/export/gif/thumbnail/
       case 110 => s"$faq#name"
       case 29 => s"$faq#titles"
       case 4811 => s"$faq#lm"
-      case 216 => routes.Main.mobile.url
+      case 216 => routes.Main.app.url
       case 340 => s"$faq#trophies"
       case 6 => s"$faq#ratings"
       case 207 => s"$faq#hide-ratings"

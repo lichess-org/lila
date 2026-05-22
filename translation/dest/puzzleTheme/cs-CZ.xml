@@ -63,7 +63,7 @@
   <string name="killBoxMate">Mat ve smrtící zóně</string>
   <string name="killBoxMateDescription">Věž je vedle soupeřova krále a je podporován dámou, která též blokuje úniková políčka krále. Věž a dáma tak společně uvězní soupeřova krále ve 3 krát 3 „smrtící zóně“.</string>
   <string name="triangleMate">Trojúhelníkový mat</string>
-  <string name="vukovicMate">Vukovicův mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovicův mat</string>
   <string name="vukovicMateDescription">Věž a jezdec spolupracují na matování krále. Věž dává mat za podpory třetí figury, zatímco jezdec blokuje králova úniková políčka.</string>
   <string name="knightEndgame">Jezdcové koncovky</string>
   <string name="knightEndgameDescription">Koncovka jen s jezdci a pěšci.</string>

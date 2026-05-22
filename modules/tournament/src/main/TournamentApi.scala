@@ -16,6 +16,7 @@ import lila.core.round.{ RoundBus, GoBerserk }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
 import lila.core.chess.Rank
+import lila.mon.extensions.*
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 
@@ -147,11 +148,11 @@ final class TournamentApi(
     )).so(Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
       cached
         .ranking(tour)
-        .mon(_.tournament.pairing.createRanking)
+        .mon(lila.mon.tournament.pairing.createRanking)
         .flatMap: ranking =>
           pairingSystem
             .createPairings(tour, users, ranking, smallTourNbActivePlayers)
-            .mon(_.tournament.pairing.createPairings)
+            .mon(lila.mon.tournament.pairing.createPairings)
             .flatMap:
               case Nil => funit
               case pairings =>
@@ -159,9 +160,9 @@ final class TournamentApi(
                   pairings
                     .parallelVoid: pairing =>
                       autoPairing(tour, pairing, ranking.ranking)
-                        .mon(_.tournament.pairing.createAutoPairing)
+                        .mon(lila.mon.tournament.pairing.createAutoPairing)
                         .map { socket.startGame(tour.id, _) }
-                    .mon(_.tournament.pairing.createInserts)
+                    .mon(lila.mon.tournament.pairing.createInserts)
                     .andDo:
                       lila.mon.tournament.pairing.batchSize.record(pairings.size)
                       waitingUsers.registerPairedUsers(
@@ -171,7 +172,7 @@ final class TournamentApi(
                       socket.reload(tour.id)
                       hadPairings.put(tour.id)
                       featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
-        .monSuccess(_.tournament.pairing.create)
+        .monSuccess(lila.mon.tournament.pairing.create)
         .chronometer
         .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
         .result)
@@ -788,7 +789,7 @@ final class TournamentApi(
   )(run: Tournament => Fu[A]): Fu[A] =
     fetch(tourId).flatMapz { tour =>
       if tour.nbPlayers > 3000
-      then run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
+      then run(tour).chronometer.mon(lila.mon.tournament.action(tourId.value, action)).result
       else run(tour)
     }
 

@@ -1,7 +1,7 @@
 package lila.round
 
 import alleycats.Zero
-import chess.{ Black, Centis, Color, White }
+import chess.{ ByColor, Centis, Color }
 import play.api.libs.json.*
 import scalalib.actor.AsyncActor
 
@@ -11,6 +11,7 @@ import lila.game.GameExt.*
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.round.RoundGame.*
+import lila.mon.extensions.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -44,9 +45,10 @@ final private class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone.flatMapz:
-        proxy.withGame: g =>
-          g.forceResignableNow.so(notifyGone(color, gone = !on))
+      proxy.withGameOptionSync: g =>
+        isLongGone.mapz:
+          if g.forceResignableNow then notifyGone(g.pov(color), gone = !on)
+        if on && !isOnline then publishBoardBotGone(g.pov(color), none)
       offlineSince = if on then None else offlineSince.orElse(nowMillis.some)
       bye = bye && !on
     def setBye(): Unit =
@@ -84,20 +86,18 @@ final private class RoundAsyncActor(
       botConnections = Math.max(0, botConnections + (if v then 1 else -1))
   end Player
 
-  private val whitePlayer = new Player(White)
-  private val blackPlayer = new Player(Black)
+  private val players = ByColor(Player(_))
 
   export proxy.{ game as getGame, update as updateGame, flushProgress as flushGame }
 
   val process: AsyncActor.ReceiveAsync =
 
-    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
+    case SetGameInfo(game, goneWeights) =>
       fuccess:
-        whitePlayer.userId = game.player(White).userId
-        blackPlayer.userId = game.player(Black).userId
+        players.mapWithColor: (color, player) =>
+          player.userId = game.player(color).userId
+          player.goneWeight = goneWeights(color)
         mightBeSimul = game.isSimul
-        whitePlayer.goneWeight = whiteGoneWeight
-        blackPlayer.goneWeight = blackGoneWeight
         if game.playableByAi then player.requestFishnet(game, this)
 
     // socket stuff
@@ -105,7 +105,7 @@ final private class RoundAsyncActor(
     case ByePlayer(playerId) =>
       proxy.withPov(playerId):
         _.so: pov =>
-          fuccess(getPlayer(pov.color).setBye())
+          fuccess(players(pov.color).setBye())
 
     case GetVersion(promise) =>
       fuccess:
@@ -116,12 +116,12 @@ final private class RoundAsyncActor(
 
     case RoomCrowd(white, black) =>
       fuccess:
-        whitePlayer.setOnline(white)
-        blackPlayer.setOnline(black)
+        players.white.setOnline(white)
+        players.black.setOnline(black)
 
     case RoundBus.IsOnGame(color, promise) =>
       fuccess:
-        promise.success(getPlayer(color).isOnline)
+        promise.success(players(color).isOnline)
 
     case GetSocketStatus(promise) =>
       getSocketStatus.tap(promise.completeWith)
@@ -135,8 +135,8 @@ final private class RoundAsyncActor(
     case HasUserId(userId, promise) =>
       fuccess:
         promise.success:
-          (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
-          (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
+          players.exists: player =>
+            userId.is(player.userId) && player.isOnline
 
     case lila.chat.RoundLine(line, json, watcher) =>
       fuccess:
@@ -195,7 +195,7 @@ final private class RoundAsyncActor(
     case RoundBus.FishnetPlay(uci, hash) =>
       handle: game =>
         player.fishnet(game, hash, uci)
-      .mon(_.round.move.time)
+      .mon(lila.mon.round.move.time)
 
     case RoundBus.Abort(playerId) =>
       handle(playerId): pov =>
@@ -232,7 +232,7 @@ final private class RoundAsyncActor(
     case RoundBus.ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
-          getPlayer(!pov.color).isLongGone.flatMap:
+          players(!pov.color).isLongGone.flatMap:
             if _ then
               finisher.rageQuit(
                 pov.game,
@@ -243,7 +243,7 @@ final private class RoundAsyncActor(
     case RoundBus.DrawForce(playerId) =>
       handle(playerId): pov =>
         (pov.game.forceDrawable && pov.game.hasClock && !pov.isMyTurn).so:
-          getPlayer(!pov.color).isLongGone.flatMap:
+          players(!pov.color).isLongGone.flatMap:
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
 
@@ -337,7 +337,7 @@ final private class RoundAsyncActor(
 
     case RoundBus.BotConnected(color, v) =>
       fuccess:
-        getPlayer(color).setBotConnected(v)
+        players(color).setBotConnected(v)
 
     case NoStart =>
       handle: game =>
@@ -362,29 +362,31 @@ final private class RoundAsyncActor(
       proxy.withGameOptionSync { g =>
         g.forceResignableNow.so(fuccess:
           Color.all.foreach: c =>
-            if !getPlayer(c).isOnline && getPlayer(!c).isOnline then
-              getPlayer(c).showMillisToGone.foreach {
+            if !players(c).isOnline && players(!c).isOnline then
+              players(c).showMillisToGone.foreach {
                 _.so: millis =>
-                  if millis <= 0 then notifyGone(c, gone = true)
-                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000).so(notifyGoneIn(c, millis))
+                  val pov = g.pov(c)
+                  if millis <= 0 then
+                    notifyGone(pov, gone = true)
+                    publishBoardBotGone(pov, 0L.some)
+                  else if g.clock.exists(_.remainingTime(c).millis > millis + 3000)
+                  then
+                    notifyGoneIn(pov, millis)
+                    publishBoardBotGone(pov, millis.some)
               })
       } | funit
 
     case Stop => for _ <- proxy.terminate() yield socketSend.exec(RP.Out.stop(roomId))
 
-  private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
-
   private def getSocketStatus: Fu[SocketStatus] =
-    whitePlayer.isLongGone
-      .zip(blackPlayer.isLongGone)
-      .map: (whiteIsGone, blackIsGone) =>
-        SocketStatus(
-          version = version,
-          whiteOnGame = whitePlayer.isOnline,
-          whiteIsGone = whiteIsGone,
-          blackOnGame = blackPlayer.isOnline,
-          blackIsGone = blackIsGone
-        )
+    for gone <- players.traverse(_.isLongGone)
+    yield SocketStatus(
+      version = version,
+      whiteOnGame = players.white.isOnline,
+      whiteIsGone = gone.white,
+      blackOnGame = players.black.isOnline,
+      blackIsGone = gone.black
+    )
 
   private def recordLag(pov: Pov): Unit =
     if (pov.game.playedPlies.value & 30) == 10 then
@@ -396,20 +398,15 @@ final private class RoundAsyncActor(
         lag <- clock.lag(pov.color).lagMean
       do putUserLag(user, lag)
 
-  private def notifyGone(color: Color, gone: Boolean): Funit =
-    proxy.withPov(color): pov =>
-      fuccess:
-        socketSend.exec(Protocol.Out.gone(pov.fullId, gone))
-        publishBoardBotGone(pov, gone.option(0L))
+  private def notifyGone(pov: Pov, gone: Boolean): Unit =
+    socketSend.exec(Protocol.Out.gone(pov.fullId, gone))
 
-  private def notifyGoneIn(color: Color, millis: Long): Funit =
-    proxy.withPov(color): pov =>
-      fuccess:
-        socketSend.exec(Protocol.Out.goneIn(pov.fullId, millis))
-        publishBoardBotGone(pov, millis.some)
+  private def notifyGoneIn(pov: Pov, millis: Long): Unit =
+    socketSend.exec(Protocol.Out.goneIn(pov.fullId, millis))
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.mightBeBoardOrBotCompatible(pov.game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(pov.game)
+    then
       lila.common.Bus.publishDyn(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)
@@ -460,7 +457,7 @@ final private class RoundAsyncActor(
 object RoundAsyncActor:
 
   case class HasUserId(userId: UserId, promise: Promise[Boolean])
-  case class SetGameInfo(game: Game, goneWeights: (Float, Float))
+  case class SetGameInfo(game: Game, goneWeights: ByColor[Float])
   case object Tick
   case object Stop
   case object WsBoot

@@ -69,9 +69,10 @@ function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit'): Promis
       case 'busy':
         return env.done('tsc', undefined);
       case 'ok':
-        if (status.some(s => s !== 'ok')) return;
-        if (key === 'noEmit') env.done('tsc', 0);
-        okResolve();
+        if (!status.some(s => s !== 'ok')) {
+          if (key === 'noEmit') env.done('tsc', 0);
+          okResolve();
+        }
     }
   };
 

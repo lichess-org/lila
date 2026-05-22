@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>
   <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
-  <string name="vukovicMate">Mat Vuković</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vuković</string>
   <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>

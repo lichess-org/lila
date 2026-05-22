@@ -52,7 +52,7 @@
   <string name="knightMate">Можно е да се направи мат само со коњ или ловец, доколку противникот има, освен кралот, и други фигури.</string>
   <string name="noRatingPoints">Не беа доделени поени за рејтинг</string>
   <string name="ratedGame">Потврдете дека сте играле рангирана партија. Пријателските партии не влијаат на рејтингот на играчите.</string>
-  <string name="botRatingAbuse">Во одредени околности кога се игра рангирана игра против компјутер, може да не се доделат поени доколку се утврди дека играчот ја злоупотребува играта за рејтинг поени.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Во одредени околности кога се игра рангирана игра против компјутер, може да не се доделат поени доколку се утврди дека играчот ја злоупотребува играта за рејтинг поени.</string>
   <string name="errorPage">Страна за грешка</string>
   <string name="reportErrorPage">Ако ја имате добиено страната за грешка, може да пријавите:</string>
   <string name="banAppeal">Жалба за забрана или ограничување на IP адресата</string>

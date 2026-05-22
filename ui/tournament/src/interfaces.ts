@@ -68,7 +68,7 @@ export interface TournamentData {
   defender?: string;
   spotlight?: {
     iconImg: string;
-    iconFont: string;
+    iconFont: LiconType;
   };
   schedule?: {
     freq: 'shield' | 'marathon';

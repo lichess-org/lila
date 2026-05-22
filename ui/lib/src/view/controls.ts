@@ -2,7 +2,6 @@
 
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 
-import { isMac } from '@/device';
 import { toggle as baseToggle, type Toggle } from '@/index';
 import * as licon from '@/licon';
 import * as xhr from '@/xhr';
@@ -25,8 +24,8 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
     insert: (v: VNode) => {
       const el = v.elm as HTMLInputElement;
       el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
-      el.addEventListener('mouseout', _ => el.blur());
+      el.addEventListener('input', () => write(parseInt(el.value)));
+      el.addEventListener('mouseout', () => el.blur());
     },
     update: (_, v: VNode) => {
       (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
@@ -39,28 +38,6 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     await xhr.text(`/pref/${prefKey}`, { method: 'post', body: xhr.form({ [prefKey]: v ? '1' : '0' }) });
     effect();
   });
-
-export function stepwiseScroll(
-  scrollAction: (e: WheelEvent) => void,
-  shouldSkip: (e: WheelEvent) => boolean,
-  ifSkipShouldStillPreventDefault?: boolean,
-): (e: WheelEvent) => void {
-  let accumulatedDeltaPixelMode = 0;
-  return (e: WheelEvent) => {
-    if (e.ctrlKey) return; // if touchpad zooming, e.ctrlKey is true
-    if (shouldSkip(e)) {
-      if (ifSkipShouldStillPreventDefault) e.preventDefault();
-      return;
-    }
-    e.preventDefault();
-    if (e.deltaMode === 0) {
-      accumulatedDeltaPixelMode += e.deltaY;
-      if (isMac() && Math.abs(accumulatedDeltaPixelMode) < 10) return;
-    }
-    accumulatedDeltaPixelMode = 0;
-    scrollAction(e);
-  };
-}
 
 export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
   return h('div.copy-me', [
@@ -77,7 +54,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
   $('.password-wrapper').each(function (this: HTMLElement) {
     const $wrapper = $(this);
     const $button = $wrapper.find('.password-reveal');
-    $button.on('click', function (e: Event) {
+    $button.on('click', (e: PointerEvent) => {
       e.preventDefault();
       const $input = $wrapper.find('input');
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
@@ -106,7 +83,7 @@ const pathAttrs = [
 export const spinnerHtml: string = $html`
   <div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
-      <g mask="url(#mask)" fill="none">
+      <g mask="url(#spinner-mask)" fill="none">
         ${pathAttrs.map(
           (a, i) =>
             `<path id="${String.fromCharCode(97 + i)}" stroke-width="${a['stroke-width']}" d="${a.d}"/>`,
@@ -120,7 +97,7 @@ export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
     h('svg', { attrs: { viewBox: box } }, [
       h(
         'g',
-        { attrs: { mask: 'url(#mask)', fill: 'none' } },
+        { attrs: { mask: 'url(#spinner-mask)', fill: 'none' } },
         pathAttrs.map(attrs => h('path', { attrs })),
       ),
     ]),

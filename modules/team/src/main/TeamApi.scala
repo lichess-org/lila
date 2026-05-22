@@ -34,7 +34,7 @@ final class TeamApi(
     expiration = 30.seconds,
     timeout = 5.seconds,
     name = "team",
-    lila.log.asyncActorMonitor.highCardinality
+    lila.mon.asyncActorMonitor.highCardinality
   )
 
   def team(id: TeamId) = teamRepo.byId(id)
@@ -126,7 +126,7 @@ final class TeamApi(
       .teamIdsList(of.id)
       .map(_.take(Team.maxJoin(of).value))
       .flatMap: allIds =>
-        if Granter(_.UserModView) then fuccess(allIds)
+        if Granter(_.AccountInfo) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>

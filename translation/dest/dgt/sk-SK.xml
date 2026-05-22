@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Ak sa ťah nezaznamená</string>
   <string name="checkYouHaveMadeOpponentsMove">Najprv skontrolujte, či ste na DGT šachovnici vykonali ťah súpera. Vráťte svoj ťah. Potiahnite znova.</string>
   <string name="asALastResort">Ako poslednú možnosť nastavte šachovnicu rovnako ako Lichess, a potom %s</string>
-  <string name="reloadThisPage">Načítajte stránku znova</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Načítajte stránku znova</string>
   <string name="dgtConfigure">DGT - Konfigurácia</string>
   <string name="lichessConnectivity">Lichess konektivita</string>
   <string name="validDgtOauthToken">Máte token OAuth vhodný pre hranie na DGT šachovnici.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Kľúčové slová sú vo formáte JSON. Používajú sa na preklad pohybov a výsledkov do Vášho jazyka. Predvolené nastavenie je angličtina, ale kľudne ho zmente.</string>
   <string name="debug">Vychytávanie chýb</string>
   <string name="verboseLogging">Podrobné záznamy</string>
-  <string name="toSeeConsoleMessage">Ak chcete zobraziť konzolovú správu, stlačte Command + Option + C (Mac) alebo Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Ak chcete zobraziť konzolovú správu, stlačte Command + Option + C (Mac) alebo Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Hrať s DGT šachovnicou</string>
   <string name="configure">Konfigurácia</string>
 </resources>

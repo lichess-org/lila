@@ -1,8 +1,7 @@
 package lila.core
 
 import scalalib.newtypes.OpaqueString
-
-import lila.core.net.Domain
+import scalalib.net.Domain
 
 object email:
 
@@ -36,26 +35,9 @@ object email:
       def nameAndDomain: Option[(String, Domain)] = domain.map: d =>
         e.takeWhile(_ != '@') -> d
 
-      def similarTo(other: EmailAddress) =
-        e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
-
       def isNoReply = e.startsWith("noreply.") && e.endsWith("@lichess.org")
       def isBlank = e.startsWith("noreply.blanked.")
       def isSendable = !e.isNoReply && !e.isBlank
-
-      def looksLikeFakeEmail =
-        e.domain.map(_.lower).exists(EmailAddress.gmailDomains.contains) && {
-          val dots = e.username.count('.' == _)
-          dots >= 3 || (dots == 2 && """\d\.\d""".r.unanchored.matches(e.username))
-        }
-
-      def eliminateDomainAlias: EmailAddress =
-        e.nameAndDomain.fold(e): (name, domain) =>
-          val newDomain =
-            if yandexDomains.contains(domain.lower) then "yandex.com"
-            else if gmailDomains.contains(domain.lower) then "gmail.com"
-            else domain
-          s"$name@$newDomain"
 
     private val regex =
       """(?i)^[a-z0-9.!#$&'+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r

@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { defined, notNull } from 'lib';
+import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 import * as licon from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
@@ -20,7 +21,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
   const node = ctrl.tree.nodeAtPath(path),
     whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, path),
-    isWhiteTurn = node.ply % 2 === 0,
+    isWhiteTurn = plyColor(node.ply) === 'white',
     centis: Array<number | undefined> = (
       isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
     ).map(c => (defined(c) && c < 0 ? undefined : c));

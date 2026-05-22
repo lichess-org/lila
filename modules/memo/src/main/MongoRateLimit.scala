@@ -29,7 +29,7 @@ final class MongoRateLimit[K](
     expiration = 1.minute,
     timeout = 10.seconds,
     name = s"$name.sequencer",
-    lila.log.asyncActorMonitor.highCardinality
+    lila.mon.asyncActorMonitor.highCardinality
   )
 
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"

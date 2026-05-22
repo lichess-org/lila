@@ -1,4 +1,4 @@
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 import { type VNode, h } from 'snabbdom';
 import { renderVoiceBar } from 'voice';
 
@@ -9,7 +9,6 @@ import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import {
-  stepwiseScroll,
   toggleButton as boardMenuToggleButton,
   onInsert,
   bindNonPassive,
@@ -17,6 +16,7 @@ import {
   type MaybeVNode,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import * as control from '../control';
 import type PuzzleCtrl from '../ctrl';
@@ -35,7 +35,7 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
+function jumpButton(icon: LiconType, effect: string, disabled: boolean, glowing = false): VNode {
   return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
 }
 

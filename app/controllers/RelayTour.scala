@@ -258,7 +258,11 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.tourStream
-        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+        .officialTourStream(
+          MaxPerSecond(20),
+          Max(getInt("nb") | 20).atMost(100),
+          liveOnly = getBool("live")
+        )
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):

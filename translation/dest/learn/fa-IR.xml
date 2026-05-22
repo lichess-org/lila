@@ -103,7 +103,7 @@
 دفاع‌تان چیست؟!</string>
   <string name="escapeOrBlock">یا شاه رو فراری بده
 یا مسیر حمله را ببند!</string>
-  <string name="outOfCheckComplete">تبریک! شاه‌تان را هیچوقت نمی‌شود زد، مطمئن شوید که می‌توانید در برابر کیش، دفاع کنید!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">تبریک! شاه‌تان را هیچوقت نمی‌شود زد، مطمئن شوید که می‌توانید در برابر کیش، دفاع کنید!</string>
   <string name="mateInOne">مات در یک حرکت</string>
   <string name="defeatTheOpponentsKing">شاه حریف را شکست بده</string>
   <string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>

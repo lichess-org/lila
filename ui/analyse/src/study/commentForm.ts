@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { prop } from 'lib';
+import { blurOnEscape, prop } from 'lib';
 import { throttle } from 'lib/async';
 import { storage } from 'lib/storage';
 import type { TreeNode, TreePath } from 'lib/tree/types';
@@ -89,10 +89,7 @@ export function view(root: AnalyseCtrl): VNode {
               const heightStore = storage.make('study.comment.height');
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
-
-              $(el).on('keydown', e => {
-                if (e.code === 'Escape') el.blur();
-              });
+              blurOnEscape(el);
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },

@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">หากตรวจไม่พบการเดิน</string>
   <string name="checkYouHaveMadeOpponentsMove">ตรวจสอบให้แน่ใจว่าคุณได้เดินหมากตามคู่ต่อสู้บนกระดาน DGT หรือยัง จากนั้นให้ย้อนกลับการเดินหมากของคุณ แล้วเดินใหม่อีกครั้ง</string>
   <string name="asALastResort">หากเป็นทางเลือกสุดท้าย ให้จัดกระดานให้เหมือนกับ Lichess ทุกประการ จากนั้น %s</string>
-  <string name="reloadThisPage">โหลดหน้านี้ใหม่</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">โหลดหน้านี้ใหม่</string>
   <string name="dgtConfigure">DGT - กำหนดค่า</string>
   <string name="lichessConnectivity">การเชื่อมต่อ Lichess</string>
   <string name="validDgtOauthToken">คุณมีโทเค็นกุญแจดิจิทัลที่เหมาะสมสำหรับการใช้งาน DGT แล้ว</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">คีย์เวิร์ดอยู่ในรูปแบบ JSON ใช้สำหรับแปลการเดินและผลการแข่งขันเป็นภาษาของคุณ ค่าเริ่มต้นคือภาษาอังกฤษ แต่คุณสามารถเปลี่ยนได้ตามต้องการ</string>
   <string name="debug">แก้ปัญหา</string>
   <string name="verboseLogging">การบันทึกข้อมูลแบบละเอียด</string>
-  <string name="toSeeConsoleMessage">หากต้องการดูข้อความในคอนโซล ให้กด Command + Option + C (Mac) หรือ Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">หากต้องการดูข้อความในคอนโซล ให้กด Command + Option + C (Mac) หรือ Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">เล่นด้วยกระดานดีจีที</string>
   <string name="configure">กำหนดค่า</string>
 </resources>

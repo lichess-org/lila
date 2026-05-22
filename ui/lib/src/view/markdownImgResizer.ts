@@ -124,7 +124,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
   }
 }
 
-export function markdownPicfitRegex(origin: string = ''): RegExp {
+export function markdownPicfitRegex(origin = ''): RegExp {
   return new RegExp(
     String.raw`!\[([^\n\]]*)\]\((${regexQuote(
       origin,
@@ -142,7 +142,6 @@ async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook,
   preloadImg.src = imageUrl;
   await preloadImg.decode();
   update.url(img, imageUrl, Number(img.dataset.widthRatio));
-  return;
 }
 
 function dragHandles(img: HTMLImageElement): HTMLElement[] {

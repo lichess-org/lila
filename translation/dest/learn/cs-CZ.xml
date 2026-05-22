@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Šachu můžete zabránit, když seberete figuru, která šachuje.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Jezdec šachu skrze Vaši obranu!</string>
   <string name="escapeOrBlock">Unikněte králem nebo zablokujte útok!</string>
-  <string name="outOfCheckComplete">Gratulujeme! Na Vašeho krále si jen tak někdo nepřijde. Vždy se ujistěte, že se můžete bránit proti šachu!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulujeme! Na Vašeho krále si jen tak někdo nepřijde. Vždy se ujistěte, že se můžete bránit proti šachu!</string>
   <string name="mateInOne">Mat jedním tahem</string>
   <string name="defeatTheOpponentsKing">Poražte soupeřova krále</string>
   <string name="mateInOneIntro">Pokud se soupeř nemůže bránit proti šachu, tak jste vyhráli.</string>

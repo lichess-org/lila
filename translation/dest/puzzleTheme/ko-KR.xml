@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">V자 모양인 제비의 꼬리를 시각적으로 닮은 체크메이트 패턴입니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>
   <string name="triangleMateDescription">퀸과 룩이 적 킹과 한 칸 떨어진 상태에서, 같은 랭크 혹은 파일에 있으며, 서로 한 칸을 사이에 두어 세 기물이 삼각형을 형성합니다.</string>
-  <string name="vukovicMate">부코비치 메이트</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">부코비치 메이트</string>
   <string name="vukovicMateDescription">룩과 나이트가 협력하여 왕에게 체크메이트를 겁니다. 룩은 세 번째 기물의 지원을 받아 메이트를 완성하고, 나이트는 왕의 도주로를 차단하는 역할을 합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>

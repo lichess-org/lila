@@ -97,6 +97,8 @@
   <string name="database">Baza danych</string>
   <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
   <string name="averageRatingX">Średni ranking: %s</string>
+  <string name="minRatingX">Minimalny ranking %s</string>
+  <string name="maxRatingX">Minimalny ranking %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Turniejowe partie graczy FIDE %1$s+ rozegranych w latach %2$s–%3$s</string>
@@ -130,7 +132,6 @@
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="showVariationArrows">Pokaż strzałki wariantów</string>
-  <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="visualMotifs">Motywy taktyczne</string>
   <string name="undefendedPieces">Wiszące bierki</string>
   <string name="pinnedPieces">Związane bierki</string>
@@ -298,9 +299,7 @@
   <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
-  <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
-  <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
-  <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
+  <string name="sendEmailForAccountVerification">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
@@ -1031,6 +1030,7 @@
   <string name="tryTheContactPage">użyj strony kontaktowej</string>
   <string name="makeSureToRead">Koniecznie przeczytaj %1$s</string>
   <string name="theForumEtiquette">etykieta forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Bądź miły na forum.</string>
   <string name="thisTopicIsArchived">Ten temat został zarchiwizowany i nie można już na niego odpowiedzieć.</string>
   <string name="joinTheTeamXToPost">Dołącz do %1$s, aby publikować na tym forum</string>
   <string name="teamNamedX">Klub %1$s</string>

@@ -7,6 +7,13 @@
   display: none;
 }
 
+@media (max-width: at-most($medium)) {
+  .site-title,
+  .site-title-nav__donate {
+    display: none;
+  }
+}
+
 .checklist {
   font-size: 1.5em;
   font-weight: 700;
@@ -25,6 +32,34 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   height: min-content;
   border-radius: $auth-input-radius;
   border: $border;
+
+  &__brand {
+    @extend %flex-column;
+
+    align-items: center;
+    gap: 0.5rem;
+    margin: -0.5em 0 2em 0;
+
+    @media (width >= $large) {
+      display: none;
+    }
+
+    &__logo {
+      display: block;
+      width: 64px;
+      height: 64px;
+      background: center no-repeat url('../logo/lichess-white.svg');
+      background-size: contain;
+
+      @include if-light {
+        background-image: url('../logo/lichess.svg');
+      }
+    }
+
+    &__name {
+      font-size: 1.5rem;
+    }
+  }
 
   .auth-tabs {
     @extend %flex-center-nowrap;
@@ -262,7 +297,34 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   }
 
   .cf-turnstile {
-    margin: 3rem 0 0 0;
+    margin: 1em 0;
+  }
+
+  .button.submit {
+    .button__loader .spinner {
+      width: 1.3em;
+      height: 1.3em;
+    }
+
+    .button__ready {
+      display: block;
+    }
+
+    .button__verifying {
+      justify-content: center;
+      gap: 1ch;
+      display: none;
+    }
+
+    &:disabled {
+      .button__ready {
+        display: none;
+      }
+
+      .button__verifying {
+        display: flex;
+      }
+    }
   }
 }
 

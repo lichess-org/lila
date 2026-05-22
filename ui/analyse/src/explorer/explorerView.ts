@@ -3,7 +3,7 @@ import type { VNode } from 'snabbdom';
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
@@ -141,11 +141,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl('td', showResult(game.winner)),
               hl('td', game.month || game.year),
               !isMasters &&
-                hl(
-                  'td',
-                  game.speed &&
-                    hl('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
-                ),
+                hl('td', game.speed && iconTag(perfIcons[game.speed], { title: ucfirst(game.speed) })),
             ]);
       }),
     ),
@@ -225,7 +221,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [hl('i', { attrs: dataIcon(licon.InfoCircle) }), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [iconTag(licon.InfoCircle), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -351,7 +347,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
                 !explorer.config.data.open() &&
-                hl('i.ddloader', {
+                hl('icon.ddloader', {
                   attrs: {
                     title: queuePosition
                       ? `Indexing ${queuePosition} other players first ...`

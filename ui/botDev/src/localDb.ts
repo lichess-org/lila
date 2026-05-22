@@ -71,13 +71,14 @@ export class LocalDb {
 
   delete(ids?: string[] | string): Promise<void[]> {
     if (!ids) return Promise.all([this.store?.clear(), this.liteStore?.clear()]);
-    else
-      return Promise.all(
-        [ids].flat().map(id => {
-          this.store?.remove(id);
-          this.liteStore?.remove(id);
-        }),
-      );
+    return Promise.all(
+      [ids]
+        .flat()
+        .flatMap(id => [
+          this.store?.remove(id) ?? Promise.resolve(),
+          this.liteStore?.remove(id) ?? Promise.resolve(),
+        ]),
+    );
   }
 }
 

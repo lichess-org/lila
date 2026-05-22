@@ -13,7 +13,6 @@ object Lilakka:
     val msg = s"$phase $name"
     cs.addTask(phase, name): () =>
       shutdownLogger.info(msg)
-      Chronometer(f())
-        .log(shutdownLogger)(_ => msg)
-        .result
-        .inject(akka.Done)
+      f().dmap: _ =>
+        shutdownLogger.info(s"$msg done")
+        akka.Done

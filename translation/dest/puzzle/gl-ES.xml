@@ -13,10 +13,9 @@
   <string name="origin">Fonte</string>
   <string name="specialMoves">Movementos especiais</string>
   <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
-  <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
-  <string name="upVote">Vota a favor do crebacabezas</string>
-  <string name="downVote">Vota en contra do crebacabezas</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">A túa puntuación en crebacabezas non cambiará. Ten en conta que os crebacabezas non son unha competición. A túa puntuación axuda a escollerche os crebacabezas máis axeitados ó teu nivel.</string>
+  <string name="upVote">Excelente crebacabezas!</string>
+  <string name="downVote">Crebacabezas ruín!</string>
+  <string name="yourPuzzleRatingWillNotChange">A túa puntuación en crebacabezas non cambiará. Ten en conta que os crebacabezas non son unha competición. A túa puntuación axuda a escollerche os crebacabezas máis axeitados ó teu nivel.</string>
   <string name="findTheBestMoveForWhite">Atopa a mellor xogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Atopa a mellor xogada para as negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir crebacabezas personalizados:</string>

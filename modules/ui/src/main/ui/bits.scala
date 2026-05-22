@@ -5,7 +5,6 @@ import java.time.YearMonth
 import chess.format.Fen
 
 import lila.core.i18n.Translate
-import lila.core.security.TurnstilePublicConfig
 import lila.core.config.ImageGetOrigin
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -85,30 +84,6 @@ object bits:
     a(href := routes.UserAnalysis.parseArg(ChessHelper.underscoreFen(fen)))(
       lila.core.i18n.I18nKey.site.analysis()
     )
-
-  object turnstile:
-    private val dataSitekey = attrData("sitekey")
-    private val dataTheme = attrData("theme")
-    private val dataAppear = attrData("appearance")
-    private val dataLang = attrData("language")
-    def apply(explicit: Boolean = false)(using config: TurnstilePublicConfig, ctx: Context) =
-      config.enabled.so:
-        val theme = ctx.pref.bg match
-          case 500 => "auto"
-          case 100 => "light"
-          case _ => "dark"
-        val widget = div(
-          cls := "cf-turnstile form-group",
-          dataSitekey := config.key,
-          dataLang := ctx.lang.code.toLowerCase,
-          dataTheme := theme,
-          dataAppear := "interaction-only"
-        )
-        val scriptUrl = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-        val scriptTag =
-          if explicit then script(src := s"$scriptUrl?render=explicit")
-          else script(src := scriptUrl, deferAttr, async)
-        frag(scriptTag, widget)
 
   def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := scalalib.StringOps.base64.encode(email))

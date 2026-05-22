@@ -83,7 +83,7 @@ const getCurrencyDigits = (currency: string): number => {
     const digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
     currencyDigitsCache.set(currency, digits);
     return digits;
-  } catch (_) {
+  } catch {
     return 2;
   }
 };

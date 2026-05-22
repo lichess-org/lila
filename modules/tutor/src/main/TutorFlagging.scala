@@ -4,6 +4,7 @@ import alleycats.Zero
 
 import lila.insight.*
 import lila.rating.PerfType
+import lila.mon.extensions.*
 
 private case class TutorFlagging(
     win: TutorBothOption[GoodPercent],
@@ -28,10 +29,10 @@ private object TutorFlagging:
       for
         mine <- insightApi
           .ask(question.timeFilter(config), user.user, withPovs = false)
-          .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
+          .monSuccess(lila.mon.tutor.askMine(question.monKey, user.perfType.key))
         peer <- insightApi
           .askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
-          .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
+          .monSuccess(lila.mon.tutor.askPeer(question.monKey, user.perfType.key))
       yield
         def valueCountOf(answer: Answer[Result], result: Result): Option[ValueCount[GoodPercent]] =
           answer.clusters.collectFirst:

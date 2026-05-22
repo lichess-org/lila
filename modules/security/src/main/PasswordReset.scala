@@ -6,7 +6,7 @@ import scalatags.Text.all.*
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
 
@@ -44,11 +44,10 @@ ${trans.common_orPaste.txt()}"""),
         )
     }
 
-  def confirm(token: String): Fu[Option[Me]] =
+  def confirm(token: String): Fu[Option[User]] =
     tokener
       .read(token)
-      .flatMapz(userRepo.me)
-      .map(_.filter(Granter.canFullyLogin))
+      .flatMapz(userRepo.notForeverClosedById)
       .recover:
         case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 

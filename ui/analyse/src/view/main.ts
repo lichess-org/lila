@@ -1,4 +1,4 @@
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';

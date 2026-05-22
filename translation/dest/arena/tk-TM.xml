@@ -12,7 +12,7 @@ Bassyr ýeňiş yzyndaky oýunlaryň hümmeti goşa bolup dowam eder ýeňiş ga
 Bu diýmek, ýeňiş 4 utuk gazandyrar, deňlik 2 utuk bolar we utulyş nol utuk.
 
 Mysal üçin, 2 ýeňiş yzýany bilen deňlik bolsa bu 6 utuk gazandyrar: 2+2+(2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
   <string name="berserkAnswer">Bir oýunçy oýnyň başynda Berserk düwmesine bassa wagtynyň ýarsyny ýitirer emma ýeňiş goşmaça 1 utuk gazandyrar.
 
 Gatançly wagt dolandyrşygynda Berserk moda geçmek gatanjy hem ýatyrýar. (1+2 kadadan daşarydyr, bu dolandyrşykda 1+0-a öwrülýär wagt)

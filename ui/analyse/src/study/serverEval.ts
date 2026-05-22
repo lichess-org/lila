@@ -1,7 +1,7 @@
 import type { ChartGame, AcplChart } from 'chart';
 import { h, type VNode } from 'snabbdom';
 
-import { requestIdleCallback } from 'lib';
+import { requestIdleCallbackSafe } from 'lib';
 import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNode } from 'lib/tree/types';
@@ -51,7 +51,7 @@ export function view(ctrl: ServerEval): VNode {
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-      requestIdleCallback(async () => {
+      requestIdleCallbackSafe(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
           .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline)
           .then(chart => (ctrl.chart = chart));

@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Tai jūsų profilio puslapis.</string>
   <string name="enabledKidModeSuggestion">Šia paskyra naudosis vaikas? Galite įjungti %s.</string>
   <string name="whatNowSuggestions">Kas toliau? Štai keli pasiūlymai:</string>
-  <string name="learnChessRules">Mokykitės šachmatų taisyklių</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Mokykitės šachmatų taisyklių</string>
   <string name="improveWithChessTacticsPuzzles">Tobulėkite su šachmatų taktikos galvosūkiais.</string>
   <string name="playTheArtificialIntelligence">Žaiskite prieš dirbtinį intelektą.</string>
   <string name="playOpponentsFromAroundTheWorld">Žaiskite prieš varžovus iš viso pasaulio.</string>

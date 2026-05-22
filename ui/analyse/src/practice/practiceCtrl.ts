@@ -1,7 +1,7 @@
 import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
 
-import { defined, prop, type Prop, requestIdleCallback } from 'lib';
+import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -201,7 +201,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     checkCevalOrTablebase();
   }
 
-  requestIdleCallback(checkCevalOrTablebase, 800);
+  requestIdleCallbackSafe(checkCevalOrTablebase, 800);
 
   return {
     onCeval: checkCeval,

@@ -8,6 +8,8 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
+import scalalib.Iso
+import com.roundeights.hasher.Algo
 
 import lila.common.HTTPRequest
 import lila.common.autoconfig.*
@@ -21,19 +23,14 @@ trait Turnstile:
 
   def verify()(using req: play.api.mvc.Request[?])(using FormBinding, Executor): Fu[Boolean] =
     verify(~Turnstile.form.bindFromRequest().value.flatten).map: result =>
-      lila.mon.security.turnstile
-        .hit(
-          client = HTTPRequest.clientName(req),
-          action = HTTPRequest.actionName(req),
-          result = result.toString
-        )
-        .increment()
+      Turnstile.monitor(result)
       result.ok
 
 object Turnstile:
 
   enum Result(val ok: Boolean):
     case Valid extends Result(true)
+    case CookieSkip extends Result(true)
     case Disabled extends Result(true)
     case Missing extends Result(false)
     case InvalidDomain extends Result(false)
@@ -44,6 +41,15 @@ object Turnstile:
 
   val field = "cf-turnstile-response" -> optional(nonEmptyText)
   val form = Form(single(field))
+
+  private[security] def monitor(result: Result)(using req: RequestHeader) =
+    lila.mon.security.turnstile
+      .hit(
+        client = HTTPRequest.clientName(req),
+        action = HTTPRequest.actionName(req),
+        result = result.toString
+      )
+      .increment()
 
   private[security] case class Config(
       @ConfigName("site_key") siteKey: String,
@@ -56,6 +62,25 @@ object Turnstile:
 final class TurnstileSkip extends Turnstile:
 
   protected def verify(response: String)(using req: RequestHeader) = fuccess(Turnstile.Result.Disabled)
+
+// Don't require a second captcha check for 2fa
+final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Executor):
+  private type Token = String
+  private val name = "tts"
+  private val ttl = 600
+  private given Iso[String, Token] = Iso(identity, identity)
+  private val tokener = StringToken.withLifetime[Token](secret, 600.seconds)
+  def create(login: LoginForm) =
+    for token <- tokener.make(serialize(login))
+    yield lilaCookie.cookie(name, token, maxAge = ttl.some, httpOnly = true.some)
+  def test(login: LoginForm)(using RequestHeader): Fu[Boolean] =
+    readFromReq.so: token =>
+      val ok = tokener.read(token).map(_.contains(serialize(login)))
+      ok.addEffect: ok =>
+        if ok then Turnstile.monitor(Turnstile.Result.CookieSkip)
+  private def serialize(login: LoginForm) =
+    Algo.hmac(secret.value).sha256(s"${login.username}${login.password.value}").hex.take(16)
+  private def readFromReq(using req: RequestHeader): Option[Token] = req.cookies.get(name).map(_.value)
 
 final class TurnstileReal(
     ws: StandaloneWSClient,
@@ -95,10 +120,10 @@ final class TurnstileReal(
             res.body[JsValue].validate[GoodResponse] match
               case JsSuccess(res, _) =>
                 if res.hostname != netDomain.value then Result.InvalidDomain
-                else if !res.success then
+                else if res.success then Result.Valid
+                else
                   logInfo("fail")
                   Result.Fail
-                else Result.Valid
               case JsError(_) =>
                 res.body[JsValue].validate[BadResponse].asOpt match
                   case Some(err) if err.missingInput => missingResponse

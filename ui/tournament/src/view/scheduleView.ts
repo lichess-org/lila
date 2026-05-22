@@ -3,6 +3,7 @@ import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
+import { dataIcon, iconTag } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
@@ -173,7 +174,7 @@ function renderTournament(tour: Tournament) {
       },
     },
     [
-      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour), title: tour.perf.name } } : {}),
+      iconTag(iconOf(tour)),
       h('span.body', [
         h('span.name', i18nName(tour)),
         h('span.infos', [
@@ -182,9 +183,7 @@ function renderTournament(tour: Tournament) {
             tour.position ? 'Thematic ' : null,
             i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
-          tour.nbPlayers
-            ? h('span.nb-players', { attrs: { 'data-icon': licon.User } }, tour.nbPlayers)
-            : null,
+          tour.nbPlayers ? h('span.nb-players', { attrs: dataIcon(licon.User) }, tour.nbPlayers) : null,
         ]),
       ]),
     ],

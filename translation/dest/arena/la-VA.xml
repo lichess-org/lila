@@ -3,7 +3,7 @@
   <string name="arenaTournaments">Certamenes harenae</string>
   <string name="isItRated">Censitane est?</string>
   <string name="howAreScoresCalculated">Ut numero computata?</string>
-  <string name="berserk">Insania arenae</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Insania arenae</string>
   <string name="howIsTheWinnerDecided">Quomodo victor placuit?</string>
   <string name="howDoesItEnd">Quomodo enim complere?</string>
   <string name="otherRules">Alia magni momenti praecepta</string>

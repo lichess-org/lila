@@ -105,6 +105,11 @@
       box-shadow: none;
     }
   }
+
+  .go-to-pinned {
+    margin: 1.5em 1em 1em 1em;
+    text-align: right;
+  }
 }
 
 @container (width < 250px) {

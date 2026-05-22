@@ -2,22 +2,22 @@
   --king-size: 32px;
 
   &__button {
-    i {
+    icon {
       display: block;
       width: var(--king-size);
       height: var(--king-size);
       background-size: var(--king-size) var(--king-size);
     }
 
-    &.white i {
+    &.white icon {
       background-image: url('../piece/cburnett/wK.svg');
     }
 
-    &.black i {
+    &.black icon {
       background-image: url('../piece/cburnett/bK.svg');
     }
 
-    &.random i {
+    &.random icon {
       background-image: url('../images/wbK.svg');
     }
   }

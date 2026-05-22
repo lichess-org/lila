@@ -52,17 +52,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def create = SecureBody(_.Teacher) { ctx ?=> _ ?=>
     NoTor:
       SafeTeacher:
-        env.clas.forms.clas.form
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.async(renderCreate(err.some)),
-            data =>
-              env.security.turnstile
-                .verify()
-                .flatMap:
-                  if _ then env.clas.api.clas.create(data).map(redirectTo)
-                  else BadRequest.async(renderCreate(data.some))
-          )
+        bindForm(env.clas.forms.clas.form)(
+          err => BadRequest.async(renderCreate(err.some)),
+          data => env.clas.api.clas.create(data).map(redirectTo)
+        )
   }
 
   private def renderCreate(from: Option[Form[ClasData] | ClasData])(using ctx: Context) =
@@ -104,7 +97,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             )
         yield Ok(page),
       orDefault = _ =>
-        isGranted(_.UserModView).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
+        isGranted(_.AccountInfo).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.allWithUsers(clas).flatMap { students =>
             env.user.api.withPerfsAndEmails(students.map(_.user)).map {
               views.mod.search.clas(clas, _)
@@ -226,6 +219,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   .inject(redirect.flashSuccess)
           yield res
       )
+  }
+
+  def makeStudentOauthTokens(id: ClasId) = SecuredScopedBody(_.Teacher)(_.Team.Lead) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      students
+        .filter(_.managed)
+        .sequentially: student =>
+          for
+            token <- env.oAuth.tokenApi.clasStudentToken(clas.name, student.userId)
+            user <- env.user.lightUserApi.asyncFallback(student.userId)
+          yield s"${user.name}, ${student.realName}, ${token.plain}"
+        .map: lines =>
+          Ok(lines.mkString("\n")).asAttachment(s"lichess-student-tokens.${clas.id}.csv")
   }
 
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>

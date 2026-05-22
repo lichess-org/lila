@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Pokud není tah rozpoznán</string>
   <string name="checkYouHaveMadeOpponentsMove">Nejprve zkontrolujte, zda jste na šachovnici DGT provedli tah svého soupeře. Vraťte svůj tah. Hrajte znovu.</string>
   <string name="asALastResort">Jako poslední možnost, nastavte šachovnici do stejné pozice jako na Lichess, pak %s</string>
-  <string name="reloadThisPage">Obnovit tuto stránku</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Obnovit tuto stránku</string>
   <string name="dgtConfigure">DGT - Konfigurace</string>
   <string name="lichessConnectivity">Připojení k Lichess</string>
   <string name="validDgtOauthToken">Máte vhodný OAuth token pro hraní na DGT šachovnici.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Klíčová slova jsou ve formátu JSON. Používají se k překladu tahů a výsledků do vašeho jazyka. Výchozí je angličtina, ale neváhejte si ji změnit.</string>
   <string name="debug">Ladění</string>
   <string name="verboseLogging">Podrobné ladění</string>
-  <string name="toSeeConsoleMessage">Abyste viděli konzoli zmáčkněte Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Abyste viděli konzoli zmáčkněte Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Hrát s DGT šachovnicí</string>
   <string name="configure">Konfigurace</string>
 </resources>

@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Dacă o mutare nu este detectată</string>
   <string name="checkYouHaveMadeOpponentsMove">Verifică dacă ai făcut mutarea oponentul tău mai întâi pe panoul DGT. Anulează mutarea ta. Joacă din nou.</string>
   <string name="asALastResort">Ca o ultimă soluţie, configurează panoul identic precum Lichess, apoi %s</string>
-  <string name="reloadThisPage">Reîncarcă această pagină</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Reîncarcă această pagină</string>
   <string name="dgtConfigure">DGT - Configurare</string>
   <string name="lichessConnectivity">Conectivitate Lichess</string>
   <string name="validDgtOauthToken">Ai un token OAuth potrivit pentru jocul DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Cuvintele cheie sunt în format JSON. Acestea sunt folosite pentru a traduce mutările și rezultatele în limba ta. Implicit este Engleză, dar nu ezita să o schimbi.</string>
   <string name="debug">Depanare</string>
   <string name="verboseLogging">Logări detaliate</string>
-  <string name="toSeeConsoleMessage">Pentru a vedea mesajele de consolă apasă Control + Shift + C (Windows, Linux, Chrome OS) sau ⌘ + ⌥ + C (Mac).</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Pentru a vedea mesajele de consolă apasă Control + Shift + C (Windows, Linux, Chrome OS) sau ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">Joacă cu o tablă DGT</string>
   <string name="configure">Configurare</string>
 </resources>

@@ -97,6 +97,8 @@
   <string name="database">Архив партий</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
+  <string name="minRatingX">Минимальный рейтинг %s</string>
+  <string name="maxRatingX">Максимальный рейтинг %s</string>
   <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
   <string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
@@ -130,7 +132,6 @@
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
-  <string name="evaluationGauge">Шкала оценки</string>
   <string name="visualMotifs">Шахматные мотивы</string>
   <string name="undefendedPieces">Незащищённые фигуры</string>
   <string name="pinnedPieces">Связанные фигуры</string>
@@ -298,9 +299,7 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
-  <string name="emailForSignupHelp">Если ничего не получилось, отправьте нам это письмо:</string>
-  <string name="copyTextToEmail">Скопируйте и вставьте текст выше и отправьте его по адресу %s</string>
-  <string name="waitForSignupHelp">Мы скоро вернёмся к вам чтобы помочь завершить регистрацию.</string>
+  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не требуется подтверждение по электронной почте.</string>
@@ -1031,6 +1030,7 @@
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
   <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
   <string name="theForumEtiquette">форумный этикет</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Пожалуйста, будьте вежливы на форуме.</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>

@@ -52,7 +52,7 @@
   <string name="knightMate">تەنھا لەڕێی ئەسپ و فیلەوە کشومات دەکرێت، ئەگەر ڕکابەرەکەت لە پاشا زیاتری مابوو لەسەر تەختەکە.</string>
   <string name="noRatingPoints">ھیچ خاڵێکی ھەڵسەنگاندن نەبەخشرا</string>
   <string name="ratedGame">دڵنیا ببەرەوە کە یاریی ھەڵسەنگاندن دەکەیت، یارییە ئاسایییەکان کار ناکەنە سەر ھەڵسەنگاندنی یاریزانەکان.</string>
-  <string name="botRatingAbuse">لە ھەندێک حاڵەتدا کاتێک بەرامبەر ھەژمارێکی بۆت یاری دەکەیت، یاریی ھەڵسەنگاندن لەوانەیە خاڵت پێ نەبەخشێت ئەگەر دەربکەوێت کە یاریزانەکە بۆتەکە خراپ بەکاردەھێنێت بۆ خاڵی ھەڵسەنگاندن.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">لە ھەندێک حاڵەتدا کاتێک بەرامبەر ھەژمارێکی بۆت یاری دەکەیت، یاریی ھەڵسەنگاندن لەوانەیە خاڵت پێ نەبەخشێت ئەگەر دەربکەوێت کە یاریزانەکە بۆتەکە خراپ بەکاردەھێنێت بۆ خاڵی ھەڵسەنگاندن.</string>
   <string name="errorPage">لاپەڕەی ھەڵە</string>
   <string name="reportErrorPage">ئەگەر ڕووبەڕووی لاپەڕەیەکی ھەڵە بوویتەتەوە، دەکرێ سکاڵا بکەیت:</string>
   <string name="learnHowToMakeBroadcasts">فێربە چۆن پەخشی خۆت دروست بکەیت لە لیچێس</string>

@@ -14,6 +14,7 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -41,7 +42,7 @@ final class SwissApi(
     expiration = 20.minutes,
     timeout = 10.seconds,
     name = "swiss.api",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   import BsonHandlers.{ *, given }
@@ -607,7 +608,7 @@ final class SwissApi(
                 )
               yield cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
-      .monSuccess(_.swiss.tick)
+      .monSuccess(lila.mon.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
     mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent.$ne(true)))

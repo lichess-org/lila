@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Et mattmønster som visuelt ligner halen til en svale, med en form som minner om en V.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, på tilstøtende felt til motstanderens konge, står på samme rad eller linje med ett felt mellom seg, slik at de tre brikkene danner en trekant.</string>
-  <string name="vukovicMate">Vuković-matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vuković-matt</string>
   <string name="vukovicMateDescription">Tårn og springer samarbeider for å sette kongen matt. Tårnet gir matt med støtte fra en tredje brikke, mens springeren brukes til å blokkere kongens fluktfelter.</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>

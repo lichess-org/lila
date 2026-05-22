@@ -12,10 +12,9 @@
   <string name="origin">Origine</string>
   <string name="specialMoves">Colpu speciale</string>
   <string name="didYouLikeThisPuzzle">Vi hà piaciutu stu ?</string>
-  <string name="voteToLoadNextOne">Vutate pà carigà u prossimu!</string>
   <string name="upVote">Vutà pà stu prublema</string>
   <string name="downVote">Vutà contru à issu prublema</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">A vostra classifica di  ùn hà da cambià. Issi prublemi ùn sò una cumpetizione. A vostra classifica ci permette di prupone vi prublemi addattati à u vostru livellu attuale.</string>
+  <string name="yourPuzzleRatingWillNotChange">A vostra classifica di  ùn hà da cambià. Issi prublemi ùn sò una cumpetizione. A vostra classifica ci permette di prupone vi prublemi addattati à u vostru livellu attuale.</string>
   <string name="findTheBestMoveForWhite">Truvate u colpu u più forte pè i bianchi.</string>
   <string name="findTheBestMoveForBlack">Truvate u colpu u più forte pè i neri.</string>
   <string name="toGetPersonalizedPuzzles">Per uttene prubemi persunalizati:</string>

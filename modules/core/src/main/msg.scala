@@ -24,3 +24,4 @@ trait MsgApi:
       date: Instant = nowInstant,
       ignoreSecurity: Boolean = false
   ): Fu[PostResult]
+  def systemPost(destId: UserId, text: String): Fu[PostResult]

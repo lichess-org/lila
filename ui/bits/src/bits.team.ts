@@ -20,7 +20,7 @@ export function initModule(opts: TeamOpts): void {
     $(this)
       .parents('form')
       .each(function (this: HTMLFormElement) {
-        xhr.formToXhr(this);
+        void xhr.formToXhr(this);
       });
   });
 }
@@ -35,6 +35,6 @@ $('button.explain').on('click', async e => {
   }
 });
 
-$('.emoji-details').each(function (this: HTMLElement) {
-  flairPickerLoader(this);
+$('.emoji-details').each(async function (this: HTMLElement) {
+  await flairPickerLoader(this);
 });

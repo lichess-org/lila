@@ -179,7 +179,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
             i18n.site.withdraw,
           );
 
-  return;
+  return undefined;
 }
 
 function joinTheGame(ctrl: SwissCtrl) {

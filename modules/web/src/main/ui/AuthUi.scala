@@ -14,10 +14,16 @@ final class AuthUi(helpers: Helpers):
   private def addReferrer(url: String)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
 
+  private def logoAndName =
+    div(cls := "auth__brand")(
+      span(cls := "auth__brand__logo", aria.hidden := "true"),
+      span(cls := "auth__brand__name")("lichess.org")
+    )
+
   def login(form: Form[?], isRememberMe: Boolean = true)(using
-      turnstile: TurnstilePublicConfig,
-      ctx: Context
-  )(using Option[ValidReferrer]) =
+      TurnstilePublicConfig,
+      Option[ValidReferrer]
+  )(using ctx: Context) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.auth", "login"))
@@ -25,6 +31,7 @@ final class AuthUi(helpers: Helpers):
       .csp(_.withTurnstile)
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
+          logoAndName,
           authTabs("login"),
           postForm(
             cls := "form3",
@@ -59,8 +66,7 @@ final class AuthUi(helpers: Helpers):
                 label(cls := "form-label", `for` := "login-remember-me")(
                   trans.site.rememberMe()
                 )
-              ),
-              form3.submit(trans.site.signIn(), icon = none)
+              )
             ),
             div(cls := "two-factor none")(
               form3.group(
@@ -74,10 +80,10 @@ final class AuthUi(helpers: Helpers):
                   pattern := "[0-9]{6}"
                 )
               ),
-              p(cls := "error none")("Invalid code."),
-              form3.submit(trans.site.signIn(), icon = none)
+              p(cls := "error none")("Invalid code.")
             ),
-            lila.ui.bits.turnstile(explicit = true)
+            turnstile.widget(explicit = true),
+            turnstile.submit(trans.site.signIn())
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
           a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(
@@ -100,6 +106,7 @@ final class AuthUi(helpers: Helpers):
             "auth-signup--simple" -> simple
           )
         )(
+          logoAndName,
           authTabs("signup"),
           postForm(
             id := "signup-form",
@@ -160,9 +167,9 @@ final class AuthUi(helpers: Helpers):
               )
             ,
             agreement(form("agreement"), form.errors.exists(_.key.startsWith("agreement."))),
-            button(cls := "submit button", tpe := "submit")(trans.site.signUp()),
-            if simple then small(cls := "form-help")(tosLink)
-            else lila.ui.bits.turnstile()
+            simple.not.option(turnstile.widget(explicit = true)),
+            turnstile.submit(trans.site.signUp()),
+            simple.option(small(cls := "form-help")(tosLink))
           )
         )
 
@@ -246,7 +253,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.isDefined.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.isDefined.option(iconTag(Icon.X)(cls := "is-red")),
               trans.site.passwordReset()
             )
           ),
@@ -255,7 +262,7 @@ final class AuthUi(helpers: Helpers):
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
-            lila.ui.bits.turnstile(),
+            turnstile.widget(),
             form3.action(form3.submit(trans.site.emailMeALink()))
           )
         )
@@ -312,7 +319,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.option(iconTag(Icon.X)(cls := "is-red")),
               "Log in by email"
             )
           ),
@@ -321,7 +328,7 @@ final class AuthUi(helpers: Helpers):
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
-            lila.ui.bits.turnstile(),
+            turnstile.widget(),
             form3.action(form3.submit(trans.site.emailMeALink()))
           )
         )
@@ -406,5 +413,6 @@ final class AuthUi(helpers: Helpers):
       tpe := "button",
       dataIcon := Icon.Cancel,
       title := trans.site.clearField.txt(),
-      aria.label := trans.site.clearField.txt()
+      aria.label := trans.site.clearField.txt(),
+      tabindex := -1
     )

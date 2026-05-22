@@ -110,7 +110,6 @@
   <string name="byCPL">Хаталар буенча</string>
   <string name="enable">Кабызылган</string>
   <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
-  <string name="evaluationGauge">Бәяләу шкаласы</string>
   <string name="multipleLines">Берничә вариант</string>
   <string name="cpus">Процессорлар</string>
   <string name="memory">Хәтер</string>
@@ -212,7 +211,6 @@
   <string name="youAreLeavingLichess">Сез Lichess сайтыннан чыгып китәсез</string>
   <string name="neverTypeYourPassword">Lichess серсүзегезне башка сайтларда кертмәгез!</string>
   <string name="proceedToX">%s -га дәвам итү</string>
-  <string name="copyTextToEmail">Югары текстны копияләп %s адресына җибәрегез</string>
   <string name="accountConfirmed">%s кулланучысы теркәлүе расланды.</string>
   <string name="accountCanLogin">Хәзер %s булып теркәлә аласыз.</string>
   <string name="accountClosed">%s дигән хисап ябылган.</string>

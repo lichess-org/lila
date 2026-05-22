@@ -94,4 +94,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? hl('td.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }) : hl('td.berserk');
+  b ? hl('td.berserk', { attrs: { ...dataIcon(licon.Berserk), title: 'Berserk' } }) : hl('td.berserk');

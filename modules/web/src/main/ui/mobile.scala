@@ -44,7 +44,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
   Page("Mobile")
     .js(Esm("bits.qrcode"))
     .css("bits.mobile")
-    .hrefLangs(lila.ui.LangPath(routes.Main.mobile)):
+    .hrefLangs(lila.ui.LangPath(routes.Main.app)):
       main(
         div(cls := "mobile page-small box box-pad")(
           h1(cls := "box__top")("Lichess mobile app"),

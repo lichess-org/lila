@@ -7,7 +7,7 @@
   <string name="isNotRated">Tornemen ini *tidak* rated dan *tidak* akan ubah rating anda.</string>
   <string name="someRated">Sesetengah tornemen adalah rated dan boleh mengubah rating anda.</string>
   <string name="howAreScoresCalculated">Bagaimana markah dikira?</string>
-  <string name="berserk">Berserk Arena</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserk Arena</string>
   <string name="howIsTheWinnerDecided">Bagaimana pemenang ditentukan?</string>
   <string name="howDoesItEnd">Bagaimana ia berakhir?</string>
   <string name="otherRules">Peraturan penting yang lain</string>

@@ -144,7 +144,7 @@ object home:
             a(href := "/about")(trans.site.aboutX("Lichess")),
             a(href := "/faq")(trans.faq.faqAbbreviation()),
             a(href := "/contact")(trans.contact.contact()),
-            a(href := "/mobile")(trans.site.mobileApp()),
+            a(href := "/app")(trans.site.mobileApp()),
             a(href := routes.Cms.tos)(trans.site.termsOfService()),
             a(href := "/privacy")(trans.site.privacy()),
             a(href := "/source")(trans.site.sourceCode()),

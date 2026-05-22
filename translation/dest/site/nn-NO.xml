@@ -126,7 +126,6 @@
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
-  <string name="evaluationGauge">Syn evaluering</string>
   <string name="visualMotifs">Visuelt motiv</string>
   <string name="undefendedPieces">Hengande konge</string>
   <string name="pinnedPieces">Spidda brikker</string>
@@ -267,9 +266,7 @@
   <string name="emailCanTakeSomeTime">Det kan ta litt tid før den kjem.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutt før du oppdaterer innboksen.</string>
   <string name="checkSpamFolder">Kontroller at e-posten ikkje har hamna i mappa for søplepost. Om det har skjedd må du markere e-posten som ikkje-spam.</string>
-  <string name="emailForSignupHelp">Om alt anna feilar kan du sende oss denne e-posten:</string>
-  <string name="copyTextToEmail">Kopier og lim inn teksten ovanfor og send den til %s</string>
-  <string name="waitForSignupHelp">Vi tek om kort tid kontakt med deg for å hjelpa til med å fullføre registreringa.</string>
+  <string name="sendEmailForAccountVerification">Send ein e-post til %s om du ikkje finn stadfesting i e-posten din, så stadfestar vi kontoen din for deg.</string>
   <string name="accountConfirmed">Brukar %s vart stadfesta.</string>
   <string name="accountCanLogin">Du kan no logga inn som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du treng ikkje stadfesting på e-post.</string>

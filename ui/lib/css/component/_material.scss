@@ -1,4 +1,6 @@
 .material {
+  pointer-events: none;
+
   @extend %flex-center-nowrap;
 
   div {

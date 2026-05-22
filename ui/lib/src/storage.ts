@@ -23,7 +23,7 @@ export function storedProp<V>(
   const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
-    if (defined(replacement) && replacement != cached) {
+    if (defined(replacement) && replacement !== cached) {
       cached = replacement;
       storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
@@ -40,10 +40,10 @@ export function storedProp<V>(
 }
 
 export const storedStringProp = (k: string, defaultValue: string): StoredProp<string> =>
-  storedProp<string>(k, defaultValue, str => str);
+  storedProp(k, defaultValue, str => str);
 
 export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<boolean> =>
-  storedProp<boolean>(k, defaultValue, str => str === 'true');
+  storedProp(k, defaultValue, str => str === 'true');
 
 export const storedStringPropWithEffect = (
   k: string,
@@ -58,7 +58,7 @@ export const storedBooleanPropWithEffect = (
 ): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
 
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
-  storedProp<number>(k, defaultValue, str => Number(str));
+  storedProp(k, defaultValue, str => Number(str));
 
 export const storedIntPropWithEffect = (
   k: string,

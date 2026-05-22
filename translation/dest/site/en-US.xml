@@ -126,7 +126,6 @@
   <string name="enable">Enable</string>
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
-  <string name="evaluationGauge">Evaluation gauge</string>
   <string name="visualMotifs">Visual motifs</string>
   <string name="undefendedPieces">Undefended pieces</string>
   <string name="pinnedPieces">Pinned pieces</string>
@@ -239,7 +238,7 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
   <string name="username">Username</string>
-  <string name="usernameOrEmail">User name or email</string>
+  <string name="usernameOrEmail">Username or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
@@ -268,9 +267,7 @@
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
-  <string name="emailForSignupHelp">If you still have questions, please send us an email:</string>
-  <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will respond shortly to help you complete your registration.</string>
+  <string name="sendEmailForAccountVerification">If you can\'t find your confirmation email, send an email to %s, and we\'ll confirm your account for you.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -943,6 +940,7 @@
   <string name="tryTheContactPage">try the contact page</string>
   <string name="makeSureToRead">Make sure to read %1$s</string>
   <string name="theForumEtiquette">the forum etiquette</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Please be nice in the forum.</string>
   <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>

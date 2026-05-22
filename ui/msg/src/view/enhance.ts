@@ -11,7 +11,7 @@ const giphyRegex =
 const teamMessageRegex =
   /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
-const img = (src: string) => `<img src="${src}"/>`;
+const img = (src: string) => `<img src="${src}" alt="${src}"/>`;
 
 const aImg = (src: string) => linkReplace(src, img(src));
 

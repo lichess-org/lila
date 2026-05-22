@@ -1,4 +1,5 @@
 import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
@@ -14,7 +15,7 @@ const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  private reported: boolean = false;
+  private reported = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   private readonly tsHideReportDialog: StoredProp<number>;
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
@@ -50,7 +51,7 @@ export default class Report {
       return;
     const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
-    const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
+    const nodeTurn = fenColor(node.fen);
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&

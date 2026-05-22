@@ -305,7 +305,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 .group(form("email"), trans.site.email(), help = trans.site.emailAssociatedToaccount().some)(
                   form3.input(_, typ = "email")
                 ),
-              lila.ui.bits.turnstile(),
+              turnstile.widget(),
               form3.action(form3.submit(trans.site.emailMeALink()))
             )
           )

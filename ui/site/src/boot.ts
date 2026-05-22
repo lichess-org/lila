@@ -1,4 +1,7 @@
-import { scrollToInnerSelector, requestIdleCallback } from 'lib';
+/// <reference types="../types/ab" />
+import * as ab from 'ab/site';
+
+import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import * as licon from 'lib/licon';
@@ -39,7 +42,7 @@ export function boot() {
     renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
 
@@ -63,6 +66,8 @@ export function boot() {
     toggleBoxInit();
 
     window.addEventListener('resize', dispatchChessgroundResize);
+
+    ab.init();
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 

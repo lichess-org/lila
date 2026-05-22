@@ -7,7 +7,7 @@ export class Clock {
 
   public constructor(
     readonly config: Config,
-    startedMillisAgo: number = 0,
+    startedMillisAgo = 0,
   ) {
     this.initialMillis = config.clock.initial * 1000 - startedMillisAgo;
   }

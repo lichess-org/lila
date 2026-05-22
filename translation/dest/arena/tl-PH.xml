@@ -13,7 +13,7 @@ Ang sumusunod na mga laro ay magpapatuloy sa halaga na doble sa iyong puntos han
 Yan ay, ang panalo ay may halagang apat na puntos, isang draw: dalawang puntos, at ang isang talo ay mananatilina walang halaga na puntos.
 
 Isang halimbawa, dalawang panalo kasunod ay isang draw at nagkakahalagang anim na puntos: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
   <string name="berserkAnswer">Kapag ang manlalaro ay pumindot sa Berserk na button sa simula ng laro, maiwawala ang kalahati sa oras ng kanilang orasan, pero ang panalo ay may halaga na isang dagdag na punto sa paligsahan.
 
 Pagpunta ng Berserk sa pagkontrol ng oras na may pagdagdag ay kinakansela din ang pagdagdag. (1+2 ay may pagbubukod, ito ay nagbibigay ng 1+0)

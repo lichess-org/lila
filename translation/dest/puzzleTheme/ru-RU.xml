@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Матовая конструкция, напоминающая собой хвост ласточки; также напоминает букву \"V\".</string>
   <string name="triangleMate">Треугольный мат</string>
   <string name="triangleMateDescription">Ферзь и ладья находятся на соседних полях с вражеским королём, на той же горизонтали или вертикали, образуюя треугольник.</string>
-  <string name="vukovicMate">Мат Вуковича</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Мат Вуковича</string>
   <string name="vukovicMateDescription">Ладья и конь совместно матуют короля. Ладья, защищённая ещё одной фигурой, ставит мат, а конь отрезает поля отступления вражеского короля.</string>
   <string name="knightEndgame">Коневой эндшпиль</string>
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>

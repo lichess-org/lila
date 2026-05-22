@@ -102,7 +102,7 @@ lakin hücumun bloklaya bilərsiz!</string>
 üstündən şah verdi!</string>
   <string name="escapeOrBlock">Şahla qaç
 və ya hücumu blokla!</string>
-  <string name="outOfCheckComplete">Təbriklər! Şahınız heç vaxt vurula bilməz, şah verilməkdən müdafiə müdafiə olunduğunuzdan əmin olun!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Təbriklər! Şahınız heç vaxt vurula bilməz, şah verilməkdən müdafiə müdafiə olunduğunuzdan əmin olun!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
   <string name="mateInOneIntro">Rəqib, verdiyiniz şahın qarşısını ala bilmədikdə qalib sayılırsız.</string>

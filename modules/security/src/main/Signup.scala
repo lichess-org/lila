@@ -26,6 +26,7 @@ final class Signup(
     authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
+    verifyMail: VerifyMail,
     pwnedApi: PwnedApi,
     cacheApi: lila.memo.CacheApi,
     netConfig: NetConfig
@@ -68,7 +69,7 @@ final class Signup(
                   else YesBecauseEmailDomain
         }
 
-  private val dedupCache = cacheApi.notLoading[SecurityForm.AnySignupData, Signup.Result](16, "signup.dedup"):
+  private val dedupCache = cacheApi.notLoading[SecurityForm.SignupData, Signup.Result](16, "signup.dedup"):
     _.expireAfterWrite(3.seconds).buildAsync()
 
   private val dedupSimpleSignupEmail = ExpireSetMemo[EmailAddress](1.day)
@@ -89,15 +90,24 @@ final class Signup(
       .flatMap: turnstileSuccess =>
         if !turnstileSuccess then fuccess(Signup.Result.TurnstileFail)
         else
-          forms.preloadEmailDns() >>
-            forms.signup
-              .website(simpleSignup)
+          val ip = HTTPRequest.ipAddress(req)
+          val data = for
+            (u, e) <- forms.signup.preForm.bindFromRequest().value
+            domain <- e.domain
+          yield (u, domain.lower)
+          for
+            _ <- data.so: (username, emailDomain) =>
+              (disposableEmailAttempt.prevAttempts(username, ip).size > 0).so:
+                verifyMail.refreshIfOk(emailDomain)
+            _ <- forms.preloadEmailDns()
+            res <- forms.signup
+              .full(simpleSignup)
               .form
               .bindFromRequest()
               .fold[Fu[Signup.Result]](
                 err =>
                   fuccess:
-                    disposableEmailAttempt.onFail(err, HTTPRequest.ipAddress(req))
+                    disposableEmailAttempt.onFail(err, ip)
                     Signup.Result.FormInvalid(err.tap(signupErrLog))
                 ,
                 data =>
@@ -108,7 +118,7 @@ final class Signup(
                       then fuccess(Signup.Result.SimpleSignupDuplicate)
                       else
                         for
-                          suspIp <- ipTrust.isSuspicious(HTTPRequest.ipAddress(req))
+                          suspIp <- ipTrust.isSuspicious(ip)
                           ipData <- ipTrust.reqData(req)
                           pwned <- pwnedApi.isPwned(data.clearPassword)
                           result <- signupRateLimit(data.username.id, suspIp = suspIp):
@@ -145,8 +155,9 @@ final class Signup(
                         yield result
                   )
               )
-      .addEffect: res =>
-        lila.mon.user.register.result(client, res.key).increment()
+          yield
+            lila.mon.user.register.result(client, res.key).increment()
+            res
 
   private def confirmOrAllSet(
       email: EmailAddress,
@@ -167,7 +178,7 @@ final class Signup(
     }
 
   private def monitor(
-      data: SecurityForm.AnySignupData,
+      data: SecurityForm.SignupData,
       confirm: MustConfirmEmail,
       ipData: IpTrust.IpData,
       ipSusp: Boolean,
@@ -214,7 +225,7 @@ final class Signup(
       mustConfirm: MustConfirmEmail,
       pwned: IsPwned
   ) =
-    disposableEmailAttempt.onSuccess(user, email, HTTPRequest.ipAddress(req))
+    disposableEmailAttempt.onSuccess(user.username, email, HTTPRequest.ipAddress(req))
     authLog(
       user.username.into(UserStr),
       email.value,

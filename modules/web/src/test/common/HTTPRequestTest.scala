@@ -1,8 +1,9 @@
 package lila.common
 
 import scala.math.Ordered.orderingToOrdered
+import scalalib.net.UserAgent
 
-import lila.core.net.{ UserAgent, LichessMobileVersion }
+import lila.core.net.LichessMobileVersion
 
 class HTTPRequestTest extends munit.FunSuite:
 

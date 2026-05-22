@@ -73,7 +73,7 @@
   <string name="morphysMateDescription">Notaðu biskupinn til að skáka kóngnum á meðan hrókurinn hjálpar til við að króa hann af.</string>
   <string name="triangleMate">Þríhyrningsmát</string>
   <string name="triangleMateDescription">Drottningin og hrókurinn eru í eins reits fjarlægð frá kóngi andstæðingsins. Þeir eru á sömu línu eða röð, með einn auðan reit á milli sín, þannig að þeir mynda þríhyrning.</string>
-  <string name="vukovicMate">Vukovic-mát</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic-mát</string>
   <string name="vukovicMateDescription">Hrókur og riddari vinna saman að því að máta kónginn. Hrókurinn mátar með stuðningi frá þriðja taflmanni, og riddarinn er notaður til að loka fyrir flóttareiti kóngsins.</string>
   <string name="knightEndgame">Endatafl með riddurum</string>
   <string name="knightEndgameDescription">Endatafl með einungis riddurum og peðum.</string>

@@ -44,13 +44,13 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
             )
             .join(' ');
 
-export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
+export const renderPieces = (pieces: Pieces, style: MoveStyle, pov: Color): VNode =>
   h(
     'div.pieces',
     COLORS.map(color =>
       h(`div.${color}-pieces`, [
         h('h3', i18n.site[color]),
-        ...renderPiecesByColorAsVNodes(pieces, style, color),
+        ...renderPiecesByColorAsVNodes(pieces, style, color, pov),
       ]),
     ),
   );
@@ -68,11 +68,13 @@ export const pocketsStr = (pocket: CrazyPocket): string =>
     .map(([role, count]) => `${i18n.nvui[role as Role]}: ${count}`)
     .join(', ');
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
+export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle, pov?: Color): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   if (p.toLowerCase() === 'a') return renderPiecesByColorAsString(pieces, style, color);
   const role = charToRole(p)!;
-  const keys = keysWithPiece(pieces, role, color);
+
+  const keys = keysWithPiece(pieces, role, color, pov);
+
   let pieceStr = transPieceStr(role, color, i18n);
   if (!pieceStr) {
     console.error(`Missing piece name for ${color} ${role}`);
@@ -81,9 +83,13 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
   return `${pieceStr}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle, pov?: Color): string {
   const renderedKeysWithPiece = Array.from(pieces)
-    .sort(([key1], [key2]) => key1.localeCompare(key2))
+    .sort(
+      pov === 'black'
+        ? ([key1], [key2]) => key2.localeCompare(key1)
+        : ([key1], [key2]) => key1.localeCompare(key2),
+    )
     .reduce<string[]>(
       (acc, [key, p]) =>
         key.includes(rankOrFile)
@@ -247,6 +253,7 @@ export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
 const getPiecesByColor = (
   pieces: Pieces,
   color: Color,
+  pov?: Color,
 ): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
   return ROLES.slice()
     .reverse()
@@ -254,7 +261,7 @@ const getPiecesByColor = (
       (lists, role) =>
         lists.concat({
           role,
-          keys: keysWithPiece(pieces, role, color),
+          keys: keysWithPiece(pieces, role, color, pov),
         }),
       [],
     )
@@ -267,17 +274,20 @@ const renderPiecesByColorAsString = (pieces: Pieces, style: MoveStyle, color: Co
     .join(', ');
 };
 
-const renderPiecesByColorAsVNodes = (pieces: Pieces, style: MoveStyle, color: Color): VNode[] => {
-  return getPiecesByColor(pieces, color).map(l =>
-    h('p', `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`),
-  );
+const renderPiecesByColorAsVNodes = (pieces: Pieces, style: MoveStyle, color: Color, pov: Color): VNode[] => {
+  return getPiecesByColor(pieces, color).map(l => {
+    const sortedKeys = l.keys.sort((a, b) => a[0].localeCompare(b[0]));
+    if (pov === 'black') sortedKeys.reverse(); // Reverse file order for black
+    return h('p', `${transRole(l.role)}: ${sortedKeys.map(k => renderKey(k, style)).join(', ')}`);
+  });
 };
 
-const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
-  Array.from(pieces).reduce<Key[]>(
-    (keys, [key, p]) => (p.color === color && p.role === role ? keys.concat(key) : keys),
-    [],
-  );
+const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color, pov?: Color): Key[] => {
+  return Array.from(pieces)
+    .filter(([_, p]) => (!color || p.color === color) && (!role || p.role === role))
+    .map(([key]) => key)
+    .sort((a, b) => (pov === 'black' ? b.localeCompare(a) : a.localeCompare(b)));
+};
 
 const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =>
   comment.by === 'lichess'

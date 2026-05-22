@@ -5,6 +5,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 import scala.util.matching.Regex
+import chess.ByColor
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
@@ -48,6 +49,7 @@ final class Env(
     securityApi: lila.core.security.SecurityApi,
     simulApiCircularDep: => lila.core.simul.SimulApi,
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
+    userNoteApi: lila.core.user.NoteApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
@@ -63,8 +65,9 @@ final class Env(
   private val config = appConfig.get[RoundConfig]("round")(using AutoConfig.loader)
 
   private val defaultGoneWeight = fuccess(1f)
-  private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
-    if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
+  private val goneWeightsFor: Game => Fu[ByColor[Float]] = (game: Game) =>
+    if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then
+      fuccess(ByColor.fill(1f))
     else
       def of(color: Color): Fu[Float] =
         def rageSitGoneWeight(sit: lila.core.playban.RageSit): Float =
@@ -76,7 +79,7 @@ final class Env(
           .player(color)
           .userId
           .fold(defaultGoneWeight)(uid => playban.rageSitOf(uid).dmap(rageSitGoneWeight))
-      of(chess.White).zip(of(chess.Black))
+      ByColor(of)
 
   private val scheduleExpiration = ScheduleExpiration: game =>
     game.timeBeforeExpiration.foreach: centis =>
@@ -94,9 +97,8 @@ final class Env(
   Bus.sub[lila.core.game.GameStart]: game =>
     onStart.exec(game.id)
 
-  Bus.sub[RoundSocket.Protocol.In.SelfReport]:
-    case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
-      selfReport(userId, ip, fullId, name)
+  Bus.sub[RoundSocket.Protocol.In.SelfReport]: r =>
+    selfReport(r.userId, r.ip, r.fullId, r.name)
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) =>
@@ -166,7 +168,7 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus: Game => Future[SocketStatus] = (game: Game) =>
+  val getSocketStatus: Game => Future[SocketStatus] = (game: Game) =>
     roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
 
   private def isUserPresent(game: Game, userId: UserId): Fu[Boolean] =

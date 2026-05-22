@@ -73,7 +73,7 @@
   <string name="swallowstailMateDescription">Një model shah-mati që nga ana pamore ngjan me bishtin e një harabeli, e ngjashme me një formë V.</string>
   <string name="triangleMate">Mat trekëndësh</string>
   <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
-  <string name="vukovicMate">Mat Vukoviç</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vukoviç</string>
   <string name="vukovicMateDescription">Një torre dhe një kalë bëhen tok për ta kapur mbretin mat. Torrja kryen matin teksa mbështetet nga një gur i tretë dhe kali përdoret për të bllokuar kuti shpëtimi të mbretit.</string>
   <string name="knightEndgame">Fund loje me kalë</string>
   <string name="knightEndgameDescription">Një fund loje vetëm me kuaj dhe ushtarë.</string>

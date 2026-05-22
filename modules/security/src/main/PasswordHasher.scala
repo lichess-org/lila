@@ -69,7 +69,7 @@ final class PasswordHasher(
   import lila.common.HTTPRequest
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
-    credits = 200,
+    credits = 300,
     duration = 10.minutes,
     key = "password.hashes.ip"
   )

@@ -47,7 +47,7 @@ export class StudyMemberCtrl {
   max = 30;
 
   constructor(readonly opts: Opts) {
-    this.dict = prop<StudyMemberMap>(opts.initDict);
+    this.dict = prop(opts.initDict);
     this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
@@ -155,7 +155,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return hl('i.act', {
+      return hl('icon.act', {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
@@ -164,7 +164,7 @@ export function view(ctrl: StudyCtrl): VNode {
         ),
       });
     if (!isOwner && member.user.id === members.opts.myId)
-      return hl('i.act.leave', {
+      return hl('icon.act.leave', {
         attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
         hook: bind('click', members.leave, ctrl.redraw),
       });

@@ -4,7 +4,7 @@ import { prop, type Prop } from 'lib';
 import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedSet, type StoredSet } from 'lib/storage';
-import { bind, onInsert, snabDialog } from 'lib/view';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type { AnalyseSocketSend } from '../socket';
@@ -69,7 +69,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     noScrollable: true,
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
-      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
+      h('p.info', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {

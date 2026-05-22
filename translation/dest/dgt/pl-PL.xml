@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Jeśli nie zostanie wykryty ruch</string>
   <string name="checkYouHaveMadeOpponentsMove">Sprawdź, czy najpierw wykonałeś ruch przeciwnika na szachownicy DGT. Cofnij swój ruch. Zagraj go ponownie.</string>
   <string name="asALastResort">W ostateczności, ustaw pozycję na szachownicy identycznie jak Lichess, a następnie %s</string>
-  <string name="reloadThisPage">Odśwież stronę</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Odśwież stronę</string>
   <string name="dgtConfigure">DGT - Konfiguracja</string>
   <string name="lichessConnectivity">Łączność z Lichess</string>
   <string name="validDgtOauthToken">Masz token OAuth odpowiedni do gry na szachownicy DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Słowa kluczowe zapisane są w formacie JSON. Używane są do tłumaczenia posunięć i wyników w Twoim języku. Domyślnym językiem jest angielski, ale możesz go zmienić.</string>
   <string name="debug">Opcje debugowania</string>
   <string name="verboseLogging">Rozszerzone logowanie</string>
-  <string name="toSeeConsoleMessage">Aby zobaczyć komunikat konsoli, naciśnij Command + Opcja + C (Mac) lub Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Aby zobaczyć komunikat konsoli, naciśnij Command + Opcja + C (Mac) lub Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Graj na szachownicy DGT</string>
   <string name="configure">Skonfiguruj</string>
 </resources>

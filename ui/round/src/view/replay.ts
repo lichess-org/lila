@@ -13,6 +13,7 @@ import {
   type LooseVNode,
   hl,
   onInsert,
+  dataIcon,
 } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -55,7 +56,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san.startsWith('P') ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');
@@ -88,7 +89,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
@@ -189,7 +190,7 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    hl('div.message', util.justIcon(licon.InfoCircle), [
+    hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],

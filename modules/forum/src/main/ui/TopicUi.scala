@@ -55,9 +55,18 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(
-              bits.postTextarea(_)()
-            ),
+            form3.group(
+              form("post")("text"),
+              trans.site.message(),
+              help = span(cls := "space-between")(
+                span(markdownIsAvailable),
+                a(
+                  dataIcon := Icon.InfoCircle,
+                  cls := "text",
+                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                )(trans.site.theForumEtiquette())
+              ).some
+            )(bits.postTextarea(_)()),
             renderCaptcha(form("post"), captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
@@ -191,7 +200,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                )("Forum etiquette")
+                )(trans.site.theForumEtiquette())
               ).some
             ): f =>
               if plaintext then

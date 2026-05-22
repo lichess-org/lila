@@ -45,7 +45,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def consume(token: String): Fu[Option[User]] =
-    tokener.read(token).flatMapz(userRepo.enabledById).map(_.filter(Granter.canFullyLogin))
+    tokener.read(token).flatMapz(userRepo.notForeverClosedById)
 
   object rateLimit:
 

@@ -51,7 +51,7 @@ export interface Toggle extends PropWithEffect<boolean> {
 }
 
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
-  const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
+  const prop = propWithEffect(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
   return prop;
 };
@@ -78,14 +78,14 @@ export const memoize = <A>(compute: () => A): (() => A) => {
 export const scrollToInnerSelector = (
   el: HTMLElement,
   selector: string,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
 export const scrollTo = (
   el: HTMLElement,
   target: HTMLElement | null,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => {
   if (!target) return;
@@ -110,7 +110,8 @@ export const onClickAway =
 
 export const hyphenToCamel = (str: string): string => str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 
-export const requestIdleCallback = (f: () => void, timeout?: number): void => {
+// adds support for safari
+export const requestIdleCallbackSafe = (f: () => void, timeout?: number): void => {
   if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
   else requestAnimationFrame(f);
 };
@@ -161,4 +162,14 @@ export function blurIfPrimaryClick(e: Event): void {
   const target = document.activeElement;
   if (target instanceof HTMLElement && e.button === 0 && (e.clientX || e.clientY))
     requestAnimationFrame(() => target.blur());
+}
+
+export function blurIfEscape(e: KeyboardEvent): void {
+  if (e.target instanceof HTMLElement && e.key === 'Escape') {
+    e.stopPropagation();
+    e.target.blur();
+  }
+}
+export function blurOnEscape(el: HTMLElement): void {
+  el.addEventListener('keydown', blurIfEscape);
 }

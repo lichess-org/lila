@@ -12,7 +12,6 @@
   <string name="origin">Kilmė</string>
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
-  <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
   <string name="upVote">Prabalsuoti už</string>
   <string name="downVote">Prabalsuoti prieš</string>
   <string name="yourPuzzleRatingWillNotChange">Jūsų galvosūkių reitingas nesikeis. Pažymėtina, kad galvosūkiai nėra rungtynės. Reitingas padeda išrinkti tinkamiausius galvosūkius pagal jūsų gebėjimus.</string>

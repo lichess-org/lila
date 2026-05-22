@@ -28,6 +28,7 @@
       border: $border;
       border-width: 1px 0 1px 1px;
       text-transform: capitalize;
+      text-shadow: 0 1px 0 $c-font-shadow;
 
       &:first-child {
         @extend %box-radius-left;
@@ -43,12 +44,16 @@
       &.active {
         background: $c-secondary;
         color: $c-over;
-        text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
         font-weight: bold;
-      }
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset !important;
 
-      &[aria-pressed='true'] {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;
+        @include if-light {
+          text-shadow: 0 1px 0 $c-font !important;
+        }
+
+        &:hover {
+          background: $m-secondary--lighten-5;
+        }
       }
     }
   }

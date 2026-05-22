@@ -18,19 +18,30 @@ object RoundMobile:
       val chat: Boolean,
       val prefs: Boolean,
       val bookmark: Boolean,
-      val forecast: Boolean
+      val forecast: Boolean,
+      val as: Option[Option[MyId]]
   ):
     // full round for every-day use
-    case Online(socket: SocketStatus)
-        extends UseCase(socket.some, chat = true, prefs = true, bookmark = true, forecast = true)
+    case Online(socket: SocketStatus)(using me: Option[MyId])
+        extends UseCase(
+          socket.some,
+          chat = true,
+          prefs = true,
+          bookmark = true,
+          forecast = true,
+          as = me.some
+        )
     // correspondence game sent through firebase data
     // https://github.com/lichess-org/mobile/blob/main/lib/src/model/correspondence/offline_correspondence_game.dart
-    case Offline extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = false)
+    case Offline
+        extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = false, as = none)
     // requested by the forecast analysis board to refresh the game
-    case Forecast extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = true)
+    case Forecast
+        extends UseCase(none, chat = false, prefs = false, bookmark = false, forecast = true, as = none)
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.core.game.GameRepo,
     jsonView: lila.game.JsonView,
     roundJson: JsonView,
@@ -55,25 +66,31 @@ final class RoundMobile(
         online(pov.game, pov.fullId.anyId, socket)
       .map(JsArray(_))
 
-  def online(game: Game, id: GameAnyId, socket: SocketStatus): Fu[JsObject] =
+  def online(game: Game, id: GameAnyId, socket: SocketStatus)(using Option[MyId]): Fu[JsObject] =
     forUseCase(game, id, UseCase.Online(socket))
 
   def offline(game: Game, id: GameAnyId): Fu[JsObject] =
     forUseCase(game, id, UseCase.Offline)
 
-  def forecast(game: Game, id: GameAnyId): Fu[JsObject] =
+  def forecast(game: Game, id: GameAnyId)(using Me): Fu[JsObject] =
     forUseCase(game, id, UseCase.Forecast)
 
   private def forUseCase(game: Game, id: GameAnyId, use: UseCase): Fu[JsObject] =
     for
       initialFen <- gameRepo.initialFen(game)
-      myPlayer = id.playerId.flatMap(game.playerById)
+      myPlayer = id.playerId
+        .flatMap(game.playerById)
+        .filter: player =>
+          use.as.forall: me =>
+            player.userId.fold(me.isEmpty)(_.is(me))
       users <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
-      chat <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
-      chatLines <- chat.map(_.chat).traverse(chatJson.asyncLines)
+      chat <- use.chat.so:
+        if myPlayer.isDefined
+        then getPlayerChat(game, myPlayer.exists(_.hasUser))
+        else getWatcherChat(game)(using use.as.flatten)
       bookmarked <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
       forecast <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
       tournament <- tourInfo(game)
@@ -114,7 +131,7 @@ final class RoundMobile(
           "chat",
           chat.map: c =>
             Json
-              .obj("lines" -> chatLines)
+              .obj("lines" -> c.lines)
               .add("restricted", c.restricted)
         )
         .add("bookmarked", bookmarked)
@@ -149,10 +166,19 @@ final class RoundMobile(
     .add("enablePremove", pref.premove)
     .add("submitMove", roundJson.submitMovePref(pref, game, nvui = false))
 
-  private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
+  private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.RestrictedLines]] =
     game.hasChat.so:
       for
-        chat <- chatApi.playerChat.findIf(game.id.into(ChatId), game.secondsSinceCreation > 1)
+        chat <- chatApi.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
         filtered = chat.copy(lines = chat.lines.filterNot(l => l.troll || l.deleted))
         lines <- chatJson.asyncLines(filtered)
-      yield Chat.Restricted(filtered, lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some
+      yield Chat.RestrictedLines(lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some
+
+  given lila.chat.AllMessages = lila.chat.AllMessages.No
+
+  private def getWatcherChat(game: Game)(using myId: Option[MyId]): Fu[Option[Chat.RestrictedLines]] =
+    game.hasChat.so:
+      for
+        me <- myId.so(userApi.me)
+        chat <- chatApi.userChat.findMine(ChatId(s"${game.id}/w"), !game.justCreated)(using me)
+      yield Chat.RestrictedLines(chat.lines, restricted = me.isEmpty).some

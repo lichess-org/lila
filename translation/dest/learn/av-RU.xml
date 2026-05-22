@@ -100,7 +100,7 @@
 цӀунулел кесказдасан!</string>
   <string name="escapeOrBlock">Къирал борчӀизабе
 яги тӀадекӀанцӀи нахъчӀвай!</string>
-  <string name="outOfCheckComplete">Баркула! Дур къирал чӀвазе рес гьечӀо, шахалдаса цӀунулеб куц кӀочон тоге!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Баркула! Дур къирал чӀвазе рес гьечӀо, шахалдаса цӀунулеб куц кӀочон тоге!</string>
   <string name="mateInOne">Цо хъурщиялъ мат</string>
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>

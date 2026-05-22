@@ -95,6 +95,7 @@ case class Modlog(
     case Modlog.setCarouselSize => "set blog carousel size"
     case Modlog.imagePass => "approve flagged image"
     case Modlog.imagePurge => "purge flagged image"
+    case Modlog.studyUnfeature => "unfeature study"
     case a => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -244,6 +245,7 @@ object Modlog:
   val setCarouselSize = "setCarouselSize"
   val imagePass = "imagePass"
   val imagePurge = "imagePurge"
+  val studyUnfeature = "studyUnfeature"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = e.index.has("team").so(~e.details) match

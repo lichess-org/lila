@@ -1,4 +1,4 @@
-import { defined, requestIdleCallback } from 'lib';
+import { defined, requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
 import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
@@ -23,7 +23,7 @@ export default new (class implements SoundI {
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
     this.ctxPromise = new Promise((resolve, fail) => {
-      requestIdleCallback(() => {
+      requestIdleCallbackSafe(() => {
         this.ctx = makeAudioContext();
         if (this.ctx) resolve(this.ctx);
         else fail(new Error('AudioContext not supported'));

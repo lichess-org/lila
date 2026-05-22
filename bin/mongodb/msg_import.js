@@ -42,7 +42,7 @@ if (!db.m_thread_sorted.count()) {
       ],
     })
     .forEach(t => {
-      if (t.creatorId == t.invitedId) return;
+      if (t.creatorId === t.invitedId) return;
       t.visibleByUserIds.sort();
       db.m_thread_sorted.insert(t);
     });

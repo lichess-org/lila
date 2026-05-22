@@ -41,14 +41,14 @@
     .icon {
       text-align: center;
 
-      i {
+      icon {
         font-size: 2em;
         opacity: 0.6;
       }
     }
 
     .enterable {
-      .icon i {
+      .icon icon {
         color: $c-brag;
         opacity: 1;
       }

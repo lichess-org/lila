@@ -13,6 +13,7 @@ import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
+import lila.mon.extensions.*
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -83,7 +84,7 @@ final private class RelayFetch(
     else
       val syncFu = for
         allGamesInSourceNoLimit <- fetchGames(rt).mon:
-          _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
+          lila.mon.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced = RelayGame.Slices.filterAndOrder(~rt.round.sync.slices)(filtered)
@@ -98,7 +99,7 @@ final private class RelayFetch(
         res <- sync
           .updateStudyChapters(rt, reordered)
           .withTimeoutError(7.seconds, SyncResult.Timeout)
-          .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
+          .mon(lila.mon.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
         nbGamesFinished = games.count(_.points.isDefined)
@@ -184,7 +185,7 @@ final private class RelayFetch(
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
-    base * {
+    val period = base * {
       if tour.tierIs(_.best) then 1
       else if tour.official then 2
       else 3
@@ -195,6 +196,7 @@ final private class RelayFetch(
       else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2
       else 3
     }
+    if upstream.hasIdChess && period < 15 then 15 else period
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,

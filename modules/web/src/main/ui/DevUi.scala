@@ -124,7 +124,7 @@ notify url users {username1,username2,username3} {url} {link title} | {link desc
 notify url titled {url} {link title} | {link description}
 notify url titled-arena {url} {link title} | {link description}
 patron lifetime {username}
-patron gift-month {username}
+patron gift-months {username} 3
 patron remove {username}
 patron set-months {username} {months}
 tournament feature {id}

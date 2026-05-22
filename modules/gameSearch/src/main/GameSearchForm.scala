@@ -3,7 +3,7 @@ package lila.gameSearch
 import chess.Rated
 import play.api.data.*
 import play.api.data.Forms.*
-import smithy4s.Timestamp
+import smithy4s.time.Timestamp
 
 import java.time.LocalDate
 

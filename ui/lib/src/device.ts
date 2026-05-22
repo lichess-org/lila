@@ -1,6 +1,6 @@
 import { memoize } from './index';
 import * as licon from './licon';
-import { bind, type Hooks } from './view';
+import { bind, type Hooks } from './view/snabbdom';
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
@@ -65,7 +65,7 @@ const webkitVersion = memoize<string | false>(
     false,
 );
 
-export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
+export const shareIcon: () => LiconType = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
 export type Feature =
   | 'wasm'
@@ -137,7 +137,7 @@ function sharedMemoryTest(): boolean {
   }
 }
 
-export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {
+export function isVersionCompatible(version?: string | false, vc?: VersionConstraint): boolean {
   if (!version) return false;
   if (!vc) return true;
 

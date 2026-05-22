@@ -6,6 +6,7 @@ import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
 
 import lila.core.lilaism.LilaException
+import lila.mon.extensions.*
 
 /* Extra generic features for play WS client,
  * without any knowledge of broadcast specifics.
@@ -73,7 +74,7 @@ private final class HttpClient(
         req
           .get()
           .monValue: res =>
-            _.relay.httpGet(
+            lila.mon.relay.httpGet(
               res.status,
               url.host.toString,
               etag = monitorEtagHit(req, res),

@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { debounce } from '@/async';
+import { blurOnEscape } from '@/common';
 
 import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
@@ -36,6 +37,7 @@ export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
         const el = vnode.elm as HTMLTextAreaElement;
         el.value = text;
         if (autofocus) el.focus();
+        blurOnEscape(el);
         $(el).on('change keyup paste', () => ctrl.post(el.value));
       },
     },

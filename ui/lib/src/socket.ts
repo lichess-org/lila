@@ -169,7 +169,7 @@ class WsSocket {
         this.ackable.resend();
       };
       ws.onmessage = e => {
-        if (e.data == 0) return this.pong();
+        if (e.data === '0') return this.pong();
         const m = JSON.parse(e.data);
         if (m.t === 'n') this.pong();
         this.handle(m);
@@ -268,7 +268,7 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private readonly handle = (m: MsgIn, retries: number = 10): void => {
+  private readonly handle = (m: MsgIn, retries = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);

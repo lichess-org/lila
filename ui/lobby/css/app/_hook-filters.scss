@@ -19,17 +19,48 @@
   .checkable {
     @extend %nowrap-ellipsis;
 
-    padding: 4.3px 2px 4.3px 0;
+    padding: 4px 2px 4px 0;
 
-    label,
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+
     input {
-      vertical-align: middle;
       cursor: pointer;
     }
   }
 
   .regular-checkbox {
     @extend %checkbox;
+
+    position: relative;
+    border-radius: calc($box-radius-size / 2);
+
+    &:hover {
+      border-color: $c-border-light;
+    }
+
+    &:checked {
+      &:hover {
+        border-color: $c-good;
+      }
+
+      &::after {
+        border: 1.5px solid #fff;
+        border-top: none;
+        border-right: none;
+        content: '';
+        width: 8px;
+        height: 4.5px;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%, -62%) rotate(-45deg);
+      }
+    }
   }
 
   tr.variant td:last-child {
@@ -43,7 +74,7 @@
 
   tr.inline .checkable {
     display: inline-block;
-    padding: 4.3px 20px 4.3px 2px;
+    padding: 6px 20px 2px 0;
   }
 
   input {
@@ -51,13 +82,31 @@
   }
 
   .range {
-    display: block;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    gap: 2px;
+    justify-content: center;
+
+    span {
+      color: $c-font-dim;
+      text-align: center;
+
+      &:first-child {
+        color: unset;
+        text-align: right;
+      }
+
+      &:last-child {
+        color: unset;
+        text-align: left;
+      }
+    }
   }
 
   .rating-range {
     @extend %flex-center-nowrap;
 
+    color: $c-font-dim;
     justify-content: center;
 
     input {
@@ -71,12 +120,10 @@
   }
 
   .actions {
+    display: flex;
+    gap: 6px;
     margin-top: 1.5em;
-    text-align: end;
-
-    button {
-      margin-inline-start: 0.3em;
-    }
+    justify-content: end;
   }
 
   @media (max-width: at-most($xx-small)) {

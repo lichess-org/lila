@@ -44,9 +44,9 @@ site.load.then(() => {
           '" data-href="/@/' +
           o.name +
           '">' +
-          '<i class="line' +
+          '<icon class="line' +
           (o.patron ? ' patron' : '') +
-          '"></i>' +
+          '"></icon>' +
           (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') +
           o.name +
           '</span>',

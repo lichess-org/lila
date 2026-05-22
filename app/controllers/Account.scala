@@ -10,7 +10,6 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.security.SecurityForm.Reopen
-import lila.web.AnnounceApi
 import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
@@ -80,14 +79,14 @@ final class Account(
           .full(me, perfs, withProfile = false) ++ Json
           .obj(
             "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying" -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
+            "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
             "nbChallenges" -> nbChallenges,
             "online" -> true
           )
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
-          .add("announce" -> AnnounceApi.get.map(_.json))
+          .add("announce" -> env.web.lichobileAnnounceApi.get)
       .headerCacheSeconds(15)
   }
 
@@ -106,7 +105,6 @@ final class Account(
           .extended(
             me.value,
             lila.api.UserApi.Opts(
-              withFollows = apiC.userWithFollows,
               withTrophies = false,
               withCanChallenge = false,
               withPlayban = getBool("playban"),
@@ -122,7 +120,7 @@ final class Account(
     env.round.proxyRepo
       .urgentGames(me)
       .map:
-        _.take((getInt("nb") | 9).atMost(50))
+        _.value.take((getInt("nb") | 9).atMost(50))
       .map:
         _.map(env.api.lobbyApi.nowPlaying)
       .map: povs =>

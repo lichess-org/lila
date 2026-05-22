@@ -19,7 +19,7 @@ let i,
 let dat = Date.now() / 1000;
 gamesToMigrate.forEach(function (g) {
   g.p.forEach(function (p) {
-    if (typeof p.mts != 'undefined') {
+    if (typeof p.mts !== 'undefined') {
       if (p.mts === null || p.mts.length === 0) {
         delete p.mts;
       } else {
@@ -40,7 +40,7 @@ gamesToMigrate.forEach(function (g) {
   });
   collection.insert(g);
   ++it;
-  if (it % batchSize == 0) {
+  if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);
     const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));

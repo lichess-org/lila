@@ -334,7 +334,7 @@ export default class CoordinateTrainerCtrl {
   onRadioInputKeyUp = (e: KeyboardEvent) => {
     // Mousetrap by default ignores key presses on inputs
     // when enter is pressed on a radio input, start training
-    if (!this.playing && e.which === 13) this.start();
+    if (!this.playing && e.key === 'Enter') this.start();
   };
 
   onVoice = (txt: string) => {
@@ -355,7 +355,7 @@ export default class CoordinateTrainerCtrl {
 
     if (!e.isTrusted || !this.playing) {
       input.value = '';
-      if (e.which === 13) this.start();
+      if (e.key === 'Enter') this.start();
     } else this.checkKeyboardInput();
   };
 
