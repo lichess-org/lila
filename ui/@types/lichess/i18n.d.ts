@@ -3163,6 +3163,8 @@ interface I18n {
     biographyDescription: string;
     /** Black */
     black: string;
+    /** Black aborted the game */
+    blackAborted: string;
     /** Black accepts takeback */
     blackAcceptsTakeback: string;
     /** Black cancels takeback */
@@ -4691,6 +4693,8 @@ interface I18n {
     whenCreateSimul: string;
     /** White */
     white: string;
+    /** White aborted the game */
+    whiteAborted: string;
     /** White accepts takeback */
     whiteAcceptsTakeback: string;
     /** White cancels takeback */

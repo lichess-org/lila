@@ -104,12 +104,12 @@ final class GameUi(helpers: Helpers):
     val abortReasonText = game.abortReason.map:
       case AbortReason.WhiteDidNotMove => trans.site.whiteDidntMove.txt()
       case AbortReason.BlackDidNotMove => trans.site.blackDidntMove.txt()
-      case AbortReason.WhiteAborted => "White aborted"
-      case AbortReason.BlackAborted => "Black aborted"
+      case AbortReason.WhiteAborted => trans.site.whiteAborted.txt()
+      case AbortReason.BlackAborted => trans.site.blackAborted.txt()
     import lila.game.GameExt.drawReason
     game.status match
       case S.Aborted =>
-        trans.site.gameAborted.txt() + abortReasonText.fold("")(r => s" • $r")
+          abortReasonText.getOrElse(trans.site.gameAborted.txt())
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)

@@ -76,9 +76,9 @@ export function statusOf(d: StatusData): string {
       case 'BlackDidNotMove':
         return i18n.site.blackDidntMove;
       case 'WhiteAborted':
-        return 'White aborted';
+        return i18n.site.whiteAborted;
       case 'BlackAborted':
-        return 'Black aborted';
+        return i18n.site.blackAborted;
       default:
         return undefined;
     }
@@ -90,7 +90,7 @@ export function statusOf(d: StatusData): string {
     case 'started':
       return i18n.site.playingRightNow;
     case 'aborted':
-      return `${i18n.site.gameAborted}${abortReasonText ? ` • ${abortReasonText}` : ''}${winnerSuffix}`;
+      return `${abortReasonText ?? i18n.site.gameAborted}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
     case 'resign':
