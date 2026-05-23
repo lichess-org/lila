@@ -137,9 +137,11 @@
   <string name="searchTime">Χρόνος αναζήτησης</string>
   <string name="searchTimeDescription">Ορισμός ώρας για την αξιολόγηση νέων θέσεων</string>
   <string name="threads">Νήματα</string>
+  <string name="threadsDescription">Ορίστε την τιμή χαμηλότερα από τον αριθμό νημάτων του επεξεργαστή σας, οι ενδείξεις δείχνουν ασφαλείς επιλογές</string>
   <string name="threadsDescriptionMobile">Περισσότερα νήματα θα χρησιμοποιήσουν περισσότερη μπαταρία για καλύτερη ανάλυση</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
+  <string name="memoryDescription">Μεγαλύτερες τιμές μπορεί να βελτιώσουν την απόδοση</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
