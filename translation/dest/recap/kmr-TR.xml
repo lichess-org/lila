@@ -16,4 +16,20 @@
 		<item quantity="one">%s gav hat avêtin</item>
 		<item quantity="other">%s gav hatin avêtin</item>
 	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Ev dike %s darê ku te dehf daye!</string>
+	<string name="movesStandardPiecesWeight">Kêşeya her kevirek standard nêzî 40g e</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s gav</item>
+		<item quantity="other">%s gav</item>
+	</plurals>
+	<string name="chessFoes">Dijberên te yên herî baş</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kîlogram</item>
+		<item quantity="other">%s kîlogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">te %s lîstikên xwe yên wek Spî bi vî awayî dest pê kirin</string>
 </resources>
