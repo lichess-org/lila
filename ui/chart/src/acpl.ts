@@ -204,6 +204,7 @@ const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: string[]) {
   $('div.advice-summary')
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       const symbol = this.getAttribute('data-symbol');
       const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
       const acplDataset = chart.data.datasets[0];
@@ -220,6 +221,7 @@ function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: 
       }
     })
     .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       chart.setActiveElements([]);
       chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
       chart.data.datasets[0].pointBorderColor = orangeAccent;
