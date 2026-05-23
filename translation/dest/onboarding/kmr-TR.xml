@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Mîna %s têkeve</string>
   <string name="welcome">Bi xêr hatî!</string>
   <string name="welcomeToLichess">Tu bi xêr hatî lichess.org-ê!</string>
   <string name="thisIsYourProfilePage">Ev rûpela profîla te ye.</string>
