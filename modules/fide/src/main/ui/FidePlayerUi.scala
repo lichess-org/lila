@@ -84,9 +84,13 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
           )(label)
         )
       else th(label)
-    table(
-      cls := List("slist slist-pad fide-players-table" -> true, "fide-players-table--sortable" -> sortable)
-    )(
+    div(cls := "slist-wrapper")(
+      table(
+        cls := List(
+          "slist slist-pad fide-players-table" -> true,
+          "fide-players-table--sortable" -> sortable
+          )
+        )(
       thead:
         tr(
           header(trs.name(), FidePlayerOrder.name),
@@ -128,8 +132,8 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         ,
         pagerNextTable(players, np => addQueryParam(url(np).url, "order", order.key))
       )
+      )
     )
-
   private def followButton(p: FidePlayer.WithFollow) =
     val id = s"fide-player-follow-${p.player.id}"
     label(cls := "fide-player__follow")(
