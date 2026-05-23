@@ -54,5 +54,13 @@
     <item quantity="one">berî %s salê</item>
     <item quantity="other">berî %s salan</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s deqe maye</item>
+    <item quantity="other">%s deqe maye</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s saet maye</item>
+    <item quantity="other">%s saet maye</item>
+  </plurals>
   <string name="completed">temambûyî</string>
 </resources>
