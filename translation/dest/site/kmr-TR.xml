@@ -218,6 +218,7 @@
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
+  <string name="variantsDescription">Awayên zêdetir ji lîstinê re</string>
   <string name="timeControl">Kontrola demê</string>
   <string name="realTime">Dema heqîqî</string>
   <string name="correspondence">Lîstika bi nivîs</string>
@@ -244,6 +245,7 @@
   <string name="changeUsernameNotSame">Tenê halê hûrdekî - girdekiya tîpan dikare were guherandin. Mîsalen \"mihemedronî\" li \"MihemedRonî\".</string>
   <string name="changeUsernameDescription">Navê xwe yê bikarhêneriyê biguherîne. Ev tenê carekê dikare were kirin û tu tenê ji bo guherandina girdekî - hûrdekiya tîpên di navê te yê bikarhêneriyê de destûrdayî yî.</string>
   <string name="signupUsernameHint">Jê emîn be ku te navekî bikarhênerîyê ya malbat-dost bijartîye. Tu nikarî paşê wê biguherînî û her hesabê bi navekî bikarhênerîyê ya neminasîb wê werin girtin!</string>
+  <string name="signupEmailPromise">Em ê tenê e-peyamên derbarê hesabê te de ji te re bişînin û em qet navnîşana e-peyama te bi kesî re parve nakin.</string>
   <string name="password">Pêborîn</string>
   <string name="changePassword">Pêborînê biguherîne</string>
   <string name="changeEmail">Epeyamê biguherîne</string>
@@ -267,6 +269,7 @@
   <string name="emailCanTakeSomeTime">Gihîna wê kare hinek wext bigire.</string>
   <string name="refreshInboxAfterFiveMinutes">5 deqe bisekine û înboksa emaîla xwe nû bike.</string>
   <string name="checkSpamFolder">Herwiha qismê spamê kontrol bike, dibe ku çûbe wê derê. Eger li wir be, wek \"spam nîne\" îşaret bike.</string>
+  <string name="sendEmailForAccountVerification">Heke tu e-peyama pejirandinê nabînî, e-peyamgirekê ji %s re bişîne û em ê hesaba te ji bo te bipejirînin.</string>
   <string name="accountConfirmed">Bikarhêner %s bi serkeftinî hate tesdîqkirin.</string>
   <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
   <string name="accountConfirmationEmailNotNeeded">Îhtîyacî bi emaîla tesdîqkirinê nîne.</string>
@@ -308,6 +311,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Pozîsyoneke xisûsî</string>
   <string name="unlimited">Bêsînor</string>
+  <string name="unlimitedDescription">Çi qas wext ji te re lazim be, wergire</string>
   <string name="mode">Mod</string>
   <string name="casual">Bêpuan</string>
   <string name="rated">Bipuan</string>
@@ -354,6 +358,7 @@
     <item quantity="other">%s dilîze</item>
   </plurals>
   <string name="exportGames">Lîstikan derxîne</string>
+  <string name="ratingFilter">Fîltera puanê</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s çirke bide</item>
     <item quantity="other">%s çirke bide</item>
@@ -362,7 +367,15 @@
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
+  <string name="whiteProposesTakeback">Spî daxwaza paşvekişandina gavan dike</string>
+  <string name="blackProposesTakeback">Reş daxwaza paşvekişandina gavan dike</string>
   <string name="takebackPropositionSent">Vegerandin hate şandin</string>
+  <string name="whiteDeclinesTakeback">Spî daxwaza paşvegavê red dike</string>
+  <string name="blackDeclinesTakeback">Reş daxwaza paşvegavê red dike</string>
+  <string name="whiteAcceptsTakeback">Spî daxwaza paşvegavê qebûl dike</string>
+  <string name="blackAcceptsTakeback">Reş daxwaza paşvegavê qebûl dike</string>
+  <string name="whiteCancelsTakeback">Spî daxwaza paşvegavê betal dike</string>
+  <string name="blackCancelsTakeback">Reş daxwaza paşvegavê betal dike</string>
   <string name="yourOpponentProposesATakeback">Reqîbê te vegerandina hemleyê teklîf kir</string>
   <string name="bookmarkThisGame">Vê lîstikê bike bijare</string>
   <string name="tournament">Turnuwa</string>
@@ -401,6 +414,7 @@
     <item quantity="other">Divê tu %s lîstikên din ên bipuan bilîzî</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Fîlterên puanê girtî ne ji ber ku puana te ne cîgir e. Ji bo zêdekirina cîgiriyê lîstikên bipuan bilîze.</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Pûana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
@@ -423,6 +437,8 @@
   <string name="leaderboard">Texteya skoran</string>
   <string name="screenshotCurrentPosition">Wêneyê ekranê bigire ji bo pozîsyona mewcûd</string>
   <string name="gameAsGIF">Lîstik wek GIF</string>
+  <string name="playerNames">Navên lîstikvanan</string>
+  <string name="moveAnnotations">Şîroveyên gavan</string>
   <string name="pasteTheFenStringHere">Nivîsa FENê bi vir de bizeliqîne</string>
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
   <string name="orUploadPgnFile">An jî dosyeyeke PGNê bar bike</string>
@@ -476,6 +492,7 @@
   <string name="openTournaments">Pêşbirkên vekirî</string>
   <string name="duration">Mawe</string>
   <string name="winner">Yê biserketî</string>
+  <string name="standings">Rêzbendî</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
   <string name="tournamentCalendar">Salnameya pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
@@ -489,6 +506,7 @@
   <string name="points">Poînt</string>
   <string name="wins">Serkeftin</string>
   <string name="losses">Mexlûbiyet</string>
+  <string name="startingIn" comment="Displayed above a timer">Dest pê dike piştî</string>
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
   <string name="pause">Bisekîne</string>
   <string name="resume">Bidomîne</string>
@@ -507,6 +525,7 @@
   <string name="popularOpenings">Destpêkên binavûdeng</string>
   <string name="endgamePositions">Pozisyonên Dawîyê</string>
   <string name="chess960StartPosition">Pozîsyona destpêkê ya Chess960ê: %s</string>
+  <string name="randomChess960Position">Rêzkirina heremî ya Chess960</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="clearBoard">Texteyê paqij bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
@@ -569,23 +588,33 @@
   <string name="troll">Troll</string>
   <string name="other">Yên din</string>
   <string name="reportCheatBoostHelp">Lînka li lîstikê(an) bi vir de deyne û îzah bike ka çi xeletî heye di halûhereketên vê bikarhênerê de. Tenê bêjî \"ew hîle dike\" nabe, ji me re îzah bike ku te çawa gihîştîye vê qenaetê.</string>
+  <string name="reportUsernameHelp">Rûn bike ka çima ev navê bikarhênerî bi bêrêzî dibînî. Tenê nebêje \"ew bêrêzî ye/ne guncayî ye\", lê ji me re bibêje ka tu çawa gihîştî vê encamê, bi taybetî heke ev bêrêzî ne diyar be, ne bi Îngilîzî be, bi zargotinê be, an jî amajeyeke dîrokî/çandî be.</string>
+  <string name="reportProcessedFasterInEnglish">Heke raporta te bi Îngilîzî were amadekirin, wê pêvajoya raportê zûtir bi rê ve biçe.</string>
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
+  <string name="importedByX">Ji hêla %s ve hat barkirin</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notên te</string>
   <string name="typePrivateNotesHere">Notên xwe yên taybet li vir binivîsîne</string>
+  <string name="writeAPrivateNoteAboutThisUser">Ji bo vî bikarhênerî bîrnameyek taybet binivîse</string>
+  <string name="noNoteYet">Tu bîrname tune</string>
   <string name="invalidUsernameOrPassword">Navê bikarhêneriyê an pêborîn nederbasdar e</string>
   <string name="incorrectPassword">Pêborîna nerast</string>
   <string name="invalidAuthenticationCode">Koda rastandinê ya nederbasdar</string>
+  <string name="clearField">Paqij bike</string>
+  <string name="orSeparator">An</string>
+  <string name="logInByEmail">Bi e-peyamekê têkeve</string>
   <string name="emailMeALink">Lînkê wek epeyam bişîne min</string>
   <string name="currentPassword">Pêborîna vêga</string>
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
   <string name="newPasswordsDontMatch">Pêborînên nû ne heman in</string>
+  <string name="newPasswordStrength">Hêza pêborînê</string>
   <string name="clockInitialTime">Destpêkirina Lîstokê</string>
   <string name="clockIncrement">Bilindbûna Dem</string>
   <string name="privacy">Nihênî</string>
+  <string name="privacyPolicy">Siyaseta nihêniyê</string>
   <string name="letOtherPlayersFollowYou">Bihêle ku lîzerên din te taqîb bikin</string>
   <string name="letOtherPlayersChallengeYou">Bihêle ku lîzerên din te vexwînin lîstikan</string>
   <string name="letOtherPlayersInviteYouToStudy">Bihêle ku lîzerên din te vexwînin xebatan</string>
@@ -596,6 +625,7 @@
   <string name="slow">Hêdî</string>
   <string name="insideTheBoard">Li nav texteyê</string>
   <string name="outsideTheBoard">Li derveyî texteyê</string>
+  <string name="allSquaresOfTheBoard">Temamiya çargoşeyan</string>
   <string name="onSlowGames">Di lîstikên hêdî de</string>
   <string name="always">Hertim</string>
   <string name="never">Qet</string>
@@ -629,7 +659,16 @@
   <string name="community">Civat</string>
   <string name="tools">Amûr</string>
   <string name="increment">Zêdebûn</string>
+  <string name="error.unknown">Nirxa derbasnedar</string>
   <string name="error.required">Ev der pêwîst e</string>
+  <string name="error.email">Ev navnîşana e-peyamê derbasnedar e</string>
+  <string name="error.email_acceptable">Ev navnîşana e-peyamê ne guncayî ye. Ji kerema xwe careke din pişkinîn bike û dîsa biceribîne.</string>
+  <string name="error.email_unique">E-peyam derbasnedar e an jî jixwe pêştir hebûye</string>
+  <string name="error.email_different">Ev e-peyam jixwe ya te ye</string>
+  <string name="error.minLength">Gerek herî kêm %s tîp dirêj be</string>
+  <string name="error.maxLength">Gerek herî zêde %s tîp dirêj be</string>
+  <string name="error.min">Gerek herî kêm %s be</string>
+  <string name="error.max">Gerek herî zêde %s be</string>
   <string name="ifRatingIsPlusMinusX">Ger reytîng ± %s be</string>
   <string name="ifRegistered">Yên qeydbûyî</string>
   <string name="onlyExistingConversations">Tenê sohbetên mewcûd</string>
@@ -656,12 +695,15 @@
   <string name="really">heqîqeten</string>
   <string name="contribute">Bibe tevkar</string>
   <string name="termsOfService">Şertûmercên Xizmetê</string>
+  <string name="titleVerification">Piştrastkirina sernavî</string>
   <string name="sourceCode">Koda çavkanî</string>
   <string name="simultaneousExhibitions">Pêşangehên hevdemî</string>
   <string name="host">Hewanger</string>
   <string name="hostColorX">Rengê hewangerê: %s</string>
+  <string name="yourPendingSimuls">Sîmûleyên te yên li bendê</string>
   <string name="createdSimuls">Pêşangehên nûçêkirî</string>
   <string name="hostANewSimul">Pêşangeheke nû bihewîne</string>
+  <string name="signUpToHostOrJoinASimul">Ji bo tevlîbûnê an mêvandariya sîmûleyekê xwe qeyd bike</string>
   <string name="noSimulFound">Pêşangeha hevdemî nehate peydakirin</string>
   <string name="noSimulExplanation">Pêşangeha hevdemî ne mewcûd e.</string>
   <string name="returnToSimulHomepage">Vegere serrûpela pêşangehên hevdemî</string>
@@ -676,10 +718,13 @@
   <string name="simulClockHint">Formata Saeta Fischer. Çiqas lîzeran bigirî wê ew qasî wext lazim be bo te.</string>
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>
   <string name="simulHostExtraTime">Wextê ekstra yê ji bo mêvandarê</string>
+  <string name="simulAddExtraTimePerPlayer">Ji bo her lîstikvanekê ku tevlî sîmûleyê dibe, dema destpêkê bixe ser demjimêra xwe.</string>
+  <string name="simulHostExtraTimePerPlayer">Ji bo her lîstikvanê demê zêde bike</string>
   <string name="lichessTournaments">Pêşbirkên lichess-ê</string>
   <string name="tournamentFAQ">PPPya pêşbirka Arenayê</string>
   <string name="timeBeforeTournamentStarts">Wextê berî destpêkirina pêşbirkê</string>
   <string name="averageCentipawnLoss">Windabûna sentîpeyayê (centipawn loss) ya averaj</string>
+  <string name="accuracy">Rastbûn</string>
   <string name="keyboardShortcuts">Kurterêyên textekilîlê</string>
   <string name="keyMoveBackwardOrForward">hemleya berî / piştî</string>
   <string name="keyGoToStartOrEnd">biçe serî/dawiyê</string>
