@@ -157,7 +157,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     val allReactionsVisible =
       ForumPost.Reaction.list.forall(r => (~post.reactions.flatMap(_.get(r))).nonEmpty)
-    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
+    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact), tabindex := -1)(
       (canActuallyReact && !allReactionsVisible).option(
         button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
       ),
