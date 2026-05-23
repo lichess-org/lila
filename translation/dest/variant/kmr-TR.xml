@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standard">Standard</string>
+  <string name="chess960">Kişik960</string>
 </resources>
