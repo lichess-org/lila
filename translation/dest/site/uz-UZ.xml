@@ -721,7 +721,7 @@
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
-  <string name="tournamentFAQ">Arena turnirlari haqida TSS</string>
+  <string name="tournamentFAQ">Arena turnirlari haqida FAQ</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlangunicha</string>
   <string name="averageCentipawnLoss">Oʻrtacha santipiyoda yoʻqotilishi</string>
   <string name="accuracy">Aniqlik</string>
@@ -935,14 +935,14 @@
   <string name="puzzleDesc">Shaxmat taktikalari trenajyori</string>
   <string name="important">Muhim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Savolingizga javob allaqachon %1$s boʻlishi mumkin</string>
-  <string name="inTheFAQ">TSS boʻlimida</string>
+  <string name="inTheFAQ">FAQ boʻlimida</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchi ustidan firibgarlik yoki yomon xulq‑atvor boʻyicha shikoyat qilish uchun %1$s</string>
   <string name="useTheReportForm">shikoyat shaklidan foydalaning</string>
   <string name="toRequestSupport">Qoʻllab‑quvvatlash xizmatiga murojaat qilish uchun, %1$s</string>
   <string name="tryTheContactPage">aloqa sahifasiga oʻting</string>
   <string name="makeSureToRead">%1$s bilan tanishib chiqqaningizga ishonch hosil qiling</string>
   <string name="theForumEtiquette">Forum odob‑axloq qoidalari</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Forumda odob saqlang.</string>
+  <string name="pleaseBeNiceInTheForum">Forumda odob saqlang.</string>
   <string name="thisTopicIsArchived">Bu mavzu arxivlangan, unga endi javob yozib boʻlmaydi.</string>
   <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$sga qoʻshiling</string>
   <string name="teamNamedX">%1$s jamoasi</string>

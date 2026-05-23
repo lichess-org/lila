@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
+  <string name="like">Vind ik leuk</string>
+  <string name="liked">Vond ik leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
@@ -942,7 +944,7 @@
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="makeSureToRead">Lees zeker %1$s</string>
   <string name="theForumEtiquette">de regels van het forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Wees aardig op het forum.</string>
+  <string name="pleaseBeNiceInTheForum">Wees aardig op het forum.</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>

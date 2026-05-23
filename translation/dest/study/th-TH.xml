@@ -39,7 +39,6 @@
   <string name="youAreNowASpectator">ตอนนี้คุณคือผู้ชม</string>
   <string name="pgnTags">แท็ก PGN</string>
   <string name="like">ชอบ</string>
-  <string name="unlike">ไม่ชอบ</string>
   <string name="newTag">แท็กใหม่</string>
   <string name="commentThisPosition">วิจารณ์ตำแหน่งนี้</string>
   <string name="commentThisMove">วิจารณ์การเดินนี้</string>

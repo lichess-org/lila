@@ -26,6 +26,8 @@
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
+  <string name="collinearMove">Kolineárny ťah</string>
+  <string name="collinearMoveDescription">Vaša a súperova figúrka stoja proti sebe a jedna z nich sa posúva po línii útoku bez toho, aby zobrala tú druhú.</string>
   <string name="cornerMate">Rohový mat</string>
   <string name="cornerMateDescription">Zatlačte kráľa do rohu pomocou veže a jazdca alebo dámy a jazdca, aby ste dosiahli mat.</string>
   <string name="crushing">Rozdrvenie</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="enPassantDescription">Taktika spojená s pravidlom brania mimochodom, kedy pešiak môže vziať súperovho pešiaka, ktorý sa pohol zo základného postavenia o dve polia a tým sa dostal na jeho úroveň.</string>
+  <string name="epauletteMate">Epoletný mat</string>
+  <string name="epauletteMateDescription">Dve susedné políčka, kam by mohol šachovaný kráľ ustúpiť, sú obsadené inými figúrkami.</string>
   <string name="exposedKing">Oslabený kráľ</string>
   <string name="exposedKingDescription">Taktika spojená s kráľom, ktorý má okolo seba málo brániacich figúr, často vedúca k matu.</string>
   <string name="fork">Vidlička</string>

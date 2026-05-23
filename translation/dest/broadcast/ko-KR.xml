@@ -61,6 +61,7 @@
   <string name="notYetStarted">아직 방송이 시작을 하지 않았습니다.</string>
   <string name="officialWebsite">공식 웹사이트</string>
   <string name="officialStandings">공식 순위</string>
+  <string name="regulations">규정</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
   <string name="webmastersPage">웹마스터 페이지</string>
   <string name="embedThisBroadcast">웹사이트에 이 방송을 임베딩</string>
@@ -104,6 +105,6 @@
   <string name="tiebreaks">타이브레이커</string>
   <string name="gameX">게임 %s</string>
   <string name="knockouts">녹아웃</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
 </resources>

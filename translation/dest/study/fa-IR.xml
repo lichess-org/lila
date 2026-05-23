@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
-  <string name="unlike">نمی‌پسندم</string>
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">یادداشت‌نویسی برای این وضعیت</string>
   <string name="commentThisMove">یادداشت‌نویسی برای این حرکت</string>

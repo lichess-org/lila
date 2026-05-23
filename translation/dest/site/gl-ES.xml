@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s creou %2$s</string>
   <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
+  <string name="like">Gústame</string>
+  <string name="liked">Gustáronme</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
@@ -942,7 +944,7 @@
   <string name="tryTheContactPage">proba a páxina de contacto</string>
   <string name="makeSureToRead">Asegúrate de ler %1$s</string>
   <string name="theForumEtiquette">a etiqueta do foro</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Por favor, sé amable no foro.</string>
+  <string name="pleaseBeNiceInTheForum">Por favor, sé amable no foro.</string>
   <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>

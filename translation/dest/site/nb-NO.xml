@@ -942,7 +942,7 @@
   <string name="tryTheContactPage">prøv kontaktsiden</string>
   <string name="makeSureToRead">Pass på å lese %1$s</string>
   <string name="theForumEtiquette">forumetiketten</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Hold en god tone i forumet.</string>
+  <string name="pleaseBeNiceInTheForum">Hold en god tone i forumet.</string>
   <string name="thisTopicIsArchived">Dette emnet er arkivert og kan ikke lenger besvares.</string>
   <string name="joinTheTeamXToPost">Bli med i %1$s for å skrive innlegg i dette forumet</string>
   <string name="teamNamedX">laget %1$s</string>

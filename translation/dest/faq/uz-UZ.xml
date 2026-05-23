@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TSS</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Tez‑tez soʻraladigan savollar</string>
   <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>

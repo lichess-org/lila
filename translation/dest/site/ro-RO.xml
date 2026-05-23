@@ -848,6 +848,8 @@
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="like">Apreciază</string>
+  <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonim</string>
@@ -986,7 +988,7 @@
   <string name="tryTheContactPage">încercați pagina de contact</string>
   <string name="makeSureToRead">Asigură-te că ai citit %1$s</string>
   <string name="theForumEtiquette">normele de comportare în forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Te rugăm să fii cu bun simț pe forum.</string>
+  <string name="pleaseBeNiceInTheForum">Te rugăm să fii cu bun simț pe forum.</string>
   <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>

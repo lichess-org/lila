@@ -71,6 +71,7 @@
   <string name="notYetStarted">البث لم يبدأ بعد.</string>
   <string name="officialWebsite">الموقع الرسمي</string>
   <string name="officialStandings">الترتيب الرسمي</string>
+  <string name="regulations">لوائح</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>
   <string name="embedThisBroadcast">ادمج هذا البث في موقع الويب الخاص بك</string>
@@ -114,6 +115,6 @@
   <string name="tiebreaks">كسر التعادل</string>
   <string name="gameX">اللعبة %s</string>
   <string name="knockouts">الضربات القاضية</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
 </resources>
