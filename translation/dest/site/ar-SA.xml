@@ -139,7 +139,7 @@
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">ملك قابل للكش</string>
+  <string name="checkableKing">ملك في خطر</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>
