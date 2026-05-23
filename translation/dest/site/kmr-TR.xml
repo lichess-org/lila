@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Sazkirina lîstikê</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hevalek ê bixwaze meydan ê</string>
+  <string name="playAgainstComputer">Li dijî kompîturê bilîze</string>
+  <string name="gameMode">Moda lîstikê</string>
+  <string name="createLobbyGame">Lîstika lobî çêke</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bilîzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
   <string name="orLetYourOpponentScanQrCode">An bi reqîbê xwe vê koda QRê bide skenkirin</string>
+  <string name="reusableChallengeUrl">Girêdana meydankirinê ya herdem</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Girêdanek herdemî ji bo ku her kes bi van eyaran te bixwaze meydanê.</string>
   <string name="waiting">Li bendê ye</string>
   <string name="yourTurn">Dora te ye</string>
   <string name="aiNameLevelAiLevel">%1$s asta %2$s</string>
@@ -20,6 +27,7 @@
   <string name="asBlack">wekî reş</string>
   <string name="randomColor">Aliyeke ketober</string>
   <string name="createAGame">Lîstikek çêke</string>
+  <string name="createTheGame">Lîstikê çêke</string>
   <string name="whiteIsVictorious">Spî bi ser ket</string>
   <string name="blackIsVictorious">Reş bi ser ket</string>
   <string name="youPlayTheWhitePieces">Tu yê bi kevirên spî bileyzî</string>
@@ -72,6 +80,7 @@
   <string name="expandVariations">Varyasyonan fireh bike</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
   <string name="copyVariationPgn">PGNa varyasyonê kopî bike</string>
+  <string name="copyMainLinePgn">PGN a serekî kopî bike</string>
   <string name="move">Hemle</string>
   <string name="variantLoss">Windakirina varyantê</string>
   <string name="variantWin">Rêya serkeftinê</string>
@@ -86,6 +95,8 @@
   <string name="database">Agahîdank</string>
   <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
   <string name="averageRatingX">Nirxandina navîn: %s</string>
+  <string name="minRatingX">Herî kêm %s puan</string>
+  <string name="maxRatingX">Herî zêde %s puan</string>
   <string name="recentGames">Lîstikên herî dawî</string>
   <string name="topGames">Lîstikên sereke</string>
   <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
@@ -117,9 +128,20 @@
   <string name="enable">Biçalakîne</string>
   <string name="bestMoveArrow">Nîşandana hemleya çêtirîn</string>
   <string name="showVariationArrows">Tîrikên varyasyonê nîşan bide</string>
+  <string name="visualMotifs">Motîfên dîtbarî</string>
+  <string name="undefendedPieces">Kevirên ne parastî</string>
+  <string name="pinnedPieces">Kevirên girêdayî</string>
+  <string name="checkableKing">Şahê li ber şahgirtinê</string>
   <string name="multipleLines">Varyantên pirhejmar</string>
+  <string name="multipleLinesDescription">Hejmara hêlên nirxandinê û tîrên livînê yên li ser texta lîstikê diyar bike</string>
+  <string name="searchTime">Wexta lêgerînê</string>
+  <string name="searchTimeDescription">Dema nirxandina pozîsyonên nû diyar bike</string>
+  <string name="threads">Rêçik</string>
+  <string name="threadsDescription">Vê li jêrî hejmara rêçikên CPU ya xwe bigre, nîşaneyên tîkê hilbijartina ewle û baş nîşan didin</string>
+  <string name="threadsDescriptionMobile">Rêçikên zêdetir baştir e ji bo analîz kirinê lê wê bibe sedema zêde xerckirina bataryayê</string>
   <string name="cpus">CPU</string>
   <string name="memory">Bîrkan</string>
+  <string name="memoryDescription">Nirxên bilindtir dikarin performansê baştir bikin</string>
   <string name="infiniteAnalysis">Analîza bêdawî</string>
   <string name="removesTheDepthLimit">Sînora kûrahiyê radike, û kombersa te germ digire</string>
   <string name="blunder">Şelipan</string>
@@ -153,6 +175,7 @@
   <string name="flipBoard">Texteyê biqulipîne</string>
   <string name="threefoldRepetition">Tekrarkirina sêcarî</string>
   <string name="claimADraw">Wekheviyê bixwaze</string>
+  <string name="drawClaimed">Wekhevî hat îdiakirin</string>
   <string name="offerDraw">Wekhevî pêşniyar bike</string>
   <string name="draw">Wekhev</string>
   <plurals name="nbPlayers">
@@ -162,6 +185,7 @@
   <string name="drawByMutualAgreement">Beranberîya bi qebûla herdu alîyan</string>
   <string name="fiftyMovesWithoutProgress">Pêncî hemleyên bêyî pêşketinek</string>
   <string name="currentGames">Lîstikên vê gavê</string>
+  <string name="joinedX">%s tevlî bû</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
