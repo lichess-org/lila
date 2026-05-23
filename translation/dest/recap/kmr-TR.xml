@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Silav, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Te îsal çi kiriye?</string>
+	<string name="initTitle">Çi saleke şetrencê ya xweş te derbas kir!</string>
+	<string name="noGamesText">Te îsal tu lîstik neleyîstine.</string>
+	<string name="noGamesCta">Tu dixwazî niha bileyîzî?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Û te %s qezenc kir!</string>
+	<string name="gamesNextQuestion">Gelo te çawa gihand wir?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s di lîstikan de derbas bû!</string>
+	<string name="timeTooMuch">Ev qas şetrenc jî zêde ye.</string>
+	<string name="timeALot">Ev qas şetrenc zêde ye.</string>
+	<string name="timeReasonable">Ev hindik şetrenc di cih de ye.</string>
+	<string name="timeHowManyMoves">Te di nav ev qas wext de çend gav avêtin?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s gav hat avêtin</item>
+		<item quantity="other">%s gav hatin avêtin</item>
+	</plurals>
+</resources>
