@@ -728,8 +728,18 @@
   <string name="keyboardShortcuts">Kurterêyên textekilîlê</string>
   <string name="keyMoveBackwardOrForward">hemleya berî / piştî</string>
   <string name="keyGoToStartOrEnd">biçe serî/dawiyê</string>
+  <string name="keyCycleSelectedVariation">Guhertoya diyarkirî biguhere</string>
   <string name="keyShowOrHideComments">şîroveyan nîşan bide/biveşêre</string>
   <string name="keyEnterOrExitVariation">têkeve varyasyonê / jê derkeve</string>
+  <string name="keyPreviousBranch">Guhertoya berê</string>
+  <string name="keyNextBranch">Guhertoya paşê</string>
+  <string name="toggleVariationArrows">Tîrikên varyasyonê veke/bigire</string>
+  <string name="cyclePreviousOrNextVariation">Di nav varyasyonên berê/paşê de bigere</string>
+  <string name="toggleGlyphAnnotations">Têbîniyên gavan veke/bigire</string>
+  <string name="togglePositionAnnotations">Têbîniyên pozisyonan veke/bigire</string>
+  <string name="toggleObservationAnnotations">Têbîniyên çavdêriyê veke/bigire</string>
+  <string name="variationArrowsInfo">Tîrên varyasyonan rê didin te ku tu bêyî lîsteya gavan bigerî.</string>
+  <string name="playSelectedMove">gava hilbijartî bilîze</string>
   <string name="newTournament">Turnuwaya nû</string>
   <string name="tournamentHomeTitle">Turnuwayê kişikê yê ku çendîn kontrolên demê û varyantan dihewîne</string>
   <string name="tournamentHomeDescription">Turnuwayên kişikê yê zû-gavî bilîze! Tevlî pêşbirkeke pêşplankirî ya fermî bibe, an jî tu yek çêke. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, û zêtir vebijêrk berdest in ji bo şahiya kişikê ya bêdawî.</string>
@@ -745,6 +755,7 @@
   <string name="yourPerfTypeRatingIsRating">Reytînga te ya %1$s %2$s ye.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s kes ji %2$s kesên %3$s kesan baştir e.</string>
+  <string name="betterThanPercentPlayers">Ji %1$s lîstikvanên %2$s baştir e</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu ne xwediyê reytîngeke diyarkirî ya %s yî.</string>
   <string name="yourRating">Reytînga te</string>
   <string name="cumulative">Kumulatîv</string>
@@ -752,6 +763,9 @@
   <string name="checkYourEmail">Epeyama xwe kontrol bike</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Em epeyamekê şandin te. Ji bo çalakkirina hesabê xwe bitikîne lînka di epeyamê de.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ger te epeyamê nedîtibe, cihên din ên ku dibe ku lê be kontrol bike, wek negirîng, spam, civakî, an pekdankên din.</string>
+  <string name="ifYouDoNotGetTheEmail">Heke e-peyam di nav 5 xulekan de ji te re nehat:</string>
+  <string name="checkAllEmailFolders">Di peldankên spam, çopê û peldankên din de bigere</string>
+  <string name="verifyYourAddress">Piştrast bike ku %s e-peyama te ye</string>
   <string name="weHaveSentYouAnEmailTo">Em epeyamekê şandin %s. Bitikîne lînka di epeyamê de ji bo nûkirina pêborîna xwe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bi qeydbûnê, tu qebûl dikî ku girêdayî %s ya me bibî.</string>
   <string name="readAboutOur">Di derbarê %s bixwîne.</string>
@@ -760,10 +774,14 @@
   <string name="downloadAnnotated">Awayê notgirtî daxîne</string>
   <string name="downloadRaw">Awayê sade daxîne</string>
   <string name="downloadImported">Yê têxistî daxîne</string>
+  <string name="downloadAllGames">Hemû lîstikan daxe</string>
   <string name="crosstable">Tabloya çeperast</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Herwiha tu dikarî ji bo hemlekirinê çerxa mişkê kaş bikî.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Ji bo dîtina pêşdîtina varyasyonên kompûterê, nîşanderê li ser wan bigerîne.</string>
   <string name="analysisShapesHowTo">Pêlî shift+click an right-click bike ji bo xêzkirina xelekan û tîrikan li ser texteyê.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl an shift = sor; command, alt, an meta = şîn; ji her yekê bişkokek = zer.</string>
   <string name="letOtherPlayersMessageYou">Destûr bide ku lîzerên din peyam bişînin te</string>
+  <string name="receiveForumNotifications">Dema di forumê de navê te derbas bibe, agahdariyan bistîne</string>
   <string name="shareYourInsightsData">Daneyên xwe yên kişikê parve bike bi</string>
   <string name="withNobody">Bi tikesî re</string>
   <string name="withFriends">Bi hevalan re</string>
