@@ -81,6 +81,67 @@ const dateFormat = memoize(() =>
     : (d: Date) => d.toLocaleDateString(),
 );
 
+const storageKey = 'ratingHistoryHidden';
+
+function loadHidden(): Set<string> {
+  try {
+    const stored = localStorage.getItem(storageKey);
+    return stored ? new Set(JSON.parse(stored)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function saveHidden(hidden: Set<string>): void {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify([...hidden]));
+  } catch {}
+}
+
+function renderCheckboxes(
+  data: PerfRatingHistory[],
+  chart: Chart<'line'>,
+  singlePerfName: string | undefined,
+): void {
+  if (singlePerfName) return;
+  const container = document.querySelector('.rating-history-controls');
+  if (!container) return;
+  const hidden = loadHidden();
+  container.innerHTML = '';
+  data.forEach((perf, i) => {
+    if (!perf.points.length) return;
+    const style = styles[i];
+    const isHidden = hidden.has(perf.name);
+    const label = document.createElement('label');
+    label.className = 'rating-history-toggle' + (isHidden ? ' disabled' : '');
+    label.title = perf.name;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = !isHidden;
+    checkbox.addEventListener('change', () => {
+      const ds = chart.data.datasets.find(d => d.label === perf.name);
+      if (ds) {
+        const nowHidden = !checkbox.checked;
+        ds.hidden = nowHidden;
+        label.classList.toggle('disabled', nowHidden);
+        const h = loadHidden();
+        if (nowHidden) h.add(perf.name);
+        else h.delete(perf.name);
+        saveHidden(h);
+        chart.update();
+      }
+    });
+    const dot = document.createElement('span');
+    dot.className = 'rating-history-dot';
+    dot.style.background = style.color;
+    const name = document.createElement('span');
+    name.textContent = perf.name;
+    label.appendChild(checkbox);
+    label.appendChild(dot);
+    label.appendChild(name);
+    container.appendChild(label);
+  });
+}
 export function initModule({ data, singlePerfName }: Opts): void {
   $('.spinner').remove();
 
