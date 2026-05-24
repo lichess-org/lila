@@ -986,6 +986,7 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="estimatedStart">Texmîna dema destpêkirinê</string>
   <string name="simulFeatured">Li ser %s bide xuyakirin</string>
   <string name="simulFeaturedHelp">Lîstika xwe ya bi kom nîşanî her kesî bide li ser %s. Ji bo lîstikên bi kom yên taybet, neçalak bike.</string>
+  <string name="simulDescription">Wesfa lîstika bi kom</string>
   <string name="simulDescriptionHelp">Tu dixwazî tiştekî ji beşdaran re bibêjî?</string>
   <string name="markdownIsAvailable">%s ji bo formatkirinê amade ye.</string>
   <string name="embedsAvailable">Girêdanka lîstikê an jî URL a beşa fêrbûnê pêve bike ji bo barkirinê.</string>
@@ -1017,4 +1018,21 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="lichessDbExplanation">Lîstikên bipuan hatîn lîstin li ser Lichess ê</string>
   <string name="switchSides">Rûyê lîstikê biguhere</string>
   <string name="closingAccountWithdrawAppeal">Girtina hesaba te wê bibe sedema pûçkirina gazina te</string>
+  <string name="ourEventTips">Rênîşanderên me ji bo rêkxistina çalakiyan</string>
+  <string name="instructions">Rênima</string>
+  <string name="showMeEverything">Her tiştî nîanî min bide</string>
+  <string name="lichessPatronInfo">Lichess saziyeke xêrxwaziyê ye û bi tevahî nermalaveke çavkanî-vekirî ya azad û bêpere ye. Em pişta xwe bi bexşên bikarhêneran ve girêdidin ji bo dabînkirina xerviyên birêvebirinê, geşepêdanê û naverokê. Bêyî civaka me ya dilvekirî, me nedikarî vê malperê berdewam bikin. Spas ji bo tevlêbûna we!  </string>
+  <string name="nothingToSeeHere">Vê gavê tiştek ji bo dîtinê tu ne.</string>
+  <string name="stats">Amar</string>
+  <string name="accessibility">Hêsaniya gihîştinê</string>
+  <string name="enableBlindMode">Moda çavgirtî aktîv bike</string>
+  <string name="disableBlindMode">Moda çavgirtî neçalak bike</string>
+  <string name="copyToClipboard">Kopî bike di panoyê de</string>
+  <string name="online" comment="status of a user">serhêl</string>
+  <string name="offline" comment="status of a user">derhêl</string>
+  <string name="search">Lê bigere</string>
+  <string name="clearSearch">Lêgerînê paqij bike</string>
+  <string name="thereAreNoResultsForX">Tu encam ji \"%s\" re ne hat dîtin</string>
+  <string name="tags">Etîket</string>
+  <string name="enPassant">Mafên En passant ê</string>
 </resources>
