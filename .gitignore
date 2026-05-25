@@ -66,3 +66,10 @@ instance.lock
 
 # deploy bearer
 .lila-cli
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

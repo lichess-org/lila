@@ -48,6 +48,8 @@ object UiEnv
   protected lazy val lightTeamSync = env.team.lightTeamSync
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
 
+  protected def isProd = env.mode.isProd
+
   def helpers: Helpers = this
   def assetHelper: AssetFullHelper = this
   def prefHelper: lila.pref.PrefHelper = this
