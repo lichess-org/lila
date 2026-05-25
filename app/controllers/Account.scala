@@ -68,26 +68,28 @@ final class Account(
   }
 
   def info = Auth { ctx ?=> me ?=>
-    negotiateJson:
-      for
-        povs <- env.round.proxyRepo.urgentGames(me)
-        nbChallenges <- env.challenge.api.countInFor.get(me)
-        playban <- env.playban.api.currentBan(me)
-        perfs <- ctx.pref.showRatings.optionFu(env.user.perfsRepo.perfsOf(me))
-      yield Ok:
-        env.user.jsonView
-          .full(me, perfs, withProfile = false) ++ Json
-          .obj(
-            "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-            "nbChallenges" -> nbChallenges,
-            "online" -> true
-          )
-          .add("kid" -> ctx.kid)
-          .add("troll" -> me.marks.troll)
-          .add("playban" -> playban)
-          .add("announce" -> env.web.lichobileAnnounceApi.get)
-      .headerCacheSeconds(15)
+    if !HTTPRequest.isLichobile(req)
+    then notFoundJson()
+    else
+      negotiateJson:
+        for
+          povs <- env.round.proxyRepo.urgentGames(me)
+          nbChallenges <- env.challenge.api.countInFor.get(me)
+          playban <- env.playban.api.currentBan(me)
+        yield Ok:
+          env.user.jsonView
+            .full(me, none, withProfile = false) ++ Json
+            .obj(
+              "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = true),
+              "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+              "nbChallenges" -> nbChallenges,
+              "online" -> true
+            )
+            .add("kid" -> ctx.kid)
+            .add("troll" -> me.marks.troll)
+            .add("playban" -> playban)
+            .add("announce" -> env.web.lichobileAnnounceApi.get)
+        .headerCacheSeconds(15)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
