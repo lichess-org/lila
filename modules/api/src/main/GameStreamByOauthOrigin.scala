@@ -56,11 +56,10 @@ final class GameStreamByOauthOrigin(
         case Some(s) if s.isAfter(nowInstant) => Left("`since` is in the future")
         case Some(s) if s.isBefore(nowInstant.minusHours(3)) => Left("`since` is older than 3 hours")
         case s => Right(s)
-      randomName = ~scalalib.cuteName.CuteNameGenerator.make()
       ip = HTTPRequest.ipAddress(req)
       ua = HTTPRequest.userAgent(req)
       request = s"$ip ${req.uri} $ua"
-      logMsg = s"$randomName $origin $request ${since.so(_.toNow.toMinutes)}m"
+      logMsg = s"$origin $request ${since.so(_.toNow.toMinutes)}m"
     yield Source.futureSource:
       for
         tokenUsers <- tokenUsersFu
