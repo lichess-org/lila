@@ -557,7 +557,7 @@ final class SwissApi(
           ongoingPairings = res.countOngoingPairings
           _ <- (ongoingPairings != res.swiss.nbOngoing).so:
             logger.warn:
-              s"Swiss(${id}).nbOngoing = ${res.swiss.nbOngoing}, but res.countOngoingPairings = ${ongoingPairings}"
+              s"${res.swiss} nbOngoing = ${res.swiss.nbOngoing}, but countOngoingPairings = ${ongoingPairings}"
             for
               _ <- mongo.swiss.updateField($id(id), "nbOngoing", ongoingPairings)
               _ <- (ongoingPairings == 0).so(onRoundFinish(res.swiss, none))
@@ -571,7 +571,7 @@ final class SwissApi(
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.sequentiallyVoid: id =>
+        _.parallelVoid: id =>
           Sequencing(id)(cache.swissCache.byId) { swiss =>
             if swiss.isFinished then
               logger.info(s"Swiss ${swiss.id} is finished but still has a pending round, cleaning up.")
