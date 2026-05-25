@@ -369,9 +369,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       else if ctx.isAuth then nb / 3
       else nb
     fetchRateLimit(rateLimited, cost = cost):
-      WithPuzzlePerf:
-        for puzzles <- batchSelect(PuzzleAngle.findOrMix(angleStr), reqSettings, nb)
-        yield Ok(puzzles)
+      PuzzleAngle
+        .find(angleStr)
+        .fold(fuccess(notFoundJson("Angle not found"))): angle =>
+          WithPuzzlePerf:
+            for puzzles <- batchSelect(angle, reqSettings, nb)
+            yield Ok(puzzles)
 
   private def reqSettings(using req: RequestHeader) = PuzzleSettings(
     PuzzleDifficulty.orDefault(~get("difficulty")),
