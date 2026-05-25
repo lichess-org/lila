@@ -67,6 +67,7 @@
   <string name="notYetStarted">Трансляція ще не розпочалася.</string>
   <string name="officialWebsite">Офіційний вебсайт</string>
   <string name="officialStandings">Офіційна турнірна таблиця</string>
+  <string name="regulations">Регламенти</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
   <string name="webmastersPage">сторінка webmasters</string>
   <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>

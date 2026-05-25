@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
   <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>
+  <string name="like">आवडले</string>
+  <string name="liked">आवडलेले</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
