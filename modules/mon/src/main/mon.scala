@@ -590,7 +590,6 @@ object game:
     def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
     def users(sel: String) = gauge("game.streamByOauthOrigin.users").withTag("selector", sel)
     def streams(ua: UserAgent) = gauge("game.streamByOauthOrigin.streams").withTag("ua", ua.value)
-    val bloomFP = counter("game.streamByOauthOrigin.bloomFP").withoutTags()
 object chat:
   private val msgCounter = counter("chat.message")
   def message(parent: String, troll: Boolean) =
