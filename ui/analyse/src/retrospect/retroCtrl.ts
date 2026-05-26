@@ -149,10 +149,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  const isCevalReady = (node: TreeNode): boolean =>
-    node.ceval
-      ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
-      : false;
+  const isCevalReady = (node: TreeNode): boolean => Number(node.ceval?.nodes) >= 1_000_000;
 
   function checkCeval(): void {
     const node = root.node,
