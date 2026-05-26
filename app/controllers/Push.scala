@@ -22,7 +22,7 @@ final class Push(env: Env) extends LilaController(env):
 
     currentSessionId match
       case Some(currentSessionId) =>
-        val api = if ctx.isMobileOauth then env.push.unifiedPushApi else env.push.webSubscriptionApi
+        val api = if ctx.isMobileOauth then env.push.unifiedSub else env.push.browserSub
         ctx.body.body
           .validate[WebSubscription]
           .fold(

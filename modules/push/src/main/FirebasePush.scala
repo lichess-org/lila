@@ -11,7 +11,7 @@ import scalalib.data.LazyFu
 import lila.mon.extensions.*
 
 final private class FirebasePush(
-    unifiedPush: WebPush,
+    unifiedPush: UnifiedWebPush,
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
     configs: FirebasePush.BothConfigs

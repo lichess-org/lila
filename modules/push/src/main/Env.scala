@@ -2,6 +2,7 @@ package lila.push
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
@@ -17,6 +18,9 @@ final private class PushConfig(
     val web: WebPush.Config,
     val firebase: FirebasePush.BothConfigs
 )
+
+trait BrowserSub
+trait UnifiedSub
 
 @Module
 final class Env(
@@ -37,26 +41,19 @@ final class Env(
   def vapidPublicKey = config.web.vapidPublicKey
 
   private val deviceApi = DeviceApi(db(config.deviceColl))
-  val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
-  val unifiedPushApi = WebSubscriptionApi(db(config.unifiedPushColl))
+
+  val browserSub = WebSubscriptionApi(db(config.subscriptionColl)).taggedWith[BrowserSub]
+  val unifiedSub = WebSubscriptionApi(db(config.unifiedPushColl)).taggedWith[UnifiedSub]
 
   export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
 
-  private lazy val webPush = WebPush(webSubscriptionApi, config.web, ws, isUnifiedPush = false)
-
-  private lazy val unifiedPush = WebPush(unifiedPushApi, config.web, ws, isUnifiedPush = true)
-
-  private lazy val firebasePush = FirebasePush(unifiedPush, deviceApi, ws, config.firebase)
-
-  private lazy val pushApi: PushApi =
-    PushApi(firebasePush, webPush, gameProxy, roundJson, gameRepo, namer, notifyAllows, postApi, getLightUser)
-
-  private def logUnit(f: Fu[?]): Unit =
-    f.logFailure(logger)
-    ()
+  private lazy val browserPush = wire[BrowserWebPush]
+  private lazy val unifiedPush = wire[UnifiedWebPush]
+  private lazy val firebasePush = wire[FirebasePush]
+  private lazy val pushApi = wire[PushApi]
 
   Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
-    unifiedPushApi.unsubscribeBySession(token.id)
+    unifiedSub.unsubscribeBySession(token.id)
 
   Bus.sub[lila.core.game.FinishGame]: f =>
     logUnit { pushApi.finish(f.game) }
@@ -85,3 +82,7 @@ final class Env(
 
   Bus.sub[lila.core.misc.push.TourSoon]: t =>
     logUnit { pushApi.tourSoon(t) }
+
+  private def logUnit(f: Fu[?]): Unit =
+    f.logFailure(logger)
+    ()

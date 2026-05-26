@@ -16,7 +16,7 @@ import lila.core.net.LichessMobileVersion
 
 final private class PushApi(
     firebasePush: FirebasePush,
-    webPush: WebPush,
+    webPush: BrowserWebPush,
     gameProxy: lila.core.game.GameProxy,
     roundJson: lila.core.round.RoundJson,
     gameRepo: lila.core.game.GameRepo,

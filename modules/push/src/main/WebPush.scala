@@ -1,5 +1,6 @@
 package lila.push
 
+import com.softwaremill.tagging.*
 import play.api.ConfigLoader
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
@@ -11,24 +12,14 @@ import lila.common.Json.given
 import lila.common.autoconfig.*
 import lila.mon.extensions.*
 
-final private class WebPush(
-    webSubscriptionApi: WebSubscriptionApi,
+final private class BrowserWebPush(
+    webSub: WebSubscriptionApi @@ BrowserSub,
     config: WebPush.Config,
-    ws: StandaloneWSClient,
-    isUnifiedPush: Boolean
-)(using Executor):
+    ws: StandaloneWSClient
+)(using Executor)
+    extends WebPush(webSub, config, ws):
 
-  def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
-    webSubscriptionApi.getSubscriptions(5)(userId).flatMap(sendTo(data, List(userId)))
-
-  def apply(userIds: Iterable[UserId], data: LazyFu[PushApi.Data]): Funit =
-    webSubscriptionApi.getSubscriptions(userIds, 5).flatMap(sendTo(data, userIds))
-
-  private def sendTo(data: LazyFu[PushApi.Data], to: Iterable[UserId])(subs: List[WebSubscription]): Funit =
-    subs.toNel.so: subs =>
-      data.value.flatMap(send(subs, to))
-
-  private def makeWebPayload(data: PushApi.Data): JsObject =
+  protected def makeWebPayload(data: PushApi.Data) =
     Json.obj(
       "title" -> data.title,
       "body" -> data.body,
@@ -37,6 +28,33 @@ final private class WebPush(
         .obj("userData" -> data.payload.userData.toMap)
         .add("userId" -> data.payload.userId)
     )
+
+final private class UnifiedWebPush(
+    webSub: WebSubscriptionApi @@ UnifiedSub,
+    config: WebPush.Config,
+    ws: StandaloneWSClient
+)(using Executor)
+    extends WebPush(webSub, config, ws):
+
+  protected def makeWebPayload(data: PushApi.Data) = FirebasePush.makeMobilePayload(data)
+
+private abstract class WebPush(
+    browserSub: WebSubscriptionApi,
+    config: WebPush.Config,
+    ws: StandaloneWSClient
+)(using Executor):
+
+  protected def makeWebPayload(data: PushApi.Data): JsObject
+
+  def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
+    browserSub.getSubscriptions(5)(userId).flatMap(sendTo(data, List(userId)))
+
+  def apply(userIds: Iterable[UserId], data: LazyFu[PushApi.Data]): Funit =
+    browserSub.getSubscriptions(userIds, 5).flatMap(sendTo(data, userIds))
+
+  private def sendTo(data: LazyFu[PushApi.Data], to: Iterable[UserId])(subs: List[WebSubscription]): Funit =
+    subs.toNel.so: subs =>
+      data.value.flatMap(send(subs, to))
 
   private def send(allSubscriptions: NonEmptyList[WebSubscription], to: Iterable[UserId])(
       data: PushApi.Data
@@ -59,8 +77,7 @@ final private class WebPush(
                     )
                   )
                 }.toList),
-                "payload" -> (if isUnifiedPush then FirebasePush.makeMobilePayload(data)
-                              else makeWebPayload(data)).toString,
+                "payload" -> makeWebPayload(data).toString,
                 "topic" -> data.stacking.key,
                 "urgency" -> data.urgency.key,
                 "ttl" -> 43200
@@ -76,7 +93,7 @@ final private class WebPush(
                       case (endpoint, JsString("endpoint_not_valid" | "endpoint_not_found")) => endpoint
                   .filter(_.nonEmpty)
                   .so: staleEndpoints =>
-                    webSubscriptionApi
+                    browserSub
                       .unsubscribeByEndpoints(staleEndpoints, to)
                       .map: n =>
                         logger.info(s"[push] web: $n/${staleEndpoints.size} stale endpoints unsubscribed")
