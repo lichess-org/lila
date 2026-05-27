@@ -474,7 +474,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
 
     return hl(
       coloredResult.tag,
-      customPoints && points.replace('1/2', '0.5') !== customPoints.toString()
+      defined(customPoints) && points.replace('1/2', '0.5') !== customPoints.toString()
         ? customPoints
         : coloredResult.points,
     );
