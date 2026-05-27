@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 
 import { randomToken, definedUnique } from './algo.ts';
-import { type Context, env, c, errorMark } from './env.ts';
-import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
+import { type Context, type Package, env, c, errorMark } from './env.ts';
+import { glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
