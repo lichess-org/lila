@@ -81,8 +81,8 @@ export class Engines {
       ...relaxedSimdPair({
         info: {
           id: '__sf_18_smallnet',
-          name: 'Stockfish 18 · 15MB sscg13/threat-small',
-          short: 'SF 18 · 15MB',
+          name: 'Stockfish 18 · 15MB',
+          short: 'SF 18 15MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
@@ -98,8 +98,8 @@ export class Engines {
       ...relaxedSimdPair({
         info: {
           id: '__sf_dev',
-          name: 'Stockfish 18+ dev-20260213-77d46ff6 · 88MB SFNNv12',
-          short: 'SF dev · 88MB',
+          name: 'Stockfish 18 dev · 88MB',
+          short: 'SF 18 dev 88MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
@@ -114,8 +114,8 @@ export class Engines {
       ...relaxedSimdPair({
         info: {
           id: '__sf_18',
-          name: 'Stockfish 18 · 108MB SFNNv10',
-          short: 'SF 18 · 108MB',
+          name: 'Stockfish 18 · 108MB',
+          short: 'SF 18 108MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
