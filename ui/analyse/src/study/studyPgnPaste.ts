@@ -15,9 +15,9 @@ export function bindPgnPaste(ctrl: StudyCtrl) {
     e.preventDefault();
     busy = true;
     const confirmed = await confirm(
-      'Paste this PGN continuation into the current study chapter?',
-      'Paste PGN',
-      'Cancel',
+      "Paste your copied PGN continuation at the current move of the current chapter?",
+      "Paste PGN",
+      "Cancel",
     );
 
     if (confirmed) pastePgn(ctrl, text).finally(() => (busy = false));
