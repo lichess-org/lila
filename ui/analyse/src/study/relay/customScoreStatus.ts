@@ -17,13 +17,8 @@ const withCustomScore = (
 ): VNodeChildElement => {
   if (!customScoring) return point;
   const base = points(point);
-  return base === 1
-    ? customScoring[color].win
-    : base === 0.5
-      ? customScoring[color].draw !== 0.5
-        ? customScoring[color].draw
-        : '½'
-      : 0;
+  const p = base === 1 ? customScoring[color].win : base === 0.5 ? customScoring[color].draw : 0;
+  return p === 0.5 ? '½' : p;
 };
 
 export const coloredStatusStr = (gamePoints: GamePointsStr, pov: Color, round?: RelayRound): LooseVNodes => {
