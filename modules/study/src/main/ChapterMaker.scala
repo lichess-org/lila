@@ -35,8 +35,9 @@ final private class ChapterMaker(
 
   def toStudyPgn(study: Study, pgn: PgnStr, maxNodes: Option[Int] = None): Fu[StudyPgnImport.Result] = for
     contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-    parsed <- StudyPgnImport.result(pgn, contributors.flatten, maxNodes).toFuture.recoverWith { case e: Exception =>
-      fufail(StudyValidationException(e.getMessage))
+    parsed <- StudyPgnImport.result(pgn, contributors.flatten, maxNodes).toFuture.recoverWith {
+      case e: Exception =>
+        fufail(StudyValidationException(e.getMessage))
     }
   yield parsed
 

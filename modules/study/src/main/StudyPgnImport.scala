@@ -17,7 +17,11 @@ object StudyPgnImport:
       ply: Ply
   )
 
-  def result(pgn: PgnStr, contributors: List[LightUser], maxNodes: Option[Int] = None): Either[ErrorStr, Result] =
+  def result(
+      pgn: PgnStr,
+      contributors: List[LightUser],
+      maxNodes: Option[Int] = None
+  ): Either[ErrorStr, Result] =
     if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
     else
       for

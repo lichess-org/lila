@@ -132,7 +132,7 @@ object Branches:
       incoming.toList.foldLeft(nodes) { (branches, incomingBranch) =>
         branches.get(incomingBranch.id) match
           case Some(existingBranch) => branches.update(existingBranch.merge(incomingBranch, true))
-          case None                 => branches.addNode(incomingBranch)
+          case None => branches.addNode(incomingBranch)
       }
 
 sealed trait Node:
@@ -381,8 +381,9 @@ case class Branch(
       eval = favoured.eval.orElse(unfavoured.eval),
       clock = favoured.clock.orElse(unfavoured.clock),
       crazyData = favoured.crazyData.orElse(unfavoured.crazyData),
-      children = if preferExisting then children.mergeBranchesPreferExisting(n.children) else children.mergeBranches(n.children),
-      forceVariation = favoured.forceVariation || unfavoured.forceVariation,
+      children = if preferExisting then children.mergeBranchesPreferExisting(n.children)
+      else children.mergeBranches(n.children),
+      forceVariation = favoured.forceVariation || unfavoured.forceVariation
     )
 
   override def toString = s"$ply.${move.san} (Branches: $children)"
@@ -477,14 +478,15 @@ object Node:
       def filterEmpty: Comments = a.value.filter(_.text.value.nonEmpty)
       def hasLichessComment = a.value.exists(_.by == Comment.Author.Lichess)
       def merge(comments: Comments): Comments =
-        a.value.map(some)
-        .zipAll(comments.value.map(some), None, None)
-        .flatMap:
-          case (Some(c1), Some(c2)) if c1.text == c2.text => List(c1)
-          case (Some(c1), Some(c2))                       => List(c1, c2)
-          case (Some(c1), None)                           => List(c1)
-          case (None, Some(c2))                           => List(c2)
-          case (None, None)                               => Nil
+        a.value
+          .map(some)
+          .zipAll(comments.value.map(some), None, None)
+          .flatMap:
+            case (Some(c1), Some(c2)) if c1.text == c2.text => List(c1)
+            case (Some(c1), Some(c2)) => List(c1, c2)
+            case (Some(c1), None) => List(c1)
+            case (None, Some(c2)) => List(c2)
+            case (None, None) => Nil
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
