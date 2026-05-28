@@ -155,9 +155,9 @@ final class RelayApi(
     private val cache = cacheApi[RelayTourId, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
         for
-          group <- groupRepo.byTour(id)
-          tours <- tourRepo.previews(group.so(_.tours))
-        yield group.map(RelayGroup.WithTours(_, tours))
+          groupOpt <- groupRepo.byTour(id)
+          toursList <- tourRepo.previews(groupOpt.so(_.tours.toList))
+        yield (groupOpt, toursList.toNel).mapN(RelayGroup.WithTours.apply)
     export cache.get
     def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
       get(tour.id).map(RelayTour.WithGroupTours(tour, _))
@@ -241,7 +241,7 @@ final class RelayApi(
           "orphanWarn" -> tour.orphanWarn.some
         )
       )
-      _ <- data.grouping.so(updateGrouping(tour, _))
+      _ <- updateGrouping(tour, data.grouping)
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
       _ <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
@@ -251,7 +251,7 @@ final class RelayApi(
       players.invalidate(tour.id)
       teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
-      (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+      (tour.id :: data.grouping.tourIds).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
     for
