@@ -1,12 +1,12 @@
 import { h, type VNode } from 'snabbdom';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
-import { opposite } from 'chessops';
+import { opposite, type SquareName } from 'chessops';
 import { throttle } from 'lib/async';
 import { bind, onInsert } from 'lib/view';
 import * as nv from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { commands, addBreaks } from 'lib/nvui/command';
 import type { LearnNvuiContext } from '../learn.nvui';
 import type { LearnCtrl } from '../ctrl';
 import type { RunCtrl } from '../run/runCtrl';
@@ -63,8 +63,8 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
   const stage = runCtrl.stage;
   const levelCtrl = runCtrl.levelCtrl;
 
-  // The visual view builds chessground via a snabbdom hook. We need a ground for renderBoard
-  // even though no visual board is shown — mirror puzzle's offscreen ground.
+  if (runCtrl.stageCompleted()) return renderStageComplete(runCtrl);
+
   const ground =
     runCtrl.chessground ??
     makeChessground(document.createElement('div'), {
@@ -85,8 +85,8 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       levelCtrl.blueprint.goal,
     ),
     h('h2', i18n.nvui.pieces),
-    nv.renderPieces(ground.state.pieces, moveStyle.get()),
-    ...renderApples(levelCtrl, moveStyle.get()),
+    nv.renderPieces(ground.state.pieces, moveStyle.get(), levelCtrl.blueprint.color),
+    ...renderStars(levelCtrl, moveStyle.get()),
     h('h2', i18n.nvui.gameStatus),
     h(
       'div.status',
@@ -138,7 +138,10 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     h(
       'div.board',
       {
-        hook: onInsert(el => boardEventsHook(ctx, ground, el)),
+        hook: {
+          insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+        },
       },
       nv.renderBoard(
         ground.state.pieces,
@@ -157,7 +160,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
     h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
     h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-    h('h2', i18n.nvui.boardCommandList),
+    h('h2', 'Commands'),
     h(
       'p',
       ['Type these commands in the move input.', commands().piece.help, commands().scan.help].reduce(
@@ -165,18 +168,48 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         [],
       ),
     ),
-    ...boardCommands(),
+    h('h2', i18n.nvui.boardCommandList),
+    h('p', [
+      `i: ${i18n.nvui.goToInputForm}`,
+      ...[
+        `o: ${i18n.nvui.announceCurrentSquare}`,
+        `m: ${i18n.nvui.announcePossibleMoves}`,
+        `arrow keys: ${i18n.nvui.moveWithArrows}`,
+        `k-q-r-b-n-p: ${i18n.nvui.moveToPieceByType}`,
+        `1 to 8: ${i18n.nvui.moveToRank}`,
+      ].reduce(addBreaks, []),
+    ]),
   ];
 }
 
-function renderApples(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
+function renderStageComplete(runCtrl: RunCtrl): VNode[] {
+  const stage = runCtrl.stage;
+  const next = runCtrl.getNext();
+  return [
+    h('h1', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+      i18n.learn.stageXComplete(stage.id)),
+    h('p', stage.complete),
+    h('div.actions', [
+      next
+        ? button(i18n.learn.nextX(next.title), () => {
+            location.hash = hashHref(next.id);
+          })
+        : null,
+      button(i18n.learn.backToMenu, () => {
+        location.hash = '';
+      }),
+    ]),
+  ];
+}
+
+function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
   if (!levelCtrl.isAppleLevel()) return [];
   const keys = levelCtrl.items.appleKeys();
   const text = keys.length
     ? keys.map(k => nv.renderKey(k as Key, style)).join(', ')
     : i18n.site.none;
   return [
-    h('h2', 'Apples'),
+    h('h2', 'Stars'),
     h(
       'p.apples',
       { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
@@ -239,12 +272,24 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: CgApi, el: HTMLElement):
   const pov = ctx.ctrl.runCtrl.levelCtrl.blueprint.color;
   const opponentColor = () => opposite(pov);
   const fen = () => ctx.ctrl.runCtrl.levelCtrl.chess.fen();
+  const $board = $(el);
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
 
-  const $buttons = $(el).find('button');
-
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on('click', nv.selectionHandler(opponentColor));
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+  $board.on('blur.nvui', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
+  $board.on('click.nvui', 'button', e => nv.selectionHandler(opponentColor)(e));
+  $board.on('focus.nvui', 'button', (e: FocusEvent) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const file = btn.getAttribute('file');
+    const rank = btn.getAttribute('rank');
+    if (file && rank) {
+      const lc = ctx.ctrl.runCtrl.levelCtrl;
+      const isStar =
+        lc.isAppleLevel() && lc.items.appleKeys().includes(`${file}${rank}` as SquareName);
+      $('.boardstatus').text(isStar ? 'star' : '');
+    }
+  });
+  $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(pov, borderSound)(e);
     else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
