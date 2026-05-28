@@ -3,7 +3,7 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.relay.RelayGroup.ScoreGroup
 import lila.relay.RelayTour.TourPreview
-import lila.common.Form.cleanNonEmptyText
+import lila.common.Form.{ into, cleanNonEmptyText }
 
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,
@@ -106,11 +106,9 @@ private final class RelayGroupForm:
 
   val infoMapping: Mapping[RelayGroupData.Info] =
     Forms.mapping(
-      "name" -> cleanNonEmptyText,
+      "name" -> cleanNonEmptyText.into[RelayGroup.Name],
       "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
-    )((name, tours) => RelayGroupData.Info(RelayGroup.Name(name), tours))(info =>
-      Some((info.name.value, info.tours))
-    )
+    )(RelayGroupData.Info.apply)(unapply)
 
   val scoreGroupsMapping: Mapping[Option[List[ScoreGroup]]] = optional(
     list(optional(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))))
