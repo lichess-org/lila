@@ -81,8 +81,8 @@ export const env = new (class {
   buildOk(): boolean {
     return (
       [...this.mustSucceed].every(isOk => isOk()) &&
-      isEquivalent(env.building, [...env.packages.values()]) &&
-      (['tsc', 'esbuild', 'sass', 'i18n'] as const).map(b => env.status[b]).every(x => x === 0)
+      isEquivalent(this.building, [...this.packages.values()]) &&
+      (['tsc', 'esbuild', 'sass', 'i18n'] as const).map(b => this.status[b]).every(x => x === 0)
     );
   }
 
