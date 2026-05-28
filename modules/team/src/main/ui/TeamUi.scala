@@ -63,14 +63,16 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         ),
         t.intro.map(span(_))
       ),
-      td(cls := "info")(
-        p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
+      td(cls := "actions")(
         isMine.option:
           st.form(action := routes.Team.quit(t.id), method := "post")(
             submitButton(cls := "button button-empty button-red button-thin yes-no-confirm team__quit")(
               trt.quitTeam.txt()
             )
           )
+      ),
+      td(cls := "info")(
+        p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize))
       )
     )
 
