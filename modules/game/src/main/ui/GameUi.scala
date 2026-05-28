@@ -99,17 +99,18 @@ final class GameUi(helpers: Helpers):
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon
 
-  def gameEndStatus(game: Game)(using Translate): String =
-    import chess.{ White, Black, Status as S }
-    val abortReasonText = game.abortReason.map:
+  def abortReasonText(game: Game)(using Translate): String =
+    game.abortReason.fold(trans.site.gameAborted.txt()):
       case AbortReason.whiteDidNotMove => trans.site.whiteDidNotMove.txt()
       case AbortReason.blackDidNotMove => trans.site.blackDidNotMove.txt()
       case AbortReason.whiteAborted => trans.site.whiteAborted.txt()
       case AbortReason.blackAborted => trans.site.blackAborted.txt()
+
+  def gameEndStatus(game: Game)(using Translate): String =
+    import chess.{ White, Black, Status as S }
     import lila.game.GameExt.drawReason
     game.status match
-      case S.Aborted =>
-        abortReasonText.getOrElse(trans.site.gameAborted.txt())
+      case S.Aborted => abortReasonText(game)
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
