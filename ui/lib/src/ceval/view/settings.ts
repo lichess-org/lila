@@ -1,9 +1,9 @@
 import { clamp } from '@/algo';
-import type { CevalHandler } from '@/ceval';
+import type { CevalHandler, EngineInfo } from '@/ceval';
 import { isChrome } from '@/device';
 import { onClickAway } from '@/index';
 import * as Licon from '@/licon';
-import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
+import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDialog } from '@/view';
 
 import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
@@ -218,5 +218,25 @@ function engineSelection({ ceval }: CevalHandler) {
             ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
         }),
       }),
+    hl('button.engine-info-button', {
+      attrs: { ...dataIcon(Licon.InfoCircle), title: 'Engine information' },
+      on: { click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, 'browser')) },
+    }),
   ]);
+}
+
+function engineInfo(engines: EngineInfo[]) {
+  if (document.querySelector('.engine-info')) return;
+  const engineHtml = (e: EngineInfo) =>
+    `<li>${e.name} ${e.url ? `(<a href="${e.url}" target="_blank">source</a>)` : ''}</li>`;
+  domDialog({
+    class: 'engine-info-popup',
+    htmlText: $html`
+      <div>
+        <p>From strongest to weakest</p>
+        <ol>${engines.map(engineHtml).join('')}</ol>
+      </div>`,
+    show: true,
+    noCloseButton: true,
+  });
 }
