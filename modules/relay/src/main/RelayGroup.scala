@@ -49,21 +49,20 @@ private case class RelayGroupData(
     RelayGroup(RelayGroup.makeId, i.name, i.tours.map(_.id), scoreGroups)
 
 object RelayGroupData:
-  case class Info(
-      name: RelayGroup.Name,
-      tours: NonEmptyList[RelayTour.TourPreview]
-  )
+  def empty = RelayGroupData(none, none)
+  case class Info(name: RelayGroup.Name, tours: NonEmptyList[RelayTour.TourPreview])
 
 private final class RelayGroupForm:
   import play.api.data.*
   import play.api.data.Forms.*
   import lila.common.Form.formatter
 
-  def data(group: RelayGroup.WithTours) =
-    RelayGroupData(
-      RelayGroupData.Info(group.group.name, group.tours).some,
-      group.group.scoreGroups
-    )
+  def data(group: Option[RelayGroup.WithTours]) =
+    group.fold(RelayGroupData.empty): group =>
+      RelayGroupData(
+        RelayGroupData.Info(group.group.name, group.tours).some,
+        group.group.scoreGroups
+      )
 
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
@@ -110,17 +109,16 @@ private final class RelayGroupForm:
       "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
     )(RelayGroupData.Info.apply)(unapply)
 
-  val scoreGroupsMapping: Mapping[Option[List[ScoreGroup]]] = optional(
+  val scoreGroupsMapping: Mapping[List[ScoreGroup]] =
     list(optional(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))))
       .transform(_.flatten, _.map(some))
-  )
-    .verifying("Too many score groups (max 10)", _.forall(_.sizeIs <= 10))
-    .verifying("Score groups cannot have overlapping broadcasts", _.forall(noOverlappingScoreGroups))
+      .verifying("Too many score groups (max 10)", _.sizeIs <= 10)
+      .verifying("Score groups cannot have overlapping broadcasts", noOverlappingScoreGroups)
 
   val mapping = Forms
     .mapping(
       "info" -> optional(infoMapping),
-      "scoreGroups" -> scoreGroupsMapping
+      "scoreGroups" -> optional(scoreGroupsMapping)
     )(RelayGroupData.apply)(unapply)
     .verifying(
       "Score groups cannot contain broadcasts not present in this group",
