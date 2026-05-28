@@ -122,9 +122,11 @@ export default function initModule(opts: { studyAdmin: boolean; broadcaster: boo
 
   const plusButton = document.createElement('button');
   plusButton.type = 'button';
-  plusButton.className = 'button';
-  plusButton.textContent = '+';
-  plusButton.style.marginInlineStart = '45%';
+  plusButton.className = 'button button-thin';
+  plusButton.textContent = 'Add another score group';
+  const plusWrap = document.createElement('div');
+  plusWrap.className = 'relay-score-group-plus';
+  plusWrap.appendChild(plusButton);
 
   const inputWithoutTagify = $('[id*="_scoreGroups_"]').last().parent().clone();
   plusButton.addEventListener('mousedown', () => {
@@ -143,7 +145,7 @@ export default function initModule(opts: { studyAdmin: boolean; broadcaster: boo
     newLast.insertAfter(lastEl);
   });
 
-  $('[id*="_scoreGroups_"]').last().parent()[0]?.insertAdjacentElement('afterend', plusButton);
+  $('[id*="_scoreGroups_"]').last().parent()[0]?.insertAdjacentElement('afterend', plusWrap);
 
   const makeSgTagify = (el: HTMLTextAreaElement) => {
     const sgTagify = makeTourTagify(el);
