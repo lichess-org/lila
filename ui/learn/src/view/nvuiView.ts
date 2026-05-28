@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { opposite } from 'chessops';
 import { throttle } from 'lib/async';
 import { bind, onInsert } from 'lib/view';
 import * as nv from 'lib/nvui/chess';
@@ -23,6 +24,7 @@ const promotionByChar: Record<string, PromotionRole> = {
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
+const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 export function renderNvui(ctx: LearnNvuiContext): VNode {
@@ -133,14 +135,21 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       }),
     ]),
     h('h2', 'Board'),
-    nv.renderBoard(
-      ground.state.pieces,
-      levelCtrl.blueprint.color,
-      pieceStyle.get(),
-      prefixStyle.get(),
-      positionStyle.get(),
-      boardStyle.get(),
+    h(
+      'div.board',
+      {
+        hook: onInsert(el => boardEventsHook(ctx, ground, el)),
+      },
+      nv.renderBoard(
+        ground.state.pieces,
+        levelCtrl.blueprint.color,
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
     ),
+    h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
     h('h2', i18n.site.advancedSettings),
     h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
     h('h3', 'Board settings'),
@@ -225,3 +234,26 @@ function onSubmit(
 
 const button = (text: string, action: (e: Event) => void): VNode =>
   h('button', { hook: bind('click', action) }, text);
+
+function boardEventsHook(ctx: LearnNvuiContext, ground: CgApi, el: HTMLElement): void {
+  const pov = ctx.ctrl.runCtrl.levelCtrl.blueprint.color;
+  const opponentColor = () => opposite(pov);
+  const fen = () => ctx.ctrl.runCtrl.levelCtrl.chess.fen();
+
+  const $buttons = $(el).find('button');
+
+  $buttons.on('blur', nv.leaveSquareHandler($buttons));
+  $buttons.on('click', nv.selectionHandler(opponentColor));
+  $buttons.on('keydown', (e: KeyboardEvent) => {
+    if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(pov, borderSound)(e);
+    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
+    else if (e.key === 'o') nv.boardCommandsHandler()(e);
+    else if (e.key.toLowerCase() === 'm')
+      nv.possibleMovesHandler(pov, ground, 'standard', [{ fen: fen() }])(e);
+    else if (e.key === 'i') {
+      e.preventDefault();
+      ($('input.move').get(0) as HTMLInputElement | undefined)?.focus();
+    }
+  });
+}
