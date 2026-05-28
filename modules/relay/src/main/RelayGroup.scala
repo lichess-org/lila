@@ -8,11 +8,11 @@ import lila.common.Form.cleanNonEmptyText
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,
     name: RelayGroup.Name,
-    tours: List[RelayTourId],
+    tours: NonEmptyList[RelayTourId],
     scoreGroups: Option[List[ScoreGroup]]
 ):
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
-    scoreGroups.flatMap(_.find(_.toList.contains(tourId)))
+    scoreGroups.flatMap(_.find(_.contains(tourId)))
 
 object RelayGroup:
 
@@ -31,25 +31,27 @@ object RelayGroup:
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s
 
-  case class WithTours(group: RelayGroup, tours: List[RelayTour.TourPreview]):
+  case class WithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.TourPreview]):
     def withShorterTourNames = copy(
       tours = tours.map: tour =>
         tour.copy(name = group.name.shortTourName(tour.name))
     )
 
 private case class RelayGroupData(
-    info: RelayGroupData.Info,
+    info: Option[RelayGroupData.Info],
     scoreGroups: Option[List[ScoreGroup]]
 ):
-  def tourIds = info.tours.map(_.id)
-  def update(group: RelayGroup): RelayGroup =
-    group.copy(name = info.name, tours = tourIds, scoreGroups = scoreGroups)
-  def make: RelayGroup = RelayGroup(RelayGroup.makeId, info.name, tourIds, scoreGroups)
+  def tourIds: List[RelayTourId] = info.so(_.tours.toList.map(_.id))
+  def update(group: RelayGroup): Option[RelayGroup] =
+    info.map: i =>
+      group.copy(name = i.name, tours = i.tours.map(_.id), scoreGroups = scoreGroups)
+  def make: Option[RelayGroup] = info.map: i =>
+    RelayGroup(RelayGroup.makeId, i.name, i.tours.map(_.id), scoreGroups)
 
 object RelayGroupData:
   case class Info(
       name: RelayGroup.Name,
-      tours: List[RelayTour.TourPreview]
+      tours: NonEmptyList[RelayTour.TourPreview]
   )
 
 private final class RelayGroupForm:
@@ -59,7 +61,7 @@ private final class RelayGroupForm:
 
   def data(group: RelayGroup.WithTours) =
     RelayGroupData(
-      RelayGroupData.Info(group.group.name, group.tours),
+      RelayGroupData.Info(group.group.name, group.tours).some,
       group.group.scoreGroups
     )
 
@@ -79,16 +81,11 @@ private final class RelayGroupForm:
     scoreGroup.toList.map(_.value).mkString(",")
 
   private def scoreGroupParse(value: String): Option[ScoreGroup] =
-    value
-      .split(",")
-      .toList
-      .map(_.trim)
-      .flatMap(parseId)
-      .toNel
+    value.split(",").toList.map(_.trim).flatMap(parseId).toNel
 
   private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
-    scoreGroups.flatMap(_.toList).forall(id => groupTourIds.contains(id))
+    scoreGroups.flatMap(_.toList).forall(groupTourIds.contains)
 
   private def noOverlappingScoreGroups(scoreGroups: List[ScoreGroup]): Boolean =
     val ids = scoreGroups.flatMap(_.toList)
@@ -104,13 +101,13 @@ private final class RelayGroupForm:
       .toNel
       .map(_.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none)))
 
-  private def toursAsText(tours: List[TourPreview]): String =
-    tours.map(t => s"${t.name},${t.id}").mkString("\n")
+  private def toursAsText(tours: NonEmptyList[TourPreview]): String =
+    tours.toList.map(t => s"${t.name},${t.id}").mkString("\n")
 
   val infoMapping: Mapping[RelayGroupData.Info] =
     Forms.mapping(
       "name" -> cleanNonEmptyText,
-      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, txt => toursParse(txt).map(_.toList)))
+      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
     )((name, tours) => RelayGroupData.Info(RelayGroup.Name(name), tours))(info =>
       Some((info.name.value, info.tours))
     )
@@ -126,9 +123,7 @@ private final class RelayGroupForm:
     .mapping(
       "info" -> optional(infoMapping),
       "scoreGroups" -> scoreGroupsMapping
-    )((info, scoreGroups) =>
-      RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
-    )(data => Some(data.info.some, data.scoreGroups))
+    )(RelayGroupData.apply)(unapply)
     .verifying(
       "Score groups cannot contain broadcasts not present in this group",
       data => data.scoreGroups.forall(allIdsFromGroup(data.tourIds, _))
@@ -149,23 +144,24 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
     coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup]().listAll()
 
-  def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
-    byTour(tourId).map(_.fold(List(tourId))(_.tours))
+  def allTourIdsOfGroup(tourId: RelayTourId): Fu[NonEmptyList[RelayTourId]] =
+    byTour(tourId).map(_.fold(NonEmptyList.one(tourId))(_.tours))
 
   def update(tourId: RelayTourId, data: RelayGroupData): Funit =
     for
       prev <- byTour(tourId)
-      curId <- prev match
-        case Some(prev) if data.info.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
-        case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
+      current <- prev match
+        case Some(prev) =>
+          data.update(prev) match
+            case None => coll.delete.one($id(prev.id)).inject(none)
+            case Some(next) => coll.update.one($id(prev.id), next).inject(prev.some)
         case None =>
-          val newGroup = data.make
-          coll.insert.one(newGroup).inject(newGroup.id.some)
+          data.make.so: group =>
+            coll.insert.one(group).inject(group.some)
       // make sure the tours of this group are not in other groups
-      _ <- curId.so: id =>
-        data.tourIds.sequentiallyVoid { tourId =>
-          coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
-        }
+      _ <- current.so: cur =>
+        cur.tours.toList.traverseVoid: tour =>
+          coll.update.one($doc("_id".$ne(cur.id), "tours" -> tour), $pull("tours" -> tour), multi = true)
     yield ()
 
 final class RelayGroupCrowdSumCache(
@@ -184,7 +180,7 @@ final class RelayGroupCrowdSumCache(
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
       res <- colls.round.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+        Match($doc("tourId".$in(tourIds.toList), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
 

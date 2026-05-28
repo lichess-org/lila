@@ -209,7 +209,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       then Redirect(routes.RelayTour.show(group.name.toSlug, id.into(RelayTourId)))
       else
         for
-          allTours <- env.relay.api.toursByIds(group.tours)
+          allTours <- env.relay.api.toursByIds(group.tours.toList)
           tours = if isGrantedOpt(_.StudyAdmin) then allTours else allTours.filter(_.canView)
           page <- Ok.page(views.relay.group.show(group, tours))
         yield page

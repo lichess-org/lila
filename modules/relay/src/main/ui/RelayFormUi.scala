@@ -73,7 +73,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
-            g.withShorterTourNames.tours.map: t =>
+            g.withShorterTourNames.tours.toList.map: t =>
               if nav.tour.id == t.id then tourAndRounds(t.name.some)
               else a(href := routes.RelayTour.edit(t.id), cls := List("subnav__item" -> true))(t.name)
           )

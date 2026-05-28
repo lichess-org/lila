@@ -120,7 +120,7 @@ private final class RelayListing(
       .filter(t => !groups.exists(_.tours.contains(t.tour.id)))
       .map(Spot.UngroupedTour.apply)
     val groupedTours: List[Spot] = groups.flatMap: group =>
-      group.tours.flatMap(toursById.get).toNel.map(Spot.GroupWithTours(group, _))
+      group.tours.toList.flatMap(toursById.get).toNel.map(Spot.GroupWithTours(group, _))
     ungroupedTours ::: groupedTours
 
   private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
