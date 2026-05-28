@@ -66,7 +66,7 @@ final class ClasForm(
       mapping(
         "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
-          .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
+          .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 
