@@ -12,6 +12,14 @@ import type { RunCtrl } from '../run/runCtrl';
 import type { LevelCtrl } from '../levelCtrl';
 import { categs } from '../stage/list';
 import { hashHref } from '../hashRouting';
+import type { PromotionRole } from '../util';
+
+const promotionByChar: Record<string, PromotionRole> = {
+  q: 'queen',
+  r: 'rook',
+  b: 'bishop',
+  n: 'knight',
+};
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -76,6 +84,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     ),
     h('h2', i18n.nvui.pieces),
     nv.renderPieces(ground.state.pieces, moveStyle.get()),
+    ...renderApples(levelCtrl, moveStyle.get()),
     h('h2', i18n.nvui.gameStatus),
     h(
       'div.status',
@@ -151,6 +160,22 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
   ];
 }
 
+function renderApples(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
+  if (!levelCtrl.isAppleLevel()) return [];
+  const keys = levelCtrl.items.appleKeys();
+  const text = keys.length
+    ? keys.map(k => nv.renderKey(k as Key, style)).join(', ')
+    : i18n.site.none;
+  return [
+    h('h2', 'Apples'),
+    h(
+      'p.apples',
+      { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
+      `${keys.length} remaining: ${text}`,
+    ),
+  ];
+}
+
 function renderStatus(levelCtrl: LevelCtrl): string {
   if (levelCtrl.vm.failed) return i18n.learn.puzzleFailed;
   if (levelCtrl.vm.completed) return 'Completed';
@@ -178,9 +203,17 @@ function onSubmit(
     if (typeof uci === 'string' && uci.length >= 4) {
       const orig = uci.slice(0, 2) as Key;
       const dest = uci.slice(2, 4) as Key;
+      const promotionChar = uci.length === 5 ? uci[4] : undefined;
       // Drive the move through chessground so all existing event hooks (capture detection,
       // scenarios, completion) fire exactly as they do for sighted users.
       ground.move(orig, dest);
+      if (promotionChar && runCtrl.levelCtrl.promotionCtrl.promoting) {
+        // ground.move fired the chessground 'move' event, which called promotionCtrl.start
+        // and parked the move waiting on a piece choice. Resolve it from the input directly
+        // instead of waiting on the (visual-only) promotion modal.
+        const role = promotionByChar[promotionChar] ?? 'queen';
+        runCtrl.levelCtrl.promotionCtrl.finish(role);
+      }
     } else {
       notify(`Invalid move: ${raw}`);
       errorSound();
