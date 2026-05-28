@@ -40,7 +40,7 @@ export interface Game {
   rules?: GameRule[];
 }
 
-export type AbortReason = 'WhiteDidNotMove' | 'BlackDidNotMove' | 'WhiteAborted' | 'BlackAborted';
+export type AbortReason = 'whiteDidNotMove' | 'blackDidNotMove' | 'whiteAborted' | 'blackAborted';
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export type TopOrBottom = 'top' | 'bottom';

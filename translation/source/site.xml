@@ -56,8 +56,8 @@
   <string name="blackResigned">Black resigned</string>
   <string name="whiteLeftTheGame">White left the game</string>
   <string name="blackLeftTheGame">Black left the game</string>
-  <string name="whiteDidntMove">White didn't move</string>
-  <string name="blackDidntMove">Black didn't move</string>
+  <string name="whiteDidNotMove">White didn't move</string>
+  <string name="blackDidNotMove">Black didn't move</string>
   <string name="whiteAborted">White aborted the game</string>
   <string name="blackAborted">Black aborted the game</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>

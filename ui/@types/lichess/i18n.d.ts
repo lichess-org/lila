@@ -3178,7 +3178,7 @@ interface I18n {
     /** Black declines takeback */
     blackDeclinesTakeback: string;
     /** Black didn't move */
-    blackDidntMove: string;
+    blackDidNotMove: string;
     /** Black is victorious */
     blackIsVictorious: string;
     /** Black left the game */
@@ -4708,7 +4708,7 @@ interface I18n {
     /** White declines takeback */
     whiteDeclinesTakeback: string;
     /** White didn't move */
-    whiteDidntMove: string;
+    whiteDidNotMove: string;
     /** White / Draw / Black */
     whiteDrawBlack: string;
     /** White is victorious */

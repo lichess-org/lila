@@ -69,20 +69,7 @@ export default function status(d: GameData): string {
   });
 }
 export function statusOf(d: StatusData): string {
-  const abortReasonText = (() => {
-    switch (d.abortReason) {
-      case 'WhiteDidNotMove':
-        return i18n.site.whiteDidntMove;
-      case 'BlackDidNotMove':
-        return i18n.site.blackDidntMove;
-      case 'WhiteAborted':
-        return i18n.site.whiteAborted;
-      case 'BlackAborted':
-        return i18n.site.blackAborted;
-      default:
-        return undefined;
-    }
-  })();
+  const abortReasonText = d.abortReason && i18n.site[d.abortReason];
   const winnerSuffix = d.winner
     ? ' • ' + i18n.site[d.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
     : '';
@@ -122,7 +109,7 @@ export function statusOf(d: StatusData): string {
         winnerSuffix || ` • ${i18n.site.draw}`
       }`;
     case 'noStart':
-      return (d.winner === 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
+      return (d.winner === 'white' ? i18n.site.blackDidNotMove : i18n.site.whiteDidNotMove) + winnerSuffix;
     case 'cheat':
       return i18n.site.cheatDetected + winnerSuffix;
     case 'variantEnd':

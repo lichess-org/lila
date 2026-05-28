@@ -102,10 +102,10 @@ final class GameUi(helpers: Helpers):
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
     val abortReasonText = game.abortReason.map:
-      case AbortReason.WhiteDidNotMove => trans.site.whiteDidntMove.txt()
-      case AbortReason.BlackDidNotMove => trans.site.blackDidntMove.txt()
-      case AbortReason.WhiteAborted => trans.site.whiteAborted.txt()
-      case AbortReason.BlackAborted => trans.site.blackAborted.txt()
+      case AbortReason.whiteDidNotMove => trans.site.whiteDidNotMove.txt()
+      case AbortReason.blackDidNotMove => trans.site.blackDidNotMove.txt()
+      case AbortReason.whiteAborted => trans.site.whiteAborted.txt()
+      case AbortReason.blackAborted => trans.site.blackAborted.txt()
     import lila.game.GameExt.drawReason
     game.status match
       case S.Aborted =>
@@ -141,8 +141,8 @@ final class GameUi(helpers: Helpers):
           case (Black, Some(_)) => trans.site.blackTimeOut.txt()
           case (Black, None) => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
-        (if game.loser.exists(_.color.white) then trans.site.whiteDidntMove else trans.site.blackDidntMove)
-          .txt()
+        if game.loser.exists(_.color.white) then trans.site.whiteDidNotMove.txt()
+        else trans.site.blackDidNotMove.txt()
       case S.Cheat => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match

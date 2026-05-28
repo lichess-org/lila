@@ -23,11 +23,11 @@ case class GameMetadata(
   def nonEmptyRules = rules.nonEmpty.option(rules)
 
 enum AbortReason:
-  case WhiteDidNotMove, BlackDidNotMove, WhiteAborted, BlackAborted
+  case whiteDidNotMove, blackDidNotMove, whiteAborted, blackAborted
 
 object AbortReason:
-  val noMove = ByColor(WhiteDidNotMove, BlackDidNotMove)
-  val abortedBy = ByColor(WhiteAborted, BlackAborted)
+  val noMove = ByColor(whiteDidNotMove, blackDidNotMove)
+  val abortedBy = ByColor(whiteAborted, blackAborted)
   val byId = values.mapBy(_.ordinal)
 
 val emptyDrawOffers = GameDrawOffers(Set.empty, Set.empty)
