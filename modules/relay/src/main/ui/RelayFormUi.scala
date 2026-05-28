@@ -927,18 +927,7 @@ Team Dogs ; Scooby Doo"""),
           br,
           "Score groups cannot overlap.",
           br,
-          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
-          br,
-          "Example: " +
-            "Score group 1",
-          pre("""ISdmqct3,Zi12QchK"""),
-          "Score group 2",
-          pre("""PGFBkEha, xfLp6UlH"""),
-          "Using the same example as above, this will create 2 score groups:",
-          br,
-          "1) Combines the open sections",
-          br,
-          "2) Combines the women's section"
+          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group."
         ).some
       )(field =>
         frag(
