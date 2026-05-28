@@ -94,17 +94,15 @@ private final class RelayGroupForm:
     val ids = scoreGroups.flatMap(_.toList)
     ids.distinct.size == ids.size
 
-  private def toursParse(value: String): Option[List[TourPreview]] =
+  private def toursParse(value: String): Option[NonEmptyList[TourPreview]] =
     value
       .split("\n")
       .toList
-      .nonEmptyOption
-      .map: lines =>
-        lines
-          .take(50)
-          .map(_.trim.takeWhile(' ' != _))
-          .flatMap(parseId)
-          .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
+      .take(50)
+      .map(_.trim.takeWhile(' ' != _))
+      .flatMap(parseId)
+      .toNel
+      .map(_.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none)))
 
   private def toursAsText(tours: List[TourPreview]): String =
     tours.map(t => s"${t.name},${t.id}").mkString("\n")
@@ -112,7 +110,7 @@ private final class RelayGroupForm:
   val infoMapping: Mapping[RelayGroupData.Info] =
     Forms.mapping(
       "name" -> cleanNonEmptyText,
-      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
+      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, txt => toursParse(txt).map(_.toList)))
     )((name, tours) => RelayGroupData.Info(RelayGroup.Name(name), tours))(info =>
       Some((info.name.value, info.tours))
     )
