@@ -231,6 +231,9 @@ private object DisposableEmailDomain:
       "yandex.ru",
       "ya.ru",
       "list.ru",
+      "bk.ru",
+      "vk.com",
+      "inbox.ru",
       /* Belgian ISP domains */
       "skynet.be",
       "voo.be",
