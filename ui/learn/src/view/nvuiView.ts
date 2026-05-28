@@ -1,5 +1,6 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, type SquareName } from 'chessops';
 import { throttle } from 'lib/async';
 import { type VNode, bind, onInsert, hl } from 'lib/view';
@@ -11,7 +12,7 @@ import type { LearnCtrl } from '../ctrl';
 import type { RunCtrl } from '../run/runCtrl';
 import type { LevelCtrl } from '../levelCtrl';
 import { categs } from '../stage/list';
-import { hashHref } from '../hashRouting';
+import { hashHref, hashNavigate } from '../hashRouting';
 import type { PromotionRole } from '../util';
 
 const promotionByChar: Record<string, PromotionRole> = {
@@ -83,6 +84,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
       levelCtrl.blueprint.goal,
     ),
+    ...renderHints(levelCtrl, moveStyle.get()),
     hl('h2', i18n.nvui.pieces),
     nv.renderPieces(ground.state.pieces, moveStyle.get(), levelCtrl.blueprint.color),
     ...renderStars(levelCtrl, moveStyle.get()),
@@ -120,18 +122,11 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     notify.render(),
     hl('h2', i18n.nvui.actions),
     hl('div.actions', [
-      button(i18n.learn.retry, () => {
-        runCtrl.restart();
-      }),
+      button(i18n.learn.retry, runCtrl.restart),
       runCtrl.getNext()
-        ? button(i18n.learn.next, () => {
-            const next = runCtrl.getNext();
-            if (next) location.hash = hashHref(next.id);
-          })
+        ? button(i18n.learn.next, () => hashNavigate(runCtrl.getNext()!.id))
         : null,
-      button(i18n.learn.backToMenu, () => {
-        location.hash = '';
-      }),
+      button(i18n.learn.backToMenu, () => hashNavigate()),
     ]),
     hl('h2', 'Board'),
     hl(
@@ -192,16 +187,24 @@ function renderStageComplete(runCtrl: RunCtrl): VNode[] {
     ),
     hl('p', stage.complete),
     hl('div.actions', [
-      next
-        ? button(i18n.learn.nextX(next.title), () => {
-            location.hash = hashHref(next.id);
-          })
-        : null,
-      button(i18n.learn.backToMenu, () => {
-        location.hash = '';
-      }),
+      next ? button(i18n.learn.nextX(next.title), () => hashNavigate(next.id)) : null,
+      button(i18n.learn.backToMenu, () => hashNavigate()),
     ]),
   ];
+}
+
+function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
+  const shapes = levelCtrl.blueprint.shapes as DrawShape[] | undefined;
+  if (!shapes?.length) return [];
+  const descriptions = shapes.map(shape => {
+    const orig = nv.renderKey(shape.orig as Key, style);
+    if (!shape.dest) return orig;
+    const dest = nv.renderKey(shape.dest as Key, style);
+    if (shape.brush === 'red') return `Threat: ${orig} to ${dest}`;
+    if (shape.brush === 'blue') return `Cover: ${orig} to ${dest}`;
+    return `${orig} to ${dest}`;
+  });
+  return [hl('h2', 'Hints'), hl('p', descriptions.join(', '))];
 }
 
 function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
@@ -248,13 +251,10 @@ function onSubmit(
       const orig = uci.slice(0, 2) as Key;
       const dest = uci.slice(2, 4) as Key;
       const promotionChar = uci.length === 5 ? uci[4] : undefined;
-      // Drive the move through chessground so all existing event hooks (capture detection,
-      // scenarios, completion) fire exactly as they do for sighted users.
+      // route through ground.move so capture detection, scenarios and completion hooks fire
       ground.move(orig, dest);
       if (promotionChar && runCtrl.levelCtrl.promotionCtrl.promoting) {
-        // ground.move fired the chessground 'move' event, which called promotionCtrl.start
-        // and parked the move waiting on a piece choice. Resolve it from the input directly
-        // instead of waiting on the (visual-only) promotion modal.
+        // ground.move parked the move in promotionCtrl; resolve from input instead of the visual modal
         const role = promotionByChar[promotionChar] ?? 'queen';
         runCtrl.levelCtrl.promotionCtrl.finish(role);
       }
@@ -275,7 +275,6 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
   const opponentColor = () => opposite(pov);
   const fen = () => ctx.ctrl.runCtrl.levelCtrl.chess.fen();
   const $board = $(el);
-  // Remove old handlers before rebinding (important on re-render)
   $board.off('.nvui');
 
   $board.on('blur.nvui', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
@@ -300,7 +299,7 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
       nv.possibleMovesHandler(pov, ground, 'standard', [{ fen: fen() }])(e);
     else if (e.key === 'i') {
       e.preventDefault();
-      ($('input.move').get(0) as HTMLInputElement | undefined)?.focus();
+      $('input.move').get(0)?.focus();
     }
   });
 }
