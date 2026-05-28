@@ -904,15 +904,7 @@ Team Dogs ; Scooby Doo"""),
           br,
           "You can also re-order tournaments by dragging.",
           br,
-          "If the tournament you want is not listed in the dropdown you can paste the link to the tournament.",
-          br,
-          "Example:",
-          pre("""
-  https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
-  https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
-  https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
-  https://lichess.org/broadcast/dutch-championships-2025--women--quarterfinals/xfLp6UlH
-  """)
+          "If the tournament you want is not listed in the dropdown you can paste the link to the tournament."
         ).some
       )(
         form3.textarea(_)(
