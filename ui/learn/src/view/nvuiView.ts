@@ -1,9 +1,8 @@
-import { h, type VNode } from 'snabbdom';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import type { Api as CgApi } from '@lichess-org/chessground/api';
+import type { Api } from '@lichess-org/chessground/api';
 import { opposite, type SquareName } from 'chessops';
 import { throttle } from 'lib/async';
-import { bind, onInsert } from 'lib/view';
+import { type VNode, bind, onInsert, hl } from 'lib/view';
 import * as nv from 'lib/nvui/chess';
 import { renderSetting } from 'lib/nvui/setting';
 import { commands, addBreaks } from 'lib/nvui/command';
@@ -30,24 +29,24 @@ const errorSound = throttled('error');
 export function renderNvui(ctx: LearnNvuiContext): VNode {
   const { ctrl } = ctx;
   ctx.notify.redraw = ctrl.redraw;
-  return h('main.learn.learn--nvui', [
-    h('div.nvui', ctrl.inStage() ? renderStage(ctx) : renderMap(ctrl)),
+  return hl('main.learn.learn--nvui', [
+    hl('div.nvui', ctrl.inStage() ? renderStage(ctx) : renderMap(ctrl)),
   ]);
 }
 
 function renderMap(ctrl: LearnCtrl): VNode[] {
   return [
-    h('h1', `${i18n.learn.learnChess} ${i18n.learn.byPlaying}`),
+    hl('h1', `${i18n.learn.learnChess} ${i18n.learn.byPlaying}`),
     ...categs.map(categ =>
-      h('section', [
-        h('h2', categ.name),
-        h(
+      hl('section', [
+        hl('h2', categ.name),
+        hl(
           'ul',
           categ.stages.map(stage => {
             const [done, total] = ctrl.stageProgress(stage);
             const status = ctrl.isStageIdComplete(stage.id) ? 'complete' : `${done} / ${total}`;
-            return h('li', [
-              h('a', { attrs: { href: hashHref(stage.id) } }, `${stage.title} — ${stage.subtitle}`),
+            return hl('li', [
+              hl('a', { attrs: { href: hashHref(stage.id) } }, `${stage.title} — ${stage.subtitle}`),
               ` (${status})`,
             ]);
           }),
@@ -77,30 +76,30 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
   if (!runCtrl.chessground) runCtrl.setChessground(ground);
 
   return [
-    h('h1', `${stage.title} — ${stage.subtitle}`),
-    h('h2', 'Goal'),
-    h(
+    hl('h1', `${stage.title} — ${stage.subtitle}`),
+    hl('h2', 'Goal'),
+    hl(
       'p.goal',
       { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
       levelCtrl.blueprint.goal,
     ),
-    h('h2', i18n.nvui.pieces),
+    hl('h2', i18n.nvui.pieces),
     nv.renderPieces(ground.state.pieces, moveStyle.get(), levelCtrl.blueprint.color),
     ...renderStars(levelCtrl, moveStyle.get()),
-    h('h2', i18n.nvui.gameStatus),
-    h(
+    hl('h2', i18n.nvui.gameStatus),
+    hl(
       'div.status',
-      { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+      { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
       renderStatus(levelCtrl),
     ),
-    h('h2', i18n.nvui.lastMove),
-    h(
+    hl('h2', i18n.nvui.lastMove),
+    hl(
       'p.lastMove',
       { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
       describeLastMove(ground, moveStyle.get()),
     ),
-    h('h2', i18n.nvui.inputForm),
-    h(
+    hl('h2', i18n.nvui.inputForm),
+    hl(
       'form#move-form',
       {
         hook: onInsert(el => {
@@ -110,17 +109,17 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         }),
       },
       [
-        h('label', [
+        hl('label', [
           'Your move',
-          h('input.move.mousetrap', {
+          hl('input.move.mousetrap', {
             attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
           }),
         ]),
       ],
     ),
     notify.render(),
-    h('h2', i18n.nvui.actions),
-    h('div.actions', [
+    hl('h2', i18n.nvui.actions),
+    hl('div.actions', [
       button(i18n.learn.retry, () => {
         runCtrl.restart();
       }),
@@ -134,8 +133,8 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         location.hash = '';
       }),
     ]),
-    h('h2', 'Board'),
-    h(
+    hl('h2', 'Board'),
+    hl(
       'div.board',
       {
         hook: {
@@ -152,24 +151,24 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         boardStyle.get(),
       ),
     ),
-    h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-    h('h2', i18n.site.advancedSettings),
-    h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-    h('h3', 'Board settings'),
-    h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-    h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-    h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-    h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-    h('h2', 'Commands'),
-    h(
+    hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+    hl('h2', i18n.site.advancedSettings),
+    hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+    hl('h3', 'Board settings'),
+    hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+    hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+    hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+    hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+    hl('h2', 'Commands'),
+    hl(
       'p',
       ['Type these commands in the move input.', commands().piece.help, commands().scan.help].reduce(
         addBreaks,
         [],
       ),
     ),
-    h('h2', i18n.nvui.boardCommandList),
-    h('p', [
+    hl('h2', i18n.nvui.boardCommandList),
+    hl('p', [
       `i: ${i18n.nvui.goToInputForm}`,
       ...[
         `o: ${i18n.nvui.announceCurrentSquare}`,
@@ -186,10 +185,13 @@ function renderStageComplete(runCtrl: RunCtrl): VNode[] {
   const stage = runCtrl.stage;
   const next = runCtrl.getNext();
   return [
-    h('h1', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-      i18n.learn.stageXComplete(stage.id)),
-    h('p', stage.complete),
-    h('div.actions', [
+    hl(
+      'h1',
+      { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+      i18n.learn.stageXComplete(stage.id),
+    ),
+    hl('p', stage.complete),
+    hl('div.actions', [
       next
         ? button(i18n.learn.nextX(next.title), () => {
             location.hash = hashHref(next.id);
@@ -209,8 +211,8 @@ function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
     ? keys.map(k => nv.renderKey(k as Key, style)).join(', ')
     : i18n.site.none;
   return [
-    h('h2', 'Stars'),
-    h(
+    hl('h2', 'Stars'),
+    hl(
       'p.apples',
       { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
       `${keys.length} remaining: ${text}`,
@@ -224,7 +226,7 @@ function renderStatus(levelCtrl: LevelCtrl): string {
   return `${levelCtrl.vm.nbMoves} / ${levelCtrl.blueprint.nbMoves} moves played`;
 }
 
-function describeLastMove(ground: CgApi, style: nv.MoveStyle): string {
+function describeLastMove(ground: Api, style: nv.MoveStyle): string {
   const last = ground.state.lastMove;
   if (!last || last.length < 2) return i18n.nvui.gameStart;
   return `${nv.renderKey(last[0] as Key, style)} ${nv.renderKey(last[1] as Key, style)}`;
@@ -234,7 +236,7 @@ function onSubmit(
   runCtrl: RunCtrl,
   notify: (txt: string) => void,
   $input: Cash,
-  ground: CgApi,
+  ground: Api,
 ): (ev: SubmitEvent) => void {
   return (ev: SubmitEvent) => {
     ev.preventDefault();
@@ -266,9 +268,9 @@ function onSubmit(
 }
 
 const button = (text: string, action: (e: Event) => void): VNode =>
-  h('button', { hook: bind('click', action) }, text);
+  hl('button', { hook: bind('click', action) }, text);
 
-function boardEventsHook(ctx: LearnNvuiContext, ground: CgApi, el: HTMLElement): void {
+function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): void {
   const pov = ctx.ctrl.runCtrl.levelCtrl.blueprint.color;
   const opponentColor = () => opposite(pov);
   const fen = () => ctx.ctrl.runCtrl.levelCtrl.chess.fen();
