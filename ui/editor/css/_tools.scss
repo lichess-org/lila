@@ -8,7 +8,8 @@
     .button,
     select,
     label,
-    input[type='checkbox'] {
+    input[type='checkbox'],
+    input[type='radio'] {
       cursor: pointer;
     }
 
@@ -49,6 +50,30 @@
 
       .color {
         margin-bottom: 1em;
+        border: 0;
+        padding: 0;
+
+        .turn-row {
+          display: flex;
+          align-items: baseline;
+          gap: 1.5em;
+        }
+
+        .radio-group {
+          display: flex;
+          gap: 1.2em;
+        }
+
+        label,
+        input {
+          display: inline-block;
+          margin: 3px;
+          vertical-align: middle;
+        }
+
+        input {
+          margin-left: 0;
+        }
       }
 
       .castling {

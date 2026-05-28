@@ -149,32 +149,28 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 
   return h('div.board-editor__tools', [
     h('div.metadata', [
-      h(
-        'div.color',
-        h(
-          'select',
-          {
-            on: {
-              change(e) {
-                ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
-              },
-            },
-            props: { value: ctrl.turn },
-          },
-          (['whitePlays', 'blackPlays'] as const).map(function (key) {
-            return h(
-              'option',
-              {
-                attrs: {
-                  value: key.startsWith('w') ? 'white' : 'black',
-                  selected: key.startsWith(ctrl.turn[0]),
-                },
-              },
-              i18n.site[key],
-            );
-          }),
-        ),
-      ),
+      h('fieldset.color', [
+        h('div.turn-row', [
+          h('strong', 'Turn'),
+          h(
+            'div.radio-group',
+            (['white', 'black'] as const).map(color =>
+              h('label', { key: color }, [
+                h('input', {
+                  attrs: { type: 'radio', name: 'turn', value: color },
+                  props: { checked: ctrl.turn === color },
+                  on: {
+                    change(e) {
+                      ctrl.setTurn((e.target as HTMLInputElement).value as Color);
+                    },
+                  },
+                }),
+                color === 'white' ? i18n.site.white : i18n.site.black,
+              ]),
+            ),
+          ),
+        ]),
+      ]),
       h('div.castling', [
         h('strong', i18n.site.castling),
         h('div', [
