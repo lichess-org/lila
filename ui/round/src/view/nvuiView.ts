@@ -6,10 +6,10 @@ import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
 import * as nv from 'lib/nvui/chess';
-import { commands, boardCommands } from 'lib/nvui/command';
+import { commands, ARROW_KEYS_MULTIJUMP, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
-import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+import { type LooseVNodes, type VNode, type VNodeChildren, bind, hl, noTrans, onInsert } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
 import type RoundController from '../ctrl';
@@ -29,6 +29,18 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
 
   notify.redraw = ctrl.redraw;
+
+  // Bind global 'f' key via Mousetrap to flip with spoken/notified feedback
+  site.mousetrap.bind('f', () => {
+    if (ctrl.data.game.variant.key !== 'racingKings') {
+      notify.set('Flipping the board');
+      setTimeout(() => {
+        ctrl.flip = !ctrl.flip;
+        ctrl.redraw();
+      }, 1000);
+    }
+  });
+
   if (!ctrl.chessground) {
     ctrl.setChessground(
       makeChessground(document.createElement('div'), {
@@ -276,8 +288,41 @@ function flipBoard(ctx: RoundNvuiContext): void {
   }
 }
 
+// Add helper functions at file level for extraction and help text
+function extractText(node: any): string {
+  if (node === null || node === undefined) return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node))
+    return node
+      .map(extractText)
+      .join(' ')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  if (node.text !== undefined) return node.text;
+  if (node.children) return extractText(node.children);
+  return '';
+}
+
+export function buildInputHelpString(ctrl: any): string {
+  const cmds = inputCommands
+    .filter(c => !c.invalid?.(ctrl))
+    .map(c => {
+      const help = typeof c.help === 'string' ? c.help : extractText(c.help as VNodeChildren);
+      return `${c.cmd}: ${help}`;
+    });
+
+  return [cmds].join('. ');
+}
+
+export function buildBoardHelpString(ctrl: any): string {
+  const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
+  const nodes = boardCommands(isCrazyhouse);
+  const raw = nodes.map(n => extractText(n)).join(' ');
+  return raw.replace(/\s{2,}/g, ' ').trim();
+}
+
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle, notify } = ctx;
 
   const $board = $(el);
   // Remove old handlers before rebinding (important on re-render)
@@ -299,7 +344,43 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
 
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-    else if (e.key.match(/^x$/i))
+    else if (e.shiftKey && e.key === 'H') {
+      e.preventDefault();
+      notify.set(buildBoardHelpString(ctrl));
+    } else if ((e.key === '9' || e.key === '0') && ctrl.data.game.variant.key === 'crazyhouse') {
+      e.preventDefault();
+      const step = plyStep(ctrl.data, ctrl.ply);
+      const pockets = step.crazy?.pockets;
+      if (pockets) {
+        const idx = e.key === '9' ? 0 : 1;
+        notify.set(nv.pocketsStr(pockets[idx]) || i18n.site.none);
+      }
+    } else if (e.ctrlKey && e.key === 'ArrowDown') {
+      e.preventDefault();
+      ctrl.userJump(0);
+      ctrl.redraw();
+    } else if (e.ctrlKey && e.key === 'ArrowUp') {
+      e.preventDefault();
+      ctrl.userJump(ctrl.data.steps.length - 1);
+      ctrl.redraw();
+    } else if (e.ctrlKey && e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const ply = ctrl.ply;
+
+      if (ply < ARROW_KEYS_MULTIJUMP) ctrl.userJump(0);
+      else ctrl.userJump(ply - ARROW_KEYS_MULTIJUMP);
+
+      ctrl.redraw();
+    } else if (e.ctrlKey && e.key === 'ArrowRight') {
+      e.preventDefault();
+      const ply = ctrl.ply;
+      const totalMoves = ctrl.data.steps.length;
+
+      if (totalMoves < ply + ARROW_KEYS_MULTIJUMP) ctrl.userJump(ctrl.data.steps.length - 1);
+      else ctrl.userJump(ply + ARROW_KEYS_MULTIJUMP);
+
+      ctrl.redraw();
+    } else if (e.key.match(/^x$/i))
       scanDirectionsHandler(
         ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
         ctrl.chessground.state.pieces,
@@ -392,7 +473,8 @@ type Command =
   | 'p'
   | 's'
   | 'opponent'
-  | 'pocket';
+  | 'pocket'
+  | 'help';
 
 type InputCommand = {
   cmd: Command;
@@ -482,6 +564,12 @@ const inputCommands: InputCommand[] = [
       );
     },
     invalid: ctrl => ctrl.data.game.variant.key !== 'crazyhouse',
+  },
+  {
+    cmd: 'help',
+    help: 'list all available input commands',
+    cb: (notify, ctrl) => notify(buildInputHelpString(ctrl)),
+    alt: 'h',
   },
 ];
 

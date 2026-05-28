@@ -33,7 +33,7 @@ import {
   pocketsStr,
   leaveSquareHandler,
 } from 'lib/nvui/chess';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { commands, boardCommands, addBreaks, ARROW_KEYS_MULTIJUMP } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
@@ -57,6 +57,11 @@ import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import renderClocks from '../view/clocks';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
+/** Minimal ctrl shape needed to build the help string. */
+export interface BoardHelpCtrl {
+  data: { game: { variant: { key: string } } };
+}
+
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
@@ -69,6 +74,14 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
   });
   site.mousetrap.unbind('c');
   site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+
+  site.mousetrap.unbind('f');
+  site.mousetrap.bind('f', () => {
+    if (ctrl.data.game.variant.key !== 'racingKings') {
+      notify.set('Flipping the board');
+      setTimeout(() => ctrl.flip(), 1000);
+    }
+  });
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
@@ -213,7 +226,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           `x: ${i18n.site.showThreat}`,
         ].reduce(addBreaks, []),
       ),
-      boardCommands(),
+      boardCommands(ctrl.data.game.variant.key === 'crazyhouse'),
       hl('h2', i18n.nvui.inputFormCommandList),
       hl(
         'p',
@@ -266,7 +279,57 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
   ];
 }
 
-function boardEventsHook(
+/**
+ * Recursively extract every text node from a snabbdom VNode tree,
+ * joining them with a single space.
+ */
+function extractText(node: VNodeChildren | VNodeChildren[]): string {
+  if (node === null || node === undefined) return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node))
+    return node
+      .map(extractText)
+      .join(' ')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  // VNode
+  const vnode = node as VNode;
+  if (vnode.text !== undefined) return vnode.text;
+  if (vnode.children) return extractText(vnode.children as VNodeChildren[]);
+  return '';
+}
+
+export function buildInputHelpString(ctrl: any): string {
+  const cmds = inputCommands
+    .filter(c => !c.invalid?.(ctrl))
+    .map(c => {
+      const help = typeof c.help === 'string' ? c.help : extractText(c.help as VNodeChildren);
+      return `${c.cmd}: ${help}`;
+    });
+
+  return [cmds].join('. ');
+}
+
+/**
+ * Build a plain-text help string from the `boardCommands()` VNode list.
+ *
+ * `boardCommands()` returns an array of VNodes (an <h2> heading and a <p>
+ * containing the shortcut lines separated by <br>).  We extract all text
+ * content from those nodes and normalise whitespace so the result reads as a
+ * continuous, screenreader-friendly sentence list.
+ */
+export function buildBoardHelpString(ctrl: BoardHelpCtrl): string {
+  const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
+  const nodes = boardCommands(isCrazyhouse);
+
+  // Collect every text fragment from the VNode tree.
+  const raw = nodes.map(n => extractText(n as unknown as VNodeChildren)).join(' ');
+
+  // Collapse repeated whitespace that can appear around <br> boundaries.
+  return raw.replace(/\s{2,}/g, ' ').trim();
+}
+
+export function boardEventsHook(
   { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
   el: HTMLElement,
 ): void {
@@ -274,6 +337,14 @@ function boardEventsHook(
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
+  const announceCrazyHousePocket = (
+    ctrl: AnalyseCtrl,
+    notify: AnalyseNvuiContext['notify'],
+    index: 0 | 1,
+  ) => {
+    const pockets = ctrl.node.crazy?.pockets;
+    if (pockets) notify.set(pocketsStr(pockets[index]) || i18n.site.none);
+  };
   $buttons.on('blur', leaveSquareHandler($buttons));
   $buttons.on(
     'click',
@@ -284,8 +355,28 @@ function boardEventsHook(
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
-    else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
-    else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
+    else if (e.key.startsWith('Arrow')) {
+      // Jump ARROW_KEYS_MULTIJUMP moves back/forward with Ctrl + Arrow keys
+      if (e.ctrlKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        for (let i = 0; i < ARROW_KEYS_MULTIJUMP; i++) ctrl.navigate.prev();
+        ctrl.redraw();
+      } else if (e.ctrlKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        for (let i = 0; i < ARROW_KEYS_MULTIJUMP; i++) ctrl.navigate.next();
+        ctrl.redraw();
+      } else if (e.ctrlKey && e.key === 'ArrowDown') {
+        e.preventDefault();
+        ctrl.navigate.first();
+        ctrl.redraw();
+      } else if (e.ctrlKey && e.key === 'ArrowUp') {
+        e.preventDefault();
+        ctrl.navigate.last();
+        ctrl.redraw();
+      } else {
+        arrowKeyHandler(ctrl.bottomColor(), borderSound)(e);
+      }
+    } else if (e.key === 'c') lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
     else if (e.key === 'i') {
       e.preventDefault();
       document.querySelector<HTMLElement>('input.move')?.focus();
@@ -295,12 +386,28 @@ function boardEventsHook(
         setTimeout(() => ctrl.flip(), 1000);
       }
     } else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
-    else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+    else if ((e.key === '9' || e.key === '0') && ctrl.data.game.variant.key === 'crazyhouse') {
+      announceCrazyHousePocket(ctrl, notify, e.key === '9' ? 0 : 1);
+      e.preventDefault();
+    } else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
     else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
-    else if (e.key === 'G') ctrl.playBestMove();
-    else if (e.key === 'g') notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
+    else if (e.shiftKey && e.key === 'H') {
+      e.preventDefault();
+      notify.set(buildBoardHelpString(ctrl));
+    } else if (e.key === 'G') {
+      // Play the best move for the current position, if available.
+      // Also annouce it in the notify area so screen reader users are aware of the change.
+      e.preventDefault();
+      const best = renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext);
+      if (best) {
+        ctrl.playBestMove();
+        notify.set(best);
+      } else {
+        notify.set(noEvalStr(ctrl) || 'No best move available');
+      }
+    } else if (e.key === 'g') notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
   });
 }
 
@@ -392,7 +499,19 @@ function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
   };
 }
 
-type Command = 'b' | 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type Command =
+  | 'b'
+  | 'p'
+  | 's'
+  | 'eval'
+  | 'best'
+  | 'prev'
+  | 'next'
+  | 'prev line'
+  | 'next line'
+  | 'pocket'
+  | 'help';
+
 type InputCommand = {
   cmd: Command;
   help: VNode | string;
@@ -470,6 +589,11 @@ const inputCommands: InputCommand[] = [
       );
     },
     invalid: ctrl => ctrl.data.game.variant.key !== 'crazyhouse',
+  },
+  {
+    cmd: 'help',
+    help: noTrans('list all available input commands'),
+    cb: ({ ctrl, notify }) => notify.set(buildInputHelpString(ctrl)),
   },
 ];
 
