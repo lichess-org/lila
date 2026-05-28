@@ -54,6 +54,7 @@
   .pv-board {
     @include inline-start(34px);
 
+    top: 0;
     position: absolute;
     width: 80%;
     max-width: 240px;
