@@ -138,11 +138,11 @@ object show:
                             strong(post.topic.name),
                             em(
                               post.post.userId.map(titleNameOrId),
-                              " • ",
+                              span(" • "),
                               momentFromNow(post.post.createdAt)
                             )
                           ),
-                          p(shorten(Markdown(post.post.text).unlink, 200))
+                          p(shorten(Markdown(post.post.text).unlink, 210))
                         )
                       }
                     ),

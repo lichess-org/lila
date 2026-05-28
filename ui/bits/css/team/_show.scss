@@ -99,7 +99,7 @@ $section-margin-more: 5vh;
     @extend %box-bordered;
     @include rendered-markdown;
 
-    padding: 1em 2.5em;
+    padding: 0.5em 2em;
     background: $c-bg-zebra;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
