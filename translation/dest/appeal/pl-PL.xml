@@ -5,7 +5,7 @@
   <string name="engineMarkedInfo">Określamy to jako wykorzystanie wszelkiej pomocy zewnętrznej do wzmocnienia Twojej wiedzy i/lub umiejętności w celu uzyskania niedozwolonej przewagi nad przeciwnikiem. Zobacz stronę %s, aby uzyskać więcej informacji.</string>
   <string name="arenaBanned">Twoje konto jest zbanowane w dołączaniu do aren.</string>
   <string name="prizeBanned">Twoje konto jest zbanowane w turniejach z prawdziwymi nagrodami.</string>
-  <string name="boosterMarked">Twoje konto jest oznkowane jako manipulujące rankingiem.</string>
+  <string name="boosterMarked">Twoje konto jest oznakowane jako manipulujące rankingiem.</string>
   <string name="boosterMarkedInfo">Określamy to jako celowe manipulowanie rankingiem poprzez ustawianie partii.</string>
   <string name="accountMuted">Twoje konto jest wyciszone.</string>
   <string name="accountMutedInfo">Przeczytaj nasze %s. Nieprzestrzeganie wytycznych dotyczących komunikacji może skutkować wyciszeniem konta.</string>
