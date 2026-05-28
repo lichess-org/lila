@@ -26,6 +26,11 @@ final private class Finisher(
 
   private given play.api.i18n.Lang = defaultLang
 
+  object AbortReason:
+    import lila.core.game.AbortReason as R
+    val noMove = ByColor(R.whiteDidNotMove, R.blackDidNotMove)
+    val abortedBy = ByColor(R.whiteAborted, R.blackAborted)
+
   def abort(pov: Pov)(using GameProxy): Fu[Events] =
     for
       events <- apply(pov.game, _.Aborted, None, abortReason = AbortReason.abortedBy(pov.color).some)

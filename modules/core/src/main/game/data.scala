@@ -25,11 +25,6 @@ case class GameMetadata(
 enum AbortReason:
   case whiteDidNotMove, blackDidNotMove, whiteAborted, blackAborted
 
-object AbortReason:
-  val noMove = ByColor(whiteDidNotMove, blackDidNotMove)
-  val abortedBy = ByColor(whiteAborted, blackAborted)
-  val byId = values.mapBy(_.ordinal)
-
 val emptyDrawOffers = GameDrawOffers(Set.empty, Set.empty)
 val emptyMetadata =
   GameMetadata(None, None, None, None, None, analysed = false, emptyDrawOffers, rules = Set.empty)

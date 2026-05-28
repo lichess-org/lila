@@ -273,7 +273,7 @@ final private class RoundAsyncActor(
               game,
               _.Aborted,
               None,
-              abortReason = game.playerWhoDidNotMove.map(p => lila.core.game.AbortReason.abortedBy(p.color))
+              abortReason = game.playerWhoDidNotMove.map(p => finisher.AbortReason.abortedBy(p.color))
             )
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
