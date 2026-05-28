@@ -319,6 +319,7 @@ object Game:
     val checkAt = "ck"
     val drawOffers = "do"
     val rules = "rules"
+    val abortReason = "ar"
 
 case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 

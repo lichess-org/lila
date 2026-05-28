@@ -193,7 +193,6 @@ object BSONFields:
   val id = "_id"
   val playerUids = "us"
   val winnerId = "wid"
-  val abortReason = "ar"
   val createdAt = "ca"
   val movedAt = "ua" // ua = updatedAt (bc)
   val turns = "t"
