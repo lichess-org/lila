@@ -9,7 +9,7 @@ case class RelayGroup(
     @Key("_id") id: RelayGroupId,
     name: RelayGroup.Name,
     tours: NonEmptyList[RelayTourId],
-    scoreGroups: Option[List[ScoreGroup]]
+    scoreGroups: Option[NonEmptyList[ScoreGroup]]
 ):
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
     scoreGroups.flatMap(_.find(_.contains(tourId)))
@@ -39,7 +39,7 @@ object RelayGroup:
 
 private case class RelayGroupData(
     info: Option[RelayGroupData.Info],
-    scoreGroups: Option[List[ScoreGroup]]
+    scoreGroups: Option[NonEmptyList[ScoreGroup]]
 ):
   def tourIds: List[RelayTourId] = info.so(_.tours.toList.map(_.id))
   def update(group: RelayGroup): Option[RelayGroup] =
@@ -76,18 +76,12 @@ private final class RelayGroupForm:
           case _ => none
       yield RelayTourId(id)
 
-  private def scoreGroupAsText(scoreGroup: ScoreGroup): String =
-    scoreGroup.toList.map(_.value).mkString(",")
-
-  private def scoreGroupParse(value: String): Option[ScoreGroup] =
-    value.split(",").toList.map(_.trim).flatMap(parseId).toNel
-
-  private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
+  private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: NonEmptyList[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
-    scoreGroups.flatMap(_.toList).forall(groupTourIds.contains)
+    scoreGroups.toList.flatMap(_.toList).forall(groupTourIds.contains)
 
-  private def noOverlappingScoreGroups(scoreGroups: List[ScoreGroup]): Boolean =
-    val ids = scoreGroups.flatMap(_.toList)
+  private def noOverlappingScoreGroups(scoreGroups: NonEmptyList[ScoreGroup]): Boolean =
+    val ids = scoreGroups.toList.flatMap(_.toList)
     ids.distinct.size == ids.size
 
   private def toursParse(value: String): Option[NonEmptyList[TourPreview]] =
@@ -109,16 +103,23 @@ private final class RelayGroupForm:
       "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
     )(RelayGroupData.Info.apply)(unapply)
 
-  val scoreGroupsMapping: Mapping[List[ScoreGroup]] =
-    list(optional(of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))))
+  val scoreGroupsMapping: Mapping[Option[NonEmptyList[ScoreGroup]]] =
+    def scoreGroupAsText(scoreGroup: ScoreGroup): String =
+      scoreGroup.toList.map(_.value).mkString(",")
+    def scoreGroupParse(value: String): Option[ScoreGroup] =
+      value.split(",").toList.map(_.trim).flatMap(parseId).toNel
+    val scoreGroupMapping: FieldMapping[NonEmptyList[RelayTourId]] =
+      of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))
+    list(optional(scoreGroupMapping))
       .transform(_.flatten, _.map(some))
-      .verifying("Too many score groups (max 10)", _.sizeIs <= 10)
-      .verifying("Score groups cannot have overlapping broadcasts", noOverlappingScoreGroups)
+      .transform(_.toNel, _.so(_.toList))
+      .verifying("Too many score groups (max 10)", _.forall(_.size <= 10))
+      .verifying("Score groups cannot have overlapping broadcasts", _.forall(noOverlappingScoreGroups))
 
   val mapping = Forms
     .mapping(
       "info" -> optional(infoMapping),
-      "scoreGroups" -> optional(scoreGroupsMapping)
+      "scoreGroups" -> scoreGroupsMapping
     )(RelayGroupData.apply)(unapply)
     .verifying(
       "Score groups cannot contain broadcasts not present in this group",
