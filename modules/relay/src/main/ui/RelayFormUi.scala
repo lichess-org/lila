@@ -480,7 +480,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             esmInit("bits.broadcastForm.i18nCheck"),
             esmInitObj(
               "bits.broadcastGroup",
-              Json.obj("studyadmin" -> Granter.opt(_.StudyAdmin), "broadcaster" -> Granter.opt(_.Relay))
+              Json.obj("studyAdmin" -> Granter.opt(_.StudyAdmin), "broadcaster" -> Granter.opt(_.Relay))
             )
           )
             .map(some)

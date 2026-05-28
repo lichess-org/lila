@@ -11,7 +11,7 @@ type CurrentPageResults = {
 type BroadcastByUser = { id: string; name: string; tier?: number; communityOwner?: LightUser };
 type BroadcastTag = { value: string; name: string };
 
-export default function initModule(opts: { studyadmin: boolean; broadcaster: boolean }): void {
+export default function initModule(opts: { studyAdmin: boolean; broadcaster: boolean }): void {
   const textArea = document.querySelector<HTMLTextAreaElement>('#form3-grouping_info_tours');
   if (!textArea) return;
   let myBroadcasts: BroadcastByUser[] | null = null;
@@ -89,7 +89,7 @@ export default function initModule(opts: { studyadmin: boolean; broadcaster: boo
         .then(
           tour => {
             if (
-              !opts.studyadmin ||
+              !opts.studyAdmin ||
               (!opts.broadcaster && !tour.tier && tour.communityOwner?.id !== myUserId())
             )
               replaceErrTag('Insufficient permissions to group this broadcast');
