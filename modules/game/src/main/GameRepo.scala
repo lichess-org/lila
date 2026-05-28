@@ -391,8 +391,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           "$unset" -> finishUnsets.++ {
             // keep the checkAt field when game is aborted,
             // so it gets deleted in 24h
-            (status >= Status.Mate).so($doc(F.checkAt -> true)) ++
-              abortReason.isEmpty.so($doc(F.abortReason -> true))
+            (status >= Status.Mate).so($doc(F.checkAt -> true))
           }
         )
       )
