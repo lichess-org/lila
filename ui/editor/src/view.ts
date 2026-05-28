@@ -151,7 +151,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     h('div.metadata', [
       h('fieldset.color', [
         h('div.turn-row', [
-          h('strong', 'Turn'),
+          h('strong', i18n.site.turn),
           h(
             'div.radio-group',
             (['white', 'black'] as const).map(color =>

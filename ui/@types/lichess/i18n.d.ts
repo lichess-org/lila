@@ -4577,6 +4577,8 @@ interface I18n {
     tryTheContactPage: string;
     /** Try to win (or at least draw) every game you play. */
     tryToWin: string;
+    /** Turn */
+    turn: string;
     /** Type private notes here */
     typePrivateNotesHere: string;
     /** UltraBullet */
