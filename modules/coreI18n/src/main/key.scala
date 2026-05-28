@@ -2094,6 +2094,7 @@ object I18nKey:
     val `onlyFriends`: I18nKey = "onlyFriends"
     val `menu`: I18nKey = "menu"
     val `castling`: I18nKey = "castling"
+    val `turn`: I18nKey = "turn"
     val `whiteCastlingKingside`: I18nKey = "whiteCastlingKingside"
     val `blackCastlingKingside`: I18nKey = "blackCastlingKingside"
     val `tpTimeSpentPlaying`: I18nKey = "tpTimeSpentPlaying"
