@@ -69,7 +69,11 @@ export default function status(d: GameData): string {
   });
 }
 export function statusOf(d: StatusData): string {
-  const abortReasonText = d.abortReason && i18n.site[d.abortReason];
+  const abortReasonText = d.abortReason
+    ? i18n.site[d.abortReason]
+    : d.ply === 0
+      ? i18n.site.whiteDidNotMove
+      : i18n.site.blackDidNotMove;
   const winnerSuffix = d.winner
     ? ' • ' + i18n.site[d.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
     : '';
@@ -77,7 +81,7 @@ export function statusOf(d: StatusData): string {
     case 'started':
       return i18n.site.playingRightNow;
     case 'aborted':
-      return `${abortReasonText ?? i18n.site.gameAborted}${winnerSuffix}`;
+      return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
     case 'resign':

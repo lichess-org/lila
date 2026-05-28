@@ -100,9 +100,10 @@ final class GameUi(helpers: Helpers):
     else game.perfType.icon
 
   def abortReasonText(game: Game)(using Translate): String =
-    game.abortReason.fold(trans.site.gameAborted.txt()):
-      case AbortReason.whiteDidNotMove => trans.site.whiteDidNotMove.txt()
-      case AbortReason.blackDidNotMove => trans.site.blackDidNotMove.txt()
+    game.abortReason.fold(
+      if game.ply.value == 0 then trans.site.whiteDidNotMove.txt()
+      else trans.site.blackDidNotMove.txt()
+    ):
       case AbortReason.whiteAborted => trans.site.whiteAborted.txt()
       case AbortReason.blackAborted => trans.site.blackAborted.txt()
 

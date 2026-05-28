@@ -28,7 +28,6 @@ final private class Finisher(
 
   object AbortReason:
     import lila.core.game.AbortReason as R
-    val noMove = ByColor(R.whiteDidNotMove, R.blackDidNotMove)
     val abortedBy = ByColor(R.whiteAborted, R.blackAborted)
 
   def abort(pov: Pov)(using GameProxy): Fu[Events] =
@@ -76,7 +75,7 @@ final private class Finisher(
           _.Aborted,
           None,
           Messenger.SystemMessage.Persistent("Game aborted by server").some,
-          abortReason = AbortReason.noMove(culprit.color).some
+          None
         )
 
   def other(

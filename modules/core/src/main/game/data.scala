@@ -23,7 +23,7 @@ case class GameMetadata(
   def nonEmptyRules = rules.nonEmpty.option(rules)
 
 enum AbortReason:
-  case whiteDidNotMove, blackDidNotMove, whiteAborted, blackAborted
+  case whiteAborted, blackAborted
 
 val emptyDrawOffers = GameDrawOffers(Set.empty, Set.empty)
 val emptyMetadata =
