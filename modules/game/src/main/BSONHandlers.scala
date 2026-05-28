@@ -59,7 +59,7 @@ object BSONHandlers:
 
   given sourceHandler: BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
 
-  given BSONHandler[AbortReason] = valueMapHandler[Int, AbortReason](AbortReason.byId)(_.id)
+  given BSONHandler[AbortReason] = valueMapHandler[Int, AbortReason](AbortReason.byId)(_.ordinal)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*

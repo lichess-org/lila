@@ -71,7 +71,7 @@ final private class Finisher(
           _.Aborted,
           None,
           Messenger.SystemMessage.Persistent("Game aborted by server").some,
-          abortReason = AbortReason.didNotMove(culprit.color).some
+          abortReason = AbortReason.noMove(culprit.color).some
         )
 
   def other(
