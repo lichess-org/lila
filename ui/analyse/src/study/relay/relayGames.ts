@@ -70,7 +70,7 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl, pinned: boolean, cloudEva
                   showResults &&
                   c.status &&
                   c.status !== '*' &&
-                  playerColoredResult(c.status, playerColor, round);
+                  playerColoredResult(c.status, playerColor, round?.customScoring);
                 return hl(
                   'span.relay-game__player',
                   p
