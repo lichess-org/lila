@@ -2079,8 +2079,10 @@ interface I18n {
     changeMonthlyAmount: I18nFormat;
     /** Can I change/cancel my monthly support? */
     changeMonthlySupport: string;
-    /** Yes, at any time, from this page. */
-    changeOrContact: I18nFormat;
+    /** If your payments are processed by PayPal, you can cancel or change your support through your own PayPal account, or you can %s and we can do it for you. */
+    changeSupportPayPal: I18nFormat;
+    /** If your payments are processed by Stripe, you can cancel your donation or change the amount via %s. */
+    changeSupportStripe: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
     /** contact Lichess support */
@@ -2179,6 +2181,8 @@ interface I18n {
     stopPaymentsPayPal: string;
     /** Manage your subscription and download your invoices and receipts */
     stripeManageSub: string;
+    /** a Stripe-hosted portal */
+    stripePortal: string;
     /** Thank you for your donation! */
     thankYou: string;
     /** Your transaction has been completed, and a receipt for your donation has been emailed to you. */

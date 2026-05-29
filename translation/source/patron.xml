@@ -41,8 +41,9 @@ Then we pay a full-time developer: %s, the founder of Lichess.
   <string name="officialNonProfit">Is Lichess an official non-profit?</string>
   <string name="actOfCreation">Yes, here's the act of creation (in French)</string>
   <string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
-  <string name="changeOrContact">Yes, at any time, from this page.
-Or you can %s.</string>
+  <string name="changeSupportStripe">If your payments are processed by Stripe, you can cancel your donation or change the amount via %s.</string>
+  <string name="stripePortal">a Stripe-hosted portal</string>
+  <string name="changeSupportPayPal">If your payments are processed by PayPal, you can cancel or change your support through your own PayPal account, or you can %s and we can do it for you.</string>
   <string name="contactSupport">contact Lichess support</string>
   <string name="otherMethods">Other methods of donation?</string>
   <string name="lichessIsRegisteredWith">Lichess is registered with %s.</string>
