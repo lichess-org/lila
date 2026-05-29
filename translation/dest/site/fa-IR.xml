@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
-  <string name="createLobbyGame">ایجاد بازی در لابی</string>
+  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
@@ -678,7 +678,7 @@
   <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم‌ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازان</string>
-  <string name="mobileApp">گوشی‌افزار</string>
+  <string name="mobileApp">بَرکِ گوشی</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
@@ -799,6 +799,7 @@
   <string name="xHostsY">%1$s میزبان %2$s است</string>
   <string name="xJoinsY">%1$s به %2$s می‌پیوندد</string>
   <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
+  <string name="liked">پسندیده</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
@@ -934,6 +935,7 @@
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
   <string name="makeSureToRead">حتما %1$s را مطالعه کنید</string>
   <string name="theForumEtiquette">آداب انجمن</string>
+  <string name="pleaseBeNiceInTheForum">لطفا در انجمن خوش‌رفتار باشید.</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
   <string name="joinTheTeamXToPost">برای فرسته گذاشتن در این انجمن، به %1$s بپیوندید</string>
   <string name="teamNamedX">تیم %1$s</string>
@@ -1023,6 +1025,7 @@
   <string name="offline" comment="status of a user">بُرون‌خط</string>
   <string name="search">جستجو</string>
   <string name="clearSearch">پاکیدنِ جستجو</string>
+  <string name="thereAreNoResultsForX">برای «%s» نتیجه‌ای یافت نشد</string>
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
 </resources>
