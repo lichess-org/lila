@@ -56,7 +56,7 @@
   <string name="endgameDescription">یک تاکتیک در لحظات آخر بازی.</string>
   <string name="enPassantDescription">گرفتن پیاده در حال عبور با پیاده دیگر.</string>
   <string name="epauletteMate">ماتِ سَردوشی</string>
-  <string name="epauletteMateDescription">دو خانهٔ فرار مجاور برای شاه تحت کیش، توسط مهره‌های دیگر اشغال شده‌اند.</string>
+  <string name="epauletteMateDescription">دو خانهٔ فرارِ مجاورِ شاهِ تحتِ کیش، با مهره‌های دیگر اشغال شده‌اند.</string>
   <string name="exposedKing">شاه در معرض خطر</string>
   <string name="exposedKingDescription">تاکتیکی که در آن شاه مدافعان زیادی ندارد،اغلب این تاکتیک به مات ختم می شود.</string>
   <string name="fork">چنگال</string>
@@ -75,8 +75,8 @@
   <string name="pillsburysMateDescription">فیل به محدود کردنِ شاه کمک می‌کند، رُخ مات می‌کند.</string>
   <string name="morphysMate">ماتِ مُرفی</string>
   <string name="morphysMateDescription">رُخ به محدود کردنِ شاه کمک می‌کند، فیل مات می‌کند.</string>
-  <string name="swallowstailMate">مات دم‌چلچله‌ای</string>
-  <string name="swallowstailMateDescription">الگوی مات که از نظر ظاهری شبیه دم چلچله است، مشابه شکل V.</string>
+  <string name="swallowstailMate">ماتِ دُم‌پرستو</string>
+  <string name="swallowstailMateDescription">الگوی ماتی که ظاهرش شبیهِ دُمِ پرستو یا عدد ۷ است.</string>
   <string name="triangleMate">ماتِ مثلث</string>
   <string name="triangleMateDescription">وزیر و رخ، در خانهٔ اُریبِ شاه حریف، روی عرض یا ستونِ یکسان و با یک خانه فاصله از یکدیگر، مثلثی تشکیل می‌دهند.</string>
   <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">مات ووکویچ</string>
