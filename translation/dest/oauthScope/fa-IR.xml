@@ -37,7 +37,7 @@
   <string name="generatePersonalToken">ساخت یک نمودافزار دسترسی خصوصی</string>
   <string name="guardTokensCarefully">از این نمودافزارها محافظت کنید! آن‌ها مانند رمز عبورها هستند. فایده استفاده از این نمودافزارها جای نوشتن رمز عبور خود درون یک اسکریپت این که نمودافزارها می‌توانند لغو شوند و شما میتوانید تعداد زیادی از آن ها را ایجاد نمایید.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">اینجا یک %1$s و %2$s.</string>
-  <string name="personalTokenAppExample">نمونه برنامه نمودافزار خصوصی</string>
+  <string name="personalTokenAppExample">نمونه بَرکِ نمودافزار شخصی</string>
   <string name="apiDocumentation">مستندات API</string>
   <string name="newToken">نمودافزار دسترسی تازه</string>
   <string name="apiAccessTokens">API دسترسی نمودافزارها</string>
