@@ -63,6 +63,7 @@
   <string name="notYetStarted">Translyatsiya hali boshlanmadi.</string>
   <string name="officialWebsite">Rasmiy veb‑sayt</string>
   <string name="officialStandings">Rasmiy turnir jadvali</string>
+  <string name="regulations">Reglament</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s sahifasida qoʻshimcha imkoniyatlar mavjud</string>
   <string name="webmastersPage">veb‑ustalar sahifasi</string>
   <string name="embedThisBroadcast">Ushbu translyatsiyani veb‑saytingizga joylashtiring</string>

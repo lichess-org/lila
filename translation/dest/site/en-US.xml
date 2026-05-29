@@ -805,6 +805,8 @@
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="like">Like</string>
+  <string name="liked">Liked</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
