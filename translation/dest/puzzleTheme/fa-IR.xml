@@ -33,7 +33,7 @@
   <string name="crushing">تخریب</string>
   <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
   <string name="discoveredCheck">کیشِ برخاست</string>
-  <string name="discoveredCheckDescription">حرکتِ یک مهره، کیشِ مهاجمِ پنهانی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
+  <string name="discoveredCheckDescription">حرکتِ یک مهره، کیشِ مهاجمِ پنهان-ی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
   <string name="doubleBishopMate">ماتِ دوفیل</string>
   <string name="doubleBishopMateDescription">دو فیل روی قطرهای همجوار، شاهی را که با مهره‌های خودی مسدود شده است، مات می‌کنند.</string>
   <string name="dovetailMate">مات بوسه ای</string>
