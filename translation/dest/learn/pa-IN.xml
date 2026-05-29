@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="learnChess">ਸ਼ਤਰੰਜ ਸਿੱਖੋ</string>
+  <string name="byPlaying">ਖੇਡਣ ਦੁਆਰਾ!</string>
   <string name="theRook">ਹਾਥੀ</string>
   <string name="theBishop">ਉੱਠ</string>
   <string name="theQueen">ਰਾਣੀ</string>
