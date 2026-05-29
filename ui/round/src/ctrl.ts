@@ -558,6 +558,7 @@ export default class RoundController implements MoveRootCtrl {
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
+    d.game.abortReason = o.abortReason;
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
     this.userJump(this.lastPly());

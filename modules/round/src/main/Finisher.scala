@@ -152,7 +152,12 @@ final private class Finisher(
         game.userIds.foreach: userId =>
           Bus.publishDyn(finish, s"userFinishGame:$userId")
       }
-      List(lila.game.Event.EndData(game, ratingDiffs))
+      List(
+        lila.game.Event.EndData(
+          game.copy(abortReason = abortReason.orElse(game.abortReason)),
+          ratingDiffs
+        )
+      )
 
   private def updateCountAndPerfs(
       game: Game,
