@@ -767,11 +767,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              parsed <- chapterMaker.toStudyPgn(
-                study,
-                pgn,
-                Some(1_000_000 / (chapter.root.children.countRecursive max 1))
-              )
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
               _ <-
                 if parsed.variant == chapter.setup.variant then fuccess(())
                 else

@@ -33,11 +33,10 @@ final private class ChapterMaker(
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
 
-  def toStudyPgn(study: Study, pgn: PgnStr, maxNodes: Option[Int] = None): Fu[StudyPgnImport.Result] = for
+  def toStudyPgn(study: Study, pgn: PgnStr): Fu[StudyPgnImport.Result] = for
     contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-    parsed <- StudyPgnImport.result(pgn, contributors.flatten, maxNodes).toFuture.recoverWith {
-      case e: Exception =>
-        fufail(StudyValidationException(e.getMessage))
+    parsed <- StudyPgnImport.result(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
+      fufail(StudyValidationException(e.getMessage))
     }
   yield parsed
 

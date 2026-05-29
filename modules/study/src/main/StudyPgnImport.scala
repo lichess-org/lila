@@ -17,18 +17,14 @@ object StudyPgnImport:
       ply: Ply
   )
 
-  def result(
-      pgn: PgnStr,
-      contributors: List[LightUser],
-      maxNodes: Option[Int] = None
-  ): Either[ErrorStr, Result] =
+  def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
     if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
     else
       for
         parsed <- ParseImport.full(pgn)
         full = result(parsed, contributors)
         valid <-
-          if full.root.children.countRecursive > maxNodes.fold(Chapter.maxNodes)(Chapter.maxNodes min _)
+          if full.root.children.countRecursive > Chapter.maxNodes
           then Left(ErrorStr("PGN has too many moves/nodes"))
           else Right(full)
       yield valid
