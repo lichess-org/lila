@@ -315,9 +315,13 @@ final class RelayTeamLeaderboard(
           tourIds = scoreGroup.toList
           tours <- tourRepo.byIds(tourIds)
           rounds <-
-            if RelayGroup.sgIsParallel(tours) then roundRepo.idsByToursOrdered(tourIds)
-            else tourIds.flatTraverse(roundRepo.idsByTourOrdered)
-          matches <- rounds.flatTraverse(teamTable.table)
+            if RelayGroup.sgIsParallel(tours) then
+              roundRepo
+                .byToursOrdered(tourIds)
+                .map(_.sortBy(r => r.startsAt.collect({ case RelayRound.Starts.At(at) => at })))
+            else tourIds.flatTraverse(roundRepo.byTourOrdered)
+          roundIds = rounds.map(_.id)
+          matches <- roundIds.flatTraverse(teamTable.table)
         yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
           matchup.teams
             .foldLeft(acc): (acc, team) =>

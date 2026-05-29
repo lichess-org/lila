@@ -250,7 +250,10 @@ private final class RelayPlayerApi(
       tours <- tourRepo.byIds(tourIds)
       toursById = tours.mapBy(_.id)
       rounds <-
-        if RelayGroup.sgIsParallel(tours) then roundRepo.byToursOrdered(tourIds)
+        if RelayGroup.sgIsParallel(tours) then
+          roundRepo
+            .byToursOrdered(tourIds)
+            .map(_.sortBy(r => r.startsAt.collect({ case RelayRound.Starts.At(at) => at })))
         else tourIds.flatTraverse(roundRepo.byTourOrdered)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))

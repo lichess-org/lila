@@ -48,13 +48,6 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       field = "_id"
     )
 
-  def idsByToursOrdered(tours: Seq[RelayTourId]): Fu[List[RelayRoundId]] =
-    coll.primitive[RelayRoundId](
-      selector = $doc("tourId".$in(tours)),
-      sort = sort.asc,
-      field = "_id"
-    )
-
   def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
     idsByTourOrdered(tourId).map(StudyId.from)
 
