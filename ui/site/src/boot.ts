@@ -81,7 +81,7 @@ export function boot() {
     // if not already connected by a ui module, setup default connection
     eventuallySetupDefaultConnection();
 
-    if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
+    if (isUnsupportedBrowser() && once('upgrade.nag', { days: 7 })) {
       pubsub
         .after('polyfill.dialog')
         .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
