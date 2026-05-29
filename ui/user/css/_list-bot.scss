@@ -44,13 +44,11 @@
     user-select: none;
 
     &__entry {
-      @extend %flex-column, %box-radius;
-      @include backdrop-blur-if-transparent;
+      @extend %flex-column, %box-bordered;
 
       justify-content: space-between;
       gap: 1em;
       background: $c-bg-zebra;
-      border: $border;
       overflow: hidden;
 
       &__head {
