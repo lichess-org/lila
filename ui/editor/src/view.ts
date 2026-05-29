@@ -15,6 +15,7 @@ import { fenToChess960Id, isValidPositionId } from './chess960';
 import chessground from './chessground';
 import type EditorCtrl from './ctrl';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
+import { COLORS } from 'chessops';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -154,7 +155,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           h('strong', i18n.site.turn),
           h(
             'div.radio-group',
-            (['white', 'black'] as const).map(color =>
+            COLORS.map(color =>
               h('label', { key: color }, [
                 h('input', {
                   attrs: { type: 'radio', name: 'turn', value: color },
