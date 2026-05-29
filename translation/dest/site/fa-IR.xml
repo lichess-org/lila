@@ -131,13 +131,15 @@
   <string name="pinnedPieces">مهره‌های آچمز</string>
   <string name="checkableKing">شاهِ کیش‌پذیر</string>
   <string name="multipleLines">شاخه های متعدد</string>
-  <string name="multipleLinesDescription">تعداد خطوط ارزیابی را تعیین کن و فلش‌ها را روی تخته جابه‌جا کن</string>
-  <string name="searchTime">زمان جستجو</string>
-  <string name="searchTimeDescription">زمان ارزیابی موقعیت‌های تازه را تنظیم کن</string>
-  <string name="threads">رشته‌های CPU</string>
-  <string name="threadsDescription">این را زیر تعداد رشته‌های CPU خود تنظیم کنید، تیک‌ها انتخابی خوب و ایمن را نشان می‌دهند.</string>
+  <string name="multipleLinesDescription">تعیینِ تعداد شاخه‌های ارزیابی و پیکان‌های حرکت روی تخته</string>
+  <string name="searchTime">مدت جستجو</string>
+  <string name="searchTimeDescription">تعیینِ مدت برای ارزیابی وضعیت‌های تازه</string>
+  <string name="threads">رشته‌ها</string>
+  <string name="threadsDescription">این را زیرِ تعداد رشته‌های «واو.په.میم» (CPU) تان تعیین کنید، هفتک‌ها انتخابی خوب و امن را نشان می‌دهند</string>
+  <string name="threadsDescriptionMobile">رشته‌های بیشتر، باتریِ بیشتر برای تحلیلِ بهتر می‌مصرفند</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
+  <string name="memoryDescription">مقدارهای بالاتر ممکن است عملکرد را بهبود بخشد</string>
   <string name="infiniteAnalysis">تحلیل بی‌کران</string>
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
@@ -217,7 +219,7 @@
   <string name="variantsDescription">شیوه‌های بیشتر برای بازی</string>
   <string name="timeControl">زمان</string>
   <string name="realTime">زمان محدود</string>
-  <string name="correspondence">مکاتبه ای</string>
+  <string name="correspondence">مکاتبه‌ای</string>
   <string name="daysPerTurn">روز برای هر حرکت</string>
   <string name="oneDay">یک روز</string>
   <plurals name="nbDays">
@@ -265,6 +267,7 @@
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
+  <string name="sendEmailForAccountVerification">اگر نمی‌توانید رایانامهٔ تاییدتان را بیابید، رایانامه‌ای به %s ارسال کنید تا حساب‌تان را تایید کنیم.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
   <string name="accountConfirmationEmailNotNeeded">به رایانامهٔ تایید نیاز ندارید.</string>
@@ -520,6 +523,7 @@
   <string name="popularOpenings">گشایش‌های محبوب</string>
   <string name="endgamePositions">وضعیت‌های آخربازی</string>
   <string name="chess960StartPosition">وضعیت آغازین شطرنج۹۶۰: %s</string>
+  <string name="randomChess960Position">وضعیتِ کاتورهٔ شطرنج۹۶۰</string>
   <string name="startPosition">وضعیت آغازش</string>
   <string name="clearBoard">پاکیدنِ میز</string>
   <string name="loadPosition">بارگذاری وضعیت</string>
@@ -596,6 +600,8 @@
   <string name="invalidUsernameOrPassword">نام کاربری یا گذرواژهٔ نامعتبر</string>
   <string name="incorrectPassword">گذرواژهٔ نادرست</string>
   <string name="invalidAuthenticationCode">کد راستین‌آزمایی نامعتبر</string>
+  <string name="orSeparator">یا</string>
+  <string name="logInByEmail">ورود با رایانامه</string>
   <string name="emailMeALink">پیوندی به رایانامه‌ام بفرست</string>
   <string name="currentPassword">گذرواژهٔ جاری</string>
   <string name="newPassword">گذرواژهٔ نو</string>
@@ -835,7 +841,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
-  <string name="yourRatingIsX">درجه‌بندی‌تان %s است</string>
+  <string name="yourRatingIsX">درجه‌بندی‌تان %s است </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
