@@ -1,5 +1,6 @@
 import { opposite } from 'chessops/util';
 
+import { defined } from 'lib';
 import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
 
 import type { GamePointsStr } from '../interfaces';
@@ -13,11 +14,18 @@ const colorClass = (point: ServerPoint) =>
 const withCustomScore = (
   point: ServerPoint,
   color: Color,
-  customScoring?: CustomScoring,
+  customScoring?: CustomScoring | number,
 ): VNodeChildElement => {
-  if (!customScoring) return point;
+  if (!defined(customScoring)) return point;
   const base = points(point);
-  const p = base === 1 ? customScoring[color].win : base === 0.5 ? customScoring[color].draw : 0;
+  const p =
+    typeof customScoring === 'number'
+      ? customScoring
+      : base === 1
+        ? customScoring[color].win
+        : base === 0.5
+          ? customScoring[color].draw
+          : 0;
   return p === 0.5 ? '½' : p;
 };
 
@@ -37,7 +45,7 @@ export const coloredStatusStr = (gamePoints: GamePointsStr, pov: Color, round?: 
 export const playerColoredResult = (
   status: GamePointsStr,
   color: Color,
-  customScoring?: CustomScoring,
+  customScoring?: CustomScoring | number,
 ): { tag: 'good' | 'bad' | 'status'; points: VNodeChildElement } | false => {
   const resultPart = status.split('-')[color === 'white' ? 0 : 1];
   return (
