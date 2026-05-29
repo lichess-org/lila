@@ -1,6 +1,7 @@
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
@@ -15,7 +16,6 @@ import { fenToChess960Id, isValidPositionId } from './chess960';
 import chessground from './chessground';
 import type EditorCtrl from './ctrl';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
-import { COLORS } from 'chessops';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
