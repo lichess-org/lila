@@ -9,7 +9,7 @@
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
-  <string name="reusableChallengeUrl">پیوند بازی قابل استفاده مجدد</string>
+  <string name="reusableChallengeUrl">وب‌نشانیِ بازاستفاده‌پذیرِ چالش</string>
   <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
@@ -95,6 +95,8 @@
   <string name="database">پایگاه داده</string>
   <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
   <string name="averageRatingX">میانگین درجه‌بندی: %s</string>
+  <string name="minRatingX">کمینهٔ درجه‌بندیِ %s</string>
+  <string name="maxRatingX">بیشینهٔ درجه‌بندیِ %s</string>
   <string name="recentGames">بازی‌های اخیر</string>
   <string name="topGames">بازی‌های برتر</string>
   <string name="masterDbExplanation">دو میلیون بازی رسمی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
@@ -600,6 +602,7 @@
   <string name="invalidUsernameOrPassword">نام کاربری یا گذرواژهٔ نامعتبر</string>
   <string name="incorrectPassword">گذرواژهٔ نادرست</string>
   <string name="invalidAuthenticationCode">کد راستین‌آزمایی نامعتبر</string>
+  <string name="clearField">پاکیدنِ میدان</string>
   <string name="orSeparator">یا</string>
   <string name="logInByEmail">ورود با رایانامه</string>
   <string name="emailMeALink">پیوندی به رایانامه‌ام بفرست</string>
@@ -805,6 +808,7 @@
   <string name="xHostsY">%1$s میزبان %2$s است</string>
   <string name="xJoinsY">%1$s به %2$s می‌پیوندد</string>
   <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
+  <string name="like">پسندیدن</string>
   <string name="liked">پسندیده</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
