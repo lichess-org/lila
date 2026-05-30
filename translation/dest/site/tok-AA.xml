@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">pali pi ijo musi</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">o utala e jan pona</string>
   <string name="playAgainstComputer">o musi e ilo lipu</string>
+  <string name="gameMode">nasin pi ijo musi </string>
+  <string name="createLobbyGame">o pali e ijo musi kepeken ma pi ijo musi open</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile kama e jan la o pana e linja ni</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
@@ -121,6 +124,7 @@
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="showVariationArrows">o sitelen linja e tawa ante</string>
   <string name="multipleLines">mute linja</string>
+  <string name="searchTime">o alasa e tenpo</string>
   <string name="cpus">pilin pi ilo sona</string>
   <string name="memory">awen sona ilo</string>
   <string name="infiniteAnalysis">alasa sona pi pini ala</string>
@@ -236,6 +240,7 @@
   <string name="neverTypeYourPassword">o sitelen ala e nimi awen sina pi ilo Lichess tawa lipu ante!</string>
   <string name="proceedToX">o tawa lipu %s</string>
   <string name="passwordSuggestion">jan ante li pana e nimi awen tawa sina, la o kepeken ala e nimi awen ni. ante la, ona li lanpan e lipu jan sina.</string>
+  <string name="emailConfirmHelp">o pona pi lipu tawa kon</string>
   <string name="emailConfirmNotReceived">sina pali e lipu jan. taso sina kama ala jo e lipu toki tan mi mute?</string>
   <string name="whatSignupUsername">sina pali e lipu jan la sina sitelen e nimi seme?</string>
   <string name="usernameNotFound">nimi \"%s\" la mi mute li alasa e lipu jan ala.</string>
@@ -396,6 +401,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="leaderboard">jan pi pona mute</string>
   <string name="screenshotCurrentPosition">o sitelen e musi lon ni</string>
   <string name="gameAsGIF">musi kepeken lipu kama</string>
+  <string name="playerNames">nimi pi jan pi ijo musi</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
   <string name="pasteThePgnStringHere">o pana e nimi PGN lon ni</string>
   <string name="orUploadPgnFile">ante la, sina ken pana e lipu PGN</string>
@@ -829,6 +835,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
 sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="noConditionalPremoves">tawa ala pi tenpo kama ken</string>
   <string name="playX">o pali e %s</string>
+  <string name="challengeX">o utala e %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">sina pali e ni la, tawa %s pi tenpo kama ken li awen</item>
     <item quantity="other">sina pali e ni la, tawa %s pi tenpo kama ken li awen</item>
@@ -952,4 +959,5 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="nothingToSeeHere">tenpo ni la ijo ala li lon.</string>
   <string name="stats">nanpa</string>
+  <string name="search">o alasa</string>
 </resources>
