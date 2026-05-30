@@ -9,7 +9,7 @@
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این رمزینه را بِپویَد</string>
-  <string name="reusableChallengeUrl">وب‌نشانیِ بازاستفاده‌پذیرِ چالش</string>
+  <string name="reusableChallengeUrl">وب‌نشانیِ پایای چالش</string>
   <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
