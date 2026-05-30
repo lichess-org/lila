@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">pali pi ijo musi</string>
+  <string name="playAgainstComputer">o musi e ilo lipu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile kama e jan la o pana e linja ni</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
@@ -459,6 +461,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="points">nanpa</string>
   <string name="wins">pona</string>
   <string name="losses">ike</string>
+  <string name="startingIn" comment="Displayed above a timer">kama open</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
   <string name="pause">o tawa ala</string>
   <string name="resume">o awen</string>
@@ -550,6 +553,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="invalidUsernameOrPassword">nimi jan anu nimi pi tawa li ike</string>
   <string name="incorrectPassword">nimi awen li ike</string>
   <string name="invalidAuthenticationCode">nanpa awen ike</string>
+  <string name="orSeparator">anu</string>
   <string name="emailMeALink">o pana e lipu tawa mi kepeken linja</string>
   <string name="currentPassword">nimi pi tawa lon tenpo ni</string>
   <string name="newPassword">nimi pi tawa sin</string>
@@ -706,6 +710,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="downloadAnnotated">o awen e ante pi sitelen sin pi lipu ni</string>
   <string name="downloadRaw">o awen e lipu ni (ante ala)</string>
   <string name="downloadImported">o awen e ante tan pi lipu ni</string>
+  <string name="downloadAllGames">o kama jo e musi ale</string>
   <string name="crosstable">musi ale pi jan tu ni</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">ilo nasin sina li lon sona pi tawa ken la, lipu lili pi tawa ken ni li lon.</string>
@@ -735,11 +740,14 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xHostsY">jan %1$s li jan musi lawa pi musi %2$s</string>
   <string name="xJoinsY">jan %1$s li lon musi %2$s</string>
   <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
+  <string name="like">o pona e ni</string>
+  <string name="liked">mi pona e ni</string>
   <string name="quickPairing">o open musi kepeken tenpo lili</string>
   <string name="lobby">o kama tawa musi open</string>
   <string name="anonymous">jan pi nimi ala</string>
   <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>
+  <string name="allLanguages">toki ale</string>
   <string name="background">sitelen monsi</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
@@ -768,6 +776,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="notifications">toki kama</string>
   <string name="notificationsX">mu: %1$s</string>
   <string name="perfRatingX">nanpa wawa: %s</string>
+  <string name="yourRatingIsX">nanpa pi sina li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">tenpo Sekunta %s li tenpo pi tawa #1</item>
     <item quantity="other">tenpo Sekunta %s li tenpo pi tawa #1</item>
