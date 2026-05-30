@@ -769,13 +769,20 @@ final class StudyApi(
             for
               parsed <- chapterMaker.toStudyPgn(study, pgn)
               _ <-
-                if parsed.variant == chapter.setup.variant then fuccess(())
-                else
+                if parsed.variant != chapter.setup.variant then
                   fufail(
                     StudyValidationException(
                       s"Pasted PGN variant (${parsed.variant.key}) does not match this chapter (${chapter.setup.variant.key})."
                     )
                   )
+                else if List(parsed.root, chapter.root).exists(unreasonableBranching)
+                then
+                  fufail(
+                    StudyValidationException(
+                      s"Chapter or pasted PGN has over 10 branches at some position."
+                    )
+                  )
+                else fuccess(())
               targetNode <- chapter.root
                 .nodeAt(path)
                 .fold[Fu[lila.tree.Node]](
@@ -968,6 +975,10 @@ final class StudyApi(
             )
           )
       .map(_.copy(serverEval = None).updateDenorm)
+
+  private def unreasonableBranching(node: lila.tree.Node): Boolean =
+    val children = node.children.toList
+    children.lengthCompare(10) > 0 || children.exists(unreasonableBranching)
 
   private object setStudyUpdated:
     private val debouncer =
