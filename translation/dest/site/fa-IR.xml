@@ -453,7 +453,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">روی میز بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
-  <string name="captcha.fail">لطفا captcha را حل کنید</string>
+  <string name="captcha.fail">لطفا «آجرا»یِ شطرنج را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
@@ -765,7 +765,7 @@
 ما به شما یک رایانامه‌ای فرستاده‌ایم. برای فعال‌سازی حساب کاربری‌تان روی پیوند موجود در رایانامه بِتِلیکید.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، جاهای دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="ifYouDoNotGetTheEmail">اگر ظرفِ ۵ دقیقه رایانامه را نگرفتید:</string>
-  <string name="checkAllEmailFolders">فولدر های junk, spam و دیگر را چک کنید</string>
+  <string name="checkAllEmailFolders">پوشه‌های بُنجُل (junk)، هرزنامه (spam) و دیگر را بررسید</string>
   <string name="verifyYourAddress">تائید کنید که %s نشانیِ رایانامه‌تان است</string>
   <string name="weHaveSentYouAnEmailTo">ما رایانامه‌ای به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
@@ -971,7 +971,7 @@
   <string name="streamerManager">مدیریت جریان‌سازی</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
-  <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
+  <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌گران گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
 [name](https://url)</string>
   <string name="ratedFormHelp">بازی‌ها رسمی هستند
 و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
