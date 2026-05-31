@@ -1871,7 +1871,7 @@ interface I18n {
     movePiece: string;
     /** Move to file a to h. */
     moveToFile: string;
-    /** Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order. */
+    /** Move to squares using piece names. For example: repeated n will move to every square where there is a knight. Use uppercase to invert order. */
     moveToPieceByType: string;
     /** Move to rank 1 to 8. */
     moveToRank: string;

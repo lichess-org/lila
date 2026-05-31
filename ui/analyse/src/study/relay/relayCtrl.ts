@@ -48,7 +48,7 @@ export default class RelayCtrl {
     if (study.ctrl.opts.chat) {
       const liveboardDisabled = () => {
         study.chapters.list.size() === 1 || this.tourShow() || !study.multiBoard.showResults();
-      }
+      };
       this.liveboardPlugin = new LiveboardPlugin(
         study,
         this.round,
