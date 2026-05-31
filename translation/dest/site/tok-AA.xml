@@ -739,6 +739,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="playChessEverywhere">o musi lon ma ale</string>
   <string name="everybodyGetsAllFeaturesForFree">jan ale li ken jo e wawa ale ona</string>
   <string name="viewTheSolution">o lukin e sona pi nasin pona</string>
+  <string name="noChallenges">utala ala.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">mi ken toki e toki %s!</item>
     <item quantity="other">mi ken toki e toki %s!</item>
@@ -764,6 +765,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="size">suli</string>
   <string name="opacity">pimeja</string>
   <string name="brightness">suno</string>
+  <string name="contrast">ante</string>
   <string name="hue">kule</string>
   <string name="boardReset">o kule e open</string>
   <string name="pieceSet">sitelen ijo</string>
@@ -960,4 +962,5 @@ ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="nothingToSeeHere">tenpo ni la ijo ala li lon.</string>
   <string name="stats">nanpa</string>
   <string name="search">o alasa</string>
+  <string name="clearSearch">o alasa weka</string>
 </resources>
