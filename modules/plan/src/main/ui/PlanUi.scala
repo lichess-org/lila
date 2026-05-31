@@ -305,11 +305,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       dl(
         dt(trp.changeMonthlySupport()),
         dd(
-          trp.changeSupportStripe(
+          trp.changeSupport(
+            a(href := routes.Main.contact, targetBlank)(trp.contactSupport()),
             a(href := stripeBillingPortal, targetBlank)(trp.stripePortal())
-          ),
-          br,
-          trp.changeSupportPayPal(a(href := routes.Main.contact, targetBlank)(trp.contactSupport()))
+          )
         ),
         dt(trp.otherMethods()),
         dd(
