@@ -21,7 +21,9 @@ final class Analyser(
       gameRepo.game(id).flatMapz { prev =>
         val game = prev.focus(_.metadata.analysed).replace(true)
         for _ <- gameRepo.setAnalysed(game.id, true)
-        yield Bus.pub(actorApi.AnalysisReady(game, analysis))
+        yield
+          Bus.pub(lila.core.game.GameAnalysed(game))
+          Bus.pub(actorApi.AnalysisReady(game, analysis))
       }
     _ <- sendAnalysisProgress(analysis, complete = true)
   yield ()
