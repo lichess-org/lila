@@ -6,6 +6,8 @@ case class Sorting(f: String, order: String)
 
 object Sorting:
 
+  val fieldKeys = List(Fields.date, Fields.turns, Fields.averageRating)
+
   def fields(using Translate) = List(
     Fields.date -> trans.search.date.txt(),
     Fields.turns -> trans.search.nbTurns.txt(),
@@ -18,3 +20,9 @@ object Sorting:
   )
 
   val default = Sorting(Fields.date, "desc")
+
+  def fieldOrDefault(field: String): String =
+    if fieldKeys.contains(field) then field else default.f
+
+  def orderOrDefault(order: String): String =
+    if order.toLowerCase == "asc" then "asc" else "desc"
