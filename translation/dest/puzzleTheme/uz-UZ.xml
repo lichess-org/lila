@@ -43,7 +43,7 @@
   <string name="kingsideAttack">Shoh qanotidagi hujum</string>
   <string name="kingsideAttackDescription">Raqib shohi qisqa rokirovka qilganidan soʻng uyushtirilgan hujum.</string>
   <string name="clearance">Yoʻl ochish</string>
-  <string name="clearanceDescription">Navbatdagi taktik gʻoya uchun katak, liniya yoki diagonalni boʻshatish (koʻpincha tempo bilan).</string>
+  <string name="clearanceDescription">Navbatdagi taktik gʻoya uchun katak, liniya yoki diagonalni boʻshating (koʻpincha tempo bilan).</string>
   <string name="defensiveMove">Himoya yurishi</string>
   <string name="defensiveMoveDescription">Moddiy yoʻqotish yoki pozitsion ustunlikni boy bermaslik uchun zarur boʻlgan aniq yurish.</string>
   <string name="deflection">Chalgʻitish</string>
