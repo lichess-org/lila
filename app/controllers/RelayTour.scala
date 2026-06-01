@@ -138,7 +138,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             jsonFormError(err)
           ),
         setup =>
-          env.relay.api.tourUpdate(nav.tour, setup) >>
+          env.relay.api.tourUpdate(nav.tourWithGroup, setup) >>
             negotiate(Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
