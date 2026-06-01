@@ -26,7 +26,8 @@ final class UblogApi(
     ublogAutomod: UblogAutomod,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    searchApi: lila.search.SearchClient
 )(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
@@ -52,6 +53,7 @@ final class UblogApi(
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- searchApi.upsert(lila.search.SearchClient.Index.Ublog, post.id)
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
@@ -236,6 +238,7 @@ final class UblogApi(
 
   def delete(post: UblogPost): Funit = for
     _ <- colls.post.delete.one($id(post.id))
+    _ <- searchApi.delete(lila.search.SearchClient.Index.Ublog, post.id)
     _ <- image.deleteAll(post)
   yield ()
 
@@ -289,6 +292,7 @@ final class UblogApi(
       case Some(id, likes, tier, title) =>
         for
           _ <- colls.post.updateField($id(postId), "likes", likes)
+          _ <- (res.nModified > 0).so(searchApi.upsert(lila.search.SearchClient.Index.Ublog, id))
           _ =
             if res.nModified > 0 && v && tier > Tier.HIDDEN
             then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
@@ -379,6 +383,17 @@ final class UblogApi(
     }
   }
 
+  def filterVisiblePosts(
+      ids: Seq[UblogPostId]
+  ): Fu[Map[UblogPostId, UblogPost.PreviewPost]] = ids.nonEmpty.so:
+    colls.post
+      .aggregateList(ids.size, _.sec): framework =>
+        import framework.*
+        Match($inIds(ids) ++ $doc("live" -> true)) ->
+          removeUnlistedOrClosedAndProjectForPreview(colls.post, framework)
+      .map: docs =>
+        docs.flatMap(_.asOpt[UblogPost.PreviewPost]).mapBy(_.id)
+
   private[ublog] def aggregateVisiblePosts(
       select: Bdoc,
       offset: Int,
@@ -392,14 +407,14 @@ final class UblogApi(
           case BlogsBy.oldest => Ascending("lived.at")
           case BlogsBy.likes => Descending("likes")
           case _ => Descending("lived.at")
-        Match(select ++ $doc("live" -> true)) -> {
+        Match(select ++ $doc("live" -> true)).pp -> {
           Sort(aggSort) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
-            List(Skip(offset), Limit(length))
+            List(Skip(offset.pp), Limit(length.pp))
         }
       .map: docs =>
         for
-          doc <- docs
+          doc <- docs.pp(docs.length)
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
 
