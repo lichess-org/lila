@@ -46,7 +46,7 @@ export default class RelayCtrl {
     this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
     this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
     if (study.ctrl.opts.chat) {
-      const liveboardDisabled = () => this.tourShow() || !study.multiBoard.showResults();
+      const liveboardDisabled = () => site.blindMode || this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(
         study,
         this.round,
