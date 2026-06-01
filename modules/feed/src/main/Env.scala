@@ -10,7 +10,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     flairApi: lila.core.user.FlairApi,
-    routeUrl: RouteUrl
+    routeUrl: RouteUrl,
+    elastic: lila.search.SearchClient
 )(using Executor, Scheduler, NetDomain):
 
   private val feedColl = db(CollName("daily_feed"))

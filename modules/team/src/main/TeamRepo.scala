@@ -90,6 +90,10 @@ final class TeamRepo(val coll: Coll)(using Executor):
       .cursor[Team](ReadPref.sec)
       .list(200)
 
+  def newlyCreatedById(userId: UserId): Fu[Option[TeamId]] =
+    coll.secondary
+      .primitiveOne[TeamId](bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(2))), "_id")
+
   def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists(bid(id) ++ clasSelect)
   def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team](bid(id) ++ clasSelect)
 

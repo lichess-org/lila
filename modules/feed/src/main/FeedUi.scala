@@ -26,12 +26,21 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       .js(edit.option(Esm("bits.flatpickr")))
       .js(edit.option(esmInitBit("dailyFeed")))
 
-  def index(ups: Paginator[Feed.Update])(using Context) =
+  def index(ups: Paginator[Feed.Update], text: String)(using Context) =
     page("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
           h1("Lichess updates"),
           div(cls := "box__top__actions")(
+            form(action := routes.Feed.index(1), cls := "search-input", method := "get")(
+              input(
+                name := "text",
+                value := text,
+                placeholder := trans.search.search.txt(),
+                enterkeyhint := "search"
+              ),
+              submitButton(cls := "button", dataIcon := Icon.Search)
+            ),
             Granter
               .opt(_.Feed)
               .option(
@@ -45,7 +54,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
           )
         ),
         standardFlash,
-        updates(ups, editor = Granter.opt(_.Feed))
+        updates(ups, editor = Granter.opt(_.Feed), text)
       )
 
   val lobbyUpdates = renderCache[List[Feed.Update]](1.minute): ups =>
@@ -131,7 +140,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
   private def convertToAbsoluteHrefs(html: Html): Html =
     html.map(_.replaceAll(""" href="/""", s""" href="$netBaseUrl/"""))
 
-  private def updates(ups: Paginator[Feed.Update], editor: Boolean)(using Context) =
+  private def updates(ups: Paginator[Feed.Update], editor: Boolean, text: String)(using Context) =
     div(cls := "daily-feed__updates infinite-scroll")(
       ups.currentPageResults
         .filter(_.published || editor)
@@ -156,7 +165,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
               div(cls := "daily-feed__update__markup")(feedMarkdown(update))
             )
           ),
-      pagerNext(ups, np => routes.Feed.index(np).url)
+      pagerNext(ups, np => routes.Feed.index(np, text).url)
     )
 
   private def inForm(form: Form[?], saveInsideForm: Boolean = true)(using Context) =

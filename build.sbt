@@ -77,7 +77,7 @@ lazy val modules = Seq(
   // level 3
   db, room,
   // level 4
-  memo, rating,
+  memo, rating, search,
   // level 5
   game, gathering, study, user, puzzle, analyse,
   report, pref, chat, playban, lobby, mailer, oauth, search,
@@ -94,7 +94,7 @@ lazy val modules = Seq(
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
-  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, irc
+  socket, bookmark, studySearch, gameSearch, irc
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -200,7 +200,7 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val feed = module("feed",
-  Seq(memo, ui),
+  Seq(memo, search, ui),
   Seq()
 )
 
@@ -225,8 +225,8 @@ lazy val history = module("history",
 )
 
 lazy val search = module("search",
-  Seq(memo),
-  Seq(playWs.ahc, lilaSearch)
+  Seq(db, mon, memo),
+  playWs.bundle
 )
 
 lazy val chat = module("chat",
@@ -451,22 +451,12 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(memo, ui),
-  Seq()
-)
-
-lazy val forumSearch = module("forumSearch",
-  Seq(search),
+  Seq(memo, ui, search),
   Seq()
 )
 
 lazy val team = module("team",
-  Seq(memo, room, ui),
-  Seq()
-)
-
-lazy val teamSearch = module("teamSearch",
-  Seq(search),
+  Seq(memo, room, ui, search),
   Seq()
 )
 

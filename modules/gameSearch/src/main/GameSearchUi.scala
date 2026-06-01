@@ -1,13 +1,13 @@
 package lila.gameSearch
 package ui
 
-import play.api.data.{ Field, Form }
-import scalalib.paginator.Paginator
+import play.api.data.{ Form, Field }
 
 import java.time.format.DateTimeFormatter
 
 import lila.common.ClientName
 import lila.core.i18n.Translate
+import lila.search.SearchPaginator
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -17,7 +17,7 @@ final class GameSearchUi(helpers: Helpers)(
   import helpers.{ *, given }
   import trans.search as trs
 
-  def index(form: Form[?], paginator: Option[Paginator[Game]] = None, nbGames: Long)(using
+  def index(form: Form[?], paginator: Option[SearchPaginator[Game]] = None, nbGames: Long)(using
       ctx: Context
   )(using ClientName) =
     val f = SearchForm(helpers)(form)
@@ -83,7 +83,7 @@ final class GameSearchUi(helpers: Helpers)(
                   ),
                   div(cls := "search__rows infinite-scroll")(
                     gameWidgets(pager.currentPageResults),
-                    pagerNext(pager, np => routes.Search.index(np).url)
+                    searchPagerNext(pager, np => routes.Search.index(np).url)
                   )
                 )
               else
@@ -95,6 +95,10 @@ final class GameSearchUi(helpers: Helpers)(
             }
           )
         )
+
+  private def searchPagerNext(pager: SearchPaginator[?], url: Int => String): Option[Tag] =
+    pager.nextPage.map: np =>
+      div(cls := "pager")(a(rel := "next", href := url(np.toInt))("Next"))
 
   def user(u: User, form: Form[?])(using Context) =
     val f = SearchForm(helpers)(form)

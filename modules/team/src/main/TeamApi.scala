@@ -13,6 +13,7 @@ import lila.core.timeline as tl
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.search.SearchClient.Index
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -23,7 +24,8 @@ final class TeamApi(
     cached: TeamCached,
     notifyApi: NotifyApi,
     chatApi: lila.core.chat.ChatApi,
-    spam: lila.core.security.SpamApi
+    spam: lila.core.security.SpamApi,
+    elastic: lila.search.SearchClient
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
@@ -83,6 +85,7 @@ final class TeamApi(
         .copy(chat = setup.chat, forum = setup.forum)
       _ <- teamRepo.coll.insert.one(team)
       _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
+      _ <- elastic.upsert(Index.Team, team.id)
     yield
       cached.invalidateTeamIds(me.userId)
       Bus.pub(TeamCreate(team.data))
@@ -92,6 +95,7 @@ final class TeamApi(
   private[team] def createQuietly(team: Team)(using me: Me): Fu[Team] = for
     _ <- teamRepo.coll.insert.one(team)
     _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
+    _ <- elastic.upsert(Index.Team, team.id)
   yield
     cached.invalidateTeamIds(me.userId)
     team
@@ -114,6 +118,9 @@ final class TeamApi(
     for
       blocklist <- blocklist.get(team)
       _ <- teamRepo.coll.update.one(bid(team.id), bsonWriteDoc(team) ++ bdoc("blocklist" -> blocklist))
+      _ <-
+        if team.enabled then elastic.upsert(Index.Team, team.id)
+        else elastic.delete(Index.Team, team.id)
       isLeader <- hasPerm(team.id, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
@@ -245,6 +252,7 @@ final class TeamApi(
       for
         done <- memberRepo.add(team.id, userId)
         _ <- done.so(teamRepo.incMembers(team.id, 1))
+        _ <- done.so(elastic.upsert(Index.Team, team.id))
       yield
         cached.invalidateTeamIds(userId)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(userId, team.id)).toFollowersOf(userId))
@@ -261,7 +269,8 @@ final class TeamApi(
               .addEffect: done =>
                 if done then cached.invalidateTeamIds(user.id)
       .flatMap: inserts =>
-        teamRepo.incMembers(team.id, inserts.count(identity))
+        val nbInserted = inserts.count(identity)
+        teamRepo.incMembers(team.id, nbInserted) >> (nbInserted > 0).so(elastic.upsert(Index.Team, team.id))
 
   def teamsOf(username: UserStr) =
     cached.teamIdsList(username.id).flatMap(teamsByIds)
@@ -276,7 +285,7 @@ final class TeamApi(
     for
       res <- memberRepo.remove(teamId, userId)
       _ <- (res.n == 1).so:
-        teamRepo.incMembers(teamId, -1)
+        teamRepo.incMembers(teamId, -1) >> elastic.upsert(Index.Team, teamId)
     yield
       Bus.pub(LeaveTeam(teamId = teamId, userId = userId))
       cached.invalidateTeamIds(userId)
@@ -285,8 +294,8 @@ final class TeamApi(
     teamIds <- memberRepo.teamIdsByUser(userId)
     _ <- requestRepo.removeByUser(userId)
     _ <- teamIds.sequentially: teamId =>
-      workQueue(teamId):
-        doQuit(teamId, userId)
+      workQueue(teamId)(doQuit(teamId, userId)) >> elastic.upsert(Index.Team, teamId)
+
   yield
     cached.invalidateTeamIds(userId)
     teamIds
@@ -347,9 +356,12 @@ final class TeamApi(
             _ <- teamRepo.disable(team)
             _ <- invalidateTeamIdsOfMembers(team.id)
             _ <- requestRepo.removeByTeam(team.id)
+            _ <- elastic.delete(Index.Team, team.id)
           yield ()
         else
-          for _ <- teamRepo.enable(team)
+          for
+            _ <- teamRepo.enable(team)
+            _ <- elastic.upsert(Index.Team, team.id)
           yield Bus.pub(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
@@ -379,6 +391,7 @@ final class TeamApi(
     _ <- memberRepo.removeByTeam(team.id)
     _ <- requestRepo.removeByTeam(team.id)
     _ = userIds.foreach(cached.invalidateTeamIds)
+    _ <- elastic.delete(Index.Team, team.id)
   yield logger.info(s"delete team ${team.id} by @$by: $explain")
 
   def deleteNewlyCreatedBy(userId: UserId): Funit = for
