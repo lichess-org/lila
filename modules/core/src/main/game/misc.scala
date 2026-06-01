@@ -47,6 +47,8 @@ case class FinishGame(
     // users and perfs BEFORE the game result is applied
     usersBeforeGame: ByColor[Option[UserWithPerfs]]
 )
+case class GameAnalysed(game: Game)
+case class DeleteGame(id: GameId)
 case class AbortedBy(pov: Pov)
 
 case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)

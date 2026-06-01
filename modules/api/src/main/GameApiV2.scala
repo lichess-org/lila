@@ -19,7 +19,6 @@ import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.gameSearch.GameSearchApi
-import smithy4s.time.Timestamp
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -116,11 +115,10 @@ final class GameApiV2(
       config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
     val gameSource: Source[Game, ?] =
       if requiresElasticSearch then
-        import lila.search.Size
         gameSearch
           .idStream(
             config.toGameQuery,
-            Size(config.max.fold(500_000)(_.value)),
+            config.max.fold(500_000L)(_.value.toLong),
             config.perSecond.into(MaxPerPage)
           )
           .mapAsync(1)(gameRepo.gamesFromSecondary)
@@ -401,10 +399,7 @@ object GameApiV2:
       finished: Boolean = true
   )(using val by: Option[Me])
       extends Config:
-    import lila.search.spec.DateRange
     import lila.gameSearch.*
-
-    private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
 
     def toSorting =
       sort match
@@ -422,7 +417,7 @@ object GameApiV2:
         analysed = analysed,
         sort = toSorting.some
       ).query.copy(
-        date = DateRange(since.map(ts), until.map(ts)),
+        date = DateRange(since, until),
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )

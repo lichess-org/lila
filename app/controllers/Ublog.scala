@@ -378,12 +378,13 @@ final class Ublog(env: Env) extends LilaController(env):
     Found(env.ublog.api.getByPrismicId(id)): post =>
       Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 
-  def search(text: String, by: BlogsBy, page: Int) = Open: ctx ?=>
+  def search(text: String, by: BlogsBy, cursor: Option[Long]) = Open: ctx ?=>
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
-        posts <- ids.mapFutureList(env.ublog.api.postPreviews)
+        posts <- env.ublog.search.fetchByCursor(queryText, by, Quality.weak.some, cursor)(
+          env.ublog.api.filterVisiblePosts
+        )
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
 

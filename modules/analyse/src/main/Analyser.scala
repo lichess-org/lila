@@ -23,7 +23,9 @@ final class Analyser(
             _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
-          yield Bus.pub(actorApi.AnalysisReady(game, analysis))
+          yield
+            Bus.pub(lila.core.game.GameAnalysed(game))
+            Bus.pub(actorApi.AnalysisReady(game, analysis))
         }
       case _ =>
         analysisRepo.save(analysis) >>

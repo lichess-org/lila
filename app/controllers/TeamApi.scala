@@ -66,10 +66,10 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         then paginator.popularTeamsWithPublicLeaders(page)
         else
           for
-            ids <- env.teamSearch(text, page)
+            ids <- env.team.searchApi(text, page)
             teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
-          yield leads
+          yield leads.toPaginator
 
   def teamsOf(username: UserStr) = Scoped(): ctx ?=>
     Found(meOrFetch(username)): user =>

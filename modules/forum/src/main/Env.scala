@@ -8,11 +8,13 @@ import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.core.forum.ForumPostMiniView
 import lila.core.relation.RelationApi
+import lila.search.SearchClient
 
 @Module
 final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
-    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
+    @ConfigName("search.max_per_page") val searchMaxPerPage: MaxPerPage
 )
 
 @Module
@@ -32,6 +34,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdown: lila.memo.MarkdownCache,
     picfitApi: lila.memo.PicfitApi,
+    elastic: lila.search.SearchClient,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
 
@@ -64,11 +67,17 @@ final class Env(
 
   lazy val access = wire[ForumAccess]
 
+  lazy val searchApi: ForumSearchApi = wire[ForumSearchApi]
+
   lila.common.Bus.sub[lila.core.team.TeamCreate]:
     case lila.core.team.TeamCreate(t) => categApi.makeTeam(t.id, t.name, t.userId)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    postRepo.eraseAllBy(del.id)
+    for
+      ids <- postRepo.idsByUserId(del.id)
+      _ <- postRepo.eraseAllBy(del.id)
+      _ <- ids.traverse(elastic.delete(SearchClient.Index.Forum, _))
+    yield ()
 
 private type RecentTeamPostsType = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

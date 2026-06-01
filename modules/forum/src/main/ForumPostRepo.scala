@@ -100,6 +100,9 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
     coll.distinctEasy("_id", $doc("topicId" -> topicId), _.sec)
 
+  def idsByUserId(userId: UserId): Fu[List[ForumPostId]] =
+    coll.distinctEasy("_id", $doc("userId" -> userId), _.sec)
+
   def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
     coll.distinctEasy("userId", $doc("topicId" -> topicId) ++ selectNotErased, _.sec)
 

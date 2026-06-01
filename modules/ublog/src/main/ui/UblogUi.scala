@@ -7,6 +7,7 @@ import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
 import lila.core.ublog.{ BlogsBy, QualityFilter }
+import lila.search.SearchChunk
 
 import ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost.PreviewPost
@@ -270,12 +271,12 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def search(
       text: String,
       by: BlogsBy,
-      paginator: Option[Paginator[UblogPost.PreviewPost]] = none
+      result: Option[SearchChunk[UblogPost.PreviewPost]] = none
   )(using Context) =
     import BlogsBy.*
     Page("Search")
       .css("bits.ublog")
-      .js(paginator.exists(_.hasNextPage).option(infiniteScrollEsmInit)):
+      .js(result.exists(_.nextCursor.isDefined).option(infiniteScrollEsmInit)):
         main(cls := "page-menu")(
           menu(Right("search")),
           div(cls := "page-menu__content box box-pad ublog-index")(
@@ -302,11 +303,17 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
                 )
               )
             ),
-            paginator match
-              case Some(pager) if pager.nbResults > 0 =>
+            result match
+              case Some(chunk) if chunk.unfilteredTotal > 0 && chunk.results.nonEmpty =>
                 div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                  pager.currentPageResults.map(card(_, showAuthor = ShowAt.top)),
-                  pagerNext(pager, np => routes.Ublog.search(text, by, np).url)
+                  chunk.results.map(card(_, showAuthor = ShowAt.top)),
+                  chunk.nextCursor.map: cursor =>
+                    div(cls := "pager")(
+                      a(
+                        rel := "next",
+                        href := addQueryParam(routes.Ublog.search(text, by).url, "cursor", cursor.toString)
+                      )("Next")
+                    )
                 )
               case _ => div(cls := "ublog-index__posts--empty")("No results")
           )
@@ -387,6 +394,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             cls := community.option("active"),
             href := langHref(routes.Ublog.communityAll())
           )(trans.ublog.community()),
+          a(cls := isActive("search"), href := langHref(routes.Ublog.search()))("Search"),
           a(
             cls := isActive("by-month"),
             href := langHref(routes.Ublog.thisMonth())
