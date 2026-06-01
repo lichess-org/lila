@@ -307,7 +307,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
         dd(
           trp.changeSupport(
             a(href := routes.Main.contact, targetBlank)(trp.contactSupport()),
-            a(href := stripeBillingPortal, targetBlank)(trp.stripePortal())
+            a(href := routes.Plan.index())(trp.patronPage())
           )
         ),
         dt(trp.otherMethods()),

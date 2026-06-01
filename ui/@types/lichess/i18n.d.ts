@@ -2079,7 +2079,7 @@ interface I18n {
     changeMonthlyAmount: I18nFormat;
     /** Can I change/cancel my monthly support? */
     changeMonthlySupport: string;
-    /** If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can %1$s and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you can cancel your donation or change the amount via %2$s. */
+    /** If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can %1$s and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on %2$s. */
     changeSupport: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
@@ -2155,6 +2155,8 @@ interface I18n {
     patronFeatures: string;
     /** Lichess Patron for %s months */
     patronForMonths: I18nPlural;
+    /** the patron page */
+    patronPage: string;
     /** Patron since %s */
     patronSince: I18nFormat;
     /** You have a Patron account until %s. */
@@ -2179,8 +2181,6 @@ interface I18n {
     stopPaymentsPayPal: string;
     /** Manage your subscription and download your invoices and receipts */
     stripeManageSub: string;
-    /** this Stripe-hosted portal */
-    stripePortal: string;
     /** Thank you for your donation! */
     thankYou: string;
     /** Your transaction has been completed, and a receipt for your donation has been emailed to you. */

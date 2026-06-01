@@ -1104,7 +1104,7 @@ object I18nKey:
     val `actOfCreation`: I18nKey = "patron:actOfCreation"
     val `changeMonthlySupport`: I18nKey = "patron:changeMonthlySupport"
     val `changeSupport`: I18nKey = "patron:changeSupport"
-    val `stripePortal`: I18nKey = "patron:stripePortal"
+    val `patronPage`: I18nKey = "patron:patronPage"
     val `contactSupport`: I18nKey = "patron:contactSupport"
     val `otherMethods`: I18nKey = "patron:otherMethods"
     val `lichessIsRegisteredWith`: I18nKey = "patron:lichessIsRegisteredWith"
