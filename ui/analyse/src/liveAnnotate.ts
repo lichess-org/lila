@@ -20,11 +20,7 @@ export default class LiveAnnotate {
   };
 
   private readonly liveGlyph = (node: TreeNode, parent: TreeNode): Glyph | undefined => {
-    if (
-      !parent.ceval ||
-      !node.ceval ||
-      (node.uci && node.uci === (parent.ceval.pvs[0]?.moves[0] ?? parent.ceval.bestmove))
-    )
+    if (!parent.ceval || !node.ceval || node.uci === (parent.ceval.pvs[0]?.moves[0] ?? parent.ceval.bestmove))
       return undefined;
     const color: Color = node.ply % 2 === 1 ? 'white' : 'black';
     const loss = povChances(color, parent.ceval) - povChances(color, node.ceval);
