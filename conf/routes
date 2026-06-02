@@ -520,6 +520,8 @@ GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                             controllers.Pref.set(name)
+GET   /account/pref-json/:name                controllers.Pref.getJson(name)
+POST  /account/pref-json/:name                controllers.Pref.setJson(name)
 GET   /account/preferences/network            controllers.Pref.network
 POST  /account/preferences/network            controllers.Pref.networkPost
 GET   /account/preferences/:categ             controllers.Pref.form(categ)

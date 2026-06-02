@@ -1,4 +1,5 @@
-import { blurIfPrimaryClick } from 'lib';
+import { blurIfPrimaryClick, frag } from 'lib';
+import { isSafari } from 'lib/device';
 import * as licon from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm } from 'lib/view';
@@ -92,4 +93,11 @@ export function addDomHandlers() {
     if (focus) start();
     else $(this).one('focus', start);
   });
+}
+
+export function addConditionalStyles() {
+  if (isSafari()) {
+    // https://bugs.webkit.org/show_bug.cgi?id=245402
+    document.head.append(frag<HTMLStyleElement>('<style>legend { display: contents; }</style>'));
+  }
 }

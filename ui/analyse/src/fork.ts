@@ -111,7 +111,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
         return hl(
           'move',
           { class: classes, attrs: { 'data-it': it } },
-          renderIndexAndMove(node, ctrl.showStaticAnalysis(), ctrl.showStaticAnalysis()),
+          renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
         );
       return undefined;
     }),

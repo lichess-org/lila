@@ -10,6 +10,8 @@ final class AccountUi(helpers: Helpers):
   def AccountPage(title: String, active: String)(using lila.ui.Context) =
     Page(title)
       .css("user.account")
+      .css((active == PrefCateg.Analysis.slug).option("analyse.settings"))
+      .js((active == PrefCateg.Analysis.slug).option(Esm("analyse.settings")))
       .js(Esm("user.account"))
       .wrap: body =>
         main(cls := "account page-menu")(
@@ -21,6 +23,7 @@ final class AccountUi(helpers: Helpers):
     case PrefCateg.Display => trans.preferences.display.txt()
     case PrefCateg.ChessClock => trans.preferences.chessClock.txt()
     case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
+    case PrefCateg.Analysis => trans.preferences.analysis.txt()
     case PrefCateg.Privacy => trans.preferences.privacy.txt()
 
   def setting(name: Frag, body: Frag) = st.section(h2(name), body)

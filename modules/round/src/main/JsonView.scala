@@ -265,7 +265,8 @@ final class JsonView(
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
-          .add("destination" -> pref.destination),
+          .add("destination" -> pref.destination)
+          .add("analysisSettings" -> pref.analysisSettings),
         "userAnalysis" -> true
       )
 

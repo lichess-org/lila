@@ -1,29 +1,20 @@
 import type { Board, Square, SquareSet } from 'chessops';
 
-import type { Prop } from 'lib';
-import { storedBooleanPropWithEffect } from 'lib/storage';
-
+import type { Settings } from '../settingsCtrl';
 import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } from './boardAnalysis';
 import type { Checkable, Pin, Undefended } from './interfaces';
 
 export default class MotifCtrl {
-  pin: Prop<boolean>;
-  checkable: Prop<boolean>;
-  undefended: Prop<boolean>;
-
-  constructor(setAutoShapes: () => void) {
-    this.pin = storedBooleanPropWithEffect('analyse.motif.pin', false, setAutoShapes);
-    this.checkable = storedBooleanPropWithEffect('analyse.motif.checkable', false, setAutoShapes);
-    this.undefended = storedBooleanPropWithEffect('analyse.motif.undefended', false, setAutoShapes);
-  }
+  constructor(private readonly settings: Settings) {}
 
   supports = (variant: VariantKey): boolean => boardAnalysisVariants.includes(variant);
 
-  any = () => this.pin() || this.checkable() || this.undefended();
+  any = () =>
+    this.settings.showPinnedPieces || this.settings.showCheckableKing || this.settings.showUndefendedPieces;
 
-  detectPins = (board: Board): Pin[] => (this.pin() ? detectPins(board) : []);
+  detectPins = (board: Board): Pin[] => (this.settings.showPinnedPieces ? detectPins(board) : []);
   detectUndefended = (board: Board, epSquare: Square | undefined): Undefended[] =>
-    this.undefended() ? detectUndefended(board, epSquare) : [];
+    this.settings.showUndefendedPieces ? detectUndefended(board, epSquare) : [];
   detectCheckable = (board: Board, epSquare: Square | undefined, castlingRights: SquareSet): Checkable[] =>
-    this.checkable() ? detectCheckable(board, epSquare, castlingRights) : [];
+    this.settings.showCheckableKing ? detectCheckable(board, epSquare, castlingRights) : [];
 }

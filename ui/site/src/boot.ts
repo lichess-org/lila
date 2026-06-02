@@ -20,12 +20,14 @@ import { watchers } from 'lib/view/watchers';
 import { text as xhrText } from 'lib/xhr';
 
 import { display as announceDisplay } from './announce';
-import { addDomHandlers } from './domHandlers';
+import { addDomHandlers, addConditionalStyles } from './domHandlers';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
 import serviceWorker from './serviceWorker';
 import { addExceptionListeners } from './unhandledError';
+
+addConditionalStyles();
 
 export function boot() {
   addExceptionListeners();

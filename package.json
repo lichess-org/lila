@@ -45,6 +45,7 @@
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
+    "i18n-migrate": "pnpx tsx bin/i18n-migrate.ts",
     "icon-files-gen": "python3 bin/gen/licon.py",
     "multilog": "pnpm serverlog & ui/build -w",
     "workspace-check": "pnpx @manypnk/cli check",

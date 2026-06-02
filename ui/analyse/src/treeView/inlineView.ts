@@ -68,7 +68,7 @@ export class InlineView {
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node) && this.isLichessComment(comment)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (!this.isLichessComment(comment) || this.ctrl.showStaticAnalysis()) &&
+          : (!this.isLichessComment(comment) || this.ctrl.settings.showStaticAnalysis) &&
             hl('comment', {
               class: {
                 inaccuracy: comment.text.startsWith('Inaccuracy.'),
@@ -113,12 +113,12 @@ export class InlineView {
       this.moveNode(child, args),
       this.commentNodes(child),
       args.parenthetical && this.lines(siblings, args),
-      this.ctrl.disclosureMode() || child.children.length < 2 || childArgs.parenthetical
+      this.ctrl.settings.disclosureMode || child.children.length < 2 || childArgs.parenthetical
         ? this.sidelineNodes(child.children, childArgs)
         : this.lines(child.children, childArgs),
       !args.parenthetical && this.lines(siblings, args),
     ];
-    return this.ctrl.disclosureMode() && args.parentDisclose === 'expanded'
+    return this.ctrl.settings.disclosureMode && args.parentDisclose === 'expanded'
       ? hl('interrupt', sideline)
       : sideline;
   }
@@ -164,8 +164,10 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
+    const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);
-    const glyphs = liveGlyph ? [liveGlyph] : node.glyphs;
+    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= this.glyphs.length))
+      glyphs.push(liveGlyph);
     if (ctrl.showMoveGlyphs()) {
       glyphs
         ?.map(g => this.glyphs[g.id - 1])
@@ -189,14 +191,14 @@ export class InlineView {
     const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
     const hook: Hooks = { insert: callback, update: v => setTimeout(() => callback(v)) };
     return (
-      this.ctrl.disclosureMode() &&
+      this.ctrl.settings.disclosureMode &&
       hl('div.disclosure-connector', { hook }, hl('div.disclosure-connector.riser'))
     );
   }
 
   private disclosureBtn(node: TreeNode, path: TreePath): LooseVNodes {
     return (
-      this.ctrl.disclosureMode() &&
+      this.ctrl.settings.disclosureMode &&
       hl('a.disclosure', {
         class: { expanded: !node.collapsed },
         attrs: { 'data-path': path },
