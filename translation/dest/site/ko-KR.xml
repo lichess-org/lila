@@ -288,8 +288,8 @@
   <string name="playingRightNow">지금 대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료됨</string>
-  <string name="abortGame">대국 취소</string>
-  <string name="gameAborted">대국 취소됨</string>
+  <string name="abortGame">대국 중단</string>
+  <string name="gameAborted">대국 중단됨</string>
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
