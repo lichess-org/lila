@@ -36,11 +36,11 @@
   <string name="wantReportBug">می‌خواهم یک ایراد فنی را گزارش کنم</string>
   <string name="reportBugInForum">در قسمت بازخوردِ Lichess در تالار گفت و گو</string>
   <string name="reportWebsiteIssue">گزارشِ مشکلِ وبگاهِ Lichess در GitHub</string>
-  <string name="reportMobileIssue">مشکلِ گوشی‌افزار Lichess در GitHub</string>
+  <string name="reportMobileIssue">مشکلِ بَرکِ گوشی Lichess در GitHub</string>
   <string name="reportBugInDiscord">در کارسازِ دیسکوردِ Lichess</string>
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
   <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
-  <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
+  <string name="calledEnPassant">این حرکت \"آن‌پاسان\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
   <string name="tryEnPassant">برای یادگیری بیشتر «گرفتن هنگام عبور»، این بازی میان‌کنشی کوچک را بیازمایید.</string>
   <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
   <string name="castlingPrevented">از قلعه‌روی، هنگامی که شاه از خانه‌ی زیرِضرب می‌گذرد، جلوگیری می‌شود.</string>

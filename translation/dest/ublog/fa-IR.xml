@@ -49,7 +49,7 @@
     <item quantity="other">دیدت همهٔ %s فرسته</item>
   </plurals>
   <string name="uploadAnImageForYourPost">بارگذاری یک تصویر برای فرسته‌تان</string>
-  <string name="imageAlt">مقدار alternative برای عکس</string>
+  <string name="imageAlt">متنِ جایگزینِ تصویر</string>
   <string name="imageCredit">منبع عکس</string>
   <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
   <string name="safeToUseImages">استفاده از تصویرهای وبگاه‌های زیر، ایمن است: </string>
