@@ -1623,6 +1623,8 @@ object I18nKey:
     val `blackLeftTheGame`: I18nKey = "blackLeftTheGame"
     val `whiteDidntMove`: I18nKey = "whiteDidntMove"
     val `blackDidntMove`: I18nKey = "blackDidntMove"
+    val `whiteAborted`: I18nKey = "whiteAborted"
+    val `blackAborted`: I18nKey = "blackAborted"
     val `requestAComputerAnalysis`: I18nKey = "requestAComputerAnalysis"
     val `computerAnalysis`: I18nKey = "computerAnalysis"
     val `computerAnalysisAvailable`: I18nKey = "computerAnalysisAvailable"
