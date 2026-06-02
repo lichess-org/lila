@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">黑方离开对局</string>
   <string name="whiteDidntMove">白方未走棋</string>
   <string name="blackDidntMove">黑方未走棋</string>
+  <string name="whiteAborted">白方终止对局</string>
+  <string name="blackAborted">黑方终止对局</string>
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
