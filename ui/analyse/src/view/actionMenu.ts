@@ -1,5 +1,4 @@
 import { isEmpty } from 'lib';
-import { clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
 import * as licon from 'lib/licon';
@@ -184,6 +183,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
         prop: ctrl.showManeuverMoveArrowsProp,
         redraw: ctrl.redraw,
       }),
+    cmnToggleWrapProp({
+      id: 'live-glyphs',
+      name: 'Live annotations',
+      prop: ctrl.showLiveGlyphsProp,
+      redraw: ctrl.redraw,
+    }),
     displayColumns() > 1 &&
       cmnToggleWrapProp({
         id: 'gauge',
@@ -222,15 +227,21 @@ export function view(ctrl: AnalyseCtrl): VNode {
         change: ctrl.togglePossiblyShowMoveAnnotationsOnBoard,
         redraw: ctrl.redraw,
       }),
+    cmnToggleWrap({
+      id: 'variations',
+      name: 'Variation arrows',
+      title: 'Pale white arrows that show branches on the board. Hotkey: v',
+      checked: ctrl.variationArrowsProp(),
+      change: v => ctrl.variationArrowsProp(v),
+      redraw: ctrl.redraw,
+    }),
   ];
 
   return hl('div.action-menu', [
     tools,
     displayConfig,
-    displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
     cevalConfig,
     ctrl.motifAllowed() ? motifConfig(ctrl) : [],
-    displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
     ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
     canContinue &&
       hl('div.continue-with.none.g_' + d.game.id, [
@@ -261,30 +272,3 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]),
   ]);
 }
-
-const renderVariationOpacitySlider = (ctrl: AnalyseCtrl) =>
-  hl('span.setting', [
-    hl('label', 'Variation opacity'),
-    hl('input.range', {
-      key: 'variation-arrows',
-      attrs: { min: 0, max: 1, step: 0.1, type: 'range', value: ctrl.variationArrowOpacity() || 0 },
-      props: { value: ctrl.variationArrowOpacity() || 0 },
-      hook: {
-        insert: (vnode: VNode) => {
-          const input = vnode.elm as HTMLInputElement;
-          input.addEventListener('input', () => {
-            ctrl.variationArrowOpacity(parseFloat(input.value));
-          });
-          input.addEventListener('wheel', e => {
-            e.preventDefault();
-            ctrl.variationArrowOpacity(
-              clamp((ctrl.variationArrowOpacity() || 0) + (e.deltaY > 0 ? -0.1 : 0.1), {
-                min: 0,
-                max: 1,
-              }),
-            );
-          });
-        },
-      },
-    }),
-  ]);

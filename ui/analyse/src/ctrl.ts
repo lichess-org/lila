@@ -116,7 +116,8 @@ export default class AnalyseCtrl implements CevalHandler {
   showComments = true; // whether to display comments in the move tree
   showBestMoveArrowsProp: Prop<boolean>;
   showManeuverMoveArrowsProp: Prop<boolean>;
-  variationArrowOpacity: Prop<number | false>;
+  showLiveGlyphsProp = storedBooleanProp('analyse.show-live-glyphs', true);
+  variationArrowsProp: Prop<boolean>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
     'analyse.show-engine',
@@ -192,7 +193,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
     this.showGround();
 
-    this.variationArrowOpacity = this.makeVariationOpacityProp();
+    this.variationArrowsProp = storedBooleanProp(
+      'analyse.variation-arrows',
+      Number(localStorage.getItem('analyse.variation-arrow-opacity')) > 0, // migrate old opacity setting
+    );
     this.showBestMoveArrowsProp = storedBooleanPropWithEffect(
       'analyse.auto-shapes',
       true,
@@ -821,9 +825,8 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   showVariationArrows() {
-    if (!this.allowLines()) return false;
-    const kids = this.variationArrowOpacity() ? this.node.children : [];
-    return Boolean(kids.filter(x => !x.comp || this.showFishnetAnalysis()).length);
+    if (!this.allowLines() || !this.variationArrowsProp()) return false;
+    return Boolean(this.node.children.filter(x => !x.comp || this.showFishnetAnalysis()).length);
   }
 
   showAnalysis() {
@@ -1072,28 +1075,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   };
 
-  toggleVariationArrows = () => {
-    const trueValue = this.variationArrowOpacity(false);
-    if (typeof trueValue === 'number') {
-      this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
-    }
-  };
-
-  private makeVariationOpacityProp(): Prop<number | false> {
-    let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
-    if (isNaN(value) || value < -1 || value > 1) value = 0;
-    return (v?: number | false) => {
-      if (v === false) return value;
-      if (v === undefined || isNaN(v)) return value > 0 ? value : false;
-      value = Math.min(1, Math.max(-1, v));
-      localStorage.setItem('analyse.variation-arrow-opacity', value.toString());
-      this.setAutoShapes();
-      this.chessground.redrawAll();
-      this.redraw();
-      return value;
-    };
-  }
-
   private readonly pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
@@ -1107,7 +1088,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (
       this.showBestMoveArrows() ||
       this.possiblyShowMoveAnnotationsOnBoard() ||
-      this.variationArrowOpacity() ||
+      this.variationArrowsProp() ||
       (this.motifEnabled() && this.motif.any())
     )
       this.setAutoShapes();

@@ -77,7 +77,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('v', () => {
-      ctrl.toggleVariationArrows();
+      ctrl.variationArrowsProp(!ctrl.variationArrowsProp());
       ctrl.setAutoShapes();
       ctrl.redraw();
     })

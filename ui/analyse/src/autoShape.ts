@@ -177,11 +177,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotationsOnBoard()) {
+    const glyphs = [...(ctrl.node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate.get(ctrl.path);
-    shapes = shapes.concat(
-      // Override server analysis glyphs as local eval also overrides the eval score
-      annotationShapes(liveGlyph ? { ...ctrl.node, glyphs: [liveGlyph] } : ctrl.node),
-    );
+    if (liveGlyph && ctrl.showLiveGlyphsProp() && !glyphs.some(g => g.id <= 6)) glyphs.push(liveGlyph);
+    shapes = shapes.concat(annotationShapes({ ...ctrl.node, glyphs }));
   }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
 
@@ -218,7 +217,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
     color: 'white',
-    opacity: ctrl.variationArrowOpacity() || 0,
+    opacity: 0.5,
     lineWidth: 12,
   };
   const chap = ctrl.study?.data.chapter;
