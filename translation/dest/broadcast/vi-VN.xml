@@ -61,6 +61,7 @@
   <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
   <string name="officialWebsite">Website chính thức</string>
   <string name="officialStandings">Bảng xếp hạng Chính thức</string>
+  <string name="regulations">Quy định</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
   <string name="webmastersPage">trang nhà phát triển web</string>
   <string name="embedThisBroadcast">Nhúng chương trình phát sóng này vào trang web của bạn</string>
