@@ -104,8 +104,8 @@ final class GameUi(helpers: Helpers):
     game.abortedBy match
       case Some(chess.White) => trans.site.whiteAborted
       case Some(chess.Black) => trans.site.blackAborted
-      case _ if game.playedPlies == chess.Ply.initial => trans.site.whiteDidNotMove
-      case _ => trans.site.blackDidNotMove
+      case _ if game.playedPlies == chess.Ply.initial => trans.site.whiteDidntMove
+      case _ => trans.site.blackDidntMove
 
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
@@ -143,8 +143,8 @@ final class GameUi(helpers: Helpers):
           case (Black, Some(_)) => trans.site.blackTimeOut.txt()
           case (Black, None) => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
-        if game.loser.exists(_.color.white) then trans.site.whiteDidNotMove.txt()
-        else trans.site.blackDidNotMove.txt()
+        if game.loser.exists(_.color.white) then trans.site.whiteDidntMove.txt()
+        else trans.site.blackDidntMove.txt()
       case S.Cheat => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match

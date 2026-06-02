@@ -79,8 +79,8 @@ export function statusOf(d: StatusData): string {
       const abortReasonText = d.abortedBy
         ? i18n.site[d.abortedBy === 'white' ? 'whiteAborted' : 'blackAborted']
         : d.ply === 0
-          ? i18n.site.whiteDidNotMove
-          : i18n.site.blackDidNotMove;
+          ? i18n.site.whiteDidntMove
+          : i18n.site.blackDidntMove;
       return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
@@ -113,7 +113,7 @@ export function statusOf(d: StatusData): string {
         winnerSuffix || ` • ${i18n.site.draw}`
       }`;
     case 'noStart':
-      return (d.winner === 'white' ? i18n.site.blackDidNotMove : i18n.site.whiteDidNotMove) + winnerSuffix;
+      return (d.winner === 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
     case 'cheat':
       return i18n.site.cheatDetected + winnerSuffix;
     case 'variantEnd':
