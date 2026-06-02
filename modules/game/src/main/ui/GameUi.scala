@@ -101,7 +101,7 @@ final class GameUi(helpers: Helpers):
 
   def abortReasonText(game: Game)(using Translate): String =
     game.abortReason.fold(
-      if game.ply.value == 0 then trans.site.whiteDidNotMove.txt()
+      if game.playedPlies == chess.Ply.initial then trans.site.whiteDidNotMove.txt()
       else trans.site.blackDidNotMove.txt()
     ):
       case AbortReason.whiteAborted => trans.site.whiteAborted.txt()
