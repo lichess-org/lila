@@ -92,4 +92,7 @@ val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
 
+def mobileRedirect(callbackUrl: String) =
+  lila.web.ui.mobileRedirect(callbackUrl)
+
 val recap = lila.recap.ui.RecapUi(helpers)

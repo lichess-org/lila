@@ -125,3 +125,10 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           }))
         }
       .map(apiC.toHttp)
+
+  def mobileOAuthCallback = Open:
+    val qs = req.rawQueryString
+    val callbackUrl =
+      if qs.isEmpty then "org.lichess.mobile://login-callback"
+      else s"org.lichess.mobile://login-callback?$qs"
+    Ok.page(views.mobileRedirect(callbackUrl))
