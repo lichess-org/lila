@@ -4,7 +4,8 @@ package ui
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 
-import lila.core.game.{ AbortReason, Game, Player }
+import lila.core.game.{ Game, Player }
+import lila.core.i18n.I18nKey
 import lila.game.GameExt.*
 import lila.ui.*
 
@@ -99,19 +100,18 @@ final class GameUi(helpers: Helpers):
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon
 
-  def abortReasonText(game: Game)(using Translate): String =
-    game.abortReason.fold(
-      if game.playedPlies == chess.Ply.initial then trans.site.whiteDidNotMove.txt()
-      else trans.site.blackDidNotMove.txt()
-    ):
-      case AbortReason.whiteAborted => trans.site.whiteAborted.txt()
-      case AbortReason.blackAborted => trans.site.blackAborted.txt()
+  def abortReason(game: Game): I18nKey =
+    game.abortedBy match
+      case Some(chess.White) => trans.site.whiteAborted
+      case Some(chess.Black) => trans.site.blackAborted
+      case _ if game.playedPlies == chess.Ply.initial => trans.site.whiteDidNotMove
+      case _ => trans.site.blackDidNotMove
 
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
     import lila.game.GameExt.drawReason
     game.status match
-      case S.Aborted => abortReasonText(game)
+      case S.Aborted => abortReason(game).txt()
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)

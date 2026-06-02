@@ -41,7 +41,7 @@ case class Game(
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
     metadata: GameMetadata,
-    abortReason: Option[AbortReason] = None
+    abortedBy: Option[Color] = None
 ):
 
   export chess.{ position, ply, clock, sans, startedAtPly, player as turnColor, history, variant }

@@ -374,7 +374,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       winnerColor: Option[Color],
       winnerId: Option[UserId],
       status: Status,
-      abortReason: Option[AbortReason] = None
+      abortBy: Option[Color] = None
   ): Funit =
     coll.update
       .one(
@@ -385,7 +385,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
             F.winnerId -> winnerId,
             F.winnerColor -> winnerColor.map(_.white),
             F.status -> status,
-            F.abortReason -> abortReason
+            F.abortedBy -> abortBy
           )
         ) ++ $doc(
           "$unset" -> finishUnsets.++ {

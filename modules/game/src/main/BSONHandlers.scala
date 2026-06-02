@@ -22,7 +22,6 @@ import scalalib.model.Days
 import scala.util.{ Success, Try }
 
 import lila.core.game.{
-  AbortReason,
   ClockHistory,
   Game,
   GameDrawOffers,
@@ -58,9 +57,6 @@ object BSONHandlers:
   given BSONHandler[GameRule] = valueMapHandler[String, GameRule](GameRule.byKey)(_.toString)
 
   given sourceHandler: BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
-
-  given BSONHandler[AbortReason] =
-    valueMapHandler[Int, AbortReason](AbortReason.values.mapBy(_.ordinal))(_.ordinal)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
@@ -204,7 +200,7 @@ object BSONHandlers:
           drawOffers = r.getD(F.drawOffers, emptyDrawOffers),
           rules = r.getD(F.rules, Set.empty)
         ),
-        abortReason = r.getO[AbortReason](F.abortReason)
+        abortedBy = r.getO[Color](F.abortedBy)
       )
 
     def writes(w: BSON.Writer, o: Game) =
@@ -243,7 +239,7 @@ object BSONHandlers:
         F.simulId -> o.metadata.simulId,
         F.analysed -> w.boolO(o.metadata.analysed),
         F.rules -> o.metadata.nonEmptyRules,
-        F.abortReason -> o.abortReason
+        F.abortedBy -> o.abortedBy
       ) ++ {
         if o.variant.standard then
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))

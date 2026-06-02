@@ -1,4 +1,4 @@
-import type { AbortReason, GameData, Source, StatusName } from '@/game';
+import type { GameData, Source, StatusName } from '@/game';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
@@ -44,7 +44,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
 export interface StatusData {
   winner: Color | undefined;
   status: StatusName;
-  abortReason?: AbortReason;
+  abortedBy?: Color;
   ply: Ply;
   fen: FEN;
   variant: VariantKey;
@@ -58,7 +58,7 @@ export default function status(d: GameData): string {
   return statusOf({
     winner: d.game.winner,
     status: d.game.status.name,
-    abortReason: d.game.abortReason,
+    abortedBy: d.game.abortedBy,
     ply: d.game.turns,
     fen: d.game.fen,
     variant: d.game.variant.key,
@@ -69,11 +69,6 @@ export default function status(d: GameData): string {
   });
 }
 export function statusOf(d: StatusData): string {
-  const abortReasonText = d.abortReason
-    ? i18n.site[d.abortReason]
-    : d.ply === 0
-      ? i18n.site.whiteDidNotMove
-      : i18n.site.blackDidNotMove;
   const winnerSuffix = d.winner
     ? ' • ' + i18n.site[d.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
     : '';
@@ -81,6 +76,11 @@ export function statusOf(d: StatusData): string {
     case 'started':
       return i18n.site.playingRightNow;
     case 'aborted':
+      const abortReasonText = d.abortedBy
+        ? i18n.site[d.abortedBy === 'white' ? 'whiteAborted' : 'blackAborted']
+        : d.ply === 0
+          ? i18n.site.whiteDidNotMove
+          : i18n.site.blackDidNotMove;
       return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;

@@ -120,7 +120,7 @@ abstract class GameRepo(val coll: BSONCollection):
       winnerColor: Option[Color],
       winnerId: Option[UserId],
       status: Status,
-      abortReason: Option[AbortReason] = None
+      abortBy: Option[Color] = None
   ): Funit
   def remove(id: GameId): Funit
   def countWhereUserTurn(userId: UserId): Fu[Int]

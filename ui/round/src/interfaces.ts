@@ -1,7 +1,7 @@
 import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
-import type { AbortReason, GameData, Status, RoundStep } from 'lib/game';
+import type { GameData, Status, RoundStep } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
@@ -171,7 +171,7 @@ export interface ApiMove {
 export interface ApiEnd {
   winner?: Color;
   status: Status;
-  abortReason?: AbortReason;
+  abortedBy?: Color;
   ratingDiff?: {
     white: number;
     black: number;

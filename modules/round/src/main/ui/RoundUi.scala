@@ -87,7 +87,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
     import chess.Status.*
     val result = (game.winner, game.loser, game.status) match
       case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
-      case (_, _, Aborted | NoStart) => gameUi.abortReasonText(game)
+      case (_, _, Aborted | NoStart) => gameUi.abortReason(game).txt()
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
       case (_, Some(l), Outoftime) => s"${playerText(l)} ran out of time"
       case (Some(w), _, UnknownFinish | VariantEnd) => s"${playerText(w)} won"
