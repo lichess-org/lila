@@ -118,7 +118,9 @@ site.load.then(() => {
     const lines = (
       quotedMarkdown(this.closest('article')) ??
       post.querySelector('.forum-post__message-source')!.textContent
-    ).split('\n');
+    )
+      .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)')
+      .split('\n');
     if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
 
     if (lines.length === 0) return;
