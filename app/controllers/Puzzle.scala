@@ -371,7 +371,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     fetchRateLimit(rateLimited, cost = cost):
       PuzzleAngle
         .find(angleStr)
-        .fold(fuccess(notFoundJson("Angle not found"))): angle =>
+        .fold(fuccess(notFoundJson(s"No $angleStr puzzles found"))): angle =>
           WithPuzzlePerf:
             for puzzles <- batchSelect(angle, reqSettings, nb)
             yield Ok(puzzles)
