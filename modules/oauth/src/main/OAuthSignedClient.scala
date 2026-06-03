@@ -19,12 +19,10 @@ case class OAuthSignedClient(
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
 
-final class OAuthSignedClients(appConfig: Configuration):
+final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl):
 
   private val config = appConfig.get[Configuration]("oauth.signedClients")
   private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
-
-  private val baseUrl = appConfig.get[BaseUrl]("net.base_url")
 
   val mobile = OAuthSignedClient(
     ClientId("lichess_mobile"),
