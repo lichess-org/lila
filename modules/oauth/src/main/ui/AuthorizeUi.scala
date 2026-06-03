@@ -13,6 +13,11 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       me: Me
   ) =
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
+    val customLogo = for
+      client <- signedClient
+      path <- client.imagePath
+    yield img(src := assetUrl(path), alt := client.displayName, cls := "oauth__logo--image")
+    val logo = customLogo | iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     Page("Authorization")
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
@@ -20,11 +25,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       .csp(_.withLegacyUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
-            iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
-            h1("Authorize"),
+            logo,
             signedClient match
-              case Some(client) => h2(client.displayName)
-              case None => strong(code(prompt.redirectUri.origin))
+              case Some(client) => h2("Authorize ", client.displayName)
+              case None => frag(h2("Authorize"), strong(code(prompt.redirectUri.origin)))
           ),
           prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
           postForm(

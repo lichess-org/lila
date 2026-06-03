@@ -1,6 +1,6 @@
 package lila.oauth
 
-import play.api.Configuration
+import play.api.{ Mode, Configuration }
 import com.roundeights.hasher.Algo
 import scalalib.net.Bearer
 
@@ -14,15 +14,19 @@ case class OAuthSignedClient(
     origins: List[Origin],
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder],
-    displayName: String
+    displayName: String,
+    imagePath: Option[String] = None
 )
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
+  val takex3Id = ClientId("takex3")
 
-final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl):
+final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode):
 
   private val config = appConfig.get[Configuration]("oauth.signedClients")
   private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
+
+  private val requireSign = mode.isProd || false // for easier dev
 
   val mobile = OAuthSignedClient(
     ClientId("lichess_mobile"),
@@ -36,11 +40,12 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl):
   )
 
   val takex3 = OAuthSignedClient(
-    ClientId("takex3"),
+    OAuthSignedClient.takex3Id,
     List(Origin("https://auth.taketaketake.com"), Origin("http://localhost")),
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
-    displayName = "Take Take Take"
+    displayName = "Take Take Take",
+    imagePath = "images/t3-logo.svg".some
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
@@ -74,13 +79,13 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl):
       ref <- parse(referrer.value).toOption
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
       sign <- ref.queryParam("default_sign")
-      clientId <- ref.queryParam("client_id").map(ClientId(_))
+      clientId <- ClientId.from(ref.queryParam("client_id"))
       redirectUriStr <- ref.queryParam("redirect_uri")
       redirectUri <- RedirectUri.from(redirectUriStr).toOption
       scopes <- AuthorizationRequest.readScopes(~ref.queryParam("scope")).toOption
       client <- forPrompt(clientId, redirectUri, scopes)
       if client == takex3
-      if client.signers.exists: signer =>
+      if !requireSign || client.signers.exists: signer =>
         signer.sha1(email.value).hash_=(sign)
     yield client.clientId
 

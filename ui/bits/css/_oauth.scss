@@ -29,9 +29,13 @@
     margin-bottom: 4em;
   }
 
-  &__logo {
+  &__logo--font {
     font-size: 9em;
     color: $c-brag;
+  }
+  &__logo--image {
+    height: 140px;
+    margin-bottom: 3em;
   }
 
   h1 {
