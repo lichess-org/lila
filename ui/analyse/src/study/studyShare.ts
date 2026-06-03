@@ -29,7 +29,7 @@ export class StudyShare {
     readonly data: StudyData,
     readonly currentChapter: () => ChapterPreview,
     readonly currentNode: () => TreeNode,
-    readonly rootPly: Ply,
+    readonly rootPly: () => Ply,
     readonly onMainline: () => boolean,
     readonly bottomColor: () => Color,
     readonly relay: RelayCtrl | undefined,
@@ -51,7 +51,7 @@ export function view(ctrl: StudyShare): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
   const isPrivate = ctrl.isPrivate();
-  const relativePly = ctrl.currentNode().ply - ctrl.rootPly;
+  const relativePly = ctrl.currentNode().ply - ctrl.rootPly();
   const addPly = (path: string) =>
     ctrl.onMainline() ? (ctrl.withPly() ? `${path}#${relativePly}` : path) : `${path}#last`;
   const youCanPasteThis = () =>

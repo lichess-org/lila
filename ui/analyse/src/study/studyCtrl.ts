@@ -229,7 +229,7 @@ export default class StudyCtrl {
       data,
       this.currentChapter,
       this.currentNode,
-      this.ctrl.tree.root.ply,
+      () => this.ctrl.tree.root.ply,
       this.onMainline,
       this.bottomColor,
       this.relay,
