@@ -39,8 +39,6 @@
   <string name="officialNonProfit">Lichess 是正式的非营利组织吗？</string>
   <string name="actOfCreation">是的，这是（法文的）成立文件</string>
   <string name="changeMonthlySupport">我可以更改/取消我的月度赞助吗？</string>
-  <string name="changeOrContact">可以，随时可以在此页面操作。
-或者您可以 %s。</string>
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他赞助方式？</string>
   <string name="lichessIsRegisteredWith">Lichess 已在 %s 注册。</string>
