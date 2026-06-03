@@ -11,7 +11,7 @@ export default function (ctrl: MsgCtrl): VNode {
   const activeId = ctrl.data.convo?.user.id;
   return h('main.box.msg-app', { class: { [`pane-${ctrl.pane}`]: true } }, [
     h('div.msg-app__side', [
-      search.renderInput(ctrl),
+      ctrl.allowSearch() ? search.renderInput(ctrl) : undefined,
       ctrl.search.result
         ? search.renderResults(ctrl, ctrl.search.result)
         : h(

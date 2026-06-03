@@ -3,7 +3,7 @@ package lila.clas
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.core.misc.clas.ClasBus
+import lila.core.clas.{ ClasBus, MyTeacherIds, MyStudentIds }
 
 @Module
 final class Env(
@@ -44,12 +44,15 @@ final class Env(
 
   lazy val bulk = wire[ClasBulkApi]
 
-  def isAnyTeacher(using me: Me) = lila.core.perm.Granter(_.Teacher)
+  def isAnyTeacher(using Me) = lila.core.perm.Granter(_.Teacher)
 
   def isActiveTeacher(using me: Me) = isAnyTeacher && filters.teacher(me)
 
   def seesClassMenu(using me: Me) =
     filters.student(me) || isAnyTeacher || me.hasTitle || me.roles.contains("ROLE_COACH")
+
+  val myTeachers: Me => Fu[MyTeacherIds] = me => MyTeacherIds.from(mates.fetchTeachers(me.userId))
+  val myStudents: Me => Fu[MyStudentIds] = me => MyStudentIds.from(mates.fetchStudents(me.userId))
 
   scheduler.scheduleWithFixedDelay(44.minutes, 1.hour)(() => api.clas.archiveAllInactive)
 

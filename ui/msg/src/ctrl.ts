@@ -1,3 +1,4 @@
+import { schoolMode } from 'lib';
 import { throttle } from 'lib/async';
 import { pubsub } from 'lib/pubsub';
 import { storage, type LichessStorage } from 'lib/storage';
@@ -31,6 +32,7 @@ export default class MsgCtrl {
   canGetMoreContacts = true;
   typing?: Typing;
   textStore?: LichessStorage;
+  school: SchoolMode | undefined;
 
   constructor(
     data: MsgData,
@@ -40,6 +42,7 @@ export default class MsgCtrl {
     this.pane = data.convo ? 'convo' : 'side';
     this.connected = network.websocketHandler(this);
     if (this.data.convo) this.onLoadConvo(this.data.convo);
+    this.school = schoolMode();
     window.addEventListener('focus', this.setRead);
   }
 
@@ -254,4 +257,6 @@ export default class MsgCtrl {
     this.data.convo && this.openConvo(this.data.convo.user.id);
     this.redraw();
   };
+
+  allowSearch = () => !this.school || this.school === 'teacher';
 }

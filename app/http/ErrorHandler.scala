@@ -28,7 +28,7 @@ final class ErrorHandler(
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         given PageContext = PageContext(
-          lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
+          lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon(none), lila.pref.Pref.default),
           lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.ui.Nonce.random))
         )
         InternalServerError(views.base.page(views.site.ui.errorPage))
