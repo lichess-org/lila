@@ -13,11 +13,14 @@ async function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     const pgn = this.dataset['pgn']!.replace(/<br>/g, '\n');
     const gamebook = pgn.includes('[ChapterMode "gamebook"]');
+    const rawPly = this.dataset['ply'];
+    const initialPly =
+      rawPly === 'last' ? 'last' : rawPly !== undefined ? parseInt(rawPly, 10) || 0 : undefined;
     const config: Partial<LpvOpts> = {
       pgn,
       orientation: this.dataset['orientation'] as Color | undefined,
       lichess: location.origin,
-      initialPly: (this.dataset['ply'] as number | 'last') ?? (gamebook ? 0 : 'last'),
+      initialPly: initialPly ?? (gamebook ? 0 : 'last'),
       ...(gamebook
         ? {
             showPlayers: false,
