@@ -6,6 +6,7 @@ import scalalib.net.Bearer
 
 import lila.oauth.Protocol.{ ClientId, RedirectUri }
 import lila.common.config.given
+import lila.core.config.BaseUrl
 import lila.core.net.{ Origin, ValidReferrer }
 
 case class OAuthSignedClient(
@@ -18,14 +19,17 @@ case class OAuthSignedClient(
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
 
-final class OAuthSignedClients(appConfig: Configuration):
+final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl):
 
   private val config = appConfig.get[Configuration]("oauth.signedClients")
   private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
 
   val mobile = OAuthSignedClient(
     ClientId("lichess_mobile"),
-    List(Origin("org.lichess.mobile://")),
+    List(
+      Origin("org.lichess.mobile://"),
+      Origin(baseUrl.value)
+    ),
     OAuthScope.Web.Mobile,
     signersOf("mobile"),
     displayName = "Lichess Mobile"

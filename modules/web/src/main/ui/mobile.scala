@@ -1,9 +1,22 @@
 package lila.web
 package ui
 
+import play.api.mvc.RequestHeader
+
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+
+def mobileRedirect(using req: RequestHeader) =
+  val callbackUrl = "org.lichess.mobile://login-callback" + req.rawQueryString.nonEmptyOption.so("?" + _)
+  Page("Returning to the Lichess app"):
+    main(cls := "page-small box box-pad")(
+      boxTop(
+        h1(cls := "text")("Returning to the Lichess app")
+      ),
+      p("If the app doesn't open automatically, tap the \"Open the Lichess app\" button."),
+      a(href := callbackUrl, cls := "button")("Open the Lichess app")
+    )
 
 def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
   import helpers.*
