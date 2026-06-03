@@ -40,8 +40,6 @@
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>
   <string name="changeMonthlySupport">آیا می‌توانم پشتیبانی ماهانه خود را تغییر یا حذف نمایم؟</string>
-  <string name="changeOrContact">بله، هر لحظه، از این صفحه. 
-یا شما می‌توانید %s.</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگرِ داشَنیدن؟</string>
   <string name="lichessIsRegisteredWith">وبگاه Lichess در %s ثبت شده است.</string>
