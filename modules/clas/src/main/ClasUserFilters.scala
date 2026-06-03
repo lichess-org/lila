@@ -8,6 +8,7 @@ import reactivemongo.api.bson.BSONNull
 import play.api.Mode
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls)(using mode: Mode):
 
@@ -84,7 +85,7 @@ private final class ClasUserCache(name: String)(
         lila.mon.clas.bloomFilter(name).count.update(nb)
         bloomFilter.dispose()
         bloomFilter = nextBloom
-      .monSuccess(_.clas.bloomFilter(name).fu)
+      .monSuccess(lila.mon.clas.bloomFilter(name).fu)
 
   scheduler.scheduleWithFixedDelay(initialDelay, 7.days): () =>
     rebuildBloomFilter()

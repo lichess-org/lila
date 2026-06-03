@@ -237,8 +237,8 @@ body.no-inquiry {
   }
 
   .fbt.icon::before,
-  .warn i::before,
-  .alt i {
+  .warn icon::before,
+  .alt icon {
     font-size: 1.7em;
   }
 
@@ -286,7 +286,7 @@ body.no-inquiry {
     height: 100%;
 
     > span,
-    > i,
+    > icon,
     .main {
       display: block;
       height: 100%;
@@ -313,7 +313,7 @@ body.no-inquiry {
 
     &:hover {
       > span,
-      > i,
+      > icon,
       .main {
         background: $c-bg-zebra2;
       }
@@ -328,7 +328,7 @@ body.no-inquiry {
       text-align: left;
     }
 
-    > i {
+    > icon {
       line-height: 40px;
     }
 

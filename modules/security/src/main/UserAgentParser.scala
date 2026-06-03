@@ -1,8 +1,8 @@
 package lila.security
 
 import org.uaparser.scala.*
+import scalalib.net.UserAgent as UA
 
-import lila.core.net.UserAgent as UA
 import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
 

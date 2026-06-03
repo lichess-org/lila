@@ -52,7 +52,7 @@
   <string name="knightMate">फक्त घोड्याने किंवा उंटाने शहमत करणे शक्य आहे, जर विरोधकाकडे राजऐवजी आजून सोंगट्या आहेत.</string>
   <string name="noRatingPoints">मानांकनाचे गुण मिळाले नाहीत</string>
   <string name="ratedGame">तुम्ही मानांकित खेळ खेळात आहात ह्याची खात्री करा. अनौपचारिक खेळांनी खेळाडूंच्या रेटिंगमध्ये बदल होत नाही.</string>
-  <string name="botRatingAbuse">काही विशिष्ट परिस्थितीत संगणक खात्याविरुद्ध खेळताना, जर खेळाडू रेटिंगसाठी संगणकाचा गैरवापर करत असेल तर तो खेळ खेळाडूला अंक देणार नाही.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">काही विशिष्ट परिस्थितीत संगणक खात्याविरुद्ध खेळताना, जर खेळाडू रेटिंगसाठी संगणकाचा गैरवापर करत असेल तर तो खेळ खेळाडूला अंक देणार नाही.</string>
   <string name="errorPage">त्रुटी पृष्ठ</string>
   <string name="reportErrorPage">जर तुम्हाला त्रुटी पृष्ठाचा सामना करावा लागला असेल, तर तुम्ही अहवाल करू शकता:</string>
   <string name="learnHowToMakeBroadcasts">Lichess वर तुमचे स्वतःचे प्रसारण बनवायला शिका</string>

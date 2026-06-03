@@ -32,8 +32,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
         filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
       .mapConcat { Pov(_, user).toList }
-      .toMat(Sink.seq)(Keep.right)
-      .run()
+      .runWith(Sink.seq)
       .map(_.toList)
 
   def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me ?=>

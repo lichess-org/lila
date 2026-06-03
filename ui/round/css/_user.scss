@@ -7,6 +7,7 @@
   align-items: center;
   font-size: 1.2em;
   padding: 0 0.3em;
+  z-index: 1;
 
   &:hover {
     color: $c-font;

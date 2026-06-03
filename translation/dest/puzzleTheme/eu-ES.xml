@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Enara-buztanaren itxura hartzen duen mate patroia, V baten itxuraren atzekoa.</string>
   <string name="triangleMate">Hirukiaren matea</string>
   <string name="triangleMateDescription">Dama eta gaztelua erregearengandik lauki batera daudela, errenkada edo zutabe berean, biak lauki batez banatuta, hiruki bat osatuz.</string>
-  <string name="vukovicMate">Vukovicen matea</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovicen matea</string>
   <string name="vukovicMateDescription">Gaztelu eta zaldunak batera lan egiten dute matea emateko. Gazteluak mate ematen du hirugaren piezak lagundurik, zaldunak erregearen ihes-laukiak babesten dituen artean.</string>
   <string name="knightEndgame">Zaldunen finala</string>
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>

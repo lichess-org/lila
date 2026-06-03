@@ -90,7 +90,7 @@ site.load.then(() => {
         .each(function (this: HTMLAnchorElement, i: number) {
           const id = getLocationHash(this),
             n = '' + (i + 1);
-          $(this).prepend(`<i>${n}</i>`);
+          $(this).prepend(`<icon>${n}</icon>`);
           site.mousetrap.bind(n, () => scrollTo(id));
         });
     });
@@ -198,6 +198,55 @@ site.load.then(() => {
           reloadZone();
         });
     });
+
+    makeReady(
+      '.appeal form textarea',
+      (el: HTMLElement) => {
+        const textarea = el as HTMLTextAreaElement;
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        const applyDates = () => {
+          const start = textarea.selectionStart;
+          const val = textarea.value;
+          const regex = /in (\d+) (months|years)(?! \(\d{4}-\d{2}-\d{2}\))/gi;
+          let diffBeforeCursor = 0;
+          const newVal = val.replace(regex, (match, num, unit, offset) => {
+            const n = parseInt(num, 10);
+            const nowTs = Date.now();
+
+            let targetTs = nowTs;
+
+            const u = unit.toLowerCase();
+
+            if (u.startsWith('month')) {
+              targetTs += n * 30 * DAY_MS;
+            } else if (u.startsWith('year')) {
+              targetTs += n * 365 * DAY_MS;
+            }
+
+            const d = new Date(targetTs);
+
+            const dateStr = ` (${d.toISOString().slice(0, 10)})`;
+            if (offset < start) diffBeforeCursor += dateStr.length;
+
+            return `${match}${dateStr}`;
+          });
+
+          if (newVal !== val) {
+            const end = textarea.selectionEnd;
+            textarea.value = newVal;
+            textarea.setSelectionRange(start + diffBeforeCursor, end + diffBeforeCursor);
+          }
+        };
+
+        $(textarea).on('input', applyDates);
+        // to be applied after preset being inserted
+        $(textarea.form)
+          .find('select.appeal-presets')
+          .on('change', () => setTimeout(applyDates, 50));
+      },
+      'ready-appeal-dates',
+    );
+
     autolinkAtoms($inZone[0]);
   }
 

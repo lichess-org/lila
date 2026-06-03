@@ -12,6 +12,7 @@ import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.data.Text
 import lila.core.id.ImageId
+import lila.mon.extensions.*
 import lila.memo.{ ImageAutomod, ImageAutomodRequest, Dimensions }
 import lila.memo.SettingStore.Text.given
 
@@ -128,7 +129,7 @@ final class Automod(
             lila.mon.mod.report.automod.imageFlagged(flagged).increment()
             flagged.option:
               res.str("reason") | "No reason provided"
-          .monSuccess(_.mod.report.automod.imageRequest)
+          .monSuccess(lila.mon.mod.report.automod.imageRequest)
           .recover:
             case err =>
               logger.error(err.getMessage, err)

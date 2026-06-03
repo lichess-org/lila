@@ -26,6 +26,7 @@ export const infoKeys: InfoKey[] = [
   'toggle',
 ]; // InfoKey in file://./devTypes.ts
 
+// oxlint-disable-next-line no-inferrable-types This collides with out TS config.
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
 const base: Schema = {
@@ -300,7 +301,7 @@ export const schema: () => Schema = memoize(() => {
       filterEntries.map(([key, { info }]) => [key, { enumerable: true, value: structuredClone(info) }]),
     ),
   );
-  return deepFreeze<Schema>(withFilters);
+  return deepFreeze(withFilters);
 });
 
 export function getSchemaDefault(id: string): PropertyValue {

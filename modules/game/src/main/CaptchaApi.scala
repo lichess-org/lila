@@ -8,6 +8,7 @@ import scala.util.Success
 
 import lila.core.captcha.{ Captcha, CaptchaApi as ICaptchaApi, Solutions, WithCaptcha }
 import lila.core.game.Game
+import lila.mon.extensions.*
 
 // only works with standard chess (not chess960)
 final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICaptchaApi:
@@ -19,7 +20,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     case Some(c) => fuccess(c)
 
   def validate(gameId: GameId, move: String): Fu[Boolean] =
-    get(gameId).map(_.solutions.toList contains move)
+    get(gameId).map(_.solutions.contains(move))
 
   def validateSync(data: WithCaptcha): Boolean =
     validate(data.gameId, data.move).await(2.seconds, "CaptchaApi.validateSync")

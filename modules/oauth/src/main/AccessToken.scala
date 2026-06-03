@@ -3,8 +3,9 @@ package lila.oauth
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import com.roundeights.hasher.Algo
+import scalalib.net.{ Bearer, UserAgent }
 
-import lila.core.net.{ Bearer, UserAgent, Origin }
+import lila.core.net.Origin
 import lila.core.misc.oauth.AccessTokenId
 
 case class AccessToken(

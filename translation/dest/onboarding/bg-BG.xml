@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Това е страницата на Вашия профил.</string>
   <string name="enabledKidModeSuggestion">Тази регистрация ще бъде ли използвана от дете? Можете да активирате %s.</string>
   <string name="whatNowSuggestions">А сега какво? Ето няколко предложения:</string>
-  <string name="learnChessRules">Научeте правилата на шахмата</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Научeте правилата на шахмата</string>
   <string name="improveWithChessTacticsPuzzles">Подобрете уменията си с тактически задачи.</string>
   <string name="playTheArtificialIntelligence">Играйте срещу изкуствения интелект.</string>
   <string name="playOpponentsFromAroundTheWorld">Играйте срещу противници от цял свят.</string>

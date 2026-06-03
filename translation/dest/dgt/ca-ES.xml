@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Si no es detecta un moviment</string>
   <string name="checkYouHaveMadeOpponentsMove">Comprova que primer has realitzat el moviment de l\'oponent al tauler DGT. Reverteix el teu moviment. Juga de nou.</string>
   <string name="asALastResort">Com a últim recurs, distribueix el tauler de manera idèntica al de Lichess, després %s</string>
-  <string name="reloadThisPage">Recarrega aquesta pàgina</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Recarrega aquesta pàgina</string>
   <string name="dgtConfigure">Configuració DGT</string>
   <string name="lichessConnectivity">Connectivitat amb Lichess</string>
   <string name="validDgtOauthToken">Teniu un token OAuth adequat per jugar amb DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Les paraules clau estan en format JSON. S\'utilitzen per a traduir moviments i resultats al teu idioma. Per defecte és l\'anglès, però no dubtis a canviar-lo.</string>
   <string name="debug">Depuració</string>
   <string name="verboseLogging">Registre detallat</string>
-  <string name="toSeeConsoleMessage">Per a veure missatges de consola pressiona Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Per a veure missatges de consola pressiona Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jugar amb un tauler DGT</string>
   <string name="configure">Configurar</string>
 </resources>

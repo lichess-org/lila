@@ -104,7 +104,7 @@
 घोडाले राजालाई धम्काइरहेको छ।</string>
   <string name="escapeOrBlock">कि त राजा लिएर भाग्नुहोस् म 
 कि त हमलालाई छेक्नुहोस् ।</string>
-  <string name="outOfCheckComplete">बधाई छ! तपाईको राजालाई कसैले खान सक्दैन, मात्र यति सुनिश्चित गर्नुहोस् लो तपाई चेक सँग जोगिन सक्नुहुन्छ ।</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">बधाई छ! तपाईको राजालाई कसैले खान सक्दैन, मात्र यति सुनिश्चित गर्नुहोस् लो तपाई चेक सँग जोगिन सक्नुहुन्छ ।</string>
   <string name="mateInOne">एक मा मेट</string>
   <string name="defeatTheOpponentsKing">विपक्षी राजा लाइ मात दिनुहोस् ।</string>
   <string name="mateInOneIntro">जब तपाईँको विपक्षी चेक बाट जोगिन सक्दैन, तब तपाई जित्नु हुन्छ ।</string>

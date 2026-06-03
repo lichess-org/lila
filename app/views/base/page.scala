@@ -5,6 +5,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.{ RenderedPage, PageFlags }
+import lila.mon.extensions.*
 
 object page:
 
@@ -135,6 +136,7 @@ object page:
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
+          assetsMissingTroubleshooting,
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),

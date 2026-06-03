@@ -20,16 +20,16 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.3.1"
   val compression = "com.github.lichess-org" % "compression" % "3.2.1"
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
-  val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.3" % "compile"
+  val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.4" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.46.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.47.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
-  val lettuce = "io.lettuce" % "lettuce-core" % "7.5.1.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.12.Final").classifier(s"$os-$arch")
-  val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.3.0"
-  val munit = "org.scalameta" %% "munit" % "1.3.0" % Test
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.14.Final").classifier(s"$os-$arch")
+  val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.4.6"
+  val munit = "org.scalameta" %% "munit" % "1.3.1" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.10.4"
+    val version = "11.10.6"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version
@@ -104,7 +104,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.14"
+    val version = "2.2.16"
     val ahc = "com.typesafe.play" %% "play-ahc-ws-standalone" % version
     val json = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)

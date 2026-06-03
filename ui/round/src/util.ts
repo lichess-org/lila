@@ -1,10 +1,4 @@
-import type { VNodeData } from 'snabbdom';
-
 import type { EncodedDests, RoundData, Step } from './interfaces';
-
-export const justIcon = (icon: string): VNodeData => ({
-  attrs: { 'data-icon': icon },
-});
 
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();

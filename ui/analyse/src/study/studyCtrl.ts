@@ -172,12 +172,7 @@ export default class StudyCtrl {
       ? new MultiCloudEval(this.redraw, () => this.ctrl.variantKey, this.chapters.list, this.send)
       : undefined;
     if (relayData) this.relay = new RelayCtrl(this, relayData);
-    this.multiBoard = new MultiBoardCtrl(
-      this.chapters.list,
-      defined(this.relay),
-      this.multiCloudEval,
-      this.redraw,
-    );
+    this.multiBoard = new MultiBoardCtrl(this.chapters.list, this.relay, this.multiCloudEval, this.redraw);
     this.form = new StudyForm(
       (d, isNew) => {
         this.send('editStudy', d);
@@ -416,7 +411,7 @@ export default class StudyCtrl {
   xhrReload = throttlePromiseDelay(
     () => 400,
     /* `callback` runs immediately after the xhr, and is not affected by the delay */
-    (withChapters: boolean = false, immediateCallback: () => void = () => {}) => {
+    (withChapters = false, immediateCallback: () => void = () => {}) => {
       this.vm.loading = true;
       return xhr
         .reload(
@@ -467,7 +462,7 @@ export default class StudyCtrl {
   };
 
   wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
-    // #TODO why vm.chapterId when we have data.chapter.id
+    // #TODO why vm.chapterId when we have data.chapter.id?
     if (serverData.p.chapterId !== this.vm.chapterId) {
       // sticky should really be on the same chapter
       if (this.vm.mode.sticky && serverData.s) this.xhrReload();

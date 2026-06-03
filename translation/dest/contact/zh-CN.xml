@@ -52,7 +52,7 @@
   <string name="knightMate">如果对手棋盘上除王以外还有其他子力，仅用马或象也可能将死。</string>
   <string name="noRatingPoints">未获得等级分</string>
   <string name="ratedGame">请确保您进行的是排位对局。休闲对局不会影响棋手的等级分。</string>
-  <string name="botRatingAbuse">在某些情况下，与机器人账户对战时，如果判定该棋手滥用机器人刷取等级分，则有可能排位对局也不会授予分数。</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">在某些情况下，与机器人账户对战时，如果判定该棋手滥用机器人刷取等级分，则有可能排位对局也不会授予分数。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到了错误页面，可以报告它：</string>
   <string name="learnHowToMakeBroadcasts">了解如何在 Lichess 上创建您自己的转播</string>

@@ -9,7 +9,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { isNormal, type Move } from 'chessops/types';
 import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
 import { normalizeMove } from 'chessops/variant';
-import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
 
 import {
   defined,
@@ -33,6 +33,7 @@ import {
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
@@ -51,6 +52,7 @@ import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
+import LiveAnnotate from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -74,6 +76,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
+  liveAnnotate: LiveAnnotate;
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -176,6 +179,7 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
+    this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -355,7 +359,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   turnColor(): Color {
-    return this.node.ply % 2 === 0 ? 'white' : 'black';
+    return plyColor(this.node.ply);
   }
 
   togglePlay(delay: AutoplayDelay): void {
@@ -445,7 +449,11 @@ export default class AnalyseCtrl implements CevalHandler {
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
       if (this.retro) this.retro.onJump();
-      if (isForwardStep) site.sound.move(this.node);
+      if (isForwardStep) {
+        const isAtomicCapture = this.data.game.variant.key === 'atomic' && !!this.node.san?.includes('x');
+        if (isAtomicCapture) site.sound.play('explosion');
+        else site.sound.move(this.node);
+      }
       this.threatMode(false);
       this.ceval?.stop();
       this.startCeval();
@@ -732,6 +740,8 @@ export default class AnalyseCtrl implements CevalHandler {
       else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
+
+      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
 
       if (path === this.path) {
         this.setAutoShapes();

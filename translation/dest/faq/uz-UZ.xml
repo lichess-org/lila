@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TSS</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Tez‑tez soʻraladigan savollar</string>
   <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>
@@ -138,7 +138,7 @@ Reyting — bu shunchaki \"nisbiy\" koʻrsatkich. U faqat bir guruh oʻyinchilar
   <string name="howToThreeDots">Qanday qilib...</string>
   <string name="enableDisableNotificationPopUps">Bildirishnomalarni yoqish yoki oʻchirish mumkin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqida maʼlumot olish oynasini koʻrish</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess ixtiyoriy ravishda qalqib chiquvchi bildirishnomalarni yuborishi mumkin. Masalan, navbat sizga kelganda yoki shaxsiy xabar olganingizda.
+  <string name="lichessCanOptionnalySendPopUps">Lichess ixtiyoriy ravishda qalqib chiquvchi bildirishnomalarni yuborishi mumkin. Masalan, sizning galingiz kelganida yoki shaxsiy xabar olganingizda.
 
 Buning uchun brauzeringizning manzillar satridagi lichess.org manzili yonidagi joylashgan qulf belgisini bosing.
 

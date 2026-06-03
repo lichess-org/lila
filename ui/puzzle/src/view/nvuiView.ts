@@ -9,7 +9,7 @@ import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import type { TreeNode } from 'lib/tree/types';
-import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes } from 'lib/view';
+import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
 import { nextCorrectMove } from '@/moveTree';
 
@@ -45,6 +45,8 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
     boardStyle.set('plain');
   }
 
+  const pov = ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov;
+
   const boardView = [
     hl('h2', 'Board'),
     hl(
@@ -58,7 +60,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
 
       nv.renderBoard(
         ground.state.pieces,
-        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        pov,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
@@ -85,7 +87,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         nv.renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
       ),
       hl('h2', 'Pieces'),
-      nv.renderPieces(ground.state.pieces, moveStyle.get()),
+      nv.renderPieces(ground.state.pieces, moveStyle.get(), pov),
       hl('h2', 'Puzzle status'),
       hl(
         'div.status',
@@ -232,7 +234,7 @@ function onSubmit(
     ev.preventDefault();
     let input = nv.castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
+    if (input.startsWith('/')) onCommand(ctrl, notify, input.slice(1), style());
     else {
       const uci = nv.inputToMove(input, ctrl.node.fen, ground);
       if (uci && typeof uci === 'string') {
@@ -262,7 +264,7 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
-  else if (lowered.charAt(0) === 'b') commands().board.apply(c, pieces, style);
+  else if (lowered.startsWith('b')) commands().board.apply(c, pieces, style);
   else
     notify(
       commands().piece.apply(c, pieces, style) ||
@@ -335,18 +337,16 @@ const afterActions = (ctrl: PuzzleCtrl): VNode =>
       : [...renderVote(ctrl), button(i18n.puzzle.continueTraining, ctrl.nextPuzzle)],
   );
 
-const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
-  ctrl.session.isNew() && ctrl.data.user?.provisional
-    ? [hl('p', i18n.puzzle.didYouLikeThisPuzzle), hl('p', i18n.puzzle.voteToLoadNextOne)]
-    : [];
+const renderVoteTutorial = (ctrl: PuzzleCtrl): LooseVNode | false =>
+  ctrl.session.isNew() && ctrl.data.user?.provisional && hl('p', i18n.puzzle.didYouLikeThisPuzzle);
 
-const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
+const renderVote = (ctrl: PuzzleCtrl) =>
   !ctrl.data.user || ctrl.autoNexting()
     ? []
     : [
-        ...renderVoteTutorial(ctrl),
-        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined, ctrl.voteDisabled),
-        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined, ctrl.voteDisabled),
+        renderVoteTutorial(ctrl),
+        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined),
+        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined),
       ];
 
 const button = (text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode =>

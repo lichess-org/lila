@@ -4,9 +4,9 @@ import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.net.Domain
 
-import lila.core.net.Domain
-import lila.db.dsl.*
+import lila.mon.extensions.*
 
 /* An expensive API detecting disposable email.
  * Only hit after trying everything else (DnsApi)
@@ -19,6 +19,8 @@ final private class VerifyMail(
     mongoCache: lila.memo.MongoCache.Api
 )(using Executor, Scheduler):
 
+  export cache.invalidate
+
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if config.key.value.isEmpty then fuccess(true)
     else
@@ -30,33 +32,24 @@ final private class VerifyMail(
           true
         }
 
-  // expensive
-  private[security] def fetchAllBlocked: Fu[List[String]] =
-    cache.coll
-      .distinctEasy[String, List](
-        "_id",
-        $doc(
-          "_id".$regex(s"^$prefix:"),
-          "v" -> false
-        ),
-        _.sec
-      )
-      .map: ids =>
-        val dropSize = prefix.length + 1
-        ids.map(_.drop(dropSize))
+  // if a positive value is cached, recompute it.
+  // email verification services can give false negatives at first
+  def refreshIfOk(domain: Domain.Lower): Funit =
+    cache
+      .dbValue(domain)
+      .flatMapz: (v, age) =>
+        (v && age.toMinutes > 20).so:
+          for
+            _ <- cache.invalidate(domain)
+            ok <- apply(domain)
+          yield logger.info(s"VerifyMail $domain refreshed -> $ok")
 
-  private val prefix = "security:check_mail"
-
-  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 30.days, _.toString): loader =>
-    _.maximumSize(512).buildAsyncFuture(loader(fetch))
-
-  export cache.invalidate
-
-  private def fetch(domain: Domain.Lower): Fu[Boolean] =
-    List(fetchFree(domain), fetchPaid(domain))
-      .map(_.logFailure(logger).recover(_ => true)) // fetch fail = domain ok
-      .parallel
-      .map(_.forall(identity)) // ok if both say the domain is ok
+  private val cache =
+    mongoCache.noHeap[Domain.Lower, Boolean]("security:check_mail", 3.days, _.toString): domain =>
+      List(fetchFree(domain), fetchPaid(domain))
+        .map(_.logFailure(logger).recover(_ => true)) // fetch fail = domain ok
+        .parallel
+        .map(_.forall(identity)) // ok if both say the domain is ok
 
   object fetchFree:
     private var rateLimitedUntil = java.time.Instant.EPOCH
@@ -85,7 +78,7 @@ final private class VerifyMail(
                 ok
               ).getOrElse:
                 throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
-          .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
+          .monTry(res => lila.mon.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
 
   private def fetchPaid(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://verifymail.io/api/$domain"
@@ -107,4 +100,4 @@ final private class VerifyMail(
           ok
         ).getOrElse:
           throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
-      .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))
+      .monTry(res => lila.mon.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))

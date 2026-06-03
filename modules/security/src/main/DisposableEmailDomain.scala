@@ -1,44 +1,56 @@
 package lila.security
 
-import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-
-import lila.core.net.Domain
-import lila.core.net.Domain.Lower
+import bloomfilter.mutable.BloomFilter
+import akka.stream.scaladsl.*
+import scalalib.net.Domain
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
-    providerUrl: String,
-    verifyMailBlocked: () => Fu[List[String]]
-)(using Executor):
+    providerUrl: String
+)(using Executor, akka.stream.Materializer):
 
   import DisposableEmailDomain.*
 
-  private val staticRegex = toRegexStr(staticBlacklist.iterator)
+  private val falsePositiveRate = 0.00003
+  private val estimatedCount = 100_000
 
-  private var regex = finalizeRegex(staticRegex)
+  private var bloomFilter: BloomFilter[String] =
+    BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  private[security] def refresh(): Unit =
-    for
-      blacklist <- ws.url(providerUrl).get().map(_.body[String].linesIterator).recover { case e: Exception =>
-        logger.warn("DisposableEmailDomain.refresh", e)
-        Iterator.empty
-      }
-      checked <- verifyMailBlocked()
-    do
-      val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
-      val nbDomains = regexStr.count('|' ==)
-      lila.mon.email.disposableDomain.update(nbDomains)
-      regex = finalizeRegex(s"$staticRegex|$regexStr")
-
-  private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
-
-  private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
+  private[security] def refresh(): Funit =
+    val nextBloom = BloomFilter[String](estimatedCount, falsePositiveRate)
+    ws
+      .url(providerUrl)
+      .stream()
+      .flatMap: res =>
+        if res.status != 200 then
+          fufail(s"Failed to fetch disposable email domains: ${res.status} ${res.statusText}")
+        else
+          res.bodyAsSource
+            .map(_.utf8String)
+            .mapConcat(_.linesIterator)
+            .runWith:
+              Sink.fold[Int, String](0): (nb, domain) =>
+                nextBloom.add(domain)
+                nb + 1
+      .map: nb =>
+        bloomFilter.dispose()
+        bloomFilter = nextBloom
+        lila.mon.email.disposableDomain.update(nb)
 
   def isDisposable(domain: Domain): Boolean =
-    !DisposableEmailDomain.whitelisted(domain) && (
-      regex.find(domain.lower.value) || domainFragmentRegex.find(domain.lower.value)
-    )
+    val all = expandDomains(domain)
+    !all.exists(DisposableEmailDomain.whitelisted) && all.exists: d =>
+      bloomFilter.mightContain(d.lower.value) ||
+        domainFragmentRegex.find(d.lower.value)
+
+  // foo.bar.aaa.com -> List(aaa.com, bar.aaa.com, foo.bar.aaa.com)
+  private def expandDomains(domain: Domain): List[Domain] =
+    def loop(d: Domain): List[Domain] = d.value.indexOf('.') match
+      case -1 => Nil
+      case i => d :: loop(d.map(_.drop(i + 1)))
+    loop(domain)
 
   def asMxRecord(domain: Domain): Boolean =
     isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
@@ -64,18 +76,6 @@ private object DisposableEmailDomain:
 
   private val mxRecordPasslist =
     Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))
-
-  private val staticBlacklist = Set(
-    "lichess.org",
-    "gamil.com",
-    "gmeil.com",
-    "gmali.com",
-    "gmial.com",
-    "gmil.com",
-    "gamail.com",
-    "gnail.com",
-    "hotamil.com"
-  )
 
   private val domainFragmentRegex = List(
     "te?mp-?e?mail",
@@ -231,6 +231,9 @@ private object DisposableEmailDomain:
       "yandex.ru",
       "ya.ru",
       "list.ru",
+      "bk.ru",
+      "vk.com",
+      "inbox.ru",
       /* Belgian ISP domains */
       "skynet.be",
       "voo.be",

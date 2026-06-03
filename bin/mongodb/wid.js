@@ -20,7 +20,7 @@ const gamesToMigrate = db.game5.find(
 );
 
 gamesToMigrate.forEach(function (g) {
-  if (g.w && typeof g.us[0] != 'undefined' && g.us[0]) {
+  if (g.w && typeof g.us[0] !== 'undefined' && g.us[0]) {
     db.game5.update(
       {
         _id: g._id,
@@ -31,7 +31,7 @@ gamesToMigrate.forEach(function (g) {
         },
       },
     );
-  } else if (!g.w && typeof g.us[1] != 'undefined' && g.us[1]) {
+  } else if (!g.w && typeof g.us[1] !== 'undefined' && g.us[1]) {
     db.game5.update(
       {
         _id: g._id,

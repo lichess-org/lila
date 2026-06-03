@@ -182,7 +182,7 @@ const evalGauge = (
             const prevNodeCloud = old.data?.cloud;
             const fen = chapters.get(game.id)?.fen;
             const cev = (fen && cloudEval.getCloudEval(fen)) || prevNodeCloud;
-            if (cev?.chances != prevNodeCloud?.chances) {
+            if (cev?.chances !== prevNodeCloud?.chances) {
               const elm = vnode.elm as HTMLElement;
               const gauge = elm.parentNode as HTMLElement;
               elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;

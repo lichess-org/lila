@@ -1,13 +1,22 @@
 import type { Tablesort } from 'tablesort';
 
-import { throttle } from 'lib';
+import { memoize, throttle } from 'lib';
 import { Group, StudyBoard } from 'lib/licon';
 import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
-import type { StudyPlayerFromServer } from '../interfaces';
+import { playerFedFlag } from '@/view/util';
+
+import * as fideFeds from '../fideFeds';
+import type { Federation, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
-import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
+import type {
+  RelayTeamName,
+  RelayTeamStandings,
+  RelayTeamStandingsEntry,
+  RelayTeamStandingsFromServer,
+  TourId,
+} from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 
 export default class RelayTeamLeaderboard {
@@ -26,11 +35,8 @@ export default class RelayTeamLeaderboard {
 
   loadFromXhr = throttle(3 * 1000, async () => {
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
-    this.standings?.forEach(teamEntry => {
-      teamEntry.players = teamEntry.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
-        convertPlayerFromServer(player),
-      );
-    });
+    const showFeds = this.looksLikeFederationTournament();
+    this.standings = this.standings?.map(t => this.convertTeamFromServer(t, showFeds));
     this.table?.refresh();
     this.redraw();
   });
@@ -77,18 +83,7 @@ export default class RelayTeamLeaderboard {
               'tbody',
               this.standings.map(entry =>
                 hl('tr', [
-                  hl(
-                    'td',
-                    hl(
-                      'a.team-name',
-                      {
-                        on: {
-                          click: this.toggleTeam(entry.name),
-                        },
-                      },
-                      entry.name,
-                    ),
-                  ),
+                  hl('td', this.teamNameNode(entry)),
                   hl('td', entry.matches.length),
                   hl(
                     'td',
@@ -111,7 +106,11 @@ export default class RelayTeamLeaderboard {
     }
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
-        hl('h2.relay-tour__team-summary__header.text', { attrs: dataIcon(Group) }, foundTeam.name),
+        hl(
+          'h2.relay-tour__team-summary__header.text',
+          { attrs: !this.looksLikeFederationTournament() ? dataIcon(Group) : {} },
+          this.teamNameNode(foundTeam),
+        ),
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
@@ -138,8 +137,9 @@ export default class RelayTeamLeaderboard {
           ),
           hl(
             'tbody',
-            foundTeam.matches.map((match, i) =>
-              hl('tr', [
+            foundTeam.matches.map((match, i) => {
+              const oppTeam = this.standings?.find(t => t.name === match.opponent);
+              return hl('tr', [
                 hl(
                   'td.game-link',
                   hl(
@@ -157,7 +157,7 @@ export default class RelayTeamLeaderboard {
                         click: this.toggleTeam(match.opponent),
                       },
                     },
-                    match.opponent,
+                    oppTeam ? this.teamNameNode(oppTeam) : match.opponent,
                   ),
                 ),
                 hl(
@@ -165,8 +165,8 @@ export default class RelayTeamLeaderboard {
                   hl(match.points === '1' ? 'good' : match.points === '0' ? 'bad' : 'draw', match.mp ?? '*'),
                 ),
                 hl('td.score', match.gp ?? '*'),
-              ]),
-            ),
+              ]);
+            }),
           ),
         ]),
       ]),
@@ -182,8 +182,54 @@ export default class RelayTeamLeaderboard {
       ),
     );
 
+  private readonly teamNameNode = (team: RelayTeamStandingsEntry): VNode =>
+    hl(
+      'a.team-name',
+      {
+        on: {
+          click: this.toggleTeam(team.name),
+        },
+      },
+      [
+        playerFedFlag(team.fed),
+        // Don't translate names like "Hungary B".
+        (team.name.toLowerCase() === team.fed?.name.toLowerCase() && team.fed.i18nName) || team.name,
+      ],
+    );
+
+  private readonly convertTeamFromServer = (
+    team: RelayTeamStandingsFromServer,
+    showFeds: boolean,
+  ): RelayTeamStandingsEntry => ({
+    ...team,
+    fed: showFeds ? this.teamNameToFed(team.name) : undefined,
+    players: team.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
+      convertPlayerFromServer(player),
+    ),
+  });
+
   private readonly toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
     ev.preventDefault();
     this.setTeamToShow(team);
   };
+
+  private readonly teamNameToFed = (teamName: RelayTeamName): Federation | undefined => {
+    const teamNameLower = teamName.toLowerCase();
+    const foundFed = Object.entries(fideFeds.federations).find(([_, [engName, _2]]) =>
+      teamNameLower.startsWith(engName.toLowerCase()),
+    );
+    return (
+      foundFed && {
+        id: foundFed[0],
+        name: foundFed[1][0],
+        i18nName: foundFed[1][1] ? fideFeds.localizedName(foundFed[0]) : undefined,
+      }
+    );
+  };
+
+  private readonly looksLikeFederationTournament = memoize((): boolean => {
+    if (!this.standings) return false;
+    const teamsWithFed = this.standings.filter(team => !!this.teamNameToFed(team.name));
+    return teamsWithFed.length / this.standings.length >= 0.8; // Don't expect team replacements to be exact matches
+  });
 }

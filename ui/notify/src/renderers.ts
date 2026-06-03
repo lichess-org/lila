@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { timeago } from 'lib/i18n';
 import * as licon from 'lib/licon';
+import { iconTag } from 'lib/view';
 
 import type { Notification, Renderer, Renderers } from './interfaces';
 
@@ -167,14 +168,14 @@ const jobDone = (name: string): Renderer => ({
   text: n => `${n.content.user!.name}: ${name} job complete!`,
 });
 
-function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
+function generic(n: Notification, url: string | undefined, icon: LiconType, content: VNode[]): VNode {
   return h(
     url ? 'a' : 'span',
     {
       class: { site_notification: true, [n.type]: true, new: !n.read },
       attrs: { key: n.date, ...(url ? { href: url } : {}) },
     },
-    [h('i', { attrs: { 'data-icon': icon } }), h('span.content', content)],
+    [iconTag(icon), h('span.content', content)],
   );
 }
 

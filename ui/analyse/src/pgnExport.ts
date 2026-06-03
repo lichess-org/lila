@@ -2,6 +2,7 @@ import { INITIAL_FEN } from 'chessops/fen';
 import { h } from 'snabbdom';
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import { plyPrefix, renderNodesTxt } from 'lib/game/nodePGN';
 import type { TreeNode } from 'lib/tree/types';
 import { type MaybeVNodes } from 'lib/view';
 
@@ -11,31 +12,6 @@ import type { Game } from './interfaces';
 interface PgnNode {
   ply: Ply;
   san?: San;
-}
-
-const plyPrefix = (node: TreeNode): string =>
-  `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
-
-function renderNodesTxt(node: TreeNode, forcePly: boolean): string {
-  if (node.children.length === 0) return '';
-
-  let s = '';
-  const first = node.children[0];
-  if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
-  s += fixCrazySan(first.san!);
-
-  for (let i = 1; i < node.children.length; i++) {
-    const child = node.children[i];
-    s += ` (${plyPrefix(child)}${fixCrazySan(child.san!)}`;
-    const variation = renderNodesTxt(child, false);
-    if (variation) s += ' ' + variation;
-    s += ')';
-  }
-
-  const mainline = renderNodesTxt(first, node.children.length > 1);
-  if (mainline) s += ' ' + mainline;
-
-  return s;
 }
 
 function renderPgnTags(game: Game): string {

@@ -95,7 +95,7 @@
 உங்கள் பாதுகாப்பு மூலம்!</string>
   <string name="escapeOrBlock">ராஜாவுடன் எஸ்கேப்
 அல்லது தாக்குதலை தடு!</string>
-  <string name="outOfCheckComplete">வாழ்த்துகள்! உங்கள் ராஜாவை ஒருபோதும் எடுக்க முடியாது, காசோலைக்கு எதிராக நீங்கள் பாதுகாக்க முடியும் என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">வாழ்த்துகள்! உங்கள் ராஜாவை ஒருபோதும் எடுக்க முடியாது, காசோலைக்கு எதிராக நீங்கள் பாதுகாக்க முடியும் என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்!</string>
   <string name="mateInOne">ஒன்றில் துணை</string>
   <string name="defeatTheOpponentsKing">எதிராளியின் ராஜாவை தோற்கடிக்கவும்</string>
   <string name="mateInOneIntro">உங்கள் எதிரி ஒரு காசோலைக்கு எதிராக பாதுகாக்க முடியாதபோது நீங்கள் வெற்றி பெறுவீர்கள்.</string>

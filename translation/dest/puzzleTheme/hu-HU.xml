@@ -64,7 +64,7 @@
   <string name="intermezzoDescription">A várt lépés megtétele helyett egy olyan lépés beszúrása, amely fenyegetésére az ellenfélnek rögtön válaszolnia kell. Ismert még \"Zwischenzug\"-nak vagy \"Intermezzo\"-nak.</string>
   <string name="killBoxMate">Kill box matt</string>
   <string name="killBoxMateDescription">Egy bástya az ellenséges király mellett áll, és egy vezér támogatja, ami blokkolja a király menekülőmezőit is. A bástya és a vezér egy 3×3-as területre, ún. kill boxba zárja az ellenséges királyt.</string>
-  <string name="vukovicMate">Vukovic matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic matt</string>
   <string name="vukovicMateDescription">Egy bástya és egy huszár együttműködnek a mattadáshoz. A bástya ad mattot, miközben egy harmadik figura támogatja, a huszár pedig a király menekülőmezőit zárja le.</string>
   <string name="knightEndgame">Huszár végjáték</string>
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>

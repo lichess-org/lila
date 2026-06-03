@@ -326,8 +326,8 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
 
     try:
         wanted_hash = hash_files(commit.tree, profile["files"])
-    except KeyError:
-        raise DeployError("Commit is missing a required file.")
+    except KeyError as e:
+        raise DeployError(f"Commit is missing a required file: {e}")
 
     wanted_commits = set(find_commits(commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")

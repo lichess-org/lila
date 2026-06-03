@@ -2,8 +2,13 @@
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">嗨 %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">這一年您過得如何？</string>
+	<string name="initTitle">多麼西洋棋的一年！</string>
+	<string name="noGamesText">今年您一盤棋都沒有下。</string>
+	<string name="noGamesCta">現在就來下？</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">而您贏了 %s 局！</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">您共下了 %s！</string>
 	<plurals name="nbMoves">
 		<item quantity="other">%s 棋步</item>
 	</plurals>
-	<string name="chessFoes">您最佳棋友</string>
+	<string name="chessFoes">您的最佳對手</string>
 </resources>

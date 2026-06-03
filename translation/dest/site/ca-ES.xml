@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Repta un amic</string>
   <string name="playAgainstComputer">Juga contra l\'ordinador</string>
   <string name="gameMode">Tipus de partida</string>
-  <string name="createLobbyGame">Crea una sala de joc</string>
+  <string name="createLobbyGame">Crea una partida</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -95,6 +95,8 @@
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
+  <string name="minRatingX">Puntuació mínima de %s</string>
+  <string name="maxRatingX">Puntuació màxima de %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
   <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>
-  <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="visualMotifs">Motius visuals</string>
   <string name="undefendedPieces">Peces indefenses</string>
   <string name="pinnedPieces">Peces clavades</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minuts i refresca la bústia d\'entrada del teu correu.</string>
   <string name="checkSpamFolder">Comprova també la carpeta de correu brossa, pot acabar allà. Si hi és, marca\'l com no brossa.</string>
-  <string name="emailForSignupHelp">Si tot això falla, envia\'ns un correu a aquesta adreça:</string>
-  <string name="copyTextToEmail">Copia i enganxa el text a continuació i envia\'l a %s</string>
-  <string name="waitForSignupHelp">Et contestarem el més breument posible per ajudar-te a completar el registre.</string>
+  <string name="sendEmailForAccountVerification">Si no pots trobar el teu correu electrònic de confirmació, envia\'ns un correu a %s i confirmarem el compte per tu.</string>
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necestites un correu de confirmació.</string>
@@ -808,6 +807,8 @@
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="like">M’agrada</string>
+  <string name="liked">M\'ha agradat</string>
   <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
@@ -943,6 +944,7 @@
   <string name="tryTheContactPage">prova la plana de contacte</string>
   <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
   <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
+  <string name="pleaseBeNiceInTheForum">Si us plau sigues amable al fòrum.</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>

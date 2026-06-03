@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Eit sjakkmatt-motiv som visuelt liknar på en svalehale, dvs. ein V-form.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, eit felt frå motspelarkongen, står på samme rad eller linje med ett felt mellom, slik at dei tre brikkene dannea ein trekant.</string>
-  <string name="vukovicMate">Vuković-matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vuković-matt</string>
   <string name="vukovicMateDescription">Tårn og springar samarbeider om å sette kongen matt. Tårnet gjev matt med støtte frå ein tredje brikke, medan springaren blokkerer fluktfelta til kongen.</string>
   <string name="knightEndgame">Springarsluttspel</string>
   <string name="knightEndgameDescription">Sluttspel med berre springarar og bønder.</string>

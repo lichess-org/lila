@@ -112,6 +112,7 @@ export function wrapImg(arg: { img: HTMLImageElement } | { src: string; alt: str
 }
 
 export async function naturalSize(image: Blob): Promise<{ width: number; height: number }> {
+  if (image.type === 'image/svg+xml') throw 'SVG images are not supported.';
   if ('createImageBitmap' in window) return window.createImageBitmap(image);
   const objectUrl = URL.createObjectURL(image);
   const img = new Image();
@@ -124,7 +125,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
   }
 }
 
-export function markdownPicfitRegex(origin: string = ''): RegExp {
+export function markdownPicfitRegex(origin = ''): RegExp {
   return new RegExp(
     String.raw`!\[([^\n\]]*)\]\((${regexQuote(
       origin,
@@ -142,7 +143,6 @@ async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook,
   preloadImg.src = imageUrl;
   await preloadImg.decode();
   update.url(img, imageUrl, Number(img.dataset.widthRatio));
-  return;
 }
 
 function dragHandles(img: HTMLImageElement): HTMLElement[] {

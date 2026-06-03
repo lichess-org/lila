@@ -73,9 +73,9 @@
   }
 }
 
-.mod-timeline__event:has(i.moderator) {
+.mod-timeline__event:has(icon.moderator) {
   .user-link,
-  .user-link i.line {
+  .user-link icon.line {
     color: $m-brag_font--mix-60;
   }
 }

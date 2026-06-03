@@ -12,7 +12,7 @@ Le partitas sequente continuara a valer punctos duple usque tu falle a vincer un
 Isto es, un victoria valera 4 punctos; un partita nulle 2 punctos; e un perdita remane valente nulle puncto.
 
 Per exemplo, duo victorias sequite per un partita nulle valera 6 punctos: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
   <string name="berserkAnswer">Quando un jocator clicca sur le button Berserk al initio del partita, ille/illa perdera le medietate de su tempore in le horologio, ma le victoria valera un puncto de tornero extra.
 
 Le modo Berserk in controlos de tempore con un incremento anque cancella le incremento. (un exception es 1+2, que devenira 1+0, proque solmente le incremento esseva cancellate)

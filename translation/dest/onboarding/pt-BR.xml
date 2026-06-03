@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Esta é sua página de perfil.</string>
   <string name="enabledKidModeSuggestion">Alguma criança usará esta conta? Você pode querer habilitar %s.</string>
   <string name="whatNowSuggestions">E agora? Aqui estão algumas sugestões:</string>
-  <string name="learnChessRules">Aprenda regras do xadrez</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Aprenda regras do xadrez</string>
   <string name="improveWithChessTacticsPuzzles">Melhorar com problemas táticos de xadrez.</string>
   <string name="playTheArtificialIntelligence">Jogar contra a Inteligência Artificial.</string>
   <string name="playOpponentsFromAroundTheWorld">Jogar contra adversários de todo o mundo.</string>

@@ -624,9 +624,6 @@ POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(
 POST  /mod/:username/ask-usertable-check controllers.Mod.askUsertableCheck(username: UserStr)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period)
-GET   /mod/activity                    controllers.Mod.activity
-GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who, period)
-GET   /mod/queues/:period              controllers.Mod.queues(period)
 GET   /mod/search                      controllers.Mod.search
 GET   /mod/notes                       controllers.Mod.notes(page: Int ?= 1, q ?= "")
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: UserStr)
@@ -635,7 +632,8 @@ POST  /mod/:username/permissions       controllers.Mod.savePermissions(username:
 POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username: UserStr)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
-GET   /mod/email-confirm               controllers.Mod.emailConfirm
+GET   /mod/email-confirm               controllers.Mod.emailConfirmGet
+POST  /mod/email-confirm               controllers.Mod.emailConfirmApi
 GET   /mod/print/:fh                   controllers.Mod.print(fh)
 POST  /mod/print/ban/:v/:fh            controllers.Mod.printBan(v: Boolean, fh)
 GET   /mod/ip/:ip                      controllers.Mod.singleIp(ip)
@@ -675,8 +673,6 @@ GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumP
 POST  /diagnostic                      controllers.ForumTopic.diagnostic
 POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug: ForumTopicSlug)
 
-# Msg compat
-POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home(before: Option[Long] ?= None)
 GET   /inbox/search                    controllers.Msg.search(q)
@@ -711,6 +707,7 @@ GET   /api/mobile/home                 controllers.Api.mobileHome
 GET   /api/mobile/watch                controllers.Api.mobileWatch
 GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
 GET   /api/mobile/my-games             controllers.Api.mobileGames
+GET   /api/mobile/following            controllers.Relation.apiMobileFollowing
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
@@ -903,15 +900,14 @@ POST  /cms/:id/delete                 controllers.Cms.delete(id: CmsPageId)
 
 # Misc
 GET   /developers                      controllers.Main.webmasters
-GET   /mobile                          controllers.Main.mobile
+GET   /app                             controllers.Main.app
 GET   /app-store                       controllers.Main.redirectToAppStore
 GET   /swag                            controllers.Main.redirectToSwag
-GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Language)
+GET   /$lang<\w\w\w?>/app              controllers.Main.appLang(lang: Language)
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
-GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 GET   /image-url/:id                   controllers.Main.imageUrl(id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
@@ -980,5 +976,8 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
+
+GET   /mobile                          controllers.Main.mobile
+GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Language)
 
 GET   /*path                           controllers.User.redirect(path)

@@ -26,45 +26,42 @@ final private class MovePlayer(
   private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
   )(using proxy: GameProxy): Fu[Events] =
-    play match
-      case HumanPlay(_, uci, blur, lag, _) =>
-        pov match
-          case Pov(game, _) if game.ply > lila.game.Game.maxPlies =>
-            round ! TooManyPlies
-            fuccess(Nil)
-          case Pov(game, color) if game.playableBy(color) =>
-            applyUci(game, uci, blur, lag)
-              .leftMap(e => s"$pov $e")
-              .fold(errs => fufail(ClientError(errs)), fuccess)
-              .flatMap:
-                case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress, moveOrDrop, compedLag) =>
-                  compedLag.foreach { lag =>
-                    lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
-                  }
-                  proxy.save(progress) >>
-                    postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-          case Pov(game, _) if game.finished => fufail(GameIsFinishedError(game.id))
-          case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
-          case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-          case _ => fufail(ClientError(s"$pov move refused for some reason"))
+    import pov.{ game, color }
+    if game.ply > lila.game.Game.maxPlies then
+      round ! TooManyPlies
+      fuccess(Nil)
+    else if game.playableBy(color) then
+      applyUci(game, play.uci, play.blur, play.moveMetrics)
+        .leftMap(e => s"$pov $e")
+        .fold(errs => fufail(ClientError(errs)), fuccess)
+        .flatMap:
+          case Flagged => finisher.outOfTime(game)
+          case MoveApplied(progress, moveOrDrop, compedLag) =>
+            compedLag.foreach: lag =>
+              lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
+            proxy.save(progress) >>
+              postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+    else if game.finished then fufail(GameIsFinishedError(game.id))
+    else if game.aborted then fufail(ClientError(s"$pov game is aborted"))
+    else if !game.turnOf(color) then fufail(ClientError(s"$pov not your turn"))
+    else fufail(ClientError(s"$pov move refused for some reason"))
 
   private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(using proxy: GameProxy): Fu[Events] =
-    pov match
-      case Pov(game, _) if game.ply > lila.game.Game.maxPlies =>
-        round ! TooManyPlies
-        fuccess(Nil)
-      case Pov(game, color) if game.playableBy(color) =>
-        applyUci(game, uci, blur = false, botLag)
-          .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
-          .flatMap:
-            case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop, _) =>
-              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-      case Pov(game, _) if game.finished => fufail(GameIsFinishedError(game.id))
-      case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
-      case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-      case _ => fufail(ClientError(s"$pov move refused for some reason"))
+    import pov.{ game, color }
+    if game.ply > lila.game.Game.maxPlies then
+      round ! TooManyPlies
+      fuccess(Nil)
+    else if game.playableBy(color) then
+      applyUci(game, uci, blur = false, botLag)
+        .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
+        .flatMap:
+          case Flagged => finisher.outOfTime(game)
+          case MoveApplied(progress, moveOrDrop, _) =>
+            proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+    else if game.finished then fufail(GameIsFinishedError(game.id))
+    else if game.aborted then fufail(ClientError(s"$pov game is aborted"))
+    else if !game.turnOf(color) then fufail(ClientError(s"$pov not your turn"))
+    else fufail(ClientError(s"$pov move refused for some reason"))
 
   private def postHumanOrBotPlay(
       round: RoundAsyncActor,

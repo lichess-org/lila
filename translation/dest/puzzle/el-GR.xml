@@ -13,7 +13,6 @@
   <string name="origin">Πηγή</string>
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτό το τακτικό;</string>
-  <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
   <string name="upVote">Μου άρεσε το τακτικό</string>
   <string name="downVote">Δε μου άρεσε το τακτικό</string>
   <string name="yourPuzzleRatingWillNotChange">Η βαθμολογία τακτικών σας δε θα αλλάξει. Σημειώνουμε πως η επίλυση τακτικών δεν είναι διαγωνιστική διαδικασία — η βαθμολογία σας, άλλωστε, χρησιμοποιείται ως μέτρο για την επιλογή τακτικών δυσκολίας αντίστοιχης με το επίπεδο στο οποίο βρίσκεστε.</string>

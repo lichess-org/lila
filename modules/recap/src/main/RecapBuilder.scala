@@ -10,6 +10,7 @@ import lila.common.SimpleOpening
 import lila.db.dsl.{ *, given }
 import lila.game.Query
 import lila.core.game.Source
+import lila.mon.extensions.*
 
 private final class RecapBuilder(
     repo: RecapRepo,
@@ -51,7 +52,7 @@ private final class RecapBuilder(
           nbs = NbWin(total = nb, win = wins - fixes),
           votes = PuzzleVotes(nb = votes, themes = themes)
         )
-      .monSuccess(_.recap.puzzles)
+      .monSuccess(lila.mon.recap.puzzles)
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
@@ -85,7 +86,7 @@ private final class RecapBuilder(
       .sortedCursor(query, Query.sortChronological)
       .documentSource()
       .runFold(GameScan())(_.addGame(userId)(_))
-      .monSuccess(_.recap.games)
+      .monSuccess(lila.mon.recap.games)
 
   private case class GameScan(
       nbs: NbWin = NbWin(),

@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "24.12.0",
+    "@types/node": "24.12.2",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.27.3",
+    "esbuild": "0.27.7",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.5.7",
+    "fast-xml-parser": "5.7.0",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"

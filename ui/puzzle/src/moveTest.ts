@@ -1,5 +1,6 @@
 import { parseUci } from 'chessops/util';
 
+import { plyOpponentColor } from 'lib/game';
 import { path as pathOps } from 'lib/tree/tree';
 
 import type PuzzleCtrl from './ctrl';
@@ -23,7 +24,7 @@ export default function moveTest(ctrl: PuzzleCtrl): MoveTestReturn {
   if (ctrl.mode === 'view') return;
   if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
 
-  const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
+  const playedByColor = plyOpponentColor(ctrl.node.ply);
   if (playedByColor !== ctrl.pov) return;
 
   const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1).map(node => ({

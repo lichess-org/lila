@@ -1,7 +1,7 @@
 import { isTouchDevice } from 'lib/device';
 import * as licon from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
-import { type VNode, onInsert, hl } from 'lib/view';
+import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderVariationPgn } from '../pgnExport';
@@ -72,7 +72,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(
-  icon: string,
+  icon: LiconType,
   text: string,
   onClick: () => void,
   onHover?: () => void,
@@ -81,7 +81,7 @@ function action(
   return hl(
     'a',
     {
-      attrs: { 'data-icon': icon },
+      attrs: dataIcon(icon),
       hook: {
         insert: vnode => {
           const elm = vnode.elm as HTMLElement;

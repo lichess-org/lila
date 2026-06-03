@@ -74,7 +74,7 @@ export class LinksCtrl extends PaneCtrl {
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });
 
-  private readonly linkCfg = (href: string, icon: string, more?: Attrs) => ({
+  private readonly linkCfg = (href: string, icon: LiconType, more?: Attrs) => ({
     attrs: { href, 'data-icon': icon, ...more },
   });
 }

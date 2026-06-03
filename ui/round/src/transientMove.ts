@@ -1,5 +1,3 @@
-import { text as xhrText } from 'lib/xhr';
-
 import type { RoundSocket } from './socket';
 
 /* Tracks moves that were played on the board,
@@ -25,7 +23,7 @@ export default class TransientMove {
   };
 
   expire = (): void => {
-    xhrText('/statlog?e=roundTransientExpire', { method: 'post' }).catch(() => {});
+    // xhrText('/statlog?e=roundTransientExpire', { method: 'post' }).catch(() => {});
     this.socket.reload();
   };
 }

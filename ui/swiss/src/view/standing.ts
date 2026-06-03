@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import * as licon from 'lib/licon';
-import { bind, type MaybeVNodes, onInsert } from 'lib/view';
+import { bind, iconTag, type MaybeVNodes, onInsert } from 'lib/view';
 
 import type SwissCtrl from '../ctrl';
 import type { Player } from '../interfaces';
@@ -20,7 +20,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       h(
         'td.rank',
         player.absent && ctrl.data.status !== 'finished'
-          ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
+          ? iconTag(licon.Pause, { title: 'Absent' })
           : [player.rank],
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
@@ -30,11 +30,11 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           'div',
           player.sheet
             .map(p =>
-              p == 'absent'
+              p === 'absent'
                 ? h(p, title('Absent'), '-')
-                : p == 'bye'
+                : p === 'bye'
                   ? h(p, title('Bye'), '1')
-                  : p == 'late'
+                  : p === 'late'
                     ? h(p, title('Late'), '½')
                     : h(
                         'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),

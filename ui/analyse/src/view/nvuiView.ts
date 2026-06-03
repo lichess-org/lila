@@ -11,7 +11,7 @@ import { throttle } from 'lib/async';
 import { view as cevalView, renderEval } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { isTouchDevice } from 'lib/device';
-import type { Player } from 'lib/game';
+import { type Player, plyOpponentColor } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import {
   renderSan,
@@ -131,7 +131,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         explorerView(ctrl),
       ],
       hl('h2', i18n.nvui.pieces),
-      renderPieces(ctrl.chessground.state.pieces, style),
+      renderPieces(ctrl.chessground.state.pieces, style, ctrl.bottomColor()),
       pockets && hl('h2', i18n.nvui.pockets),
       pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
@@ -274,9 +274,11 @@ function boardEventsHook(
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
-  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
   $buttons.on('blur', leaveSquareHandler($buttons));
-  $buttons.on('click', selectionHandler(opponentColor));
+  $buttons.on(
+    'click',
+    selectionHandler(() => plyOpponentColor(ctrl.node.ply)),
+  );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))

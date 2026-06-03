@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.mvc.*
+import scalalib.net.Crawler
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.net.Crawler
 import lila.core.security.IsProxy
 import lila.opening.OpeningQuery.queryFromUrl
 import lila.security.UserAgentParser

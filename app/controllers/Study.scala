@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
-import lila.common.{ Bus, HTTPRequest }
+import lila.common.HTTPRequest
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.socket.Sri
@@ -16,11 +16,10 @@ import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
-import lila.study.{ BecomeStudyAdmin, Who }
-import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
+import lila.study.{ Who, Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeWriter
-import com.fasterxml.jackson.core.JsonParseException
 import lila.ui.Page
+import lila.mon.extensions.*
 
 final class Study(
     env: Env,
@@ -186,11 +185,12 @@ final class Study(
                 withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
               )
               chatOpt <- HTTPRequest.isXhr(ctx.req).not.so(chatOf(sc.study))
-              jsChat <- chatOpt.traverse: c =>
-                env.chat.json.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+              sVersion <- HTTPRequest.isLichessMobile(req).option(env.study.version(sc.study.id)).sequence
+              jsChat = chatOpt.map: c =>
+                env.chat.json.mobile(c, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
-                "study" -> data.study.add("chat" -> jsChat),
+                "study" -> data.study.add("chat" -> jsChat).add("socketVersion" -> sVersion),
                 "analysis" -> data.analysis
               )
           )
@@ -259,7 +259,7 @@ final class Study(
   }.optionFu:
     env.chat.api.userChat
       .findMine(study.id.into(ChatId))
-      .mon(_.chat.fetch("study"))
+      .mon(lila.mon.chat.fetch("study"))
 
   def createAs = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.importGame.form)(
@@ -359,12 +359,20 @@ final class Study(
     )
   }
 
-  def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
-    Bus.pub(BecomeStudyAdmin(id, me))
-    env.study.api
-      .becomeAdmin(id, me)
-      .inject:
-        if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
+  def admin(id: StudyId) = Auth { ctx ?=> me ?=>
+    Found(env.study.api.byId(id)): study =>
+      getBoolOpt("unfeature") match
+        case Some(true) if lila.study.canUnfeature =>
+          for
+            _ <- env.study.studyRepo.unfeature(id, true)
+            _ <- env.mod.logApi.studyUnfeature(study)
+          yield Redirect(HTTPRequest.referer(ctx.req) | routes.Study.allDefault().url)
+        case None if isGranted(_.StudyAdmin) =>
+          for
+            _ <- env.study.api.becomeAdmin(id, me)
+            _ <- env.relay.api.becomeStudyAdmin(id, me)
+          yield if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
+        case _ => authorizationFailed
   }
 
   def embed(studyId: StudyId, chapterId: StudyChapterId) = Anon:
@@ -560,6 +568,7 @@ final class Study(
     bindForm(StudyForm.topicsForm)(
       _ => Redirect(routes.Study.topics),
       topics =>
+        import com.fasterxml.jackson.core.JsonParseException
         try env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
         catch case e: JsonParseException => BadRequest(e.getMessage)
     )

@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Det här är din profilsida.</string>
   <string name="enabledKidModeSuggestion">Kommer ett barn att använda detta konto? Du kanske vill aktivera %s.</string>
   <string name="whatNowSuggestions">Vad nu? Här är några förslag:</string>
-  <string name="learnChessRules">Lär dig schackregler</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Lär dig schackregler</string>
   <string name="improveWithChessTacticsPuzzles">Förbättra med schacktaktikspussel.</string>
   <string name="playTheArtificialIntelligence">Spela mot den Artificiella Intelligensen.</string>
   <string name="playOpponentsFromAroundTheWorld">Spela motståndare från hela världen.</string>

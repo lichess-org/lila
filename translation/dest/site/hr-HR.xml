@@ -119,7 +119,6 @@
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Pokaži strelice varijacija</string>
-  <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Višestrukih varijanti</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
@@ -259,9 +258,6 @@
   <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok ne stigne.</string>
   <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite stranicu pristigle pošte.</string>
   <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označite ju da nije neželjena.</string>
-  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
-  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst te ga pošaljite na %s</string>
-  <string name="waitForSignupHelp">Javit ćemo Vam se uskoro kako bismo Vam pomogli dovršiti Vašu registraciju.</string>
   <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
   <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nije Vam potrebna potvrdna e-pošta.</string>

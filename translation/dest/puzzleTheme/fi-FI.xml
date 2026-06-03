@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Mattikuvio, jonka V-muoto muistuttaa pääskyn pyrstön muotoa.</string>
   <string name="triangleMate">Kolmiomatti</string>
   <string name="triangleMateDescription">Daami ja torni ovat kumpikin ruudun päässä vastustajan kuninkaasta sekä samalla rivillä tai linjalla siten, että niiden väliin jää yksi tyhjä ruutu, ja ne muodostavat yhdessä kuninkaan kanssa kolmion.</string>
-  <string name="vukovicMate">Vukovićin matti</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovićin matti</string>
   <string name="vukovicMateDescription">Torni ja ratsu matittavat kuninkaan yhdessä. Torni tekee matin kolmannen nappulan suojaamana, ja ratsua käytetään kuninkaan pakoruutujen tilkitsemiseen.</string>
   <string name="knightEndgame">Ratsuloppupeli</string>
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>

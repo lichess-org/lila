@@ -1,8 +1,9 @@
 package lila.push
 
 import scala.math.Ordered.orderingToOrdered
+import scalalib.net.UserAgent
 
-import lila.core.net.{ UserAgent, LichessMobileVersion }
+import lila.core.net.LichessMobileVersion
 import lila.common.HTTPRequest
 import LichessMobileVersion.given
 

@@ -2,7 +2,8 @@ package lila.memo
 
 import play.api.mvc.RequestHeader
 import bloomfilter.mutable.BloomFilter
-import lila.core.net.UserAgent
+import scalalib.net.UserAgent
+
 import lila.core.userId.UserId
 import lila.core.config.CollName
 import lila.db.dsl.*

@@ -28,22 +28,22 @@
     transition: 2.5s;
   }
 
-  i {
+  icon {
     font-size: 1.2em;
     opacity: 0.5;
     transition: 2.5s;
   }
 
-  .contrib i {
+  .contrib icon {
     opacity: 0.7;
   }
 
-  .online i {
+  .online icon {
     opacity: 0.8;
     color: $c-good;
   }
 
-  .online.contrib i {
+  .online.contrib icon {
     opacity: 1;
   }
 
@@ -66,7 +66,7 @@
   .status.active {
     transition: none;
 
-    i {
+    icon {
       transition: none;
       opacity: 1;
       color: #fff;
@@ -85,7 +85,7 @@
   .add {
     @extend %roboto;
 
-    &:hover i {
+    &:hover icon {
       color: $c-link;
       opacity: 1;
       transition: none;

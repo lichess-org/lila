@@ -171,7 +171,7 @@
       font-size: 1.1em;
       color: $c-font;
 
-      i {
+      icon {
         margin-inline-start: auto;
         color: $c-font-dimmer;
       }
@@ -541,6 +541,17 @@
   &__players__table {
     border-bottom: 0;
 
+    .pin {
+      width: 2em;
+      padding: 0;
+      padding-inline-start: 0.8em !important;
+
+      img {
+        height: 1.3em;
+        aspect-ratio: 1;
+      }
+    }
+
     thead {
       background: none;
       box-shadow: none;
@@ -586,6 +597,24 @@
       & + td:not(.player-intro-td) {
         font-family: monospace;
         text-align: end;
+      }
+
+      &.pin {
+        button {
+          @include transition;
+
+          padding: 0.3em 0.6em;
+          filter: saturate(0);
+
+          &:hover {
+            transform: rotate(-25deg);
+          }
+
+          &.pinned {
+            filter: none;
+            transform: rotate(-45deg) translate(-2px, 2px);
+          }
+        }
       }
     }
 
@@ -798,6 +827,10 @@
   overflow-y: auto;
   font-size: 0.9em;
   position: relative;
+
+  &__separator {
+    border-bottom: 7px solid $c-border;
+  }
 }
 
 .relay-game {
@@ -866,6 +899,13 @@
     .mini-game__flag {
       width: 1.1em;
     }
+  }
+
+  .pinned-icon {
+    height: 0.9em;
+    aspect-ratio: 1;
+    transform: rotate(-45deg);
+    margin-inline-start: 0.5ch;
   }
 
   .mini-game__gauge {

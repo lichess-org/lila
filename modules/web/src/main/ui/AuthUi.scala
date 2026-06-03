@@ -48,11 +48,12 @@ final class AuthUi(helpers: Helpers):
               else authGlobalError(form),
               form3.group(form("username"), trans.site.usernameOrEmail()): f =>
                 div(cls := "text-wrapper")(
-                  form3.input(f)(autofocus, required, autocomplete := "username"),
+                  form3.input(f)(autofocus, required, autocomplete := "username", testId("username")),
                   clearFieldButton
                 ),
               form3.passwordModified(form("password"), trans.site.password())(
-                autocomplete := "current-password"
+                autocomplete := "current-password",
+                testId("password")
               ),
               div(cls := "password-reset")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
@@ -83,7 +84,7 @@ final class AuthUi(helpers: Helpers):
               p(cls := "error none")("Invalid code.")
             ),
             turnstile.widget(explicit = true),
-            turnstile.submit(trans.site.signIn())
+            turnstile.submit(trans.site.signIn())(testId("login-submit"))
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
           a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(
@@ -253,7 +254,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.isDefined.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.isDefined.option(iconTag(Icon.X)(cls := "is-red")),
               trans.site.passwordReset()
             )
           ),
@@ -319,7 +320,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.option(iconTag(Icon.X)(cls := "is-red")),
               "Log in by email"
             )
           ),
@@ -413,5 +414,6 @@ final class AuthUi(helpers: Helpers):
       tpe := "button",
       dataIcon := Icon.Cancel,
       title := trans.site.clearField.txt(),
-      aria.label := trans.site.clearField.txt()
+      aria.label := trans.site.clearField.txt(),
+      tabindex := -1
     )

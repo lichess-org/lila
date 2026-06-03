@@ -116,7 +116,6 @@
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
-  <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
   <string name="memory">RAM</string>
@@ -242,9 +241,6 @@
   <string name="emailCanTakeSomeTime">Bu biraz vaxt ala bilər.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dəqiqə gözləyin və email qutunuzu yenidən yoxlayın.</string>
   <string name="checkSpamFolder">Spam qutusunu da yoxlayın, məktub oradada ola bilər. Elədirsə, zəhmət olmasa qeyri-spam kimi qeyd edin.</string>
-  <string name="emailForSignupHelp">Əgər heç nə alınmırsa, bizə email yollayın:</string>
-  <string name="copyTextToEmail">Yuxarıdakı mətni kopyalayıb yapışdırıb %s ünvanına göndərin</string>
-  <string name="waitForSignupHelp">Qeydiyyatınızı tamamlamağınıza kömək etmək üçün tezliklə sizinlə əlaqə saxlayacağıq.</string>
   <string name="accountConfirmed">%s istifadəçisi uğurla təsdiqləndi.</string>
   <string name="accountCanLogin">Siz indi %s kimi daxil ola bilərsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Təsdiq e-poçtuna ehtiyacınız yoxdur.</string>

@@ -33,13 +33,13 @@ export class BotLoader {
   }
 
   async init(defBots?: BotInfo[]): Promise<this> {
-    const [bots] = await Promise.all([
-      defBots ?? xhr.json('/bots').then(res => res.bots),
+    const [bots] = [
+      defBots ?? (await xhr.json('/bots').then(res => res.bots)),
       this.zerofish ??
         makeZerofish({
           locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
         }).then(zf => (this.zerofish = zf)),
-    ]);
+    ];
     for (const b of [...bots].filter(Bot.isValid)) {
       this.bots.set(b.uid, new Bot(b, this));
     }

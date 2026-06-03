@@ -73,7 +73,7 @@
   <string name="morphysMateDescription">ໃຊ້ບິຊອບ (Bishop) ເພື່ອຣຸກຄິງ, ໃນຂະນະທີ່ເຮືອຊ່ວຍກັກທາງໜີໄວ້.</string>
   <string name="triangleMate">ການຈົນຮູບສາມຫຼ່ຽມ</string>
   <string name="triangleMateDescription">ຄອງ (Queen) ແລະ ເຮືອ ຢູ່ຫ່າງຈາກຄິງຂອງຄູ່ຕໍ່ສູ້ໜຶ່ງຫ້ອງ ໂດຍຈັດວາງໃນຮູບແບບທີ່ສ້າງເປັນຮູບສາມຫຼ່ຽມ.</string>
-  <string name="vukovicMate">ການຈົນແບບ Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">ການຈົນແບບ Vukovic</string>
   <string name="vukovicMateDescription">ເຮືອ ແລະ ມ້າຮ່ວມມືກັນເພື່ອຈົນຄິງ. ເຮືອທຳການຈົນໂດຍມີຕົວໝາກຕົວທີສາມສະໜັບສະໜູນ ແລະ ໃຊ້ມ້າເພື່ອປິດທາງໜີ.</string>
   <string name="knightEndgame">ເກມປາຍກະດານມ້າ</string>
   <string name="knightEndgameDescription">ການຫຼິ້ນປາຍກະດານທີ່ມີພຽງມ້າ ແລະ ເບ້.</string>

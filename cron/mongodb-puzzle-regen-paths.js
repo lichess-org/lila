@@ -44,7 +44,7 @@ const mixBoundaries = [
   2100, 2200, 2350, 2500, 2650, 2800, 9999,
 ];
 
-const themes = puzzleColl.distinct('themes', {}).filter(t => t && t != 'checkFirst');
+const themes = puzzleColl.distinct('themes', {}).filter(t => t && t !== 'checkFirst');
 const openings = db.puzzle2_puzzle
   .aggregate([
     { $unwind: '$opening' },
@@ -86,9 +86,9 @@ let anyBuggy = false;
     ? { opening: theme }
     : {
         themes:
-          theme == 'mix'
+          theme === 'mix'
             ? { $ne: 'equality' }
-            : theme == 'equality'
+            : theme === 'equality'
               ? 'equality'
               : {
                   $eq: theme,
@@ -112,12 +112,12 @@ let anyBuggy = false;
 
   const themeMaxPathLength = Math.max(10, Math.min(maxPathLength, Math.round(nbPuzzles / 150)));
   const nbRatingBuckets =
-    theme == 'mix'
+    theme === 'mix'
       ? mixBoundaries.length - 1
       : Math.max(3, Math.min(maxRatingBuckets, Math.round(nbPuzzles / themeMaxPathLength / 15)));
 
   const bucketStages =
-    theme == 'mix'
+    theme === 'mix'
       ? [
           {
             $bucket: {
@@ -140,7 +140,7 @@ let anyBuggy = false;
     {
       $match: selector,
     },
-    ...(theme == 'mix' ? [{ $sample: { size: maxPuzzlesPerTheme } }] : []),
+    ...(theme === 'mix' ? [{ $sample: { size: maxPuzzlesPerTheme } }] : []),
     ...bucketStages,
     {
       $unwind: '$puzzle',
@@ -219,24 +219,24 @@ let anyBuggy = false;
       comment: 'regen-paths',
     })
     .forEach(bucket => {
-      if (prevTier == bucket.tier) indexInTier++;
+      if (prevTier === bucket.tier) indexInTier++;
       else {
         indexInTier = 0;
         prevTier = bucket.tier;
       }
-      const isFirstOfTier = indexInTier == 0;
-      const isLastOfTier = indexInTier == nbRatingBuckets - 1;
+      const isFirstOfTier = indexInTier === 0;
+      const isLastOfTier = indexInTier === nbRatingBuckets - 1;
       const pathLength = Math.max(10, Math.min(maxPathLength, Math.round(bucket.puzzles.length / 30)));
       const ratingMin = isFirstOfTier ? 100 : Math.ceil(bucket._id.min);
       const ratingMax = isLastOfTier
         ? 9999
-        : theme == 'mix'
+        : theme === 'mix'
           ? mixBoundaries[indexInTier + 1]
           : Math.floor(bucket._id.max);
       const nbPaths = Math.max(1, Math.floor(bucket.puzzles.length / pathLength));
       const allPaths = chunkify(bucket.puzzles, nbPaths);
       const paths = allPaths.slice(0, maxPathsPerGroup);
-      buggy = buggy || (ratingMin == 100 && ratingMax == 9999) || ratingMin > ratingMax;
+      buggy = buggy || (ratingMin === 100 && ratingMax === 9999) || ratingMin > ratingMax;
       anyBuggy = anyBuggy || buggy;
       if (verbose || buggy)
         print(

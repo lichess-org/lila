@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
   <string name="reusableChallengeUrl">再利用可能なチャレンジ URL</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">誰でもこのとおりの設定であなたにチャレンジできる恒久的リンク。</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">これと同じ設定で対局をするための固定URL</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -94,6 +94,8 @@
   <string name="database">データベース</string>
   <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
+  <string name="minRatingX">レーティング下限 %s</string>
+  <string name="maxRatingX">レーティング上限 %s</string>
   <string name="recentGames">最近の対局</string>
   <string name="topGames">トップの対局</string>
   <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の対局が200 万局あります</string>
@@ -124,7 +126,6 @@
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
-  <string name="evaluationGauge">評価値を表示</string>
   <string name="visualMotifs">形のパターン</string>
   <string name="undefendedPieces">浮き駒</string>
   <string name="pinnedPieces">ピンされた駒</string>
@@ -253,9 +254,7 @@
   <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
-  <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
-  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
-  <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
+  <string name="sendEmailForAccountVerification">確認メールが見つからない場合は %s にメールを送信してください。当方でアカウントを確認します。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
   <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
@@ -768,6 +767,8 @@
   <string name="xHostsY">%1$sが %2$s を作成しました</string>
   <string name="xJoinsY">%1$sが %2$s に参加</string>
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
+  <string name="like">いいね</string>
+  <string name="liked">いいね済み</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>
@@ -900,6 +901,7 @@
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
   <string name="makeSureToRead">%1$s を必ずお読みください</string>
   <string name="theForumEtiquette">フォーラムでのマナー</string>
+  <string name="pleaseBeNiceInTheForum">掲示板では礼儀を忘れず。</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>

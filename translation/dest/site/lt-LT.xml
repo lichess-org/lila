@@ -130,7 +130,6 @@
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
   <string name="showVariationArrows">Rodyti variacijų rodykles</string>
-  <string name="evaluationGauge">Vertinimo matuoklis</string>
   <string name="visualMotifs">Vizualiniai motyvai</string>
   <string name="undefendedPieces">Neapsaugotos figūros</string>
   <string name="pinnedPieces">Surištos figūros</string>
@@ -290,9 +289,6 @@
   <string name="emailCanTakeSomeTime">Atvykimas gali šiek tiek užtrukti.</string>
   <string name="refreshInboxAfterFiveMinutes">Palaukite penkias minutes ir atnaujinkite savo el. pašto dėžutę.</string>
   <string name="checkSpamFolder">Pasitikrinkite šlamtšo aplanką, laiškas galėjo atsirasti ir ten. Jei taip įvyko - pažymėkite kaip ne šlamštą.</string>
-  <string name="emailForSignupHelp">Jei niekas nepavyko, atsiųskite mums tokį laišką:</string>
-  <string name="copyTextToEmail">Nukopijuokite tekstą viršuje ir atsiųskite į %s</string>
-  <string name="waitForSignupHelp">Ne už ilgo susisieksime su jumis ir padėsime užbaigti prisijungimo procesą.</string>
   <string name="accountConfirmed">Vartotojas %s sėkmingai patvirtintas.</string>
   <string name="accountCanLogin">Šiuo metu negalite prisijungti kaip %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Jums nereikia patvirtinimo laiško.</string>

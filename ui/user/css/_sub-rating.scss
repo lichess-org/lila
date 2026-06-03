@@ -55,7 +55,7 @@
       font-size: 0.9em;
     }
 
-    i {
+    icon {
       font-size: 0.75em;
       opacity: 0.2;
       color: $c-font-dim;
@@ -63,12 +63,12 @@
       @include transition;
     }
 
-    &:hover i {
+    &:hover icon {
       color: $c-link;
       opacity: 0.7;
     }
 
-    &.active i {
+    &.active icon {
       display: none;
     }
 
@@ -105,7 +105,7 @@
       padding: 0.3em;
     }
 
-    a > i,
+    a > icon,
     h3,
     hr,
     rating .rp,

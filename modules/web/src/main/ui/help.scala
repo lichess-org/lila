@@ -4,7 +4,7 @@ package ui
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
 
-import ScalatagsTemplate.{ *, given }
+import ScalatagsTemplate.*
 
 object help:
 
@@ -216,9 +216,9 @@ object help:
               ul(
                 li(
                   instructions1(
-                    i(dataIcon := Icon.Voice),
-                    i(dataIcon := Icon.InfoCircle),
-                    i(dataIcon := Icon.Gear)
+                    iconTag(Icon.Voice),
+                    iconTag(Icon.InfoCircle),
+                    iconTag(Icon.Gear)
                   )
                 ),
                 li(instructions2()),

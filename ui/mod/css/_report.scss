@@ -139,7 +139,7 @@ $c-report-high-over: white;
     border-inline-start: 4px solid $c-report-high;
   }
 
-  .user_marks i {
+  .user_marks icon {
     @include user-marks;
   }
 

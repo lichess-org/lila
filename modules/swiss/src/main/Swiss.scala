@@ -74,6 +74,8 @@ case class Swiss(
 
   def idName = IdName(id, name)
 
+  override def toString = s"$id/$round"
+
   lazy val looksLikePrize = lila.gathering.looksLikePrize(s"$name ${~settings.description}")
 
 object Swiss:

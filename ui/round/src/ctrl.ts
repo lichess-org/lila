@@ -2,13 +2,14 @@
 
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
-import * as ab from 'ab';
-import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
+import * as ab from 'ab/round';
+import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
 import * as game from 'lib/game';
-import { plyToTurn } from 'lib/game/chess';
+import { plyOpponentColor } from 'lib/game';
+import { plyToTurn, plyColor } from 'lib/game/chess';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { PromotionCtrl, promote } from 'lib/game/promotion';
@@ -209,7 +210,7 @@ export default class RoundController implements MoveRootCtrl {
   private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private readonly enpassant = (orig: Key, dest: Key): boolean => {
-    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+    if (dest.startsWith(orig[0]) || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
@@ -251,7 +252,7 @@ export default class RoundController implements MoveRootCtrl {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
         check: !!s.check,
-        turnColor: this.ply % 2 === 0 ? 'white' : 'black',
+        turnColor: plyColor(this.ply),
       };
     if (this.replaying()) this.chessground.stop();
     else
@@ -397,12 +398,12 @@ export default class RoundController implements MoveRootCtrl {
   playerByColor = (c: Color): game.Player => this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): true => {
-    const d = this.data,
-      playing = this.isPlaying();
+    const d = this.data;
+    const playing = this.isPlaying();
     d.game.turns = o.ply;
-    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
-    const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-      activeColor = d.player.color === d.game.player;
+    d.game.player = plyColor(o.ply);
+    const playedColor = plyOpponentColor(o.ply);
+    const activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;
@@ -557,6 +558,7 @@ export default class RoundController implements MoveRootCtrl {
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
+    d.game.abortedBy = o.abortedBy;
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
     this.userJump(this.lastPly());
@@ -744,7 +746,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
+    $(`<icon data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {

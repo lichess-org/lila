@@ -30,7 +30,23 @@
   <string name="pleaseFillIn">कृपया तुमची प्रसारक माहिती भरा आणि एक छायाचित्र निर्यात करा.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जेव्हा तुम्ही Lichess प्रसारक म्हणून सूचीबद्ध होण्यास तयार असाल, %s</string>
   <string name="submitForReview">पुनरावलोकनासाठी पाठवा</string>
+  <string name="streamerLanguageSettings">Lichess प्रसारक पृष्ठ तुमच्या प्रसारण दूरचित्रवाणीने दिलेल्या भाषेनुसार तुमच्या प्रेक्षकांना आकर्षित करते. तुम्ही प्रसारणासाठी वापरत असलेल्या दूरचरित्रवाणीमध्ये किंवा सेवेमध्ये तुमच्या बुद्धिबळ प्रसारणासाठी योग्य भाषा निवडा.</string>
   <string name="pleaseAllow">तुमची प्रसारक पदवी आणि सूची मंजूर होण्यापूर्वी कृपया ७२ तासांपर्यंतचा वेळ द्या.</string>
   <string name="chooseYoutubeChannel">तुम्ही Lichess वर वापरणार असलेले YouTube चॅनेल निवडा.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">विद्युतसंबंध जोडा</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">विद्युतसंबंध तोडा</string>
   <string name="streamerName">तुमचे प्रसारक नाव Lichess वर</string>
+  <plurals name="keepItShort">
+    <item quantity="one">लहान ठेवा: जास्तीत जास्त %s अक्षर</item>
+    <item quantity="other">लहान ठेवा: जास्तीत जास्त %s अक्षरे</item>
+  </plurals>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">प्रसारक पृष्ठावर दृश्यमान</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">जेव्हा नियंत्रकांद्वारे मंजूर केले जाईल</string>
+  <string name="headline">मथळा</string>
+  <string name="tellUsAboutTheStream">आम्हाला तुमच्या प्रसारणाबद्दल एका वाक्यात सांगा</string>
+  <string name="longDescription">तपशीलवार वर्णन</string>
+  <string name="xStreamerPicture">%s प्रसारकाचे छायाचित्र</string>
+  <string name="changePicture">तुमचे चित्र बदला/हटवा</string>
+  <string name="uploadPicture">चित्र आयात करा</string>
+  <string name="maxSize">कमाल आकार: %s</string>
 </resources>

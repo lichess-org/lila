@@ -95,6 +95,8 @@
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="minRatingX">Minimumrating van %s</string>
+  <string name="maxRatingX">Maximumrating van %s</string>
   <string name="recentGames">Recente partijen</string>
   <string name="topGames">Toppartijen</string>
   <string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
-  <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="visualMotifs">Visuele motieven</string>
   <string name="undefendedPieces">Onverdedigde stukken</string>
   <string name="pinnedPieces">Gepende stukken</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
-  <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
-  <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
-  <string name="waitForSignupHelp">We nemen binnenkort contact op om te helpen bij het afronden van de inschrijving.</string>
+  <string name="sendEmailForAccountVerification">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
@@ -808,6 +807,8 @@
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
+  <string name="like">Vind ik leuk</string>
+  <string name="liked">Vond ik leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
@@ -943,6 +944,7 @@
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="makeSureToRead">Lees zeker %1$s</string>
   <string name="theForumEtiquette">de regels van het forum</string>
+  <string name="pleaseBeNiceInTheForum">Wees aardig op het forum.</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>

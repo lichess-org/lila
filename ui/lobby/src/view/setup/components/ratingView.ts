@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import type { MaybeVNode } from 'lib/view';
+import { dataIcon, iconTag, type MaybeVNode } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import { speeds, variants } from '@/options';
@@ -14,14 +14,17 @@ export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNo
 
   if (!perfOrSpeed) return undefined;
 
-  const perfIconAttrs = { attrs: { 'data-icon': perfOrSpeed.icon } };
   return h(
     'div.ratings',
     !opts.showRatings
-      ? [h('i', perfIconAttrs), perfOrSpeed.name]
+      ? [iconTag(perfOrSpeed.icon), perfOrSpeed.name]
       : [
           ...i18n.site.yourRatingIsX.asArray(
-            h('strong', perfIconAttrs, setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : '')),
+            h(
+              'strong',
+              { attrs: dataIcon(perfOrSpeed.icon) },
+              setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : ''),
+            ),
           ),
           perfOrSpeed.name,
         ],

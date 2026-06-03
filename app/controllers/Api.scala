@@ -41,7 +41,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         .extended(
           name,
           lila.api.UserApi.Opts(
-            withFollows = userWithFollows,
             withTrophies = getBool("trophies"),
             withCanChallenge = getBool("challenge"),
             withProfile = getBoolOpt("profile") | true,
@@ -51,9 +50,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         )
         .map(toApiResult)
         .map(toHttp)
-
-  private[controllers] def userWithFollows(using req: RequestHeader) =
-    HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
   def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
@@ -298,7 +294,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
-          yield jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges, bearer))
+          yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
       }
     }
 
@@ -350,6 +346,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /tournament/featured
    * /inbox/unread-count
    * /api/challenge
+   * /api/mobile/following
    */
   def mobileHome = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):

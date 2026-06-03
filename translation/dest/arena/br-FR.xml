@@ -12,7 +12,7 @@ Ma c\'hounezit daou grogad da heul ho po hanter vuioc\'h a boentoù, arouezet ga
 Keit ha ma veoc\'h o c\'hounit ho po hanter vuioc\'h a boentoù, betek ma kollfec\'h pe betek ma vefec\'h rampo.
 Da lâret eo 4 foent evit un trec\'h, 2 boent evit ur c\'hrogad rampo ha boent ebet tennet evit koll c\'hoazh.
 Da skouer daou drec\'h heuliet gant ur c\'hrogad rampo a ray 6 poent: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Aren Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Aren Berserk</string>
   <string name="berserkAnswer">Pa vez kliket war an nozelenn Berserk gant ur c\'hoarier e penn kentañ ar c\'hrogad e vez kollet gantañ un hanter eus e amzer c\'hoari met gallout a ra gounit ur poent tournamant ouzhpenn ma vez trec\'h.
 
 Ma tibabit c\'hoari e mod Berserk e vo kollet ivez an inkrement ma \'z eus unan ( war-bouez 1+2 hag a ra 1+0)

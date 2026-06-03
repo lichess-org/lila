@@ -52,7 +52,7 @@
   <string name="knightMate">ມັນເປັນໄປໄດ້ທີ່ຈະລຸກຈົນດ້ວຍພຽງມ້າ ຫຼື ບີຊັອບ (Bishop) ໂຕດຽວ ຫາກຄູ່ຕໍ່ສູ້ຍັງມີຕົວໝາກອື່ນນອກຈາກຂຸນຢູ່ເທິງກະດານ.</string>
   <string name="noRatingPoints">ບໍ່ໄດ້ຮັບຄະແນນ (Rating)</string>
   <string name="ratedGame">ກວດສອບໃຫ້ແນ່ໃຈວ່າທ່ານຫຼິ້ນໃນເກມທີ່ມີການຄິດໄລ່ຄະແນນ (Rated). ເກມທົ່ວໄປ (Casual) ຈະບໍ່ມີຜົນຕໍ່ຄະແນນຂອງຜູ້ຫຼິ້ນ.</string>
-  <string name="botRatingAbuse">ໃນບາງກໍລະນີເມື່ອຫຼິ້ນກັບບັນຊີບັອດ (Bot), ເກມທີ່ຄິດໄລ່ຄະແນນອາດຈະບໍ່ໃຫ້ຄະແນນ ຫາກພົບວ່າຜູ້ຫຼິ້ນມີພຶດຕິກຳປັ່ນຄະແນນຈາກບັອດ.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">ໃນບາງກໍລະນີເມື່ອຫຼິ້ນກັບບັນຊີບັອດ (Bot), ເກມທີ່ຄິດໄລ່ຄະແນນອາດຈະບໍ່ໃຫ້ຄະແນນ ຫາກພົບວ່າຜູ້ຫຼິ້ນມີພຶດຕິກຳປັ່ນຄະແນນຈາກບັອດ.</string>
   <string name="errorPage">ໜ້າທີ່ເກີດຂໍ້ຜິດພາດ</string>
   <string name="reportErrorPage">ຫາກທ່ານພົບໜ້າທີ່ເກີດຂໍ້ຜິດພາດ, ທ່ານສາມາດລາຍງານໄດ້ທີ່:</string>
   <string name="learnHowToMakeBroadcasts">ຮຽນຮູ່ວິທີການສ້າງການຖ່າຍທອດສົດ (Broadcast) ຂອງທ່ານເອງໃນ Lichess</string>

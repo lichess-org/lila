@@ -85,7 +85,7 @@
     min-height: 200px;
     padding: 1em 0;
 
-    > i {
+    > icon {
       @include fluid-size('font-size', 40px, 120px);
 
       margin: 0 0.4em;

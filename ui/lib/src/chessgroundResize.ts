@@ -82,8 +82,8 @@ export default function resizeHandle(
   }
 }
 
-function eventPosition(e: MouchEvent): [number, number] | undefined {
+function eventPosition(e: MouchEvent) {
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY!];
   if (e.targetTouches?.[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
-  return;
+  return undefined;
 }

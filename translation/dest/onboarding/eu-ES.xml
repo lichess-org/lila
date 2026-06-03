@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Hau zure profilaren orrialdea da.</string>
   <string name="enabledKidModeSuggestion">Kontu hau haur batek erabiliko du? Agian %s aktibatu nahiko duzu.</string>
   <string name="whatNowSuggestions">Eta orain zer? Hemen dituzu gomendio batzuk:</string>
-  <string name="learnChessRules">Ikasi xakearen arauak</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Ikasi xakearen arauak</string>
   <string name="improveWithChessTacticsPuzzles">Hobetu zure xakea taktika ariketekin.</string>
   <string name="playTheArtificialIntelligence">Jokatu Adimen Artifizialaren aurka.</string>
   <string name="playOpponentsFromAroundTheWorld">Jokatu mundu osoko aurkariekin.</string>

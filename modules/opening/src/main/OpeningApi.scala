@@ -1,9 +1,9 @@
 package lila.opening
 
 import play.api.mvc.RequestHeader
+import scalalib.net.Crawler
 
 import lila.core.game.{ GameRepo, PgnDump }
-import lila.core.net.Crawler
 import lila.core.security.IsProxy
 import lila.memo.{ CacheApi, RateLimit }
 

@@ -95,6 +95,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Hvid / Remis / Sort</string>
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
+  <string name="minRatingX">Minimum rating på %s</string>
+  <string name="maxRatingX">Maksimal rating på %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
   <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Aktivér</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
-  <string name="evaluationGauge">Evalueringsindikator</string>
   <string name="visualMotifs">Visuelle motiver</string>
   <string name="undefendedPieces">Uforsvarede brikker</string>
   <string name="pinnedPieces">Bundne brikker</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
   <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
-  <string name="emailForSignupHelp">Hvis alt andet mislykkes, så send os denne e-mail:</string>
-  <string name="copyTextToEmail">Kopier og indsæt ovenstående tekst og send det til %s</string>
-  <string name="waitForSignupHelp">Vi vil snart vende tilbage til dig for at hjælpe dig med at fuldføre din tilmelding.</string>
+  <string name="sendEmailForAccountVerification">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
   <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
   <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du behøver ikke en bekræftelsesmail.</string>
@@ -808,6 +807,8 @@
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>
+  <string name="like">Synes godt om</string>
+  <string name="liked">Syntes godt om</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
@@ -943,6 +944,7 @@
   <string name="tryTheContactPage">prøv kontakt-siden</string>
   <string name="makeSureToRead">Sørg for at læse %1$s</string>
   <string name="theForumEtiquette">forummets etikette</string>
+  <string name="pleaseBeNiceInTheForum">Hold en god tone i forummet.</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>

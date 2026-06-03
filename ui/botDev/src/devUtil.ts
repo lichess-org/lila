@@ -80,7 +80,7 @@ export function playersWithResults(results: Result[]): string[] {
   return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
 }
 
-export function renderRemoveButton(cls: string = ''): Node {
+export function renderRemoveButton(cls = ''): Node {
   return frag(
     `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-action="remove">`,
   );

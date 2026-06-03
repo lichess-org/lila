@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Tämä on profiilisivusi.</string>
   <string name="enabledKidModeSuggestion">Käyttääkö lapsi tätä tunnusta? Harkitse siinä tapauksessa %sn päälle laittamista.</string>
   <string name="whatNowSuggestions">Mitä seuraavaksi? Tässä pari ehdotusta:</string>
-  <string name="learnChessRules">Opi shakin säännöt</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Opi shakin säännöt</string>
   <string name="improveWithChessTacticsPuzzles">Kehity ratkomalla taktiikkatehtäviä.</string>
   <string name="playTheArtificialIntelligence">Pelaa tekoälyä vastaan.</string>
   <string name="playOpponentsFromAroundTheWorld">Kohtaa pelaajia kaikkialta maailmasta.</string>

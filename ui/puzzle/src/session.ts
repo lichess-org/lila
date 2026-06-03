@@ -20,7 +20,7 @@ export default class PuzzleSession {
 
   constructor(
     readonly theme: ThemeKey,
-    readonly userId: string | undefined,
+    readonly userId: UserId | undefined,
     readonly streak: boolean,
   ) {}
 

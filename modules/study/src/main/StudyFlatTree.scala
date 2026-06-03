@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.common.Chronometer
+import lila.mon.Chronometer.syncMon
 import lila.db.dsl.*
 import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree, Root }
 
@@ -23,7 +23,7 @@ private object StudyFlatTree:
   object reader:
 
     def rootChildren(flatTree: Bdoc): Branches =
-      Chronometer.syncMon(_.study.tree.read):
+      syncMon(lila.mon.study.tree.read):
         traverse:
           flatTree.elements.toList
             .collect:
@@ -32,7 +32,7 @@ private object StudyFlatTree:
             .sortBy(-_.depth)
 
     def newRoot(flatTree: Bdoc): Option[NewTree] =
-      Chronometer.syncMon(_.study.tree.read):
+      syncMon(lila.mon.study.tree.read):
         traverseN:
           flatTree.elements.toList
             .collect:
@@ -72,11 +72,11 @@ private object StudyFlatTree:
   object writer:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
-      Chronometer.syncMon(_.study.tree.write):
+      syncMon(lila.mon.study.tree.write):
         root.children.toList.flatMap { traverse(_, UciPath.root) }
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
-      Chronometer.syncMon(_.study.tree.write):
+      syncMon(lila.mon.study.tree.write):
         root.tree.so:
           _.mapAccuml_(UciPath.root)((acc, branch) =>
             val path = acc + branch.id

@@ -11,11 +11,13 @@
     "@types/debounce-promise": "^3.1.9",
     "@types/fnando__sparkline": "^0.3.7",
     "@types/qrcode": "^1.5.6",
+    "@types/sortablejs": "^1.15.9",
     "@types/yaireo__tagify": "4.27.0",
     "@types/zxcvbn": "^4.4.5",
     "@yaireo/tagify": "4.17.9",
     "canvas-confetti": "^1.9.4",
     "cropperjs": "1.6.2",
+    "crypto-random-string": "^5",
     "debounce-promise": "^3.1.2",
     "emoji-mart": "^5.6.0",
     "flatpickr": "^4.6.13",
@@ -28,8 +30,8 @@
     "prosemirror-view": "1.41.3",
     "qrcode": "^1.5.4",
     "shepherd.js": "11.2.0",
-    "zxcvbn": "^4.4.2",
-    "crypto-random-string": "^5"
+    "sortablejs": "^1.15.6",
+    "zxcvbn": "^4.4.2"
   },
   "build": {
     "bundle": [

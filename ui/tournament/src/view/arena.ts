@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { defined } from 'lib';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, type MaybeVNodes } from 'lib/view';
+import { bind, dataIcon, iconTag, type MaybeVNodes } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { userLink } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
@@ -49,12 +49,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
-      h(
-        'td.rank',
-        player.withdraw
-          ? h('i', { attrs: { 'data-icon': licon.Pause, title: i18n.site.pause } })
-          : player.rank,
-      ),
+      h('td.rank', player.withdraw ? iconTag(licon.Pause, { title: i18n.site.pause }) : player.rank),
       h('td.player', [
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),

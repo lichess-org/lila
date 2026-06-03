@@ -12,7 +12,6 @@ case class Who(u: UserId, sri: lila.core.socket.Sri):
   def myId = u.into(MyId)
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
 case class Kick(studyId: StudyId, userId: UserId, who: MyId)
-case class BecomeStudyAdmin(studyId: StudyId, me: Me)
 case class IsOfficialRelay(studyId: StudyId, promise: Promise[Boolean])
 
 case class AddNode(
@@ -22,3 +21,13 @@ case class AddNode(
     opts: MoveOpts,
     relay: Option[Chapter.Relay] = None
 )(using val who: Who)
+
+enum StudyGroup:
+  case all, mine, mineMember, minePublic, minePrivate, mineLikes, byOwner, staffPicks, search
+  case topic(name: Option[StudyTopic])
+  def isTopic: Boolean = this match
+    case StudyGroup.topic(_) => true
+    case _ => false
+  def isPersonal: Boolean = this match
+    case StudyGroup.mine | StudyGroup.mineMember | StudyGroup.minePublic | StudyGroup.minePrivate => true
+    case _ => false

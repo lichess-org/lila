@@ -97,6 +97,8 @@
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг: %s</string>
+  <string name="minRatingX">Мінімальний рейтинг %s</string>
+  <string name="maxRatingX">Максимальний рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Найкращі ігри</string>
   <string name="masterDbExplanation">ігор за дошкою гравців FIDE з рейтингом %1$s+ з %2$s по %3$s</string>
@@ -130,7 +132,6 @@
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
-  <string name="evaluationGauge">Шкала оцінки</string>
   <string name="visualMotifs">Візуальні підказки</string>
   <string name="undefendedPieces">Незахищені фігури</string>
   <string name="pinnedPieces">Зв\'язані фігури</string>
@@ -298,9 +299,7 @@
   <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
   <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
   <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
-  <string name="emailForSignupHelp">Якщо все інше не спрацювало, то надішліть нам цей електронний лист:</string>
-  <string name="copyTextToEmail">Скопіюйте та вставте текст зверху й відправте на %s</string>
-  <string name="waitForSignupHelp">Незабаром ми повернемося до вас, щоб допомогти вам завершити реєстрацію.</string>
+  <string name="sendEmailForAccountVerification">Якщо ви не можете знайти лист підтвердження, відправте лист на %s, і ми підтвердимо ваш обліковий запис.</string>
   <string name="accountConfirmed">Користувач %s успішно підтверджений.</string>
   <string name="accountCanLogin">Тепер ви можете ввійти як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не потрібне підтвердження за електронною поштою.</string>
@@ -890,6 +889,8 @@
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
+  <string name="like">Уподобати</string>
+  <string name="liked">Уподобано</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
@@ -1031,6 +1032,7 @@
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
   <string name="makeSureToRead">Варто прочитати %1$s</string>
   <string name="theForumEtiquette">етикет форуму</string>
+  <string name="pleaseBeNiceInTheForum">Будь ласка, будьте ввічливими на форумі.</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>

@@ -1,6 +1,6 @@
 package lila.tutor
 
-import lila.common.{ Chronometer, LilaScheduler, Uptime }
+import lila.common.{ LilaScheduler, Uptime }
 import lila.core.perf.UserWithPerfs
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -58,7 +58,7 @@ final class TutorApi(
   // we only wait for queue.start
   // NOT for builder
   private def buildThenRemoveFromQueue(config: TutorConfig) =
-    val chrono = Chronometer.start
+    val chrono = lila.mon.Chronometer.start
     logger.info(s"Start ${config.user}")
     for _ <- queue.start(config.user)
     yield builder(config).foreach: report =>

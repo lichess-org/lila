@@ -13,7 +13,6 @@
   <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">您喜欢这道谜题吗？</string>
-  <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="upVote">赞</string>
   <string name="downVote">踩</string>
   <string name="yourPuzzleRatingWillNotChange">您的谜题等级分不会改变。请注意，谜题并非竞赛。您的等级分有助于根据您当前水平筛选最佳题目。</string>

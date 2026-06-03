@@ -14,6 +14,7 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -41,7 +42,7 @@ final class SwissApi(
     expiration = 20.minutes,
     timeout = 10.seconds,
     name = "swiss.api",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   import BsonHandlers.{ *, given }
@@ -556,7 +557,7 @@ final class SwissApi(
           ongoingPairings = res.countOngoingPairings
           _ <- (ongoingPairings != res.swiss.nbOngoing).so:
             logger.warn:
-              s"Swiss(${id}).nbOngoing = ${res.swiss.nbOngoing}, but res.countOngoingPairings = ${ongoingPairings}"
+              s"${res.swiss} nbOngoing = ${res.swiss.nbOngoing}, but countOngoingPairings = ${ongoingPairings}"
             for
               _ <- mongo.swiss.updateField($id(id), "nbOngoing", ongoingPairings)
               _ <- (ongoingPairings == 0).so(onRoundFinish(res.swiss, none))
@@ -570,7 +571,7 @@ final class SwissApi(
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.sequentiallyVoid: id =>
+        _.parallelVoid: id =>
           Sequencing(id)(cache.swissCache.byId) { swiss =>
             if swiss.isFinished then
               logger.info(s"Swiss ${swiss.id} is finished but still has a pending round, cleaning up.")
@@ -607,7 +608,7 @@ final class SwissApi(
                 )
               yield cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
-      .monSuccess(_.swiss.tick)
+      .monSuccess(lila.mon.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
     mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent.$ne(true)))

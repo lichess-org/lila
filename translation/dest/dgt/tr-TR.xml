@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Eğer bir hamle algılanmadıysa</string>
   <string name="checkYouHaveMadeOpponentsMove">Önce rakibinizin hamlesini DGT tahtada yaptığınızdan emin olun. Hamlenizi geri alın. Tekrar oynayın.</string>
   <string name="asALastResort">Son çare olarak, tahtayı Lichess ile aynı şekilde kurun, ardından %s</string>
-  <string name="reloadThisPage">Sayfayı yeniden yükle</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Sayfayı yeniden yükle</string>
   <string name="dgtConfigure">DGT - Yapılandır</string>
   <string name="lichessConnectivity">Lichess bağlantısı</string>
   <string name="validDgtOauthToken">DGT oyunu için uygun bir OAuth belirteciniz var.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Anahtar kelimeler JSON formatındadır. Hamlelerinizi ve maçların sonucunu dilinize çevirmek için kullanılırlar. Varsayılan İngilizce\'dir ancak isteğinize göre değiştirebilirsiniz.</string>
   <string name="debug">Hata ayıklama</string>
   <string name="verboseLogging">Ayrıntılı hata kaydı</string>
-  <string name="toSeeConsoleMessage">Konsol mesajını görmek için Control+ Shift + C (Windows, Linux, Chrome OS) veya Command + Option + C (Mac) kısayolunu kullanın</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Konsol mesajını görmek için Control+ Shift + C (Windows, Linux, Chrome OS) veya Command + Option + C (Mac) kısayolunu kullanın</string>
   <string name="playWithDgtBoard">Bir DGT tahtasıyla oynayın</string>
   <string name="configure">Yapılandır</string>
 </resources>

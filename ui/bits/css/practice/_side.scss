@@ -1,98 +1,77 @@
 .practice-side {
-  @extend %box-radius;
+  @import '../learn/progress';
+  @extend %box-bordered, %flex-column;
 
-  background: $c-primary;
-  color: $c-over;
+  gap: 1em;
+  background: $c-bg-box;
   text-align: center;
-  padding: 1.2em;
   align-self: start;
-
-  h1 {
-    font-size: 3.3em;
-    margin: 0.2em;
-  }
-
-  h2 {
-    font-size: 1.3em;
-    margin-bottom: 1em;
-  }
+  padding: 1em 1.25em;
 
   @keyframes fat-glide {
     50% {
-      opacity: 1;
+      transform: translateY(-4px);
     }
   }
 
-  .fat {
+  &__decoration {
     display: block;
-    width: 16em;
-    height: 16em;
-    background: url('../images/practice/robot-golem.svg');
+    width: 160px;
+    aspect-ratio: 1;
     margin: auto;
-    opacity: 0.8;
-    animation: 1.2s fat-glide ease-in-out infinite;
-  }
+    opacity: 0.7;
 
-  .progress {
-    @extend %box-radius-force;
-
-    position: relative;
-    width: 100%;
-    height: 2em;
-    background: #ccc3; // better
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
-  }
-
-  @keyframes animated-background {
-    from {
-      background-position: 0 0;
-    }
-
-    to {
-      background-position: 0 1000%;
+    @include if-light {
+      filter: brightness(0.15);
     }
   }
 
-  @keyframes animated-bar {
-    from {
-      transform: translateX(-100px);
-    }
-
-    to {
-      transform: translateX(0);
-    }
+  &:hover .practice-side__decoration {
+    animation: 1.5s fat-glide ease-in-out infinite;
   }
 
-  .progress .bar {
-    @extend %box-radius-right;
+  &__header {
+    @extend %flex-column;
 
-    height: 100%;
-    background: #ccc3; // better
-    background-image: url('../images/grain.png');
-    transform: translateX(-100px);
-    animation:
-      animated-background 50s linear infinite,
-      animated-bar 1s forwards;
-  }
+    gap: 1em;
 
-  .progress .text {
-    @extend %abs-100;
+    .practice-side__title {
+      @extend %flex-column;
 
-    line-height: 2em;
-    z-index: 1;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 3.3em;
+    }
+
+    h2 {
+      font-size: 1.3em;
+    }
+
+    @media (width < $small) {
+      flex-flow: row nowrap;
+      gap: $block-gap;
+      text-align: left;
+
+      .practice-side__decoration {
+        width: min(100px, 30vw);
+        margin: 0;
+      }
+    }
   }
 
   form {
-    padding-top: 1em;
-    text-align: left;
-  }
+    text-align: center;
+    font-size: 0.9em;
 
-  a {
-    opacity: 0.6;
-    color: #fff;
-  }
+    button {
+      opacity: 0.6;
+      color: $c-font;
 
-  a:hover {
-    opacity: 1;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }

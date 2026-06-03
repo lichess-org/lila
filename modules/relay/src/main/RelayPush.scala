@@ -4,10 +4,10 @@ import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
 import com.github.blemale.scaffeine.LoadingCache
+import scalalib.net.UserAgent
 
 import lila.tree.{ ImportResult, ParseImport }
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
-import lila.core.net.UserAgent
 import lila.core.fide.Federation
 import lila.relay.RelayPush.*
 import lila.memo.CacheApi
@@ -26,7 +26,7 @@ final class RelayPush(
     expiration = 1.minute,
     timeout = 10.seconds,
     name = "relay.push",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, UserAgent): Fu[Results] =

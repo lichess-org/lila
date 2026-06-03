@@ -52,7 +52,7 @@
   <string name="knightMate">Det er muligt at sætte skakmat med blot en springer eller løber, hvis modstanderen har mere end en konge på brættet.</string>
   <string name="noRatingPoints">Ingen ratingpoint blev givet</string>
   <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
-  <string name="botRatingAbuse">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
   <string name="errorPage">Fejlside</string>
   <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
   <string name="learnHowToMakeBroadcasts">Lær hvordan du laver dine egne udsendelser på Lichess</string>

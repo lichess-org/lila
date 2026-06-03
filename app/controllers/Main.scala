@@ -6,6 +6,7 @@ import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
+import scalalib.model.Language
 
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
@@ -32,8 +33,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
   def lag = Open:
     Ok.page(views.site.ui.lag)
 
-  def mobile = Open(serveMobile)
-  def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
+  def app = Open(serveApp)
+  def appLang = LangPage(routes.Main.app)(serveApp)
+  def mobile = Anon(MovedPermanently(routes.Main.app.url))
+  def mobileLang(lang: Language) = Anon(MovedPermanently(routes.Main.appLang(lang).url))
 
   def redirectToAppStore = Anon:
     pageHit
@@ -42,12 +45,9 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
   def redirectToSwag = Anon:
     Redirect(StaticContent.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
 
-  private def serveMobile(using Context) =
+  private def serveApp(using Context) =
     pageHit
     FoundPage(env.cms.renderKey("mobile"))(views.mobile)
-
-  def dailyPuzzleSlackApp = Open:
-    Ok.page(views.site.ui.dailyPuzzleSlackApp)
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -132,14 +132,15 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
             case None => JsonBadRequest("Image content only")
             case Some(image) =>
               val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
-              for
+              (for
                 image <- env.memo.picfitApi.uploadFile(image, me, none, meta)
                 maxWidth = lila.ui.bits.imageDesignWidth(rel)
                 url = meta match
                   case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
                     maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
                   case _ => env.memo.picfitUrl.raw(image.id).some
-              yield JsonOk(Json.obj("imageUrl" -> url))
+              yield JsonOk(Json.obj("imageUrl" -> url))).recover:
+                case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
   def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>

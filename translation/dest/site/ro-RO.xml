@@ -96,6 +96,8 @@
   <string name="database">Bază de date</string>
   <string name="whiteDrawBlack">Alb / Remiză / Negru</string>
   <string name="averageRatingX">Medie evaluare: %s</string>
+  <string name="minRatingX">Rating minim %s</string>
+  <string name="maxRatingX">Rating maxim %s</string>
   <string name="recentGames">Jocuri recente</string>
   <string name="topGames">Cele mai bune jocuri</string>
   <string name="masterDbExplanation">Jocuri reale OTB ale jucătorilor cu evaluare FIDE %1$s+ între %2$s și %3$s</string>
@@ -128,7 +130,6 @@
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
-  <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="visualMotifs">Motive vizuale</string>
   <string name="undefendedPieces">Piese neapărate</string>
   <string name="pinnedPieces">Piese țintuite</string>
@@ -283,9 +284,7 @@
   <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
-  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu funcționează, trimiteți-ne acest email:</string>
-  <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
-  <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
+  <string name="sendEmailForAccountVerification">Dacă nu găsești e-mailul de confirmare, trimite un e-mail la %s și îți vom confirma contul.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
   <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nu aveți nevoie de un email de confirmare.</string>
@@ -849,6 +848,8 @@
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="like">Apreciază</string>
+  <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonim</string>
@@ -987,6 +988,7 @@
   <string name="tryTheContactPage">încercați pagina de contact</string>
   <string name="makeSureToRead">Asigură-te că ai citit %1$s</string>
   <string name="theForumEtiquette">normele de comportare în forum</string>
+  <string name="pleaseBeNiceInTheForum">Te rugăm să fii cu bun simț pe forum.</string>
   <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>

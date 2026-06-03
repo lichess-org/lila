@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Toto je Váš používateľský profil.</string>
   <string name="enabledKidModeSuggestion">Bude tento profil používať aj dieťa? Možno sa Vám bude hodiť zapnúť %s.</string>
   <string name="whatNowSuggestions">Čo ďalej? Skúste niečo z tohto:</string>
-  <string name="learnChessRules">Naučte sa pravidlá šachu</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Naučte sa pravidlá šachu</string>
   <string name="improveWithChessTacticsPuzzles">Zlepšite sa pomocou šachových puzzles.</string>
   <string name="playTheArtificialIntelligence">Zahrajte si proti AI.</string>
   <string name="playOpponentsFromAroundTheWorld">Hrajte so súpermi z celého sveta.</string>

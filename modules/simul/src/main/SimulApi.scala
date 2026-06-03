@@ -37,7 +37,7 @@ final class SimulApi(
     expiration = 10.minutes,
     timeout = 10.seconds,
     name = "simulApi",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   export repo.{ find, byIds }

@@ -94,6 +94,7 @@
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng thắng / Hòa / Đen thắng</string>
   <string name="averageRatingX">Hệ số bình quân: %s</string>
+  <string name="minRatingX">Hệ số tối thiểu của %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số FIDE %1$s+ từ năm %2$s đến %3$s</string>
@@ -124,7 +125,6 @@
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="showVariationArrows">Hiển thị mũi tên biến</string>
-  <string name="evaluationGauge">Thang đo lợi thế</string>
   <string name="visualMotifs">Họa tiết thị giác</string>
   <string name="undefendedPieces">Các quân cờ không được bảo vệ</string>
   <string name="pinnedPieces">Quân cờ bị ghim</string>
@@ -253,9 +253,7 @@
   <string name="emailCanTakeSomeTime">Có thể sẽ mất một lúc để nhận được.</string>
   <string name="refreshInboxAfterFiveMinutes">Đợi 5 phút sau đó làm mới hộp thư đến trong email.</string>
   <string name="checkSpamFolder">Ngoài ra hãy kiểm tra hộp thư rác, nó có thể ở trong đó. Nếu có, hãy đánh dấu nó không phải là rác.</string>
-  <string name="emailForSignupHelp">Nếu vẫn không nhận được, hãy gửi cho chúng tôi email này:</string>
-  <string name="copyTextToEmail">Sao chép và dán đoạn văn bản phía trên và gửi nó tới %s</string>
-  <string name="waitForSignupHelp">Chúng tôi sẽ sớm liên lạc lại với bạn để giúp bạn hoàn tất việc đăng ký.</string>
+  <string name="sendEmailForAccountVerification">Nếu bạn không tìm thấy email xác minh, hãy gửi email đến %s và chúng tôi sẽ xác minh tài khoản cho bạn.</string>
   <string name="accountConfirmed">Đã xác nhận người dùng %s thành công.</string>
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
@@ -768,6 +766,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>
+  <string name="like">Thích</string>
+  <string name="liked">Đã Thích</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
@@ -900,6 +900,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
   <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
   <string name="theForumEtiquette">quy tắc diễn đàn</string>
+  <string name="pleaseBeNiceInTheForum">Hãy cư xử thân thiện trong diễn đàn.</string>
   <string name="thisTopicIsArchived">Chủ đề này đã được lưu trữ và không thể trả lời được nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>

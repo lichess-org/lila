@@ -13,7 +13,7 @@
 	<string name="timeReasonable">Parece una cantidad razonable de ajedrez.</string>
 	<string name="timeHowManyMoves">¿Cuántos movimientos has realizado en todo ese tiempo?</string>
 	<plurals name="nbMovesPlayed">
-		<item quantity="one">%s movimiento/s realizado/s</item>
+		<item quantity="one">%s movimiento realizado</item>
 		<item quantity="other">%s movimientos realizados</item>
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">¡Has movido %s de madera!</string>
@@ -41,7 +41,7 @@
 		<item quantity="other"> Tu apertura más jugada con negras con %s partidas</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
-		<item quantity="one">Gracias por votar en %s ejercicios.</item>
+		<item quantity="one">Gracias por votar en %s ejercicio.</item>
 		<item quantity="other">Gracias por votar en %s ejercicios.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">También ayudaste a etiquetar %s de ellos.</string>

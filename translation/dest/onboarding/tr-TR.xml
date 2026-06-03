@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Profil sayfanız.</string>
   <string name="enabledKidModeSuggestion">Bu hesabı bir çocuk mu kullanacak? %s\'i aktifleştirmek isteyebilirsiniz.</string>
   <string name="whatNowSuggestions">Sırada ne var? Birkaç öneriyi burada bulabilirsiniz:</string>
-  <string name="learnChessRules">Satranç kurallarını öğren</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Satranç kurallarını öğren</string>
   <string name="improveWithChessTacticsPuzzles">Satranç taktikleri bulmacası ile gelişin.</string>
   <string name="playTheArtificialIntelligence">Yapay Zeka ile oyna.</string>
   <string name="playOpponentsFromAroundTheWorld">Dünyanın dört bir yanından rakiplerle oyna.</string>

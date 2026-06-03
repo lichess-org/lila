@@ -91,7 +91,7 @@ men du kan forsvare!</string>
   <string name="youCanGetOutOfCheckByTaking">Du kan komme unna sjakken ved å slå ut den angripende brikken.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Denne springeren sjakker rett gjennom forsvarsverket ditt!</string>
   <string name="escapeOrBlock">Få kongen vekk eller blokker angrepet!</string>
-  <string name="outOfCheckComplete">Gratulerer! Kongen din kan ikke tas, pass på at du kan forsvare deg mot å bli satt sjakk!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulerer! Kongen din kan ikke tas, pass på at du kan forsvare deg mot å bli satt sjakk!</string>
   <string name="mateInOne">Matt i ett trekk</string>
   <string name="defeatTheOpponentsKing">Beseire motspillerens konge</string>
   <string name="mateInOneIntro">Du vinner når motspilleren ikke kan forsvare seg mot sjakk.</string>

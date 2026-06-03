@@ -95,6 +95,8 @@
   <string name="database">Datu-basea</string>
   <string name="whiteDrawBlack">Zuriak / Berdinketa / Beltzak</string>
   <string name="averageRatingX">Bataz besteko puntuazioa: %s</string>
+  <string name="minRatingX">Gutxieneko puntuazioa: %s</string>
+  <string name="maxRatingX">Gehienezko puntuazioa: %s</string>
   <string name="recentGames">Azken partidak</string>
   <string name="topGames">Partidarik onenak</string>
   <string name="masterDbExplanation">Mahaigaineko %2$s eta %3$s arteko 2 milioi partida %1$setik gorako FIDE sailkapena duten jokalarienak</string>
@@ -126,7 +128,6 @@
   <string name="enable">Aktibatu</string>
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
   <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
-  <string name="evaluationGauge">Ebaluazio langa</string>
   <string name="visualMotifs">Ikurrak</string>
   <string name="undefendedPieces">Defentsarik ez duten piezak</string>
   <string name="pinnedPieces">Iltzatutako piezak</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Itxaron pixkatean emaila jaso arte.</string>
   <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure emailaren sarrera-ontzia.</string>
   <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta emailak. Horrela bada, esan zaborra ez dela.</string>
-  <string name="emailForSignupHelp">Beste guztiak huts egin badu, bidali guri email hau:</string>
-  <string name="copyTextToEmail">Kopiatu eta itsatsi goiko mezua eta bidali %s helbidera</string>
-  <string name="waitForSignupHelp">Laster jarriko gara zurekin harremanetan zure izen-ematea osatzeko.</string>
+  <string name="sendEmailForAccountVerification">Zure baieztapen emaila ezin baduzu aurkitu, idatzi %s helbidera eta kontua baieztatu egingo dugu.</string>
   <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
   <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
   <string name="accountConfirmationEmailNotNeeded">Ez duzu baieztapen emaila behar.</string>
@@ -526,13 +525,14 @@
   <string name="popularOpenings">Hasiera ohikoenak</string>
   <string name="endgamePositions">Finalen posizioak</string>
   <string name="chess960StartPosition">960Xakearen hasiera posizioa: %s</string>
+  <string name="randomChess960Position">960 xakeko ausazko posizioa</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="loadPosition">Posizioa kargatu</string>
   <string name="isPrivate">Pribatua</string>
   <string name="reportXToModerators">%sren berri eman moderatzaileei</string>
   <string name="profileCompletion">Profilaren osaera: %s</string>
-  <string name="xRating">%s sailkapena</string>
+  <string name="xRating">%s puntuazioa</string>
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s erabiltzaileak %2$s antolatu du</string>
   <string name="xJoinsY">%1$s %2$sra sartu da</string>
   <string name="xLikesY">%1$sk %2$s gogoko du</string>
+  <string name="like">Datsegit</string>
+  <string name="liked">Atsegin duzu</string>
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
@@ -942,6 +944,7 @@
   <string name="tryTheContactPage">erabili kontakturako orrialdea</string>
   <string name="makeSureToRead">Ziurtatu %1$s irakurri duzula</string>
   <string name="theForumEtiquette">foroko etiketa</string>
+  <string name="pleaseBeNiceInTheForum">Mesedez izan atsegina foroan.</string>
   <string name="thisTopicIsArchived">Mezu hau artxibatu egin da eta jada ezin da erantzunik utzi bertan.</string>
   <string name="joinTheTeamXToPost">Egin bat %1$s taldearekin foro honetan idazteko</string>
   <string name="teamNamedX">%1$s taldea</string>
@@ -972,8 +975,8 @@
   <string name="onlyMembersOfTeam">Talde bateko kideak bakarrik</string>
   <string name="noRestriction">Murrizketarik ez</string>
   <string name="minimumRatedGames">Gutxieneko partida kopurua</string>
-  <string name="minimumRating">Gutxieneko sailkapena</string>
-  <string name="maximumWeeklyRating">Asteroko gehieneko sailkapena</string>
+  <string name="minimumRating">Puntuazio minimoa</string>
+  <string name="maximumWeeklyRating">Asteroko gehieneko puntuazioa</string>
   <string name="positionInputHelp">Partida guztiak posizio jakin batekin asteko sartu posizioaren FEN balioa.
 Xake-arrunteko partidekin bakarrik balio du, ez aldaerekin.
 %s erabili dezakezu FEN balioa lortzeko, eta ondoren hemen itsatsi.

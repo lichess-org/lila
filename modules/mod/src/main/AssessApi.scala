@@ -150,11 +150,10 @@ final class AssessApi(
             .getTitle(userId)
             .flatMap:
               case None =>
-                modApi
-                  .autoMark(
-                    SuspectId(userId),
-                    playerAggregateAssessment.reportText(3)
-                  )(using UserId.lichessAsMe)
+                modApi.autoMark(
+                  SuspectId(userId),
+                  playerAggregateAssessment.reportText(3)
+                )(using UserId.lichessAsMe)
               case Some(_) =>
                 reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Report(_) =>

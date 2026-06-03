@@ -29,7 +29,7 @@ export class PushCtrl {
     }
 
     try {
-      await Promise.all(localBlobs.map(b => b && this.postFile(b, progress)));
+      localBlobs.map(b => b && this.postFile(b, progress));
       const res = await fetch('/bots/dev/bot', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },

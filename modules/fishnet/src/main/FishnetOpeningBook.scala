@@ -9,6 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
+import lila.mon.extensions.*
 import lila.memo.SettingStore
 
 final private class FishnetOpeningBook(
@@ -51,7 +52,7 @@ final private class FishnetOpeningBook(
           none
         }
         .monTry: res =>
-          _.fishnet.openingBook(
+          lila.mon.fishnet.openingBook(
             variant = game.variant,
             hit = res.toOption.exists(_.isDefined)
           )

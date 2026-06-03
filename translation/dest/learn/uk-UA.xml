@@ -92,7 +92,7 @@
 минаючи Ваш захист!</string>
   <string name="escapeOrBlock">Виведіть короля
 або закрийтеся!</string>
-  <string name="outOfCheckComplete">Вітаємо! Ваш король не може бути взятим, переконайтеся, що ви можете захистити його від шаха!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Вітаємо! Ваш король не може бути взятим, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
   <string name="defeatTheOpponentsKing">Поразка короля суперника</string>
   <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>

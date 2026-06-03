@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Ово је твоја профилна страница.</string>
   <string name="enabledKidModeSuggestion">Да ли ће овај налог користити дете? Можда ћете желети да омогућите %s.</string>
   <string name="whatNowSuggestions">Шта даље? Ево неколико сугестија:</string>
-  <string name="learnChessRules">Научи правила шаха</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Научи правила шаха</string>
   <string name="improveWithChessTacticsPuzzles">Учи кроз шаховске тактичке проблеме.</string>
   <string name="playTheArtificialIntelligence">Играј против вештачке интелигенције.</string>
   <string name="playOpponentsFromAroundTheWorld">Играј против противника широм света.</string>

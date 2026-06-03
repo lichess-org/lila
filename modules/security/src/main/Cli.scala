@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.core.net.Domain
+import scalalib.net.Domain
+
 import lila.user.{ User, UserRepo }
 import lila.core.user.RoleDbKey
 

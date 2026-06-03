@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="standard">الأساسي</string>
   <string name="standardTitle">قواعد الشطرنج القياسية (FIDE)</string>
   <string name="chess960">شطرنج960</string>
+  <string name="chess960Title">مكان بداية قطع الرتبة الأولى عشوائياً.</string>
+  <string name="kingOfTheHill">ملك التل</string>
+  <string name="kingOfTheHillTitle">أحضر الملك إلى المركز للفوز باللعبة.</string>
+  <string name="threeCheck">كش ملك ثلاث مرات</string>
+  <string name="threeCheckTitle">كش ملك خصمك ثلاث مرات للفوز.</string>
+  <string name="antichess">الشطرنج العكسية</string>
+  <string name="antichessTitle">افقد جميع القطع الخاصة بك (أو الحصول على تعادل) للفوز باللعبة.</string>
+  <string name="atomic">ذري</string>
   <string name="atomicTitle">فجّر ملك خصمك لتنتصر.</string>
+  <string name="horde">حشد</string>
+  <string name="hordeTitle">لدى أحد الجانبين عدد كبير من الجنود، ولدى الطرف الآخر جيش عادي.</string>
+  <string name="racingKings">سباق الملوك</string>
+  <string name="racingKingsTitle">أوصل ملكك إلى الجانب الآخر من اللوحة للفوز.</string>
+  <string name="crazyhouse">البيت المجنون</string>
+  <string name="crazyhouseTitle">يمكنك إلقاء القطع المصطادة مرة أخرى على اللوحة بدلا من تحريك قطعة.</string>
+  <string name="fromPosition">من وضع</string>
+  <string name="fromPositionTitle">الشطرنج الطبيعي من موضع مخصص</string>
 </resources>

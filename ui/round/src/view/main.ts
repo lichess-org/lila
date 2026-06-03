@@ -1,4 +1,4 @@
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 import { renderVoiceBar } from 'voice';
 
 import { displayColumns, isTouchDevice } from 'lib/device';

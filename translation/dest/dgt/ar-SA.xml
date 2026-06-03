@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">إذا لم تكتشف الرقعة النقلة</string>
   <string name="checkYouHaveMadeOpponentsMove">تأكد أن خصمك لعب نقلته على رقعة DGT أولاً، ثم أعد لعب نقلتك، إذا لم تحل المشكلة، اعد المباراة من البداية.</string>
   <string name="asALastResort">كملاذ أخير، اعد اللوحة بشكل متطابق مع Lichess، ثم %s</string>
-  <string name="reloadThisPage">أعد تحويل هذه الصفحة</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">أعد تحويل هذه الصفحة</string>
   <string name="dgtConfigure">تهيئة رقعة DGT</string>
   <string name="lichessConnectivity">الربط بليتشيس</string>
   <string name="validDgtOauthToken">يجب أن يكون لديك رمز OAuth مناسب لتشغيل رقعة DGT.</string>
@@ -42,7 +42,7 @@ UCI شائع في المحركات مثل \"g8f6\".</string>
   <string name="keywordFormatDescription">الكلمات المفتاحية بتنسيق JSON. تستخدم لترجمة التحركات والنتائج إلى لغتك، اللغة الافتراضية هي الإنجليزية، ولكن لا تتردد في تغييرها.</string>
   <string name="debug">تصحيح الأخطاء</string>
   <string name="verboseLogging">التسجيل المطول</string>
-  <string name="toSeeConsoleMessage">لرؤية رسالة وحدة التحكم اضغط Command + Option + C (ماك) أو Control + Shift + C (ويندوز، لينكس ،كروم OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">لرؤية رسالة وحدة التحكم اضغط Command + Option + C (ماك) أو Control + Shift + C (ويندوز، لينكس ،كروم OS)</string>
   <string name="playWithDgtBoard">اللعب على رقعة DGT</string>
   <string name="configure">تهيئة</string>
 </resources>

@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">%s, lichess.org аккаунтуңузду тастыктаңыз</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess\'теги аккаунтту активдештирүү үчүн төмөнкү шилтемени басыңыз:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Эгер сиз Lichess\'те каттоодон өткөн эмес болсоңуз, анда бул катка көңүл бурбай эле койсоңуз болот. Тастыкталбаган аккаунт жана сиздин электрондук почтаңыздын дареги тууралуу бардык маалымат биздин системадан 48 сааттан кийин өчүрүлөт.</string>
+  <string name="emailConfirm_justIgnore">Эгер сиз Lichess\'те каттоодон өткөн эмес болсоңуз, анда бул катка көңүл бурбай эле койсоңуз болот. Тастыкталбаган аккаунт жана сиздин электрондук почтаңыздын дареги тууралуу бардык маалымат биздин системадан 48 сааттан кийин өчүрүлөт.</string>
   <string name="passwordReset_subject">Lichess.org\'до %s үчүн сырсөздү кайра орнотуу</string>
   <string name="passwordReset_intro">Биз сиздин аккаунт үчүн сырсөздү кайра орнотууга сурам алдык.</string>
   <string name="passwordReset_clickOrIgnore">Эгер ал сурамды сиз жасаган болсоңуз, төмөндөгү шилтемени басыңыз. Болбосо, жөн гана бул катка көңүл бурбай коюңуз.</string>

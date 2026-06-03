@@ -52,7 +52,7 @@ final class UserShowSide(helpers: Helpers):
                     )
                   ,
                   " ",
-                  ratingProgress(perf.progress),
+                  perf.glicko.clueless.not.so(ratingProgress(perf.progress)),
                   " "
                 )
               ),
