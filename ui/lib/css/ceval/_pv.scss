@@ -52,10 +52,13 @@
   }
 
   .pv-board {
-    position: relative;
-    width: min(80%, 240px, 40vh);
-    margin-inline-start: 34px;
-    margin-block: 4px;
+    @include inline-start(34px);
+
+    position: absolute;
+    inset-block-start: 100%;
+    width: min(80%, 240px, 40vmin);
+    margin-block-start: 4px;
+    z-index: 2;
 
     .pv-board-square {
       @extend %square;
