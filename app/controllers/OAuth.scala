@@ -7,7 +7,7 @@ import scalalib.net.Bearer
 import scalatags.Text.all.stringFrag
 import cats.mtl.Handle.*
 
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
@@ -127,5 +127,4 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       .map(apiC.toHttp)
 
   def mobileOAuthCallback = Open:
-    val callbackUrl = "org.lichess.mobile://login-callback" + req.rawQueryString.nonEmptyOption.so("?" + _)
-    Ok.page(lila.web.ui.mobileRedirect(callbackUrl))
+    Ok.page(lila.web.ui.mobileRedirect)
