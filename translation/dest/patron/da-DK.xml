@@ -40,6 +40,8 @@ Dernæst betaler vi en fuldtidsudvikler: %s, grundlæggeren af Lichess.</string>
   <string name="officialNonProfit">Er Lichess officielt en nonprofit?</string>
   <string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg ændre/annullere mit månedlige bidrag?</string>
+  <string name="changeSupport">Hvis dine betalinger håndteres af PayPal, kan du opsige eller ændre dit bidrag via din egen PayPal-konto, eller du kan %1$s, så ordner vi det for dig. Hvis du ikke har brugt PayPal, håndteres dine betalinger af Stripe, og du kan opsige dit bidrag eller ændre beløbet på %2$s.</string>
+  <string name="patronPage">protektor-siden</string>
   <string name="contactSupport">kontakte Lichess-support</string>
   <string name="otherMethods">Andre måder at bidrage?</string>
   <string name="lichessIsRegisteredWith">Lichess er registreret hos %s.</string>
