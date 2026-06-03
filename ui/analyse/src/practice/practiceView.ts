@@ -91,7 +91,7 @@ export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VN
     );
     return hl('div.practice-mode', [hl('p', 'Mastery'), hl('p.secondary', time)]);
   }
-  return hl('div.practice-mode', [hl('p', 'Casual'), hl('p.secondary', 'depth 18')]);
+  return hl('div.practice-mode', [hl('p', 'Casual'), hl('p.secondary', '600 kNodes')]);
 }
 
 export const renderCustomStatus = ({ ceval }: AnalyseCtrl, hardMode: Prop<boolean>): VNode | undefined =>

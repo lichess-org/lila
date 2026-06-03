@@ -937,7 +937,7 @@ export default class AnalyseCtrl implements CevalHandler {
     } else {
       this.closeTools();
       this.threatMode(false);
-      this.practice = makePractice(this, this.study?.practice?.playableDepth);
+      this.practice = makePractice(this);
       this.setCevalPracticeOpts();
       this.setAutoShapes();
       this.startCeval();
