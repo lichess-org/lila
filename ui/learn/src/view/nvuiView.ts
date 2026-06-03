@@ -2,17 +2,19 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, type SquareName } from 'chessops';
+
 import { throttle } from 'lib/async';
-import { type VNode, bind, onInsert, hl } from 'lib/view';
 import * as nv from 'lib/nvui/chess';
-import { renderSetting } from 'lib/nvui/setting';
 import { commands, addBreaks } from 'lib/nvui/command';
-import type { LearnNvuiContext } from '../learn.nvui';
+import { renderSetting } from 'lib/nvui/setting';
+import { type VNode, bind, onInsert, hl } from 'lib/view';
+
 import type { LearnCtrl } from '../ctrl';
-import type { RunCtrl } from '../run/runCtrl';
-import type { LevelCtrl } from '../levelCtrl';
-import { categs } from '../stage/list';
 import { hashHref, hashNavigate } from '../hashRouting';
+import type { LearnNvuiContext } from '../learn.nvui';
+import type { LevelCtrl } from '../levelCtrl';
+import type { RunCtrl } from '../run/runCtrl';
+import { categs } from '../stage/list';
 import type { PromotionRole } from '../util';
 
 const promotionByChar: Record<string, PromotionRole> = {
@@ -30,9 +32,7 @@ const errorSound = throttled('error');
 export function renderNvui(ctx: LearnNvuiContext): VNode {
   const { ctrl } = ctx;
   ctx.notify.redraw = ctrl.redraw;
-  return hl('main.learn.learn--nvui', [
-    hl('div.nvui', ctrl.inStage() ? renderStage(ctx) : renderMap(ctrl)),
-  ]);
+  return hl('main.learn.learn--nvui', [hl('div.nvui', ctrl.inStage() ? renderStage(ctx) : renderMap(ctrl))]);
 }
 
 function renderMap(ctrl: LearnCtrl): VNode[] {
@@ -89,11 +89,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     nv.renderPieces(ground.state.pieces, moveStyle.get(), levelCtrl.blueprint.color),
     ...renderStars(levelCtrl, moveStyle.get()),
     hl('h2', i18n.nvui.gameStatus),
-    hl(
-      'div.status',
-      { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-      renderStatus(levelCtrl),
-    ),
+    hl('div.status', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, renderStatus(levelCtrl)),
     hl('h2', i18n.nvui.lastMove),
     hl(
       'p.lastMove',
@@ -123,9 +119,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     hl('h2', i18n.nvui.actions),
     hl('div.actions', [
       button(i18n.learn.retry, runCtrl.restart),
-      runCtrl.getNext()
-        ? button(i18n.learn.next, () => hashNavigate(runCtrl.getNext()!.id))
-        : null,
+      runCtrl.getNext() ? button(i18n.learn.next, () => hashNavigate(runCtrl.getNext().id)) : null,
       button(i18n.learn.backToMenu, () => hashNavigate()),
     ]),
     hl('h2', 'Board'),
@@ -197,9 +191,9 @@ function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
   const shapes = levelCtrl.blueprint.shapes as DrawShape[] | undefined;
   if (!shapes?.length) return [];
   const descriptions = shapes.map(shape => {
-    const orig = nv.renderKey(shape.orig as Key, style);
+    const orig = nv.renderKey(shape.orig, style);
     if (!shape.dest) return orig;
-    const dest = nv.renderKey(shape.dest as Key, style);
+    const dest = nv.renderKey(shape.dest, style);
     if (shape.brush === 'red') return `Threat: ${orig} to ${dest}`;
     if (shape.brush === 'blue') return `Cover: ${orig} to ${dest}`;
     return `${orig} to ${dest}`;
@@ -210,9 +204,7 @@ function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
 function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
   if (!levelCtrl.isAppleLevel()) return [];
   const keys = levelCtrl.items.appleKeys();
-  const text = keys.length
-    ? keys.map(k => nv.renderKey(k as Key, style)).join(', ')
-    : i18n.site.none;
+  const text = keys.length ? keys.map(k => nv.renderKey(k as Key, style)).join(', ') : i18n.site.none;
   return [
     hl('h2', 'Stars'),
     hl(
@@ -232,7 +224,7 @@ function renderStatus(levelCtrl: LevelCtrl): string {
 function describeLastMove(ground: Api, style: nv.MoveStyle): string {
   const last = ground.state.lastMove;
   if (!last || last.length < 2) return i18n.nvui.gameStart;
-  return `${nv.renderKey(last[0] as Key, style)} ${nv.renderKey(last[1] as Key, style)}`;
+  return `${nv.renderKey(last[0], style)} ${nv.renderKey(last[1], style)}`;
 }
 
 function onSubmit(
@@ -285,8 +277,7 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
     const rank = btn.getAttribute('rank');
     if (file && rank) {
       const lc = ctx.ctrl.runCtrl.levelCtrl;
-      const isStar =
-        lc.isAppleLevel() && lc.items.appleKeys().includes(`${file}${rank}` as SquareName);
+      const isStar = lc.isAppleLevel() && lc.items.appleKeys().includes(`${file}${rank}` as SquareName);
       $('.boardstatus').text(isStar ? 'star' : '');
     }
   });

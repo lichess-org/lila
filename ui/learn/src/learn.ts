@@ -59,8 +59,7 @@ export async function initModule({ data, pref }: LearnServerOpts) {
   };
   const ctrl = new LearnCtrl(opts, redraw);
 
-  const nvui =
-    site.blindMode && (await site.asset.loadEsm<NvuiPlugin>('learn.nvui', { init: ctrl }));
+  const nvui = site.blindMode && (await site.asset.loadEsm<NvuiPlugin>('learn.nvui', { init: ctrl }));
   const render = nvui ? () => nvui.render() : () => view(ctrl);
 
   const element = document.getElementById('learn-app')!;

@@ -1,4 +1,5 @@
 import { type NvuiContext, makeContext } from 'lib/nvui/chess';
+
 import type { LearnCtrl } from './ctrl';
 import { renderNvui } from './view/nvuiView';
 
