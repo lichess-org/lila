@@ -295,8 +295,10 @@ export default class AnalyseCtrl implements CevalHandler {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     const loc = window.location,
-      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
-      startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
+    let startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+    // startPly is relative to the mainline, so convert to absolute ply if needed
+    if (defined(startPly) && this.opts.study && startPly < this.tree.root.ply) startPly += this.tree.root.ply;
     if (defined(startPly)) {
       // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       window.history.replaceState(null, '', loc.pathname + loc.search);
