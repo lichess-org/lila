@@ -33,6 +33,11 @@ async function autostart() {
     };
     try {
       const lpv = Lpv(this, config);
+      if (typeof initialPly === 'number') {
+        const rootPly = (lpv.game.mainline[0]?.ply ?? 1) - 1;
+        const relativePly = Math.max(0, initialPly - rootPly);
+        if (relativePly !== initialPly) lpv.toPath(lpv.game.pathAtMainlinePly(relativePly), false);
+      }
       if (gamebook) toGamebook(lpv);
     } catch (e) {
       const url = this.dataset['url'];
