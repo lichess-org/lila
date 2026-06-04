@@ -4,8 +4,12 @@ package ui
 import lila.core.LightUser
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.misc.AuthCustomUi
 
-final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
+final class AuthorizeUi(helpers: Helpers)(
+    lightUserFallback: UserId => LightUser,
+    customLogo: AuthCustomUi => Frag
+):
   import helpers.{ *, given }
 
   def apply(prompt: AuthorizationRequest.Prompt, signedClient: Option[OAuthSignedClient])(using
@@ -13,19 +17,9 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       me: Me
   ) =
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
-    val lichessLogo = iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     val cssClass = signedClient.flatMap(_.design).map(_.cssClass)
-    val customLogo = for
-      client <- signedClient
-      design <- client.design
-    yield div(cls := "oauth__connection")(
-      img(src := assetUrl(design.imagePath), alt := client.displayName, cls := "oauth__connection__service"),
-      div(cls := "oauth__connection__between"):
-        iconTag(Icon.Checkmark)(cls := "oauth__connection__check")
-      ,
-      lichessLogo
-    )
-    val logo = customLogo | lichessLogo
+    val logo = signedClient.flatMap(_.design).map(customLogo) |
+      iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     Page(signedClient.fold("Authorization")(c => s"Allow ${c.displayName}"))
       .css("bits.oauth")
       .js(Esm("bits.oauth"))

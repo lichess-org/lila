@@ -5,6 +5,7 @@ import play.api.data.Form
 
 import lila.core.net.ValidReferrer
 import lila.core.security.TurnstilePublicConfig
+import lila.core.misc.AuthCustomUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -14,16 +15,32 @@ final class AuthUi(helpers: Helpers):
   private def addReferrer(url: String)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
 
-  private def logoAndName =
-    div(cls := "auth__brand")(
-      span(cls := "auth__brand__logo", aria.hidden := "true"),
-      span(cls := "auth__brand__name")("lichess.org")
+  private def logoOrConnection(using custom: Option[AuthCustomUi]) = custom match
+    case None =>
+      div(cls := "auth__brand")(
+        span(cls := "auth__brand__logo", aria.hidden := "true"),
+        span(cls := "auth__brand__name")("lichess.org")
+      )
+    case Some(c) =>
+      frag(customLogo(c), h2(cls := "oauth__connection__to-lichess")("Connect to lichess.org"))
+
+  def customLogo(c: AuthCustomUi) =
+    div(cls := "oauth__connection")(
+      img(
+        src := assetUrl(c.imagePath),
+        alt := c.name,
+        cls := "oauth__connection__service"
+      ),
+      div(cls := "oauth__connection__between"):
+        iconTag(Icon.Checkmark)(cls := "oauth__connection__check")
+      ,
+      iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     )
 
   def login(form: Form[?], isRememberMe: Boolean = true)(using
       TurnstilePublicConfig,
       Option[ValidReferrer]
-  )(using ctx: Context) =
+  )(using ctx: Context, custom: Option[AuthCustomUi]) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.auth", "login"))
@@ -31,7 +48,7 @@ final class AuthUi(helpers: Helpers):
       .csp(_.withTurnstile)
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
-          logoAndName,
+          logoOrConnection,
           authTabs("login"),
           postForm(
             cls := "form3",
@@ -93,7 +110,8 @@ final class AuthUi(helpers: Helpers):
         )
 
   def signup(form: Form[?], simple: Boolean)(using
-      ctx: Context
+      ctx: Context,
+      custom: Option[AuthCustomUi]
   )(using TurnstilePublicConfig, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.auth", "signup"))
@@ -107,7 +125,7 @@ final class AuthUi(helpers: Helpers):
             "auth-signup--simple" -> simple
           )
         )(
-          logoAndName,
+          logoOrConnection,
           authTabs("signup"),
           postForm(
             id := "signup-form",
