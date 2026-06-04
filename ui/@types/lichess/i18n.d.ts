@@ -58,6 +58,28 @@ interface I18n {
     /** Supported lichess.org for %1$s months as a %2$s */
     supportedNbMonths: I18nPlural;
   };
+  app: {
+    /** all releases */
+    allReleases: string;
+    /** Download on the Apple App Store */
+    downloadOnAppleAppStore: string;
+    /** Download on F-Droid */
+    downloadOnFdroid: string;
+    /** Download on Google Play */
+    downloadOnGooglePlay: string;
+    /** If the app does not open automatically, tap the "%s" button. */
+    ifAppDoesNotOpenAutomatically: I18nFormat;
+    /** Lichess Mobile App */
+    lichessMobileApp: string;
+    /** Lichess mobile screen */
+    lichessMobileScreen: string;
+    /** Open the Lichess app */
+    openTheApp: string;
+    /** Returning to the Lichess app */
+    returningToApp: string;
+    /** View %s on GitHub */
+    viewAllReleases: I18nFormat;
+  };
   appeal: {
     /** Your account is muted. */
     accountMuted: string;

@@ -46,6 +46,18 @@ object I18nKey:
     val `competedInNbSwissTournaments`: I18nKey = "activity:competedInNbSwissTournaments"
     val `joinedNbTeams`: I18nKey = "activity:joinedNbTeams"
 
+  object app:
+    val `lichessMobileApp`: I18nKey = "app:lichessMobileApp"
+    val `returningToApp`: I18nKey = "app:returningToApp"
+    val `ifAppDoesNotOpenAutomatically`: I18nKey = "app:ifAppDoesNotOpenAutomatically"
+    val `openTheApp`: I18nKey = "app:openTheApp"
+    val `viewAllReleases`: I18nKey = "app:viewAllReleases"
+    val `allReleases`: I18nKey = "app:allReleases"
+    val `downloadOnAppleAppStore`: I18nKey = "app:downloadOnAppleAppStore"
+    val `downloadOnGooglePlay`: I18nKey = "app:downloadOnGooglePlay"
+    val `downloadOnFdroid`: I18nKey = "app:downloadOnFdroid"
+    val `lichessMobileScreen`: I18nKey = "app:lichessMobileScreen"
+
   object appeal:
     val `cleanAllGood`: I18nKey = "appeal:cleanAllGood"
     val `engineMarked`: I18nKey = "appeal:engineMarked"
