@@ -38,7 +38,6 @@
   <string name="officialNonProfit">Lichess ເປັນອົງການບໍ່ຫວັງຜົນກຳໄລຢ່າງເປັນທາງການຫຼືບໍ່?</string>
   <string name="actOfCreation">ແມ່ນແລ້ວ, ນີ້ແມ່ນເອກະສານການກໍ່ຕັ້ງ (ເປັນພາສາຝຣັ່ງ)</string>
   <string name="changeMonthlySupport">ຂ້ອຍສາມາດປ່ຽນ/ຍົກເລີກການສະໜັບສະໜູນລາຍເດືອນໄດ້ຫຼືບໍ່?</string>
-  <string name="changeOrContact">ໄດ້, ທຸກເວລາ, ຈາກໜ້ານີ້. ຫຼື ທ່ານສາມາດ %s.</string>
   <string name="contactSupport">ຕິດຕໍ່ຝ່າຍຊ່ວຍເຫຼືອຂອງ Lichess</string>
   <string name="otherMethods">ວິທີການບໍລິຈາກອື່ນໆ?</string>
   <string name="lichessIsRegisteredWith">Lichess ໄດ້ລົງທະບຽນກັບ %s.</string>

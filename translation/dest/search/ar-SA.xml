@@ -22,7 +22,7 @@
   <string name="loser">الخاسر</string>
   <string name="from">من</string>
   <string name="to">الى</string>
-  <string name="humanOrComputer">سواءً كان الخصم بشرياً أو جهاز كمبيوتر</string>
+  <string name="humanOrComputer">سواءً كان الخَصْم بشرياً أو جهاز حاسوب</string>
   <string name="aiLevel">مستوى الذكاء الاصطناعي</string>
   <string name="source">المصدر</string>
   <string name="nbTurns">عدد الأدوار</string>

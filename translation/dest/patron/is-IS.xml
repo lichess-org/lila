@@ -40,8 +40,6 @@ Síðan borgum við forritara í fullu starfi: %s, stofnanda Lichess.</string>
   <string name="officialNonProfit">Er Lichess-stofnunin formlega óhagnaðardrifin?</string>
   <string name="actOfCreation">Já, hér er stofnskráin (á frönsku)</string>
   <string name="changeMonthlySupport">Get ég breytt/sagt upp mánaðarlegum stuðningi mínum?</string>
-  <string name="changeOrContact">Já, hvenær sem er, með þessari síðu.
-Eða þú getur %s.</string>
   <string name="contactSupport">haft samband við þjónustuver Lichess</string>
   <string name="otherMethods">Mætti styrkja með öðrum hætti?</string>
   <string name="lichessIsRegisteredWith">Lichess er skráð hjá %s.</string>

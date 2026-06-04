@@ -23,8 +23,6 @@
 তারপর আমরা একজন পূর্ণ-সময়ের ডেভেলপারকে অর্থ প্রদান করি: %s, Lichess এর প্রতিষ্ঠাতা.</string>
   <string name="costBreakdown">বিস্তারিত খরচ ভাঙ্গন গঠন দেখুন</string>
   <string name="changeMonthlySupport">আমি কি আমার মাসিক সহায়তা পরিবর্তন/বাতিল করতে পারি?</string>
-  <string name="changeOrContact">হ্যাঁ, যেকোনো সময়, এই পেজ থেকে।
-অথবা %s.</string>
   <string name="patronFeatures">কিছু বৈশিষ্ট্য কি অভিভাবকদের জন্য সংরক্ষিত?</string>
   <string name="featuresComparison">বিস্তারিত বৈশিষ্ট্য তুলনা দেখুন</string>
   <plurals name="patronForMonths">

@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید بازی نکرد</string>
   <string name="blackDidntMove">سیاه بازی نکرد</string>
+  <string name="whiteAborted">سفید بازی را لغوید</string>
+  <string name="blackAborted">سیاه بازی را لغوید</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
@@ -306,8 +308,8 @@
   <string name="playingRightNow">هم‌اکنون بازی می‌کنند</string>
   <string name="eventInProgress">اکنون بازی می‌کنند</string>
   <string name="finished">تمام شده</string>
-  <string name="abortGame">انصراف از بازی</string>
-  <string name="gameAborted">بازی لغو شد</string>
+  <string name="abortGame">لغویدنِ بازی</string>
+  <string name="gameAborted">بازی لغوید</string>
   <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
@@ -723,7 +725,7 @@
   <string name="lichessTournaments">مسابقات Lichess</string>
   <string name="tournamentFAQ">پرسش‌های پربسامد مسابقات راوان</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
-  <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
+  <string name="averageCentipawnLoss">میانگینِ تلفِ صدم‌پیاده</string>
   <string name="accuracy">دقت</string>
   <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
@@ -1013,7 +1015,7 @@
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
   <string name="hangOn">صبر کن!</string>
   <string name="gameInProgress">شما یک بازی جاری با %s دارید.</string>
-  <string name="abortTheGame">انصراف از بازی</string>
+  <string name="abortTheGame">لغویدنِ بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">تا وقتی که این بازی تمام نشده، نمی‌توانید بازی جدیدی را بیاغازید.</string>
   <string name="since">از وقتی که</string>

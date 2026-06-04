@@ -41,8 +41,6 @@ Mablagʻlar, shuningdek, Lichess asoschisi va asosiy dasturchisi %sning faoliyat
   <string name="actOfCreation">Lichess rasmiy notijorat tashkilotmi?
 Ha, mana bizning tashkil etilganligimiz haqidagi hujjat (fransuz tilida)</string>
   <string name="changeMonthlySupport">Har oylik yordamimni oʻzgartirishim yoki bekor qilishim mumkinmi?</string>
-  <string name="changeOrContact">Ha, istalgan vaqtda mana shu sahifaning oʻzidan buni amalga oshirishingiz mumkin.
-Yoki %s.</string>
   <string name="contactSupport">Lichess yordam xizmati bilan bogʻlanishingiz mumkin</string>
   <string name="otherMethods">Xayriya qilishning boshqa usullari bormi?</string>
   <string name="lichessIsRegisteredWith">Lichess %s platformasida roʻyxatdan oʻtgan.</string>
