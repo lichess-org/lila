@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">التوثيق ذو العاملين</string>
+  <string name="twoFactorAuth">التوثيق الثنائي</string>
   <string name="twoFactorHelp">التوثيق ذو العاملين يضيف طبقة أمان أخرى إلى حسابك.</string>
   <string name="twoFactorAppRecommend">احصل على تطبيق يحوي مزيّة التوثيق ذو العاملين. نوصي بالتطبيقات التالية:</string>
   <string name="scanTheCode">أمسح رمز ال QR باستخدام التطبيق.</string>

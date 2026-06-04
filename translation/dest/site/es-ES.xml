@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Las negras han dejado la partida</string>
   <string name="whiteDidntMove">Las blancas no han movido</string>
   <string name="blackDidntMove">Las negras no han movido</string>
+  <string name="whiteAborted">Las blancas han dejado la partida</string>
+  <string name="blackAborted">Las negras han dejado la partida</string>
   <string name="requestAComputerAnalysis">Solicitar un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis del ordenador disponible</string>

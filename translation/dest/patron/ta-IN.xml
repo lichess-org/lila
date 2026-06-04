@@ -40,8 +40,6 @@
   <string name="officialNonProfit">Lichess ஒரு அதிகாரப்பூர்வ இலாப நோக்கற்ற நிறுவனமா?</string>
   <string name="actOfCreation">ஆம், படைப்பின் செயல் இதோ (பிரெஞ்சு மொழியில்)</string>
   <string name="changeMonthlySupport">எனது மாதாந்திர ஆதரவை நான் மாற்றலாமா/ரத்து செய்யலாமா?</string>
-  <string name="changeOrContact">ஆம், எந்நேரத்திலும், இப்பக்கத்திலிருந்து.
-அல்லது நீங்கள் %s.</string>
   <string name="contactSupport">லிசெஸ் ஆதரவைத் தொடர்பு கொள்ளவும்</string>
   <string name="otherMethods">மற்ற நன்கொடை முறைகள்?</string>
   <string name="lichessIsRegisteredWith">Lichess %s உடன் பதிவு செய்யப்பட்டுள்ளது.</string>

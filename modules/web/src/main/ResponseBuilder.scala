@@ -54,9 +54,7 @@ trait ResponseBuilder(using Executor)
 
   def redirectWithQueryString(path: String)(using req: RequestHeader) =
     Redirect:
-      if req.target.uriString.contains("?")
-      then s"$path?${req.target.queryString}"
-      else path
+      path + req.rawQueryString.nonEmptyOption.so("?" + _)
 
   private val movedMap: Map[String, String] = Map(
     "yt" -> "https://youtube.com/@LichessDotOrg",
