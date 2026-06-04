@@ -40,6 +40,7 @@ Puis nous payons un développeur à plein-temps: %s, le créateur de Lichess.</s
   <string name="officialNonProfit">Lichess est-elle officiellement une ONG?</string>
   <string name="actOfCreation">Oui, voici l\'acte de création</string>
   <string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel?</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Si vos paiements sont traités par PayPal, vous pouvez annuler ou modifier votre soutien dans votre compte PayPal, ou vous pouvez %1$s et nous le ferons pour vous. Si vous n\'utilisez pas PayPal, vos paiements sont traités par Stripe. Pour annulez votre don ou le modifiez, allez sur %2$s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
   <string name="otherMethods">Y a-t-il d\'autres moyens pour donner?</string>
   <string name="lichessIsRegisteredWith">Lichess est enregistré auprès de %s.</string>
