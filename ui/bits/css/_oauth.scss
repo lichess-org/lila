@@ -17,7 +17,7 @@
   strong {
     @extend %break-word;
 
-    color: $c-brag;
+    color: $c-font-clear;
   }
 
   code {
@@ -26,22 +26,58 @@
 
   &__top {
     text-align: center;
-    margin-bottom: 4em;
+    margin-bottom: 1em;
   }
 
   &__logo--font {
     font-size: 9em;
     color: $c-brag;
   }
-  &__logo--image {
-    height: 140px;
+
+  &__connection {
+    @extend %flex-center-center;
+    gap: 0.5ch;
+    $service-logo-size: 70px;
+    &__service {
+      height: $service-logo-size;
+    }
+    &__between {
+      @extend %flex-center-center;
+      width: 100px;
+      position: relative;
+      &::before {
+        content: '';
+        border-bottom: 2px dashed $c-good;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+      }
+      icon {
+        @extend %flex-center-center;
+        flex: 0 0 2.5em;
+        height: 2.5em;
+        color: $c-over;
+        background: $c-good;
+        border-radius: 50px;
+      }
+    }
+    .oauth__logo--font {
+      font-size: $service-logo-size;
+      line-height: 1;
+      vertical-align: top;
+      color: $c-font-dim;
+    }
     margin-bottom: 3em;
   }
 
-  h1 {
-    @extend %break-word;
+  &__access-text {
+    text-align: center;
+    color: $c-font-dim;
+  }
 
-    margin: 1rem 0 1.5rem 0;
+  .oauth__client-name {
+    color: $c-font-clear;
   }
 
   &__scopes {
@@ -68,10 +104,16 @@
     }
   }
 
-  .form-actions {
-    margin: 1.5rem 0;
-    padding-bottom: 1.5rem;
-    border-bottom: $border;
+  &__action {
+    @extend %flex-center-center;
+    margin-block: 3em 4em;
+
+    .button {
+      text-transform: initial;
+    }
+    .oauth--takex3 & .button {
+      background-color: #5e00ff;
+    }
   }
 
   &__success {
@@ -84,6 +126,7 @@
   }
 
   &__footer {
+    @extend %flex-between;
     color: $c-font-dim;
     font-size: 0.9em;
     text-align: center;

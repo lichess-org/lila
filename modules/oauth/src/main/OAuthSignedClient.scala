@@ -15,11 +15,11 @@ case class OAuthSignedClient(
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder],
     displayName: String,
-    imagePath: Option[String] = None
+    design: Option[OAuthSignedClient.Design] = None
 )
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
-  val takex3Id = ClientId("takex3")
+  case class Design(imagePath: String, cssClass: String)
 
 final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode):
 
@@ -40,12 +40,16 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
   )
 
   val takex3 = OAuthSignedClient(
-    OAuthSignedClient.takex3Id,
+    ClientId("takex3"),
     List(Origin("https://auth.taketaketake.com"), Origin("http://localhost")),
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    imagePath = "images/t3-logo.svg".some
+    design = Some:
+      OAuthSignedClient.Design(
+        imagePath = "images/t3-logo.svg",
+        cssClass = "takex3"
+      )
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
