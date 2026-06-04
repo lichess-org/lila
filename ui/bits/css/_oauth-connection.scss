@@ -6,8 +6,10 @@
 
   $service-logo-size: 70px;
 
-  &__service {
+  &__service,
+  .lichess-logo-svg {
     height: $service-logo-size;
+    aspect-ratio: 1;
   }
 
   &__between {
@@ -42,10 +44,8 @@
     margin-bottom: 2em;
   }
 
-  .oauth__logo--font {
-    font-size: $service-logo-size;
-    line-height: 1;
-    vertical-align: top;
-    color: $c-font-dim;
+  .lichess-logo-svg {
+    fill: $c-font;
+    stroke: $c-font;
   }
 }

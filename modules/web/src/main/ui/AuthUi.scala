@@ -34,7 +34,7 @@ final class AuthUi(helpers: Helpers):
       div(cls := "oauth__connection__between"):
         iconTag(Icon.Checkmark)(cls := "oauth__connection__check")
       ,
-      iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
+      lila.web.ui.bits.logo
     )
 
   def login(form: Form[?], isRememberMe: Boolean = true)(using
