@@ -41,6 +41,7 @@ final class AuthUi(helpers: Helpers):
       TurnstilePublicConfig,
       Option[ValidReferrer]
   )(using ctx: Context, custom: Option[AuthCustomUi]) =
+    given Translate = oauthClientLanguage
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.auth", "login"))
@@ -113,6 +114,7 @@ final class AuthUi(helpers: Helpers):
       ctx: Context,
       custom: Option[AuthCustomUi]
   )(using TurnstilePublicConfig, Option[ValidReferrer]) =
+    given Translate = oauthClientLanguage
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.auth", "signup"))
       .js(fingerprintTag)
@@ -395,7 +397,7 @@ final class AuthUi(helpers: Helpers):
         )
       )
 
-  private def authTabs(active: String)(using Context, Option[ValidReferrer]) =
+  private def authTabs(active: String)(using Context, Translate, Option[ValidReferrer]) =
     div(cls := "auth-tabs")(
       a(href := addReferrer(langHref(routes.Auth.login)), cls := (active == "login").option("active"))(
         trans.site.signIn()
@@ -435,3 +437,7 @@ final class AuthUi(helpers: Helpers):
       aria.label := trans.site.clearField.txt(),
       tabindex := -1
     )
+
+  private def oauthClientLanguage(using orig: Translate, custom: Option[AuthCustomUi]): Translate =
+    custom.fold(orig): c =>
+      orig.translator.to(c.lang)

@@ -16,9 +16,11 @@ final class AuthorizeUi(helpers: Helpers)(
       ctx: Context,
       me: Me
   ) =
+    given customUi: Option[AuthCustomUi] = signedClient.flatMap(_.design)
+    given Translate = oauthClientLanguage
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
-    val cssClass = signedClient.flatMap(_.design).map(_.cssClass)
-    val logo = signedClient.flatMap(_.design).map(customLogo) |
+    val cssClass = customUi.map(_.cssClass)
+    val logo = customUi.map(customLogo) |
       iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     Page(signedClient.fold("Authorization")(c => s"Allow ${c.displayName}"))
       .css("bits.oauth")
@@ -108,3 +110,7 @@ final class AuthorizeUi(helpers: Helpers)(
             p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
           )
     )
+
+  private def oauthClientLanguage(using orig: Translate, custom: Option[AuthCustomUi]): Translate =
+    custom.fold(orig): c =>
+      orig.translator.to(c.lang)

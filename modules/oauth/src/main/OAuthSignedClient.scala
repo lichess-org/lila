@@ -49,7 +49,8 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       AuthCustomUi(
         name = "Take Take Take",
         imagePath = "images/t3-logo.svg",
-        cssClass = "takex3"
+        cssClass = "takex3",
+        lang = lila.core.i18n.enUsLang
       )
   )
 
