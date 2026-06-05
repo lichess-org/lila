@@ -103,12 +103,8 @@ final class AuthorizeUi(helpers: Helpers)(
       signedClient match
         case Some(client) => p(s"Not using ${client.displayName}? ", a(href := prompt.cancelUrl)("Cancel"))
         case None =>
-          frag(
-            (!prompt.trusted).option(
-              p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
-            ),
-            p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
-          )
+          prompt.trusted.not.option:
+            p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
     )
 
   private def oauthClientLanguage(using orig: Translate, custom: Option[AuthCustomUi]): Translate =
