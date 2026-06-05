@@ -6,10 +6,6 @@
     width: 40em;
   }
 
-  ul {
-    margin: 25px;
-  }
-
   li {
     list-style: disc outside;
   }
@@ -30,8 +26,11 @@
   }
 
   &__logo--font {
-    font-size: 9em;
+    display: block;
+    font-size: 8em;
     color: $c-brag;
+    line-height: 1;
+    margin-bottom: 1rem;
   }
 
   &__access-text {
@@ -44,6 +43,10 @@
   }
 
   &__scopes {
+    font-size: 0.9em;
+    margin-top: 3rem;
+    margin-inline-start: 3rem;
+
     li {
       margin: 0.7em 0;
     }
