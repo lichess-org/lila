@@ -64,6 +64,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
   const levelCtrl = runCtrl.levelCtrl;
 
   if (runCtrl.stageCompleted()) return renderStageComplete(runCtrl);
+  if (runCtrl.stageStarting()) return renderStageIntro(runCtrl, notify);
 
   const ground =
     runCtrl.chessground ??
@@ -77,7 +78,14 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
   if (!runCtrl.chessground) runCtrl.setChessground(ground);
 
   return [
-    hl('h1', `${stage.title} — ${stage.subtitle}`),
+    hl(
+      'h1',
+      {
+        key: `${stage.id}-${levelCtrl.blueprint.id}`,
+        hook: onInsert(() => setTimeout(() => notify.set(levelCtrl.blueprint.goal), 100)),
+      },
+      `${stage.title} — ${stage.subtitle}`,
+    ),
     hl('h2', 'Goal'),
     hl(
       'p.goal',
@@ -103,7 +111,7 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         hook: onInsert(el => {
           const $form = $(el);
           const $input = $form.find('.move').val('');
-          $form.on('submit', onSubmit(runCtrl, notify.set, $input, ground));
+          $form.on('submit', onSubmit(runCtrl, notify.set, moveStyle.get, $input, ground));
         }),
       },
       [
@@ -151,15 +159,20 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
     hl('h2', 'Commands'),
     hl(
       'p',
-      ['Type these commands in the move input.', commands().piece.help, commands().scan.help].reduce(
-        addBreaks,
-        [],
-      ),
+      [
+        'Type these commands in the move input.',
+        'g: Read goal',
+        'h: Read hints',
+        commands().piece.help,
+        commands().scan.help,
+      ].reduce(addBreaks, []),
     ),
     hl('h2', i18n.nvui.boardCommandList),
     hl('p', [
       `i: ${i18n.nvui.goToInputForm}`,
       ...[
+        `g: Read goal`,
+        `h: Read hints`,
         `o: ${i18n.nvui.announceCurrentSquare}`,
         `m: ${i18n.nvui.announcePossibleMoves}`,
         `arrow keys: ${i18n.nvui.moveWithArrows}`,
@@ -167,6 +180,19 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
         `1 to 8: ${i18n.nvui.moveToRank}`,
       ].reduce(addBreaks, []),
     ]),
+  ];
+}
+
+function renderStageIntro(runCtrl: RunCtrl, notify: LearnNvuiContext['notify']): VNode[] {
+  const { stage } = runCtrl;
+  return [
+    hl(
+      'h1',
+      { hook: onInsert(() => setTimeout(() => notify.set(stage.intro), 100)) },
+      i18n.learn.stageX(stage.id),
+    ),
+    hl('p', stage.intro),
+    hl('div.actions', [button(i18n.learn.letsGo, runCtrl.hideStartingPane)]),
   ];
 }
 
@@ -187,18 +213,25 @@ function renderStageComplete(runCtrl: RunCtrl): VNode[] {
   ];
 }
 
-function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
+function describeHintsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
   const shapes = levelCtrl.blueprint.shapes as DrawShape[] | undefined;
-  if (!shapes?.length) return [];
-  const descriptions = shapes.map(shape => {
-    const orig = nv.renderKey(shape.orig, style);
-    if (!shape.dest) return orig;
-    const dest = nv.renderKey(shape.dest, style);
-    if (shape.brush === 'red') return `Threat: ${orig} to ${dest}`;
-    if (shape.brush === 'blue') return `Cover: ${orig} to ${dest}`;
-    return `${orig} to ${dest}`;
-  });
-  return [hl('h2', 'Hints'), hl('p', descriptions.join(', '))];
+  if (!shapes?.length) return '';
+  return shapes
+    .map(shape => {
+      const orig = nv.renderKey(shape.orig, style);
+      if (!shape.dest) return orig;
+      const dest = nv.renderKey(shape.dest, style);
+      if (shape.brush === 'red') return `Threat: ${orig} to ${dest}`;
+      if (shape.brush === 'blue') return `Cover: ${orig} to ${dest}`;
+      return `${orig} to ${dest}`;
+    })
+    .join(', ');
+}
+
+function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
+  const text = describeHintsText(levelCtrl, style);
+  if (!text) return [];
+  return [hl('h2', 'Hints'), hl('p', text)];
 }
 
 function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
@@ -230,6 +263,7 @@ function describeLastMove(ground: Api, style: nv.MoveStyle): string {
 function onSubmit(
   runCtrl: RunCtrl,
   notify: (txt: string) => void,
+  moveStyle: () => nv.MoveStyle,
   $input: Cash,
   ground: Api,
 ): (ev: SubmitEvent) => void {
@@ -238,6 +272,16 @@ function onSubmit(
     const raw = ($input.val() as string).trim();
     const input = nv.castlingFlavours(raw);
     if (!input) return;
+    if (input === 'g') {
+      notify(runCtrl.levelCtrl.blueprint.goal);
+      $input.val('');
+      return;
+    }
+    if (input === 'h') {
+      notify(describeHintsText(runCtrl.levelCtrl, moveStyle()) || 'No hints');
+      $input.val('');
+      return;
+    }
     const uci = nv.inputToMove(input, runCtrl.levelCtrl.chess.fen(), ground);
     if (typeof uci === 'string' && uci.length >= 4) {
       const orig = uci.slice(0, 2) as Key;
@@ -288,7 +332,13 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
     else if (e.key === 'o') nv.boardCommandsHandler()(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(pov, ground, 'standard', [{ fen: fen() }])(e);
-    else if (e.key === 'i') {
+    else if (e.key === 'g') {
+      e.preventDefault();
+      ctx.notify.set(ctx.ctrl.runCtrl.levelCtrl.blueprint.goal);
+    } else if (e.key === 'h') {
+      e.preventDefault();
+      ctx.notify.set(describeHintsText(ctx.ctrl.runCtrl.levelCtrl, ctx.moveStyle.get()) || 'No hints');
+    } else if (e.key === 'i') {
       e.preventDefault();
       $('input.move').get(0)?.focus();
     }
