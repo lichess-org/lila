@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">ดำทิ้งเกม</string>
   <string name="whiteDidntMove">ขาวไม่ได้เดิน</string>
   <string name="blackDidntMove">ดำไม่ได้เดิน</string>
+  <string name="whiteAborted">ฝ่ายขาวยกเลิกเกม</string>
+  <string name="blackAborted">ฝ่ายดำยกเลิกเกม</string>
   <string name="requestAComputerAnalysis">ขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>

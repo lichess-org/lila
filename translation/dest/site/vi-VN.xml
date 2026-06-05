@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">Bên đen đã rời khỏi ván cờ</string>
   <string name="whiteDidntMove">Bên trắng không đi quân</string>
   <string name="blackDidntMove">Bên đen không đi quân</string>
+  <string name="whiteAborted">Bên trắng đã hủy ván đấu</string>
+  <string name="blackAborted">Bên đen đã hủy ván đấu</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Phân tích từ máy tính</string>
   <string name="computerAnalysisAvailable">Có sẵn phân tích từ máy tính</string>
