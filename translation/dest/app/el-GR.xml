@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessMobileApp">Εφαρμογή Lichess για κινητά</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Ανοίξτε την εφαρμογή του Lichess</string>
+  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Δείτε %s στο Github</string>
+  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">όλες τις εκδόσεις</string>
+  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Κατεβάστε την στο Apple App Store</string>
+  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Κατεβάστε την στο Google Play</string>
+  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">Κατεβάστε την στο F-Droid</string>
+</resources>
