@@ -162,7 +162,8 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       [
         'Type these commands in the move input.',
         'g: Read goal',
-        'h: Read hints',
+        'v: Read hints',
+        's: Read stars',
         commands().piece.help,
         commands().scan.help,
       ].reduce(addBreaks, []),
@@ -172,7 +173,8 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       `i: ${i18n.nvui.goToInputForm}`,
       ...[
         `g: Read goal`,
-        `h: Read hints`,
+        `v: Read hints`,
+        `s: Read stars`,
         `o: ${i18n.nvui.announceCurrentSquare}`,
         `m: ${i18n.nvui.announcePossibleMoves}`,
         `arrow keys: ${i18n.nvui.moveWithArrows}`,
@@ -228,6 +230,13 @@ function describeHintsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
     .join(', ');
 }
 
+function describeStarsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
+  if (!levelCtrl.isAppleLevel()) return '';
+  const keys = levelCtrl.items.appleKeys();
+  const text = keys.length ? keys.map(k => nv.renderKey(k as Key, style)).join(', ') : i18n.site.none;
+  return `${keys.length} remaining: ${text}`;
+}
+
 function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
   const text = describeHintsText(levelCtrl, style);
   if (!text) return [];
@@ -235,16 +244,11 @@ function renderHints(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
 }
 
 function renderStars(levelCtrl: LevelCtrl, style: nv.MoveStyle): VNode[] {
-  if (!levelCtrl.isAppleLevel()) return [];
-  const keys = levelCtrl.items.appleKeys();
-  const text = keys.length ? keys.map(k => nv.renderKey(k as Key, style)).join(', ') : i18n.site.none;
+  const text = describeStarsText(levelCtrl, style);
+  if (!text) return [];
   return [
     hl('h2', 'Stars'),
-    hl(
-      'p.apples',
-      { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
-      `${keys.length} remaining: ${text}`,
-    ),
+    hl('p.apples', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, text),
   ];
 }
 
@@ -272,13 +276,18 @@ function onSubmit(
     const raw = ($input.val() as string).trim();
     const input = nv.castlingFlavours(raw);
     if (!input) return;
-    if (input === 'g') {
+    if (input.toLowerCase() === 'g') {
       notify(runCtrl.levelCtrl.blueprint.goal);
       $input.val('');
       return;
     }
-    if (input === 'h') {
+    if (input.toLowerCase() === 'v') {
       notify(describeHintsText(runCtrl.levelCtrl, moveStyle()) || 'No hints');
+      $input.val('');
+      return;
+    }
+    if (input.toLowerCase() === 's') {
+      notify(describeStarsText(runCtrl.levelCtrl, moveStyle()) || 'No stars');
       $input.val('');
       return;
     }
@@ -332,12 +341,15 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
     else if (e.key === 'o') nv.boardCommandsHandler()(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(pov, ground, 'standard', [{ fen: fen() }])(e);
-    else if (e.key === 'g') {
+    else if (e.key.toLowerCase() === 'g') {
       e.preventDefault();
       ctx.notify.set(ctx.ctrl.runCtrl.levelCtrl.blueprint.goal);
-    } else if (e.key === 'h') {
+    } else if (e.key.toLowerCase() === 'v') {
       e.preventDefault();
       ctx.notify.set(describeHintsText(ctx.ctrl.runCtrl.levelCtrl, ctx.moveStyle.get()) || 'No hints');
+    } else if (e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      ctx.notify.set(describeStarsText(ctx.ctrl.runCtrl.levelCtrl, ctx.moveStyle.get()) || 'No stars');
     } else if (e.key === 'i') {
       e.preventDefault();
       $('input.move').get(0)?.focus();
