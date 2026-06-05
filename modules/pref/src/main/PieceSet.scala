@@ -65,7 +65,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("xkcd"), // 0/0 submitted after poll
     PieceSet("shapes"), // 15/15
     PieceSet("letter"), // 17/11
-    PieceSet("disguised") // 18/10
+    PieceSet("disguised"), // 18/10
     PieceSet("papercut") //
   )
 
