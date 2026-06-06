@@ -76,7 +76,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  liveAnnotate: LiveAnnotate;
+  liveAnnotate?: LiveAnnotate;
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -179,7 +179,7 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
-    this.liveAnnotate = new LiveAnnotate();
+    if (!opts.study) this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -741,7 +741,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
-      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
+      if (!isThreat) this.liveAnnotate?.onNewCeval(path, node, this.tree);
 
       if (path === this.path) {
         this.setAutoShapes();
