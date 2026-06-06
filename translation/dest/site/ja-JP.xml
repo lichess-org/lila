@@ -409,7 +409,7 @@
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
-  <string name="moveAnnotations">移動の注釈</string>
+  <string name="moveAnnotations">手の注釈を表示</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
