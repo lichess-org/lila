@@ -63,7 +63,7 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
-  <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
+  <string name="notifyBroadcasts">Broadcast rounds and players updates</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
   <string name="notifyBell">Notification within Lichess</string>
   <string name="notifyPush">Device notification when you're not on Lichess</string>

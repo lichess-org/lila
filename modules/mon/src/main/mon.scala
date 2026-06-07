@@ -623,6 +623,7 @@ object push:
     val invitedStudy = send("invitedStudy")
     val streamStart = send("streamStart")
     val broadcastRound = send("broadcastRound")
+    val broadcastPlayerFollow = send("broadcastPlayerFollow")
 
     object challenge:
       val create = send("challengeCreate")

@@ -1,6 +1,7 @@
 package lila.core
 package notify
 
+import _root_.chess.Color
 import alleycats.Zero
 
 import lila.core.id.*
@@ -39,6 +40,14 @@ enum NotificationContent(val key: String):
       extends NotificationContent("gameEnd")
   case StreamStart(streamerId: UserId, streamerName: String) extends NotificationContent("streamStart")
   case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
+  case BroadcastPlayerFollow(
+      roundId: RelayRoundId,
+      gameId: StudyChapterId,
+      color: Color,
+      url: String,
+      title: String,
+      text: String
+  ) extends NotificationContent("broadcastRound")
   case TitledTournamentInvitation(id: TourId, text: String) extends NotificationContent("titledTourney")
   case CoachReview extends NotificationContent("coachReview")
   case PlanStart(userId: UserId) extends NotificationContent("planStart") // BC
