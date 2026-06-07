@@ -364,7 +364,7 @@ final private class PushApi(
         key = Key.broadcastRound,
         urgency = Urgency.Normal,
         payload = payload("url" -> url),
-        mobileCompatible = None
+        mobileCompatible = LichessMobileVersion(0, 26).some
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
 
