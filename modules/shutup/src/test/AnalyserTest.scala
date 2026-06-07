@@ -61,7 +61,10 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("neck your mom"), List("neck your mom"))
 
   test("50 shades of fuck"):
-    assertEquals(find("fck fk fuck fuckk fuk fffuuk fucko fuckeds fektard feak fak phuk"), List("fck", "fk", "fuck", "fuckk", "fuk", "fffuuk", "fucko", "fuckeds", "fektard", "fak", "phuk"))
+    assertEquals(
+      find("fck fk fuck fuckk fuk fffuuk fucko fuckeds fektard feak fak phuk"),
+      List("fck", "fk", "fuck", "fuckk", "fuk", "fffuuk", "fucko", "fuckeds", "fektard", "fak", "phuk")
+    )
 
   test("compute ratio"):
     assertEquals(ratio("fuck that shit"), 2d / 3)
