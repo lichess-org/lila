@@ -10,7 +10,7 @@ private object Dictionary:
 (burn|die|rot) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 go to hell
-(kill|hang|ne(c|k|ck)) my ?self
+(kill|hang|ne[ck]+) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -29,7 +29,7 @@ be[ea]++t?ch
 b(iy?t?|t)ch
 blow(job|)
 blumpkin
-boll?o(c|k|ck)
+boll?o[ck]+
 bomb (yo)?ur?(self)?
 boner
 boob
@@ -41,18 +41,18 @@ bull?shit
 cancer
 che[ae]t(ing|er|)
 chess(|-|_)bot(.?com)?
-chi(c|k|ck)en
+chi[ck]+en
 chink
 chitter
 clit(oris|)
 clown
-co(c|k|ck)(su(c|k|ck)(er|ing)|)
+co[ck]+(su[ck]+(er|ing)|)
 condom
 coon
 coward?
 cripp?le
 cry(baby|ing|)
-cu(c|k|ck)(old|)
+cu[ck]+(old|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
@@ -64,7 +64,7 @@ dumb(ass?|)
 dyke
 engine
 foreskin
-fu?(c+|k+|c+k+)(e?[drt]|ing?|ign|tard?|face|off?|)
+fu?[ck]+(e?[drt]|ing?|ign|tard?|face|off?|)
 gangbang(e?d|)
 gay
 go (and )?bomb
@@ -96,8 +96,8 @@ molest(er|)
 mong
 monkey
 morr?on
-mother(fu(c|k|ck)(er|)|)
-mthrf(c|k|ck)r
+mother(fu[ck]+(er|)|)
+mthrf[ck]+r
 nazi
 [nv]igg?[ae][hr]?
 nonce
@@ -147,7 +147,7 @@ slut
 spastic
 spaz
 sperm
-spi(c|k|ck)
+spi[ck]+
 spooge
 spunk
 smurff?(er|ing|e?d|)
@@ -155,11 +155,11 @@ stfu
 stupid
 subhuman
 suicided?
-su(c|k|ck)er
-su(c|k|ck)(e?d|) m[ey]
+su[ck]+er
+su[ck]+(e?d|) m[ey]
 sybau
 terr?orist
-tit(t?ies|ty|)(fu(c|k|ck)|)
+tit(t?ies|ty|)(fu[ck]+|)
 toss?er
 trann(y|ie)
 trash
@@ -170,11 +170,11 @@ vagin(a|al|)
 vibrator
 vulva
 w?hore
-wan(c|k|ck)(er|)
+wan[ck]+(er|)
 weak
-wetba(c|k|ck)
+wetba[ck]+
 wog
-(you|u) su(c|k|ck)(e?d|)
+(you|u) su[ck]+(e?d|)
 """) ++ critical
 
   def ru = dict("""
@@ -373,7 +373,7 @@ yar+ak kafa(l[iı]|s[iı])
 (gets?|from|of|by|on|wish|you) cancer
 (go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 (ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
-(kill|hang|ne(c|k|ck)) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
+(kill|hang|ne[ck]+) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 cancer (for|to)
 gas the
 g?kys
