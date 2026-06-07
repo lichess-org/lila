@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvi přítele</string>
   <string name="playAgainstComputer">Hrát proti počítači</string>
   <string name="gameMode">Herní mód</string>
+  <string name="createLobbyGame">Vytvořit hru v lobby</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -57,6 +58,8 @@
   <string name="blackLeftTheGame">Černý opustil hru</string>
   <string name="whiteDidntMove">Bílý netáhl</string>
   <string name="blackDidntMove">Černý netáhl</string>
+  <string name="whiteAborted">Bílý opustil hru</string>
+  <string name="blackAborted">Černý opustil hru</string>
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
@@ -94,6 +97,8 @@
   <string name="database">Databáze</string>
   <string name="whiteDrawBlack">Bílý / Remíza / Černý</string>
   <string name="averageRatingX">Průměrný rating: %s</string>
+  <string name="minRatingX">Minimální rating: %s</string>
+  <string name="maxRatingX">Maximální rating: %s</string>
   <string name="recentGames">Nedávné hry</string>
   <string name="topGames">Top hry</string>
   <string name="masterDbExplanation">Dva miliony her hráčů Ela FIDE %1$s+ od let %2$s do %3$s</string>
@@ -127,6 +132,7 @@
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
   <string name="showVariationArrows">Zobrazit šipky variant</string>
+  <string name="undefendedPieces">Nebráněné figury</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
@@ -226,6 +232,7 @@
   <string name="minutesPerSide">Minut pro každého hráče</string>
   <string name="variant">Varianta</string>
   <string name="variants">Varianty</string>
+  <string name="variantsDescription">Více způsobů, jak hrát</string>
   <string name="timeControl">Tempo hry</string>
   <string name="realTime">Skutečný čas</string>
   <string name="correspondence">Korespondenčně</string>
