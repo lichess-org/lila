@@ -39,7 +39,7 @@ bugg?er
 buk?kake
 bull?shit
 cancer
-che[ae]+t(ing|e[dr]|)
+che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
 chi[ck]+en
 chink
@@ -64,7 +64,7 @@ dumb(ass?|)
 dyke
 engine
 foreskin
-fu?[ck]+(e?[drt]|ing?|ign|tard?|face|off?|)
+fu?[ck]+(e?[dr]+|t|ing?|ign|tard?|face|off?|)
 gangbang(e?d|)
 gay
 go (and )?bomb
@@ -89,10 +89,10 @@ lamer?
 lesbo
 lo++ser++
 magg?ot
-masturbat(e?[dr]|ion|ing|)
+masturbat(e?[dr]+|ion|ing|)
 mf\b
 milf
-molest(e?[dr]|ing|)
+molest(e?[dr]+|ing|)
 mong
 monkey
 morr?on
@@ -128,7 +128,7 @@ rect(al|um)
 retard(ed|)
 rimjob
 run
-sandbagg?(e[dr]|ing|)
+sandbagg?(e[dr]+|ing|)
 scared?
 schlong
 screw(e?d|)
@@ -150,7 +150,7 @@ sperm
 spi[ck]+
 spooge
 spunk
-smurff?(e?[dr]|ing|)
+smurff?(e?[dr]+|ing|)
 stfu
 stupid
 subhuman
