@@ -39,7 +39,7 @@ bugg?er
 buk?kake
 bull?shit
 cancer
-che[ae]t(ing|er|)
+che[ae]t(ing|er|ed|)
 chess(|-|_)bot(.?com)?
 chi[ck]+en
 chink
@@ -125,7 +125,7 @@ quee?r
 rapist
 rat\b
 rect(al|um)
-retard
+retard(ed|)
 rimjob
 run
 sandbagg?(er|ing|)
