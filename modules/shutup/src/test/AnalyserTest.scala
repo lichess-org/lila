@@ -7,7 +7,11 @@ package lila.shutup
 class AnalyserTest extends munit.FunSuite:
 
   private def find(t: String) = Analyser(t).badWords
+  private def grave(t: String) = Analyser(t).critical
   private def ratio(t: String) = Analyser(t).ratio
+
+  test("critical"):
+    assert(grave("kys"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))
