@@ -369,10 +369,10 @@ yar+ak kafa(l[iı]|s[iı])
 
   def critical = dict("""
 (die|burn)s? irl
-(f|ph)a++g+([oi]t|)s?
+(f|ph)a++g+([oi]t|)
 (gets?|from|of|by|on|wish|(yo)?u) cancer
-(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)s?
-(ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)s?
+(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
+(ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
 (kill|hang|ne[ck]+)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther)
 cancers? (for|to)
 gas the
@@ -381,10 +381,10 @@ gets? (bombed|shot)
 k y s
 ky5
 (l|1|ı|\|)<ys
-n[1i]g+ers?
+n[1i]g+er
 rap(ed?|e?ing)
-ropes?\b
-subhumans?
+rope
+subhuman
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

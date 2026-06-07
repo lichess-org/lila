@@ -93,5 +93,5 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   private val criticalRegex = {
     """(?i)\b""" +
       Dictionary.critical.mkString("(", "|", ")").replace("(", "(?:") +
-      """\b"""
+      """s?\b"""
   }.r
