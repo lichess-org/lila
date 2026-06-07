@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izazovi prijatelja</string>
   <string name="playAgainstComputer">Igrajte se s računalom</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Za poziv na igru, pošalji ovaj URL</string>
   <string name="gameOver">Igra gotova</string>
