@@ -10,7 +10,7 @@ class AnalyserTest extends munit.FunSuite:
   private def ratio(t: String) = Analyser(t).ratio
 
   test("find one bad word"):
-    assertEquals(find("cheat"), List("cheat"))
+    assertEquals(find("cheater"), List("cheater"))
     assertEquals(find("well fuck me"), List("fuck"))
     assertEquals(find("you chickens"), List("chickens"))
 
