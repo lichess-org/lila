@@ -10,7 +10,7 @@ private object Dictionary:
 (burn|die|rot) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 go to hell
-(kill|hang|neck) my ?self
+(kill|hang|ne(c|k|ck)) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -29,30 +29,30 @@ be[ea]++t?ch
 b(iy?t?|t)ch
 blow(job|)
 blumpkin
-bollock
+boll?o(c|k|ck)
 bomb (yo)?ur?(self)?
 boner
 boob
 bozo
 brain(dea?d|less?)
-bugger
+bugg?er
 buk?kake
 bull?shit
 cancer
-che[ae]t(ing|er|ed|)
+che[ae]t(ing|er|)
 chess(|-|_)bot(.?com)?
-chicken
+chi(c|k|ck)en
 chink
 chitter
 clit(oris|)
 clown
-cock(suc?k(er|ing)|)
+co(c|k|ck)(su(c|k|ck)(er|ing)|)
 condom
 coon
 coward?
-cripp?led?
+cripp?le
 cry(baby|ing|)
-cuck(old|)
+cu(c|k|ck)(old|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
@@ -63,8 +63,8 @@ downsie?
 dumb(ass?|)
 dyke
 engine
-fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
+fu?(c|k|ck)(e?d|e?r|r|k|t|ing?|ign|tard?|face|off?)
 gangbang(e?d|)
 gay
 go (and )?bomb
@@ -88,18 +88,17 @@ labia
 lamer?
 lesbo
 lo++ser++
-maggot
-masturbat(ed?|ion|ing)
+magg?ot
+masturbat(ion|ing)
 mf\b
 milf
-molest(er|ed|)
+molest(er|)
 mong
 monkey
 morr?on
-mother(fuc?k(er|)|)
-mthrfckr
+mother(fu(c|k|ck)(er|)|)
+mthrf(c|k|ck)r
 nazi
-nigg?
 [nv]igg?[ae][hr]?
 nonce
 noo++b
@@ -109,27 +108,27 @@ pajeet
 paki
 pathetic
 pa?ederast
-penis
+pe?nis?
 pig
 pimp
 piss
 poof
 poon
 poo++p(face|)
-porn(hub|)
+po?rn(hub|)
 pos\b
 pric?k
 prostitute
 punani
-puss(i|y|ie|)
-queer
+puss?(i|y|ie|)
+quee?r
 rapist
 rat\b
 rect(al|um)
-retard(ed|)
+retard
 rimjob
 run
-sandbagg?(er|ing|ed|)
+sandbagg?(er|ing|)
 scared?
 schlong
 screw(e?d|)
@@ -138,9 +137,9 @@ scum(bag|)
 semen
 sex
 shagg?(e?d|)
-shemale
-shit(z|e|y|ty|bag|)
-sissy
+she?male
+shi?t(z|e|y|ty|bag|)
+siss?y
 skank
 slag
 slave
@@ -148,7 +147,7 @@ slut
 spastic
 spaz
 sperm
-spick
+spi(c|k|ck)
 spooge
 spunk
 smurff?(er|ing|e?d|)
@@ -156,12 +155,12 @@ stfu
 stupid
 subhuman
 suicided?
-suc?ker
-suck(e?d|) m[ey]
+su(c|k|ck)er
+su(c|k|ck)(e?d|) m[ey]
 sybau
-terrorist
-tit(t?ies|ty|)(fuc?k|)
-tosser
+terr?orist
+tit(t?ies|ty|)(fu(c|k|ck)|)
+toss?er
 trann(y|ie)
 trash
 turd
@@ -170,12 +169,12 @@ vag
 vagin(a|al|)
 vibrator
 vulva
-w?hore?
-wanc?k(er|)
+w?hore
+wan(c|k|ck)(er|)
 weak
-wetback
+wetba(c|k|ck)
 wog
-(you|u) suck(e?d|)
+(you|u) su(c|k|ck)(e?d|)
 """) ++ critical
 
   def ru = dict("""
@@ -374,7 +373,7 @@ yar+ak kafa(l[iı]|s[iı])
 (gets?|from|of|by|on|wish|you) cancer
 (go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 (ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
-(kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
+(kill|hang|ne(c|k|ck)) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 cancer (for|to)
 gas the
 g?kys

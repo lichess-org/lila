@@ -56,7 +56,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
-      word + (if word.endsWith("e") then "s?+" else "(es|s|)")
+      word + (if word.endsWith("e") then "s*+" else "[aeiou]?s*+")
     } ++
       Dictionary.es.map { word =>
         word + (if word.endsWith("e") then "" else "e?+") + "s?+"
