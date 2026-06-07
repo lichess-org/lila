@@ -41,9 +41,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("press f for respects"), Nil)
 
   test("find badly spelled words"):
-    assertEquals(find("fuk"), List("fuk"))
     assertEquals(find("pnis pusy quer"), List("pnis", "pusy", "quer"))
-    assertEquals(find("well fuk me"), List("fuk"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
@@ -63,7 +61,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("neck your mom"), List("neck your mom"))
 
   test("50 shades of fuck"):
-    assertEquals(find("fuck fffuuk fucko fuckeds fektard feak fak phuk"), List("fuck", "fffuuk", "fucko", "fuckeds", "fektard", "fak", "phuk"))
+    assertEquals(find("fck fk fuck fuckk fuk fffuuk fucko fuckeds fektard feak fak phuk"), List("fck", "fk", "fuck", "fuckk", "fuk", "fffuuk", "fucko", "fuckeds", "fektard", "fak", "phuk"))
 
   test("compute ratio"):
     assertEquals(ratio("fuck that shit"), 2d / 3)

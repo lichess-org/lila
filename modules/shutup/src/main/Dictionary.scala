@@ -64,7 +64,7 @@ dumb(ass?|)
 dyke
 engine
 foreskin
-fu?(c|k|ck)(e?d|e?r|r|k|t|ing?|ign|tard?|face|off?)
+fu?(c+|k+|c+k+)(e?[drt]|ing?|ign|tard?|face|off?|)
 gangbang(e?d|)
 gay
 go (and )?bomb
