@@ -29,7 +29,7 @@
   <string name="collinearMove">Movemento colineal</string>
   <string name="collinearMoveDescription">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
-  <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
+  <string name="cornerMateDescription">Acurrala ó rei nun recanto cunha dama ou cunha torre e logo dá o xaque mate co cabalo.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Xaque descuberto</string>
