@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Sort forlot partiet</string>
   <string name="whiteDidntMove">Hvit flyttet ikke</string>
   <string name="blackDidntMove">Svart flyttet ikke</string>
+  <string name="whiteAborted">Hvit avbrøt partiet</string>
+  <string name="blackAborted">Svart avbrøt partiet</string>
   <string name="requestAComputerAnalysis">Be om computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Datamaskinanalyse tilgjengelig</string>
@@ -808,7 +810,7 @@
   <string name="xJoinsY">%1$s ble med på %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
   <string name="like">Lik</string>
-  <string name="liked">Likte</string>
+  <string name="liked">Likt</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
