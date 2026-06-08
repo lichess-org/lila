@@ -50,10 +50,6 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
   ];
 }
 
-export function asText(n: Notification): string | undefined {
-  return renderers[n.type] ? renderers[n.type].text(n) : undefined;
-}
-
 function notificationDenied(): VNode {
   return hl(
     'a.browser-notification.denied',
