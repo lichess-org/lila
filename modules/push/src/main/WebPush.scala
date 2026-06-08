@@ -52,13 +52,13 @@ final private class WebPush(
                   .obj(
                     "title" -> data.title,
                     "body" -> data.body,
-                    "tag" -> data.stacking.key,
+                    "tag" -> data.key.value,
                     "payload" -> Json
                       .obj("userData" -> data.payload.userData.toMap)
                       .add("userId" -> data.payload.userId)
                   )
                   .toString,
-                "topic" -> data.stacking.key,
+                "topic" -> data.key.value,
                 "urgency" -> data.urgency.key,
                 "ttl" -> 43200
               )
