@@ -41,7 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
-  <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة مع قائمة اللوحة</string>
+  <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة من قائمة اللوحة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>
   <string name="confirmResignationAndDrawOffers">تأكيد الاستسلام وعرض التعادل</string>
