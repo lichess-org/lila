@@ -237,7 +237,13 @@ private final class RelayPlayerApi(
                     .map(_.lastOption)
                     .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
               yield withTiebreaks
-        yield result
+          withRank = result.toList
+            .sortByReverse(_._2)
+            .mapWithIndex:
+              case ((id, rp), index) =>
+                id -> rp.copy(rank = Rank.from((index + 1).some))
+            .to(SeqMap)
+        yield withRank
 
   private def sgIsParallel(tours: List[RelayTour]): Boolean =
     tours.headOption
@@ -353,9 +359,4 @@ private final class RelayPlayerApi(
         id -> rp.copy(
           tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(Seq))
         )
-      .toList
-      .sortByReverse(_._2)
-      .mapWithIndex:
-        case ((id, rp), index) =>
-          id -> rp.copy(rank = Rank.from((index + 1).some))
       .to(SeqMap)

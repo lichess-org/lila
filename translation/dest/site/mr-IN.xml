@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
   <string name="whiteDidntMove">पांढरा खेळला नाही</string>
   <string name="blackDidntMove">काळा खेळला नाही</string>
+  <string name="whiteAborted">पांढऱ्याने खेळ सोडले</string>
+  <string name="blackAborted">काळ्याने खेळ सोडले</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
@@ -807,6 +809,8 @@
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
   <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>
+  <string name="like">आवडले</string>
+  <string name="liked">आवडलेले</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>

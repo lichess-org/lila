@@ -40,8 +40,8 @@ Ondoren garatzaile baten soldata ordaintzen dugu: %s, Lichessen sortzailea.</str
   <string name="officialNonProfit">Benetan da Lichess irabazi asmorik gabekoa?</string>
   <string name="actOfCreation">Bai, hemen dago eratze-akta (frantsesez)</string>
   <string name="changeMonthlySupport">Aldatu/Ezeztatu dezaket nire hileroko babesa?</string>
-  <string name="changeOrContact">Bai, edonoiz, orrialde honetatik.
-Edo %s.</string>
+  <string name="changeSupport">Zure ordainketak PayPal bidez prozesatzen badira, zure PayPal kontuan utzi dezakezu bertan behera edo aldatu zure dohaintza, edo %1$s eta zuregatik egin dezakegu. Ez bazenuen PayPal erabili eta zure ordainketak Stripek kudeatzen baditu, zure dohaintza %2$s bertan behera utzi edo aldatu dezakezu.</string>
+  <string name="patronPage">babeslearen orrialdean</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
   <string name="lichessIsRegisteredWith">Lichess hemen erregistratuta dago %s.</string>

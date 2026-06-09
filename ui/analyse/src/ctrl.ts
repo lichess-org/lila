@@ -76,7 +76,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  liveAnnotate: LiveAnnotate;
+  liveAnnotate?: LiveAnnotate;
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -179,7 +179,7 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
-    this.liveAnnotate = new LiveAnnotate();
+    if (!opts.study) this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -741,7 +741,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
-      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
+      if (!isThreat) this.liveAnnotate?.onNewCeval(path, node, this.tree);
 
       if (path === this.path) {
         this.setAutoShapes();
@@ -970,6 +970,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     const tree = completeNode(this.variantKey)(data.tree);
     this.tree.merge(tree);
+    this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;

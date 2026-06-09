@@ -87,7 +87,7 @@ object Federation:
     Id("BOL") -> ("Bolivia", Some("BO")),
     Id("BOT") -> ("Botswana", Some("BW")),
     Id("BRA") -> ("Brazil", Some("BR")),
-    Id("BRN") -> ("Bahrain", Some("BN")),
+    Id("BRN") -> ("Bahrain", Some("BH")),
     Id("BRU") -> ("Brunei Darussalam", Some("BN")),
     Id("BUL") -> ("Bulgaria", Some("BG")),
     Id("BUR") -> ("Burkina Faso", Some("BF")),

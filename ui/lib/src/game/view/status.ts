@@ -44,6 +44,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
 export interface StatusData {
   winner: Color | undefined;
   status: StatusName;
+  abortedBy?: Color;
   ply: Ply;
   fen: FEN;
   variant: VariantKey;
@@ -57,6 +58,7 @@ export default function status(d: GameData): string {
   return statusOf({
     winner: d.game.winner,
     status: d.game.status.name,
+    abortedBy: d.game.abortedBy,
     ply: d.game.turns,
     fen: d.game.fen,
     variant: d.game.variant.key,
@@ -74,7 +76,12 @@ export function statusOf(d: StatusData): string {
     case 'started':
       return i18n.site.playingRightNow;
     case 'aborted':
-      return i18n.site.gameAborted + winnerSuffix;
+      const abortReasonText = d.abortedBy
+        ? i18n.site[d.abortedBy === 'white' ? 'whiteAborted' : 'blackAborted']
+        : d.ply === 0
+          ? i18n.site.whiteDidntMove
+          : i18n.site.blackDidntMove;
+      return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
     case 'resign':

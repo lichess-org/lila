@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-final class SwissTrf(
+private final class SwissTrf(
     sheetApi: SwissSheetApi,
     mongo: SwissMongo,
     baseUrl: lila.core.config.BaseUrl

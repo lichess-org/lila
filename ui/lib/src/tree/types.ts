@@ -45,6 +45,8 @@ export interface TablebaseHit {
 
 export interface TreeNodeBase {
   // file://./../../tree/src/tree.ts
+  id?: TreeNodeId;
+  children?: TreeNodeBase[];
   ply: Ply;
   uci?: Uci;
   fen: FEN;
@@ -66,18 +68,25 @@ export interface TreeNodeBase {
   puzzle?: 'win' | 'fail' | 'good' | 'retry';
   crazy?: NodeCrazy;
   collapsed?: boolean;
+  pos?: () => PositionResult; // precomputed
+  dests?: () => Dests;
+  drops?: () => Key[] | undefined;
+  check?: () => boolean;
+  outcome?: () => Outcome | undefined;
+}
+
+type TreeNodeFunctionProps<T> = {
+  [K in keyof T]-?: NonNullable<T[K]> extends (...args: any) => any ? K : never;
+}[keyof T];
+
+export interface TreeNodeLite extends Omit<TreeNodeBase, TreeNodeFunctionProps<TreeNodeBase>> {
+  id: TreeNodeId;
+  children: TreeNodeLite[];
 }
 
 export type PositionResult = Result<Position>;
 
-export interface TreeNodeIncomplete extends TreeNodeBase {
-  id?: TreeNodeId;
-  children?: TreeNodeIncomplete[];
-  pos?: () => PositionResult; // precomputed
-}
-
-export interface TreeNode extends TreeNodeBase {
-  id: TreeNodeId;
+export interface TreeNode extends TreeNodeLite {
   children: TreeNode[];
   pos: () => PositionResult;
   dests: () => Dests;

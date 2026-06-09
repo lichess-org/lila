@@ -185,11 +185,12 @@ final class Study(
                 withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
               )
               chatOpt <- HTTPRequest.isXhr(ctx.req).not.so(chatOf(sc.study))
+              sVersion <- HTTPRequest.isLichessMobile(req).option(env.study.version(sc.study.id)).sequence
               jsChat = chatOpt.map: c =>
                 env.chat.json.mobile(c, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
-                "study" -> data.study.add("chat" -> jsChat),
+                "study" -> data.study.add("chat" -> jsChat).add("socketVersion" -> sVersion),
                 "analysis" -> data.analysis
               )
           )

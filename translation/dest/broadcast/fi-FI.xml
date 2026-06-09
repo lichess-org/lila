@@ -65,7 +65,7 @@
   <string name="officialStandings">Virallinen tulostaulu</string>
   <string name="regulations">Säännöt</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
-  <string name="webmastersPage">webmasterin sivulta</string>
+  <string name="webmastersPage">Webmaster-sivulta</string>
   <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
   <string name="gamesThisTournament">Pelit tässä turnauksessa</string>

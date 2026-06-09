@@ -13,8 +13,7 @@ final class SwissCache(
 
   object swissCache:
     private val cache = cacheApi[SwissId, Option[Swiss]](64, "swiss.swiss"):
-      _.expireAfterWrite(1.second)
-        .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
+      _.expireAfterWrite(1.second).buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
 
     def clear(id: SwissId) = cache.invalidate(id)
     export cache.get as byId

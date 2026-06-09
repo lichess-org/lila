@@ -62,6 +62,8 @@
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
   <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="blackDidntMove">لم يلعب الأسود بعد</string>
+  <string name="whiteAborted">قام الأبيض بإلغاء المباراة قبل بدايتها</string>
+  <string name="blackAborted">قام الأسود بإلغاء المباراة قبل بدايتها</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
@@ -139,7 +141,7 @@
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">ملك قابل للكش</string>
+  <string name="checkableKing">ملك في خطر</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>

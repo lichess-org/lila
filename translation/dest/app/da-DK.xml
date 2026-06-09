@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Lichess-mobilapp</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Vender tilbage til Lichess-appen</string>
+  <string name="ifAppDoesNotOpenAutomatically">Hvis appen ikke åbnes automatisk, skal du trykke på \"%s\"-knappen.</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Åbn Lichess-appen</string>
+  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Se %s på GitHub</string>
+  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">alle udgivelser</string>
+  <string name="downloadOnAppleAppStore">Download fra Apple App Store</string>
+  <string name="downloadOnGooglePlay">Download på Google Play</string>
+  <string name="downloadOnFdroid">Download på F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess-mobilskærm</string>
+</resources>

@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Musta lähti pelistä</string>
   <string name="whiteDidntMove">Valkea ei siirtänyt</string>
   <string name="blackDidntMove">Musta ei siirtänyt</string>
+  <string name="whiteAborted">Valkea keskeytti pelin</string>
+  <string name="blackAborted">Musta keskeytti pelin</string>
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
   <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
