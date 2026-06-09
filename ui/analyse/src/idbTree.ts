@@ -150,7 +150,7 @@ export class IdbTree {
     return this.collapseDb().then(db => db.put(this.id, this.getCollapsed()));
   }
 
-  private isCollapsible(node: TreeNode, isMainline: boolean): boolean {
+  private isCollapsible(node: TreeNodeLite, isMainline: boolean): boolean {
     const [first, second, third] = node.children.filter(n => this.ctrl.showStaticAnalysis() || !n.comp);
     return Boolean(
       first?.forceVariation ||
