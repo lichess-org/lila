@@ -145,14 +145,13 @@ final private[puzzle] class PuzzleFinisher(
                             .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
                             .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
                             .void
-                    _ = colls.puzzle:
-                      _.update
-                        .one(
-                          $id(puzzle.id),
-                          $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
-                            $set(Puzzle.BSONFields.glicko -> glicko)
-                          }
-                        )
+                    _ <- colls.puzzle.map:
+                      _.updateUnchecked(
+                        $id(puzzle.id),
+                        $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
+                          $set(Puzzle.BSONFields.glicko -> glicko)
+                        }
+                      )
                     _ = if prevRound.isEmpty then
                       Bus.pub:
                         Puzzle.UserResult(
