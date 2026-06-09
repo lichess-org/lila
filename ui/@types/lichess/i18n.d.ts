@@ -58,6 +58,28 @@ interface I18n {
     /** Supported lichess.org for %1$s months as a %2$s */
     supportedNbMonths: I18nPlural;
   };
+  app: {
+    /** all releases */
+    allReleases: string;
+    /** Download on the Apple App Store */
+    downloadOnAppleAppStore: string;
+    /** Download on F-Droid */
+    downloadOnFdroid: string;
+    /** Download on Google Play */
+    downloadOnGooglePlay: string;
+    /** If the app does not open automatically, tap the "%s" button. */
+    ifAppDoesNotOpenAutomatically: I18nFormat;
+    /** Lichess Mobile App */
+    lichessMobileApp: string;
+    /** Lichess mobile screen */
+    lichessMobileScreen: string;
+    /** Open the Lichess app */
+    openTheApp: string;
+    /** Returning to the Lichess app */
+    returningToApp: string;
+    /** View %s on GitHub */
+    viewAllReleases: I18nFormat;
+  };
   appeal: {
     /** Your account is muted. */
     accountMuted: string;
@@ -1871,7 +1893,7 @@ interface I18n {
     movePiece: string;
     /** Move to file a to h. */
     moveToFile: string;
-    /** Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order. */
+    /** Move to squares using piece names. For example: repeated n will move to every square where there is a knight. Use uppercase to invert order. */
     moveToPieceByType: string;
     /** Move to rank 1 to 8. */
     moveToRank: string;
@@ -2079,8 +2101,8 @@ interface I18n {
     changeMonthlyAmount: I18nFormat;
     /** Can I change/cancel my monthly support? */
     changeMonthlySupport: string;
-    /** Yes, at any time, from this page. */
-    changeOrContact: I18nFormat;
+    /** If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can %1$s and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on %2$s. */
+    changeSupport: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
     /** contact Lichess support */
@@ -2155,6 +2177,8 @@ interface I18n {
     patronFeatures: string;
     /** Lichess Patron for %s months */
     patronForMonths: I18nPlural;
+    /** the patron page */
+    patronPage: string;
     /** Patron since %s */
     patronSince: I18nFormat;
     /** You have a Patron account until %s. */
@@ -3163,6 +3187,8 @@ interface I18n {
     biographyDescription: string;
     /** Black */
     black: string;
+    /** Black aborted the game */
+    blackAborted: string;
     /** Black accepts takeback */
     blackAcceptsTakeback: string;
     /** Black cancels takeback */
@@ -4691,6 +4717,8 @@ interface I18n {
     whenCreateSimul: string;
     /** White */
     white: string;
+    /** White aborted the game */
+    whiteAborted: string;
     /** White accepts takeback */
     whiteAcceptsTakeback: string;
     /** White cancels takeback */

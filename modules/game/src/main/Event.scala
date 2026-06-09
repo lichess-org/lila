@@ -250,6 +250,7 @@ object Event:
           "winner" -> game.winnerColor,
           "status" -> game.status
         )
+        .add("abortedBy" -> game.abortedBy)
         .add("clock" -> game.clock.map: c =>
           Json.obj(
             "wc" -> c.remainingTime(Color.White).centis,

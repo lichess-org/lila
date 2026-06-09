@@ -32,7 +32,7 @@
   <string name="clickTwoSquares">Ikkita katakni bosish orqali</string>
   <string name="dragPiece">Donani surish orqali</string>
   <string name="bothClicksAndDrag">Har ikkala usulda</string>
-  <string name="premovesPlayingDuringOpponentTurn">Oldindan yurish (raqib navbati paytida yurish)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Oldindan yurish (raqib gali paytida yurish)</string>
   <string name="takebacksWithOpponentApproval">Yurishni qaytarish (raqib roziligi bilan)</string>
   <string name="inCasualGamesOnly">Faqat reytingsiz oʻyinlarda</string>
   <string name="promoteToQueenAutomatically">Piyoda avtomatik ravishda farzinga aylanadi</string>

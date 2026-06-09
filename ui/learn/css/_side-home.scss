@@ -1,11 +1,9 @@
 .learn__side-home {
   @import '../../bits/css/learn/progress';
-  @extend %box-radius, %flex-column;
-  @include backdrop-blur-if-transparent;
+  @extend %box-bordered, %flex-column;
 
   gap: 1em;
   background: $c-bg-box;
-  border: $border;
   text-align: center;
   padding: 1.25em 1.25em 1em;
 

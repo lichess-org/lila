@@ -83,7 +83,7 @@ final class Signup(
       formBinding: FormBinding,
       referrer: Option[ValidReferrer]
   ): Fu[Signup.Result] =
-    val client = simpleSignup.fold("website")(_.client.value)
+    val client = simpleSignup.fold("website")(_.client.clientId.value)
     val turnstileSuccess = if simpleSignup.isDefined then fuccess(true)
     else turnstile.verify()
     turnstileSuccess

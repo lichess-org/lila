@@ -12,7 +12,7 @@
   <string name="reusableChallengeUrl">Chorlov havolasi</string>
   <string name="permanentLinkForAnyoneToChallengeYou">Ushbu sozlamalar bilan sizni chorlash mumkin bo\'lgan doimiy havola.</string>
   <string name="waiting">Kutib turing</string>
-  <string name="yourTurn">Sizning navbatingiz</string>
+  <string name="yourTurn">Sizning galingiz</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s‑daraja</string>
   <string name="level">Daraja</string>
   <string name="strength">Qiyinligi</string>
@@ -32,7 +32,7 @@
   <string name="blackIsVictorious">Qoralar yutdi</string>
   <string name="youPlayTheWhitePieces">Oq donalarda siz oʻynaysiz</string>
   <string name="youPlayTheBlackPieces">Qora donalarda siz oʻynaysiz</string>
-  <string name="itsYourTurn">Sizning navbatingiz!</string>
+  <string name="itsYourTurn">Sizning galingiz!</string>
   <string name="cheatDetected">Gʻirromlik aniqlandi</string>
   <string name="kingInTheCenter">Shoh markazda</string>
   <string name="threeChecks">Uch choh</string>
@@ -41,8 +41,8 @@
   <string name="newOpponent">Yangi raqib topish</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Raqibingiz sizni yangi oʻyinga chorlamoqda</string>
   <string name="joinTheGame">Oʻyinga qoʻshilish</string>
-  <string name="whitePlays">Oqlar navbati</string>
-  <string name="blackPlays">Qoralar navbati</string>
+  <string name="whitePlays">Oqlar gali</string>
+  <string name="blackPlays">Qoralar gali</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
     <item quantity="other">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
   <string name="xLikesY">%1$sʼga %2$s yoqdi</string>
+  <string name="like">Yoqdi</string>
+  <string name="liked">Yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
   <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>

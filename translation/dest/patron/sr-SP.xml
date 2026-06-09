@@ -31,8 +31,6 @@
   <string name="officialNonProfit">Да ли је Lichess званична непрофитна организација?</string>
   <string name="actOfCreation">Да, овде је чин стварања (на француском)</string>
   <string name="changeMonthlySupport">Могу ли променити/отказати моју месечну подршку?</string>
-  <string name="changeOrContact">Да, у било које време, са ове странице.
-Или можеш %s.</string>
   <string name="contactSupport">контактирати Lichess подршку</string>
   <string name="otherMethods">Друге методе донације?</string>
   <string name="bankTransfers">Такође прихватамо банковне трансфере</string>

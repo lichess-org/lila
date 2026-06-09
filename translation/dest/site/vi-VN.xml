@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">Bên đen đã rời khỏi ván cờ</string>
   <string name="whiteDidntMove">Bên trắng không đi quân</string>
   <string name="blackDidntMove">Bên đen không đi quân</string>
+  <string name="whiteAborted">Bên trắng đã hủy ván đấu</string>
+  <string name="blackAborted">Bên đen đã hủy ván đấu</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Phân tích từ máy tính</string>
   <string name="computerAnalysisAvailable">Có sẵn phân tích từ máy tính</string>
@@ -94,6 +96,7 @@
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng thắng / Hòa / Đen thắng</string>
   <string name="averageRatingX">Hệ số bình quân: %s</string>
+  <string name="minRatingX">Hệ số tối thiểu của %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số FIDE %1$s+ từ năm %2$s đến %3$s</string>
@@ -765,6 +768,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>
+  <string name="like">Thích</string>
+  <string name="liked">Đã Thích</string>
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
@@ -897,6 +902,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
   <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
   <string name="theForumEtiquette">quy tắc diễn đàn</string>
+  <string name="pleaseBeNiceInTheForum">Hãy cư xử thân thiện trong diễn đàn.</string>
   <string name="thisTopicIsArchived">Chủ đề này đã được lưu trữ và không thể trả lời được nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>

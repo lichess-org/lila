@@ -391,7 +391,9 @@ const boardPlayer = (
 ) => {
   const player = preview.players?.[color];
   const coloredResult =
-    preview.status && preview.status !== '*' && playerColoredResult(preview.status, color, round);
+    preview.status &&
+    preview.status !== '*' &&
+    playerColoredResult(preview.status, color, round?.customScoring);
   return h('span.mini-game__player', [
     player && renderUser(player, pins?.isPlayerPinned(player)),
     showResults

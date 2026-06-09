@@ -202,8 +202,10 @@ export async function i18nManifest(): Promise<void> {
         ['window.site.manifest.i18n={'] +
         cats
           .map(cat => {
-            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
-            return `${cat}:'${hash}'`;
+            const isCatalogLocalized = !!i18n[`i18n/${cat}.${locale}`];
+            const safeLocale = isCatalogLocalized ? locale : 'en-GB';
+            const hash = i18n[`i18n/${cat}.${safeLocale}`].hash;
+            return `${cat}:'${safeLocale}.${hash}'`;
           })
           .join(',') +
         '}';

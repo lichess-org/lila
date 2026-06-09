@@ -2,6 +2,7 @@ package lila.push
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
@@ -13,9 +14,13 @@ import lila.core.config.*
 final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
+    @ConfigName("collection.unifiedpush") val unifiedPushColl: CollName,
     val web: WebPush.Config,
     val firebase: FirebasePush.BothConfigs
 )
+
+trait BrowserSub
+trait UnifiedSub
 
 @Module
 final class Env(
@@ -36,22 +41,19 @@ final class Env(
   def vapidPublicKey = config.web.vapidPublicKey
 
   private val deviceApi = DeviceApi(db(config.deviceColl))
-  val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
+
+  val browserSub = WebSubscriptionApi(db(config.subscriptionColl)).taggedWith[BrowserSub]
+  val unifiedSub = WebSubscriptionApi(db(config.unifiedPushColl)).taggedWith[UnifiedSub]
 
   export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
 
+  private lazy val browserPush = wire[BrowserWebPush]
+  private lazy val unifiedPush = wire[UnifiedWebPush]
   private lazy val firebasePush = wire[FirebasePush]
-
-  private lazy val webPush = wire[WebPush]
-
-  private lazy val pushApi: PushApi = wire[PushApi]
-
-  private def logUnit(f: Fu[?]): Unit =
-    f.logFailure(logger)
-    ()
+  private lazy val pushApi = wire[PushApi]
 
   Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
-    webSubscriptionApi.unsubscribeBySession(token.id)
+    unifiedSub.unsubscribeBySession(token.id)
 
   Bus.sub[lila.core.game.FinishGame]: f =>
     logUnit { pushApi.finish(f.game) }
@@ -80,3 +82,7 @@ final class Env(
 
   Bus.sub[lila.core.misc.push.TourSoon]: t =>
     logUnit { pushApi.tourSoon(t) }
+
+  private def logUnit(f: Fu[?]): Unit =
+    f.logFailure(logger)
+    ()
