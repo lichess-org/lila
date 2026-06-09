@@ -33,7 +33,7 @@ in
 
   packages = [
     pkgs-unstable.nodejs-slim
-    pkgs-master.pnpm
+    pkgs-unstable.pnpm
     pkgs.svgo
     pkgs-master.oxlint
     pkgs-master.oxfmt
