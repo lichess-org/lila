@@ -113,7 +113,6 @@
     margin-inline-start: 1em;
 
     &:hover {
-      background: unset;
       color: $c-primary;
     }
   }
@@ -121,7 +120,7 @@
 
 .engine-info-popup {
   a {
-    font-size: 12px;
+    font-size: 0.9em;
   }
 
   ol {
@@ -129,7 +128,8 @@
   }
 
   li {
+    @extend %flex-between-nowrap;
+
     list-style: decimal inside;
-    white-space: nowrap;
   }
 }

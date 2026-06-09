@@ -228,15 +228,14 @@ function engineSelection({ ceval }: CevalHandler) {
 function engineInfo(engines: EngineInfo[]) {
   if (document.querySelector('.engine-info')) return;
   const engineHtml = (e: EngineInfo) =>
-    `<li>${e.name} ${e.url ? `(<a href="${e.url}" target="_blank">source</a>)` : ''}</li>`;
+    `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
     class: 'engine-info-popup',
     htmlText: $html`
       <div>
-        <p>From strongest to weakest</p>
+        <p>Engines from strongest to weakest</p>
         <ol>${engines.map(engineHtml).join('')}</ol>
       </div>`,
     show: true,
-    noCloseButton: true,
   });
 }
