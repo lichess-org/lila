@@ -9,12 +9,13 @@ NNUE models used by Website and mobile app.
 file | stockfish-web | mobile
 --- | --- | ---
 nn-4ca89e4b3abf.nnue | sf_18_smallnet
-nn-7e1657811c6d.nnue | sf_dev (dev-20260213-77d46ff6)
+nn-71d6d32cb962.nnue | sf_dev (dev-20260609-415ff793)
+nn-7e1657811c6d.nnue | *remove soon* (dev-20260213-77d46ff6)
 nn-c288c895ea92.nnue | sf_18 | >=0.21.2
 nn-1c0000000000.nnue | sf_17.1 | >=0.15.10, <0.21.2
 nn-1111cefa1111.nnue | sf_17 | >=0.15.8, <0.15.10
 nn-9067e33176e8.nnue | sf_17_smallnet
-nn-37f18f62d772.nnue (small) | sf_17, sf_17.1, sf_18, sf_dev | >=0.15.8
+nn-37f18f62d772.nnue (small) | sf_17, sf_17.1, sf_18 | >=0.15.8
 nn-ecb35f70ff2a.nnue | sf_16_smallnet
 3check-cb5f517c228b.nnue | fsf_14
 antichess-dd3cbe53cd4e.nnue | fsf_14
