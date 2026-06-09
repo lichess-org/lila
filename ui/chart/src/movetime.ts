@@ -13,6 +13,7 @@ import {
 import { COLORS } from 'chessops';
 
 import { pubsub } from 'lib/pubsub';
+import type { TreeNodeIncomplete } from 'lib/tree/types';
 
 import division from './division';
 import {
@@ -27,6 +28,7 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  glyphProperties,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 
@@ -54,6 +56,9 @@ export default async function (
   const blueLineColor = '#3893e8';
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
+  const adviceHoverColors: { white: string[]; black: string[] } = { white: [], black: [] };
+  const moveDatasetPointsByPly = new Map<number, { datasetIndex: number; index: number }>();
+  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
@@ -77,6 +82,7 @@ export default async function (
     const turn = (ply + 1) >> 1;
     const color = ply & 1;
     const colorName = color ? 'white' : 'black';
+    const moveDatasetIndex = COLORS.indexOf(colorName);
 
     const y = Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC;
     let title = turn + (color ? '. ' : '... ') + san;
@@ -93,10 +99,15 @@ export default async function (
       pointStyles[colorName].push('circle');
       pointRadius[colorName].push(0);
     }
+    adviceHoverColors[colorName].push(glyphProperties(node).color ?? orangeAccent);
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
     let label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
+    moveDatasetPointsByPly.set(ply, {
+      datasetIndex: moveDatasetIndex,
+      index: moveSeries[colorName].length - 1,
+    });
 
     let clock = node ? node.clock : undefined;
     if (clock === undefined) {
@@ -219,8 +230,11 @@ export default async function (
 
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  pubsub.on('ply', movetimeChart.selectPly);
+  pubsub.on('ply', (ply: number, isMainline?: boolean) => movetimeChart.selectPly(ply, isMainline ?? false));
   pubsub.emit('ply.trigger');
+  if (!isPartial(data)) {
+    christmasTree(movetimeChart, data.treeParts, moveDatasetPointsByPly, adviceHoverColors);
+  }
   return movetimeChart;
 }
 
@@ -247,3 +261,44 @@ const formatClock = (centis: number) => {
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
 };
+
+function christmasTree(
+  chart: PlyChart,
+  mainline: TreeNodeIncomplete[],
+  moveDatasetPointsByPly: Map<number, { datasetIndex: number; index: number }>,
+  hoverColors: { white: string[]; black: string[] },
+) {
+  $('div.advice-summary')
+    .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      const symbol = this.getAttribute('data-symbol');
+      const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
+      if (symbol === '??' || symbol === '?!' || symbol === '?') {
+        const points = mainline
+          .filter(
+            node => node?.glyphs?.some(glyph => glyph.symbol === symbol) && (node.ply & 1) === playerColorBit,
+          )
+          .map(node => moveDatasetPointsByPly.get(node.ply))
+          .filter((point): point is { datasetIndex: number; index: number } => !!point);
+
+        const color = playerColorBit ? 'white' : 'black';
+        const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
+        movetimeDataset.hoverBackgroundColor = hoverColors[color];
+        movetimeDataset.pointHoverBackgroundColor = hoverColors[color];
+        movetimeDataset.pointHoverBorderColor = hoverColors[color];
+        chart.setActiveElements(points);
+        chart.update('none');
+      }
+    })
+    .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      chart.setActiveElements([]);
+      const whiteDataset = chart.data.datasets[COLORS.indexOf('white')];
+      whiteDataset.hoverBackgroundColor = whiteFill;
+      whiteDataset.pointHoverBackgroundColor = orangeAccent;
+      whiteDataset.pointHoverBorderColor = orangeAccent;
+      const blackDataset = chart.data.datasets[COLORS.indexOf('black')];
+      blackDataset.hoverBackgroundColor = blackFill;
+      blackDataset.pointHoverBackgroundColor = orangeAccent;
+      blackDataset.pointHoverBorderColor = orangeAccent;
+      chart.update('none');
+    });
+}
