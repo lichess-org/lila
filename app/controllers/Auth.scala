@@ -201,7 +201,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val sid = env.security.api.reqSessionId(ctx.req)
     for
       _ <- sid.so(env.security.store.delete)
-      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      _ <- sid.so(env.push.browserSub.unsubscribeBySession)
       res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
     yield res.withCookies(env.security.lilaCookie.newSession)
 
@@ -452,7 +452,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   welcome(user, _, sendWelcomeEmail = false)
                 _ <- env.user.repo.disableTwoFactor(user.id)
                 _ <- env.security.store.closeAllSessionsOf(user.id)
-                _ <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+                _ <- env.push.browserSub.unsubscribeByUser(user)
                 _ <- env.push.unregisterDevices(user)
                 res <- authenticateUser(user, remember = true, pwned = IsPwned.No)
               yield
