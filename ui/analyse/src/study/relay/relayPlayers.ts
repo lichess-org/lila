@@ -467,10 +467,9 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const coloredPoint = ({ points, customPoints, color, ongoing }: RelayPlayerGame, index: number) => {
     if (!points) return ongoing && hl('strong', '*');
     if (hideResultsSinceIndex <= index) return hl('span', '?');
-    if (defined(customPoints)) return customPoints === 0.5 ? '½' : customPoints;
 
     const povResultStr = points === '1/2' ? '½-½' : (points === '1') === (color === 'white') ? '1-0' : '0-1';
-    const coloredResult = playerColoredResult(povResultStr, color);
+    const coloredResult = playerColoredResult(povResultStr, color, customPoints);
     return coloredResult && hl(coloredResult.tag, coloredResult.points);
   };
 

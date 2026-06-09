@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Zwart is weggegaan</string>
   <string name="whiteDidntMove">Wit heeft niet gezet</string>
   <string name="blackDidntMove">Zwart heeft niet gezet</string>
+  <string name="whiteAborted">Wit heeft de partij afgebroken</string>
+  <string name="blackAborted">Zwart heeft de partij afgebroken</string>
   <string name="requestAComputerAnalysis">Verzoek een computeranalyse</string>
   <string name="computerAnalysis">Analyse door de computer</string>
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>

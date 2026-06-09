@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
   <string name="whiteDidntMove">पांढरा खेळला नाही</string>
   <string name="blackDidntMove">काळा खेळला नाही</string>
+  <string name="whiteAborted">पांढऱ्याने खेळ सोडले</string>
+  <string name="blackAborted">काळ्याने खेळ सोडले</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>

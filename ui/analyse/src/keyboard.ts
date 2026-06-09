@@ -69,7 +69,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
     .bind('z', () => {
-      ctrl.toggleFishnetAnalysis();
+      ctrl.toggleStaticAnalysis();
       ctrl.redraw();
     })
     .bind('a', () => {

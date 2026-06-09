@@ -15,7 +15,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
-import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
+import type { TreeNodeBase } from 'lib/tree/types';
 
 import division from './division';
 import {
@@ -36,7 +36,7 @@ Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, 
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
-  mainline: TreeNodeIncomplete[],
+  mainline: TreeNodeBase[],
 ): Promise<AcplChart> {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
@@ -49,7 +49,7 @@ export default async function (
 
   const makeDataset = (
     d: AnalyseData,
-    mainline: TreeNodeIncomplete[],
+    mainline: TreeNodeBase[],
   ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
     const pointBackgroundColors: (
       | typeof orangeAccent
@@ -177,7 +177,7 @@ export default async function (
   };
   const acplChart = new Chart(el, config) as AcplChart;
   acplChart.selectPly = selectPly.bind(acplChart);
-  acplChart.updateData = (d: AnalyseData, mainline: TreeNode[]) => {
+  acplChart.updateData = (d: AnalyseData, mainline: TreeNodeBase[]) => {
     const dataset = makeDataset(d, mainline);
     adviceHoverColors = dataset.adviceHoverColors;
     const acpl = dataset.acpl;
@@ -192,7 +192,7 @@ export default async function (
 }
 
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: string } => {
+const glyphProperties = (node: TreeNodeBase): { advice?: Advice; color?: string } => {
   if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
   else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
   else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
@@ -201,7 +201,7 @@ const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: s
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-function christmasTree(chart: AcplChart, mainline: TreeNodeIncomplete[], hoverColors: string[]) {
+function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: string[]) {
   $('div.advice-summary')
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
       const symbol = this.getAttribute('data-symbol');

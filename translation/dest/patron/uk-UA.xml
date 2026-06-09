@@ -42,8 +42,8 @@
   <string name="officialNonProfit">Чи дійсно Lichess офіційно некомерційний?</string>
   <string name="actOfCreation">Так, ось акт створення (французькою)</string>
   <string name="changeMonthlySupport">Чи можу я змінити/скасувати свою місячну підтримку?</string>
-  <string name="changeOrContact">Так, у будь-який момент з цієї сторінки.
-Або ви можете %s.</string>
+  <string name="changeSupport">Якщо ваші платежі опрацьовуються PayPal, ви можете скасувати чи змінити свої внески через обліковий запис PayPal, або %1$s, тоді це зробимо ми. Якщо ви не використовуєте PayPal, ваші платежі опрацьовуються Stripe, а скасувати чи змінити внески можна на %2$s.</string>
+  <string name="patronPage">сторінці покровителя</string>
   <string name="contactSupport">зв\'язатися з підтримкою Lichess</string>
   <string name="otherMethods">Інші методи підтримки?</string>
   <string name="lichessIsRegisteredWith">Lichess зареєстровано через %s.</string>

@@ -12,6 +12,7 @@ val maxLangs = 128
 
 val defaultLanguage: Language = Language("en")
 val enLang: Lang = Lang("en", "GB")
+val enUsLang: Lang = Lang("en", "US")
 val defaultLang: Lang = enLang
 
 def toLanguage(lang: Lang): Language = Language(lang.language)
