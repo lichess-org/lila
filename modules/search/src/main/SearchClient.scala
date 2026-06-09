@@ -9,9 +9,7 @@ import scalalib.newtypes.SameRuntime
 import lila.db.dsl.{ $doc, Coll }
 import lila.mon.extensions.*
 
-private val elasticEndpoint = "http://127.0.0.1:9200"
-
-final class SearchClient(ws: StandaloneWSClient, eventColl: Coll)(using Executor):
+final class SearchClient(ws: StandaloneWSClient, endpoint: Url, eventColl: Coll)(using Executor):
   import SearchClient.Index
 
   def searchIds(
@@ -23,7 +21,7 @@ final class SearchClient(ws: StandaloneWSClient, eventColl: Coll)(using Executor
       context: => Any
   ): Fu[List[String]] =
     elastic("search", index, context, Nil)(
-      ws.url(s"$elasticEndpoint/${index.esPath}/_search")
+      ws.url(s"$endpoint/${index.esPath}/_search")
         .post(
           Json.obj(
             "query" -> query,
@@ -40,7 +38,7 @@ final class SearchClient(ws: StandaloneWSClient, eventColl: Coll)(using Executor
 
   def count(index: Index, query: JsObject, context: => Any): Fu[Long] =
     elastic("count", index, context, 0L)(
-      ws.url(s"$elasticEndpoint/${index.esPath}/_count")
+      ws.url(s"$endpoint/${index.esPath}/_count")
         .post(Json.obj("query" -> query))
     )(js => (js \ "count").asOpt[Long].getOrElse(0L))
 
