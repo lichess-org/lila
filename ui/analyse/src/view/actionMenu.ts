@@ -166,8 +166,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
       id: 'all',
       name: i18n.site.computerAnalysis,
       title: i18n.site.computerAnalysis + ' [z]',
-      checked: ctrl.showFishnetAnalysis(),
-      change: ctrl.toggleFishnetAnalysis,
+      checked: ctrl.showStaticAnalysis(),
+      change: ctrl.toggleStaticAnalysis,
       redraw: ctrl.redraw,
     }),
     cmnToggleWrapProp({
