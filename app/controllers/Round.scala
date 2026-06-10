@@ -50,7 +50,7 @@ final class Round(
                 page <- renderPage(
                   views.round.player(
                     pov,
-                    data.add("noab" -> ctx.me.exists(_.lame)),
+                    data.add("noab" -> (pov.game.hasAi || ctx.me.exists(_.lame))),
                     tour = tour,
                     simul = simul,
                     cross = crosstable,

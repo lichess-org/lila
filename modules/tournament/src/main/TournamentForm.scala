@@ -180,6 +180,8 @@ private[tournament] case class TournamentSetup(
       !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
 
   private def sameClock(prev: Option[Tournament]) = prev.exists(_.clock == clockConfig)
+  private def sameClockAndDuration(prev: Option[Tournament]) =
+    sameClock(prev) && prev.exists(_.minutes == minutes)
   private def sameBots(prev: Option[Tournament]) =
     prev.exists(_.conditions.allowsBots == conditions.allowsBots)
 
@@ -200,8 +202,10 @@ private[tournament] case class TournamentSetup(
     (prev.exists(p => p.rated == realRated && p.variant == realVariant) && sameClock(prev)) ||
       realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
 
-  def sufficientDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay <= 150
+  def sufficientDuration(prev: Option[Tournament]) =
+    sameClockAndDuration(prev) || estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration(prev: Option[Tournament]) =
+    sameClockAndDuration(prev) || estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 

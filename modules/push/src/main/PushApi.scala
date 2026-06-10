@@ -16,7 +16,7 @@ import lila.core.net.LichessMobileVersion
 
 final private class PushApi(
     firebasePush: FirebasePush,
-    webPush: WebPush,
+    webPush: BrowserWebPush,
     gameProxy: lila.core.game.GameProxy,
     roundJson: lila.core.round.RoundJson,
     gameRepo: lila.core.game.GameRepo,
@@ -434,7 +434,7 @@ private object PushApi:
       mobileCompatible: Option[LichessMobileVersion] = None,
       lichobileCompatible: Boolean = false,
       iosBadge: Option[Int] = None,
-      // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
+      // https://firebase.google.com/docs/cloud-messaging/customize-messages/set-message-type
       firebaseMod: Option[Data.FirebaseMod] = None
   )
 
