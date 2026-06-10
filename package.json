@@ -1,15 +1,10 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.5.1",
   "engines": {
     "node": ">=24",
     "pnpm": "11"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   },
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",
@@ -21,9 +16,9 @@
     "chessops": "^0.15.0",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.4.0",
-    "oxfmt": "0.45.0",
-    "oxlint": "1.65.0",
-    "oxlint-tsgolint": "0.21.1",
+    "oxfmt": "0.52.0",
+    "oxlint": "1.68.0",
+    "oxlint-tsgolint": "0.23.0",
     "snabbdom": "3.5.1",
     "stylelint": "^17.11.1",
     "stylelint-config-standard-scss": "^17.0.0",
