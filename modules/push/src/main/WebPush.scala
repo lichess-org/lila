@@ -23,7 +23,7 @@ final private class BrowserWebPush(
     Json.obj(
       "title" -> data.title,
       "body" -> data.body,
-      "tag" -> data.stacking.key,
+      "tag" -> data.key,
       "payload" -> Json
         .obj("userData" -> data.payload.userData.toMap)
         .add("userId" -> data.payload.userId)
@@ -78,8 +78,8 @@ private abstract class WebPush(
                   )
                 }.toList),
                 "payload" -> makeWebPayload(data).toString,
-                "topic" -> data.stacking.key,
-                "urgency" -> data.urgency.key,
+                "topic" -> data.key,
+                "urgency" -> data.urgency,
                 "ttl" -> 43200
               )
             )
