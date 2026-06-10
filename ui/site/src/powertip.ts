@@ -25,7 +25,8 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
     .removeClass('ulpt')
     .powerTip({
       preRender: onPowertipPreRender('powerTip', (url: string) => {
-        const u = url.slice(3);
+        const u = url.split('@/')[1];
+        if (!u) return;
         const name = el.dataset.name || $(el).html();
         $('#powerTip').html(
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +

@@ -55,7 +55,7 @@
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
   <string name="pointsCalculationA">به هر برد یک امتیاز و هر مساوی یک امتیاز تعلق می گیرد و باخت هیچ امتیازی ندارد.
 زمانی که یک بازیکن در یک دور هیچ حریفی نداشته باشد، یک استراحت به ایشان تعلق می گیرد که یک امتیاز به حسب می آید.</string>
-  <string name="tiebreaksCalculationQ">امتیاز شکنی چطور محاسبه میشود؟</string>
+  <string name="tiebreaksCalculationQ">یِرشکن چطور محاسبه می‌شود؟</string>
   <string name="sonnebornBergerScore">امتیاز Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">با %s.
 امتیازهای هر حریفی را که این بازیکن می‌بَرد و نیمی از امتیاز هر حریفی که این بازیکن مساوی می‌کند را بیفزایید.</string>
@@ -105,7 +105,7 @@
   <string name="numberOfGamesPreDefined">از قبل تصمیم گرفته شده است، برای همه بازیکنان یکسان است</string>
   <string name="pairingSystem">روش تعیین حریف</string>
   <string name="pairingSystemArena">هر حریف در دسترس با رتبهٔ همسان</string>
-  <string name="pairingSystemSwiss">بهترین جفت بر اساس امتیاز و امتیاز شکنی</string>
+  <string name="pairingSystemSwiss">بهترین جفت بر اساس امتیاز و یِرشکن</string>
   <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
   <string name="pairingWaitTimeArena">تُند: منتظر همهٔ بازیکنان نمی‌ماند</string>
   <string name="pairingWaitTimeSwiss">کُند: منتظر همهٔ بازیکنان می‌ماند</string>
@@ -124,5 +124,5 @@
   <string name="playYourGames">بازی‌های خود را بازی کنید</string>
   <string name="byes">استراحت</string>
   <string name="absences">غيبت ها</string>
-  <string name="tieBreak">تساوی‌شکنی</string>
+  <string name="tieBreak">یِرشکن</string>
 </resources>

@@ -2,32 +2,7 @@ import fg from 'fast-glob';
 import fs from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 
-import { env } from './env.ts';
-
-export interface Package {
-  root: string; // absolute path to package.json parentdir
-  name: string; // dirname of package root
-  pkg: any; // package.json object
-  bundle: Bundle[]; // esbuild bundling
-  hash: Hash[]; // files to symlink hash
-  sync: Sync[]; // pre-bundle filesystem copies from package json
-}
-
-interface Bundle {
-  module?: string; // file glob for esm modules (esbuild entry points)
-  inline?: string; // inject this script into response html
-}
-
-interface Hash {
-  path: string; // glob for assets
-  catalog?: string; // file to update with hashed filenames
-  omit?: boolean; // omit from client manifest, default false
-}
-
-interface Sync {
-  src: string; // file glob expression, use <dir>/** to sync entire directories
-  dest: string; // directory to copy into
-}
+import { env, type Package, type Hash } from './env.ts';
 
 export async function parsePackages(): Promise<void> {
   for (const dir of (await glob('ui/[^@.]*/package.json')).map(pkg => dirname(pkg))) {

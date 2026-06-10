@@ -155,9 +155,9 @@ final class RelayApi(
     private val cache = cacheApi[RelayTourId, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
         for
-          group <- groupRepo.byTour(id)
-          tours <- tourRepo.previews(group.so(_.tours))
-        yield group.map(RelayGroup.WithTours(_, tours))
+          groupOpt <- groupRepo.byTour(id)
+          toursList <- tourRepo.previews(groupOpt.so(_.tours.toList))
+        yield (groupOpt, toursList.toNel).mapN(RelayGroup.WithTours.apply)
     export cache.get
     def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
       get(tour.id).map(RelayTour.WithGroupTours(tour, _))
@@ -215,8 +215,8 @@ final class RelayApi(
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
     yield tour
 
-  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    val tour = data.update(prev)
+  def tourUpdate(prev: RelayTour.WithGroupTours, data: RelayTourForm.Data)(using Me): Funit =
+    val tour = data.update(prev.tour)
     import toBSONValueOption.given
     for
       _ <- tourRepo.coll.update.one(
@@ -241,9 +241,9 @@ final class RelayApi(
           "orphanWarn" -> tour.orphanWarn.some
         )
       )
-      _ <- data.grouping.so(updateGrouping(tour, _))
-      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
-      _ <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
+      _ <- updateGrouping(prev, data.grouping)
+      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev.tour)
+      _ <- (tour.visibility != prev.tour.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
       studyIds <- roundRepo.studyIdsOf(tour.id)
@@ -251,14 +251,14 @@ final class RelayApi(
       players.invalidate(tour.id)
       teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
-      (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+      (tour.id :: data.grouping.tourIds).foreach(withTours.invalidate)
 
-  private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
+  private def updateGrouping(tour: RelayTour.WithGroupTours, data: RelayGroupData)(using me: Me): Funit =
     for
       isOwner <- fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
-      hasOfficial <- tourRepo.hasOfficial(data.tourIds)
+      hasOfficial <- tourRepo.hasOfficial(data.tourIds ::: tour.group.so(_.tours.map(_.id).toList))
       canGroup = isOwner && (!hasOfficial || Granter(_.Relay))
-      _ <- canGroup.so(groupRepo.update(tour.id, data))
+      _ <- canGroup.so(groupRepo.update(tour.tour.id, data))
     yield ()
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for

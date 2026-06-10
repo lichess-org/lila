@@ -23,7 +23,7 @@ export class Engines {
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-    this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
+    this.selectProp = storedStringProp('ceval.engine', '__sf_18_smallnet');
   }
 
   status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
@@ -44,6 +44,7 @@ export class Engines {
         id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
+        url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
         tech: 'NNUE',
         requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
         variants: [key],
@@ -70,36 +71,20 @@ export class Engines {
         ...base,
         info: {
           ...base.info,
-          id: `${base.info.id}_relaxed-simd`,
           requires: [...base.info.requires, 'relaxedSimd'],
           assets: { ...base.info.assets, js: base.info.assets.js?.replace('.js', '_relaxed-simd.js') },
         },
       },
       { ...base, info: { ...base.info, obsoletedBy: 'relaxedSimd' } },
     ];
+    // list engines in decreasing order of strength
     const browserEngines: WithMake[] = [
       ...relaxedSimdPair({
         info: {
-          id: '__sf_18_smallnet',
-          name: 'Stockfish 18 · 15MB sscg13/threat-small',
-          short: 'SF 18 · 15MB',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 1536,
-          cloudEval: true,
-          assets: {
-            root: 'npm/stockfish-web',
-            nnue: ['nn-4ca89e4b3abf.nnue'],
-            js: 'sf_18_smallnet.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-      }),
-      ...relaxedSimdPair({
-        info: {
           id: '__sf_dev',
-          name: 'Stockfish 18+ dev-20260213-77d46ff6 · 88MB SFNNv12',
-          short: 'SF dev · 88MB',
+          name: 'Stockfish 18 dev · 88MB',
+          short: 'SF 18 dev 88MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260213-77d46ff6',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
@@ -114,8 +99,9 @@ export class Engines {
       ...relaxedSimdPair({
         info: {
           id: '__sf_18',
-          name: 'Stockfish 18 · 108MB SFNNv10',
-          short: 'SF 18 · 108MB',
+          name: 'Stockfish 18 · 108MB',
+          short: 'SF 18 108MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_18-stockfish-18',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
@@ -127,11 +113,30 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
       }),
+      ...relaxedSimdPair({
+        info: {
+          id: '__sf_18_smallnet',
+          name: 'Stockfish 18 · 15MB',
+          short: 'SF 18 15MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_18_smallnet-stockfish-18-with-sscg13threat-small',
+          tech: 'NNUE',
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          minMem: 1536,
+          cloudEval: true,
+          assets: {
+            root: 'npm/stockfish-web',
+            nnue: ['nn-4ca89e4b3abf.nnue'],
+            js: 'sf_18_smallnet.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+      }),
       {
         info: {
           id: '__sf14nnue',
           name: 'Stockfish 14 NNUE',
           short: 'SF 14',
+          url: 'https://github.com/lichess-org/stockfish-nnue.wasm',
           tech: 'NNUE',
           obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
@@ -151,6 +156,7 @@ export class Engines {
           id: '__fsfhce',
           name: 'Fairy Stockfish 14+ HCE',
           short: 'FSF 14+',
+          url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'HCE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
@@ -188,6 +194,7 @@ export class Engines {
           id: '__sf11hce',
           name: 'Stockfish 11 HCE',
           short: 'SF 11',
+          url: 'https://github.com/lichess-org/stockfish.wasm',
           tech: 'HCE',
           requires: ['sharedMem'],
           minThreads: 1,
@@ -205,6 +212,7 @@ export class Engines {
           id: '__sfwasm',
           name: 'Stockfish WASM',
           short: 'Stockfish',
+          url: 'https://github.com/lichess-org/stockfish.js',
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
@@ -223,6 +231,7 @@ export class Engines {
           id: '__sfjs',
           name: 'Stockfish JS',
           short: 'Stockfish',
+          url: 'https://github.com/lichess-org/stockfish.js',
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
@@ -283,11 +292,12 @@ export class Engines {
     this.ctrl = ctrl;
   }
 
-  supporting(variant: VariantKey): EngineInfo[] {
-    return [
-      ...this.localEngines.filter(e => e.variants?.includes(variant)),
-      ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
-    ];
+  supporting(variant: VariantKey, filter: 'browser' | 'external' | 'all' = 'all'): EngineInfo[] {
+    const engines: EngineInfo[] = [];
+    if (filter !== 'external') engines.push(...this.localEngines.filter(e => e.variants?.includes(variant)));
+    if (filter !== 'browser')
+      engines.push(...this.externalEngines.filter(e => externalEngineSupports(e, variant)));
+    return engines;
   }
 
   getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {

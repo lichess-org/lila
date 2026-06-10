@@ -268,7 +268,13 @@ final private class RoundAsyncActor(
     case Abandon =>
       proxy.withGame: game =>
         game.abandoned.so:
-          if game.abortable then finisher.other(game, _.Aborted, None)
+          if game.abortable then
+            finisher.other(
+              game,
+              _.Aborted,
+              None,
+              None
+            )
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
     case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))

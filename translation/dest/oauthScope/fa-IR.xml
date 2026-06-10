@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">API توکن دسترسی تازه</string>
+  <string name="newAccessToken">نمودافزارِ دسترسیِ شخصیِ جدید به API</string>
   <string name="tokenGrantsPermission">یک نمودافزار به دیگران اجازه استفاده از حساب‌تان را می‌دهد.</string>
   <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
   <string name="tokenDescription">توضیحات توکن</string>
@@ -30,14 +30,14 @@
   <string name="engineRead">دیدن و استفاده از موتورهای بیرونی‌تان</string>
   <string name="engineWrite">ساخت و به‌روزرسانی موتورهای بیرونی</string>
   <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
-  <string name="personalAccessTokens">کلیدواژه خصوصی دسترسی به api</string>
+  <string name="personalAccessTokens">نمودافزارهای دسترسی شخصی به API</string>
   <string name="canMakeOauthRequests">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>
   <string name="authorizationCodeFlow">روند کد هویت سنجی</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">به جایش، %s که می توانید مستقیم در درخواست های api استفاده کنید.</string>
   <string name="generatePersonalToken">ساخت یک نمودافزار دسترسی خصوصی</string>
   <string name="guardTokensCarefully">از این نمودافزارها محافظت کنید! آن‌ها مانند رمز عبورها هستند. فایده استفاده از این نمودافزارها جای نوشتن رمز عبور خود درون یک اسکریپت این که نمودافزارها می‌توانند لغو شوند و شما میتوانید تعداد زیادی از آن ها را ایجاد نمایید.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">اینجا یک %1$s و %2$s.</string>
-  <string name="personalTokenAppExample">نمونه برنامه نمودافزار خصوصی</string>
+  <string name="personalTokenAppExample">نمونه بَرکِ نمودافزار شخصی</string>
   <string name="apiDocumentation">مستندات API</string>
   <string name="newToken">نمودافزار دسترسی تازه</string>
   <string name="apiAccessTokens">API دسترسی نمودافزارها</string>

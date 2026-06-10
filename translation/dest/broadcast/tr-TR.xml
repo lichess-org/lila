@@ -63,6 +63,7 @@
   <string name="notYetStarted">Yayın henüz başlamadı.</string>
   <string name="officialWebsite">Resmî site</string>
   <string name="officialStandings">Resmi Sıralamalar</string>
+  <string name="regulations">Yönetmelikler</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
   <string name="webmastersPage">ağ yöneticileri sayfası</string>
   <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>

@@ -42,8 +42,6 @@ Nato za plačilo polno zaposlenega razvijalca: %s, ustanovitelja Lichessa.</stri
   <string name="officialNonProfit">Ali je Lichess uradno neprofiten?</string>
   <string name="actOfCreation">Da, tu je uradna objava o ustanovitvi (v francoščini)</string>
   <string name="changeMonthlySupport">Ali lahko spremenim/prekličem svojo mesečno podporo?</string>
-  <string name="changeOrContact">Da, kadarkoli, na tej strani.
-Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
   <string name="lichessIsRegisteredWith">Lichess je registriran s %s.</string>

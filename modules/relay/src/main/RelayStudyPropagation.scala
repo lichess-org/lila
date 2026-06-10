@@ -30,7 +30,7 @@ private final class RelayStudyPropagation(
               groupRepo
                 .allTourIdsOfGroup(tourId)
                 .flatMap:
-                  _.sequentiallyVoid: tourId =>
+                  _.toList.sequentiallyVoid: tourId =>
                     roundRepo
                       .studyIdsOf(tourId)
                       .flatMap:

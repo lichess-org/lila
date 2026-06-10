@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.core.config.CollName
+import lila.core.config.{ BaseUrl, CollName }
 import lila.core.data.Strings
 import lila.memo.SettingStore.Strings.given
 
@@ -14,6 +14,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     appConfig: Configuration,
+    baseUrl: BaseUrl,
     db: lila.db.Db
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -23,7 +24,7 @@ final class Env(
     text = "OAuth origin blocklist".some
   ).taggedWith[OriginBlocklist]
 
-  lazy val signedClients = OAuthSignedClients(appConfig)
+  lazy val signedClients = wire[OAuthSignedClients]
 
   lazy val legacyClientApi = LegacyClientApi(db(CollName("oauth2_legacy_client")))
 

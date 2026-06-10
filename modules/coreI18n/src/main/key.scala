@@ -46,6 +46,18 @@ object I18nKey:
     val `competedInNbSwissTournaments`: I18nKey = "activity:competedInNbSwissTournaments"
     val `joinedNbTeams`: I18nKey = "activity:joinedNbTeams"
 
+  object app:
+    val `lichessMobileApp`: I18nKey = "app:lichessMobileApp"
+    val `returningToApp`: I18nKey = "app:returningToApp"
+    val `ifAppDoesNotOpenAutomatically`: I18nKey = "app:ifAppDoesNotOpenAutomatically"
+    val `openTheApp`: I18nKey = "app:openTheApp"
+    val `viewAllReleases`: I18nKey = "app:viewAllReleases"
+    val `allReleases`: I18nKey = "app:allReleases"
+    val `downloadOnAppleAppStore`: I18nKey = "app:downloadOnAppleAppStore"
+    val `downloadOnGooglePlay`: I18nKey = "app:downloadOnGooglePlay"
+    val `downloadOnFdroid`: I18nKey = "app:downloadOnFdroid"
+    val `lichessMobileScreen`: I18nKey = "app:lichessMobileScreen"
+
   object appeal:
     val `cleanAllGood`: I18nKey = "appeal:cleanAllGood"
     val `engineMarked`: I18nKey = "appeal:engineMarked"
@@ -1103,7 +1115,8 @@ object I18nKey:
     val `officialNonProfit`: I18nKey = "patron:officialNonProfit"
     val `actOfCreation`: I18nKey = "patron:actOfCreation"
     val `changeMonthlySupport`: I18nKey = "patron:changeMonthlySupport"
-    val `changeOrContact`: I18nKey = "patron:changeOrContact"
+    val `changeSupport`: I18nKey = "patron:changeSupport"
+    val `patronPage`: I18nKey = "patron:patronPage"
     val `contactSupport`: I18nKey = "patron:contactSupport"
     val `otherMethods`: I18nKey = "patron:otherMethods"
     val `lichessIsRegisteredWith`: I18nKey = "patron:lichessIsRegisteredWith"
@@ -1623,6 +1636,8 @@ object I18nKey:
     val `blackLeftTheGame`: I18nKey = "blackLeftTheGame"
     val `whiteDidntMove`: I18nKey = "whiteDidntMove"
     val `blackDidntMove`: I18nKey = "blackDidntMove"
+    val `whiteAborted`: I18nKey = "whiteAborted"
+    val `blackAborted`: I18nKey = "blackAborted"
     val `requestAComputerAnalysis`: I18nKey = "requestAComputerAnalysis"
     val `computerAnalysis`: I18nKey = "computerAnalysis"
     val `computerAnalysisAvailable`: I18nKey = "computerAnalysisAvailable"

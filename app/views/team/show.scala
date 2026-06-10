@@ -119,9 +119,11 @@ object show:
                 (t.enabled && canSeeMembers && info.tours.nonEmpty).option(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
                     h2(a(href := routes.Team.tournaments(t.id))(trans.site.tournaments())),
-                    table(cls := "slist slist-resp")(
-                      tournaments.renderList(
-                        info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+                    div(cls := "team-show__list-wrapper")(
+                      table(cls := "slist slist-resp")(
+                        tournaments.renderList(
+                          info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+                        )
                       )
                     )
                   )
@@ -129,19 +131,21 @@ object show:
                 info.forum.map: forumPosts =>
                   st.section(cls := "team-show__forum")(
                     h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
-                    forumPosts.take(10).map { post =>
-                      a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
-                        div(cls := "meta")(
-                          strong(post.topic.name),
-                          em(
-                            post.post.userId.map(titleNameOrId),
-                            " • ",
-                            momentFromNow(post.post.createdAt)
-                          )
-                        ),
-                        p(shorten(Markdown(post.post.text).unlink, 200))
-                      )
-                    },
+                    div(cls := "team-show__list-wrapper")(
+                      forumPosts.take(10).map { post =>
+                        a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
+                          div(cls := "meta")(
+                            strong(post.topic.name),
+                            em(
+                              post.post.userId.map(titleNameOrId),
+                              span(" • "),
+                              momentFromNow(post.post.createdAt)
+                            )
+                          ),
+                          p(shorten(Markdown(post.post.text).unlink, 210))
+                        )
+                      }
+                    ),
                     a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")
                   )
               )

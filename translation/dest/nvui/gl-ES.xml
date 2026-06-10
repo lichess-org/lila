@@ -20,7 +20,7 @@
   <string name="announcePossibleMoves">Anunciar as posibles xogadas para a peza seleccionada.</string>
   <string name="announcePossibleCaptures">Anunciar as posibles capturas para a peza seleccionada.</string>
   <string name="moveWithArrows">Ir á casa adxacente da esquerda, da dereita, superior ou inferior.</string>
-  <string name="moveToPieceByType">Ir ás casas usando os nomes das pezas. Por exemplo: premendo \"k\" (Knight=Cabalo) varias veces para seleccionar as casas ocupadas polos cabalos. Usando \"MAIÚSCULAS + k\" neste exemplo cambiaría a orde desta rotación.</string>
+  <string name="moveToPieceByType">Ir ás casas usando os nomes das pezas. Por exemplo: premendo \"n\" varias veces para seleccionar as casas ocupadas polos cabalos. Usando \"MAIÚSCULAS\" cámbiase a orde da rotación.</string>
   <string name="moveToRank">Ir á fila 1 a 8.</string>
   <string name="moveToFile">Mover á columna a-h.</string>
   <string name="announcePieceLocations">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro, \"p capital A\" para todas as pezas brancas.</string>

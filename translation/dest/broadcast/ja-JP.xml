@@ -61,6 +61,7 @@
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
   <string name="officialStandings">公式順位</string>
+  <string name="regulations">規則</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
   <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>

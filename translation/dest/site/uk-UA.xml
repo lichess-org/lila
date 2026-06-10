@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
   <string name="reusableChallengeUrl">Постійне посилання на виклик</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким хто-небудь може кинути вам виклик із цими налаштуваннями.</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким будь-хто може кинути вам виклик із цими налаштуваннями.</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Чорні залишили гру</string>
   <string name="whiteDidntMove">Білі не зробили хід</string>
   <string name="blackDidntMove">Чорні не зробили хід</string>
+  <string name="whiteAborted">Білі скасували гру</string>
+  <string name="blackAborted">Чорні скасували гру</string>
   <string name="requestAComputerAnalysis">Зробити запит на комп’ютерний аналіз</string>
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
@@ -82,7 +84,7 @@
   <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
-  <string name="copyMainLinePgn">Копіювати pgn головної лінії</string>
+  <string name="copyMainLinePgn">Копіювати PGN головної лінії</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
