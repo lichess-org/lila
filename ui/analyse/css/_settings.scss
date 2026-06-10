@@ -8,7 +8,7 @@
     display: none;
   }
 
-  @media (width <= 600px) and (hover: none) {
+  @media (max-width: at-most(600px)) and (hover: none) {
     h2 {
       display: block;
     }
@@ -38,7 +38,7 @@
   justify-content: stretch;
   gap: 2em;
 
-  @media (width <= 600px) {
+  @media (max-width: at-most(600px)) {
     flex-direction: column;
   }
 
@@ -91,7 +91,7 @@
     overflow: hidden;
     align-items: stretch;
 
-    @media (width >= 600px) {
+    @media (min-width: at-least(600px)) {
       display: flex;
     }
 
