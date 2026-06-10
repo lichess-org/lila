@@ -86,11 +86,13 @@ export function initModule({ data, singlePerfName }: Opts): void {
 
   const $el = $('canvas.rating-history');
   if (!$el.length) return;
+
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && !data[singlePerfIndex]?.points.length) {
     $el.hide();
     return;
   }
+
   const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
   const startDate = allData.startDate;
   const endDate = allData.endDate;
@@ -99,6 +101,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
+
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -179,21 +182,29 @@ export function initModule({ data, singlePerfName }: Opts): void {
         },
         tooltip: {
           usePointStyle: true,
+          boxPadding: 2,
+          boxWidth: 8,
+          boxHeight: 8,
+          padding: 6,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
           titleColor: fontColor,
-          borderColor: fontColor,
+          borderColor: gridColor,
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
           rtl: document.dir === 'rtl',
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
+            label(context) {
+              return `${context.dataset.label}: ${context.formattedValue}`;
+            },
           },
         },
       },
     },
   };
+
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
@@ -304,10 +315,12 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       hoverBorderColor: hoverBorderColor,
       backgroundColor: perfStyle.color,
       pointRadius: data.length === 1 ? 3 : 0,
-      pointHoverRadius: 6,
+      pointHoverRadius: 5,
+      pointHoverBorderWidth: 0.5,
+      pointHoverBorderColor: '#fff9',
       data: data,
       pointStyle: perfStyle.symbol,
-      borderWidth: 2,
+      borderWidth: 1.5,
       tension: 0,
       borderDash: perfStyle.borderDash,
       stepped: false,
@@ -320,6 +333,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
   }
   return { ds: ds.filter(ds => ds.data.length), startDate, endDate };
 }
+
 function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];
