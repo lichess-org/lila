@@ -267,8 +267,6 @@ private[tournament] case class TournamentSetup(
   def automodText = List(name, description).flatten.mkString("\n")
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes.atMost(720) * 60) / estimatedGameSeconds
-  private def sameEstimatedGames(prev: Option[Tournament]) =
-    prev.exists(p => estimateNumberOfGamesOneCanPlay == p.estimateNumberOfGamesOneCanPlay)
 
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay
