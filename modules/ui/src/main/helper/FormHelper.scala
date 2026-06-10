@@ -74,7 +74,7 @@ trait FormHelper:
     )
 
   object turnstile:
-    def widget(explicit: Boolean = false)(using config: TurnstilePublicConfig, ctx: Context) =
+    def widget(hidden: Boolean = false)(using config: TurnstilePublicConfig, ctx: Context) =
       config.enabled.option:
         val theme = ctx.pref.bg match
           case 500 => "auto"
@@ -85,12 +85,12 @@ trait FormHelper:
           attrData("sitekey") := config.key,
           attrData("language") := ctx.lang.code.toLowerCase,
           attrData("theme") := theme,
-          attrData("appearance") := "interaction-only",
+          hidden.option(attrData("appearance") := "interaction-only"),
           attrData("retry-interval") := "3000"
         )
         val scriptUrl = "https://challenges.cloudflare.com/turnstile/v0/api.js"
         val scriptTag =
-          if explicit then script(src := s"$scriptUrl?render=explicit")
+          if hidden then script(src := s"$scriptUrl?render=explicit")
           else script(src := scriptUrl, deferAttr, async)
         frag(scriptTag, widget, div(cls := "cf-turnstile-error error none"))
 
