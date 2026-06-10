@@ -29,6 +29,7 @@ in
   services = {
     mongodb.enable = true;
     redis.enable = true;
+    elasticsearch.enable = true;
   };
 
   packages = [
