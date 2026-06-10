@@ -34,6 +34,7 @@ export interface BaseEngineInfo {
   id: string;
   name: string;
   short?: string;
+  url?: string;
   variants?: VariantKey[];
   minThreads?: number;
   maxThreads?: number;

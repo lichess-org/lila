@@ -8,6 +8,7 @@ import lila.oauth.Protocol.{ ClientId, RedirectUri }
 import lila.common.config.given
 import lila.core.config.BaseUrl
 import lila.core.net.{ Origin, ValidReferrer }
+import lila.core.misc.AuthCustomUi
 
 case class OAuthSignedClient(
     clientId: ClientId,
@@ -15,11 +16,10 @@ case class OAuthSignedClient(
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder],
     displayName: String,
-    imagePath: Option[String] = None
+    design: Option[AuthCustomUi] = None
 )
 object OAuthSignedClient:
-  case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
-  val takex3Id = ClientId("takex3")
+  case class SimpleSignup(username: UserName, email: EmailAddress, client: OAuthSignedClient)
 
 final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode):
 
@@ -40,12 +40,18 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
   )
 
   val takex3 = OAuthSignedClient(
-    OAuthSignedClient.takex3Id,
+    ClientId("takex3"),
     List(Origin("https://auth.taketaketake.com"), Origin("http://localhost")),
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    imagePath = "images/t3-logo.svg".some
+    design = Some:
+      AuthCustomUi(
+        name = "Take Take Take",
+        imagePath = "images/t3-logo.svg",
+        cssClass = "takex3",
+        lang = lila.core.i18n.enUsLang
+      )
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
@@ -67,13 +73,13 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       ref <- parse(referrer.value).toOption
       username <- ref.queryParam("default_username").map(UserName(_))
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
-      client <- signedReferrerClientId(referrer)
+      client <- signedReferrerClient(referrer)
     yield OAuthSignedClient.SimpleSignup(username, email, client)
 
   def isSignedReferrer(referrer: ValidReferrer): Boolean =
-    signedReferrerClientId(referrer).isDefined
+    signedReferrerClient(referrer).isDefined
 
-  def signedReferrerClientId(referrer: ValidReferrer): Option[ClientId] =
+  def signedReferrerClient(referrer: ValidReferrer): Option[OAuthSignedClient] =
     import lila.common.url.{ parse, queryParam }
     for
       ref <- parse(referrer.value).toOption
@@ -87,7 +93,7 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       if client == takex3
       if !requireSign || client.signers.exists: signer =>
         signer.sha1(email.value).hash_=(sign)
-    yield client.clientId
+    yield client
 
   private val clients = List(mobile, takex3)
 

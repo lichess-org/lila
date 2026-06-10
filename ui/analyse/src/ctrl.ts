@@ -76,7 +76,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  liveAnnotate: LiveAnnotate;
+  liveAnnotate?: LiveAnnotate;
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -122,7 +122,7 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     !!this.cevalEnabledProp(),
   );
-  showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
+  showStaticAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -179,7 +179,7 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
-    this.liveAnnotate = new LiveAnnotate();
+    if (!opts.study) this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -680,7 +680,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
+    return (this.cevalEnabled() && node.ceval) || (this.showStaticAnalysis() && node.eval);
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
@@ -702,7 +702,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return node.children.filter(
       kid =>
         !kid.comp ||
-        (this.showFishnetAnalysis() && !this.retro?.hideComputerLine(kid)) ||
+        (this.showStaticAnalysis() && !this.retro?.hideComputerLine(kid)) ||
         (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
     );
   }
@@ -741,7 +741,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
-      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
+      if (!isThreat) this.liveAnnotate?.onNewCeval(path, node, this.tree);
 
       if (path === this.path) {
         this.setAutoShapes();
@@ -823,14 +823,14 @@ export default class AnalyseCtrl implements CevalHandler {
   showVariationArrows() {
     if (!this.allowLines()) return false;
     const kids = this.variationArrowOpacity() ? this.node.children : [];
-    return Boolean(kids.filter(x => !x.comp || this.showFishnetAnalysis()).length);
+    return Boolean(kids.filter(x => !x.comp || this.showStaticAnalysis()).length);
   }
 
-  showAnalysis() {
-    return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
+  showEvaluation() {
+    return this.showStaticAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showStaticAnalysis();
 
   showMoveAnnotationsOnBoard = (): boolean =>
     this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
@@ -839,7 +839,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return (
       this.showGauge() &&
       displayColumns() > 1 &&
-      this.showAnalysis() &&
+      this.showEvaluation() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
       !this.node.outcome()
@@ -885,7 +885,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   toggleThreatMode = (v = !this.threatMode()) => {
     if (v === this.threatMode()) return;
-    if (this.node.check() || !this.showAnalysis()) return;
+    if (this.node.check() || !this.showEvaluation()) return;
     if (!this.cevalEnabled()) return;
     this.threatMode(v);
     if (this.threatMode() && this.practice) this.togglePractice();
@@ -899,10 +899,10 @@ export default class AnalyseCtrl implements CevalHandler {
     this.resetAutoShapes();
   };
 
-  toggleFishnetAnalysis = () => {
-    this.showFishnetAnalysis(!this.showFishnetAnalysis());
+  toggleStaticAnalysis = () => {
+    this.showStaticAnalysis(!this.showStaticAnalysis());
     this.resetAutoShapes();
-    pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
+    pubsub.emit('analysis.comp.toggle', this.showStaticAnalysis());
   };
 
   toggleActionMenu = () => {

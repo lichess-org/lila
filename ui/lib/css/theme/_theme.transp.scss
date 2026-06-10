@@ -21,8 +21,8 @@ html.transp {
   --c-font-page: #{change-color($c-font, $lightness: 97%)};
   --c-metal-top: hsla(37, 7%, 19%, 0.56);
   --c-metal-bottom: hsla(37, 7%, 19%, 0.66);
-  --c-metal-top-hover: hsla(22, 100%, 42%, 0.4);
-  --c-metal-bottom-hover: hsla(22, 100%, 42%, 0.3);
+  --c-metal-top-hover: hsla(0, 0%, 42%, 0.3);
+  --c-metal-bottom-hover: hsla(0, 0%, 42%, 0.35);
 
   @include transp-mix;
 }

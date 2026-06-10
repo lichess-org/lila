@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Les negres han marxat de la partida</string>
   <string name="whiteDidntMove">Les blanques no han mogut</string>
   <string name="blackDidntMove">Les negres no han mogut</string>
+  <string name="whiteAborted">Les blanques han cancel·lat la partida</string>
+  <string name="blackAborted">Les negres han cancel·lat la partida</string>
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>

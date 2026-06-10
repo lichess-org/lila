@@ -59,6 +59,8 @@
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
   <string name="whiteDidntMove">Albul nu s-a mișcat</string>
   <string name="blackDidntMove">Negrul nu a mutat</string>
+  <string name="whiteAborted">Albul a anulat jocul</string>
+  <string name="blackAborted">Negrul a anulat jocul</string>
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza calculatorului</string>
   <string name="computerAnalysisAvailable">Analiza calculatorului este disponibilă</string>

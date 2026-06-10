@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Svart har forlate partiet</string>
   <string name="whiteDidntMove">Kvit gjorde ikkje trekket sitt</string>
   <string name="blackDidntMove">Svart gjorde ikkje trekket sitt</string>
+  <string name="whiteAborted">Kvit avbraut spelet</string>
+  <string name="blackAborted">Svart avbraut spelet</string>
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>

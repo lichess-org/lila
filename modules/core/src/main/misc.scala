@@ -1,7 +1,9 @@
 package lila.core
 package misc
 
+import play.api.i18n.Lang
 import scalalib.data.LazyFu
+
 import lila.core.id.{ GameId, ClasId }
 import lila.core.userId.*
 import lila.core.user.Me
@@ -60,3 +62,5 @@ package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
+
+case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang: Lang)

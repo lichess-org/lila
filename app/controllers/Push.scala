@@ -22,11 +22,12 @@ final class Push(env: Env) extends LilaController(env):
 
     currentSessionId match
       case Some(currentSessionId) =>
+        val api = if ctx.isMobileOauth then env.push.unifiedSub else env.push.browserSub
         ctx.body.body
           .validate[WebSubscription]
           .fold(
             err => BadRequest(err.toString),
-            data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId).inject(NoContent)
+            data => api.subscribe(me, data, currentSessionId).inject(NoContent)
           )
       case None => BadRequest("Session ID is missing")
   }

@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">흑 게임 퇴장</string>
   <string name="whiteDidntMove">백이 수를 두지 않음</string>
   <string name="blackDidntMove">흑이 수를 두지 않음</string>
+  <string name="whiteAborted">백 게임 중단</string>
+  <string name="blackAborted">흑 게임 중단</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석 가능</string>
@@ -288,8 +290,8 @@
   <string name="playingRightNow">지금 대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료됨</string>
-  <string name="abortGame">대국 취소</string>
-  <string name="gameAborted">대국 취소됨</string>
+  <string name="abortGame">대국 중단</string>
+  <string name="gameAborted">대국 중단됨</string>
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
