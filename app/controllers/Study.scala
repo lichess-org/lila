@@ -527,7 +527,7 @@ final class Study(
     AuthOrScopedBody(_.Study.Write) { _ ?=> _ ?=>
       bindForm(StudyForm.chapterTagsForm)(
         jsonFormError,
-        pgn => env.study.api.updateChapterTags(studyId, chapterId, pgn).inject(NoContent)
+        pgn => env.study.api.updateChapterTagsFromApi(studyId, chapterId, pgn).inject(NoContent)
       )
     }
 

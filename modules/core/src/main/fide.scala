@@ -15,6 +15,7 @@ object Federation:
   type ByFideIds = Map[FideId, Id]
   type FedsOf = List[FideId] => Fu[Federation.ByFideIds]
   type Guess = String => Option[Federation.Id]
+  type GetName = Id => Fu[Option[Federation.Name]]
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
 

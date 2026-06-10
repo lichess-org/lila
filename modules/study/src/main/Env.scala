@@ -38,7 +38,9 @@ final class Env(
     Scheduler,
     akka.stream.Materializer,
     lila.core.config.RateLimit,
-    lila.core.fide.Federation.Guess
+    lila.core.fide.Federation.Guess,
+    lila.core.fide.GetPlayer,
+    lila.core.fide.Federation.GetName
 ):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
