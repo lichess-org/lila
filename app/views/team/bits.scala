@@ -18,25 +18,27 @@ object admin:
       t: lila.team.Team,
       form: Form[?],
       tours: List[lila.tournament.Tournament],
+      swiss: List[lila.swiss.Swiss],
       unsubs: Int,
       limiter: (Int, Instant)
   )(using Context) =
-    val toursFrag = tours.nonEmpty.option:
+
+    val links: List[(Tag, Instant, Call)] =
+      tours.map(t => (views.tournament.ui.tournamentLink(t), t.startsAt, routes.Tournament.show(t.id)))
+        ++ swiss.map(s => (views.swiss.ui.link(s), s.startsAt, routes.Swiss.show(s.id)))
+
+    val toursFrag = links.nonEmpty.option:
       div(cls := "tournaments")(
         p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
         p:
           ul:
-            tours.map: t =>
+            links.map: (link, startsAt, call) =>
               li(
-                views.tournament.ui.tournamentLink(t),
+                link,
                 " ",
-                momentFromNow(t.startsAt),
+                momentFromNow(startsAt),
                 " ",
-                a(
-                  dataIcon := Icon.Forward,
-                  cls := "text copy-url-button",
-                  data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
-                )
+                a(dataIcon := Icon.Forward, cls := "text copy-url-button", data.copyurl := routeUrl(call))
               )
         ,
         br
