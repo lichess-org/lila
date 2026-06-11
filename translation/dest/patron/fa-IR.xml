@@ -18,7 +18,7 @@
   <string name="youHaveLifetime">شما حسابِ یاورِ اَبدی دارید. این خیلی محشر است!</string>
   <string name="patronUntil">شما تا %s حسابِ یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>
-  <string name="weAreNonProfit">ما انجمنی ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
+  <string name="weAreNonProfit">ما یک انجمن ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
   <string name="weRelyOnSupport">ما به حمایت کسانی مانند شما برای تحقق آن تکیه می‌کنیم. اگر از بَهریدنِ Lichess لذت می‌برید، لطفا حمایت از ما با داشَنیدن و یاور شدن را در نظر گیرید!</string>
   <string name="lifetime">مادام‌العمر</string>
   <string name="payLifetimeOnce">یک بار %s بپردازید. تا اَبَد یاورِ Lichess باشید!</string>
