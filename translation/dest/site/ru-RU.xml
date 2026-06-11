@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Чёрные вышли из игры</string>
   <string name="whiteDidntMove">Белые не сделали ход</string>
   <string name="blackDidntMove">Чёрные не сделали ход</string>
+  <string name="whiteAborted">Белые отменили игру</string>
+  <string name="blackAborted">Чёрные отменили игру</string>
   <string name="requestAComputerAnalysis">Выполнить компьютерный анализ</string>
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
