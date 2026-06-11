@@ -20,7 +20,7 @@ object RelayGroup:
 
   type ScoreGroup = NonEmptyList[RelayTourId]
 
-  def sgIsParallel(tours: List[RelayTour]): Boolean =
+  private[relay] def sgIsParallel(tours: List[RelayTour]): Boolean =
     tours.headOption
       .flatMap(_.dates.map(_.start))
       .exists: firstStart =>
