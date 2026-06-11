@@ -9,6 +9,7 @@
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
   <string name="orLetYourOpponentScanQrCode">Nebo nechte soupeře naskenovat tento QR kód</string>
+  <string name="reusableChallengeUrl">Znovupoužitelné URL výzvy</string>
   <string name="waiting">Čeká se</string>
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s úrovně %2$s</string>
@@ -132,7 +133,9 @@
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
   <string name="showVariationArrows">Zobrazit šipky variant</string>
+  <string name="visualMotifs">Vizuální motivy</string>
   <string name="undefendedPieces">Nebráněné figury</string>
+  <string name="checkableKing">Král, kterého lze dát do šachu</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
@@ -663,6 +666,7 @@
   <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="invalidAuthenticationCode">Neplatný ověřovací kód</string>
   <string name="orSeparator">Nebo</string>
+  <string name="logInByEmail">Přihlásit se e-mailem</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>
@@ -997,7 +1001,7 @@
   <string name="edit">Upravit</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Bleskové šachy</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasické</string>
   <string name="ultraBulletDesc">Šíleně rychlé hry: méně než 30 sekund</string>
