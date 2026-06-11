@@ -20,6 +20,12 @@ object RelayGroup:
 
   type ScoreGroup = NonEmptyList[RelayTourId]
 
+  private[relay] def sgIsParallel(tours: List[RelayTour]): Boolean =
+    tours.headOption
+      .flatMap(_.dates.map(_.start))
+      .exists: firstStart =>
+        tours.tailOption.exists(_.exists(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+
   opaque type Name = String
   object Name extends OpaqueString[Name]:
     extension (name: Name)
