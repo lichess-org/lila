@@ -51,5 +51,11 @@
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tráveno hraním</string>
 	<string name="shareableMostPlayedOpponent">nejhranější soupeř</string>
 	<string name="shareableFavouriteVariant">oblíbená varianta</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s úloha vyřešena</item>
+		<item quantity="few">%s úloh vyřešeno</item>
+		<item quantity="many">%s úloh vyřešeno</item>
+		<item quantity="other">%s úloh vyřešeno</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Váš recap %s je připraven!</string>
 </resources>

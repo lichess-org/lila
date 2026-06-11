@@ -57,6 +57,7 @@ final class MarkdownRender(
     code: Boolean = false,
     timestamp: Boolean = false,
     sourceMap: Boolean = false,
+    removeHtmlEntities: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -106,7 +107,8 @@ final class MarkdownRender(
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     try
       val saferText = MarkdownRender.preventStackOverflow(text)
-      val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+      val noEntity = if removeHtmlEntities then MarkdownRender.removeHtmlEntities(saferText) else saferText
+      val withMentions = if sourceMap then noEntity else mentionsToLinks(noEntity)
       renderer.render(parser.parse(withMentions.value))
     catch
       case e: StackOverflowError =>
@@ -122,6 +124,12 @@ object MarkdownRender:
 
   def unlink(text: Markdown): String =
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
+
+  private object removeHtmlEntities:
+    // &#128512;
+    private val entityRegex = """(?i)&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});""".r
+    def apply(md: Markdown): Markdown =
+      md.map(entityRegex.replaceAllIn(_, "$1"))
 
   private val rel = "nofollow noreferrer"
 
