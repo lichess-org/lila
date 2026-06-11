@@ -171,7 +171,7 @@
   <string name="drawByMutualAgreement">anpa ala tan wile pi jan musi tu</string>
   <string name="fiftyMovesWithoutProgress">tawa 50 la musi li pini</string>
   <string name="currentGames">musi pi tenpo ni</string>
-  <string name="joinedX">ona li kama lon tenpo %s</string>
+  <string name="joinedX">ona li kama lon tenpo &amp;s</string>
   <plurals name="nbGames">
     <item quantity="one">musi wan</item>
     <item quantity="other">musi %s</item>
