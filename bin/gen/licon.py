@@ -134,12 +134,10 @@ def gen_sources(codes):
 
     with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
          open('../../ui/lib/src/licon.ts', 'w') as ts, \
-         open('../../ui/@types/lichess/licon.d.ts', 'w') as types, \
          open('../../ui/lib/css/abstract/_licon.scss', 'w') as scss, \
          open('../../public/oops/font.html', 'w') as debug:
         scala.write(scala_preamble)
         ts.write(comment_preamble + '\n')
-        types.write(comment_preamble + '\n')
         scss.write(comment_preamble + '\n')
         debug.write(debug_preamble + '\n')
         for name in codes:
@@ -147,7 +145,6 @@ def gen_sources(codes):
             ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
             scss.write(f"$licon-{name}: '{chr(codes[name])}'; // {codes[name]:x}\n")
             debug.write(f'    <i title="{name}">&#x{codes[name]:x};</i>\n')
-        types.write(f"declare type LiconType = { ' | '.join([f"'{chr(codes[name])}'" for name in codes]) };\n")
         debug.write('  </body>\n</html>\n')
 
 def gen_fonts():

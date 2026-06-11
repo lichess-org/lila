@@ -1,7 +1,6 @@
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
 /// <reference path="./i18n.d.ts" />
-/// <reference path="./licon.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -61,6 +60,7 @@ type PairOf<T> = [T, T];
 
 type Flair = string;
 type FideFed = string;
+type LiconType = string;
 type PatronColor = number;
 type Redraw = () => void;
 type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
