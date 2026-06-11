@@ -5,7 +5,7 @@ import { definedMap, clamp } from 'lib/algo';
 import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
 import { fen960 } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog } from 'lib/view';
 import { json } from 'lib/xhr';

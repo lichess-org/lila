@@ -1,5 +1,5 @@
 import { requestIdleCallbackSafe } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { spinnerHtml } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';

@@ -5,7 +5,7 @@ import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
 

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon } from 'lib/view';
 import { fullName, userLine, userRating } from 'lib/view/userLink';
 

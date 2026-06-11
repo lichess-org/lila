@@ -2,7 +2,7 @@ import type { ChartGame, AcplChart } from 'chart';
 import { h, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNode } from 'lib/tree/types';
 import { bind, onInsert, spinnerVdom } from 'lib/view';

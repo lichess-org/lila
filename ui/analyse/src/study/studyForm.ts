@@ -1,7 +1,7 @@
 import flairPickerLoader from 'bits/flairPicker';
 
 import { toggle } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 
 import { emptyRedButton } from '../view/util';

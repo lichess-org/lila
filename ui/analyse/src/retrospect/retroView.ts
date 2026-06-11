@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
 import { bind, hl, type VNode, spinnerVdom as spinner, iconTag } from 'lib/view';
 

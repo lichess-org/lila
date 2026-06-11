@@ -1,7 +1,7 @@
 import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
 import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
 import { domDialog } from 'lib/view';

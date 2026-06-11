@@ -2,7 +2,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
 import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 

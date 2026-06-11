@@ -60,7 +60,6 @@ type PairOf<T> = [T, T];
 
 type Flair = string;
 type FideFed = string;
-type LiconType = string;
 type PatronColor = number;
 type Redraw = () => void;
 type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
@@ -84,19 +83,6 @@ interface LichessPowertip {
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
-}
-
-interface QuestionChoice {
-  // file://./../../round/src/ctrl.ts
-  action: () => void;
-  icon?: LiconType;
-  text?: string;
-}
-
-interface QuestionOpts {
-  prompt: string; // TODO i18nkey, or just always pretranslate
-  yes?: QuestionChoice;
-  no?: QuestionChoice;
 }
 
 type SoundMoveOpts = {

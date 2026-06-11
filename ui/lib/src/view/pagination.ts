@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import { bind, onInsert, type MaybeVNodes } from './snabbdom';
 import { userComplete, type UserCompleteOpts } from './userComplete';
 

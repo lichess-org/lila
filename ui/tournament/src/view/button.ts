@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom, bind, dataIcon } from 'lib/view';
 
 import type TournamentController from '../ctrl';

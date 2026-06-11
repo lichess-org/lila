@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind } from 'lib/view';
 
 import type LobbyController from '@/ctrl';

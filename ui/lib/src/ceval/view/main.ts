@@ -12,7 +12,7 @@ import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
 import { type VNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';

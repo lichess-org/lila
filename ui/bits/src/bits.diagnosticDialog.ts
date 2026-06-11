@@ -1,6 +1,6 @@
 import { escapeHtml, myUserId } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
 import { domDialog } from 'lib/view';
