@@ -70,7 +70,7 @@ export class Protocol {
         const ceval = this.currentEval ?? { millis: 0, fen: work.currentFen, depth: 0, nodes: 0, pvs: [] };
         ceval.bestmove = parts[1];
         if (parts[2] === 'ponder') ceval.ponder = parts[3];
-        work.emit(ceval, work);
+        if (!work.stopRequested) work.emit(ceval, work);
       }
       this.swapWork();
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
