@@ -90,11 +90,13 @@ final class ChallengeApi(
       if nb > 5 then repo.createdByPopularDestId(max)(userId)
       else repo.createdByDestId()(userId)
 
+  // drop the cached offer id (as Rematcher.no does) so a new rematch challenge gets a fresh id
+  private def dropRematchOffer(c: Challenge): Unit = c.rematchOf.foreach(rematches.drop)
+
   def cancel(c: Challenge) =
     for _ <- repo.cancel(c)
     yield
-      // allow a new rematch challenge to reuse a fresh id (the offered id is kept in cache)
-      c.rematchOf.foreach(rematches.drop)
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Cancel(c.cancel))
 
@@ -111,8 +113,7 @@ final class ChallengeApi(
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
     yield
-      // allow a new rematch challenge to reuse a fresh id (the offered id is kept in cache)
-      c.rematchOf.foreach(rematches.drop)
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
