@@ -14,6 +14,7 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
@@ -92,6 +93,8 @@ final class ChallengeApi(
   def cancel(c: Challenge) =
     for _ <- repo.cancel(c)
     yield
+      // allow a new rematch challenge to reuse a fresh id (the offered id is kept in cache)
+      c.rematchOf.foreach(rematches.drop)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Cancel(c.cancel))
 
@@ -108,6 +111,8 @@ final class ChallengeApi(
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
     yield
+      // allow a new rematch challenge to reuse a fresh id (the offered id is kept in cache)
+      c.rematchOf.foreach(rematches.drop)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
