@@ -94,7 +94,7 @@
     background: none;
     box-shadow: none;
 
-    @include if-light {
+    @include if-not-transp {
       box-shadow: none;
       text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
     }
