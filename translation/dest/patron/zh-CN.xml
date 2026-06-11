@@ -39,8 +39,8 @@
   <string name="officialNonProfit">Lichess 是正式的非营利组织吗？</string>
   <string name="actOfCreation">是的，这是（法文的）成立文件</string>
   <string name="changeMonthlySupport">我可以更改/取消我的月度赞助吗？</string>
-  <string name="changeSupport">如果您的付款由 PayPal 处理，您可以通过自己的 PayPal 账户取消/变更赞助，或者您也可以 %1$s，由我们代为操作。如果您未使用 PayPal，则您的付款由 Stripe 处理，您可以在 %2$s 上取消赞助或变更金额。</string>
-  <string name="patronPage">赞助页面</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">如果您的付款由 PayPal 处理，您可以通过自己的 PayPal 账户取消/变更赞助，或者您也可以 %1$s，由我们代为操作。如果您未使用 PayPal，则您的付款由 Stripe 处理，您可以在 %2$s 上取消赞助或变更金额。</string>
+  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">赞助页面</string>
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他赞助方式？</string>
   <string name="lichessIsRegisteredWith">Lichess 已在 %s 注册。</string>
