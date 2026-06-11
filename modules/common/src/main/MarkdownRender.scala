@@ -105,7 +105,7 @@ final class MarkdownRender(
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     try
-      val saferText = MarkdownRender.preventStackOverflow(text)
+      val saferText = MarkdownRender.removeHtmlEntities(MarkdownRender.preventStackOverflow(text))
       val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
       renderer.render(parser.parse(withMentions.value))
     catch
@@ -122,6 +122,12 @@ object MarkdownRender:
 
   def unlink(text: Markdown): String =
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
+
+  private object removeHtmlEntities:
+    // &#128512;
+    private val entityRegex = """(?i)&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});""".r
+    def apply(md: Markdown): Markdown =
+      md.map(entityRegex.replaceAllIn(_, "$1"))
 
   private val rel = "nofollow noreferrer"
 
