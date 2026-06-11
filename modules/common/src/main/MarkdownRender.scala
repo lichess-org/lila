@@ -57,6 +57,7 @@ final class MarkdownRender(
     code: Boolean = false,
     timestamp: Boolean = false,
     sourceMap: Boolean = false,
+    removeHtmlEntities: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -105,8 +106,9 @@ final class MarkdownRender(
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     try
-      val saferText = MarkdownRender.removeHtmlEntities(MarkdownRender.preventStackOverflow(text))
-      val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+      val saferText = MarkdownRender.preventStackOverflow(text)
+      val noEntity = if removeHtmlEntities then MarkdownRender.removeHtmlEntities(saferText) else saferText
+      val withMentions = if sourceMap then noEntity else mentionsToLinks(noEntity)
       renderer.render(parser.parse(withMentions.value))
     catch
       case e: StackOverflowError =>
