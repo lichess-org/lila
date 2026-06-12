@@ -25,15 +25,15 @@ const defaultSettings = Object.freeze(new Settings());
 
 export type SettingKey = keyof Settings;
 
-export function makeSettings(fromServer?: Settings, redraw?: () => void): SettingCtrl {
-  return new SettingCtrl(fromServer ?? null, redraw); // null for behavioral compatibility with play json
+export function makeSettings(fromServer?: Settings, redraw?: () => void): SettingsCtrl {
+  return new SettingsCtrl(fromServer ?? null, redraw); // null for behavioral compatibility with play json
 }
 
-export async function fetchSettings(): Promise<SettingCtrl> {
+export async function fetchSettings(): Promise<SettingsCtrl> {
   return makeSettings(await jsonSimple('/account/pref-json/analysisSettings').catch(() => null));
 }
 
-export class SettingCtrl extends Settings {
+export class SettingsCtrl extends Settings {
   private readonly key = ['analyse', myUserId(), 'settings'].filter(Boolean).join('.');
   private readonly throttledSave = throttle(1000, () => this.save());
 

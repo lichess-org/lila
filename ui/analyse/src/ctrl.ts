@@ -59,7 +59,7 @@ import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import pgnImport from './pgnImport';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
-import { makeSettings, type SettingCtrl } from './settingsCtrl';
+import { makeSettings, type SettingsCtrl } from './settingsCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
@@ -115,7 +115,7 @@ export default class AnalyseCtrl implements CevalHandler {
   // display flags
   flipped = false;
   showComments = true; // whether to display comments in the move tree
-  settings: SettingCtrl;
+  settings: SettingsCtrl;
   private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
     'analyse.show-engine',
     !!this.cevalEnabledProp(),

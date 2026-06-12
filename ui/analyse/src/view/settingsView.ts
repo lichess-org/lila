@@ -4,16 +4,16 @@ import { InfoCircle } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
-import type { SettingCtrl, SettingKey } from '../settingsCtrl';
+import type { SettingsCtrl, SettingKey } from '../settingsCtrl';
 
-type Listener = (e: Event, ctrl: SettingCtrl, key: SettingKey) => void;
+type Listener = (e: Event, ctrl: SettingsCtrl, key: SettingKey) => void;
 
 type Setting = {
   label: string;
   group: string;
   shortcutHtml?: string;
   helpHtml?: string;
-  renderHtml?: (ctrl: SettingCtrl) => string; // otherwise defaultToggleHtml
+  renderHtml?: (ctrl: SettingsCtrl) => string; // otherwise defaultToggleHtml
   listener?: Listener | { events: string[]; action: Listener }; // otherwise defaultToggleListener
 };
 
@@ -111,7 +111,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
   });
 }
 
-export function settingsView(ctrl: SettingCtrl): HTMLElement {
+export function settingsView(ctrl: SettingsCtrl): HTMLElement {
   const groupedHtml = (group: keyof typeof i18n.preferences) => {
     return $html`
       <fieldset>
@@ -206,7 +206,7 @@ function setupHoverHelp(view: HTMLElement) {
   );
 }
 
-function defaultToggleHtml(ctrl: SettingCtrl, key: SettingKey) {
+function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
   const label =
     settings[key].helpHtml && isTouchDevice()
       ? `<button class="help-button" data-key="${key}" data-icon="${InfoCircle}">${settings[key].label}</button>`
@@ -221,7 +221,7 @@ function defaultToggleHtml(ctrl: SettingCtrl, key: SettingKey) {
     </span>`;
 }
 
-function defaultToggleListener(e: Event, ctrl: SettingCtrl, key: SettingKey) {
+function defaultToggleListener(e: Event, ctrl: SettingsCtrl, key: SettingKey) {
   ctrl.set(key, (e.target as HTMLInputElement).checked);
 }
 
