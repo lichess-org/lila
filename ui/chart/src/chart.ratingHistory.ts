@@ -248,8 +248,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
-        chart.zoomScale('x', { min, max });
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max) chart.zoomScale('x', { min, max });
     };
     slider.on('update', slide);
     // Disable events while dragging for a slight performance boost

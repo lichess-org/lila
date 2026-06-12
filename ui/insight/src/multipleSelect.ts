@@ -577,40 +577,40 @@ export const registerMultipleSelect = () => {
     allSelected: 'All selected',
     countSelected: '# of % selected',
     noMatchesFound: 'No matches found',
-    styler () {
+    styler() {
       return null;
     },
-    textTemplate ($elm) {
+    textTemplate($elm) {
       return $elm.text();
     },
-    labelTemplate ($elm) {
+    labelTemplate($elm) {
       return $elm.attr('label');
     },
-    onOpen () {
+    onOpen() {
       return false;
     },
-    onClose () {
+    onClose() {
       return false;
     },
-    onCheckAll () {
+    onCheckAll() {
       return false;
     },
-    onUncheckAll () {
+    onUncheckAll() {
       return false;
     },
-    onFocus () {
+    onFocus() {
       return false;
     },
-    onBlur () {
+    onBlur() {
       return false;
     },
-    onOptgroupClick () {
+    onOptgroupClick() {
       return false;
     },
-    onClick () {
+    onClick() {
       return false;
     },
-    onFilter () {
+    onFilter() {
       return false;
     },
   };
