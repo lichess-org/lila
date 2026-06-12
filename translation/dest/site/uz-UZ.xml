@@ -532,7 +532,7 @@
   <string name="clearBoard">Taxtani tozalash</string>
   <string name="loadPosition">Pozitsiyani yuklash</string>
   <string name="isPrivate">Yopiq</string>
-  <string name="reportXToModerators">%s haqida moderatorlarga shikoyat bildirish</string>
+  <string name="reportXToModerators">%s haqida moderatorlarga shikoyat qilish</string>
   <string name="profileCompletion">Profil %s ga toʻldirilgan</string>
   <string name="xRating">%s reyting</string>
   <string name="ifNoneLeaveEmpty">Agar yoʻq boʻlsa boʻsh qoldiring</string>
