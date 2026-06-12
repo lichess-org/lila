@@ -404,8 +404,8 @@ class Ackable {
   register = (t: string, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
-      t: t,
-      d: d,
+      t,
+      d,
       at: performance.now(),
     });
   };

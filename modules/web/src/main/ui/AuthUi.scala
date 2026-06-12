@@ -101,7 +101,7 @@ final class AuthUi(helpers: Helpers):
               ),
               p(cls := "error none")("Invalid code.")
             ),
-            turnstile.widget(explicit = true),
+            turnstile.widget(hidden = true),
             turnstile.submit(trans.site.signIn())(testId("login-submit"))
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
@@ -188,7 +188,7 @@ final class AuthUi(helpers: Helpers):
               )
             ,
             agreement(form("agreement"), form.errors.exists(_.key.startsWith("agreement."))),
-            simple.not.option(turnstile.widget(explicit = true)),
+            simple.not.option(turnstile.widget(hidden = true)),
             turnstile.submit(trans.site.signUp()),
             simple.option(small(cls := "form-help")(tosLink))
           )

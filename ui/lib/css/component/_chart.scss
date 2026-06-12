@@ -80,6 +80,11 @@
     z-index: 1;
   }
 
+  .noUi-base {
+    background-color: $c-bg-zebra;
+    border-radius: 4px;
+  }
+
   /* Wrapper for all connect elements. */
   .noUi-connects {
     overflow: hidden;
@@ -135,16 +140,16 @@
   /* Slider size and handle placement;
      */
   .noUi-horizontal {
-    height: 7px;
-    margin-top: 5px;
+    height: 9px;
+    margin-top: 3px;
     margin-left: 32px;
     margin-right: 36px;
   }
 
   .noUi-horizontal .noUi-handle {
-    width: 5px;
-    height: 21px;
-    right: 0;
+    width: 7px;
+    height: 20px;
+    right: -2px;
     top: -6px;
   }
 
@@ -159,7 +164,7 @@
   .noUi-target {
     background: rgba(255, 255, 255, 0);
     border-radius: 4px;
-    border: 1px solid $c-font;
+    border: $border;
   }
 
   .noUi-connects {
@@ -167,7 +172,7 @@
   }
 
   .noUi-connect {
-    background: rgb(118, 197, 243);
+    background: $c-primary;
     cursor: grab;
   }
 
@@ -230,7 +235,7 @@
      */
   .noUi-marker {
     position: absolute;
-    background: $c-font;
+    background: $c-border;
   }
 
   .noUi-marker-sub {

@@ -108,7 +108,7 @@ export class StudyChapterNewForm {
   submit = (d: Omit<ChapterData, 'initial'>) => {
     const study = this.root.study!;
     const showRatings = study.data.showRatings ? undefined : false; // define only if false
-    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings: showRatings, initial: this.initial() };
+    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
     else
       importPgn(study.data.id, dd).catch(e => {

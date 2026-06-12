@@ -52,7 +52,7 @@ export class StockfishWebEngine implements CevalEngine {
       if (!nnueFilenames.length)
         for (let i = 0; ; i++) {
           const nnueFilename = module.getRecommendedNnue(i);
-          if (!nnueFilename || nnueFilenames.includes(nnueFilename)) break;
+          if (!nnueFilename) break;
           nnueFilenames.push(nnueFilename);
         }
       await Promise.all(

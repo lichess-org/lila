@@ -436,9 +436,10 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+    swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
     limiter <- env.team.limiter.pmAll.status(team.id)
-    page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
+    page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>

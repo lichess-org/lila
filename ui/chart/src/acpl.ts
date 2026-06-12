@@ -72,7 +72,7 @@ export default async function (
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = plyToTurn(node.ply);
       const dots = isWhite ? '.' : '...';
-      const winchance = winningChances.povChances('white', { cp: cp });
+      const winchance = winningChances.povChances('white', { cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
 
@@ -111,8 +111,8 @@ export default async function (
         order: 5,
         datalabels: { display: false },
       },
-      moveLabels: moveLabels,
-      adviceHoverColors: adviceHoverColors,
+      moveLabels,
+      adviceHoverColors,
     };
   };
 

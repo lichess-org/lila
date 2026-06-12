@@ -5,6 +5,8 @@
   <string name="selectTagsToFilter">Vyberte štítky pro filtrování videí.</string>
   <string name="freeChessVideos">Bezplatná šachová videa</string>
   <string name="freeForAll">zdarma pro všechny</string>
+  <string name="noVideosForTheseTags">Žádná videa pro tyto štítky:</string>
+  <string name="thatsAllWeGotForTheseTags">Vše, co máme pod těmito štítky:</string>
   <string name="viewMoreTags">Zobrazit více štítků</string>
   <string name="videoNotFound">Video nenalezeno!</string>
 </resources>

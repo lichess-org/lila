@@ -657,7 +657,7 @@ export default function (token: string): void {
             : (gameInfo.black.title ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
         playableGames.push({
           gameId: gameInfo.id,
-          versus: versus,
+          versus,
           'vs rating': gameInfo.black.id === me.id ? gameInfo.white.rating : gameInfo.black.rating,
           'game rating': gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated'),
           Timer:
@@ -1049,7 +1049,7 @@ export default function (token: string): void {
         id: 1,
         method: 'setup',
         param: {
-          fen: fen,
+          fen,
         },
       },
     };

@@ -28,7 +28,7 @@ object Dependencies {
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.15.Final").classifier(s"$os-$arch")
-  val munit = "org.scalameta" %% "munit" % "1.3.2" % Test
+  val munit = "org.scalameta" %% "munit" % "1.3.3" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
@@ -55,7 +55,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.10.6"
+    val version = "11.10.7"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version

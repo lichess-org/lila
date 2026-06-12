@@ -269,7 +269,7 @@ export class GameCtrl {
     const initial = this.live.initial;
     this.clock = Number.isFinite(initial)
       ? {
-          initial: initial,
+          initial,
           increment: this.live.increment ?? 0,
           white: this.live.clock?.white ?? initial,
           black: this.live.clock?.black ?? initial,

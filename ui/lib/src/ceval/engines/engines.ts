@@ -82,9 +82,9 @@ export class Engines {
       ...relaxedSimdPair({
         info: {
           id: '__sf_dev',
-          name: 'Stockfish 18 dev · 88MB',
-          short: 'SF 18 dev 88MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260213-77d46ff6',
+          name: 'Stockfish 18 dev · 85MB',
+          short: 'SF 18 dev 85MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260609-415ff793',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,

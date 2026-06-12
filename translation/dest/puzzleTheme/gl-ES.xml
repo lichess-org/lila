@@ -14,7 +14,7 @@
   <string name="attractionDescription">Un intercambio ou sacrificio alentando ou forzando unha peza do opoñente a unha casa que permite unha táctica de seguimento.</string>
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
-  <string name="balestraMate">Mate da besta</string>
+  <string name="balestraMate">Mate da bésta</string>
   <string name="balestraMateDescription">O bispo dá xaque mate mentres a dama bloquea as casas de escape</string>
   <string name="blindSwineMate">Mate do porco cego</string>
   <string name="blindSwineMateDescription">Dúas torres colaboran para dar mate ó rei nunha área de 2 x 2 casas.</string>
@@ -29,7 +29,7 @@
   <string name="collinearMove">Movemento colineal</string>
   <string name="collinearMoveDescription">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
-  <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
+  <string name="cornerMateDescription">Acurrala ó rei nun recanto cunha dama ou cunha torre e logo dá o xaque mate co cabalo.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Xaque descuberto</string>
