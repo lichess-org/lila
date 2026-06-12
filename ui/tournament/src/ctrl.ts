@@ -196,7 +196,7 @@ export default class TournamentController {
     this.teamInfo.requested = undefined;
     this.playerInfo = {
       id: this.playerInfo.id === userId ? undefined : userId,
-      player: player,
+      player,
     };
     if (this.playerInfo.id) xhr.playerInfo(this, this.playerInfo.id);
   };
