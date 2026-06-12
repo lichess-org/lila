@@ -66,7 +66,9 @@ const settings: Record<SettingKey, Setting> = {
   showManeuverMoveArrows: {
     label: i18n.preferences.showManeuverArrows,
     group: i18n.preferences.boardSettings,
-    helpHtml: `I'm not sure what these are either.`,
+    helpHtml: $html`
+      ${imageHtml('info-maneuver-arrows')}
+      <span>${i18n.preferences.maneuverArrowsHelp}</span>`,
   },
   showMoveAnnotationsOnBoard: {
     label: i18n.preferences.showMoveAnnotationsOnBoard,
