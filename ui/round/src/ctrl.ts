@@ -462,6 +462,7 @@ export default class RoundController implements MoveRootCtrl {
       crazy: o.crazyhouse,
     };
     d.steps.push(step);
+    this.syncChessground(step, playing);
     this.justDropped = undefined;
     this.justCaptured = undefined;
     game.setOnGame(d, playedColor, true);
@@ -494,7 +495,10 @@ export default class RoundController implements MoveRootCtrl {
       // prevent race conditions with explosions and premoves
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
+      const premovePly = this.ply;
+      const premoveFen = step.fen;
       setTimeout(() => {
+        if (this.ply !== premovePly || this.stepAt(this.ply).fen !== premoveFen) return;
         if (this.nvui) this.nvui.playPremove();
         else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
@@ -542,7 +546,7 @@ export default class RoundController implements MoveRootCtrl {
         ticking: this.tickingClockColor(),
       });
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying()) groundReload(this);
+    if (posChanged || !this.replaying()) groundReload(this);
     if (posChanged) this.chessground.cancelPremove();
     this.setTitle();
     this.moveOn.next();
@@ -883,6 +887,20 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
+  };
+
+  private readonly syncChessground = (step: Step, playing: boolean): void => {
+    if (this.ply !== step.ply || this.chessground.getFen() === step.fen) return;
+    this.chessground.set({
+      fen: step.fen,
+      lastMove: uciToMove(step.uci),
+      check: !!step.check,
+      turnColor: plyColor(step.ply),
+      movable: {
+        color: playing ? this.data.player.color : undefined,
+        dests: playing ? util.parsePossibleMoves(this.data.possibleMoves) : new Map(),
+      },
+    });
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
