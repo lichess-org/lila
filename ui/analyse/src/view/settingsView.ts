@@ -220,10 +220,7 @@ function defaultToggleHtml(ctrl: SettingCtrl, key: SettingKey) {
 }
 
 function defaultToggleListener(e: Event, ctrl: SettingCtrl, key: SettingKey) {
-  ctrl.set(key, (e.target as HTMLInputElement).checked, () => {
-    ctrl.redraw?.();
-    ctrl.save().catch(() => {});
-  });
+  ctrl.set(key, (e.target as HTMLInputElement).checked);
 }
 
 function keyboardShortcutsHtml() {

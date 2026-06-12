@@ -1,5 +1,6 @@
 import { myUserId } from 'lib';
 import { isEquivalent } from 'lib/algo';
+import { throttle } from 'lib/async';
 import { jsonSimple } from 'lib/xhr';
 
 export class Settings {
@@ -24,10 +25,6 @@ const defaultSettings = Object.freeze(new Settings());
 
 export type SettingKey = keyof Settings;
 
-export function isKey(key: PropertyKey): key is SettingKey {
-  return key in defaultSettings;
-}
-
 export function makeSettings(fromServer?: Settings, redraw?: () => void): SettingCtrl {
   return new SettingCtrl(fromServer ?? null, redraw); // null for behavioral compatibility with play json
 }
@@ -38,6 +35,7 @@ export async function fetchSettings(): Promise<SettingCtrl> {
 
 export class SettingCtrl extends Settings {
   private readonly key = ['analyse', myUserId(), 'settings'].filter(Boolean).join('.');
+  private throttledSave = throttle(1000, () => this.save()); // key repeats
 
   constructor(
     private fromServer: Settings | null = null,
@@ -48,17 +46,21 @@ export class SettingCtrl extends Settings {
     if (!local) Object.assign(this, grandfatheredOptions()); // delete me
     if (fromServer) Object.assign(this, fromServer);
     else if (local) Object.assign(this, JSON.parse(local));
-    this.set('syncSettings', fromServer !== null, () => {});
+    this.set('syncSettings', fromServer !== null, 'noop');
   }
 
   keys(): SettingKey[] {
     return Object.keys(defaultSettings) as SettingKey[];
   }
 
-  set<K extends SettingKey>(key: K, value: Settings[K], onChange = () => this.redraw?.()) {
+  set<K extends SettingKey>(key: K, value: Settings[K], onChange: (() => void) | 'save' | 'noop' = 'save') {
     const oldValue = this[key];
     this[key] = value;
-    if (oldValue !== value) onChange();
+    if (oldValue === value || onChange === 'noop') return;
+    if (onChange === 'save') {
+      this.redraw?.();
+      this.throttledSave();
+    } else onChange();
   }
 
   async save() {
