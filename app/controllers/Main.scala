@@ -31,8 +31,6 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     Ok.page(views.site.page.webmasters)
 
   def lag = Open:
-    req.version.pp("req version")
-    req.headers.get("X-HTTP-Version").pp("X-HTTP-Version")
     Ok.page(views.site.ui.lag)
 
   def app = Open(serveApp)

@@ -30,9 +30,13 @@ final class Ip2ProxyServer(
     else cache.get(ip.value)
 
   def ofReq(req: RequestHeader): Fu[IsProxy] =
-    ofIp(HTTPRequest.ipAddress(req)).addEffect:
-      _.name.foreach: name =>
-        lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
+    ofIp(HTTPRequest.ipAddress(req))
+      .map: proxy =>
+        if proxy.no && HTTPRequest.isHttp1(req) then IsProxy.http1
+        else proxy
+      .addEffect:
+        _.name.foreach: name =>
+          lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
 
   def getCached(ip: IpAddress): Option[Fu[IsProxy]] =
     if ipTiers.trustedIp.is(ip) then fuccess(IsProxy.empty).some
