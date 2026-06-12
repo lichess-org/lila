@@ -142,7 +142,7 @@ object LangList extends lila.core.i18n.LangList:
       toLanguage(l) -> name
     .toList
     .distinctBy(_._1)
-    .sortBy(_._1.value)
+    .sortBy(_._2)
 
   lazy val popularLanguageChoices: List[(Language, String)] =
     popularNoRegion.flatMap: lang =>
@@ -152,7 +152,7 @@ object LangList extends lila.core.i18n.LangList:
     .map: (l, name) =>
       l.code -> name
     .toList
-    .sortBy(_._1)
+    .sortBy(_._2)
 
   lazy val allLanguagesForm = new LangForm:
     val choices = languageChoices
