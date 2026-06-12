@@ -44,6 +44,7 @@
   <string name="fidePlayerNotFound">FIDE igrač nije pronađen</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federacija</string>
+  <string name="age">Dob</string>
   <string name="unrated">Nerangiran</string>
   <string name="recentTournaments">Nedavni turniri</string>
   <string name="openLichess">Otvori u Lichessu</string>
@@ -59,12 +60,14 @@
   <string name="notYetStarted">Prijenos još nije počeo.</string>
   <string name="officialWebsite">Službena stranica</string>
   <string name="officialStandings">Službena tablica</string>
+  <string name="regulations">Regulacije</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više mogučnosti na %s</string>
   <string name="webmastersPage">portal za vlasnike web stranica</string>
   <string name="embedThisBroadcast">Ugradite ovaj prijenos na svoju web stranicu</string>
   <string name="ratingDiff">Razlika rejtinga</string>
   <string name="gamesThisTournament">Partije u ovom turniru</string>
   <string name="score">Rezultat</string>
+  <string name="standingsDisclaimer">Pored se izračunava na temelju prenesenih partija i može se razlikovati od službenih rezultata.</string>
   <string name="allTeams">Sve ekipe</string>
   <string name="tournamentFormat">Format turnira</string>
   <string name="tournamentLocation">Mjesto turnira</string>
@@ -74,4 +77,29 @@
   <string name="optionalDetails">Neobavezni detalji</string>
   <string name="pastBroadcasts">Prijašnji prijenosi</string>
   <string name="allBroadcastsByMonth">Pogledaj sve prijenose prema mjesecu</string>
+  <string name="backToLiveMove">Vratite se na zadnji odigrani potez</string>
+  <string name="liveboard">Live ploča</string>
+  <string name="communityBroadcast">Zajednički prijenos</string>
+  <string name="createdAndManagedBy">Kreirao i upravlja %s.</string>
+  <string name="matchPoints">Ekipni bodovi</string>
+  <string name="gamePoints">Individualni bodovi</string>
+  <string name="matches">Igre</string>
+  <string name="teamResults">Ekipni rezultat</string>
+  <string name="roundX">Kolo %s</string>
+  <string name="openTournament">Otvoreni turnir</string>
+  <string name="womenTournament">Ženski turnir</string>
+  <string name="menTournament">Muškarci</string>
+  <string name="girlsTournament">Djevojčice</string>
+  <string name="boysTournament">Dječaci</string>
+  <string name="openUnderXAgeTournament">Open U%s</string>
+  <string name="girlsUnderXAgeTournament">Djevojčice U%s</string>
+  <string name="boysUnderXAgeTournament">Dječaci U%s</string>
+  <string name="quarterfinals">Četvrtfinale</string>
+  <string name="semifinals">Polufinale</string>
+  <string name="finals">Finale</string>
+  <string name="tiebreaks">Tie-breakovi</string>
+  <string name="gameX">Igra %s</string>
+  <string name="knockouts">Nokauti</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

@@ -40,6 +40,8 @@ Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustaj
   <string name="officialNonProfit">Onko Lichess virallisesti yleishyödyllinen yhteisö?</string>
   <string name="actOfCreation">On. Tässä on perustamiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaisen tukeni?</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Jos maksusi suoritetaan PayPalilla, voit peruuttaa tai vaihtaa tukesi oman Paypal-tilisi kautta, tai voit %1$s, niin voimme tehdä sen puolestasi. Jos et ole käyttänyt PayPalia, maksusi suoritetaan Stripella, ja voit peruuttaa lahjoituksesi tai vaihtaa sen summan %2$s.</string>
+  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">tukijasivulla</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="lichessIsRegisteredWith">Lichess on rekisteröity %syn.</string>
