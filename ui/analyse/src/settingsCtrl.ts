@@ -35,7 +35,7 @@ export async function fetchSettings(): Promise<SettingCtrl> {
 
 export class SettingCtrl extends Settings {
   private readonly key = ['analyse', myUserId(), 'settings'].filter(Boolean).join('.');
-  private throttledSave = throttle(1000, () => this.save()); // key repeats
+  private readonly throttledSave = throttle(1000, () => this.save());
 
   constructor(
     private fromServer: Settings | null = null,
