@@ -158,7 +158,7 @@ function eventPath(e: Event): TreePath | null {
 
 export function render(ctrl: PuzzleCtrl): VNode {
   const root = ctrl.tree.root;
-  const ctx = { ctrl: ctrl, showComputer: false };
+  const ctx = { ctrl, showComputer: false };
   return hl(
     'div.tview2.tview2-column',
     {

@@ -210,8 +210,8 @@ export function detectCheckable(
     const res = Chess.fromSetup({
       board: cb,
       turn: oppColor,
-      castlingRights: castlingRights,
-      epSquare: epSquare,
+      castlingRights,
+      epSquare,
       halfmoves: 0,
       fullmoves: 1,
       pockets: undefined,

@@ -36,6 +36,7 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "object-shorthand": "error",
     "import/no-cycle": "error",
     "prefer-promise-reject-errors": "error",
     "promise/no-callback-in-promise": "error",
