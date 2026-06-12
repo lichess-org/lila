@@ -102,7 +102,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.ok', result: 'ok' },
     ],
     onClose: dlg => {
-      if (dlg.returnValue !== 'shortcuts') return;
+      if (dlg.returnValue !== 'showKeyboardShortcuts') return;
       ctrl.keyboardHelp = true;
       ctrl.redraw();
     },
@@ -133,7 +133,7 @@ export function settingsView(ctrl: SettingCtrl): HTMLElement {
     </div>`);
 
   if (isTouchDevice()) setupTouchHelp(view);
-  else setupPointerHelp(view);
+  else setupHoverHelp(view);
 
   view.querySelectorAll<HTMLInputElement>('.setting input').forEach(input => {
     const key = input.dataset.key as SettingKey;
@@ -160,7 +160,7 @@ function setupTouchHelp(view: HTMLElement) {
   });
 }
 
-function setupPointerHelp(view: HTMLElement) {
+function setupHoverHelp(view: HTMLElement) {
   const helpEl = () => view.querySelector<HTMLElement>('.help-container')!.firstElementChild!;
   const helpPanes = { keyboardHelp: helpEl() } as Record<string, Element>;
 
