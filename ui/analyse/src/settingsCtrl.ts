@@ -56,7 +56,7 @@ export class SettingsCtrl extends Settings {
   set<K extends SettingKey>(key: K, value: Settings[K], onChange: 'save' | 'noop' = 'save') {
     const oldValue = this[key];
     this[key] = value;
-    if (oldValue === value || onChange === 'noop' || onChange !== 'save') return;
+    if (oldValue === value || onChange === 'noop') return;
     this.redraw?.();
     this.throttledSave();
   }
