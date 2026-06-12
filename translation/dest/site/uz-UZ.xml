@@ -41,8 +41,8 @@
   <string name="newOpponent">Yangi raqib topish</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Raqibingiz sizni yangi oʻyinga chaqirmoqda</string>
   <string name="joinTheGame">Oʻyinga qoʻshilish</string>
-  <string name="whitePlays">Oqlar gali</string>
-  <string name="blackPlays">Qoralar gali</string>
+  <string name="whitePlays">Yurish oqlardan</string>
+  <string name="blackPlays">Yurish qoralardan</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
     <item quantity="other">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
@@ -870,8 +870,8 @@
   <string name="skipThisMove">Bu yurishni oʻtkazib yuborish</string>
   <string name="next">Keyingisi</string>
   <string name="xWasPlayed">%s oʻynaldi</string>
-  <string name="findBetterMoveForWhite">Oqlar uchun yaxshi yurishni toping</string>
-  <string name="findBetterMoveForBlack">Qoralar uchun eng yaxshi yurishni toping</string>
+  <string name="findBetterMoveForWhite">Oqlar uchun yaxshiroq yurishni toping</string>
+  <string name="findBetterMoveForBlack">Qoralar uchun yaxshiroq yurishni toping</string>
   <string name="resumeLearning">Oʻrganishni davom ettirish</string>
   <string name="youCanDoBetter">Bundan ham yaxshiroq yurish bor</string>
   <string name="tryAnotherMoveForWhite">Oqlar uchun boshqa yurish toping</string>
