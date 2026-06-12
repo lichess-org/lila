@@ -53,14 +53,12 @@ export class SettingCtrl extends Settings {
     return Object.keys(defaultSettings) as SettingKey[];
   }
 
-  set<K extends SettingKey>(key: K, value: Settings[K], onChange: (() => void) | 'save' | 'noop' = 'save') {
+  set<K extends SettingKey>(key: K, value: Settings[K], onChange: 'save' | 'noop' = 'save') {
     const oldValue = this[key];
     this[key] = value;
-    if (oldValue === value || onChange === 'noop') return;
-    if (onChange === 'save') {
-      this.redraw?.();
-      this.throttledSave();
-    } else onChange();
+    if (oldValue === value || onChange === 'noop' || onChange !== 'save') return;
+    this.redraw?.();
+    this.throttledSave();
   }
 
   async save() {
