@@ -2373,7 +2373,7 @@ interface I18n {
     inputMovesWithTheKeyboard: string;
     /** Input moves with your voice */
     inputMovesWithVoice: string;
-    /** Sequence of engine moves for a piece. */
+    /** Sequence of engine moves for one piece */
     maneuverArrowsHelp: string;
     /** Material difference */
     materialDifference: string;
