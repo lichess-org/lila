@@ -775,12 +775,12 @@
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
   <string name="allLanguages">Барлық тілдер</string>
-  <string name="background">Фон</string>
+  <string name="background">Артқы кескін</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
   <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
-  <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="backgroundImageUrl">Артқы сурет сілтемесі:</string>
   <string name="board">Тақта</string>
   <string name="size">Үлкендігі</string>
   <string name="opacity">Айқындығы</string>
