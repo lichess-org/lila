@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Адчыніць Lichess</string>
+  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Паглядзець %s у GitHub</string>
+  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Спампаваць у Apple App Store</string>
+  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Спампаваць у Google Play</string>
+  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">Спампаваць у F-Droid</string>
+</resources>
