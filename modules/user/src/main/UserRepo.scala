@@ -567,6 +567,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     all.toList.sequentiallyVoid: (userId, flair) =>
       coll.unsetField($id(userId) ++ $doc(BSONFields.flair -> flair), BSONFields.flair)
 
+  def unsetBio(id: UserId): Funit =
+    coll.unsetField($id(id), s"${F.profile}.bio").void
+
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 
