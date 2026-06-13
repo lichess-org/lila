@@ -16,5 +16,9 @@
   <string name="boardPlay">Гуляць гульні з API дошкі</string>
   <string name="engineRead">Прагледзець і выкарыстаць вашы знешнія рухавікі</string>
   <string name="engineWrite">Стварыць і абнавіць знешнія рухавікі</string>
+  <string name="apiDocumentation">Дакументацыя API</string>
+  <string name="apiAccessTokens">Токены доступа да API</string>
+  <string name="created">Створана %s</string>
+  <string name="lastUsed">Апошнія выкарыстаныя %s</string>
   <string name="forExample">Напрыклад: %s</string>
 </resources>
