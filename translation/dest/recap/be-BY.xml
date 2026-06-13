@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s правялі за партыямі!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">падтрымліваў нас ахвяраваннем</string>
+	<string name="shareableTitle" comment="%s is the current year">Мой %s вынік</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">правялі за партыямі</string>
+</resources>
