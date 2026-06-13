@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Ойын пішімі</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Досты шақыру</string>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
   <string name="createLobbyGame">Ойын құру</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
@@ -102,10 +103,10 @@
   <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
-  <string name="openingExplorer">Бастаулар қазынасы</string>
-  <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
-  <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Бастау/ойынсоңы қорынан бірінші қадам жасау</string>
+  <string name="openingExplorer">Бастама қоры</string>
+  <string name="openingEndgameExplorer">Бастама/ойынсоңы қоры</string>
+  <string name="xOpeningExplorer">%s Бастама Қоры</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Бастама/ойынсоңы қорының бірінші жүрісін жасау</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 жүріс ережесі</string>
@@ -341,7 +342,7 @@
     <item quantity="other">%s секунд беру</item>
   </plurals>
   <string name="thisAccountViolatedTos">Бұл тіркелгі Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="openingExplorerAndTablebase">Бастаулар мен ойынсоңдарының қоры</string>
+  <string name="openingExplorerAndTablebase">Бастама мен ойынсоңы қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
