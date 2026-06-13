@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
+  <string name="createLobbyGame">Ойын құру</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -333,6 +334,7 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды жүктеп алу</string>
+  <string name="ratingFilter">Қарсылас рейтинг ауқымы</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
