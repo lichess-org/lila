@@ -569,7 +569,7 @@ final class RelayApi(
           .flatMap:
             _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
 
-  private[relay] def addOwnerToGroupOrTour(anyId: String, userId: UserId): Fu[List[RelayTourId]] =
+  private[relay] def setOwnerOfGroupOrTour(anyId: String, userId: UserId): Fu[List[RelayTourId]] =
     for
       tourIds <- groupRepo
         .byId(RelayGroupId(anyId))
@@ -577,6 +577,7 @@ final class RelayApi(
         .orElse(tourRepo.byId(RelayTourId(anyId)).map2(_.id :: Nil))
         .map(_.orZero)
       _ <- tourRepo.addOwnerToTours(tourIds, userId)
+      _ <- tourIds.sequentiallyVoid(studyPropagation.onOwnerChange(_, userId))
     yield tourIds
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =

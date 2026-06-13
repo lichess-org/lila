@@ -400,7 +400,7 @@ final class StudyApi(
             (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who.is(userId)))
           }
           allowed.so:
-            for _ <- studyRepo.removeMember(study, userId)
+            for _ <- studyRepo.removeMember(study.id, userId)
             yield onMembersChange(study, (study.members - userId), study.members.ids)
 
   export studyRepo.{ isMember, isContributor }
