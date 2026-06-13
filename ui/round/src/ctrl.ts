@@ -33,7 +33,7 @@ import * as blur from './blur';
 import * as cevalSub from './cevalSub';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { boardOrientation, reload as groundReload } from './ground';
+import * as ground from './ground';
 import type {
   Step,
   RoundOpts,
@@ -288,7 +288,7 @@ export default class RoundController implements MoveRootCtrl {
   flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
     this.chessground.set({
-      orientation: boardOrientation(this.data, this.flip),
+      orientation: ground.boardOrientation(this.data, this.flip),
     });
     pubsub.emit('flip', this.flip);
     this.redraw();
@@ -462,7 +462,7 @@ export default class RoundController implements MoveRootCtrl {
       crazy: o.crazyhouse,
     };
     d.steps.push(step);
-    this.syncChessground(step, playing);
+    if (this.ply === step.ply && this.chessground.getFen() !== step.fen) ground.sync(this, step, playing);
     this.justDropped = undefined;
     this.justCaptured = undefined;
     game.setOnGame(d, playedColor, true);
@@ -546,7 +546,7 @@ export default class RoundController implements MoveRootCtrl {
         ticking: this.tickingClockColor(),
       });
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (posChanged || !this.replaying()) groundReload(this);
+    if (posChanged || !this.replaying()) ground.reload(this);
     if (posChanged) this.chessground.cancelPremove();
     this.setTitle();
     this.moveOn.next();
@@ -887,20 +887,6 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
-  };
-
-  private readonly syncChessground = (step: Step, playing: boolean): void => {
-    if (this.ply !== step.ply || this.chessground.getFen() === step.fen) return;
-    this.chessground.set({
-      fen: step.fen,
-      lastMove: uciToMove(step.uci),
-      check: !!step.check,
-      turnColor: plyColor(step.ply),
-      movable: {
-        color: playing ? this.data.player.color : undefined,
-        dests: playing ? util.parsePossibleMoves(this.data.possibleMoves) : new Map(),
-      },
-    });
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
