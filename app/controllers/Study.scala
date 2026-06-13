@@ -11,7 +11,7 @@ import lila.common.HTTPRequest
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.socket.Sri
-import lila.core.study.{ StudyOrder, StudyListView }
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
@@ -63,10 +63,10 @@ final class Study(
 
   def allDefault(page: Int) = all(StudyOrder.hot, page)
 
-  def all(order: StudyOrder, page: Int, view: Option[StudyListView] = None) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    allResults(order, page, view)
+  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
+    allResults(order, page, format)
 
-  private def allResults(order: StudyOrder, page: Int, view: Option[StudyListView] = None)(using ctx: Context) =
+  private def allResults(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using ctx: Context) =
     Reasonable(page):
       order match
         case order if !Orders.withoutSelector.contains(order) =>
@@ -76,7 +76,7 @@ final class Study(
             pag <- env.study.pager.all(order, page)
             _ <- preloadMembers(pag)
             res <- negotiate(
-              Ok.page(views.study.list.all(pag, order, view)),
+              Ok.page(views.study.list.all(pag, order, format)),
               apiStudies(pag)
             )
           yield res
