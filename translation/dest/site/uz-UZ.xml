@@ -12,7 +12,7 @@
   <string name="reusableChallengeUrl">Chorlov havolasi</string>
   <string name="permanentLinkForAnyoneToChallengeYou">Ushbu sozlamalar bilan sizni oʻyinga chaqirish mumkin bo\'lgan doimiy havola.</string>
   <string name="waiting">Kutib turing</string>
-  <string name="yourTurn">Sizning galingiz</string>
+  <string name="yourTurn">Siz yurasiz</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s‑daraja</string>
   <string name="level">Daraja</string>
   <string name="strength">Qiyinligi</string>
@@ -32,7 +32,7 @@
   <string name="blackIsVictorious">Qoralar yutdi</string>
   <string name="youPlayTheWhitePieces">Oq donalarda siz oʻynaysiz</string>
   <string name="youPlayTheBlackPieces">Qora donalarda siz oʻynaysiz</string>
-  <string name="itsYourTurn">Sizning galingiz!</string>
+  <string name="itsYourTurn">Siz yurasiz!</string>
   <string name="cheatDetected">Gʻirromlik aniqlandi</string>
   <string name="kingInTheCenter">Shoh markazda</string>
   <string name="threeChecks">Uch choh</string>
