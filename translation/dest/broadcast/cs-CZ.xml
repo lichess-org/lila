@@ -67,12 +67,14 @@
   <string name="notYetStarted">Vysílání ještě nezačalo.</string>
   <string name="officialWebsite">Oficiální stránka</string>
   <string name="officialStandings">Oficiální pořadí</string>
+  <string name="regulations">Předpisy</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
   <string name="webmastersPage">Stránka webmasterů</string>
   <string name="embedThisBroadcast">Vložte toto vysílání na váš web</string>
   <string name="ratingDiff">Ratingový rozdíl</string>
   <string name="gamesThisTournament">Hry v tomto turnaji</string>
   <string name="score">Skóre</string>
+  <string name="standingsDisclaimer">Předběžné výsledky se vypočítávají pomocí vysílaných her a mohou se lišit od skutečných výsledků.</string>
   <string name="allTeams">Všechny týmy</string>
   <string name="tournamentFormat">Formát turnaje</string>
   <string name="tournamentLocation">Místo konání turnaje</string>
@@ -87,6 +89,12 @@
   <string name="liveboard">Živá deska</string>
   <string name="communityBroadcast">Komunitní vysílání</string>
   <string name="createdAndManagedBy">Vytvořeno a spravováno %s.</string>
+  <string name="matchPoints">Body zápasů</string>
+  <string name="gamePoints">Body hry</string>
+  <string name="matches">Hry</string>
+  <string name="matchHistory">Historie zápasů</string>
+  <string name="teamResults">Výsledky týmu</string>
+  <string name="termsAutomaticallyTranslated">Následující termín či termíny budou automaticky přeloženy: %s.</string>
   <string name="roundX">Kolo %s</string>
   <string name="defaultRoundNameHelp">Ponechání výchozího jména se automaticky přeloží do jiného jazyka.</string>
   <string name="openTournament">Open</string>
