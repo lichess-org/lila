@@ -14,7 +14,9 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, format: Option[StudyFormat] = None)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, format: Option[StudyFormat] = None)(using
+      Context
+  ) =
     page(
       title = trs.allStudies.txt(),
       active = StudyGroup.all,
@@ -113,6 +115,18 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           )
         )
 
+  private def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
+    val compactFormat = currentFormat.contains(StudyFormat.compact)
+    val toggleUrl =
+      if compactFormat then baseUrl
+      else addQueryParam(baseUrl, "format", "compact")
+    a(
+      cls := List("button button-empty" -> true, "active" -> compactFormat),
+      href := toggleUrl,
+      title := (if compactFormat then "Switch to card view" else "Switch to list view"),
+      dataIcon := Icon.List
+    )
+
   private def page(
       title: String,
       active: StudyGroup,
@@ -132,6 +146,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             div(cls := "box__top")(
               searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
               bits.orderSelect(order, active, url),
+              formatToggle(url(order).url, format),
               bits.newForm()
             ),
             topics.map: ts =>

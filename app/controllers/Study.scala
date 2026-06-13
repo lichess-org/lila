@@ -63,10 +63,13 @@ final class Study(
 
   def allDefault(page: Int) = all(StudyOrder.hot, page)
 
-  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    allResults(order, page, format)
+  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None) =
+    OpenOrScoped(_.Study.Read, _.Web.Mobile):
+      allResults(order, page, format)
 
-  private def allResults(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using ctx: Context) =
+  private def allResults(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
+      ctx: Context
+  ) =
     Reasonable(page):
       order match
         case order if !Orders.withoutSelector.contains(order) =>
