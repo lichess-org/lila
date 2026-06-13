@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Ойын пішімі</string>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
   <string name="createLobbyGame">Ойын құру</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
@@ -802,6 +803,7 @@
   <string name="notifications">Хабарлама</string>
   <string name="notificationsX">Хабарламалар: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Сіздің рейтингіңіз %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
     <item quantity="other">Бірінші жүріске %s секунд бар</item>
