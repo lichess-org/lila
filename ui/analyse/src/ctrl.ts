@@ -725,9 +725,9 @@ export default class AnalyseCtrl implements CevalHandler {
       } else if (
         (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
         !(ev.cloud && this.ceval.engines.external)
-      )
+      ) {
         node.ceval = ev;
-      else if (!ev.cloud) {
+      } else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 

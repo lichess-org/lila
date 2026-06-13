@@ -286,28 +286,28 @@ export class CevalCtrl {
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
       dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
     };
-    const emitter = throttleWithFlush(100, (ev: LocalEval, meta: EvalMeta) => {
+    const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       if (working.fen && working.fen !== ev.fen) return emitter.clear();
 
-      if (!working.fen && !working.background) {
-        working.fen = ev.fen;
-        storage.fire('ceval.fen', ev.fen); // will pause other tabs
-      }
-      const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
       this.curEval = ev;
 
-      working.emit(ev, meta);
-
-      if (!this.lastStarted || working.dontStop) return;
-
-      const evNode = working.started.steps[working.started.steps.length - 1];
-      if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
-        const targetNodes = evNode.ceval.nodes;
-        const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
-
-        if (likelyNodes < targetNodes) this.worker?.stop();
+      if (!working.fen && !working.background) {
+        working.fen = this.curEval.fen;
+        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
       }
+      const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
+      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+
+      if (this.lastStarted && !working.dontStop) {
+        const evNode = working.started.steps[working.started.steps.length - 1];
+        if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
+          const targetNodes = evNode.ceval.nodes;
+          const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
+
+          if (likelyNodes < targetNodes) this.worker?.stop();
+        }
+      }
+      working.emit(this.curEval, meta);
     });
     return (ev: LocalEval, work: EvalMeta) => {
       if (working.started !== this.lastStarted) emitter.clear();
