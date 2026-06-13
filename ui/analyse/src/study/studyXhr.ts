@@ -34,3 +34,20 @@ export const importPgn = async (studyId: string, data: any) => {
   });
   return ensureOk(res).then(r => r.text());
 };
+
+export const pastePgnContinuation = async (
+  studyId: string,
+  chapterId: string,
+  path: string,
+  pgn: string,
+): Promise<void> => {
+  const res = await xhrRaw(`/api/study/${studyId}/${chapterId}/paste-pgn`, {
+    method: 'POST',
+    body: xhrForm({ path, pgn }),
+  });
+  if (res.ok) return;
+  if (res.status !== 400 || !(res.headers.get('content-type') || '').includes('application/json'))
+    throw new Error(`Error ${res.status}`);
+  const data = (await res.json()) as { error?: string; message?: string };
+  throw new Error(data.error || data.message);
+};
