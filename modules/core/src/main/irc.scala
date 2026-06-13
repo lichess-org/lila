@@ -8,12 +8,6 @@ import lila.core.study.data.StudyChapterName
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other
 
-enum Event:
-  case Error(msg: String)
-  case Warning(msg: String)
-  case Info(msg: String)
-  case Victory(msg: String)
-
 trait IrcApi:
   def commReportBurst(user: LightUser): Funit
   def broadcastStart(id: RelayRoundId, fullName: String): Funit
