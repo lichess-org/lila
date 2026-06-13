@@ -4,12 +4,14 @@ import lila.common.Bus
 import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
 import lila.core.team.Access
+import lila.search.SearchClient.Index
 
 private final class TeamClasSync(
     api: TeamApi,
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
-    cached: TeamCached
+    cached: TeamCached,
+    elastic: lila.search.SearchClient
 )(using Executor)(using scheduler: Scheduler):
 
   private val debouncer =
@@ -44,7 +46,9 @@ private final class TeamClasSync(
       _ <- intruders.toList.sequentiallyVoid(memberRepo.remove(team.id, _))
       missing = allClassIds.toSet -- teamMemberIds.toSet
       added <- missing.toList.sequentially(memberRepo.add(team.id, _))
-      _ <- teamRepo.incMembers(team.id, added.count(identity) - intruders.size)
+      memberDelta = added.count(identity) - intruders.size
+      _ <- teamRepo.incMembers(team.id, memberDelta)
+      _ <- memberDelta != 0 so elastic.upsert(Index.Team, team.id)
     yield (intruders ++ missing).toList.foreach(cached.invalidateTeamIds)
 
   private def syncPermissions(team: Team, cfg: ClasTeamConfig): Funit =
@@ -91,4 +95,5 @@ private final class TeamClasSync(
   private def enableTeam(team: Team): Funit = for
     _ <- teamRepo.enable(team).void
     _ <- api.invalidateTeamIdsOfMembers(team.id)
+    _ <- elastic.upsert(Index.Team, team.id)
   yield ()

@@ -470,7 +470,7 @@ final class StudyApi(
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           for
-            _ <- newName.so(chapterRepo.setName(chapterId, _))
+            _ <- newName.so(chapterRepo.setName(chapter, _))
             _ <- doSetTags(study, chapter, tags, who)
           yield setStudyUpdated(study)
 
@@ -689,6 +689,7 @@ final class StudyApi(
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
               if shouldSendChapterPreviews then sendChapterPreviews(study)
               setStudyUpdated(study)
+              studyRepo.updateElasticIndex(study.id)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -700,7 +701,9 @@ final class StudyApi(
           )
           (chapter != newChapter).so:
             for _ <- chapterRepo.update(newChapter)
-            yield sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
+            yield
+              studyRepo.updateElasticIndex(study.id)
+              sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
         }
 
   def deleteChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -728,7 +731,7 @@ final class StudyApi(
                   val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
                   newIdOpt.so: newId =>
                     doSetChapter(study, newId, who)
-            _ <- chapterRepo.delete(chapter.id)
+            _ <- chapterRepo.delete(chapter)
           yield
             sendChapterPreviews(study)
             setStudyUpdated(study)
@@ -805,7 +808,9 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       (study.visibility != visibility).so:
         for _ <- studyRepo.updateSomeFields(study.copy(visibility = visibility))
-        yield sendTo(study.id)(_.reloadAll)
+        yield
+          studyRepo.updateElasticIndex(study.id, now = true)
+          sendTo(study.id)(_.reloadAll)
 
   def addTopics(studyId: StudyId, topics: List[String]) =
     sequenceStudy(studyId): study =>
@@ -828,7 +833,10 @@ final class StudyApi(
               )
             (newStudy != study).so:
               for _ <- studyRepo.updateSomeFields(newStudy)
-              yield sendTo(study.id)(_.reloadAll)
+              yield
+                if study.visibility != newStudy.visibility then
+                  studyRepo.updateElasticIndex(study.id, now = true)
+                sendTo(study.id)(_.reloadAll)
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>

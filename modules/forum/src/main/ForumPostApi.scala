@@ -20,7 +20,8 @@ final class ForumPostApi(
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     picfitApi: lila.memo.PicfitApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    searchApi: lila.search.SearchClient
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -52,6 +53,7 @@ final class ForumPostApi(
           _ <- postRepo.coll.insert.one(post)
           _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
           _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+          _ <- searchApi.upsert(lila.search.SearchClient.Index.Forum, post.id)
         yield
           promotion.save(me, post.text)
           if post.isTeam
@@ -95,6 +97,7 @@ final class ForumPostApi(
           val save = (newPost.text != post.text).so:
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
+              _ <- searchApi.upsert(lila.search.SearchClient.Index.Forum, newPost.id)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
             yield promotion.save(me, newPost.text)
           save.inject(newPost)
@@ -233,6 +236,7 @@ final class ForumPostApi(
     for
       _ <- picfitApi.pullRef(picRef(post.id))
       _ <- postRepo.coll.update.one($id(post.id), post.erase)
+      _ <- searchApi.delete(lila.search.SearchClient.Index.Forum, post.id)
     yield ()
 
   def teamIdOfPost(post: ForumPost): Fu[Option[TeamId]] =

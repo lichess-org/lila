@@ -110,7 +110,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.updateField($id(chapterId) ++ $doc("relay.lastMoveAt".$exists(true)), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
-    coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
+    coll(_.updateField($id(chapter.id), "tags", chapter.tags))
+      .addEffect(_ => updateElasticIndex(chapter.studyId))
+      .void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
     setNodeValue(F.shapes, shapes.value.nonEmpty.option(shapes))
@@ -141,7 +143,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
-  def setName(id: StudyChapterId, name: StudyChapterName) = coll(_.updateField($id(id), "name", name)).void
+  def setName(chapter: Chapter, name: StudyChapterName) =
+    coll(_.updateField($id(chapter.id), "name", name))
+      .addEffect(_ => updateElasticIndex(chapter.studyId))
+      .void
 
   // insert node and its children
   // and updates chapter denormalization
@@ -297,11 +302,15 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
+  def insert(s: Chapter): Funit =
+    coll(_.insert.one(s.updateDenorm)).void.addEffect(_ => updateElasticIndex(s.studyId))
 
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c.updateDenorm)).void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
-  def delete(c: Chapter): Funit = delete(c.id)
+  def delete(c: Chapter): Funit = delete(c.id).addEffect(_ => updateElasticIndex(c.studyId))
 
   def $studyId(id: StudyId) = $doc("studyId" -> id)
+
+  private def updateElasticIndex(studyId: StudyId) =
+    lila.common.Bus.pub(lila.core.study.IndexStudySearch(studyId))
