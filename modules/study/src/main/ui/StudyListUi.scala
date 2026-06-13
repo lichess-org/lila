@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyListView }
 import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
@@ -14,14 +14,15 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, view: Option[StudyListView] = None)(using Context) =
     page(
       title = trs.allStudies.txt(),
       active = StudyGroup.all,
       order = order,
       pag = pag,
       searchFilter = "",
-      url = routes.Study.all(_)
+      url = routes.Study.all(_),
+      view = view
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
@@ -119,7 +120,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag: Paginator[WithChaptersAndLiked],
       url: StudyOrder => Call,
       searchFilter: String,
-      topics: Option[StudyTopics] = None
+      topics: Option[StudyTopics] = None,
+      view: Option[StudyListView] = None
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
@@ -134,22 +136,45 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             ),
             topics.map: ts =>
               div(cls := "box__pad")(topic.topicsList(ts, StudyOrder.mine)),
-            paginate(pag, url(order))
+            paginate(pag, url(order), view)
           )
         )
 
-  private def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using Context) =
+  private def paginate(
+      pager: Paginator[WithChaptersAndLiked],
+      url: Call,
+      view: Option[StudyListView] = None
+  )(using
+      Context
+  ) =
+    val baseUrl = view.fold(url.url): v =>
+      addQueryParam(url.url, "view", v.name)
+    val nextPageUrl = (np: Int) =>
+      addQueryParam(
+        baseUrl,
+        "page",
+        np.toString
+      )
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
         iconTag(Icon.StudyBoard),
         p(trs.noneYet())
+      )
+    else if view.contains(StudyListView.compact) then
+      div(cls := "studies studies--list infinite-scroll")(
+        pager.currentPageResults.map { s =>
+          div(cls := "study study--plain paginated")(
+            a(href := routes.Study.show(s.study.id))(s.study.name.value)
+          )
+        },
+        pagerNext(pager, nextPageUrl)
       )
     else
       div(cls := "studies list infinite-scroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },
-        pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
+        pagerNext(pager, np => nextPageUrl(np))
       )
 
   def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil)(using
