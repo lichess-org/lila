@@ -7,7 +7,6 @@ import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
-import lila.core.security.IsProxy
 import lila.core.perm.Granter
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
@@ -107,12 +106,10 @@ object UserInfo:
       fideIdOf: lila.core.user.PublicFideIdOf,
       insightShare: lila.insight.Share
   )(using Executor):
-    def fetch(user: User, nbs: NbGames, withUblog: Boolean = true)(using
-        ctx: Context,
-        proxy: IsProxy
+    def fetch(user: User, nbs: NbGames, restricted: Boolean, withBlog: Boolean = true)(using
+        ctx: Context
     ): Fu[UserInfo] =
-      def isAuthOrNotProxied = ctx.isAuth || (!proxy.isFloodish && !proxy.isCrawler)
-      def showRatings = ctx.noBlind && ctx.pref.showRatings && isAuthOrNotProxied
+      def showRatings = !restricted && ctx.noBlind && ctx.pref.showRatings
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(lila.mon.user.segment("trophies")),
@@ -121,10 +118,12 @@ object UserInfo:
         (!user.is(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
-        withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
-        studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies")),
-        simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls")),
-        relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts")),
+        (withBlog && !restricted).so(ublogApi.userBlogPreviewFor(user, 3)),
+        restricted.not.so:
+          studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies"))
+        ,
+        restricted.not.so(simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls"))),
+        restricted.not.so(relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts"))),
         ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds"))),
         streamerApi.isActualStreamer(user).mon(lila.mon.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(lila.mon.user.segment("coach")),

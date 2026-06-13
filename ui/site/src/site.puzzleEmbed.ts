@@ -12,7 +12,7 @@ window.onload = async () => {
     coordinates: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,
-    fen: fen,
+    fen,
     lastMove: uciToMove(lm),
     orientation: orientation as 'white' | 'black',
   });

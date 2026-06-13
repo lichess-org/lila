@@ -236,7 +236,7 @@ export default class EditorCtrl {
     const legalFen = this.getLegalFen();
     return {
       fen: this.getFen(),
-      legalFen: legalFen,
+      legalFen,
       playable: ['standard', 'chess960', 'fromPosition'].includes(this.variant) && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };

@@ -53,7 +53,7 @@ async function main() {
     buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
       ppCost(key, sub);
       const [from, to] = key.split(' ');
-      builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
+      builder.addSub(from, { to, cost: sub.cost ?? 1 });
     });
     const patch = `lexicon/${grammar}-patch.json`;
     if (fs.existsSync(patch))

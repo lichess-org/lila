@@ -56,7 +56,7 @@ def player(
             "userId" -> ctx.userId,
             "chat" -> chatJson
           )
-          .add("noab" -> ctx.me.exists(_.marks.engine))
+          .add("noab" -> (pov.game.hasAi || ctx.me.exists(_.marks.engine)))
       )
     .graph(ui.povOpenGraph(pov))
     .flag(_.zen)

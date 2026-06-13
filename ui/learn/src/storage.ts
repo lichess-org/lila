@@ -16,7 +16,7 @@ const xhrSaveScore = (stageKey: string, levelId: number, score: number) =>
     body: xhr.form({
       stage: stageKey,
       level: levelId,
-      score: score,
+      score,
     }),
   });
 
@@ -30,7 +30,7 @@ export default function (d?: LearnProgress): Storage {
   const data: LearnProgress = d || JSON.parse(storage.get(key)!) || defaultValue;
 
   return {
-    data: data,
+    data,
     saveScore: (stage: Stage, level: { id: number }, score: number) => {
       if (!data.stages[stage.key])
         data.stages[stage.key] = {

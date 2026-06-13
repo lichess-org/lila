@@ -309,7 +309,7 @@ export default class PuzzleCtrl implements CevalHandler {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
       turnColor: color,
-      movable: movable,
+      movable,
       premovable: {
         enabled: false,
       },
