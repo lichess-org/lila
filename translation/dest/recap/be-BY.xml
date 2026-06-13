@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="initTitle">Які ж у вас быў шахматны год!</string>
+	<string name="noGamesText">Вы не гулялі ў гэтым гаду.</string>
+	<string name="noGamesCta">Хочаш зараз гуляць?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">І ты выйграў %s!</string>
+	<string name="gamesNextQuestion">Як вы дасягнулі гэтага?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s правялі за партыямі!</string>
+	<string name="timeTooMuch">Гэта зашмат шахмат.</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s зроблены ход</item>
+		<item quantity="few">%s зробленых хода</item>
+		<item quantity="many">%s зробленых хадоў</item>
+		<item quantity="other">%s зробленых хадах</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Гэта %s уштурхнутага дрэва!</string>
+	<string name="movesStandardPiecesWeight">Стандартныя фігуры важаць каля 40 г кожны</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s грам</item>
+		<item quantity="few">%s грама</item>
+		<item quantity="many">%s грамаў</item>
+		<item quantity="other">%s грамаў</item>
+	</plurals>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">будзьце асцярожныя</string>
 	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">падтрымліваў нас ахвяраваннем</string>
 	<string name="shareableTitle" comment="%s is the current year">Мой %s вынік</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">правялі за партыямі</string>
