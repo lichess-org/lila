@@ -25,6 +25,7 @@
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="capturingDefenderDescription">Sebrání figury, která brání jinou figuru, a poté dalším tahem dobereme tuto nechráněnou figuru.</string>
+  <string name="collinearMove">Kolineární tah</string>
   <string name="cornerMate">Mat v rohu</string>
   <string name="crushing">Potrestání</string>
   <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
