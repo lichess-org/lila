@@ -55,6 +55,7 @@ final private class ChapterMaker(
       order = order,
       ownerId = userId,
       practice = data.isPractice,
+      recall = data.isRecall,
       gamebook = data.isGamebook,
       conceal = data.isConceal.option(parsed.root.ply)
     )
@@ -116,6 +117,7 @@ final private class ChapterMaker(
       order = order,
       ownerId = userId,
       practice = data.isPractice,
+      recall = data.isRecall,
       gamebook = data.isGamebook,
       conceal = data.isConceal.option(root.ply)
     )
@@ -152,6 +154,7 @@ final private class ChapterMaker(
       order = order,
       ownerId = userId,
       practice = data.isPractice,
+      recall = data.isRecall,
       gamebook = data.isGamebook,
       conceal = data.isConceal.option(root.ply)
     )
@@ -200,7 +203,7 @@ private object ChapterMaker:
 
   enum Mode:
     def key = toString.toLowerCase
-    case Normal, Practice, Gamebook, Conceal
+    case Normal, Practice, Recall, Gamebook, Conceal
   object Mode:
     def apply(key: String) = values.find(_.key == key)
 
@@ -208,6 +211,7 @@ private object ChapterMaker:
     def orientation: Orientation
     def mode: ChapterMaker.Mode
     def isPractice = mode == Mode.Practice
+    def isRecall = mode == Mode.Recall
     def isGamebook = mode == Mode.Gamebook
     def isConceal = mode == Mode.Conceal
 

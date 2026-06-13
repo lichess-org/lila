@@ -7,7 +7,7 @@ import { makeFen } from 'chessops/fen';
 import type { PgnError } from 'chessops/pgn';
 import { makeSanAndPlay } from 'chessops/san';
 import { isNormal, type Move } from 'chessops/types';
-import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
+import { opposite, parseUci, makeSquare, makeUci, parseSquare } from 'chessops/util';
 import { normalizeMove } from 'chessops/variant';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
 
@@ -102,7 +102,6 @@ export default class AnalyseCtrl implements CevalHandler {
   motif: MotifCtrl;
 
   // state flags
-  justPlayed?: string; // pos
   justDropped?: string; // role
   justCaptured?: JustCaptured;
   redirecting = false;
@@ -389,11 +388,13 @@ export default class AnalyseCtrl implements CevalHandler {
       gamebookPlay = this.gamebookPlay(),
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
-        : this.practice
-          ? this.bottomColor()
-          : dests.size || drops?.length
-            ? color
-            : undefined,
+        : this.study?.recall
+          ? this.study.recall.movableColor()
+          : this.practice
+            ? this.bottomColor()
+            : dests.size || drops?.length
+              ? color
+              : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
@@ -437,9 +438,6 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
-  playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
-
   jump(path: TreePath): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
@@ -459,7 +457,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.startCeval();
       site.sound.saySan(this.node.san, true);
     }
-    this.justPlayed = this.justDropped = this.justCaptured = undefined;
+    this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
     this.updateHref();
     this.promotion.cancel();
@@ -571,28 +569,31 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   userNewPiece = (piece: Piece, pos: Key): void => {
-    if (crazyValid(this.chessground, this.node.drops(), piece, pos)) {
-      this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
-      this.justDropped = piece.role;
-      this.justCaptured = undefined;
-      const drop = {
-        role: piece.role,
-        pos,
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      };
-      if (this.study) this.socket.sendAnaDrop(drop);
-      this.addNodeLocally({
-        role: piece.role,
-        to: parseSquare(pos)!,
-      });
-    } else this.jump(this.path);
+    if (!crazyValid(this.chessground, this.node.drops(), piece, pos)) {
+      this.jump(this.path);
+      return;
+    }
+    if (this.study?.recall) {
+      this.study.recall.onMove({ role: piece.role, to: parseSquare(pos)! });
+      return;
+    }
+    this.justDropped = piece.role;
+    this.justCaptured = undefined;
+    const drop = {
+      role: piece.role,
+      pos,
+      variant: this.data.game.variant.key,
+      fen: this.node.fen,
+      path: this.path,
+    };
+    if (this.study) this.socket.sendAnaDrop(drop);
+    this.addNodeLocally({
+      role: piece.role,
+      to: parseSquare(pos)!,
+    });
   };
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
-    this.justPlayed = orig;
-    this.justDropped = undefined;
     if (
       !this.promotion.start(orig, dest, {
         submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
@@ -602,6 +603,10 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: Role): void => {
+    if (this.study?.recall) {
+      this.study.recall.onMove({ from: parseSquare(orig)!, to: parseSquare(dest)!, promotion: prom });
+      return;
+    }
     const move: AnaMove = {
       orig,
       dest,
@@ -609,6 +614,7 @@ export default class AnalyseCtrl implements CevalHandler {
       fen: this.node.fen,
       path: this.path,
     };
+    this.justDropped = undefined;
     if (prom) move.promotion = prom;
     if (capture) this.justCaptured = capture;
     if (this.practice) this.practice.onUserMove();

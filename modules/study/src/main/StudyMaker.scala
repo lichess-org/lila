@@ -89,6 +89,7 @@ final private class StudyMaker(
         order = 1,
         ownerId = user.id,
         practice = false,
+        recall = false,
         gamebook = false,
         conceal = None
       )

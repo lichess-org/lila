@@ -113,11 +113,13 @@ const isLoaded = (data: ChapterPreview | StudyChapterConfig): data is StudyChapt
 function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode[] {
   const mode = data.practice
     ? 'practice'
-    : defined(data.conceal)
-      ? 'conceal'
-      : data.gamebook
-        ? 'gamebook'
-        : 'normal';
+    : data.recall
+      ? 'recall'
+      : defined(data.conceal)
+        ? 'conceal'
+        : data.gamebook
+          ? 'gamebook'
+          : 'normal';
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [

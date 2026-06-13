@@ -5343,6 +5343,8 @@ interface I18n {
     public: string;
     /** Read more about embedding */
     readMoreAboutEmbedding: string;
+    /** Recall practice */
+    recall: string;
     /** Recently updated */
     recentlyUpdated: string;
     /** Relevant */
