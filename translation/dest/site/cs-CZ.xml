@@ -137,6 +137,7 @@
   <string name="undefendedPieces">Nebráněné figury</string>
   <string name="checkableKing">Král, kterého lze dát do šachu</string>
   <string name="multipleLines">Počet variant</string>
+  <string name="threads">Vlákna</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
