@@ -128,6 +128,8 @@
   <string name="showVariationArrows">顯示變體箭頭</string>
   <string name="multipleLines">路線分析線</string>
   <string name="searchTime">搜尋時間</string>
+  <string name="threads">執行緒</string>
+  <string name="threadsDescription">設定此值低於您的 CPU 執行緒數，刻度標記處為安全的選擇</string>
   <string name="cpus">CPU 數量</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
