@@ -2,7 +2,10 @@
 <resources>
   <string name="community">Супольнасць</string>
   <string name="byLichess">Ад Lichess</string>
+  <string name="myFriends">Мае сябры</string>
+  <string name="myLikes">Мае ўпадабаныя</string>
   <string name="myBlog">Мой блог</string>
+  <string name="likedBlogs">Упадабаныя публікацыі</string>
   <string name="lichessBlogPostsFromXYear">Запісы ў блоге Lichess за %s</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новы допіс</string>
