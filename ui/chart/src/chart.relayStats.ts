@@ -62,7 +62,7 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
       borderWidth: 2,
       pointRadius: 0,
       pointHoverRadius: 5,
-      hoverBorderColor: hoverBorderColor,
+      hoverBorderColor,
       tension: 0,
       datalabels: { display: false },
     },

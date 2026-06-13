@@ -29,7 +29,7 @@ userIds.forEach(userId => {
     content: {
       type: 'titledTourney',
       id: tournamentId,
-      text: text,
+      text,
     },
     read: false,
     createdAt: new Date(),

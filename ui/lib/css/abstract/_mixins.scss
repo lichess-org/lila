@@ -179,6 +179,10 @@
       inset 0 -4px 6px -3px $m-body-gradient--lighten-5,
       if($defaultShadow != (), 0 1px 3px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
   }
+
+  @include if-transp {
+    box-shadow: none;
+  }
 }
 
 @mixin with-metal-hover-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
@@ -192,6 +196,10 @@
       inset 0 if($soft == true, 3px, 4px) 3px -2px #fff,
       inset 0 -5px 8px -3px $m-body-gradient--lighten-7,
       if($defaultShadow != (), 0 2px 4px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
+  }
+
+  @include if-transp {
+    box-shadow: none;
   }
 }
 
@@ -219,6 +227,10 @@
         inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
         inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
         0 2px 4px 0 hsla(0, 0, 0%, 0.21);
+    }
+
+    @include if-transp {
+      box-shadow: none;
     }
   }
 }

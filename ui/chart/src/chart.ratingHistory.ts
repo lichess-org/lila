@@ -248,8 +248,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
-        chart.zoomScale('x', { min: min, max: max });
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max) chart.zoomScale('x', { min, max });
     };
     slider.on('update', slide);
     // Disable events while dragging for a slight performance boost
@@ -274,7 +273,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate.valueOf()]);
-      chart.zoomScale('x', { min: min, max: endDate.valueOf() });
+      chart.zoomScale('x', { min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons')
       .html(
@@ -312,13 +311,13 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       type: 'line',
       label: serie.name,
       borderColor: perfStyle.color,
-      hoverBorderColor: hoverBorderColor,
+      hoverBorderColor,
       backgroundColor: perfStyle.color,
       pointRadius: data.length === 1 ? 3 : 0,
       pointHoverRadius: 5,
       pointHoverBorderWidth: 0.5,
       pointHoverBorderColor: '#fff9',
-      data: data,
+      data,
       pointStyle: perfStyle.symbol,
       borderWidth: 1.5,
       tension: 0,

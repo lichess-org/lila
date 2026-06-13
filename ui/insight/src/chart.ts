@@ -162,7 +162,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
         display: true,
         text: d.valueYaxis.name,
       },
-      stacked: stacked,
+      stacked,
     },
     y2: {
       position: 'right',

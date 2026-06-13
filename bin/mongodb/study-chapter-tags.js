@@ -13,7 +13,7 @@ db.study_chapter
       },
       {
         $set: {
-          tags: tags,
+          tags,
         },
         $unset: {
           'setup.fromPgn': !!c.setup.fromPgn,
