@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Супольнасць</string>
+  <string name="byLichess">Ад Lichess</string>
+  <string name="myBlog">Мой блог</string>
+  <string name="lichessBlogPostsFromXYear">Запісы ў блоге Lichess за %s</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новы допіс</string>
   <string name="editYourBlogPost">Рэдагаваць ваш допіс у блогу</string>
