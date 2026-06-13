@@ -45,9 +45,9 @@ object StudyOrder:
   def all: List[StudyOrder] = values.toList
   val byKey = values.mapBy(_.key)
 
-enum StudyListView:
-  case cards, compact
+enum StudyFormat:
+  case compact
   def name = toString
 
-object StudyListView:
-  def fromName(name: String): Option[StudyListView] = values.find(_.name == name)
+object StudyFormat:
+  def fromName(name: String): Option[StudyFormat] = values.find(_.name == name)

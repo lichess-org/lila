@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.core.study.{ StudyOrder, StudyListView }
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
@@ -14,7 +14,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, view: Option[StudyListView] = None)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, format: Option[StudyFormat] = None)(using Context) =
     page(
       title = trs.allStudies.txt(),
       active = StudyGroup.all,
@@ -22,7 +22,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag = pag,
       searchFilter = "",
       url = routes.Study.all(_),
-      view = view
+      format = format
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
@@ -121,7 +121,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       url: StudyOrder => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None,
-      view: Option[StudyListView] = None
+      format: Option[StudyFormat] = None
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
@@ -136,19 +136,19 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             ),
             topics.map: ts =>
               div(cls := "box__pad")(topic.topicsList(ts, StudyOrder.mine)),
-            paginate(pag, url(order), view)
+            paginate(pag, url(order), format)
           )
         )
 
   private def paginate(
       pager: Paginator[WithChaptersAndLiked],
       url: Call,
-      view: Option[StudyListView] = None
+      format: Option[StudyFormat] = None
   )(using
       Context
   ) =
-    val baseUrl = view.fold(url.url): v =>
-      addQueryParam(url.url, "view", v.name)
+    val baseUrl = format.fold(url.url): f =>
+      addQueryParam(url.url, "format", f.name)
     val nextPageUrl = (np: Int) =>
       addQueryParam(
         baseUrl,
@@ -160,7 +160,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         iconTag(Icon.StudyBoard),
         p(trs.noneYet())
       )
-    else if view.contains(StudyListView.compact) then
+    else if format.contains(StudyFormat.compact) then
       div(cls := "studies studies--list infinite-scroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study study--plain paginated")(
