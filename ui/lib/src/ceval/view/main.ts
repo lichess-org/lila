@@ -100,7 +100,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active();
   if (!engine) return [];
   const [good, title] =
-    engine?.tech === 'EXTERNAL'
+    engine.tech === 'EXTERNAL'
       ? [true, 'Engine running outside of the browser']
       : engine.requires.includes('relaxedSimd')
         ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']
