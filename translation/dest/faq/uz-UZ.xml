@@ -58,11 +58,11 @@ Shuni bilingki, agar raqibning oʻz donalari shohini yoʻlini toʻsib qoʻysa, b
   <string name="fideHandbook">FIDE qoʻllanmasi</string>
   <string name="fideHandbookX">FIDE qoʻllanmasi %s</string>
   <string name="discoveringEnPassant">Nima uchun piyoda yonidan oʻtib ketgan boshqa bir piyodani urib olishi mumkin? (en passant)</string>
-  <string name="explainingEnPassant">Bu \"en passant\" (kesib oʻtish) deb nomlangan qonuniy yurishdir. Vikipediyadagi ushbu maqolada bu haqida %1$s berilgan.
+  <string name="explainingEnPassant">Bu \"en passant\" deb nomlangan qonuniy yurishdir. Vikipediyadagi ushbu maqolada bu haqida %1$s berilgan.
 
 Ushbu qoida %2$sning 3.7.3.1 va 3.7.3.2‑bandlarida quyidagicha tavsiflanadi:
 
-\"Raqib piyodasi boshlangʻich katagidan ikki katak oldinga yurib, sizning piyodangiz bilan bir xil gorizontalga va qoʻshni vertikalga kelib qolsa, siz ushbu piyodani goʻyoki u bir katak yurganidek urib olishingiz mumkin. Bunday urib olish faqat raqib piyodasi ikki katak yurganidan keyingi birinchi yurishdayoq amalga oshirilishi mumkin va bu ‘en passant’ (kesib oʻtish) deb ataladi.\"
+\"Raqib piyodasi boshlangʻich katagidan ikki katak oldinga yurib, sizning piyodangiz bilan bir xil gorizontalga va qoʻshni vertikalga kelib qolsa, siz ushbu piyodani goʻyoki u bir katak yurganidek urib olishingiz mumkin. Bunday urib olish faqat raqib piyodasi ikki katak yurganidan keyingi birinchi yurishdayoq amalga oshirilishi mumkin va bu ‘en passant’ deb ataladi.\"
 
 Ushbu yurishni mashq qilish uchun %3$s sahifasiga oʻting.</string>
   <string name="goodIntroduction">yaxshi maʼlumot</string>
