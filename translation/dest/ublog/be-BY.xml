@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Супольнасць</string>
+  <string name="byMonth">Па месяцах</string>
+  <string name="byTopic">Па тэмах</string>
   <string name="byLichess">Ад Lichess</string>
   <string name="myFriends">Мае сябры</string>
   <string name="myLikes">Мае ўпадабаныя</string>
   <string name="myBlog">Мой блог</string>
   <string name="likedBlogs">Упадабаныя публікацыі</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s публікацыя ў блогу</item>
+    <item quantity="few">%s публікацыі ў блогу</item>
+    <item quantity="many">%s публікацый у блогу</item>
+    <item quantity="other">%s публікацыі ў блогу</item>
+  </plurals>
+  <string name="continueReadingPost">Працягнуць чытаць гэты пост</string>
   <string name="lichessBlogPostsFromXYear">Запісы ў блоге Lichess за %s</string>
+  <string name="previousBlogPosts">Папярэднія запісы блога</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новы допіс</string>
   <string name="editYourBlogPost">Рэдагаваць ваш допіс у блогу</string>
@@ -20,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Будзе створаны тэма на форуме, каб людзі маглі каментаваць ваш допіс</string>
   <string name="publishOnYourBlog">Апублікаваць у блогу</string>
   <string name="publishHelp">Калі абрана, то допіс будзе адлюстроўвацца ў вашым блогу. Калі не, то застанецца прыватным у вашых чарнавіках</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Замацаваны запіс</string>
+  <string name="stickyPostHelp">Калі выбраны, гэты пост будзе паказаны першым у вашым блогу і ў вашым профілі.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Апублікаваць пост у блогу</item>
     <item quantity="few">Апублікаваць %s посты ў блогу</item>
@@ -54,4 +66,6 @@
   <string name="safeAndRespectfulContent">Калі ласка, размяшчайце толькі бяспечны і паважлівы кантэнт. Не капіруйце чужы кантэнт.</string>
   <string name="inappropriateContentAccountClosed">Любая недарэчнасць можа прывесці да закрыцця вашага ўліковага запісу.</string>
   <string name="blogTips">Нашыя простыя парады пра напісанне цудоўных допісаў у блогу</string>
+  <string name="discussThisBlogPostInTheForum">Абмяркуйце гэты пост на форуме</string>
+  <string name="youBlockedByBlogAuthor">Вы заблакіраваны аўтарам блога.</string>
 </resources>
