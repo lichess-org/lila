@@ -88,7 +88,7 @@ final class User(
           userShowHtmlRateLimit(rateLimited, cost = cost):
             for
               as <- fetchActivity
-              nbs <- env.userNbGames(u, withCrosstable = false)
+              nbs <- isRestricted.not.so(env.userNbGames(u, withCrosstable = false))
               info <- env.userInfo.fetch(u, nbs, isRestricted)
               _ <- env.userInfo.preloadTeams(info)
               social <- env.socialInfo(u)

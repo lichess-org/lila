@@ -184,6 +184,14 @@ final class Env(
   Bus.sub[lila.core.relay.GetActiveRounds]:
     _.promise.completeWith(listing.active.map(_.map(_.asIdName)))
 
+  lila.common.Cli.handle:
+    case "relay" :: "owner" :: id :: user :: Nil =>
+      UserStr
+        .read(user)
+        .fold(fuccess("Invalid username")): username =>
+          for tourIds <- api.setOwnerOfGroupOrTour(id, username.id)
+          yield s"Added ${username} as owner to ${tourIds.size} tours: ${tourIds.mkString(", ")}"
+
 private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
   val tour = mainDb(CollName("relay_tour"))

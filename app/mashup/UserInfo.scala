@@ -1,6 +1,7 @@
 package lila.app
 package mashup
 
+import alleycats.Zero
 import play.api.data.Form
 
 import lila.bookmark.BookmarkApi
@@ -70,6 +71,9 @@ object UserInfo:
   ):
     def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
 
+  object NbGames:
+    given Zero[NbGames] = Zero(NbGames(none, 0, 0, 0))
+
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
@@ -81,9 +85,8 @@ object UserInfo:
         withCrosstable.so:
           me
             .filter(u.isnt(_))
-            .traverse(me =>
+            .traverse: me =>
               crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
-            )
         ,
         gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
@@ -109,7 +112,8 @@ object UserInfo:
     def fetch(user: User, nbs: NbGames, restricted: Boolean, withBlog: Boolean = true)(using
         ctx: Context
     ): Fu[UserInfo] =
-      def showRatings = !restricted && ctx.noBlind && ctx.pref.showRatings
+      val full = !restricted
+      def showRatings = full && ctx.noBlind && ctx.pref.showRatings
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(lila.mon.user.segment("trophies")),
@@ -118,13 +122,13 @@ object UserInfo:
         (!user.is(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
-        (withBlog && !restricted).so(ublogApi.userBlogPreviewFor(user, 3)),
-        restricted.not.so:
+        (withBlog && full).so(ublogApi.userBlogPreviewFor(user, 3)),
+        full.so:
           studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies"))
         ,
-        restricted.not.so(simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls"))),
-        restricted.not.so(relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts"))),
-        ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds"))),
+        full.so(simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls"))),
+        full.so(relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts"))),
+        full.so(ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds")))),
         streamerApi.isActualStreamer(user).mon(lila.mon.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(lila.mon.user.segment("coach")),
         fideIdOf(user.light),
