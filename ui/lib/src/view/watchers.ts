@@ -40,10 +40,10 @@ export function watchers(element: HTMLElement, withUserList = true): void {
       if (get(listEl, 'prevUsers') !== prevUsers) {
         set(listEl, 'prevUsers', prevUsers);
         const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous',
+          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : i18n.site.anonymous,
         );
-        if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push(`Anonymous (${data.anons})`);
+        if (data.anons === 1) tags.push(i18n.site.anonymous);
+        else if (data.anons) tags.push(`${i18n.site.anonymous} (${data.anons})`);
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');
