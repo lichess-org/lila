@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Xayriya qilish</string>
-  <string name="donateAsX">%s sifatida xayriya qilish</string>
+  <string name="donate">Donat qilish</string>
+  <string name="donateAsX">%s sifatida donat qilish</string>
   <string name="lichessPatron">Lichess homiysi</string>
   <string name="patronSince" comment="string is a date">%s dan beri homiy</string>
   <string name="freeAccount">Bepul akkaunt</string>
@@ -14,23 +14,23 @@
   <string name="newPatrons">Yangi homiylar</string>
   <string name="freeChess">Barcha uchun bepul shaxmat! Mangu!</string>
   <string name="noAdsNoSubs">Reklamalar yoʻq, obunalar yoʻq; faqat ochiq kod va ishtiyoq.</string>
-  <string name="thankYou">Xayriyangiz uchun rahmat!</string>
+  <string name="thankYou">Donatingiz uchun rahmat!</string>
   <string name="youHaveLifetime">Siz — umrbod homiysiz. Bu juda ajoyib!</string>
   <string name="patronUntil">Sizning homiylik maqomingiz %s gacha amal qiladi.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Agar homiylik yangilanmasa, hisobingiz oddiy foydalanuvchi holatiga qaytadi.</string>
   <string name="weAreNonProfit">Bizning tashkilotimiz notijorat hisoblanadi, chunki jahon darajasidagi shaxmat hamma uchun bepul va ochiq boʻlishi kerak deb hisoblaymiz.</string>
-  <string name="weRelyOnSupport">Lichessʼning mavjudligi siz kabi insonlarning qoʻllab‑quvvatlashiga bogʻliq. Agar platformamizdan foydalanish sizga yoqayotgan boʻlsa, xayriya qilish orqali homiylarimiz qatoriga qoʻshilishingizni iltimos qilib qolamiz!</string>
+  <string name="weRelyOnSupport">Lichessʼning mavjudligi siz kabi insonlarning qoʻllab‑quvvatlashiga bogʻliq. Agar platformamizdan foydalanish sizga yoqayotgan boʻlsa, donat qilish orqali homiylarimiz qatoriga qoʻshilishingizni iltimos qilib qolamiz!</string>
   <string name="lifetime">Umrbod</string>
   <string name="payLifetimeOnce">Bir marta %s toʻlang va umrbod Lichess homiysiga aylaning!</string>
   <string name="lifetimePatron">Umrbod Lichess homiysi</string>
   <string name="monthly">Har oy</string>
   <string name="recurringBilling">Har oylik toʻlov: homiylik har oy avtomatik uzaytiriladi.</string>
   <string name="onetime">Bir martalik</string>
-  <string name="singleDonation">Bir martalik xayriya: sizga bir oyga homiylik maqomini beradi.</string>
+  <string name="singleDonation">Bir martalik donat: sizga bir oyga homiylik maqomini beradi.</string>
   <string name="otherAmount">Boshqa</string>
   <string name="pleaseEnterAmountInX">Iltimos, miqdorni %s birligida kiriting</string>
   <string name="withCreditCard">Kredit karta</string>
-  <string name="logInToDonate">Xayriya qilish uchun tizimga kiring</string>
+  <string name="logInToDonate">Donat qilish uchun tizimga kiring</string>
   <string name="weAreSmallTeam">Biz kichik jamoamiz, shuning uchun sizning yordamingiz biz uchun juda katta ahamiyatga ega!</string>
   <string name="celebratedPatrons">Lichessʻning mavjudligiga hissa qoʻshayotgan olijanob homiylarimiz</string>
   <string name="whereMoneyGoes">Mablagʻlar qayerga sarflanadi?</string>
@@ -40,13 +40,13 @@ Mablagʻlar, shuningdek, Lichess asoschisi va asosiy dasturchisi %sning faoliyat
   <string name="officialNonProfit">Lichess rasmiy notijorat tashkilotmi?</string>
   <string name="actOfCreation">Ha, mana bizning tashkil etilganligimiz haqidagi hujjat (fransuz tilida)</string>
   <string name="changeMonthlySupport">Har oylik yordamimni oʻzgartirishim yoki bekor qilishim mumkinmi?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Agar toʻlovlaringiz PayPal orqali amalga oshirilgan boʻlsa, qoʻllab‑quvvatlashni bekor qilish yoki oʻzgartirish uchun oʻz PayPal hisobingiz orqali amalga oshirishingiz mumkin. Yoki %1$s, buni siz uchun oʻzimiz bajarib beramiz. Agar PayPalʼdan foydalanmagan boʻlsangiz, demak toʻlovlaringiz Stripe orqali amalga oshirilgan boʻladi — bunday holatda xayriya miqdorini oʻzgartirish yoki uni bekor qilishni %2$s bajarishingiz mumkin.</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Agar toʻlovlaringiz PayPal orqali amalga oshirilgan boʻlsa, qoʻllab‑quvvatlashni bekor qilish yoki oʻzgartirish uchun oʻz PayPal hisobingiz orqali amalga oshirishingiz mumkin. Yoki %1$s, buni siz uchun oʻzimiz bajarib beramiz. Agar PayPalʼdan foydalanmagan boʻlsangiz, demak toʻlovlaringiz Stripe orqali amalga oshirilgan boʻladi — bunday holatda donat miqdorini oʻzgartirish yoki uni bekor qilishni %2$s bajarishingiz mumkin.</string>
   <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">homiylar (patron) sahifada</string>
   <string name="contactSupport">Lichess yordam xizmati bilan bogʻlanishingiz mumkin</string>
-  <string name="otherMethods">Xayriya qilishning boshqa usullari bormi?</string>
+  <string name="otherMethods">Donat qilishning boshqa usullari bormi?</string>
   <string name="lichessIsRegisteredWith">Lichess %s platformasida roʻyxatdan oʻtgan.</string>
   <string name="bankTransfers">Shuningdek, biz bank oʻtkazmalarini ham qabul qilamiz</string>
-  <string name="onlyDonationFromAbove">Iltimos, eʼtibor bering: faqat yuqoridagi xayriya shakli orqali toʻlov qilingandagina \"Homiy\" maqomi beriladi.</string>
+  <string name="onlyDonationFromAbove">Iltimos, eʼtibor bering: faqat yuqoridagi donat formasi orqali toʻlov qilingandagina \"Homiy\" maqomi beriladi.</string>
   <string name="patronFeatures">Homiylar uchun maxsus imtiyozlar bormi?</string>
   <string name="noPatronFeatures">Yoʻq, chunki Lichess hamma uchun har doim butunlay bepul. Bu — bizning vaʼdamiz.
 Lekin homiylar oʻz profillarida koʻrinib turadigan chiroyli \"homiylik qanotlari\"ga ega boʻladilar.</string>
@@ -60,7 +60,7 @@ Lekin homiylar oʻz profillarida koʻrinib turadigan chiroyli \"homiylik qanotla
   <string name="currentStatus">Hozirgi holat</string>
   <string name="nextPayment">Keyingi toʻlov</string>
   <string name="youWillBeChargedXOnY">%2$s kunida hisobingizdan %1$s yechib olinadi.</string>
-  <string name="makeAdditionalDonation">Qoʻshimcha xayriya qilish</string>
+  <string name="makeAdditionalDonation">Qoʻshimcha donat qilish</string>
   <string name="giftPatronWingsShort">\"Homiy\" maqomini birovga sovgʻa qilish</string>
   <string name="giftPatronWings">\"Homiy\" maqomini birovga sovgʻa qilish</string>
   <string name="update">Yangilash</string>
@@ -74,7 +74,7 @@ Lekin homiylar oʻz profillarida koʻrinib turadigan chiroyli \"homiylik qanotla
   <string name="viewOthers">Boshqa Lichess homiylarini koʻrish</string>
   <string name="date">Sana</string>
   <string name="amount">Miqdor</string>
-  <string name="transactionCompleted">Toʻlovingiz muvaffaqiyatli yakunlandi va xayriya kvitansiyasi elektron pochtangizga yuborildi.</string>
+  <string name="transactionCompleted">Toʻlovingiz muvaffaqiyatli yakunlandi va donat kvitansiyasi elektron pochtangizga yuborildi.</string>
   <string name="permanentPatron">Endi sizning akkauntingiz doimiy \"Homiy\" maqomiga ega.</string>
   <string name="checkOutProfile">Profilingizga bir nazar soling!</string>
   <string name="nowLifetime">Siz endi umrbod Lichess homiysisiz!</string>
