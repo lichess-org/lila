@@ -95,6 +95,8 @@ final class SecurityForm(
           case play.api.data.validation.Invalid(e :: _) =>
             lila.core.i18n.I18nKey(e.message).txt(e.args*)
 
+    val emailCheck = Form(single("email" -> fullyValidEmail(using none)))
+
     private val agreementBool = boolean.verifying(b => b)
 
     private val agreement = mapping(

@@ -142,10 +142,10 @@ export function renderBoard(
         class: pieceClass,
         attrs: {
           text: renderPositionStyle(rank, file, text),
-          rank: rank,
-          file: file,
+          rank,
+          file,
           piece: letter.toLowerCase(),
-          color: color,
+          color,
           'trap-bypass': true,
         },
       },

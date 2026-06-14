@@ -43,7 +43,7 @@ for (let i = 0; i < nbGames; i++) {
   const users = [anyOf(players), anyOf(players)];
   const winnerIndex = intRandom(2);
   coll.insert({
-    users: users,
+    users,
     winner: users[winnerIndex],
     loser: users[1 - winnerIndex],
     winColor: anyOf(winColor),

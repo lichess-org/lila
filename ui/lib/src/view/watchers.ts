@@ -36,14 +36,16 @@ export function watchers(element: HTMLElement, withUserList = true): void {
     $numberEl.text(withUserList ? String(data.nb) : i18n.broadcast.nbViewers(data.nb));
 
     if (data.users && withUserList) {
-      const prevUsers = data.users.map(u => u || '').join(';');
-      if (get(listEl, 'prevUsers') !== prevUsers) {
-        set(listEl, 'prevUsers', prevUsers);
+      const currUsers = data.users.map(u => u || '').join(';');
+      const currAnons = data.anons ?? 0;
+      if (get(listEl, 'prevUsers') !== currUsers || (get(listEl, 'prevAnons') ?? 0) !== currAnons) {
+        set(listEl, 'prevUsers', currUsers);
+        set(listEl, 'prevAnons', currAnons);
         const tags = data.users.map(u =>
           u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : i18n.site.anonymous,
         );
-        if (data.anons === 1) tags.push(i18n.site.anonymous);
-        else if (data.anons) tags.push(`${i18n.site.anonymous} (${data.anons})`);
+        if (currAnons === 1) tags.push(i18n.site.anonymous);
+        else if (currAnons) tags.push(`${i18n.site.anonymous} (${currAnons})`);
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');

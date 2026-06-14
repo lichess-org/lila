@@ -80,6 +80,11 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
 
+  def addOwnerToTours(tourIds: List[RelayTourId], userId: UserId): Funit =
+    coll.update
+      .one($inIds(tourIds), $addToSet("ownerIds" -> userId), multi = true)
+      .void
+
   def showTeamScores(id: RelayTourId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(id), "showTeamScores").map(~_)
 

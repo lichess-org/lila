@@ -72,7 +72,7 @@ export default async function (
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = plyToTurn(node.ply);
       const dots = isWhite ? '.' : '...';
-      const winchance = winningChances.povChances('white', { cp: cp });
+      const winchance = winningChances.povChances('white', { cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
 
@@ -111,8 +111,8 @@ export default async function (
         order: 5,
         datalabels: { display: false },
       },
-      moveLabels: moveLabels,
-      adviceHoverColors: adviceHoverColors,
+      moveLabels,
+      adviceHoverColors,
     };
   };
 
@@ -204,6 +204,7 @@ const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: string[]) {
   $('div.advice-summary')
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       const symbol = this.getAttribute('data-symbol');
       const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
       const acplDataset = chart.data.datasets[0];
@@ -220,6 +221,7 @@ function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: 
       }
     })
     .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       chart.setActiveElements([]);
       chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
       chart.data.datasets[0].pointBorderColor = orangeAccent;
