@@ -8,7 +8,7 @@
   <string name="materialDifference">Material farqi</string>
   <string name="boardHighlights">Oxirgi yurish va shoh berish taxtada ko\'rsatilsin</string>
   <string name="pieceDestinations">Mumkin boʻlgan yurishlar koʻrsatilsin (qonuniy yurishlar va oldindan yurishlar)</string>
-  <string name="boardCoordinates">Taxta koordinatalari (A‑H, 1‑8)</string>
+  <string name="boardCoordinates">Taxta koordinatalari (A–H, 1–8)</string>
   <string name="moveListWhilePlaying">Oʻyin davomida yurishlar roʻyxati koʻrsatilsin</string>
   <string name="pgnPieceNotation">Yurish notatsiyasi</string>
   <string name="chessPieceSymbol">Shaxmat dona simvoli</string>

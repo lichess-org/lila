@@ -128,5 +128,7 @@ Zobrazí se vodorovná čára.</string>
   <string name="allowMessagingBetweenStudentsDesc">Tohle platí pouze pro účty, které jste vytvořil pro studenty.</string>
   <string name="quickLoginCode">Kód pro rychlé přihlášení</string>
   <string name="quickLoginCodes">Kód pro rychlé přihlášení</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Použijte tyto kódy na %s pro přihlášení studenstva do Lichess.</string>
+  <string name="quickLoginCodesDesc2">Po vypršení platnosti kódů zůstane vaše studenstvo přihlášeno, dokud se ručně neodhlásí.</string>
   <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Vyprší za %s</string>
 </resources>
