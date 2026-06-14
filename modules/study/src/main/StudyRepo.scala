@@ -177,18 +177,18 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def setUpdatedNow(id: StudyId): Funit =
     coll.map(_.updateFieldUnchecked($id(id), "updatedAt", nowInstant))
 
-  def addMember(study: Study, member: StudyMember): Funit =
+  def addMember(study: StudyId, member: StudyMember): Funit =
     coll:
       _.update.one(
-        $id(study.id),
+        $id(study),
         $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
       )
     .void
 
-  def removeMember(study: Study, userId: UserId): Funit =
+  def removeMember(study: StudyId, userId: UserId): Funit =
     coll:
       _.update.one(
-        $id(study.id),
+        $id(study),
         $unset(s"members.$userId") ++ $pull(F.uids -> userId)
       )
     .void
@@ -200,6 +200,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         $set(s"members.$userId.role" -> role)
       )
     .void
+
+  def setOwner(study: StudyId, userId: UserId): Funit = for
+    _ <- addMember(study, StudyMember(userId, StudyMember.Role.Write))
+    _ <- coll(_.update.one($id(study), $set("ownerId" -> userId)))
+  yield ()
 
   def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
     coll(_.primitiveOne[Bdoc]($id(id), "members"))
