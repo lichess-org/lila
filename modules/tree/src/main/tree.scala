@@ -29,7 +29,9 @@ object Branches:
     def first = nodes.headOption
     def mainlineFirst = nodes.collectFirst:
       case node if !node.forceVariation => node
-    def variations = nodes.drop(1)
+    def variations = nodes.filter(n => !n.forceVariation).drop(1)
+    def forceVariations = nodes.filter(_.forceVariation)
+    def others = nodes.drop(1)
     def isEmpty = nodes.isEmpty
     def nonEmpty = !isEmpty
 
@@ -172,7 +174,7 @@ case class Root(
 
   def addChild(child: Branch): Root = copy(children = children.addNode(child))
   def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))
-  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
+  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.others))
 
   def withChildren(f: Branches => Option[Branches]): Option[Root] =
     f(children).map: newChildren =>
@@ -357,7 +359,7 @@ case class Branch(
     )
 
   def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))
-  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
+  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.others))
 
   def setComp = copy(comp = true)
 
