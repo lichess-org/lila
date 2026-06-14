@@ -14,11 +14,11 @@ import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
+import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
 import { renderEval } from '../util';
 import { povChances } from '../winningChances';
@@ -97,19 +97,20 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
       });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const engine = ctrl.engines.active;
+  const engine = ctrl.engines.active();
   if (!engine) return [];
-  const [good, title] = ctrl.engines.isExternalEngineInfo(engine)
-    ? [true, 'Engine running outside of the browser']
-    : engine.requires.includes('relaxedSimd')
-      ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']
-      : engine.requires.includes('simd')
-        ? [true, 'Multi-threaded WebAssembly with SIMD']
-        : engine.requires.includes('sharedMem')
-          ? [true, 'Multi-threaded WebAssembly']
-          : engine.requires.includes('wasm')
-            ? [false, 'Single-threaded WebAssembly']
-            : [false, 'Single-threaded JavaScript'];
+  const [good, title] =
+    engine.tech === 'EXTERNAL'
+      ? [true, 'Engine running outside of the browser']
+      : engine.requires.includes('relaxedSimd')
+        ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']
+        : engine.requires.includes('simd')
+          ? [true, 'Multi-threaded WebAssembly with SIMD']
+          : engine.requires.includes('sharedMem')
+            ? [true, 'Multi-threaded WebAssembly']
+            : engine.requires.includes('wasm')
+              ? [false, 'Single-threaded WebAssembly']
+              : [false, 'Single-threaded JavaScript'];
   return [
     hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
     hl(`span.technology${good ? '.good' : ''}`, { attrs: { title } }, engine.tech),
@@ -144,7 +145,7 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
   const node = ctrl.getNode(),
-    enabled = !ceval.isPaused && ctrl.cevalEnabled(),
+    enabled = !ceval.wasUnloaded && ctrl.cevalEnabled(),
     client = node.ceval,
     server = node.eval,
     threatMode = ctrl.threatMode(),
@@ -152,7 +153,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
     download = ceval.download;
-  let pearl: VNode | undefined,
+  let pearl: LooseVNode,
     percent = 0;
 
   if (client) {
@@ -230,17 +231,17 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const settingsGear = hl('button.settings-gear', {
     attrs: { role: 'button', 'data-icon': licon.Gear, title: 'Engine settings' },
-    class: { active: ctrl.ceval.showEnginePrefs() }, // must use ctrl.ceval rather than ceval here
+    class: { active: ceval.showEnginePrefs() },
     hook: bind(
       'click',
       e => {
         e.stopPropagation();
-        ctrl.ceval.showEnginePrefs.toggle(); // must use ctrl.ceval rather than ceval here
-        if (ctrl.ceval.showEnginePrefs())
+        ceval.showEnginePrefs.toggle();
+        if (ceval.showEnginePrefs())
           setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
         else blurIfPrimaryClick(e);
       },
-      () => ctrl.ceval.opts.redraw(), // must use ctrl.ceval rather than ceval here
+      () => ceval.opts.redraw(),
       false,
     ),
   });
@@ -248,7 +249,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
       renderCevalSwitch(ctrl),
       body,
-      !ctrl.ceval.opts.custom && threatButton(ctrl),
+      !ceval.opts.custom && threatButton(ctrl),
       settingsGear,
       progressBar,
     ]),
@@ -262,7 +263,7 @@ export const renderCevalSwitch = (ctrl: CevalHandler): VNode | false =>
     id: 'analyse-toggle-ceval',
     title: i18n.site.toggleLocalEvaluation + ' (L)',
     checked: !!ctrl.cevalEnabled(),
-    propsChecked: !ctrl.ceval.isPaused && !!ctrl.cevalEnabled(),
+    propsChecked: !ctrl.ceval.wasUnloaded && !!ctrl.cevalEnabled(),
     change: ctrl.cevalEnabled,
     disabled: !ctrl.ceval.analysable,
   });
@@ -338,7 +339,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
   const resetPvIndexAndBoard = () => {
-    ctrl.ceval.setPvBoard(null);
+    ceval.setPvBoard(null);
     pvIndex = null;
   };
 
@@ -364,7 +365,6 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
           });
           if (isTouchDevice()) return;
           el.addEventListener('mouseover', (e: MouseEvent) => {
-            const ceval = ctrl.ceval;
             setHovering(ceval, getElFen(el), getElUci(e));
             const pvBoard = (e.target as HTMLElement).dataset.board;
             if (pvBoard) {
@@ -384,7 +384,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
                 const pvBoard = pvMoves[pvIndex];
                 if (pvBoard) {
                   const [fen, uci] = pvBoard.split('|');
-                  ctrl.ceval.setPvBoard({ fen, uci });
+                  ceval.setPvBoard({ fen, uci });
                 }
               },
               () => pvIndex === null,
