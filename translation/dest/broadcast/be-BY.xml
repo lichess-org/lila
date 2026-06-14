@@ -55,6 +55,7 @@
   <string name="notYetStarted">Трансляцыя яшчэ не пачалася.</string>
   <string name="officialWebsite">Афіцыйны сайт</string>
   <string name="officialStandings">Афіцыяльная турнірная табліца</string>
+  <string name="regulations">Рэгламент</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больш опцый на %s</string>
   <string name="webmastersPage">старонцы вэб-майстра</string>
   <string name="embedThisBroadcast">Убудуйце гэтую трансляцыю на сваім сайце</string>
@@ -62,4 +63,13 @@
   <string name="gamesThisTournament">Гульні ў гэтым турніры</string>
   <string name="score">Ачкі</string>
   <string name="allTeams">Усе каманды</string>
+  <string name="tournamentFormat">Фармат турніру</string>
+  <string name="topPlayers">Найлепшыя гульцы</string>
+  <string name="timezone">Часавы пояс</string>
+  <string name="fideRatingCategory">Катэгорыя рэйтынгу FIDE</string>
+  <string name="womenTournament">Жанчыны</string>
+  <string name="menTournament">Мужчыны</string>
+  <string name="girlsTournament">Дзяўчынкі</string>
+  <string name="boysTournament">Хлопцы</string>
+  <string name="gameX">Гульня %s</string>
 </resources>
