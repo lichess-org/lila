@@ -1,5 +1,5 @@
 import { prop } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, dataIcon, hl, copyMeInput, type MaybeVNode } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';

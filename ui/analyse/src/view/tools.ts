@@ -1,5 +1,5 @@
 import { view as cevalView } from 'lib/ceval';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, hl, type LooseVNode, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';

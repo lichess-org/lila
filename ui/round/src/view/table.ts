@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, dataIcon } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -47,7 +47,7 @@ const prompt = (ctrl: RoundController) => {
   const o = ctrl.question();
   if (!o) return {};
 
-  const btn = (tpe: 'yes' | 'no', icon: LiconType, text: string, action: () => void) =>
+  const btn = (tpe: 'yes' | 'no', icon: LiconValue, text: string, action: () => void) =>
     ctrl.nvui
       ? hl('button', { hook: bind('click', action) }, text)
       : hl(`a.${tpe}`, { attrs: dataIcon(icon), hook: bind('click', action) });

@@ -1,5 +1,5 @@
 import { get, set } from '@/data';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 
 export interface Data {

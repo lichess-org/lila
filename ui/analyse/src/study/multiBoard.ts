@@ -7,7 +7,7 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';

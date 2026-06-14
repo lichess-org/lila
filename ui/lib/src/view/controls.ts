@@ -3,7 +3,7 @@
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import * as xhr from '@/xhr';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {

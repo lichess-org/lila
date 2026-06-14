@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { playable } from 'lib/game';
 import { fixCrazySan } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, spinnerVdom as spinner } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';

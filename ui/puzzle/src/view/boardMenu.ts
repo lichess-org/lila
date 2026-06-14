@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { toggle } from 'lib';
 import { renderNodesTxt } from 'lib/game/nodePGN';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { boardMenu as menuDropdown, boolPrefXhrToggle, hl } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';

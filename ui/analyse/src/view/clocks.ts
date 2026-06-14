@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { defined, notNull } from 'lib';
 import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
 import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 

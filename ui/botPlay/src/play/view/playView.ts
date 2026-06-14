@@ -7,7 +7,7 @@ import { type TopOrBottom } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
-import * as licon from 'lib/licon';
+import { licon, type LiconKey } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
@@ -146,15 +146,15 @@ const viewNavigation = (ctrl: PlayCtrl) => {
     boardMenu(ctrl),
     hl('div.noop'),
     [
-      [licon.JumpFirst, 0],
-      [licon.JumpPrev, ctrl.board.onPly - 1],
-      [licon.JumpNext, ctrl.board.onPly + 1],
-      [licon.JumpLast, ctrl.game.ply()],
-    ].map((b: [LiconType, number], i) => {
+      ['JumpFirst', 0],
+      ['JumpPrev', ctrl.board.onPly - 1],
+      ['JumpNext', ctrl.board.onPly + 1],
+      ['JumpLast', ctrl.game.ply()],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
-        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
       });
     }),

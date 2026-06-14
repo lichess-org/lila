@@ -3,7 +3,7 @@
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { blurIfPrimaryClick, frag } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
 

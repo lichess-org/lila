@@ -1,6 +1,6 @@
 import { opposite } from 'chessops';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storedBooleanProp } from 'lib/storage';
 import { domDialog, type Dialog } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';

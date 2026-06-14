@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, type MaybeVNodes, bind, hl, iconTag } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
