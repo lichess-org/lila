@@ -120,4 +120,5 @@
   <string name="anInvitationHasBeenSentToX">Запрашэнне адпраўлена да %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ужо мае запрашэнне</string>
   <string name="xIsAKidAccountWarning">Уліковы запіс %1$s - дзіцячы, таму не можа атрымліваць паведамленні. Вам трэба перадаць запрашальную спасылку ўласнаручна: %2$s</string>
+  <string name="moveToClass">Перамясціць у %s</string>
 </resources>
