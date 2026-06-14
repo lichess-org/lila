@@ -30,7 +30,8 @@
       "/public/npm/stockfish-web/*",
       "/public/npm/*",
       "/public/piece/**",
-      "/public/sound/**/*.mp3"
+      "/public/sound/**/*.mp3",
+      "/public/video/**"
     ]
   },
   "exports": {

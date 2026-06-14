@@ -18,7 +18,7 @@ export class IdbTree {
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
     return (
-      this.ctrl.disclosureMode() &&
+      this.ctrl.settings.disclosureMode &&
       this.ctrl.tree.walkUntilTrue(
         (n, m) => this.isCollapsible(n, m) && collapsed === Boolean(n.collapsed),
         path,
@@ -72,7 +72,7 @@ export class IdbTree {
   discloseOf(node: TreeNodeLite | undefined, isMainline: boolean): DiscloseState {
     if (!node) return undefined;
     return this.isCollapsible(node, isMainline)
-      ? this.ctrl.disclosureMode() && node.collapsed
+      ? this.ctrl.settings.disclosureMode && node.collapsed
         ? 'collapsed'
         : 'expanded'
       : undefined;
@@ -151,7 +151,9 @@ export class IdbTree {
   }
 
   private isCollapsible(node: TreeNodeLite, isMainline: boolean): boolean {
-    const [first, second, third] = node.children.filter(n => this.ctrl.showStaticAnalysis() || !n.comp);
+    const [first, second, third] = node.children.filter(
+      n => this.ctrl.settings.showStaticAnalysis || !n.comp,
+    );
     return Boolean(
       first?.forceVariation ||
       third ||
@@ -188,7 +190,9 @@ export class IdbTree {
     const parentPath = path.slice(0, -2);
     return [
       parentPath,
-      this.ctrl.tree.nodeAtPath(parentPath).children.filter(x => !x.comp || this.ctrl.showStaticAnalysis()),
+      this.ctrl.tree
+        .nodeAtPath(parentPath)
+        .children.filter(x => !x.comp || this.ctrl.settings.showStaticAnalysis),
     ];
   }
 }

@@ -146,7 +146,7 @@ export interface CevalHandler {
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  showFishnetAnalysis?: () => boolean;
+  showStaticAnalysis?: () => boolean;
 }
 
 export interface NodeEvals {
