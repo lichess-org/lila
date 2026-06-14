@@ -108,7 +108,6 @@ export interface EngineArgs {
 export interface CustomSearch {
   engine?: EngineArgs;
   search?: () => Search | Millis; // pass number as millis to cap user defined search
-  canBackground?: boolean;
 }
 
 export interface CustomCeval extends CustomSearch {
