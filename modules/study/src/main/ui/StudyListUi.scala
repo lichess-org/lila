@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
@@ -14,14 +14,17 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, format: Option[StudyFormat] = None)(using
+      Context
+  ) =
     page(
       title = trs.allStudies.txt(),
       active = StudyGroup.all,
       order = order,
       pag = pag,
       searchFilter = "",
-      url = routes.Study.all(_)
+      url = routes.Study.all(_),
+      format = format
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
@@ -112,6 +115,18 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           )
         )
 
+  private def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
+    val compactFormat = currentFormat.contains(StudyFormat.compact)
+    val toggleUrl =
+      if compactFormat then baseUrl
+      else addQueryParam(baseUrl, "format", "compact")
+    a(
+      cls := List("button button-empty" -> true, "active" -> compactFormat),
+      href := toggleUrl,
+      title := (if compactFormat then "Switch to card view" else "Switch to list view"),
+      dataIcon := Icon.List
+    )
+
   private def page(
       title: String,
       active: StudyGroup,
@@ -119,7 +134,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag: Paginator[WithChaptersAndLiked],
       url: StudyOrder => Call,
       searchFilter: String,
-      topics: Option[StudyTopics] = None
+      topics: Option[StudyTopics] = None,
+      format: Option[StudyFormat] = None
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
@@ -130,26 +146,50 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             div(cls := "box__top")(
               searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
               bits.orderSelect(order, active, url),
+              formatToggle(url(order).url, format),
               bits.newForm()
             ),
             topics.map: ts =>
               div(cls := "box__pad")(topic.topicsList(ts, StudyOrder.mine)),
-            paginate(pag, url(order))
+            paginate(pag, url(order), format)
           )
         )
 
-  private def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using Context) =
+  private def paginate(
+      pager: Paginator[WithChaptersAndLiked],
+      url: Call,
+      format: Option[StudyFormat] = None
+  )(using
+      Context
+  ) =
+    val baseUrl = format.fold(url.url): f =>
+      addQueryParam(url.url, "format", f.name)
+    val nextPageUrl = (np: Int) =>
+      addQueryParam(
+        baseUrl,
+        "page",
+        np.toString
+      )
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
         iconTag(Icon.StudyBoard),
         p(trs.noneYet())
+      )
+    else if format.contains(StudyFormat.compact) then
+      div(cls := "studies studies--list infinite-scroll")(
+        pager.currentPageResults.map { s =>
+          div(cls := "study study--plain paginated")(
+            a(href := routes.Study.show(s.study.id))(s.study.name.value)
+          )
+        },
+        pagerNext(pager, nextPageUrl)
       )
     else
       div(cls := "studies list infinite-scroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },
-        pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
+        pagerNext(pager, np => nextPageUrl(np))
       )
 
   def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil)(using
