@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">Jonli (live) — chunki oʻyinlar haftasiga 7 kun kuniga 24 soat real vaqt rejimida oʻynaladi va kuzatiladi; yengil (light) va erkin (libre) — chunki Lichess ochiq kodli loyiha boʻlib, boshqa saytlarga xos boʻlgan xususiy va keraksiz chiqindilardan xolidir.</string>
   <string name="whyIsLilaCalledLila">Shuningdek, Lichessʼning dastur kodi — \'%1$s\' nomi ham li[chess in sca]la soʻzlaridan olingan. Buning sababi, Lichessʼning asosiy qismi intuitiv tushunarli dasturlash tili boʻlmish %2$sʼda yozilgan.</string>
   <string name="howCanIContributeToLichess">Lichessʼga qanday qilib hissa qoʻshishim mumkin?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan xayriyalar va koʻngillilar jamoasining saʼy‑harakatlari asosida faoliyat yuritadi.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan donatlar va koʻngillilar jamoasining saʼy‑harakatlari asosida faoliyat yuritadi.</string>
   <string name="findMoreAndSeeHowHelp">%1$s haqida (shu jumladan, %2$s bilan) koʻproq maʼlumot olishingiz mumkin. Agar oʻz vaqtingiz va mahoratingiz bilan Lichessʼga koʻngilli sifatida yordam bermoqchi boʻlsangiz, koʻmaklashishning yana koʻplab %3$s ham mavjud.</string>
   <string name="beingAPatron">Homiy boʻlish</string>
   <string name="breakdownOfOurCosts">xarajatlarimizning batafsil hisoboti</string>
@@ -30,7 +30,7 @@
   <string name="fairPlayPage">halol oʻyin</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
   <string name="gameplay">Oʻyin jarayoni</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, Blits va boshqa vaqt nazoratlari qanday belgilanadi?</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blitz va boshqa vaqt nazoratlari qanday belgilanadi?</string>
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
 taxminiy davomiylik = %1$s
 
@@ -173,7 +173,7 @@ Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini ko�
   <string name="fewerLobbyPools">tez raqibni topish roʻyxati qisqartirilgan</string>
   <string name="adviceOnMitigatingAddiction">Bizga koʻpincha oʻyin oʻynashga haddan tashqari ruju qoʻygan va oʻzini toʻxtata olmayotgan foydalanuvchilar yordam soʻrab murojaat qilishadi.
 
-Lichess faqat foydalanish shartlari buzilgan holatlardagina oʻyinchilarni cheklaydi, xolos. Shuning uchun biz oʻyin vaqtini nazorat qilishda maxsus dasturlardan foydalanishni tavsiya etamiz. Saytlarga kirishni cheklovchi %1$s, %2$s va %3$s kabi vositalar shular jumlasidandir. Agar saytga kirishni xohlasangiz‑u, lekin tez oʻyinlar (bullet/blits) sizni oʻziga tortaverishidan qochmoqchi boʻlsangiz, %4$sdan foydalanib koʻring, masalan, mana bu variantda %5$s.
+Lichess faqat foydalanish shartlari buzilgan holatlardagina oʻyinchilarni cheklaydi, xolos. Shuning uchun biz oʻyin vaqtini nazorat qilishda maxsus dasturlardan foydalanishni tavsiya etamiz. Saytlarga kirishni cheklovchi %1$s, %2$s va %3$s kabi vositalar shular jumlasidandir. Agar saytga kirishni xohlasangiz‑u, lekin tez oʻyinlar (bullet/blitz) sizni oʻziga tortaverishidan qochmoqchi boʻlsangiz, %4$sdan foydalanib koʻring, masalan, mana bu variantda %5$s.
 
 Ba\'zi oʻyinchilar shaxmatga mukkasidan ketayotganlarini yoki bu odat qaramlikka aylanayotganini payqashlari mumkin. Darhaqiqat, Jahon sogʻliqni saqlash tashkiloti ham oʻyinga qaramlikni %6$s sifatida tan olgan. Uning asosiy belgilari: 1) oʻyinni toʻxtata olmaslik, 2) hayotdagi boshqa ishlarni chetga surib, bor eʼtiborni faqat oʻyinga qaratish va 3) salbiy oqibatlarga qaramay oʻyinni davom ettirishdir. Agar oʻzingizda shunday holatni kuzatayotgan boʻlsangiz, bu haqida doʻstlaringiz, yaqinlaringiz yoki mutaxassis bilan maslahatlashishingizni soʻraymiz.</string>
 </resources>
