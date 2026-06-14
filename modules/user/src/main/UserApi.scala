@@ -234,6 +234,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .option:
         for
           _ <- userRepo.setKid(user, v)
+          _ <- v.yes.so(userRepo.unsetBio(user.id))
           _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
         yield v
       .sequence
