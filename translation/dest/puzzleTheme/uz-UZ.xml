@@ -145,7 +145,7 @@
   <string name="xRayAttackDescription">Donaning raqib donasi ortidagi katakka hujum qilishi yoki uni himoya qilishi.</string>
   <string name="zugzwang">Sugsvang</string>
   <string name="zugzwangDescription">Raqib yurish qilishga majbur boʻlgan, ammo har qanday yurish uning pozitsiyasini yomonlashtiradigan holat.</string>
-  <string name="mix">Bir undan bir bundan</string>
+  <string name="mix">Aralash</string>
   <string name="mixDescription">Har turdan bir shingil. Oldinda nima kutayotganini bilmaysiz, shuning uchun har qanday holatga tayyor turasiz! Haqiqiy oʻyindagi kabi!</string>
   <string name="playerGames">Oʻyinchilardan</string>
   <string name="playerGamesDescription">Oʻzingizning yoki boshqa oʻyinchilarning oʻyinlaridan olingan masalalarni topish.</string>
