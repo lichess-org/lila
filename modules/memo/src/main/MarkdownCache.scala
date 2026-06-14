@@ -18,7 +18,8 @@ case class MarkdownOptions(
     timestamp: Boolean = false,
     maxPgns: Max = Max(0),
     toastUi: Boolean = false,
-    sourceMap: Boolean = false
+    sourceMap: Boolean = false,
+    removeHtmlEntities: Boolean = false
 )
 
 final class MarkdownCache(
@@ -89,6 +90,7 @@ final class MarkdownCache(
         timestamp = opts.timestamp,
         table = opts.table,
         sourceMap = opts.sourceMap,
+        removeHtmlEntities = opts.removeHtmlEntities,
         pgnExpand = pgnCache.expand.some,
         assetDomain = assetDomain.some
       )

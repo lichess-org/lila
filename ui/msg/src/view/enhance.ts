@@ -88,7 +88,7 @@ export function expandLpvs(el: HTMLElement) {
     if (link)
       expandables.push({
         element: a,
-        link: link,
+        link,
       });
   });
 

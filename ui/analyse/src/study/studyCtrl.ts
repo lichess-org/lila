@@ -287,7 +287,7 @@ export default class StudyCtrl {
       'shapes',
       this.addChapterId({
         path: this.ctrl.path,
-        shapes: shapes,
+        shapes,
       }),
     );
   };

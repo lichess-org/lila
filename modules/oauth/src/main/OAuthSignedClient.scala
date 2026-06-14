@@ -9,6 +9,7 @@ import lila.common.config.given
 import lila.core.config.BaseUrl
 import lila.core.net.{ Origin, ValidReferrer }
 import lila.core.misc.AuthCustomUi
+import lila.ui.Context
 
 case class OAuthSignedClient(
     clientId: ClientId,
@@ -20,8 +21,11 @@ case class OAuthSignedClient(
 )
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: OAuthSignedClient)
+  type Action = "login" | "signup"
 
-final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode):
+final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode)(using Executor):
+
+  import OAuthSignedClient.Action
 
   private val config = appConfig.get[Configuration]("oauth.signedClients")
   private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
@@ -54,8 +58,12 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       )
   )
 
-  def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
-    forPrompt(prompt.clientId, prompt.redirectUri, prompt.scopes)
+  def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using
+      ctx: Context
+  ): Option[OAuthSignedClient] =
+    forPrompt(prompt.clientId, prompt.redirectUri, prompt.scopes).tap:
+      _.foreach: c =>
+        monitoring.oauthAttempt(c.clientId, prompt, action, loggedIn = ctx.isAuth)
 
   def forPrompt(
       clientId: ClientId,
@@ -109,3 +117,15 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       token.clientOrigin.exists(client.origins.has) && signature.exists: signed =>
         client.signers.isEmpty || client.signers.exists: signer =>
           signer.sha1(bearer.value).hash_=(signed)
+
+  private object monitoring:
+    private val newOauthAttempts = scalalib.cache.OnceEvery[(AuthorizationRequest.Prompt, Action)](10.minutes)
+    def oauthAttempt(
+        clientId: ClientId,
+        prompt: AuthorizationRequest.Prompt,
+        action: Action,
+        loggedIn: Boolean
+    ): Unit =
+      if newOauthAttempts((prompt, action)) then
+        val monitor = if action == "signup" then lila.mon.signedClient.signup else lila.mon.signedClient.login
+        monitor.alreadyLoggedIn(clientId.value, loggedIn).increment()

@@ -97,4 +97,5 @@
   <string name="boysUnderXAgeTournament">Chlapci U%s</string>
   <string name="semifinals">Semifinále</string>
   <string name="finals">Finále</string>
+  <string name="gameX">Hra %s</string>
 </resources>

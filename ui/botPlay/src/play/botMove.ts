@@ -16,7 +16,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
 
   const moveRequest: MoveArgs = {
     pos: { fen: game.data.initialFen || INITIAL_FEN, moves: ucis },
-    chess: chess,
+    chess,
     avoid: threefoldMoves,
     initial: Infinity,
     remaining: Infinity,

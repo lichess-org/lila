@@ -6,8 +6,8 @@
   <string name="openTheApp" comment="Button text to open the Lichess app on the device">Ireki Lichess aplikazioa</string>
   <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Ikusi %s GitHuben</string>
   <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">bertsio guztiak</string>
-  <string name="downloadOnAppleAppStore">Deskargatu Apple App Storen</string>
-  <string name="downloadOnGooglePlay">Deskargatu Google Playn</string>
-  <string name="downloadOnFdroid">Deskargatu F-Droiden</string>
+  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Deskargatu Apple App Storen</string>
+  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Deskargatu Google Playn</string>
+  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">Deskargatu F-Droiden</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mugikorretako pantaila</string>
 </resources>

@@ -20,7 +20,7 @@ export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
     setTimeout(() => {
       submit(opts.input.value, {
         isTrusted: true,
-        yourMove: yourMove,
+        yourMove,
       });
     }, 1);
   };

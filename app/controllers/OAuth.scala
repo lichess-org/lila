@@ -10,7 +10,7 @@ import cats.mtl.Handle.*
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthSignedClient }
 
 import Api.ApiResult
 
@@ -24,13 +24,15 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorize = Open:
     withPrompt: prompt =>
+      val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
+      val signedClient = env.oAuth.signedClients.forPromptAndMonitor(prompt, action)
       ctx.me match
         case Some(me) =>
           given Me = me
-          Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+          Ok.page(views.oAuth.authorize(prompt, signedClient))
         case None =>
           Redirect(
-            if getBool("signup") then routes.Auth.signup.url else routes.Auth.login.url,
+            if action == "signup" then routes.Auth.signup.url else routes.Auth.login.url,
             Map("referrer" -> List(req.uri))
           ).toFuccess
 
