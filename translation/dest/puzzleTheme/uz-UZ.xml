@@ -69,7 +69,7 @@
   <string name="interferenceDescription">Raqibning ikki donasi orasiga oʻz donangizni qoʻyib, ularning bir-birini himoya qilishiga toʻsqinlik qilish (masalan, ikkita rux orasidagi katakka otni qoʻyish).</string>
   <string name="intermezzo">Oraliq hamla</string>
   <string name="intermezzoDescription">Kutilayotgan yurishni qilishdan oldin, raqib javob berishi shart boʻlgan xavfli hamla qilish. Bu usul nemis tilida \"Zwischenzug\" deb ham ataladi.</string>
-  <string name="killBoxMate">Qopqondagi mot</string>
+  <string name="killBoxMate">Oʻlim qutisi moti</string>
   <string name="killBoxMateDescription">Rux shohning yonida turadi va farzin tomonidan himoya qilinadi, farzin esa qolgan qochish yoʻllarini ham toʻsib qoʻyadi. Rux va farzin raqib shohini 3 ga 3 katakli \"qopqon\"ga solib mot qiladi.</string>
   <string name="pillsburysMate">Pillsbury moti</string>
   <string name="pillsburysMateDescription">Rux bilan beriladigan mot; bunda fil raqib shohini burchakka siqib chiqarishga va qochish yoʻllarini yopishga yordam beradi.</string>
