@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
@@ -72,7 +72,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(
-  icon: LiconType,
+  icon: LiconValue,
   text: string,
   onClick: () => void,
   onHover?: () => void,

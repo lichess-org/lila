@@ -1,7 +1,7 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { setClockWidget } from 'lib/game/clock/clockWidget';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { iconCls, onInsert } from 'lib/view';
 
 import type SwissCtrl from '../ctrl';

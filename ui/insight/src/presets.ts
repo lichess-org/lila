@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 
 import type Ctrl from './ctrl';

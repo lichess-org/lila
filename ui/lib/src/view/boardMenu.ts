@@ -3,7 +3,7 @@
 import { h } from 'snabbdom';
 
 import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
 import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';

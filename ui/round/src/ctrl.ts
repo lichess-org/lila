@@ -17,7 +17,7 @@ import { game as gameRoute } from 'lib/game/router';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { playing } from 'lib/game/status';
 import viewStatus from 'lib/game/view/status';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import notify from 'lib/notification';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
@@ -25,6 +25,7 @@ import { pubsub } from 'lib/pubsub';
 import { type SocketSendOpts } from 'lib/socket';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
 import type { NodeCrazy } from 'lib/tree/types';
+import type { QuestionOpts } from 'lib/types';
 import { toggleZenMode } from 'lib/view/zen';
 import * as wakeLock from 'lib/wakeLock';
 

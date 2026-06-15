@@ -1,5 +1,5 @@
 import { api as lichess } from 'lib/api';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 type TitleName = string;
 

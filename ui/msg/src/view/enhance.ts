@@ -1,5 +1,5 @@
 import { escapeHtml } from 'lib/index';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'lib/richText';
 
 import { scroller } from './scroller';
