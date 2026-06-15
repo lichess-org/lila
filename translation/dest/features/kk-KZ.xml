@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="personalOpeningExplorer">Жеке Бастама Қоры</string>
+  <string name="globalOpeningExplorerInNbGames">Жалпы Бастама қоры (%s ойын!)</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Жарық/Қараңғы кейіп, өзгермелі тақта, тас пен артқы кескін</string>
+</resources>

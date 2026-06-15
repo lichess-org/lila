@@ -4,16 +4,20 @@
   <string name="standardTitle">Standardní pravidla šachů (FIDE)</string>
   <string name="chess960">Fischerovy šachy</string>
   <string name="chess960Title">Počáteční pozice je zadních figur náhodná.</string>
-  <string name="kingOfTheHill">Král hory</string>
+  <string name="kingOfTheHill">King of the Hill</string>
   <string name="kingOfTheHillTitle">Přines svého krále do středu a vyhraj hru.</string>
   <string name="threeCheck">Třikrát šach</string>
   <string name="threeCheckTitle">Dej soupeři tříkrát šach a vyhraj hru.</string>
   <string name="antichess">Antichess</string>
   <string name="antichessTitle">Ztrať všechny své figury (nebo se dostaň do patu) a vyhraj hru.</string>
   <string name="atomic">Atomic</string>
+  <string name="atomicTitle">Pro výhru vyhoďte krále protistrany do povětří.</string>
   <string name="horde">Horde</string>
+  <string name="hordeTitle">Jedna strana má velký počet pěšců, druhá má normální pěšcovou „armádu“.</string>
   <string name="racingKings">Racing Kings</string>
   <string name="racingKingsTitle">Dostaň svého krále na druhou stranu šachovnice, abys vyhrál.</string>
   <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Vzané figury mohou být vloženy zpět na šachovnici místo pohybu figury.</string>
   <string name="fromPosition">Z pozice</string>
+  <string name="fromPositionTitle">Standardní šachy z vlastní pozice</string>
 </resources>
