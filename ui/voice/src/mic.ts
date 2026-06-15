@@ -150,7 +150,7 @@ export class Mic implements Microphone {
   private initKaldi(recId: string, rec: RecNode) {
     if (rec.node) return;
     rec.node = this.vosk?.initRecognizer({
-      recId: recId,
+      recId,
       audioCtx: this.audioCtx!,
       partial: rec.partial,
       words: rec.words,

@@ -5,7 +5,7 @@ import { onClickAway } from '@/index';
 import { licon } from '@/licon';
 import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDialog } from '@/view';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { fewerCores } from '../util';
 
 const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
@@ -17,10 +17,11 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
     return null;
   }
 
-  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const minThreads = ceval.engines.active().minThreads ?? 1;
   const maxThreads = ceval.maxThreads;
-  const engCtrl = ceval.engines;
-  const searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
+  const searchTicks = allSearchTicks.filter(
+    x => x * 1000 <= (ceval.engines.active().maxMovetime ?? Infinity),
+  );
 
   let observer: ResizeObserver;
 
@@ -118,7 +119,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                       max: maxThreads,
                       step: 1,
                     },
-                    hook: rangeConfig(() => ceval.threads, clickThreads),
+                    hook: rangeConfig(() => ceval.info().threads, clickThreads),
                   }),
                   hl(
                     'div.tick',
@@ -140,7 +141,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                     !ceval.engines.external && [threadsTick('up'), threadsTick('down')],
                   ),
                 ]),
-                hl('div.range_value', `${ceval.threads} / ${maxThreads}`),
+                hl('div.range_value', `${ceval.info().threads} / ${maxThreads}`),
               ],
             );
           })('analyse-threads'),
@@ -151,13 +152,12 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               attrs: {
                 type: 'range',
                 min: 4,
-                max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
+                max: Math.floor(Math.log2(ceval.engines.active().maxHash ?? 4)),
                 step: 1,
-                disabled: ceval.maxHash <= 16,
-                'aria-valuetext': formatHashSize(ceval.hashSize),
+                'aria-valuetext': formatHashSize(ceval.info().hashSize),
               },
               hook: rangeConfig(
-                () => Math.floor(Math.log2(ceval.hashSize)),
+                () => Math.floor(Math.log2(ceval.info().hashSize)),
                 v => {
                   ceval.setHashSize(Math.pow(2, v));
                   ctrl.startCeval();
@@ -166,7 +166,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               ),
             }),
 
-            hl('div.range_value', formatHashSize(ceval.hashSize)),
+            hl('div.range_value', formatHashSize(ceval.info().hashSize)),
           ]))('analyse-memory'),
       ],
     ),
@@ -180,18 +180,18 @@ function formatHashSize(v: number) {
 function setupTick(v: VNode, ceval: CevalCtrl) {
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const minThreads = ceval.engines.active().minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
   const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
   const tickLeft = Math.floor(thumbWidth / 2 + trackWidth * tickRatio);
 
   tick.style.left = `${tickLeft}px`;
-  $(tick).toggleClass('recommended', ceval.threads === ceval.recommendedThreads);
+  $(tick).toggleClass('recommended', ceval.info().threads === ceval.recommendedThreads);
 }
 
 function engineSelection({ ceval }: CevalHandler) {
-  const active = ceval.engines.active;
+  const active = ceval.engines.active();
   const engines = ceval.engines.supporting(ceval.opts.variant.key);
   const external = ceval.engines.external;
 
@@ -220,7 +220,7 @@ function engineSelection({ ceval }: CevalHandler) {
       }),
     hl('button.engine-info-button', {
       attrs: { ...dataIcon(licon.InfoCircle), title: 'Engine information' },
-      on: { click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, 'browser')) },
+      on: { click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')) },
     }),
   ]);
 }

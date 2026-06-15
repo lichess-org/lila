@@ -201,7 +201,7 @@ function initMessage(ctrl: RoundController) {
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
-    attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
+    attrs: { disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
   });
 

@@ -127,7 +127,7 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
-    gamebook: gamebook,
+    gamebook,
   });
   ctrl.redraw();
 });

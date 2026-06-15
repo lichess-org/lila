@@ -125,14 +125,14 @@ export default class PuzzleCtrl implements CevalHandler {
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
       initialFen: undefined, // always standard starting position
-      emit: (ev, work) => {
-        this.tree.updateAt(work.path, node => {
-          if (work.threatMode) {
+      emit: (ev, meta) => {
+        this.tree.updateAt(meta.path, node => {
+          if (meta.threatMode) {
             const threat = ev;
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
-          if (work.path === this.path) {
-            this.report.checkForMultipleSolutions(ev, this, work.threatMode);
+          if (meta.path === this.path) {
+            this.report.checkForMultipleSolutions(ev, this, meta.threatMode);
             this.setAutoShapes();
             this.redraw();
           }
@@ -309,7 +309,7 @@ export default class PuzzleCtrl implements CevalHandler {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
       turnColor: color,
-      movable: movable,
+      movable,
       premovable: {
         enabled: false,
       },
@@ -504,7 +504,7 @@ export default class PuzzleCtrl implements CevalHandler {
     }
     if (this.mode !== 'view') return;
 
-    this.ceval.stop();
+    this.ceval.reset();
     this.next.promise.then(n => {
       if (this.isPuzzleData(n)) {
         this.initiate(n);
@@ -545,7 +545,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   private readonly doStartCeval = throttle(800, () => {
-    this.ceval.resume();
+    this.ceval.reset();
     this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
   });
 
@@ -558,7 +558,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (enable && this.isCevalAllowed()) this.startCeval();
     else {
       this.threatMode(false);
-      this.ceval.stop();
+      this.ceval.reset();
     }
     this.autoScrollRequested = true;
     this.setAutoShapes();
@@ -569,14 +569,13 @@ export default class PuzzleCtrl implements CevalHandler {
 
   clearCeval(): void {
     this.tree.removeCeval();
-    this.ceval.stop();
+    this.ceval.reset();
     this.startCeval();
     this.redraw();
   }
 
   toggleThreatMode = (): void => {
     if (this.node.check()) return;
-    //if (!this.ceval.enabled()) this.ceval.toggle(); // ??
     if (!this.cevalEnabled()) return;
     this.threatMode.toggle();
     this.setAutoShapes();
@@ -597,7 +596,7 @@ export default class PuzzleCtrl implements CevalHandler {
         site.sound.move(this.node);
       }
       this.threatMode(false);
-      this.ceval.stop();
+      this.ceval.reset();
       this.startCeval();
     }
     this.promotion.cancel();

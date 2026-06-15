@@ -54,7 +54,7 @@ export function fontFamily(
   return {
     family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
     size: size ?? 12,
-    weight: weight,
+    weight,
   };
 }
 

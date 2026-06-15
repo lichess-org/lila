@@ -157,10 +157,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave() {
       $.powerTip.hide(this);
     },
   });

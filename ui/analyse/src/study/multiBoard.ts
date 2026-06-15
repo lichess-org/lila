@@ -76,7 +76,7 @@ export class MultiBoardCtrl {
     const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
     return {
       currentPage: this.page,
-      maxPerPage: maxPerPage,
+      maxPerPage,
       currentPageResults,
       nbResults,
       previousPage: this.page > 1 ? this.page - 1 : undefined,

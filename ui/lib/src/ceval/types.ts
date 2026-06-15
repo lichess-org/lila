@@ -1,33 +1,33 @@
-import type { VNode } from 'snabbdom';
-
 import type { Feature } from '@/device';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from '@/tree/types';
 import type { MaybeVNode } from '@/view';
 
 import type { Prop } from '../index';
-import type CevalCtrl from './ctrl';
+import type { CevalCtrl } from './ctrl';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
-export type Millis = number;
+export type EngineTrust = 'cloudEval' | 'staticAnalysis' | 'puzzleReport';
 
-export interface Work {
+export interface EvalMeta {
+  path: TreePath;
+  ply: number;
+  threatMode: boolean;
+}
+
+export interface Work extends EvalMeta {
   variant: VariantKey;
   threads: number;
   hashSize?: number;
   gameId?: string; // send ucinewgame when changed
   stopRequested: boolean;
-
-  path: string;
   search: SearchBy;
   multiPv: number;
-  ply: number;
-  threatMode: boolean;
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: LocalEval) => void;
+  emit: (ev: LocalEval, meta: EvalMeta) => void;
 }
 
 export interface BaseEngineInfo {
@@ -39,7 +39,9 @@ export interface BaseEngineInfo {
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
+  maxMovetime?: number;
   requires?: Feature[];
+  capabilities?: EngineTrust[];
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
@@ -64,7 +66,6 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
-  cloudEval?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
@@ -98,9 +99,19 @@ export interface EvalMeta {
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
-export interface CustomCeval {
+export interface EngineArgs {
+  threads: number;
+  hashSize: number;
+  id: string;
+}
+
+export interface CustomSearch {
+  engine?: EngineArgs;
   search?: () => Search | Millis; // pass number as millis to cap user defined search
-  pearlNode?: () => VNode | undefined;
+}
+
+export interface CustomCeval extends CustomSearch {
+  pearlNode?: () => MaybeVNode;
   statusNode?: () => MaybeVNode;
 }
 
@@ -123,13 +134,6 @@ export interface Hovering {
 export interface PvBoard {
   fen: string;
   uci: string;
-}
-
-export interface Started {
-  path: TreePath;
-  steps: Step[];
-  gameId?: string;
-  threatMode: boolean;
 }
 
 export interface CevalHandler {

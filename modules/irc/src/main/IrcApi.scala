@@ -194,21 +194,6 @@ final class IrcApi(
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
-  def publishEvent(event: Event): Funit = event match
-    case Event.Error(msg) => publishError(msg)
-    case Event.Warning(msg) => publishWarning(msg)
-    case Event.Info(msg) => publishInfo(msg)
-    case Event.Victory(msg) => publishVictory(msg)
-
-  private def publishError(msg: String): Funit =
-    zulip(_.general, "lila")(s":lightning: ${markdown.linkifyUsers(msg)}")
-
-  private def publishWarning(msg: String): Funit =
-    zulip(_.general, "lila")(s":thinking: ${markdown.linkifyUsers(msg)}")
-
-  private def publishVictory(msg: String): Funit =
-    zulip(_.general, "lila")(s":tada: ${markdown.linkifyUsers(msg)}")
-
   private[irc] def publishInfo(msg: String): Funit =
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 

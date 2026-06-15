@@ -20,9 +20,8 @@ export class StockfishWebEngine implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status?: EngineNotifier | undefined,
-    readonly variantMap?: (v: VariantKey) => string,
   ) {
-    this.protocol = new Protocol(variantMap);
+    this.protocol = new Protocol();
     this.boot().catch(e => {
       this.failed = e;
       this.status?.({ error: String(e) });
@@ -44,8 +43,7 @@ export class StockfishWebEngine implements CevalEngine {
     });
     if (this.info.tech === 'NNUE') {
       if (this.info.variants?.length === 1) {
-        const model = this.info.variants[0].toLowerCase(); // set variant first for fairy stockfish
-        module.uci(`setoption name UCI_Variant value ${model === 'threecheck' ? '3check' : model}`);
+        module.uci(`setoption name UCI_Variant value ${this.protocol.uciVariant(this.info.variants[0])}`);
       }
       module.onError = this.makeErrorHandler(module);
       const nnueFilenames: string[] = this.info.assets.nnue ?? [];
