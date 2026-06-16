@@ -1,5 +1,5 @@
-import { hl, type VNode, onInsert } from 'lib/view';
 import { licon } from 'lib/licon';
+import { hl, type VNode, onInsert } from 'lib/view';
 
 export class VideoPlayer {
   private readonly iframe: HTMLIFrameElement;
