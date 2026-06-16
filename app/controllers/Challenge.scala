@@ -373,7 +373,7 @@ final class Challenge(env: Env) extends LilaController(env):
           .dmap(_.as(JSON))
     )
 
-  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
+  def offerRematchForGame(gameId: GameId) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     NoBot:
       Found(env.game.gameRepo.game(gameId)): g =>
         g.opponentOf(me).flatMap(_.userId).so(env.user.repo.byId).orNotFound { opponent =>
