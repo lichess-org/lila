@@ -2481,6 +2481,7 @@ object I18nKey:
     val `nbForumPosts`: I18nKey = "nbForumPosts"
     val `nbPerfTypePlayersThisWeek`: I18nKey = "nbPerfTypePlayersThisWeek"
     val `availableInNbLanguages`: I18nKey = "availableInNbLanguages"
+    val `nbAnonymous`: I18nKey = "nbAnonymous"
     val `nbSecondsToPlayTheFirstMove`: I18nKey = "nbSecondsToPlayTheFirstMove"
     val `nbSeconds`: I18nKey = "nbSeconds"
     val `andSaveNbPremoveLines`: I18nKey = "andSaveNbPremoveLines"
