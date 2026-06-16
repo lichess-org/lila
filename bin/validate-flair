@@ -5,8 +5,19 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+custom_txt="$script_dir/flair/custom.txt"
+list_txt="$script_dir/../public/flair/list.txt"
+
 exit_code=0
 flairs_checked=0
+
+missing=$(comm -23 <(sort "$custom_txt") <(sort "$list_txt"))
+if [ -n "$missing" ]; then
+    echo "Missing from list.txt:"
+    echo "$missing"
+    exit_code=1
+fi
 
 for img_file in "$1"/*; do
     if [[ ! "$img_file" =~ \.webp$ ]]; then
