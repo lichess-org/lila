@@ -162,7 +162,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private readonly onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
-    if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
+    if (!this.keyboardMove?.usedSan && !this.opts.noab) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
