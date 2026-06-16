@@ -44,7 +44,7 @@ export function watchers(element: HTMLElement, withUserList = true): void {
         const tags = data.users.map(u =>
           u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : i18n.site.anonymous,
         );
-        if (currAnons) tags.push(i18n.site.nbAnonymous(currAnons))
+        if (currAnons) tags.push(i18n.site.nbAnonymous(currAnons));
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');
