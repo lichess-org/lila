@@ -68,6 +68,7 @@ symbols.pirate-flag
 symbols.puzzle-racer
 symbols.puzzle-storm
 symbols.puzzle-streak
+symbols.python-logo
 symbols.rainbow-flag
 symbols.transgender-flag
 symbols.triangular-flag
