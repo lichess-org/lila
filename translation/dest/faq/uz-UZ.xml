@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, masala yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="fairPlay">Halol oʻyin</string>
   <string name="whenAmIEligibleRatinRefund">Qachon gʻirromchilar sababli yoʻqotilgan reytingim avtomatik ravishda qaytariladi?</string>
-  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir daqiqa oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
+  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir minut oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
   <string name="preventLeavingGameWithoutResigning">Oʻyinni taslim boʻlmasdan tashlab ketadigan oʻyinchilarga nisbatan qanday choralar koʻriladi?</string>
   <string name="leavingGameWithoutResigningExplanation">Agar raqibingiz oʻyinlarni tez‑tez bekor qilsa yoki oxiriga yetkazmasdan tashlab ketsa, unga \"oʻyin taqiqi\" beriladi — ya’ni u maʼlum muddat oʻyin oʻynay olmaydi. Bu cheklov foydalanuvchi profilida ommaga koʻrsatilmaydi. Agar bunday holat takrorlanaversa, taqiq muddati uzayib boradi. Tartibni muntazam buzish esa akkauntning butunlay yopilishiga olib kelishi mumkin.</string>
   <string name="howCanIBecomeModerator">Qanday qilib moderator boʻlishim mumkin?</string>
@@ -34,8 +34,8 @@
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
 taxminiy davomiylik = %1$s
 
-Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 soniyani tashkil qiladi.</string>
-  <string name="durationFormula">(soatdagi boshlangʻich vaqt, soniyalarda) + 40 × (qoʻshimcha vaqt)</string>
+Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 sekundni tashkil qiladi.</string>
+  <string name="durationFormula">(soatdagi boshlangʻich vaqt, sekundlarda) + 40 × (qoʻshimcha vaqt)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Lichessʼda shaxmatning qanday variantlarini oʻynay olaman?</string>
