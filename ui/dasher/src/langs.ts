@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { onInsert } from 'lib/view';
 
 import { PaneCtrl } from './interfaces';

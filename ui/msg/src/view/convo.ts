@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { hookMobileMousedown } from 'lib/mobileEvents';
 import { dataIcon } from 'lib/view';
 import { userLine, userLink, userLinkData } from 'lib/view/userLink';

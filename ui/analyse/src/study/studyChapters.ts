@@ -4,7 +4,7 @@ import type Sortable from 'sortablejs';
 
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, bind, iconTag, hl, alert } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';

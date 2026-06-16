@@ -128,8 +128,10 @@
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="multipleLines">Дадатковыя хады</string>
+  <string name="threadsDescription">Устанавіць значэнне ніжэй за колькасць патокаў вашага працэсара. Галачкі пазначаюць добры бяспечны выбар</string>
   <string name="cpus">Працэсары</string>
   <string name="memory">Памяць</string>
+  <string name="memoryDescription">Высокія значэнні могуць палепшыць прадукцыйнасць</string>
   <string name="infiniteAnalysis">Бясконцы аналіз</string>
   <string name="removesTheDepthLimit">Здымае абмежаванне на глыбіню. Асцярожна, ваш камп’ютар можа перагрэцца!</string>
   <string name="blunder">Грубая памылка</string>
@@ -175,6 +177,7 @@
   <string name="flipBoard">Перавярнуць дошку</string>
   <string name="threefoldRepetition">Трохразовы паўтор</string>
   <string name="claimADraw">Запатрабаваць нічыю</string>
+  <string name="drawClaimed">Абвешчана нічыя</string>
   <string name="offerDraw">Прапанаваць нічыю</string>
   <string name="draw">Нічыя</string>
   <plurals name="nbPlayers">
@@ -212,7 +215,8 @@
   <string name="latestForumPosts">Апошнія допісы на форуме</string>
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
-  <string name="discussions">Размовы</string>
+  <string name="otherPlayers">другія гульцы</string>
+  <string name="discussions" comment="Heading when you search in your user Inbox [ https://lichess.org/inbox ] and you have message history with that user.&#10;&#10;This string used to be &quot;Discussions&quot;.">Размовы</string>
   <string name="today">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
@@ -604,6 +608,7 @@
   <string name="cheat">Несумленная гульня</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
+  <string name="reportProcessedFasterInEnglish">Ваша справаздача будзе апрацавана хутчэй, калі яна будзе напісана на англійскай мове.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
@@ -812,6 +817,8 @@
   <string name="xHostsY">%1$s стварыў %2$s</string>
   <string name="xJoinsY">%1$s далучыўся да %2$s</string>
   <string name="xLikesY">%1$s упадабаў %2$s</string>
+  <string name="like">Падабаецца</string>
+  <string name="liked">Спадабалася</string>
   <string name="quickPairing">Хуткі старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Ананімны гулец</string>
@@ -828,6 +835,7 @@
   <string name="size">Размер</string>
   <string name="opacity">Празрыстасць</string>
   <string name="brightness">Яркасць</string>
+  <string name="contrast">Кантраст</string>
   <string name="hue">Адценне</string>
   <string name="pieceSet">Набор фігур</string>
   <string name="embedInYourWebsite">Убудаваць у свой сайт</string>
@@ -950,6 +958,7 @@
   <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
   <string name="makeSureToRead">Абавязкова прачытайце %1$s</string>
   <string name="theForumEtiquette">этыкет форуму</string>
+  <string name="pleaseBeNiceInTheForum">Калі ласка, будзьце ветлівыя на форуме.</string>
   <string name="thisTopicIsArchived">Гэта тэма была архівавана і абмяркаваць яе больш немагчыма.</string>
   <string name="joinTheTeamXToPost">Далучыцеся да %1$s, каб пакінуць пісаць на форуме</string>
   <string name="teamNamedX">каманда %1$s</string>
@@ -1029,10 +1038,14 @@
 Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
   <string name="stats">Статыстыка</string>
   <string name="accessibility">Спецыяльныя магчымасці</string>
+  <string name="enableBlindMode">Уключыць рэжым для сляпых</string>
+  <string name="disableBlindMode">Адключыць рэжым для сляпых</string>
+  <string name="copyToClipboard">Капіяваць у буфер абмену</string>
   <string name="online" comment="status of a user">у сетцы</string>
   <string name="offline" comment="status of a user">не ў сетцы</string>
   <string name="search">Пошук</string>
   <string name="clearSearch">Ачысціць пошук</string>
+  <string name="thereAreNoResultsForX">Няма вынікаў для \"%s\"</string>
   <string name="tags">Тэгі</string>
   <string name="enPassant">Узяцце на праходзе</string>
 </resources>

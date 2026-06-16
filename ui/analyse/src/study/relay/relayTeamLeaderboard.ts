@@ -1,7 +1,7 @@
 import type { Tablesort } from 'tablesort';
 
 import { memoize, throttle } from 'lib';
-import { Group, StudyBoard } from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
@@ -73,7 +73,7 @@ export default class RelayTeamLeaderboard {
           [
             hl('thead', [
               hl('tr', [
-                hl('th.text', { attrs: dataIcon(Group) }, i18n.team.team),
+                hl('th.text', { attrs: dataIcon(licon.Group) }, i18n.team.team),
                 hl('th', i18n.broadcast.matches),
                 hl('th', { attrs: { 'data-sort-default': 1 } }, i18n.broadcast.matchPoints),
                 hl('th', i18n.broadcast.gamePoints),
@@ -108,7 +108,7 @@ export default class RelayTeamLeaderboard {
       hl('div.relay-tour__team-summary', [
         hl(
           'h2.relay-tour__team-summary__header.text',
-          { attrs: !this.looksLikeFederationTournament() ? dataIcon(Group) : {} },
+          { attrs: !this.looksLikeFederationTournament() ? dataIcon(licon.Group) : {} },
           this.teamNameNode(foundTeam),
         ),
         hl(
@@ -144,7 +144,9 @@ export default class RelayTeamLeaderboard {
                   'td.game-link',
                   hl(
                     'a.game-link text',
-                    { attrs: { ...dataIcon(StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` } },
+                    {
+                      attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` },
+                    },
                     `${i + 1}`,
                   ),
                 ),

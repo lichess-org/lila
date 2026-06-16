@@ -2,7 +2,7 @@ import flatpickr from 'flatpickr';
 
 import standaloneChat from 'lib/chat/standalone';
 import { use24h } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
 import {
   spinnerVdom,

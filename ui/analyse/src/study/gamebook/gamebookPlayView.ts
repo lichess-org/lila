@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { type VNode, iconTag, bind, dataIcon, hl, requiresI18n } from 'lib/view';
 

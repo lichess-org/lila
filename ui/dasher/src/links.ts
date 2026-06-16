@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import { userLine } from 'lib/view/userLink';
@@ -74,7 +74,7 @@ export class LinksCtrl extends PaneCtrl {
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });
 
-  private readonly linkCfg = (href: string, icon: LiconType, more?: Attrs) => ({
+  private readonly linkCfg = (href: string, icon: LiconValue, more?: Attrs) => ({
     attrs: { href, 'data-icon': icon, ...more },
   });
 }

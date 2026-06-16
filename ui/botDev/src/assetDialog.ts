@@ -1,7 +1,7 @@
 import { wireCropDialog } from 'bits/crop';
 
 import { frag } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, type Dialog, alert, confirm } from 'lib/view';
 
 import { env } from './devEnv';

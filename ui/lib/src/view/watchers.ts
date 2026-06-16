@@ -1,5 +1,5 @@
 import { get, set } from '@/data';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 
 export interface Data {
@@ -42,10 +42,9 @@ export function watchers(element: HTMLElement, withUserList = true): void {
         set(listEl, 'prevUsers', currUsers);
         set(listEl, 'prevAnons', currAnons);
         const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous',
+          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : i18n.site.anonymous,
         );
-        if (currAnons === 1) tags.push('Anonymous');
-        else if (currAnons) tags.push(`Anonymous (${currAnons})`);
+        if (currAnons) tags.push(i18n.site.nbAnonymous(currAnons));
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');

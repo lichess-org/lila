@@ -10,6 +10,7 @@
   <string name="waitingForOpponent">Čekání na soupeře</string>
   <string name="orLetYourOpponentScanQrCode">Nebo nechte soupeře naskenovat tento QR kód</string>
   <string name="reusableChallengeUrl">Znovupoužitelné URL výzvy</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Trvalý odkaz pro každého, kdo vás vyzve, s tímto přesným nastavením.</string>
   <string name="waiting">Čeká se</string>
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s úrovně %2$s</string>
@@ -135,10 +136,16 @@
   <string name="showVariationArrows">Zobrazit šipky variant</string>
   <string name="visualMotifs">Vizuální motivy</string>
   <string name="undefendedPieces">Nebráněné figury</string>
+  <string name="pinnedPieces">Připnuté figury</string>
   <string name="checkableKing">Král, kterého lze dát do šachu</string>
   <string name="multipleLines">Počet variant</string>
+  <string name="searchTime">Čas hledání</string>
+  <string name="searchTimeDescription">Nastavit čas pro vyhodnocení čerstvých pozic</string>
+  <string name="threads">Vlákna</string>
+  <string name="threadsDescriptionMobile">Více vláken bude používat více baterie pro lepší analýzu</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
+  <string name="memoryDescription">Vyšší hodnoty mohou zlepšit výkon</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
   <string name="blunder">Hrubá chyba</string>
@@ -340,6 +347,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Vlastní pozice</string>
   <string name="unlimited">Bez hodin</string>
+  <string name="unlimitedDescription">Vezměte si, kolik času potřebujete</string>
   <string name="mode">Režim hry</string>
   <string name="casual">Jen tak</string>
   <string name="rated">Hodnocená</string>
@@ -468,6 +476,7 @@
     <item quantity="other">Potřebujete odehrát ještě %s hodnocených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš rating %s je provizorní</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtry hodnocení jsou uzamčeny, protože vaše hodnocení není stabilní. Hraní hodnocených her zvýší stabilitu vašeho hodnocení.</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je příliš vysoký</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš týdenní rating ve variantě %1$s (%2$s) je příliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
@@ -622,7 +631,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
-  <string name="puzzles">Puzzle</string>
+  <string name="puzzles">Úlohy</string>
   <string name="onlineBots">Online roboti</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
@@ -665,6 +674,7 @@
   <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="invalidAuthenticationCode">Neplatný ověřovací kód</string>
+  <string name="clearField">Vyčistit pole</string>
   <string name="orSeparator">Nebo</string>
   <string name="logInByEmail">Přihlásit se e-mailem</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
@@ -753,7 +763,7 @@
   <string name="watchGames">Sledujte hry</string>
   <string name="tpTimeSpentOnTV">Čas v TV: %s</string>
   <string name="watch">Sledujte</string>
-  <string name="videoLibrary">Video knihovna</string>
+  <string name="videoLibrary">Videoknihovna</string>
   <string name="streamersMenu">Streameři</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
@@ -805,6 +815,7 @@
   <string name="cyclePreviousOrNextVariation">Projdi předchozí/následující variantu</string>
   <string name="toggleGlyphAnnotations">Přepnout poznámky glyfů</string>
   <string name="togglePositionAnnotations">Přepni zvýraznění pozice</string>
+  <string name="toggleObservationAnnotations">Přepnout anotace pozorování</string>
   <string name="variationArrowsInfo">Šipky variant umožňují navigaci bez použití seznamu tahů.</string>
   <string name="playSelectedMove">zahrát vybraný tah</string>
   <string name="newTournament">Nový turnaj</string>

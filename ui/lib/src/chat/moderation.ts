@@ -5,7 +5,7 @@ import { pubsub } from '@/pubsub';
 import { bind, confirm, dataIcon } from '@/view';
 import { userLink } from '@/view/userLink';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import type {
   ModerationCtrl,
   ModerationOpts,

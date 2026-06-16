@@ -1,7 +1,7 @@
 import type { ChartGame, AcplChart } from 'chart';
 
 import { escapeHtml } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';

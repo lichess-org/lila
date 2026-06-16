@@ -3,7 +3,7 @@ import stringify from 'json-stringify-pretty-compact';
 
 import { frag, escapeHtml, myUserId } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
 import { env } from './devEnv';

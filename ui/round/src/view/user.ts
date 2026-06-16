@@ -1,6 +1,6 @@
 import { defined } from 'lib';
 import type { Player, TopOrBottom } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { wsAverageLag } from 'lib/socket';
 import { dataIcon, hl, type VNode } from 'lib/view';
 import { ratingDiff, userLink } from 'lib/view/userLink';
