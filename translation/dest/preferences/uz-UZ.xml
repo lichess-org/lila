@@ -22,8 +22,8 @@
   <string name="inGameOnly">Faqat oʻyin davomida</string>
   <string name="exceptInGame">Oʻyindan tashqarida</string>
   <string name="chessClock">Shaxmat soati</string>
-  <string name="tenthsOfSeconds">Soniyaning oʻndan biri koʻrsatilsin</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 soniyadan kam vaqt qolganda</string>
+  <string name="tenthsOfSeconds">Sekundning oʻndan biri koʻrsatilsin</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 sekunddan kam vaqt qolganda</string>
   <string name="horizontalGreenProgressBars">Gorizantal yashil vaqt indikatori koʻrsatilsin</string>
   <string name="soundWhenTimeGetsCritical">Vaqt oz qolganda tovush bilan ogohlantirilsin</string>
   <string name="giveMoreTime">Vaqt berish</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Piyodani avtomatik almashtirishni vaqtinchalik oʻchirib turish uchun yurish vaqtida &lt;ctrl&gt; tugmasini bosib turing</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Yurish uch marta takrorlanganda avtomatik tarzda durang talab qilish</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">30 soniyadan kam vaqt qolganda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">30 sekunddan kam vaqt qolganda</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
   <string name="explainCanThenBeTemporarilyDisabled">Oʻyin vaqtida taxta menyusi orqali vaqtinchalik oʻchirib turish mumkin</string>
   <string name="inCorrespondenceGames">Yozishmali oʻyinlarda</string>
