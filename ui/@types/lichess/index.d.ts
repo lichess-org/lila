@@ -1,7 +1,6 @@
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
 /// <reference path="./i18n.d.ts" />
-/// <reference path="./licon.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -84,19 +83,6 @@ interface LichessPowertip {
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
-}
-
-interface QuestionChoice {
-  // file://./../../round/src/ctrl.ts
-  action: () => void;
-  icon?: LiconType;
-  text?: string;
-}
-
-interface QuestionOpts {
-  prompt: string; // TODO i18nkey, or just always pretranslate
-  yes?: QuestionChoice;
-  no?: QuestionChoice;
 }
 
 type SoundMoveOpts = {

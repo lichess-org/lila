@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Mängu seadistamine</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Kutse mängule</string>
   <string name="playAgainstComputer">Mängi arvuti vastu</string>
+  <string name="gameMode">Mängulaad</string>
+  <string name="createLobbyGame">Loo fuajeemäng</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Et kutsuda kedagi mängima, anna talle see URL</string>
   <string name="gameOver">Mäng läbi</string>
   <string name="waitingForOpponent">Ootan vastast</string>
+  <string name="orLetYourOpponentScanQrCode">Või lase vastasel skaneerida see QR-kood</string>
+  <string name="reusableChallengeUrl">Korduvkasutatav väljakutse-URL</string>
   <string name="waiting">Ootan vastust</string>
   <string name="yourTurn">Sinu käik</string>
   <string name="aiNameLevelAiLevel">%1$s tase %2$s</string>
@@ -188,7 +194,7 @@
   <string name="players">Maletajad</string>
   <string name="friends">Sõbrad</string>
   <string name="otherPlayers">teiste mängijatega</string>
-  <string name="discussions">Vestlused</string>
+  <string name="discussions" comment="Heading when you search in your user Inbox [ https://lichess.org/inbox ] and you have message history with that user.&#10;&#10;This string used to be &quot;Discussions&quot;.">Vestlused</string>
   <string name="today">Täna</string>
   <string name="yesterday">Eile</string>
   <string name="minutesPerSide">Minutit poole kohta</string>

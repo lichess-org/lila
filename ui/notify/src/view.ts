@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon } from 'lib/view';
 

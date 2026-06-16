@@ -1,7 +1,7 @@
 import { thunk } from 'snabbdom';
 
 import { debounce } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, hl, iconTag } from 'lib/view';
 
 import axis from './axis';

@@ -97,6 +97,7 @@
   <string name="whiteDrawBlack">Trắng thắng / Hòa / Đen thắng</string>
   <string name="averageRatingX">Hệ số bình quân: %s</string>
   <string name="minRatingX">Hệ số tối thiểu của %s</string>
+  <string name="maxRatingX">Hệ số tối đa của %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số FIDE %1$s+ từ năm %2$s đến %3$s</string>

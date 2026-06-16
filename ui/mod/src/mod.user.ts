@@ -1,6 +1,6 @@
 import { debounce } from 'lib/async';
 import { commonDateFormat, toDate } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { spinnerHtml, confirm } from 'lib/view';

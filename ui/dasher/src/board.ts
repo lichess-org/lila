@@ -1,6 +1,6 @@
 import { hyphenToCamel, type Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { bind, hl, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';

@@ -1,5 +1,5 @@
 import { myUserId } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { alert, makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';

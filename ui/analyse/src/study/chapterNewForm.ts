@@ -3,7 +3,7 @@ import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
 
 import { defined, prop, type Prop, toggle } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedProp } from 'lib/storage';
 import {

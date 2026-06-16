@@ -35,13 +35,15 @@
   <string name="logInToDonate">Pro přispění se přihlašte</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
   <string name="celebratedPatrons">Slavní Patroni, kteří umožňují fungování Lichess</string>
-  <string name="whereMoneyGoes">Kam jdou ty peníze?</string>
+  <string name="whereMoneyGoes">Kam jdou peníze?</string>
   <string name="serversAndDeveloper">Zaprvé, mocné servery.
 Pak platíme vývojáře na plný úvazek: %s, zakladatel Lichess.</string>
   <string name="costBreakdown">Viz podrobný rozpis nákladů</string>
   <string name="officialNonProfit">Je Lichess oficiálně neziskový?</string>
   <string name="actOfCreation">Ano, tady je ustanovující listina (ve francouzštině)</string>
   <string name="changeMonthlySupport">Mohu změnit/zrušit svou měsíční podporu?</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Pokud jsou vaše platby zpracovávány přes PayPal, můžete stornovat/změnit svůj dar prostřednictvím vašeho účtu PayPal, nebo můžete %1$s a my to můžeme udělat za vás. Pokud jste PayPal nepoužili, pak jsou vaše platby zpracovávány přes Stripe, tímpádem můžete váš dar zrušíit nebo změnit na %2$s.</string>
+  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">patronské stránce</string>
   <string name="contactSupport">kontaktovat podporu Lichess</string>
   <string name="otherMethods">Jiné způsoby podpory?</string>
   <string name="lichessIsRegisteredWith">Lichess je registrován u %s.</string>
