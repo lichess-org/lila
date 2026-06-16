@@ -97,6 +97,8 @@
   <string name="database">Andmebaas</string>
   <string name="whiteDrawBlack">Valge / Viik / Must</string>
   <string name="averageRatingX">Keskmine reiting: %s</string>
+  <string name="minRatingX">%s minimaalne reiting</string>
+  <string name="maxRatingX">%s maksimaalne reiting</string>
   <string name="recentGames">Hiljutised mängud</string>
   <string name="topGames">Parimad mängud</string>
   <string name="masterDbExplanation">Kaks miljonit päriselumängu %1$s+ FIDE hinnatud mängijat alates %2$s kuni %3$s</string>
