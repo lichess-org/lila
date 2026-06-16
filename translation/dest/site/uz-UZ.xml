@@ -187,7 +187,7 @@
   <string name="drawByMutualAgreement">O\'zaro kelishuv asosida durang natija qayd etildi</string>
   <string name="fiftyMovesWithoutProgress">Progressiz ellikta yurish</string>
   <string name="currentGames">Hozirgi oʻyinlar</string>
-  <string name="joinedX">%s qoʻshildi</string>
+  <string name="joinedX">%s qoʻshilgan</string>
   <plurals name="nbGames">
     <item quantity="one">%s oʻyin</item>
     <item quantity="other">%s oʻyin</item>
@@ -365,7 +365,7 @@
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekund berish</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ushbu akkaunt Lichess foydalanish shartlarini buzdi</string>
+  <string name="thisAccountViolatedTos">Ushbu oʻyinchi Lichess foydalanish shartlarini buzgan</string>
   <string name="openingExplorerAndTablebase">Debyutlar va endshpillar bazasi</string>
   <string name="takeback">Yurishni qaytarish</string>
   <string name="proposeATakeback">Yurishni qaytarishni soʻrash</string>
@@ -598,7 +598,7 @@
   <string name="thisTopicIsNowClosed">Ushbu mavzu yopiq.</string>
   <string name="blog">Blog</string>
   <string name="notes">Qaydlar</string>
-  <string name="typePrivateNotesHere">Shaxsiy qaydlarni bu yerga yozing</string>
+  <string name="typePrivateNotesHere">Bu yerga shaxsiy qaydlaringizni yozishingiz mumkin</string>
   <string name="writeAPrivateNoteAboutThisUser">Bu foydalanuvchi haqida shaxsiy qayd yozing</string>
   <string name="noNoteYet">Qayd yoʻq</string>
   <string name="invalidUsernameOrPassword">Foydalanuvchi nomi yoki parol notoʻgʻri</string>
@@ -865,7 +865,7 @@
   <string name="evaluatingYourMove">Yurishingiz baholanmoqda ...</string>
   <string name="whiteWinsGame">Oqlar yutdi</string>
   <string name="blackWinsGame">Qoralar yutdi</string>
-  <string name="learnFromYourMistakes">Xatolaringizdan oʻrganing</string>
+  <string name="learnFromYourMistakes">Xatolaringizdan saboq oling</string>
   <string name="learnFromThisMistake">Xatodan xulosa chiqaring</string>
   <string name="skipThisMove">Bu yurishni oʻtkazib yuborish</string>
   <string name="next">Keyingisi</string>
