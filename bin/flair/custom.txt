@@ -1,4 +1,3 @@
-activity.2025
 activity.chess
 activity.googly-eye
 activity.lichess
