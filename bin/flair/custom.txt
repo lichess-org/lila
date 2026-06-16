@@ -54,6 +54,7 @@ symbols.esperanto-flag
 symbols.extinction
 symbols.fridays-for-future
 symbols.gnu-logo
+symbols.helix-logo
 symbols.lichess-4545-flag
 symbols.linux-tux-penguin
 symbols.move-blunder
