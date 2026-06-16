@@ -50,7 +50,7 @@
   <string name="deflectionDescription">Raqib donasini oʻzining muhim vazifasidan (masalan, asosiy katakni himoya qilishdan) chalgʻituvchi yurish.</string>
   <string name="discoveredAttack">Ochiq hujum</string>
   <string name="discoveredAttackDescription">Uzoq masofaga zarba beruvchi dona (masalan, rux) yoʻlini toʻsib turgan boshqa bir donani (masalan, otni) surish orqali hujum uyushtirish.</string>
-  <string name="doubleCheck">Qoʻshaloq shoh berish</string>
+  <string name="doubleCheck">Ikki yoqlama shoh</string>
   <string name="doubleCheckDescription">Ochildi‑shoh berish natijasida bir vaqtning oʻzida ikkita dona bilan shoh berish; bunda ham joyidan qoʻzgʻalgan, ham yoʻli ochilgan dona raqib shohiga hujum qiladi.</string>
   <string name="endgame">Endshpil</string>
   <string name="endgameDescription">Oʻyinning yakuniy bosqichidagi taktik usul.</string>
