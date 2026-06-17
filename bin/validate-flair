@@ -14,8 +14,24 @@ flairs_checked=0
 
 missing=$(comm -23 <(sort "$custom_txt") <(sort "$list_txt"))
 if [ -n "$missing" ]; then
-    echo "Missing from list.txt:"
+    echo "Missing custom flair from list.txt:"
     echo "$missing"
+    exit_code=1
+fi
+
+img_names=$(for f in "$1"/*; do basename "$f" .webp; done | sort)
+
+missing_imgs=$(comm -23 <(sort "$list_txt") <(echo "$img_names"))
+if [ -n "$missing_imgs" ]; then
+    echo "Missing from $1:"
+    echo "$missing_imgs"
+    exit_code=1
+fi
+
+extra_imgs=$(comm -13 <(sort "$list_txt") <(echo "$img_names"))
+if [ -n "$extra_imgs" ]; then
+    echo "Extra files in $1 not in list.txt:"
+    echo "$extra_imgs"
     exit_code=1
 fi
 
