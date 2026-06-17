@@ -1,7 +1,7 @@
 package lila.core
 package irc
 
-import lila.core.id.{ RelayRoundId, UblogPostId, StudyChapterId, PuzzleId }
+import lila.core.id.{ RelayRoundId, UblogPostId, StudyChapterId }
 import lila.core.userId.{ UserId, MyId, UserName }
 import lila.core.study.data.StudyChapterName
 
@@ -40,4 +40,3 @@ trait IrcApi:
       note: Option[String]
   ): Funit
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit
-  def dailyPuzzle(id: PuzzleId): Funit
