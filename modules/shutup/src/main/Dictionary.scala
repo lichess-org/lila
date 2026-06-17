@@ -10,7 +10,7 @@ private object Dictionary:
 (burn|die|rot) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hell
-(kill|hang|ne[ck]+) my ?self
+(kill|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -165,6 +165,7 @@ tran+(y|ie)
 trash
 turd
 twat
+unalive (you|u)
 vag
 vagin(a|al|)
 vibrator
@@ -373,7 +374,7 @@ yar+ak kafa(l[iı]|s[iı])
 (gets?|from|of|by|on|wish|(yo)?u) cancer
 (go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 (ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
-(kill|hang|ne[ck]+)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther)
+(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther|)
 cancers? (for|to)
 gas the
 g?kys
