@@ -132,7 +132,7 @@
   <string name="showVariationArrows">Variantlar strelkalarini koʻrsatish</string>
   <string name="visualMotifs">Vizual motivlar</string>
   <string name="undefendedPieces">Himoyalanmagan sipohlar</string>
-  <string name="pinnedPieces">Bogʻlangan sipohlar</string>
+  <string name="pinnedPieces">Donalar ochmasligi</string>
   <string name="checkableKing">Kisht qilib boʻladigan shoh</string>
   <string name="multipleLines">Bir nechta variant</string>
   <string name="multipleLinesDescription">Tahlil variantlar sonini va taxtadagi yurish strelkalarni sonini sozlash</string>
@@ -927,7 +927,7 @@
   <string name="edit">Tahrirlash</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blits</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="ultraBulletDesc">Oʻta tez oʻyinlar: 30 sekunddan kam</string>
