@@ -96,7 +96,8 @@ final class Study(
 
   def mine = MyStudyPager(
     env.study.pager.mine,
-    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mine(pag, order, _))
+    (pag, order, format) =>
+      env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mine(pag, order, _, format))
   )
 
   def minePublic = MyStudyPager(env.study.pager.minePublic, views.study.list.minePublic)
@@ -105,7 +106,8 @@ final class Study(
 
   def mineMember = MyStudyPager(
     env.study.pager.mineMember,
-    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mineMember(pag, order, _))
+    (pag, order, format) =>
+      env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mineMember(pag, order, _, format))
   )
 
   def mineLikes = MyStudyPager(env.study.pager.mineLikes, views.study.list.mineLikes)
@@ -114,13 +116,13 @@ final class Study(
 
   private def MyStudyPager(
       makePager: (StudyOrder, Int) => Me ?=> Fu[StudyPager],
-      render: (StudyPager, StudyOrder) => Context ?=> Me ?=> Fu[Page]
-  ) = (order: StudyOrder, page: Int) =>
+      render: (StudyPager, StudyOrder, Option[StudyFormat]) => Context ?=> Me ?=> Fu[Page]
+  ) = (order: StudyOrder, page: Int, format: Option[StudyFormat]) =>
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
       for
         pager <- makePager(order, page)
         _ <- preloadMembers(pager)
-        res <- negotiate(Ok.async(render(pager, order)), apiStudies(pager))
+        res <- negotiate(Ok.async(render(pager, order, format)), apiStudies(pager))
       yield res
     }
 

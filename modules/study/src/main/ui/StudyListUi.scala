@@ -38,7 +38,12 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.byOwner(owner.username, _)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
+  def mine(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      topics: StudyTopics,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context,
       me: Me
   ) =
@@ -49,12 +54,14 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag = pag,
       searchFilter = s"owner:${me.username}",
       url = routes.Study.mine(_),
-      topics = topics.some
+      topics = topics.some,
+      format = format
     )
 
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
-      order: StudyOrder
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
   )(using Context) =
     page(
       title = trs.myFavoriteStudies.txt(),
@@ -62,10 +69,16 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       order = order,
       pag = pag,
       searchFilter = "",
-      url = routes.Study.mineLikes(_)
+      url = routes.Study.mineLikes(_),
+      format = format
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
+  def mineMember(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      topics: StudyTopics,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context,
       me: Me
   ) =
@@ -76,27 +89,38 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag = pag,
       searchFilter = s"member:${me.username}",
       url = routes.Study.mineMember(_),
-      topics = topics.some
+      topics = topics.some,
+      format = format
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
+  def minePublic(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
+  )(using Context)(using me: Me) =
     page(
       title = trs.myPublicStudies.txt(),
       active = StudyGroup.minePublic,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = routes.Study.minePublic(_)
+      url = routes.Study.minePublic(_),
+      format = format
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
+  def minePrivate(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
+  )(using Context)(using me: Me) =
     page(
       title = trs.myPrivateStudies.txt(),
       active = StudyGroup.minePrivate,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = routes.Study.minePrivate(_)
+      url = routes.Study.minePrivate(_),
+      format = format
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, text: String)(using Context) =

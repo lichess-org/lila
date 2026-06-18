@@ -233,11 +233,11 @@ GET   /study                           controllers.Study.allDefault(page: Int ?=
 GET   /study/staff-picks               controllers.Study.staffPicks
 POST  /study/staff-picks               controllers.Study.staffPicksPost
 GET   /study/all/:order                controllers.Study.all(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
-GET   /study/mine/:order               controllers.Study.mine(order: StudyOrder, page: Int ?= 1)
-GET   /study/member/:order             controllers.Study.mineMember(order: StudyOrder, page: Int ?= 1)
-GET   /study/public/:order             controllers.Study.minePublic(order: StudyOrder, page: Int ?= 1)
-GET   /study/private/:order            controllers.Study.minePrivate(order: StudyOrder, page: Int ?= 1)
-GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyOrder, page: Int ?= 1)
+GET   /study/mine/:order               controllers.Study.mine(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
+GET   /study/member/:order             controllers.Study.mineMember(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
+GET   /study/public/:order             controllers.Study.minePublic(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
+GET   /study/private/:order            controllers.Study.minePrivate(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
+GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
