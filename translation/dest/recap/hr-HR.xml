@@ -1,2 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Zdravo %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Što si radio ove godine?</string>
+	<string name="noGamesText">Nisi nijednu partiju odigrao ove godine.</string>
+	<string name="noGamesCta">Zeliš li igrati sada?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">I pobijedio si %s!</string>
+	<string name="gamesNextQuestion">Što je bilo potrebno da stigneš ovo?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s si proveo igrajući!</string>
+	<string name="timeTooMuch">To je previše šaha.</string>
+	<string name="timeALot">To je puno šaha.</string>
+	<string name="timeReasonable">To izgleda kao razumna količina šaha.</string>
+	<string name="timeHowManyMoves">Koliko si poteza odigrao za sve to vrijeme?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s odigran potez</item>
+		<item quantity="few">%s odigranih poteza</item>
+		<item quantity="other">%s odigranih poteza</item>
+	</plurals>
+	<string name="movesStandardPiecesWeight">Stardne figure su oko 40 grama teške</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s potez</item>
+		<item quantity="few">%s poteza</item>
+		<item quantity="other">%s poteza</item>
+	</plurals>
+	<string name="chessFoes">Tvoji najveći dušmani u šahu</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s grama</item>
+		<item quantity="few">%s grama</item>
+		<item quantity="other">%s grama</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilo</item>
+		<item quantity="few">%s kila</item>
+		<item quantity="other">%s kila</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">ovako si počeo %s svojih partija sa bijelim figurama</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Tvoje najčešće otvaranje sa bijelim figurama, koje si igrao %s put</item>
+		<item quantity="few">Tvoje najčešće otvaranje sa bijelim figurama, koje si igrao %s puta</item>
+		<item quantity="other">Tvoje najčešće otvaranje sa bijelim figurama, koje si igrao %s puta</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Tvoje najčešće otvaranje sa crnim figurama, koje si igrao %s put</item>
+		<item quantity="few">Tvoje najčešće otvaranje sa bijelim figurama, koje si igrao %s puta</item>
+		<item quantity="other">Tvoje najčešće otvaranje sa bijelim figurama, koje si igrao %s put</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Hvala što si glasio za %s problem.</item>
+		<item quantity="few">Hvala što si glasio za %s probleme.</item>
+		<item quantity="other">Hvala što si glasio za %s probleme.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Također si pomogao u označavanju %s njih.</string>
+	<string name="puzzlesNone">Nisi nijedan problem riješio ove godine.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Hoćeš li isprobati neki sad?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Riješio si %s od njih iz prvog pokušaja!</string>
+	<string name="sourcesTitle">Gdje si pronašao partije?</string>
+	<string name="perfsTitle">Koje vremenske kontrole i varijante si igrao?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s reklame i programe za praćenje</string>
+	<string name="malwareNoSell">Nismo prodali vaše lične podatke</string>
+	<string name="malwareNoAbuse">Nismo koristili vaš uređaj protiv vas</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ali druge web stranice to rade, zato te molimo %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">pazi</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partije odigrane na Lichessu %2$s. godine</string>
+</resources>
