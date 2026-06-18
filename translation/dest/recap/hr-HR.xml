@@ -61,4 +61,23 @@
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ali druge web stranice to rade, zato te molimo %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">pazi</string>
 	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partije odigrane na Lichessu %2$s. godine</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s su bile tvoje.</string>
+	<string name="thanksTitle">Hvala što igraš na Lichessu!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Drago nam je što si ovdje. Želimo ti sve najbolje za %s. godinu!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichessovi %1$s ove godine su bili %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">troškovi</string>
+	<string name="patronCharity">Mi smo dobrotvorna organizacija koja radi samo na donacijama.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Ako smo ti ove godine pomogli da se zabaviš ili ako vjeruješ u naš rad, molimo te da razmisliš o %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">podržavate nas donacijom</string>
+	<string name="shareableTitle" comment="%s is the current year">Moj sažetak za %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">vrijeme provedeno igrajući</string>
+	<string name="shareableMostPlayedOpponent">protivnik protiv kojeg si odigrao najviše partija</string>
+	<string name="shareableFavouriteVariant">omiljena šahovska varijanta</string>
+	<string name="shareableFavouriteTimeControl">omiljena vremenska kontrola</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s problem riješen</item>
+		<item quantity="few">%s problemi riješeni</item>
+		<item quantity="other">%s problemi riješeni</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Tvoj sažetak za %s je spreman!</string>
 </resources>
