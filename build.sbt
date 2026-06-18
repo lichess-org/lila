@@ -11,13 +11,25 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
   .settings(
-    // native-packager-only settings: scope to root so sbt 2.0 doesn't demand them from the
-    // aggregated modules (which don't enable JavaServerAppPackaging).
+    // These configure the root "lila" app specifically (flat app/ + conf/ layout, native-packager
+    // output). Under sbt 2.0 bare top-level settings propagate to every aggregated module, which
+    // breaks (modules lack JavaServerAppPackaging; the `target` override clashes with sbt 2.0 task
+    // caching). Scope them to the root project where they belong.
     scriptClasspath := Seq("*"),
     Compile / mainClass := Some("lila.app.Lila"),
     // Adds the Play application directory to the command line args passed to Play
     bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n",
     Universal / sourceDirectory := baseDirectory.value / "dist",
+    Compile / resourceDirectory := baseDirectory.value / "conf",
+    Compile / RoutesKeys.routes / sources ++= {
+      val dirs = (Compile / unmanagedResourceDirectories).value
+      (dirs * "routes").get() ++ (dirs * "*.routes").get()
+    },
+    Compile / RoutesKeys.generateReverseRouter := false,
+    Compile / RoutesKeys.generateForwardRouter := true,
+    target := baseDirectory.value / "target",
+    Compile / sourceDirectory := baseDirectory.value / "app",
+    Compile / scalaSource := baseDirectory.value / "app",
   )
 
 organization := "org.lichess"
@@ -31,19 +43,9 @@ javaOptions ++= {
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
-Compile / resourceDirectory := baseDirectory.value / "conf"
 // the following settings come from the PlayScala plugin, which I removed
 shellPrompt := PlayCommands.playPrompt
 ivyLoggingLevel := UpdateLogging.DownloadOnly
-Compile / RoutesKeys.routes / sources ++= {
-  val dirs = (Compile / unmanagedResourceDirectories).value
-  (dirs * "routes").get() ++ (dirs * "*.routes").get()
-}
-Compile / RoutesKeys.generateReverseRouter := false
-Compile / RoutesKeys.generateForwardRouter := true
-target := baseDirectory.value / "target"
-Compile / sourceDirectory := baseDirectory.value / "app"
-Compile / scalaSource := baseDirectory.value / "app"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
