@@ -35,12 +35,13 @@ lazy val root = Project("lila", file("."))
     Compile / RoutesKeys.generateForwardRouter := true,
     Compile / sourceDirectory := baseDirectory.value / "app",
     Compile / scalaSource := baseDirectory.value / "app",
-    // Keep the root app's packaging output at target/universal/stage (CI tars that exact path:
-    // .github/workflows/server.yml). This re-flattens crossTarget for the root only, which makes
-    // sbt 2.0 emit a few "Cannot cache" notices for the root's own compile/package — acceptable,
-    // and far fewer than letting it leak to every module (that's handled by dropping
-    // coreDefaultSettings in BuildSettings).
-    target := baseDirectory.value / "target",
+    // Keep the native-packager stage output at target/universal/stage — lila CI tars that exact
+    // path (.github/workflows/server.yml). Scope this to Universal/target rather than overriding the
+    // whole project `target`: stagingDirectory = Universal/target / "stage", and the default
+    // Universal/target = <project target> / "universal". Overriding only Universal/target leaves the
+    // project target at sbt 2.0's default, so crossTarget stays target/out/jvm/scala-3.8.4/lila and
+    // zinc's inc_compile_3.zip stays inside the cache root — no "Cannot cache" warning.
+    Universal / target := baseDirectory.value / "target" / "universal",
   )
 
 organization := "org.lichess"
