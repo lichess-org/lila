@@ -389,6 +389,7 @@
   </plurals>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
+  <string name="noDrawBeforeSwissLimit">Šveitsi turniiril ei saa viiki teha enne, kui on tehtud 30 käiku.</string>
   <string name="thematic">Temaatiline</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s reitinguga mäng</item>
@@ -407,6 +408,7 @@
     <item quantity="other">Peate veel mängima %s reitinguga mängu</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Teie %s reiting on liiga madal/kõrge</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reitingufiltrid on lukustatud, kuna sinu reiting ei ole stabiilne. Reitingumängude mängimine suurendab reitingu stabiilsust.</string>
   <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Teie parim nädalane %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Edetabel</string>
   <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest seisust</string>
   <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
+  <string name="playerNames">Mängijate nimed</string>
+  <string name="moveAnnotations">Käikude märkused</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
   <string name="orUploadPgnFile">Või lae üles PGN fail</string>
@@ -437,6 +441,7 @@
   <string name="importGame">Impordi mäng</string>
   <string name="importGameExplanation">Mängu PGN-i kleepimisel saate vaadeldava korduse,
 arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
+  <string name="importGameDataPrivacyWarning">Sellele PGN-ile on avalik juurdepääs. Mängu privaatseks importimiseks kasuta uuringut.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Imporditud mäng</item>
     <item quantity="other">%s Imporditud mängu</item>
@@ -449,6 +454,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="blackCheckmatesInOneMove">Must teeb mati ühe käiguga</string>
   <string name="retry">Proovi uuesti</string>
   <string name="reconnecting">Taasühendamine</string>
+  <string name="noNetwork">Ühenduseta</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s sõber on kohal</item>
     <item quantity="other">%s sõpra on kohal</item>
@@ -481,6 +487,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="openTournaments">Avatud turniirid</string>
   <string name="duration">Kestvus</string>
   <string name="winner">Võitja</string>
+  <string name="standings">Edetabel</string>
   <string name="createANewTournament">Loo uus turniir</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
@@ -494,6 +501,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="points">Punktid</string>
   <string name="wins">Võidud</string>
   <string name="losses">Kaotused</string>
+  <string name="startingIn" comment="Displayed above a timer">Alguseni</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="pause">Peata</string>
   <string name="resume">Jätka</string>
@@ -504,6 +512,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="movesPlayed">Tehtud käikude arv</string>
   <string name="whiteWins">Valge võite</string>
   <string name="blackWins">Musta võite</string>
+  <string name="drawRate">Viigimäär</string>
   <string name="draws">Viike</string>
   <string name="averageOpponent">Keskmine vastane</string>
   <string name="boardEditor">Muudetav laud</string>
@@ -511,6 +520,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="popularOpenings">Populaarsed avangud</string>
   <string name="endgamePositions">Lõppmängu seisud</string>
   <string name="chess960StartPosition">Male960 algpositsioon: %s</string>
+  <string name="randomChess960Position">Juhuslik Chess960-positsioon</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="loadPosition">Lae seis</string>
@@ -521,7 +531,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="ifNoneLeaveEmpty">Kui pole, jäta tühjaks</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
+  <string name="realName">Tegelik nimi</string>
+  <string name="setFlair">Määra oma piktogramm</string>
+  <string name="flair">Piktogramm</string>
+  <string name="youCanHideFlair">Kasutajate piktogrammide peitmiseks kogu saidil on olemas säte.</string>
   <string name="biography">Kirjeldus</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Riik või piirkond</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
@@ -540,12 +555,15 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Liigu automaatselt järgmise mängu juurde pärast käiku</string>
   <string name="autoSwitch">Automaatne siirdumine</string>
   <string name="puzzles">Pusled</string>
+  <string name="onlineBots">Veebirobotid</string>
   <string name="name">Nimi</string>
   <string name="description">Kirjeldus</string>
   <string name="descPrivate">Privaatne kirjeldus</string>
   <string name="descPrivateHelp">Tekst mida näevad ainult võistkonna liikmed. Kui on valitud siis asendatakse avalik kirjeldus võistkonna liikmetele.</string>
   <string name="no">Ei</string>
   <string name="yes">Jah</string>
+  <string name="website">Veebileht</string>
+  <string name="mobile">Mobiil</string>
   <string name="help">Abi:</string>
   <string name="createANewTopic">Loo uus teema</string>
   <string name="topics">Teemad</string>
@@ -564,6 +582,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cheat">Sohk</string>
   <string name="troll">Troll</string>
   <string name="other">Muu</string>
+  <string name="reportCheatBoostHelp">Kleebi mängu(de) link ja selgita, mis on selle kasutaja käitumises valesti. Ära ütle lihtsalt \"ta teeb sohki\", vaid selgita, kuidas sellele järeldusele jõudsid.</string>
+  <string name="reportUsernameHelp">Selgita, miks see kasutajanimi on solvav. Ära ütle lihtsalt \"see on solvav/sobimatu\", vaid selgita, kuidas sellele järeldusele jõudsid, eriti kui solvavus on raskesti mõistetav, ei ole inglise keeles, on slängis või viitab ajaloolisele või kultuurilisele kontekstile.</string>
+  <string name="reportProcessedFasterInEnglish">Sõnumit käsitletakse kiiremini, kui see on kirjutatud inglise keeles.</string>
   <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Importis %s</string>
@@ -576,6 +597,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidUsernameOrPassword">Vale kasutajanimi või parool</string>
   <string name="incorrectPassword">Vale parool</string>
   <string name="invalidAuthenticationCode">Väär autentimise kood</string>
+  <string name="clearField">Tühjenda väli</string>
+  <string name="orSeparator">Või</string>
+  <string name="logInByEmail">Logi sisse e-posti teel</string>
   <string name="emailMeALink">Saada mulle link meilile</string>
   <string name="currentPassword">Praegune parool</string>
   <string name="newPassword">Uus parool</string>
@@ -596,6 +620,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="slow">Aeglane</string>
   <string name="insideTheBoard">Laua sees</string>
   <string name="outsideTheBoard">Lauast väljas</string>
+  <string name="allSquaresOfTheBoard">Igal ruudul</string>
   <string name="onSlowGames">Aeglastes mängudes</string>
   <string name="always">Alati</string>
   <string name="never">Mitte kunagi</string>
@@ -665,6 +690,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="really">päriselt</string>
   <string name="contribute">Panusta</string>
   <string name="termsOfService">Kasutajatingimused</string>
+  <string name="titleVerification">Tiitli tõendamine</string>
   <string name="sourceCode">Lähtekood</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
