@@ -54,8 +54,8 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
-    def optionFu[B](f: => Future[B]): Future[Option[B]] =
-      if self then f.map(Some(_))(using scala.concurrent.ExecutionContext.parasitic)
+    def optionFu[B](f: => Future[B])(using Executor): Future[Option[B]] =
+      if self then f.map(Some(_))
       else Future.successful(None)
 
   extension (config: Config)
@@ -187,20 +187,19 @@ trait LilaLibraryExtensions extends CoreExports:
 
   extension (fua: Fu[Boolean])
 
-    infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fub else fuFalse }(using EC.parasitic)
+    infix def >>&(fub: => Fu[Boolean])(using Executor): Fu[Boolean] =
+      fua.flatMap { if _ then fub else fuFalse }
 
-    infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if _ then fuTrue else fub }(using EC.parasitic)
+    infix def >>|(fub: => Fu[Boolean])(using Executor): Fu[Boolean] =
+      fua.flatMap { if _ then fuTrue else fub }
 
-    infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if _ then fub else fuccess(zero.zero) }(using EC.parasitic)
+    infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B])(using Executor): Fu[B] =
+      fua.flatMap { if _ then fub else fuccess(zero.zero) }
 
-    def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if _ then fb else zero.zero }(using EC.parasitic)
+    def mapz[B](fb: => B)(using zero: Zero[B])(using Executor): Fu[B] =
+      fua.map { if _ then fb else zero.zero }
 
-    // inline def unary_! = fua.map { !_ }(EC.parasitic)
-    inline def not = fua.map { !_ }(using EC.parasitic)
+    inline def not(using Executor): Fu[Boolean] = fua.map { !_ }
 
   extension [A](p: PairOf[A])
     def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))
