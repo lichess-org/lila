@@ -44,7 +44,7 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <icon class="z-remove" data-icon="${licon.NotAllowed}"></icon>
+                <icon class="z-remove" data-icon="${licon.X}"></icon>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
