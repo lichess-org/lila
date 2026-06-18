@@ -95,6 +95,13 @@
         color: $c-link;
       }
     }
+
+  }
+
+  &.compact {
+    .study.compact > .study__icon {
+      margin-inline-end: 0.2em;
+    }
   }
 
   .study-unfeature {
