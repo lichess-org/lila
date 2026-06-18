@@ -1,6 +1,5 @@
 import com.typesafe.sbt.packager.Keys.{ bashScriptExtraDefines, scriptClasspath }
 import play.sbt.PlayCommands
-import play.sbt.PlayInternalKeys.playDependencyClasspath
 import play.sbt.routes.RoutesKeys
 
 import BuildSettings.*
@@ -28,17 +27,13 @@ scriptClasspath := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"
 // the following settings come from the PlayScala plugin, which I removed
 shellPrompt := PlayCommands.playPrompt
-// all dependencies from outside the project (all dependency jars)
-playDependencyClasspath := (Runtime / externalDependencyClasspath).value
-// playCommonClassloader   := PlayCommands.playCommonClassloaderTask.value
-// playCompileEverything := PlayCommands.playCompileEverythingTask.value.asInstanceOf[Seq[Analysis]]
 ivyLoggingLevel := UpdateLogging.DownloadOnly
 Compile / mainClass := Some("lila.app.Lila")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
 Compile / RoutesKeys.routes / sources ++= {
   val dirs = (Compile / unmanagedResourceDirectories).value
-  (dirs * "routes").get ++ (dirs * "*.routes").get
+  (dirs * "routes").get() ++ (dirs * "*.routes").get()
 }
 Compile / RoutesKeys.generateReverseRouter := false
 Compile / RoutesKeys.generateForwardRouter := true
@@ -512,7 +507,7 @@ lazy val ui = module("ui",
   Compile / RoutesKeys.generateForwardRouter := false,
   Compile / RoutesKeys.routes / sources ++= {
     val dirs = baseDirectory.value / ".." / ".." / "conf"
-    (dirs * "routes").get ++ (dirs * "*.routes").get
+    (dirs * "routes").get() ++ (dirs * "*.routes").get()
   }
 )
 
@@ -530,4 +525,4 @@ lazy val api = module("api",
 ).settings(
   Runtime / aggregate := false,
   Test / aggregate := true  // Test <: Runtime
-) aggregate (moduleRefs: _*)
+).aggregate(moduleRefs*)
