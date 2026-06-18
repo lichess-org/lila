@@ -98,6 +98,18 @@
   }
 
   &.compact {
+    position: relative;
+
+    // Mask the container edge so only internal right borders remain visible.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 1px;
+      background: $c-bg-box;
+      pointer-events: none;
+    }
+
     .study.compact > .study__icon {
       margin-inline-end: 0.2em;
     }
