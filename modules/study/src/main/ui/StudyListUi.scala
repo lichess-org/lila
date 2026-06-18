@@ -176,9 +176,14 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         p(trs.noneYet())
       )
     else if format.contains(StudyFormat.compact) then
-      div(cls := "studies studies--list infinite-scroll")(
+      div(cls := "studies compact infinite-scroll")(
         pager.currentPageResults.map { s =>
-          div(cls := "study study--plain paginated")(
+          div(cls := "study compact paginated")(
+            span(cls := "study__icon")(
+              s.study.flair
+                .map(iconFlair)
+                .getOrElse(iconTag(Icon.StudyBoard))
+            ),
             a(href := routes.Study.show(s.study.id))(s.study.name.value)
           )
         },
