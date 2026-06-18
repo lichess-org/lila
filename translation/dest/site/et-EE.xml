@@ -309,6 +309,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Kohandatud seis</string>
   <string name="unlimited">Piiramatu</string>
+  <string name="unlimitedDescription">Võta endale nii palju aega, kui vaja</string>
   <string name="mode">Variant</string>
   <string name="casual">Reitinguta</string>
   <string name="rated">Reitinguga</string>
@@ -355,6 +356,7 @@
     <item quantity="other">%s mängimas</item>
   </plurals>
   <string name="exportGames">Ekspordi mängud</string>
+  <string name="ratingFilter">Reitingu valik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
@@ -363,7 +365,15 @@
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
+  <string name="whiteProposesTakeback">Valge teeb tagasivõtmise ettepaneku</string>
+  <string name="blackProposesTakeback">Must teeb tagasivõtmise ettepaneku</string>
   <string name="takebackPropositionSent">Tagasivõtu ettepanek esitatud</string>
+  <string name="whiteDeclinesTakeback">Valge keeldub tagasivõtmisest</string>
+  <string name="blackDeclinesTakeback">Must keeldub tagasivõtmisest</string>
+  <string name="whiteAcceptsTakeback">Valge nõustub tagasivõtmisega</string>
+  <string name="blackAcceptsTakeback">Must nõustub tagasivõtmisega</string>
+  <string name="whiteCancelsTakeback">Valge tühistab tagasivõtmise</string>
+  <string name="blackCancelsTakeback">Must tühistab tagasivõtmise</string>
   <string name="yourOpponentProposesATakeback">Vastane teeb ettepaneku tagasivõtuks</string>
   <string name="bookmarkThisGame">Lisa see mäng järjehoidjasse</string>
   <string name="tournament">Turniir</string>
