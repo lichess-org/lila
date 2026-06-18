@@ -5,6 +5,12 @@ import play.sbt.routes.RoutesKeys
 import BuildSettings.*
 import Dependencies.*
 
+// sbt 2.0 lints "unused" keys on load. native-packager defines Debian/Rpm/Linux/Universal
+// packaging keys that lila legitimately doesn't use (we only run `stage`), and RoutesCompiler
+// defines playGenerateReverseRouter (we only read it in Compile scope). Silence that lint noise
+// rather than wiring up packaging we don't ship.
+Global / lintUnusedKeysOnLoad := false
+
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
@@ -27,9 +33,14 @@ lazy val root = Project("lila", file("."))
     },
     Compile / RoutesKeys.generateReverseRouter := false,
     Compile / RoutesKeys.generateForwardRouter := true,
-    target := baseDirectory.value / "target",
     Compile / sourceDirectory := baseDirectory.value / "app",
     Compile / scalaSource := baseDirectory.value / "app",
+    // Keep the root app's packaging output at target/universal/stage (CI tars that exact path:
+    // .github/workflows/server.yml). This re-flattens crossTarget for the root only, which makes
+    // sbt 2.0 emit a few "Cannot cache" notices for the root's own compile/package — acceptable,
+    // and far fewer than letting it leak to every module (that's handled by dropping
+    // coreDefaultSettings in BuildSettings).
+    target := baseDirectory.value / "target",
   )
 
 organization := "org.lichess"
