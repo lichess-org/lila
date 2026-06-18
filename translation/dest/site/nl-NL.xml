@@ -814,6 +814,10 @@
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="one">Anoniem</item>
+    <item quantity="other">Anoniem (%s)</item>
+  </plurals>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="allLanguages">Alle talen</string>

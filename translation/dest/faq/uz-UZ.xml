@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, masala yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="fairPlay">Halol oʻyin</string>
   <string name="whenAmIEligibleRatinRefund">Qachon gʻirromchilar sababli yoʻqotilgan reytingim avtomatik ravishda qaytariladi?</string>
-  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir daqiqa oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
+  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir minut oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
   <string name="preventLeavingGameWithoutResigning">Oʻyinni taslim boʻlmasdan tashlab ketadigan oʻyinchilarga nisbatan qanday choralar koʻriladi?</string>
   <string name="leavingGameWithoutResigningExplanation">Agar raqibingiz oʻyinlarni tez‑tez bekor qilsa yoki oxiriga yetkazmasdan tashlab ketsa, unga \"oʻyin taqiqi\" beriladi — ya’ni u maʼlum muddat oʻyin oʻynay olmaydi. Bu cheklov foydalanuvchi profilida ommaga koʻrsatilmaydi. Agar bunday holat takrorlanaversa, taqiq muddati uzayib boradi. Tartibni muntazam buzish esa akkauntning butunlay yopilishiga olib kelishi mumkin.</string>
   <string name="howCanIBecomeModerator">Qanday qilib moderator boʻlishim mumkin?</string>
@@ -30,12 +30,12 @@
   <string name="fairPlayPage">halol oʻyin</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
   <string name="gameplay">Oʻyin jarayoni</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, Blitz va boshqa vaqt nazoratlari qanday belgilanadi?</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blits va boshqa vaqt nazoratlari qanday belgilanadi?</string>
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
 taxminiy davomiylik = %1$s
 
-Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 soniyani tashkil qiladi.</string>
-  <string name="durationFormula">(soatdagi boshlangʻich vaqt, soniyalarda) + 40 × (qoʻshimcha vaqt)</string>
+Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 sekundni tashkil qiladi.</string>
+  <string name="durationFormula">(soatdagi boshlangʻich vaqt, sekundlarda) + 40 × (qoʻshimcha vaqt)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Lichessʼda shaxmatning qanday variantlarini oʻynay olaman?</string>
@@ -173,7 +173,7 @@ Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini ko�
   <string name="fewerLobbyPools">tez raqibni topish roʻyxati qisqartirilgan</string>
   <string name="adviceOnMitigatingAddiction">Bizga koʻpincha oʻyin oʻynashga haddan tashqari ruju qoʻygan va oʻzini toʻxtata olmayotgan foydalanuvchilar yordam soʻrab murojaat qilishadi.
 
-Lichess faqat foydalanish shartlari buzilgan holatlardagina oʻyinchilarni cheklaydi, xolos. Shuning uchun biz oʻyin vaqtini nazorat qilishda maxsus dasturlardan foydalanishni tavsiya etamiz. Saytlarga kirishni cheklovchi %1$s, %2$s va %3$s kabi vositalar shular jumlasidandir. Agar saytga kirishni xohlasangiz‑u, lekin tez oʻyinlar (bullet/blitz) sizni oʻziga tortaverishidan qochmoqchi boʻlsangiz, %4$sdan foydalanib koʻring, masalan, mana bu variantda %5$s.
+Lichess faqat foydalanish shartlari buzilgan holatlardagina oʻyinchilarni cheklaydi, xolos. Shuning uchun biz oʻyin vaqtini nazorat qilishda maxsus dasturlardan foydalanishni tavsiya etamiz. Saytlarga kirishni cheklovchi %1$s, %2$s va %3$s kabi vositalar shular jumlasidandir. Agar saytga kirishni xohlasangiz‑u, lekin tez oʻyinlar (bullet/blits) sizni oʻziga tortaverishidan qochmoqchi boʻlsangiz, %4$sdan foydalanib koʻring, masalan, mana bu variantda %5$s.
 
 Ba\'zi oʻyinchilar shaxmatga mukkasidan ketayotganlarini yoki bu odat qaramlikka aylanayotganini payqashlari mumkin. Darhaqiqat, Jahon sogʻliqni saqlash tashkiloti ham oʻyinga qaramlikni %6$s sifatida tan olgan. Uning asosiy belgilari: 1) oʻyinni toʻxtata olmaslik, 2) hayotdagi boshqa ishlarni chetga surib, bor eʼtiborni faqat oʻyinga qaratish va 3) salbiy oqibatlarga qaramay oʻyinni davom ettirishdir. Agar oʻzingizda shunday holatni kuzatayotgan boʻlsangiz, bu haqida doʻstlaringiz, yaqinlaringiz yoki mutaxassis bilan maslahatlashishingizni soʻraymiz.</string>
 </resources>
