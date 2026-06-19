@@ -41,7 +41,7 @@ object BuildSettings {
       libs: Seq[ModuleID]
   ) =
     Project(name, file("modules/" + name))
-      .dependsOn(deps: _*)
+      .dependsOn(deps*)
       .settings(
         libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,

@@ -1,5 +1,4 @@
 import com.typesafe.sbt.packager.Keys.{ bashScriptExtraDefines, scriptClasspath }
-import play.sbt.PlayCommands
 import play.sbt.routes.RoutesKeys
 
 import BuildSettings.*
@@ -56,7 +55,7 @@ javaOptions ++= {
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
 // the following settings come from the PlayScala plugin, which I removed
-shellPrompt := PlayCommands.playPrompt
+// shellPrompt := PlayCommands.playPrompt
 ivyLoggingLevel := UpdateLogging.DownloadOnly
 
 // format: off

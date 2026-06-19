@@ -1,4 +1,3 @@
-import play.sbt.PlayImport._
 import sbt._, Keys._
 
 object Dependencies {
