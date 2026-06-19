@@ -55,6 +55,7 @@
   <string name="notYetStarted">Трансляцыя яшчэ не пачалася.</string>
   <string name="officialWebsite">Афіцыйны сайт</string>
   <string name="officialStandings">Афіцыяльная турнірная табліца</string>
+  <string name="regulations">Рэгламент</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больш опцый на %s</string>
   <string name="webmastersPage">старонцы вэб-майстра</string>
   <string name="embedThisBroadcast">Убудуйце гэтую трансляцыю на сваім сайце</string>
@@ -62,4 +63,28 @@
   <string name="gamesThisTournament">Гульні ў гэтым турніры</string>
   <string name="score">Ачкі</string>
   <string name="allTeams">Усе каманды</string>
+  <string name="tournamentFormat">Фармат турніру</string>
+  <string name="tournamentLocation">Месца турніру</string>
+  <string name="topPlayers">Найлепшыя гульцы</string>
+  <string name="timezone">Часавы пояс</string>
+  <string name="fideRatingCategory">Катэгорыя рэйтынгу FIDE</string>
+  <string name="optionalDetails">Дадатковыя звесткі</string>
+  <string name="pastBroadcasts">Папярэднія трансляцыі</string>
+  <string name="liveboard">Дошка ў эфіры</string>
+  <string name="communityBroadcast">Трансляцыя суполкі</string>
+  <string name="createdAndManagedBy">Створана ды кіруецца %s.</string>
+  <string name="roundX">Раўнд %s</string>
+  <string name="openTournament">Адчынены</string>
+  <string name="womenTournament">Жанчыны</string>
+  <string name="menTournament">Мужчыны</string>
+  <string name="girlsTournament">Дзяўчынкі</string>
+  <string name="boysTournament">Хлопцы</string>
+  <string name="quarterfinals">Чвэрцьфіналы</string>
+  <string name="semifinals">Паўфіналы</string>
+  <string name="finals">Фіналы</string>
+  <string name="tiebreaks">Тайбрэйкі</string>
+  <string name="gameX">Гульня %s</string>
+  <string name="knockouts">Накаўты</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До%s</string>
 </resources>

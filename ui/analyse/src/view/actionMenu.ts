@@ -2,7 +2,7 @@ import { isEmpty } from 'lib';
 import { clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
 import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
 

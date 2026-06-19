@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { numberSpread } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, iconTag } from 'lib/view';
 
 import { hashNavigate } from '../hashRouting';

@@ -1,6 +1,6 @@
 import { frag } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';

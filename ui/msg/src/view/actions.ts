@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, confirm } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';

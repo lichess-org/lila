@@ -2,12 +2,12 @@
 <resources>
   <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">hozir</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">%s soniyadan keyin</item>
-    <item quantity="other">%s soniyadan keyin</item>
+    <item quantity="one">%s sekunddan keyin</item>
+    <item quantity="other">%s sekunddan keyin</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">%s daqiqadan keyin</item>
-    <item quantity="other">%s daqiqadan keyin</item>
+    <item quantity="one">%s minutdan keyin</item>
+    <item quantity="other">%s minutdan keyin</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">%s soatdan keyin</item>
@@ -31,8 +31,8 @@
   </plurals>
   <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">hozirgina</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">%s daqiqa oldin</item>
-    <item quantity="other">%s daqiqa oldin</item>
+    <item quantity="one">%s minut oldin</item>
+    <item quantity="other">%s minut oldin</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="one">%s soat oldin</item>
@@ -55,8 +55,8 @@
     <item quantity="other">%s yil oldin</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
-    <item quantity="one">%s daqiqa qoldi</item>
-    <item quantity="other">%s daqiqa qoldi</item>
+    <item quantity="one">%s minut qoldi</item>
+    <item quantity="other">%s minut qoldi</item>
   </plurals>
   <plurals name="nbHoursRemaining">
     <item quantity="one">%s soat qoldi</item>

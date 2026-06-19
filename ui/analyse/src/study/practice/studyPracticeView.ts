@@ -1,6 +1,6 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';

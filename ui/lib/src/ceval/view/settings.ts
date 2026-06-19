@@ -2,7 +2,7 @@ import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
 import { isChrome } from '@/device';
 import { onClickAway } from '@/index';
-import * as Licon from '@/licon';
+import { licon } from '@/licon';
 import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDialog } from '@/view';
 
 import type { CevalCtrl } from '../ctrl';
@@ -211,7 +211,7 @@ function engineSelection({ ceval }: CevalHandler) {
     ),
     external &&
       hl('button.button.button-red.button-empty', {
-        attrs: { ...dataIcon(Licon.Trash), title: 'Delete external engine' },
+        attrs: { ...dataIcon(licon.Trash), title: 'Delete external engine' },
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
           if (await confirm('Remove external engine?'))
@@ -219,7 +219,7 @@ function engineSelection({ ceval }: CevalHandler) {
         }),
       }),
     hl('button.engine-info-button', {
-      attrs: { ...dataIcon(Licon.InfoCircle), title: 'Engine information' },
+      attrs: { ...dataIcon(licon.InfoCircle), title: 'Engine information' },
       on: { click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')) },
     }),
   ]);

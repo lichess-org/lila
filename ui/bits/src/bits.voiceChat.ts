@@ -1,7 +1,7 @@
 import Peer from 'peerjs';
 
 import type { VoiceChat } from 'lib/chat/interfaces';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { hl, alert } from 'lib/view';
 

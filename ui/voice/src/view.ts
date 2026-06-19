@@ -1,5 +1,5 @@
 import { onClickAway } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';

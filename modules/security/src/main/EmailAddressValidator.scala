@@ -31,7 +31,7 @@ final class EmailAddressValidator(
 
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique"): email =>
-      if uniqueAsync(email, forUser).await(2.seconds, "emailUnique")
+      if uniqueAsync(email, forUser).await(1.second, "emailUnique")
       then Valid
       else Invalid(ValidationError("error.email_unique"))
 

@@ -3989,6 +3989,8 @@ interface I18n {
     name: string;
     /** Navigate the move tree */
     navigateMoveTree: string;
+    /** Anonymous (%s) */
+    nbAnonymous: I18nPlural;
     /** %s blunders */
     nbBlunders: I18nPlural;
     /** %s bookmarks */

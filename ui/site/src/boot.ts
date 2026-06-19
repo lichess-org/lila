@@ -4,7 +4,7 @@ import * as ab from 'ab/site';
 import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
 import { once } from 'lib/storage';

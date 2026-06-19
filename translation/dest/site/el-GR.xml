@@ -814,6 +814,10 @@
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Ανώνυμος/η</item>
+    <item quantity="other">Ανώνυμοι (%s)</item>
+  </plurals>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>

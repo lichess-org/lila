@@ -815,6 +815,10 @@
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonymous</item>
+    <item quantity="other">Anonymous (%s)</item>
+  </plurals>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
