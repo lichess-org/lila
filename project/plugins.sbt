@@ -14,5 +14,4 @@ addSbtPlugin("org.lichess.play" % "sbt-plugin" % "2.0.0-RC2")
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4")
 addSbtPlugin("org.playframework.twirl" % "sbt-twirl" % "2.1.0-M9")
 
-// sbt-scalafmt has no sbt 2.0 (_sbt2_3) build yet; re-enable once one is available.
-// addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.1")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.1")
