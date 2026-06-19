@@ -13,7 +13,8 @@ class AnalyserTest extends munit.FunSuite:
   test("critical"):
     assert(grave("gets cancer"))
     assert(grave("kys"))
-    assert(grave("ropes"))
+    assert(grave("kill your father"))
+    assert(grave("murder you"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))

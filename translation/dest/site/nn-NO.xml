@@ -815,6 +815,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="quickPairing">Snøgt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>

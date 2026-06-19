@@ -16,7 +16,7 @@ object Dependencies {
 
   val cats = "org.typelevel" %% "cats-core" % "2.13.0"
   val alleycats = "org.typelevel" %% "alleycats-core" % "2.13.0"
-  val catsMtl = "org.typelevel" %% "cats-mtl" % "1.6.0"
+  val catsMtl = "org.typelevel" %% "cats-mtl" % "1.7.0"
   val hasher = "com.roundeights" %% "hasher" % "1.3.1"
   val compression = "com.github.lichess-org" % "compression" % "3.2.1"
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.10.6"
+    val version = "11.10.7"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version

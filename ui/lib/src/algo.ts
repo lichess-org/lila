@@ -13,8 +13,15 @@ export function randomId(len = 8): string {
   return Array.from(buffer, byte => charSet32[byte % 32]).join('');
 }
 
-export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
-  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+// NaN | undefined are ignored as bounds. value=NaN CAN be clamped with valid bound(s)
+export function clamp(value: number, bounds: { min?: number; max?: number }): number {
+  const [min, max] = [validNumber(bounds.min), validNumber(bounds.max)];
+  if (validNumber(value) === false) return min !== false ? min : max !== false ? max : NaN;
+  if (max !== false) value = Math.min(value, max);
+  if (min !== false) value = Math.max(value, min);
+  return value;
+}
+const validNumber = (n?: number): number | false => Number(n) === n && n;
 
 export const quantize = (n: number | undefined, factor: number): number =>
   Math.round((n ?? 0) / factor) * factor;

@@ -33,9 +33,9 @@ export class PromotionCtrl {
         ((dest[1] === '1' && piece.color === 'black') || (dest[1] === '8' && piece.color === 'white'))
       ) {
         this.promoting = {
-          orig: orig,
-          dest: dest,
-          callback: callback,
+          orig,
+          dest,
+          callback,
         };
         this.redraw();
         return true;

@@ -210,7 +210,7 @@ export class LevelCtrl {
         turnColor: color,
         fen,
         movable: { color, dests },
-        lastMove: lastMove,
+        lastMove,
       }),
     );
 

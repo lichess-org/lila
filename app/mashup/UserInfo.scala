@@ -1,13 +1,13 @@
 package lila.app
 package mashup
 
+import alleycats.Zero
 import play.api.data.Form
 
 import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
-import lila.core.security.IsProxy
 import lila.core.perm.Granter
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
@@ -54,8 +54,7 @@ object UserInfo:
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
   ):
-    def apply(u: User)(using ctx: Context): Fu[Social] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+    def apply(u: User)(using ctx: Context)(using Executor): Fu[Social] =
       (
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(lila.mon.user.segment("relation"))),
         ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
@@ -71,20 +70,21 @@ object UserInfo:
   ):
     def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
 
+  object NbGames:
+    given Zero[NbGames] = Zero(NbGames(none, 0, 0, 0))
+
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
   ):
-    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me])(using Executor): Fu[NbGames] =
       (
         withCrosstable.so:
           me
             .filter(u.isnt(_))
-            .traverse(me =>
+            .traverse: me =>
               crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
-            )
         ,
         gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
@@ -107,12 +107,11 @@ object UserInfo:
       fideIdOf: lila.core.user.PublicFideIdOf,
       insightShare: lila.insight.Share
   )(using Executor):
-    def fetch(user: User, nbs: NbGames, withUblog: Boolean = true)(using
-        ctx: Context,
-        proxy: IsProxy
+    def fetch(user: User, nbs: NbGames, restricted: Boolean, withBlog: Boolean = true)(using
+        ctx: Context
     ): Fu[UserInfo] =
-      def isAuthOrNotProxied = ctx.isAuth || (!proxy.isFloodish && !proxy.isCrawler)
-      def showRatings = ctx.noBlind && ctx.pref.showRatings && isAuthOrNotProxied
+      val full = !restricted
+      def showRatings = full && ctx.noBlind && ctx.pref.showRatings
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(lila.mon.user.segment("trophies")),
@@ -121,11 +120,13 @@ object UserInfo:
         (!user.is(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
-        withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
-        studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies")),
-        simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls")),
-        relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts")),
-        ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds"))),
+        (withBlog && full).so(ublogApi.userBlogPreviewFor(user, 3)),
+        full.so:
+          studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies"))
+        ,
+        full.so(simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls"))),
+        full.so(relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts"))),
+        full.so(ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds")))),
         streamerApi.isActualStreamer(user).mon(lila.mon.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(lila.mon.user.segment("coach")),
         fideIdOf(user.light),

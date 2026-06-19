@@ -1,7 +1,7 @@
 import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, bind, dataIcon, hl, type VNode, type MaybeVNodes } from 'lib/view';
 
 import type { AutoplayDelay } from '../autoplay';

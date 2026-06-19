@@ -1,7 +1,7 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 

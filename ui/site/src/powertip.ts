@@ -1,5 +1,5 @@
 import { requestIdleCallbackSafe } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { spinnerHtml } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
@@ -157,10 +157,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave() {
       $.powerTip.hide(this);
     },
   });

@@ -15,7 +15,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { h, type VNode } from 'snabbdom';
 
 import { currentTheme } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { iconTag, spinnerHtml } from 'lib/view';
 
 import type Ctrl from './ctrl';
@@ -162,7 +162,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
         display: true,
         text: d.valueYaxis.name,
       },
-      stacked: stacked,
+      stacked,
     },
     y2: {
       position: 'right',

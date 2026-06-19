@@ -1,7 +1,7 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts, povMessage } from 'lib/puz/run';
 import { getNow } from 'lib/puz/util';

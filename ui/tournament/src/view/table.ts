@@ -1,6 +1,6 @@
 import { opposite } from '@lichess-org/chessground/util';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, bind, onInsert, hl, initMiniGames, iconTag } from 'lib/view';
 
 import type TournamentController from '../ctrl';

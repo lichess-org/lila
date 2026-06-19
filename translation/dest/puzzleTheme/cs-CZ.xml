@@ -17,6 +17,7 @@
   <string name="balestraMate">Mat typu „Balestra“</string>
   <string name="balestraMateDescription">Střelec dává mat, zatímco královna blokuje zbylé únikové pole</string>
   <string name="blindSwineMate">Mat typu „Blind Swine“</string>
+  <string name="blindSwineMateDescription">Dva věže se spojí, aby daly mat králi v oblasti 2 krát 2 políčka.</string>
   <string name="bishopEndgame">Střelcové koncovky</string>
   <string name="bishopEndgameDescription">Koncovka jen se střelci a pěšci.</string>
   <string name="bodenMate">Bodenův mat</string>
@@ -25,7 +26,10 @@
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="capturingDefenderDescription">Sebrání figury, která brání jinou figuru, a poté dalším tahem dobereme tuto nechráněnou figuru.</string>
+  <string name="collinearMove">Kolineární tah</string>
+  <string name="collinearMoveDescription">Dvě soupeřící figurky stojí proti sobě a jedna se posouvá podél útočné linie, aniž by zajala nepřátelskou figurku.</string>
   <string name="cornerMate">Mat v rohu</string>
+  <string name="cornerMateDescription">Uvězněte krále v rohu pomocí věže nebo dámy a jezdce, abyste zaútočili na mat.</string>
   <string name="crushing">Potrestání</string>
   <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Odtažný šach</string>

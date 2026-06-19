@@ -814,6 +814,10 @@
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anonyymi</item>
+    <item quantity="other">Anonyymejä (%s)</item>
+  </plurals>
   <string name="yourScore">Pisteesi: %s</string>
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>

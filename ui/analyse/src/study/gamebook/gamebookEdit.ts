@@ -2,7 +2,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
 import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 
@@ -127,7 +127,7 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
-    gamebook: gamebook,
+    gamebook,
   });
   ctrl.redraw();
 });

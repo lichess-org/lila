@@ -7,8 +7,8 @@
     <item quantity="other">Barcha %s ta turni koʻrish</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s ta tur</item>
-    <item quantity="other">%s ta tur</item>
+    <item quantity="one">%s tur</item>
+    <item quantity="other">%s tur</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s turdan iborat shveysarcha</item>
@@ -20,12 +20,12 @@
   </plurals>
   <string name="roundsAreStartedManually">Turlar qoʻlda boshlanadi</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">Turlar orasida %s soniya</item>
-    <item quantity="other">Turlar orasida %s soniya</item>
+    <item quantity="one">Turlar orasida %s sekund</item>
+    <item quantity="other">Turlar orasida %s sekund</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">Turlar orasida %s daqiqa</item>
-    <item quantity="other">Turlar orasida %s daqiqa</item>
+    <item quantity="one">Turlar orasida %s minut</item>
+    <item quantity="other">Turlar orasida %s minut</item>
   </plurals>
   <string name="nextRound">Keyingi tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
@@ -99,7 +99,7 @@ Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="startingSoon">Tez orada boshlanadi</string>
   <string name="comparison">Taqqoslash</string>
   <string name="tournDuration">Turnir davom etish muddati</string>
-  <string name="predefinedDuration">Davom etish muddati oldindan belgilanadi (daqiqalarda)</string>
+  <string name="predefinedDuration">Davom etish muddati oldindan belgilanadi (minutlarda)</string>
   <string name="durationUnknown">Maksimal turlar soni belgilanadi, lekin davom etish muddati nomaʼlum</string>
   <string name="numberOfGames">Oʻyinlar soni</string>
   <string name="numberOfGamesAsManyAsPossible">Ajratilgan vaqt ichida imkon qadar koʻp oʻyin oʻynaladi</string>

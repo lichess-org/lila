@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { iconTag } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
@@ -63,7 +63,7 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
 
 function whatNext(ctrl: LearnCtrl) {
   const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {
-    return h(`a.stage.done`, { attrs: { href: href } }, [
+    return h(`a.stage.done`, { attrs: { href } }, [
       done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
       h('img', { attrs: { src: assetUrl + 'images/learn/' + img + '.svg' } }),
       h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),

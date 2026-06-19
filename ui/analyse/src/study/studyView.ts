@@ -4,7 +4,7 @@ import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
