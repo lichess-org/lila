@@ -566,7 +566,7 @@
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف همگانی برای هم‌تیمی‌ها می‌شود خواهد شد.</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف عمومی برای هم‌تیمی‌ها می‌شود.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="website">وبگاه</string>
@@ -851,7 +851,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
-  <string name="yourRatingIsX">درجه‌بندی‌تان %s است </string>
+  <string name="yourRatingIsX">درجه‌بندی‌تان %s است |  </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
