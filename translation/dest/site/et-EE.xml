@@ -976,4 +976,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
   <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
 Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
+  <string name="disableBlindMode">Pimerežiimi keelamine</string>
+  <string name="copyToClipboard">Kopeeri lõikepuhvrile</string>
 </resources>
