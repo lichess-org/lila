@@ -192,6 +192,10 @@
     <item quantity="one">%s mäng</item>
     <item quantity="other">%s mängu</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s reiting %2$s mängu kohta</item>
+    <item quantity="other">%1$s reiting %2$s mängu kohta</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s mängu järjehoidja</item>
     <item quantity="other">%s mängude järjehoidjad</item>
@@ -699,8 +703,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
   <string name="hostColorX">Korraldaja värv: %s</string>
+  <string name="yourPendingSimuls">Sinu ootel olevad simultaanid</string>
   <string name="createdSimuls">Hiljuti loodud simultaanid</string>
   <string name="hostANewSimul">Korralda uus simultaan</string>
+  <string name="signUpToHostOrJoinASimul">Registreeru simultaaniga liitumiseks või korraldamiseks</string>
   <string name="noSimulFound">Simultaani ei leitud</string>
   <string name="noSimulExplanation">Seda simultaani ei ole olemas.</string>
   <string name="returnToSimulHomepage">Tagasi simultaanide lehele</string>
