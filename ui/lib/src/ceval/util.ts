@@ -6,7 +6,7 @@ import { domDialog } from '@/view';
 
 import { memoize, escapeHtml } from '../index';
 
-export function isEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
+export function isFirstEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
   return (
     a.depth > b.depth ||
     (a.depth === b.depth && a.nodes > b.nodes) ||
