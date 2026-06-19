@@ -453,7 +453,7 @@
     <item quantity="one">%s بارگذاری شده</item>
     <item quantity="other">%s بارگذاری شده</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
+  <string name="thisIsAChessCaptcha">این «آجرا»یِ شطرنج [آزمونِ امنیتی] است.</string>
   <string name="clickOnTheBoardToMakeYourMove">روی میز بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
   <string name="captcha.fail">لطفا «آجرا»یِ شطرنج را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
