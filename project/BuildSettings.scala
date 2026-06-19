@@ -1,8 +1,8 @@
-import sbt._, Keys._
+import sbt.*, Keys.*
 
-object BuildSettings {
+object BuildSettings:
 
-  import Dependencies._
+  import Dependencies.*
 
   val lilaVersion = "4.0"
   val globalScalaVersion = "3.8.4"
@@ -72,4 +72,3 @@ object BuildSettings {
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
-}
