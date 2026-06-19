@@ -387,6 +387,10 @@
     <item quantity="one">%s uuring</item>
     <item quantity="other">%s uuringut</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultaan</item>
+    <item quantity="other">%s simultaani</item>
+  </plurals>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
   <string name="noDrawBeforeSwissLimit">Šveitsi turniiril ei saa viiki teha enne, kui on tehtud 30 käiku.</string>
@@ -978,4 +982,11 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
 Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
   <string name="disableBlindMode">Pimerežiimi keelamine</string>
   <string name="copyToClipboard">Kopeeri lõikepuhvrile</string>
+  <string name="online" comment="status of a user">ühendusega</string>
+  <string name="offline" comment="status of a user">ühenduseta</string>
+  <string name="search">Otsing</string>
+  <string name="clearSearch">Tühjenda otsing</string>
+  <string name="thereAreNoResultsForX">Otsingule \"%s\" ei leitud vastet</string>
+  <string name="tags">Sildid</string>
+  <string name="enPassant">En passant õigused</string>
 </resources>
