@@ -12,7 +12,7 @@
   <string name="reusableChallengeUrl">可重复使用的挑战链接</string>
   <string name="permanentLinkForAnyoneToChallengeYou">一个永久链接，任何人都可以使用此设定向您发起挑战。</string>
   <string name="waiting">等待中</string>
-  <string name="yourTurn">您的回合</string>
+  <string name="yourTurn">轮到您走棋</string>
   <string name="aiNameLevelAiLevel">%1$s 级别 %2$s</string>
   <string name="level">级别</string>
   <string name="strength">强度</string>
@@ -606,7 +606,7 @@
   <string name="allInformationIsPublicAndOptional">所有资料是公开且可选填的。</string>
   <string name="biographyDescription">谈谈您自己、您的兴趣、您在国际象棋中的喜好、您最爱的开局、棋手等等。</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="other">最多 %s 个字符。</item>
+    <item quantity="other">最多 %s 个字符</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="other">%s 个屏蔽</item>
@@ -701,7 +701,7 @@
   <string name="toggleGlyphAnnotations">开启着法评注</string>
   <string name="togglePositionAnnotations">开启局面评注</string>
   <string name="toggleObservationAnnotations">切换观战评注</string>
-  <string name="variationArrowsInfo">变着箭头让您无需使用着法列表即可导航。</string>
+  <string name="variationArrowsInfo">变着箭头让您无需使用着法列表即可导航</string>
   <string name="playSelectedMove">走选定的着法</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">提供多种时间限制和变体的国际象棋锦标赛</string>
@@ -761,7 +761,7 @@
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">所有人均可免费使用全部功能</string>
   <string name="viewTheSolution">查看解答</string>
-  <string name="noChallenges">暂无挑战。</string>
+  <string name="noChallenges">暂无挑战</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持 %s 种语言！</item>
   </plurals>
