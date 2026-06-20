@@ -3,7 +3,7 @@ import type { ChartGame, AcplChart } from 'chart';
 import { myUserId } from 'lib';
 import type { CustomCeval } from 'lib/ceval/types';
 import { numberFormat } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { log } from 'lib/permalog';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeLite } from 'lib/tree/types';
