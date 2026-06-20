@@ -37,7 +37,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
-      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2.seconds, "teamExists"))
+      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(1.seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def edit(team: Team)(using Me) = Form(

@@ -7,7 +7,7 @@ import { parseSquare, makeSquare } from 'chessops/util';
 import { h, type VNode } from 'snabbdom';
 
 import { fenToEpd } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { copyMeInput, dataIcon, domDialog, enter } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
@@ -78,7 +78,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };
 
-  const buttonStart = (icon?: LiconType) =>
+  const buttonStart = (icon?: LiconValue) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
       {
@@ -92,7 +92,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       i18n.site.startPosition,
     );
-  const buttonClear = (icon?: LiconType) =>
+  const buttonClear = (icon?: LiconValue) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
       {

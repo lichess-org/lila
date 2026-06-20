@@ -114,10 +114,13 @@ final private class FirebasePush(
 
 private object FirebasePush:
 
-  final class Config(val url: String, val json: lila.core.config.Secret):
+  final class Config(val url: String, val json: lila.core.config.Secret, val jsonPath: String):
     lazy val googleCredentials: Option[GoogleCredentials] =
       try
-        json.value.nonEmptyOption.map: json =>
+        val jsonStr =
+          if jsonPath.nonEmpty then scala.io.Source.fromFile(jsonPath).mkString
+          else json.value
+        jsonStr.nonEmptyOption.map: json =>
           import java.nio.charset.StandardCharsets.UTF_8
           import scala.jdk.CollectionConverters.*
           ServiceAccountCredentials

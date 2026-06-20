@@ -2,7 +2,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon, iconCls, iconTag } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 

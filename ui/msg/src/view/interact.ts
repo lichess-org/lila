@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { blurIfEscape } from 'lib';
 import { throttle } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bindSubmit, alert, testId } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';

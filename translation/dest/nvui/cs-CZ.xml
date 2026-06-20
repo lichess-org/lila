@@ -36,4 +36,5 @@
   <string name="sanShortCastling" comment="O-O in standard notation">krátká rošáda</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">dlouhá rošáda</string>
   <string name="invalidMove">Neplatný tah</string>
+  <string name="pgnAndFen">PGN a FEN</string>
 </resources>

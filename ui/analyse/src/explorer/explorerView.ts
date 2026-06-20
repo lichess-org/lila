@@ -2,7 +2,7 @@ import type { VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';

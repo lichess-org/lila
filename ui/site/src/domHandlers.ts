@@ -1,5 +1,5 @@
 import { blurIfPrimaryClick } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';

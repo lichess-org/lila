@@ -11,7 +11,8 @@ import lila.core.study.data.StudyChapterName
 final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.core.user.NoteApi,
-    lightUser: LightUser.GetterSyncFallback
+    lightUser: LightUser.GetterSyncFallback,
+    net: lila.core.config.NetConfig
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
@@ -192,22 +193,12 @@ final class IrcApi(
     zulip(_.content, "/fide player photos"):
       s":note: $playerPath by ${markdown.modLink(me.username)}\n> $credits"
 
+  def dailyPuzzle(id: PuzzleId): Funit =
+    zulip(_.general, "daily puzzle"):
+      markdown.link(s"${net.baseUrl}/training/$id", "Solve the daily puzzle") +
+        markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
+
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
-
-  def publishEvent(event: Event): Funit = event match
-    case Event.Error(msg) => publishError(msg)
-    case Event.Warning(msg) => publishWarning(msg)
-    case Event.Info(msg) => publishInfo(msg)
-    case Event.Victory(msg) => publishVictory(msg)
-
-  private def publishError(msg: String): Funit =
-    zulip(_.general, "lila")(s":lightning: ${markdown.linkifyUsers(msg)}")
-
-  private def publishWarning(msg: String): Funit =
-    zulip(_.general, "lila")(s":thinking: ${markdown.linkifyUsers(msg)}")
-
-  private def publishVictory(msg: String): Funit =
-    zulip(_.general, "lila")(s":tada: ${markdown.linkifyUsers(msg)}")
 
   private[irc] def publishInfo(msg: String): Funit =
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")

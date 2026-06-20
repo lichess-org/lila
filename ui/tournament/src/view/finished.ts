@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
 import { type MaybeVNodes } from 'lib/view';
 import { numberRow } from 'lib/view/util';

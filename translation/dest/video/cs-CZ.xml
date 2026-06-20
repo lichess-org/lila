@@ -5,6 +5,12 @@
   <string name="selectTagsToFilter">Vyberte štítky pro filtrování videí.</string>
   <string name="freeChessVideos">Bezplatná šachová videa</string>
   <string name="freeForAll">zdarma pro všechny</string>
+  <plurals name="nbVideosFound">
+    <item quantity="one">%s video nalezeno</item>
+    <item quantity="few">%s videa nalezena</item>
+    <item quantity="many">%s videí nalezeno</item>
+    <item quantity="other">%s videí nalezeno</item>
+  </plurals>
   <string name="noVideosForTheseTags">Žádná videa pro tyto štítky:</string>
   <string name="thatsAllWeGotForTheseTags">Vše, co máme pod těmito štítky:</string>
   <string name="viewMoreTags">Zobrazit více štítků</string>

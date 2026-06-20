@@ -5,7 +5,7 @@ import { definedMap, clamp } from 'lib/algo';
 import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
 import { fen960 } from 'lib/game/chess';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog } from 'lib/view';
 import { json } from 'lib/xhr';
@@ -44,7 +44,7 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
+                <icon class="z-remove" data-icon="${licon.X}"></icon>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
@@ -90,7 +90,7 @@ class SetupDialog {
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
-        { selector: 'img.z-remove', listener: () => this.select() },
+        { selector: 'icon.z-remove', listener: () => this.select() },
       ],
       onClose: () => {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
@@ -168,7 +168,7 @@ class SetupDialog {
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);
-    this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.view.querySelector(`icon.z-remove`)?.classList.toggle('show', !!bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }

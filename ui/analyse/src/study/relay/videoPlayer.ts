@@ -1,8 +1,9 @@
+import { licon } from 'lib/licon';
 import { hl, type VNode, onInsert } from 'lib/view';
 
 export class VideoPlayer {
   private readonly iframe: HTMLIFrameElement;
-  private readonly close: HTMLImageElement;
+  private readonly close: HTMLElement;
   private animationFrameId?: number;
 
   constructor(
@@ -18,8 +19,8 @@ export class VideoPlayer {
     this.iframe.src = o.embed;
     this.iframe.allow = 'autoplay';
 
-    this.close = document.createElement('img');
-    this.close.src = site.asset.flairSrc('symbols.cancel');
+    this.close = document.createElement('icon');
+    this.close.dataset.icon = licon.X;
     this.close.className = 'video-player-close';
     this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
@@ -83,8 +84,8 @@ export class VideoPlayer {
               el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
-          hl('img.video-player-close', {
-            attrs: { src: site.asset.flairSrc('symbols.cancel') },
+          hl('icon.video-player-close', {
+            attrs: { 'data-icon': licon.X },
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),

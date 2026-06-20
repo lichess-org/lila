@@ -33,7 +33,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               cls := "upt__info__top__flag",
               title := (!hasRoomForNameText).option(c.name)
             )(
-              img(cls := "flag", src := assetUrl(s"flags/${c.code}.png")),
+              img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
               hasRoomForNameText.option(c.shortName)
             )
           ,

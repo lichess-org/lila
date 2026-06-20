@@ -4,10 +4,12 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑戰朋友</string>
   <string name="playAgainstComputer">與電腦對局</string>
   <string name="gameMode">遊戲模式</string>
+  <string name="createLobbyGame">創建新遊戲</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
   <string name="orLetYourOpponentScanQrCode">或是讓對手掃描這個 QR code</string>
+  <string name="reusableChallengeUrl">可重複使用的挑戰連結</string>
   <string name="permanentLinkForAnyoneToChallengeYou">任何人都可以此設定挑戰你的永久連結。</string>
   <string name="waiting">等待對手確認中</string>
   <string name="yourTurn">該您走</string>
@@ -55,6 +57,8 @@
   <string name="blackLeftTheGame">黑方棄賽</string>
   <string name="whiteDidntMove">白方沒有走棋</string>
   <string name="blackDidntMove">黑方沒有走棋</string>
+  <string name="whiteAborted">白方中止了遊戲</string>
+  <string name="blackAborted">黑方中止了遊戲</string>
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="computerAnalysisAvailable">電腦分析可用</string>
@@ -77,6 +81,7 @@
   <string name="expandVariations">顯示變體</string>
   <string name="forceVariation">移除變化</string>
   <string name="copyVariationPgn">複製變體 PGN</string>
+  <string name="copyMainLinePgn">複製主線 PGN</string>
   <string name="move">走棋</string>
   <string name="variantLoss">變體判負</string>
   <string name="variantWin">變體判勝</string>
@@ -122,6 +127,9 @@
   <string name="bestMoveArrow">最佳著法箭頭</string>
   <string name="showVariationArrows">顯示變體箭頭</string>
   <string name="multipleLines">路線分析線</string>
+  <string name="searchTime">搜尋時間</string>
+  <string name="threads">執行緒</string>
+  <string name="threadsDescription">設定此值低於您的 CPU 執行緒數，刻度標記處為安全的選擇</string>
   <string name="cpus">CPU 數量</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>

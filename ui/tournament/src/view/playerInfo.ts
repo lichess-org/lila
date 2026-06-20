@@ -1,5 +1,5 @@
 import { status } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
