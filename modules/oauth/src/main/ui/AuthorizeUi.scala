@@ -4,37 +4,47 @@ package ui
 import lila.core.LightUser
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.misc.AuthCustomUi
 
-final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
+final class AuthorizeUi(helpers: Helpers)(
+    lightUserFallback: UserId => LightUser,
+    customLogo: AuthCustomUi => Frag
+):
   import helpers.{ *, given }
 
   def apply(prompt: AuthorizationRequest.Prompt, signedClient: Option[OAuthSignedClient])(using
       ctx: Context,
       me: Me
   ) =
+    given customUi: Option[AuthCustomUi] = signedClient.flatMap(_.design)
+    given Translate = oauthClientLanguage
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
-    Page("Authorization")
+    val cssClass = customUi.map(_.cssClass)
+    val logo = customUi.map(customLogo) |
+      iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
+    Page(signedClient.fold("Authorization")(c => s"Allow ${c.displayName}"))
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
       .flag(_.noHeader)
       .csp(_.withLegacyUnsafeInlineScripts):
-        main(cls := "oauth box box-pad force-ltr")(
+        main(
+          cls := s"oauth box box-pad force-ltr${cssClass.so(c => " oauth--" + c)}"
+        )(
           div(cls := "oauth__top")(
-            iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
-            h1("Authorize"),
+            logo,
             signedClient match
-              case Some(client) => h2(client.displayName)
-              case None => strong(code(prompt.redirectUri.origin))
+              case Some(client) => h2("Allow ", span(cls := "oauth__client-name")(client.displayName))
+              case None => frag(h2("Allow"), strong(code(prompt.redirectUri.origin)))
           ),
           prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
           postForm(
             id := "oauth-authorize",
             action := s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}"
           )(
-            p(
-              "Grant access to your ",
+            p(cls := "oauth__access-text")(
+              "to access your ",
               strong(otherUserRequested.fold(me.username)(_.name)),
-              " account:"
+              " account"
             ),
             if signedClient.isDefined then emptyFrag
             else if prompt.scopes.isEmpty then ul(li("Only public data"))
@@ -43,8 +53,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                 prompt.scopes.value.map: scope =>
                   li(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(scope.name())
             ,
-            form3.actions(
-              a(href := prompt.cancelUrl)("Cancel"),
+            div(cls := "oauth__action")(
               otherUserRequested match
                 case Some(otherUser) =>
                   a(cls := "button", href := switchLoginUrl(otherUser.name.some))(
@@ -57,7 +66,8 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                     me.createdAt.isAfter(nowInstant.minusMinutes(15))
                   submitButton(
                     cls := List(
-                      "button" -> true,
+                      "button button-fat" -> true,
+                      "button-green" -> !danger,
                       "button-red ok-cancel-confirm text" -> danger,
                       "disabled" -> signedClient.isEmpty,
                       "auto-click" -> autoClick
@@ -65,7 +75,9 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                     dataIcon := danger.option(Icon.CautionTriangle),
                     signedClient.isEmpty.option(disabled),
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
-                  )("Authorize")
+                  ):
+                    signedClient.fold("Authorize"): c =>
+                      s"Sign in with ${c.displayName}"
             ),
             footer(prompt, signedClient, otherUserRequested)
           )
@@ -91,10 +103,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       signedClient match
         case Some(client) => p(s"Not using ${client.displayName}? ", a(href := prompt.cancelUrl)("Cancel"))
         case None =>
-          frag(
-            (!prompt.trusted).option(
-              p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
-            ),
-            p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
-          )
+          prompt.trusted.not.option:
+            p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
     )
+
+  private def oauthClientLanguage(using orig: Translate, custom: Option[AuthCustomUi]): Translate =
+    custom.fold(orig): c =>
+      orig.translator.to(c.lang)

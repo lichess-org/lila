@@ -28,7 +28,7 @@ cg-board::before {
 
     @include if-transp {
       opacity: calc(var(---board-opacity) / 100);
-      filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+      filter: hue-rotate(calc(var(---board-hue) * 3.6deg)) contrast(calc(var(---board-contrast) / 100));
     }
   }
 }

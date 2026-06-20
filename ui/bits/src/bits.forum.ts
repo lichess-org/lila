@@ -118,7 +118,9 @@ site.load.then(() => {
     const lines = (
       quotedMarkdown(this.closest('article')) ??
       post.querySelector('.forum-post__message-source')!.textContent
-    ).split('\n');
+    )
+      .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)')
+      .split('\n');
     if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
 
     if (lines.length === 0) return;
@@ -158,7 +160,7 @@ site.load.then(() => {
       {
         index: 2,
         match: /(^|\s)@([a-zA-Z_-][\w-]{0,19})$/,
-        search: function (term: string, searchCallback: (names: string[]) => void) {
+        search(term: string, searchCallback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(function (participants) {

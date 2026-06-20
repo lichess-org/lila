@@ -55,7 +55,7 @@ export async function initModule({ data, pref }: LearnServerOpts) {
     storage: _storage,
     stageId: null,
     levelId: null,
-    pref: pref,
+    pref,
   };
   const ctrl = new LearnCtrl(opts, redraw);
 

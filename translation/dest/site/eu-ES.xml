@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Beltza partidatik atera da</string>
   <string name="whiteDidntMove">Zuriak ez du mugitu</string>
   <string name="blackDidntMove">Beltzak ez du mugitu</string>
+  <string name="whiteAborted">Zuriak partida bertan behera utzi du</string>
+  <string name="blackAborted">Beltzak partida bertan behera utzi du</string>
   <string name="requestAComputerAnalysis">Ordenagailuaren analisia eskatu</string>
   <string name="computerAnalysis">Ordenagailuaren analisia</string>
   <string name="computerAnalysisAvailable">Ordenagailu bidezko analisia egin daiteke</string>

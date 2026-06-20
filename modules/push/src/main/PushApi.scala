@@ -16,7 +16,7 @@ import lila.core.net.LichessMobileVersion
 
 final private class PushApi(
     firebasePush: FirebasePush,
-    webPush: WebPush,
+    webPush: BrowserWebPush,
     gameProxy: lila.core.game.GameProxy,
     roundJson: lila.core.round.RoundJson,
     gameRepo: lila.core.game.GameRepo,
@@ -62,7 +62,7 @@ final private class PushApi(
                 case _ => "It's a draw."
               ,
               body = s"Your game with $opponent is over.",
-              stacking = Stacking.GameFinish,
+              key = Key.gameFinish,
               urgency = Urgency.VeryLow,
               payload = payload(userId)(
                 "type" -> "gameFinish",
@@ -99,7 +99,7 @@ final private class PushApi(
                     yield Data(
                       title = "It's your turn!",
                       body = s"$opponent played $sanMove",
-                      stacking = Stacking.GameMove,
+                      key = Key.gameMove,
                       urgency = if pov.isMyTurn then Urgency.Normal else Urgency.Low,
                       payload = payload,
                       mobileCompatible = LichessMobileVersion.zero.some,
@@ -130,7 +130,7 @@ final private class PushApi(
                     yield Data(
                       title = "Takeback offer",
                       body = s"$opponent proposes a takeback",
-                      stacking = Stacking.GameTakebackOffer,
+                      key = Key.gameTakebackOffer,
                       urgency = Urgency.Normal,
                       payload = payload,
                       mobileCompatible = LichessMobileVersion.zero.some,
@@ -158,7 +158,7 @@ final private class PushApi(
                     yield Data(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
-                      stacking = Stacking.GameDrawOffer,
+                      key = Key.gameDrawOffer,
                       urgency = Urgency.Normal,
                       payload = payload,
                       firebaseMod = offlineRoundNotif,
@@ -177,7 +177,7 @@ final private class PushApi(
         yield Data(
           title = "Time is almost up!",
           body = s"You are about to lose on time against $opponent",
-          stacking = Stacking.GameMove,
+          key = Key.gameMove,
           urgency = Urgency.High,
           payload = payload,
           mobileCompatible = LichessMobileVersion.zero.some,
@@ -205,7 +205,7 @@ final private class PushApi(
         Data(
           title = senderName,
           body = text,
-          stacking = Stacking.PrivateMessage,
+          key = Key.privateMessage,
           urgency = Urgency.Normal,
           mobileCompatible = LichessMobileVersion(0, 17).some,
           lichobileCompatible = true,
@@ -224,7 +224,7 @@ final private class PushApi(
         Data(
           title = studyName.value,
           body = s"$invitedBy invited you to $studyName",
-          stacking = Stacking.InvitedStudy,
+          key = Key.invitedStudy,
           urgency = Urgency.Normal,
           mobileCompatible = None,
           payload = payload(to.userId)(
@@ -251,7 +251,7 @@ final private class PushApi(
                 Data(
                   title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
                   body = describeChallenge(c),
-                  stacking = Stacking.ChallengeCreate,
+                  key = Key.challengeCreate,
                   urgency = Urgency.Normal,
                   payload = payload(dest.id)(
                     "type" -> "challengeCreate",
@@ -276,7 +276,7 @@ final private class PushApi(
                 Data(
                   title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
                   body = describeChallenge(c),
-                  stacking = Stacking.ChallengeAccept,
+                  key = Key.challengeAccept,
                   urgency = Urgency.Normal,
                   mobileCompatible = LichessMobileVersion(0, 18).some,
                   payload = payload(challenger.id)(
@@ -297,7 +297,7 @@ final private class PushApi(
           Data(
             title = tour.tourName,
             body = "The tournament is about to start!",
-            stacking = Stacking.ChallengeAccept,
+            key = Key.challengeAccept,
             urgency = Urgency.Normal,
             mobileCompatible = None,
             payload = payload(userId)(
@@ -320,7 +320,7 @@ final private class PushApi(
             Data(
               title = topicName,
               body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
-              stacking = Stacking.ForumMention,
+              key = Key.forumMention,
               urgency = Urgency.Low,
               mobileCompatible = None,
               payload = payload(to.userId)(
@@ -338,7 +338,7 @@ final private class PushApi(
       Data(
         title = streamerName,
         body = streamerName + " started streaming",
-        stacking = Stacking.StreamStart,
+        key = Key.streamStart,
         urgency = Urgency.Low,
         payload = payload(
           "type" -> "streamStart",
@@ -361,7 +361,7 @@ final private class PushApi(
       Data(
         title = title,
         body = body,
-        stacking = Stacking.Generic,
+        key = Key.broadcastRound,
         urgency = Urgency.Normal,
         payload = payload("url" -> url),
         mobileCompatible = None
@@ -428,13 +428,13 @@ private object PushApi:
   case class Data(
       title: String,
       body: String,
-      stacking: Stacking,
+      key: Key,
       urgency: Urgency,
       payload: Data.Payload,
       mobileCompatible: Option[LichessMobileVersion] = None,
       lichobileCompatible: Boolean = false,
       iosBadge: Option[Int] = None,
-      // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
+      // https://firebase.google.com/docs/cloud-messaging/customize-messages/set-message-type
       firebaseMod: Option[Data.FirebaseMod] = None
   )
 

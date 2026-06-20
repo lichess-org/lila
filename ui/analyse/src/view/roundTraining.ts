@@ -1,7 +1,7 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
@@ -125,7 +125,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
   if (
     !ctrl.data.analysis ||
-    !ctrl.showFishnetAnalysis() ||
+    !ctrl.showStaticAnalysis() ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
   )
     return h('div.analyse__round-training', puzzleLink(ctrl));

@@ -12,6 +12,7 @@ val maxLangs = 128
 
 val defaultLanguage: Language = Language("en")
 val enLang: Lang = Lang("en", "GB")
+val enUsLang: Lang = Lang("en", "US")
 val defaultLang: Lang = enLang
 
 def toLanguage(lang: Lang): Language = Language(lang.language)
@@ -40,8 +41,6 @@ object Translate:
   given (using trans: Translator, lang: Lang): Translate = trans.to(lang)
 
 trait LangList:
-  val all: Map[Lang, String]
-  def allLanguages: List[Language]
   def popularLanguages: List[Language]
   def popularNoRegion: List[Lang]
   def nameByLanguage(l: Language): String

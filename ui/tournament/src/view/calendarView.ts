@@ -7,7 +7,7 @@ import getMinutes from 'date-fns/getMinutes';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon } from 'lib/view';
 
 import type { Tournament } from '../interfaces';

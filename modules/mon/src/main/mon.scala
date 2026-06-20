@@ -734,6 +734,9 @@ object signedClient:
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
     def failure(reason: String)(client: String) =
       counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
+    def alreadyLoggedIn(client: String, loggedIn: Boolean) =
+      counter(s"signedClient.$name.alreadyLoggedIn").withTags:
+        tags("client" -> client, "loggedIn" -> loggedIn)
   val login = AuthPage("login")
   val signup = AuthPage("signup")
 

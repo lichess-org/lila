@@ -7,11 +7,19 @@ package lila.shutup
 class AnalyserTest extends munit.FunSuite:
 
   private def find(t: String) = Analyser(t).badWords
+  private def grave(t: String) = Analyser(t).critical
   private def ratio(t: String) = Analyser(t).ratio
 
+  test("critical"):
+    assert(grave("gets cancer"))
+    assert(grave("kys"))
+    assert(grave("kill your father"))
+    assert(grave("murder you"))
+
   test("find one bad word"):
-    assertEquals(find("fuck"), List("fuck"))
+    assertEquals(find("cheater"), List("cheater"))
     assertEquals(find("well fuck me"), List("fuck"))
+    assertEquals(find("you chickens"), List("chickens"))
 
   test("find one bad word with punctuation"):
     assertEquals(find("fuck."), List("fuck"))
@@ -37,11 +45,12 @@ class AnalyserTest extends munit.FunSuite:
       Nil
     )
     assertEquals(find("computer analysis"), Nil)
+    assertEquals(find("press f for respects"), Nil)
 
   test("find badly spelled words"):
-    assertEquals(find("fuk"), List("fuk"))
-    assertEquals(find("well fuk me"), List("fuk"))
-    assertEquals(find("foo ashole bar fukd"), List("ashole", "fukd"))
+    assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
+    assertEquals(find("pnis pusy quer"), List("pnis", "pusy", "quer"))
+    assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
   test("find variants"):
@@ -57,9 +66,13 @@ class AnalyserTest extends munit.FunSuite:
   test("find phrases"):
     assertEquals(find("I think you suck"), List("you suck"))
     assertEquals(find("you should suck my"), List("suck my"))
+    assertEquals(find("neck your mom"), List("neck your mom"))
 
   test("50 shades of fuck"):
-    assertEquals(find("fuck fffuuk fektard feak fak phuk"), List("fuck", "fffuuk", "fektard", "fak", "phuk"))
+    assertEquals(
+      find("fck fk fuck fuckk fuk fffuuk fucko fuckeds fektard feak fak phuk"),
+      List("fck", "fk", "fuck", "fuckk", "fuk", "fffuuk", "fucko", "fuckeds", "fektard", "fak", "phuk")
+    )
 
   test("compute ratio"):
     assertEquals(ratio("fuck that shit"), 2d / 3)

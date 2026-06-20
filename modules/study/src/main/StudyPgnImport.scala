@@ -26,7 +26,7 @@ object StudyPgnImport:
         valid <-
           if full.root.children.countRecursive > Chapter.maxNodes
           then Left(ErrorStr("PGN has too many moves/nodes"))
-          else Right(full)
+          else parsed.replayError.toLeft(full)
       yield valid
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =

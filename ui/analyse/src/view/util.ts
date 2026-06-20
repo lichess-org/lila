@@ -32,7 +32,7 @@ export function titleNameToId(titleName: string): string {
 }
 
 export const option = (value: string, current: string | undefined, name: string, data?: VNodeData) =>
-  hl('option', { attrs: { value: value, selected: value === current }, ...data }, name);
+  hl('option', { attrs: { value, selected: value === current }, ...data }, name);
 
 export const playerFedFlag = (fed?: Federation) =>
   fed &&

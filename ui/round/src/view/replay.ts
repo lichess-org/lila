@@ -4,7 +4,7 @@ import { displayColumns } from 'lib/device';
 import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import viewStatus from 'lib/game/view/status';
-import * as licon from 'lib/licon';
+import { licon, type LiconKey } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
@@ -159,15 +159,15 @@ function renderButtons(ctrl: RoundController) {
   return hl(rbuttonsTag, [
     analysisButton(ctrl) || hl('div.noop'),
     [
-      [licon.JumpFirst, firstPly],
-      [licon.JumpPrev, ctrl.ply - 1],
-      [licon.JumpNext, ctrl.ply + 1],
-      [licon.JumpLast, lastPly],
-    ].map((b: [string, number], i) => {
+      ['JumpFirst', firstPly],
+      ['JumpPrev', ctrl.ply - 1],
+      ['JumpNext', ctrl.ply + 1],
+      ['JumpLast', lastPly],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
-        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(el =>
           addPointerListeners(el, {
             click: e => {
@@ -201,7 +201,7 @@ function initMessage(ctrl: RoundController) {
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
-    attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
+    attrs: { disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
   });
 

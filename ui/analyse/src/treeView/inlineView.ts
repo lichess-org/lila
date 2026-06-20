@@ -66,9 +66,9 @@ export class InlineView {
     if (!this.ctrl.showComments || !node.comments) return [];
     return node.comments
       .map(comment =>
-        this.ctrl.retro?.hideComputerLine(node) && this.isFishnetComment(comment)
+        this.ctrl.retro?.hideComputerLine(node) && this.isLichessComment(comment)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (!this.isFishnetComment(comment) || this.ctrl.showFishnetAnalysis()) &&
+          : (!this.isLichessComment(comment) || this.ctrl.showStaticAnalysis()) &&
             hl('comment', {
               class: {
                 inaccuracy: comment.text.startsWith('Inaccuracy.'),
@@ -86,7 +86,7 @@ export class InlineView {
       .filter(Boolean);
   }
 
-  private isFishnetComment(comment: TreeComment): boolean {
+  private isLichessComment(comment: TreeComment): boolean {
     return comment.by === 'lichess' && comment.text.endsWith(' was best.');
   }
 
@@ -164,7 +164,7 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
-    const liveGlyph = ctrl.liveAnnotate.get(path);
+    const liveGlyph = ctrl.liveAnnotate?.get(path);
     const glyphs = liveGlyph ? [liveGlyph] : node.glyphs;
     if (ctrl.showMoveGlyphs()) {
       glyphs

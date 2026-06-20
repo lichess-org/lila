@@ -184,7 +184,7 @@ final private class StudySocket(
 
         case "setTag" =>
           reading[SetTag](o): setTag =>
-            applyWho(api.setTag(studyId, setTag))
+            applyWho(api.setTagFromUI(studyId, setTag))
 
         case "setComment" =>
           reading[AtPosition](o): position =>

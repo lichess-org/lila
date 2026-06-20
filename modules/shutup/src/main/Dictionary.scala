@@ -8,63 +8,63 @@ private object Dictionary:
 
   def en = dict("""
 (burn|die|rot) in hell
-(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
+(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hell
-(kill|hang|neck) my ?self
+(kill|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
 adol(f|ph)
 afraid
-anal(plug|sex|)
+anal(plug|se[ckx]+|)
 anus
 ape
 arse(hole|wipe|)
 ass
-ass?(hole|fag)
+as+(hole|fag)
 autist(ic|)
-aus?c?hwitz
+au[cs]+hwitz
 bastard?
 be[ea]++t?ch
 b(iy?t?|t)ch
 blow(job|)
 blumpkin
-bollock
+bol+o[ck]+
 bomb (yo)?ur?(self)?
 boner
 boob
 bozo
-brain(dea?d|less?)
-bugger
-buk?kake
+brain(dea?d|les+)
+bugg+er
+bu[ck]+ake
 bull?shit
 cancer
-che[ae]t(ing|er|ed|)
+che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
-chicken
+chi[ck]+en
 chink
 chitter
 clit(oris|)
 clown
-cock(suc?k(er|ing)|)
+co[ck]+(su[ck]+(er|ing)|)
 condom
 coon
 coward?
-cripp?led?
+crip+le
 cry(baby|ing|)
-cuck(old|)
-cunn?ilingu
-dic?k(head|face|suc?ker|)
+cu[ck]+(old|)
+cun+ilingu
+di[ck]+(head|face|su[ck]+er|)
 dildo
-dogg?ystyle
+dog+ystyle
 dogshit
 douche(bag|)
 downsie?
-dumb(ass?|)
+dumb(as+|)
 dyke
 engine
-fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
+fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|)
 gangbang(e?d|)
 gay
 go (and )?bomb
@@ -74,7 +74,7 @@ gypo
 gypsy
 handjob
 hitler++
-homm?o(sexual|)
+hom+o(se[ckx]+ual|)
 honkey
 hooker
 horny
@@ -82,100 +82,100 @@ humping
 [iİ]diot
 incest
 jerk
-jizz?(um|)
+jiz+(um|)
 kill (you|u)
 labia
 lamer?
 lesbo
 lo++ser++
-maggot
-masturbat(ed?|ion|ing)
+mag+ot
+masturbat(e?[dr]+|ion|ing|)
 mf\b
 milf
-molest(er|ed|)
+molest(e?[dr]+|ing|)
 mong
 monkey
-morr?on
-mother(fuc?k(er|)|)
-mthrfckr
-nazi
-nigg?
-[nv]igg?[ae][hr]?
+mor+on+
+mother(fu[ck]+(er|)|)
+mthrf[ck]+r
+na+zi+
+[nv]i+g+[ae]+[hr]?
 nonce
 noo++b
-nutsac?k
+nutsa[ck]+
 pa?edo((f|ph)ile|)
 pajeet
 paki
 pathetic
 pa?ederast
-penis
+pe*nis?
 pig
 pimp
 piss
-poof
-poon
+poo+f
+poo+n
 poo++p(face|)
-porn(hub|)
+po?rn(hub|)
 pos\b
-pric?k
+pri[ck]+
 prostitute
 punani
-puss(i|y|ie|)
-queer
+pus+(i|y|ie|)
+que+r
 rapist
 rat\b
 rect(al|um)
 retard(ed|)
 rimjob
 run
-sandbagg?(er|ing|ed|)
+sandbag+(e[dr]+|ing|)
 scared?
 schlong
 screw(e?d|)
 scrotum
 scum(bag|)
 semen
-sex
+se([ck]+s|x)
 shagg?(e?d|)
-shemale
-shit(z|e|y|ty|bag|)
-sissy
-skank
+she?male
+shi?t(z|e|y|ty|bag|)
+sis+y
+s[ck]ank
 slag
 slave
 slut
 spastic
 spaz
 sperm
-spick
+spi[ck]+
 spooge
 spunk
-smurff?(er|ing|e?d|)
+smurf+(e?[dr]+|ing|)
 stfu
 stupid
 subhuman
 suicided?
-suc?ker
-suck(e?d|) m[ey]
+su[ck]+er
+su[ck]+(e?d|) m[ey]
 sybau
-terrorist
-tit(t?ies|ty|)(fuc?k|)
-tosser
-trann(y|ie)
+ter+orist
+tit+(ies|y|)(fu[ck]+(er|)|)
+tos+er
+tran+(y|ie)
 trash
 turd
 twat
+unalive (you|u)
 vag
 vagin(a|al|)
 vibrator
 vulva
-w?hore?
-wanc?k(er|)
-weak
-wetback
+w?hore
+wan[ck]+(er|)
+we+a+k
+wetba[ck]+
 wog
-(you|u) suck(e?d|)
+(you|u) su[ck]+(e?d|)
 """) ++ critical
 
   def ru = dict("""
@@ -370,21 +370,21 @@ yar+ak kafa(l[iı]|s[iı])
 
   def critical = dict("""
 (die|burn)s? irl
-(f|ph)a++gg?([oi]t|)
-(gets?|from|of|by|on|wish|you) cancer
-(go|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
-(ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
-(kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
-cancer (for|to)
+(f|ph)a++g+([oi]t|)
+(gets?|from|of|by|on|wish|(yo)?u) cancer
+(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
+(ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
+(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther|)
+cancers? (for|to)
 gas the
 g?kys
-get (bombed|shot)
+gets? (bombed|shot)
 k y s
 ky5
 (l|1|ı|\|)<ys
-n[1i]gg?er
+n[1i]g+er
 rap(ed?|e?ing)
-rope\b
+rope
 subhuman
 """)
 

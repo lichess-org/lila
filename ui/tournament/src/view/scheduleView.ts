@@ -2,7 +2,7 @@ import dragscroll from 'dragscroll';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon, iconTag } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';

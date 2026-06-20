@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Musta lähti pelistä</string>
   <string name="whiteDidntMove">Valkea ei siirtänyt</string>
   <string name="blackDidntMove">Musta ei siirtänyt</string>
+  <string name="whiteAborted">Valkea keskeytti pelin</string>
+  <string name="blackAborted">Musta keskeytti pelin</string>
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
   <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
@@ -812,6 +814,10 @@
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anonyymi</item>
+    <item quantity="other">Anonyymejä (%s)</item>
+  </plurals>
   <string name="yourScore">Pisteesi: %s</string>
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>
@@ -1023,7 +1029,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
+Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla. Ilman anteliasta yhteisöämme emme pystyisi pitämään sivustoa yllä. Kiitos liittymisestä tukijoihimme!  </string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
   <string name="stats">Tilastot</string>
   <string name="accessibility">Saavutettavuus</string>

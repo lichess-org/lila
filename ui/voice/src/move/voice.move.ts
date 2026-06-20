@@ -3,8 +3,9 @@ import { charToRole } from 'chessops';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import type { QuestionOpts } from 'lib/types';
 import { jsonSimple } from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
@@ -535,7 +536,7 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: LiconType) => ({
+    const mkOpts = (prompt: string, yesIcon: LiconValue) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },

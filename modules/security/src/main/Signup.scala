@@ -10,6 +10,7 @@ import lila.common.HTTPRequest
 import lila.core.config.NetConfig
 import lila.core.email.UserIdOrEmail
 import lila.core.net.{ ApiVersion, IpAddress, ValidReferrer }
+import lila.core.security.IsProxy
 import lila.memo.{ RateLimit, SettingStore }
 import lila.security.SecurityForm.SignupData
 import lila.oauth.Protocol.ClientId
@@ -78,12 +79,9 @@ final class Signup(
       blind: Boolean,
       simpleSignup: Option[lila.oauth.OAuthSignedClient.SimpleSignup]
   )(using
-      req: Request[?],
-      lang: Lang,
-      formBinding: FormBinding,
-      referrer: Option[ValidReferrer]
-  ): Fu[Signup.Result] =
-    val client = simpleSignup.fold("website")(_.client.value)
+      req: Request[?]
+  )(using Lang, FormBinding, Option[ValidReferrer], IsProxy): Fu[Signup.Result] =
+    val client = simpleSignup.fold("website")(_.client.clientId.value)
     val turnstileSuccess = if simpleSignup.isDefined then fuccess(true)
     else turnstile.verify()
     turnstileSuccess
@@ -119,7 +117,6 @@ final class Signup(
                       else
                         for
                           suspIp <- ipTrust.isSuspicious(ip)
-                          ipData <- ipTrust.reqData(req)
                           pwned <- pwnedApi.isPwned(data.clearPassword)
                           result <- signupRateLimit(data.username.id, suspIp = suspIp):
                             MustConfirmEmail(data, suspIp = suspIp, simpleSignup).flatMap: mustConfirm =>
@@ -137,7 +134,7 @@ final class Signup(
                                   monitor(
                                     data,
                                     mustConfirm,
-                                    ipData,
+                                    ipTrust.reqData(req),
                                     ipSusp = suspIp,
                                     client = client
                                   )

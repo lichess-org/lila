@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">As negras saíron da partida</string>
   <string name="whiteDidntMove">As brancas non moveron</string>
   <string name="blackDidntMove">As negras non moveron</string>
+  <string name="whiteAborted">As brancas abortaron a partida</string>
+  <string name="blackAborted">As negras abortaron a partida</string>
   <string name="requestAComputerAnalysis">Solicitar unha análise por computador</string>
   <string name="computerAnalysis">Análise por computador</string>
   <string name="computerAnalysisAvailable">Análise de ordenador dispoñible</string>
@@ -437,7 +439,7 @@
   <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
-  <string name="playerNames">Nomes das xogadoras/es</string>
+  <string name="playerNames">Nomes dos xogadores</string>
   <string name="moveAnnotations">Anotación das xogadas</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
@@ -808,10 +810,14 @@
   <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="like">Gústame</string>
-  <string name="liked">Gustáronme</string>
+  <string name="liked">Gustoume</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anónimo</item>
+    <item quantity="other">Anónimos (%s)</item>
+  </plurals>
   <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>

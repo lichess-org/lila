@@ -50,7 +50,7 @@ export function report(name: string, text: string): Promise<any> {
     method: 'post',
     body: form({
       username: name,
-      text: text,
+      text,
       resource: 'msg',
     }),
   });

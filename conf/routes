@@ -587,6 +587,7 @@ GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 GET   /auth/check                      controllers.Auth.check
+POST  /auth/validate-new-email         controllers.Auth.apiEmailValidate
 
 # Mod
 POST  /mod/:username/alt/:v            controllers.Mod.alt(username: UserStr, v: Boolean)
@@ -879,6 +880,7 @@ GET    /account/oauth/token            controllers.OAuthToken.index
 GET    /account/oauth/token/create     controllers.OAuthToken.create
 POST   /account/oauth/token/create     controllers.OAuthToken.createApply
 POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id)
+GET    /account/oauth/mobile-callback  controllers.OAuth.mobileOAuthCallback
 POST   /api/token/admin-challenge      controllers.OAuth.challengeTokens
 POST   /api/token/test                 controllers.OAuth.testTokens
 

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind } from 'lib/view';
 import * as xhr from 'lib/xhr';
 

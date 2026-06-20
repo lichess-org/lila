@@ -1,7 +1,7 @@
 import { repeater, myUserId, blurIfPrimaryClick } from 'lib';
 import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import { type VNode, type LooseVNode, onInsert, hl, domDialog, iconTag } from 'lib/view';
 
@@ -112,7 +112,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
       engineMode === 'ceval' && [
         hl('div.bar'),
         cevalView.renderCevalSwitch(ctrl),
-        evalstr && ctrl.showAnalysis() && !ctrl.isGamebook() && hl('eval', evalstr),
+        evalstr && ctrl.showEvaluation() && !ctrl.isGamebook() && hl('eval', evalstr),
       ],
       engineMode === 'practice' && evalstr && hl('eval', evalstr),
       engineMode === 'retro' && ctrl.retro?.completion().join('/'),
@@ -174,7 +174,7 @@ function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
   ctrl.redraw();
 }
 
-const jumpButton = (icon: LiconType, effect: string, enabled: boolean): VNode =>
+const jumpButton = (icon: LiconValue, effect: string, enabled: boolean): VNode =>
   hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect, 'data-icon': icon } });
 
 const isMobileUi = (): boolean => displayColumns() === 1 && isTouchDevice();

@@ -17,6 +17,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
   private val stripeScript = script(src := "https://js.stripe.com/v3/")
   private val namespaceAttr = attr("data-namespace")
   private val dataForm = attr("data-form")
+  private val stripeBillingPortal = "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"
 
   def index(
       email: Option[EmailAddress],
@@ -304,7 +305,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       dl(
         dt(trp.changeMonthlySupport()),
         dd(
-          trp.changeOrContact(a(href := routes.Main.contact, targetBlank)(trp.contactSupport()))
+          trp.changeSupport(
+            a(href := routes.Main.contact, targetBlank)(trp.contactSupport()),
+            a(href := routes.Plan.index())(trp.patronPage())
+          )
         ),
         dt(trp.otherMethods()),
         dd(
@@ -531,7 +535,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               tr(
                 th("Stripe"),
                 td:
-                  a(href := "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"):
+                  a(href := stripeBillingPortal):
                     trp.stripeManageSub()
               ),
               tr(

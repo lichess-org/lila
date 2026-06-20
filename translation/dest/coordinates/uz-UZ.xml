@@ -10,7 +10,7 @@
   <string name="youCanAnalyseAGameMoreEffectively">Agar koordinatalarni tezda aniqlay olsangiz, oʻyinni samaraliroq tahlil qila olasiz.</string>
   <string name="aCoordinateAppears">Taxtada koordinata paydo boʻladi va siz unga mos keladigan katakchani bosishingiz kerak.</string>
   <string name="aSquareIsHighlightedExplanation">Taxtada biror katakcha rang bilan ajratiladi va siz uning koordinatasini kiritishingiz kerak (masalan, \"e4\").</string>
-  <string name="youHaveThirtySeconds">30 soniya ichida imkon qadar koʻp katakchalarni toʻgʻri toping!</string>
+  <string name="youHaveThirtySeconds">30 sekund ichida imkon qadar koʻp katakchalarni toʻgʻri toping!</string>
   <string name="goAsLongAsYouWant">Xohlaganingizcha davom eting, vaqt cheklanmagan!</string>
   <string name="showCoordinates">Koordinatalarni koʻrsatish</string>
   <string name="showCoordsOnAllSquares">Har katakda koordinatani koʻrsatish</string>

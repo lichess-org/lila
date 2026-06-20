@@ -2,6 +2,22 @@
 <resources>
   <string name="standard">標準</string>
   <string name="standardTitle">標準西洋棋規則</string>
+  <string name="chess960">Chess960</string>
+  <string name="chess960Title">棋子的初始排列順序為隨機產生。</string>
+  <string name="kingOfTheHill">山丘之王</string>
+  <string name="kingOfTheHillTitle">將國王移至中心即可獲勝。</string>
+  <string name="threeCheck">三次將軍</string>
+  <string name="threeCheckTitle">將軍對手 3 次即可獲勝。</string>
+  <string name="antichess">有子必吃</string>
+  <string name="antichessTitle">失去所有棋子（或被逼和）即可獲勝。</string>
+  <string name="atomic">原子棋</string>
+  <string name="atomicTitle">炸毀對手的國王即可獲勝。</string>
+  <string name="horde">部落棋</string>
+  <string name="hordeTitle">一方擁有大量的兵，另一方則擁有標準陣容。</string>
+  <string name="racingKings">競速棋</string>
+  <string name="racingKingsTitle">將國王移至棋盤的另一端即可獲勝。</string>
+  <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">除了移動棋子以外，也可將吃掉的棋子打入回盤面。</string>
   <string name="fromPosition">自訂局面</string>
+  <string name="fromPositionTitle">從自訂局面開始的標準西洋棋</string>
 </resources>

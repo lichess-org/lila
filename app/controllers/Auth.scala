@@ -10,6 +10,7 @@ import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
+import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
@@ -175,7 +176,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   private def t3Counter(counter: lila.mon.signedClient.type => String => kamon.metric.Counter)(using
       Option[ValidReferrer]
   ) = simpleSignup.foreach: ss =>
-    counter(lila.mon.signedClient)(ss.client.value).increment()
+    counter(lila.mon.signedClient)(ss.client.clientId.value).increment()
 
   private val clasLoginRateLimit =
     env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
@@ -200,7 +201,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val sid = env.security.api.reqSessionId(ctx.req)
     for
       _ <- sid.so(env.security.store.delete)
-      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      _ <- sid.so(env.push.browserSub.unsubscribeBySession)
       res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
     yield res.withCookies(env.security.lilaCookie.newSession)
 
@@ -223,6 +224,9 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def simpleSignup(using ref: Option[ValidReferrer]) =
     ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
+
+  private given (using ref: Option[ValidReferrer]): Option[AuthCustomUi] =
+    simpleSignup.flatMap(_.client.design)
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
     for proxy <- env.security.ip2proxy.ofReq(ctx.req)
@@ -448,7 +452,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   welcome(user, _, sendWelcomeEmail = false)
                 _ <- env.user.repo.disableTwoFactor(user.id)
                 _ <- env.security.store.closeAllSessionsOf(user.id)
-                _ <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+                _ <- env.push.browserSub.unsubscribeByUser(user)
                 _ <- env.push.unregisterDevices(user)
                 res <- authenticateUser(user, remember = true, pwned = IsPwned.No)
               yield
@@ -531,6 +535,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           "X-Tier" -> tier.toString
         )
       case None => Unauthorized
+  }
+
+  def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
+    if me.isnt(UserId.t3) then notFound
+    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =

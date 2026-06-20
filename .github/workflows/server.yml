@@ -29,9 +29,6 @@ on:
       - '.sbtopts.default'
   workflow_dispatch:
 
-env:
-  SBT_OPTS: '-Xmx2048M'
-
 jobs:
   build:
     runs-on: ubuntu-latest

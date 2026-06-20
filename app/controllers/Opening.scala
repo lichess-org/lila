@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.mvc.*
 import scalalib.net.Crawler
 
 import lila.app.{ *, given }

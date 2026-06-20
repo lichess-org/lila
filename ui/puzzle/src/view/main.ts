@@ -4,7 +4,7 @@ import { renderVoiceBar } from 'voice';
 
 import { view as cevalView } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
@@ -35,7 +35,7 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: LiconType, effect: string, disabled: boolean, glowing = false): VNode {
+function jumpButton(icon: LiconValue, effect: string, disabled: boolean, glowing = false): VNode {
   return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
 }
 
@@ -76,9 +76,9 @@ let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const gaugeOn = ctrl.showEvalGauge();
-  if (cevalShown !== ctrl.showAnalysis()) {
+  if (cevalShown !== ctrl.showEvaluation()) {
     if (!cevalShown) ctrl.autoScrollNow = true;
-    cevalShown = ctrl.showAnalysis();
+    cevalShown = ctrl.showEvaluation();
   }
   return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
@@ -132,8 +132,8 @@ export default function (ctrl: PuzzleCtrl): VNode {
         // so the siblings are only updated when ceval is added
         hl(
           'div.ceval-wrap',
-          { class: { none: !ctrl.showAnalysis() } },
-          ctrl.showAnalysis() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
+          { class: { none: !ctrl.showEvaluation() } },
+          ctrl.showEvaluation() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),

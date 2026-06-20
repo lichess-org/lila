@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">黒が退席しました</string>
   <string name="whiteDidntMove">白、手を指さず</string>
   <string name="blackDidntMove">黒、手を指さず</string>
+  <string name="whiteAborted">白がゲームを中止しました</string>
+  <string name="blackAborted">黒がゲームを中止しました</string>
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
@@ -407,7 +409,7 @@
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
-  <string name="moveAnnotations">移動の注釈</string>
+  <string name="moveAnnotations">手の注釈を表示</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
@@ -772,6 +774,9 @@
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="other">匿名（%s）</item>
+  </plurals>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="allLanguages">すべての言語</string>

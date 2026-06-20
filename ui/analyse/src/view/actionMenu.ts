@@ -2,7 +2,7 @@ import { isEmpty } from 'lib';
 import { clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
 import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
 
@@ -64,7 +64,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -145,7 +145,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.isDirty &&
+      ctrl.idbTree.movesDirty &&
         hl(
           'a',
           {
@@ -153,7 +153,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.idbTree.clear),
+            hook: bind('click', () => ctrl.idbTree.clear('moves')),
           },
           i18n.site.clearSavedMoves,
         ),
@@ -166,8 +166,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
       id: 'all',
       name: i18n.site.computerAnalysis,
       title: i18n.site.computerAnalysis + ' [z]',
-      checked: ctrl.showFishnetAnalysis(),
-      change: ctrl.toggleFishnetAnalysis,
+      checked: ctrl.showStaticAnalysis(),
+      change: ctrl.toggleStaticAnalysis,
       redraw: ctrl.redraw,
     }),
     cmnToggleWrapProp({

@@ -6,7 +6,7 @@ import { tempStorage } from '@/storage';
 import { enter, alert } from '@/view';
 import { userLink } from '@/view/userLink';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import * as enhance from '../richText';
 import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';

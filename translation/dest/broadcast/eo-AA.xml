@@ -25,7 +25,7 @@
   <string name="tournamentDescription">Mallonga turnira priskribo</string>
   <string name="fullDescription">Plena eventa priskribo</string>
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
-  <string name="sourceSingleUrl">Retadreso de PNG</string>
+  <string name="sourceSingleUrl">Retadreso de PGN</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>
   <string name="sourceGameIds">Ĝis 64 identigiloj de ludoj en Lichess, apartigitaj de komoj.</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>

@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Sort forlod partiet</string>
   <string name="whiteDidntMove">Hvid trak ikke</string>
   <string name="blackDidntMove">Sort trak ikke</string>
+  <string name="whiteAborted">Hvid forlod partiet</string>
+  <string name="blackAborted">Sort forlod partiet</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
@@ -812,6 +814,10 @@
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>

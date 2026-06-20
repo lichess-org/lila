@@ -107,4 +107,29 @@
       }
     }
   }
+
+  .engine-info-button {
+    color: $c-font-dim;
+    margin-inline-start: 1em;
+
+    &:hover {
+      color: $c-primary;
+    }
+  }
+}
+
+.engine-info-popup {
+  a {
+    font-size: 0.9em;
+  }
+
+  ol {
+    text-align: start;
+  }
+
+  li {
+    @extend %flex-between-nowrap;
+
+    list-style: decimal inside;
+  }
 }

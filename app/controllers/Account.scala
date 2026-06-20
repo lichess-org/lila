@@ -160,7 +160,7 @@ final class Account(
 
   private def refreshSessionId(result: Result, pwned: IsPwned)(using ctx: Context, me: Me): Fu[Result] = for
     _ <- env.security.store.closeAllSessionsOf(me)
-    _ <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _ <- env.push.browserSub.unsubscribeByUser(me)
     _ <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion, pwned)
   yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
@@ -356,7 +356,7 @@ final class Account(
     else
       for
         _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
-        _ <- env.push.webSubscriptionApi.unsubscribeBySession(SessionId(sessionId))
+        _ <- env.push.browserSub.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
   }
 

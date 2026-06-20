@@ -50,7 +50,7 @@ final class Round(
                 page <- renderPage(
                   views.round.player(
                     pov,
-                    data.add("noab" -> ctx.me.exists(_.lame)),
+                    data,
                     tour = tour,
                     simul = simul,
                     cross = crosstable,

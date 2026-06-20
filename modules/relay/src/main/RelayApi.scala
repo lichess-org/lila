@@ -215,8 +215,8 @@ final class RelayApi(
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
     yield tour
 
-  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    val tour = data.update(prev)
+  def tourUpdate(prev: RelayTour.WithGroupTours, data: RelayTourForm.Data)(using Me): Funit =
+    val tour = data.update(prev.tour)
     import toBSONValueOption.given
     for
       _ <- tourRepo.coll.update.one(
@@ -241,9 +241,9 @@ final class RelayApi(
           "orphanWarn" -> tour.orphanWarn.some
         )
       )
-      _ <- updateGrouping(tour, data.grouping)
-      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
-      _ <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
+      _ <- updateGrouping(prev, data.grouping)
+      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev.tour)
+      _ <- (tour.visibility != prev.tour.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
       studyIds <- roundRepo.studyIdsOf(tour.id)
@@ -253,12 +253,12 @@ final class RelayApi(
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.tourIds).foreach(withTours.invalidate)
 
-  private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
+  private def updateGrouping(tour: RelayTour.WithGroupTours, data: RelayGroupData)(using me: Me): Funit =
     for
       isOwner <- fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
-      hasOfficial <- tourRepo.hasOfficial(data.tourIds)
+      hasOfficial <- tourRepo.hasOfficial(data.tourIds ::: tour.group.so(_.tours.map(_.id).toList))
       canGroup = isOwner && (!hasOfficial || Granter(_.Relay))
-      _ <- canGroup.so(groupRepo.update(tour.id, data))
+      _ <- canGroup.so(groupRepo.update(tour.tour.id, data))
     yield ()
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
@@ -568,6 +568,17 @@ final class RelayApi(
           .studyIdsOf(tourId)
           .flatMap:
             _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
+
+  private[relay] def setOwnerOfGroupOrTour(anyId: String, userId: UserId): Fu[List[RelayTourId]] =
+    for
+      tourIds <- groupRepo
+        .byId(RelayGroupId(anyId))
+        .map2(_.tours.toList)
+        .orElse(tourRepo.byId(RelayTourId(anyId)).map2(_.id :: Nil))
+        .map(_.orZero)
+      _ <- tourRepo.addOwnerToTours(tourIds, userId)
+      _ <- tourIds.sequentiallyVoid(studyPropagation.onOwnerChange(_, userId))
+    yield tourIds
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi

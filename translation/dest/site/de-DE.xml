@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Schwarz hat die Partie verlassen</string>
   <string name="whiteDidntMove">Weiß hat nicht gezogen</string>
   <string name="blackDidntMove">Schwarz hat nicht gezogen</string>
+  <string name="whiteAborted">Weiß hat die Partie verlassen</string>
+  <string name="blackAborted">Schwarz hat die Partie verlassen</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
@@ -812,6 +814,10 @@
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="allLanguages">Alle Sprachen</string>

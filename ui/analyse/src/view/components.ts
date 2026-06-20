@@ -8,7 +8,7 @@ import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -107,7 +107,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
       },
       class: {
-        'comp-off': !ctrl.showFishnetAnalysis(),
+        'comp-off': !ctrl.showStaticAnalysis(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,

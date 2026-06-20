@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
   <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
   <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
+  <string name="whiteAborted">Les Blancs ont quitté la partie</string>
+  <string name="blackAborted">Les Noirs ont quitté la partie</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>

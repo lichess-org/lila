@@ -1,137 +1,108 @@
 import { lichessRules } from 'chessops/compat';
 
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, EngineTrust, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
-import { storedStringProp, type StoredProp } from '@/storage';
 import { xhrHeader } from '@/xhr';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 
+interface WithMake {
+  info: BrowserEngineInfo;
+  make: (e: BrowserEngineInfo) => CevalEngine;
+}
+
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;
-  localEngines: BrowserEngineInfo[];
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
-  selectProp: StoredProp<string>;
 
-  constructor(private ctrl: CevalCtrl) {
-    this.localEngineMap = this.makeEngineMap();
-    this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
-    this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-    this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
-  }
-
-  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
-    if (this.ctrl.available()) this.ctrl.download = status.download;
-    if (status.error) {
-      log(status.error);
-      this.ctrl.engineFailed(status.error);
-    }
-    this.ctrl.opts.redraw();
-  };
-
-  makeEngineMap(): Map<string, WithMake> {
-    type Hash = string;
-    type Variant = [VariantKey, Hash];
-    const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
-    const makeVariant = ([key, nnue]: Variant): WithMake => ({
-      info: {
-        id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
-        name: 'Fairy Stockfish 14+ NNUE',
-        short: 'FSF 14+',
-        tech: 'NNUE',
-        requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-        variants: [key],
-        cloudEval: true,
-        assets: {
-          root: 'npm/stockfish-web',
-          nnue: [`${variantMap(key)}-${nnue}.nnue`],
-          js: 'fsf_14.js',
-        },
-      },
-      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
-    });
+  constructor(private readonly ctrl: CevalCtrl) {
+    type Variant = { key: VariantKey; nnue: string };
     const variants: Variant[] = [
-      ['antichess', 'dd3cbe53cd4e'],
-      ['atomic', '2cf13ff256cc'],
-      ['crazyhouse', '8ebf84784ad2'],
-      ['horde', '28173ddccabe'],
-      ['kingOfTheHill', '978b86d0e6a4'],
-      ['threeCheck', 'cb5f517c228b'],
-      ['racingKings', '636b95f085e3'],
+      { key: 'antichess', nnue: 'antichess-dd3cbe53cd4e' },
+      { key: 'atomic', nnue: 'atomic-2cf13ff256cc' },
+      { key: 'crazyhouse', nnue: 'crazyhouse-8ebf84784ad2' },
+      { key: 'horde', nnue: 'horde-28173ddccabe' },
+      { key: 'kingOfTheHill', nnue: 'kingofthehill-978b86d0e6a4' },
+      { key: 'threeCheck', nnue: '3check-cb5f517c228b' },
+      { key: 'racingKings', nnue: 'racingkings-636b95f085e3' },
     ];
     const relaxedSimdPair = (base: WithMake): [WithMake, WithMake] => [
       {
         ...base,
         info: {
           ...base.info,
-          id: `${base.info.id}_relaxed-simd`,
           requires: [...base.info.requires, 'relaxedSimd'],
           assets: { ...base.info.assets, js: base.info.assets.js?.replace('.js', '_relaxed-simd.js') },
         },
       },
       { ...base, info: { ...base.info, obsoletedBy: 'relaxedSimd' } },
     ];
+    // list engines in decreasing order of strength
     const browserEngines: WithMake[] = [
       ...relaxedSimdPair({
         info: {
+          id: '__sf_dev',
+          name: 'Stockfish 18 dev · 85MB',
+          short: 'SF 18 dev 85MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260609-415ff793',
+          tech: 'NNUE',
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          minMem: 2560,
+          capabilities: ['cloudEval', 'staticAnalysis', 'puzzleReport'],
+          assets: {
+            root: 'npm/stockfish-web',
+            js: 'sf_dev.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      }),
+      ...relaxedSimdPair({
+        info: {
+          id: '__sf_18',
+          name: 'Stockfish 18 · 108MB',
+          short: 'SF 18 108MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_18-stockfish-18',
+          tech: 'NNUE',
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          minMem: 2560,
+          capabilities: ['cloudEval', 'puzzleReport'],
+          assets: {
+            root: 'npm/stockfish-web',
+            js: 'sf_18.js',
+          },
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      }),
+      ...relaxedSimdPair({
+        info: {
           id: '__sf_18_smallnet',
-          name: 'Stockfish 18 · 15MB sscg13/threat-small',
-          short: 'SF 18 · 15MB',
+          name: 'Stockfish 18 · 15MB',
+          short: 'SF 18 15MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_18_smallnet-stockfish-18-with-sscg13threat-small',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          cloudEval: true,
+          capabilities: ['cloudEval', 'puzzleReport'],
           assets: {
             root: 'npm/stockfish-web',
             nnue: ['nn-4ca89e4b3abf.nnue'],
             js: 'sf_18_smallnet.js',
           },
         },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-      }),
-      ...relaxedSimdPair({
-        info: {
-          id: '__sf_dev',
-          name: 'Stockfish 18+ dev-20260213-77d46ff6 · 88MB SFNNv12',
-          short: 'SF dev · 88MB',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 2560,
-          cloudEval: true,
-          assets: {
-            root: 'npm/stockfish-web',
-            js: 'sf_dev.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-      }),
-      ...relaxedSimdPair({
-        info: {
-          id: '__sf_18',
-          name: 'Stockfish 18 · 108MB SFNNv10',
-          short: 'SF 18 · 108MB',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 2560,
-          cloudEval: true,
-          assets: {
-            root: 'npm/stockfish-web',
-            js: 'sf_18.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
       {
         info: {
           id: '__sf14nnue',
           name: 'Stockfish 14 NNUE',
           short: 'SF 14',
+          url: 'https://github.com/lichess-org/stockfish-nnue.wasm',
           tech: 'NNUE',
           obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
@@ -143,24 +114,43 @@ export class Engines {
             wasm: 'stockfish.wasm',
           },
         },
-        make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
+        make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.statusCallback),
       },
-      ...variants.map(makeVariant),
+      ...variants.map(
+        ({ key, nnue }: Variant): WithMake => ({
+          info: {
+            id: `__fsfnnue-${key}`,
+            name: 'Fairy Stockfish 14+ NNUE',
+            short: 'FSF 14+',
+            url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
+            tech: 'NNUE',
+            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+            variants: [key],
+            capabilities: ['cloudEval', 'staticAnalysis'],
+            assets: {
+              root: 'npm/stockfish-web',
+              nnue: [`${nnue}.nnue`],
+              js: 'fsf_14.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+        }),
+      ),
       {
         info: {
           id: '__fsfhce',
           name: 'Fairy Stockfish 14+ HCE',
           short: 'FSF 14+',
+          url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'HCE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          variants: variants.map(v => v[0]),
+          variants: variants.map(v => v.key),
           assets: {
             root: 'npm/stockfish-web',
             js: 'fsf_14.js',
           },
         },
-        make: (e: BrowserEngineInfo) =>
-          new StockfishWebEngine(e, this.status, v => (v === 'threeCheck' ? '3check' : v.toLowerCase())),
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       },
       {
         info: {
@@ -170,7 +160,7 @@ export class Engines {
           tech: 'HCE',
           requires: ['sharedMem'],
           minThreads: 1,
-          variants: variants.map(v => v[0]),
+          variants: variants.map(v => v.key),
           assets: {
             version: 'a022fa',
             root: 'npm/stockfish-mv.wasm',
@@ -188,6 +178,7 @@ export class Engines {
           id: '__sf11hce',
           name: 'Stockfish 11 HCE',
           short: 'SF 11',
+          url: 'https://github.com/lichess-org/stockfish.wasm',
           tech: 'HCE',
           requires: ['sharedMem'],
           minThreads: 1,
@@ -205,6 +196,7 @@ export class Engines {
           id: '__sfwasm',
           name: 'Stockfish WASM',
           short: 'Stockfish',
+          url: 'https://github.com/lichess-org/stockfish.js',
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
@@ -223,6 +215,7 @@ export class Engines {
           id: '__sfjs',
           name: 'Stockfish JS',
           short: 'Stockfish',
+          url: 'https://github.com/lichess-org/stockfish.js',
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
@@ -237,7 +230,7 @@ export class Engines {
         make: (e: BrowserEngineInfo) => new SimpleEngine(e),
       },
     ];
-    return new Map<string, WithMake>(
+    this.localEngineMap = new Map<string, WithMake>(
       browserEngines
         .filter(
           e =>
@@ -246,28 +239,50 @@ export class Engines {
         )
         .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
     );
+    this.externalEngines =
+      this.ctrl.opts.externalEngines?.map(e => ({
+        tech: 'EXTERNAL',
+        maxMovetime: 30 * 1000, // broker timeouts prevent long search
+        ...e,
+      })) ?? [];
   }
 
-  get active(): EngineInfo | undefined {
-    return this.activeEngine ?? this.activate();
+  getEngine(selector?: {
+    id?: string;
+    variant?: VariantKey;
+    capability?: EngineTrust;
+  }): EngineInfo | undefined {
+    const id = selector?.id ?? this.activeEngine?.id;
+    const variant = selector?.variant || 'standard';
+    const localEngines = [...this.localEngineMap.values()]
+      .filter(e => !selector?.capability || e.info.capabilities?.includes(selector.capability))
+      .map(e => e.info);
+    return (
+      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
+      localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
+      localEngines.find(e => e.variants?.includes(variant)) ??
+      this.externalEngines.find(e => externalEngineSupports(e, variant))
+    );
   }
 
-  activate(): EngineInfo | undefined {
-    this.activeEngine = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
+  active(): EngineInfo {
+    this.activeEngine ??= this.getEngine({ variant: this.ctrl.opts.variant.key });
+    return this.activeEngine!;
+  }
+
+  setActive(id: string): EngineInfo | undefined {
+    if (!this.activeEngine || id !== this.activeEngine.id) {
+      this.activeEngine = this.getEngine({ id, variant: this.ctrl.opts.variant.key });
+    }
     return this.activeEngine;
   }
 
-  select(id: string): void {
-    this.selectProp(id);
-    this.activate();
+  get defaultId(): string {
+    return this.localEngineMap.values().next().value!.info.id;
   }
 
   get external(): ExternalEngineInfo | undefined {
-    return this.active && this.isExternalEngineInfo(this.active) ? this.active : undefined;
-  }
-
-  get maxMovetime(): number {
-    return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
+    return this.activeEngine?.tech === 'EXTERNAL' ? this.activeEngine : undefined;
   }
 
   async deleteExternal(id: string): Promise<boolean> {
@@ -275,44 +290,56 @@ export class Engines {
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
     this.externalEngines = this.externalEngines.filter(e => e.id !== id);
-    this.activate();
+    this.active();
     return true;
   }
 
-  updateCevalCtrl(ctrl: CevalCtrl): void {
-    this.ctrl = ctrl;
+  supporting(
+    variant: VariantKey,
+    capability?: EngineTrust,
+    filter: 'browser' | 'external' | 'all' = 'all',
+  ): EngineInfo[] {
+    const engines: EngineInfo[] = [];
+    if (filter !== 'browser') {
+      engines.push(...this.externalEngines.filter(e => externalEngineSupports(e, variant)));
+    }
+    if (filter !== 'external') {
+      for (const { info } of this.localEngineMap.values()) {
+        if (!info.variants?.includes(variant)) continue;
+        if (capability && !info.capabilities?.includes(capability)) continue;
+        engines.push(info);
+      }
+    }
+    return engines;
   }
 
-  supporting(variant: VariantKey): EngineInfo[] {
-    return [
-      ...this.localEngines.filter(e => e.variants?.includes(variant)),
-      ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
-    ];
-  }
-
-  getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
-    const id = selector?.id || this.selectProp();
-    const variant = selector?.variant || 'standard';
-    return (
-      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
-      this.localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
-      this.localEngines.find(e => e.variants?.includes(variant)) ??
-      this.externalEngines.find(e => externalEngineSupports(e, variant))
-    );
-  }
-
-  make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
+  makeEngine(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
     const e = (this.activeEngine = this.getEngine(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}`);
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant}`);
 
-    return !this.isExternalEngineInfo(e)
-      ? this.localEngineMap.get(e.id)!.make(e)
-      : new ExternalEngine(e, this.status);
+    return e.tech === 'EXTERNAL'
+      ? new ExternalEngine(e, this.statusCallback)
+      : this.localEngineMap.get(e.id)!.make(e);
   }
 
-  isExternalEngineInfo(e: EngineInfo): e is ExternalEngineInfo {
-    return e.tech === 'EXTERNAL';
-  }
+  private readonly statusCallback = (
+    status: { download?: { bytes: number; total: number }; error?: string } = {},
+  ): void => {
+    if (this.ctrl.available()) this.ctrl.download = status.download;
+    if (status.error) {
+      log(status.error);
+      this.ctrl.engineFailed(status.error);
+    }
+    this.ctrl.opts.redraw();
+  };
+}
+
+function externalEngineSupports(e: EngineInfo, v: VariantKey) {
+  const names = [v.toLowerCase()];
+  if (v === 'standard' || v === 'fromPosition' || v === 'chess960') names.push('chess');
+  if (v === 'threeCheck') names.push('3check');
+  if (v === 'antichess') names.push('giveaway');
+  return (e.variants ?? []).filter(v => names.includes(v.toLowerCase())).length;
 }
 
 function maxHashMB() {
@@ -323,16 +350,8 @@ function maxHashMB() {
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
+
 const maxHash = maxHashMB();
-
-function externalEngineSupports(e: EngineInfo, v: VariantKey) {
-  const names = [v.toLowerCase()];
-  if (v === 'standard' || v === 'fromPosition' || v === 'chess960') names.push('chess');
-  if (v === 'threeCheck') names.push('3check');
-  if (v === 'antichess') names.push('giveaway');
-  return (e.variants ?? []).filter(v => names.includes(v.toLowerCase())).length;
-}
-
 const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['standard', 'chess960', 'fromPosition'],
   minMem: 1024,
@@ -341,8 +360,3 @@ const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
   maxThreads: 32,
   ...engine,
 });
-
-type WithMake = {
-  info: BrowserEngineInfo;
-  make: (e: BrowserEngineInfo) => CevalEngine;
-};

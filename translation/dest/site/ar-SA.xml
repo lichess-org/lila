@@ -62,6 +62,8 @@
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
   <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="blackDidntMove">لم يلعب الأسود بعد</string>
+  <string name="whiteAborted">قام الأبيض بإلغاء المباراة قبل بدايتها</string>
+  <string name="blackAborted">قام الأسود بإلغاء المباراة قبل بدايتها</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
@@ -830,8 +832,8 @@ https://lichess. org/report.</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
-  <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
-  <string name="blackCastlingKingside">تبييت قصير للأسود</string>
+  <string name="whiteCastlingKingside">تبييت قصير O-O للأبيض</string>
+  <string name="blackCastlingKingside">تبييت قصير O-O للأسود</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">منشورات المنتدى %s</item>
     <item quantity="one">منشورات المنتدى %s</item>
@@ -979,6 +981,14 @@ https://lichess. org/report.</string>
   <string name="quickPairing">مزاوجة سريعة</string>
   <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="zero">مجهول (%s)</item>
+    <item quantity="one">مجهول</item>
+    <item quantity="two">مجهولين (%s)</item>
+    <item quantity="few">مجهولين (%s)</item>
+    <item quantity="many">مجهولين (%s)</item>
+    <item quantity="other">مجهولين (%s)</item>
+  </plurals>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
   <string name="allLanguages">كل اللغات</string>

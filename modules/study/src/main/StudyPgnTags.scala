@@ -3,6 +3,7 @@ package lila.study
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 import chess.variant.Variant
+import chess.FideId
 import lila.tree.Clock
 
 private case class SetTag(chapterId: StudyChapterId, name: String, value: String):
@@ -51,6 +52,32 @@ object StudyPgnTags:
       .match
         case Some(err) => Left(err)
         case None => Right(removeContradictingTermination(tags))
+
+  private[study] def fillPlayer(tags: Tags, newTag: Tag)(using
+      Executor
+  )(using
+      getPlayer: lila.core.fide.GetPlayer,
+      getFedName: lila.core.fide.Federation.GetName
+  ): Fu[Option[Tags]] =
+    newFideId(newTag)
+      .so: (color, fideId) =>
+        getPlayer(fideId).flatMapz: player =>
+          for fedName <- player.fed.so(getFedName)
+          yield
+            val newTags = List(
+              Tag(_.names(color), player.name).some,
+              player.title.map { title => Tag(_.titles(color), title.value) },
+              fedName.map { fed => Tag(_.teams(color), fed) }
+            ).flatten
+            Option(tags ++ Tags(newTags))
+
+  private def newFideId(newTag: Tag): Option[(Color, FideId)] =
+    newTag.name
+      .match
+        case Tag.WhiteFideId => Color.White.some
+        case Tag.BlackFideId => Color.Black.some
+        case _ => None
+      .flatMap(c => FideId.from(newTag.value.toIntOption).map(c -> _))
 
   private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =
     tags.map:

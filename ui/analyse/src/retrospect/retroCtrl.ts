@@ -150,9 +150,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   const isCevalReady = (node: TreeNode): boolean =>
-    node.ceval
-      ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
-      : false;
+    Boolean(
+      node.ceval && (node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000),
+    );
 
   function checkCeval(): void {
     const node = root.node,

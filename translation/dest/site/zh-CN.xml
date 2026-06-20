@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">黑方离开对局</string>
   <string name="whiteDidntMove">白方未走棋</string>
   <string name="blackDidntMove">黑方未走棋</string>
+  <string name="whiteAborted">白方终止对局</string>
+  <string name="blackAborted">黑方终止对局</string>
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
@@ -698,7 +700,7 @@
   <string name="cyclePreviousOrNextVariation">切换上个/下个变着</string>
   <string name="toggleGlyphAnnotations">开启着法评注</string>
   <string name="togglePositionAnnotations">开启局面评注</string>
-  <string name="toggleObservationAnnotations">开启观战者评注</string>
+  <string name="toggleObservationAnnotations">切换观战评注</string>
   <string name="variationArrowsInfo">变着箭头让您无需使用着法列表即可导航</string>
   <string name="playSelectedMove">走选定的着法</string>
   <string name="newTournament">新锦标赛</string>
@@ -771,6 +773,9 @@
   <string name="quickPairing">快速匹配</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="other">匿名 (%s)</item>
+  </plurals>
   <string name="yourScore">您的得分：%s</string>
   <string name="language">语言</string>
   <string name="allLanguages">所有语言</string>

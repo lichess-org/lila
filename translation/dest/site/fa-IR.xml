@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید بازی نکرد</string>
   <string name="blackDidntMove">سیاه بازی نکرد</string>
+  <string name="whiteAborted">سفید بازی را لغوید</string>
+  <string name="blackAborted">سیاه بازی را لغوید</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
@@ -306,8 +308,8 @@
   <string name="playingRightNow">هم‌اکنون بازی می‌کنند</string>
   <string name="eventInProgress">اکنون بازی می‌کنند</string>
   <string name="finished">تمام شده</string>
-  <string name="abortGame">انصراف از بازی</string>
-  <string name="gameAborted">بازی لغو شد</string>
+  <string name="abortGame">لغویدنِ بازی</string>
+  <string name="gameAborted">بازی لغوید</string>
   <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
@@ -435,7 +437,7 @@
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
-  <string name="screenshotCurrentPosition">نماگرفت از وضعیت فعلی</string>
+  <string name="screenshotCurrentPosition">از وضعیت فعلی عکس‌پَرده بگیرید</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="playerNames">نام‌های بازیکن</string>
   <string name="moveAnnotations">حرکت‌نویسی</string>
@@ -723,7 +725,7 @@
   <string name="lichessTournaments">مسابقات Lichess</string>
   <string name="tournamentFAQ">پرسش‌های پربسامد مسابقات راوان</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
-  <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
+  <string name="averageCentipawnLoss">میانگینِ تلفِ صدم‌پیاده</string>
   <string name="accuracy">دقت</string>
   <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
@@ -813,6 +815,10 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="one">بی‌نام</item>
+    <item quantity="other">بی‌نام (%s)</item>
+  </plurals>
   <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>
@@ -1013,7 +1019,7 @@
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
   <string name="hangOn">صبر کن!</string>
   <string name="gameInProgress">شما یک بازی جاری با %s دارید.</string>
-  <string name="abortTheGame">انصراف از بازی</string>
+  <string name="abortTheGame">لغویدنِ بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">تا وقتی که این بازی تمام نشده، نمی‌توانید بازی جدیدی را بیاغازید.</string>
   <string name="since">از وقتی که</string>

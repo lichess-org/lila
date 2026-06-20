@@ -1,7 +1,7 @@
 import { defined } from '../index';
 import * as ops from './ops';
 import * as treePath from './path';
-import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath } from './types';
+import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath, TreeNodeLite } from './types';
 
 export { treePath as path, ops };
 
@@ -30,7 +30,7 @@ export interface TreeWrapper {
   promoteAt(path: TreePath, toMainline: boolean): void;
   forceVariationAt(path: TreePath, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: TreeNode[], mainline: TreeNode[], ply: number): TreeNode[];
-  merge(tree: TreeNode): void;
+  merge<T extends TreeNodeLite>(tree: T): void;
   removeCeval(): void;
   parentNode(path: TreePath): TreeNode;
   getParentClock(node: TreeNode, path: TreePath): Clock | undefined;
@@ -239,7 +239,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
       return updateAt(path, node => (node.forceVariation = force));
     },
     getCurrentNodesAfterPly,
-    merge: (tree: TreeNode) => ops.merge(root, tree),
+    merge: <T extends TreeNodeLite>(tree: T) => ops.merge(root, tree),
     removeCeval: () =>
       ops.updateAll(root, function (n) {
         delete n.ceval;

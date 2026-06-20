@@ -29,6 +29,12 @@
   <string name="pendingReview">Ваш стрым разглядаецца мадэратарамі.</string>
   <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Калі будзіце гатовы быць адлюстраваным як стрымер Lichess, %s</string>
+  <string name="submitForReview">Адправіць на перагляд</string>
+  <string name="streamerLanguageSettings">Старонка стрымера Lichess арыентуецца на вашу аўдыторыю з дапамогай мовы, прадстаўленай вашай стрымінгавай платформай. Выберыце сапраўдную мову для вашых шахматных трансляцый у дадатку або сэрвісе, які вы выкарыстоўваеце для трансляцый.</string>
+  <string name="pleaseAllow">Калі ласка, пачакайце 72 гадзіны перад тым, як сцвердзяць вашу інфармацыю ды значок стрымера.</string>
+  <string name="chooseYoutubeChannel">Выберыце YouTube канал, якім вы будзеце карыстацца ў Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Далучыцца</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Адключыцца</string>
   <string name="streamerName">Ваша стрымерскае імя на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сцісла: максімальна %s сімвал</item>

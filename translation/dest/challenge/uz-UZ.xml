@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">%1$s ta chorlov</string>
-  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">Chorlash</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">Oʻyinga chaqirish</string>
   <string name="challengeDeclined">Chorlov rad etildi.</string>
   <string name="challengeAccepted">Chorlov qabul qilindi!</string>
   <string name="challengeCanceled">Chorlov bekor qilindi.</string>
-  <string name="registerToSendChallenges">Ushbu foydalanuvchini oʻyinga chorlash uchun, iltimos, roʻyxatdan oʻting.</string>
-  <string name="youCannotChallengeX">Siz %s ni chorlay olmaysiz.</string>
+  <string name="registerToSendChallenges">Ushbu foydalanuvchini oʻyinga chaqirish uchun roʻyxatdan oʻting.</string>
+  <string name="youCannotChallengeX">Siz %sʼni oʻyinga chaqira olmaysiz.</string>
   <string name="xDoesNotAcceptChallenges">%s chorlovlarni qabul qilmaydi.</string>
   <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s reytingidan ancha farq qiladi.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s reyting hali aniqlanmaganligi sababli chorlab boʻlmaydi.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s reyting hali aniqlanmaganligi sababli oʻyinga chaqirib boʻlmaydi.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s faqat doʻstlardan chorlovni qabul qiladi.</string>
   <string name="declineGeneric">Ayni damda chorlovni qabul qila olmayman.</string>
   <string name="declineLater">Ayni dam men uchun qulay emas, iltimos keyinroq soʻrang.</string>
-  <string name="declineTooFast">Usbu vaqt boshqaruvi men uchun tezlik qiladi, iltimos sekinroq oʻynash uchun uzoqroq vaqt bilan chorlang.</string>
-  <string name="declineTooSlow">Ushbu vaqt boshqaruvi men uchun sekin hisoblanadi, iltimos tezroq oʻyin uchun qisqaroq vaqt bilan chorlang.</string>
+  <string name="declineTooFast">Usbu vaqt boshqaruvi men uchun tezlik qiladi, iltimos sekinroq oʻynash uchun uzoqroq vaqt bilan oʻyinga chaqiring.</string>
+  <string name="declineTooSlow">Ushbu vaqt boshqaruvi men uchun sekin, iltimos tezroq oʻyin uchun qisqaroq vaqt bilan oʻyinga chaqiring.</string>
   <string name="declineTimeControl">Men ushbu vaqt boshqaruvidagi chorlovni qabul qila olmayman.</string>
   <string name="declineRated">Iltimos menga reytingli chorlovni yuboring.</string>
   <string name="declineCasual">Iltimos menga reytingsiz bellashuv chorlovini joʻnating.</string>

@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">ดำทิ้งเกม</string>
   <string name="whiteDidntMove">ขาวไม่ได้เดิน</string>
   <string name="blackDidntMove">ดำไม่ได้เดิน</string>
+  <string name="whiteAborted">ฝ่ายขาวยกเลิกเกม</string>
+  <string name="blackAborted">ฝ่ายดำยกเลิกเกม</string>
   <string name="requestAComputerAnalysis">ขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -94,6 +96,8 @@
   <string name="database">ฐานข้อมูล</string>
   <string name="whiteDrawBlack">ขาวชนะ / เสมอ / ดำชนะ</string>
   <string name="averageRatingX">แต้มเฉลี่ยอยู่ที่ %s แต้ม</string>
+  <string name="minRatingX">ระดับคะแนนต่ำสุดที่ %s</string>
+  <string name="maxRatingX">ระดับคะแนนสูงสุดที่ %s</string>
   <string name="recentGames">เกมเมื่อเร็ว ๆ นี้</string>
   <string name="topGames">เกมเด่น</string>
   <string name="masterDbExplanation">เกม OTB สองล้านเกมโดยผู้เล่นที่มีแต้ม FIDE %1$s ขึ้นไปตั้งแต่ปี %2$s ถึงปี %3$s</string>
@@ -252,6 +256,7 @@
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
   <string name="checkSpamFolder">ตรวจสอบโฟลเดอร์สแปมของคุณด้วย มันอาจจะไปอยู่ที่นั่น หากเป็นเช่นนั้น ให้ทำเครื่องหมายว่าไม่ใช่สแปม</string>
+  <string name="sendEmailForAccountVerification">ถ้าคุณหาการยืนยันอีเมลของคุณไม่เจอ ให้ส่งอีเมลไปหา %s และพวกเราจะยืนยันบัญชีของคุณให้</string>
   <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
   <string name="accountConfirmationEmailNotNeeded">คุณไม่จำเป็นต้องมีอีเมลยืนยัน</string>
@@ -487,6 +492,7 @@
   <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
   <string name="endgamePositions">ตำแหน่งจบเกม</string>
   <string name="chess960StartPosition">ตำแหน่งเริ่มต้น Chess960: %s</string>
+  <string name="randomChess960Position">หมากรุกสุ่ม960 ตำแหน่ง</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
   <string name="loadPosition">โหลดตำแหน่ง</string>
@@ -562,7 +568,9 @@
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
   <string name="invalidAuthenticationCode">โค้ดยืนยันตัวตนไม่ถูกต้อง</string>
+  <string name="clearField">ล้างข้อมูล</string>
   <string name="orSeparator">หรือ</string>
+  <string name="logInByEmail">เข้าระบบโดยอีเมล</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -760,9 +768,14 @@
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="like">ถูกใจ</string>
+  <string name="liked">ถูกใจแล้ว</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="other">นิรนาม(%s)</item>
+  </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="allLanguages">ภาษาทั้งหมด</string>
@@ -892,6 +905,7 @@
   <string name="tryTheContactPage">ลงใช้หน้าการติดต่อ</string>
   <string name="makeSureToRead">ให้แน่ใจว่าอ่าน %1$s</string>
   <string name="theForumEtiquette">มารยาทในฟอรั่ม</string>
+  <string name="pleaseBeNiceInTheForum">กรุณาสนทนาอย่างสุภาพในกระทู้</string>
   <string name="thisTopicIsArchived">หัวข้อนี้ถูกจัดเก็บแล้ว และไม่สามารถตอบกลับได้อีกต่อไป</string>
   <string name="joinTheTeamXToPost">เข้าร่วม %1$s, เพื่อโพสต์ในห้องอภิปรายนี้</string>
   <string name="teamNamedX">ทีม %1$s</string>
