@@ -84,14 +84,15 @@ final class Study(
             )
           yield res
 
-  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
+  def byOwnerDefault(username: UserStr, page: Int, format: Option[StudyFormat] = None) =
+    byOwner(username, Orders.default, page, format)
 
-  def byOwner(username: UserStr, order: StudyOrder, page: Int) = Open:
+  def byOwner(username: UserStr, order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = Open:
     Found(meOrFetch(username)): owner =>
       for
         pag <- env.study.pager.byOwner(owner, order, page)
         _ <- preloadMembers(pag)
-        res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner)), apiStudies(pag))
+        res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner, format)), apiStudies(pag))
       yield res
 
   def mine = MyStudyPager(

@@ -28,14 +28,20 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, owner: User)(using Context) =
+  def byOwner(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      owner: User,
+      format: Option[StudyFormat] = None
+  )(using Context) =
     page(
       title = trs.studiesCreatedByX.txt(owner.titleUsername),
       active = StudyGroup.byOwner,
       order = order,
       pag = pag,
       searchFilter = s"owner:${owner.username}",
-      url = routes.Study.byOwner(owner.username, _)
+      url = routes.Study.byOwner(owner.username, _),
+      format = format
     )
 
   def mine(
@@ -159,7 +165,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       url: StudyOrder => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None,
-      format: Option[StudyFormat] = None
+      format: Option[StudyFormat]
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
