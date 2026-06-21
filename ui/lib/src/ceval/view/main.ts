@@ -20,11 +20,11 @@ import stepwiseScroll from '@/view/stepwiseScroll';
 
 import type { CevalCtrl } from '../ctrl';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
-import { renderEval } from '../util';
+import { renderEval, renderNodes } from '../util';
 import { povChances } from '../winningChances';
 import { renderCevalSettings } from './settings';
 
-type EvalInfo = { knps: number; npsText: string; depthText: string };
+type EvalInfo = { nodesText: string; depthText: string };
 
 function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.ceval,
@@ -45,42 +45,30 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
         hook: bind('click', ceval.goDeeper),
       }),
     );
-  const { depthText, npsText } = localInfo(ctrl, evs.client);
+  const { depthText, nodesText } = localInfo(ctrl, evs.client);
 
   t.push(depthText);
   if (evs.client.cloud && !ceval.isComputing)
     t.push(hl('span.cloud', { attrs: { title: i18n.site.cloudAnalysis } }, 'Cloud'));
   if (ceval.isInfinite) t.push(hl('span.infinite', { attrs: { title: i18n.site.infiniteAnalysis } }, '∞'));
-  if (npsText) t.push(' · ' + npsText);
+  if (nodesText) t.push(' · ' + nodesText);
   return t;
 }
 
 function threatInfo(ctrl: CevalHandler, threat?: LocalEval | false): string {
   const info = localInfo(ctrl, threat);
-  return info.depthText + (info.knps ? ' · ' + info.npsText : '');
+  return info.depthText + (info.nodesText ? ' · ' + info.nodesText : '');
 }
 
 function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   const info = {
-    npsText: '',
-    knps: 0,
+    nodesText: '',
     depthText: i18n.site.calculatingMoves,
   };
-
   if (!ev) return info;
-
   const ceval = ctrl.ceval;
   info.depthText = i18n.site.depthX(ev.depth || 0) + (ceval.isDeeper() || ceval.isInfinite ? '/99' : '');
-
-  if (!ceval.isComputing) return info;
-
-  const knps = ev.nodes / (ev?.millis ?? Number.POSITIVE_INFINITY);
-
-  if (knps > 0) {
-    info.npsText =
-      knps > 1000 ? (knps / 1000).toFixed(knps > 10000 ? 0 : 1) + ' Mn/s' : Math.round(knps) + ' kn/s';
-    info.knps = knps;
-  }
+  info.nodesText = renderNodes(ev.nodes);
   return info;
 }
 
