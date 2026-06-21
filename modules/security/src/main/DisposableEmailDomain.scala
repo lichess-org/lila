@@ -227,6 +227,7 @@ private object DisposableEmailDomain:
       "yahoo.de",
       /* Russian ISP domains */
       "mail.ru",
+      "internet.ru",
       "rambler.ru",
       "yandex.ru",
       "ya.ru",
