@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="whiteDidntMove">Biely nepotiahol</string>
   <string name="blackDidntMove">Čierny nepotiahol</string>
+  <string name="whiteAborted">Biely opustil partiu</string>
+  <string name="blackAborted">Čierny opustil partiu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
