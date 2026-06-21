@@ -12,16 +12,19 @@
 
   z-index: $z-cg__board_overlay-100;
   position: absolute;
-  top: 50%;
-
-  @include inline-start(50%);
-
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   display: block;
-  padding: 1.5em 3em;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
+  padding: clamp(0.75em, 10%, 1.5em) clamp(1.25em, 20%, 3em);
   text-decoration: none;
   font-size: 1.5em;
+  text-align: center;
   white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .lpv__pgn__text {
