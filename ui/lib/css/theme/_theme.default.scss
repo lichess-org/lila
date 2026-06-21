@@ -44,6 +44,7 @@ $c-dimmer: #000;
 $c-clearer: #fff;
 $c-mv-branch-white: #fff;
 $c-mv-branch-black: #000;
+$c-hover-overlay: rgba(0, 0, 0, 0.15); // Adaptive hover overlay for elements over variable backgrounds
 $patron-colors: $patron-colors-dark;
 
 // shared-color-defs lists theme colors that share definitions. the assigned values usually depend on
@@ -95,6 +96,7 @@ $patron-colors: $patron-colors-dark;
   --c-secondary: #{$c-secondary};
   --c-secondary-dim: #{dim($c-secondary, 20%)};
   --c-secondary-dimmer: #{dim($c-secondary, 40%)};
+  --c-hover-overlay: #{$c-hover-overlay};
   --c-accent: #{$c-accent};
   --c-link: #{$c-primary};
   --c-link-dim: var(--c-primary-dim);
