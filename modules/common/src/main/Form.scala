@@ -262,12 +262,15 @@ object Form:
     val field: Mapping[ZoneId] = of[ZoneId]
 
   object username:
-    val historicalConstraints = Seq(
-      Constraints.minLength(2),
-      Constraints.maxLength(30),
-      Constraints.pattern(regex = UserName.historicalRegex)
-    )
-    val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+    val historicalUsernameConstraint = V.Constraint[String]: t =>
+      if !t.linesIterator.exists(_.stripLineEnd.exists(!_.isWhitespace)) then
+        V.Invalid(V.ValidationError("error.required"))
+      else if t.length < 2 then V.Invalid(V.ValidationError("error.minLength", 2))
+      else if t.length > 30 then V.Invalid(V.ValidationError("error.maxLength", 30))
+      else if !UserName.historicalRegex.matches(t) then
+        V.Invalid(V.ValidationError("usernameCharsInvalid"))
+      else V.Valid
+    val historicalField = trim(text).verifying(historicalUsernameConstraint).into[UserStr]
 
   object playerTitle:
     import chess.PlayerTitle
