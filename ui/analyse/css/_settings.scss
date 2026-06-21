@@ -138,7 +138,7 @@
   img,
   video {
     border: 1px solid $c-border;
-    border-radius: 8px;
+    border-radius: 6px;
     max-width: 248px;
     max-height: 248px;
     min-width: 0;
@@ -146,7 +146,11 @@
   }
 }
 
+.help-pane {
+  max-height: 300px;
+}
+
 .popup {
   background: $c-bg-zebra2;
-  border-radius: 8px;
+  border-radius: 6px;
 }
