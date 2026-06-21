@@ -721,6 +721,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>
   <string name="simulHostExtraTime">Sinultaani korraldaja lisaaeg</string>
+  <string name="simulAddExtraTimePerPlayer">Lisa aega oma kellale iga simultaaniga liituva mängija kohta.</string>
+  <string name="simulHostExtraTimePerPlayer">Mängija kohta lisaaeg</string>
   <string name="lichessTournaments">Lichessi turniirid</string>
   <string name="tournamentFAQ">Areeni turniiride KKK</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
@@ -729,8 +731,18 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyboardShortcuts">Kiirklahvid</string>
   <string name="keyMoveBackwardOrForward">liigu tagasi/edasi</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
+  <string name="keyCycleSelectedVariation">Valitud variatsiooni tsükkel</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
+  <string name="keyPreviousBranch">Eelmine haru</string>
+  <string name="keyNextBranch">Järgmine haru</string>
+  <string name="toggleVariationArrows">Variatsiooninoolte lülitus</string>
+  <string name="cyclePreviousOrNextVariation">Eelmise/järgmise variatsiooni kordus</string>
+  <string name="toggleGlyphAnnotations">Käigu märkuste lülitus</string>
+  <string name="togglePositionAnnotations">Seisu märkuste lülitus</string>
+  <string name="toggleObservationAnnotations">Vaatlusmärkuste lülitus</string>
+  <string name="variationArrowsInfo">Variatsiooninooled võimaldavad liikuda ilma käikude loendit kasutamata.</string>
+  <string name="playSelectedMove">valitud käigu tegemine</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
@@ -746,6 +758,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled parem kui %1$s %2$s mängijatest.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parem kui %2$s %3$s mängijatest.</string>
+  <string name="betterThanPercentPlayers">Parem kui %1$s %2$s mängijatest</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel usaldusväärset %s reitingut.</string>
   <string name="yourRating">Sinu reiting</string>
   <string name="cumulative">Kumulatiivne</string>
@@ -753,6 +766,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="checkYourEmail">Kontrolli oma e-posti</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Saatsime sulle e-maili. Konto aktiveerimiseks kliki e-mailis olevale lingile.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-maili, vaata ka teised kohad üle nagu rämpspost ja muud kaustad.</string>
+  <string name="ifYouDoNotGetTheEmail">Kui sa ei saa e-kirja 5 minuti jooksul:</string>
+  <string name="checkAllEmailFolders">Vaata üle kõik prügi, rämpsu ja muud kaustad</string>
+  <string name="verifyYourAddress">Kinnita, et %s on sinu e-posti aadress</string>
   <string name="weHaveSentYouAnEmailTo">Saatsime e-maili %s. Parooli uuendamiseks kliki e-mailis olevale lingile.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute %s.</string>
   <string name="readAboutOur">Lugege rohkem: %s.</string>
@@ -761,6 +777,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="downloadAnnotated">Lae alla kommentaaridega</string>
   <string name="downloadRaw">Lae alla kommentaarideta</string>
   <string name="downloadImported">Lae imporditud PNG</string>
+  <string name="downloadAllGames">Lae alla kõik mängud</string>
   <string name="crosstable">Skoor</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võid kerida käike laua peal hiirega skrollides.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Vii hiir arvutivariandi kohale, et saada eelvaade.</string>
