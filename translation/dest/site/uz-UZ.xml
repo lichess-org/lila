@@ -808,7 +808,7 @@
   </plurals>
   <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
-  <string name="xLikesY">%1$sʼga %2$s yoqdi</string>
+  <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
   <string name="liked">Yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
