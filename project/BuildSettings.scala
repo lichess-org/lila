@@ -1,15 +1,19 @@
-import play.sbt.PlayImport._
-import sbt._, Keys._
+import sbt.*, Keys.*
 
-object BuildSettings {
+object BuildSettings:
 
-  import Dependencies._
+  import Dependencies.*
 
   val lilaVersion = "4.0"
   val globalScalaVersion = "3.8.4"
 
   def buildSettings =
-    Defaults.coreDefaultSettings ++ Seq(
+    // NB: do NOT prepend Defaults.coreDefaultSettings here. Under sbt 2.0 those base settings are
+    // already applied to every project automatically, and re-adding them forces the legacy flat
+    // `target` layout (crossTarget = <proj>/target) instead of sbt 2.0's `target/out/...`. That
+    // legacy layout places compile/package outputs outside the cache root, so sbt 2.0 floods the
+    // log with "Cannot cache task because its output files are outside the output directory".
+    Seq(
       resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
@@ -37,7 +41,7 @@ object BuildSettings {
       libs: Seq[ModuleID]
   ) =
     Project(name, file("modules/" + name))
-      .dependsOn(deps: _*)
+      .dependsOn(deps*)
       .settings(
         libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
@@ -68,4 +72,3 @@ object BuildSettings {
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
-}
