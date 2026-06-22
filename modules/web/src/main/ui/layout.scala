@@ -92,11 +92,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val favicons = raw:
     List(512, 256, 192, 128, 64)
       .map: px =>
-        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
+        s"""<link rel="alternate icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
       .mkString(
         "",
         "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
+        s"""<link rel="alternate icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">""" +
+          s"""<link id="favicon" rel="icon" type="image/svg+xml" href="$assetBaseUrl/assets/logo/lichess-favicon.svg">"""
       )
   def blindModeForm(using ctx: Context) = raw:
     val btnText =
