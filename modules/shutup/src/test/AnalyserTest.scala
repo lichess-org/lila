@@ -13,8 +13,8 @@ class AnalyserTest extends munit.FunSuite:
   test("critical"):
     assert(grave("gets cancer"))
     assert(grave("kys"))
+    assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
-    assert(grave("murder you"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))
@@ -45,7 +45,8 @@ class AnalyserTest extends munit.FunSuite:
       Nil
     )
     assertEquals(find("computer analysis"), Nil)
-    assertEquals(find("press f for respects"), Nil)
+    assertEquals(find("hangi"), Nil)
+    assertEquals(find("Epstein Trump criminal heretic murderer felon traitor liar"), Nil)
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
@@ -67,6 +68,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("I think you suck"), List("you suck"))
     assertEquals(find("you should suck my"), List("suck my"))
     assertEquals(find("neck your mom"), List("neck your mom"))
+    assertEquals(find("murder you"), List("murder you"))
 
   test("50 shades of fuck"):
     assertEquals(

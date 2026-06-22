@@ -75,6 +75,8 @@
   <string name="pillsburysMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec obmedzuje jeho pohyb.</string>
   <string name="morphysMate">Morphyho mat</string>
   <string name="morphysMateDescription">Strelec dáva kráľovi mat, zatiaľ čo veža obmedzuje jeho pohyb.</string>
+  <string name="swallowstailMate">Mat lastovičí chvost</string>
+  <string name="swallowstailMateDescription">Šachmatový vzor, ktorý vizuálne pripomína tvar lastovičieho chvosta, podobný písmenu V.</string>
   <string name="triangleMate">Trojuholníkový mat</string>
   <string name="triangleMateDescription">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
   <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovičov mat</string>
