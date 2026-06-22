@@ -782,6 +782,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võid kerida käike laua peal hiirega skrollides.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Vii hiir arvutivariandi kohale, et saada eelvaade.</string>
   <string name="analysisShapesHowTo">Vajuta shift + click või paremat hiirenuppu, et joonistada lauale ringe ja nooli.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl või Shift = punane; Command, Alt või Meta = sinine; klahv kummastki rühmast = kollane.</string>
   <string name="letOtherPlayersMessageYou">Luba teistel mängijatel saata sulle sõnumeid</string>
   <string name="receiveForumNotifications">Saa teateid, kui sind foorumis mainitakse</string>
   <string name="shareYourInsightsData">Jaga oma Chess Insights andmeid</string>
@@ -789,6 +790,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="withFriends">Sõpradega</string>
   <string name="withEverybody">Kõigiga</string>
   <string name="kidMode">Lapserežiim</string>
+  <string name="kidModeIsEnabled">Lasterežiim on lubatud.</string>
   <string name="kidModeExplanation">See on seotud turvalisusega. Lapserežiimis igasugune suhtlemine sellel lehel on välja lülitatud. Aktiveerige see režiim, et kaitsta lapsi ja kooliõpilasi teiste kasutajate eest.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Lapserežiimis Lichessi logole lisandub %s ikoon, mis tähendab, et lapserežiim on aktiveeritud.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Sinu konto on valve all. Küsi maleõpetajalt valve eemaldamist.</string>
@@ -800,6 +802,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
   <string name="everybodyGetsAllFeaturesForFree">Kõik funktsioonid on kõigile tasuta</string>
   <string name="viewTheSolution">Vaata lahendust</string>
+  <string name="noChallenges">Väljakutsed puuduvad.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saadaval %s keeles!</item>
     <item quantity="other">Saadaval %s keeles!</item>
@@ -807,6 +810,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xHostsY">%1$s korraldab %2$s</string>
   <string name="xJoinsY">%1$s liitus %2$s</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
+  <string name="like">Meeldib</string>
+  <string name="liked">Märgitud meeldivaks</string>
   <string name="quickPairing">Kiirelt mängu</string>
   <string name="lobby">Ooteruum</string>
   <string name="anonymous">Anonüümne</string>
