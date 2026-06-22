@@ -52,6 +52,7 @@
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ale ostane web stránky áno, preto si prosím %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">dávajte pozor</string>
 	<string name="thanksTitle">Ďakujeme že hráte na Lichessi!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Tento rok boli %1$s stránky Lichess %2$s.</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">výdavky</string>
 	<string name="patronCharity">Sme charita, ktorá beží len na daroch.</string>
 	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Pokiaľ sme vás tento rok zabavili alebo veríte v našu prácu, prosím zvážte %s!</string>
