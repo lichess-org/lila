@@ -510,6 +510,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(treePath.root);
     this.initCeval();
     this.instanciateEvalCache();
+    this.startCeval();
     this.cgVersion.js++;
     this.mergeIdbThenShowTreeView();
   }
