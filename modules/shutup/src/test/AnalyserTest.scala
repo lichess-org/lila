@@ -45,7 +45,7 @@ class AnalyserTest extends munit.FunSuite:
       Nil
     )
     assertEquals(find("computer analysis"), Nil)
-    assertEquals(find("press f for respects"), Nil)
+    assertEquals(find("hangi"), Nil)
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
