@@ -108,6 +108,7 @@ function help() {
     css: [{ hashed: 'cli.help' }],
     class: 'clinput-help',
     modal: true,
+    easyClose: 'clickOutside',
     show: true,
     htmlText:
       '<div><h3>Commands</h3>' +

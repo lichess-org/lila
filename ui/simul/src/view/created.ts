@@ -44,6 +44,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               domDialog({
                                 cash: $('.simul .continue-with'),
                                 modal: true,
+                                easyClose: 'clickOutside',
                               }).then(dlg => {
                                 $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
                                   xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);

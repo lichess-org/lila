@@ -159,6 +159,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     domDialog({
       modal: true,
       show: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

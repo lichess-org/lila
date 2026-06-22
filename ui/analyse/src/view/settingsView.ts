@@ -98,6 +98,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
     htmlText: '<h2>Analysis settings</h2>',
     append: [{ node: settingsView(ctrl.settings) }],
     modal: !isTouchDevice(),
+    easyClose: 'clickOutside',
     show: true,
     actions: [
       { selector: '.show-all', result: 'showKeyboardShortcuts' },
@@ -157,7 +158,7 @@ function setupTouchHelp(view: HTMLElement) {
     const htmlText = settings[key].helpHtml;
 
     el.addEventListener('click', () =>
-      domDialog({ htmlText, class: 'popup', noCloseButton: true, show: true }),
+      domDialog({ htmlText, class: 'popup', noCloseButton: true, show: true, easyClose: 'anyClick' }),
     );
   });
 }
@@ -200,6 +201,7 @@ function setupHoverHelp(view: HTMLElement) {
     domDialog({
       class: 'help.keyboard-help',
       htmlUrl: '/analysis/help',
+      easyClose: 'clickOutside',
       modal: true,
       show: true,
     }),
@@ -210,9 +212,9 @@ function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
   const label =
     settings[key].helpHtml && isTouchDevice()
       ? `<button class="help-button" data-key="${key}" data-icon="${licon.InfoCircle}">${settings[key].label}</button>`
-      : settings[key].label;
+      : `<span class="hover-help" data-key="${key}">${settings[key].label}</span>`;
   return $html`
-    <span data-key="${key}" class="setting hover-help">
+    <span class="setting">
       ${label}
       <span class="form-check__input">
         <input data-key="${key}" id="${key}" type="checkbox" ${ctrl[key] ? 'checked' : ''}>

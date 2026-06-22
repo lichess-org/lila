@@ -29,12 +29,12 @@ export interface DialogOpts {
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action | Action[]; // add listeners to controls, call updateActions() to reattach
+  onShow?: (dialog: Dialog) => void; // called after dialog is shown
   onClose?: (dialog: Dialog) => void; // always called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
-  noClickAway?: boolean; // if true, no click-away-to-close
-  noKeyCapture?: boolean; // if true, key events will propagate except for tab, enter, and escape
   noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
   modal?: boolean; // if true, show as modal (darken everything else)
+  easyClose?: 'anyClick' | 'clickOutside';
 }
 
 // show is an explicit property for domDialog.
@@ -86,12 +86,12 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   (o.parent ?? document.body).appendChild(dialog);
 
-  const wrapper = new DialogWrapper(dialog, view, o, false);
+  const wrapper = new DialogWrapper(dialog, view, o);
   return o.show ? wrapper.show() : wrapper;
 }
 
 export function snabDialog(o: SnabDialogOpts): VNode {
-  const ass = loadAssets(o);
+  const assets = loadAssets(o);
   let dialog: HTMLDialogElement;
 
   const dialogVNode = hl(
@@ -121,9 +121,9 @@ export function snabDialog(o: SnabDialogOpts): VNode {
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
-              const [html] = await ass;
+              const [html] = await assets;
               if (!o.vnodes && html) view.innerHTML = html;
-              const dlg = new DialogWrapper(dialog, view, o, true);
+              const dlg = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(dlg);
               else dlg.show();
             }),
@@ -136,6 +136,42 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   if (!o.modal) return dialogVNode;
   return hl('div.snab-modal-mask' + (o.onInsert ? '.none' : ''), dialogVNode);
 }
+
+const easyCloseHandler = new (class {
+  private stack: DialogWrapper[] = [];
+
+  push(dlg: DialogWrapper) {
+    if (!dlg.o.easyClose) return;
+    if (this.stack.length === 0)
+      document.addEventListener('pointerdown', this.pointerdown, { capture: true });
+    this.stack.push(dlg);
+  }
+
+  remove(dlg: DialogWrapper): void {
+    this.stack = this.stack.filter(d => d !== dlg);
+    if (this.stack.length === 0)
+      document.removeEventListener('pointerdown', this.pointerdown, { capture: true });
+  }
+
+  private readonly pointerdown = (e: PointerEvent) => {
+    if (!this.top?.o.easyClose) return;
+
+    if (this.top.o.easyClose === 'clickOutside') {
+      const { clientX: x, clientY: y } = e;
+      const bounds = this.top.dialog.getBoundingClientRect();
+      if (x >= bounds.left && x <= bounds.right && y >= bounds.top && y <= bounds.bottom) return;
+    }
+    this.top.close('cancel');
+
+    e.stopPropagation();
+    if (!this.top.o.modal)
+      document.addEventListener('click', e => e.stopPropagation(), { once: true, capture: true });
+  };
+
+  private get top(): DialogWrapper | undefined {
+    return this.stack[this.stack.length - 1];
+  }
+})();
 
 class DialogWrapper implements Dialog {
   private readonly dialogEvents = new Janitor();
@@ -160,21 +196,13 @@ class DialogWrapper implements Dialog {
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
     readonly o: DialogOpts,
-    readonly isSnab: boolean,
   ) {
-    const maybeCancel = (e: PointerEvent) => {
-      if (!this.dialog.isConnected) console.trace('zombie dialog! snab clients should call close()');
-      const r = dialog.getBoundingClientRect();
-      // dialog.contains is not right here because a modal dialog is still the target of outside clicks
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
-        this.close('cancel');
-    };
     this.observer.observe(document.body, { childList: true, subtree: true });
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
     this.dialogEvents.addListener(dialog, 'cancel', e => {
-      if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
-      if (!this.returnValue) this.returnValue = 'cancel';
+      if (!o.easyClose && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
+      if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
     if (!o.noCloseButton)
@@ -183,11 +211,6 @@ class DialogWrapper implements Dialog {
         'click',
         () => this.close('cancel'),
       );
-    if (!o.noClickAway)
-      setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'pointerdown', maybeCancel);
-        this.dialogEvents.addListener(dialog, 'pointerdown', maybeCancel);
-      }, 200);
     for (const app of o.append ?? []) {
       if (app.node === view) break;
       const where = (app.where ? view.querySelector(app.where) : view)!;
@@ -199,29 +222,24 @@ class DialogWrapper implements Dialog {
     this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
   }
 
-  get open(): boolean {
-    return this.dialog.open;
-  }
-
   get returnValue(): string {
     return this.dialog.returnValue;
   }
 
-  set returnValue(v: string) {
-    this.dialog.returnValue = v;
-  }
-
   show = async (): Promise<Dialog> => {
     (await pubsub.after('polyfill.dialog'))?.(this.dialog);
-
+    const snabModal = this.dialog.parentElement === this.dialog.closest('.snab-modal-mask');
     if (this.o.modal) this.view.scrollTop = 0;
-    if (this.isSnab) {
-      if (this.dialog.parentElement === this.dialog.closest('.snab-modal-mask'))
-        this.dialog.parentElement?.classList.remove('none');
-      this.dialog.show();
-    } else if (this.o.modal) this.dialog.showModal();
+    if (snabModal) this.dialog.parentElement?.classList.remove('none');
+
+    if (this.o.modal && !snabModal) this.dialog.showModal();
     else this.dialog.show();
+
+    easyCloseHandler.push(this);
+    this.dialogEvents.addCleanupTask(() => easyCloseHandler.remove(this));
+
     this.autoFocus();
+    this.o.onShow?.(this);
     return new Promise(resolve => (this.resolve = resolve));
   };
 
@@ -244,7 +262,7 @@ class DialogWrapper implements Dialog {
   };
 
   private readonly onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
+    if (e.key === 'Escape' && (this.o.easyClose || !this.o.noCloseButton)) {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
@@ -267,7 +285,7 @@ class DialogWrapper implements Dialog {
       else return;
       e.preventDefault();
     }
-    if (['Escape', 'Enter', 'Tab'].includes(e.key) || !this.o.noKeyCapture) e.stopPropagation();
+    if (['Escape', 'Enter', 'Tab'].includes(e.key)) e.stopPropagation();
   };
 
   private autoFocus() {
@@ -296,7 +314,7 @@ class DialogWrapper implements Dialog {
   };
 }
 
-function loadAssets(o: DialogOpts) {
+async function loadAssets(o: DialogOpts) {
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)

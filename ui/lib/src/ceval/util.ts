@@ -48,6 +48,7 @@ export function showEngineError(engine: string, error: string): void {
   domDialog({
     class: 'engine-error',
     modal: true,
+    easyClose: 'clickOutside',
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')

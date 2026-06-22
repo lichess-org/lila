@@ -136,7 +136,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             hook: bind('click', () =>
-              domDialog({ cash: $('.continue-with.g_' + d.game.id), modal: true, show: true }),
+              domDialog({
+                cash: $('.continue-with.g_' + d.game.id),
+                modal: true,
+                show: true,
+                easyClose: 'clickOutside',
+              }),
             ),
             attrs: dataIcon(licon.Swords),
           },

@@ -105,6 +105,7 @@ export const view = (ctrl: AnalyseCtrl): VNode =>
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     modal: true,
+    easyClose: 'clickOutside',
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

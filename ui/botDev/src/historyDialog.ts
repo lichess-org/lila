@@ -44,7 +44,7 @@ class HistoryDialog {
     await this.updateHistory();
     this.dlg = await domDialog({
       append: [{ node: this.view }],
-      onClose: () => {},
+      easyClose: 'clickOutside',
       actions: [
         { selector: '[data-action="pull"]', listener: this.pull },
         { selector: '[data-action="push"]', listener: this.push },

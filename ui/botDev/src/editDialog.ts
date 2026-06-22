@@ -62,8 +62,8 @@ export class EditDialog {
     this.dlg = await domDialog({
       append: [{ node: this.view }],
       actions: this.actions,
-      noClickAway: true,
       onClose: () => this.janitor.cleanup(),
+      onShow: () => this.deck.resize(),
     });
     pubsub.on('botdev.import.book', this.onBookImported);
     this.janitor.addCleanupTask(() => pubsub.off('botdev.import.book', this.onBookImported));
@@ -234,6 +234,7 @@ export class EditDialog {
       ],
       focus: 'input',
       modal: true,
+      easyClose: 'clickOutside',
       actions: [
         {
           selector: 'input',
@@ -289,7 +290,7 @@ export class EditDialog {
       </div>`);
     const dlg = await domDialog({
       append: [{ node: view }],
-      onClose: () => {},
+      easyClose: 'clickOutside',
       show: true,
       actions: [
         { selector: '[data-action="cancel"]', result: 'cancel' },
@@ -315,7 +316,7 @@ export class EditDialog {
       </div>`);
     const dlg = await domDialog({
       append: [{ node: view }],
-      onClose: () => {},
+      easyClose: 'clickOutside',
       show: true,
       actions: [
         { selector: '[data-action="cancel"]', result: 'cancel' },
