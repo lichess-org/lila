@@ -3,6 +3,10 @@
 @import 'announcement';
 
 .relay-calendar {
+  .page-menu__content {
+    overflow: visible;
+  }
+
   .relay-card {
     &--tier-3 {
       .relay-card__title {

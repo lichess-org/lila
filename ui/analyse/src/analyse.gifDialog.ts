@@ -63,6 +63,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
     class: 'gif-export',
     modal: true,
     show: true,
+    easyClose: 'clickOutside',
     htmlText: `
       <div class="gif-export-dialog">
         <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>

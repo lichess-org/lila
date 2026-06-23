@@ -41,7 +41,7 @@ export const jsonSimple = (url: string, init: RequestInit = {}): Promise<any> =>
   }).then(res => ensureOk(res).then(r => r.json()));
 
 /* fetch a JSON value */
-export const json = (url: string, init: RequestInit = {}): Promise<any> =>
+export const json = <A = any>(url: string, init: RequestInit = {}): Promise<A> =>
   jsonAnyResponse(url, init).then(res => ensureOk(res).then(r => r.json()));
 
 export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>

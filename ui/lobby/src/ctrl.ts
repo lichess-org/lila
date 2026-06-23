@@ -286,8 +286,9 @@ export default class LobbyController {
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
-      xhr.nowPlaying().then(povs => {
-        this.data.nowPlaying = povs;
+      xhr.nowPlaying().then(res => {
+        this.data.nowPlaying = res.nowPlaying;
+        this.data.nbMyTurn = res.nbMyTurn;
         this.startWatching();
         this.redraw();
       });

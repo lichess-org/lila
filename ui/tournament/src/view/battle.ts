@@ -16,6 +16,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   return snabDialog({
     class: 'team-battle__choice',
     modal: true,
+    easyClose: 'clickOutside',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);

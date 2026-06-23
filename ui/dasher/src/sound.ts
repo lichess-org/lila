@@ -91,6 +91,7 @@ export class SoundCtrl extends PaneCtrl {
         this.redraw();
       },
       modal: true,
+      easyClose: 'clickOutside',
       vnodes: [content],
       onInsert: dlg => {
         dlg.show();

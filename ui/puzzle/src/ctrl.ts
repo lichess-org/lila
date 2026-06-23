@@ -252,7 +252,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.initialPath = initialPath;
     this.initialNode = this.tree.nodeAtPath(initialPath);
     this.pov = plyColor(this.initialNode.ply);
-    this.isDaily = location.href.endsWith('/daily');
+    this.isDaily = !!this.data.isDaily;
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
     this.report = new Report();

@@ -317,13 +317,7 @@ function roundRobin() {
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
-          env.dev.run(
-            {
-              type: 'roundRobin',
-              players: participants,
-            },
-            isNaN(iterations) ? 1 : iterations,
-          );
+          env.dev.run({ type: 'roundRobin', players: participants }, isNaN(iterations) ? 1 : iterations);
           dlg.close();
         },
       },
@@ -338,6 +332,7 @@ function roundRobin() {
       },
     ],
     show: true,
+    easyClose: 'clickOutside',
     modal: true,
   });
 }

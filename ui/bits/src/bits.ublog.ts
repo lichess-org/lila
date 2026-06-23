@@ -68,6 +68,7 @@ async function showModBlogSubmitDlg(e: Event) {
     class: 'ublog-mod-note-dlg',
     modal: true,
     show: true,
+    easyClose: 'clickOutside',
     actions: [
       { selector: '.cancel', result: 'cancel' },
       {

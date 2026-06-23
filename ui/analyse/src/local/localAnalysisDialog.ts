@@ -75,7 +75,6 @@ class LocalAnalysisDialog {
         </span>`,
       modal: true,
       onClose: this.onClose,
-      noClickAway: true,
       actions: [
         { selector: '.preset-tabs', listener: this.clickPreset },
         { selector: '.ok-btn', result: 'ok' },

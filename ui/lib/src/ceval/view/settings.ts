@@ -231,6 +231,7 @@ function engineInfo(engines: EngineInfo[]) {
     `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
     class: 'engine-info-popup',
+    easyClose: 'clickOutside',
     htmlText: $html`
       <div>
         <p>Engines from strongest to weakest</p>

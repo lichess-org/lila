@@ -11,7 +11,6 @@ export async function alert(msg: string): Promise<void> {
     class: 'alert',
     modal: true,
     noCloseButton: true,
-    noClickAway: true,
     show: true,
     actions: { selector: 'button', result: 'ok' },
   });
@@ -25,6 +24,7 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
+    easyClose: 'anyClick',
   });
   if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();
@@ -42,7 +42,6 @@ export async function confirm(
       <button class="button ok">${ok}</button></span>`,
     class: 'alert',
     noCloseButton: true,
-    noClickAway: true,
     modal: true,
     show: true,
     focus: '.ok',
@@ -69,7 +68,6 @@ export async function prompt(
       </span>`,
     class: 'alert',
     noCloseButton: true,
-    noClickAway: true,
     modal: true,
     show: true,
     focus: 'input',
@@ -133,7 +131,6 @@ export async function choose(
       </span>`,
     class: 'alert',
     noCloseButton: mustChoose,
-    noClickAway: true,
     modal: true,
     show: true,
     actions: [

@@ -1045,4 +1045,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="enPassant">En passant rights</string>
   <string name="requestAServerAnalysis">Request a server analysis</string>
   <string name="deviceLocalAnalysis">Device local analysis</string>
+  <string name="settings">Settings</string>
 </resources>

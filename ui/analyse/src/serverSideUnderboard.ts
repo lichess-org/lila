@@ -131,7 +131,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       // ensure the analysis tab remains visible, if it was only displayed to render the request button
-      ctrl.showStaticAnalysis(true);
+      ctrl.settings.set('showStaticAnalysis', true);
       ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
@@ -162,6 +162,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     domDialog({
       modal: true,
       show: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

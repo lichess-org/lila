@@ -60,6 +60,7 @@ export function definedUnique<T>(items: (T | undefined)[]): T[] {
   return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
+// Comparison of enumerable primitives. Complex properties get reference equality only.
 export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;

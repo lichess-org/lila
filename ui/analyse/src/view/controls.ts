@@ -190,6 +190,7 @@ function scrubHelp(ctrl: AnalyseCtrl) {
       </p>
       <button class="button">${i18n.site.ok}</button>`,
     actions: [{ selector: 'button', result: 'ok' }],
+    easyClose: 'clickOutside',
     noCloseButton: true,
     show: true,
   }).then(dlg => {
