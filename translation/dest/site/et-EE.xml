@@ -443,7 +443,7 @@
   <string name="moveAnnotations">Käikude märkused</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
-  <string name="orUploadPgnFile">Või lae üles PGN fail</string>
+  <string name="orUploadPgnFile">Või lae üles PGN-fail</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="toStudy">Uuri</string>
   <string name="importGame">Impordi mäng</string>
