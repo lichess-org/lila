@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">通知铃声</string>
   <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">在移动设备上左侧显示</string>
+  <string name="inlineNotation">紧凑棋谱</string>
+  <string name="showServerAnalysis">显示服务器分析</string>
+  <string name="showBestMoveArrows">显示最佳着法箭头</string>
+  <string name="showManeuverArrows">显示战术组合箭头</string>
+  <string name="showGauge">显示局面评估</string>
+  <string name="showMoveAnnotationsOnBoard">显示着法评注</string>
+  <string name="showVariationArrows">显示变着指示</string>
+  <string name="showLiveGlyphs">实时引擎评注</string>
+  <string name="showUndefendedPieces">显示无保护的棋子</string>
+  <string name="showPinnedPieces">显示被牵制的棋子</string>
+  <string name="showCheckableKing">显示可将军的王</string>
+  <string name="disclosureMode">启用变着隐藏</string>
+  <string name="generalSettings">常规</string>
+  <string name="moveListSettings">着法列表</string>
+  <string name="boardSettings">棋盘</string>
+  <string name="analysisSettings">分析设置</string>
+  <string name="maneuverArrowsHelp">单个棋子的引擎着法序列</string>
 </resources>
