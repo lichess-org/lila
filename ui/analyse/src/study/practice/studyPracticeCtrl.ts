@@ -14,6 +14,7 @@ export default class StudyPracticeCtrl {
   // null = ongoing, true = win, false = fail
   success = prop<boolean | null>(null);
   autoNext = storedBooleanProp('analyse.practice-auto-next', true);
+  private readonly povColor = () => this.root.practice?.povColor() ?? this.root.bottomColor();
 
   constructor(
     readonly root: AnalyseCtrl,
@@ -39,7 +40,7 @@ export default class StudyPracticeCtrl {
 
   computeNbMoves = (): number => {
     let plies = this.root.node.ply - this.root.tree.root.ply;
-    if (this.root.practicePovColor() !== this.root.data.player.color) plies--;
+    if (this.povColor() !== this.root.data.player.color) plies--;
     return Math.ceil(plies / 2);
   };
 
@@ -95,7 +96,6 @@ export default class StudyPracticeCtrl {
     this.root.practice!.resume();
   };
   customCeval = { search: () => ({ by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }) };
-  isWhite = () => this.root.practicePovColor() === 'white';
-  analysisUrl = () =>
-    `/analysis/standard/${this.root.node.fen.replace(/ /g, '_')}?color=${this.root.practicePovColor()}`;
+  isWhite = () => this.povColor() === 'white';
+  analysisUrl = () => `/analysis/standard/${this.root.node.fen.replace(/ /g, '_')}?color=${this.povColor()}`;
 }

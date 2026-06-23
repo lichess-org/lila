@@ -47,15 +47,14 @@ export interface PracticeCtrl {
   commentShape(enable: boolean): void;
   hint(): void;
   currentNode(): TreeNode;
-  bottomColor(): Color;
+  povColor(): Color;
   customCeval: CustomCeval;
   redraw: Redraw;
 }
 
 export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
-  const variant = root.data.game.variant.key,
-    running = prop(true),
+  const running = prop(true),
     comment = prop<Comment | null>(null),
     hovering = prop<{ uci: string } | null>(null),
     hinting = prop<Hinting | null>(null),
@@ -66,6 +65,16 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       e8a8: 'e8c8',
       e8h8: 'e8g8',
     };
+
+  const variantKey = () => root.data.game.variant.key;
+  const userGameColor = (): Color | undefined => {
+    if (root.opts.study || root.synthetic) return;
+    if (root.data.player.user?.id === root.opts.userId) return root.data.player.color;
+    if (root.data.opponent.user?.id === root.opts.userId) return root.data.opponent.color;
+    return undefined;
+  };
+  const povColor = (): Color =>
+    variantKey() === 'racingKings' ? (userGameColor() ?? root.bottomColor()) : root.bottomColor();
 
   function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
@@ -106,7 +115,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
-      const shift = -winningChances.povDiff(root.practicePovColor(), nodeEval, prevEval);
+      const shift = -winningChances.povDiff(povColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
@@ -139,7 +148,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     };
   }
 
-  const isMyTurn = (): boolean => root.turnColor() === root.practicePovColor();
+  const isMyTurn = (): boolean => root.turnColor() === povColor();
 
   function checkCeval() {
     const node = root.node;
@@ -147,7 +156,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       comment(null);
       return root.redraw();
     }
-    if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
+    if (tablebaseGuaranteed(variantKey(), node.fen) && !defined(node.tbhit)) return;
     if (isMyTurn()) {
       const h = hinting();
       if (h) {
@@ -179,7 +188,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
   }
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(variant, root.node.fen))
+    if (tablebaseGuaranteed(variantKey(), root.node.fen))
       root.explorer.fetchTablebaseHit(root.node.fen).then(
         hit => {
           if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
@@ -257,7 +266,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       root.setAutoShapes();
     },
     currentNode: () => root.node,
-    bottomColor: root.bottomColor,
+    povColor,
     redraw: root.redraw,
     customCeval: {
       search: () =>

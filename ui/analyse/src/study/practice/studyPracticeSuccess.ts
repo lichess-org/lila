@@ -37,8 +37,9 @@ const hasBlundered = (comment: Comment | null): boolean =>
 export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
   if (!node.uci) return null;
+  const povColor = root.practice?.povColor() ?? root.bottomColor();
   const outcome = node.outcome();
-  if (outcome?.winner) return outcome.winner === root.practicePovColor();
+  if (outcome?.winner) return outcome.winner === povColor;
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
@@ -50,18 +51,18 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (nbMoves >= goal.moves!) return isDrawish(node);
       break;
     case 'evalIn':
-      if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, root.practicePovColor());
+      if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, povColor);
       break;
     case 'mateIn': {
       if (nbMoves > goal.moves!) return false;
-      const mateIn = myMateIn(node, root.practicePovColor());
+      const mateIn = myMateIn(node, povColor);
       if (mateIn === null) return null;
       if (!mateIn || (mateIn as number) + nbMoves > goal.moves!) return false;
       break;
     }
     case 'promotion':
       if (!node.uci[4]) return null;
-      return isWinning(node, goal.cp!, root.practicePovColor());
+      return isWinning(node, goal.cp!, povColor);
     case 'mate':
       if (node.threefold) return false;
       if (isDrawish(node)) return false;

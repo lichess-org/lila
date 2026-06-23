@@ -50,7 +50,6 @@ import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import pgnImport from './pgnImport';
-import { practicePovColor as resolvePracticePovColor } from './practice/practiceColor';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { SettingsCtrl } from './settingsCtrl';
@@ -328,9 +327,6 @@ export default class AnalyseCtrl implements CevalHandler {
 
   bottomIsWhite = () => this.bottomColor() === 'white';
 
-  practicePovColor = () =>
-    resolvePracticePovColor(this.data.game.variant.key, this.data.player.color, this.bottomColor());
-
   getOrientation(): Color {
     return this.bottomColor();
   }
@@ -371,7 +367,7 @@ export default class AnalyseCtrl implements CevalHandler {
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
-          ? this.practicePovColor()
+          ? this.practice.povColor()
           : dests.size || drops?.length
             ? color
             : undefined,
@@ -912,8 +908,13 @@ export default class AnalyseCtrl implements CevalHandler {
       this.closeTools();
       this.threatMode(false);
       this.practice = makePractice(this);
+      if (this.practice.povColor() !== this.bottomColor()) {
+        this.flipped = !this.flipped;
+        this.chessground?.set({ orientation: this.bottomColor() });
+        this.explorer.onFlip();
+      }
       this.setCevalPracticeOpts();
-      this.setAutoShapes();
+      this.showGround();
       this.startCeval();
     }
   };
