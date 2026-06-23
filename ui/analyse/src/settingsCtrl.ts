@@ -7,14 +7,14 @@ export class Settings {
     public readonly inline = false,
     public readonly showStaticAnalysis = true,
     public readonly disclosureMode = false,
-    public readonly showLiveGlyphs = true,
+    public readonly showLiveGlyphs = false,
     public readonly showBestMoveArrows = true,
     public readonly showManeuverMoveArrows = true,
     public readonly showVariationArrows = true,
     public readonly showMoveAnnotationsOnBoard = true,
-    public readonly showUndefendedPieces = true,
-    public readonly showPinnedPieces = true,
-    public readonly showCheckableKing = true,
+    public readonly showUndefendedPieces = false,
+    public readonly showPinnedPieces = false,
+    public readonly showCheckableKing = false,
   ) {}
 }
 
