@@ -37,10 +37,10 @@ export class SettingsCtrl extends Settings {
     return Object.keys(defaultSettings) as SettingKey[];
   }
 
-  set<K extends SettingKey>(key: K, value: Settings[K], onChange: 'save' | 'noop' = 'save') {
+  set<K extends SettingKey>(key: K, value: Settings[K]) {
     const oldValue = this[key];
+    if (oldValue === value) return;
     this[key] = value;
-    if (oldValue === value || onChange === 'noop') return;
     this.redraw?.();
     this.throttledSave();
   }
