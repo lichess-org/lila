@@ -127,6 +127,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
+  const retroSolving = ctrl.retro?.isSolving();
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);
 
@@ -176,7 +177,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotations()) {
+  if (!retroSolving && ctrl.showMoveAnnotations()) {
     const glyphs = [...(ctrl.node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
     if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= 6)) glyphs.push(liveGlyph);
@@ -197,7 +198,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       });
     };
 
-    if (ctrl.motifEnabled()) {
+    if (!retroSolving && ctrl.motifEnabled()) {
       ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
       ctrl.motif
         .detectUndefended(board, epSquare)
