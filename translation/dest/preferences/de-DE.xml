@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Glocken-Benachrichtigungston</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindschach</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Auf der linken Seite auf mobilen Geräten anzeigen</string>
+  <string name="inlineNotation">Inline-Notation</string>
+  <string name="showServerAnalysis">Serveranalyse anzeigen</string>
+  <string name="showBestMoveArrows">Pfeile für die besten Züge anzeigen</string>
+  <string name="showManeuverArrows">Manöver-Pfeile anzeigen</string>
+  <string name="showGauge">Stellungsbewertungs-Balken anzeigen</string>
+  <string name="showMoveAnnotationsOnBoard">Zugnotation anzeigen</string>
+  <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
+  <string name="showLiveGlyphs">Live-Computeranalysen</string>
+  <string name="showUndefendedPieces">Nicht verteidigte Figuren anzeigen</string>
+  <string name="showPinnedPieces">Gefesselte Figuren anzeigen</string>
+  <string name="showCheckableKing">Mögliche Schachs anzeigen</string>
+  <string name="disclosureMode">Varianten ausblenden aktivieren</string>
+  <string name="generalSettings">Allgemein</string>
+  <string name="moveListSettings">Zugliste</string>
+  <string name="boardSettings">Brett</string>
+  <string name="analysisSettings">Analyse-Einstellungen</string>
+  <string name="maneuverArrowsHelp">Reihenfolge der Computerzüge für eine Figur</string>
 </resources>
