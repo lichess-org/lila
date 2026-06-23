@@ -53,15 +53,15 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
               foreign = "_id",
               pipe = List(
                 $doc("$match" -> $doc("enabled" -> true)),
-                $doc("$project" -> (projection ++ $doc("seenAt" -> true))),
-                $doc("$sort" -> $doc("seenAt" -> -1)),
-                $doc("$limit" -> nb)
+                $doc("$project" -> (projection ++ $doc("seenAt" -> true)))
               )
             )
           ),
           Project($doc("user" -> true, "_id" -> false)),
           UnwindField("user"),
-          ReplaceRootField("user")
+          ReplaceRootField("user"),
+          Sort(Descending("seenAt")),
+          Limit(nb)
         )
       .documentSource()
       .mapConcat: doc =>

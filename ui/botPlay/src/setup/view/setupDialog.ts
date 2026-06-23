@@ -15,6 +15,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
     onClose: ctrl.cancel,
     modal: true,
     noScrollable: true,
+    easyClose: 'clickOutside',
     onInsert(dialog) {
       ctrl.dialog = dialog;
       dialog.show();

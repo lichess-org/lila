@@ -65,25 +65,16 @@ export function definedUnique<T>(items: (T | undefined)[]): T[] {
   return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
-/**
- * Comparison of enumerable primitives.
- * Complex properties get reference equality only.
- * If two vars have the same type and this type is in `excludedComparisonTypes`, then `true` is returned.
- */
-export function isEquivalent(a: any, b: any, excludedComparisonTypes: string[] = []): boolean {
+// Comparison of enumerable primitives. Complex properties get reference equality only.
+export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
-  if (excludedComparisonTypes.some(t => typeof a === t)) return true;
   if (Array.isArray(a))
-    return (
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every((x, i) => isEquivalent(x, b[i], excludedComparisonTypes))
-    );
-  if (typeof a !== 'object') return false;
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
+  if (typeof a !== 'object' || a === null || b === null) return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
-  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key], excludedComparisonTypes));
+  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
 }
 
 // true if a merge of sub into o would result in no change to o (structural containment)
@@ -92,7 +83,7 @@ export function isContained(o: any, sub: any): boolean {
   if (typeof o !== typeof sub) return false;
   if (Array.isArray(o))
     return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
-  if (typeof o !== 'object') return false;
+  if (typeof o !== 'object' || o === null || sub === null) return false;
   const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
   if (aKeys.length < subKeys.length) return false;
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));

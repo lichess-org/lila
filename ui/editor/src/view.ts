@@ -319,7 +319,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
                 on: {
                   click: () => {
-                    if (state.playable) domDialog({ cash: $('.continue-with'), modal: true, show: true });
+                    if (state.playable)
+                      domDialog({
+                        cash: $('.continue-with'),
+                        modal: true,
+                        easyClose: 'clickOutside',
+                        show: true,
+                      });
                   },
                 },
               },

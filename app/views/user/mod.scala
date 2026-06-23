@@ -201,14 +201,14 @@ object mod:
         case email => frag(email)
 
   def identification(logins: UserLogins, othersPartiallyLoaded: Boolean)(using
-      ctx: Context,
       renderIp: RenderIp
-  ): Frag =
-    val canIpBan = Granter.opt(_.IpBan)
-    val canFpBan = Granter.opt(_.PrintBan)
-    val canLocate = Granter.opt(_.Admin)
-    val canViewUA = Granter.opt(_.AccountInfo)
-    val canViewPrint = Granter.opt(_.ViewPrintNoIP)
+  )(using Context, Me): Frag =
+    val canIpBan = Granter(_.IpBan)
+    val canFpBan = Granter(_.PrintBan)
+    val canLocate = Granter(_.Admin)
+    val canViewUA = Granter(_.AccountInfo)
+    val canViewPrint = Granter(_.ViewPrintNoIP)
+    val canViewIp = Granter(_.ViewIP)
     mzSection("identification")(
       canLocate.option:
         div(cls := "spy_locs")(
@@ -269,7 +269,7 @@ object mod:
           )
         )
       ),
-      canViewPrint.option:
+      (canViewPrint || canViewIp).option:
         div(id := "identification_screen", cls := "spy_ips")(
           table(cls := "slist spy_filter slist--sort")(
             thead(

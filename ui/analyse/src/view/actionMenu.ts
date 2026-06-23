@@ -1,15 +1,13 @@
 import { isEmpty } from 'lib';
-import { clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
 import { licon } from 'lib/licon';
-import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
-import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { domDialog, bind, dataIcon, hl, type VNode, type MaybeVNodes } from 'lib/view';
 
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
-import { config as motifConfig } from '../motif/motifView';
 import * as pgnExport from '../pgnExport';
+import { showSettingsDialog } from './settingsView';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];
@@ -138,7 +136,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             hook: bind('click', () =>
-              domDialog({ cash: $('.continue-with.g_' + d.game.id), modal: true, show: true }),
+              domDialog({
+                cash: $('.continue-with.g_' + d.game.id),
+                modal: true,
+                show: true,
+                easyClose: 'clickOutside',
+              }),
             ),
             attrs: dataIcon(licon.Swords),
           },
@@ -157,134 +160,49 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.clearSavedMoves,
         ),
+      hl(
+        'button',
+        {
+          attrs: { 'data-icon': licon.Gear, title: i18n.site.settings },
+          on: { click: () => showSettingsDialog(ctrl) },
+        },
+        i18n.site.settings,
+      ),
     ]),
   ];
 
-  const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
-    displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
-    cmnToggleWrap({
-      id: 'all',
-      name: i18n.site.computerAnalysis,
-      title: i18n.site.computerAnalysis + ' [z]',
-      checked: ctrl.showStaticAnalysis(),
-      change: ctrl.toggleStaticAnalysis,
-      redraw: ctrl.redraw,
-    }),
-    cmnToggleWrapProp({
-      id: 'shapes',
-      name: i18n.site.bestMoveArrow,
-      title: 'Hotkey: a',
-      prop: ctrl.showBestMoveArrowsProp,
-      redraw: ctrl.redraw,
-    }),
-    ctrl.showBestMoveArrowsProp() &&
-      cmnToggleWrapProp({
-        id: 'maneuver-arrows',
-        name: 'Piece maneuver arrows',
-        prop: ctrl.showManeuverMoveArrowsProp,
-        redraw: ctrl.redraw,
-      }),
-    displayColumns() > 1 &&
-      cmnToggleWrapProp({
-        id: 'gauge',
-        name: i18n.study.showEvalBar,
-        prop: ctrl.showGauge,
-        redraw: ctrl.redraw,
-      }),
-  ];
-
-  const displayConfig = [
-    displayColumns() > 1 && hl('h2', 'Display'),
-    cmnToggleWrap({
-      id: 'inline',
-      name: i18n.site.inlineNotation,
-      title: 'Shift+I',
-      checked: ctrl.treeView.modePreference() === 'inline',
-      change(v) {
-        ctrl.treeView.modePreference(v ? 'inline' : 'column');
-        ctrl.actionMenu.toggle();
-      },
-      redraw: ctrl.redraw,
-    }),
-    cmnToggleWrapProp({
-      id: 'disclosure',
-      name: 'Disclosure buttons',
-      title: 'Show disclosure buttons to expand/collapse variations',
-      prop: ctrl.disclosureMode,
-      redraw: ctrl.redraw,
-    }),
-    !ctrl.ongoing &&
-      cmnToggleWrap({
-        id: 'move-annotation',
-        name: i18n.site.moveAnnotations,
-        title: 'Display analysis symbols on the board',
-        checked: ctrl.possiblyShowMoveAnnotationsOnBoard(),
-        change: ctrl.togglePossiblyShowMoveAnnotationsOnBoard,
-        redraw: ctrl.redraw,
-      }),
-  ];
-
-  return hl('div.action-menu', [
-    tools,
-    displayConfig,
-    displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
-    cevalConfig,
-    ctrl.motifAllowed() ? motifConfig(ctrl) : [],
-    displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
-    ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
-    canContinue &&
-      hl('div.continue-with.none.g_' + d.game.id, [
-        hl(
-          'a.button',
-          {
-            attrs: {
-              href: d.userAnalysis
-                ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-              ...linkAttrs,
+  return hl('div.action-menu.sub-box.reduced', [
+    hl('div.title', i18n.site.analysis),
+    hl('div.inner', [
+      tools,
+      ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
+      canContinue &&
+        hl('div.continue-with.none.g_' + d.game.id, [
+          hl(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
+                  : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+                ...linkAttrs,
+              },
             },
-          },
-          i18n.site.playAgainstComputer,
-        ),
-        hl(
-          'a.button',
-          {
-            attrs: {
-              href: d.userAnalysis
-                ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-              ...linkAttrs,
+            i18n.site.playAgainstComputer,
+          ),
+          hl(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
+                  : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+                ...linkAttrs,
+              },
             },
-          },
-          i18n.site.challengeAFriend,
-        ),
-      ]),
+            i18n.site.challengeAFriend,
+          ),
+        ]),
+    ]),
   ]);
 }
-
-const renderVariationOpacitySlider = (ctrl: AnalyseCtrl) =>
-  hl('span.setting', [
-    hl('label', 'Variation opacity'),
-    hl('input.range', {
-      key: 'variation-arrows',
-      attrs: { min: 0, max: 1, step: 0.1, type: 'range', value: ctrl.variationArrowOpacity() || 0 },
-      props: { value: ctrl.variationArrowOpacity() || 0 },
-      hook: {
-        insert: (vnode: VNode) => {
-          const input = vnode.elm as HTMLInputElement;
-          input.addEventListener('input', () => {
-            ctrl.variationArrowOpacity(parseFloat(input.value));
-          });
-          input.addEventListener('wheel', e => {
-            e.preventDefault();
-            ctrl.variationArrowOpacity(
-              clamp((ctrl.variationArrowOpacity() || 0) + (e.deltaY > 0 ? -0.1 : 0.1), {
-                min: 0,
-                max: 1,
-              }),
-            );
-          });
-        },
-      },
-    }),
-  ]);

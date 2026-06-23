@@ -270,7 +270,6 @@ export function view(ctrl: StudyForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     vnodes: [
       hl(
         'h2',

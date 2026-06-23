@@ -10,6 +10,7 @@
     "declaration-block-no-redundant-longhand-properties": null,
     "font-family-no-missing-generic-family-keyword": null,
     "hue-degree-notation": "number",
+    "media-feature-range-notation": null,
     "no-invalid-position-at-import-rule": null,
     "selector-class-pattern": null,
     "selector-id-pattern": null,

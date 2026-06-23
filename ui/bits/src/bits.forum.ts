@@ -14,6 +14,7 @@ site.load.then(() => {
       domDialog({
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
+        easyClose: 'clickOutside',
         modal: true,
       }).then(dlg => {
         $(dlg.view)
@@ -35,6 +36,7 @@ site.load.then(() => {
       domDialog({
         cash: $('.forum-relocate-modal'),
         attrs: { view: { action: link.href } },
+        easyClose: 'clickOutside',
         modal: true,
       }).then(dlg => {
         $(dlg.view).find('form').attr('action', link.href);

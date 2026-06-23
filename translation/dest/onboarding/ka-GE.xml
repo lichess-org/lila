@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">შედით, როგორც %s</string>
+  <string name="welcome">მოგესალმებით!</string>
+  <string name="welcomeToLichess">Lichess მოგესალმებათ!</string>
+  <string name="thisIsYourProfilePage">ეს თქვენი პირადი გვერდია.</string>
+  <string name="enabledKidModeSuggestion">ამ ანგარიშით ბავშვი ხომ არ უნდა ათამაშოთ ხოლმე? თუ ასეა, სურვილის შემთხვევაში ჩართეთ %s.</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">ისწავლე ჭადრაკის წესები.</string>
+  <string name="improveWithChessTacticsPuzzles">გაიუმჯობესე უნარები ეტიუდებისა და თავსატეხების ამოხსნით.</string>
+  <string name="playTheArtificialIntelligence">ეთამაშე ხელოვნურ ინტელექტს.</string>
+  <string name="playOpponentsFromAroundTheWorld">ეთამაშე ადამიანებს, მსოფლიოს ნებისმიერი წერტილში.</string>
+  <string name="followYourFriendsOnLichess">დაიმატე მეგობრები Lichess-ზე.</string>
+  <string name="playInTournaments">ითამაშე ტურნირებზე.</string>
+  <string name="learnFromXAndY">გამოიყენე %1$s და %2$s სწავლისთვის.</string>
+  <string name="configureLichess">ისე მოაწყვე Lichess-ი, როგორც შენს გულს გაუხარდება.</string>
+  <string name="exploreTheSiteAndHaveFun">დაათვალიერე საიტი და გაერთე :)</string>
+</resources>

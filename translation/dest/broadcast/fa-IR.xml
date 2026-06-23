@@ -51,7 +51,7 @@
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
-  <string name="teams">یَران‌ها</string>
+  <string name="teams">تیم‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
   <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای پخش‌های زنده را در تنظیمات حساب‌تان تغییر دهید.</string>
@@ -71,7 +71,7 @@
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
   <string name="standingsDisclaimer">رده‌بندی با استفاده از بازی‌های پخش‌شده محاسبه می‌شود و ممکن است با نتایج رسمی متفاوت باشد.</string>
-  <string name="allTeams">همهٔ یَران‌ها</string>
+  <string name="allTeams">همهٔ تیم‌ها</string>
   <string name="tournamentFormat">ساختار مسابقات</string>
   <string name="tournamentLocation">مکان مسابقات</string>
   <string name="topPlayers">بازیکنان برتر</string>

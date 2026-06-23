@@ -18,6 +18,7 @@ import type {
   TourId,
 } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
+import { finishedTeamMatchCount } from './relayTeamStandings';
 
 export default class RelayTeamLeaderboard {
   standings: RelayTeamStandings | undefined;
@@ -84,7 +85,7 @@ export default class RelayTeamLeaderboard {
               this.standings.map(entry =>
                 hl('tr', [
                   hl('td', this.teamNameNode(entry)),
-                  hl('td', entry.matches.length),
+                  hl('td', finishedTeamMatchCount(entry.matches)),
                   hl(
                     'td',
                     { attrs: { 'data-sort': entry.mp * 1000 + entry.gp, title: i18n.broadcast.matchPoints } },
@@ -114,7 +115,10 @@ export default class RelayTeamLeaderboard {
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
-            hl('tr', [hl('th', i18n.broadcast.matches), hl('td', `${foundTeam.matches.length}`)]),
+            hl('tr', [
+              hl('th', i18n.broadcast.matches),
+              hl('td', `${finishedTeamMatchCount(foundTeam.matches)}`),
+            ]),
             hl('tr', [hl('th', i18n.broadcast.matchPoints), hl('td', `${foundTeam.mp}`)]),
             hl('tr', [hl('th', i18n.broadcast.gamePoints), hl('td', `${foundTeam.gp}`)]),
             foundTeam.averageRating &&

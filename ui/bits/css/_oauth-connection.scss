@@ -12,6 +12,12 @@
     aspect-ratio: 1;
   }
 
+  &__service {
+    background: #6741ff;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
   &__between {
     @extend %flex-center-center;
 

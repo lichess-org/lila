@@ -20,7 +20,7 @@ export class VideoPlayer {
     this.iframe.allow = 'autoplay';
 
     this.close = document.createElement('icon');
-    this.close.dataset.icon = licon.NotAllowed;
+    this.close.dataset.icon = licon.X;
     this.close.className = 'video-player-close';
     this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
@@ -85,7 +85,7 @@ export class VideoPlayer {
             }),
           }),
           hl('icon.video-player-close', {
-            attrs: { 'data-icon': licon.NotAllowed },
+            attrs: { 'data-icon': licon.X },
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),

@@ -44,7 +44,7 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <icon class="z-remove" data-icon="${licon.NotAllowed}"></icon>
+                <icon class="z-remove" data-icon="${licon.X}"></icon>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
@@ -96,8 +96,8 @@ class SetupDialog {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
         this.janitor.cleanup();
       },
-      noCloseButton: true, //env.game === undefined,
-      noClickAway: env.game === undefined,
+      noCloseButton: true,
+      easyClose: env.game && 'clickOutside',
     });
     this.dialog = dlg;
     this.mainContentEl = dlg.view.querySelector('.main-content')!;

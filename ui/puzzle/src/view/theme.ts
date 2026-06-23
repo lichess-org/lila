@@ -62,7 +62,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
       (t: ThemeKey): t is ThemeKey => votedThemes[t] && !data.puzzle.themes.includes(t),
     ),
   ].sort();
-  const allThemes = location.pathname === '/training/daily' ? null : ctrl.allThemes;
+  const allThemes = ctrl.isDaily ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
   if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
   return [

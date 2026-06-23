@@ -216,7 +216,7 @@
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
   <string name="otherPlayers">другія гульцы</string>
-  <string name="discussions" comment="Heading when you search in your user Inbox [ https://lichess.org/inbox ] and you have message history with that user.&#10;&#10;This string used to be &quot;Discussions&quot;.">Размовы</string>
+  <string name="discussions">Размовы</string>
   <string name="today">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>

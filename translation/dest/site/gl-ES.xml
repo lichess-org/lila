@@ -814,6 +814,10 @@
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
+  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+    <item quantity="one">Anónimo</item>
+    <item quantity="other">Anónimos (%s)</item>
+  </plurals>
   <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>

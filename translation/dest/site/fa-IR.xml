@@ -453,7 +453,7 @@
     <item quantity="one">%s بارگذاری شده</item>
     <item quantity="other">%s بارگذاری شده</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
+  <string name="thisIsAChessCaptcha">این «آجرا»یِ شطرنج [آزمونِ امنیتی] است.</string>
   <string name="clickOnTheBoardToMakeYourMove">روی میز بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
   <string name="captcha.fail">لطفا «آجرا»یِ شطرنج را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
@@ -566,7 +566,7 @@
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف همگانی برای هم‌تیمی‌ها می‌شود خواهد شد.</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف عمومی برای هم‌تیمی‌ها می‌شود.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="website">وبگاه</string>
@@ -815,6 +815,10 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="one">بی‌نام</item>
+    <item quantity="other">بی‌نام (%s)</item>
+  </plurals>
   <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>
@@ -847,7 +851,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
-  <string name="yourRatingIsX">درجه‌بندی‌تان %s است </string>
+  <string name="yourRatingIsX">درجه‌بندی‌تان %s است |  </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
