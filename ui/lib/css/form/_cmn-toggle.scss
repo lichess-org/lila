@@ -61,6 +61,14 @@
       background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
     }
   }
+
+  @include if-transp {
+    &:hover {
+      &::after {
+        background: linear-gradient(to bottom, hsl($site-hue, 7%, 26), hsl($site-hue, 5%, 23) 100%);
+      }
+    }
+  }
 }
 
 .cmn-toggle input:checked + label {
