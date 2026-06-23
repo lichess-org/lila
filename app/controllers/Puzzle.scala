@@ -33,13 +33,21 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       angle: PuzzleAngle,
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
-      langPath: Option[LangPath] = None
+      langPath: Option[LangPath] = None,
+      isDaily: Boolean = false
   )(using ctx: Context)(using Perf) = for
     json <- jsonView.analysis(puzzle, angle, replay)
     settings <- ctx.user.traverse(env.puzzle.session.getSettings)
     prefJson = jsonView.pref(ctx.pref)
     page <- renderPage:
-      views.puzzle.ui.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
+      views.puzzle.ui
+        .show(
+          puzzle,
+          json ++ Json.obj("isDaily" -> isDaily),
+          prefJson,
+          settings | PuzzleSettings.default(color),
+          langPath
+        )
   yield Ok(page).enforceCrossSiteIsolation
 
   def daily = Open:
@@ -47,7 +55,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       Found(env.puzzle.daily.get): daily =>
         WithPuzzlePerf:
           negotiateApi(
-            html = renderShow(daily.puzzle, PuzzleAngle.mix),
+            html = renderShow(daily.puzzle, PuzzleAngle.mix, isDaily = true),
             api = v => jsonView.analysis(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some).dmap { Ok(_) }
           ).dmap(_.noCache)
 
@@ -252,8 +260,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           Puz.toId(angleOrId) match
             case Some(id) =>
               Found(env.puzzle.api.puzzle.find(id)): puzzle =>
-                ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
-                  renderShow(puzzle, PuzzleAngle.mix, langPath = langPath)
+                for
+                  _ <- ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) }
+                  isDaily <- env.puzzle.daily.get.map(_.exists(_.puzzle.id == puzzle.id))
+                  result <- renderShow(puzzle, PuzzleAngle.mix, langPath = langPath, isDaily = isDaily)
+                yield result
             case _ =>
               angleOrId.toLongOption
                 .flatMap(Puz.numericalId.apply)

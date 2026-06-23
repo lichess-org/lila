@@ -297,7 +297,7 @@ final class TournamentApi(
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
           else if prevPlayer.isEmpty && !initialJoin.hit(
               me.userId,
-              cost = if asLeader then 0 else if tour.byLichess then 1 else 2
+              cost = if asLeader || tour.createdBy.is(me) then 0 else if tour.byLichess then 1 else 2
             )
           then fuccess(JoinResult.RateLimited)
           else if prevPlayer.nonEmpty || tour.password.forall: p =>

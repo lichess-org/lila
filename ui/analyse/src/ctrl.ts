@@ -22,7 +22,7 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import { CevalCtrl, isEvalBetter, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { CevalCtrl, isFirstEvalBetter, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
@@ -497,6 +497,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(treePath.root);
     this.initCeval();
     this.instanciateEvalCache();
+    this.startCeval();
     this.cgVersion.js++;
     this.mergeIdbThenShowTreeView();
   }
@@ -707,10 +708,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+        if (!node.threat || isFirstEvalBetter(threat, node.threat, this.ceval.search.multiPv))
           node.threat = threat;
       } else if (
-        (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        (!node.ceval || isFirstEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
         !(ev.cloud && this.ceval.engines.external)
       ) {
         node.ceval = ev;

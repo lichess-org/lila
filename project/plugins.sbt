@@ -1,6 +1,12 @@
 resolvers += Resolver.url(
   "lila-maven-sbt",
-  url("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
+  // sbt 2.0's `url(...)` returns a URI; Resolver.url wants a java.net.URL.
+  new java.net.URI("https://raw.githubusercontent.com/lichess-org/lila-maven/master").toURL
 )(Resolver.ivyStylePatterns)
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.18-lila_1.26") // scala2 branch
+
+addSbtPlugin("org.lichess.play" % "sbt-plugin" % "2.0.0-RC2")
+
+addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4")
+addSbtPlugin("org.playframework.twirl" % "sbt-twirl" % "2.1.0-M9")
+
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.1")
