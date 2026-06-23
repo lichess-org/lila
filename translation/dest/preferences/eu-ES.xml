@@ -71,4 +71,9 @@
   <string name="bellNotificationSound">Kanpaiaren jakinarazpen soinua</string>
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
+  <string name="inlineNotation">Lerroarteko oharrak</string>
+  <string name="generalSettings">Orokorra</string>
+  <string name="moveListSettings">Jokaldi zerrenda</string>
+  <string name="boardSettings">Taula</string>
+  <string name="analysisSettings">Analisiaren aukerak</string>
 </resources>
