@@ -6,7 +6,7 @@ const initialTitle = document.title;
 
 let curFaviconIdx = 0;
 
-const F = ['/assets/logo/lichess-favicon.svg', '/assets/logo/lichess-favicon-32-invert.png'].map(
+const F = ['/assets/logo/lichess-favicon.svg', '/assets/logo/lichess-favicon-invert.svg'].map(
   (path, i) => () => {
     if (curFaviconIdx !== i) {
       (document.getElementById('favicon') as HTMLAnchorElement).href = path;
