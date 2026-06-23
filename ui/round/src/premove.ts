@@ -61,9 +61,10 @@ export class Premove {
   private readonly isDestControlledByEnemy = (
     ctx: cg.MobilityContext,
     pieceRolesExclude?: cg.Role[],
+    specificEnemies?: cg.Pieces,
   ): boolean => {
     const square: cg.Pos = ctx.dest.pos;
-    return [...ctx.enemies].some(([key, piece]) => {
+    return [...(specificEnemies ?? ctx.enemies)].some(([key, piece]) => {
       const piecePos = util.key2pos(key);
       return (
         !pieceRolesExclude?.includes(piece.role) &&
@@ -79,10 +80,10 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (ctx: cg.MobilityContext): boolean =>
+  private readonly isFriendlyOnDestAndAttacked = (ctx: cg.MobilityContext, specificEnemies?: cg.Pieces): boolean =>
     this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(ctx.dest.key, ctx.friendlies, ctx.enemies, ctx.lastMove) ||
-      this.isDestControlledByEnemy(ctx));
+    (this.canBeCapturedBySomeEnemyEnPassant(ctx.dest.key, ctx.friendlies, specificEnemies ?? ctx.enemies, ctx.lastMove) ||
+      this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
 
   private readonly canBeCapturedBySomeEnemyEnPassant = (
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
