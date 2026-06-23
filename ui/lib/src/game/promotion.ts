@@ -71,12 +71,17 @@ export class PromotionCtrl {
     }) || false;
 
   cancel = (): void => {
+    if (this.dismiss()) this.onCancel();
+  };
+
+  dismiss = (): boolean => {
+    const wasPromoting = !!this.promoting;
     this.cancelPrePromotion();
-    if (this.promoting) {
+    if (wasPromoting) {
       this.promoting = undefined;
-      this.onCancel();
       this.redraw();
     }
+    return wasPromoting;
   };
 
   cancelPrePromotion = (): void => {
