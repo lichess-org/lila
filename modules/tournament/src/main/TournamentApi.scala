@@ -240,6 +240,7 @@ final class TournamentApi(
               callbacks.clearWinnersCache(tour)
               callbacks.clearTrophyCache(tour)
               duelStore.remove(tour)
+              notifyPayoutWinners(tour).logFailure(logger, _ => s"${tour.id} notifyPayoutWinners")
     }
 
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
@@ -266,6 +267,17 @@ final class TournamentApi(
             case rp if rp.rank <= 100 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
+
+  private def notifyPayoutWinners(tour: Tournament): Funit =
+    import lila.tournament.Tournament.tournamentUrl
+    tour.payouts.so: payouts =>
+      val nbWinners = payouts.split('/').length
+      playerRepo
+        .bestByTour(tour.id, nbWinners)
+        .map: players =>
+          players.foreach: p =>
+            Bus.pub(lila.core.msg.PayoutMessage(p.userId, tour.name, tournamentUrl(tour.id), nowInstant))
+          ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), players.map(_.userId))
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds

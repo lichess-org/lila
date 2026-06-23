@@ -87,7 +87,8 @@ final class SwissFormUi(helpers: Helpers)(
     def tournamentFields =
       form3.fieldset("Tournament", toggle = true.some)(
         form3.split(name, nbRounds),
-        form3.split(startsAt, description)
+        form3.split(startsAt, description),
+        payouts
       )
 
     def gameFields =
@@ -142,6 +143,20 @@ final class SwissFormUi(helpers: Helpers)(
         help = trans.site.tournDescriptionHelp().some,
         half = true
       )(form3.textarea(_)(rows := 4))
+    def payouts =
+      Granter
+        .opt(_.ManageTournament)
+        .option:
+          form3.group(
+            form("payouts"),
+            frag("Prize payouts"),
+            help = frag(
+              "Only if Lichess is responsible for the payout",
+              br,
+              "Amounts in USD: e.g. $500/$250/$100/$50/$25"
+            ).some,
+            half = true
+          )(form3.input(_))
     def position =
       form3.group(
         form("position"),

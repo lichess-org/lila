@@ -39,6 +39,7 @@ trait IrcApi:
       tier: Option[String],
       note: Option[String]
   ): Funit
+  def payoutNotify(tourName: String, tourUrl: String, players: List[UserId]): Funit
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit
   def broadcastTourUpdate(
       tourName: String,

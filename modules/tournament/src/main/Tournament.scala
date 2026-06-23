@@ -35,6 +35,7 @@ case class Tournament(
     featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
+    payouts: Option[String] = None,
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
@@ -199,6 +200,7 @@ object Tournament:
       startsAt =
         setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
       description = setup.description,
+      payouts = setup.payouts,
       hasChat = setup.hasChat | true
     )
 

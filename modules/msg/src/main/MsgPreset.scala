@@ -50,6 +50,22 @@ $forumPost
 Your new permissions are: ${perms.mkString(", ")}.
 ${teamUrl}"""
 
+  def payoutEligible(
+      payoutsUrl: String,
+      tournamentName: String,
+      tournamentUrl: String,
+      finishedAt: Instant
+  ) =
+    val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusDays(30)
+    Msg(
+      name = "Prize payout",
+      text = s"""Congratulations on your finish in $tournamentName! $tournamentUrl
+
+Lichess is offering prizes to top finishers in this tournament, and your performance means you may be eligible for a prize.
+
+Please visit $payoutsUrl to provide the necessary information for payout. The deadline for claiming prizes is $deadline."""
+    )
+
   def apiTokenRevoked(url: String) =
     s"""Your Lichess API token has been found on GitHub
 

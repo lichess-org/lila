@@ -147,15 +147,17 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 else trans.team.joinLichessVariantTeam(link)
               ),
           div(cls := "scrollable-content")(
-            tour.description.map: d =>
+            shieldOwner.map: owner =>
               st.section(cls := "description")(
-                shieldOwner.map: owner =>
-                  p(cls := "defender", dataIcon := Icon.Shield)(
-                    trans.arena.defender(),
-                    userIdLink(owner.some)
-                  ),
-                markdownLinksOrRichText(d)
+                p(cls := "defender", dataIcon := Icon.Shield)(
+                  trans.arena.defender(),
+                  userIdLink(owner.some)
+                )
               ),
+            tour.description.map: d =>
+              st.section(cls := "description")(markdownLinksOrRichText(d)),
+            tour.payouts.map: payouts =>
+              st.section(cls := "description")(p(strong("Prizes: "), payouts)),
             gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
             List(
               tour.noBerserk.option(
@@ -180,7 +182,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               })
           ),
           tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
-          tour.description.isDefined.option(button(cls := "disclosure"))
+          List(shieldOwner, tour.description, tour.payouts)
+            .exists(_.isDefined)
+            .option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),

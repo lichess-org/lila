@@ -76,6 +76,7 @@ object BSONHandlers:
         featuredId = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r.strO("description"),
+        payouts = r.strO("payouts"),
         hasChat = r.boolO("chat").getOrElse(true)
       )
     def writes(w: BSON.Writer, o: Tournament) =
@@ -102,6 +103,7 @@ object BSONHandlers:
         "featured" -> o.featuredId,
         "spotlight" -> o.spotlight,
         "description" -> o.description,
+        "payouts" -> o.payouts,
         "chat" -> (!o.hasChat).option(false)
       )
 
