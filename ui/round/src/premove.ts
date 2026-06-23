@@ -178,18 +178,6 @@ export class Premove {
       );
   };
 
-  private readonly knight: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
-
-  private readonly bishop: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
-
-  private readonly rook: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
-
-  private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.queenDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
-
   private readonly king: cg.Mobility = (ctx: cg.MobilityContext) =>
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
       (this.unrestrictedPremoves ||
@@ -213,12 +201,17 @@ export class Premove {
           .map(s => ctx.allPieces.get(s))
           .every(p => !p || util.samePiece(p, { role: 'rook', color: ctx.color }))));
 
+  private readonly basicPieceMobility =
+    (dir: (x1: number, y1: number, x2: number, y2: number) => boolean): cg.Mobility =>
+    ctx =>
+      dir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
+
   private readonly mobilityByRole: Record<cg.Role, cg.Mobility> = {
     pawn: this.pawn,
-    knight: this.knight,
-    bishop: this.bishop,
-    rook: this.rook,
-    queen: this.queen,
+    knight: this.basicPieceMobility(util.knightDir),
+    bishop: this.basicPieceMobility(util.bishopDir),
+    rook: this.basicPieceMobility(util.rookDir),
+    queen: this.basicPieceMobility(util.queenDir),
     king: this.king,
   };
 
