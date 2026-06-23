@@ -60,7 +60,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
           Project($doc("user" -> true, "_id" -> false)),
           UnwindField("user"),
           ReplaceRootField("user"),
-          Sort(Desc("seenAt")),
+          Sort(Descending("seenAt")),
           Limit(nb)
         )
       .documentSource()
