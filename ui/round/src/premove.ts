@@ -112,6 +112,7 @@ export class Premove {
     if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
+    else if (this.isDestOccupiedByFriendly(ctx) && !this.isFriendlyOnDestAndAttacked(ctx)) return false;
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
     if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
@@ -178,24 +179,13 @@ export class Premove {
   };
 
   private readonly knight: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
+    util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
 
   private readonly bishop: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
+    util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
 
   private readonly rook: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
+    util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
 
   private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) => this.bishop(ctx) || this.rook(ctx);
 
