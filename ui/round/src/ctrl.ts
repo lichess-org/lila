@@ -261,7 +261,8 @@ export default class RoundController implements MoveRootCtrl {
         color: this.isPlaying() ? this.data.player.color : undefined,
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
-    this.chessground.cancelPremove();
+    this.promotion.dismiss();
+    this.chessground.cancelMove();
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
