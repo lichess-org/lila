@@ -118,7 +118,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
-  return ctrl.getNode().ceval ?? (ctrl.showFishnetAnalysis?.() ? ctrl.getNode().eval : undefined);
+  return ctrl.getNode().ceval ?? (ctrl.showStaticAnalysis?.() ? ctrl.getNode().eval : undefined);
 };
 
 let gaugeLast = 0;

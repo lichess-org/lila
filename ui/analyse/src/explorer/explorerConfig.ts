@@ -333,6 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     },
     onInsert: dialog => (dlg = dialog).show(),
     modal: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

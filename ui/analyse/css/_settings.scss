@@ -1,0 +1,158 @@
+.analysis-settings-dialog {
+  width: min(96vw, 720px);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  h2 {
+    display: none;
+  }
+
+  @media (max-width: at-most(600px)) and (hover: none) {
+    h2 {
+      display: block;
+    }
+  }
+}
+
+.analysis-settings-dialog .analysis-settings-view {
+  gap: 1.5em;
+
+  * {
+    gap: 1em;
+  }
+
+  fieldset legend {
+    font-weight: 500;
+  }
+
+  .setting {
+    font-size: 1em;
+    color: $c-font-dim;
+  }
+}
+
+.analysis-settings-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: 2em;
+
+  @media (max-width: at-most(600px)) {
+    flex-direction: column;
+  }
+
+  * {
+    gap: 1.5em;
+  }
+
+  div,
+  fieldset {
+    display: flex;
+    flex-direction: column;
+  }
+
+  fieldset {
+    flex: initial;
+    border: 1px solid $c-border;
+    border-radius: 6px;
+    background: $c-bg-mid;
+    padding: 0.5em 1em 1em;
+
+    legend {
+      @extend %roboto;
+
+      font-size: 1.3em;
+      color: $c-font-dim;
+      padding: 6px;
+    }
+  }
+
+  .column {
+    justify-content: space-between;
+    flex: 40%;
+  }
+
+  .setting {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1em;
+    cursor: pointer;
+
+    &.inert {
+      cursor: default;
+    }
+  }
+
+  .help-container {
+    display: none;
+    overflow: hidden;
+    align-items: stretch;
+
+    @media (min-width: at-least(600px)) {
+      display: flex;
+    }
+
+    fieldset {
+      gap: 1em;
+    }
+  }
+
+  .help-button {
+    font-size: 1.2em;
+    color: $c-font-dim;
+    outline: none;
+  }
+
+  .help-button::before {
+    font-size: 18px;
+    margin-inline-end: 0.5em;
+    vertical-align: sub;
+  }
+
+  .show-all {
+    margin-inline: auto;
+  }
+
+  @media (hover: hover) {
+    .help-button {
+      display: none;
+    }
+  }
+
+  @media (hover: none) {
+    legend {
+      display: none;
+    }
+  }
+}
+
+.help-container,
+.popup {
+  fieldset:has(video, img) {
+    align-items: center;
+  }
+
+  img,
+  video {
+    @extend %box-radius;
+
+    border: $border;
+    max-width: 248px;
+    max-height: 248px;
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+.help-pane {
+  max-height: 300px;
+}
+
+.popup {
+  @extend %box-radius;
+
+  background: $c-bg-zebra2;
+}

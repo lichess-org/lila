@@ -2,7 +2,6 @@ import { type Prop, prop } from 'lib';
 import { storedBooleanProp } from 'lib/storage';
 
 import type AnalyseCtrl from '@/ctrl';
-import { readOnlyProp } from '@/util';
 
 import type { StudyData } from '../interfaces';
 import { practiceComplete } from '../studyXhr';
@@ -28,10 +27,11 @@ export default class StudyPracticeCtrl {
   }
 
   onLoad = () => {
-    this.root.showBestMoveArrowsProp = readOnlyProp(true);
-    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
-    this.root.showGauge = readOnlyProp(true);
-    this.root.showStaticAnalysis = readOnlyProp(true);
+    // You can still do the previous temp overrides with settingsCtrl, but not sure they're needed anymore.
+    // this.root.settings.set('showBestMoveArrows', true, () => {});
+    // this.root.settings.set('showManeuverMoveArrows', true, () => {});
+    // this.root.settings.set('showGauge', true, () => {});
+    // this.root.settings.set('showStaticAnalysis', true, () => {});
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);

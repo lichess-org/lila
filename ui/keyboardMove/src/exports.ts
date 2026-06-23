@@ -83,6 +83,7 @@ export function render(ctrl: KeyboardMove): VNode {
           htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),
           modal: true,
+          easyClose: 'clickOutside',
         })
       : null,
   ]);

@@ -33,7 +33,7 @@ site.load.then(() => {
       })
       .on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
         const $l = $(this);
-        domDialog({ cash: $('.timeout-modal'), modal: true }).then(dlg => {
+        domDialog({ cash: $('.timeout-modal'), modal: true, easyClose: 'clickOutside' }).then(dlg => {
           $('.username', dlg.view).text($l.find('.user-link').text());
           $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
           $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {

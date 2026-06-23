@@ -67,6 +67,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     },
     modal: true,
     noScrollable: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
       h('p.info', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.pleaseOnlyInvitePeopleYouKnow),

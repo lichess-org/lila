@@ -52,7 +52,7 @@ function interferingArrow(from: Square, to: Square, occupied: Uint8Array): boole
 }
 
 function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: string, shapes: DrawShape[]) {
-  if (ctrl.showManeuverMoveArrowsProp()) {
+  if (ctrl.settings.showManeuverMoveArrows) {
     const maxPairs = Math.min(moves.length, MAX_MANEUVER_ARROWS * 2);
     const occupied = new Uint8Array(64);
 
@@ -176,12 +176,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotationsOnBoard()) {
+  if (ctrl.showMoveAnnotations()) {
+    const glyphs = [...(ctrl.node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
-    shapes = shapes.concat(
-      // Override server analysis glyphs as local eval also overrides the eval score
-      annotationShapes(liveGlyph ? { ...ctrl.node, glyphs: [liveGlyph] } : ctrl.node),
-    );
+    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= 6)) glyphs.push(liveGlyph);
+    shapes = shapes.concat(annotationShapes({ ...ctrl.node, glyphs }));
   }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
 
@@ -218,7 +217,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
     color: 'white',
-    opacity: ctrl.variationArrowOpacity() || 0,
+    opacity: 0.5,
     lineWidth: 12,
   };
   const chap = ctrl.study?.data.chapter;

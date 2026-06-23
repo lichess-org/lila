@@ -170,7 +170,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
       dlg.show();
