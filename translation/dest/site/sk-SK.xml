@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="whiteDidntMove">Biely nepotiahol</string>
   <string name="blackDidntMove">Čierny nepotiahol</string>
+  <string name="whiteAborted">Biely opustil partiu</string>
+  <string name="blackAborted">Čierny opustil partiu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
@@ -894,6 +896,12 @@
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+    <item quantity="one">Anonym</item>
+    <item quantity="few">Anonymní (%s)</item>
+    <item quantity="many">Anonymní (%s)</item>
+    <item quantity="other">Anonymní (%s)</item>
+  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všetky jazyky</string>
@@ -1110,7 +1118,8 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov. Bez našej štedrej komunity by sme nedokázali udržať stránku v prevádzke. Ďakujeme, že ste sa k nám pridali!
+  </string>
   <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
   <string name="stats">Štatistiky</string>
   <string name="accessibility">Dostupnosť</string>
