@@ -72,4 +72,21 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="bellNotificationSound">Sunet de notificare</string>
   <string name="blindfold" comment="As in Blindfold chess">Legat la ochi</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Afișează în partea stângă pe dispozitive mobile</string>
+  <string name="inlineNotation">Notație integrată</string>
+  <string name="showServerAnalysis">Arată analiza serverului</string>
+  <string name="showBestMoveArrows">Arată săgeți cu cele mai bune mutări</string>
+  <string name="showManeuverArrows">Arată săgeți cu manevre</string>
+  <string name="showGauge">Arată indicator de evaluare</string>
+  <string name="showMoveAnnotationsOnBoard">Arată adnotările mutărilor</string>
+  <string name="showVariationArrows">Arată săgeţi cu variaţiile</string>
+  <string name="showLiveGlyphs">Adnotări direct de la motorul de analiză</string>
+  <string name="showUndefendedPieces">Arată piesele neapărate</string>
+  <string name="showPinnedPieces">Arată piesele legate</string>
+  <string name="showCheckableKing">Arată rege care poate fi pus in șah</string>
+  <string name="disclosureMode">Activează ascunderea variațiilor</string>
+  <string name="generalSettings">General</string>
+  <string name="moveListSettings">Lista de mutări</string>
+  <string name="boardSettings">Tablă</string>
+  <string name="analysisSettings">Setări analiză</string>
+  <string name="maneuverArrowsHelp">Secvența de mutări a motorului pentru o piesă</string>
 </resources>
