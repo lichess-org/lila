@@ -1038,4 +1038,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="thereAreNoResultsForX">Ez dago emaitzarik honetarako: \"%s\"</string>
   <string name="tags">Etiketak</string>
   <string name="enPassant">Igarotzean harrapatzea</string>
+  <string name="settings">Ezarpenak</string>
 </resources>
