@@ -997,4 +997,5 @@
   <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>
+  <string name="settings">设置</string>
 </resources>
