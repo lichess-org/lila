@@ -76,4 +76,12 @@
   <string name="showBestMoveArrows">عرض أسهم أفضل النقلات</string>
   <string name="showManeuverArrows">عرض أسهم المناورات</string>
   <string name="showGauge">عرض شريط التقييم</string>
+  <string name="showMoveAnnotationsOnBoard">عرض تدوين الحركة</string>
+  <string name="showUndefendedPieces">إظهار القطع غير المحمية</string>
+  <string name="showPinnedPieces">إظهار القطع المثبتة</string>
+  <string name="showCheckableKing">إظهار الملك القابل للكش</string>
+  <string name="generalSettings">عام</string>
+  <string name="moveListSettings">قائمة النقلات</string>
+  <string name="boardSettings">الرقعة</string>
+  <string name="analysisSettings">إعدادات التحليل</string>
 </resources>
