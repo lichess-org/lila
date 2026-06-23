@@ -77,15 +77,15 @@
   <string name="showManeuverArrows">Mostrar flechas de maniobra</string>
   <string name="showGauge">Mostrar indicador de evaluación</string>
   <string name="showMoveAnnotationsOnBoard">Mostrar anotaciones del movimiento</string>
-  <string name="showVariationArrows">Mostrar flechas de variantes</string>
+  <string name="showVariationArrows">Mostrar flechas de variante</string>
   <string name="showLiveGlyphs">Anotaciones del motor en vivo</string>
   <string name="showUndefendedPieces">Mostrar piezas sin defender</string>
   <string name="showPinnedPieces">Mostrar piezas clavadas</string>
-  <string name="showCheckableKing">Mostrar rey en jaque</string>
+  <string name="showCheckableKing">Mostrar rey en peligro</string>
   <string name="disclosureMode">Habilitar ocultamiento de variantes</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Lista de movimientos</string>
   <string name="boardSettings">Tablero</string>
-  <string name="analysisSettings">Configuración del análisis</string>
+  <string name="analysisSettings">Preferencias de análisis</string>
   <string name="maneuverArrowsHelp">Secuencia de movimientos del motor para una pieza</string>
 </resources>
