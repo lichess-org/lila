@@ -187,7 +187,8 @@ export class Premove {
   private readonly rook: cg.Mobility = (ctx: cg.MobilityContext) =>
     util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
 
-  private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) => this.bishop(ctx) || this.rook(ctx);
+  private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) =>
+    util.queenDir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
 
   private readonly king: cg.Mobility = (ctx: cg.MobilityContext) =>
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
