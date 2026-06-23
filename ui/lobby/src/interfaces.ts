@@ -81,6 +81,12 @@ export interface LobbyData {
   counters: { members: number; rounds: number };
 }
 
+export interface NowPlayingUpdate {
+  nowPlaying: NowPlaying[];
+  nbNowPlaying: number;
+  nbMyTurn: number;
+}
+
 type RatingWithProvisional = number;
 
 export interface NowPlaying {

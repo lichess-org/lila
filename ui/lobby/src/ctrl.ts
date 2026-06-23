@@ -20,6 +20,7 @@ import type {
   ForceSetupOptions,
   LobbyMe,
 } from './interfaces';
+import { updateNowPlayingData } from './nowPlaying';
 import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
 import LobbySocket from './socket';
@@ -286,8 +287,8 @@ export default class LobbyController {
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
-      xhr.nowPlaying().then(povs => {
-        this.data.nowPlaying = povs;
+      xhr.nowPlaying().then(update => {
+        updateNowPlayingData(this.data, update);
         this.startWatching();
         this.redraw();
       });

@@ -121,12 +121,16 @@ final class Account(
   private def doNowPlaying(using ctx: Context)(using me: Me) =
     env.round.proxyRepo
       .urgentGames(me)
-      .map:
-        _.value.take((getInt("nb") | 9).atMost(50))
-      .map:
-        _.map(env.api.lobbyApi.nowPlaying)
-      .map: povs =>
-        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
+      .map: urgent =>
+        val povs = urgent.value
+        JsonOk:
+          Json.obj(
+            "nowPlaying" -> JsArray:
+              povs.take((getInt("nb") | 9).atMost(50)).map(env.api.lobbyApi.nowPlaying)
+            ,
+            "nbNowPlaying" -> povs.size,
+            "nbMyTurn" -> povs.count(_.isMyTurn)
+          )
 
   def dasher = Auth { _ ?=> me ?=>
     negotiateJson:
