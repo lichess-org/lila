@@ -773,7 +773,7 @@
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="other">นิรนาม(%s)</item>
   </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
