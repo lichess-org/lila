@@ -1,11 +1,31 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background: $lpv-bg;
 }
 
 .lpv {
+  height: 100%;
   border-radius: 0;
   box-shadow: none;
+
+  &--moves-auto {
+    @media (max-width: #{$moves-auto-to-right}) {
+      grid-template-areas:
+        'board side'
+        'controls side';
+      grid-template-columns: minmax(0, calc(100vh - var(--controls-height))) minmax(0, 1fr);
+      grid-template-rows: auto var(--controls-height);
+
+      .lpv__moves {
+        min-width: 0;
+      }
+    }
+  }
 }
 
 .not-found {
