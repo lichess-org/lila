@@ -71,4 +71,9 @@
   <string name="bellNotificationSound">صوت التنبيه</string>
   <string name="blindfold" comment="As in Blindfold chess">معصوب العينين</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">إظهار على اليسار على أجهزة الجوال</string>
+  <string name="inlineNotation">التدوين داخل النص</string>
+  <string name="showServerAnalysis">عرض تحليل الخادم</string>
+  <string name="showBestMoveArrows">عرض أسهم أفضل النقلات</string>
+  <string name="showManeuverArrows">عرض أسهم المناورات</string>
+  <string name="showGauge">عرض شريط التقييم</string>
 </resources>
