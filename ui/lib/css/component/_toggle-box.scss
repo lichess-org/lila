@@ -11,7 +11,7 @@
     @include prevent-select;
 
     background: $c-bg-zebra;
-    padding: 0.5em 1.5em;
+    padding: 0.5em 2.5em 0.5em 1.5em;
     text-align: right;
     font-size: 1.2em;
     line-height: 26px;
@@ -24,13 +24,24 @@
 
 .toggle-box--toggle {
   legend {
+    @include backdrop-blur-if-transparent(10px);
+
     border: 1px solid transparent;
     border-top-color: $c-border;
     cursor: pointer;
+    position: relative;
 
     &::after {
-      content: '▲';
-      margin-left: 1ch;
+      content: '❯';
+      position: absolute;
+      transform: rotate(-90deg);
+      margin-left: 0.75em;
+      opacity: 0.66;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &:hover {
+      color: $c-primary;
     }
   }
 }
@@ -47,13 +58,11 @@
     background: none;
 
     &:hover {
-      @extend %box-neat;
-
       background: $c-bg-zebra;
     }
 
     &::after {
-      content: '▼';
+      transform: rotate(90deg);
     }
   }
 
