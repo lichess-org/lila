@@ -39,7 +39,7 @@ export default class StudyPracticeCtrl {
 
   computeNbMoves = (): number => {
     let plies = this.root.node.ply - this.root.tree.root.ply;
-    if (this.root.bottomColor() !== this.root.data.player.color) plies--;
+    if (this.root.practicePovColor() !== this.root.data.player.color) plies--;
     return Math.ceil(plies / 2);
   };
 
@@ -95,7 +95,7 @@ export default class StudyPracticeCtrl {
     this.root.practice!.resume();
   };
   customCeval = { search: () => ({ by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }) };
-  isWhite = this.root.bottomIsWhite;
+  isWhite = () => this.root.practicePovColor() === 'white';
   analysisUrl = () =>
-    `/analysis/standard/${this.root.node.fen.replace(/ /g, '_')}?color=${this.root.bottomColor()}`;
+    `/analysis/standard/${this.root.node.fen.replace(/ /g, '_')}?color=${this.root.practicePovColor()}`;
 }

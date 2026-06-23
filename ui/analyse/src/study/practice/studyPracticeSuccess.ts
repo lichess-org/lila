@@ -38,7 +38,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
   const node = root.node;
   if (!node.uci) return null;
   const outcome = node.outcome();
-  if (outcome?.winner) return outcome.winner === root.bottomColor();
+  if (outcome?.winner) return outcome.winner === root.practicePovColor();
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
@@ -50,18 +50,18 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (nbMoves >= goal.moves!) return isDrawish(node);
       break;
     case 'evalIn':
-      if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, root.bottomColor());
+      if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, root.practicePovColor());
       break;
     case 'mateIn': {
       if (nbMoves > goal.moves!) return false;
-      const mateIn = myMateIn(node, root.bottomColor());
+      const mateIn = myMateIn(node, root.practicePovColor());
       if (mateIn === null) return null;
       if (!mateIn || (mateIn as number) + nbMoves > goal.moves!) return false;
       break;
     }
     case 'promotion':
       if (!node.uci[4]) return null;
-      return isWinning(node, goal.cp!, root.bottomColor());
+      return isWinning(node, goal.cp!, root.practicePovColor());
     case 'mate':
       if (node.threefold) return false;
       if (isDrawish(node)) return false;
