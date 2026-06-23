@@ -1,3 +1,6 @@
+import { COLORS } from 'chessops';
+
+import { defined } from 'lib/common';
 import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
@@ -7,7 +10,7 @@ import { playerFedFlag } from '@/view/util';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { coloredStatusStr } from './customScoreStatus';
+import { coloredStatusStr, isServerPoint, withCustomScore } from './customScoreStatus';
 import { teamLinkData } from './deepLink';
 import type { RelayRound, RelayTour } from './interfaces';
 import type RelayPlayers from './relayPlayers';
@@ -92,6 +95,22 @@ const renderTeams = (
       const chap = chapters.get(g.id);
       return chap?.status !== '*';
     });
+    // Override server fetched team points with locally calculated ones
+    //  so that the table remains accurate as results stream in
+    COLORS.forEach((c, i) => {
+      const teamPoints = row.games.reduce<number>((acc, g) => {
+        const chap = chapters.get(g.id);
+        if (!chap || !chap.status || chap.status === '*') return acc;
+        const points = chap.status.split('-');
+        if (c !== g.pov) points.reverse();
+        if (!points.every(isServerPoint)) return acc;
+        const point = withCustomScore(points[0], c, round?.customScoring);
+        if (typeof point === 'number') return acc + point;
+        const parsed = parseFloat(point.replace('½', '.5'));
+        return Number.isNaN(parsed) ? acc : acc + parsed;
+      }, 0);
+      if (defined(teamPoints)) row.teams[i].points = teamPoints;
+    });
     const resultClass = (team1: TeamWithPoints, team2: TeamWithPoints) =>
       !isFinished
         ? ''
@@ -152,8 +171,8 @@ const statusView = (
   chapters: StudyChapters,
   cloudEval?: MultiCloudEval,
   round?: RelayRound,
-) => {
-  return hl(
+) =>
+  hl(
     'span.relay-tour__team-match__game__status',
     g.status && g.status !== '*'
       ? coloredStatusStr(g.status, pov, round)
@@ -161,7 +180,6 @@ const statusView = (
         ? evalGauge(g, pov, chapters, cloudEval)
         : '*',
   );
-};
 
 const evalGauge = (
   game: ChapterPreview,
