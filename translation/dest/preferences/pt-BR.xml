@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Som de notificação</string>
   <string name="blindfold" comment="As in Blindfold chess">Às cegas</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mostrar à esquerda em dispositivos móveis</string>
+  <string name="inlineNotation">Notação em linha</string>
+  <string name="showServerAnalysis">Mostrar análise do servidor</string>
+  <string name="showBestMoveArrows">Mostrar setas de melhores movimentos</string>
+  <string name="showManeuverArrows">Mostrar setas de manobra</string>
+  <string name="showGauge">Mostrar barra de avaliação</string>
+  <string name="showMoveAnnotationsOnBoard">Mostrar anotações de lances</string>
+  <string name="showVariationArrows">Mostrar setas de variações</string>
+  <string name="showLiveGlyphs">Anotações de engine ao vivo</string>
+  <string name="showUndefendedPieces">Mostrar peças sem defesa</string>
+  <string name="showPinnedPieces">Mostrar peças cravadas</string>
+  <string name="showCheckableKing">Mostrar rei possível de xeque</string>
+  <string name="disclosureMode">Permitir esconder variação</string>
+  <string name="generalSettings">Geral</string>
+  <string name="moveListSettings">Lista de movimentos</string>
+  <string name="boardSettings">Tabuleiro</string>
+  <string name="analysisSettings">Configurações de análise</string>
+  <string name="maneuverArrowsHelp">Sequência de lances de computador para uma peça</string>
 </resources>
