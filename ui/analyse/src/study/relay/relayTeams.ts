@@ -4,29 +4,14 @@ import { json as xhrJson } from 'lib/xhr';
 
 import { playerFedFlag } from '@/view/util';
 
-import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
+import type { ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { coloredStatusStr } from './customScoreStatus';
 import { teamLinkData } from './deepLink';
 import type { RelayRound, RelayTour } from './interfaces';
 import type RelayPlayers from './relayPlayers';
-
-interface TeamWithPoints {
-  name: string;
-  points: number;
-}
-interface TeamGame {
-  id: ChapterId;
-  pov: Color;
-}
-interface TeamRow {
-  teams: [TeamWithPoints, TeamWithPoints];
-  games: TeamGame[];
-}
-type TeamTable = {
-  table: TeamRow[];
-};
+import { currentTeamTable, type TeamTable, type TeamWithPoints } from './relayTeamTable';
 
 export default class RelayTeams {
   loading = false;
@@ -85,7 +70,7 @@ const renderTeams = (
   round?: RelayRound,
   showTeamScores?: boolean,
 ): MaybeVNodes =>
-  teams.table.map(row => {
+  currentTeamTable(teams, chapters.all(), round).table.map(row => {
     const firstTeam = row.teams[0];
     const secondTeam = row.teams[1];
     const isFinished = row.games.every(g => {
