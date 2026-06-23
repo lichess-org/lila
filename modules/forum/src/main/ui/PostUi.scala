@@ -135,6 +135,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
+                  autocomplete := "off",
                   cls := "form-control post-text-area edit-post-box",
                   required
                 )
