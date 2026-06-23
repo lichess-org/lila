@@ -1226,4 +1226,5 @@ https://lichess. org/report.</string>
   <string name="thereAreNoResultsForX">لا توجد نتائج لـ \"%s\"</string>
   <string name="tags">تصنيفات</string>
   <string name="enPassant">حقوق  الأخذ بالتجاوز </string>
+  <string name="settings">الإعدادات</string>
 </resources>
