@@ -1,6 +1,5 @@
 package lila.pref
 
-import play.api.libs.json.JsObject
 import reactivemongo.api.bson.*
 
 import lila.core.ublog.QualityFilter as BlogQualityFilter
@@ -8,10 +7,6 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
 private object PrefHandlers:
-
-  given BSONDocumentHandler[JsObject] = new BSON[JsObject]:
-    def reads(r: BSON.Reader): JsObject = lila.db.JSON.jval(r.doc)
-    def writes(w: BSON.Writer, o: JsObject): BSONDocument = lila.db.JSON.bdoc(o)
 
   given BSONDocumentHandler[Pref.BoardPref] = new BSON[Pref.BoardPref]:
 
@@ -81,7 +76,6 @@ private object PrefHandlers:
         blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
-        analysisSettings = r.getO[JsObject]("analysisSettings"),
         tags = r.getD("tags", d.tags)
       )
 
@@ -131,6 +125,5 @@ private object PrefHandlers:
         "board" -> o.board,
         "blogFilter" -> o.blogFilter.ordinal,
         "sayGG" -> o.sayGG,
-        "analysisSettings" -> o.analysisSettings,
         "tags" -> o.tags
       )

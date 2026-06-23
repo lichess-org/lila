@@ -3,7 +3,6 @@
   <string name="preferences">Preferences</string>
   <string name="display">Display</string>
   <string name="privacy">Privacy</string>
-  <string name="analysis">Analysis</string>
   <string name="notifications">Notifications</string>
   <string name="pieceAnimation">Piece animation</string>
   <string name="materialDifference">Material difference</string>
@@ -89,6 +88,5 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="moveListSettings">Move list</string>
   <string name="boardSettings">Board</string>
   <string name="analysisSettings">Analysis settings</string>
-  <string name="syncSettings">Sync these settings on my devices</string>
   <string name="maneuverArrowsHelp">Sequence of engine moves for one piece</string>
 </resources>

@@ -1193,7 +1193,6 @@ object I18nKey:
     val `preferences`: I18nKey = "preferences:preferences"
     val `display`: I18nKey = "preferences:display"
     val `privacy`: I18nKey = "preferences:privacy"
-    val `analysis`: I18nKey = "preferences:analysis"
     val `notifications`: I18nKey = "preferences:notifications"
     val `pieceAnimation`: I18nKey = "preferences:pieceAnimation"
     val `materialDifference`: I18nKey = "preferences:materialDifference"
@@ -1278,7 +1277,6 @@ object I18nKey:
     val `moveListSettings`: I18nKey = "preferences:moveListSettings"
     val `boardSettings`: I18nKey = "preferences:boardSettings"
     val `analysisSettings`: I18nKey = "preferences:analysisSettings"
-    val `syncSettings`: I18nKey = "preferences:syncSettings"
     val `maneuverArrowsHelp`: I18nKey = "preferences:maneuverArrowsHelp"
 
   object puzzle:

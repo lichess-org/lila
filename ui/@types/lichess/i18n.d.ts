@@ -2299,8 +2299,6 @@ interface I18n {
     winningStreak: string;
   };
   preferences: {
-    /** Analysis */
-    analysis: string;
     /** Analysis settings */
     analysisSettings: string;
     /** Bell notification sound */
@@ -2463,8 +2461,6 @@ interface I18n {
     snapArrowsToValidMoves: string;
     /** Sound when time gets critical */
     soundWhenTimeGetsCritical: string;
-    /** Sync these settings on my devices */
-    syncSettings: string;
     /** Takebacks (with opponent approval) */
     takebacksWithOpponentApproval: string;
     /** Tenths of seconds */

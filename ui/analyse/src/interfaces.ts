@@ -16,7 +16,6 @@ import type {
 
 import type { ExplorerOpts } from './explorer/interfaces';
 import type { ForecastData } from './forecast/interfaces';
-import type { Settings } from './settingsCtrl';
 import type { AnalyseSocketSend } from './socket';
 import type { StudyDataFromServer } from './study/interfaces';
 import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
@@ -74,7 +73,6 @@ export interface AnalysePref {
   animationDuration?: number;
   keyboardMove: boolean;
   moveEvent: MoveEvent;
-  analysisSettings?: Settings;
 }
 
 export interface ServerEvalData {

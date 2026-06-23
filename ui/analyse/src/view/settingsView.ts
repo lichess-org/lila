@@ -18,10 +18,6 @@ type Setting = {
 };
 
 const settings: Record<SettingKey, Setting> = {
-  syncSettings: {
-    label: i18n.preferences.syncSettings,
-    group: i18n.preferences.generalSettings,
-  },
   showStaticAnalysis: {
     label: i18n.preferences.showServerAnalysis,
     shortcutHtml: '<kbd>z</kbd>',

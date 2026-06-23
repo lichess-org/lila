@@ -19,16 +19,6 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
   private def setting(name: Frag, body: Frag, settingId: String) =
     st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
-  def analysis(u: User)(using Context) =
-    AccountPage(
-      s"${bits.categName(PrefCateg.Analysis)} - ${u.username} - ${trp.preferences.txt()}",
-      PrefCateg.Analysis.slug
-    ):
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")(bits.categName(PrefCateg.Analysis)),
-        div(cls := "analysis-settings")
-      )
-
   def apply(u: User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using Context) =
     AccountPage(
       s"${bits.categName(categ)} - ${u.username} - ${trans.preferences.preferences.txt()}",

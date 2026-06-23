@@ -40,8 +40,6 @@ final class Pref(env: Env) extends LilaController(env):
                   .map:
                     views.account.pref.notification(_)
             case None => notFound
-            case Some(categ) if categ == lila.pref.PrefCateg.Analysis =>
-              Ok.page(views.account.pref.analysis(me))
             case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
         }
 
@@ -93,25 +91,6 @@ final class Pref(env: Env) extends LilaController(env):
           jsonFormError,
           v => api.setPref(me, change.update(v)).inject(NoContent)
         )
-  }
-
-  def getJson(name: String) = Auth { ctx ?=> _ ?=>
-    lila.pref.PrefJsonChange.changes
-      .get(name)
-      .fold(notFound): change =>
-        change.get(ctx.pref).fold(NoContent)(JsonOk(_))
-  }
-
-  def setJson(name: String) = AuthBody(parse.json) { ctx ?=> me ?=>
-    lila.pref.PrefJsonChange.changes
-      .get(name)
-      .fold(notFound): change =>
-        change
-          .set(ctx.pref, ctx.body.body)
-          .fold(
-            err => BadRequest(JsError.toJson(err)).toFuccess,
-            pref => api.setPref(me, pref).inject(NoContent)
-          )
   }
 
   def network = Auth { ctx ?=> me ?=>
