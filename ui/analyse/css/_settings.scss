@@ -137,8 +137,9 @@
 
   img,
   video {
-    border: 1px solid $c-border;
-    border-radius: 6px;
+    @extend %box-radius;
+
+    border: $border;
     max-width: 248px;
     max-height: 248px;
     min-width: 0;
@@ -151,6 +152,7 @@
 }
 
 .popup {
+  @extend %box-radius;
+
   background: $c-bg-zebra2;
-  border-radius: 6px;
 }
