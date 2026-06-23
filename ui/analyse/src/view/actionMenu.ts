@@ -172,7 +172,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ];
 
   return hl('div.action-menu.sub-box.reduced', [
-    hl('div.title', i18n.site.actionMenu),
+    hl('div.title', i18n.site.analysis),
     hl('div.inner', [
       tools,
       ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],

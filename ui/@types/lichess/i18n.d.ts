@@ -3139,8 +3139,6 @@ interface I18n {
     accountRegisteredWithoutEmail: I18nFormat;
     /** Accuracy */
     accuracy: string;
-    /** Action menu */
-    actionMenu: string;
     /** Active players */
     activePlayers: string;
     /** Add current variation */
