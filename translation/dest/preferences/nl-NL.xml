@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Meldingsgeluid</string>
   <string name="blindfold" comment="As in Blindfold chess">Geblinddoekt</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Toon links op mobiele apparaten</string>
+  <string name="inlineNotation">Geïntegreerde notatie</string>
+  <string name="showServerAnalysis">Toon serveranalyse</string>
+  <string name="showBestMoveArrows">Toon beste zet-pijlen</string>
+  <string name="showManeuverArrows">Toon manoeuvre-pijlen</string>
+  <string name="showGauge">Toon evaluatiebalk</string>
+  <string name="showMoveAnnotationsOnBoard">Toon zetannotaties</string>
+  <string name="showVariationArrows">Toon variantpijlen</string>
+  <string name="showLiveGlyphs">Computerannotaties</string>
+  <string name="showUndefendedPieces">Toon onverdedigde stukken</string>
+  <string name="showPinnedPieces">Toon gepende stukken</string>
+  <string name="showCheckableKing">Toon schaakbare koning</string>
+  <string name="disclosureMode">Varianten verbergen</string>
+  <string name="generalSettings">Algemeen</string>
+  <string name="moveListSettings">Zettenlijst</string>
+  <string name="boardSettings">Bord</string>
+  <string name="analysisSettings">Analyse-instellingen</string>
+  <string name="maneuverArrowsHelp">Volgorde van computerzetten voor één stuk</string>
 </resources>
