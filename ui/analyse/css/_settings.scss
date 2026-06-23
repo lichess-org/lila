@@ -8,7 +8,7 @@
     display: none;
   }
 
-  @media (max-width: at-most(600px)) and (hover: none) {
+  @media (max-width: at-most(600px)) {
     h2 {
       display: block;
     }
@@ -116,13 +116,13 @@
     margin-inline: auto;
   }
 
-  @media (hover: hover) {
+  @include mq-has-hover {
     .help-button {
       display: none;
     }
   }
 
-  @media (hover: none) {
+  @include mq-no-hover {
     legend {
       display: none;
     }
