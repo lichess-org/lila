@@ -9,7 +9,7 @@ import { memoize, escapeHtml } from '../index';
 export const isFirstEvalBetter = (a: ClientEval, b: ClientEval, desiredPvs: number): boolean =>
   a.pvs.length >= desiredPvs !== b.pvs.length >= desiredPvs
     ? a.pvs.length >= desiredPvs
-    : a.nodes > b.nodes && a.depth >= b.depth;
+    : a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 
 export function renderEval(e: number): string {
   e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
