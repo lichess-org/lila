@@ -105,7 +105,10 @@ export class Premove {
     );
   };
 
-  private readonly isPathClearEnoughForPremove = (ctx: cg.MobilityContext, isPawnAdvance: boolean): boolean => {
+  private readonly isPathClearEnoughForPremove = (
+    ctx: cg.MobilityContext,
+    isPawnAdvance: boolean,
+  ): boolean => {
     if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
@@ -119,15 +122,15 @@ export class Premove {
         const enemyStep = enemy.color === 'white' ? 1 : -1;
         const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
         const enemyPawnDests: cg.Key[] = squareAbove
-        ? [
-            ...util
-              .adjacentSquares(squareAbove)
-              .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
-            ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
-              .filter(s => !!s)
-              .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
-          ]
-        : [];
+          ? [
+              ...util
+                .adjacentSquares(squareAbove)
+                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
+              ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
+                .filter(s => !!s)
+                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
+            ]
+          : [];
         const badSquares = [...squaresBetween, ctx.orig.key];
         if (enemyPawnDests.every(square => badSquares.includes(square))) return false;
       }
