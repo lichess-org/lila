@@ -1088,4 +1088,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="thereAreNoResultsForX">Niciun rezultat pentru \"%s\"</string>
   <string name="tags">Etichete</string>
   <string name="enPassant">En passant legale</string>
+  <string name="settings">Setări</string>
 </resources>
