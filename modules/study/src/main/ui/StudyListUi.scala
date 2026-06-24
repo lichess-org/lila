@@ -175,7 +175,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
-              bits.orderSelect(order, active, url),
+              bits.orderSelect(order, active, url, format),
               formatToggle(url(order).url, format),
               bits.newForm()
             ),
