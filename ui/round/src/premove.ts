@@ -105,14 +105,37 @@ export class Premove {
     );
   };
 
-  private readonly isPathClearEnoughOfFriendliesForPremove = (
+  private readonly isPathClearEnoughForPremove = (
     ctx: cg.MobilityContext,
     isPawnAdvance: boolean,
   ): boolean => {
     if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
+    else if (this.isDestOccupiedByFriendly(ctx) && !this.isFriendlyOnDestAndAttacked(ctx)) return false;
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
+    const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
+    if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
+    if (squaresOfEnemiesBetween.length) {
+      const enemySquare = squaresOfEnemiesBetween[0];
+      const enemy = ctx.enemies.get(enemySquare);
+      if (enemy?.role === 'pawn') {
+        const enemyStep = enemy.color === 'white' ? 1 : -1;
+        const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
+        const enemyPawnDests: cg.Key[] = squareAbove
+          ? [
+              ...util
+                .adjacentSquares(squareAbove)
+                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
+              ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
+                .filter(s => !!s)
+                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
+            ]
+          : [];
+        const badSquares = [...squaresBetween, ctx.orig.key];
+        if (enemyPawnDests.every(square => badSquares.includes(square))) return false;
+      }
+    }
     if (!squaresOfFriendliesBetween.length) return true;
     const firstSquareOfFriendliesBetween = squaresOfFriendliesBetween[0];
     const nextSquare = util.squareShiftedVertically(
@@ -120,7 +143,6 @@ export class Premove {
       ctx.color === 'white' ? -1 : 1,
     );
     return (
-      squaresOfFriendliesBetween.length === 1 &&
       this.canBeCapturedBySomeEnemyEnPassant(
         firstSquareOfFriendliesBetween,
         ctx.friendlies,
@@ -131,40 +153,6 @@ export class Premove {
       !squaresBetween.includes(nextSquare)
     );
   };
-
-  private readonly isPathClearEnoughOfEnemiesForPremove = (
-    ctx: cg.MobilityContext,
-    isPawnAdvance: boolean,
-  ): boolean => {
-    if (this.unrestrictedPremoves) return true;
-    const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
-    if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
-    const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
-    if (squaresOfEnemiesBetween.length > 1) return false;
-    if (!squaresOfEnemiesBetween.length) return true;
-    const enemySquare = squaresOfEnemiesBetween[0];
-    const enemy = ctx.enemies.get(enemySquare);
-    if (!enemy || enemy.role !== 'pawn') return true;
-
-    const enemyStep = enemy.color === 'white' ? 1 : -1;
-    const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
-    const enemyPawnDests: cg.Key[] = squareAbove
-      ? [
-          ...util
-            .adjacentSquares(squareAbove)
-            .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
-          ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
-            .filter(s => !!s)
-            .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
-        ]
-      : [];
-    const badSquares = [...squaresBetween, ctx.orig.key];
-    return enemyPawnDests.some(square => !badSquares.includes(square));
-  };
-
-  private readonly isPathClearEnoughForPremove = (ctx: cg.MobilityContext, isPawnAdvance: boolean): boolean =>
-    this.isPathClearEnoughOfFriendliesForPremove(ctx, isPawnAdvance) &&
-    this.isPathClearEnoughOfEnemiesForPremove(ctx, isPawnAdvance);
 
   private readonly pawn: cg.Mobility = (ctx: cg.MobilityContext) => {
     const step = ctx.color === 'white' ? 1 : -1;
@@ -190,28 +178,6 @@ export class Premove {
       );
   };
 
-  private readonly knight: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly bishop: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly rook: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) => this.bishop(ctx) || this.rook(ctx);
-
   private readonly king: cg.Mobility = (ctx: cg.MobilityContext) =>
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
       (this.unrestrictedPremoves ||
@@ -235,12 +201,17 @@ export class Premove {
           .map(s => ctx.allPieces.get(s))
           .every(p => !p || util.samePiece(p, { role: 'rook', color: ctx.color }))));
 
+  private readonly basicPieceMobility =
+    (dir: (x1: number, y1: number, x2: number, y2: number) => boolean): cg.Mobility =>
+    ctx =>
+      dir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
+
   private readonly mobilityByRole: Record<cg.Role, cg.Mobility> = {
     pawn: this.pawn,
-    knight: this.knight,
-    bishop: this.bishop,
-    rook: this.rook,
-    queen: this.queen,
+    knight: this.basicPieceMobility(util.knightDir),
+    bishop: this.basicPieceMobility(util.bishopDir),
+    rook: this.basicPieceMobility(util.rookDir),
+    queen: this.basicPieceMobility(util.queenDir),
     king: this.king,
   };
 
