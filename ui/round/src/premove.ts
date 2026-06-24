@@ -121,7 +121,6 @@ export class Premove {
     if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
-    else if (this.isDestOccupiedByFriendly(ctx) && !this.isFriendlyOnDestAndAttacked(ctx)) return false;
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
     if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
@@ -144,6 +143,10 @@ export class Premove {
         const badSquares = new Set([...squaresBetween, ctx.orig.key]);
         if (enemyPawnDests.every(square => badSquares.has(square))) return false;
       }
+    }
+    if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
+      if (!this.isFriendlyOnDestAndAttacked(ctx)) return false;
+      if (squaresOfFriendliesBetween.length) return false;
     }
     if (!squaresOfFriendliesBetween.length) return true;
     const firstSquareOfFriendliesBetween = squaresOfFriendliesBetween[0];
