@@ -1,7 +1,7 @@
 import { parseFen } from 'chessops/fen';
 import { h } from 'snabbdom';
 
-import { defined } from 'lib';
+import { defined, frag } from 'lib';
 import { renderEval as normalizeEval } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isMobile } from 'lib/device';
@@ -97,6 +97,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
+          insertExitPresentationModeButton(ctrl);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -116,6 +117,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
         'relay-in-variation': !!ctrl.study?.isRelayAndInVariation(),
+        'presentation-mode': ctrl.presentationMode(),
       },
     },
     kids,
@@ -345,4 +347,12 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
     renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),
     renderPlayerStrip('bottom', materialDiffs[1], clocks?.[whitePov ? 0 : 1]),
   ];
+}
+
+function insertExitPresentationModeButton(ctrl: AnalyseCtrl) {
+  const btn = frag<HTMLButtonElement>(
+    `<button class="button button-empty exit-presentation-mode" data-icon="${licon.Back}">`,
+  );
+  btn.onclick = () => ctrl.presentationMode(false);
+  document.querySelector('header')?.insertAdjacentElement('beforebegin', btn);
 }

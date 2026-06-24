@@ -168,6 +168,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
         },
         i18n.site.settings,
       ),
+      displayColumns() > 1 &&
+        hl(
+          'button',
+          {
+            attrs: { 'data-icon': licon.Move },
+            on: { click: () => ctrl.presentationMode(true) },
+          },
+          'Presentation mode',
+        ),
     ]),
   ];
 

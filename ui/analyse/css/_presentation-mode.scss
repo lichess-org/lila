@@ -1,0 +1,29 @@
+main.presentation-mode {
+  grid-template-columns: min(90vw, 86vh) $analyse-block-gap !important;
+  grid-template-rows: 1fr !important;
+  grid-template-areas: 'board gauge' !important;
+
+  cg-resize,
+  > *:not(.main-board, .eval-gauge) {
+    display: none;
+  }
+}
+
+button.exit-presentation-mode {
+  position: fixed;
+  display: none;
+}
+
+body:has(.presentation-mode) {
+  header#top {
+    display: none;
+  }
+
+  .exit-presentation-mode {
+    display: flex;
+    left: 12px;
+    top: 8px;
+    padding: 6px 12px;
+    font-size: 18px;
+  }
+}

@@ -115,6 +115,7 @@ export default class AnalyseCtrl implements CevalHandler {
   );
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
+  presentationMode = propWithEffect(false, this.redraw);
 
   treeView: TreeView;
   cgVersion = {
