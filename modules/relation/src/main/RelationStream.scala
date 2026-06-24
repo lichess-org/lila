@@ -73,7 +73,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
               local = F.to,
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $doc("enabled" -> true)),
+                $doc("$match" -> $doc("enabled" -> true, "_id" -> $doc("$ne" -> UserId.lichess))),
                 $doc("$project" -> (projection ++ $doc("seenAt" -> true)))
               )
             )
