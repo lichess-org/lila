@@ -76,16 +76,18 @@ final class AuthUi(helpers: Helpers):
               div(cls := "password-reset")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
               ),
-              div(cls := "login-remember form-check__container")(
-                form3.nativeCheckbox(
-                  "login-remember-me",
-                  "remember",
-                  checked = isRememberMe
-                ),
-                label(cls := "form-label", `for` := "login-remember-me")(
-                  trans.site.rememberMe()
+              if custom.isEmpty then
+                div(cls := "login-remember form-check__container")(
+                  form3.nativeCheckbox(
+                    "login-remember-me",
+                    "remember",
+                    checked = isRememberMe
+                  ),
+                  label(cls := "form-label", `for` := "login-remember-me")(
+                    trans.site.rememberMe()
+                  )
                 )
-              )
+              else form3.hidden("remember", isRememberMe)
             ),
             div(cls := "two-factor none")(
               form3.group(
