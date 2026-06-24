@@ -100,7 +100,7 @@ const renderTeams = (
     COLORS.forEach((c, i) => {
       const teamPoints = row.games.reduce<number>((acc, g) => {
         const chap = chapters.get(g.id);
-        if (!chap || !chap.status || chap.status === '*') return acc;
+        if (!chap?.status || chap.status === '*') return acc;
         const points = chap.status.split('-');
         if (c !== g.pov) points.reverse();
         if (!points.every(isServerPoint)) return acc;
