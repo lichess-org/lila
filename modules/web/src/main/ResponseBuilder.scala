@@ -43,6 +43,9 @@ trait ResponseBuilder(using Executor)
   def jsOptToNdJson(source: Source[Option[JsValue], ?]): Result =
     strToNdJson(ndJson.jsOptToString(source))
 
+  def jsToNdJson(source: Seq[JsValue]): Result =
+    Ok(source.map(Json.stringify).mkString("\n")).as(ndJson.contentType)
+
   /* We roll our own action, as we don't want to compose play Actions. */
   def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
     import play.api.libs.streams.Accumulator

@@ -11,6 +11,7 @@ import lila.core.socket.IsOnline
 import play.api.libs.json.JsObject
 
 final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)(using
+    Executor,
     akka.stream.Materializer
 ):
 
@@ -29,16 +30,36 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
       .map(_.flatMap(_.getAsOpt[UserId](F.to)))
       .throttle(1, 1.second)
 
+  private final class RecentlySeen(
+      val user: LightUser,
+      val seenAt: Option[Instant],
+      val online: Boolean,
+      val playing: Boolean
+  ):
+    def isBot = user.title.contains(chess.PlayerTitle.BOT)
+
   def recentlySeenList(nb: Int, projection: Bdoc, isPlaying: UserId => Boolean)(using
       reader: BSONDocumentReader[LightUser],
       me: Me
   ): Fu[Seq[JsObject]] =
-    recentlySeen(nb, projection, isPlaying).runWith(Sink.seq)
+    recentlySeenSource(nb, projection, isPlaying)
+      .runWith(Sink.seq)
+      .map:
+        _.sortBy: f =>
+          (!f.online, f.isBot)
+        .take(nb)
+      .map:
+        _.map: f =>
+          lila.common.Json.lightUser
+            .writeNoId(f.user)
+            .add("seenAt", f.seenAt)
+            .add("online", f.online)
+            .add("playing", f.online && isPlaying(f.user.id))
 
-  def recentlySeen(nb: Int, projection: Bdoc, isPlaying: UserId => Boolean)(using
+  private def recentlySeenSource(nb: Int, projection: Bdoc, isPlaying: UserId => Boolean)(using
       reader: BSONDocumentReader[LightUser],
       me: Me
-  ): Source[JsObject, ?] =
+  ): Source[RecentlySeen, ?] =
     val canBeOnlineSince = nowInstant.minusMinutes(60)
     coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
@@ -61,7 +82,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
           UnwindField("user"),
           ReplaceRootField("user"),
           Sort(Descending("seenAt")),
-          Limit(nb)
+          Limit(nb.atLeast(20))
         )
       .documentSource()
       .mapConcat: doc =>
@@ -70,11 +91,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
           seenAt = doc.getAsOpt[Instant]("seenAt")
           online = seenAt.exists(_.isAfter(canBeOnlineSince)) && isOnline.exec(user.id)
           playing = online && isPlaying(user.id)
-        yield lila.common.Json.lightUser
-          .writeNoId(user)
-          .add("seenAt", seenAt)
-          .add("online", online)
-          .add("playing", playing)
+        yield RecentlySeen(user, seenAt, online, playing)
 
   private object F:
     val from = "u1"
