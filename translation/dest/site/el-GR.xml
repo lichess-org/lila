@@ -1042,4 +1042,5 @@
   <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Ρυθμίσεις</string>
 </resources>
