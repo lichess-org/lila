@@ -75,7 +75,7 @@
   <string name="showServerAnalysis">نمایشِ تحلیلِ کارساز</string>
   <string name="showBestMoveArrows">نمایشِ پیکان‌های بهترین حرکت</string>
   <string name="showManeuverArrows">نمایشِ پیکان‌های تَمهید</string>
-  <string name="showGauge">نمایشِ ارزیاب‌میل</string>
+  <string name="showGauge">نمایشِ میلهٔ ارزیابی</string>
   <string name="showMoveAnnotationsOnBoard">نمایشِ حرکت‌نویسی</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="showLiveGlyphs">حرکت‌نویسیِ زندهٔ موتور</string>
