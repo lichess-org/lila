@@ -42,7 +42,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
       reader: BSONDocumentReader[LightUser],
       me: Me
   ): Fu[Seq[JsObject]] =
-    recentlySeenSource(nb, projection, isPlaying)
+    recentlySeenSource(nb.atLeast(20), projection, isPlaying)
       .runWith(Sink.seq)
       .map:
         _.sortBy: f =>
@@ -82,7 +82,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
           UnwindField("user"),
           ReplaceRootField("user"),
           Sort(Descending("seenAt")),
-          Limit(nb.atLeast(20))
+          Limit(nb)
         )
       .documentSource()
       .mapConcat: doc =>
