@@ -122,6 +122,7 @@ export interface SetupStore {
   fen: FEN;
   timeMode: TimeMode;
   gameMode: GameMode;
+  color: ColorChoice;
   ratingMin: number;
   ratingMax: number;
   aiLevel: number;
