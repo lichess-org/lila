@@ -32,10 +32,13 @@
     position: relative;
 
     &::after {
-      content: '❯';
+      @extend %data-icon;
+
+      content: $licon-GreaterThan;
       position: absolute;
+      font-size: 14px;
       transform: rotate(-90deg);
-      margin-left: 0.75em;
+      margin-left: 0.5em;
       opacity: 0.66;
       transition: transform 0.2s ease-in-out;
     }
