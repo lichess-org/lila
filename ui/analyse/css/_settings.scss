@@ -155,6 +155,7 @@
 
 .setting-popup {
   @extend %box-radius;
+
   touch-action: none;
   gap: 1em;
   background: $c-bg-zebra2;
