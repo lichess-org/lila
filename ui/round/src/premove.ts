@@ -80,9 +80,17 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (ctx: cg.MobilityContext, specificEnemies?: cg.Pieces): boolean =>
+  private readonly isFriendlyOnDestAndAttacked = (
+    ctx: cg.MobilityContext,
+    specificEnemies?: cg.Pieces,
+  ): boolean =>
     this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(ctx.dest.key, ctx.friendlies, specificEnemies ?? ctx.enemies, ctx.lastMove) ||
+    (this.canBeCapturedBySomeEnemyEnPassant(
+      ctx.dest.key,
+      ctx.friendlies,
+      specificEnemies ?? ctx.enemies,
+      ctx.lastMove,
+    ) ||
       this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
 
   private readonly canBeCapturedBySomeEnemyEnPassant = (
