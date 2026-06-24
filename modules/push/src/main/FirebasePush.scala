@@ -109,7 +109,7 @@ final private class FirebasePush(
           logger.info(s"Delete missing firebase device $device")
           deviceApi.delete(device)
         else
-          if errorCounter(res.status) then logger.warn(s"[push] firebase: ${res.status}")
+          logger.warn(s"[push] firebase: ${res.status} ${res.body}")
           funit
 
 private object FirebasePush:
