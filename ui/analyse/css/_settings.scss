@@ -152,7 +152,8 @@
 }
 
 .popup {
-  @extend %box-radius;
+  @extend %box-radius, %flex-column;
 
+  gap: 1em;
   background: $c-bg-zebra2;
 }
