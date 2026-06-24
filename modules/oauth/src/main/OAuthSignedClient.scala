@@ -114,9 +114,11 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
    * If it doesn't match any signed client, it will succeed without needing a signature. */
   def allow(bearer: Bearer, token: AccessToken.ForAuth, signature: Option[String]): Boolean =
     forScopesOf(token).forall: client =>
-      token.clientOrigin.exists(client.origins.has) && signature.exists: signed =>
-        client.signers.isEmpty || client.signers.exists: signer =>
-          signer.sha1(bearer.value).hash_=(signed)
+      token.clientOrigin.exists(client.origins.has) && {
+        !requireSign || signature.exists: signed =>
+          client.signers.isEmpty || client.signers.exists: signer =>
+            signer.sha1(bearer.value).hash_=(signed)
+      }
 
   private object monitoring:
     private val newOauthAttempts = scalalib.cache.OnceEvery[(AuthorizationRequest.Prompt, Action)](10.minutes)
