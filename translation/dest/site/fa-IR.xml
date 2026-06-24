@@ -1044,4 +1044,5 @@
   <string name="thereAreNoResultsForX">برای «%s» نتیجه‌ای یافت نشد</string>
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
+  <string name="settings">تنظیمات</string>
 </resources>
