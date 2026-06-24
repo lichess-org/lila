@@ -672,6 +672,7 @@ export default class StudyCtrl {
     const s = p.split('#');
     return `${s[0]}${location.search}${s[1] ? `#${s[1]}` : ''}`;
   };
+  hideMoves = () => this.ctrl.actionMenu() && !this.relay;
 
   socketHandlers: Handlers = {
     path: d => {

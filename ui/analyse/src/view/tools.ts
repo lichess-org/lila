@@ -31,7 +31,7 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
   hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
-    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
+    !ctrl.study?.hideMoves() && hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 
