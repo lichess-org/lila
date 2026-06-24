@@ -1,5 +1,6 @@
 import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
+import { elemAt } from 'lib';
 
 export class Premove {
   readonly unrestrictedPremoves: boolean;
@@ -124,20 +125,21 @@ export class Premove {
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
     if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
-    if (squaresOfEnemiesBetween.length) {
-      const enemySquare = squaresOfEnemiesBetween[0];
-      const enemy = ctx.enemies.get(enemySquare);
+    const friendlySqBetween = elemAt(squaresOfFriendliesBetween, 0);
+    const enemySqBetween = elemAt(squaresOfEnemiesBetween, 0);
+    if (enemySqBetween) {
+      const enemy = ctx.enemies.get(enemySqBetween);
       if (enemy?.role === 'pawn') {
         const enemyStep = enemy.color === 'white' ? 1 : -1;
-        const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
+        const squareAbove = util.squareShiftedVertically(enemySqBetween, enemyStep);
         const enemyPawnDests: cg.Key[] = squareAbove
           ? [
               ...util
                 .adjacentSquares(squareAbove)
-                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
+                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySqBetween, s, ctx)),
               ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
                 .filter(s => !!s)
-                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
+                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySqBetween, s, ctx)),
             ]
           : [];
         const badSquares = new Set([...squaresBetween, ctx.orig.key]);
@@ -146,17 +148,13 @@ export class Premove {
     }
     if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
       if (!this.isFriendlyOnDestAndAttacked(ctx)) return false;
-      if (squaresOfFriendliesBetween.length) return false;
+      if (friendlySqBetween) return false;
     }
-    if (!squaresOfFriendliesBetween.length) return true;
-    const firstSquareOfFriendliesBetween = squaresOfFriendliesBetween[0];
-    const nextSquare = util.squareShiftedVertically(
-      firstSquareOfFriendliesBetween,
-      ctx.color === 'white' ? -1 : 1,
-    );
+    if (!friendlySqBetween) return true;
+    const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
       this.canBeCapturedBySomeEnemyEnPassant(
-        firstSquareOfFriendliesBetween,
+        friendlySqBetween,
         ctx.friendlies,
         ctx.enemies,
         ctx.lastMove,
