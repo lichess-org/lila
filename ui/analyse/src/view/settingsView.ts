@@ -154,7 +154,7 @@ function setupTouchHelp(view: HTMLElement) {
     const htmlText = settings[key].helpHtml;
 
     el.addEventListener('click', () =>
-      domDialog({ htmlText, class: 'popup', noCloseButton: true, show: true, easyClose: 'anyClick' }),
+      domDialog({ htmlText, class: 'setting-popup', noCloseButton: true, show: true, easyClose: 'anyClick' }),
     );
   });
 }
@@ -205,10 +205,12 @@ function setupHoverHelp(view: HTMLElement) {
 }
 
 function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
-  const label =
-    settings[key].helpHtml && isTouchDevice()
-      ? `<button class="help-button" data-key="${key}" data-icon="${licon.InfoCircle}">${settings[key].label}</button>`
-      : `<span class="hover-help" data-key="${key}">${settings[key].label}</span>`;
+  const setting = settings[key];
+  const label = setting.helpHtml
+    ? isTouchDevice()
+      ? `<button class="help-button" data-key="${key}" data-icon="${licon.InfoCircle}">${setting.label}</button>`
+      : `<span class="hover-help" data-key="${key}">${setting.label}</span>`
+    : setting.label;
   return $html`
     <span class="setting">
       ${label}
