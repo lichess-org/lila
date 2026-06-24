@@ -661,7 +661,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return (this.cevalEnabled() && node.ceval) || (this.settings.showStaticAnalysis && node.eval);
   }
 
-  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
+  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
 
   promote(path: TreePath, toMainline: boolean): void {
@@ -810,7 +810,8 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.settings.showStaticAnalysis;
 
-  showMoveAnnotations = (): boolean => this.settings.showMoveAnnotationsOnBoard && this.showMoveGlyphs();
+  showMoveAnnotations = (): boolean =>
+    this.settings.showMoveAnnotationsOnBoard && !this.retro?.isSolving() && this.showMoveGlyphs();
 
   showEvalGauge(): boolean {
     return (
