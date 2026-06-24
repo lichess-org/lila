@@ -65,4 +65,17 @@
   <string name="bellNotificationSound">Tingull zileje njoftimesh</string>
   <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Shfaqe në të majtë të pajisjesh celulare</string>
+  <string name="inlineNotation">Shënim brendazi</string>
+  <string name="showServerAnalysis">Shfaq analizë shërbyesi</string>
+  <string name="showBestMoveArrows">Shfaq shigjeta lëvizjesh më të mira</string>
+  <string name="showManeuverArrows">Shfaq shigjeta manovre</string>
+  <string name="showVariationArrows">Shfaq shigjeta variantesh</string>
+  <string name="showUndefendedPieces">Shfaq gurë të pambrojtur</string>
+  <string name="showPinnedPieces">Shfaq gurë të fiksuar</string>
+  <string name="showCheckableKing">Shfaq mbret të cilit mund t’i jepet shah</string>
+  <string name="disclosureMode">Aktivizo fshehje variantesh</string>
+  <string name="generalSettings">Të përgjithshme</string>
+  <string name="moveListSettings">Listë lëvizjesh</string>
+  <string name="boardSettings">Fushë</string>
+  <string name="analysisSettings">Rregullime analize</string>
 </resources>
