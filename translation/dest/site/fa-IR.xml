@@ -1006,8 +1006,8 @@
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
   <string name="navigateMoveTree">ناویدن فهرست حرکت‌ها</string>
   <string name="mouseTricks">ترفندهای موشواره</string>
-  <string name="toggleLocalAnalysis">تغییر در تحلیل رایانه‌ای محلی</string>
-  <string name="toggleAllAnalysis">تغییر در هرگونه تحلیل رایانه‌ای</string>
+  <string name="toggleLocalAnalysis">کلیدِ تحلیلِ رایانه‌ای محلی</string>
+  <string name="toggleAllAnalysis">کلیدِ هرگونه تحلیل رایانه‌ای</string>
   <string name="playComputerMove">بازی کردن بهترین حرکت رایانه‌ای</string>
   <string name="analysisOptions">امکاناتِ تحلیل</string>
   <string name="focusChat">به گپ برو</string>
