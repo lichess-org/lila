@@ -91,11 +91,6 @@ export interface CevalEngine {
   destroy(): void;
 }
 
-export interface EvalMeta {
-  path: string;
-  threatMode: boolean;
-}
-
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
