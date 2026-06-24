@@ -263,14 +263,17 @@ async function buildColorWrap() {
   return fs.promises.writeFile(wrapFile, scssWrap);
 }
 
+function isValidColor(color: string) {
+  return themeColorMap.get('default')?.has(color) || clr(color).isValid();
+}
+
 function parseColor(colorMix: string) {
   const [clrs, opval] = colorMix.split('--');
   const [c1, c2] = clrs.split('_');
   const [op, valstr] = opval.split('-');
   const val = parseInt(valstr);
-  const validColor = (c: string) => themeColorMap.get('default')?.has(c) || clr(c).isValid();
-  return validColor(c1) &&
-    (op !== 'mix' || validColor(c2)) &&
+  return isValidColor(c1) &&
+    (op !== 'mix' || isValidColor(c2)) &&
     ['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op) &&
     val >= 0 &&
     val <= 100

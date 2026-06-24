@@ -108,7 +108,7 @@ const viewMoves = (ctrl: PlayCtrl) => {
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    els.push(hl('turn', i + ''));
+    els.push(hl('turn', i));
     els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
     els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
   }
@@ -177,7 +177,7 @@ const viewOpponent = (bot: BotInfo) =>
   hl('div.bot-game__opponent', [
     hl('div.bot-game__opponent__header', [
       hl('span.bot-game__opponent__name', bot.name),
-      hl('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
+      hl('span.bot-game__opponent__rating', Bot.rating(bot, 'classical')),
     ]),
     bot.image && hl('img.bot-game__opponent__image', { attrs: { src: botAssetUrl('image', bot.image) } }),
     // hl('div.bot-game__opponent__description', bot.description),

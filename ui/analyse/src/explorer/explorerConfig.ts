@@ -210,7 +210,7 @@ const radioButton =
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst(String(v)) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
       render ? render(v) : i18n(v as string),

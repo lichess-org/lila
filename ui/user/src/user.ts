@@ -20,7 +20,7 @@ export async function initModule(): Promise<void> {
     $zone.find('textarea')[0]?.focus();
     if ($zone.hasClass('loaded')) return;
     $zone.addClass('loaded');
-    $noteToggle.find('strong').text('' + $zone.find('.note').length);
+    $noteToggle.find('strong').text(String($zone.find('.note').length));
     $zone.find('.note-form button[type=submit]').on('click', function (this: HTMLButtonElement) {
       $(this)
         .parents('form')

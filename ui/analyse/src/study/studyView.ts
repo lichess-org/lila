@@ -255,7 +255,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -347,7 +347,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes,
+        d.likes,
       ),
     ]),
     topicsView(ctrl),

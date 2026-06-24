@@ -42,7 +42,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
 const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
   hl('em.rank', '#' + p.k),
   p.t && hl('em.utitle', p.t),
-  ctrl.opts.showRatings && hl('em.rating', '' + p.r),
+  ctrl.opts.showRatings && hl('em.rating', p.r),
 ];
 
 function renderDuel(ctrl: TournamentController) {
