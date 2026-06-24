@@ -65,7 +65,7 @@
   <string name="computerAnalysisDisabled">컴퓨터 분석 비활성화됨</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
-  <string name="usingServerAnalysis">서버 분석 사용하기</string>
+  <string name="usingServerAnalysis">서버 분석 사용 중</string>
   <string name="loadingEngine">엔진 로드 중...</string>
   <string name="calculatingMoves">수 계산 중...</string>
   <string name="engineFailed">엔진 불러오는 도중 오류 발생</string>
@@ -100,7 +100,7 @@
   <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
-  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
+  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 대면 경기</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
@@ -773,7 +773,7 @@
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="other">익명 (%s)</item>
   </plurals>
   <string name="yourScore">당신의 점수는 %s입니다.</string>
@@ -997,4 +997,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
   <string name="enPassant">앙파상 권리</string>
+  <string name="settings">설정</string>
 </resources>

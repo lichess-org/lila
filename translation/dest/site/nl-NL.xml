@@ -440,7 +440,7 @@
   <string name="screenshotCurrentPosition">Schermafbeelding huidige stelling</string>
   <string name="gameAsGIF">Download partij als GIF</string>
   <string name="playerNames">Spelersnamen</string>
-  <string name="moveAnnotations">Aantekeningen</string>
+  <string name="moveAnnotations">Annotaties</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
@@ -737,9 +737,9 @@
   <string name="keyNextBranch">Volgende vertakking</string>
   <string name="toggleVariationArrows">Variatiepijlen in/uitschakelen</string>
   <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
-  <string name="toggleGlyphAnnotations">Zetaantekeningen in-/uitschakelen</string>
-  <string name="togglePositionAnnotations">Stellingsaantekeningen in-/uitschakelen</string>
-  <string name="toggleObservationAnnotations">Observatie-aantekeningen in-/uitschakelen</string>
+  <string name="toggleGlyphAnnotations">Zetannotaties in-/uitschakelen</string>
+  <string name="togglePositionAnnotations">Stellingsannotaties in-/uitschakelen</string>
+  <string name="toggleObservationAnnotations">Observatie-annotaties in-/uitschakelen</string>
   <string name="variationArrowsInfo">Met de variantpijlen kunt u navigeren zonder de zettenlijst te gebruiken.</string>
   <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>
@@ -814,7 +814,7 @@
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
-  <plurals name="nbAnonymous" comment="%s is the count of anonymous spectators&#10;&#10;Indicates that anonymous users are viewing a game or study. Anonymous users are users who are not logged in to a Lichess account.&#10;&#10;For example, &quot;Anonymous (5)&quot; means there are 5 spectators currently who are not logged in&#10;&#10;Shown in a list after logged in users, so it would be something like:&#10;● Alice    ● Bob    Anonymous (5)">
+  <plurals name="nbAnonymous">
     <item quantity="one">Anoniem</item>
     <item quantity="other">Anoniem (%s)</item>
   </plurals>
@@ -1043,4 +1043,5 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="thereAreNoResultsForX">Geen resultaten voor \"%s\"</string>
   <string name="tags">Labels</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Instellingen</string>
 </resources>

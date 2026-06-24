@@ -2,6 +2,9 @@
 <resources>
   <string name="lichessMobileApp">Aplicativo do Lichess para celular</string>
   <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Retornando ao aplicativo Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically" comment="ifAppDoesNotOpenAutomatically&#10;&#10;%s is &quot;Open the Lichess App&quot;, which is translatable separately.">Se o aplicativo não abrir automaticamente, toque no botão \"%s\".</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Abrir o aplicativo Lichess</string>
+  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Ver %s no GitHub</string>
   <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">todos os lançamentos</string>
   <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Baixar pela Apple App Store</string>
   <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Baixar pelo Google Play</string>
