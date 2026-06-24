@@ -10,6 +10,18 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
+  def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
+    val compactFormat = currentFormat.contains(StudyFormat.compact)
+    val toggleUrl =
+      if compactFormat then baseUrl
+      else addQueryParam(baseUrl, "format", "compact")
+    a(
+      cls := List("button button-empty" -> true, "active" -> compactFormat),
+      href := toggleUrl,
+      title := (if compactFormat then "Switch to card view" else "Switch to list view"),
+      dataIcon := Icon.List
+    )
+
   def orderSelect(
       order: StudyOrder,
       active: StudyGroup,
