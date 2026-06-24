@@ -78,7 +78,8 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
       limit.enumeration.userProfile(rateLimited):
-        def fetchActivity = isRestricted.not.so(env.activity.read.recentAndPreload(u))
+        val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
+        def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
         then
           val cost =
@@ -88,7 +89,7 @@ final class User(
           userShowHtmlRateLimit(rateLimited, cost = cost):
             for
               as <- fetchActivity
-              nbs <- isRestricted.not.so(env.userNbGames(u, withCrosstable = false))
+              nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
               info <- env.userInfo.fetch(u, nbs, isRestricted)
               _ <- env.userInfo.preloadTeams(info)
               social <- env.socialInfo(u)
