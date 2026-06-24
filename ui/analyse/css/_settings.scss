@@ -130,7 +130,7 @@
 }
 
 .help-container,
-.popup {
+.setting-popup {
   fieldset:has(video, img) {
     align-items: center;
   }
@@ -151,7 +151,7 @@
   max-height: 300px;
 }
 
-.popup {
+.setting-popup {
   @extend %box-radius, %flex-column;
 
   gap: 1em;
