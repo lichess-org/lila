@@ -131,7 +131,7 @@ export const env = new (class {
     this.status[ctx] = code;
     if (this.buildOk()) {
       if (this.startTime) {
-        const doneMsg = `Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`;
+        const doneMsg = `Done in ${c.green(String((Date.now() - this.startTime) / 1000))}s`;
         this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean and rebuild` : ''));
       }
       this.onSuccess.forEach(yay => yay());

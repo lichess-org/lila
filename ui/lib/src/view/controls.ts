@@ -23,7 +23,7 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
   return {
     insert: (v: VNode) => {
       const el = v.elm as HTMLInputElement;
-      el.value = '' + read();
+      el.value = String(read());
       el.addEventListener('input', () => write(parseInt(el.value)));
       el.addEventListener('mouseout', () => el.blur());
     },

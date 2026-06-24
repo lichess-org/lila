@@ -60,7 +60,7 @@ export function addDomHandlers() {
       const t = $(this).toggleClass('bookmarked');
       xhrText(this.href, { method: 'post' });
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-      t.find('span').html('' + (count > 0 ? count : ''));
+      t.find('span').html(count > 0 ? String(count) : '');
       return false;
     });
 

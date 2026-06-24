@@ -33,7 +33,7 @@ function clock(ctrl: TournamentController): VNode | undefined {
             insert(vnode) {
               (vnode.elm as HTMLElement).setAttribute(
                 'datetime',
-                '' + (Date.now() + d.secondsToStart! * 1000),
+                String(Date.now() + d.secondsToStart! * 1000),
               );
             },
           },

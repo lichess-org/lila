@@ -8,10 +8,10 @@ import type { PodiumPlayer } from '../interfaces';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   h('table.stats', [
-    h('tr', [h('th', i18n.site.points), h('td', '' + p.points)]),
-    h('tr', [h('th', i18n.swiss.tieBreak), h('td', '' + p.tieBreak)]),
+    h('tr', [h('th', i18n.site.points), h('td', p.points)]),
+    h('tr', [h('th', i18n.swiss.tieBreak), h('td', p.tieBreak)]),
     p.performance && ctrl.opts.showRatings
-      ? h('tr', [h('th', i18n.site.performance), h('td', '' + p.performance)])
+      ? h('tr', [h('th', i18n.site.performance), h('td', p.performance)])
       : null,
   ]);
 

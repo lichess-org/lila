@@ -14,7 +14,7 @@
         "null": "ignore"
       }
     ],
-    "no-var": "warn",
+    "import/no-cycle": "error",
     "no-constant-condition": [
       "warn",
       {
@@ -22,6 +22,7 @@
       }
     ],
     "no-duplicate-imports": "error",
+    "no-implicit-coercion": ["error", { "boolean": false }],
     "no-useless-call": "error",
     "no-useless-computed-key": "error",
     "no-useless-concat": "error",
@@ -36,8 +37,9 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "no-var": "warn",
     "object-shorthand": "error",
-    "import/no-cycle": "error",
+    "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
@@ -257,8 +259,9 @@
     {
       "files": ["bin/**", "cron/**"],
       "rules": {
+        "await-thenable": "off",
         "no-unused-vars": "off",
-        "await-thenable": "off"
+        "prefer-const": "off"
       }
     },
     {

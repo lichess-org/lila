@@ -53,7 +53,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
           const round = ctrl.data.round - i;
           if (isOutcome(p))
             return hl('tr.' + p, { key: round }, [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td.outcome', { attrs: { colspan: 3 } }, p),
               hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
@@ -66,9 +66,9 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
             },
             [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td', fullName(p.user)),
-              ctrl.opts.showRatings && hl('td', '' + p.rating),
+              ctrl.opts.showRatings && hl('td', p.rating),
               hl('td.is.color-icon.' + (p.c ? 'white' : 'black')),
               hl('td.result', res),
             ],

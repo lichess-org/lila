@@ -198,7 +198,7 @@ export function view(ctrl: StudyForm): VNode {
           ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
           ['false', i18n.study.noLetPeopleBrowseFreely],
         ],
-        selected: '' + data.settings.sticky,
+        selected: String(data.settings.sticky),
         visible: isEditable,
       }),
       select({
@@ -208,7 +208,7 @@ export function view(ctrl: StudyForm): VNode {
           ['false', i18n.study.noPinnedComment],
           ['true', i18n.study.rightUnderTheBoard],
         ],
-        selected: '' + data.settings.description,
+        selected: String(data.settings.description),
         visible: true,
       }),
     ]),

@@ -95,7 +95,7 @@ export default async function (
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    let label = [i18n.site.nbSeconds(Number(seconds))];
+    const label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;

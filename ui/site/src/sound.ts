@@ -125,7 +125,7 @@ export default new (class implements SoundI {
     const doIt = () => {
       const store = storage.make('just-played');
       if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
-      store.set('' + Date.now());
+      store.set(String(Date.now()));
       this.play(name);
     };
     if (document.hasFocus()) doIt();

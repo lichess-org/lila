@@ -32,7 +32,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 const logSuccess = (e: LogEvent) =>
-  e.moves ? [hl('strong', '' + e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
+  e.moves ? [hl('strong', e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
 
 function renderLog(ctrl: RelayCtrl) {
   const url = ctrl.data.sync?.url;

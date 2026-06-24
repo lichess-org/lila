@@ -132,7 +132,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               ctrl.explorer.opts.showRatings &&
                 hl(
                   'td',
-                  [game.white, game.black].map(p => hl('span', '' + p.rating)),
+                  [game.white, game.black].map(p => hl('span', p.rating)),
                 ),
               hl(
                 'td',
