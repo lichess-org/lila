@@ -104,12 +104,13 @@ final private class FirebasePush(
           case PushApi.Data.FirebaseMod.DataOnly => "data"
           case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif"
         lila.mon.push.firebaseStatus(project, dataType, res.status).increment()
+        logger.warn(s"[push] firebase: ${res.status} ${res.body}")
         if res.status == 200 then funit
         else if res.status == 404 then
           logger.info(s"Delete missing firebase device $device")
           deviceApi.delete(device)
         else
-          logger.warn(s"[push] firebase: ${res.status} ${res.body}")
+          if errorCounter(res.status) then logger.warn(s"[push] firebase: ${res.status}")
           funit
 
 private object FirebasePush:
