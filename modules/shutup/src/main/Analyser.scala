@@ -31,7 +31,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
-  private val logger = lila.log("security").branch("shutup")
+  private val logger = lila.log("security.shutup")
 
   private def latinify(text: String): String =
     text.map:

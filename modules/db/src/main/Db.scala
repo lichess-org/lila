@@ -34,10 +34,8 @@ final class Db(
     driver: AsyncDriver
 )(using Executor):
 
-  private val logger = lila.db.logger.branch(name)
-
   private lazy val db: DB =
-    logger.info(s"MongoDB connecting to $uri")
+    logger.info(s"MongoDB $name connecting to $uri")
     val connected = scala.concurrent.Await.result(
       MongoConnection
         .fromString(uri)
@@ -47,7 +45,7 @@ final class Db(
             .flatMap(_.database(parsedUri.db.getOrElse("lichess"))),
       5.seconds
     )
-    logger.info(s"MongoDB connected  to $uri")
+    logger.info(s"MongoDB $name connected  to $uri")
     connected
 
   def apply(name: CollName): Coll = db.collection(name.value)

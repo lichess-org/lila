@@ -31,7 +31,7 @@ final class LateMultiThrottler(
     case Done(id) =>
       executions = executions - id
 
-    case x => logger.branch("LateMultiThrottler").warn(s"Unsupported message $x")
+    case x => logger.warn(s"LateMultiThrottler Unsupported message $x")
 
 object LateMultiThrottler:
 

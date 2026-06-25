@@ -63,7 +63,7 @@ final private class TwitchApi(
 
   import Twitch.{ given, * }
 
-  private val logger = lila.streamer.logger.branch("twitch")
+  private lazy val logger = lila.log("streamer.twitch")
   private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")

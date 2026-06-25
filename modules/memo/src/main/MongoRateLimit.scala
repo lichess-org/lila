@@ -21,7 +21,6 @@ final class MongoRateLimit[K](
 
   private def makeClearAt = nowInstant.plus(duration)
 
-  private val logger = RateLimit.logger.branch("mongo").branch(name)
   private val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
   private val sequencer = AsyncActorSequencers[K](
@@ -58,7 +57,7 @@ final class MongoRateLimit[K](
             case Some(Entry(_, _, clearAt)) if clearAt.isBeforeNow =>
               coll.update.one($id(dbKey), Entry(dbKey, cost, makeClearAt), upsert = true) >> op
             case _ if enforce =>
-              if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
+              if log then RateLimit.logger.info(s"mongo.$name $credits/$duration $k cost: $cost $msg")
               monitor.increment()
               fuccess(default)
             case _ =>

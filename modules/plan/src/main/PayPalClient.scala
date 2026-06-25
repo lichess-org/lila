@@ -198,7 +198,7 @@ final private class PayPalClient(
     logger.info(s"POST $url $data")
     request(url).flatMap(_.post(data)).void
 
-  private val logger = lila.plan.logger.branch("payPal")
+  private lazy val logger = lila.log("plan.payPal")
 
   private def request(url: String) = tokenCache.get {}.map { bearer =>
     ws.url(s"${config.endpoint}/$url")

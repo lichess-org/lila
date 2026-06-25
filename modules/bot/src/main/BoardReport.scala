@@ -37,13 +37,12 @@ private final class BoardReport(settingStore: SettingStore.Builder)(using
       else if rating > IntRating(1800) then 12
       else 24
     val minutes = (2 + delayBase + ThreadLocalRandom.nextInt(delayBase * 60))
-    lila
-      .log("cheat")
-      .branch("board")
-      .warn:
-        s"Marking https://lichess.org/@/${me.username} for https://lichess.org/${game.id} with $ref in $minutes minutes"
+    logger.warn:
+      s"Marking https://lichess.org/@/${me.username} for https://lichess.org/${game.id} with $ref in $minutes minutes"
     scheduler.scheduleOnce(minutes.minutes):
       lila.common.Bus.pub(lila.core.mod.BoardApiMark(me.userId, ref))
+
+  private lazy val logger = lila.log("cheat.board")
 
   private def checkNow(game: Game): Boolean =
     game.ply.value == 5 + (game.createdAt.toSeconds % 20)

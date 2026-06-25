@@ -112,7 +112,7 @@ final class MarkdownRender(
       renderer.render(parser.parse(withMentions.value))
     catch
       case e: StackOverflowError =>
-        logger.branch(key).error("StackOverflowError", e)
+        logger.error(s"StackOverflowError $key", e)
         text.value
 
 object MarkdownRender:
