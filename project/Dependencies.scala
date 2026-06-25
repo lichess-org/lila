@@ -25,7 +25,6 @@ object Dependencies:
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.15.Final").classifier(s"$os-$arch")
-  val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.4.6"
   val munit = "org.scalameta" %% "munit" % "1.3.3" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"

@@ -81,8 +81,9 @@ final class TeamRepo(val coll: Coll)(using Executor):
     _ <- coll.update.one($doc("leaders" -> userId), $pull("leaders" -> userId), multi = true)
   yield ()
 
-  def deleteNewlyCreatedBy(userId: UserId): Funit =
-    coll.delete.one($doc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(2)))).void
+  def newlyCreatedById(userId: UserId): Fu[Option[TeamId]] =
+    coll.secondary
+      .primitiveOne[TeamId]($doc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(2))), "_id")
 
   def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists($id(id) ++ clasSelect)
   def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team]($id(id) ++ clasSelect)
