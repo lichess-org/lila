@@ -48,7 +48,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
     else if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
   });
-
+  kbd.bind('escape', () => {
+    if (ctrl.presentationMode()) ctrl.presentationMode(false);
+  });
   if (ctrl.study?.practice) return;
 
   kbd
