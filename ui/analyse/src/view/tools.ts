@@ -19,7 +19,11 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embeddedVideo,
     showCeval && cevalView.renderCeval(ctrl),
-    showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+    showCeval &&
+      !ctrl.retro?.isSolving() &&
+      !ctrl.practice &&
+      !ctrl.study?.hideMoves() &&
+      cevalView.renderPvs(ctrl),
     renderMoveList(ctrl, deps, concealOf),
     deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
     renderBackToLiveButton(ctrl),
@@ -30,10 +34,16 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
 }
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
-    !ctrl.study?.hideMoves() && hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
-    !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
-  ]);
+  hl(
+    'div.analyse__moves.areplay',
+    { hook: ctrl.treeView.hook() },
+    ctrl.study?.hideMoves()
+      ? []
+      : [
+          hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
+          !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
+        ],
+  );
 
 const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
   ctrl.study?.isRelayAwayFromLive()
