@@ -72,6 +72,20 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiSinglePuzzle(puzzle: Puz)(using Context, Perf) =
     JsonOk(env.puzzle.jsonView(puzzle, none, none, withInitialPos = true))
 
+  def apiMany(idsStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
+    val ids = idsStr.split(',').take(50).flatMap(Puz.toId).toList
+    val cost =
+      if ctx.isMobileOauth then 0
+      else if HTTPRequest.isLichessMobile(ctx.req) then ids.size / 5
+      else if ctx.isAuth then ids.size / 3
+      else ids.size
+    fetchRateLimit(rateLimited, cost = cost):
+      WithPuzzlePerf:
+        for
+          puzzles <- env.puzzle.api.puzzle.findMany(ids)
+          json <- env.puzzle.jsonView.batch(puzzles)
+        yield JsonOk(json)
+
   def home = Open(serveHome)
 
   def homeLang = LangPage(routes.Puzzle.home.url)(serveHome)
