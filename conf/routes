@@ -312,7 +312,8 @@ GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs,
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId: RelayRoundId)
 GET   /broadcast/:pager                       controllers.RelayTour.pager(pager: String, page: Int ?= 1)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: RelayRoundId)
-GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
+GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.streamRound(roundId: RelayRoundId)
+GET   /api/stream/broadcast/group/$groupId<\w{8}>.pgn controllers.RelayRound.streamGroup(groupId: RelayGroupId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
 GET   /api/broadcast/search                   controllers.RelayTour.apiSearch(page: Int ?= 1, q: String ?= "")

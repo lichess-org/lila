@@ -12,6 +12,7 @@ import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
+import lila.web.ConcurrencyLimit
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -401,7 +402,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
 
-    def events(using ctx: Context) =
+    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
       if ctx.isAnon then eventsForAnon
       else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
       else eventsForUser
