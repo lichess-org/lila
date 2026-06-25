@@ -1126,4 +1126,5 @@
   <string name="thereAreNoResultsForX">Нічого не знайдено для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
+  <string name="settings">Налаштування</string>
 </resources>
