@@ -73,3 +73,18 @@ object Translator extends Translator:
               logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
               Some(key.value)
         .getOrElse(key.value)
+
+  def duration(
+      duration: java.time.Duration,
+      withMinutes: Option[Boolean] = None,
+      skipDays: Boolean = false
+  )(using lang: Lang): String =
+    val useMinutes = withMinutes.getOrElse(duration.toDays == 0 || skipDays)
+    List(
+      Option.unless(skipDays)(I18nKey.site.nbDays, true, duration.toDays),
+      Some(I18nKey.site.nbHours, true, if skipDays then duration.toHours else duration.toHours % 24),
+      Option.when(useMinutes)(I18nKey.site.nbMinutes, false, duration.toMinutes % 60)
+    ).flatten
+      .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
+      .map((key, _, nb) => txt.plural(key, nb, List(nb), lang))
+      .mkString(", ")

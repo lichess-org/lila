@@ -42,7 +42,7 @@ object UiEnv
   def lightUserSync = env.user.lightUserSync
   def manifest = env.web.manifest
   def analyseEndpoints = env.web.analyseEndpoints
-  protected val translator = lila.i18n.Translator
+  val translator = lila.i18n.Translator
   val langList = lila.i18n.LangList
   protected val namer = lila.game.Namer
   protected lazy val lightTeamSync = env.team.lightTeamSync
