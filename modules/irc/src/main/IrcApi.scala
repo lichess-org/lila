@@ -16,7 +16,30 @@ final class IrcApi(
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
-  import IrcApi.*
+  import IrcApi.{ userRegex, postRegex }
+
+  private object markdown:
+    def link(url: String, name: String) = s"[$name]($url)"
+    def lichessLink[N: Show](path: String, name: N) = show"[$name](${net.baseUrl}$path)"
+    def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
+    def userLink(user: LightUser): String = userLink(user.name)
+    def userLinkNoNotes(name: UserName): String = lichessLink(s"/@/$name?mod", name.value)
+    def userIdLinks(ids: List[UserId]): String =
+      UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
+    def modLink(name: UserName): String = lichessLink(s"/@/$name", name.value)
+    def gameLink(id: String) = lichessLink(s"/$id", s"#$id")
+    def printLink(print: String) = lichessLink(s"/mod/print/$print", print)
+    def ipLink(ip: String) = lichessLink(s"/mod/ip/$ip", ip)
+    def userNotesLink(name: UserName) = lichessLink(s"/@/$name?notes", "notes")
+    def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
+    def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
+      lichessLink(s"/broadcast/-/-/$id/$gameId", name)
+    def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
+    val postReplace = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
+    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
+    def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
+    def time(t: Instant) = s"<time:$t>"
 
   def commReportBurst(user: LightUser): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
@@ -195,7 +218,7 @@ final class IrcApi(
 
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
-      markdown.link(s"${net.baseUrl}/training/$id", "Solve the daily puzzle") +
+      markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
         markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
@@ -236,26 +259,3 @@ object IrcApi:
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
-
-  private object markdown:
-    def link(url: String, name: String) = s"[$name]($url)"
-    def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
-    def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
-    def userLink(user: LightUser): String = userLink(user.name)
-    def userLinkNoNotes(name: UserName): String = lichessLink(s"/@/$name?mod", name.value)
-    def userIdLinks(ids: List[UserId]): String =
-      UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
-    def modLink(name: UserName): String = lichessLink(s"/@/$name", name.value)
-    def gameLink(id: String) = lichessLink(s"/$id", s"#$id")
-    def printLink(print: String) = lichessLink(s"/mod/print/$print", print)
-    def ipLink(ip: String) = lichessLink(s"/mod/ip/$ip", ip)
-    def userNotesLink(name: UserName) = lichessLink(s"/@/$name?notes", "notes")
-    def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
-    def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
-      lichessLink(s"/broadcast/-/-/$id/$gameId", name)
-    def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
-    val postReplace = lichessLink("/forum/$1", "$1")
-    def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
-    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
-    def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
-    def time(t: Instant) = s"<time:$t>"
