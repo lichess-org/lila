@@ -71,4 +71,7 @@
   <string name="bellNotificationSound">Ilmoitusten kilahdusääni</string>
   <string name="blindfold" comment="As in Blindfold chess">Sokko</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Näytä mobiililaitteilla kello vasemmalla puolella</string>
+  <string name="inlineNotation">Rivinsisäinen kommentointi</string>
+  <string name="showServerAnalysis">Näytä palvelinanalyysi</string>
+  <string name="showBestMoveArrows">Näytä parhaiden siirtojen nuolet</string>
 </resources>
