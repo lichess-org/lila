@@ -188,12 +188,18 @@ object header:
                   u.playTime.map: playTime =>
                     frag(
                       p(
+                        title := lila.core.i18n
+                          .translateDuration(playTime.totalDuration, None, Some(true))
+                      )(
                         trans.site.tpTimeSpentPlaying(
                           lila.core.i18n.translateDuration(playTime.totalDuration)
                         )
                       ),
                       playTime.nonEmptyTvDuration.map: tvDuration =>
-                        p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
+                        p(
+                          title := lila.core.i18n
+                            .translateDuration(tvDuration, None, Some(true))
+                        )(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
                     ),
                   (!hideTroll && u.kid.no).option(
                     div(cls := "social_links col2")(

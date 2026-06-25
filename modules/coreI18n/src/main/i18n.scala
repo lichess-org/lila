@@ -1,7 +1,6 @@
 package lila.core
 package i18n
 
-import cats.syntax.all.*
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
@@ -65,18 +64,30 @@ def playAcceptLanguages(req: RequestHeader): Seq[Lang] =
 trait JsDump:
   def keysToObject(keys: Seq[I18nKey])(using Translate): play.api.libs.json.JsObject
 
-def translateDuration(duration: java.time.Duration, withMinutes: Option[Boolean] = None)(using
+def translateDuration(
+    duration: java.time.Duration,
+    withMinutes: Option[Boolean] = None,
+    skipDays: Option[Boolean] = None
+)(using
     Translate
 ): String =
-  val useMinutes = withMinutes.getOrElse(duration.toDays == 0)
+  val doSkipDays = skipDays.getOrElse(false)
+  val useMinutes = withMinutes.getOrElse(duration.toDays == 0 || doSkipDays)
+
   List(
-    (I18nKey.site.nbDays, true, duration.toDays).some,
-    (I18nKey.site.nbHours, true, duration.toHours % 24).some,
-    Option.when(useMinutes)(I18nKey.site.nbMinutes, false, duration.toMinutes % 60)
+    Option.unless(doSkipDays)((I18nKey.site.nbDays, true, duration.toDays)),
+    Some((I18nKey.site.nbHours, true, if doSkipDays then duration.toHours else duration.toHours % 24)),
+    Option.when(useMinutes)((I18nKey.site.nbMinutes, false, duration.toMinutes % 60))
   ).flatten
     .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
     .map { (key, _, nb) => key.pluralSameTxt(nb) }
     .mkString(", ")
 
-def translateDuration(duration: FiniteDuration, withMinutes: Option[Boolean])(using Translate): String =
-  translateDuration(java.time.Duration.ofSeconds(duration.toSeconds), withMinutes)
+def translateDuration(
+    duration: FiniteDuration,
+    withMinutes: Option[Boolean],
+    skipDays: Option[Boolean]
+)(using
+    Translate
+): String =
+  translateDuration(java.time.Duration.ofSeconds(duration.toSeconds), withMinutes, skipDays)
