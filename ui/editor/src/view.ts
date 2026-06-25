@@ -355,9 +355,8 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
-      h('input', {
-        attrs: { spellcheck: 'false', enterkeyhint: 'done' },
-        props: { value: fen },
+      copyMeInput(fen, {
+        inputAttrs: { enterkeyhint: 'done' },
         on: {
           change(e) {
             const el = e.target as HTMLInputElement;
@@ -384,7 +383,10 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
         },
       }),
     ]),
-    h('p', [h('strong.name', 'URL'), copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()))]),
+    h('p', [
+      h('strong.name', 'URL'),
+      copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()), { inputAttrs: { readonly: true } }),
+    ]),
     h(
       'a',
       {
