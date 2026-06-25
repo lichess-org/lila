@@ -82,4 +82,6 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="tournamentShields">Torneyos protechius</string>
   <string name="onlyTitled">Nomás chugadros titulaus</string>
   <string name="onlyTitledHelp">Fa falta un títol oficial pa participar en o torneyo</string>
+  <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los aparellamientos d\'o torneyo.</string>
+  <string name="berserkRate">Taxa de Bersek</string>
 </resources>
