@@ -74,4 +74,18 @@
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="showServerAnalysis">Näytä palvelinanalyysi</string>
   <string name="showBestMoveArrows">Näytä parhaiden siirtojen nuolet</string>
+  <string name="showManeuverArrows">Näytä manööverien nuolet</string>
+  <string name="showGauge">Näytä arviopalkki</string>
+  <string name="showMoveAnnotationsOnBoard">Näytä siirtokommentit</string>
+  <string name="showVariationArrows">Näytä muunnelmien nuolet</string>
+  <string name="showLiveGlyphs">Reaaliaikaiset tietokoneen kommentit</string>
+  <string name="showUndefendedPieces">Näytä suojaamattomat nappulat</string>
+  <string name="showPinnedPieces">Näytä kiinnitetyt nappulat</string>
+  <string name="showCheckableKing">Näytä, kun kuningasta voi shakata</string>
+  <string name="disclosureMode">Ota käyttöön muunnelmien piilotus</string>
+  <string name="generalSettings">Yleiset</string>
+  <string name="moveListSettings">Siirtoluettelo</string>
+  <string name="boardSettings">Lauta</string>
+  <string name="analysisSettings">Analyysiasetukset</string>
+  <string name="maneuverArrowsHelp">Tietokoneen laskema yhden nappulan siirtosarja</string>
 </resources>
