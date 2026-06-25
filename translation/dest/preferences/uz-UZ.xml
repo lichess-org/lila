@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Qongʻiroq bildirishnoma tovushi</string>
   <string name="blindfold" comment="As in Blindfold chess">Koʻzi bogʻlangan shaxmat</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil qurilmalarda chap tomonda koʻrsatilsin</string>
+  <string name="inlineNotation">Qator ichi notatsiyasi</string>
+  <string name="showServerAnalysis">Server tahlilini koʻrsatish</string>
+  <string name="showBestMoveArrows">Eng yaxshi yurish strelkalarini koʻrsatish</string>
+  <string name="showManeuverArrows">Manyovr strelkalarini koʻrsatish</string>
+  <string name="showGauge">Baho shakalasini koʻrsatish</string>
+  <string name="showMoveAnnotationsOnBoard">Yurish annotatsiyalarini koʻrsatish</string>
+  <string name="showVariationArrows">Variatsiya strelkalarini koʻrsatish</string>
+  <string name="showLiveGlyphs">Dvijokning jonli annotatsiyalari</string>
+  <string name="showUndefendedPieces">Himoyasiz donalarni koʻrsatish</string>
+  <string name="showPinnedPieces">Ochmasdagi donalarni koʻratish</string>
+  <string name="showCheckableKing">Shohga tahdidlarni koʻrsatish</string>
+  <string name="disclosureMode">Variantni yashirishni yoqish</string>
+  <string name="generalSettings">Umumiy</string>
+  <string name="moveListSettings">Yurishlar roʻyxati</string>
+  <string name="boardSettings">Taxta</string>
+  <string name="analysisSettings">Tahlil sozlamalari</string>
+  <string name="maneuverArrowsHelp">Bitta dona uchun dvijokning yurishlar ketma‑ketligi</string>
 </resources>

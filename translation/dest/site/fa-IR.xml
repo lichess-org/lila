@@ -547,7 +547,7 @@
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">پیوندهای رسانه‌های اجتماعی</string>
   <string name="oneUrlPerLine">یک وب‌نشانی در هر خط.</string>
-  <string name="inlineNotation">نشانه‌گذاری خطی</string>
+  <string name="inlineNotation">نشانه‌گذاریِ درخط</string>
   <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
@@ -737,8 +737,8 @@
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های وَرتِش</string>
   <string name="cyclePreviousOrNextVariation">چرخاندن پیشین/پسین وَرتِش</string>
-  <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
-  <string name="togglePositionAnnotations">تغییر حرکت‌نویسی وضعیت</string>
+  <string name="toggleGlyphAnnotations">کلید حرکت‌نویسی</string>
+  <string name="togglePositionAnnotations">کلید حرکت‌نویسی وضعیت</string>
   <string name="toggleObservationAnnotations">کلید مشاهدهٔ حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های وَرتِش به شما امکان ناوِش بدون استفاده از فهرستِ حرکت را می‌دهد.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
@@ -1006,8 +1006,8 @@
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
   <string name="navigateMoveTree">ناویدن فهرست حرکت‌ها</string>
   <string name="mouseTricks">ترفندهای موشواره</string>
-  <string name="toggleLocalAnalysis">تغییر در تحلیل رایانه‌ای محلی</string>
-  <string name="toggleAllAnalysis">تغییر در هرگونه تحلیل رایانه‌ای</string>
+  <string name="toggleLocalAnalysis">کلیدِ تحلیلِ رایانه‌ای محلی</string>
+  <string name="toggleAllAnalysis">کلیدِ هرگونه تحلیل رایانه‌ای</string>
   <string name="playComputerMove">بازی کردن بهترین حرکت رایانه‌ای</string>
   <string name="analysisOptions">امکاناتِ تحلیل</string>
   <string name="focusChat">به گپ برو</string>
@@ -1044,4 +1044,5 @@
   <string name="thereAreNoResultsForX">برای «%s» نتیجه‌ای یافت نشد</string>
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
+  <string name="settings">تنظیمات</string>
 </resources>

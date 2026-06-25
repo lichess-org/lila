@@ -1044,4 +1044,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="thereAreNoResultsForX">Inga resultat for \"%s\"</string>
   <string name="tags">Etikettar</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Innstillingar</string>
 </resources>
