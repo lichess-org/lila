@@ -172,7 +172,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         hl(
           'button',
           {
-            attrs: { 'data-icon': licon.Move },
+            attrs: { 'data-icon': licon.Presentation },
             on: { click: () => ctrl.presentationMode(true) },
           },
           'Presentation mode',
