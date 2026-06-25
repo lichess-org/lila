@@ -20,16 +20,15 @@ final class SetupUi(helpers: Helpers):
       checks: Set[String] = Set.empty
   ): Frag =
     options.mapWithIndex { case ((value, text, hint), index) =>
+      val id = s"setup-${field.name}-$index"
       div(cls := "checkable")(
         form3.nativeCheckbox(
-          s"${field.name}[$index]",
-          s"${field.name}[$index]",
+          fieldId = id,
+          fieldName = s"${field.name}[$index]",
           checks(value.toString),
           value.toString
         ),
-        label(title := hint, `for` := s"${field.name}[$index]")(
-          raw(text)
-        )
+        label(title := hint, `for` := id)(raw(text))
       )
     }
 
