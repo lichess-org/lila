@@ -48,13 +48,13 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val crosstable = RateLimit[IpAddress](credits = 30, duration = 10.minutes, key = "crosstable.api.ip")
 
   val relay: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 100 * 10, duration = 24.hour, key = "broadcast.round.user"),
-    RateLimit[IpAddress](credits = 100 * 10, duration = 24.hour, key = "broadcast.round.ip")
+    RateLimit[UserId](credits = 120 * 10, duration = 24.hour, key = "broadcast.round.user"),
+    RateLimit[IpAddress](credits = 120 * 10, duration = 24.hour, key = "broadcast.round.ip")
   )
 
   val relayTour: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 10 * 10, duration = 24.hour, key = "broadcast.tournament.user"),
-    RateLimit[IpAddress](credits = 10 * 10, duration = 24.hour, key = "broadcast.tournament.ip")
+    RateLimit[UserId](credits = 20 * 10, duration = 24.hour, key = "broadcast.tournament.user"),
+    RateLimit[IpAddress](credits = 20 * 10, duration = 24.hour, key = "broadcast.tournament.ip")
   )
 
   val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer")

@@ -7,12 +7,14 @@ import lila.core.socket.Sri
 import lila.study.*
 import lila.tree.Branch
 import lila.study.AddNode
+import lila.common.Bus
 
 final private class RelaySync(
     studyApi: StudyApi,
     preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
+    groupRepo: RelayGroupRepo,
     players: RelayPlayerApi,
     teamLeaderboard: RelayTeamLeaderboard,
     notifier: RelayNotifier,
@@ -30,8 +32,8 @@ final private class RelaySync(
     allowedNbChapters <- plan.append.nonEmpty.so:
       chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
     appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
+    groupId <- groupRepo.idByTour(rt.tour.id)
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
-    _ = lila.common.Bus.publishDyn(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
     // because studies always have a chapter,
     // broadcasts without game have an empty initial chapter.
@@ -44,7 +46,10 @@ final private class RelaySync(
       studyApi.sendChapterPreviews(study)
       players.invalidate(rt.tour.id)
       teamLeaderboard.invalidate(rt.tour.id)
-  yield result
+  yield
+    Bus.publishDyn(result, SyncResult.roundBusChannel(rt.round.id))
+    groupId.foreach(g => Bus.publishDyn(result, SyncResult.groupBusChannel(g)))
+    result
 
   private def updateChapter(
       rt: RelayRound.WithTour,
@@ -265,4 +270,5 @@ object SyncResult:
 
   case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int, newEnd: Boolean)
 
-  def busChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"
+  def roundBusChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"
+  def groupBusChannel(groupId: RelayGroupId) = s"relaySyncResult:$groupId"

@@ -1,7 +1,7 @@
 resolvers += Resolver.url(
   "lila-maven-sbt",
   new java.net.URL("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
-)(Resolver.ivyStylePatterns)
+)(using Resolver.ivyStylePatterns)
 
 addSbtPlugin("org.lichess.play" % "sbt-plugin" % "2.0.0-RC2")
 
