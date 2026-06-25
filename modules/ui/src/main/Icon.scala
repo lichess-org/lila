@@ -136,7 +136,6 @@ object Icon:
   val Ibeam: Icon = "" // e072
   val Cancel: Icon = "" // e073
   val Voice: Icon = "" // e074
-  val Presentation: Icon = "" // e075
   val OneHalf: Icon = "" // e076
   val Mute: Icon = "" // e077
   val Reload: Icon = "" // e078
