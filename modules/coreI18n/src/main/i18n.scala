@@ -75,9 +75,9 @@ def translateDuration(
   val useMinutes = withMinutes.getOrElse(duration.toDays == 0 || doSkipDays)
 
   List(
-    Option.unless(doSkipDays)((I18nKey.site.nbDays, true, duration.toDays)),
-    Some((I18nKey.site.nbHours, true, if doSkipDays then duration.toHours else duration.toHours % 24)),
-    Option.when(useMinutes)((I18nKey.site.nbMinutes, false, duration.toMinutes % 60))
+    Option.unless(doSkipDays)(I18nKey.site.nbDays, true, duration.toDays),
+    Some(I18nKey.site.nbHours, true, if doSkipDays then duration.toHours else duration.toHours % 24),
+    Option.when(useMinutes)(I18nKey.site.nbMinutes, false, duration.toMinutes % 60)
   ).flatten
     .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
     .map { (key, _, nb) => key.pluralSameTxt(nb) }
