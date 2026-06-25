@@ -130,7 +130,11 @@ final class ModApi(
 
   def setKid(mod: ModId, username: UserStr, v: KidMode): Funit =
     withUser(username): user =>
-      userApi.setKid(user, v).mapz(logApi.setKidMode(mod, user.id, _))
+      userApi
+        .setKid(user, v)
+        .flatMapz: mode =>
+          mode.yes.so(notifier.notifyKidMode(mod, user)) >>
+            logApi.setKidMode(mod, user.id, mode)
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>
