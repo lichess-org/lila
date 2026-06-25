@@ -71,4 +71,16 @@
   <string name="bellNotificationSound">Âm thanh chuông báo</string>
   <string name="blindfold" comment="As in Blindfold chess">Bịt mắt</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Hiện ở bên trái trên thiết bị di động</string>
+  <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
+  <string name="showServerAnalysis">Hiện phân tích từ máy chủ</string>
+  <string name="showBestMoveArrows">Hiện mũi tên cho nước đi tốt nhất</string>
+  <string name="showGauge">Hiện thanh lợi thế</string>
+  <string name="showMoveAnnotationsOnBoard">Hiện chú thích nước đi</string>
+  <string name="showVariationArrows">Hiện mũi tên cho các biến</string>
+  <string name="showUndefendedPieces">Hiện quân không được phòng thủ</string>
+  <string name="showPinnedPieces">Hiện quân bị ghim</string>
+  <string name="generalSettings">Cài đặt chung</string>
+  <string name="moveListSettings">Biên bản ván đấu</string>
+  <string name="boardSettings">Bàn cờ</string>
+  <string name="analysisSettings">Cài đặt phân tích</string>
 </resources>
