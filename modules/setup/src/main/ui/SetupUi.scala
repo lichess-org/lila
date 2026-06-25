@@ -21,14 +21,13 @@ final class SetupUi(helpers: Helpers):
   ): Frag =
     options.mapWithIndex { case ((value, text, hint), index) =>
       div(cls := "checkable")(
-        label(title := hint)(
-          input(
-            tpe := "checkbox",
-            cls := "regular-checkbox",
-            name := s"${field.name}[$index]",
-            st.value := value.toString,
-            checks(value.toString).option(checked)
-          ),
+        form3.nativeCheckbox(
+          s"${field.name}[$index]",
+          s"${field.name}[$index]",
+          checks(value.toString),
+          value.toString
+        ),
+        label(title := hint, `for` := s"${field.name}[$index]")(
           raw(text)
         )
       )
