@@ -15,6 +15,8 @@
     text-align: right;
     font-size: 1.2em;
     line-height: 26px;
+    border: 1px solid transparent;
+    border-top-color: $c-border;
 
     &:focus-visible {
       outline: $outline;
@@ -27,8 +29,6 @@
     @include backdrop-blur-if-transparent(10px);
 
     padding: 0.5em 2.5em 0.5em 1.5em;
-    border: 1px solid transparent;
-    border-top-color: $c-border;
     cursor: pointer;
     position: relative;
 
