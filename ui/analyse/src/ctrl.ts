@@ -115,7 +115,13 @@ export default class AnalyseCtrl implements CevalHandler {
   );
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
-  presentationMode = propWithEffect(false, this.redraw);
+  presentationMode = propWithEffect(new URLSearchParams(location.search).get('presentation') === '1', v => {
+    const url = new URL(location.href);
+    if (v) url.searchParams.set('presentation', '1');
+    else url.searchParams.delete('presentation');
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+    this.redraw();
+  });
 
   treeView: TreeView;
   cgVersion = {
