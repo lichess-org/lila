@@ -52,7 +52,7 @@ object Step:
 
 object StepBuilder:
 
-  private val logger = lila.round.logger.branch("StepBuilder")
+  private lazy val logger = lila.log("round.StepBuilder")
 
   def apply(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Fen.Full): JsArray =
     val setup = chess.Position.AndFullMoveNumber(variant, initialFen)

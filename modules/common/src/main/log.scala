@@ -2,7 +2,9 @@ package lila
 
 object log:
 
-  def apply(name: String): play.api.LoggerLike = new:
+  type Logger = play.api.LoggerLike
+
+  def apply(name: String): Logger = new:
     val logger = org.slf4j.LoggerFactory.getLogger(name)
 
   def http(status: Int, body: String) =

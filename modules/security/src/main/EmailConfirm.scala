@@ -125,7 +125,7 @@ final class EmailConfirmByUserSend(
   def process(data: Data)(using Me): Fu[Option[(User, EmailAddress)]] =
     resultOf(data)
       .addEffect: res =>
-        logger.branch("emailConfirmByUser").info(s"$res $data")
+        logger.info(s"emailConfirmByUser $res $data")
         val resKey = res match
           case Result.confirm(_, _) => "success"
           case r => r.toString

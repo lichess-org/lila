@@ -58,7 +58,7 @@ final private class Titivate(
         .logFailure(logBranch)
         .addEffectAnyway(scheduleNext())
 
-  private val logBranch = logger.branch("titivate")
+  private lazy val logBranch = lila.log("round.titivate")
 
   private val gameRead = Flow[Bdoc].map: doc =>
     gameRepo.gameHandler

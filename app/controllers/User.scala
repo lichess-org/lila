@@ -311,7 +311,7 @@ final class User(
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
     Source.futureSource:
       fu.monSuccess(lila.mon.mod.zoneSegment(name))
-        .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
+        .logFailure(lila.mod.logger, e => s"zoneSegment $name ${user.id} $e")
         .map(Source.single)
 
   protected[controllers] def loginsTableData(
