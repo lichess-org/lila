@@ -66,16 +66,12 @@ trait JsDump:
 def translateDuration(
     duration: java.time.Duration,
     withMinutes: Option[Boolean] = None,
-    skipDays: Option[Boolean] = None
-)(using
-    Translate
-): String =
-  val doSkipDays = skipDays.getOrElse(false)
-  val useMinutes = withMinutes.getOrElse(duration.toDays == 0 || doSkipDays)
-
+    skipDays: Boolean = false
+)(using Translate): String =
+  val useMinutes = withMinutes.getOrElse(duration.toDays == 0 || skipDays)
   List(
-    Option.unless(doSkipDays)(I18nKey.site.nbDays, true, duration.toDays),
-    Some(I18nKey.site.nbHours, true, if doSkipDays then duration.toHours else duration.toHours % 24),
+    Option.unless(skipDays)(I18nKey.site.nbDays, true, duration.toDays),
+    Some(I18nKey.site.nbHours, true, if skipDays then duration.toHours else duration.toHours % 24),
     Option.when(useMinutes)(I18nKey.site.nbMinutes, false, duration.toMinutes % 60)
   ).flatten
     .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
