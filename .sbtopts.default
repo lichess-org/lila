@@ -4,3 +4,4 @@
 -J-XX:+UseG1GC
 -J-XX:InitialCodeCacheSize=512m
 -J-XX:ReservedCodeCacheSize=512m
+-Dsbt.banner=false
