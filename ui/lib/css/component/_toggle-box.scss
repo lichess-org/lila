@@ -11,10 +11,12 @@
     @include prevent-select;
 
     background: $c-bg-zebra;
-    padding: 0.5em 2.5em 0.5em 1.5em;
+    padding: 0.5em 1.5em;
     text-align: right;
     font-size: 1.2em;
     line-height: 26px;
+    border: 1px solid transparent;
+    border-top-color: $c-border;
 
     &:focus-visible {
       outline: $outline;
@@ -26,8 +28,7 @@
   legend {
     @include backdrop-blur-if-transparent(10px);
 
-    border: 1px solid transparent;
-    border-top-color: $c-border;
+    padding: 0.5em 2.5em 0.5em 1.5em;
     cursor: pointer;
     position: relative;
 
