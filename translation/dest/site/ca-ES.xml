@@ -1039,4 +1039,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="thereAreNoResultsForX">No hi ha resultats per \"%s\"</string>
   <string name="tags">Etiquetes</string>
   <string name="enPassant">Captura al pas</string>
+  <string name="settings">Configuració</string>
 </resources>
