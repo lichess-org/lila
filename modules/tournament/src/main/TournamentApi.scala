@@ -43,7 +43,8 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
-    ircApi: lila.irc.IrcApi
+    ircApi: lila.irc.IrcApi,
+    teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
     akka.actor.ActorSystem,
@@ -272,12 +273,27 @@ final class TournamentApi(
     import lila.tournament.Tournament.tournamentUrl
     tour.payouts.so: payouts =>
       val nbWinners = payouts.split('/').length
-      playerRepo
-        .bestByTour(tour.id, nbWinners)
-        .map: players =>
-          players.foreach: p =>
-            Bus.pub(lila.core.msg.PayoutMessage(p.userId, tour.name, tournamentUrl(tour.id), nowInstant))
-          ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), players.map(_.userId))
+      if tour.isTeamBattle then
+        cached.battle.teamStanding
+          .get(tour.id)
+          .flatMap: rankedTeams =>
+            rankedTeams
+              .take(nbWinners)
+              .traverse(rt => teamApi.creatorOf(rt.teamId))
+              .map: owners =>
+                val creatorIds = owners.flatten
+                creatorIds.foreach: ownerId =>
+                  Bus.pub(
+                    lila.core.msg.PayoutMessage(ownerId, tour.name, tournamentUrl(tour.id), nowInstant)
+                  )
+                ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), creatorIds)
+      else
+        playerRepo
+          .bestByTour(tour.id, nbWinners)
+          .map: players =>
+            players.foreach: p =>
+              Bus.pub(lila.core.msg.PayoutMessage(p.userId, tour.name, tournamentUrl(tour.id), nowInstant))
+            ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), players.map(_.userId))
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds
