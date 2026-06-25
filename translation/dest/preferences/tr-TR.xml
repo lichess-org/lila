@@ -71,4 +71,11 @@
   <string name="bellNotificationSound">Çan bildirimi sesi</string>
   <string name="blindfold" comment="As in Blindfold chess">Körleme modu</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil cihazlarda solda göster</string>
+  <string name="inlineNotation">Notasyonu aynı satırda göster</string>
+  <string name="showServerAnalysis">Sunucu analizini göster</string>
+  <string name="showBestMoveArrows">En iyi hamle oklarını göster</string>
+  <string name="generalSettings">Genel</string>
+  <string name="moveListSettings">Hamle listesi</string>
+  <string name="boardSettings">Tahta</string>
+  <string name="analysisSettings">İnceleme Ayarları</string>
 </resources>
