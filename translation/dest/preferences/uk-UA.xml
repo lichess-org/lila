@@ -82,4 +82,10 @@
   <string name="showUndefendedPieces">Показувати незахищені фігури</string>
   <string name="showPinnedPieces">Показувати прив\'язані фігури</string>
   <string name="showCheckableKing">Показувати загрозу шаху</string>
+  <string name="disclosureMode">Увімкнути приховання варіантів</string>
+  <string name="generalSettings">Загальні</string>
+  <string name="moveListSettings">Список ходів</string>
+  <string name="boardSettings">Дошка</string>
+  <string name="analysisSettings">Налаштування аналізу</string>
+  <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
 </resources>
