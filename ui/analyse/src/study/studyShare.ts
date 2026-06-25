@@ -209,7 +209,7 @@ export function view(ctrl: StudyShare): VNode {
                           `/study/embed/${studyId}/${chapter.id}`,
                         )}" frameborder=0></iframe>`
                       : i18n.study.onlyPublicStudiesCanBeEmbedded,
-                    { disabled: isPrivate },
+                    { inputAttrs: { disabled: isPrivate } },
                   ),
                   fromPly(ctrl),
                   hl(
