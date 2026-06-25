@@ -30,9 +30,13 @@ site.load.then(() => {
     source.onerror = () => source.close();
   }
 
+  function updateMainWrap(zoned: boolean) {
+    $('#main-wrap').toggleClass('has-mod-zone full-screen-force', zoned);
+  }
+
   function loadZone() {
     $zone.html(spinnerHtml).removeClass('none');
-    $('#main-wrap').addClass('full-screen-force');
+    updateMainWrap(true);
     $zone.html('');
     streamLoad();
     window.addEventListener('scroll', onScroll);
@@ -40,7 +44,7 @@ site.load.then(() => {
   }
   function unloadZone() {
     $zone.addClass('none');
-    $('#main-wrap').removeClass('full-screen-force');
+    updateMainWrap(false);
     window.removeEventListener('scroll', onScroll);
     scrollTo('#top');
   }
