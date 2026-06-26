@@ -138,7 +138,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             jsonFormError(err)
           ),
         setup =>
-          env.relay.api.tourUpdate(nav.tourWithGroup, setup) >>
+          env.relay.api.tourUpdate(nav.tourWithGroup, setup, ctx.impersonatedBy) >>
             negotiate(Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
@@ -154,10 +154,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       ctx.body.body.file("image") match
         case Some(image) =>
           limit.imageUpload(rateLimited):
-            env.relay.api.image.upload(nav.tour, image, tag).inject(Ok).recover { case e: Exception =>
-              BadRequest(e.getMessage)
+            env.relay.api.image.upload(nav.tour, image, tag, ctx.impersonatedBy).inject(Ok).recover {
+              case e: Exception => BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(nav.tour, tag) >> Ok
+        case None => env.relay.api.image.delete(nav.tour, tag, ctx.impersonatedBy) >> Ok
   }
 
   def playersView(id: RelayTourId) = Open:
