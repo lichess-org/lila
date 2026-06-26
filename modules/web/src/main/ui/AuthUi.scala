@@ -15,12 +15,6 @@ final class AuthUi(helpers: Helpers):
   private def addReferrer(url: String)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
 
-  private val takex3OpenAppLichessLoginUrl =
-    "https://taketaketake.com/open-app?target=%2F%3FnewGame%3Dtrue%26lichessLogin%3Dtrue"
-
-  private def authClasses(base: String, custom: Option[AuthCustomUi]) =
-    List(base -> true) ::: custom.map(c => s"auth--${c.cssClass}" -> true).toList
-
   private def logoOrConnection(using custom: Option[AuthCustomUi]) = custom match
     case None =>
       div(cls := "auth__brand")(
@@ -28,46 +22,20 @@ final class AuthUi(helpers: Helpers):
         span(cls := "auth__brand__name")("lichess.org")
       )
     case Some(c) =>
-      frag(customLogo(c), h2(cls := "oauth__connection__to-lichess")("Connect to Lichess"))
-
-  private def takex3ConnectionHeader(title: String)(using custom: Option[AuthCustomUi]) = custom match
-    case Some(c) => frag(customLogo(c), h1(cls := "auth__takex3-page-title")(title))
-    case None => h1(cls := "auth__takex3-page-title")(title)
+      frag(customLogo(c), h2(cls := "oauth__connection__to-lichess")("Connect to lichess.org"))
 
   def customLogo(c: AuthCustomUi) =
-    val takex3 = c.cssClass == "takex3"
     div(cls := "oauth__connection")(
       img(
         src := assetUrl(c.imagePath),
         alt := c.name,
         cls := "oauth__connection__service"
       ),
-      div(cls := "oauth__connection__between")(
-        takex3.option(takex3ConnectionDash),
-        if takex3 then takex3ConnectionCheck else iconTag(Icon.Checkmark)(cls := "oauth__connection__check"),
-        takex3.option(takex3ConnectionDash)
-      ),
+      div(cls := "oauth__connection__between"):
+        iconTag(Icon.Checkmark)(cls := "oauth__connection__check")
+      ,
       lila.web.ui.bits.logo
     )
-
-  private def takex3ConnectionDash =
-    span(cls := "oauth__connection__dash-pad")(
-      raw(
-        """<svg class="oauth__connection__dash" width="36" height="2" viewBox="0 0 36 2" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#00A9A9"/><rect x="9" width="6" height="2" fill="#00A9A9"/><rect x="21" width="6" height="2" fill="#00A9A9"/><rect x="33" width="3" height="2" fill="#00A9A9"/></svg>"""
-      )
-    )
-
-  private val takex3CheckSvg =
-    """<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.19758 13.5645L15.3185 4.56042L14.0323 3.27413L6.19758 11.1088L3.04032 7.83461L1.75403 9.12091L6.19758 13.5645Z" fill="white"/></svg>"""
-
-  private def takex3CheckIcon(klass: String) =
-    span(cls := klass)(
-      raw(
-        takex3CheckSvg
-      )
-    )
-
-  private def takex3ConnectionCheck = takex3CheckIcon("oauth__connection__check")
 
   def login(form: Form[?], isRememberMe: Boolean = true)(using
       TurnstilePublicConfig,
@@ -141,82 +109,6 @@ final class AuthUi(helpers: Helpers):
           div(cls := "or-separator")(span(trans.site.orSeparator())),
           a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(
             trans.site.logInByEmail()
-          )
-        )
-
-  def loginTakex3(form: Form[?], isRememberMe: Boolean = true)(using
-      TurnstilePublicConfig,
-      Option[ValidReferrer]
-  )(using Context, Option[AuthCustomUi]) =
-    given Translate = oauthClientLanguage
-    takex3Login(form, isRememberMe)
-
-  private def takex3Login(form: Form[?], isRememberMe: Boolean)(using
-      TurnstilePublicConfig,
-      Option[ValidReferrer],
-      Context,
-      Option[AuthCustomUi],
-      Translate
-  ) =
-    val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
-    Page("Sign in")
-      .js(esmInit("bits.auth", "login"))
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .csp(_.withTurnstile)
-      .hrefLangs(Option.empty[LangPath])
-      .flag(_.noHeader):
-        main(cls := authClasses("auth auth-login box box-pad", summon[Option[AuthCustomUi]]))(
-          takex3ConnectionHeader("Login to Lichess"),
-          postForm(
-            cls := "form3",
-            action := addReferrer(routes.Auth.authenticateTakex3.url)
-          )(
-            div(cls := "one-factor")(
-              if blankedPasswordError then
-                div(cls := "auth-login__blanked")(
-                  p(trans.site.blankedPassword()),
-                  a(href := routes.Auth.passwordResetTakex3, cls := "button button-no-upper")(
-                    trans.site.passwordReset()
-                  )
-                )
-              else authGlobalError(form),
-              form3.group(form("username"), frag("Username or email")): f =>
-                div(cls := "text-wrapper")(
-                  form3.input(f)(
-                    required,
-                    autocomplete := "username",
-                    placeholder := "Username or email",
-                    testId("username")
-                  ),
-                  clearFieldButton
-                ),
-              form3.passwordModified(form("password"), frag("Password"))(
-                autocomplete := "current-password",
-                placeholder := "Password",
-                testId("password")
-              ),
-              div(cls := "password-reset")(
-                a(href := routes.Auth.passwordResetTakex3)(frag("Forgot your password?"))
-              ),
-              form3.hidden("remember", isRememberMe)
-            ),
-            div(cls := "two-factor none")(
-              form3.group(
-                form("token"),
-                trans.tfa.authenticationCode(),
-                help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
-              )(
-                form3.input(_)(
-                  attr("inputmode") := "numeric",
-                  autocomplete := "one-time-code",
-                  pattern := "[0-9]{6}"
-                )
-              ),
-              p(cls := "error none")("Invalid code.")
-            ),
-            turnstile.widget(hidden = true),
-            turnstile.submit(frag("Sign in"))(testId("login-submit"))
           )
         )
 
@@ -301,81 +193,6 @@ final class AuthUi(helpers: Helpers):
             simple.not.option(turnstile.widget(hidden = true)),
             turnstile.submit(trans.site.signUp()),
             simple.option(small(cls := "form-help")(tosLink))
-          )
-        )
-
-  def signupTakex3(form: Form[?])(using
-      Option[ValidReferrer]
-  )(using
-      Context,
-      Option[AuthCustomUi]
-  ) =
-    given Translate = oauthClientLanguage
-    takex3Signup(form)
-
-  private def takex3Signup(form: Form[?])(using
-      Option[ValidReferrer],
-      Context,
-      Option[AuthCustomUi],
-      Translate
-  ) =
-    Page("Create Lichess account")
-      .js(esmInit("bits.auth", "signup"))
-      .js(fingerprintTag)
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .csp(_.withTurnstile)
-      .hrefLangs(Option.empty[LangPath])
-      .flag(_.noHeader):
-        main(
-          cls := authClasses("auth auth-signup box box-pad", summon[Option[AuthCustomUi]]) ::: List(
-            "auth-signup--takex3" -> true
-          )
-        )(
-          takex3ConnectionHeader("Create Lichess account"),
-          postForm(
-            id := "signup-form",
-            cls := "form3",
-            action := addReferrer(routes.Auth.signupPostTakex3.url),
-            autocomplete := "off"
-          )(
-            authGlobalError(form),
-            form3.group(form("username"), frag("Username")): f =>
-              frag(
-                div(cls := "text-wrapper")(
-                  form3.input(f)(
-                    autofocus,
-                    required,
-                    autocomplete := "username",
-                    placeholder := "Username"
-                  ),
-                  clearFieldButton
-                ),
-                p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed())
-              ),
-            form3.group(form("password"), frag("Password")): f =>
-              frag(
-                div(cls := "password-wrapper")(
-                  form3.input(f, typ = "password")(required)(
-                    autocomplete := "new-password",
-                    placeholder := "Password"
-                  ),
-                  form3.passwordRevealButton
-                ),
-                div(cls := "password-generator")(button("Generate a random password"))
-              ),
-            form3.group(form("email"), frag("Email")): f =>
-              div(cls := "text-wrapper")(
-                form3.input(f, typ = "email")(required, placeholder := "Email"),
-                clearFieldButton
-              ),
-            input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
-            hiddenAcceptedAgreements,
-            turnstile.submit(frag("Create account")),
-            small(cls := "form-help")(
-              "By registering you accept Lichess' ",
-              a(href := routes.Cms.tos)("Terms and conditions")
-            )
           )
         )
 
@@ -473,34 +290,6 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def passwordResetTakex3(form: Form[?], fail: Option[String])(using
-      TurnstilePublicConfig,
-      Context,
-      Option[AuthCustomUi]
-  ) =
-    given Translate = oauthClientLanguage
-    Page("Forgot your password?")
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .csp(_.withTurnstile)
-      .flag(_.noHeader):
-        main(cls := authClasses("auth auth-password-reset box box-pad", summon[Option[AuthCustomUi]]))(
-          takex3ConnectionHeader("Forgot your password?"),
-          postForm(cls := "form3", action := routes.Auth.passwordResetApplyTakex3)(
-            fail.map(p(cls := "error")(_)),
-            form3.group(form("email"), frag("Email"))(
-              form3.input(_, typ = "email")(
-                autofocus,
-                required,
-                autocomplete := "email",
-                placeholder := "Email"
-              )
-            ),
-            turnstile.widget(),
-            form3.action(form3.submit(frag("Email me a link"), icon = Option.empty[Icon]))
-          )
-        )
-
   def passwordResetSent(email: String)(using Context) =
     Page(trans.site.passwordReset.txt()).css("bits.auth"):
       main(cls := "page-small box box-pad")(
@@ -512,28 +301,6 @@ final class AuthUi(helpers: Helpers):
           li(trans.site.verifyYourAddress(email))
         )
       )
-
-  def passwordResetSentTakex3(email: String)(using Context, Option[AuthCustomUi]) =
-    given Translate = oauthClientLanguage
-    Page(trans.site.passwordReset.txt())
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .flag(_.noHeader):
-        main(
-          cls := authClasses(
-            "auth auth-password-reset auth-password-reset--sent box box-pad",
-            summon[Option[AuthCustomUi]]
-          )
-        )(
-          takex3ConnectionHeader("Check your email"),
-          p(cls := "auth__takex3-reset-copy")(trans.site.weHaveSentYouAnEmailTo(email)),
-          p(cls := "auth__takex3-reset-copy")(trans.site.ifYouDoNotGetTheEmail()),
-          ul(cls := "auth__takex3-reset-checklist")(
-            li(trans.site.checkAllEmailFolders()),
-            li(trans.site.verifyYourAddress(email))
-          ),
-          a(cls := "button button-empty magic-link", href := routes.Auth.loginTakex3)("Back to login")
-        )
 
   def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using
       Context
@@ -565,71 +332,6 @@ final class AuthUi(helpers: Helpers):
             ),
             form3.globalError(form),
             form3.action(form3.submit(trans.site.changePassword()))
-          )
-        )
-
-  def passwordResetConfirmTakex3(
-      token: String,
-      form: Form[?],
-      source: Option[String]
-  )(using Context, Option[AuthCustomUi]) =
-    given Translate = oauthClientLanguage
-    val title = "Reset your Lichess password"
-    val confirmAction = source.fold(routes.Auth.passwordResetConfirmApply(token).url)(source =>
-      addQueryParam(routes.Auth.passwordResetConfirmApply(token).url, "source", source)
-    )
-    def confirmForm =
-      postForm(cls := "form3", action := confirmAction)(
-        form3.hidden(form("token")),
-        form3.passwordModified(form("newPasswd1"), frag("New password"))(
-          autofocus,
-          autocomplete := "new-password",
-          placeholder := "New password"
-        ),
-        form3.passwordModified(form("newPasswd2"), frag("New password again"))(
-          autocomplete := "new-password",
-          placeholder := "New password again"
-        ),
-        form3.globalError(form),
-        form3.action(
-          form3.submit(
-            frag("Reset password"),
-            icon = Option.empty[Icon]
-          )
-        )
-      )
-    Page(title)
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .js(esmInit("bits.auth", "reset"))
-      .flag(_.noHeader):
-        main(
-          cls := authClasses(
-            "auth auth-password-reset auth-password-reset-confirm box box-pad",
-            summon[Option[AuthCustomUi]]
-          )
-        )(
-          takex3ConnectionHeader(title),
-          confirmForm
-        )
-
-  def passwordResetSuccessTakex3(using Option[AuthCustomUi]) =
-    Page("Password reset")
-      .css("bits.auth")
-      .css("bits.auth-takex3")
-      .flag(_.noHeader):
-        main(
-          cls := authClasses(
-            "auth auth-password-reset auth-password-reset--success box box-pad",
-            summon[Option[AuthCustomUi]]
-          )
-        )(
-          takex3ConnectionHeader("Password reset"),
-          p(cls := "auth__takex3-reset-copy")(
-            "Your Lichess password has been updated. Return to Take Take Take to log in with your new password."
-          ),
-          a(cls := "button auth__takex3-open-app", href := takex3OpenAppLichessLoginUrl)(
-            "Return to Take Take Take"
           )
         )
 
@@ -714,13 +416,6 @@ final class AuthUi(helpers: Helpers):
           "You must agree to the Lichess policies listed below:"),
       agreements.map: (field, text) =>
         form3.checkboxGroup(form(field), text)
-    )
-
-  private def hiddenAcceptedAgreements =
-    frag(
-      form3.hidden("agreement.assistance", "true"),
-      form3.hidden("agreement.nice", "true"),
-      form3.hidden("agreement.account", "true")
     )
 
   private def agreements(using Context) = List(

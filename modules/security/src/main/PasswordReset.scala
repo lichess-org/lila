@@ -9,7 +9,11 @@ import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
-import scalalib.StringOps.addQueryParam
+
+object PasswordReset:
+
+  enum Origin:
+    case Lichess, Takex3
 
 final class PasswordReset(
     mailer: Mailer,
@@ -19,13 +23,15 @@ final class PasswordReset(
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
   import Mailer.html.*
+  import PasswordReset.Origin
 
-  def send(user: User, email: EmailAddress, source: Option[String] = None)(using lang: Lang): Funit =
+  def send(user: User, email: EmailAddress, origin: Origin = Origin.Lichess)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val url = source.fold(routeUrl(routes.Auth.passwordResetConfirm(token))) { source =>
-        routeUrl(routes.Auth.passwordResetConfirm(token)).map(addQueryParam(_, "source", source))
-      }
+      val confirmRoute = origin match
+        case Origin.Takex3 => routes.Auth.passwordResetConfirmTakex3(token)
+        case Origin.Lichess => routes.Auth.passwordResetConfirm(token)
+      val url = routeUrl(confirmRoute)
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
