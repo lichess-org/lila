@@ -2458,6 +2458,7 @@ object I18nKey:
     val `tags`: I18nKey = "tags"
     val `enPassant`: I18nKey = "enPassant"
     val `settings`: I18nKey = "settings"
+    val `hoverCheckboxLabelsForHelp`: I18nKey = "hoverCheckboxLabelsForHelp"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
