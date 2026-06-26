@@ -144,7 +144,6 @@ final class StudyPager(
       hint: Option[Bdoc] = none,
       maxPerPage: Option[MaxPerPage] = none
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
-    logger.info(s"StudyPager.paginator: page = $page, maxPerPage = $maxPerPage")
     val adapter = Adapter[Study](
       collection = coll,
       selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
