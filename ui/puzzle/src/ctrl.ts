@@ -313,7 +313,7 @@ export default class PuzzleCtrl implements CevalHandler {
       premovable: {
         enabled: false,
       },
-      check: !!node.check(),
+      check: node.check(),
       lastMove: uciToMove(node.uci),
     };
     if (node.ply >= this.initialNode.ply) {

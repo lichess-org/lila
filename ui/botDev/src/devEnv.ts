@@ -29,6 +29,5 @@ export class DevEnv {
     Object.assign(this, cfg);
     env = this;
     if (this.game) this.game.observer = this.dev;
-    this.canPost = Boolean(this.canPost);
   }
 }
