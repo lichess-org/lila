@@ -1,0 +1,433 @@
+body:has(.auth--takex3) {
+  background: var(--takex3-surface-10, #191919);
+  color: var(--takex3-text, #fff);
+  font-family: Inter, 'Noto Sans', sans-serif;
+
+  #main-wrap {
+    ---main-max-width: 100%;
+
+    grid-template-areas: 'main';
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 100dvh;
+    margin-top: 0;
+  }
+}
+
+.auth--takex3 {
+  --takex3-surface-0: #111;
+  --takex3-surface-10: #191919;
+  --takex3-surface-20: #222;
+  --takex3-surface-30: #333;
+  --takex3-border-subtle: #333;
+  --takex3-border-strong: #5c5c5c;
+  --takex3-border-outline: #7a7a7a;
+  --takex3-border-purple: #b3b5ff;
+  --takex3-purple-100: #5e00ff;
+  --takex3-green-100: #00a9a9;
+  --takex3-error: #ed5030;
+  --takex3-menu-btn-bg-active: #6d608a;
+  --takex3-text: #fff;
+  --takex3-text-purple: #c5c8ff;
+  --takex3-content-width: 361px;
+
+  width: 100%;
+  min-height: 100dvh;
+  padding: 32px 16px 112px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  color: var(--takex3-text);
+  background: var(--takex3-surface-20);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: Inter, 'Noto Sans', sans-serif;
+  font-synthesis: none;
+  font-variation-settings:
+    'slnt' 0,
+    'ital' 0;
+  font-weight: 350;
+
+  a,
+  button,
+  input,
+  h1,
+  h2 {
+    font-family: inherit;
+  }
+
+  .oauth__connection {
+    gap: 0;
+    width: 236px;
+    max-width: 100%;
+    margin: 0 auto 20px;
+
+    &__service,
+    .lichess-logo-svg {
+      height: 54px;
+      aspect-ratio: 1;
+    }
+
+    &__service {
+      padding: 8px;
+      background: var(--takex3-purple-100);
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .lichess-logo-svg {
+      height: 50px;
+      fill: var(--takex3-text);
+      stroke: var(--takex3-text);
+    }
+
+    &__between {
+      width: 125px;
+
+      &::before,
+      &::after {
+        content: none;
+        display: none;
+      }
+
+      .oauth__connection__dash-pad {
+        display: flex;
+        flex: 0 0 48px;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 2px;
+        padding-inline: 6px;
+      }
+
+      .oauth__connection__dash {
+        display: block;
+        flex: 0 0 36px;
+        width: 36px;
+        height: 2px;
+      }
+
+      .oauth__connection__check {
+        display: flex;
+        flex: 0 0 29px;
+        align-items: center;
+        justify-content: center;
+        height: 29px;
+        color: var(--takex3-text);
+        background: var(--takex3-green-100);
+        border-radius: 50%;
+        font-size: 0.9rem;
+      }
+    }
+
+    &__to-lichess {
+      width: min(100%, var(--takex3-content-width));
+      margin: 0 auto 41px;
+      font-size: 19px;
+      font-weight: 350;
+      line-height: 22px;
+      color: var(--takex3-text);
+      text-align: center;
+    }
+  }
+
+  .form3,
+  .magic-link,
+  .auth__takex3-open-app {
+    width: var(--takex3-content-width);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .form-label {
+    @extend %visually-hidden;
+  }
+
+  .form-group {
+    margin-bottom: 27px;
+  }
+
+  .form-group:has(+ .password-reset) {
+    margin-bottom: 19px;
+  }
+
+  .form-group input {
+    height: 56px;
+    padding: 0 16px;
+    color: var(--takex3-text);
+    background: var(--takex3-surface-30);
+    border: 1px solid var(--takex3-border-strong);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 350;
+    line-height: 1.3;
+
+    &::placeholder {
+      color: var(--takex3-text);
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      border-color: var(--takex3-border-purple);
+      outline: none;
+      box-shadow: 0 0 0 1px var(--takex3-border-purple);
+    }
+  }
+
+  .password-wrapper input {
+    padding-inline-end: 52px;
+  }
+
+  .password-reveal,
+  .text-clear {
+    color: var(--takex3-text);
+  }
+
+  .password-reveal {
+    inset-inline-end: 14px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background-color: var(--takex3-border-outline);
+    mask-image: url('../images/takex3-eye-closed.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 24px 24px;
+
+    &::before {
+      content: '';
+    }
+
+    &.revealed {
+      background-color: var(--takex3-border-outline);
+      mask-image: url('../images/takex3-eye-open.svg');
+    }
+  }
+
+  .auth-global-error {
+    color: var(--takex3-error);
+    margin: 0 0 1rem;
+  }
+
+  .form3 .error {
+    color: var(--takex3-error);
+  }
+
+  .password-reset {
+    margin-bottom: 47px;
+    font-size: 14px;
+    font-weight: 550;
+    line-height: 1.3;
+
+    a,
+    a:visited {
+      color: var(--takex3-text-purple);
+      text-decoration: underline;
+      text-underline-position: from-font;
+    }
+  }
+
+  .button {
+    min-height: 48px;
+    padding: 14px 24px;
+    color: var(--takex3-text);
+    background: var(--takex3-purple-100);
+    border-radius: 73px;
+    box-shadow: 0 4px 2.5px rgba(96, 65, 186, 0.2);
+    font-size: 16px;
+    font-weight: 550;
+    line-height: 1.3;
+    text-shadow: none;
+    text-transform: none;
+
+    &,
+    &:visited,
+    &:focus,
+    &:hover,
+    &:not(.disabled):hover {
+      color: var(--takex3-text);
+      background: var(--takex3-purple-100);
+    }
+  }
+
+  .submit.button {
+    font-family: inherit;
+    font-weight: 550;
+  }
+
+  .auth__takex3-submit-check {
+    display: inline-flex;
+    flex: 0 0 29px;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 29px;
+    background: var(--takex3-green-100);
+    border-radius: 50%;
+  }
+
+  .magic-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--takex3-text);
+    background: transparent;
+    border: 1px solid var(--takex3-border-outline);
+    border-radius: 24px;
+    box-shadow: none;
+    font-weight: 550;
+
+    &,
+    &:visited,
+    &:focus,
+    &:hover,
+    &:not(.disabled):hover {
+      color: var(--takex3-text);
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  .auth__takex3-open-app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 34px;
+  }
+
+  &.auth-password-reset--success .auth__takex3-open-app {
+    width: var(--takex3-content-width);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .auth__takex3-page-title {
+    width: min(100%, var(--takex3-content-width));
+    margin: 0 auto 31px;
+    color: var(--takex3-text);
+    font-size: 20px;
+    font-weight: 350;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  &.auth-password-reset {
+    .oauth__connection__to-lichess {
+      margin-bottom: 32px;
+    }
+
+    .form-actions.single {
+      width: min(100%, var(--takex3-content-width));
+      margin: 34px auto 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .submit.button {
+      font-family: inherit;
+      font-weight: 550;
+    }
+  }
+
+  &.auth-password-reset-confirm .submit.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .auth__takex3-reset-copy {
+    width: min(100%, var(--takex3-content-width));
+    margin: 0 auto 18px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    font-weight: 350;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .auth__takex3-reset-checklist {
+    width: min(100%, var(--takex3-content-width));
+    margin: 0 auto 18px;
+    padding-inline-start: 22px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    font-weight: 350;
+    line-height: 1.35;
+
+    li {
+      margin-bottom: 8px;
+      list-style: disc;
+    }
+  }
+
+  &.auth-password-reset--sent {
+    .magic-link {
+      margin-top: 34px;
+    }
+  }
+
+  &.auth-signup {
+    padding-bottom: 56px;
+
+    .form-group {
+      margin-bottom: 31px;
+    }
+
+    .form-group.is-invalid input {
+      border-color: var(--takex3-border-purple);
+      outline: none;
+      box-shadow: 0 0 0 1px var(--takex3-border-purple);
+    }
+
+    .password-generator {
+      margin-top: 20px;
+      text-align: end;
+
+      button {
+        padding: 0;
+        color: var(--takex3-text-purple);
+        background: transparent;
+        border-radius: 0;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 350;
+        line-height: 1.3;
+        text-decoration: underline;
+        text-underline-position: from-font;
+
+        &:hover,
+        &:focus {
+          color: var(--takex3-text-purple);
+          background: transparent;
+        }
+      }
+    }
+
+    .password-complexity {
+      margin: -18px 0 28px;
+    }
+
+    .submit.button {
+      margin-top: 14px;
+      font-size: 20px;
+    }
+
+    .form-help {
+      display: block;
+      margin-top: 26px;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 16px;
+      font-weight: 350;
+      line-height: 1.3;
+      text-align: center;
+
+      a,
+      a:visited {
+        color: var(--takex3-text-purple);
+        text-decoration: underline;
+        text-underline-position: from-font;
+      }
+    }
+  }
+}
