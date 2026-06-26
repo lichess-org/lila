@@ -306,11 +306,12 @@ class WsSocket {
       default:
         // return true in a receive handler to prevent pubsub and events
         if (!this.settings.receive?.(m.t, m.d)) {
-          const eventHandler = Object.prototype.hasOwnProperty.call(this.settings.events, m.t)
-            ? this.settings.events[m.t]
-            : undefined;
-          const sentAsEvent = typeof eventHandler === 'function' ? eventHandler(m.d ?? null, m) : false;
-          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
+          if (this.settings.events[m.t]) {
+            if (this.settings.events[m.t](m.d || null, m)) {
+              return;
+            }
+          }
+          pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
         }
     }
   };
