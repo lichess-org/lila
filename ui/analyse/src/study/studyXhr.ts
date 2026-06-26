@@ -1,6 +1,6 @@
 import { text as xhrText, json as xhrJson, form as xhrForm, textRaw as xhrRaw, ensureOk } from 'lib/xhr';
 
-import type { StudyChapterConfig, ReloadData } from './interfaces';
+import type { StudyChapterConfig, ReloadData, ChapterData } from './interfaces';
 
 export const reload = (
   baseUrl: string,
@@ -27,7 +27,10 @@ export const practiceComplete = (chapterId: string, nbMoves: number) =>
     method: 'POST',
   });
 
-export const importPgn = async (studyId: string, data: any) => {
+export const importPgn = async (
+  studyId: string,
+  data: ChapterData & Record<string, string | boolean | null | undefined>,
+) => {
   const res = await xhrRaw(`/study/${studyId}/import-pgn?sri=${site.sri}`, {
     method: 'POST',
     body: xhrForm(data),
