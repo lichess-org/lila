@@ -432,10 +432,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
           : {}),
       };
       const selectedSquare =
-        selectedClass === className &&
-        (!ctrl.chessground ||
-          !ctrl.chessground.state.draggable.current ||
-          !ctrl.chessground.state.draggable.current.newPiece);
+        selectedClass === className && !ctrl.chessground?.state.draggable.current?.newPiece;
       return h(
         'div',
         {

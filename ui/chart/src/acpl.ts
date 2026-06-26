@@ -45,7 +45,7 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(data.game.division);
   const firstPly = mainline[0].ply;
-  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
+  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
@@ -66,7 +66,7 @@ export default async function (
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
-      if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
+      if (node.eval?.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
       if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;

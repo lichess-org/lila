@@ -232,8 +232,7 @@ const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   label.text(i18n.site.duration + ' ' + formatClock(duration));
 };
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => (player.blurs?.bits ? player.blurs.bits.split('') : []);
 
 const formatClock = (centis: number) => {
   let result = '';

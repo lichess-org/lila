@@ -78,11 +78,11 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
 
 export function makeShapesFromUci(
   color: Color,
-  uci: Uci,
+  uci: Uci | undefined,
   brush: string,
   modifiers?: DrawModifiers,
 ): DrawShape[] {
-  if (uci === 'Current Position') return [];
+  if (!uci || uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
@@ -120,10 +120,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let shapes: DrawShape[] = [],
-    badNode;
-  if (ctrl.retro && (badNode = ctrl.retro.showBadNode())) {
-    return makeShapesFromUci(color, badNode.uci!, 'paleRed', {
+  let shapes: DrawShape[] = [];
+  if (ctrl.retro?.showBadNode()) {
+    return makeShapesFromUci(color, undefined, 'paleRed', {
       lineWidth: 8,
     });
   }

@@ -296,7 +296,7 @@ export function renderMoveNodes(
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
-  cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
+  cssClass + (study?.data?.chapter ? '.' + study.data.chapter.id : '');
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {
@@ -308,7 +308,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   }
 
   const conceal =
-    ctrl.study && ctrl.study.data.chapter.conceal !== undefined
+    ctrl.study?.data.chapter.conceal !== undefined
       ? {
           owner: ctrl.study.isChapterOwner(),
           ply: ctrl.study.data.chapter.conceal,
