@@ -739,7 +739,10 @@ export default class AnalyseCtrl implements CevalHandler {
     const opts: CevalOpts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      emit: (ev, meta) => this.onNewCeval(ev, meta.path, meta.threatMode),
+      emit: (ev, meta) => {
+        this.onNewCeval(ev, meta.path, meta.threatMode);
+        pubsub.emit('analysis.eval', structuredClone(ev), meta);
+      },
       onUciHover: this.setAutoShapes,
       redraw: this.redraw,
       externalEngines:
