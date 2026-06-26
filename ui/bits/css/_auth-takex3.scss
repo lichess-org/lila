@@ -14,18 +14,15 @@ body:has(.auth--takex3) {
 }
 
 .auth--takex3 {
-  --takex3-surface-0: #111;
   --takex3-surface-10: #191919;
   --takex3-surface-20: #222;
   --takex3-surface-30: #333;
-  --takex3-border-subtle: #333;
   --takex3-border-strong: #5c5c5c;
   --takex3-border-outline: #7a7a7a;
   --takex3-border-purple: #b3b5ff;
   --takex3-purple-100: #5e00ff;
   --takex3-green-100: #00a9a9;
   --takex3-error: #ed5030;
-  --takex3-menu-btn-bg-active: #6d608a;
   --takex3-text: #fff;
   --takex3-text-purple: #c5c8ff;
   --takex3-content-width: 361px;
@@ -105,6 +102,7 @@ body:has(.auth--takex3) {
         flex: 0 0 36px;
         width: 36px;
         height: 2px;
+        color: var(--takex3-green-100);
       }
 
       .oauth__connection__check {
@@ -119,21 +117,11 @@ body:has(.auth--takex3) {
         font-size: 0.9rem;
       }
     }
-
-    &__to-lichess {
-      width: min(100%, var(--takex3-content-width));
-      margin: 0 auto 41px;
-      font-size: 19px;
-      font-weight: 350;
-      line-height: 22px;
-      color: var(--takex3-text);
-      text-align: center;
-    }
   }
 
   .form3,
-  .magic-link,
-  .auth__takex3-open-app {
+  .auth__secondary-action,
+  .auth__open-app {
     width: var(--takex3-content-width);
     max-width: 100%;
     margin-inline: auto;
@@ -255,18 +243,7 @@ body:has(.auth--takex3) {
     font-weight: 550;
   }
 
-  .auth__takex3-submit-check {
-    display: inline-flex;
-    flex: 0 0 29px;
-    align-items: center;
-    justify-content: center;
-    width: 29px;
-    height: 29px;
-    background: var(--takex3-green-100);
-    border-radius: 50%;
-  }
-
-  .magic-link {
+  .auth__secondary-action {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -288,20 +265,14 @@ body:has(.auth--takex3) {
     }
   }
 
-  .auth__takex3-open-app {
+  .auth__open-app {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 34px;
   }
 
-  &.auth-password-reset--success .auth__takex3-open-app {
-    width: var(--takex3-content-width);
-    max-width: 100%;
-    margin-inline: auto;
-  }
-
-  .auth__takex3-page-title {
+  .auth__page-title {
     width: min(100%, var(--takex3-content-width));
     margin: 0 auto 31px;
     color: var(--takex3-text);
@@ -312,10 +283,6 @@ body:has(.auth--takex3) {
   }
 
   &.auth-password-reset {
-    .oauth__connection__to-lichess {
-      margin-bottom: 32px;
-    }
-
     .form-actions.single {
       width: min(100%, var(--takex3-content-width));
       margin: 34px auto 0;
@@ -336,7 +303,7 @@ body:has(.auth--takex3) {
     gap: 10px;
   }
 
-  .auth__takex3-reset-copy {
+  .auth__reset-copy {
     width: min(100%, var(--takex3-content-width));
     margin: 0 auto 18px;
     color: rgba(255, 255, 255, 0.75);
@@ -346,7 +313,7 @@ body:has(.auth--takex3) {
     text-align: center;
   }
 
-  .auth__takex3-reset-checklist {
+  .auth__reset-checklist {
     width: min(100%, var(--takex3-content-width));
     margin: 0 auto 18px;
     padding-inline-start: 22px;
@@ -362,7 +329,7 @@ body:has(.auth--takex3) {
   }
 
   &.auth-password-reset--sent {
-    .magic-link {
+    .auth__secondary-action {
       margin-top: 34px;
     }
   }
@@ -402,10 +369,6 @@ body:has(.auth--takex3) {
           background: transparent;
         }
       }
-    }
-
-    .password-complexity {
-      margin: -18px 0 28px;
     }
 
     .submit.button {
