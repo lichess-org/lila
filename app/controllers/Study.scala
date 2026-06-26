@@ -127,16 +127,16 @@ final class Study(
       yield res
     }
 
-  def byTopic(name: String, order: StudyOrder, page: Int) = Open:
+  def byTopic(name: String, order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
-        pag <- env.study.pager.byTopic(topic, order, page)
+        pag <- env.study.pager.byTopic(topic, order, page, format)
         _ <- preloadMembers(pag)
         res <- negotiate(
           Ok.async:
             ctx.userId
               .traverse(env.study.topicApi.userTopics)
-              .map(views.study.list.topic.show(topic, pag, order, _))
+              .map(views.study.list.topic.show(topic, pag, order, _, format))
           ,
           apiStudies(pag)
         )

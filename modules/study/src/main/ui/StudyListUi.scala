@@ -289,7 +289,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         topic: StudyTopic,
         pag: Paginator[WithChaptersAndLiked],
         order: StudyOrder,
-        myTopics: Option[StudyTopics]
+        myTopics: Option[StudyTopics],
+        format: Option[StudyFormat] = None
     )(using Context) =
       val active = StudyGroup.topic(topic.some)
       val url = (o: StudyOrder) => routes.Study.byTopic(topic.value, o)
@@ -301,7 +302,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             main(cls := "page-menu__content study-index box")(
               boxTop(
                 h1(topic.value),
-                bits.orderSelect(order, active, url),
+                bits.orderSelect(order, active, url, format),
+                bits.formatToggle(url(order).url, format),
                 bits.newForm()
               ),
               myTopics.ifTrue(order == StudyOrder.mine).map { ts =>
@@ -309,6 +311,6 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
                   topicsList(ts, StudyOrder.mine)
                 )
               },
-              paginate(pag, url(order))
+              paginate(pag, url(order), format)
             )
           )

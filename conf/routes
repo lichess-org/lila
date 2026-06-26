@@ -258,7 +258,7 @@ POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id: StudyId)
 POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id: StudyId)
 GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
-GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order: StudyOrder, page: Int ?= 1)
+GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang: String)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang: Language)
