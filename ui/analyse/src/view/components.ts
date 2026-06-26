@@ -357,9 +357,9 @@ function insertPresentationModeControls(ctrl: AnalyseCtrl) {
   `);
   controlsEl.querySelector<HTMLElement>('.exit-presentation-mode')?.addEventListener('click', () => {
     ctrl.presentationMode(false);
-    document.exitFullscreen().catch(() => {});
+    if ('exitFullscreen' in document) document.exitFullscreen().catch(() => {});
   });
-  if (document.fullscreenEnabled) {
+  if ('fullscreenEnabled' in document && document.fullscreenEnabled) {
     const screencastButton = frag<HTMLButtonElement>(
       `<button class="button button-empty screencast-mode" data-icon="${licon.Expand}">`,
     );
