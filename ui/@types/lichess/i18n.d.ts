@@ -2357,6 +2357,8 @@ interface I18n {
     giveMoreTime: string;
     /** Horizontal green progress bars */
     horizontalGreenProgressBars: string;
+    /** Hover checkbox labels for help */
+    hoverCheckboxLabelsForHelp: string;
     /** How do you move pieces? */
     howDoYouMovePieces: string;
     /** In casual games only */
@@ -3695,8 +3697,6 @@ interface I18n {
     hostANewSimul: string;
     /** Host colour: %s */
     hostColorX: I18nFormat;
-    /** Hover checkbox labels for help */
-    hoverCheckboxLabelsForHelp: string;
     /** How to avoid this? */
     howToAvoidThis: string;
     /** Hue */

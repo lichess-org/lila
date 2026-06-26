@@ -1278,6 +1278,7 @@ object I18nKey:
     val `boardSettings`: I18nKey = "preferences:boardSettings"
     val `analysisSettings`: I18nKey = "preferences:analysisSettings"
     val `maneuverArrowsHelp`: I18nKey = "preferences:maneuverArrowsHelp"
+    val `hoverCheckboxLabelsForHelp`: I18nKey = "preferences:hoverCheckboxLabelsForHelp"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"
@@ -2458,7 +2459,6 @@ object I18nKey:
     val `tags`: I18nKey = "tags"
     val `enPassant`: I18nKey = "enPassant"
     val `settings`: I18nKey = "settings"
-    val `hoverCheckboxLabelsForHelp`: I18nKey = "hoverCheckboxLabelsForHelp"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"

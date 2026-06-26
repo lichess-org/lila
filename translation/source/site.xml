@@ -1043,5 +1043,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
   <string name="settings">Settings</string>
-  <string name="hoverCheckboxLabelsForHelp">Hover checkbox labels for help</string>
 </resources>

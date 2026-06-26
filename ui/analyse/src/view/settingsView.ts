@@ -240,7 +240,7 @@ function helpHtml() {
         <button class="button button-empty button-dim show-all">Show all</button>
       </fieldset>
     </div>
-    <div class="hover-hint">${i18n.site.hoverCheckboxLabelsForHelp}</div>`;
+    <div class="hover-hint">${i18n.preferences.hoverCheckboxLabelsForHelp}</div>`;
 }
 
 function videoHtml(path: string) {
