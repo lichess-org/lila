@@ -133,7 +133,7 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Gamebook) => {
 });
 
 const nodeGamebookValue = (node: TreeNode, field: 'deviation' | 'hint'): string =>
-  (node.gamebook && node.gamebook[field]) || '';
+  node.gamebook?.[field] || '';
 
 function textareaHook(ctrl: AnalyseCtrl, field: 'deviation' | 'hint'): Hooks {
   const value = nodeGamebookValue(ctrl.node, field);

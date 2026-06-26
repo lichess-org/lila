@@ -57,6 +57,7 @@
     "typescript/no-unnecessary-type-conversion": "error",
     "typescript/prefer-find": "error",
     "typescript/prefer-includes": "error",
+    "typescript/prefer-optional-chain": "error",
     "typescript/prefer-readonly": "error",
     "typescript/prefer-reduce-type-parameter": "error",
     "typescript/prefer-string-starts-ends-with": "error",

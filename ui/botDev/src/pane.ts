@@ -167,7 +167,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isDisabled(): boolean {
-    return this.host.editing().disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+    return this.host.editing().disabled.has(this.id) ?? this.parent?.isDisabled ?? false;
   }
 
   protected get children(): Pane[] {

@@ -257,7 +257,7 @@ export default class LobbyController {
     if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');
-    } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
+    } else if (this.poolMember?.id === id) this.leavePool();
     else this.enterPool({ id });
     this.redraw();
   };

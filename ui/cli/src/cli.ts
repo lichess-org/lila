@@ -15,7 +15,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
 
   const fetchLinks = (term: string): HTMLAnchorElement[] => {
     const all = menuLinks
-      .filter(a => a.textContent && a.textContent.toLowerCase().includes(term.toLowerCase()))
+      .filter(a => a.textContent?.toLowerCase().includes(term.toLowerCase()))
       .map(a => a.cloneNode(true) as HTMLAnchorElement)
       .map(a => {
         a.classList.add('complete-result', 'complete-result--menu');

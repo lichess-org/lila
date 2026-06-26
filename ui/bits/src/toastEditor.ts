@@ -96,7 +96,7 @@ function initProseMirror(view: EditorViewType, rewire: () => void) {
 
   let transaction = view.state.tr;
   view.state.doc.descendants((n: NodeType, pos: number) => {
-    if (n.type && n.type.name === 'image') {
+    if (n.type?.name === 'image') {
       transaction = transaction.setNodeMarkup(pos, n.type, n.attrs, n.marks);
     }
   });
