@@ -9,8 +9,10 @@ main.presentation-mode {
   }
 }
 
-button.exit-presentation-mode {
+.presentation-controls {
   position: fixed;
+  left: 12px;
+  top: 8px;
   display: none;
 }
 
@@ -19,11 +21,20 @@ body:has(.presentation-mode) {
     display: none;
   }
 
-  .exit-presentation-mode {
+  .presentation-controls {
     display: flex;
-    left: 12px;
-    top: 8px;
+  }
+
+  .exit-presentation-mode,
+  .screencast-mode {
+    display: flex;
     padding: 6px 12px;
     font-size: 18px;
+  }
+}
+
+body:fullscreen:has(.presentation-mode) {
+  .screencast-mode {
+    display: none;
   }
 }

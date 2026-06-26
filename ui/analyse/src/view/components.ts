@@ -97,7 +97,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
           forceInnerCoords(ctrl, needsInnerCoords);
           if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          insertExitPresentationModeButton(ctrl);
+          insertPresentationModeControls(ctrl);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -349,10 +349,22 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   ];
 }
 
-function insertExitPresentationModeButton(ctrl: AnalyseCtrl) {
-  const btn = frag<HTMLButtonElement>(
-    `<button class="button button-empty exit-presentation-mode" data-icon="${licon.Back}">`,
-  );
-  btn.onclick = () => ctrl.presentationMode(false);
-  document.querySelector('header')?.insertAdjacentElement('beforebegin', btn);
+function insertPresentationModeControls(ctrl: AnalyseCtrl) {
+  const controlsEl = frag<HTMLElement>($html`
+    <span class="presentation-controls">
+      <button class="button button-empty exit-presentation-mode" data-icon="${licon.Back}">
+    </span>
+  `);
+  controlsEl.querySelector<HTMLElement>('.exit-presentation-mode')?.addEventListener('click', () => {
+    ctrl.presentationMode(false);
+    document.exitFullscreen().catch(() => {});
+  });
+  if (document.fullscreenEnabled) {
+    const screencastButton = frag<HTMLButtonElement>(
+      `<button class="button button-empty screencast-mode" data-icon="${licon.Expand}">`,
+    );
+    screencastButton.onclick = () => document.body.requestFullscreen().catch(() => {});
+    controlsEl.append(screencastButton);
+  }
+  document.querySelector('header')?.insertAdjacentElement('beforebegin', controlsEl);
 }
