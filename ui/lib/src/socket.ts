@@ -44,12 +44,12 @@ interface Params extends Record<string, any> {
   flag?: string;
 }
 
-interface Settings {
-  receive?: (t: Tpe, d: Payload) => void;
+type Settings<T = Tpe> = {
+  receive?: (t: T, d: Payload) => void;
   events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
-}
+};
 
 export interface SocketSendOpts {
   sign: string;
@@ -58,7 +58,11 @@ export interface SocketSendOpts {
   millis?: number;
 }
 
-export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
+export function wsConnect<T extends string = Tpe>(
+  url: string,
+  version: number | false,
+  settings: Partial<Settings<T>> = {},
+): WsSocket {
   return (siteSocket = new WsSocket(url, version, settings));
 }
 
