@@ -70,6 +70,7 @@ object HTTPRequest:
 
   def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
+  def noReferer(req: RequestHeader): Boolean = referer(req).isEmpty
 
   def ipAddress(req: RequestHeader): IpAddress =
     IpAddress.unchecked(ipAddressStr(req))

@@ -149,6 +149,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def isRestricted(tour: Tour)(using ctx: Context) =
     if ctx.isAuth || tour.isEnterable || tour.isRecentlyFinished
     then fuFalse
+    else if HTTPRequest.noReferer(ctx.req) then fuTrue
     else
       WithProxy: proxy ?=>
         fuccess(proxy.isFloodish || proxy.isCrawler || proxy.isHttp1)
