@@ -9,6 +9,7 @@ import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
+import scalalib.StringOps.addQueryParam
 
 final class PasswordReset(
     mailer: Mailer,
@@ -19,10 +20,12 @@ final class PasswordReset(
 
   import Mailer.html.*
 
-  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
+  def send(user: User, email: EmailAddress, source: Option[String] = None)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val url = routeUrl(routes.Auth.passwordResetConfirm(token))
+      val url = source.fold(routeUrl(routes.Auth.passwordResetConfirm(token))) { source =>
+        routeUrl(routes.Auth.passwordResetConfirm(token)).map(addQueryParam(_, "source", source))
+      }
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
