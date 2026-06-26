@@ -175,6 +175,7 @@ final class JsonView(
     ranking <- cached.ranking(tour)
     sheet <- cached.sheet(tour, info.userId)
     user <- lightUserApi.asyncFallback(info.userId)
+    _ <- lightUserApi.preloadMany(info.recentPovs.flatMap(_.opponent.userId))
   yield
     import info.*
     val isPlaying = recentPovs.headOption.so(_.game.playable)
