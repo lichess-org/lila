@@ -30,10 +30,4 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
       Bus.pub(AssetVersion.Changed(current))
       fuccess(s"Changed to ${AssetVersion.current}")
     case "threads" :: "blocked" :: Nil =>
-      fuccess:
-        val threads = lila.mon.Threads.blocked
-        s"Found ${threads.size} blocked threads:\n\n" +
-          threads
-            .map: (name, stack) =>
-              s"$name\n${stack.mkString("\n")}\n\n---------\n"
-            .mkString("\n")
+      fuccess(lila.mon.Threads.blockedStr)

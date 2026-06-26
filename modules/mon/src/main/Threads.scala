@@ -12,3 +12,11 @@ object Threads:
     .map: (thread, stack) =>
       thread.getName -> stack.map(_.toString).toList
     .toList
+
+  def blockedStr =
+    val threads = blocked
+    s"Found ${threads.size} blocked threads:\n" +
+      threads
+        .map: (name, stack) =>
+          s"$name\n${stack.mkString("\n")}\n---------"
+        .mkString("\n")
