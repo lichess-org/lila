@@ -40,7 +40,7 @@ final class RelayApi(
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi,
-    notifyAdmin: RelayNotifierAdmin
+    irc: lila.core.irc.IrcApi
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
@@ -252,13 +252,38 @@ final class RelayApi(
       _ <- (tour.visibility != prev.tour.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
-      _ <- (prev.tour.official || tour.official).so(notifyAdmin.tourChange(prev.tour, tour, impersonatedBy))
+      _ <- (prev.tour.official || tour.official).so(notifyTourChange(prev.tour, tour, impersonatedBy))
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
       teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.tourIds).foreach(withTours.invalidate)
+
+  private def notifyTourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using
+      Me
+  ): Funit =
+    val ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note")
+    val changes = prev.productElementNames
+      .zip(prev.productIterator)
+      .zip(tour.productIterator)
+      .collect:
+        case ((name, prevVal), nextVal) if !ignoredFields(name) && prevVal != nextVal =>
+          val prevStr = truncate(prevVal.toString)
+          val nextStr = truncate(nextVal.toString)
+          s"- $name: $prevStr\n+ $name: $nextStr"
+      .toList
+    changes.nonEmpty.so:
+      irc.broadcastTourUpdate(
+        tour.name.value,
+        tour.slug,
+        tour.id,
+        changes.mkString("\n"),
+        impersonatedBy
+      )
+
+  private def truncate(s: String): String =
+    if s.length <= 300 then s else s.take(300) + "..."
 
   private def updateGrouping(tour: RelayTour.WithGroupTours, data: RelayGroupData)(using me: Me): Funit =
     for
@@ -514,7 +539,10 @@ final class RelayApi(
     )(using me: Me): Fu[RelayTour] = for
       image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
-      _ <- notifyAdmin.imageUpload(t, tag, impersonatedBy)
+      _ <- t.official.so:
+        val fieldName = tag.getOrElse("image")
+        val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)"
+        irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
     yield t.copy(image = image.id.some)
 
     def delete(t: RelayTour, tag: Option[String] = None, impersonatedBy: Option[ModId] = None)(using
@@ -522,7 +550,10 @@ final class RelayApi(
     ): Fu[RelayTour] = for
       _ <- picfitApi.pullRef(headRef(t, tag))
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
-      _ <- notifyAdmin.imageDelete(t, tag, impersonatedBy)
+      _ <- t.official.so:
+        val fieldName = tag.getOrElse("image")
+        val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)"
+        irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =
