@@ -90,6 +90,7 @@ private object ZulipClient:
     val general = "general"
     val broadcast = "content-broadcast"
     val broadcastDms = "content-broadcast-dms"
+    val broadcastLogs = "content-broadcast-log"
     val blog = "content-blog"
     val content = "content-site"
     val bbb = "org-bbb"
