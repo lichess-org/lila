@@ -159,14 +159,27 @@ function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
   const vData = vnode.data!.li!,
     el = vnode.elm as HTMLElement;
   ctrl.chapters.scroller.scrollIfNeeded(el);
-  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
-    site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
-      vData.sortable = s.create(el, {
-        draggable: '.draggable',
-        handle: 'ontouchstart' in window ? 'span' : undefined,
-        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
-      });
-    });
+  if (
+    ctrl.members.canContribute() &&
+    ctrl.chapters.list.size() > 1 &&
+    !vData.sortable &&
+    !vData.sortableLoading
+  ) {
+    vData.sortableLoading = true;
+    site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(
+      s => {
+        vData.sortableLoading = false;
+        if (vData.destroyed || vData.sortable) return;
+        vData.sortable = s.create(el, {
+          draggable: '.draggable',
+          handle: 'ontouchstart' in window ? 'span' : undefined,
+          onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+        });
+      },
+      () => {
+        vData.sortableLoading = false;
+      },
+    );
   }
 }
 
@@ -199,7 +212,10 @@ export function view(ctrl: StudyCtrl): VNode {
             onListUpdate(ctrl, vnode);
           },
           destroy: vnode => {
-            const sortable: Sortable = vnode.data!.li!.sortable;
+            const vData = vnode.data!.li!,
+              sortable: Sortable = vData.sortable;
+            vData.destroyed = true;
+            vData.sortable = undefined;
             if (sortable) sortable.destroy();
           },
         },
