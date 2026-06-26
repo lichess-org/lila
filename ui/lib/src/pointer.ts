@@ -3,8 +3,8 @@ import { isTouchDevice } from './device';
 // PointerEvent listeners to allow vertical scrolling on touch devices
 
 export type PointerListeners = {
-  click?: (e: PointerEvent) => any;
-  hold?: 'click' | ((e: PointerEvent) => any);
+  click?: (e: PointerEvent) => void;
+  hold?: 'click' | ((e: PointerEvent) => void);
   hscrub?: (dx: number | 'pointerup', e: PointerEvent) => any; // truthy return cancels
   holdDuration?: number;
   scrubInterval?: number;
