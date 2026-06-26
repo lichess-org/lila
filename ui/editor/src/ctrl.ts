@@ -207,7 +207,7 @@ export default class EditorCtrl {
   // https://github.com/niklasf/chessops/issues/154
   private getEnPassantOptions(fen: FEN): string[] {
     const unpackRank = (packedRank: string) =>
-      [...packedRank].reduce((accumulator, current) => {
+      Array.from(packedRank).reduce((accumulator, current) => {
         const parsedInt = parseInt(current);
         return accumulator + (parsedInt >= 1 ? 'x'.repeat(parsedInt) : current);
       }, '');
@@ -293,7 +293,7 @@ export default class EditorCtrl {
     return this.setFen(parts.join(' '));
   };
 
-  loadNewFen(fen: FEN | 'prompt'): void {
+  loadNewFen(fen: FEN): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
     else this.setFen(fen);
   }

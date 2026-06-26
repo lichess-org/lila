@@ -1172,7 +1172,11 @@ export default function (token: string): void {
   function padBeforeNumbers(moveString: string) {
     let paddedMoveString = '';
     for (const c of moveString) {
-      Number.isInteger(Number(c)) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
+      if (Number.isInteger(Number(c))) {
+        paddedMoveString += ` ${c} `;
+      } else {
+        paddedMoveString += c;
+      }
     }
     return paddedMoveString;
   }

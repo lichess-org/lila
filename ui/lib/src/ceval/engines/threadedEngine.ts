@@ -38,7 +38,7 @@ export class ThreadedEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier | undefined,
+    readonly status: EngineNotifier | undefined,
     readonly variantMap?: (v: string) => string,
   ) {}
 
