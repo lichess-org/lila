@@ -75,17 +75,17 @@ export class PromotionCtrl {
   };
 
   dismiss = (): boolean => {
-    const wasPromoting = !!this.promoting;
-    this.cancelPrePromotion();
-    if (wasPromoting) {
-      this.promoting = undefined;
+    const promoting = this.promoting;
+    this.promoting = undefined;
+    this.cancelPrePromotion(promoting);
+    if (promoting) {
       this.redraw();
     }
-    return wasPromoting;
+    return !!promoting;
   };
 
-  cancelPrePromotion = (): void => {
-    this.promoting?.hooks.show?.(this, false);
+  cancelPrePromotion = (promoting: Promoting | undefined = this.promoting): void => {
+    promoting?.hooks.show?.(this, false);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;

@@ -63,6 +63,34 @@ describe('promotion control', () => {
     assert.equal(ctrl.view(), undefined);
   });
 
+  test('dismiss ignores stale promotion choices fired during hook cleanup', () => {
+    const { ground, autoShapes } = makeGround();
+    let submits = 0;
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+    );
+
+    assert.equal(
+      ctrl.start('e7', 'e8', {
+        submit: () => {
+          submits++;
+        },
+        show: (activeCtrl, roles) => {
+          if (roles === false) activeCtrl.finish('queen');
+        },
+      }),
+      true,
+    );
+    assert.ok(ctrl.view());
+
+    assert.equal(ctrl.dismiss(), true);
+    assert.equal(submits, 0);
+    assert.equal(autoShapes().length, 0);
+    assert.equal(ctrl.view(), undefined);
+  });
+
   test('cancel keeps the existing cancel hook behavior', () => {
     const { ground } = makeGround();
     let cancels = 0;

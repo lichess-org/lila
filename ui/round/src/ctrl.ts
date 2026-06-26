@@ -233,6 +233,7 @@ export default class RoundController implements MoveRootCtrl {
 
   userJump = (ply: Ply): void => {
     this.toSubmit = undefined;
+    this.promotion.dismiss();
     this.chessground.selectSquare(null);
     if (ply !== this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
@@ -255,13 +256,13 @@ export default class RoundController implements MoveRootCtrl {
         check: !!s.check,
         turnColor: plyColor(this.ply),
       };
+    this.promotion.dismiss();
     if (this.replaying()) this.chessground.stop();
     else
       config.movable = {
         color: this.isPlaying() ? this.data.player.color : undefined,
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
-    this.promotion.dismiss();
     this.chessground.cancelMove();
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
