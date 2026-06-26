@@ -59,10 +59,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         div(cls := "tour__main")(
           div(cls := "tour__main"):
             div(cls := "box")(
-              div(cls := "tour__main__header"):
-                iconTag(tour.perfType.icon, cls := "img")
-                h1(tour.name())
-              ,
+              div(cls := "tour__main__header")(h1(tour.name())),
               tour.winnerId.map: winnerId =>
                 p(cls := "box__pad")(
                   trans.arena.tournamentWinners(),

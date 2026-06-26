@@ -146,13 +146,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       yield JsonOk:
         data.add("chat", jsChat).add("socketVersion" -> socketVersion)
 
-  private def isRestricted(tour: Tour)(using ctx: Context) =
-    if ctx.isAuth || tour.isEnterable || tour.isRecentlyFinished
-    then fuFalse
-    else if HTTPRequest.noReferer(ctx.req) then fuTrue
-    else
-      WithProxy: proxy ?=>
-        fuccess(proxy.isFloodish || proxy.isCrawler || proxy.isHttp1)
+  private def isRestricted(tour: Tour)(using Context) =
+    if tour.isEnterable || tour.isRecentlyFinished then fuFalse else couldBeEnum
 
   def standing(id: TourId, page: Int) = Open:
     WithVisibleTournament(id): tour =>

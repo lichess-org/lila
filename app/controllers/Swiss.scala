@@ -33,29 +33,33 @@ final class Swiss(
       swissOption.foreach((s, _) => env.swiss.api.maybeRecompute(s))
       negotiate(
         html = swissOption.fold(swissNotFound): (swiss, team) =>
-          for
-            verdicts <- env.swiss.api.verdicts(swiss)
-            version <- env.swiss.version(swiss.id)
-            isInTeam <- isUserInTheTeam(swiss.teamId)
-            json <- env.swiss.json(
-              swiss = swiss,
-              me = ctx.me,
-              verdicts = verdicts,
-              reqPage = page,
-              socketVersion = version.some,
-              playerInfo = none,
-              isInTeam = isInTeam
-            )
-            canChat <- canHaveChat(swiss.roundInfo)
-            chat <- canChat.optionFu:
-              env.chat.api.userChat.cached
-                .findMine(swiss.id.into(ChatId))
-                .map:
-                  _.copy(locked = !env.api.chatFreshness.of(swiss))
-            streamers <- streamerCache.get(swiss.id)
-            isLocalMod <- ctx.useMe(env.team.api.hasCommPerm(swiss.teamId))
-            page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
-          yield Ok(page),
+          isRestricted(swiss).flatMap:
+            if _ then Ok.async(views.swiss.restricted(swiss, team))
+            else
+              for
+                verdicts <- env.swiss.api.verdicts(swiss)
+                version <- env.swiss.version(swiss.id)
+                isInTeam <- isUserInTheTeam(swiss.teamId)
+                json <- env.swiss.json(
+                  swiss = swiss,
+                  me = ctx.me,
+                  verdicts = verdicts,
+                  reqPage = page,
+                  socketVersion = version.some,
+                  playerInfo = none,
+                  isInTeam = isInTeam
+                )
+                canChat <- canHaveChat(swiss.roundInfo)
+                chat <- canChat.optionFu:
+                  env.chat.api.userChat.cached
+                    .findMine(swiss.id.into(ChatId))
+                    .map:
+                      _.copy(locked = !env.api.chatFreshness.of(swiss))
+                streamers <- streamerCache.get(swiss.id)
+                isLocalMod <- ctx.useMe(env.team.api.hasCommPerm(swiss.teamId))
+                page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
+              yield Ok(page)
+        ,
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
           for
             isInTeam <- isUserInTheTeam(swiss.teamId)
@@ -250,6 +254,9 @@ final class Swiss(
         .documentSource(getInt("max") | 100)
         .mapAsync(4)(apiJson)
         .throttle(20, 1.second)
+
+  private def isRestricted(s: SwissModel)(using Context) =
+    if s.isEnterable || s.isRecentlyFinished then fuFalse else couldBeEnum
 
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result])(using Context): Fu[Result] =
     env.swiss.cache.swissCache.byId(id).orNotFound(f)

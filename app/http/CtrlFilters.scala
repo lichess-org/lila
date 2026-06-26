@@ -40,6 +40,11 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def WithProxy[A](res: IsProxy ?=> Fu[A])(using req: RequestHeader): Fu[A] =
     env.security.ip2proxy.ofReq(req).flatMap(res(using _))
 
+  def couldBeEnum(using ctx: Context): Fu[Boolean] =
+    if ctx.isAuth then fuFalse
+    else if HTTPRequest.noReferer(ctx.req) then fuTrue
+    else env.security.ip2proxy.ofReq(ctx.req).dmap(_.couldBeEnum)
+
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
       .isPubOrTor(ctx.req)
