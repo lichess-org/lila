@@ -48,7 +48,7 @@ final class EmailConfirmMailer(
 
   def send(user: User, email: EmailAddress)(using lang: Lang, referrer: Option[ValidReferrer]): Funit =
     if email.looksLikeFakeEmail then
-      lila.log("auth").info(s"Not sending confirmation to fake email $email of ${user.username}")
+      loggerAuth.info(s"Not sending confirmation to fake email $email of ${user.username}")
       fuccess(())
     else
       email.looksLikeFakeEmail.not.so:
@@ -56,7 +56,7 @@ final class EmailConfirmMailer(
           lila.mon.email.send.confirmation.increment()
           val url = referrer.foldLeft(routeUrl(routes.Auth.signupConfirmEmail(token))): (url, ref) =>
             ref.propagate(url)
-          lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
+          loggerAuth.info(s"Confirm URL ${user.username} ${email.value} $url")
           mailer.sendOrFail:
             Mailer.Message(
               to = email,

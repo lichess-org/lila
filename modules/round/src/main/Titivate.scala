@@ -36,7 +36,7 @@ final private class Titivate(
   def receive =
     case ReceiveTimeout =>
       val msg = "Titivate timed out!"
-      logBranch.error(msg)
+      logger.error(msg)
       throw new RuntimeException(msg)
 
     case Run =>
@@ -55,10 +55,10 @@ final private class Titivate(
 
       run
         .monSuccess(lila.mon.round.titivate.time)
-        .logFailure(logBranch)
+        .logFailure(logger)
         .addEffectAnyway(scheduleNext())
 
-  private lazy val logBranch = lila.log("round.titivate")
+  private lazy val logger = lila.log("round.titivate")
 
   private val gameRead = Flow[Bdoc].map: doc =>
     gameRepo.gameHandler
@@ -76,7 +76,7 @@ final private class Titivate(
 
     case Left((id, err)) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
-      logBranch.warn(s"Can't read game $id", err)
+      logger.warn(s"Can't read game $id", err)
       gameRepo.unsetCheckAt(id)
 
     case Right(game) =>

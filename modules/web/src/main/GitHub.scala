@@ -51,7 +51,6 @@ final class GitHub(cacheApi: lila.memo.CacheApi, ws: StandaloneWSClient)(using E
       sig.verify(signatureBytes)
     catch
       case e: Exception =>
-        lila
-          .log("github")
-          .warn(s"Failed to verify signature: $signature, publicKey: $publicKey, body: $body", e)
+        lila.log.system
+          .warn(s"GitHub failed to verify signature: $signature, publicKey: $publicKey, body: $body", e)
         false

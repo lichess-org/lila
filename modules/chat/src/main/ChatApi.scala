@@ -197,7 +197,6 @@ final class ChatApi(
                 )
               )
               if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
-            else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat = c.markDeleted(user)

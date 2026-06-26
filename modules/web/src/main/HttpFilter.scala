@@ -15,7 +15,7 @@ final class HttpFilter(
     extends Filter
     with ResponseHeaders:
 
-  private val logger = lila.log("http")
+  private def logger = lila.log("http")
 
   def apply(handle: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))

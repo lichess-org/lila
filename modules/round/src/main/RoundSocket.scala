@@ -38,7 +38,7 @@ final class RoundSocket(
     rounds
       .tellAllWithAck(RoundAsyncActor.LilaStop.apply)
       .map: nb =>
-        Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
+        lila.log.system.info(s"$nb round asyncActors have stopped")
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
     rounds
@@ -238,7 +238,7 @@ final class RoundSocket(
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
   private def preloadRoundsWithVersions(rooms: Iterable[(String, SocketVersion)]) =
-    val bootLog = lila.log("boot")
+    val bootLog = lila.log.system
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
     val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { (id, version) =>

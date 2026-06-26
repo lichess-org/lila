@@ -123,10 +123,7 @@ final class Analyse(
       chess.Replay
         .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
         .fold(
-          err =>
-            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
-            Redirect(url)
-          ,
+          _ => Redirect(url),
           ply => Redirect(s"$url#$ply")
         )
 

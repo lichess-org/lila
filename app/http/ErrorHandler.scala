@@ -25,7 +25,7 @@ final class ErrorHandler(
       val actionName = HTTPRequest.actionName(req)
       val client = HTTPRequest.clientName(req)
       lila.mon.http.errorCount(actionName, client, req.method, 500).increment()
-      lila.log("http").error(s"ERROR 500 $actionName", exception)
+      loggerHttp.error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         given PageContext = PageContext(
           lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
@@ -34,7 +34,7 @@ final class ErrorHandler(
         InternalServerError(views.base.page(views.site.ui.errorPage))
       else InternalServerError("Sorry, something went wrong.")
     }.recover { case scala.util.control.NonFatal(e) =>
-      lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
+      loggerHttp.error(s"""Error handler exception on "${exception.getMessage}\"""", e)
       InternalServerError("Sorry, something went very wrong.")
     }
 

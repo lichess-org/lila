@@ -35,7 +35,7 @@ final class Db(
 )(using Executor):
 
   private lazy val db: DB =
-    logger.info(s"MongoDB $name connecting to $uri")
+    lila.log.system.info(s"MongoDB $name connecting to $uri")
     val connected = scala.concurrent.Await.result(
       MongoConnection
         .fromString(uri)
@@ -45,7 +45,7 @@ final class Db(
             .flatMap(_.database(parsedUri.db.getOrElse("lichess"))),
       5.seconds
     )
-    logger.info(s"MongoDB $name connected  to $uri")
+    lila.log.system.info(s"MongoDB $name connected  to $uri")
     connected
 
   def apply(name: CollName): Coll = db.collection(name.value)

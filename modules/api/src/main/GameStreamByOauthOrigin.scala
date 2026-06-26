@@ -84,7 +84,7 @@ final class GameStreamByOauthOrigin(
       .queue[Game](300, akka.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         streams.open(ua)
-        logger.info(s"gameStream OPEN  $logMsg")
+        lila.log.system.info(s"gameStream OPEN  $logMsg")
         mon.users("recentlySeen").update(recentlySeenUsers.size)
 
         def matches(game: Game) = game.nonAi &&
@@ -103,7 +103,7 @@ final class GameStreamByOauthOrigin(
             Bus.unsub[FinishGame](subFinish)
             streams.close(ua)
             val seconds = nowSeconds - startedAt.toSeconds
-            logger.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
+            lila.log.system.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
 
     pastGamesSource(recentlySeenUsers, since)
       .concat(currentGamesSource(recentlySeenUsers))

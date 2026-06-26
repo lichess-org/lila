@@ -157,9 +157,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     get("hub.challenge").fold(BadRequest): challenge =>
       val days = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
-      lila
-        .log("streamer")
-        .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+      lila.log.system.debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: => Fu[Result])(using ctx: Context) =

@@ -276,7 +276,7 @@ final class Round(
     Found(env.round.proxyRepo.pov(fullId)): pov =>
       val redirection = fuccess(Redirect(routes.Lobby.home))
       if isTheft(pov) then
-        lila.log("round").warn(s"theft resign $fullId ${ctx.ip}")
+        lila.round.logger.warn(s"theft resign $fullId ${ctx.ip}")
         redirection
       else
         env.round.resign(pov)

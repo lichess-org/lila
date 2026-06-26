@@ -18,6 +18,7 @@ import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
+  def logger = lila.security.loggerAuth
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
@@ -230,7 +231,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
     for proxy <- env.security.ip2proxy.ofReq(ctx.req)
-    do lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
+    do logger.info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -364,7 +365,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
-      .logFailure(lila.log("fp"), _ => s"${HTTPRequest.print(ctx.req)} $fp")
+      .logFailure(logger, _ => s"FP ${HTTPRequest.print(ctx.req)} $fp")
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))

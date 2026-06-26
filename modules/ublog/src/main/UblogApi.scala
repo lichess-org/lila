@@ -215,7 +215,7 @@ final class UblogApi(
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
-            logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
+            lila.log.system.warn(s"ublog automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
     attempt(0)
 

@@ -45,4 +45,4 @@ final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDut
         .void
     )
 
-  private lazy val logger = lila.log("pagerDuty")
+  private def logger = lila.log("pagerDuty")

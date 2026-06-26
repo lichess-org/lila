@@ -8,7 +8,8 @@ val broadcasterUrl = "https://lichess.org/broadcast/app"
 
 val monthOfFirstRelay = java.time.YearMonth.of(2020, 1)
 
-private val logger = lila.log("relay")
+private lazy val logger = lila.log("relay")
+
 private type RelayGames = Vector[RelayGame]
 
 // apply updates to a value, and keep track of the updates

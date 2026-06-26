@@ -12,7 +12,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
         ruBigRegex.findAllMatchIn(lower).toList
       TextAnalysis(lower, matches.map(_.toString))
     .mon(lila.mon.shutup.analyzer)
-    .logIfSlow(100, logger)(_ => s"Slow shutup analyser ${raw.take(400)}")
+    .logIfSlow(100, lila.log.system)(_ => s"Slow shutup analyser ${raw.take(400)}")
     .result
 
   def isCritical(raw: String) =
@@ -30,8 +30,6 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       val regex = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
-
-  private val logger = lila.log("security.shutup")
 
   private def latinify(text: String): String =
     text.map:

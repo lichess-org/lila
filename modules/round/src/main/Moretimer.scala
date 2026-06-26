@@ -17,22 +17,18 @@ final class Moretimer(
 
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration, force: Boolean): Fu[Option[Progress]] =
-    isAllowedIn(pov.game, Preload.none, force).map:
-      case false =>
-        logger.info(s"[moretimer] not allowed on ${pov.game.id}")
-        none
-      case true =>
-        if pov.game.clock.exists(_.moretimeable(!pov.color))
-        then
-          val progress = give(pov.game, List(!pov.color), duration)
-          tellTheBus(progress.game)
-          progress.some
-        else if pov.game.correspondenceClock.exists(_.moretimeable(!pov.color))
-        then
-          messenger.volatile(pov.game, s"${!pov.color} gets more time")
-          val p = Progress(pov.game, pov.game.copy(movedAt = nowInstant))
-          p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).foldLeft(p)(_ + _).some
-        else none
+    isAllowedIn(pov.game, Preload.none, force).mapz:
+      if pov.game.clock.exists(_.moretimeable(!pov.color))
+      then
+        val progress = give(pov.game, List(!pov.color), duration)
+        tellTheBus(progress.game)
+        progress.some
+      else if pov.game.correspondenceClock.exists(_.moretimeable(!pov.color))
+      then
+        messenger.volatile(pov.game, s"${!pov.color} gets more time")
+        val p = Progress(pov.game, pov.game.copy(movedAt = nowInstant))
+        p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).foldLeft(p)(_ + _).some
+      else none
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]], force: Boolean): Fu[Boolean] =
     (game.playable && !game.isUnlimited && game.canTakebackOrAddTime).so:
