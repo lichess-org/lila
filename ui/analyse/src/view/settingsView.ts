@@ -122,7 +122,7 @@ export function settingsView(ctrl: SettingsCtrl): HTMLElement {
   const view = frag<HTMLElement>($html`
     <div class="analysis-settings-view">
       <div class="column">
-        ${keyboardShortcutsHtml()}
+        ${helpHtml()}
         ${groupedHtml('generalSettings')}
       </div>
       <div class="column">
@@ -225,7 +225,7 @@ function defaultToggleListener(e: Event, ctrl: SettingsCtrl, key: SettingKey) {
   ctrl.set(key, (e.target as HTMLInputElement).checked);
 }
 
-function keyboardShortcutsHtml() {
+function helpHtml() {
   const settingShortcutsHtml = Object.values(settings)
     .filter(opt => opt.shortcutHtml)
     .map(opt => `<div class="setting inert">${opt.label}<span>${opt.shortcutHtml}</span></div>`)
@@ -239,7 +239,8 @@ function keyboardShortcutsHtml() {
         ${settingShortcutsHtml}
         <button class="button button-empty button-dim show-all">Show all</button>
       </fieldset>
-    </div>`;
+    </div>
+    <div class="hover-hint">${i18n.site.hoverCheckboxTextForHelp}</div>`;
 }
 
 function videoHtml(path: string) {

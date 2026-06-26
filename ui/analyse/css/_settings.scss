@@ -116,7 +116,16 @@
     margin-inline: auto;
   }
 
+  .hover-hint {
+    color: $c-font-dim;
+    display: none;
+  }
+
   @include mq-has-hover {
+    :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
+      display: block;
+    }
+
     .help-button {
       display: none;
     }

@@ -3695,6 +3695,8 @@ interface I18n {
     hostANewSimul: string;
     /** Host colour: %s */
     hostColorX: I18nFormat;
+    /** Hover checkbox label for help */
+    hoverCheckboxTextForHelp: string;
     /** How to avoid this? */
     howToAvoidThis: string;
     /** Hue */
