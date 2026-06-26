@@ -52,10 +52,14 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
 
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 
+function themeTrans(key: string) {
+  return key in i18n.puzzleTheme ? i18n.puzzleTheme[key as keyof typeof i18n.puzzleTheme].toString() : key;
+}
+
 const editor = (ctrl: PuzzleCtrl): VNode[] => {
-  const data = ctrl.data,
-    votedThemes = ctrl.round?.themes || ({} as RoundThemes);
-  const themeTrans = (key: string) => (i18n.puzzleTheme as any)[key] || key;
+  const data = ctrl.data;
+  const votedThemes = ctrl.round?.themes ?? ({} as RoundThemes);
+
   const visibleThemes: ThemeKey[] = [
     ...data.puzzle.themes.filter(t => !invisibleThemes.has(t)),
     ...Object.keys(votedThemes).filter(
@@ -64,7 +68,9 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
   ].sort();
   const allThemes = ctrl.isDaily ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
+
   if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
+
   return [
     hl(
       'div.puzzle__themes_list',

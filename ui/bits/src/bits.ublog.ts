@@ -131,7 +131,7 @@ function rewireModPost() {
     }),
   );
   submitBtn.addEventListener('click', async () => {
-    const form: Record<string, any> = {};
+    const form: Record<string, boolean | string> = {};
     for (const input of submitFields.querySelectorAll<HTMLInputElement>('input')) {
       form[input.id] = input.type === 'checkbox' ? input.checked : input.value;
     }
