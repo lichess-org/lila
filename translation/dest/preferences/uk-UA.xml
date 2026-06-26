@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Звук сповіщення</string>
   <string name="blindfold" comment="As in Blindfold chess">Наосліп</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Показувати ліворуч на мобільних пристроях</string>
+  <string name="inlineNotation">Рядкова нотація</string>
+  <string name="showServerAnalysis">Показувати серверний аналіз</string>
+  <string name="showBestMoveArrows">Показувати найкращі ходи стрілками</string>
+  <string name="showManeuverArrows">Показувати маневри стрілками</string>
+  <string name="showGauge">Показувати шкалу оцінки</string>
+  <string name="showMoveAnnotationsOnBoard">Показувати анотації ходів</string>
+  <string name="showVariationArrows">Показувати варіанти стрілками</string>
+  <string name="showLiveGlyphs">Анотації рушія онлайн</string>
+  <string name="showUndefendedPieces">Показувати незахищені фігури</string>
+  <string name="showPinnedPieces">Показувати прив\'язані фігури</string>
+  <string name="showCheckableKing">Показувати загрозу шаху</string>
+  <string name="disclosureMode">Увімкнути приховання варіантів</string>
+  <string name="generalSettings">Загальні</string>
+  <string name="moveListSettings">Список ходів</string>
+  <string name="boardSettings">Дошка</string>
+  <string name="analysisSettings">Налаштування аналізу</string>
+  <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
 </resources>

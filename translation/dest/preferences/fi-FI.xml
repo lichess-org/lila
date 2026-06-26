@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Ilmoitusten kilahdusääni</string>
   <string name="blindfold" comment="As in Blindfold chess">Sokko</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Näytä mobiililaitteilla kello vasemmalla puolella</string>
+  <string name="inlineNotation">Rivinsisäinen kommentointi</string>
+  <string name="showServerAnalysis">Näytä palvelinanalyysi</string>
+  <string name="showBestMoveArrows">Näytä parhaiden siirtojen nuolet</string>
+  <string name="showManeuverArrows">Näytä manööverien nuolet</string>
+  <string name="showGauge">Näytä arviopalkki</string>
+  <string name="showMoveAnnotationsOnBoard">Näytä siirtokommentit</string>
+  <string name="showVariationArrows">Näytä muunnelmien nuolet</string>
+  <string name="showLiveGlyphs">Reaaliaikaiset tietokoneen kommentit</string>
+  <string name="showUndefendedPieces">Näytä suojaamattomat nappulat</string>
+  <string name="showPinnedPieces">Näytä kiinnitetyt nappulat</string>
+  <string name="showCheckableKing">Näytä, kun kuningasta voi shakata</string>
+  <string name="disclosureMode">Ota käyttöön muunnelmien piilotus</string>
+  <string name="generalSettings">Yleiset</string>
+  <string name="moveListSettings">Siirtoluettelo</string>
+  <string name="boardSettings">Lauta</string>
+  <string name="analysisSettings">Analyysiasetukset</string>
+  <string name="maneuverArrowsHelp">Tietokoneen laskema yhden nappulan siirtosarja</string>
 </resources>

@@ -71,6 +71,7 @@
   <string name="bellNotificationSound">Ειδοποίηση με ήχο από καμπανάκι</string>
   <string name="blindfold" comment="As in Blindfold chess">Τυφλό</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Εμφάνιση στα αριστερά στις κινητές συσκευές</string>
+  <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
   <string name="generalSettings">Γενικές</string>
   <string name="moveListSettings">Λίστα κινήσεων</string>
   <string name="boardSettings">Σκακιέρα</string>
