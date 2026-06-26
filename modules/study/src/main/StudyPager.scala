@@ -3,7 +3,7 @@ package lila.study
 import scalalib.paginator.Paginator
 
 import lila.core.i18n.I18nKey
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.memo.SettingStore
@@ -15,6 +15,7 @@ final class StudyPager(
 )(using Executor):
 
   val maxPerPage = MaxPerPage(16)
+  val maxPerPageCompact = MaxPerPage(55)
   val defaultNbChaptersPerStudy = 4
 
   object featured:
@@ -49,12 +50,16 @@ final class StudyPager(
     selectTopic
   }
 
-  def all(order: StudyOrder, page: Int)(using Option[Me]) =
+  private def overrideMaxPerPage(format: Option[StudyFormat]) =
+    format.fold(maxPerPage)(f => if f == StudyFormat.compact then maxPerPageCompact else maxPerPage)
+
+  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using Option[Me]) =
     paginator(
       accessSelect(),
       order,
       page,
-      fuccess(9999).some
+      fuccess(9999).some,
+      maxPerPage = overrideMaxPerPage(format).some
     ).flatMap: pager =>
       if (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1 then
         for
@@ -64,46 +69,54 @@ final class StudyPager(
           extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
       else fuccess(pager)
 
-  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
+  def byOwner(owner: User, order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
+      Option[Me]
+  ) =
     paginator(
       selectOwnerId(owner.id) ++ accessSelect(trash = true),
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def mine(order: StudyOrder, page: Int)(using me: Me) =
+  def mine(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
     paginator(
       selectOwnerId(me),
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def minePublic(order: StudyOrder, page: Int)(using me: Me) =
+  def minePublic(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
     paginator(
       selectOwnerId(me) ++ selectPublic,
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def minePrivate(order: StudyOrder, page: Int)(using me: Me) =
+  def minePrivate(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
     paginator(
       selectOwnerId(me) ++ selectPrivateOrUnlisted,
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def mineMember(order: StudyOrder, page: Int)(using me: Me) =
+  def mineMember(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
     paginator(
       selectMemberId(me) ++ $doc("ownerId".$ne(me.userId)),
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def mineLikes(order: StudyOrder, page: Int)(using me: Me) =
+  def mineLikes(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
     paginator(
       selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ $doc("ownerId".$ne(me.userId)),
       order,
-      page
+      page,
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
   def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me]) =
@@ -128,8 +141,10 @@ final class StudyPager(
       order: StudyOrder,
       page: Int,
       nbResults: Option[Fu[Int]] = none,
-      hint: Option[Bdoc] = none
+      hint: Option[Bdoc] = none,
+      maxPerPage: Option[MaxPerPage] = none
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
+    logger.info(s"StudyPager.paginator: page = $page, maxPerPage = $maxPerPage")
     val adapter = Adapter[Study](
       collection = coll,
       selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
@@ -152,7 +167,7 @@ final class StudyPager(
       adapter = nbResults.fold(adapter): nb =>
         CachedAdapter(adapter, nb),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage.getOrElse(this.maxPerPage)
     )
 
   def withChaptersAndLiking(

@@ -76,7 +76,7 @@ final class Study(
           Redirect(routes.Study.allDefault(page))
         case order =>
           for
-            pag <- env.study.pager.all(order, page)
+            pag <- env.study.pager.all(order, page, format)
             _ <- preloadMembers(pag)
             res <- negotiate(
               Ok.page(views.study.list.all(pag, order, format)),
@@ -90,7 +90,7 @@ final class Study(
   def byOwner(username: UserStr, order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = Open:
     Found(meOrFetch(username)): owner =>
       for
-        pag <- env.study.pager.byOwner(owner, order, page)
+        pag <- env.study.pager.byOwner(owner, order, page, format)
         _ <- preloadMembers(pag)
         res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner, format)), apiStudies(pag))
       yield res
@@ -116,12 +116,12 @@ final class Study(
   private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
 
   private def MyStudyPager(
-      makePager: (StudyOrder, Int) => Me ?=> Fu[StudyPager],
+      makePager: (StudyOrder, Int, Option[StudyFormat]) => Me ?=> Fu[StudyPager],
       render: (StudyPager, StudyOrder, Option[StudyFormat]) => Context ?=> Me ?=> Fu[Page]
   ) = (order: StudyOrder, page: Int, format: Option[StudyFormat]) =>
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
       for
-        pager <- makePager(order, page)
+        pager <- makePager(order, page, format)
         _ <- preloadMembers(pager)
         res <- negotiate(Ok.async(render(pager, order, format)), apiStudies(pager))
       yield res
