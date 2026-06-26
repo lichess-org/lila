@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.Cache
 
 import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
-import lila.core.userId.ModId
 
 private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: ChapterPreviewApi)(using
     ex: Executor,
@@ -67,38 +66,3 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
                   (chapter.id, player.name.fold("?")(_.value))
             missing.nonEmpty.so:
               irc.broadcastMissingFideId(rt.round.id, rt.fullNameNoTrans, missing)
-
-  def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
-    val ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note")
-    val changes = prev.productElementNames
-      .zip(prev.productIterator)
-      .zip(tour.productIterator)
-      .collect:
-        case ((name, prevVal), nextVal) if !ignoredFields(name) && prevVal != nextVal =>
-          val prevStr = truncate(prevVal.toString)
-          val nextStr = truncate(nextVal.toString)
-          s"- $name: $prevStr\n+ $name: $nextStr"
-      .toList
-    changes.nonEmpty.so:
-      irc.broadcastTourUpdate(
-        tour.name.value,
-        tour.slug,
-        tour.id,
-        changes.mkString("\n"),
-        impersonatedBy
-      )
-
-  def imageDelete(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
-    t.official.so:
-      val fieldName = tag | "image"
-      val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)"
-      irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
-
-  def imageUpload(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
-    t.official.so:
-      val fieldName = tag | "image"
-      val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)"
-      irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
-
-  private def truncate(s: String): String =
-    if s.length <= 300 then s else s.take(300) + "..."

@@ -77,7 +77,7 @@ final class IrcApi(
       mod: LightUser.Me
   ): Funit =
     val topic = "/" + user.name
-    zulip(_.mod.usernames, topic)(s"$details${reason.so(r => s", reason: $r")}") >>
+    zulip(_.mod.usernames, topic)(s"$details${reason.fold("")(r => s", reason: $r")}") >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
         .flatMapz: zulipLink =>
@@ -243,7 +243,7 @@ final class IrcApi(
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 
   private def impersonatedByText(impersonator: Option[LightUser]): String =
-    impersonator.so(mod => s" (impersonated by ${markdown.modLink(mod.name)})")
+    impersonator.fold("")(mod => s" (impersonated by ${markdown.modLink(mod.name)})")
 
   object charge:
     import lila.core.plan.ChargeEvent
