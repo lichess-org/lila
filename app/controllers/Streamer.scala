@@ -24,23 +24,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           page <- renderPage(views.streamer.index(live, pager, requests))
         yield Ok(page)
 
-  def featured = Anon: ctx ?=>
-    env.streamer.liveApi.all.map: streams =>
-      val max = env.streamer.homepageMaxSetting.get()
-      val featured = streams.homepage(max, ctx.acceptLanguages).withTitles(env.user.lightUserApi)
-      JsonOk:
-        featured.live.streams.map: s =>
-          Json.obj(
-            "url" -> routeUrl(routes.Streamer.show(s.streamer.userId, redirect = true)),
-            "status" -> s.status,
-            "user" -> Json
-              .obj(
-                "id" -> s.streamer.userId,
-                "name" -> s.streamer.name
-              )
-              .add("title" -> featured.titles.get(s.streamer.userId))
-          )
-
   def live = apiC.ApiRequest:
     env.api.mobile.featuredStreamers.map(apiC.toApiResult)
 
