@@ -356,7 +356,6 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
-GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
 POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYoutubeVideo
 GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youtubePubSubChallenge
