@@ -87,7 +87,7 @@ export default class CoordinateTrainerCtrl {
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
     this.voice = makeVoice({ redraw: this.redraw, tpe: 'coords' });
-    this.voice.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
+    this.voice.mic.initRecognizer([...Array.from('abcdefgh'), ...Object.keys(rankWords), 'start', 'stop'], {
       partial: true,
       listener: this.onVoice.bind(this),
     });

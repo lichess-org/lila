@@ -21,7 +21,7 @@ export default async function initModule(opts: LocalPlayOpts): Promise<void> {
     bot: new DevBotCtrl(),
     db: new LocalDb(),
     game: new GameCtrl(opts),
-    assets: new DevAssets(),
+    assets: new DevAssets(undefined),
   });
   await Promise.all([env.db.init(), env.bot.init()]);
   const setup = hashOpts();

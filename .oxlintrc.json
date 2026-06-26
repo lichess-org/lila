@@ -244,8 +244,6 @@
     "no-control-regex": "off",
     "no-unused-expressions": "off",
     "typescript/no-base-to-string": "off",
-    "typescript/no-duplicate-type-constituents": "off",
-    "typescript/no-explicit-any": "off",
     "typescript/no-floating-promises": "off",
     "typescript/no-misused-spread": "off",
     "typescript/no-redundant-type-constituents": "off",
