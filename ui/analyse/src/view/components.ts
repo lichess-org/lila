@@ -366,5 +366,5 @@ function insertPresentationModeControls(ctrl: AnalyseCtrl) {
     screencastButton.onclick = () => document.body.requestFullscreen().catch(() => {});
     controlsEl.append(screencastButton);
   }
-  document.querySelector('header')?.insertAdjacentElement('beforebegin', controlsEl);
+  document.querySelector('header')?.before(controlsEl);
 }
