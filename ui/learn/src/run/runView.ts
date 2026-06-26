@@ -39,7 +39,7 @@ export const runView = (ctrl: LearnCtrl) => {
   const rootClass: Classes = {
     starting: !!levelCtrl.vm.starting,
     completed: levelCtrl.vm.completed && !levelCtrl.blueprint.nextButton,
-    'last-step': !!levelCtrl.vm.lastStep,
+    'last-step': levelCtrl.vm.lastStep,
     'piece-values': !!levelCtrl.blueprint.showPieceValues,
   };
   if (stage.cssClass) rootClass[stage.cssClass] = true;

@@ -80,7 +80,7 @@ export function addDomHandlers() {
   });
 
   $('.user-autocomplete').each(function (this: HTMLInputElement) {
-    const focus = !!this.autofocus;
+    const focus = this.autofocus;
     const start = () =>
       userComplete({
         input: this,

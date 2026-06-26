@@ -77,7 +77,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),
-    needsInnerCoords: ctrl.data.pref.showCaptured || !!ctrl.showEvalGauge() || !!playerBars,
+    needsInnerCoords: ctrl.data.pref.showCaptured || ctrl.showEvalGauge() || !!playerBars,
     hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
