@@ -7,10 +7,7 @@ import lila.game.GameExt.withClock
 import lila.game.{ Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 
-final class Moretimer(
-    messenger: Messenger,
-    prefApi: PrefApi
-)(using Executor):
+final class Moretimer(messenger: Messenger, prefApi: PrefApi):
 
   private val minTime = 5.seconds
   private val maxTime = 60.seconds
