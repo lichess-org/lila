@@ -1,10 +1,8 @@
 package controllers
 
-import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
 import lila.core.perm.Granter
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
 
