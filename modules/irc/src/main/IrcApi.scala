@@ -6,6 +6,7 @@ import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
+import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
 
 final class IrcApi(
@@ -76,7 +77,7 @@ final class IrcApi(
       mod: LightUser.Me
   ): Funit =
     val topic = "/" + user.name
-    zulip(_.mod.usernames, topic)(s"$details${reason.fold("")(r => s", reason: $r")}") >>
+    zulip(_.mod.usernames, topic)(s"$details${reason.so(r => s", reason: $r")}") >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
         .flatMapz: zulipLink =>
@@ -152,6 +153,21 @@ final class IrcApi(
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
       s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
 
+  def broadcastTourUpdate(
+      tourName: String,
+      tourSlug: String,
+      tourId: RelayTourId,
+      diff: String,
+      impersonatedBy: Option[ModId] = None
+  )(using
+      userId: MyId
+  ): Funit =
+    val user = lightUser(userId)
+    val impersonator = impersonatedBy.map(id => lightUser(id.userId))
+    val channelUser = impersonator.getOrElse(user)
+    zulip(_.broadcastLogs, s"/${channelUser.name}"):
+      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n```diff\n$diff\n```"
+
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
@@ -225,6 +241,9 @@ final class IrcApi(
 
   private[irc] def publishInfo(msg: String): Funit =
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
+
+  private def impersonatedByText(impersonator: Option[LightUser]): String =
+    impersonator.so(mod => s" (impersonated by ${markdown.modLink(mod.name)})")
 
   object charge:
     import lila.core.plan.ChargeEvent
