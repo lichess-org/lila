@@ -119,13 +119,16 @@ final class StudyPager(
       maxPerPage = overrideMaxPerPage(format).some
     )
 
-  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
+      me: Option[Me]
+  ) =
     val onlyMine = me.ifTrue(order == StudyOrder.mine)
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
       order,
       page,
-      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
+      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1)),
+      maxPerPage = overrideMaxPerPage(format).some
     )
 
   private def accessSelect(unlisted: Boolean = false, trash: Boolean = false)(using
@@ -142,7 +145,7 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none,
-      maxPerPage: Option[MaxPerPage] = none
+      maxPerPage: Option[MaxPerPage]
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
