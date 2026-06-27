@@ -14,7 +14,7 @@ export function makeEnv(cfg: Partial<DevEnv>): DevEnv {
 }
 
 export class DevEnv {
-  canPost: boolean;
+  canPost?: boolean;
   game: GameCtrl;
   db: LocalDb;
   bot: DevBotCtrl;
@@ -29,5 +29,6 @@ export class DevEnv {
     Object.assign(this, cfg);
     env = this;
     if (this.game) this.game.observer = this.dev;
+    this.canPost = Boolean(this.canPost);
   }
 }
