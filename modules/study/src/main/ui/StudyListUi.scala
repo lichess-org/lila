@@ -129,7 +129,12 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       format = format
     )
 
-  def search(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, text: String)(using Context) =
+  def search(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      text: String,
+      format: Option[StudyFormat] = None
+  )(using Context) =
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
@@ -138,10 +143,14 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text, order),
-              bits.orderSelect(order, StudyGroup.search, url = o => routes.Study.search(text, 1, o.some)),
+              bits.orderSelect(
+                order,
+                StudyGroup.search,
+                url = o => routes.Study.search(text, 1, o.some, format)
+              ),
               bits.newForm()
             ),
-            paginate(pag, routes.Study.search(text, 1, order.some))
+            paginate(pag, routes.Study.search(text, 1, order.some), format)
           )
         )
 
@@ -176,7 +185,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   private def paginate(
       pager: Paginator[WithChaptersAndLiked],
       url: Call,
-      format: Option[StudyFormat] = None
+      format: Option[StudyFormat]
   )(using
       Context
   ) =

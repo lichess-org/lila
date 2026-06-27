@@ -30,7 +30,7 @@ final class Study(
 
   private def pgnDump = env.study.pgnDump
 
-  def search(text: String, page: Int, order: Option[StudyOrder]) =
+  def search(text: String, page: Int, order: Option[StudyOrder], format: Option[StudyFormat] = None) =
     OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
       Reasonable(page):
         WithProxy: proxy ?=>
@@ -55,7 +55,7 @@ final class Study(
                   .studySearch(clean.take(100), order | StudyOrder.relevant, page)
                   .flatMap: pag =>
                     negotiate(
-                      Ok.page(views.study.list.search(pag, order | StudyOrder.relevant, text)),
+                      Ok.page(views.study.list.search(pag, order | StudyOrder.relevant, text, format)),
                       apiStudies(pag)
                     )
 
