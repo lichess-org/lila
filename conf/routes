@@ -240,7 +240,7 @@ GET   /study/private/:order            controllers.Study.minePrivate(order: Stud
 GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1, format: Option[StudyFormat] ?= None)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1, format: Option[StudyFormat] ?= None)
-GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
+GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None, format: Option[StudyFormat] ?= None)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
