@@ -2,7 +2,7 @@ package lila.web
 
 import ch.qos.logback.classic.*
 import ch.qos.logback.classic.jul.LevelChangePropagator
-import ch.qos.logback.classic.util.ContextInitializer
+import ch.qos.logback.classic.util.DefaultJoranConfigurator
 import ch.qos.logback.core.util.*
 import org.slf4j.bridge.*
 import org.slf4j.{ ILoggerFactory, LoggerFactory }
@@ -66,8 +66,9 @@ private object LoggerConfigurator:
     properties.foreach { case (k, v) => ctx.putProperty(k, v) }
 
     println(s"Configuring logback with $configUrl")
-    val initializer = new ContextInitializer(ctx)
-    initializer.configureByResource(configUrl)
+    val joranConfigurator = new DefaultJoranConfigurator()
+    joranConfigurator.setContext(ctx)
+    joranConfigurator.configureByResource(configUrl)
 
     StatusPrinter.printIfErrorsOccured(ctx)
     // }
