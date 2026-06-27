@@ -80,12 +80,17 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def login = Open(serveLogin)
   def loginTakex3 = Open:
     if simpleSignup.exists(_.client == takex3Client)
-    then serveLogin(AuthVariant.Takex3, routes.Auth.loginTakex3)
+    then serveLogin
     else Redirect(routes.Auth.login)
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private enum AuthVariant:
     case Lichess, Takex3
+
+  private def getAuthVariant(using Option[ValidReferrer]) =
+    if simpleSignup.exists(_.client == takex3Client)
+    then AuthVariant.Takex3
+    else AuthVariant.Lichess
 
   private def takex3Client = env.oAuth.signedClients.takex3
 
@@ -96,13 +101,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       case AuthVariant.Takex3 => takex3Client.design
       case AuthVariant.Lichess => simpleSignup.flatMap(_.client.design)
 
-  private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]): Fu[Result] =
-    serveLogin(AuthVariant.Lichess, routes.Auth.login)
-
-  private def serveLogin(
-      variant: AuthVariant,
-      canonical: Call
-  )(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
+  private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
     val switch = get("switch").orElse(get("as"))
     t3Counter(_.login.load)
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
@@ -112,15 +111,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       case None =>
         val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form = api.loginFormFilled(prefillUsername)
-        Ok.page(loginPage(variant, form)).map(_.withCanonical(canonical))
+        Ok.page(loginPage(getAuthVariant, form)).map(_.withCanonical(routes.Auth.login))
 
   def authenticate = OpenBody:
-    serveAuthenticate()
+    serveAuthenticate
 
-  def authenticateTakex3 = OpenBody:
-    serveAuthenticate(AuthVariant.Takex3)
-
-  private def serveAuthenticate(variant: AuthVariant = AuthVariant.Lichess)(using BodyContext[?]) =
+  private def serveAuthenticate(using BodyContext[?]) =
     NoCrawlers:
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
@@ -129,6 +125,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         if isLichobile && !env.security.lichobileLogin.get() then
           BadRequest(Json.obj("global" -> List("Please use our new mobile app! lichess.org/app")))
         else
+          val variant = getAuthVariant
           bindForm(api.loginForm)(
             err =>
               negotiate(
@@ -253,22 +250,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   def signup = Open(serveSignup)
-  def signupTakex3 = Open:
-    if simpleSignup.exists(_.client == takex3Client)
-    then serveLogin(AuthVariant.Takex3, routes.Auth.signupTakex3)
-    else Redirect(routes.Auth.signup)
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
 
-  private def serveSignup(using Context, Option[ValidReferrer]): Fu[Result] =
-    serveSignup(AuthVariant.Lichess, routes.Auth.signup)
-
-  private def serveSignup(
-      variant: AuthVariant,
-      canonical: Call
-  )(using Context, Option[ValidReferrer]) = NoTor:
+  private def serveSignup(using Context, Option[ValidReferrer]) = NoTor:
     t3Counter(_.signup.load)
     val form = forms.signup.full(simpleSignup)
-    Ok.page(signupPage(variant, form.form, form.simple)).map(_.withCanonical(canonical))
+    Ok.page(signupPage(getAuthVariant, form.form, form.simple)).map(_.withCanonical(routes.Auth.signup))
 
   private def simpleSignup(using ref: Option[ValidReferrer]) =
     ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
@@ -278,12 +265,9 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     do logger.info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
-    serveSignupPost()
+    serveSignupPost
 
-  def signupPostTakex3 = OpenBody:
-    serveSignupPost(AuthVariant.Takex3)
-
-  private def serveSignupPost(variant: AuthVariant = AuthVariant.Lichess)(using BodyContext[?]) =
+  private def serveSignupPost(using BodyContext[?]) =
     NoTor:
       Firewall:
         WithProxy: _ ?=>
@@ -295,6 +279,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           else
             limit.enumeration.signup(rateLimited):
               import Signup.Result.*
+              val variant = getAuthVariant
               env.security.signup
                 .website(ctx.blind, simpleSignup)
                 .flatMap:
