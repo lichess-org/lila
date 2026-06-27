@@ -507,13 +507,11 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId !== playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[index].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
-            console.log(
-              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId,
-            );
-          currentGameId = playableGames[Number(index)].gameId;
+            console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[index].gameId);
+          currentGameId = playableGames[index].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
           console.log('Active game updated. currentGameId: ' + currentGameId);
         } else {

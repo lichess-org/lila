@@ -111,7 +111,7 @@ export default class AnalyseCtrl implements CevalHandler {
   settings: SettingsCtrl;
   private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
     'analyse.show-engine',
-    !!this.cevalEnabledProp(),
+    this.cevalEnabledProp(),
   );
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -378,7 +378,7 @@ export default class AnalyseCtrl implements CevalHandler {
           color: movableColor,
           dests: (movableColor === color && dests) || new Map(),
         },
-        check: !!node.check(),
+        check: node.check(),
         lastMove: uciToMove(node.uci),
       };
     config.premovable = {
