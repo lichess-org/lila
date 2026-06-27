@@ -180,6 +180,26 @@ object RawHtml:
       }
 
   private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
+
+  def markdownLinksAndRichText(rawText: String, expandImg: Boolean = true)(using NetDomain): Html =
+    val m = markdownLinkRegex.pattern.matcher(rawText)
+    if !m.find then addLinks(rawText, expandImg)
+    else
+      val sb = jStringBuilder(rawText.length + 200)
+      var lastAppendIdx = 0
+
+      while
+        sb.append(addLinks(rawText.substring(lastAppendIdx, m.start), expandImg).value)
+        val content = escapeHtmlRaw(m.group(1))
+        val href = escapeHtmlRaw(removeUrlTrackingParameters(m.group(2)))
+        sb.append(s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>""")
+        lastAppendIdx = m.end
+        m.find
+      do ()
+
+      sb.append(addLinks(rawText.substring(lastAppendIdx), expandImg).value)
+      Html(sb.toString)
+
   def justMarkdownLinks(escapedHtml: Html): Html = Html:
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,

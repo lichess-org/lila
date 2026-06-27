@@ -30,6 +30,13 @@ class StringTest extends munit.FunSuite:
         """a <a rel="nofollow noreferrer" href="https://example.com/foo--" target="_blank">example.com/foo--</a>. b"""
     )
 
+  test("markdownLinksOrRichText keeps bare URLs clickable with markdown links"):
+    assertEquals(
+      String.html.markdownLinksOrRichText("https://lichess.org\n[lichess](https://lichess.org)"),
+      raw:
+        """<a href="/">lichess.org</a><br><a rel="nofollow noopener noreferrer" href="https://lichess.org">lichess</a>"""
+    )
+
   def extractPosts(s: String) = String.forumPostPathRegex.findAllMatchIn(s).toList.map(_.group(1))
 
   test("richText forum post path regex find forum post path"):
