@@ -8,7 +8,7 @@ import { setupPosition } from 'chessops/variant';
 
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { view as cevalView, renderEval } from 'lib/ceval';
+import { view as cevalView, renderEval, renderNodes } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { isTouchDevice } from 'lib/device';
 import { type Player, plyOpponentColor } from 'lib/game';
@@ -68,7 +68,7 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
   site.mousetrap.unbind('c');
-  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+  site.mousetrap.bind('c', () => notify.set(renderEvalDepthNodes(ctrl)));
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
@@ -240,7 +240,7 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
     hl('div.actions', [
       hl('button', { hook: bind('click', ctrl.navigate.prev) }, 'previous move'),
       hl('button', { hook: bind('click', ctrl.navigate.next) }, 'next move'),
-      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evaluation'),
+      hl('button', { hook: bind('click', () => notify.set(renderEvalDepthNodes(ctrl))) }, 'evaluation'),
       hl(
         'button',
         { hook: bind('click', () => notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext))) },
@@ -298,18 +298,18 @@ function boardEventsHook(
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
-    else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
+    else if (e.key.toLowerCase() === 'v') notify.set(renderEvalDepthNodes(ctrl));
     else if (e.key === 'G') ctrl.playBestMove();
     else if (e.key === 'g') notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
   });
 }
 
-function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
-  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
+function renderEvalDepthNodes(ctrl: AnalyseCtrl): string {
+  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${evalMeta(ctrl.node.threat, false)}`;
   const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval },
     bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
-  return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
+  return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${evalMeta(evs.client, !!evs.client?.cloud)}`;
 }
 
 const evalInfo = (bestEv: EvalScore | undefined): string =>
@@ -319,8 +319,12 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
       ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
       : '';
 
-const depthInfo = (clientEv: ClientEval | undefined, isCloud: boolean): string =>
-  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
+const evalMeta = (clientEv: ClientEval | undefined, isCloud: boolean): string =>
+  clientEv
+    ? `${i18n.site.depthX(clientEv.depth || 0)} ` +
+      (clientEv.nodes ? `${renderNodes(clientEv.nodes)} ` : '') +
+      (isCloud ? 'Cloud' : '')
+    : '';
 
 const noEvalStr = (ctrl: AnalyseCtrl) =>
   !ctrl.isCevalAllowed()
@@ -428,7 +432,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'eval',
     help: noTrans("announce last move's computer evaluation"),
-    cb: ({ ctrl, notify }) => notify.set(renderEvalAndDepth(ctrl)),
+    cb: ({ ctrl, notify }) => notify.set(renderEvalDepthNodes(ctrl)),
   },
   {
     cmd: 'best',
