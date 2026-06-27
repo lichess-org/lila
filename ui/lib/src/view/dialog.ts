@@ -41,6 +41,7 @@ export interface DialogOpts {
 export interface DomDialogOpts extends DialogOpts {
   parent?: Element; // for centering and dom placement, otherwise fixed on document.body
   show?: boolean; // show dialog immediately after construction
+  single?: string; // if set, only the latest shown dialog with this key remains open
 }
 
 // for snabDialog, show is inferred from !onInsert
@@ -61,6 +62,8 @@ export type Action =
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
+  const single =
+    o.single === undefined ? undefined : { key: o.single, token: setSingleDomDialogToken(o.single) };
   const [html] = await loadAssets(o);
 
   const dialog = document.createElement('dialog');
@@ -86,7 +89,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   (o.parent ?? document.body).appendChild(dialog);
 
-  const wrapper = new DialogWrapper(dialog, view, o);
+  const wrapper = new DialogWrapper(dialog, view, o, single);
   return o.show ? wrapper.show() : wrapper;
 }
 
@@ -173,6 +176,16 @@ const easyCloseHandler = new (class {
   }
 })();
 
+const singleDomDialogs = new Map<string, DialogWrapper>();
+const singleDomDialogTokens = new Map<string, number>();
+let singleDomDialogNextToken = 0;
+
+function setSingleDomDialogToken(key: string): number {
+  const token = ++singleDomDialogNextToken;
+  singleDomDialogTokens.set(key, token);
+  return token;
+}
+
 class DialogWrapper implements Dialog {
   private readonly dialogEvents = new Janitor();
   private readonly actionEvents = new Janitor();
@@ -196,6 +209,7 @@ class DialogWrapper implements Dialog {
     readonly dialog: HTMLDialogElement,
     readonly view: HTMLElement,
     readonly o: DialogOpts,
+    private readonly single?: { key: string; token: number },
   ) {
     this.observer.observe(document.body, { childList: true, subtree: true });
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
@@ -228,12 +242,29 @@ class DialogWrapper implements Dialog {
 
   show = async (): Promise<Dialog> => {
     (await pubsub.after('polyfill.dialog'))?.(this.dialog);
+    if (this.single && singleDomDialogTokens.get(this.single.key) !== this.single.token) {
+      this.onRemove();
+      return this;
+    }
     const snabModal = this.dialog.parentElement === this.dialog.closest('.snab-modal-mask');
     if (this.o.modal) this.view.scrollTop = 0;
     if (snabModal) this.dialog.parentElement?.classList.remove('none');
 
+    if (this.single) singleDomDialogs.get(this.single.key)?.close('cancel');
+
     if (this.o.modal && !snabModal) this.dialog.showModal();
     else this.dialog.show();
+
+    if (this.single) {
+      singleDomDialogs.set(this.single.key, this);
+      this.dialogEvents.addCleanupTask(() => {
+        if (this.single && singleDomDialogs.get(this.single.key) === this) {
+          singleDomDialogs.delete(this.single.key);
+          if (singleDomDialogTokens.get(this.single.key) === this.single.token)
+            singleDomDialogTokens.delete(this.single.key);
+        }
+      });
+    }
 
     easyCloseHandler.push(this);
     this.dialogEvents.addCleanupTask(() => easyCloseHandler.remove(this));
