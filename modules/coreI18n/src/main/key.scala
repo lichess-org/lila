@@ -1278,7 +1278,7 @@ object I18nKey:
     val `boardSettings`: I18nKey = "preferences:boardSettings"
     val `analysisSettings`: I18nKey = "preferences:analysisSettings"
     val `maneuverArrowsHelp`: I18nKey = "preferences:maneuverArrowsHelp"
-    val `hoverCheckboxLabelsForHelp`: I18nKey = "preferences:hoverCheckboxLabelsForHelp"
+    val `hoverOverSettingLabelsForHelp`: I18nKey = "preferences:hoverOverSettingLabelsForHelp"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"
