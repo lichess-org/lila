@@ -70,7 +70,7 @@ final class AuthTakex3Ui(helpers: Helpers):
           connectionHeader("Login to Lichess"),
           postForm(
             cls := "form3",
-            action := addReferrer(routes.Auth.authenticateTakex3.url)
+            action := addReferrer(routes.Auth.authenticate.url)
           )(
             div(cls := "one-factor")(
               if blankedPasswordError then
@@ -143,7 +143,7 @@ final class AuthTakex3Ui(helpers: Helpers):
           postForm(
             id := "signup-form",
             cls := "form3",
-            action := addReferrer(routes.Auth.signupPostTakex3.url),
+            action := addReferrer(routes.Auth.signupPost.url),
             autocomplete := "off"
           )(
             authGlobalError(form),
@@ -229,7 +229,7 @@ final class AuthTakex3Ui(helpers: Helpers):
             li(trans.site.checkAllEmailFolders()),
             li(trans.site.verifyYourAddress(email))
           ),
-          a(cls := "button button-empty auth__secondary-action", href := routes.Auth.loginTakex3)(
+          a(cls := "button button-empty auth__secondary-action", href := routes.Auth.login)(
             "Back to login"
           )
         )

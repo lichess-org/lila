@@ -563,15 +563,11 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
-GET   /login/takex3                    controllers.Auth.loginTakex3
-POST  /login/takex3                    controllers.Auth.authenticateTakex3
 POST  /login/class                     controllers.Auth.clasLogin
 GET   /$lang<\w\w\w?>/login            controllers.Auth.loginLang(lang: Language)
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
-GET   /signup/takex3                   controllers.Auth.signupTakex3
-POST  /signup/takex3                   controllers.Auth.signupPostTakex3
 POST  /signup                          controllers.Auth.signupPost
 GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang: Language)
 GET   /signup/check-your-email         controllers.Auth.checkYourEmail
