@@ -69,6 +69,11 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
             missing.nonEmpty.so:
               irc.broadcastMissingFideId(rt.round.id, rt.fullNameNoTrans, missing)
 
+  def tourCreate(tour: RelayTour)(using Me): Funit =
+    tour.official.so:
+      val diff = s"+ tier: ${tour.tier.fold("(none)")(_.toString)}"
+      irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, diff)
+
   def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
     val ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note")
     val changes = prev.productElementNames

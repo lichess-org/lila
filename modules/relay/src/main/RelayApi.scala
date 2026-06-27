@@ -209,19 +209,13 @@ final class RelayApi(
         )
       .map(_.flatMap(readRoundWithTour))
 
-  def tourCreate(data: RelayTourForm.Data)(using me: Me): Fu[RelayTour] =
+  def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
     val tour = data.make
     for
       _ <- tourRepo.coll.insert.one(tour)
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
-      _ <- tour.official.so:
-        irc.broadcastTourUpdate(
-          tour.name.value,
-          tour.slug,
-          tour.id,
-          s"+ tier: ${tour.tier.fold("(none)")(_.toString)}"
-        )
+      _ <- notifyAdmin.tourCreate(tour)
     yield tour
 
   def tourUpdate(
