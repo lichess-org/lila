@@ -497,15 +497,11 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return h(
-    `div.board-editor.board-editor--${ctrl.variant}`,
-    { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } },
-    [
-      sparePieces(ctrl, opposite(color), color, 'top'),
-      h('div.main-board', [chessground(ctrl)]),
-      sparePieces(ctrl, color, color, 'bottom'),
-      controls(ctrl, state),
-      inputs(ctrl, state.legalFen || state.fen),
-    ],
-  );
+  return h(`div.board-editor.board-editor--${ctrl.variant}`, [
+    sparePieces(ctrl, opposite(color), color, 'top'),
+    h('div.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, [chessground(ctrl)]),
+    sparePieces(ctrl, color, color, 'bottom'),
+    controls(ctrl, state),
+    inputs(ctrl, state.legalFen || state.fen),
+  ]);
 }
