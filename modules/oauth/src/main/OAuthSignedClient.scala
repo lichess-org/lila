@@ -1,6 +1,7 @@
 package lila.oauth
 
 import play.api.{ Mode, Configuration }
+import play.api.mvc.Call
 import com.roundeights.hasher.Algo
 import scalalib.net.Bearer
 
@@ -17,11 +18,14 @@ case class OAuthSignedClient(
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder],
     displayName: String,
-    design: Option[AuthCustomUi] = None
+    design: Option[AuthCustomUi] = None,
+    routes: Option[AuthCustomRoutes] = None
 )
 object OAuthSignedClient:
   case class SimpleSignup(username: UserName, email: EmailAddress, client: OAuthSignedClient)
   type Action = "login" | "signup"
+
+case class AuthCustomRoutes(login: Call, signup: Call)
 
 final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using mode: Mode)(using Executor):
 
@@ -49,13 +53,16 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    design = Some:
-      AuthCustomUi(
-        name = "Take Take Take",
-        imagePath = "images/t3-logo.svg",
-        cssClass = "takex3",
-        lang = lila.core.i18n.enUsLang
-      )
+    design = AuthCustomUi(
+      name = "Take Take Take",
+      imagePath = "images/t3-logo.svg",
+      cssClass = "takex3",
+      lang = lila.core.i18n.enUsLang
+    ).some,
+    routes = AuthCustomRoutes(
+      login = routes.Auth.loginTakex3,
+      signup = routes.Auth.signupTakex3
+    ).some
   )
 
   def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using
