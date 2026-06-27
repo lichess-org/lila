@@ -35,6 +35,15 @@ object page:
   def webmasters(using Context) =
     ui.webmasters(lila.pref.PieceSet.all.map(_.name))
 
+  def survey() =
+    Page(title = "User Survey")
+      .flag(_.noRobots)
+      .js(Esm("bits.survey"))(
+        main(cls := "survey-redirect")(
+          h1("Redirecting...")
+        )
+      )
+
 object variant:
 
   def show(
