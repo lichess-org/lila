@@ -28,7 +28,10 @@ final private class RelayNotifier(
               opponent = chapter.tags.names(!color).map(name => s" against ${name} ").getOrElse(" ")
               _ <- notifyApi.notifyMany(
                 followers,
-                NotificationContent.BroadcastRound(
+                NotificationContent.BroadcastPlayerFollow(
+                  roundId = rt.round.id,
+                  gameId = chapter.id,
+                  color = color,
                   url = rt.call(chapter.id).url,
                   title = rt.tour.name.value,
                   text = s"${name} is playing${opponent}in ${rt.round.name}"
