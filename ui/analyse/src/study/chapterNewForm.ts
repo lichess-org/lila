@@ -38,6 +38,7 @@ import { importPgn, variants as xhrVariants } from './studyXhr';
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
   ['practice', i18n.site.practiceWithComputer],
+  ['recall', i18n.study.recall],
   ['conceal', i18n.study.hideNextMoves],
   ['gamebook', i18n.study.interactiveLesson],
 ];
@@ -156,11 +157,13 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const currentChapter = study.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
-    : defined(currentChapter.conceal)
-      ? 'conceal'
-      : currentChapter.gamebook
-        ? 'gamebook'
-        : 'normal';
+    : currentChapter.recall
+      ? 'recall'
+      : defined(currentChapter.conceal)
+        ? 'conceal'
+        : currentChapter.gamebook
+          ? 'gamebook'
+          : 'normal';
 
   return snabDialog({
     class: 'chapter-new',

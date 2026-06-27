@@ -30,6 +30,7 @@ import { view as inviteFormView } from './inviteForm';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
 import * as practiceView from './practice/studyPracticeView';
+import * as recallView from './recall/recallView';
 import { view as serverEvalView } from './serverEval';
 import { view as chapterView } from './studyChapters';
 import type StudyCtrl from './studyCtrl';
@@ -168,6 +169,7 @@ export const overboard = (ctrl: StudyCtrl) =>
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.study?.practice) return practiceView.underboard(ctrl.study);
+  if (ctrl.study?.recall) return recallView.underboard(ctrl.study.recall);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
   if (study.gamebookPlay)

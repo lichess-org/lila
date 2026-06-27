@@ -44,6 +44,7 @@ import { MultiCloudEval } from './multiCloudEval';
 import { NotifCtrl } from './notif';
 import type { StudyPracticeData } from './practice/interfaces';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
+import RecallCtrl from './recall/recallCtrl';
 import type { RelayData } from './relay/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
@@ -112,6 +113,7 @@ export default class StudyCtrl {
   chapterDesc: DescriptionCtrl;
   search: SearchCtrl;
   practice?: StudyPracticeCtrl;
+  recall?: RecallCtrl;
   gamebookPlay?: GamebookPlayCtrl;
 
   constructor(
@@ -236,6 +238,7 @@ export default class StudyCtrl {
     );
 
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
+    this.recall = data.chapter.recall ? new RecallCtrl(ctrl, this.redraw) : undefined;
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
     else if (
@@ -251,6 +254,7 @@ export default class StudyCtrl {
     if (this.members.canContribute()) this.form.openIfNew();
 
     this.instantiateGamebookPlay();
+    this.configurePractice();
 
     studyKeyboard(this);
 
@@ -336,12 +340,16 @@ export default class StudyCtrl {
   isCevalAllowed = () =>
     (!this.relay?.tourShow() || site.blindMode) &&
     !this.isGamebookPlay() &&
-    !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    !!(this.data.chapter.features.computer || this.data.chapter.practice || this.data.chapter.recall);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
     if (this.data.chapter.practice) this.ctrl.togglePractice(true);
     this.practice?.onLoad();
+    if (this.data.chapter.recall) {
+      this.recall ??= new RecallCtrl(this.ctrl, this.redraw);
+      this.recall.onLoad();
+    } else this.recall = undefined;
   };
 
   onReload = (d: ReloadData) => {
@@ -556,6 +564,7 @@ export default class StudyCtrl {
     if (this.gamebookPlay) this.gamebookPlay.onJump();
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
     this.practice?.onJump();
+    this.recall?.onJump();
   };
   onFlip = (flipped: boolean) => {
     if (this.chapters.newForm.isOpen()) return false;
@@ -652,7 +661,7 @@ export default class StudyCtrl {
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
   socketSendNodeData = () => {
-    if (!this.isWriting()) return false;
+    if (this.data.chapter.recall || !this.isWriting()) return false;
     const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
     if (!this.vm.mode.sticky) data.sticky = false;
     return data;

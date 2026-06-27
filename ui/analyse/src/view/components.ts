@@ -47,6 +47,7 @@ export interface ViewContext {
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
   gamebookPlayView?: VNode;
+  recallView?: VNode;
   playerBars: VNode[] | undefined;
   playerStrips: [VNode, VNode] | undefined;
   gaugeOn: boolean;
@@ -74,6 +75,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     concealOf: makeConcealOf(ctrl),
     showCevalPvs: !ctrl.retro?.isSolving() && !ctrl.practice,
     gamebookPlayView: ctrl.study?.gamebookPlay && deps?.gbPlay.render(ctrl.study.gamebookPlay),
+    recallView: ctrl.study?.recall && deps?.recallView.render(ctrl.study.recall),
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),

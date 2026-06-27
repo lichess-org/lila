@@ -2686,6 +2686,7 @@ object I18nKey:
     val `noPinnedComment`: I18nKey = "study:noPinnedComment"
     val `normalAnalysis`: I18nKey = "study:normalAnalysis"
     val `hideNextMoves`: I18nKey = "study:hideNextMoves"
+    val `recall`: I18nKey = "study:recall"
     val `interactiveLesson`: I18nKey = "study:interactiveLesson"
     val `chapterX`: I18nKey = "study:chapterX"
     val `empty`: I18nKey = "study:empty"
