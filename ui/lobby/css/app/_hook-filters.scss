@@ -17,15 +17,21 @@
   }
 
   .checkable {
-    @extend %nowrap-ellipsis;
-
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    min-width: 0;
     padding: 4px 2px 4px 0;
+    white-space: normal;
 
-    label {
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
+    > .form-check__input {
+      flex: 0 0 auto;
+    }
+
+    > label {
       cursor: pointer;
+      min-width: 0;
+      overflow-wrap: break-word;
     }
 
     input {
@@ -73,7 +79,7 @@
   }
 
   tr.inline .checkable {
-    display: inline-block;
+    display: inline-flex;
     padding: 6px 20px 2px 0;
   }
 
@@ -138,7 +144,7 @@
     }
 
     tr.variant .checkable {
-      width: 50%;
+      width: 100%;
     }
   }
 }
