@@ -20,6 +20,7 @@ import {
   requestIdleCallbackSafe,
   propWithEffect,
   type Prop,
+  type Toggle,
 } from 'lib';
 import { CevalCtrl, isFirstEvalBetter, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
@@ -71,8 +72,8 @@ export default class AnalyseCtrl implements CevalHandler {
   evalCache: EvalCache;
   liveAnnotate?: LiveAnnotate;
   navigate: Navigate;
-  idbTree = new IdbTree(this);
-  actionMenu = toggle(false);
+  idbTree: IdbTree = new IdbTree(this);
+  actionMenu: Toggle = toggle(false);
   isEmbed: boolean;
 
   // current tree state, cursor, and denormalized node lists
@@ -108,9 +109,12 @@ export default class AnalyseCtrl implements CevalHandler {
   flipped = false;
   showComments = true; // whether to display comments in the move tree
   settings: SettingsCtrl;
-  private readonly showCevalProp = storedBooleanProp('analyse.show-engine', this.cevalEnabledProp());
-  keyboardHelp = location.hash === '#keyboard';
-  threatMode = prop(false);
+  private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
+    'analyse.show-engine',
+    this.cevalEnabledProp(),
+  );
+  keyboardHelp: boolean = location.hash === '#keyboard';
+  threatMode: Prop<boolean> = prop(false);
 
   treeView: TreeView;
   cgVersion = {
