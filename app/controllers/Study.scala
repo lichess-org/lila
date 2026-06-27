@@ -11,7 +11,7 @@ import lila.common.HTTPRequest
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.socket.Sri
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
@@ -30,7 +30,7 @@ final class Study(
 
   private def pgnDump = env.study.pgnDump
 
-  def search(text: String, page: Int, order: Option[StudyOrder]) =
+  def search(text: String, page: Int, order: Option[StudyOrder], format: Option[StudyFormat] = None) =
     OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
       Reasonable(page):
         WithProxy: proxy ?=>
@@ -55,7 +55,7 @@ final class Study(
                   .studySearch(clean.take(100), order | StudyOrder.relevant, page)
                   .flatMap: pag =>
                     negotiate(
-                      Ok.page(views.study.list.search(pag, order | StudyOrder.relevant, text)),
+                      Ok.page(views.study.list.search(pag, order | StudyOrder.relevant, text, format)),
                       apiStudies(pag)
                     )
 
@@ -63,37 +63,42 @@ final class Study(
 
   def allDefault(page: Int) = all(StudyOrder.hot, page)
 
-  def all(order: StudyOrder, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    allResults(order, page)
+  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None) =
+    OpenOrScoped(_.Study.Read, _.Web.Mobile):
+      allResults(order, page, format)
 
-  private def allResults(order: StudyOrder, page: Int)(using ctx: Context) =
+  private def allResults(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
+      ctx: Context
+  ) =
     Reasonable(page):
       order match
         case order if !Orders.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
         case order =>
           for
-            pag <- env.study.pager.all(order, page)
+            pag <- env.study.pager.all(order, page, format)
             _ <- preloadMembers(pag)
             res <- negotiate(
-              Ok.page(views.study.list.all(pag, order)),
+              Ok.page(views.study.list.all(pag, order, format)),
               apiStudies(pag)
             )
           yield res
 
-  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
+  def byOwnerDefault(username: UserStr, page: Int, format: Option[StudyFormat] = None) =
+    byOwner(username, Orders.default, page, format)
 
-  def byOwner(username: UserStr, order: StudyOrder, page: Int) = Open:
+  def byOwner(username: UserStr, order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = Open:
     Found(meOrFetch(username)): owner =>
       for
-        pag <- env.study.pager.byOwner(owner, order, page)
+        pag <- env.study.pager.byOwner(owner, order, page, format)
         _ <- preloadMembers(pag)
-        res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner)), apiStudies(pag))
+        res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner, format)), apiStudies(pag))
       yield res
 
   def mine = MyStudyPager(
     env.study.pager.mine,
-    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mine(pag, order, _))
+    (pag, order, format) =>
+      env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mine(pag, order, _, format))
   )
 
   def minePublic = MyStudyPager(env.study.pager.minePublic, views.study.list.minePublic)
@@ -102,7 +107,8 @@ final class Study(
 
   def mineMember = MyStudyPager(
     env.study.pager.mineMember,
-    (pag, order) => env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mineMember(pag, order, _))
+    (pag, order, format) =>
+      env.study.topicApi.userTopics(summon[Me]).map(views.study.list.mineMember(pag, order, _, format))
   )
 
   def mineLikes = MyStudyPager(env.study.pager.mineLikes, views.study.list.mineLikes)
@@ -110,27 +116,27 @@ final class Study(
   private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
 
   private def MyStudyPager(
-      makePager: (StudyOrder, Int) => Me ?=> Fu[StudyPager],
-      render: (StudyPager, StudyOrder) => Context ?=> Me ?=> Fu[Page]
-  ) = (order: StudyOrder, page: Int) =>
+      makePager: (StudyOrder, Int, Option[StudyFormat]) => Me ?=> Fu[StudyPager],
+      render: (StudyPager, StudyOrder, Option[StudyFormat]) => Context ?=> Me ?=> Fu[Page]
+  ) = (order: StudyOrder, page: Int, format: Option[StudyFormat]) =>
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
       for
-        pager <- makePager(order, page)
+        pager <- makePager(order, page, format)
         _ <- preloadMembers(pager)
-        res <- negotiate(Ok.async(render(pager, order)), apiStudies(pager))
+        res <- negotiate(Ok.async(render(pager, order, format)), apiStudies(pager))
       yield res
     }
 
-  def byTopic(name: String, order: StudyOrder, page: Int) = Open:
+  def byTopic(name: String, order: StudyOrder, page: Int, format: Option[StudyFormat] = None) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
-        pag <- env.study.pager.byTopic(topic, order, page)
+        pag <- env.study.pager.byTopic(topic, order, page, format)
         _ <- preloadMembers(pag)
         res <- negotiate(
           Ok.async:
             ctx.userId
               .traverse(env.study.topicApi.userTopics)
-              .map(views.study.list.topic.show(topic, pag, order, _))
+              .map(views.study.list.topic.show(topic, pag, order, _, format))
           ,
           apiStudies(pag)
         )

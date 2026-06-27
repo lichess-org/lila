@@ -2,7 +2,7 @@ package lila.study
 package ui
 
 import lila.common.String.removeMultibyteSymbols
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -10,7 +10,24 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def orderSelect(order: StudyOrder, active: StudyGroup, url: StudyOrder => Call)(using Context) =
+  def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
+    val compactFormat = currentFormat.contains(StudyFormat.compact)
+    val toggleUrl =
+      if compactFormat then baseUrl
+      else addQueryParam(baseUrl, "format", "compact")
+    a(
+      cls := List("button button-empty" -> true, "active" -> compactFormat),
+      href := toggleUrl,
+      title := (if compactFormat then "Switch to card view" else "Switch to list view"),
+      dataIcon := Icon.List
+    )
+
+  def orderSelect(
+      order: StudyOrder,
+      active: StudyGroup,
+      url: StudyOrder => Call,
+      format: Option[StudyFormat] = None
+  )(using Context) =
     val orders =
       if active == StudyGroup.search then Orders.search
       else if active == StudyGroup.all then Orders.withoutSelector
@@ -20,7 +37,8 @@ final class StudyBits(helpers: Helpers):
       "orders",
       span(Orders.name(order)()),
       orders.map: o =>
-        a(href := url(o), cls := (order == o).option("current"))(Orders.name(o)())
+        val urlWithFormat = format.map(f => addQueryParam(url(o).url, "format", f.name)).getOrElse(url(o).url)
+        a(href := urlWithFormat, cls := (order == o).option("current"))(Orders.name(o)())
     )
 
   def newForm()(using Context) =
