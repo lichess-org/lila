@@ -132,6 +132,9 @@ object HTTPRequest:
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
     a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
+  def acceptsMarkdown(using req: RequestHeader) =
+    accepts(req).contains("text/markdown") ||
+      queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || isPrometheus(req) ||
