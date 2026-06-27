@@ -26,7 +26,10 @@ final class LearnUi(helpers: Helpers):
           )
         )
       .css("learn")
+      .css(ctx.blind.option("round.nvui"))
       .i18n(_.learn)
+      .i18nOpt(ctx.blind, _.nvui)
+      .js(ctx.blind.option(Esm("learn.nvui")))
       .graph(
         title = "Learn chess by playing",
         description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",

@@ -6,6 +6,6 @@
     "lib": "workspace:*"
   },
   "build": {
-    "bundle": "src/learn.ts"
+    "bundle": "src/learn*.ts"
   }
 }
