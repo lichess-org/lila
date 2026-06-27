@@ -140,12 +140,11 @@ async function parseScss(src: string, processed: Set<string>) {
   const text = await fs.promises.readFile(src, 'utf8');
 
   for (const [, mixName] of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
-    const mixColor = parseColor(mixName);
-    if (!mixColor) {
-      env.log(`${errorMark} Invalid color mix: '${c.magenta(mixName)}' in '${c.cyan(src)}'`, 'sass');
-      continue;
+    try {
+      colorMixMap.set(mixName, parseColor(mixName));
+    } catch (e) {
+      throw `${e} in '${c.cyan(src)}'`;
     }
-    colorMixMap.set(mixName, mixColor);
   }
 
   for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
@@ -272,13 +271,12 @@ function parseColor(colorMix: string) {
   const [c1, c2] = clrs.split('_');
   const [op, valstr] = opval.split('-');
   const val = parseInt(valstr);
-  return isValidColor(c1) &&
-    (op !== 'mix' || isValidColor(c2)) &&
-    ['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op) &&
-    val >= 0 &&
-    val <= 100
-    ? { c1, c2, op, val }
-    : undefined;
+  if (!isValidColor(c1) || (op === 'mix' && !isValidColor(c2)))
+    throw `Invalid color value: '${c.magenta(colorMix)}'`;
+  if (!['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op))
+    throw `Invalid color operation: '${c.magenta(op)}'`;
+  if (val < 0 || val > 100) throw `Invalid op parameter: '${c.magenta(String(val))}'`;
+  return { c1, c2, op, val };
 }
 
 async function hashCss(src: string, replacements: Record<string, string> | undefined) {
