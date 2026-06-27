@@ -32,7 +32,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           Ok.page(views.oAuth.authorize(prompt, signedClient))
         case None =>
           Redirect(
-            if action == "signup" then routes.Auth.signup.url else routes.Auth.login.url,
+            if action == "signup"
+            then signedClient.flatMap(_.routes).fold(routes.Auth.signup)(_.signup).url
+            else signedClient.flatMap(_.routes).fold(routes.Auth.login)(_.login).url,
             Map("referrer" -> List(req.uri))
           ).toFuccess
 
