@@ -56,17 +56,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           )
 
   def alternateMarkdown(p: CmsPage.Render)(using ctx: Context) =
-    link(
-      rel := "alternate",
-      tpe := "text/markdown",
-      href := addQueryParams(
-        ctx.req.uri,
-        Map(
-          "output_format" -> "md",
-          "lang" -> p.page.language.value
-        )
-      )
-    )
+    lila.ui.bits.markdownAlternate(ctx.req.uri, Map("lang" -> p.page.language.value))
 
   private def editButton(p: CmsPageId)(using Context) =
     Granter

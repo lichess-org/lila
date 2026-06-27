@@ -119,4 +119,4 @@ final class Cms(env: Env) extends LilaController(env):
     HTTPRequest.acceptsMarkdown.option:
       for text <- env.cms.api.asMarkdown(key)
       yield text.fold(notFoundText()): text =>
-        Ok(text).withHeaders(CONTENT_TYPE -> "text/markdown; charset=utf-8")
+        Ok(text).withHeaders(asMarkdown)

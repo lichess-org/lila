@@ -49,6 +49,8 @@ trait ResponseHeaders extends HeaderNames:
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
 
+  val asMarkdown = CONTENT_TYPE -> "text/markdown; charset=utf-8"
+
   object crossOriginPolicy:
 
     def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader)
