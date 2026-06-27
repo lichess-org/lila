@@ -71,16 +71,21 @@ export class PromotionCtrl {
     }) || false;
 
   cancel = (): void => {
-    this.cancelPrePromotion();
-    if (this.promoting) {
-      this.promoting = undefined;
-      this.onCancel();
-      this.redraw();
-    }
+    if (this.dismiss()) this.onCancel();
   };
 
-  cancelPrePromotion = (): void => {
-    this.promoting?.hooks.show?.(this, false);
+  dismiss = (): boolean => {
+    const promoting = this.promoting;
+    this.promoting = undefined;
+    this.cancelPrePromotion(promoting);
+    if (promoting) {
+      this.redraw();
+    }
+    return !!promoting;
+  };
+
+  cancelPrePromotion = (promoting: Promoting | undefined = this.promoting): void => {
+    promoting?.hooks.show?.(this, false);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
