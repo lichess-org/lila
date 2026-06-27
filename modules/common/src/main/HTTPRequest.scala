@@ -56,7 +56,6 @@ object HTTPRequest:
   def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
   def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
-  def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
     isLichessMobile(ua).so:
       for

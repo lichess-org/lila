@@ -45,9 +45,9 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
       "writeable" -> writeable
     )
 
-  def boardApi(chat: UserChat) = JsArray:
+  def boardApi(chat: UserChat, all: Boolean = false) = JsArray:
     chat.lines.collect:
-      case UserLine(name, text, troll, del) if !troll && !del =>
+      case UserLine(name, text, troll, del) if (!troll && !del) || all =>
         Json.obj("text" -> text, "user" -> name)
 
 object ChatJsonView:

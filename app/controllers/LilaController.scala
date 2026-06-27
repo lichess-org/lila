@@ -369,8 +369,6 @@ abstract private[controllers] class LilaController(val env: Env)
   def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
     id.fold(fuccess(ctx.user))(meOrFetch)
 
-  given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
-
   def anyCaptcha = env.game.captcha.any
 
   def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
