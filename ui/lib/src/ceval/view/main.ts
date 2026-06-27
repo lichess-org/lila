@@ -166,7 +166,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   }
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
-  } else if (bestEv && typeof bestEv.cp !== 'undefined') {
+  } else if (typeof bestEv?.cp !== 'undefined') {
     pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = h('pearl', '#' + bestEv.mate);

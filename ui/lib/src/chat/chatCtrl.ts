@@ -130,7 +130,7 @@ export class ChatCtrl {
   private readonly onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
-      if (l.u && l.u.toLowerCase() === userId) {
+      if (l.u?.toLowerCase() === userId) {
         l.d = true;
         change = true;
       }
