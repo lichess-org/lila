@@ -5,6 +5,11 @@ import * as treeOps from 'lib/tree/ops';
 import type { TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
+import type {
+  LocalAnalysisResult,
+  ServerAnalysisDocument,
+  AnalysisEngineInfo,
+} from './local/localAnalysisEngine';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 export class IdbTree {
@@ -12,6 +17,9 @@ export class IdbTree {
   private readonly collapseDb = memoize(() => objectStorage<TreePath[]>({ store: 'analyse-collapse' }));
   private readonly moveDb = memoize(() =>
     objectStorage<{ root: TreeNodeLite | undefined }>({ store: 'analyse-state', db: 'lichess' }),
+  );
+  private readonly analysisDb = memoize(() =>
+    objectStorage<LocalAnalysisResult>({ store: 'analyse-static' }),
   );
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
@@ -86,10 +94,12 @@ export class IdbTree {
   clear = async (what?: 'analysis' | 'collapse' | 'moves'): Promise<void> => {
     if (this.noop) return;
     await Promise.all([
+      (!what || what === 'analysis') && this.analysisDb().then(db => db.remove(this.id)),
       (!what || what === 'collapse') && this.collapseDb().then(db => db.remove(this.id)),
       !this.ctrl.study && (!what || what === 'moves') && this.moveDb().then(db => db.remove(this.id)),
     ]);
-    site.reload();
+    if (what !== 'analysis') site.reload();
+    else this.cache.localAnalysisInfo = undefined;
   };
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
@@ -99,11 +109,31 @@ export class IdbTree {
     );
   }
 
+  async saveAnalysis(analysis: LocalAnalysisResult) {
+    if (this.noop) return;
+    this.cache.localAnalysisInfo = analysis.serverDocument.engine;
+    return this.analysisDb().then(db => db.put(this.id, analysis));
+  }
+
+  async serverDocument(): Promise<ServerAnalysisDocument> {
+    return this.analysisDb()
+      .then(db => db.get(this.id))
+      .then(result => result.serverDocument);
+  }
+
   async merge(): Promise<void> {
     if (this.noop || !('indexedDB' in window) || !window.indexedDB) return;
     try {
       this.cacheMap.set(this.id, { movesDirty: false });
       await Promise.all([
+        this.analysisDb()
+          .then(db => db.getOpt(this.id))
+          .then(analysis => {
+            if (analysis) {
+              this.ctrl.mergeAnalysisData(analysis.localAnalysis, false);
+              this.cache.localAnalysisInfo = analysis.localAnalysis.engine;
+            }
+          }),
         this.collapseDb()
           .then(db => db.getOpt(this.id))
           .then(collapsedPaths => {
@@ -125,6 +155,29 @@ export class IdbTree {
     } catch (e) {
       console.log('IDB error.', e);
     }
+  }
+
+  get hasLocalAnalysis(): boolean {
+    return Boolean(this.cache.localAnalysisInfo?.nodesPerMove);
+  }
+
+  get localAnalysisInfo(): AnalysisEngineInfo | undefined {
+    return this.cache.localAnalysisInfo;
+  }
+
+  get localAnalysisNpm(): number | undefined {
+    return this.cache.localAnalysisInfo?.nodesPerMove;
+  }
+
+  get localAnalysisEngineId(): string | undefined {
+    return this.cache.localAnalysisInfo?.id;
+  }
+
+  get localAnalysisIsBetter(): boolean {
+    return (
+      (this.cache.localAnalysisInfo?.nodesPerMove ?? 0) >
+      (this.ctrl.data.analysis?.engine?.nodesPerMove ?? 0) + 200_000
+    );
   }
 
   get movesDirty(): boolean {
@@ -151,6 +204,7 @@ export class IdbTree {
   }
 
   private isCollapsible(node: TreeNodeLite, isMainline: boolean): boolean {
+    if (!node) return false;
     const [first, second, third] = node.children.filter(
       n => this.ctrl.settings.showStaticAnalysis || !n.comp,
     );
@@ -195,6 +249,20 @@ export class IdbTree {
         .children.filter(x => !x.comp || this.ctrl.settings.showStaticAnalysis),
     ];
   }
+
+  // getCollapseTarget(path: Tree.Path): Tree.Path | undefined {
+  //   if (this.ctrl.legacyVariationsProp()) return undefined;
+  //   const { tree } = this.ctrl;
+  //   const depth = (n: Tree.Node) => n.ply - tree.root.ply;
+
+  //   for (const node of tree
+  //     .getNodeList(path)
+  //     .slice(depth(tree.lastMainlineNode(path)))
+  //     .reverse()) {
+  //     if (!node.collapsed && this.isCollapsible(node)) return path.slice(0, depth(node) * 2);
+  //   }
+  //   return undefined;
+  // }
 }
 
-type State = { movesDirty: boolean };
+type State = { movesDirty: boolean; localAnalysisInfo?: AnalysisEngineInfo };

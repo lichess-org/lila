@@ -34,7 +34,6 @@
     border-bottom: none;
     background: transparent;
     color: $c-font-dimmer;
-    cursor: pointer;
   }
 
   .header-tab.active {
@@ -43,7 +42,6 @@
     border-color: $c-border;
     color: $c-font;
     font-weight: bold;
-    cursor: default;
 
     &.write {
       background-color: $c-bg-input;
@@ -134,11 +132,12 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
   .markdown-textarea .header-tab:hover:not(.active) {
     background-color: $m-border--fade-80;
     border-color: $m-border--fade-60;
     color: $c-font;
+    cursor: pointer;
   }
 
   .markdown-textarea .upload-image:hover:not(.disabled) {

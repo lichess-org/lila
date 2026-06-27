@@ -1820,6 +1820,78 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analyse */
+    analyse: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** Broadcast */
+    broadcast: string;
+    /** Same as official broadcast tournaments. Five times stronger than standard. */
+    broadcastQuality: string;
+    /** Cannot publish */
+    cannotPublish: string;
+    /** Clear unpublished local analysis? */
+    clearLocalAnalysis: string;
+    /** Current analysis */
+    currentAnalysis: string;
+    /** Custom */
+    custom: string;
+    /** Use your own engine settings. Your device should outperform broadcast quality at %s seconds per move. */
+    customQualityXSeconds: I18nFormat;
+    /** Done in %s seconds */
+    doneInX: I18nFormat;
+    /** Keep mine */
+    keepMine: string;
+    /** Keep this browser tab active during analysis. */
+    keepThisBrowserTabActive: string;
+    /** Local analysis */
+    localAnalysis: string;
+    /** Looks like a similar or better analysis already exists. */
+    looksLikeASimilar: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes */
+    nodes: string;
+    /** Projected */
+    projected: string;
+    /** Publish */
+    publish: string;
+    /** Quality */
+    quality: string;
+    /** The server already has analysis of this strength. */
+    serverAlreadyHas: string;
+    /** Server analysis */
+    serverAnalysis: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Same as normal Lichess server analysis */
+    standardQuality: string;
+    /** Starting position */
+    startingPosition: string;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Use theirs */
+    useTheirs: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %s analysis */
+    XAnalysis: I18nFormat;
+    /** %s nodes per move */
+    xNodesPerMove: I18nFormat;
+    /** %1$sx %2$s quality */
+    xTimesYQuality: I18nFormat;
+    /** Your current local analysis can be published */
+    youCanPublish: string;
+    /** You must use %s to publish analysis. */
+    youMustUseX: I18nFormat;
+    /** Your device does not support a publishable engine. */
+    yourDeviceDoesNotSupport: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;
@@ -3357,8 +3429,8 @@ interface I18n {
     clearBoard: string;
     /** Clear field */
     clearField: string;
-    /** Clear moves */
-    clearSavedMoves: string;
+    /** Clear local data */
+    clearLocalData: string;
     /** Clear search */
     clearSearch: string;
     /** Click here to read it */
@@ -3487,6 +3559,8 @@ interface I18n {
     descPrivateHelp: string;
     /** Description */
     description: string;
+    /** Device local analysis */
+    deviceLocalAnalysis: string;
     /** Device theme */
     deviceTheme: string;
     /** Disable blind mode */
@@ -3775,6 +3849,8 @@ interface I18n {
     joinTheGame: string;
     /** Join the %1$s, to post in this forum */
     joinTheTeamXToPost: I18nFormat;
+    /** Analysis */
+    justTheWordAnalysis: string;
     /** Keyboard shortcuts */
     keyboardShortcuts: string;
     /** Cycle selected variation */
@@ -4327,6 +4403,8 @@ interface I18n {
     reportXToModerators: I18nFormat;
     /** Request a computer analysis */
     requestAComputerAnalysis: string;
+    /** Request a server analysis */
+    requestAServerAnalysis: string;
     /** Required. */
     required: string;
     /** Reset */
@@ -5259,8 +5337,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the main line. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */

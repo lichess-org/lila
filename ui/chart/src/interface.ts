@@ -1,13 +1,13 @@
 import type { Chart } from 'chart.js';
 
-import type { TreeNodeBase } from 'lib/tree/types';
+import type { TreeNodeLite, TreeNodeBase } from 'lib/tree/types';
 
 export interface PlyChart extends Chart<'line'> {
   selectPly(ply: number, isMainline: boolean): void;
 }
 
 export interface AcplChart extends PlyChart {
-  updateData(d: AnalyseData, mainline: TreeNodeBase[]): void;
+  updateData(d: AnalyseData, mainline: TreeNodeLite[]): void;
 }
 
 export interface Division {

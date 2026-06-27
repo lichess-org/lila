@@ -29,6 +29,7 @@ object evals:
   import chess.json.Json.given
 
   given jsonWrites: Writes[Eval] = Json.writes[Eval]
+  given Reads[Eval] = Json.reads[Eval]
 
 opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]

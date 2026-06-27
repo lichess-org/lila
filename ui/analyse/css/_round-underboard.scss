@@ -75,13 +75,43 @@ $col2-panel-height: 240px;
     }
   }
 
-  .computer-analysis {
+  .computer-analysis.active {
+    display: flex;
+    justify-content: center;
+    align-content: start;
+    align-items: start;
     position: relative;
-  }
+    gap: 2em;
 
-  .future-game-analysis {
-    text-align: center;
-    margin-top: 2em;
+    button {
+      margin-top: 2em;
+    }
+
+    .delete-analysis-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      margin-top: 0;
+      font-family: lichess;
+      font-size: 14px;
+      color: $c-bad;
+      border-radius: 50%;
+      outline: none;
+      padding: 0.2em;
+      background: $c-bg-high;
+      border: 1px solid $c-font;
+
+      @media (hover: hover) {
+        &:hover {
+          background: $c-bad;
+          color: $c-font;
+        }
+      }
+    }
+
+    &:has(.delete-analysis-btn:hover) canvas {
+      border: 1px solid $c-bad;
+    }
   }
 
   .fen-pgn {

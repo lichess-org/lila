@@ -121,7 +121,7 @@ object JsonApi:
     Analysis(
       id = m.id.value,
       game = fromGame(m.game),
-      nodes = m.nodesPerMove,
+      nodes = m.origin.nodesPerMove,
       skipPositions = m.skipPositions
     )
 

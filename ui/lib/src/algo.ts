@@ -53,12 +53,7 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
 }
 
 export function definedMap<T, U>(arr: (T | undefined)[], fn: (v: T) => U | undefined): U[] {
-  return arr.reduce<U[]>((acc, v) => {
-    if (v === undefined) return acc;
-    const result = fn(v);
-    if (result !== undefined) acc.push(result);
-    return acc;
-  }, []);
+  return arr.map(v => (v !== undefined ? fn(v) : undefined)).filter((v): v is U => v !== undefined);
 }
 
 export function definedUnique<T>(items: (T | undefined)[]): T[] {
@@ -89,5 +84,24 @@ export function isContained(o: any, sub: any): boolean {
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
-export const shallowSort = (obj: Record<string, any>): Record<string, any> =>
-  Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
+export function shallowSort(obj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
+}
+
+export function stddev(vals: number[]): number {
+  const mean = vals.reduce((sum, val) => sum + val, 0) / vals.length;
+  return Math.sqrt(vals.reduce((sum, val) => sum + (val - mean) ** 2, 0) / vals.length);
+}
+
+export function harmonicMean(vals: number[]): number {
+  if (vals.some(val => val <= 0)) return NaN;
+  return vals.length / vals.reduce((reciprocalSum, val) => reciprocalSum + 1 / val, 0);
+}
+
+export function weightedMean(valWeightPairs: [number, number][]): number {
+  const [weightedValSum, weightSum] = valWeightPairs.reduce(
+    ([weightedValSum, weightSum], [val, weight]) => [weightedValSum + val * weight, weightSum + weight],
+    [0, 0],
+  );
+  return weightSum ? weightedValSum / weightSum : NaN;
+}
