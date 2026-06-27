@@ -6,6 +6,11 @@
   grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'tours' 'timeline' 'about';
   gap: $block-gap;
 
+  &__tournaments-simuls {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   &__tournaments,
   &__simuls {
     max-height: 30em;
