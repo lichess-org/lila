@@ -46,7 +46,7 @@ final private[forum] class ForumForm(
     single("categ" -> nonEmptyText.into[ForumCategId])
 
   private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using me: Me) =
-    cleanText(minLength = 3, 5_000_000) // high cap only used for bot move dumps
+    cleanText(minLength = 3, 100_000)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(me, t, previousText)
@@ -55,7 +55,7 @@ final private[forum] class ForumForm(
 
   val diagnostic = Form(
     mapping(
-      "text" -> nonEmptyText(maxLength = 5_000_000), // high cap only used for bot move dumps
+      "text" -> nonEmptyText(maxLength = 3_000_000), // high cap only used for bot move dumps
       "plaintext" -> optional(boolean)
     )(DiagnosticData.apply)(unapply)
   )
