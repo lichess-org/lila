@@ -78,19 +78,22 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       else BadRequest.async(accountC.renderCheckYourEmail)
 
   def login = Open(serveLogin)
-  def loginTakex3 = Open(serveLogin(AuthVariant.Takex3, routes.Auth.loginTakex3))
+  def loginTakex3 = Open:
+    if simpleSignup.exists(_.client == takex3Client)
+    then serveLogin(AuthVariant.Takex3, routes.Auth.loginTakex3)
+    else Redirect(routes.Auth.login)
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private enum AuthVariant:
     case Lichess, Takex3
 
-  private def takex3CustomUi = env.oAuth.signedClients.takex3.design
+  private def takex3Client = env.oAuth.signedClients.takex3
 
   private def authCustomUi(variant: AuthVariant)(using
       Option[ValidReferrer]
   ): Option[AuthCustomUi] =
     variant match
-      case AuthVariant.Takex3 => takex3CustomUi
+      case AuthVariant.Takex3 => takex3Client.design
       case AuthVariant.Lichess => simpleSignup.flatMap(_.client.design)
 
   private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]): Fu[Result] =
@@ -250,7 +253,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   def signup = Open(serveSignup)
-  def signupTakex3 = Open(serveSignup(AuthVariant.Takex3, routes.Auth.signupTakex3))
+  def signupTakex3 = Open:
+    if simpleSignup.exists(_.client == takex3Client)
+    then serveLogin(AuthVariant.Takex3, routes.Auth.signupTakex3)
+    else Redirect(routes.Auth.signup)
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
 
   private def serveSignup(using Context, Option[ValidReferrer]): Fu[Result] =
@@ -504,7 +510,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     Ok.page(views.auth.passwordResetSent(email))
 
   def passwordResetSentTakex3(email: String) = Open:
-    given Option[AuthCustomUi] = takex3CustomUi
+    given Option[AuthCustomUi] = takex3Client.design
     Ok.page(views.authTakex3.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
