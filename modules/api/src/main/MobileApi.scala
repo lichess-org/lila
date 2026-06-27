@@ -4,7 +4,6 @@ import play.api.libs.json.{ Json, JsObject }
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalalib.data.Preload
-import scalalib.net.UserAgent
 
 import lila.common.Json.given
 import lila.core.i18n.Translate
@@ -38,8 +37,7 @@ final class MobileApi(
   private given (using trans: Translate): Lang = trans.lang
 
   def home(oauth: Option[TokenScopes])(using
-      me: Option[Me],
-      ua: UserAgent
+      me: Option[Me]
   )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
     val takex3 = oauth.exists(_.takex3)
@@ -52,10 +50,12 @@ final class MobileApi(
       recentGames <- myUser.traverse(gameApi.mobileRecent)
       inbox <- me.ifFalse(takex3).traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
-      friends <- me.traverse: me =>
-        import lightUserApi.reader
-        given Me = me
-        relationStream.recentlySeenList(10, lightUserApi.projection, playing.apply)
+      friends <- me
+        .ifFalse(takex3)
+        .traverse: me =>
+          import lightUserApi.reader
+          given Me = me
+          relationStream.recentlySeenList(10, lightUserApi.projection, playing.apply)
     yield Json
       .obj()
       .add("tournaments", tours)
