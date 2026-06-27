@@ -6,7 +6,8 @@ import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
 import lila.core.userId.ModId
 
-private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: ChapterPreviewApi)(using
+private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, previewApi: ChapterPreviewApi)(
+    using
     ex: Executor,
     scheduler: Scheduler
 ):
@@ -50,7 +51,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
     def schedule(id: RelayRoundId) =
       if once(id) then
         scheduler.scheduleOnce(1.minute):
-          api.byIdWithTour(id).flatMapz(checkNow)
+          roundRepo.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
       if rt.round.sync.upstream.exists(_.isInternal)
