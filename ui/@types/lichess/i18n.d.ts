@@ -2357,8 +2357,8 @@ interface I18n {
     giveMoreTime: string;
     /** Horizontal green progress bars */
     horizontalGreenProgressBars: string;
-    /** Hover checkbox labels for help */
-    hoverCheckboxLabelsForHelp: string;
+    /** Hover over setting labels for help */
+    hoverOverSettingLabelsForHelp: string;
     /** How do you move pieces? */
     howDoYouMovePieces: string;
     /** In casual games only */
