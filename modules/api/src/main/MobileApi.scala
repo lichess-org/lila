@@ -115,7 +115,7 @@ final class MobileApi(
       .add("status", status)
       .add("crosstable", crosstable)
 
-  private def userStatus(user: User)(using Option[Me]): Fu[JsObject] =
+  private def userStatus(user: User)(using Option[Me], Lang): Fu[JsObject] =
     for playing <- gameApi.mobileCurrent(user)
     yield Json
       .obj()
