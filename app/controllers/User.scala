@@ -77,7 +77,7 @@ final class User(
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited):
+      limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
         val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
         def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -115,7 +115,7 @@ final class User(
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
-        limit.enumeration.userProfile(rateLimited):
+        limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
           EnabledUser(username): u =>
             val isSearch = filter == GameFilter.search.name
             if isSearch && ctx.isAnon
