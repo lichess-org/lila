@@ -147,8 +147,11 @@ export class Premove {
       }
     }
     if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
-      if (!this.isFriendlyOnDestAndAttacked(ctx)) return false;
       if (friendlySqBetween) return false;
+      const enemies = enemySqBetween
+        ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
+        : ctx.enemies;
+      if (!this.isFriendlyOnDestAndAttacked(ctx, enemies)) return false;
     }
     if (!friendlySqBetween) return true;
     const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
