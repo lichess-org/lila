@@ -143,7 +143,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           menu(StudyGroup.search, Some(order)),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(trans.search.search.txt(), text, order),
+              searchForm(trans.search.search.txt(), text, order, format),
               bits.orderSelect(
                 order,
                 StudyGroup.search,
@@ -173,7 +173,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
           menu(active, Some(order), topics.so(_.value)),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
+              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order, format),
               bits.orderSelect(order, active, url, format),
               bits.formatToggle(url(order).url, format),
               bits.newForm()
@@ -259,9 +259,11 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       )(trs.whatAreStudies())
     )
 
-  def searchForm(placeholder: String, value: String, order: StudyOrder) =
+  def searchForm(placeholder: String, value: String, order: StudyOrder, format: Option[StudyFormat] = None) =
+    logger.info(s"searchForm: placeholder=$placeholder, value=$value, order=$order, format=$format")
     form(cls := "search", action := routes.Study.search(), method := "get")(
       form3.hidden("order", order.key),
+      format.map(f => form3.hidden("format", f.name)),
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )
