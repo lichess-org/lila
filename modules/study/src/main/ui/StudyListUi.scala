@@ -148,6 +148,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
                 StudyGroup.search,
                 url = o => routes.Study.search(text, 1, o.some, format)
               ),
+              bits.formatToggle(url(order).url, format),
               bits.newForm()
             ),
             paginate(pag, routes.Study.search(text, 1, order.some), format)
