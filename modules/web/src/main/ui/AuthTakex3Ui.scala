@@ -76,7 +76,7 @@ final class AuthTakex3Ui(helpers: Helpers):
               if blankedPasswordError then
                 div(cls := "auth-login__blanked")(
                   p(trans.site.blankedPassword()),
-                  a(href := routes.Auth.passwordResetTakex3, cls := "button button-no-upper")(
+                  a(href := addReferrer(routes.Auth.passwordReset.url), cls := "button button-no-upper")(
                     trans.site.passwordReset()
                   )
                 )
@@ -97,7 +97,7 @@ final class AuthTakex3Ui(helpers: Helpers):
                 testId("password")
               ),
               div(cls := "password-reset")(
-                a(href := addReferrer(routes.Auth.passwordResetTakex3.url))("Forgot your password?")
+                a(href := addReferrer(routes.Auth.passwordReset.url))("Forgot your password?")
               ),
               form3.hidden("remember", isRememberMe)
             ),
@@ -201,7 +201,7 @@ final class AuthTakex3Ui(helpers: Helpers):
       .flag(_.noHeader):
         main(cls := authClasses("auth auth-password-reset box box-pad"))(
           connectionHeader("Forgot your password?"),
-          postForm(cls := "form3", action := addReferrer(routes.Auth.passwordResetApplyTakex3.url))(
+          postForm(cls := "form3", action := addReferrer(routes.Auth.passwordResetApply.url))(
             fail.map(p(cls := "error")(_)),
             form3.group(form("email"), "Email")(
               form3.input(_, typ = "email")(

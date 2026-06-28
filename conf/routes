@@ -578,9 +578,6 @@ POST  /signup/confirm/:token           controllers.Auth.signupConfirmEmailPost(t
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email)
-GET   /password/reset/takex3           controllers.Auth.passwordResetTakex3
-POST  /password/reset/takex3/send      controllers.Auth.passwordResetApplyTakex3
-GET   /password/reset/takex3/sent/:email controllers.Auth.passwordResetSentTakex3(email)
 GET   /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfirmTakex3(token)
 POST  /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfirmApplyTakex3(token)
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)
