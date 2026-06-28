@@ -556,7 +556,7 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf?.rating,
+    rating = player.rating ?? perf?.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);

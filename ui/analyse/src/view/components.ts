@@ -296,7 +296,7 @@ export function renderMoveNodes(
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
-  cssClass + (study?.data?.chapter ? '.' + study.data.chapter.id : '');
+  cssClass + (study?.data.chapter ? '.' + study.data.chapter.id : '');
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {
