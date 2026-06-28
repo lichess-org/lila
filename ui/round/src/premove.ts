@@ -1,5 +1,6 @@
 import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
+
 import { elemAt } from 'lib';
 
 export class Premove {
@@ -156,12 +157,7 @@ export class Premove {
     if (!friendlySqBetween) return true;
     const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
-      this.canBeCapturedBySomeEnemyEnPassant(
-        friendlySqBetween,
-        ctx.friendlies,
-        ctx.enemies,
-        ctx.lastMove,
-      ) &&
+      this.canBeCapturedBySomeEnemyEnPassant(friendlySqBetween, ctx.friendlies, ctx.enemies, ctx.lastMove) &&
       !!nextSquare &&
       !squaresBetween.includes(nextSquare)
     );
