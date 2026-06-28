@@ -144,14 +144,14 @@ interface StudyChapterFeatures {
 
 export type StudyMember = {
   user: {
-    id: string;
+    id: UserId;
     name: string;
     title?: string;
   };
   role: string;
 };
 
-export type StudyMemberMap = Record<string, StudyMember>;
+export type StudyMemberMap = Record<UserId, StudyMember>;
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
