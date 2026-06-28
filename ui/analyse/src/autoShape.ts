@@ -9,7 +9,7 @@ import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import type { ServerEval } from 'lib/tree/types';
+import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
@@ -121,10 +121,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
 
   let shapes: DrawShape[] = [];
-  if (ctrl.retro?.showBadNode()) {
-    return makeShapesFromUci(color, undefined, 'paleRed', {
-      lineWidth: 8,
-    });
+  let badNode: TreeNode | undefined;
+  if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
+    return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);
