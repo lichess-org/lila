@@ -776,7 +776,7 @@ export default function (token: string): void {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     let moveText: string;
-    if (announceMoveFormat && announceMoveFormat.toLowerCase() === 'san' && lastSanMove) {
+    if (announceMoveFormat?.toLowerCase() === 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     } else {

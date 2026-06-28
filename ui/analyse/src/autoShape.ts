@@ -9,7 +9,7 @@ import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import type { ServerEval } from 'lib/tree/types';
+import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
@@ -78,11 +78,11 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
 
 export function makeShapesFromUci(
   color: Color,
-  uci: Uci,
+  uci: Uci | undefined,
   brush: string,
   modifiers?: DrawModifiers,
 ): DrawShape[] {
-  if (uci === 'Current Position') return [];
+  if (!uci || uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
@@ -120,12 +120,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let shapes: DrawShape[] = [],
-    badNode;
-  if (ctrl.retro && (badNode = ctrl.retro.showBadNode())) {
-    return makeShapesFromUci(color, badNode.uci!, 'paleRed', {
-      lineWidth: 8,
-    });
+  let shapes: DrawShape[] = [];
+  let badNode: TreeNode | undefined;
+  if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
+    return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);
