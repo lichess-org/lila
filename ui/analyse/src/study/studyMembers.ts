@@ -16,8 +16,8 @@ import type StudyCtrl from './studyCtrl';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId?: string;
-  ownerId: string;
+  myId?: UserId;
+  ownerId: UserId;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
   startTour(): void;
@@ -39,11 +39,11 @@ function memberActivity(onIdle: () => void) {
 
 export class StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
-  config = prop<string | null>(null);
+  config = prop<UserId | null>(null);
   inviteForm: StudyInviteFormCtrl;
-  readonly active: Map<string, () => void> = new Map();
-  online: Record<string, boolean> = {};
-  spectatorIds: string[] = [];
+  readonly active: Map<UserId, () => void> = new Map();
+  online: Record<UserId, boolean> = {};
+  spectatorIds: UserId[] = [];
   max = 30;
 
   constructor(readonly opts: Opts) {
@@ -65,7 +65,7 @@ export class StudyMemberCtrl {
 
   canContribute = (): boolean => this.myMember()?.role === 'w';
 
-  setActive = (id: string) => {
+  setActive = (id: UserId) => {
     if (this.opts.tab() !== 'members') return;
     const active = this.active.get(id);
     if (active) active();
