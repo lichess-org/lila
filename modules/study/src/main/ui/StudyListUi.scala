@@ -135,6 +135,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       text: String,
       format: Option[StudyFormat] = None
   )(using Context) =
+    val url = (o: StudyOrder) => routes.Study.search(text, 1, o.some, format)
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
@@ -146,7 +147,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
               bits.orderSelect(
                 order,
                 StudyGroup.search,
-                url = o => routes.Study.search(text, 1, o.some, format)
+                url = url
               ),
               bits.formatToggle(url(order).url, format),
               bits.newForm()
