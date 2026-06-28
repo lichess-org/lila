@@ -81,7 +81,7 @@ final class AuthTakex3Ui(helpers: Helpers):
                   )
                 )
               else authGlobalError(form),
-              form3.group(form("username"), frag("Username or email")): f =>
+              form3.group(form("username"), "Username or email"): f =>
                 div(cls := "text-wrapper")(
                   form3.input(f)(
                     required,
@@ -91,13 +91,13 @@ final class AuthTakex3Ui(helpers: Helpers):
                   ),
                   clearFieldButton
                 ),
-              form3.passwordModified(form("password"), frag("Password"))(
+              form3.passwordModified(form("password"), "Password")(
                 autocomplete := "current-password",
                 placeholder := "Password",
                 testId("password")
               ),
               div(cls := "password-reset")(
-                a(href := routes.Auth.passwordResetTakex3)(frag("Forgot your password?"))
+                a(href := addReferrer(routes.Auth.passwordResetTakex3.url))("Forgot your password?")
               ),
               form3.hidden("remember", isRememberMe)
             ),
@@ -116,7 +116,7 @@ final class AuthTakex3Ui(helpers: Helpers):
               p(cls := "error none")("Invalid code.")
             ),
             turnstile.widget(hidden = true),
-            turnstile.submit(frag("Sign in"))(testId("login-submit"))
+            turnstile.submit("Sign in")(testId("login-submit"))
           )
         )
 
@@ -147,7 +147,7 @@ final class AuthTakex3Ui(helpers: Helpers):
             autocomplete := "off"
           )(
             authGlobalError(form),
-            form3.group(form("username"), frag("Username")): f =>
+            form3.group(form("username"), "Username"): f =>
               frag(
                 div(cls := "text-wrapper")(
                   form3.input(f)(
@@ -160,7 +160,7 @@ final class AuthTakex3Ui(helpers: Helpers):
                 ),
                 p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed())
               ),
-            form3.group(form("password"), frag("Password")): f =>
+            form3.group(form("password"), "Password"): f =>
               frag(
                 div(cls := "password-wrapper")(
                   form3.input(f, typ = "password")(required)(
@@ -171,7 +171,7 @@ final class AuthTakex3Ui(helpers: Helpers):
                 ),
                 div(cls := "password-generator")(button("Generate a random password"))
               ),
-            form3.group(form("email"), frag("Email")): f =>
+            form3.group(form("email"), "Email"): f =>
               div(cls := "text-wrapper")(
                 form3.input(f, typ = "email")(required, placeholder := "Email"),
                 clearFieldButton
@@ -179,7 +179,7 @@ final class AuthTakex3Ui(helpers: Helpers):
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
             hiddenAcceptedAgreements,
             simple.not.option(turnstile.widget(hidden = true)),
-            turnstile.submit(frag("Create account")),
+            turnstile.submit("Create account"),
             small(cls := "form-help")(
               "By registering you accept Lichess' ",
               a(href := routes.Cms.tos)("Terms and conditions")
@@ -190,7 +190,8 @@ final class AuthTakex3Ui(helpers: Helpers):
   def passwordReset(form: Form[?], fail: Option[String])(using
       TurnstilePublicConfig,
       Context,
-      Option[AuthCustomUi]
+      Option[AuthCustomUi],
+      Option[ValidReferrer]
   ) =
     given Translate = oauthClientLanguage
     Page("Forgot your password?")
@@ -200,9 +201,9 @@ final class AuthTakex3Ui(helpers: Helpers):
       .flag(_.noHeader):
         main(cls := authClasses("auth auth-password-reset box box-pad"))(
           connectionHeader("Forgot your password?"),
-          postForm(cls := "form3", action := routes.Auth.passwordResetApplyTakex3)(
+          postForm(cls := "form3", action := addReferrer(routes.Auth.passwordResetApplyTakex3.url))(
             fail.map(p(cls := "error")(_)),
-            form3.group(form("email"), frag("Email"))(
+            form3.group(form("email"), "Email")(
               form3.input(_, typ = "email")(
                 autofocus,
                 required,
@@ -211,11 +212,11 @@ final class AuthTakex3Ui(helpers: Helpers):
               )
             ),
             turnstile.widget(),
-            form3.action(form3.submit(frag("Email me a link"), icon = Option.empty[Icon]))
+            form3.action(form3.submit("Email me a link", icon = Option.empty[Icon]))
           )
         )
 
-  def passwordResetSent(email: String)(using Context, Option[AuthCustomUi]) =
+  def passwordResetSent(email: String)(using Context, Option[AuthCustomUi], Option[ValidReferrer]) =
     given Translate = oauthClientLanguage
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")
@@ -229,7 +230,7 @@ final class AuthTakex3Ui(helpers: Helpers):
             li(trans.site.checkAllEmailFolders()),
             li(trans.site.verifyYourAddress(email))
           ),
-          a(cls := "button button-empty auth__secondary-action", href := routes.Auth.login)(
+          a(cls := "button button-empty auth__secondary-action", href := addReferrer(routes.Auth.login.url))(
             "Back to login"
           )
         )
@@ -243,19 +244,19 @@ final class AuthTakex3Ui(helpers: Helpers):
     def confirmForm =
       postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApplyTakex3(token))(
         form3.hidden(form("token")),
-        form3.passwordModified(form("newPasswd1"), frag("New password"))(
+        form3.passwordModified(form("newPasswd1"), "New password")(
           autofocus,
           autocomplete := "new-password",
           placeholder := "New password"
         ),
-        form3.passwordModified(form("newPasswd2"), frag("New password again"))(
+        form3.passwordModified(form("newPasswd2"), "New password again")(
           autocomplete := "new-password",
           placeholder := "New password again"
         ),
         form3.globalError(form),
         form3.action(
           form3.submit(
-            frag("Reset password"),
+            "Reset password",
             icon = Option.empty[Icon]
           )
         )

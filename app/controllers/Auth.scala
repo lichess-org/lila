@@ -464,10 +464,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             storedEmail,
                             origin = passwordResetOrigin(variant)
                           )
-                        yield Redirect(passwordResetSentRoute(storedEmail.value, variant))
+                        yield redirectWithReferrer(passwordResetSentRoute(storedEmail.value, variant))
                       case _ =>
                         lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                        Redirect(passwordResetSentRoute(data.email.value, variant))
+                        redirectWithReferrer(passwordResetSentRoute(data.email.value, variant))
                     }
             )
         else badRequest("Invalid captcha")
