@@ -814,6 +814,10 @@
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">निनावी</item>
+    <item quantity="other">निनावी (%s)</item>
+  </plurals>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
@@ -1039,4 +1043,5 @@
   <string name="thereAreNoResultsForX">\"%s\" साठी कोणताही निकाल नाही</string>
   <string name="tags">टॅंग्स</string>
   <string name="enPassant">उत्तीर्ण मध्येचे अधिकार</string>
+  <string name="settings">प्राधान्ये</string>
 </resources>
