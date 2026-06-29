@@ -564,12 +564,16 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
+GET   /login/takex3                    controllers.Auth.loginTakex3
+POST  /login/takex3                    controllers.Auth.authenticateTakex3
 POST  /login/class                     controllers.Auth.clasLogin
 GET   /$lang<\w\w\w?>/login            controllers.Auth.loginLang(lang: Language)
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
+GET   /signup/takex3                   controllers.Auth.signupTakex3
+POST  /signup/takex3                   controllers.Auth.signupPostTakex3
 GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang: Language)
 GET   /signup/check-your-email         controllers.Auth.checkYourEmail
 POST  /signup/fix-email                controllers.Auth.fixEmail
@@ -578,6 +582,9 @@ POST  /signup/confirm/:token           controllers.Auth.signupConfirmEmailPost(t
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email)
+GET   /password/reset/takex3           controllers.Auth.passwordResetTakex3
+POST  /password/reset/takex3/send      controllers.Auth.passwordResetApplyTakex3
+GET   /password/reset/takex3/sent/:email controllers.Auth.passwordResetSentTakex3(email)
 GET   /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfirmTakex3(token)
 POST  /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfirmApplyTakex3(token)
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)

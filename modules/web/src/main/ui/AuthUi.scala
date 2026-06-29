@@ -258,7 +258,10 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signupConfirm(user: User, token: String)(using Context, Option[ValidReferrer]) =
+  def signupConfirm(
+      user: User,
+      token: String
+  )(using Context, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(

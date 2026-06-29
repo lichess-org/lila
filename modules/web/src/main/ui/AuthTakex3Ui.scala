@@ -53,7 +53,10 @@ final class AuthTakex3Ui(helpers: Helpers):
   private def checkIcon(klass: String) =
     span(cls := klass)(raw(checkSvg))
 
-  def login(form: Form[?], isRememberMe: Boolean = true)(using
+  def login(
+      form: Form[?],
+      isRememberMe: Boolean
+  )(using
       TurnstilePublicConfig,
       Option[ValidReferrer]
   )(using Context, Option[AuthCustomUi]) =
@@ -70,13 +73,16 @@ final class AuthTakex3Ui(helpers: Helpers):
           connectionHeader("Login to Lichess"),
           postForm(
             cls := "form3",
-            action := addReferrer(routes.Auth.authenticate.url)
+            action := addReferrer(routes.Auth.authenticateTakex3.url)
           )(
             div(cls := "one-factor")(
               if blankedPasswordError then
                 div(cls := "auth-login__blanked")(
                   p(trans.site.blankedPassword()),
-                  a(href := addReferrer(routes.Auth.passwordReset.url), cls := "button button-no-upper")(
+                  a(
+                    href := addReferrer(routes.Auth.passwordResetTakex3.url),
+                    cls := "button button-no-upper"
+                  )(
                     trans.site.passwordReset()
                   )
                 )
@@ -97,7 +103,7 @@ final class AuthTakex3Ui(helpers: Helpers):
                 testId("password")
               ),
               div(cls := "password-reset")(
-                a(href := addReferrer(routes.Auth.passwordReset.url))("Forgot your password?")
+                a(href := addReferrer(routes.Auth.passwordResetTakex3.url))("Forgot your password?")
               ),
               form3.hidden("remember", isRememberMe)
             ),
@@ -143,7 +149,7 @@ final class AuthTakex3Ui(helpers: Helpers):
           postForm(
             id := "signup-form",
             cls := "form3",
-            action := addReferrer(routes.Auth.signupPost.url),
+            action := addReferrer(routes.Auth.signupPostTakex3.url),
             autocomplete := "off"
           )(
             authGlobalError(form),
@@ -201,7 +207,7 @@ final class AuthTakex3Ui(helpers: Helpers):
       .flag(_.noHeader):
         main(cls := authClasses("auth auth-password-reset box box-pad"))(
           connectionHeader("Forgot your password?"),
-          postForm(cls := "form3", action := addReferrer(routes.Auth.passwordResetApply.url))(
+          postForm(cls := "form3", action := addReferrer(routes.Auth.passwordResetApplyTakex3.url))(
             fail.map(p(cls := "error")(_)),
             form3.group(form("email"), "Email")(
               form3.input(_, typ = "email")(
@@ -230,7 +236,10 @@ final class AuthTakex3Ui(helpers: Helpers):
             li(trans.site.checkAllEmailFolders()),
             li(trans.site.verifyYourAddress(email))
           ),
-          a(cls := "button button-empty auth__secondary-action", href := addReferrer(routes.Auth.login.url))(
+          a(
+            cls := "button button-empty auth__secondary-action",
+            href := addReferrer(routes.Auth.loginTakex3.url)
+          )(
             "Back to login"
           )
         )
