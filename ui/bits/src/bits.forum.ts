@@ -20,7 +20,7 @@ site.load.then(() => {
         $(dlg.view)
           .find('form')
           .attr('action', link.href)
-          .on('submit', function (this: HTMLFormElement, e: Event) {
+          .on('submit', function (this: HTMLFormElement, e: SubmitEvent) {
             e.preventDefault();
             void xhr.formToXhr(this);
             $(link).closest('.forum-post').hide();

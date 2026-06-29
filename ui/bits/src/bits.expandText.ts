@@ -47,8 +47,8 @@ site.load.then(() => {
         .on('load', () => setTimeout(() => expandYoutubes(as, wait + 200), wait));
   }
 
-  const as: Candidate[] = Array.from(document.querySelectorAll('.expand-text a'))
-    .map((el: HTMLAnchorElement) => {
+  const as = Array.from(document.querySelectorAll<HTMLAnchorElement>('.expand-text a'))
+    .map(el => {
       const parsed = parseLink(el);
       if (!parsed) return false;
       return {
