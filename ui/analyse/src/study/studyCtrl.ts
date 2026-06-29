@@ -843,6 +843,7 @@ export default class StudyCtrl {
       this.chapters.setTags(d.chapterId, d.tags);
       if (d.chapterId !== this.vm.chapterId) return;
       this.data.chapter.tags = d.tags;
+      this.relay?.onNewTags(d.chapterId, d.tags);
       this.redraw();
     },
     deleteComment: d => {
