@@ -682,6 +682,8 @@ object study:
     val write = timer("study.tree.write").withoutTags()
   object sequencer:
     val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
+  object pgn:
+    val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
   val activity = counter("api.cost").withTag("endpoint", "activity")
@@ -693,6 +695,9 @@ object `export`:
   object png:
     val game = counter("export.png").withTag("type", "game")
     val puzzle = counter("export.png").withTag("type", "puzzle")
+object analyse:
+  object annotator:
+    val addEvalsTime = timer("analyse.annotator.addEvalsTime").withoutTags()
 object bus:
   val classifiers = gauge("bus.classifiers").withoutTags()
 object blocking:
