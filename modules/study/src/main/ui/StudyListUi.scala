@@ -140,7 +140,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu(StudyGroup.search, Some(order)),
+          menu(StudyGroup.search, Some(order), format = format),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text, order, format),
@@ -170,7 +170,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu(active, Some(order), topics.so(_.value)),
+          menu(active, Some(order), topics.so(_.value), format),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order, format),
@@ -226,7 +226,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         pagerNext(pager, np => nextPageUrl(np))
       )
 
-  def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil)(using
+  def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil, format: Option[StudyFormat] = None)(using
       ctx: Context
   ) =
     def defaultOrder(group: StudyGroup): Option[StudyOrder] =
@@ -243,12 +243,13 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         case _ => group == active
     ).option("active")
     lila.ui.bits.pageMenuSubnav(
-      a(activeCls(StudyGroup.all), href := routes.Study.all(newOrder(StudyGroup.all)))(trs.allStudies()),
-      ctx.isAuth.option(bits.authLinks(activeCls, newOrder)),
-      a(activeCls(StudyGroup.topic(None)), href := routes.Study.topics)(trs.topics()),
+      a(activeCls(StudyGroup.all), href := bits.addFormatToUrl(routes.Study.all(newOrder(StudyGroup.all)).url, format))(trs.allStudies()),
+      ctx.isAuth.option(bits.authLinks(activeCls, newOrder, format)),
+      a(activeCls(StudyGroup.topic(None)), href := bits.addFormatToUrl(routes.Study.topics.url, format))(trs.topics()),
       topics.map: topic =>
         val group = StudyGroup.topic(topic.some)
-        a(activeCls(group), href := routes.Study.byTopic(topic.value, newOrder(group)))(
+        a(activeCls(group), href := bits.addFormatToUrl(routes.Study.byTopic(topic.value, newOrder(group)).url, format))(
+
           topic.value
         )
       ,
