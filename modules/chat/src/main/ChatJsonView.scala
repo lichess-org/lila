@@ -45,10 +45,16 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
       "writeable" -> writeable
     )
 
-  def boardApi(chat: UserChat, all: Boolean = false) = JsArray:
+  def boardApi(chat: UserChat) = JsArray:
     chat.lines.collect:
-      case UserLine(name, text, troll, del) if (!troll && !del) || all =>
-        Json.obj("text" -> text, "user" -> name)
+      case l if l.isVisible => Json.obj("text" -> l.text, "user" -> l.userId)
+
+  def modApi(chat: UserChat) = JsArray:
+    chat.lines.map: l =>
+      Json
+        .obj("text" -> l.text, "user" -> l.userId)
+        .add("r" -> l.troll)
+        .add("d" -> l.deleted)
 
 object ChatJsonView:
 
