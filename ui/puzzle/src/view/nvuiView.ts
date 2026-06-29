@@ -255,9 +255,9 @@ const isYourMove = (ctrl: PuzzleCtrl): boolean =>
 const browseHint = (ctrl: PuzzleCtrl): string[] =>
   ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
-const shortCommands = ['b', 'l', 'last', 'p', 's', 'v'];
+const shortCommands = new Set(['b', 'l', 'last', 'p', 's', 'v']);
 
-const isShortCommand = (input: string): boolean => shortCommands.includes(input.split(' ')[0].toLowerCase());
+const isShortCommand = (input: string): boolean => shortCommands.has(input.split(' ')[0].toLowerCase());
 
 function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: nv.MoveStyle): void {
   const lowered = c.toLowerCase();
