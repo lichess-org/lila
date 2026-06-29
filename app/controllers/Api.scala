@@ -305,7 +305,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def roomChat(roomId: RoomId) = SecuredScoped(_.ViewPrivateComms): _ ?=>
     Found(env.chat.api.userChat.findOption(roomId.into(ChatId))): chat =>
-      JsonOk(Json.obj("lines" -> env.chat.json.modApi(chat)))
+      JsonOk(env.chat.json.modApi(chat))
 
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
