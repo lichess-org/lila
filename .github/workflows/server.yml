@@ -118,7 +118,7 @@ jobs:
       - name: deploy to preview site
         env:
           DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_PREVIEW_SERVER_URL }}
-        run: curl -X POST $DEPLOY_WEBHOOK_URL
+        run: curl -s -w "%{http_code}" --fail-with-body -X POST $DEPLOY_WEBHOOK_URL
 
   format:
     runs-on: ubuntu-latest
