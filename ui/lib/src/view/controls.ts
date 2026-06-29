@@ -1,6 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
-import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
+import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
 import { licon } from '@/licon';
@@ -39,10 +39,14 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     effect();
   });
 
-export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
+export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On } = {}): VNode {
+  // spellcheck must be the string 'false'; snabbdom drops attributes set to boolean false.
+  // readonly is not assumed here: callers that want a display-only field pass it via inputAttrs.
   return h('div.copy-me', [
     h('input.copy-me__target', {
-      attrs: { readonly: true, spellcheck: false, value: content, ...inputAttrs },
+      attrs: { spellcheck: 'false', ...opts.inputAttrs },
+      props: { value: content },
+      on: opts.on,
     }),
     h('button.copy-me__button.button.button-metal', {
       attrs: { 'data-icon': licon.Clipboard, title: i18n.site.copyToClipboard },
