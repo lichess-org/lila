@@ -2,7 +2,6 @@
   padding: $block-gap 1.5em;
   background: $m-bg--fade-50;
   height: 100%;
-  white-space: nowrap;
   display: block;
 
   td {
@@ -17,8 +16,7 @@
   }
 
   .checkable {
-    @extend %nowrap-ellipsis;
-
+    display: flex;
     padding: 4px 2px 4px 0;
 
     label {
@@ -63,13 +61,14 @@
     }
   }
 
-  tr.variant td:last-child {
+  tr.filter-variant td:last-child {
     display: flex;
     flex-flow: row wrap;
   }
 
-  tr.variant .checkable {
+  tr.filter-variant .checkable {
     width: 33.3%;
+    white-space: nowrap;
   }
 
   tr.inline .checkable {
@@ -126,19 +125,15 @@
     justify-content: end;
   }
 
-  @media (max-width: at-most($xx-small)) {
+  @media (max-width: at-most($x-small)) {
     padding: $block-gap 1em;
 
-    td {
-      max-width: 50vw;
+    tr.filter-variant .checkable {
+      width: 50%;
     }
 
     td:first-child {
       margin-inline-end: 1rem;
-    }
-
-    tr.variant .checkable {
-      width: 50%;
     }
   }
 }

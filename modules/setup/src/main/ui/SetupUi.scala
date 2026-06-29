@@ -36,7 +36,7 @@ final class SetupUi(helpers: Helpers):
     st.form(novalidate)(
       table(
         tbody(
-          tr(cls := "variant")(
+          tr(cls := "filter-variant")(
             td(trans.site.variant()),
             td(
               setupCheckboxes(
