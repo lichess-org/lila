@@ -3,11 +3,21 @@
   "extends": "stylelint-config-standard-scss",
   "rules": {
     "alpha-value-notation": "number",
-    "block-no-redundant-nested-style-rules": null,
     "color-function-alias-notation": null,
     "color-function-notation": ["legacy", { "ignore": ["with-var-inside"] }],
     "custom-property-pattern": null,
-    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      {
+        "ignoreLonghands": [
+          "overflow-x",
+          "overflow-y",
+          "grid-template-columns",
+          "grid-template-rows",
+          "grid-template-areas"
+        ]
+      }
+    ],
     "font-family-no-missing-generic-family-keyword": null,
     "hue-degree-notation": "number",
     "media-feature-range-notation": null,

@@ -38,8 +38,7 @@
     }
 
     &__start {
-      margin-inline-start: 0;
-      margin-inline-end: $block-gap;
+      margin-inline: 0 $block-gap;
 
       &__button {
         padding-inline: 1em;
