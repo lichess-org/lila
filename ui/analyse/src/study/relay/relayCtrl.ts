@@ -203,12 +203,8 @@ export default class RelayCtrl {
     }
   };
 
-  onNewTags = (chap: ChapterId, tags: TagArray[]) => {
-    const chaps = this.study.chapters.list;
-    const hasNewResult =
-      tags.find(([k]) => k.toLowerCase() === 'result') !== chaps.get(chap)?.status?.replace('½', '1/2');
-    if (hasNewResult) this.teams?.recalculateTeamPoints(chaps, this.round.customScoring);
-  };
+  onNewTags = (chap: ChapterId, tags: TagArray[]) =>
+    this.teams?.onNewTags(chap, tags, this.study.chapters.list, this.round.customScoring);
 
   private readonly socketHandlers = {
     relaySync: (sync: RelaySync) => {

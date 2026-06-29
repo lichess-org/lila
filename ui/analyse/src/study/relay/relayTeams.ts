@@ -7,7 +7,7 @@ import { json as xhrJson } from 'lib/xhr';
 
 import { playerFedFlag } from '@/view/util';
 
-import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, TagArray } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { coloredStatusStr, isServerPoint, withCustomScore } from './customScoreStatus';
@@ -53,7 +53,11 @@ export default class RelayTeams {
     this.redraw();
   };
 
-  recalculateTeamPoints = (chapters: StudyChapters, cs?: CustomScoring) => {
+  onNewTags = (chapter: ChapterId, newTags: TagArray[], chapters: StudyChapters, cs?: CustomScoring) => {
+    const hasNewResult =
+      newTags.find(([k]) => k.toLowerCase() === 'result') !==
+      chapters.get(chapter)?.status?.replace('½', '1/2');
+    if (!hasNewResult) return;
     // Override server fetched team points with locally calculated ones
     //  so that the table remains accurate as results stream in
     this.teams?.table.map(row =>
