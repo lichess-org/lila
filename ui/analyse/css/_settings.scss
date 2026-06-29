@@ -36,6 +36,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: stretch;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
   gap: 2em;
 
   @media (max-width: at-most(600px)) {
@@ -152,8 +154,9 @@
 }
 
 .setting-popup {
-  @extend %box-radius, %flex-column;
+  @extend %box-radius;
 
-  gap: 1em;
+  display: block;
+  touch-action: none;
   background: $c-bg-zebra2;
 }
