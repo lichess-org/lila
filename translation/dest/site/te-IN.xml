@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">గేమ్స్సెటప్</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">స్నేహితుడికి ఛాలెంజ్పంపాలా</string>
+  <string name="playAgainstComputer">కంప్యూటర్‌తో ఆడండి</string>
+  <string name="gameMode">గేమ్మోడ్</string>
+  <string name="createLobbyGame">లాబీ గేమ్ సృష్టించండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు పిలవడానికి ఈ లంకె పంపండి</string>
   <string name="gameOver">ఆట ముగిసింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
   <string name="orLetYourOpponentScanQrCode">లేదా మీ ప్రత్యర్థికి ఈ QR కోడును చూపండి</string>
+  <string name="reusableChallengeUrl">మళ్లీ ఉపయోగించగల ఛాలెంజ్ URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">ఈ సెట్టింగ్‌లతోనే ఎవరైనా మిమ్మల్ని సవాలు చేయడానికి ఒక శాశ్వత లింక్.</string>
   <string name="waiting">ప్రత్యర్థి ఒప్పుకోవడానికై ఎదురుచూస్తున్నాము</string>
   <string name="yourTurn">మీ వంతు</string>
   <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
@@ -53,6 +60,8 @@
   <string name="blackLeftTheGame">నలుపువారు ఆట విడిచిపెట్టారు</string>
   <string name="whiteDidntMove">తెలుపు కాయ జరుపలేదు</string>
   <string name="blackDidntMove">నలుపు కాయ జరుపలేదు</string>
+  <string name="whiteAborted">వైట్ ఆటను రద్దు చేశాడు</string>
+  <string name="blackAborted">బ్లాక్ ఆటను రద్దు చేశాడు</string>
   <string name="requestAComputerAnalysis">కంప్యూటర్ విశ్లేషణకై అభ్యర్థించండి</string>
   <string name="computerAnalysis">కంప్యూటర్ విశ్లేషణ</string>
   <string name="computerAnalysisAvailable">కంప్యూటర్ విశ్లేషణ దొరుకును</string>
@@ -90,6 +99,8 @@
   <string name="database">క్రీడా భాన్డాగారము</string>
   <string name="whiteDrawBlack">తెలుపు / సమము / నలుపు</string>
   <string name="averageRatingX">సగటు స్థానము: %s</string>
+  <string name="minRatingX">కనీస రేటింగ్ %s</string>
+  <string name="maxRatingX">గరిష్ట రేటింగ్ %s</string>
   <string name="recentGames">ఇటీవలి ఆటలు</string>
   <string name="topGames">అగ్రశ్రేణి ఆటలు</string>
   <string name="masterDbExplanation">%2$s నుంచి %3$s దాకా %1$s+ FIDE అర్హత కలిగిన ఆటగాళ్ల 20 లక్షల ఆటలు</string>
@@ -121,9 +132,20 @@
   <string name="enable">కావాలి</string>
   <string name="bestMoveArrow">మంచి ఎత్తుగడకు దారి</string>
   <string name="showVariationArrows">వైవిధ్య బాణాలను చూపు</string>
+  <string name="visualMotifs">దృశ్య నమూనాలు</string>
+  <string name="undefendedPieces">రక్షణలేని పీసులు</string>
+  <string name="pinnedPieces">పిన్ చేయబడిన పీసులు</string>
+  <string name="checkableKing">చెక్ చేయగల రాజు</string>
   <string name="multipleLines">పలు శాఖలు</string>
+  <string name="multipleLinesDescription">ఎవాల్యూయేషన్ లైన్స్ సెట్ చేయండి మరియు బోర్డుపై బాణాలను కదిలించండి</string>
+  <string name="searchTime">శోధన సమయం</string>
+  <string name="searchTimeDescription">కొత్త పొజిషన్స్ అంచనా వేయడానికి సమయాన్ని కేటాయించండి</string>
+  <string name="threads">థ్రెడ్లు</string>
+  <string name="threadsDescription">దీనిని మీ CPU థ్రెడ్ కౌంట్ కంటే తక్కువగా సెట్ చేయండి, టిక్ గుర్తులు ఒక మంచి సురక్షితమైన ఎంపికను సూచిస్తాయి</string>
+  <string name="threadsDescriptionMobile">మెరుగైన విశ్లేషణ కోసం ఎక్కువ థ్రెడ్‌లు ఎక్కువ బ్యాటరీని వినియోగిస్తాయి</string>
   <string name="cpus">కేంద్రగణకయంత్రాలు</string>
   <string name="memory">జ్ఞాపకనిధి</string>
+  <string name="memoryDescription">అధిక విలువలు పనితీరును మెరుగుపరుస్తాయి</string>
   <string name="infiniteAnalysis">అనంతమైన విశ్లేషణ</string>
   <string name="removesTheDepthLimit">లోతు నియతిని తీసివేసి, కంప్యూటర్ ను వెచ్చగా ఉంచుతుంది</string>
   <string name="blunder">మహా తప్పు</string>
@@ -200,6 +222,7 @@
   <string name="minutesPerSide">గడువు</string>
   <string name="variant">రకం</string>
   <string name="variants">రకాలు</string>
+  <string name="variantsDescription">ఆడటానికి మరిన్ని మార్గాలు</string>
   <string name="timeControl">సమయ పాలన</string>
   <string name="realTime">ప్రస్తుతం</string>
   <string name="correspondence">సుదూర</string>
@@ -226,6 +249,7 @@
   <string name="changeUsernameNotSame">అక్షరాల పరిమాణం మాత్రమే మారొచ్చు. ఉదాహరణకి \"johndoe\" నుంచి \"JohnDoe\".</string>
   <string name="changeUsernameDescription">ఆటగాడి పేరు మార్చండి. దీనిని ఒకేసారి చెయ్యగలరు తర్వాత అక్షరాల పరిమాణం మాత్రమే మారొచ్చు.</string>
   <string name="signupUsernameHint">కుటుంబ స్నేహపూర్వక వినియోగదారు పేరును ఎంచుకోండి. మీరు దీన్ని తర్వాత మార్చలేరు మరియు అనుచితమైన వినియోగదారు పేర్లతో ఉన్న ఖాతాలు మూసివేయబడతాయి!</string>
+  <string name="signupEmailPromise">మేము మీకు మీ ఖాతాకు సంబంధించిన ఈమెయిల్‌లను మాత్రమే పంపుతాము మరియు మీ ఈమెయిల్‌ను ఎవరితోనూ పంచుకోము.</string>
   <string name="password">పాస్వర్డ్</string>
   <string name="changePassword">పాస్వర్డ్ మార్చండి</string>
   <string name="changeEmail">ఇమెయిల్మా ర్చండి</string>
@@ -250,6 +274,7 @@
   <string name="emailCanTakeSomeTime">రావడానికి కొంచం సమయం పడుతుంది.</string>
   <string name="refreshInboxAfterFiveMinutes">ఐదు నిమిషాలు ఆగి మీ ఈమెయిల్ ఇంబాక్స్ని రిఫ్రెష్ చేయ్.</string>
   <string name="checkSpamFolder">మరియు, మీ స్పామ్ ఫోల్డర్ చూసుకోవండి, అక్కడికి కూడా వెళ్ళచ్చు. అలాగ జరిగితే, అది \"నాట్ స్పామ్\" గా మార్క్ చెయ్యండి.</string>
+  <string name="sendEmailForAccountVerification">మీరు మీ నిర్ధారణ ఇమెయిల్‌ను కనుగొనలేకపోతే, %s కు ఇమెయిల్ పంపండి మరియు మేము మీ ఖాతాను మీ కోసం నిర్ధారిస్తాము.</string>
   <string name="accountConfirmed">యూసర్ %s కన్ఫర్మ్ అయిపోయారు.</string>
   <string name="accountCanLogin">మీరు ఇప్పుడు %s గా లాగిన్ చేయచ్చు.</string>
   <string name="accountConfirmationEmailNotNeeded">మీకు ధృవీకరణ ఈమెయిల్ అవసరం లేదు.</string>
@@ -291,6 +316,7 @@
   <string name="standard">ప్రామాణికం</string>
   <string name="customPosition">స్థానం నుంచి</string>
   <string name="unlimited">అపరిమితం</string>
+  <string name="unlimitedDescription">మీకు కావలసినంత సమయం తీసుకోండి</string>
   <string name="mode">రీతి</string>
   <string name="casual">సాధారణం</string>
   <string name="rated">రేటెడ్</string>
@@ -337,6 +363,7 @@
     <item quantity="other">%s ఆడుతున్నారు</item>
   </plurals>
   <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
+  <string name="ratingFilter">రేటింగ్ ఫిల్టర్</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s సెకను ఇవ్వండి</item>
     <item quantity="other">%s సెకన్లు ఇవ్వండి</item>
@@ -392,6 +419,7 @@
     <item quantity="other">మీరు%s ఎక్కువ రేటెడ్ ఆటలను ఆడాలి</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">మీ%s రేటింగ్ తాత్కాలికం</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">మీ రేటింగ్ స్థిరంగా లేనందున రేటింగ్ ఫిల్టర్‌లు లాక్ చేయబడ్డాయి. రేటింగ్ ఉన్న గేమ్‌లు ఆడటం వల్ల స్థిరత్వం పెరుగుతుంది.</string>
   <string name="yourPerfRatingIsTooHigh">మీ%1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
@@ -414,6 +442,8 @@
   <string name="leaderboard">లీడర్‌బోర్డు</string>
   <string name="screenshotCurrentPosition">ప్రస్తుత పొజిషన్ నీ స్క్రీన్షాట్ చేయ్ </string>
   <string name="gameAsGIF">గేమ్ జీ.ఐ.యఫ్ గా </string>
+  <string name="playerNames">ఆటగాళ్ల పేర్లు</string>
+  <string name="moveAnnotations">ఎత్తుల వ్యాఖ్యానాలు</string>
   <string name="pasteTheFenStringHere">FEN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="pasteThePgnStringHere">PGN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
@@ -468,6 +498,7 @@
   <string name="openTournaments">ఓపెన్ టోర్నమెంట్లు</string>
   <string name="duration">వ్యవధి</string>
   <string name="winner">విజేత</string>
+  <string name="standings">స్థానాలు</string>
   <string name="createANewTournament">క్రొత్త టోర్నమెంట్‌ను సృష్టించండి</string>
   <string name="tournamentCalendar">టోర్నమెంట్ క్యాలెండర్</string>
   <string name="conditionOfEntry">ప్రవేశ అవసరాలు:</string>
@@ -500,6 +531,7 @@
   <string name="popularOpenings">జనాదరణ పొందిన ఓపెనింగ్స్</string>
   <string name="endgamePositions">ముగింపు గేమ్ స్థానాలు</string>
   <string name="chess960StartPosition">Chess960 ప్రారంభ స్థానం: %s</string>
+  <string name="randomChess960Position">రాండమ్ Chess960 పొజిషన్</string>
   <string name="startPosition">ప్రారంభ స్థానం</string>
   <string name="clearBoard">క్లియర్ బోర్డు</string>
   <string name="loadPosition">స్థానం లోడ్</string>
@@ -521,6 +553,7 @@
   <string name="oneUrlPerLine">పంక్తికి ఒక URL.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">భద్రపరచడం మరియు పంచుకోవడం కోసం, ఒక అధ్యయనం చేయడాన్ని పరిగణించండి.</string>
+  <string name="clearSavedMoves">మూవ్స్ తొలగించు</string>
   <string name="previouslyOnLichessTV">గతంలో Lichess TVలో</string>
   <string name="onlinePlayers">ఆన్‌లైన్ ప్లేయర్‌లు</string>
   <string name="activePlayers">Active ఆటగాళ్ళు</string>
@@ -560,6 +593,9 @@
   <string name="cheat">మోసం</string>
   <string name="troll">ఎగతాళి చేయండి</string>
   <string name="other">ఇతర</string>
+  <string name="reportCheatBoostHelp">గేమ్(ల) లింక్‌ను అతికించి, ఈ యూజర్ ప్రవర్తనలో తప్పు ఏమిటో వివరించండి. కేవలం \"వారు మోసం చేస్తారు\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి.</string>
+  <string name="reportUsernameHelp">ఈ యూజర్‌నేమ్ ఎందుకు అభ్యంతరకరమైనదో వివరించండి. కేవలం \"ఇది అభ్యంతరకరమైనది/అనుచితమైనది\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి. ముఖ్యంగా, ఆ అభ్యంతరం అస్పష్టంగా ఉన్నా, ఆంగ్లంలో లేకపోయినా, యాసలో ఉన్నా, లేదా చారిత్రక/సాంస్కృతిక ప్రస్తావనకు సంబంధించినది అయినా సరే.</string>
+  <string name="reportProcessedFasterInEnglish">మీ నివేదికను ఆంగ్లంలో వ్రాస్తే, అది వేగంగా ప్రాసెస్ చేయబడుతుంది.</string>
   <string name="error.provideOneCheatedGameLink">దయచేసి కనీసం మోసం చేసిన ఆట ఒక లింక్‌నైనౌ అందించండి.</string>
   <string name="by">%s చే</string>
   <string name="importedByX">%s ద్వారా దిగుమతి చేయబడింది</string>
@@ -567,9 +603,14 @@
   <string name="blog">బ్లాగ్</string>
   <string name="notes">గమనిక</string>
   <string name="typePrivateNotesHere">మీ ప్రైవేట్ గమనికలను ఇక్కడ టైప్ చేయండి</string>
+  <string name="writeAPrivateNoteAboutThisUser">ఈ వినియోగదారుని గురించి వ్యక్తిగత గమనిక రాయండి</string>
+  <string name="noNoteYet">ఇంకా ఎలాంటి గమనిక లేదు</string>
   <string name="invalidUsernameOrPassword">వినియోగదారు పేరు లేదా పాస్‌వర్డ్ చెల్లదు</string>
   <string name="incorrectPassword">తప్పు పాస్‌వర్డ్</string>
   <string name="invalidAuthenticationCode">చెల్లని ప్రమాణీకరణ కోడ్</string>
+  <string name="clearField">ఫీల్డ్ క్లియర్ చేయి</string>
+  <string name="orSeparator">లేదా</string>
+  <string name="logInByEmail">ఇమెయిల్ ద్వారా లాగిన్ అవ్వండి</string>
   <string name="emailMeALink">నాకు ఒక లింక్ ఇమెయిల్ చేయండి</string>
   <string name="currentPassword">ప్రస్తుత పాస్వర్డ్</string>
   <string name="newPassword">కొత్త పాస్వర్డ్</string>
@@ -582,6 +623,7 @@
   <string name="privacyPolicy">గోప్యతా విధానం</string>
   <string name="letOtherPlayersFollowYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
   <string name="letOtherPlayersChallengeYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
+  <string name="letOtherPlayersInviteYouToStudy">ఇతర ఆటగాళ్లు మిమ్మల్ని స్టడీకి ఆహ్వానించడానికి అనుమతించు</string>
   <string name="sound">ధ్వని</string>
   <string name="none">ఏది లేదు</string>
   <string name="fast">వేగముగా</string>
@@ -589,9 +631,17 @@
   <string name="slow">నెమ్మదిగా</string>
   <string name="insideTheBoard">బోర్డు లోపల</string>
   <string name="outsideTheBoard">బోర్డు బయట</string>
+  <string name="allSquaresOfTheBoard">అన్ని స్క్వేర్లు</string>
+  <string name="onSlowGames">స్లో గేమ్స్‌లో</string>
   <string name="always">ఎప్పటికీ</string>
+  <string name="never">ఎప్పుడూ కాదు</string>
+  <string name="xCompetesInY">%1$s %2$sలో పోటీపడుతుంది</string>
   <string name="victory">గెలుపు</string>
   <string name="defeat">ఓటమి</string>
+  <string name="victoryVsYInZ">%3$s లో %1$s vs %2$s</string>
+  <string name="defeatVsYInZ">%3$s లో %1$s vs %2$s</string>
+  <string name="drawVsYInZ">%3$s లో %1$s vs %2$s</string>
+  <string name="timeline">కాలక్రమం</string>
   <string name="starting">మొదలవుతుంది:</string>
   <string name="human">మనిషి</string>
   <string name="computer">కంప్యూటర్</string>
