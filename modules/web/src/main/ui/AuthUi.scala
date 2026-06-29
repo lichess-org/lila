@@ -413,7 +413,7 @@ final class AuthUi(helpers: Helpers):
     )
 
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
-    div(cls := "agreement")(
+    div(cls := "form-group agreement")(
       error.option(p:
         strong(cls := "error"):
           "You must agree to the Lichess policies listed below:"),
