@@ -761,7 +761,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   isCevalAllowed = () =>
     !this.ongoing &&
-    this.study?.isCevalAllowed() !== false &&
+    (!this.study || this.study.isCevalAllowed()) &&
     (this.synthetic || !playable(this.data)) &&
     !location.search.includes('evals=0');
 
