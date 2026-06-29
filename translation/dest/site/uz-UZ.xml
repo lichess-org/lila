@@ -209,7 +209,7 @@
   <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s %2$s mavzusida xabar qoldirdi</string>
+  <string name="xPostedInForumY">%1$s ushbu mavzuda xabar yozdi: %2$s</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
   <string name="players">Oʻyinchilar</string>
   <string name="friends">Doʻstlar</string>

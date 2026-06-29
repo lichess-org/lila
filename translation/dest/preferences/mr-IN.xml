@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">बेल सूचनांचा आवाज</string>
   <string name="blindfold" comment="As in Blindfold chess">अनभिज्ञ</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">मोबाईलवर डावीकडे दाखवा</string>
+  <string name="inlineNotation">अंतर्निहित संकेतन</string>
+  <string name="showServerAnalysis">संगणक विश्लेषण दर्शवा</string>
+  <string name="showBestMoveArrows">सर्वोत्तम चाली दर्शवणारे बाण दाखवा</string>
+  <string name="showManeuverArrows">युक्ती बाण दाखवा</string>
+  <string name="showGauge">मुल्यांकन मोजमाप दाखवा</string>
+  <string name="showMoveAnnotationsOnBoard">डावांचे भाष्ये दाखवा</string>
+  <string name="showVariationArrows">भिन्नतेंचे बाण दाखवा</string>
+  <string name="showLiveGlyphs">थेट डावयंत्र भाष्ये</string>
+  <string name="showUndefendedPieces">संरक्षित नसलेल्या सोंगट्या दाखवा</string>
+  <string name="showPinnedPieces">टाचणीत असलेल्या सोंगट्यां दाखवा</string>
+  <string name="showCheckableKing">शह देण्यायोग्य राजा दाखवा</string>
+  <string name="disclosureMode">भिन्नतांना लपवण्याची रीत चालू करा</string>
+  <string name="generalSettings">सर्वसामान्य</string>
+  <string name="moveListSettings">डावांची सूची</string>
+  <string name="boardSettings">पट</string>
+  <string name="analysisSettings">विशलेषण प्राधान्ये</string>
+  <string name="maneuverArrowsHelp">एका सोंगट्यासाठी डावयंत्राचे डावक्रम</string>
 </resources>

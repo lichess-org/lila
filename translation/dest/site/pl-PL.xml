@@ -1133,4 +1133,5 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="thereAreNoResultsForX">Brak wyników dla \"%s\"</string>
   <string name="tags">Tagi</string>
   <string name="enPassant">Bicie w przelocie</string>
+  <string name="settings">Ustawienia</string>
 </resources>
