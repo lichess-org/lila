@@ -2385,7 +2385,7 @@ interface I18n {
     notifications: string;
     /** Notification within Lichess */
     notifyBell: string;
-    /** Broadcasts you have subscribed to */
+    /** Broadcast rounds and players updates */
     notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;

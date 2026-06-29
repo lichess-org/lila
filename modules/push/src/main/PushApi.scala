@@ -13,6 +13,7 @@ import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
 import lila.core.net.LichessMobileVersion
+import lila.core.id.RelayRoundId
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -40,6 +41,8 @@ final private class PushApi(
         streamStart(to, streamerId, streamerName)
       case BroadcastRound(url, title, body) =>
         broadcastRound(to, url, title, body)
+      case BroadcastPlayerFollow(roundId, gameId, color, url, title, body) =>
+        broadcastPlayerFollow(to, roundId, gameId, color, url, title, body)
       case InvitedToStudy(invitedBy, studyName, studyId) =>
         lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
       case _ => funit
@@ -367,6 +370,32 @@ final private class PushApi(
         mobileCompatible = None
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
+
+  private def broadcastPlayerFollow(
+      recips: Iterable[NotifyAllows],
+      roundId: RelayRoundId,
+      gameId: StudyChapterId,
+      color: Color,
+      url: String,
+      title: String,
+      body: String
+  ): Funit =
+    val pushData = LazyFu.sync:
+      Data(
+        title = title,
+        body = body,
+        stacking = Stacking.Generic,
+        urgency = Urgency.Normal,
+        payload = payload(
+          "type" -> "broadcastPlayerFollow",
+          "roundId" -> roundId.value,
+          "gameId" -> gameId.value,
+          "color" -> color.name,
+          "url" -> url
+        ),
+        mobileCompatible = LichessMobileVersion(0, 25).some
+      )
+    filterPushNotif(recips, _.broadcastPlayerFollow, pushData)
 
   private def maybePushNotif(
       userId: UserId,
