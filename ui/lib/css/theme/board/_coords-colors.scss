@@ -5,11 +5,11 @@ coords {
   text-shadow: var(---cg-cs, $coord-shadow-default);
 
   /** Alternating colors in rank/file/square labels */
-  & .coord-light {
+  .coord-light {
     color: var(---cg-ccb, $coord-color-default);
   }
 
-  & .coord-dark {
+  .coord-dark {
     color: var(---cg-ccw, $coord-color-default);
   }
 }
