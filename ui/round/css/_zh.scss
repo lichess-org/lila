@@ -12,10 +12,12 @@
   @include mq-is-col1 {
     &-top {
       grid-area: pocket-top;
+      margin-bottom: $block-gap;
     }
 
     &-bottom {
       grid-area: pocket-bot;
+      margin-top: $block-gap;
     }
   }
 
