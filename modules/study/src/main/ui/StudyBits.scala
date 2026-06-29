@@ -10,11 +10,14 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
+  def addFormatToUrl(baseUrl: String, format: Option[StudyFormat]) =
+    format.fold(baseUrl)(f => addQueryParam(baseUrl, "format", f.name))
+
   def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
     val compactFormat = currentFormat.contains(StudyFormat.compact)
     val toggleUrl =
       if compactFormat then baseUrl
-      else addQueryParam(baseUrl, "format", "compact")
+      else addFormatToUrl(baseUrl, Some(StudyFormat.compact))
     a(
       cls := List("button button-empty" -> true, "active" -> compactFormat),
       href := toggleUrl,
@@ -52,22 +55,23 @@ final class StudyBits(helpers: Helpers):
 
   def authLinks(
       activeCls: StudyGroup => AttrPair,
-      order: StudyGroup => StudyOrder
+      order: StudyGroup => StudyOrder,
+      format: Option[StudyFormat] = None
   )(using Context) =
     frag(
-      a(activeCls(StudyGroup.mine), href := routes.Study.mine(order(StudyGroup.mine)))(
+      a(activeCls(StudyGroup.mine), href := addFormatToUrl(routes.Study.mine(order(StudyGroup.mine)).url, format))(
         trans.study.myStudies()
       ),
-      a(activeCls(StudyGroup.mineMember), href := routes.Study.mineMember(order(StudyGroup.mineMember)))(
+      a(activeCls(StudyGroup.mineMember), href := addFormatToUrl(routes.Study.mineMember(order(StudyGroup.mineMember)).url, format))(
         trans.study.studiesIContributeTo()
       ),
-      a(activeCls(StudyGroup.minePublic), href := routes.Study.minePublic(order(StudyGroup.minePublic)))(
+      a(activeCls(StudyGroup.minePublic), href := addFormatToUrl(routes.Study.minePublic(order(StudyGroup.minePublic)).url, format))(
         trans.study.myPublicStudies()
       ),
-      a(activeCls(StudyGroup.minePrivate), href := routes.Study.minePrivate(order(StudyGroup.minePrivate)))(
+      a(activeCls(StudyGroup.minePrivate), href := addFormatToUrl(routes.Study.minePrivate(order(StudyGroup.minePrivate)).url, format))(
         trans.study.myPrivateStudies()
       ),
-      a(activeCls(StudyGroup.mineLikes), href := routes.Study.mineLikes(order(StudyGroup.mineLikes)))(
+      a(activeCls(StudyGroup.mineLikes), href := addFormatToUrl(routes.Study.mineLikes(order(StudyGroup.mineLikes)).url, format))(
         trans.study.myFavoriteStudies()
       )
     )
