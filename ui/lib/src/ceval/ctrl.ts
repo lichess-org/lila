@@ -7,6 +7,7 @@ import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { pubsub } from '@/pubsub';
 import { storedIntProp, storedStringProp, storage } from '@/storage';
 import type { LocalEval, TreePath } from '@/tree/types';
 
@@ -302,10 +303,11 @@ export class CevalCtrl {
       }
       working.emit(this.curEval, meta);
     });
-    return (ev: LocalEval, work: EvalMeta) => {
+    return (ev: LocalEval, meta: EvalMeta) => {
+      pubsub.emit('analysis.eval', structuredClone(ev), meta);
       if (working.started !== this.lastStarted) emitter.clear();
-      else if (ev.bestmove) emitter.flush(ev, work);
-      else emitter(ev, work);
+      else if (ev.bestmove) emitter.flush(ev, meta);
+      else emitter(ev, meta);
     };
   }
 }
