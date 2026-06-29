@@ -25,16 +25,18 @@ final class GameUi(helpers: Helpers):
     def apply(
         pov: Pov,
         ownerLink: Boolean = false,
-        tv: Boolean = false,
-        withLink: Boolean = true
-    )(using
-        ctx: Context
-    ): Tag =
+        tv: Boolean = false
+    )(using ctx: Context): Tag =
       renderMini(
         pov,
-        withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
+        true.option(gameLink(pov.game, pov.color, ownerLink, tv)),
         showRatings = ctx.pref.showRatings
       )
+
+    def many(games: List[Game])(using Context): Frag =
+      val color = chess.White
+      games.map: g =>
+        renderMini(g.pov(color), gameLink(g, color).some)
 
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
       val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }

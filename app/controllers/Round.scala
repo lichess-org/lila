@@ -293,6 +293,11 @@ final class Round(
     FoundSnip(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>
       Snippet(views.game.mini(pov))
 
+  def minis(ids: String) = Anon:
+    val gameIds = ids.split(',').take(64).toList.flatMap(GameId.from)
+    for games <- env.round.proxyRepo.gamesIfPresentOrFetch(gameIds)
+    yield Ok.snip(views.game.mini.many(games))
+
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime
     env.round.proxyRepo

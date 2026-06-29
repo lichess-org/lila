@@ -28,6 +28,13 @@ final class GameProxyRepo(
   def gameIfPresentOrFetch(gameId: GameId): Fu[Option[Game]] =
     gameIfPresent(gameId).orElse(gameRepo.game(gameId))
 
+  def gamesIfPresentOrFetch(gameIds: Seq[GameId]): Fu[List[Game]] = for
+    proxied <- gameIds.traverse(gameIfPresentOrFetch).map(_.flatten)
+    foundIds = proxied.map(_.id).toSet
+    missingIds = gameIds.filterNot(foundIds)
+    fromDb <- gameRepo.gamesFromSecondary(missingIds)
+  yield proxied.toList ::: fromDb
+
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
     if game.finishedOrAborted then fuccess(game)
