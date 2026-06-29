@@ -132,8 +132,8 @@ export class Premove {
                 .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
             ]
           : [];
-        const badSquares = [...squaresBetween, ctx.orig.key];
-        if (enemyPawnDests.every(square => badSquares.includes(square))) return false;
+        const badSquares = new Set([...squaresBetween, ctx.orig.key]);
+        if (enemyPawnDests.every(square => badSquares.has(square))) return false;
       }
     }
     if (!squaresOfFriendliesBetween.length) return true;

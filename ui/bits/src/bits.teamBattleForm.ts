@@ -22,11 +22,13 @@ site.load.then(() => {
         search(term: string, searchCallback: (res: Team[]) => void) {
           xhr.json(xhr.url('/team/autocomplete', { term }), { cache: 'default' }).then(
             (res: Team[]) => {
-              const current = textarea.value
-                .split('\n')
-                .map(t => t.split(' ')[0])
-                .slice(0, -1);
-              searchCallback(res.filter(t => !current.includes(t.id)));
+              const current = new Set(
+                textarea.value
+                  .split('\n')
+                  .map(t => t.split(' ')[0])
+                  .slice(0, -1),
+              );
+              searchCallback(res.filter(t => !current.has(t.id)));
             },
             _ => searchCallback([]),
           );
