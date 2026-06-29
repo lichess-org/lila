@@ -409,8 +409,7 @@
       color: var(--tag-remove-btn-color, $tag-remove-btn-color);
       width: $size;
       height: $size;
-      margin-inline-end: $size / 3;
-      margin-inline-start: auto;
+      margin-inline: auto $size / 3;
       overflow: hidden;
       transition: 0.2s ease-out;
 
