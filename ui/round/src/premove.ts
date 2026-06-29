@@ -1,6 +1,8 @@
 import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
 
+import { elemAt } from 'lib';
+
 export class Premove {
   readonly unrestrictedPremoves: boolean;
 
@@ -61,9 +63,10 @@ export class Premove {
   private readonly isDestControlledByEnemy = (
     ctx: cg.MobilityContext,
     pieceRolesExclude?: cg.Role[],
+    specificEnemies?: cg.Pieces,
   ): boolean => {
     const square: cg.Pos = ctx.dest.pos;
-    return [...ctx.enemies].some(([key, piece]) => {
+    return [...(specificEnemies ?? ctx.enemies)].some(([key, piece]) => {
       const piecePos = util.key2pos(key);
       return (
         !pieceRolesExclude?.includes(piece.role) &&
@@ -79,10 +82,18 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (ctx: cg.MobilityContext): boolean =>
+  private readonly isFriendlyOnDestAndAttacked = (
+    ctx: cg.MobilityContext,
+    specificEnemies?: cg.Pieces,
+  ): boolean =>
     this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(ctx.dest.key, ctx.friendlies, ctx.enemies, ctx.lastMove) ||
-      this.isDestControlledByEnemy(ctx));
+    (this.canBeCapturedBySomeEnemyEnPassant(
+      ctx.dest.key,
+      ctx.friendlies,
+      specificEnemies ?? ctx.enemies,
+      ctx.lastMove,
+    ) ||
+      this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
 
   private readonly canBeCapturedBySomeEnemyEnPassant = (
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
@@ -112,43 +123,41 @@ export class Premove {
     if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
-    else if (this.isDestOccupiedByFriendly(ctx) && !this.isFriendlyOnDestAndAttacked(ctx)) return false;
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
     if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
-    if (squaresOfEnemiesBetween.length) {
-      const enemySquare = squaresOfEnemiesBetween[0];
-      const enemy = ctx.enemies.get(enemySquare);
+    const friendlySqBetween = elemAt(squaresOfFriendliesBetween, 0);
+    const enemySqBetween = elemAt(squaresOfEnemiesBetween, 0);
+    if (enemySqBetween) {
+      const enemy = ctx.enemies.get(enemySqBetween);
       if (enemy?.role === 'pawn') {
         const enemyStep = enemy.color === 'white' ? 1 : -1;
-        const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
+        const squareAbove = util.squareShiftedVertically(enemySqBetween, enemyStep);
         const enemyPawnDests: cg.Key[] = squareAbove
           ? [
               ...util
                 .adjacentSquares(squareAbove)
-                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
+                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySqBetween, s, ctx)),
               ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
                 .filter(s => !!s)
-                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
+                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySqBetween, s, ctx)),
             ]
           : [];
-        const badSquares = [...squaresBetween, ctx.orig.key];
-        if (enemyPawnDests.every(square => badSquares.includes(square))) return false;
+        const badSquares = new Set([...squaresBetween, ctx.orig.key]);
+        if (enemyPawnDests.every(square => badSquares.has(square))) return false;
       }
     }
-    if (!squaresOfFriendliesBetween.length) return true;
-    const firstSquareOfFriendliesBetween = squaresOfFriendliesBetween[0];
-    const nextSquare = util.squareShiftedVertically(
-      firstSquareOfFriendliesBetween,
-      ctx.color === 'white' ? -1 : 1,
-    );
+    if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
+      if (friendlySqBetween) return false;
+      const enemies = enemySqBetween
+        ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
+        : ctx.enemies;
+      if (!this.isFriendlyOnDestAndAttacked(ctx, enemies)) return false;
+    }
+    if (!friendlySqBetween) return true;
+    const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
-      this.canBeCapturedBySomeEnemyEnPassant(
-        firstSquareOfFriendliesBetween,
-        ctx.friendlies,
-        ctx.enemies,
-        ctx.lastMove,
-      ) &&
+      this.canBeCapturedBySomeEnemyEnPassant(friendlySqBetween, ctx.friendlies, ctx.enemies, ctx.lastMove) &&
       !!nextSquare &&
       !squaresBetween.includes(nextSquare)
     );

@@ -111,14 +111,12 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
-    if: github.repository == 'lichess-org/lila' && github.ref_name == github.event.repository.default_branch
+    name: Deploy to preview server
     needs: docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy to preview site
-        env:
-          DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_PREVIEW_SERVER_URL }}
-        run: curl -s -w "%{http_code}" --fail-with-body -X POST $DEPLOY_WEBHOOK_URL
+    if: github.repository_owner == 'lichess-org' && github.ref_name == github.event.repository.default_branch
+    uses: lichess-org/.github/.github/workflows/deploy.yml@main
+    secrets:
+      deploy_webhook_url: ${{ secrets.DEPLOY_PREVIEW_SERVER_URL }}
 
   format:
     runs-on: ubuntu-latest

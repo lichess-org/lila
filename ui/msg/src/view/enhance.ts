@@ -69,7 +69,7 @@ const domain = window.location.host;
 const gameRegex = new RegExp(
   `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`,
 );
-const notGames = [
+const notGames = new Set([
   'training',
   'analysis',
   'insights',
@@ -78,7 +78,7 @@ const notGames = [
   'password',
   'streamer',
   'timeline',
-];
+]);
 
 export function expandLpvs(el: HTMLElement) {
   const expandables: Expandable[] = [];
@@ -130,7 +130,7 @@ const expandGame = async (exp: Expandable) => {
 
 function parseLink(a: HTMLAnchorElement): Link | undefined {
   const [id, orientation, initialPly] = Array.from(a.href.match(gameRegex) || []).slice(1);
-  if (id && !notGames.includes(id))
+  if (id && !notGames.has(id))
     return {
       type: 'game',
       src: `/embed/game/${id}`,

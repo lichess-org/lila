@@ -32,13 +32,11 @@
 
 @mixin padding-direction($top, $end, $bottom, $start, $important: false) {
   @if $important {
-    padding-inline-start: $start !important;
-    padding-inline-end: $end !important;
+    padding-inline: $start $end !important;
     padding-top: $top !important;
     padding-bottom: $bottom !important;
   } @else {
-    padding-inline-start: $start;
-    padding-inline-end: $end;
+    padding-inline: $start $end;
     padding-top: $top;
     padding-bottom: $bottom;
   }
@@ -46,13 +44,11 @@
 
 @mixin margin-direction($top, $end, $bottom, $start, $important: false) {
   @if $important {
-    margin-inline-start: $start !important;
-    margin-inline-end: $end !important;
+    margin-inline: $start $end !important;
     margin-top: $top !important;
     margin-bottom: $bottom !important;
   } @else {
-    margin-inline-start: $start;
-    margin-inline-end: $end;
+    margin-inline: $start $end;
     margin-top: $top;
     margin-bottom: $bottom;
   }

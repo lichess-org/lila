@@ -75,11 +75,11 @@
 }
 
 .team-add-leader {
+  margin-bottom: $box-padding-vert;
+
   &__input {
     display: flex;
   }
-
-  margin-bottom: $box-padding-vert;
 
   .error {
     color: $c-bad;
