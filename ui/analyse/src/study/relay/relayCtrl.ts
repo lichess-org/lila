@@ -3,7 +3,7 @@ import { COLORS } from 'chessops';
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import { pubsub } from 'lib/pubsub';
 
-import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
+import type { BothClocks, ChapterId, ServerClockMsg, TagArray } from '@/study/interfaces';
 import type StudyCtrl from '@/study/studyCtrl';
 
 import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
@@ -201,6 +201,13 @@ export default class RelayCtrl {
       this.round.startsAt = this.round.startsAt || Date.now();
       this.data.delayedUntil = undefined;
     }
+  };
+
+  onNewTags = (chap: ChapterId, tags: TagArray[]) => {
+    const chaps = this.study.chapters.list;
+    const hasNewResult =
+      tags.find(([k]) => k.toLowerCase() === 'result') !== chaps.get(chap)?.status?.replace('½', '1/2');
+    if (hasNewResult) this.teams?.recalculateTeamPoints(chaps, this.round.customScoring);
   };
 
   private readonly socketHandlers = {
