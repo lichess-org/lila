@@ -106,7 +106,8 @@ function signupStart() {
   $password.on('input', showPasswordTools);
   showPasswordTools();
 
-  void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+  if ($form.find('.password-complexity-meter').length)
+    void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
 }
 
 function initTextClear(form: HTMLFormElement) {
