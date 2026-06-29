@@ -778,6 +778,21 @@
   <string name="networkLagBetweenYouAndLichess">మీకు మరియు లిచెస్‌కు మధ్య నెట్‌వర్క్ లాగ్</string>
   <string name="timeToProcessAMoveOnLichessServer">లిచెస్ సర్వర్‌లో ఒక మూవ్ని ప్రాసెస్ చేయడానికి సమయం</string>
   <string name="downloadAnnotated">అనోటేటెడ్ డౌన్‌లోడ్ చేయి</string>
+  <string name="downloadRaw">రా గా డౌన్‌లోడ్ చెయ్</string>
+  <string name="downloadImported">దిగుమతి చేసినవి డౌన్‌లోడ్ చేయండి</string>
+  <string name="downloadAllGames">అన్ని ఆటలను డౌన్‌లోడ్ చేయండి</string>
+  <string name="crosstable">క్రాస్‌టేబుల్</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">గేమ్‌లో ముందుకు వెళ్లడానికి బోర్డుపై స్క్రోల్ చేయండి.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">కంప్యూటర్ వేరియేషన్‌లను ప్రివ్యూ చేయడానికి వాటిపై స్క్రోల్ చేయండి.</string>
+  <string name="analysisShapesHowTo">బోర్డుపై వృత్తాలు మరియు బాణాలను గీయడానికి రైట్-క్లిక్ (లేదా షిఫ్ట్+క్లిక్) నొక్కండి. ఇతర రంగుల కోసం, కింది వాటిని రైట్-క్లిక్‌తో కలపండి:</string>
+  <string name="primaryColorArrowsHowTo">Ctrl లేదా shift = ఎరుపు; command, alt, లేదా meta = నీలం; వాటిలో ఒక్కో కీ = పసుపు.</string>
+  <string name="letOtherPlayersMessageYou">ఇతర ఆటగాళ్లు మీకు సందేశం పంపనివ్వండి</string>
+  <string name="receiveForumNotifications">ఫోరమ్‌లో ప్రస్తావించినప్పుడు నోటిఫికేషన్‌లను స్వీకరించండి</string>
+  <string name="shareYourInsightsData">మీ చెస్ఇన్సైట్స్ డేటాను పంచుకోండి</string>
+  <string name="withNobody">ఎవరూ లేకుండా</string>
+  <string name="withFriends">స్నేహితులతో</string>
+  <string name="withEverybody">With everybody</string>
+  <string name="kidMode">కిడ్ మోడ్</string>
   <string name="since">నుండి</string>
   <string name="until">వరకు</string>
   <string name="lichessDbExplanation">లిచెస్ ఆటగాళ్ళందరి నుండి రేటెడ్ ఆటలు నమూనా చేయబడ్డాయి</string>
