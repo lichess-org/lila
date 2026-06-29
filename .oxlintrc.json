@@ -14,7 +14,6 @@
         "null": "ignore"
       }
     ],
-    "import/no-cycle": "error",
     "no-constant-condition": [
       "warn",
       {
@@ -41,6 +40,10 @@
     "object-shorthand": "error",
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "import/no-named-as-default-member": "error",
+    "import/no-self-import": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
