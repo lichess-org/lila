@@ -1,4 +1,4 @@
-import { create, type Options } from 'canvas-confetti';
+import { create as createCanvas, type Options as CanvasOptions } from 'canvas-confetti';
 
 function randomInRange(min: number, max: number): number {
   return Math.random() * (max - min) + min;
@@ -18,7 +18,7 @@ export function initModule(
   const canvas = document.querySelector<HTMLCanvasElement>('canvas#confetti');
   if (!canvas) return;
 
-  const party = create(canvas, {
+  const party = createCanvas(canvas, {
     disableForReducedMotion: true,
     useWorker: true,
     resize: true,
@@ -40,7 +40,7 @@ export function initModule(
   }
 
   const cannons = () => {
-    const fire = (custom: Options) =>
+    const fire = (custom: CanvasOptions) =>
       party({
         scalar: 0.9,
         gravity: 0.3,
@@ -69,7 +69,7 @@ export function initModule(
   };
 
   const fireworks = () => {
-    const opts: Options = {
+    const opts: CanvasOptions = {
       spread: 360,
       ticks: 80,
       gravity: 0.15,
