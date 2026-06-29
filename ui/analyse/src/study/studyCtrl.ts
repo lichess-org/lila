@@ -336,7 +336,7 @@ export default class StudyCtrl {
   isCevalAllowed = () =>
     (!this.relay?.tourShow() || site.blindMode) &&
     !this.isGamebookPlay() &&
-    (this.data.chapter.features.computer || this.data.chapter.practice);
+    !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
