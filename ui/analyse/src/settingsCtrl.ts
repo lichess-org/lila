@@ -9,7 +9,7 @@ export class Settings {
     public readonly disclosureMode = false,
     public readonly showLiveGlyphs = false,
     public readonly showBestMoveArrows = true,
-    public readonly showManeuverMoveArrows = true,
+    public readonly showManeuverMoveArrows = false,
     public readonly showVariationArrows = true,
     public readonly showMoveAnnotationsOnBoard = true,
     public readonly showUndefendedPieces = false,
