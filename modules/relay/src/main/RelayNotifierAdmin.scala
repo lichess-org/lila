@@ -80,7 +80,7 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
       .zip(prev.productIterator)
       .zip(tour.productIterator)
       .flatMap:
-        case ((name, _), _) if ignoredFields(name)    => Nil
+        case ((name, _), _) if ignoredFields(name) => Nil
         case ((_, prevVal), nextVal) if prevVal == nextVal => Nil
         case (("info", prevInfo: RelayTour.Info), nextInfo: RelayTour.Info) =>
           prevInfo.productElementNames
