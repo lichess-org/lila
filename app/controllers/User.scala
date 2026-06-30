@@ -6,7 +6,6 @@ import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.paginator.Paginator
-import scalalib.net.Crawler
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -42,9 +41,7 @@ final class User(
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
             ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
-              case _ =>
-                given Crawler = HTTPRequest.isCrawler(req)
-                roundC.watch(pov, userTv = user.some)
+              case _ => roundC.watch(pov, userTv = user.some)
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached
@@ -128,7 +125,6 @@ final class User(
                 Unauthorized(jsonError("Login required"))
               )
             else
-              given Crawler = HTTPRequest.isCrawler(ctx.req)
               negotiate(
                 html = for
                   nbs <- env.userNbGames(u, withCrosstable = true)
@@ -545,7 +541,7 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = HTTPRequest.isCrawler(req).no)): data =>
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = req.client.isHuman)): data =>
       negotiate(
         Ok.async:
           env.history

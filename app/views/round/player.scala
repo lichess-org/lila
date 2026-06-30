@@ -1,7 +1,6 @@
 package views.round
 
 import play.api.libs.json.Json
-import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
@@ -46,7 +45,6 @@ def player(
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
-  given Crawler = Crawler.No
 
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)

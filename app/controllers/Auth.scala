@@ -135,7 +135,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       serveAuthenticate(AuthVariant.Takex3)
 
   private def serveAuthenticate(variant: AuthVariant)(using BodyContext[?]) =
-    NoCrawlers: _ ?=>
+    NoCrawlers:
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val isRemember = api.rememberForm.bindFromRequest().value | true

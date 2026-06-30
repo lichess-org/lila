@@ -31,6 +31,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     Ok.page(views.site.page.webmasters)
 
   def lag = Open:
+    println(req.attrs)
     Ok.page(views.site.ui.lag)
 
   def app = Open(serveApp)

@@ -1,8 +1,6 @@
 package views.game
 
-import scalalib.net.Crawler
-
-import lila.app.UiEnv.*
+import lila.app.UiEnv.{ *, given }
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini
@@ -15,7 +13,7 @@ def sides(
     simul: Option[lila.simul.Simul],
     userTv: Option[User] = None,
     bookmarked: Boolean
-)(using ctx: Context)(using Crawler) =
+)(using ctx: Context) =
   div(
     side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
     cross.map: c =>
@@ -26,7 +24,7 @@ def widgets(
     games: Seq[Game],
     user: Option[User] = None,
     ownerLink: Boolean = false
-)(using ctx: lila.ui.Context)(using Crawler): Frag =
+)(using ctx: lila.ui.Context): Frag =
   games.map: g =>
     ui.widgets(g, user = user, ownerLink = ownerLink):
       g.tournamentId

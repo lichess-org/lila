@@ -336,7 +336,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else f
 
   def pageHit(using req: RequestHeader): Unit =
-    if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
+    if req.client.isHuman then lila.mon.http.path(req.path).increment()
 
   def LangPage(call: Call)(f: Context ?=> Fu[Result])(language: Language): EssentialAction =
     LangPage(call.url)(f)(language)

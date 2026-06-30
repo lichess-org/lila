@@ -4,7 +4,6 @@ package http
 import alleycats.Zero
 import play.api.http.*
 import play.api.mvc.*
-import scalalib.net.Crawler
 
 import lila.common.HTTPRequest
 import lila.core.perm.{ Granter, Permission }
@@ -119,16 +118,16 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
 
-  def NoCrawlersRes(result: Crawler ?=> Fu[Result])(using ctx: Context): Fu[Result] =
-    if HTTPRequest.isCrawler(ctx.req).yes then notFound else result(using Crawler.No)
+  def NoCrawlersRes(result: Fu[Result])(using ctx: Context): Fu[Result] =
+    if ctx.req.client.isCrawler then notFound else result
 
   def NoCrawlersUnlessPreview(result: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if HTTPRequest.isCrawler(ctx.req).yes && HTTPRequest.isImagePreviewCrawler(ctx.req).no
+    if ctx.req.client.isCrawler && !HTTPRequest.isImagePreviewCrawler(ctx.req)
     then notFound
     else result
 
-  def NoCrawlers[A](computation: Crawler ?=> A)(using ctx: Context, default: Zero[A]): A =
-    if HTTPRequest.isCrawler(ctx.req).yes then default.zero else computation(using Crawler.No)
+  def NoCrawlers[A](computation: A)(using ctx: Context, default: Zero[A]): A =
+    if ctx.req.client.isCrawler then default.zero else computation
 
   def NotManaged(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me

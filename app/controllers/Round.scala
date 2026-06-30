@@ -2,11 +2,9 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scalalib.net.Crawler
 
 import lila.app.{ *, given }
 import lila.chat.Chat
-import lila.common.HTTPRequest
 import lila.common.Json.given
 import scalalib.data.Preload
 import lila.core.id.{ GameAnyId, GameFullId }
@@ -114,8 +112,7 @@ final class Round(
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
-    given crawler: Crawler = HTTPRequest.isCrawler(req)
-    if crawler.yes
+    if req.client.isCrawler
     then
       FoundPage(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
         views.round.crawler(game.pov(color))
@@ -143,7 +140,7 @@ final class Round(
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
-  )(using Crawler): Fu[Result] =
+  ): Fu[Result] =
     playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
@@ -196,7 +193,7 @@ final class Round(
       game: GameModel
   )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
     (ctx.noBot || ctx.userId.exists(game.userIds.has)) &&
-    (ctx.isAuth || HTTPRequest.isHuman(ctx.req)) && {
+    (ctx.isAuth || req.client.isHuman) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
     }
   }.optionFu:
@@ -249,7 +246,6 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
-        given Crawler = HTTPRequest.isCrawler(req)
         Snippet(views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>

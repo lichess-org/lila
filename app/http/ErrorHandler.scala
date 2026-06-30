@@ -8,7 +8,7 @@ import play.api.routing.*
 import play.api.{ Configuration, Environment, UsefulException }
 
 import lila.api.{ LoginContext, PageContext }
-import lila.common.HTTPRequest
+import lila.common.{ ClientName, HTTPRequest }
 
 final class ErrorHandler(
     environment: Environment,
@@ -23,8 +23,7 @@ final class ErrorHandler(
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
       val actionName = HTTPRequest.actionName(req)
-      val client = HTTPRequest.clientName(req)
-      lila.mon.http.errorCount(actionName, client, req.method, 500).increment()
+      lila.mon.http.errorCount(actionName, ClientName(req).name, req.method, 500).increment()
       loggerHttp.error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         given PageContext = PageContext(

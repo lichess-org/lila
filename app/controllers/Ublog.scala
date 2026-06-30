@@ -43,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if !post.visibleByCrawlers && HTTPRequest.isCrawler(req).yes
+      if !post.visibleByCrawlers && ctx.req.client.isCrawler
       then notFound
       else if slug == post.slug && post.isUserBlog(username) then handlePost(post)
       else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))

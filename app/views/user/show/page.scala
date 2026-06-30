@@ -2,7 +2,6 @@ package views.user
 package show
 
 import play.api.data.Form
-import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 import lila.app.mashup.UserInfo
@@ -53,7 +52,7 @@ object page:
       filters: lila.game.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social
-  )(using Context, Crawler) =
+  )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName = (games.currentPage > 1).so(s" - page ${games.currentPage}")

@@ -30,4 +30,4 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
       Bus.pub(AssetVersion.Changed(current))
       fuccess(s"Changed to ${AssetVersion.current}")
     case "threads" :: "blocked" :: Nil =>
-      fuccess(lila.mon.Threads.blockedStr)
+      fuccess(scalalib.Jvm.blockedStr)

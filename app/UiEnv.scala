@@ -2,6 +2,7 @@ package lila.app
 
 import lila.ui.*
 import lila.web.ui.*
+import lila.common.ClientName
 
 object UiEnv
     extends ScalatagsTemplate
@@ -29,6 +30,7 @@ object UiEnv
   given lila.core.config.NetDomain = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce
   given Conversion[lila.team.Team, lila.core.team.LightTeam] = _.light
+  given (using ctx: lila.ui.Context): ClientName = ClientName(ctx.req)
 
   def apiVersion = lila.security.Mobile.Api.currentVersion
 

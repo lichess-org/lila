@@ -34,7 +34,7 @@ final class Analyse(
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
+    if ctx.req.client.isCrawler then replayForCrawler(pov)
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.game)

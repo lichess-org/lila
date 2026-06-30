@@ -5,7 +5,8 @@ import scala.util.matching.Regex
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-import scalalib.net.{ UserAgent, Crawler, Bearer }
+import play.api.libs.typedmap.TypedKey
+import scalalib.net.{ UserAgent, Bearer }
 
 import lila.common.Form.trueish
 import lila.core.net.*
@@ -78,30 +79,15 @@ object HTTPRequest:
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 
-  def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
+  def isImagePreviewCrawler(req: RequestHeader) = imagePreviewCrawlerMatcher(req)
 
-  private val crawlerMatcher = UaMatcher:
-    // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot""" +
-      // apps and servers that load previews
-      """|Discordbot|WhatsApp""" +
-      // http libs
-      """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
-
-  def isImagePreviewCrawler(req: RequestHeader) = Crawler(imagePreviewCrawlerMatcher(req))
-
-  private val imagePreviewCrawlerMatcher = UaMatcher:
-    """BingPreview|Discordbot|WhatsApp"""
+  private val imagePreviewCrawlerMatcher = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
 
   final class UaMatcher(rStr: String):
     private val pattern = rStr.r.pattern
     def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
-
-  def isFishnet(req: RequestHeader) = req.path.startsWith("/fishnet/")
-
-  def isHuman(req: RequestHeader) = isCrawler(req).no && !isFishnet(req)
 
   private val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
@@ -136,7 +122,7 @@ object HTTPRequest:
       queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || isPrometheus(req) ||
+    !isSynchronousHttp(req) || ClientName(req).isFishnet || isApi(req) || isPrometheus(req) ||
       accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
@@ -148,13 +134,6 @@ object HTTPRequest:
     accepts(req).flatMap:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
-
-  def clientName(req: RequestHeader) =
-    // lichobile sends XHR headers
-    if isXhr(req) then if isLichobile(req) then "lichobile" else "xhr"
-    else if isLichessMobile(req) then "mobile"
-    else if isCrawler(req).yes then "crawler"
-    else "browser"
 
   def queryStringGet(name: String)(using req: RequestHeader): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
@@ -181,3 +160,20 @@ object HTTPRequest:
 
   def isHttp1(req: RequestHeader): Boolean =
     req.headers.get("X-HTTP-Version").exists(_.startsWith("HTTP/1."))
+
+enum ClientName:
+  case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
+  def name = toString
+  def isCrawler = this == crawler
+  def isFishnet = this == fishnet
+  def isHuman = !isCrawler && !isFishnet
+  def isMobile = this == mobile
+  def isLichobile = this == lichobile
+  def isXhr = this == xhr
+
+object ClientName:
+
+  val reqAttr: TypedKey[ClientName] = TypedKey("ClientName")
+
+  def apply(req: RequestHeader): ClientName =
+    req.attrs.get(reqAttr).getOrElse(unknown)

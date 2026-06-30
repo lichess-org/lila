@@ -52,7 +52,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)):
+      ctx.me.fold(!tour.isPrivate && ctx.req.client.isHuman):
         _ => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
             isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
@@ -122,7 +122,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         yield Ok(json.add("chat" -> jsChat)).noCache
       )
         .monSuccess:
-          lila.mon.tournament.apiShowPartial(partial = getBool("partial"), HTTPRequest.clientName(ctx.req))
+          lila.mon.tournament.apiShowPartial(partial = getBool("partial"), ctx.req.client.name)
 
   def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
     WithVisibleTournament(id): tour =>

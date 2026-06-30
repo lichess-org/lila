@@ -1,16 +1,15 @@
 package lila.swiss
 package ui
 
-import scalalib.net.Crawler
-
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   import helpers.{ *, given }
 
   def link(swiss: Swiss): Tag = link(swiss.id, swiss.name)
-  def link(swissId: SwissId)(using Crawler): Tag = link(swissId, idToName(swissId))
+  def link(swissId: SwissId)(using ClientName): Tag = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Tag =
     a(
       dataIcon := Icon.Trophy,
@@ -18,7 +17,8 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       href := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId)(using Crawler): String = getName.sync(id).getOrElse(s"Swiss #$id")
+  def idToName(id: SwissId)(using client: ClientName): String =
+    client.isHuman.so(getName.sync(id)).getOrElse(s"Swiss #$id")
 
   def notFound(using Context) =
     Page(trans.site.tournamentNotFound.txt()):

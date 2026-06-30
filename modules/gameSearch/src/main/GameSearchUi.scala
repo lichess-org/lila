@@ -4,21 +4,21 @@ package ui
 import java.time.format.DateTimeFormatter
 import play.api.data.Form
 import scalalib.paginator.Paginator
-import scalalib.net.Crawler
 
 import lila.core.i18n.Translate
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class GameSearchUi(helpers: Helpers)(
-    gameWidgets: Seq[Game] => Context ?=> Crawler ?=> Frag
+    gameWidgets: Seq[Game] => Context ?=> ClientName ?=> Frag
 ):
   import helpers.{ *, given }
   import trans.search as trs
 
   def index(form: Form[?], paginator: Option[Paginator[Game]] = None, nbGames: Long)(using
       ctx: Context
-  )(using Crawler) =
+  )(using ClientName) =
     val f = SearchForm(helpers)(form)
     Page(trs.searchInXGames.txt(nbGames.localize, nbGames))
       .js(Esm("bits.gameSearch"))

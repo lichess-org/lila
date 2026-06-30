@@ -1,15 +1,11 @@
 package controllers
 
-import scalalib.net.Crawler
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
   import lila.mod.GameMod.*
-
-  private given Crawler = Crawler.No
 
   def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ ?=>
     Found(meOrFetch(username)): user =>

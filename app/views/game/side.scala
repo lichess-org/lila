@@ -1,8 +1,6 @@
 package views.game
 package side
 
-import scalalib.net.Crawler
-
 import lila.app.UiEnv.{ *, given }
 import lila.game.GameExt.perfType
 
@@ -17,7 +15,7 @@ def apply(
     simul: Option[lila.simul.Simul],
     userTv: Option[User] = None,
     bookmarked: Boolean
-)(using ctx: Context)(using Crawler): Option[Frag] =
+)(using ctx: Context): Option[Frag] =
   ctx.noBlind.option:
     frag(
       meta(pov, initialFen, tour, simul, userTv, bookmarked),
@@ -31,7 +29,7 @@ def meta(
     simul: Option[lila.simul.Simul],
     userTv: Option[User] = None,
     bookmarked: Boolean
-)(using ctx: Context)(using Crawler): Option[Frag] =
+)(using ctx: Context): Option[Frag] =
   ctx.noBlind.option:
     import pov.*
     div(cls := "game__meta")(

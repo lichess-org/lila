@@ -2,7 +2,6 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.team.LightTeam
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
@@ -275,7 +274,7 @@ final class Swiss(
       else fallback(swiss)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
-    (ctx.kid.no && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
+    (ctx.kid.no && ctx.noBot && ctx.req.client.isHuman).so:
       swiss.chatFor match
         case ChatFor.NONE => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue

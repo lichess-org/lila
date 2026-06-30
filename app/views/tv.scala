@@ -1,11 +1,10 @@
 package views.tv
 
 import play.api.libs.json.*
-import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 
-val ui = lila.tv.ui.TvUi(helpers)(views.game.ui, views.tournament.ui.tournamentLink(_)(using Crawler.No))
+val ui = lila.tv.ui.TvUi(helpers)(views.game.ui, views.tournament.ui.tournamentLink(_))
 
 def index(
     channel: lila.tv.Tv.Channel,
