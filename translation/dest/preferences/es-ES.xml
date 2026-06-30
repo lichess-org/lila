@@ -88,4 +88,5 @@
   <string name="boardSettings">Tablero</string>
   <string name="analysisSettings">Preferencias de análisis</string>
   <string name="maneuverArrowsHelp">Secuencia de movimientos del motor para una pieza</string>
+  <string name="hoverOverSettingLabelsForHelp">Desplázate sobre las etiquetas de configuración para ver la ayuda</string>
 </resources>
