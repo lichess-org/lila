@@ -1,6 +1,7 @@
 package views.mod
 
 import play.api.data.Form
+import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 import lila.core.chess.Rank
@@ -16,7 +17,7 @@ def games(
     games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
     arenas: Seq[TourEntry],
     swisses: Seq[(lila.core.swiss.IdName, Rank)]
-)(using Context) =
+)(using Context, Crawler) =
   Page(s"${user.username} games")
     .css("mod.games")
     .js(Esm("mod.games")):

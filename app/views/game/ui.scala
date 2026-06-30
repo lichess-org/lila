@@ -1,5 +1,7 @@
 package views.game
 
+import scalalib.net.Crawler
+
 import lila.app.UiEnv.*
 
 val ui = lila.game.ui.GameUi(helpers)
@@ -13,7 +15,7 @@ def sides(
     simul: Option[lila.simul.Simul],
     userTv: Option[User] = None,
     bookmarked: Boolean
-)(using ctx: Context) =
+)(using ctx: Context)(using Crawler) =
   div(
     side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
     cross.map: c =>
@@ -24,12 +26,13 @@ def widgets(
     games: Seq[Game],
     user: Option[User] = None,
     ownerLink: Boolean = false
-)(using ctx: lila.ui.Context): Frag =
+)(using ctx: lila.ui.Context)(using Crawler): Frag =
   games.map: g =>
     ui.widgets(g, user = user, ownerLink = ownerLink):
       g.tournamentId
         .map: tourId =>
-          views.tournament.ui.tournamentLink(tourId)(using ctx.translate)
+          given Translate = ctx.translate
+          views.tournament.ui.tournamentLink(tourId)
         .orElse(g.simulId.map: simulId =>
           views.simul.ui.link(simulId))
         .orElse(g.swissId.map: swissId =>

@@ -57,7 +57,7 @@ final class Opening(env: Env) extends LilaController(env):
                         }
 
   def config(thenTo: String) = OpenBody:
-    NoCrawlers:
+    NoCrawlersRes:
       val redir = Redirect:
         lila.common.HTTPRequest.referer(ctx.req) | {
           if thenTo.isEmpty || thenTo == "index" then routes.Opening.index().url

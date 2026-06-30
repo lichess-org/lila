@@ -1,5 +1,7 @@
 package views.round
 
+import scalalib.net.Crawler
+
 import lila.app.UiEnv.{ *, given }
 import lila.game.GameExt.playerBlurPercent
 
@@ -43,7 +45,7 @@ private[round] def side(
     simul: Option[lila.simul.Simul],
     userTv: Option[User] = None,
     bookmarked: Boolean
-)(using Context) =
+)(using Context, Crawler) =
   import lila.common.Json.given
   views.game.side(
     pov,

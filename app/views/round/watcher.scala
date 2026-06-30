@@ -1,6 +1,7 @@
 package views.round
 
 import play.api.libs.json.{ JsObject, Json }
+import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 import lila.round.RoundGame.secondsSinceCreation
@@ -14,7 +15,7 @@ def watcher(
     userTv: Option[User] = None,
     chatOption: Option[lila.chat.UserChat.Mine],
     bookmarked: Boolean
-)(using ctx: Context) =
+)(using ctx: Context)(using Crawler) =
 
   val chatJson = chatOption.map: c =>
     views.chat.json(
@@ -52,18 +53,15 @@ def watcher(
         div(cls := "round__underchat")(underchat(pov.game))
       )
 
-def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
-    ctx: Context
-) =
+def crawler(pov: Pov)(using Context, Crawler) =
   ui.RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
     .graph(ui.povOpenGraph(pov)):
       main(cls := "round")(
         st.aside(cls := "round__side")(
-          views.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
-          div(cls := "for-crawler")(
+          views.game.side.meta(pov, none, none, none, none, bookmarked = false),
+          div(
             h1(titleGame(pov.game)),
-            p(ui.describePov(pov)),
-            div(cls := "pgn")(pgn.render)
+            p(ui.describePov(pov))
           )
         ),
         div(cls := "round__board main-board")(ui.povChessground(pov))

@@ -1,6 +1,8 @@
 package lila.activity
 package ui
 
+import scalalib.net.Crawler
+
 import lila.activity.activities.*
 import lila.core.chess.Rank
 import lila.core.forum.{ ForumPostMini, ForumTopicMini }
@@ -9,11 +11,10 @@ import lila.core.perf.UserWithPerfs
 import lila.core.rating.{ RatingProg, Score }
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ActivityUi(helpers: Helpers)(
-    tournamentIdToName: lila.core.id.TourId => Translate ?=> String
+    tournamentIdToName: lila.core.id.TourId => Translate ?=> Crawler ?=> String
 ):
   import helpers.{ *, given }
 
@@ -301,6 +302,7 @@ final class ActivityUi(helpers: Helpers)(
     )
 
   private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context) =
+    given Crawler = Crawler.No
     entryTag(
       iconTag(Icon.Trophy),
       div(

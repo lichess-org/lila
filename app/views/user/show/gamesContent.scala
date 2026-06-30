@@ -1,6 +1,7 @@
 package views.user.show
 
 import scalalib.paginator.Paginator
+import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 
@@ -12,7 +13,7 @@ object gamesContent:
       pager: Paginator[Game],
       filters: lila.game.GameFilterMenu,
       filterName: String
-  )(using ctx: Context) =
+  )(using ctx: Context)(using Crawler) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map: f =>

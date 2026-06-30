@@ -26,7 +26,7 @@ final class GameProxyRepo(
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = roundSocket.gameIfPresent(gameId)
 
   def gameIfPresentOrFetch(gameId: GameId): Fu[Option[Game]] =
-    gameIfPresent(gameId).orElse(gameRepo.game(gameId))
+    gameIfPresent(gameId).orElse(gameRepo.gameFromSecondary(gameId))
 
   def gamesIfPresentOrFetch(gameIds: Seq[GameId]): Fu[List[Game]] = for
     proxied <- gameIds.traverse(gameIfPresentOrFetch).map(_.flatten)

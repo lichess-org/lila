@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.net.Crawler
 
 import lila.app.{ *, given }
 import lila.chat.Chat
@@ -113,30 +114,36 @@ final class Round(
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
-    env.round.proxyRepo
-      .pov(gameId, color)
-      .flatMap:
-        case Some(pov) =>
-          getUserStr("pov")
-            .map(_.id)
-            .fold(watch(pov)): requestedPov =>
-              (pov.player.userId, pov.opponent.userId) match
-                case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, !pov.color))
-                case (Some(player), Some(_)) if player == requestedPov =>
-                  Redirect(routes.Round.watcher(gameId, pov.color))
-                case _ => Redirect(routes.Round.watcher(gameId, Color.white))
-        case None =>
-          userC
-            .tryRedirect(gameId.into(UserStr))
-            .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
+    given crawler: Crawler = HTTPRequest.isCrawler(req)
+    if crawler.yes
+    then
+      FoundPage(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
+        views.round.crawler(game.pov(color))
+    else
+      env.round.proxyRepo
+        .pov(gameId, color)
+        .flatMap:
+          case Some(pov) =>
+            getUserStr("pov")
+              .map(_.id)
+              .fold(watch(pov)): requestedPov =>
+                (pov.player.userId, pov.opponent.userId) match
+                  case (Some(_), Some(opponent)) if opponent == requestedPov =>
+                    Redirect(routes.Round.watcher(gameId, !pov.color))
+                  case (Some(player), Some(_)) if player == requestedPov =>
+                    Redirect(routes.Round.watcher(gameId, pov.color))
+                  case _ => Redirect(routes.Round.watcher(gameId, Color.white))
+          case None =>
+            userC
+              .tryRedirect(gameId.into(UserStr))
+              .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
 
   private def isBlockedByPlayer(game: GameModel)(using Context) =
     game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
-  ): Fu[Result] =
+  )(using Crawler): Fu[Result] =
     playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
@@ -149,36 +156,28 @@ final class Round(
             negotiateApi(
               html =
                 if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
-                else if HTTPRequest.isHuman(ctx.req) then
-                  for
-                    users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                    tour <- env.tournament.api.gameView.watcher(pov.game)
-                    simul <- pov.game.simulId.so(env.simul.repo.find)
-                    chat <- getWatcherChat(pov.game)
-                    crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
-                    bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
-                    tv = userTv.map: u =>
-                      lila.round.OnTv.User(u.id)
-                    data <- env.api.roundApi.watcher(pov, users, tour, tv)
-                    page <- renderPage:
-                      views.round.watcher(
-                        pov,
-                        data,
-                        tour.map(_.tourAndTeamVs),
-                        simul,
-                        crosstable,
-                        userTv = userTv,
-                        chatOption = chat,
-                        bookmarked = bookmarked
-                      )
-                  yield Ok(page)
-                else
-                  for // web crawlers don't need the full thing
-                    initialFen <- env.game.gameRepo.initialFen(pov.game)
-                    pgn <- env.api
-                      .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                    page <- renderPage(views.round.crawler(pov, initialFen, pgn))
-                  yield Ok(page)
+                for
+                  users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                  tour <- env.tournament.api.gameView.watcher(pov.game)
+                  simul <- pov.game.simulId.so(env.simul.repo.find)
+                  chat <- getWatcherChat(pov.game)
+                  crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
+                  bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
+                  tv = userTv.map: u =>
+                    lila.round.OnTv.User(u.id)
+                  data <- env.api.roundApi.watcher(pov, users, tour, tv)
+                  page <- renderPage:
+                    views.round.watcher(
+                      pov,
+                      data,
+                      tour.map(_.tourAndTeamVs),
+                      simul,
+                      crosstable,
+                      userTv = userTv,
+                      chatOption = chat,
+                      bookmarked = bookmarked
+                    )
+                yield Ok(page)
               ,
               api = _ =>
                 for
@@ -250,6 +249,7 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
+        given Crawler = HTTPRequest.isCrawler(req)
         Snippet(views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>

@@ -2,6 +2,7 @@ package views.analyse
 
 import chess.format.pgn.PgnStr
 import play.api.libs.json.{ Json, JsObject }
+import scalalib.net.Crawler
 
 import lila.app.UiEnv.{ *, given }
 import lila.round.RoundGame.secondsSinceCreation
@@ -19,6 +20,7 @@ object replay:
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
+    given Crawler = Crawler.Yes
     replayUi.forCrawler(
       pov,
       pgn,
@@ -41,6 +43,7 @@ object replay:
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: Context) =
+    given Crawler = Crawler.No
 
     val chatOpt = chatOption.map: c =>
       views.chat.json(

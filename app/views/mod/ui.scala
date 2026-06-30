@@ -1,5 +1,7 @@
 package views.mod
 
+import scalalib.net.Crawler
+
 import lila.app.UiEnv.{ *, given }
 import lila.mod.ui.*
 import lila.shutup.Analyser.highlightBad
@@ -14,6 +16,8 @@ lazy val commUi = ModCommUi(helpers)(highlightBad)
 lazy val inquiryUi = ModInquiryUi(helpers)(publicLineSource, env.mod.presets.getPmPresets, highlightBad)
 
 val timeline = lila.api.ui.ModTimelineUi(helpers)(publicLineSource = publicLineSource)
+
+private given Crawler = Crawler.No
 
 private def publicLineSource(source: PublicSource)(using Translate): Tag = source match
   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)

@@ -151,7 +151,7 @@ object HTTPRequest:
 
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
-    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
+    if isXhr(req) then if isLichobile(req) then "lichobile" else "xhr"
     else if isLichessMobile(req) then "mobile"
     else if isCrawler(req).yes then "crawler"
     else "browser"
