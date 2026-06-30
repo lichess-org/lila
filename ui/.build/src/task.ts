@@ -29,7 +29,7 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
   key: TaskKey;
   debounce: Debounce;
   fileTimes: Map<AbsPath, number>;
-  status: 'ok' | 'error' | undefined;
+  status?: 'ok' | 'error';
 };
 type TaskOpts = {
   includes: CwdPath | CwdPath[];

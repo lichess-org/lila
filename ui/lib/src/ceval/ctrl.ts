@@ -58,7 +58,7 @@ export class CevalCtrl {
   lastStarted?: Started;
   showEnginePrefs: Toggle = toggle(false);
 
-  private worker: CevalEngine | undefined;
+  private worker?: CevalEngine;
 
   constructor(public opts: CevalOpts) {
     this.engines = new Engines(this);

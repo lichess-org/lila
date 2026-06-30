@@ -35,7 +35,7 @@ export class EditDialog {
   view: HTMLElement;
   deck: HandOfCards;
   dlg: Dialog;
-  assetDlg: AssetDialog | undefined;
+  assetDlg?: AssetDialog;
   uid: string;
   panes: Panes;
   scratch: Map<string, WritableBot> = new Map();

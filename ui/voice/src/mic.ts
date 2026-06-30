@@ -8,7 +8,7 @@ export class Mic implements Microphone {
   recId = 'default';
 
   private language = 'en';
-  private audioCtx: AudioContext | undefined;
+  private audioCtx?: AudioContext;
   private mediaStream: MediaStream;
   private micSource: AudioNode;
   private vosk: VoskModule;

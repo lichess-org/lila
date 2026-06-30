@@ -10,7 +10,7 @@ import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 
 interface ClockOpts {
-  centis: number | undefined;
+  centis?: number;
   active: boolean;
   cls: string;
   showTenths: boolean;

@@ -32,8 +32,8 @@ export class ChatCtrl {
 
   chatEnabled: Prop<boolean>;
   voiceChat: VoiceChatData;
-  moderation: ModerationCtrl | undefined;
-  note: NoteCtrl | undefined;
+  moderation?: ModerationCtrl;
+  note?: NoteCtrl;
   preset: PresetCtrl;
   vm: ViewModel;
 

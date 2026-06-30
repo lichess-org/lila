@@ -26,7 +26,7 @@ interface Times {
 export class CorresClockController {
   timePercentDivisor: number;
   times: Times;
-  ticker: number | undefined;
+  ticker?: number;
 
   constructor(
     readonly root: RoundController,

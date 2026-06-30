@@ -27,7 +27,7 @@ interface ExternalEngineOutput {
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
   private readonly sessionId = randomToken();
-  private req: AbortController | undefined;
+  private req?: AbortController;
 
   constructor(
     private readonly opts: ExternalEngineInfo,
