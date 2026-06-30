@@ -59,19 +59,34 @@ final class StudyBits(helpers: Helpers):
       format: Option[StudyFormat] = None
   )(using Context) =
     frag(
-      a(activeCls(StudyGroup.mine), href := addFormatToUrl(routes.Study.mine(order(StudyGroup.mine)).url, format))(
+      a(
+        activeCls(StudyGroup.mine),
+        href := addFormatToUrl(routes.Study.mine(order(StudyGroup.mine)).url, format)
+      )(
         trans.study.myStudies()
       ),
-      a(activeCls(StudyGroup.mineMember), href := addFormatToUrl(routes.Study.mineMember(order(StudyGroup.mineMember)).url, format))(
+      a(
+        activeCls(StudyGroup.mineMember),
+        href := addFormatToUrl(routes.Study.mineMember(order(StudyGroup.mineMember)).url, format)
+      )(
         trans.study.studiesIContributeTo()
       ),
-      a(activeCls(StudyGroup.minePublic), href := addFormatToUrl(routes.Study.minePublic(order(StudyGroup.minePublic)).url, format))(
+      a(
+        activeCls(StudyGroup.minePublic),
+        href := addFormatToUrl(routes.Study.minePublic(order(StudyGroup.minePublic)).url, format)
+      )(
         trans.study.myPublicStudies()
       ),
-      a(activeCls(StudyGroup.minePrivate), href := addFormatToUrl(routes.Study.minePrivate(order(StudyGroup.minePrivate)).url, format))(
+      a(
+        activeCls(StudyGroup.minePrivate),
+        href := addFormatToUrl(routes.Study.minePrivate(order(StudyGroup.minePrivate)).url, format)
+      )(
         trans.study.myPrivateStudies()
       ),
-      a(activeCls(StudyGroup.mineLikes), href := addFormatToUrl(routes.Study.mineLikes(order(StudyGroup.mineLikes)).url, format))(
+      a(
+        activeCls(StudyGroup.mineLikes),
+        href := addFormatToUrl(routes.Study.mineLikes(order(StudyGroup.mineLikes)).url, format)
+      )(
         trans.study.myFavoriteStudies()
       )
     )

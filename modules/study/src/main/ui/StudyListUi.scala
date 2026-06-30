@@ -226,7 +226,12 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         pagerNext(pager, np => nextPageUrl(np))
       )
 
-  def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil, format: Option[StudyFormat] = None)(using
+  def menu(
+      active: StudyGroup,
+      order: Option[StudyOrder],
+      topics: List[StudyTopic] = Nil,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context
   ) =
     def defaultOrder(group: StudyGroup): Option[StudyOrder] =
@@ -243,13 +248,20 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         case _ => group == active
     ).option("active")
     lila.ui.bits.pageMenuSubnav(
-      a(activeCls(StudyGroup.all), href := bits.addFormatToUrl(routes.Study.all(newOrder(StudyGroup.all)).url, format))(trs.allStudies()),
+      a(
+        activeCls(StudyGroup.all),
+        href := bits.addFormatToUrl(routes.Study.all(newOrder(StudyGroup.all)).url, format)
+      )(trs.allStudies()),
       ctx.isAuth.option(bits.authLinks(activeCls, newOrder, format)),
-      a(activeCls(StudyGroup.topic(None)), href := bits.addFormatToUrl(routes.Study.topics.url, format))(trs.topics()),
+      a(activeCls(StudyGroup.topic(None)), href := bits.addFormatToUrl(routes.Study.topics.url, format))(
+        trs.topics()
+      ),
       topics.map: topic =>
         val group = StudyGroup.topic(topic.some)
-        a(activeCls(group), href := bits.addFormatToUrl(routes.Study.byTopic(topic.value, newOrder(group)).url, format))(
-
+        a(
+          activeCls(group),
+          href := bits.addFormatToUrl(routes.Study.byTopic(topic.value, newOrder(group)).url, format)
+        )(
           topic.value
         )
       ,
