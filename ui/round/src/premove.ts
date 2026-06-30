@@ -49,10 +49,8 @@ export class Premove {
       util.pawnDirCapture(...util.key2pos(pawnStart), ...util.key2pos(dest), enemyPawn.color === 'white') &&
       (ctx.friendlies.has(dest) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.squareShiftedVertically(dest, enemyPawn.color === 'white' ? -1 : 1),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ))
     );
   };
@@ -87,31 +85,25 @@ export class Premove {
     specificEnemies?: cg.Pieces,
   ): boolean =>
     this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(
-      ctx.dest.key,
-      ctx.friendlies,
-      specificEnemies ?? ctx.enemies,
-      ctx.lastMove,
-    ) ||
+    (this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, specificEnemies) ||
       this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
 
   private readonly canBeCapturedBySomeEnemyEnPassant = (
+    ctx: cg.MobilityContext,
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
-    friendlies: cg.Pieces,
-    enemies: cg.Pieces,
-    lastMove?: cg.Key[],
+    specificEnemies?: cg.Pieces,
   ): boolean => {
-    if (!potentialSquareOfFriendlyPawn || (lastMove && potentialSquareOfFriendlyPawn !== lastMove[1]))
+    if (!potentialSquareOfFriendlyPawn || (ctx.lastMove && potentialSquareOfFriendlyPawn !== ctx.lastMove[1]))
       return false;
     const pos = util.key2pos(potentialSquareOfFriendlyPawn);
-    const friendly = friendlies.get(potentialSquareOfFriendlyPawn);
+    const friendly = ctx.friendlies.get(potentialSquareOfFriendlyPawn);
     return (
       friendly?.role === 'pawn' &&
       pos[1] === (friendly.color === 'white' ? 3 : 4) &&
-      (!lastMove || util.diff(util.key2pos(lastMove[0])[1], pos[1]) === 2) &&
+      (!ctx.lastMove || util.diff(util.key2pos(ctx.lastMove[0])[1], pos[1]) === 2) &&
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
-        return !!k && enemies.get(k)?.role === 'pawn';
+        return !!k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
       })
     );
   };
@@ -157,7 +149,7 @@ export class Premove {
     if (!friendlySqBetween) return true;
     const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
-      this.canBeCapturedBySomeEnemyEnPassant(friendlySqBetween, ctx.friendlies, ctx.enemies, ctx.lastMove) &&
+      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween) &&
       !!nextSquare &&
       !squaresBetween.includes(nextSquare)
     );
@@ -178,10 +170,8 @@ export class Premove {
       return (
         this.canSomeEnemyPawnAdvanceToDest(ctx) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.pos2key([ctx.dest.pos[0], ctx.dest.pos[1] + step]),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ) ||
         this.isDestControlledByEnemy(ctx, ['pawn'])
       );
