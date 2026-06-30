@@ -3,7 +3,6 @@
   "extends": "stylelint-config-standard-scss",
   "rules": {
     "alpha-value-notation": "number",
-    "block-no-redundant-nested-style-rules": null,
     "color-function-alias-notation": null,
     "color-function-notation": ["legacy", { "ignore": ["with-var-inside"] }],
     "custom-property-pattern": null,
