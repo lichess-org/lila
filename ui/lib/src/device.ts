@@ -2,7 +2,7 @@ import { memoize } from './index';
 import { licon, type LiconValue } from './licon';
 import { bind, type Hooks } from './view/snabbdom';
 
-export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
+export const hookMobileMousedown = (f: (e: MouseEvent) => void): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
 export const prefersLightThemeQuery = (): MediaQueryList =>

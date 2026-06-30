@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
+import { hookMobileMousedown } from 'lib/device';
 import { timeago } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { hookMobileMousedown } from 'lib/mobileEvents';
 import { iconCls } from 'lib/view';
 import type { MaybeVNodes } from 'lib/view/snabbdom';
 import { fullName, userLine } from 'lib/view/userLink';
@@ -19,7 +19,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
     {
       key: user.id,
       class: { active: active === user.id },
-      hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
+      hook: hookMobileMousedown(() => ctrl.openConvo(user.id)),
     },
     [
       userIcon(user, 'msg-app__side__contact__icon'),
