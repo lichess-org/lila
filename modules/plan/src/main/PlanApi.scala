@@ -611,7 +611,7 @@ final class PlanApi(
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
-    _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
+    _.refreshAfterWrite(30.minutes).buildAsyncTimeout("plan.recentChargesOf"): _ =>
       mongo.charge
         .primitive[UserId](
           $doc("date" -> $gt(nowInstant.minusWeeks(1))),

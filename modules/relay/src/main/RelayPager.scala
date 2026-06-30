@@ -108,7 +108,7 @@ final class RelayPager(
         .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
-      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(3.seconds).buildAsyncTimeout("relayPager.firstPage"): _ =>
         slice(0, maxPerPage.value)
 
     def apply(page: Int): Fu[Paginator[WithLastRound]] =

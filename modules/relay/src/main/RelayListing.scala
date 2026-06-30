@@ -27,7 +27,7 @@ private final class RelayListing(
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout(): _ =>
+    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout("relayListing.current"): _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:

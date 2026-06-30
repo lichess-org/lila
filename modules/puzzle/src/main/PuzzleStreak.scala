@@ -37,7 +37,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
   private val theme = lila.puzzle.PuzzleTheme.mix.key
 
   private val current = cacheApi.unit[Option[PuzzleStreak]]:
-    _.refreshAfterWrite(30.seconds).buildAsyncTimeout(20.seconds): _ =>
+    _.refreshAfterWrite(30.seconds).buildAsyncTimeout("puzzleStreak.current", 20.seconds): _ =>
       colls
         .path:
           _.aggregateList(poolSize): framework =>

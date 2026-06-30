@@ -20,7 +20,7 @@ final class TournamentFeaturing(
     yield (scheduled, forMe)
 
     private val sameForEveryone = cacheApi.unit[(VisibleTournaments, List[Tournament])]:
-      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(3.seconds).buildAsyncTimeout("tournamentFeaturing.index.sameForEveryone"): _ =>
         for
           visible <- api.fetchVisibleTournaments
           scheduled <- repo.allScheduledDedup
@@ -34,7 +34,7 @@ final class TournamentFeaturing(
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
-      _.refreshAfterWrite(2.seconds).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(2.seconds).buildAsyncTimeout("tournamentFeaturing.homepage.sameForEveryone"): _ =>
         for
           started <- repo.scheduledStillWorthEntering
           created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)

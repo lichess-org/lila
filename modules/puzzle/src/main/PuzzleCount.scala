@@ -24,7 +24,7 @@ final private class PuzzleCountApi(
   private val byThemeCache =
     given reactivemongo.api.bson.BSONHandler[ThemeCount] = typedMapHandler
     mongoCache.unit[ThemeCount]("puzzle:themeCount", 25.hours): loader =>
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(30.seconds):
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout("puzzle.themeCount", 30.seconds):
         loader: _ =>
           import Puzzle.BSONFields.*
           colls.puzzle:
