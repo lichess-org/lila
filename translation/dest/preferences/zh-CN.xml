@@ -88,4 +88,5 @@
   <string name="boardSettings">棋盘</string>
   <string name="analysisSettings">分析设置</string>
   <string name="maneuverArrowsHelp">单个棋子的引擎着法序列</string>
+  <string name="hoverOverSettingLabelsForHelp">悬停至设置标签以获取帮助</string>
 </resources>
