@@ -78,4 +78,5 @@
   <string name="moveListSettings">Listë lëvizjesh</string>
   <string name="boardSettings">Fushë</string>
   <string name="analysisSettings">Rregullime analize</string>
+  <string name="hoverOverSettingLabelsForHelp">Për ndihmë, kalojeni kursorin sipër etiketave të rregullimeve</string>
 </resources>
