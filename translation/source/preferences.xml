@@ -89,4 +89,5 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="boardSettings">Board</string>
   <string name="analysisSettings">Analysis settings</string>
   <string name="maneuverArrowsHelp">Sequence of engine moves for one piece</string>
+  <string name="hoverOverSettingLabelsForHelp">Hover over setting labels for help</string>
 </resources>
