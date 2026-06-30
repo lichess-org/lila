@@ -2,7 +2,7 @@
 <resources>
   <string name="welcome">స్వాగతం!</string>
   <string name="welcomeToLichess">లిఛెస్ కి స్వాగతము!</string>
-  <string name="thisIsYourProfilePage">ఇది మీ ప్రొఫైల్ పేజీ.</string>
+  <string name="thisIsYourProfilePage">This is your profile page.</string>
   <string name="enabledKidModeSuggestion">ఈ ఎక్కౌంట్ని చిన్నపిల్లల్లు ఉపయోగిస్తారా? అయితే, మీరు %s ని ఉపగించండి.</string>
   <string name="whatNowSuggestions">అయితే, ఇప్పుడు ఏంటంట? కొన్ని సలహాలు ఈ విధంగా ఉన్నాయి:</string>
   <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">చదరంగం ఆట నియమాలను నేర్చుకోండి</string>
