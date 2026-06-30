@@ -21,8 +21,8 @@ import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './r
 import { finishedTeamMatchCount } from './relayTeamStandings';
 
 export default class RelayTeamLeaderboard {
-  standings: RelayTeamStandings | undefined;
-  teamToShow: RelayTeamName | undefined;
+  standings?: RelayTeamStandings;
+  teamToShow?: RelayTeamName;
   private table?: Tablesort;
   constructor(
     private readonly tourId: TourId,

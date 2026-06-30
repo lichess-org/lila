@@ -99,7 +99,7 @@ class WsSocket {
   private readonly settings: Settings;
   private readonly options: Options;
   private version: number | false;
-  private ws: WebSocket | undefined;
+  private ws?: WebSocket;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
   private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));

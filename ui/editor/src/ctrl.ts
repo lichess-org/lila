@@ -32,22 +32,20 @@ import {
 
 export default class EditorCtrl {
   options: Options;
-  chessground: CgApi | undefined;
-
+  chessground?: CgApi;
   selected: Prop<Selected>;
-
   initialFen: FEN;
-  pockets: Material | undefined;
+  pockets?: Material;
   turn: Color;
   castlingToggles: CastlingToggles<boolean>;
   enabledCastlingToggles: CastlingToggles<boolean>;
-  epSquare: Square | undefined;
-  remainingChecks: RemainingChecks | undefined;
+  epSquare?: Square;
+  remainingChecks?: RemainingChecks;
   variant: VariantKey = 'standard';
   halfmoves: number;
   fullmoves: number;
   guessCastlingToggles: boolean;
-  chess960PositionId: number | undefined;
+  chess960PositionId?: number;
 
   constructor(
     readonly cfg: Config,

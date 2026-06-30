@@ -11,8 +11,8 @@ import { renderIndexAndMove } from './view/components';
 export class ForkCtrl {
   selectedIndex = 0;
 
-  private hoveringIndex: number | undefined;
-  private mostRecent: TreeNode | undefined;
+  private hoveringIndex?: number;
+  private mostRecent?: TreeNode;
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
 

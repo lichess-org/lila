@@ -42,7 +42,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
 }
 
 export interface StatusData {
-  winner: Color | undefined;
+  winner?: Color;
   status: StatusName;
   abortedBy?: Color;
   ply: Ply;

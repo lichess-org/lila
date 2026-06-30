@@ -58,7 +58,7 @@ export const env = new (class {
   logCtx = true;
   logColor = true;
   remoteLog: string | boolean = false;
-  startTime: number | undefined;
+  startTime?: number;
 
   packages: Map<string, Package> = new Map();
   workspaceDeps: Map<string, string[]> = new Map();

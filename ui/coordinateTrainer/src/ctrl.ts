@@ -60,7 +60,7 @@ export const DURATION = 30 * 1000;
 const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
-  chessground: CgApi | undefined;
+  chessground?: CgApi;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth = !!myUserId();

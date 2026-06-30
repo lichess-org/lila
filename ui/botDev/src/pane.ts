@@ -24,7 +24,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   readonly info: Info;
   readonly host: EditDialog;
   readonly el: HTMLElement;
-  readonly parent: Pane | undefined;
+  readonly parent?: Pane;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);

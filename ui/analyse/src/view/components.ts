@@ -47,8 +47,8 @@ export interface ViewContext {
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
   gamebookPlayView?: VNode;
-  playerBars: VNode[] | undefined;
-  playerStrips: [VNode, VNode] | undefined;
+  playerBars?: VNode[];
+  playerStrips?: [VNode, VNode];
   gaugeOn: boolean;
   needsInnerCoords: boolean;
   hasRelayTour: boolean;

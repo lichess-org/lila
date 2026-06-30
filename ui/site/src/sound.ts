@@ -8,7 +8,7 @@ type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx: AudioContext | undefined;
+  ctx?: AudioContext;
   ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances

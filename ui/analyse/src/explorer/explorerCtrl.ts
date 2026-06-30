@@ -42,8 +42,8 @@ export default class ExplorerCtrl {
   hovering = prop<Hovering | null>(null);
   movesAway = prop(0);
   gameMenu = prop<string | null>(null);
-  private lastStream: Sync<true> | undefined;
-  private abortController: AbortController | undefined;
+  private lastStream?: Sync<true>;
+  private abortController?: AbortController;
   private cache: Dictionary<ExplorerData> = {};
 
   constructor(

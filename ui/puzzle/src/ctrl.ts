@@ -78,7 +78,7 @@ export default class PuzzleCtrl implements CevalHandler {
   canViewSolution = toggle(false);
   showHint = toggle(false);
   hintHasBeenShown = toggle(false);
-  voted: boolean | undefined;
+  voted?: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   isDaily: boolean;
