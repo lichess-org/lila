@@ -97,10 +97,9 @@ export class Premove {
     if (!potentialSquareOfFriendlyPawn || (ctx.lastMove && potentialSquareOfFriendlyPawn !== ctx.lastMove[1]))
       return false;
     const pos = util.key2pos(potentialSquareOfFriendlyPawn);
-    const friendly = ctx.friendlies.get(potentialSquareOfFriendlyPawn);
     return (
-      friendly?.role === 'pawn' &&
-      pos[1] === (friendly.color === 'white' ? 3 : 4) &&
+      ctx.friendlies.get(potentialSquareOfFriendlyPawn)?.role === 'pawn' &&
+      pos[1] === (ctx.color === 'white' ? 3 : 4) &&
       (!ctx.lastMove || util.diff(util.key2pos(ctx.lastMove[0])[1], pos[1]) === 2) &&
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
