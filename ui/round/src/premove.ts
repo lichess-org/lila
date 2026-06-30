@@ -92,6 +92,7 @@ export class Premove {
     ctx: cg.MobilityContext,
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
     specificEnemies?: cg.Pieces,
+    forbiddenEnPassantSquares?: cg.Key[],
   ): boolean => {
     if (!potentialSquareOfFriendlyPawn || (ctx.lastMove && potentialSquareOfFriendlyPawn !== ctx.lastMove[1]))
       return false;
@@ -104,7 +105,10 @@ export class Premove {
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
         return !!k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
-      })
+      }) &&
+      !forbiddenEnPassantSquares?.includes(
+        util.squareShiftedVertically(potentialSquareOfFriendlyPawn, ctx.color === 'white' ? -1 : 1)!,
+      )
     );
   };
 
@@ -146,12 +150,9 @@ export class Premove {
         : ctx.enemies;
       if (!this.isFriendlyOnDestAndAttacked(ctx, enemies)) return false;
     }
-    if (!friendlySqBetween) return true;
-    const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
-      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween) &&
-      !!nextSquare &&
-      !squaresBetween.includes(nextSquare)
+      !friendlySqBetween ||
+      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, undefined, squaresBetween)
     );
   };
 
