@@ -85,12 +85,13 @@ object Dependencies:
     def bundle = Seq(driver, stream)
 
   object play:
-    val playVersion = "2.8.18-lila_3.23"
+    val liplay = "com.github.lichess-org.liplay"
+    val playVersion = "9ea4c7d9f5"
+    val api = liplay %% "play" % playVersion
+    val server = liplay %% "play-server" % playVersion
+    val netty = liplay %% "play-netty-server" % playVersion
+    val logback = liplay %% "play-logback" % playVersion
     val json = "org.playframework" %% "play-json" % "3.0.6"
-    val api = "com.typesafe.play" %% "play" % playVersion
-    val server = "com.typesafe.play" %% "play-server" % playVersion
-    val netty = "com.typesafe.play" %% "play-netty-server" % playVersion
-    val logback = "com.typesafe.play" %% "play-logback" % playVersion
     val mailer = "org.playframework" %% "play-mailer" % "10.1.0"
 
   object playWs:

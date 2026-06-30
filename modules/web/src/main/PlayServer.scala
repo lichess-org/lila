@@ -1,5 +1,5 @@
 package lila.web
-import play.api.{ Application, Configuration, Environment, Mode, Play }
+import play.api.{ Application, Configuration, Environment, Mode }
 import play.core.server.{
   NettyServer,
   RealServerProcess,
@@ -36,8 +36,6 @@ object PlayServer:
       val environment: Environment = Environment(config.rootDir, process.classLoader, config.mode)
 
       val application = makeApplication(environment)
-
-      Play.start(application)
 
       val server = NettyServer(
         config,
