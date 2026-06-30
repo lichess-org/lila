@@ -79,11 +79,19 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
     val changes = prev.productElementNames
       .zip(prev.productIterator)
       .zip(tour.productIterator)
-      .collect:
-        case ((name, prevVal), nextVal) if !ignoredFields(name) && prevVal != nextVal =>
-          val prevStr = truncate(prevVal.toString)
-          val nextStr = truncate(nextVal.toString)
-          s"- $name: $prevStr\n+ $name: $nextStr"
+      .flatMap:
+        case ((name, _), _) if ignoredFields(name)    => Nil
+        case ((_, prevVal), nextVal) if prevVal == nextVal => Nil
+        case (("info", prevInfo: RelayTour.Info), nextInfo: RelayTour.Info) =>
+          prevInfo.productElementNames
+            .zip(prevInfo.productIterator)
+            .zip(nextInfo.productIterator)
+            .collect:
+              case ((k, pv), nv) if pv != nv =>
+                s"- info.$k: ${truncate(pv.toString)}\n+ info.$k: ${truncate(nv.toString)}"
+            .toList
+        case ((name, prevVal), nextVal) =>
+          List(s"- $name: ${truncate(prevVal.toString)}\n+ $name: ${truncate(nextVal.toString)}")
       .toList
     changes.nonEmpty.so:
       irc.broadcastTourUpdate(
