@@ -148,7 +148,11 @@ export class Premove {
       const enemies = enemySqBetween
         ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
         : ctx.enemies;
-      if (!this.isFriendlyOnDestAndAttacked(ctx, enemies)) return false;
+      if (
+        !this.isDestControlledByEnemy(ctx, undefined, enemies) &&
+        !this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween)
+      )
+        return false;
     }
     return (
       !friendlySqBetween ||
