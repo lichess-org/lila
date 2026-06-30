@@ -103,7 +103,7 @@ export class Premove {
       (!ctx.lastMove || util.diff(util.key2pos(ctx.lastMove[0])[1], pos[1]) === 2) &&
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
-        return !!k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
+        return k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
       }) &&
       !forbiddenEnPassantSquares?.includes(
         util.squareShiftedVertically(potentialSquareOfFriendlyPawn, ctx.color === 'white' ? -1 : 1)!,
