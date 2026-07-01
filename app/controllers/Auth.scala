@@ -596,7 +596,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 _ <- env.user.repo.disableTwoFactor(user.id)
                 _ <- env.security.store.closeAllSessionsOf(user.id)
                 _ <- env.push.browserSub.unsubscribeByUser(user)
-                _ <- env.push.unregisterDevices(user)
+                _ <- env.push.unregisterAllDevicesForUser(user)
                 result <-
                   passwordResetSuccessResult(variant)
                 res <- authenticateUser(user, remember = true, pwned = IsPwned.No, result = result)

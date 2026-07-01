@@ -83,7 +83,7 @@ final class AccountTermination(
     _ <- securityStore.closeAllSessionsOf(u.id)
     _ <- selfClose.so(tokenApi.revokeAllByUser(u.id))
     _ <- pushEnv.browserSub.unsubscribeByUser(u)
-    _ <- pushEnv.unregisterDevices(u)
+    _ <- pushEnv.unregisterAllDevicesForUser(u)
     _ <- streamerApi.demote(u.id)
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-

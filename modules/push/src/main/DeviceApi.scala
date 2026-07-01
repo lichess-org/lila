@@ -46,7 +46,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
       )
       .void
 
-  def unregister(user: User) =
+  def unregisterAllForUser(user: User) =
     lila.mon.push.register.out.increment()
     coll.delete.one($doc("userId" -> user.id)).void
 

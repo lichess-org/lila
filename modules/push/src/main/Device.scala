@@ -7,7 +7,7 @@ import lila.core.net.LichessMobileVersion
 import lila.common.HTTPRequest
 import LichessMobileVersion.given
 
-final private case class Device(
+final case class Device(
     _id: String, // Firebase token
     platform: String, // cordova platform (android, ios, firebase)
     userId: UserId,

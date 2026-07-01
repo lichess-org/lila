@@ -959,6 +959,7 @@ GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: S
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform, deviceId)
 POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
+POST  /account/device/unregister/:deviceId  controllers.Account.unregisterDevice(deviceId: String)
 
 # Pages
 GET   /terms-of-service                controllers.Cms.tos

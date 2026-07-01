@@ -45,7 +45,15 @@ final class Env(
   val browserSub = WebSubscriptionApi(db(config.subscriptionColl)).taggedWith[BrowserSub]
   val unifiedSub = WebSubscriptionApi(db(config.unifiedPushColl)).taggedWith[UnifiedSub]
 
-  export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
+  export deviceApi.{
+    register as registerDevice,
+    unregisterAllForUser as unregisterAllDevicesForUser,
+    findLastManyByUserId as findDevicesByUserId,
+    findByDeviceId as findDevice,
+    delete as deleteDevice
+  }
+
+  type Device = lila.push.Device
 
   private lazy val browserPush = wire[BrowserWebPush]
   private lazy val unifiedPush = wire[UnifiedWebPush]

@@ -54,6 +54,9 @@ package mailer:
 package push:
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
 
+  object PushConfig:
+    val maxDevicesPerUser = 3
+
 package oauth:
   opaque type AccessTokenId = String
   object AccessTokenId extends OpaqueString[AccessTokenId]

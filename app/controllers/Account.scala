@@ -162,7 +162,7 @@ final class Account(
   private def refreshSessionId(result: Result, pwned: IsPwned)(using ctx: Context, me: Me): Fu[Result] = for
     _ <- env.security.store.closeAllSessionsOf(me)
     _ <- env.push.browserSub.unsubscribeByUser(me)
-    _ <- env.push.unregisterDevices(me)
+    _ <- env.push.unregisterAllDevicesForUser(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion, pwned)
   yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
 
@@ -345,9 +345,11 @@ final class Account(
       sessions <- env.security.api.locatedOpenSessions(me, 50)
       clients <- env.oAuth.tokenApi.listClients(50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal
+      pushDevices <- env.push.findDevicesByUserId("firebase", 50)(me)
+      devices = pushDevices.map(d => lila.security.PushDevice(d._id, d.platform, d.ua, d.seenAt))
       currentSessionId = env.security.api.reqSessionId(req)
       page <- Ok.async:
-        views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
+        views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens, devices)
     yield page.hasPersonalData
   }
 
@@ -359,6 +361,14 @@ final class Account(
         _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
         _ <- env.push.browserSub.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
+  }
+
+  def unregisterDevice(deviceId: String) = Auth { _ ?=> me ?=>
+    env.push
+      .findDevice(deviceId)
+      .map(_.filter(_.userId == me.userId))
+      .orNotFound: device =>
+        env.push.deleteDevice(device).inject(NoContent)
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =

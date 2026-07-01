@@ -32,6 +32,13 @@ case class UserSession(
 
 case class LocatedSession(session: UserSession, location: Option[Location])
 
+case class PushDevice(
+    id: String,
+    platform: String,
+    ua: UserAgent,
+    seenAt: Instant
+)
+
 case class IpAndFp(ip: IpAddress, fp: Option[String], user: UserId)
 
 case class LameNameCheck(value: Boolean) extends AnyVal

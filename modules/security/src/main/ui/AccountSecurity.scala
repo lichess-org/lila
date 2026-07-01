@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.core.id.SessionId
+import lila.core.misc.push.PushConfig
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -18,7 +19,8 @@ final class AccountSecurity(helpers: Helpers)(
       sessions: List[lila.security.LocatedSession],
       curSessionId: Option[SessionId],
       clients: List[lila.oauth.AccessTokenApi.Client],
-      personalAccessTokens: Int
+      personalAccessTokens: Int,
+      devices: List[lila.security.PushDevice]
   )(using Context) =
     AccountPage(s"${u.username} - ${trans.site.security.txt()}", "security"):
       div(cls := "security")(
@@ -40,12 +42,22 @@ final class AccountSecurity(helpers: Helpers)(
                   submitButton(cls := "button button-empty button-red yes-no-confirm")(
                     trans.site.revokeAllSessions()
                   )
-                ),
-                "."
+                )
               )
             )
           ),
           table(sessions, curSessionId, clients, personalAccessTokens)
+        ),
+        devices.nonEmpty.option(
+          div(cls := "box")(
+            h1(cls := "box__top")("Push notification devices"),
+            div(cls := "box__pad")(
+              p(
+                s"These are your devices that receive push notifications from Lichess. We only send notifications to your ${PushConfig.maxDevicesPerUser} most recently used devices. You can unregister devices you no longer use."
+              )
+            ),
+            devicesTable(devices)
+          )
         )
       )
 
@@ -136,6 +148,46 @@ final class AccountSecurity(helpers: Helpers)(
           )
         )
       )
+    )
+
+  private def devicesTable(devices: List[lila.security.PushDevice])(using Context) =
+    st.table(cls := "slist slist-pad")(
+      devices.map { device =>
+        tr(
+          td(cls := "icon")(
+            span(
+              cls := "is-green",
+              dataIcon := Icon.PhoneMobile
+            )
+          ),
+          td(cls := "info")(
+            div(
+              strong(device.platform match
+                case "ios" => "iOS"
+                case other => other.capitalize)
+            ),
+            p(cls := "ua")(device.ua.value),
+            Granter
+              .opt(_.LichessTeam)
+              .option(
+                p(cls := "device-id")(copyMeInput(device.id)(cls := "device-id__copy"))
+              ),
+            p(cls := "date")(
+              "Last seen ",
+              momentFromNow(device.seenAt)
+            )
+          ),
+          td(
+            postForm(action := routes.Account.unregisterDevice(device.id))(
+              submitButton(
+                cls := "button button-red",
+                title := "Unregister device",
+                dataIcon := Icon.X
+              )
+            )
+          )
+        )
+      }
     )
 
   import lila.security.EmailConfirm.Help.Status

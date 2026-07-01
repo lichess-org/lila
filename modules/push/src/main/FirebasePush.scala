@@ -9,6 +9,7 @@ import scalalib.cache.FrequencyThreshold
 import scalalib.data.LazyFu
 
 import lila.mon.extensions.*
+import lila.core.misc.push.PushConfig
 
 final private class FirebasePush(
     unifiedPush: UnifiedWebPush,
@@ -33,7 +34,7 @@ final private class FirebasePush(
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
     unifiedPush(userId, data)
     deviceApi
-      .findLastManyByUserId("firebase", 3)(userId)
+      .findLastManyByUserId("firebase", PushConfig.maxDevicesPerUser)(userId)
       .flatMap:
         _.sequentiallyVoid: device =>
           val configOpt =

@@ -12,7 +12,7 @@ final class Push(env: Env) extends LilaController(env):
   }
 
   def mobileUnregister = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    env.push.unregisterDevices(me).inject(NoContent)
+    env.push.unregisterAllDevicesForUser(me).inject(NoContent)
   }
 
   def webSubscribe = AuthOrScopedBodyWithParser(parse.json)(_.Web.Mobile) { ctx ?=> me ?=>
