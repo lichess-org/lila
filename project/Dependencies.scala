@@ -85,8 +85,8 @@ object Dependencies:
     def bundle = Seq(driver, stream)
 
   object play:
+    import lichess.play.sbt.BuildInfo.version as playVersion
     val liplay = "com.github.lichess-org.liplay"
-    val playVersion = "9ea4c7d9f5"
     val api = liplay %% "play" % playVersion
     val server = liplay %% "play-server" % playVersion
     val netty = liplay %% "play-netty-server" % playVersion
