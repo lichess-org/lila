@@ -54,8 +54,8 @@ private final class RelayListing(
 
   private def toRelayCard(s: NonEmptyList[Selected]): Fu[RelayCard] =
     val main = s.head
-    groupCrowd
-      .get(main.t.tour.id)
+    main.round.hasStarted
+      .so(groupCrowd.get(main.t.tour.id))
       .map: crowd =>
         RelayCard(
           tour = main.t.tour,
@@ -127,7 +127,7 @@ private final class RelayListing(
   private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
     val max = 200
     tourRepo.coll
-      .aggregateList(max): framework =>
+      .aggregateList(max, _.sec): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
           Project(RelayTourRepo.unsetHeavyOptionalFields),

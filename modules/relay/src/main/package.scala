@@ -1,5 +1,7 @@
 package lila.relay
 
+import alleycats.Zero
+
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
@@ -18,4 +20,6 @@ case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):
   def apply(up: Update[A]) = Updating(up(current), up.compose(reRun))
 
 opaque type Crowd = Int
-object Crowd extends RichOpaqueInt[Crowd]
+object Crowd extends RichOpaqueInt[Crowd]:
+  val zero: Crowd = 0
+  given Zero[Crowd] = Zero(zero)
