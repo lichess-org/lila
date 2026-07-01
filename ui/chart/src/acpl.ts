@@ -12,8 +12,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { winningChances } from 'lib/ceval';
 import { rollingAccuracyByChartIndex, type ColorAccuracy } from 'lib/analyseAccuracy';
+import { winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';

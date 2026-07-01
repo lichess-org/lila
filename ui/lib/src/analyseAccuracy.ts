@@ -1,5 +1,5 @@
-import type { TreeNodeBase } from './tree/types';
 import { effectiveDivision } from './gameDivision';
+import type { TreeNodeBase } from './tree/types';
 
 export interface ColorAccuracy {
   white?: number;
@@ -143,11 +143,7 @@ export const gameAccuracy = (
   return { white: toIntPercent(white), black: toIntPercent(black) };
 };
 
-export const cpsFromMainline = (
-  mainline: TreeNodeBase[],
-  upToPly: number,
-  variantKey?: string,
-): number[] => {
+export const cpsFromMainline = (mainline: TreeNodeBase[], upToPly: number, variantKey?: string): number[] => {
   const cps: number[] = [];
   for (const node of mainline.slice(1)) {
     if (node.ply > upToPly) break;
@@ -201,7 +197,7 @@ export const hasPhaseDivision = (division: Division | undefined): boolean =>
   division?.middle !== undefined && division.middle > 1;
 
 const moveColorAtIndex = (moveIndex: number, gameStartColor: Color): Color =>
-  ((moveIndex % 2) === 0) === (gameStartColor === 'white') ? 'white' : 'black';
+  (moveIndex % 2 === 0) === (gameStartColor === 'white') ? 'white' : 'black';
 
 /** Accuracy for one game phase up to a given ply, using moves in that phase only. */
 export const phaseAccuracy = (
@@ -233,7 +229,7 @@ export const phaseAccuracy = (
     cps.push(cp);
   }
 
-  const sliceStartColor = moveColorAtIndex(phaseMoveIndexes[0]!, startColorFromGame(game));
+  const sliceStartColor = moveColorAtIndex(phaseMoveIndexes[0], startColorFromGame(game));
   return gameAccuracy(sliceStartColor, cps);
 };
 
