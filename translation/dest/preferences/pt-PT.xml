@@ -14,7 +14,7 @@
   <string name="chessPieceSymbol">Usar símbolo das peças</string>
   <string name="pgnLetter">Usar letras (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo zen</string>
-  <string name="showPlayerRatings">Mostrar classificações dos jogadores</string>
+  <string name="showPlayerRatings">Mostrar pontuações dos jogadores</string>
   <string name="showFlairs">Mostrar os estilos do jogadores</string>
   <string name="explainShowPlayerRatings">Isto permite ocultar todas as avaliações do site, para o ajudar a concentrar-se no xadrez. Os jogos continuam a poder ser avaliados, trata-se apenas do que poderá ver.</string>
   <string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
@@ -49,31 +49,44 @@
   <string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
   <string name="castleByMovingOntoTheRook">Mover o rei até à torre</string>
   <string name="inputMovesWithTheKeyboard">Introduzir movimentos com o teclado</string>
-  <string name="inputMovesWithVoice">Insira movimentos com a sua voz</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Alinhar as setas para sítios para onde as peças se podem mover</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dizer \"Good game, well played\" (Bom jogo, bem jogado) após uma derrota ou empate</string>
+  <string name="inputMovesWithVoice">Insira movimentos com a tua voz</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Ajustar as setas às jogadas válidas</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dizer \"Bom jogo, bem jogado\" após uma derrota ou empate</string>
   <string name="yourPreferencesHaveBeenSaved">As tuas preferências foram guardadas.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Rolar no tabuleiro para repetir os movimentos</string>
-  <string name="correspondenceEmailNotification">Notificações diárias por email listando seus jogos por correspondência</string>
-  <string name="notifyStreamStart">Streamer começou uma transmissão ao vivo</string>
+  <string name="scrollOnTheBoardToReplayMoves">Percorrer as jogadas com a roda do rato sobre o tabuleiro</string>
+  <string name="correspondenceEmailNotification">Notificações diárias por email listando os teus jogos por correspondência</string>
+  <string name="notifyStreamStart">Um Streamer começou uma transmissão em direto</string>
   <string name="notifyInboxMsg">Nova mensagem na caixa de entrada</string>
-  <string name="notifyForumMention">Um comentário do fórum menciona-o</string>
+  <string name="notifyForumMention">Um comentário do fórum menciona-te</string>
   <string name="notifyInvitedStudy">Convite para estudo</string>
   <string name="notifyGameEvent">Atualizações dos jogos por correspondência</string>
   <string name="notifyChallenge">Desafios</string>
   <string name="notifyTournamentSoon">O torneio começará em breve</string>
-  <string name="notifyBroadcasts">Transmissões que você se inscreveu</string>
+  <string name="notifyBroadcasts">Transmissões que subscreveste</string>
   <string name="notifyTimeAlarm">Está a acabar o tempo no jogo por correspondência</string>
   <string name="notifyBell">Notificação do sino no Lichess</string>
-  <string name="notifyPush">Notificação do dispositivo quando não está no Lichess</string>
+  <string name="notifyPush">Notificação do dispositivo quando não estás no Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Som da notificação</string>
   <string name="blindfold" comment="As in Blindfold chess">De olhos vendados</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Exiba à esquerda nos dispositivos móveis</string>
+  <string name="inlineNotation">Anotações compactas</string>
+  <string name="showServerAnalysis">Mostrar análises do servidor</string>
+  <string name="showBestMoveArrows">Mostrar setas das melhores jogadas</string>
+  <string name="showManeuverArrows">Mostrar setas de manobras</string>
+  <string name="showGauge">Mostrar indicador de avaliação</string>
+  <string name="showMoveAnnotationsOnBoard">Mostrar as melhores anotações</string>
+  <string name="showVariationArrows">Mostrar setas de variantes</string>
+  <string name="showLiveGlyphs">Anotações do motor em tempo real</string>
+  <string name="showUndefendedPieces">Mostrar peças desprotegidas</string>
+  <string name="showPinnedPieces">Mostrar peças pregadas</string>
+  <string name="showCheckableKing">Mostrar rei em xeque</string>
+  <string name="disclosureMode">Ativar esconder variante</string>
   <string name="generalSettings">Geral</string>
   <string name="moveListSettings">Lista de jogadas</string>
   <string name="boardSettings">Tabuleiro</string>
   <string name="analysisSettings">Definições de análise</string>
   <string name="maneuverArrowsHelp">Sequência de jogados do motor para uma peça</string>
+  <string name="hoverOverSettingLabelsForHelp">Passa o cursor sobre os nomes das definições para obter ajuda</string>
 </resources>
