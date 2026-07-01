@@ -116,9 +116,8 @@ export class Premove {
     const friendlySqBetween = elemAt(squaresOfFriendliesBetween, 0);
     const enemySqBetween = elemAt(squaresOfEnemiesBetween, 0);
     if (enemySqBetween) {
-      const enemy = ctx.enemies.get(enemySqBetween);
-      if (enemy?.role === 'pawn') {
-        const enemyStep = enemy.color === 'white' ? 1 : -1;
+      if (ctx.enemies.get(enemySqBetween)?.role === 'pawn') {
+        const enemyStep = ctx.color === 'white' ? -1 : 1;
         const squareAbove = util.squareShiftedVertically(enemySqBetween, enemyStep);
         const enemyPawnDests: cg.Key[] = squareAbove
           ? [
