@@ -136,7 +136,7 @@ final private class RelaySync(
               parentNode.children.toList.collect:
                 case child if child.id != gameNode.id && !child.forceVariation =>
                   parentPath + child.id
-            (acc ++ localPaths, nodePath)
+            (acc ::: localPaths, nodePath)
         ._1
         .sequentially: childPath =>
           studyApi.forceVariation(
