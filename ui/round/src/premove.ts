@@ -80,14 +80,6 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (
-    ctx: cg.MobilityContext,
-    specificEnemies?: cg.Pieces,
-  ): boolean =>
-    this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, specificEnemies) ||
-      this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
-
   private readonly canBeCapturedBySomeEnemyEnPassant = (
     ctx: cg.MobilityContext,
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
@@ -185,7 +177,8 @@ export class Premove {
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
       (this.unrestrictedPremoves ||
         !this.isDestOccupiedByFriendly(ctx) ||
-        this.isFriendlyOnDestAndAttacked(ctx))) ||
+        this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key) ||
+        this.isDestControlledByEnemy(ctx))) ||
     (this.variant !== 'antichess' &&
       ctx.orig.pos[1] === ctx.dest.pos[1] &&
       ctx.orig.pos[1] === (ctx.color === 'white' ? 0 : 7) &&
