@@ -40,8 +40,6 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
   });
 
 export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On } = {}): VNode {
-  // spellcheck must be the string 'false'; snabbdom drops attributes set to boolean false.
-  // readonly is not assumed here: callers that want a display-only field pass it via inputAttrs.
   return h('div.copy-me', [
     h('input.copy-me__target', {
       attrs: { spellcheck: 'false', ...opts.inputAttrs },
