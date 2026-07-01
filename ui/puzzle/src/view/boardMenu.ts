@@ -49,20 +49,20 @@ function renderPgnInput(ctrl: PuzzleCtrl): string {
   return tags + linkPreamble + renderNodesTxt(ctrl.initialNode, true);
 }
 
-const studyButton = (ctrl: PuzzleCtrl) =>
-  ctrl.mode === 'play'
-    ? undefined
-    : h(
-        'section.board-menu__study',
-        hl('form', { attrs: { action: '/study/as', method: 'post', target: '_blank' } }, [
-          hiddenInput('pgn', renderPgnInput(ctrl)),
-          hiddenInput('fen', ctrl.initialNode.fen),
-          hiddenInput('orientation', ctrl.pov),
-          hiddenInput('mode', 'gamebook'),
-          hl(
-            'button.button.text',
-            { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } },
-            i18n.site.toStudy,
-          ),
-        ]),
-      );
+function studyButton(ctrl: PuzzleCtrl) {
+  if (ctrl.mode === 'play') return undefined;
+  return h(
+    'section.board-menu__study',
+    hl('form', { attrs: { action: '/study/as', method: 'post', target: '_blank' } }, [
+      hiddenInput('pgn', renderPgnInput(ctrl)),
+      hiddenInput('fen', ctrl.initialNode.fen),
+      hiddenInput('orientation', ctrl.pov),
+      hiddenInput('mode', 'gamebook'),
+      hl(
+        'button.button.text',
+        { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } },
+        i18n.site.toStudy,
+      ),
+    ]),
+  );
+}
