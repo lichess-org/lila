@@ -53,7 +53,9 @@ def watcher(
       )
 
 def crawler(pov: Pov)(using Context) =
-  ui.RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
+  Page(gameVsText(pov.game, withRatings = true))
+    .css("round")
+    .flag(_.zoom)
     .graph(ui.povOpenGraph(pov)):
       main(cls := "round")(
         st.aside(cls := "round__side")(

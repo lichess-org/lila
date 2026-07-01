@@ -33,7 +33,7 @@ final class Analyse(
           _.error.fold(NoContent)(BadRequest(_))
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
+  private[controllers] def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
     if ctx.req.client.isCrawler then replayForCrawler(pov)
     else
       for

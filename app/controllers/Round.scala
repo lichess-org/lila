@@ -115,7 +115,8 @@ final class Round(
     if req.client.isCrawler
     then
       FoundPage(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
-        views.round.crawler(game.pov(color))
+        for _ <- gameC.preloadUsers(game)
+        yield views.round.crawler(game.pov(color))
     else
       env.round.proxyRepo
         .pov(gameId, color)
@@ -138,6 +139,7 @@ final class Round(
   private def isBlockedByPlayer(game: GameModel)(using Context) =
     game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))
 
+  // only for humans; crawlers must be filtered out upstream
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
@@ -156,6 +158,7 @@ final class Round(
                 else
                   for
                     users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                    _ = gameC.preloadUsers(users)
                     tour <- env.tournament.api.gameView.watcher(pov.game)
                     simul <- pov.game.simulId.so(env.simul.repo.find)
                     chat <- getWatcherChat(pov.game)
