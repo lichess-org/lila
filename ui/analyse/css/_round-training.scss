@@ -79,6 +79,39 @@
     margin: 0.6em 0;
   }
 
+  &__phases {
+    width: 100%;
+    flex: 1 0 100%;
+    border-top: $border;
+    margin-top: 0.6em;
+    padding-top: 0.5em;
+  }
+
+  &__phase {
+    display: flex;
+    align-items: center;
+
+    span {
+      flex: 1 1 auto;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    strong {
+      flex: 0 1 6ch;
+      text-align: center;
+    }
+  }
+
+  &__phases-hint {
+    flex: 1 0 100%;
+    margin: 0.4em 0 0;
+    font-size: 0.85em;
+    line-height: 1.25;
+    opacity: 0.75;
+    text-align: center;
+  }
+
   @include mq-is-col1 {
     flex-flow: row wrap;
     justify-content: center;

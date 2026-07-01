@@ -102,7 +102,8 @@ final private[api] class RoundApi(
       blurs = Granter.opt(_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
-      lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+      lichobileCompat = HTTPRequest.isLichobile(ctx.req),
+      division = true
     )
 
   def review(

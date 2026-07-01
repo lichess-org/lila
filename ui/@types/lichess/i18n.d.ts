@@ -3141,6 +3141,8 @@ interface I18n {
     accountRegisteredWithoutEmail: I18nFormat;
     /** Accuracy */
     accuracy: string;
+    /** Accuracy so far */
+    accuracySoFar: string;
     /** Active players */
     activePlayers: string;
     /** Add current variation */
@@ -4159,6 +4161,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
     permanentLinkForAnyoneToChallengeYou: string;
+    /** – means this phase is not reached yet or has too few analyzed moves */
+    phaseAccuracyHint: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
