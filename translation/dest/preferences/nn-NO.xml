@@ -88,4 +88,5 @@
   <string name="boardSettings">Brett</string>
   <string name="analysisSettings">Analyseinnstillingar</string>
   <string name="maneuverArrowsHelp">Sekvens av sjakkprogramtrekk for ei brikke</string>
+  <string name="hoverOverSettingLabelsForHelp">Hald musepeikaren over innstillingsetiketten om du vil sjå hjelpeteksten</string>
 </resources>
