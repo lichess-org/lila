@@ -153,28 +153,29 @@ final class Round(
             negotiateApi(
               html =
                 if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
-                for
-                  users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                  tour <- env.tournament.api.gameView.watcher(pov.game)
-                  simul <- pov.game.simulId.so(env.simul.repo.find)
-                  chat <- getWatcherChat(pov.game)
-                  crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
-                  bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
-                  tv = userTv.map: u =>
-                    lila.round.OnTv.User(u.id)
-                  data <- env.api.roundApi.watcher(pov, users, tour, tv)
-                  page <- renderPage:
-                    views.round.watcher(
-                      pov,
-                      data,
-                      tour.map(_.tourAndTeamVs),
-                      simul,
-                      crosstable,
-                      userTv = userTv,
-                      chatOption = chat,
-                      bookmarked = bookmarked
-                    )
-                yield Ok(page)
+                else
+                  for
+                    users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                    tour <- env.tournament.api.gameView.watcher(pov.game)
+                    simul <- pov.game.simulId.so(env.simul.repo.find)
+                    chat <- getWatcherChat(pov.game)
+                    crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
+                    bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
+                    tv = userTv.map: u =>
+                      lila.round.OnTv.User(u.id)
+                    data <- env.api.roundApi.watcher(pov, users, tour, tv)
+                    page <- renderPage:
+                      views.round.watcher(
+                        pov,
+                        data,
+                        tour.map(_.tourAndTeamVs),
+                        simul,
+                        crosstable,
+                        userTv = userTv,
+                        chatOption = chat,
+                        bookmarked = bookmarked
+                      )
+                  yield Ok(page)
               ,
               api = _ =>
                 for
