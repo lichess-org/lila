@@ -127,7 +127,7 @@ private final class RelayListing(
   private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
     val max = 200
     tourRepo.coll
-      .aggregateList(max): framework =>
+      .aggregateList(max, _.sec): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
           Project(RelayTourRepo.unsetHeavyOptionalFields),
