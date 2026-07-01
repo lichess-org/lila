@@ -126,6 +126,24 @@ final private class RelaySync(
           position = Position(chapter, path).ref,
           toMainline = true
         )(using by) >> chapterRepo.setRelayPath(chapter.id, path)
+      // moves that are not in the source but are in the study chapter,
+      // should become forced variations in the study chapter
+      _ <- game.root.mainline
+        .foldLeft(List.empty[UciPath] -> UciPath.root):
+          case ((acc, parentPath), gameNode) =>
+            val nodePath = parentPath + gameNode.id
+            val localPaths = chapter.root.nodeAt(parentPath).so: parentNode =>
+              parentNode.children.toList.collect:
+                case child if child.id != gameNode.id && !child.forceVariation =>
+                  parentPath + child.id
+            (acc ++ localPaths, nodePath)
+        ._1
+        .sequentially: childPath =>
+          studyApi.forceVariation(
+            studyId = study.id,
+            position = Position(chapter, childPath).ref,
+            force = true
+          )(by)
       _ <- newNode match
         case Some(newNode) =>
           newNode.mainline
