@@ -1,11 +1,11 @@
-import { attributesModule, classModule, init, type VNode } from 'snabbdom';
+import { attributesModule, classModule, init, propsModule, type VNode } from 'snabbdom';
 
 import menuHover from 'lib/menuHover';
 
 import RacerCtrl from './ctrl';
 import type { RacerOpts } from './interfaces';
 
-const patch = init([classModule, attributesModule]);
+const patch = init([classModule, attributesModule, propsModule]);
 
 import view from './view/main';
 
