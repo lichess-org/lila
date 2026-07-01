@@ -2171,6 +2171,7 @@ object I18nKey:
     val `timeBeforeTournamentStarts`: I18nKey = "timeBeforeTournamentStarts"
     val `averageCentipawnLoss`: I18nKey = "averageCentipawnLoss"
     val `accuracy`: I18nKey = "accuracy"
+    val `accuracySoFar`: I18nKey = "accuracySoFar"
     val `keyboardShortcuts`: I18nKey = "keyboardShortcuts"
     val `keyMoveBackwardOrForward`: I18nKey = "keyMoveBackwardOrForward"
     val `keyGoToStartOrEnd`: I18nKey = "keyGoToStartOrEnd"
