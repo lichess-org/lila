@@ -1,9 +1,6 @@
-resolvers += Resolver.url(
-  "lila-maven-sbt",
-  new java.net.URL("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
-)(using Resolver.ivyStylePatterns)
+resolvers += "jitpack".at("https://jitpack.io")
 
-addSbtPlugin("org.lichess.play" % "sbt-plugin" % "2.0.0-RC2")
+addSbtPlugin("com.github.lichess-org.liplay" % "sbt-plugin" % "3.0.4")
 
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4")
 
