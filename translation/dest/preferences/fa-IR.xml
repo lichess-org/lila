@@ -88,4 +88,5 @@
   <string name="boardSettings">میز</string>
   <string name="analysisSettings">تنظیماتِ تحلیل</string>
   <string name="maneuverArrowsHelp">دنبالهٔ حرکت‌های موتور برای یک مُهره</string>
+  <string name="hoverOverSettingLabelsForHelp">برای راهنمایی، روی برچسب‌های تنظیمات پَرجایید</string>
 </resources>

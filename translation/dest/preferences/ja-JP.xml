@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">ベル通知の音</string>
   <string name="blindfold" comment="As in Blindfold chess">めかくしモード</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">モバイル機器では左側に表示</string>
+  <string name="inlineNotation">棋譜を行書き</string>
+  <string name="showServerAnalysis">サーバ解析を表示</string>
+  <string name="showBestMoveArrows">最善手の矢印を表示</string>
+  <string name="showManeuverArrows">駒繰りの矢印を表示</string>
+  <string name="showGauge">評価値ゲージを表示</string>
+  <string name="showMoveAnnotationsOnBoard">手の注釈を表示</string>
+  <string name="showVariationArrows">変化手順の矢印を表示</string>
+  <string name="showLiveGlyphs">ライブでのエンジン注釈</string>
+  <string name="showUndefendedPieces">浮き駒を表示</string>
+  <string name="showPinnedPieces">ピンされた駒を表示</string>
+  <string name="showCheckableKing">チェックできるキングを表示</string>
+  <string name="disclosureMode">バリエーションの非表示を有効にする</string>
+  <string name="generalSettings">全般</string>
+  <string name="moveListSettings">指し手リスト</string>
+  <string name="boardSettings">ボード</string>
+  <string name="analysisSettings">解析に関する設定</string>
+  <string name="hoverOverSettingLabelsForHelp">設定メニューにカーソルを合わせるとヘルプを表示</string>
 </resources>

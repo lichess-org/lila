@@ -88,4 +88,5 @@
   <string name="boardSettings">Tabuleiro</string>
   <string name="analysisSettings">Configurações de análise</string>
   <string name="maneuverArrowsHelp">Sequência de lances de computador para uma peça</string>
+  <string name="hoverOverSettingLabelsForHelp">Passe o mouse sobre as etiquetas de configuração para obter ajuda</string>
 </resources>
