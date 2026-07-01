@@ -180,7 +180,9 @@ describe('phaseAccuracy', () => {
     assert(phases?.opening);
     assert(phases?.middlegame);
     assert(phases?.endgame);
-    assert.strictEqual(phaseAccuracy(line, 10, game, 'opening')!.white, phases!.opening!.white);
+    const openingAccuracy = phaseAccuracy(line, 10, game, 'opening');
+    assert(openingAccuracy);
+    assert.strictEqual(openingAccuracy.white, phases.opening.white);
   });
 
   test('returns undefined with too few moves', () => {

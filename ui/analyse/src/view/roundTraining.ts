@@ -1,6 +1,5 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
-import { getPlayer } from 'lib/game';
 import {
   formatPhaseAccuracy,
   phaseAccuraciesDisplay,
@@ -8,6 +7,7 @@ import {
   type GamePhase,
   type PhaseAccuraciesDisplay,
 } from 'lib/analyseAccuracy';
+import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';

@@ -1,6 +1,6 @@
+import type { Board } from 'chessops/board';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
-import type { Board } from 'chessops/board';
 import { SquareSet } from 'chessops/squareSet';
 import { setupPosition } from 'chessops/variant';
 
@@ -11,13 +11,7 @@ export interface Division {
   end?: number;
 }
 
-const divisionVariants = new Set([
-  'standard',
-  'chess960',
-  'fromPosition',
-  'kingOfTheHill',
-  'threeCheck',
-]);
+const divisionVariants = new Set(['standard', 'chess960', 'fromPosition', 'kingOfTheHill', 'threeCheck']);
 
 const firstRank = SquareSet.fromRank(0);
 const lastRank = SquareSet.fromRank(7);
@@ -61,8 +55,7 @@ const score = (y: number, white: number, black: number): number => {
   return 0;
 };
 
-const majorsAndMinors = (board: Board): number =>
-  board.occupied.diff(board.king.union(board.pawn)).size();
+const majorsAndMinors = (board: Board): number => board.occupied.diff(board.king.union(board.pawn)).size();
 
 const backrankSparse = (board: Board): boolean =>
   board.white.intersect(firstRank).size() < 4 || board.black.intersect(lastRank).size() < 4;
@@ -100,7 +93,7 @@ export const divisionFromMainline = (
 
   let midGameIndex: number | undefined;
   for (let index = 0; index < boards.length; index++) {
-    const board = boards[index]!;
+    const board = boards[index];
     if (majorsAndMinors(board) <= 10 || backrankSparse(board) || mixedness(board) > 150) {
       midGameIndex = index;
       break;
@@ -110,7 +103,7 @@ export const divisionFromMainline = (
   let endGameIndex: number | undefined;
   if (midGameIndex !== undefined) {
     for (let index = 0; index < boards.length; index++) {
-      if (majorsAndMinors(boards[index]!) <= 6) {
+      if (majorsAndMinors(boards[index]) <= 6) {
         endGameIndex = index;
         break;
       }
@@ -122,13 +115,9 @@ export const divisionFromMainline = (
       ? midGameIndex
       : undefined;
   const middle =
-    middleIndex !== undefined && middleIndex < mainline.length
-      ? mainline[middleIndex]!.ply
-      : undefined;
+    middleIndex !== undefined && middleIndex < mainline.length ? mainline[middleIndex].ply : undefined;
   const end =
-    endGameIndex !== undefined && endGameIndex < mainline.length
-      ? mainline[endGameIndex]!.ply
-      : undefined;
+    endGameIndex !== undefined && endGameIndex < mainline.length ? mainline[endGameIndex].ply : undefined;
 
   if (middle === undefined || middle <= 1) return undefined;
   return { middle, end };
