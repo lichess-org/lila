@@ -90,14 +90,15 @@
         position: relative;
 
         .dropdown-window {
-          @extend %dropdown-shadow;
+          @extend %dropdown-shadow, %box-radius;
 
           z-index: $z-link-overlay-2;
           visibility: hidden;
           background: $c-bg-header-dropdown;
-          border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
+          border-top-right-radius: 0;
           position: absolute;
           top: 2.4rem;
+          overflow: hidden;
 
           @include inline-end(0);
 
