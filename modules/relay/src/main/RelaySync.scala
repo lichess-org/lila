@@ -136,11 +136,13 @@ final private class RelaySync(
         .foldLeft(List.empty[UciPath] -> UciPath.root):
           case ((acc, parentPath), gameNode) =>
             val nodePath = parentPath + gameNode.id
-            val localPaths = chapter.root.nodeAt(parentPath).so: parentNode =>
-              parentNode.children.toList.collect:
-                case child if child.id != gameNode.id && !child.forceVariation =>
-                  parentPath + child.id
-            (acc ++ localPaths, nodePath)
+            val localPaths = chapter.root
+              .nodeAt(parentPath)
+              .so: parentNode =>
+                parentNode.children.toList.collect:
+                  case child if child.id != gameNode.id && !child.forceVariation =>
+                    parentPath + child.id
+            (acc ::: localPaths, nodePath)
         ._1
         .sequentially: childPath =>
           studyApi.forceVariation(
