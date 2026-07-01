@@ -44,3 +44,10 @@ enum StudyOrder:
 object StudyOrder:
   def all: List[StudyOrder] = values.toList
   val byKey = values.mapBy(_.key)
+
+enum StudyFormat:
+  case compact
+  def name = toString
+
+object StudyFormat:
+  def fromName(name: String): Option[StudyFormat] = values.find(_.name == name)

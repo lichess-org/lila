@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.core.study.StudyOrder
+import lila.core.study.{ StudyOrder, StudyFormat }
 import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
@@ -14,28 +14,42 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, format: Option[StudyFormat] = None)(using
+      Context
+  ) =
     page(
       title = trs.allStudies.txt(),
       active = StudyGroup.all,
       order = order,
       pag = pag,
       searchFilter = "",
-      url = routes.Study.all(_)
+      url = routes.Study.all(_),
+      format = format
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, owner: User)(using Context) =
+  def byOwner(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      owner: User,
+      format: Option[StudyFormat] = None
+  )(using Context) =
     page(
       title = trs.studiesCreatedByX.txt(owner.titleUsername),
       active = StudyGroup.byOwner,
       order = order,
       pag = pag,
       searchFilter = s"owner:${owner.username}",
-      url = routes.Study.byOwner(owner.username, _)
+      url = routes.Study.byOwner(owner.username, _),
+      format = format
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
+  def mine(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      topics: StudyTopics,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context,
       me: Me
   ) =
@@ -46,12 +60,14 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag = pag,
       searchFilter = s"owner:${me.username}",
       url = routes.Study.mine(_),
-      topics = topics.some
+      topics = topics.some,
+      format = format
     )
 
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
-      order: StudyOrder
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
   )(using Context) =
     page(
       title = trs.myFavoriteStudies.txt(),
@@ -59,10 +75,16 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       order = order,
       pag = pag,
       searchFilter = "",
-      url = routes.Study.mineLikes(_)
+      url = routes.Study.mineLikes(_),
+      format = format
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
+  def mineMember(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      topics: StudyTopics,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context,
       me: Me
   ) =
@@ -73,42 +95,64 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag = pag,
       searchFilter = s"member:${me.username}",
       url = routes.Study.mineMember(_),
-      topics = topics.some
+      topics = topics.some,
+      format = format
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
+  def minePublic(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
+  )(using Context)(using me: Me) =
     page(
       title = trs.myPublicStudies.txt(),
       active = StudyGroup.minePublic,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = routes.Study.minePublic(_)
+      url = routes.Study.minePublic(_),
+      format = format
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
+  def minePrivate(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      format: Option[StudyFormat] = None
+  )(using Context)(using me: Me) =
     page(
       title = trs.myPrivateStudies.txt(),
       active = StudyGroup.minePrivate,
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = routes.Study.minePrivate(_)
+      url = routes.Study.minePrivate(_),
+      format = format
     )
 
-  def search(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, text: String)(using Context) =
+  def search(
+      pag: Paginator[WithChaptersAndLiked],
+      order: StudyOrder,
+      text: String,
+      format: Option[StudyFormat] = None
+  )(using Context) =
+    val url = (o: StudyOrder) => routes.Study.search(text, 1, o.some, format)
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu(StudyGroup.search, Some(order)),
+          menu(StudyGroup.search, Some(order), format = format),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(trans.search.search.txt(), text, order),
-              bits.orderSelect(order, StudyGroup.search, url = o => routes.Study.search(text, 1, o.some)),
+              searchForm(trans.search.search.txt(), text, order, format),
+              bits.orderSelect(
+                order,
+                StudyGroup.search,
+                url = url
+              ),
+              bits.formatToggle(url(order).url, format),
               bits.newForm()
             ),
-            paginate(pag, routes.Study.search(text, 1, order.some))
+            paginate(pag, routes.Study.search(text, 1, order.some), format)
           )
         )
 
@@ -119,40 +163,75 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       pag: Paginator[WithChaptersAndLiked],
       url: StudyOrder => Call,
       searchFilter: String,
-      topics: Option[StudyTopics] = None
+      topics: Option[StudyTopics] = None,
+      format: Option[StudyFormat]
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu(active, Some(order), topics.so(_.value)),
+          menu(active, Some(order), topics.so(_.value), format),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
-              bits.orderSelect(order, active, url),
+              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order, format),
+              bits.orderSelect(order, active, url, format),
+              bits.formatToggle(url(order).url, format),
               bits.newForm()
             ),
             topics.map: ts =>
               div(cls := "box__pad")(topic.topicsList(ts, StudyOrder.mine)),
-            paginate(pag, url(order))
+            paginate(pag, url(order), format)
           )
         )
 
-  private def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using Context) =
+  private def paginate(
+      pager: Paginator[WithChaptersAndLiked],
+      url: Call,
+      format: Option[StudyFormat]
+  )(using
+      Context
+  ) =
+    val baseUrl = format.fold(url.url): f =>
+      addQueryParam(url.url, "format", f.name)
+    val nextPageUrl = (np: Int) =>
+      addQueryParam(
+        baseUrl,
+        "page",
+        np.toString
+      )
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
         iconTag(Icon.StudyBoard),
         p(trs.noneYet())
+      )
+    else if format.contains(StudyFormat.compact) then
+      div(cls := "studies compact infinite-scroll")(
+        pager.currentPageResults.map { s =>
+          div(cls := "study compact paginated")(
+            span(cls := "study__icon")(
+              s.study.flair
+                .map(iconFlair)
+                .getOrElse(iconTag(Icon.StudyBoard))
+            ),
+            a(href := routes.Study.show(s.study.id))(s.study.name.value)
+          )
+        },
+        pagerNext(pager, nextPageUrl)
       )
     else
       div(cls := "studies list infinite-scroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },
-        pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
+        pagerNext(pager, np => nextPageUrl(np))
       )
 
-  def menu(active: StudyGroup, order: Option[StudyOrder], topics: List[StudyTopic] = Nil)(using
+  def menu(
+      active: StudyGroup,
+      order: Option[StudyOrder],
+      topics: List[StudyTopic] = Nil,
+      format: Option[StudyFormat] = None
+  )(using
       ctx: Context
   ) =
     def defaultOrder(group: StudyGroup): Option[StudyOrder] =
@@ -169,12 +248,20 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         case _ => group == active
     ).option("active")
     lila.ui.bits.pageMenuSubnav(
-      a(activeCls(StudyGroup.all), href := routes.Study.all(newOrder(StudyGroup.all)))(trs.allStudies()),
-      ctx.isAuth.option(bits.authLinks(activeCls, newOrder)),
-      a(activeCls(StudyGroup.topic(None)), href := routes.Study.topics)(trs.topics()),
+      a(
+        activeCls(StudyGroup.all),
+        href := bits.addFormatToUrl(routes.Study.all(newOrder(StudyGroup.all)).url, format)
+      )(trs.allStudies()),
+      ctx.isAuth.option(bits.authLinks(activeCls, newOrder, format)),
+      a(activeCls(StudyGroup.topic(None)), href := bits.addFormatToUrl(routes.Study.topics.url, format))(
+        trs.topics()
+      ),
       topics.map: topic =>
         val group = StudyGroup.topic(topic.some)
-        a(activeCls(group), href := routes.Study.byTopic(topic.value, newOrder(group)))(
+        a(
+          activeCls(group),
+          href := bits.addFormatToUrl(routes.Study.byTopic(topic.value, newOrder(group)).url, format)
+        )(
           topic.value
         )
       ,
@@ -185,9 +272,11 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       )(trs.whatAreStudies())
     )
 
-  def searchForm(placeholder: String, value: String, order: StudyOrder) =
+  def searchForm(placeholder: String, value: String, order: StudyOrder, format: Option[StudyFormat] = None) =
+    logger.info(s"searchForm: placeholder=$placeholder, value=$value, order=$order, format=$format")
     form(cls := "search", action := routes.Study.search(), method := "get")(
       form3.hidden("order", order.key),
+      format.map(f => form3.hidden("format", f.name)),
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )
@@ -226,7 +315,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         topic: StudyTopic,
         pag: Paginator[WithChaptersAndLiked],
         order: StudyOrder,
-        myTopics: Option[StudyTopics]
+        myTopics: Option[StudyTopics],
+        format: Option[StudyFormat] = None
     )(using Context) =
       val active = StudyGroup.topic(topic.some)
       val url = (o: StudyOrder) => routes.Study.byTopic(topic.value, o)
@@ -238,7 +328,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
             main(cls := "page-menu__content study-index box")(
               boxTop(
                 h1(topic.value),
-                bits.orderSelect(order, active, url),
+                bits.orderSelect(order, active, url, format),
+                bits.formatToggle(url(order).url, format),
                 bits.newForm()
               ),
               myTopics.ifTrue(order == StudyOrder.mine).map { ts =>
@@ -246,6 +337,6 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
                   topicsList(ts, StudyOrder.mine)
                 )
               },
-              paginate(pag, url(order))
+              paginate(pag, url(order), format)
             )
           )
