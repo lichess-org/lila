@@ -18,9 +18,10 @@ import {
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
 import stepwiseScroll from 'lib/view/stepwiseScroll';
 
-import * as control from '../control';
-import type PuzzleCtrl from '../ctrl';
-import { view as keyboardView } from '../keyboard';
+import * as control from '@/control';
+import type PuzzleCtrl from '@/ctrl';
+import { view as keyboardView } from '@/keyboard';
+
 import boardMenu from './boardMenu';
 import chessground from './chessground';
 import feedbackView from './feedback';
@@ -76,10 +77,12 @@ let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const gaugeOn = ctrl.showEvalGauge();
+
   if (cevalShown !== ctrl.showEvaluation()) {
     if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = ctrl.showEvaluation();
   }
+
   return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
@@ -147,42 +150,44 @@ export default function (ctrl: PuzzleCtrl): VNode {
 }
 
 function session(ctrl: PuzzleCtrl): MaybeVNode {
-  const rounds = ctrl.session.get().rounds,
-    current = ctrl.data.puzzle.id;
-  return rounds.length
-    ? hl('div.puzzle__session', [
-        rounds.map(round => {
-          const rd =
-            round.ratingDiff && ctrl.opts.showRatings
-              ? round.ratingDiff > 0
-                ? '+' + round.ratingDiff
-                : round.ratingDiff
-              : null;
+  const rounds = ctrl.session.get().rounds;
 
-          return h(
-            `a.result-${round.result}${rd ? '' : '.result-empty'}`,
-            {
-              key: round.id,
-              class: { current: current === round.id },
-              attrs: {
-                href: `/training/${ctrl.session.theme}/${round.id}`,
-                ...(ctrl.streak ? { target: '_blank' } : {}),
-              },
-            },
-            rd,
-          );
-        }),
-        rounds.some(r => r.id === current)
-          ? !ctrl.streak &&
-            hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-          : hl(
-              'a.result-cursor.current',
-              {
-                key: current,
-                attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
-              },
-              ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-            ),
-      ])
-    : undefined;
+  if (!rounds.length) return undefined;
+
+  const current = ctrl.data.puzzle.id;
+
+  return hl('div.puzzle__session', [
+    rounds.map(round => {
+      const rd =
+        round.ratingDiff && ctrl.opts.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
+
+      return h(
+        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+        {
+          key: round.id,
+          class: { current: current === round.id },
+          attrs: {
+            href: `/training/${ctrl.session.theme}/${round.id}`,
+            ...(ctrl.streak ? { target: '_blank' } : {}),
+          },
+        },
+        rd,
+      );
+    }),
+    rounds.some(r => r.id === current)
+      ? !ctrl.streak &&
+        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+      : hl(
+          'a.result-cursor.current',
+          {
+            key: current,
+            attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
+          },
+          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+        ),
+  ]);
 }
