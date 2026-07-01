@@ -53,8 +53,6 @@ final class Env(
     delete as deleteDevice
   }
 
-  type Device = lila.push.Device
-
   private lazy val browserPush = wire[BrowserWebPush]
   private lazy val unifiedPush = wire[UnifiedWebPush]
   private lazy val firebasePush = wire[FirebasePush]
