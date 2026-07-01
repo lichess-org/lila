@@ -11,8 +11,23 @@
   <string name="yourClock">Teu relógio</string>
   <string name="opponentClock">Relógio do oponente</string>
   <string name="gameStart">Início do jogo</string>
+  <string name="boardCommandList">Lista de comandos quando o tabuleiro tem foco</string>
+  <string name="inputFormCommandList">Introduz estes comandos no campo de comandos.</string>
+  <string name="goToInputForm">Vai para o campo de introdução de comandos.</string>
+  <string name="announceCurrentSquare">Anunciar a casa atual.</string>
+  <string name="announceLastMove">Anunciar última jogada.</string>
+  <string name="announceLastMoveCapture">Anunciar a peça capturada na última jogada.</string>
+  <string name="announcePossibleMoves">Anunciar as jogadas legais para a peça selecionada.</string>
+  <string name="announcePossibleCaptures">Anunciar as capturas possíveis com a peça selecionada.</string>
+  <string name="moveWithArrows">Mover para a casa adjacente à esquerda, à direita, acima ou abaixo.</string>
+  <string name="moveToPieceByType">Move entre as casas utilizando os nomes das peças. Por exemplo, ao premires repetidamente n, irás percorrer todas as casas ocupadas por cavalos. Utiliza letras maiúsculas para inverter a ordem.</string>
   <string name="moveToRank">Mova da coluna 1 para 8.</string>
+  <string name="moveToFile">Mover para a coluna de a a h.</string>
   <string name="announcePieceLocations">Anuncia a localização das peças. Por exemplo: um N maiúsculo para cavalo branco, um k minúsculo para o rei preto, um A maiúsculo para todas as peças brancas.</string>
+  <string name="announcePiecesOnRankOrFile">Anunciar as peças numa fila ou coluna. Exemplo: s a, s 1.</string>
+  <string name="goToBoard">Ir para o tabuleiro. A casa padrão é e-4. Podes especificar uma casa: “board a-1” ou “b a-1” levar-te-á para a casa a-1.</string>
+  <string name="movePiece">Para mover uma peça, usa a notação algébrica padrão.</string>
+  <string name="promotion">Para promover para outra peça que não a dama, usa o sinal de igual. Por exemplo, a-8=n promove para um cavalo.</string>
   <string name="king">rei</string>
   <string name="whiteKing">rei branco</string>
   <string name="blackKing">rei preto</string>
@@ -33,6 +48,17 @@
   <string name="blackPawn">peão preto</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T B C x</string>
   <string name="sanTakes" comment="x in standard notation">toma</string>
+  <string name="sanCheck" comment="+ in standard notation">xeque</string>
+  <string name="sanCheckmate" comment="# in standard notation">xeque-mate</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promove a</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">roque pequeno</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">roque grande</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">é largado em</string>
   <string name="invalidMove">Movimento inválido</string>
   <string name="premoveCancelled">Premove cancelado</string>
+  <string name="premoveRecorded">Jogada antecipada guardada: %s. Pressiona a tecla \"enter\" para cancelar</string>
+  <string name="pockets" comment="Crazyhouse pockets">Bolsos</string>
+  <string name="copyToClipboard">Copiar %s para área de transferência</string>
+  <string name="copiedToClipboard">%s copiado para a área de transferências</string>
+  <string name="pgnAndFen">PGN e FEN</string>
 </resources>
