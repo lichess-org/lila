@@ -27,7 +27,13 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     myEngines: lila.core.misc.analysis.MyEnginesAsJson,
     mongo: lila.db.Env
-)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(using
+)(using
+    Executor,
+    akka.actor.ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
+)(using
     scheduler: Scheduler,
     mode: play.api.Mode
 ):
