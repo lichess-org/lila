@@ -37,8 +37,8 @@
   <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Mantem-no curto: %s carácter no máximo</item>
-    <item quantity="other">Mantem-no curto: %s carácteres no máximo</item>
+    <item quantity="one">Mantem-o curto: %s carácter no máximo</item>
+    <item quantity="other">Mantem-o curto: %s carácteres no máximo</item>
   </plurals>
   <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visível na página de streamers</string>
   <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Quando aprovado pelos moderadores</string>
@@ -46,7 +46,7 @@
   <string name="tellUsAboutTheStream">Conta-nos sobre a tua stream numa frase</string>
   <string name="longDescription">Descrição longa</string>
   <string name="xStreamerPicture">Imagem do streamer %s</string>
-  <string name="changePicture">Alterar/apagar a tua imagem</string>
+  <string name="changePicture">Alterar/eliminar a tua imagem</string>
   <string name="uploadPicture">Adicionar uma imagem</string>
   <string name="maxSize">Tamanho máximo: %s</string>
 </resources>
