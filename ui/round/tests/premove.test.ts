@@ -140,13 +140,14 @@ describe('premoves', () => {
       ['h2', new Set(['g1', 'g3', 'f4', 'e5', 'd6', 'c7', 'b8'])],
       ['h3', new Set(['g3', 'f3', 'e3', 'h4', 'h5'])],
       ['f5', new Set(['e5', 'd5', 'c5', 'b5', 'a5', 'f6', 'f7', 'f8', 'f4', 'f3'])],
+      ['c1', new Set(['a1', 'b1', 'd1', 'e1', 'f1', 'g1', 'h1', 'c2', 'c3'])],
       ['c4', new Set(['c5'])],
       ['f4', new Set()],
       ['g5', new Set(['g6'])],
       ['d3', new Set(['d4', 'e4'])],
     ]);
     testPosition(
-      fen.read('8/8/8/5RPp/1pP1pP2/3Pp2R/B6B/8 b - - 0 1'),
+      fen.read('8/8/8/5RPp/1pP1pP2/3Pp2R/B6B/2R5 b - - 0 1'),
       'black',
       undefined,
       expectedPremoves,

@@ -49,10 +49,8 @@ export class Premove {
       util.pawnDirCapture(...util.key2pos(pawnStart), ...util.key2pos(dest), enemyPawn.color === 'white') &&
       (ctx.friendlies.has(dest) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.squareShiftedVertically(dest, enemyPawn.color === 'white' ? -1 : 1),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ))
     );
   };
@@ -82,37 +80,26 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (
-    ctx: cg.MobilityContext,
-    specificEnemies?: cg.Pieces,
-  ): boolean =>
-    this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(
-      ctx.dest.key,
-      ctx.friendlies,
-      specificEnemies ?? ctx.enemies,
-      ctx.lastMove,
-    ) ||
-      this.isDestControlledByEnemy(ctx, undefined, specificEnemies));
-
   private readonly canBeCapturedBySomeEnemyEnPassant = (
+    ctx: cg.MobilityContext,
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
-    friendlies: cg.Pieces,
-    enemies: cg.Pieces,
-    lastMove?: cg.Key[],
+    specificEnemies?: cg.Pieces,
+    forbiddenEnPassantSquares?: cg.Key[],
   ): boolean => {
-    if (!potentialSquareOfFriendlyPawn || (lastMove && potentialSquareOfFriendlyPawn !== lastMove[1]))
+    if (!potentialSquareOfFriendlyPawn || (ctx.lastMove && potentialSquareOfFriendlyPawn !== ctx.lastMove[1]))
       return false;
     const pos = util.key2pos(potentialSquareOfFriendlyPawn);
-    const friendly = friendlies.get(potentialSquareOfFriendlyPawn);
     return (
-      friendly?.role === 'pawn' &&
-      pos[1] === (friendly.color === 'white' ? 3 : 4) &&
-      (!lastMove || util.diff(util.key2pos(lastMove[0])[1], pos[1]) === 2) &&
+      ctx.friendlies.get(potentialSquareOfFriendlyPawn)?.role === 'pawn' &&
+      pos[1] === (ctx.color === 'white' ? 3 : 4) &&
+      (!ctx.lastMove || util.diff(util.key2pos(ctx.lastMove[0])[1], pos[1]) === 2) &&
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
-        return !!k && enemies.get(k)?.role === 'pawn';
-      })
+        return k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
+      }) &&
+      !forbiddenEnPassantSquares?.includes(
+        util.squareShiftedVertically(potentialSquareOfFriendlyPawn, ctx.color === 'white' ? -1 : 1)!,
+      )
     );
   };
 
@@ -152,14 +139,15 @@ export class Premove {
       const enemies = enemySqBetween
         ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
         : ctx.enemies;
-      if (!this.isFriendlyOnDestAndAttacked(ctx, enemies)) return false;
+      if (
+        !this.isDestControlledByEnemy(ctx, undefined, enemies) &&
+        !this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween)
+      )
+        return false;
     }
-    if (!friendlySqBetween) return true;
-    const nextSquare = util.squareShiftedVertically(friendlySqBetween, ctx.color === 'white' ? -1 : 1);
     return (
-      this.canBeCapturedBySomeEnemyEnPassant(friendlySqBetween, ctx.friendlies, ctx.enemies, ctx.lastMove) &&
-      !!nextSquare &&
-      !squaresBetween.includes(nextSquare)
+      !friendlySqBetween ||
+      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, undefined, squaresBetween)
     );
   };
 
@@ -178,10 +166,8 @@ export class Premove {
       return (
         this.canSomeEnemyPawnAdvanceToDest(ctx) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.pos2key([ctx.dest.pos[0], ctx.dest.pos[1] + step]),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ) ||
         this.isDestControlledByEnemy(ctx, ['pawn'])
       );
@@ -191,7 +177,8 @@ export class Premove {
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
       (this.unrestrictedPremoves ||
         !this.isDestOccupiedByFriendly(ctx) ||
-        this.isFriendlyOnDestAndAttacked(ctx))) ||
+        this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key) ||
+        this.isDestControlledByEnemy(ctx))) ||
     (this.variant !== 'antichess' &&
       ctx.orig.pos[1] === ctx.dest.pos[1] &&
       ctx.orig.pos[1] === (ctx.color === 'white' ? 0 : 7) &&
