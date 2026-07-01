@@ -16,6 +16,14 @@ export function renderEval(e: number): string {
   return (e > 0 ? '+' : '') + e.toFixed(1);
 }
 
+export function renderNodes(nodes: number | undefined): string {
+  if (!nodes || nodes < 0) return '';
+  if (nodes < 1000) return `${nodes} nodes`;
+  for (const [i, suffix] of ['K', 'M', 'B', 'T'].entries())
+    if (nodes < 1000 ** (i + 2)) return `${(nodes / 1000 ** (i + 1)).toFixed(2)}${suffix} nodes`;
+  return '';
+}
+
 export function sanIrreversible(variant: VariantKey, san: string): boolean {
   if (san.startsWith('O-O')) return true;
   if (variant === 'crazyhouse') return false;
