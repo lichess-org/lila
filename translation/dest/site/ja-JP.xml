@@ -999,4 +999,5 @@
   <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
   <string name="tags">タグ</string>
   <string name="enPassant">アンパッサン</string>
+  <string name="settings">設定</string>
 </resources>
