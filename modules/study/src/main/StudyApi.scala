@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.UciPath
+import chess.format.{ Fen, UciPath }
 import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
 import alleycats.Zero
@@ -12,7 +12,7 @@ import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
 import lila.core.data.ErrorMsg
-import lila.tree.Clock
+import lila.tree.{ Branches, Clock }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import cats.mtl.Handle.*
 
@@ -760,6 +760,65 @@ final class StudyApi(
               reloadStudy(study.id, Who(me.userId, Sri("api")))
               true
 
+  def pasteChapterPgnContinuation(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      path: UciPath,
+      pgn: chess.format.pgn.PgnStr
+  )(using me: Me): Fu[Boolean] =
+    byIdWithChapter(studyId, chapterId).flatMapz:
+      case Study.WithChapter(study, chapter) =>
+        study.isRelay.not.so:
+          Contribute(me, study):
+            for
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              _ <-
+                if parsed.variant != chapter.setup.variant then
+                  fufail(
+                    StudyValidationException(
+                      s"Pasted PGN variant (${parsed.variant.key}) does not match this chapter (${chapter.setup.variant.key})."
+                    )
+                  )
+                else if List(parsed.root, chapter.root).exists(unreasonableBranching)
+                then
+                  fufail(
+                    StudyValidationException(
+                      s"Chapter or pasted PGN has over 10 branches at some position."
+                    )
+                  )
+                else fuccess(())
+              targetNode <- chapter.root
+                .nodeAt(path)
+                .fold[Fu[lila.tree.Node]](
+                  fufail(StudyValidationException("Invalid study path."))
+                )(fuccess)
+              continuation <-
+                findContinuationInRoot(parsed.root, targetNode.fen, strict = true)
+                  .orElse(findContinuationInRoot(parsed.root, targetNode.fen, strict = false))
+                  .fold[Fu[Branches]](
+                    fufail(StudyValidationException("No matching position was found in the pasted PGN."))
+                  )(fuccess)
+              _ <-
+                if continuation.nonEmpty then fuccess(())
+                else
+                  fufail(
+                    StudyValidationException(
+                      "The pasted PGN matches the current position, but has no moves after it."
+                    )
+                  )
+              newChapter <- mergeChapterPgnContinuation(chapter, path, continuation).fold[Fu[Chapter]](
+                fufail(StudyValidationException("Invalid study path."))
+              )(fuccess)
+              _ <-
+                if newChapter.isOverweight then
+                  fufail(StudyValidationException("PGN has too many moves/nodes"))
+                else chapterRepo.update(newChapter)
+              _ = preview.invalidate(study.id)
+            yield
+              sendChapterPreviews(study)
+              reloadStudy(study.id, Who(me.userId, Sri("api")))
+              true
+
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTagsFromApi(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -882,6 +941,48 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       for _ <- inviter.becomeAdmin(me)(study)
       yield Bus.pub(StudyMembers.OnChange(study))
+
+  private def sameFen(a: Fen.Full, b: Fen.Full, strict: Boolean): Boolean =
+    if strict then a == b else a.simple == b.simple
+
+  private def findContinuationInRoot(
+      root: lila.tree.Root,
+      targetFen: Fen.Full,
+      strict: Boolean
+  ): Option[Branches] =
+    if sameFen(root.fen, targetFen, strict) then root.children.some
+    else findContinuationInBranches(root.children, targetFen, strict)
+
+  private def findContinuationInBranches(
+      branches: Branches,
+      targetFen: Fen.Full,
+      strict: Boolean
+  ): Option[Branches] =
+    branches.toList.collectFirstSome: branch =>
+      if sameFen(branch.fen, targetFen, strict) then branch.children.some
+      else findContinuationInBranches(branch.children, targetFen, strict)
+
+  private def mergeChapterPgnContinuation(
+      chapter: Chapter,
+      path: UciPath,
+      continuation: Branches
+  ): Option[Chapter] =
+    chapter
+      .updateRoot: root =>
+        if path.isEmpty then
+          root.copy(children = root.children.mergeBranchesPreferExisting(continuation)).some
+        else
+          root.withChildren(
+            _.updateAt(
+              path,
+              node => node.copy(children = node.children.mergeBranchesPreferExisting(continuation))
+            )
+          )
+      .map(_.copy(serverEval = None).updateDenorm)
+
+  private def unreasonableBranching(node: lila.tree.Node): Boolean =
+    val children = node.children.toList
+    children.lengthCompare(10) > 0 || children.exists(unreasonableBranching)
 
   private object setStudyUpdated:
     private val debouncer =

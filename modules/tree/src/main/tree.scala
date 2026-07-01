@@ -56,7 +56,7 @@ object Branches:
     // suboptimal due to using List instead of Vector
     def addNode(node: Branch): Branches =
       get(node.id).fold(nodes :+ node): prev =>
-        nodes.filterNot(_.id == node.id) :+ prev.merge(node)
+        nodes.filterNot(_.id == node.id) :+ prev.merge(node, false)
 
     // doesn't check if a node with the same ID exists!
     def prependUnchecked(b: Branch): Branches = b :: nodes
@@ -125,6 +125,15 @@ object Branches:
     def lastMainlineNode: Option[Node] =
       first.map: first =>
         first.children.lastMainlineNode | first
+
+    def mergeBranches(incoming: Branches): Branches = incoming.toList.foldLeft(nodes)(_.addNode(_))
+
+    def mergeBranchesPreferExisting(incoming: Branches): Branches =
+      incoming.toList.foldLeft(nodes) { (branches, incomingBranch) =>
+        branches.get(incomingBranch.id) match
+          case Some(existingBranch) => branches.update(existingBranch.merge(incomingBranch, true))
+          case None => branches.addNode(incomingBranch)
+      }
 
 sealed trait Node:
   def ply: Ply
@@ -266,7 +275,7 @@ case class Root(
     eval = n.eval.orElse(eval),
     clock = n.clock.orElse(clock),
     crazyData = n.crazyData.orElse(crazyData),
-    children = n.children.toList.foldLeft(children)(_.addNode(_))
+    children = children.mergeBranches(n.children)
   )
 
   override def toString = s"$ply $children"
@@ -361,17 +370,20 @@ case class Branch(
 
   def setComp = copy(comp = true)
 
-  def merge(n: Branch): Branch =
+  def merge(n: Branch, preferExisting: Boolean): Branch =
+    val favoured = if preferExisting then this else n
+    val unfavoured = if preferExisting then n else this
     copy(
-      shapes = shapes ++ n.shapes,
-      comments = comments ++ n.comments,
-      gamebook = n.gamebook.orElse(gamebook),
-      glyphs = glyphs.merge(n.glyphs),
-      eval = n.eval.orElse(eval),
-      clock = n.clock.orElse(clock),
-      crazyData = n.crazyData.orElse(crazyData),
-      children = n.children.toList.foldLeft(children)(_.addNode(_)),
-      forceVariation = n.forceVariation || forceVariation
+      shapes = if preferExisting && !shapes.isEmpty() then shapes else shapes ++ n.shapes,
+      comments = comments.merge(n.comments),
+      gamebook = favoured.gamebook.orElse(unfavoured.gamebook),
+      glyphs = unfavoured.glyphs.merge(favoured.glyphs),
+      eval = favoured.eval.orElse(unfavoured.eval),
+      clock = favoured.clock.orElse(unfavoured.clock),
+      crazyData = favoured.crazyData.orElse(unfavoured.crazyData),
+      children = if preferExisting then children.mergeBranchesPreferExisting(n.children)
+      else children.mergeBranches(n.children),
+      forceVariation = favoured.forceVariation || unfavoured.forceVariation
     )
 
   override def toString = s"$ply.${move.san} (Branches: $children)"
@@ -386,7 +398,9 @@ object Node:
 
   opaque type Shapes = List[Shape]
   object Shapes extends TotalWrapper[Shapes, List[Shape]]:
-    extension (a: Shapes) def ++(shapes: Shapes): Shapes = (a.value ::: shapes.value).distinct
+    extension (a: Shapes)
+      def ++(shapes: Shapes): Shapes = (a.value ::: shapes.value).distinct
+      def isEmpty(): Boolean = a.value.isEmpty
     val empty: Shapes = Nil
 
   case class Comment(id: Comment.Id, text: CommentStr, by: Comment.Author):
@@ -463,6 +477,16 @@ object Node:
       def ++(comments: Comments): Comments = a.value ::: comments.value
       def filterEmpty: Comments = a.value.filter(_.text.value.nonEmpty)
       def hasLichessComment = a.value.exists(_.by == Comment.Author.Lichess)
+      def merge(comments: Comments): Comments =
+        a.value
+          .map(some)
+          .zipAll(comments.value.map(some), None, None)
+          .flatMap:
+            case (Some(c1), Some(c2)) if c1.text == c2.text => List(c1)
+            case (Some(c1), Some(c2)) => List(c1, c2)
+            case (Some(c1), None) => List(c1)
+            case (None, Some(c2)) => List(c2)
+            case (None, None) => Nil
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
