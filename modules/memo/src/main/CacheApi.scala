@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import alleycats.Zero
 import scala.collection.mutable.WeakHashMap
+import scalalib.future.TimeoutException
 
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
@@ -107,7 +108,10 @@ object CacheApi:
         loader: K1 => Future[V1]
     )(using Scheduler, Executor): AsyncLoadingCache[K1, V1] =
       builder.buildAsyncFuture: k =>
-        loader(k).withTimeout(loaderTimeout, s"$name buildAsyncFuture($k)")
+        loader(k)
+          .withTimeout(loaderTimeout, s"buildAsyncFuture($name, $k)")
+          .addFailureEffect:
+            case _: TimeoutException => lila.mon.cache.buildAsyncTimeout(name).increment()
 
     def buildAsyncTimeoutZero[K1 <: K, V1 <: V](loaderTimeout: FiniteDuration = 10.seconds)(
         loader: K1 => Future[V1]

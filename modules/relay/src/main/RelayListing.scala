@@ -2,9 +2,10 @@ package lila.relay
 
 import monocle.syntax.all.*
 import java.time.temporal.ChronoUnit
-import lila.memo.CacheApi.buildAsyncTimeout
 
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.db.dsl.*
+import lila.mon.extensions.*
 
 private final class RelayListing(
     groupRepo: RelayGroupRepo,
@@ -18,7 +19,7 @@ private final class RelayListing(
 
   def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
 
-  val activeCacheTtl = 5.seconds
+  val activeCacheTtl = 11.seconds
 
   private enum Spot:
     case UngroupedTour(tour: RelayTour.WithRounds) extends Spot
@@ -27,9 +28,9 @@ private final class RelayListing(
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout("relayListing.current"): _ =>
+    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout("relayListing.current", 10.seconds): _ =>
       for
-        spots <- getSpots
+        spots <- getSpots.mon(lila.mon.relay.listing.time("spots"))
         selected = spots.flatMap:
           case Spot.UngroupedTour(t) =>
             t.rounds.find(!_.isFinished).map(Selected(t, _, none)).map(NonEmptyList.one)
@@ -40,7 +41,7 @@ private final class RelayListing(
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (!s.round.hasStarted, tierPriority(s.t.tour)))).take(3).toNel
-        cards <- selected.traverse(toRelayCard)
+        cards <- selected.traverse(toRelayCard).mon(lila.mon.relay.listing.time("cards"))
         sorted = cards.sortBy: t =>
           val startAt = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))

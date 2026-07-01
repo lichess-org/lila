@@ -51,6 +51,8 @@ object http:
   def csrfError(tpe: String, action: String, client: String) =
     counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
   val fingerPrint = timer("http.fingerPrint.time").withoutTags()
+object cache:
+  def buildAsyncTimeout(name: String) = counter("cache.buildAsyncTimeout").withTag("name", name)
 object syncache:
   def miss(name: String) = counter("syncache.miss").withTag("name", name)
   def timeout(name: String) = counter("syncache.timeout").withTag("name", name)
@@ -319,6 +321,8 @@ object relay:
     histogram("relay.push.errors").withTags(histogramTags).record(errors)
     counter("relay.push.games.nb").withTags(counterTags).increment(games)
     counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
+  object listing:
+    def time(section: String) = timer("relay.listing.time").withTag("section", section)
 
 object bot:
   def moves(username: String) = counter("bot.moves").withTag("name", username)
