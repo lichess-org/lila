@@ -54,8 +54,8 @@ private final class RelayListing(
 
   private def toRelayCard(s: NonEmptyList[Selected]): Fu[RelayCard] =
     val main = s.head
-    groupCrowd
-      .get(main.t.tour.id)
+    main.round.hasStarted
+      .so(groupCrowd.get(main.t.tour.id))
       .map: crowd =>
         RelayCard(
           tour = main.t.tour,
