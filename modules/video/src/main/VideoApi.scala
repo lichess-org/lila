@@ -145,7 +145,7 @@ final private[video] class VideoApi(
 
     object count:
 
-      private val cache = cacheApi.unit[Long]:
+      private val cache = cacheApi.unit[Long]("video.count"):
         _.refreshAfterWrite(3.hours).buildAsyncTimeout("video.count")(_ => videoColl.countAll)
 
       def apply: Fu[Long] = cache.getUnit
@@ -220,7 +220,7 @@ final private[video] class VideoApi(
             else -t.nb
         }
 
-    private val popularCache = cacheApi.unit[List[TagNb]]:
+    private val popularCache = cacheApi.unit[List[TagNb]]("video.popular"):
       _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
         videoColl
           .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>

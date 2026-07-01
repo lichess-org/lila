@@ -24,7 +24,7 @@ final class GitHub(cacheApi: lila.memo.CacheApi, ws: StandaloneWSClient)(using E
             case None => false
         case None => false
 
-  private val githubPublicKeys = cacheApi.unit[Option[JsValue]]:
+  private val githubPublicKeys = cacheApi.unit[Option[JsValue]]("github.publicKeys"):
     _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       ws.url("https://api.github.com/meta/public_keys/secret_scanning")
         .get()

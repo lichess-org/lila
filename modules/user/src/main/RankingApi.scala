@@ -124,7 +124,7 @@ final class RankingApi(
             ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
+    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]("user.weeklyStableRanking"):
       _.refreshAfterWrite(10.minutes).buildAsyncTimeout("user.weeklyStableRanking", 2.minutes): _ =>
         lila.rating.PerfType.leaderboardable
           .sequentially: perf =>

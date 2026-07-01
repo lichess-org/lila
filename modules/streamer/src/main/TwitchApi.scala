@@ -290,7 +290,7 @@ final private class TwitchApi(
 
   private object bearerToken:
 
-    private val cache = cacheApi.unit[Secret]:
+    private val cache = cacheApi.unit[Secret]("twitch.bearerToken"):
       _.refreshAfterWrite(55.minutes).buildAsyncFuture: _ =>
         renewToken()
 

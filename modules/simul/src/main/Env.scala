@@ -47,7 +47,7 @@ final class Env(
 
   private val simulSocket = wire[SimulSocket]
 
-  val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
+  val allCreatedFeaturable = cacheApi.unit[List[Simul]]("simul.allCreatedFeaturable"):
     _.refreshAfterWrite(3.seconds).buildAsyncTimeout("simul.allCreatedFeaturable"): _ =>
       repo.allCreatedFeaturable
 

@@ -36,7 +36,7 @@ final class UblogApi(
   val carouselSizeSetting =
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
 
-  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]:
+  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]("ublog.carousel"):
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout("ublog.carousel"): _ =>
       fetchCarouselFromDb().map(_.shuffled.take(9))
 

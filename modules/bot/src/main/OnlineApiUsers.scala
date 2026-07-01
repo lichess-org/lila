@@ -28,13 +28,13 @@ final class OnlineApiUsers(
   private def publish(userId: UserId, isOnline: Boolean) =
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
-  private val usersCache = cacheApi.unit[List[UserWithPerfs]]:
-    _.expireAfterWrite(10.seconds).buildAsyncTimeout("onlineApiUsers"): _ =>
+  private val usersCache = cacheApi.unit[List[UserWithPerfs]]("onlineApiUsers.list"):
+    _.expireAfterWrite(10.seconds).buildAsyncTimeout("onlineApiUsers.list"): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})
 
-  private val jsonCache = cacheApi.unit[String]:
+  private val jsonCache = cacheApi.unit[String]("onlineApiUsers.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
       for
         users <- getUsers

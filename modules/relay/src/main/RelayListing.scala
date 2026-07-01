@@ -27,8 +27,8 @@ private final class RelayListing(
 
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
-  private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout("relayListing.current", 10.seconds): _ =>
+  private val activeCache = cacheApi.unit[List[RelayCard]]("relayListing.active"):
+    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout("relayListing.active", 10.seconds): _ =>
       for
         spots <- getSpots.mon(lila.mon.relay.listing.time("spots"))
         selected = spots.flatMap:
