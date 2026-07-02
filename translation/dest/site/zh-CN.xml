@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">黑方离开对局</string>
   <string name="whiteDidntMove">白方未走棋</string>
   <string name="blackDidntMove">黑方未走棋</string>
+  <string name="whiteAborted">白方终止对局</string>
+  <string name="blackAborted">黑方终止对局</string>
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
@@ -698,7 +700,7 @@
   <string name="cyclePreviousOrNextVariation">切换上个/下个变着</string>
   <string name="toggleGlyphAnnotations">开启着法评注</string>
   <string name="togglePositionAnnotations">开启局面评注</string>
-  <string name="toggleObservationAnnotations">开启观战者评注</string>
+  <string name="toggleObservationAnnotations">切换观战评注</string>
   <string name="variationArrowsInfo">变着箭头让您无需使用着法列表即可导航</string>
   <string name="playSelectedMove">走选定的着法</string>
   <string name="newTournament">新锦标赛</string>
@@ -766,9 +768,14 @@
   <string name="xHostsY">%1$s 主持了 %2$s</string>
   <string name="xJoinsY">%1$s 加入了 %2$s</string>
   <string name="xLikesY">%1$s 喜欢 %2$s</string>
+  <string name="like">点赞</string>
+  <string name="liked">已赞</string>
   <string name="quickPairing">快速匹配</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
+  <plurals name="nbAnonymous">
+    <item quantity="other">匿名 (%s)</item>
+  </plurals>
   <string name="yourScore">您的得分：%s</string>
   <string name="language">语言</string>
   <string name="allLanguages">所有语言</string>
@@ -898,7 +905,7 @@
   <string name="tryTheContactPage">请尝试联系页面</string>
   <string name="makeSureToRead">请务必阅读 %1$s</string>
   <string name="theForumEtiquette">论坛礼仪</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">聊天时请注意文明用语！</string>
+  <string name="pleaseBeNiceInTheForum">聊天时请注意文明用语！</string>
   <string name="thisTopicIsArchived">此话题已被归档，无法再回复。</string>
   <string name="joinTheTeamXToPost">加入 %1$s，以在此论坛发帖</string>
   <string name="teamNamedX">%1$s 团队</string>
@@ -990,4 +997,5 @@
   <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>
+  <string name="settings">设置</string>
 </resources>

@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon } from 'lib/view';
 
@@ -48,10 +48,6 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
       ? hl('div.browser-notification', 'Browser does not support notification popups')
       : Notification.permission === 'denied' && notificationDenied(),
   ];
-}
-
-export function asText(n: Notification): string | undefined {
-  return renderers[n.type] ? renderers[n.type].text(n) : undefined;
 }
 
 function notificationDenied(): VNode {

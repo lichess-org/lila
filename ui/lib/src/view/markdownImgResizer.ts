@@ -112,6 +112,7 @@ export function wrapImg(arg: { img: HTMLImageElement } | { src: string; alt: str
 }
 
 export async function naturalSize(image: Blob): Promise<{ width: number; height: number }> {
+  if (image.type === 'image/svg+xml') throw 'SVG images are not supported.';
   if ('createImageBitmap' in window) return window.createImageBitmap(image);
   const objectUrl = URL.createObjectURL(image);
   const img = new Image();

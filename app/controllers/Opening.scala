@@ -1,8 +1,5 @@
 package controllers
 
-import play.api.mvc.*
-import scalalib.net.Crawler
-
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.security.IsProxy
@@ -31,16 +28,15 @@ final class Opening(env: Env) extends LilaController(env):
   def byKeyAndMoves(key: String, moves: String) = Open:
     Firewall:
       WithProxy: proxy ?=>
-        val crawler = HTTPRequest.isCrawler(req)
-        if moves.sizeIs > 10 && crawler.yes then Forbidden
-        else if moves.sizeIs > 6 && proxy.isFloodish && ctx.isAnon then Forbidden
+        if moves.sizeIs > 10 && req.client.isCrawler then Forbidden
+        else if moves.sizeIs > 6 && proxy.couldBeEnum && ctx.isAnon then Forbidden
         else
           limit.enumeration.opening(rateLimited):
             val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
             val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
             ipRateLimit(rateLimited, cost = cost):
               env.opening.api
-                .lookup(queryFromUrl(key, moves.some), crawler, proxy)
+                .lookup(queryFromUrl(key, moves.some), proxy)
                 .flatMap:
                   case None => Redirect(routes.Opening.index(key.some))
                   case Some(page) =>
@@ -58,7 +54,7 @@ final class Opening(env: Env) extends LilaController(env):
                         }
 
   def config(thenTo: String) = OpenBody:
-    NoCrawlers:
+    NoCrawlersRes:
       val redir = Redirect:
         lila.common.HTTPRequest.referer(ctx.req) | {
           if thenTo.isEmpty || thenTo == "index" then routes.Opening.index().url
@@ -72,7 +68,7 @@ final class Opening(env: Env) extends LilaController(env):
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me ?=>
     env.opening.api
-      .lookup(queryFromUrl(key, moves.some), Crawler.No, IsProxy.empty)
+      .lookup(queryFromUrl(key, moves.some), IsProxy.empty)
       .map(_.flatMap(_.query.exactOpening))
       .orNotFound: op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))

@@ -2,7 +2,7 @@ import type { VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
@@ -119,7 +119,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
           const $tr = $(e.target as HTMLElement).parents('tr');
           if (!$tr.length) return;
           const id = $tr.data('id');
-          if (ctrl.study && ctrl.study.members.canContribute()) {
+          if (ctrl.study?.members.canContribute()) {
             ctrl.explorer.gameMenu(id);
             ctrl.redraw();
           } else openGame(ctrl, id);
@@ -132,7 +132,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               ctrl.explorer.opts.showRatings &&
                 hl(
                   'td',
-                  [game.white, game.black].map(p => hl('span', '' + p.rating)),
+                  [game.white, game.black].map(p => hl('span', p.rating)),
                 ),
               hl(
                 'td',

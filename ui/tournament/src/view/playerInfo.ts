@@ -1,5 +1,5 @@
 import { status } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
@@ -78,7 +78,7 @@ export default function (ctrl: TournamentController): VNode {
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
             },
             [
-              hl('th', '' + (Math.max(nb.game, pairingsLen) - i)),
+              hl('th', Math.max(nb.game, pairingsLen) - i),
               hl('td', fullName(p.op)),
               ctrl.opts.showRatings ? hl('td', `${p.op.rating}`) : null,
               berserkTd(!!p.op.berserk),

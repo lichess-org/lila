@@ -5,6 +5,7 @@ import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import play.api.libs.json.*
+import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
@@ -28,6 +29,7 @@ final class GameApiV2(
     gameJsonView: lila.game.JsonView,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
+    tourName: lila.tournament.GetTourName,
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     annotator: lila.analyse.Annotator,
@@ -41,7 +43,7 @@ final class GameApiV2(
 
   import GameApiV2.*
 
-  def exportOne(game: Game, config: OneConfig): Fu[String] =
+  def exportOne(game: Game, config: OneConfig)(using Lang): Fu[String] =
     game.pgnImport.ifTrue(config.imported) match
       case Some(imported) => fuccess(imported.pgn.value)
       case None =>
@@ -104,7 +106,7 @@ final class GameApiV2(
       "_"
     )
 
-  def exportByUser(config: ByUserConfig): Source[String, ?] =
+  def exportByUser(config: ByUserConfig)(using Lang): Source[String, ?] =
     val playerSelect =
       if config.finished then config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
       else
@@ -141,7 +143,7 @@ final class GameApiV2(
       .via(upgradeOngoingGame)
       .via(preparationFlow(config))
 
-  def mobileRecent(user: User)(using Option[Me]): Fu[JsArray] = for
+  def mobileRecent(user: User)(using Option[Me], Lang): Fu[JsArray] = for
     games <- gameRepo.recentFinishedGamesFromSecondary(user, Max(10))
     config = MobileRecentConfig(user)
     enriched <- games.sequentially(enrich(config.flags))
@@ -149,7 +151,7 @@ final class GameApiV2(
       toJson(game, fen, analysis, config)
   yield JsArray(jsons)
 
-  def mobileCurrent(user: User)(using Option[Me]): Fu[Option[JsObject]] =
+  def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
     gameCache
       .lastPlayedPlayingId(user.id)
       .flatMapz(gameProxy.gameIfPresentOrFetch)
@@ -158,7 +160,7 @@ final class GameApiV2(
         enrich(config.flags)(game).flatMap: (game, fen, analysis) =>
           toJson(game, fen, analysis, config).dmap(some)
 
-  def exportByIds(config: ByIdsConfig): Source[String, ?] =
+  def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =
     gameRepo
       .sortedCursor(
         $inIds(config.ids),
@@ -170,7 +172,9 @@ final class GameApiV2(
       .via(upgradeOngoingGame)
       .via(preparationFlow(config))
 
-  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId]): Source[String, ?] =
+  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId])(using
+      Lang
+  ): Source[String, ?] =
     pairingRepo
       .sortedCursor(
         tournamentId = config.tour.id,
@@ -204,11 +208,9 @@ final class GameApiV2(
           case Format.JSON =>
             def addBerserk(color: Color)(json: JsObject) =
               if pairing.berserkOf(color) then
-                json.deepMerge(
-                  Json.obj(
+                json.deepMerge:
+                  Json.obj:
                     "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
-                  )
-                )
               else json
             toJson(game, fen, analysis, config, teams)
               .dmap(addBerserk(chess.White))
@@ -217,7 +219,7 @@ final class GameApiV2(
                 s"${Json.stringify(json)}\n"
       }
 
-  def exportBySwiss(config: BySwissConfig): Source[String, ?] =
+  def exportBySwiss(config: BySwissConfig)(using Lang): Source[String, ?] =
     swissApi
       .gameIdSource(
         swissId = config.swissId,
@@ -236,7 +238,7 @@ final class GameApiV2(
       .throttle(20, 1.second)
       .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
-  def exportUserBookmarks(config: BookmarkConfig): Source[String, ?] =
+  def exportUserBookmarks(config: BookmarkConfig)(using Lang): Source[String, ?] =
     import lila.game.BSONHandlers.gameHandler
     bookmarkApi.coll
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
@@ -258,7 +260,7 @@ final class GameApiV2(
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
-  private def preparationFlow(config: Config) =
+  private def preparationFlow(config: Config)(using Lang) =
     Flow[Game]
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
@@ -274,12 +276,12 @@ final class GameApiV2(
           .dmap:
             (game, initialFen, _)
 
-  private def formatterFor(config: Config) =
+  private def formatterFor(config: Config)(using Lang) =
     config.format match
       case Format.PGN => pgnDump.formatter(config.flags)
       case Format.JSON => jsonFormatter(config)
 
-  private def jsonFormatter(config: Config) =
+  private def jsonFormatter(config: Config)(using Lang) =
     (
         game: Game,
         initialFen: Option[Fen.Full],
@@ -295,12 +297,15 @@ final class GameApiV2(
       analysisOption: Option[Analysis],
       config: Config,
       teams: Option[GameTeams] = None
-  ): Fu[JsObject] = for
+  )(using Lang): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     flags = config.flags
     pgn <- config.flags.pgnInJson.optionFu:
       pgnDump(g, initialFen, analysisOption, config.flags).map(annotator.toPgnString)
     bookmarked <- config.flags.bookmark.so(bookmarkApi.exists(g, config.by.map(_.userId)))
+    arena <- g.tournamentId.traverse: tournamentId =>
+      for name <- tourName.async(tournamentId)
+      yield Json.obj("id" -> tournamentId, "name" -> name)
     accuracy = analysisOption
       .ifTrue(flags.accuracy)
       .flatMap:
@@ -337,8 +342,8 @@ final class GameApiV2(
     .add("pgn" -> pgn)
     .add("daysPerTurn" -> g.daysPerTurn)
     .add("analysis" -> analysisOption.ifTrue(flags.evals).map(analysisJson.moves(_, withGlyph = false)))
-    .add("tournament" -> g.tournamentId)
-    .add("swiss" -> g.swissId)
+    .add("arenaTour" -> arena)
+    .add("swissTour" -> g.swissId.map(id => Json.obj("id" -> id)))
     .add("clock" -> g.clock.map: clock =>
       Json.obj(
         "initial" -> clock.limitSeconds,

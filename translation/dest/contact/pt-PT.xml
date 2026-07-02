@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Como te podemos ajudar?</string>
   <string name="visitThisPage">Visita esta página para resolveres o problema</string>
   <string name="iCantLogIn">Não consigo iniciar sessão</string>
-  <string name="noConfirmationEmail">Não recebi a minha confirmação de e-mail</string>
+  <string name="noConfirmationEmail">Não recebi a minha confirmação de email</string>
   <string name="forgotPassword">Esqueci-me da minha palavra-passe</string>
   <string name="forgotUsername">Esqueci-me do meu nome de utilizador</string>
-  <string name="youCanLoginWithEmail">Podes iniciar sessão com o endereço de e-mail com que te registaste</string>
+  <string name="youCanLoginWithEmail">Podes iniciar sessão com o endereço de email com que te registaste</string>
   <string name="lost2FA">Perdi o acesso aos meus códigos de autenticação de dois fatores</string>
   <string name="doPasswordReset">Completa a redefinição da palavra-passe para removeres o teu segundo fator</string>
   <string name="accountSupport">Preciso do apoio de conta</string>
@@ -28,14 +28,14 @@
   <string name="cantClearHistory">Não é possível limpar o teu histórico de jogos, histórico de problemas ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar um jogador, usa o formulário de denúncia</string>
-  <string name="youCanAlsoReachReportPage">Também podes aceder a essa página clicando no butão de denúncia %s numa página de perfil.</string>
+  <string name="youCanAlsoReachReportPage">Também podes aceder a essa página clicando no botão de denúncia %s numa página de perfil.</string>
   <string name="doNotReportInForum">Não denuncies jogadores no fórum.</string>
-  <string name="doNotSendReportEmails">Não nos envies e-mails de denúnica.</string>
-  <string name="doNotMessageModerators">Não envies mensagens a moderadores.</string>
+  <string name="doNotSendReportEmails">Não nos envies emails de denúncias.</string>
+  <string name="doNotMessageModerators">Não envies mensagens diretamente aos moderadores.</string>
   <string name="onlyReports">Só denunciar jogadores através do formulário de denúnica é que é eficaz.</string>
   <string name="wantReportBug">Quero reportar um erro</string>
   <string name="reportBugInForum">Na secção Feedback do Lichess no fórum</string>
-  <string name="reportWebsiteIssue">Como um problema no site do Lichess no GitHub</string>
+  <string name="reportWebsiteIssue">Como um problema no sítio do Lichess no GitHub</string>
   <string name="reportMobileIssue">Como um problema no aplicação móvel do Lichess no GitHub</string>
   <string name="reportBugInDiscord">No servidor Lichess Discord</string>
   <string name="howToReportBug">Por favor, descreve o aspeto do erro, o que esperavas que acontecesse, e os passos para reproduzir o erro.</string>
@@ -43,13 +43,13 @@
   <string name="calledEnPassant">Chama-se \"en passant\" e é uma das regras do xadrez.</string>
   <string name="tryEnPassant">Experimenta este pequeno jogo interativo para aprenderes mais sobre o \"en passant\".</string>
   <string name="illegalCastling">Roque ilegal ou impossível</string>
-  <string name="castlingPrevented">O roque só é impedido se o rei passar por uma casa controlada.</string>
+  <string name="castlingPrevented">O roque só é impedido, se o rei passar por uma casa controlada.</string>
   <string name="castlingRules">Certifica-te que entendes as regras do roque</string>
   <string name="tryCastling">Experimenta este pequeno jogo interativo para praticares o roque</string>
   <string name="castlingImported">Se importaste o jogo, ou começaste a partir de uma posição, certifica-te que definiste corretamente os direitos de roque.</string>
   <string name="insufficientMaterial">Material insuficiente para fazer xeque-mate</string>
-  <string name="fideMate">De acordo com as Leis do xadrez da FIDE §6.9, se um xeque-mate é possível com alguma sequência legal de movimentos, então o jogo não é um empate</string>
-  <string name="knightMate">É possível fazer xeque-mate apenas com um cavaleiro ou um bispo, se o adversário tiver mais do que um rei no tabuleiro.</string>
+  <string name="fideMate">De acordo com as Leis do Xadrez da FIDE §6.9, se o xeque-mate é possível com alguma sequência legal de movimentos, então o jogo não é um empate</string>
+  <string name="knightMate">É possível fazer xeque-mate apenas com um cavaleiro ou um bispo, se o adversário tiver mais alguma peça (para além do rei) no tabuleiro.</string>
   <string name="noRatingPoints">Não foram atribuídos pontos</string>
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
   <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Em certas circunstâncias, ao jogar contra uma conta bot, uma partida a valer pontos pode não premiar pontos se for determinado que o jogador está abusando do bot para ganhar pontos.</string>
@@ -60,7 +60,7 @@
   <string name="engineAppeal">Marcado por fazer batota ou usar a ajuda do computador</string>
   <string name="sendAppealTo">Podes enviar um apelo para %s.</string>
   <string name="falsePositives">Às vezes ocorrem marcações incorretas, e lamentamos que isso aconteça.</string>
-  <string name="ifLegit">Se o teu apelo for legítimo, levantaremos o banimento o mais rápido possível.</string>
+  <string name="ifLegit">Se o teu apelo for legítimo, levantaremos o banimento o mais rapidamente possível.</string>
   <string name="accountLost">No entanto, se usaste assistência de computador, mesmo que só uma vez, a tua conta está perdida, infelizmente.</string>
   <string name="doNotDeny">Não negues ter feito batota. Se quiseres ter permissão para criar uma nova conta, simplesmente admite o que fizeste, e mostra que compreendeste que foi um erro.</string>
   <string name="otherRestriction">Outra restrição</string>
@@ -70,8 +70,8 @@
   <string name="authorizationToUse">Autorização para utilizar o Lichess</string>
   <string name="welcomeToUse">És bem-vindo para utilizar o Lichess para a tua atividade, mesmo que seja comercial.</string>
   <string name="videosAndBooks">Podes mostrá-lo em vídeo teus e podes imprimir capturas de ecrã do Lichess em livros teus.</string>
-  <string name="creditAppreciated">O crédito é apreciado mas não exigido.</string>
+  <string name="creditAppreciated">O crédito é apreciado, mas não exigido.</string>
   <string name="noneOfTheAbove">Nenhuma das anteriores</string>
-  <string name="sendEmailAt">Envia-nos um e-mail para %s.</string>
-  <string name="explainYourRequest">Por favor, explica o teu pedido de forma clara e completa. Menciona o teu nome de utilizador no Lichess e qualquer outra informação que nos possa nos ajudar a te ajudar.</string>
+  <string name="sendEmailAt">Envia-nos um email para %s.</string>
+  <string name="explainYourRequest">Por favor, explica o teu pedido de forma clara e completa. Menciona o teu nome de utilizador no Lichess e qualquer outra informação que nos possa nos ajudar a ajudar-te.</string>
 </resources>

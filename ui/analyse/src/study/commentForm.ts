@@ -87,7 +87,7 @@ export function view(root: AnalyseCtrl): VNode {
               const el = vnode.elm as HTMLInputElement;
               el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
               const heightStore = storage.make('study.comment.height');
-              el.onmouseup = () => heightStore.set('' + el.offsetHeight);
+              el.onmouseup = () => heightStore.set(String(el.offsetHeight));
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
               blurOnEscape(el);
             },

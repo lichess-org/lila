@@ -7,18 +7,21 @@
   .variants {
     display: flex;
     flex-flow: row wrap;
+    row-gap: 6px;
 
     .checkable {
       flex: 1 1 33%;
       white-space: nowrap;
+      display: flex;
+      gap: 6px;
+      align-items: center;
 
       input {
         margin-inline-end: 0.3em;
+        cursor: pointer;
       }
 
-      label,
-      input {
-        vertical-align: middle;
+      label {
         cursor: pointer;
       }
     }

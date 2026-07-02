@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
   <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
   <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
+  <string name="whiteAborted">Les Blancs ont quitté la partie</string>
+  <string name="blackAborted">Les Noirs ont quitté la partie</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
@@ -807,6 +809,8 @@
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
+  <string name="like">Aime</string>
+  <string name="liked">Aimé</string>
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
@@ -942,7 +946,7 @@
   <string name="tryTheContactPage">essayez la page de contact</string>
   <string name="makeSureToRead">Veillez à lire %1$s</string>
   <string name="theForumEtiquette">le règlement du forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Faites preuve de courtoisie dans le forum.</string>
+  <string name="pleaseBeNiceInTheForum">Faites preuve de courtoisie dans le forum.</string>
   <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
   <string name="joinTheTeamXToPost">Pour poster sur ce forum, rejoignez %1$s</string>
   <string name="teamNamedX">Équipe %1$s</string>
@@ -1035,4 +1039,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>
+  <string name="settings">Paramètres</string>
 </resources>

@@ -2,7 +2,6 @@ import { type Prop, prop } from 'lib';
 import { storedBooleanProp } from 'lib/storage';
 
 import type AnalyseCtrl from '@/ctrl';
-import { readOnlyProp } from '@/util';
 
 import type { StudyData } from '../interfaces';
 import { practiceComplete } from '../studyXhr';
@@ -28,10 +27,11 @@ export default class StudyPracticeCtrl {
   }
 
   onLoad = () => {
-    this.root.showBestMoveArrowsProp = readOnlyProp(true);
-    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
-    this.root.showGauge = readOnlyProp(true);
-    this.root.showFishnetAnalysis = readOnlyProp(true);
+    // You can still do the previous temp overrides with settingsCtrl, but not sure they're needed anymore.
+    // this.root.settings.set('showBestMoveArrows', true, () => {});
+    // this.root.settings.set('showManeuverMoveArrows', true, () => {});
+    // this.root.settings.set('showGauge', true, () => {});
+    // this.root.settings.set('showStaticAnalysis', true, () => {});
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);
@@ -94,12 +94,7 @@ export default class StudyPracticeCtrl {
     this.onLoad();
     this.root.practice!.resume();
   };
-  // push to 20 to store AI moves in the cloud
-  // lower to 18 after task completion (or failure)
-  playableDepth = () => (this.success() === null ? 20 : 18);
-  customCeval = {
-    search: () => ({ by: { depth: this.playableDepth() }, multiPv: 1, indeterminate: true }),
-  };
+  customCeval = { search: () => ({ by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }) };
   isWhite = this.root.bottomIsWhite;
   analysisUrl = () =>
     `/analysis/standard/${this.root.node.fen.replace(/ /g, '_')}?color=${this.root.bottomColor()}`;

@@ -8,7 +8,7 @@ import {
   type TournamentRanks,
 } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type LooseVNode, hl, bind, dataIcon } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';

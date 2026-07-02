@@ -1,6 +1,6 @@
 import { opposite } from 'chessops';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storedBooleanProp } from 'lib/storage';
 import { domDialog, type Dialog } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
@@ -63,6 +63,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
     class: 'gif-export',
     modal: true,
     show: true,
+    easyClose: 'clickOutside',
     htmlText: `
       <div class="gif-export-dialog">
         <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>

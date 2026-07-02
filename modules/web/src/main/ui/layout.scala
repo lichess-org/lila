@@ -86,18 +86,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
 
-  val manifests = raw:
-    """<link rel="manifest" href="/manifest.json">"""
+  val manifests = raw("""<link rel="manifest" href="/manifest.json">""")
+  val noRobots = raw("""<meta content="noindex,nofollow" name="robots">""")
 
   val favicons = raw:
-    List(512, 256, 192, 128, 64)
-      .map: px =>
-        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
-      .mkString(
-        "",
-        "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
-      )
+    val path = s"$assetBaseUrl/assets/logo"
+    s"""<link rel="alternate icon" type="image/png" href="$path/lichess-favicon-64.png">""" +
+      s"""<link id="favicon" rel="icon" type="image/svg+xml" href="$path/lichess-favicon.svg">"""
+
   def blindModeForm(using ctx: Context) = raw:
     val btnText =
       if ctx.blind
@@ -132,7 +128,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       div(cls := "signin-or-signup")(
-        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "button button-empty signin")(
+        a(
+          href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}",
+          cls := "button button-empty signin",
+          testId("login")
+        )(
           trans.site.signIn()
         ),
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
@@ -305,7 +305,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       header(id := "top")(
         div(cls := "site-title-nav")(
           (!isAppealUser).option(topnavToggle),
-          a(cls := "site-title", href := langHref("/"))(
+          a(cls := "site-title", href := langHref("/"), testId("site-title"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
             div(cls := "site-icon", dataIcon := Icon.Logo),

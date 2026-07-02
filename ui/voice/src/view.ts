@@ -1,5 +1,5 @@
 import { onClickAway } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
@@ -153,6 +153,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     css: [{ hashed: 'voice.move.help' }],
     onClose: () => ctrl.showHelp(false),
     modal: true,
+    easyClose: 'clickOutside',
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
         showMoveList(dlg);

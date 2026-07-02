@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TSS</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Tez‑tez soʻraladigan savollar</string>
   <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>
@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">Jonli (live) — chunki oʻyinlar haftasiga 7 kun kuniga 24 soat real vaqt rejimida oʻynaladi va kuzatiladi; yengil (light) va erkin (libre) — chunki Lichess ochiq kodli loyiha boʻlib, boshqa saytlarga xos boʻlgan xususiy va keraksiz chiqindilardan xolidir.</string>
   <string name="whyIsLilaCalledLila">Shuningdek, Lichessʼning dastur kodi — \'%1$s\' nomi ham li[chess in sca]la soʻzlaridan olingan. Buning sababi, Lichessʼning asosiy qismi intuitiv tushunarli dasturlash tili boʻlmish %2$sʼda yozilgan.</string>
   <string name="howCanIContributeToLichess">Lichessʼga qanday qilib hissa qoʻshishim mumkin?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan xayriyalar va koʻngillilar jamoasining saʼy‑harakatlari asosida faoliyat yuritadi.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan donatlar va koʻngillilar jamoasining saʼy‑harakatlari asosida faoliyat yuritadi.</string>
   <string name="findMoreAndSeeHowHelp">%1$s haqida (shu jumladan, %2$s bilan) koʻproq maʼlumot olishingiz mumkin. Agar oʻz vaqtingiz va mahoratingiz bilan Lichessʼga koʻngilli sifatida yordam bermoqchi boʻlsangiz, koʻmaklashishning yana koʻplab %3$s ham mavjud.</string>
   <string name="beingAPatron">Homiy boʻlish</string>
   <string name="breakdownOfOurCosts">xarajatlarimizning batafsil hisoboti</string>
@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, masala yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="fairPlay">Halol oʻyin</string>
   <string name="whenAmIEligibleRatinRefund">Qachon gʻirromchilar sababli yoʻqotilgan reytingim avtomatik ravishda qaytariladi?</string>
-  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir daqiqa oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
+  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir minut oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
   <string name="preventLeavingGameWithoutResigning">Oʻyinni taslim boʻlmasdan tashlab ketadigan oʻyinchilarga nisbatan qanday choralar koʻriladi?</string>
   <string name="leavingGameWithoutResigningExplanation">Agar raqibingiz oʻyinlarni tez‑tez bekor qilsa yoki oxiriga yetkazmasdan tashlab ketsa, unga \"oʻyin taqiqi\" beriladi — ya’ni u maʼlum muddat oʻyin oʻynay olmaydi. Bu cheklov foydalanuvchi profilida ommaga koʻrsatilmaydi. Agar bunday holat takrorlanaversa, taqiq muddati uzayib boradi. Tartibni muntazam buzish esa akkauntning butunlay yopilishiga olib kelishi mumkin.</string>
   <string name="howCanIBecomeModerator">Qanday qilib moderator boʻlishim mumkin?</string>
@@ -34,8 +34,8 @@
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
 taxminiy davomiylik = %1$s
 
-Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 soniyani tashkil qiladi.</string>
-  <string name="durationFormula">(soatdagi boshlangʻich vaqt, soniyalarda) + 40 × (qoʻshimcha vaqt)</string>
+Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 sekundni tashkil qiladi.</string>
+  <string name="durationFormula">(soatdagi boshlangʻich vaqt, sekundlarda) + 40 × (qoʻshimcha vaqt)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Lichessʼda shaxmatning qanday variantlarini oʻynay olaman?</string>
@@ -58,11 +58,11 @@ Shuni bilingki, agar raqibning oʻz donalari shohini yoʻlini toʻsib qoʻysa, b
   <string name="fideHandbook">FIDE qoʻllanmasi</string>
   <string name="fideHandbookX">FIDE qoʻllanmasi %s</string>
   <string name="discoveringEnPassant">Nima uchun piyoda yonidan oʻtib ketgan boshqa bir piyodani urib olishi mumkin? (en passant)</string>
-  <string name="explainingEnPassant">Bu \"en passant\" (kesib oʻtish) deb nomlangan qonuniy yurishdir. Vikipediyadagi ushbu maqolada bu haqida %1$s berilgan.
+  <string name="explainingEnPassant">Bu \"en passant\" deb nomlangan qonuniy yurishdir. Vikipediyadagi ushbu maqolada bu haqida %1$s berilgan.
 
 Ushbu qoida %2$sning 3.7.3.1 va 3.7.3.2‑bandlarida quyidagicha tavsiflanadi:
 
-\"Raqib piyodasi boshlangʻich katagidan ikki katak oldinga yurib, sizning piyodangiz bilan bir xil gorizontalga va qoʻshni vertikalga kelib qolsa, siz ushbu piyodani goʻyoki u bir katak yurganidek urib olishingiz mumkin. Bunday urib olish faqat raqib piyodasi ikki katak yurganidan keyingi birinchi yurishdayoq amalga oshirilishi mumkin va bu ‘en passant’ (kesib oʻtish) deb ataladi.\"
+\"Raqib piyodasi boshlangʻich katagidan ikki katak oldinga yurib, sizning piyodangiz bilan bir xil gorizontalga va qoʻshni vertikalga kelib qolsa, siz ushbu piyodani goʻyoki u bir katak yurganidek urib olishingiz mumkin. Bunday urib olish faqat raqib piyodasi ikki katak yurganidan keyingi birinchi yurishdayoq amalga oshirilishi mumkin va bu ‘en passant’ deb ataladi.\"
 
 Ushbu yurishni mashq qilish uchun %3$s sahifasiga oʻting.</string>
   <string name="goodIntroduction">yaxshi maʼlumot</string>
@@ -138,7 +138,7 @@ Reyting — bu shunchaki \"nisbiy\" koʻrsatkich. U faqat bir guruh oʻyinchilar
   <string name="howToThreeDots">Qanday qilib...</string>
   <string name="enableDisableNotificationPopUps">Bildirishnomalarni yoqish yoki oʻchirish mumkin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqida maʼlumot olish oynasini koʻrish</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess ixtiyoriy ravishda qalqib chiquvchi bildirishnomalarni yuborishi mumkin. Masalan, navbat sizga kelganda yoki shaxsiy xabar olganingizda.
+  <string name="lichessCanOptionnalySendPopUps">Lichess ixtiyoriy ravishda qalqib chiquvchi bildirishnomalarni yuborishi mumkin. Masalan, sizning galingiz kelganida yoki shaxsiy xabar olganingizda.
 
 Buning uchun brauzeringizning manzillar satridagi lichess.org manzili yonidagi joylashgan qulf belgisini bosing.
 

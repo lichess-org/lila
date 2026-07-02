@@ -43,7 +43,7 @@ case class RelayTour(
 
   def official = tier.isDefined
 
-  def isOwnedBy[U: UserIdOf](u: U): Boolean = ownerIds.toList.contains(u.id)
+  def isOwnedBy[U: UserIdOf](u: U): Boolean = ownerIds.contains(u.id)
 
   def communityOwner: Option[UserId] = tier.isEmpty.option(ownerIds.head)
 

@@ -4,7 +4,7 @@ import type { Tablesort } from 'tablesort';
 import { defined } from 'lib';
 import { isTouchDevice } from 'lib/device';
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
@@ -469,15 +469,8 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
     if (hideResultsSinceIndex <= index) return hl('span', '?');
 
     const povResultStr = points === '1/2' ? '½-½' : (points === '1') === (color === 'white') ? '1-0' : '0-1';
-    const coloredResult = playerColoredResult(povResultStr, color);
-    if (!coloredResult) return;
-
-    return hl(
-      coloredResult.tag,
-      customPoints && points.replace('1/2', '0.5') !== customPoints.toString()
-        ? customPoints
-        : coloredResult.points,
-    );
+    const coloredResult = playerColoredResult(povResultStr, color, customPoints);
+    return coloredResult && hl(coloredResult.tag, coloredResult.points);
   };
 
   return hl(

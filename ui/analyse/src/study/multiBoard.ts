@@ -7,7 +7,7 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
@@ -76,7 +76,7 @@ export class MultiBoardCtrl {
     const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
     return {
       currentPage: this.page,
-      maxPerPage: maxPerPage,
+      maxPerPage,
       currentPageResults,
       nbResults,
       previousPage: this.page > 1 ? this.page - 1 : undefined,
@@ -391,7 +391,9 @@ const boardPlayer = (
 ) => {
   const player = preview.players?.[color];
   const coloredResult =
-    preview.status && preview.status !== '*' && playerColoredResult(preview.status, color, round);
+    preview.status &&
+    preview.status !== '*' &&
+    playerColoredResult(preview.status, color, round?.customScoring);
   return h('span.mini-game__player', [
     player && renderUser(player, pins?.isPlayerPinned(player)),
     showResults

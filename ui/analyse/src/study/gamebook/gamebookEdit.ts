@@ -2,7 +2,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
 import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 
@@ -127,13 +127,13 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
-    gamebook: gamebook,
+    gamebook,
   });
   ctrl.redraw();
 });
 
 const nodeGamebookValue = (node: TreeNode, field: 'deviation' | 'hint'): string =>
-  (node.gamebook && node.gamebook[field]) || '';
+  node.gamebook?.[field] || '';
 
 function textareaHook(ctrl: AnalyseCtrl, field: 'deviation' | 'hint'): Hooks {
   const value = nodeGamebookValue(ctrl.node, field);

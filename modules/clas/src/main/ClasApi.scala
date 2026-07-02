@@ -207,7 +207,8 @@ final class ClasApi(
           .cursor[Clas](ReadPref.sec)
           .list(100)
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
-          logger.info(s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}")
+          lila.log.system.info:
+            s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}"
         _ <- inactiveClasses.sequentiallyVoid: from =>
           for
             clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)

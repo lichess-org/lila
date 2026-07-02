@@ -1,5 +1,5 @@
 import { spinnerHtml } from 'lib/view';
-import { text, formToXhr } from 'lib/xhr';
+import { text } from 'lib/xhr';
 
 import { wireCropDialog } from './crop';
 import flairPickerLoader from './flairPicker';
@@ -9,8 +9,6 @@ import flairPickerLoader from './flairPicker';
 
 export function initModule(args: { fn: string } & any): void {
   switch (args.fn) {
-    case 'appeal':
-      return appeal();
     case 'autoForm':
       return autoForm(args);
     case 'colorizeYesNoTable':
@@ -46,23 +44,6 @@ export function initModule(args: { fn: string } & any): void {
     default:
       console.error('Unknown bits function', args.fn);
   }
-}
-
-function appeal() {
-  if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
-  $('select.appeal-presets').on('change', function (this: HTMLSelectElement, e: Event) {
-    $(this)
-      .parents('form')
-      .find('textarea')
-      .val((e.target as HTMLTextAreaElement).value);
-  });
-
-  $('form.appeal__actions__slack').on('submit', (e: Event) => {
-    const form = e.target as HTMLFormElement;
-    formToXhr(form);
-    $(form).find('button').text('Sent!').attr('disabled', 'true');
-    return false;
-  });
 }
 
 function autoForm({ selector, ops }: { selector: string; ops: string }) {

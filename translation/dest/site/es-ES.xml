@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Las negras han dejado la partida</string>
   <string name="whiteDidntMove">Las blancas no han movido</string>
   <string name="blackDidntMove">Las negras no han movido</string>
+  <string name="whiteAborted">Las blancas han dejado la partida</string>
+  <string name="blackAborted">Las negras han dejado la partida</string>
   <string name="requestAComputerAnalysis">Solicitar un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis del ordenador disponible</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
+  <string name="like">Me gusta</string>
+  <string name="liked">Me gustó</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anónimo</item>
+    <item quantity="other">Anónimos (%s)</item>
+  </plurals>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Cualquier idioma</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">prueba la página de contacto</string>
   <string name="makeSureToRead">Asegúrate de leer %1$s</string>
   <string name="theForumEtiquette">las reglas del foro</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Por favor, sé amable en el foro.</string>
+  <string name="pleaseBeNiceInTheForum">Por favor, sé amable en el foro.</string>
   <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no admite respuestas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar en este foro</string>
   <string name="teamNamedX">equipo %1$s</string>
@@ -1035,4 +1043,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="thereAreNoResultsForX">Sin resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Al paso</string>
+  <string name="settings">Preferencias</string>
 </resources>

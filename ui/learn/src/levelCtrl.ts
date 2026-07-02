@@ -1,5 +1,5 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
+import { type SquareName, makeSquare, makeUci, opposite, parseSquare } from 'chessops';
 
 import { type Prop, prop } from 'lib';
 import { type WithGround } from 'lib/game/ground';
@@ -137,9 +137,16 @@ export class LevelCtrl {
       failure();
       return true;
     };
+    const enemyRoleToBeCaptured = (orig: SquareName, dest: SquareName): Role | undefined => {
+      const destSquare = parseSquare(dest);
+      const pieceBeingMoved = chess.instance.board.get(parseSquare(orig));
+      const enPassant = destSquare === chess.instance.epSquare && pieceBeingMoved?.role === 'pawn';
+      return enPassant ? 'pawn' : chess.instance.board.get(destSquare)?.role;
+    };
 
     return (orig: SquareName, dest: SquareName, prom?: PromotionRole) => {
       vm.nbMoves++;
+      const enemyRoleCaptured = enemyRoleToBeCaptured(orig, dest);
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
       else {
@@ -158,9 +165,8 @@ export class LevelCtrl {
         items.remove(makeSquare(move.to));
         took = true;
       });
-      const pieceAtKey = chess.instance.board.get(move.to);
-      if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role !== 'king') {
-        vm.score += blueprint.showPieceValues ? pieceValue(pieceAtKey.role) : capture;
+      if (!took && enemyRoleCaptured && blueprint.pointsForCapture && enemyRoleCaptured !== 'king') {
+        vm.score += blueprint.showPieceValues ? pieceValue(enemyRoleCaptured) : capture;
         took = true;
       }
       this.setCheck();
@@ -204,7 +210,7 @@ export class LevelCtrl {
         turnColor: color,
         fen,
         movable: { color, dests },
-        lastMove: lastMove,
+        lastMove,
       }),
     );
 

@@ -69,7 +69,7 @@ final private class YoutubeApi(
     net: NetConfig
 )(using Executor):
 
-  private val logger = lila.streamer.logger.branch("youtube")
+  private lazy val logger = lila.log("streamer.youtube")
 
   private var lastResults: List[Youtube.YoutubeStream] = Nil
 

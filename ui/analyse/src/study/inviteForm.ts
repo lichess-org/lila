@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { prop, type Prop } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedSet, type StoredSet } from 'lib/storage';
 import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
@@ -67,6 +67,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     },
     modal: true,
     noScrollable: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
       h('p.info', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.pleaseOnlyInvitePeopleYouKnow),

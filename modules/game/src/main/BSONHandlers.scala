@@ -199,7 +199,8 @@ object BSONHandlers:
           analysed = r.boolD(F.analysed),
           drawOffers = r.getD(F.drawOffers, emptyDrawOffers),
           rules = r.getD(F.rules, Set.empty)
-        )
+        ),
+        abortedBy = r.getO[Color](F.abortedBy)
       )
 
     def writes(w: BSON.Writer, o: Game) =
@@ -237,7 +238,8 @@ object BSONHandlers:
         F.swissId -> o.metadata.swissId,
         F.simulId -> o.metadata.simulId,
         F.analysed -> w.boolO(o.metadata.analysed),
-        F.rules -> o.metadata.nonEmptyRules
+        F.rules -> o.metadata.nonEmptyRules,
+        F.abortedBy -> o.abortedBy
       ) ++ {
         if o.variant.standard then
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))

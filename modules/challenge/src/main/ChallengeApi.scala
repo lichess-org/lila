@@ -14,6 +14,7 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
@@ -89,9 +90,13 @@ final class ChallengeApi(
       if nb > 5 then repo.createdByPopularDestId(max)(userId)
       else repo.createdByDestId()(userId)
 
+  // drop the cached offer id (as Rematcher.no does) so a new rematch challenge gets a fresh id
+  private def dropRematchOffer(c: Challenge): Unit = c.rematchOf.foreach(rematches.drop)
+
   def cancel(c: Challenge) =
     for _ <- repo.cancel(c)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Cancel(c.cancel))
 
@@ -108,6 +113,7 @@ final class ChallengeApi(
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 

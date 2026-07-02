@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Black left the game</string>
   <string name="whiteDidntMove">White didn't move</string>
   <string name="blackDidntMove">Black didn't move</string>
+  <string name="whiteAborted">White aborted the game</string>
+  <string name="blackAborted">Black aborted the game</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
@@ -812,6 +814,10 @@
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonymous</item>
+    <item quantity="other">Anonymous (%s)</item>
+  </plurals>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
@@ -1036,4 +1042,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="thereAreNoResultsForX">No results for "%s"</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
+  <string name="settings">Settings</string>
 </resources>

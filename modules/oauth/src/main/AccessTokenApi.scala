@@ -246,9 +246,6 @@ final class AccessTokenApi(
       .map:
         _.headOption.so(_.getAsOpt[List[UserId]]("u")).orZero
 
-  def exists(clientOrigin: Origin, userIds: List[UserId]): Fu[Boolean] = userIds.nonEmpty.so:
-    coll.secondary.exists($doc(F.clientOrigin -> clientOrigin, F.userId.$in(userIds)))
-
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
     for _ <- coll.delete.one($id(id)) yield onRevoke(id)
@@ -274,10 +271,10 @@ final class AccessTokenApi(
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match
         case Some(token) =>
-          logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+          logger.info(s"github revoking token ${token.plain} for user ${token.userId}")
           revoke(token.plain).inject((token, scan.url).some)
         case None =>
-          logger.branch("github").info(s"ignoring token ${scan.token}")
+          logger.info(s"github ignoring token ${scan.token}")
           fuccess(none)
   yield res.flatten
 

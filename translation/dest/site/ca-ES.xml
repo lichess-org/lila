@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Repta un amic</string>
   <string name="playAgainstComputer">Juga contra l\'ordinador</string>
   <string name="gameMode">Tipus de partida</string>
-  <string name="createLobbyGame">Crea una partida</string>
+  <string name="createLobbyGame">Publica una partida</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Les negres han marxat de la partida</string>
   <string name="whiteDidntMove">Les blanques no han mogut</string>
   <string name="blackDidntMove">Les negres no han mogut</string>
+  <string name="whiteAborted">Les blanques han cancel·lat la partida</string>
+  <string name="blackAborted">Les negres han cancel·lat la partida</string>
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>
@@ -807,6 +809,8 @@
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="like">M’agrada</string>
+  <string name="liked">M\'ha agradat</string>
   <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
@@ -942,7 +946,7 @@
   <string name="tryTheContactPage">prova la plana de contacte</string>
   <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
   <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Si us plau sigues amable al fòrum.</string>
+  <string name="pleaseBeNiceInTheForum">Si us plau sigues amable al fòrum.</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>
@@ -1035,4 +1039,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="thereAreNoResultsForX">No hi ha resultats per \"%s\"</string>
   <string name="tags">Etiquetes</string>
   <string name="enPassant">Captura al pas</string>
+  <string name="settings">Configuració</string>
 </resources>

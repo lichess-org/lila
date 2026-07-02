@@ -148,8 +148,9 @@ object PgnDump:
       else InitialComments.empty
     rootToPgn(root, tags, comments)
 
-  def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
+  private def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
+    lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
+      Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)

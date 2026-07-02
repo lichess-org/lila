@@ -369,7 +369,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     ("p1." + PF.proposeTakebackAt) -> true
   )
 
-  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit =
+  def finish(
+      id: GameId,
+      winnerColor: Option[Color],
+      winnerId: Option[UserId],
+      status: Status,
+      abortBy: Option[Color] = None
+  ): Funit =
     coll.update
       .one(
         $id(id),
@@ -378,7 +384,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           $doc(
             F.winnerId -> winnerId,
             F.winnerColor -> winnerColor.map(_.white),
-            F.status -> status
+            F.status -> status,
+            F.abortedBy -> abortBy
           )
         ) ++ $doc(
           "$unset" -> finishUnsets.++ {

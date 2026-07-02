@@ -52,7 +52,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MarkEngine extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case MarkBooster extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
   case ViewPrintNoIP extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
-  case IpBan extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
+  case ViewIP extends Permission("VIEW_IP", List(ViewPrintNoIP), "View IP address")
+  case IpBan extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP, ViewIP), "IP ban")
   case IpTiers extends Permission("IP_TIERS", "IP limit tiers")
   case PrintBan extends Permission("PRINT_BAN", List(UserModView), "Print ban")
   case DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
@@ -196,6 +197,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           LichessTeam,
           UserSearch,
           AccountInfo,
+          ViewIP,
           ModLog,
           CloseAccount,
           GdprErase,

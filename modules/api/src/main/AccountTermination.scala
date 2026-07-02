@@ -82,7 +82,7 @@ final class AccountTermination(
     _ <- seekApi.removeByUser(u)
     _ <- securityStore.closeAllSessionsOf(u.id)
     _ <- selfClose.so(tokenApi.revokeAllByUser(u.id))
-    _ <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
+    _ <- pushEnv.browserSub.unsubscribeByUser(u)
     _ <- pushEnv.unregisterDevices(u)
     _ <- streamerApi.demote(u.id)
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
@@ -125,7 +125,7 @@ final class AccountTermination(
       fufail[Unit](s"Cannot delete essential account ${u.username}")
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     tos = u.marks.dirty || playbanned
-    _ = logger.info(s"Deleting user ${u.username} tos=$tos")
+    _ = lila.log.system.info(s"Deleting user ${u.username} tos=$tos")
     _ <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
     _ <- activityWrite.deleteAll(u)
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)

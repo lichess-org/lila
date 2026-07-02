@@ -336,7 +336,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else f
 
   def pageHit(using req: RequestHeader): Unit =
-    if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
+    if req.client.isHuman then lila.mon.http.path(req.path).increment()
 
   def LangPage(call: Call)(f: Context ?=> Fu[Result])(language: Language): EssentialAction =
     LangPage(call.url)(f)(language)
@@ -368,8 +368,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
     id.fold(fuccess(ctx.user))(meOrFetch)
-
-  given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
 

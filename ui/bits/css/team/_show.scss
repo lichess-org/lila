@@ -17,6 +17,9 @@ $section-margin-more: 5vh;
   }
 
   .mchat {
+    @extend %box-bordered;
+
+    box-shadow: none;
     height: 40vh;
     margin-bottom: $section-margin;
 
@@ -58,6 +61,10 @@ $section-margin-more: 5vh;
     color: $c-font-dim;
     margin-bottom: $section-margin;
 
+    &:empty {
+      display: none;
+    }
+
     .user-link {
       display: inline-block;
       vertical-align: bottom;
@@ -89,11 +96,11 @@ $section-margin-more: 5vh;
   }
 
   &__desc {
-    @extend %box-neat;
+    @extend %box-bordered;
     @include rendered-markdown;
 
-    padding: 1.5em 2.5em;
-    background: $c-bg-high;
+    padding: 0.5em 2em;
+    background: $c-bg-zebra;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
     text-align: start;
@@ -109,6 +116,24 @@ $section-margin-more: 5vh;
 
   &__tour {
     margin-bottom: $section-margin-more;
+  }
+
+  &__list-wrapper {
+    @extend %box-bordered;
+
+    overflow: hidden;
+
+    &:empty {
+      display: none;
+    }
+
+    .slist {
+      border-bottom: 0;
+
+      tr:first-child {
+        border-top: 0;
+      }
+    }
   }
 
   &__requests {
@@ -140,7 +165,7 @@ $section-margin-more: 5vh;
 
   .userlist > li,
   .userlist > div.paginated {
-    @include padding-direction(5px, 0, 5px, 25px);
+    @include padding-direction(5px, 0, 5px, 5px);
   }
 
   &__log {

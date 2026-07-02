@@ -40,13 +40,13 @@
     @include if-light {
       border-bottom-color: #ccc;
     }
-  }
 
-  tick.zero {
-    top: 6px;
-    opacity: 1;
-    border-bottom: 7px solid $m-accent--fade-50 !important;
-    margin-top: -3px;
+    &.zero {
+      top: 6px;
+      opacity: 1;
+      border-bottom: 7px solid $m-accent--fade-50 !important;
+      margin-top: -3px;
+    }
   }
 
   .black {

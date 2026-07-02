@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { povMessage } from 'lib/puz/run';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
@@ -134,7 +134,9 @@ const playerScore = (ctrl: RacerCtrl): VNode =>
 const renderLink = (ctrl: RacerCtrl) =>
   hl('div.puz-side__link', [
     hl('p', i18n.site.toInviteSomeoneToPlayGiveThisUrl),
-    copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`),
+    copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`, {
+      inputAttrs: { readonly: true },
+    }),
   ]);
 
 const renderStart = (ctrl: RacerCtrl) =>

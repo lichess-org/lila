@@ -51,7 +51,7 @@
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
-  <string name="teams">یَران‌ها</string>
+  <string name="teams">تیم‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
   <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای پخش‌های زنده را در تنظیمات حساب‌تان تغییر دهید.</string>
@@ -63,14 +63,15 @@
   <string name="notYetStarted">پخش زنده هنوز نیاغازیده است.</string>
   <string name="officialWebsite">وبگاه رسمی</string>
   <string name="officialStandings">رده‌بندی رسمی</string>
+  <string name="regulations">آیین‌نامه</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">گزینه‌های بیشتر در %s</string>
   <string name="webmastersPage">صفحهٔ وبداران</string>
   <string name="embedThisBroadcast">جاسازی این پخش زنده در وبگاه‌تان</string>
   <string name="ratingDiff">اختلاف درجه‌بندی</string>
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
-  <string name="standingsDisclaimer">Persian</string>
-  <string name="allTeams">همهٔ یَران‌ها</string>
+  <string name="standingsDisclaimer">رده‌بندی با استفاده از بازی‌های پخش‌شده محاسبه می‌شود و ممکن است با نتایج رسمی متفاوت باشد.</string>
+  <string name="allTeams">همهٔ تیم‌ها</string>
   <string name="tournamentFormat">ساختار مسابقات</string>
   <string name="tournamentLocation">مکان مسابقات</string>
   <string name="topPlayers">بازیکنان برتر</string>
@@ -84,13 +85,12 @@
   <string name="liveboard">میزِ زنده</string>
   <string name="communityBroadcast">پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
-  <string name="matchPoints">امتیاز نهایی</string>
-  <string name="gamePoints">Persian</string>
-  <string name="matches">Persian</string>
-  <string name="matchHistory">تاریخچه بازی</string>
+  <string name="matchPoints">امتیازِ رویارویی</string>
+  <string name="gamePoints">امتیاز بازی</string>
+  <string name="matches">رویارویی</string>
+  <string name="matchHistory">تاریخچهٔ رویارویی</string>
   <string name="teamResults">نتایج تیمی</string>
-  <string name="termsAutomaticallyTranslated">عباراتی که در ادامه آمده‌اند به طور خودکار ترجمه خواهند شد:
-%s.</string>
+  <string name="termsAutomaticallyTranslated">اصطلاح(های) زیر، خودکار ترجمه خواهند شد: %s.</string>
   <string name="roundX">دورِ %s</string>
   <string name="defaultRoundNameHelp">حفظِ نامِ پیش‌فرض، خودکار آن را به همهٔ زبان‌های دیگر می‌تَرجُمد.</string>
   <string name="openTournament">آزاد</string>
@@ -98,13 +98,15 @@
   <string name="menTournament">مردان</string>
   <string name="girlsTournament">دختران</string>
   <string name="boysTournament">پسران</string>
-  <string name="openUnderXAgeTournament">آزاد زیر %s سال</string>
-  <string name="girlsUnderXAgeTournament">آزاد دختران زیر %s سال</string>
-  <string name="boysUnderXAgeTournament">آزاد پسران زیر %s سال</string>
+  <string name="openUnderXAgeTournament">آزاد زیر-%s</string>
+  <string name="girlsUnderXAgeTournament">دختران زیر-%s</string>
+  <string name="boysUnderXAgeTournament">پسران زیر-%s</string>
   <string name="quarterfinals">یک چهارم نهایی</string>
   <string name="semifinals">نیمه نهایی</string>
   <string name="finals">نهایی</string>
-  <string name="tiebreaks">پوئن شکنی‌ها</string>
+  <string name="tiebreaks">یِرشکن</string>
   <string name="gameX">بازی %s</string>
-  <string name="knockouts">ناک اوت</string>
+  <string name="knockouts">حذفی</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
 </resources>

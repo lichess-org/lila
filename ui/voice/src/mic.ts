@@ -8,7 +8,7 @@ export class Mic implements Microphone {
   recId = 'default';
 
   private language = 'en';
-  private audioCtx: AudioContext | undefined;
+  private audioCtx?: AudioContext;
   private mediaStream: MediaStream;
   private micSource: AudioNode;
   private vosk: VoskModule;
@@ -150,7 +150,7 @@ export class Mic implements Microphone {
   private initKaldi(recId: string, rec: RecNode) {
     if (rec.node) return;
     rec.node = this.vosk?.initRecognizer({
-      recId: recId,
+      recId,
       audioCtx: this.audioCtx!,
       partial: rec.partial,
       words: rec.words,

@@ -1,4 +1,4 @@
-useNodeVersion: 24.14.0
+useNodeVersion: 24.15.0
 allowBuilds:
   esbuild: true
 ignoredOptionalDependencies:

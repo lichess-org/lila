@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
@@ -33,7 +32,7 @@ final class Team(env: Env) extends LilaController(env):
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
       WithTeamOrClas(id): team =>
-        if !team.notable && HTTPRequest.isCrawler(req).yes
+        if !team.notable && ctx.req.client.isCrawler
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
@@ -83,7 +82,7 @@ final class Team(env: Env) extends LilaController(env):
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
+    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && ctx.req.client.isHuman && {
       (team.isChatFor(_.Leaders) && info.ledByMe) ||
       (team.isChatFor(_.Members) && info.mine) ||
       (canEnterModView && requestModView)
@@ -436,9 +435,10 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+    swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
     limiter <- env.team.limiter.pmAll.status(team.id)
-    page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
+    page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>

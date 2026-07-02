@@ -171,6 +171,7 @@ export interface ApiMove {
 export interface ApiEnd {
   winner?: Color;
   status: Status;
+  abortedBy?: Color;
   ratingDiff?: {
     white: number;
     black: number;

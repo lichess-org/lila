@@ -404,7 +404,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create(m.mod.userId, m.action).increment()
-    lila.log("mod").info(m.toString)
     m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))

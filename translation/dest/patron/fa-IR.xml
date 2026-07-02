@@ -3,28 +3,28 @@
   <string name="donate">داشَنیدن</string>
   <string name="donateAsX">به اسمِ %s داشَنید</string>
   <string name="lichessPatron">یاورِ Lichess</string>
-  <string name="patronSince" comment="string is a date">حامی از %s</string>
+  <string name="patronSince" comment="string is a date">یاور از %s</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
-  <string name="becomePatron">یاور Lichess بشوید</string>
-  <string name="xBecamePatron">%s یاور Lichess شد</string>
+  <string name="becomePatron">یاورِ Lichess شوید</string>
+  <string name="xBecamePatron">%s یاورِ Lichess شد</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s یک پشتیبان Lichess به مدت %2$s ماه می‌باشد</item>
-    <item quantity="other">%1$s یک پشتیبان Lichess به مدت %2$s ماه می‌باشد</item>
+    <item quantity="one">%1$s، %2$s ماه، یاورِ Lichess است</item>
+    <item quantity="other">%1$s، %2$s ماه، یاورِ Lichess است</item>
   </plurals>
-  <string name="newPatrons">یاوران نو</string>
-  <string name="freeChess">شطرنج رایگان برای همه، برای همیشه!</string>
-  <string name="noAdsNoSubs">بدون تبلیغات، بدون اشتراکها، فقط متن‌باز و لذت‌بخش.</string>
+  <string name="newPatrons">یاورانِ جدید</string>
+  <string name="freeChess">شطرنج رایگان برای همه و همیشه!</string>
+  <string name="noAdsNoSubs">بدون تَبلیغ یا اِشتراک؛ ولی متن‌باز و شورناک.</string>
   <string name="thankYou">از داشَن‌تان سپاسگزاریم!</string>
-  <string name="youHaveLifetime">شما دارای یک حساب پشنیبان مادام‌العمر هستید. واقعاً خیلی عالی است!</string>
-  <string name="patronUntil">شما تا %s حساب یاور دارید.</string>
+  <string name="youHaveLifetime">شما حسابِ یاورِ اَبدی دارید. این خیلی محشر است!</string>
+  <string name="patronUntil">شما تا %s حسابِ یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>
-  <string name="weAreNonProfit">ما یک انجمن ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
-  <string name="weRelyOnSupport">ما به حمایت کسانی مانند شما برای تحقق آن تکیه می‌کنیم. اگر از بَهریدنِ Lichess لذت می‌برید، لطفا حمایت از ما با دانَشیدن و یاور شدن در نظر بگیرید!</string>
+  <string name="weAreNonProfit">ما انجمنی ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
+  <string name="weRelyOnSupport">ما به حمایت کسانی مانند شما برای تحقق آن تکیه می‌کنیم. اگر از بَهریدنِ Lichess لذت می‌برید، لطفا حمایت از ما با داشَنیدن و یاور شدن را در نظر گیرید!</string>
   <string name="lifetime">مادام‌العمر</string>
-  <string name="payLifetimeOnce">یکبار %s بپردازید. برای همیشه پشتیبانِ Lichess باشید!</string>
-  <string name="lifetimePatron">یاور همیشگی Lichess</string>
+  <string name="payLifetimeOnce">یک بار %s بپردازید. تا اَبَد یاورِ Lichess باشید!</string>
+  <string name="lifetimePatron">یاورِ اَبدی Lichess</string>
   <string name="monthly">ماهانه</string>
-  <string name="recurringBilling">تکرارِ صورت‌حساب، تجدیدِ بالهای پشتیبانِ شما در هر ماه.</string>
+  <string name="recurringBilling">پرداخت‌های دوره‌ای، تمدیدِ بال‌های یاورِ شما در هر ماه.</string>
   <string name="onetime">یک بار</string>
   <string name="singleDonation">یک داشَن که به شما بال‌های یاور را مدتِ یک ماه اعطا می‌کند.</string>
   <string name="otherAmount">دیگر</string>
@@ -32,7 +32,7 @@
   <string name="withCreditCard">کارت اعتباری</string>
   <string name="logInToDonate">برای داشَنیدن وارد شوید</string>
   <string name="weAreSmallTeam">ما یک تیم کوچک هستیم، بنابراین پشتیبانی شما تغییر بزرگی ایجاد می‌کند!</string>
-  <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
+  <string name="celebratedPatrons">یاورانِ مشهوری که بودنِ Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
   <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
 سپس به یک توسعه‌دهنده تمام‌وقت می‌پردازیم: %s، بنیان‌گذارِ Lichess.</string>
@@ -40,20 +40,20 @@
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>
   <string name="changeMonthlySupport">آیا می‌توانم پشتیبانی ماهانه خود را تغییر یا حذف نمایم؟</string>
-  <string name="changeOrContact">بله، هر لحظه، از این صفحه. 
-یا شما می‌توانید %s.</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">اگر پرداخت‌های‌تان با PayPal پردازش می‌شود، می‌توانید از طریق حسابِ PayPal خود، حمایت را بلغوید/تغییر دهید، یا می‌توانید %1$s را گزینید و ما می‌توانیم این کار را برای شما اَنجامیم. اگر از PayPal استفاده نکردید، پرداخت‌های‌تان با Stripe پردازش می‌شود و شما می‌توانید داشَن‌تان را بلغوید یا مبلغِ داخلِ %2$s را تغییر دهید.</string>
+  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">صفحهٔ یاور</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگرِ داشَنیدن؟</string>
   <string name="lichessIsRegisteredWith">وبگاه Lichess در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
   <string name="onlyDonationFromAbove">لطفاً توجه کنید که فقط برگهٔ داشَنِ بالا، وضعیتِ یاور را اعطا می‌کند.</string>
-  <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
-  <string name="noPatronFeatures">نه، زیرا Lichess برای همیشه و برای همه، کاملا رایگان است. قول می‌دهیم.
-با این حال، حامیان با بال‌های معرکه‌ای که در رُخ‌نمای‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
+  <string name="patronFeatures">آیا برخی آرَنگ‌ها مُختصِ یاوران است؟</string>
+  <string name="noPatronFeatures">نه، زیرا Lichess برای همه و همیشه، کاملا رایگان است. قول می‌دهیم.
+با این حال، یاوران با بال‌های معرکه‌ای که در رُخ‌نمای‌شان نماییده می‌شود، حق پُز دادن دارند.</string>
   <string name="featuresComparison">همسنجی ریز آرنگ‌ها را ببینید</string>
   <plurals name="patronForMonths">
-    <item quantity="one">پشتیبانِ Lichess برای یک ماه</item>
-    <item quantity="other">پشتیبانِ Lichess برای %s ماه</item>
+    <item quantity="one">یاورِ Lichess به مدتِ یک ماه</item>
+    <item quantity="other">یاورِ Lichess به مدتِ %s ماه</item>
   </plurals>
   <string name="youSupportWith">شما با %s در هر ماه Lichess را پشتیبانی می‌کنید.</string>
   <string name="tyvm">از کمک شما بسیار سپاسگزاریم. شما تاثیرگذارید!</string>
@@ -61,8 +61,8 @@
   <string name="nextPayment">پرداخت بعدی</string>
   <string name="youWillBeChargedXOnY">برای شما در تاریخ %2$s به مقدار %1$s بدهکاری ثبت خواهد شد.</string>
   <string name="makeAdditionalDonation">انجامِ یک داشَنِ اضافی</string>
-  <string name="giftPatronWingsShort">بال‌های پشتیبان هدیه دهید</string>
-  <string name="giftPatronWings">به یک بازیکن بالهای پشتیبان هدیه بدهید</string>
+  <string name="giftPatronWingsShort">هدیه دادنِ بال‌های یاور</string>
+  <string name="giftPatronWings">هدیه دادنِ بال‌های یاور به یک بازیکن</string>
   <string name="update">به روز رسانی</string>
   <string name="changeMonthlyAmount">مقدار ماهانه (%s) را تغییر دهید</string>
   <string name="cancelSupport">پشتیبانی خود را متوقف کنید</string>
@@ -71,14 +71,14 @@
   <string name="stopPayments">کارت اعتباری خود را خارج و پرداختها را متوقف نمایید:</string>
   <string name="stopPaymentsPayPal">لغو اشتراک PayPal و توقف پرداخت:</string>
   <string name="noLongerSupport">بیش از این Lichess را پشتیبانی نکنید</string>
-  <string name="viewOthers">پشتیبانهای دیگرِ Lichess را ببینید</string>
+  <string name="viewOthers">دیدنِ دیگر یاورانِ Lichess</string>
   <string name="date">تاریخ</string>
   <string name="amount">مقدار</string>
   <string name="transactionCompleted">تراکنش‌تان تکمیل شده است و رسیدِ داشَن‌تان به رایانامه‌تان فرستاده شده است.</string>
-  <string name="permanentPatron">شما هم‌اکنون یک حساب دائمی پشتیبان دارید.</string>
+  <string name="permanentPatron">شما اکنون یک حسابِ یاورِ دائمی دارید.</string>
   <string name="checkOutProfile">به صفحه رُخ‌نمای‌تان سَر بزنید!</string>
-  <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
-  <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
+  <string name="nowLifetime">شما اکنون یک یاورِ Lichess اَبدی هستید!</string>
+  <string name="nowOneMonth">شما اکنون به مدتِ یک ماه، یاورِ Lichess اید!</string>
   <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>
   <string name="changeCurrency">تغییر واحد پول</string>
   <string name="paymentDetails">جزئیات پرداخت</string>

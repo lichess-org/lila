@@ -2,7 +2,7 @@ import dragscroll from 'dragscroll';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon, iconTag } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
@@ -45,15 +45,15 @@ function leftPos(time: number) {
 }
 
 function laneGrouper(t: Tournament): number {
-  if (t.schedule && t.schedule.freq === 'unique') {
+  if (t.schedule?.freq === 'unique') {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
   } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1, 5)) / 10000;
-  } else if (t.schedule && t.schedule.speed === 'superBlitz') {
+  } else if (t.schedule?.speed === 'superBlitz') {
     return t.perf.position - 0.5;
-  } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
+  } else if (t.schedule?.speed === 'hyperBullet') {
     return 4;
   } else if (t.schedule && t.perf.key === 'ultraBullet') {
     return 4;
@@ -92,7 +92,7 @@ function fitLane(lane: Lane, tour2: Tournament) {
 
 // splits lanes that have collisions, but keeps
 // groups separate by not compacting existing lanes
-function splitOverlaping(lanes: Lane[]): Lane[] {
+function splitOverlapping(lanes: Lane[]): Lane[] {
   let ret: Lane[] = [],
     i: number;
   lanes.forEach(lane => {
@@ -247,7 +247,7 @@ export default function (ctrl: Ctrl) {
     });
 
   // group system tournaments into dedicated lanes for PerfType
-  const tourLanes = splitOverlaping(group(systemTours, laneGrouper).concat([userTours])).filter(
+  const tourLanes = splitOverlapping(group(systemTours, laneGrouper).concat([userTours])).filter(
     lane => lane.length > 0,
   );
 

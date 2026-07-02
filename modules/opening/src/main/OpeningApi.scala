@@ -1,8 +1,8 @@
 package lila.opening
 
 import play.api.mvc.RequestHeader
-import scalalib.net.Crawler
 
+import lila.common.ClientName
 import lila.core.game.{ GameRepo, PgnDump }
 import lila.core.security.IsProxy
 import lila.memo.{ CacheApi, RateLimit }
@@ -23,16 +23,18 @@ final class OpeningApi(
 
   private val userRateLimit = RateLimit[UserId](30, 2.minutes, "opening.stats.user")
 
-  def index(using RequestHeader, Option[Me]): Fu[Option[OpeningPage]] =
-    lookup(Query("", none), crawler = Crawler.No, proxy = IsProxy.empty)
+  def index(using RequestHeader, ClientName, Option[Me]): Fu[Option[OpeningPage]] =
+    lookup(Query("", none), proxy = IsProxy.empty)
 
-  def lookup(q: Query, crawler: Crawler, proxy: IsProxy)(using
+  def lookup(q: Query, proxy: IsProxy)(using
+      client: ClientName
+  )(using
       RequestHeader,
       Option[Me]
   ): Fu[Option[OpeningPage]] =
-    val config = if crawler.yes then OpeningConfig.default else readConfig
-    def doLookup = lookup(q, config, crawler, proxy)
-    if crawler.no && config.isDefault
+    val config = if client.isCrawler then OpeningConfig.default else readConfig
+    def doLookup = lookup(q, config, proxy)
+    if !client.isCrawler && config.isDefault
     then
       defaultCache.getIfPresent(q) match
         case Some(page) => fuccess(page.some)
@@ -45,22 +47,20 @@ final class OpeningApi(
   private def lookup(
       q: Query,
       config: OpeningConfig,
-      crawler: Crawler,
       proxy: IsProxy
-  )(using Option[Me]): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, config).so { compute(_, crawler, proxy) }
+  )(using ClientName, Option[Me]): Fu[Option[OpeningPage]] =
+    OpeningQuery(q, config).so { compute(_, proxy) }
 
   private def compute(
       query: OpeningQuery,
-      crawler: Crawler,
       proxy: IsProxy
-  )(using me: Option[Me]): Fu[Option[OpeningPage]] =
+  )(using client: ClientName, me: Option[Me]): Fu[Option[OpeningPage]] =
     for
       wiki <- query.closestOpening.traverse(wikiApi.apply)
       loadStats = query.sans.size < 4 ||
         me.map(_.userId).exists(userRateLimit.hit(_, if proxy.yes then 3 else 1))
       stats <-
-        if loadStats then explorer.stats(query.uci, query.config, crawler)
+        if loadStats then explorer.stats(query.uci, query.config)
         else
           val error =
             if me.isDefined then "Please wait a bit before loading more opening pages."
@@ -91,5 +91,5 @@ final class OpeningApi(
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](64, "opening.allGamesHistory"):
       _.expireAfterWrite(1.hour).buildAsyncFuture: config =>
         explorer
-          .stats(Vector.empty, config, Crawler(false))
+          .stats(Vector.empty, config)(using ClientName.browser)
           .map(_.toOption.flatten.so(_.popularityHistory))

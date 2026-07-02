@@ -52,7 +52,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)):
+      ctx.me.fold(!tour.isPrivate && ctx.req.client.isHuman):
         _ => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
             isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
@@ -69,35 +69,38 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     val page = getInt("page")
     WithVisibleTournament(id): tour =>
       negotiate(
-        html = for
-          myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
-          verdicts <- api.getVerdicts(tour, myInfo.isDefined)
-          version <- env.tournament.version(tour.id)
-          playerId = getUserStr("player").map(_.id)
-          (page, playerInfo) <- playerId
-            .so(api.playerPage(tour))
-            .map(_.fold(page -> none)((page, player) => page.some -> player.some))
-          json <- jsonView(
-            tour = tour,
-            page = page,
-            playerInfoExt = playerInfo,
-            socketVersion = version.some,
-            partial = false,
-            withScores = true,
-            withAllowList = false,
-            withDescription = false,
-            myInfo = Preload[Option[MyInfo]](myInfo),
-            addReloadEndpoint = env.tournament.lilaHttp.handles.some
-          )
-          chat <- loadChat(tour, json)
-          _ <- tour.teamBattle.so: b =>
-            env.team.cached.preloadSet(b.teams)
-          streamers <- streamerCache.get(tour.id)
-          shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
-          page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
-        yield
-          env.tournament.lilaHttp.hit(tour)
-          Ok(page).noCache
+        html = isRestricted(tour).flatMap:
+          if _ then Ok.async(views.tournament.restricted(tour))
+          else
+            for
+              myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
+              verdicts <- api.getVerdicts(tour, myInfo.isDefined)
+              version <- env.tournament.version(tour.id)
+              playerId = getUserStr("player").map(_.id)
+              (page, playerInfo) <- playerId
+                .so(api.playerPage(tour))
+                .map(_.fold(page -> none)((page, player) => page.some -> player.some))
+              json <- jsonView(
+                tour = tour,
+                page = page,
+                playerInfoExt = playerInfo,
+                socketVersion = version.some,
+                partial = false,
+                withScores = true,
+                withAllowList = false,
+                withDescription = false,
+                myInfo = Preload[Option[MyInfo]](myInfo),
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
+              )
+              chat <- loadChat(tour, json)
+              _ <- tour.teamBattle.so: b =>
+                env.team.cached.preloadSet(b.teams)
+              streamers <- streamerCache.get(tour.id)
+              shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
+              page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+            yield
+              env.tournament.lilaHttp.hit(tour)
+              Ok(page).noCache
         ,
         json = for
           playerInfoExt <- getUserStr("playerInfo").map(_.id).so(api.playerInfo(tour, _))
@@ -119,7 +122,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         yield Ok(json.add("chat" -> jsChat)).noCache
       )
         .monSuccess:
-          lila.mon.tournament.apiShowPartial(partial = getBool("partial"), HTTPRequest.clientName(ctx.req))
+          lila.mon.tournament.apiShowPartial(partial = getBool("partial"), ctx.req.client.name)
 
   def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
     WithVisibleTournament(id): tour =>
@@ -142,6 +145,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
       yield JsonOk:
         data.add("chat", jsChat).add("socketVersion" -> socketVersion)
+
+  private def isRestricted(tour: Tour)(using Context) =
+    if tour.isEnterable || tour.isRecentlyFinished then fuFalse else couldBeEnum
 
   def standing(id: TourId, page: Int) = Open:
     WithVisibleTournament(id): tour =>

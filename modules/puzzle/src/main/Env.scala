@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.db.AsyncColl
+import lila.core.i18n.Translate
 
 @Module
 private class PuzzleConfig(
@@ -26,7 +27,13 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     myEngines: lila.core.misc.analysis.MyEnginesAsJson,
     mongo: lila.db.Env
-)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(using
+)(using
+    Executor,
+    akka.actor.ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
+)(using
     scheduler: Scheduler,
     mode: play.api.Mode
 ):
@@ -92,6 +99,12 @@ final class Env(
         logger.warn("daily", e)
         none
       }
+
+  def streakJsonAndPuzzle(using Option[Me], Translate) =
+    given Perf = lila.rating.Perf.default
+    streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
+      jsonView.streak(puzzle = puzzle, ids = ids).dmap(some)
+    }
 
   lila.common.Cli.handle:
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>

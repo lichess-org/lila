@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
   <string name="whiteDidntMove">पांढरा खेळला नाही</string>
   <string name="blackDidntMove">काळा खेळला नाही</string>
+  <string name="whiteAborted">पांढऱ्याने खेळ सोडले</string>
+  <string name="blackAborted">काळ्याने खेळ सोडले</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
   <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>
+  <string name="like">आवडले</string>
+  <string name="liked">आवडलेले</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">निनावी</item>
+    <item quantity="other">निनावी (%s)</item>
+  </plurals>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">संपर्क पृष्ठ वापरा</string>
   <string name="makeSureToRead">%1$s वाचण्याची खात्री करावी</string>
   <string name="theForumEtiquette">चर्चामंचाचे शिष्टाचार</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">कृपया सार्वजनिक मंचामध्ये सभ्यतेने बोला.</string>
+  <string name="pleaseBeNiceInTheForum">कृपया सार्वजनिक मंचामध्ये सभ्यतेने बोला.</string>
   <string name="thisTopicIsArchived">हा विषय संग्रहित केला गेला आहे आणि यापुढे त्यास प्रत्युत्तर दिले जाऊ शकत नाही.</string>
   <string name="joinTheTeamXToPost">या मंचावर पोस्ट टाकण्यासाठी %1$s सामील व्हा</string>
   <string name="teamNamedX">%1$s संघ</string>
@@ -1035,4 +1043,5 @@
   <string name="thereAreNoResultsForX">\"%s\" साठी कोणताही निकाल नाही</string>
   <string name="tags">टॅंग्स</string>
   <string name="enPassant">उत्तीर्ण मध्येचे अधिकार</string>
+  <string name="settings">प्राधान्ये</string>
 </resources>

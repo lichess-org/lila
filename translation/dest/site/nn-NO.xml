@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Svart har forlate partiet</string>
   <string name="whiteDidntMove">Kvit gjorde ikkje trekket sitt</string>
   <string name="blackDidntMove">Svart gjorde ikkje trekket sitt</string>
+  <string name="whiteAborted">Kvit avbraut spelet</string>
+  <string name="blackAborted">Svart avbraut spelet</string>
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
@@ -95,6 +97,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Kvit / Remis / Svart</string>
   <string name="averageRatingX">Snittrating: %s</string>
+  <string name="minRatingX">Minimumrating på %s</string>
+  <string name="maxRatingX">Maksimumrating på %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
   <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
@@ -133,6 +137,7 @@
   <string name="multipleLines">Fleire variantar</string>
   <string name="multipleLinesDescription">Angje antal evalueringslinjer og trekkpiler på brettet</string>
   <string name="searchTime">Søketid</string>
+  <string name="searchTimeDescription">Angje tid til å evaluera nye stillingar</string>
   <string name="threads">Trådar</string>
   <string name="threadsDescription">Sett til færre enn antal trådar din CPU har, det er kryssa av for eit godt og sikkert val</string>
   <string name="threadsDescriptionMobile">Fleire trådar vil bruka meir batteri til betre analyse</string>
@@ -805,9 +810,15 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xHostsY">%1$s er vert for %2$s</string>
   <string name="xJoinsY">%1$s tar del i %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
+  <string name="like">Lik</string>
+  <string name="liked">Likte</string>
   <string name="quickPairing">Snøgt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
@@ -940,6 +951,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tryTheContactPage">prøv kontaktsida</string>
   <string name="makeSureToRead">Sørg for at du les %1$s</string>
   <string name="theForumEtiquette">skikk og bruk i forumet</string>
+  <string name="pleaseBeNiceInTheForum">Hald ein god tone i forumet.</string>
   <string name="thisTopicIsArchived">Dette emnet er flytta til arkivet og kan ikkje lengre svarast på.</string>
   <string name="joinTheTeamXToPost">Meld deg på %1$s, for å poste meldingar i dette forumet</string>
   <string name="teamNamedX">%1$s lag</string>
@@ -1032,4 +1044,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="thereAreNoResultsForX">Inga resultat for \"%s\"</string>
   <string name="tags">Etikettar</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Innstillingar</string>
 </resources>

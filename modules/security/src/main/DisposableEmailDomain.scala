@@ -227,10 +227,14 @@ private object DisposableEmailDomain:
       "yahoo.de",
       /* Russian ISP domains */
       "mail.ru",
+      "internet.ru",
       "rambler.ru",
       "yandex.ru",
       "ya.ru",
       "list.ru",
+      "bk.ru",
+      "vk.com",
+      "inbox.ru",
       /* Belgian ISP domains */
       "skynet.be",
       "voo.be",

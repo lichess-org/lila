@@ -59,6 +59,8 @@
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
   <string name="whiteDidntMove">Albul nu s-a mișcat</string>
   <string name="blackDidntMove">Negrul nu a mutat</string>
+  <string name="whiteAborted">Albul a anulat jocul</string>
+  <string name="blackAborted">Negrul a anulat jocul</string>
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza calculatorului</string>
   <string name="computerAnalysisAvailable">Analiza calculatorului este disponibilă</string>
@@ -848,9 +850,16 @@
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="like">Apreciază</string>
+  <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonim</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonim</item>
+    <item quantity="few">Anonimi (%s)</item>
+    <item quantity="other">Anonimi (%s)</item>
+  </plurals>
   <string name="yourScore">Scorul tău: %s</string>
   <string name="language">Limbă</string>
   <string name="allLanguages">Orice limbă</string>
@@ -986,7 +995,7 @@
   <string name="tryTheContactPage">încercați pagina de contact</string>
   <string name="makeSureToRead">Asigură-te că ai citit %1$s</string>
   <string name="theForumEtiquette">normele de comportare în forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Te rugăm să fii cu bun simț pe forum.</string>
+  <string name="pleaseBeNiceInTheForum">Te rugăm să fii cu bun simț pe forum.</string>
   <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>
@@ -1079,4 +1088,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="thereAreNoResultsForX">Niciun rezultat pentru \"%s\"</string>
   <string name="tags">Etichete</string>
   <string name="enPassant">En passant legale</string>
+  <string name="settings">Setări</string>
 </resources>

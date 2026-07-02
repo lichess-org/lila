@@ -16,6 +16,8 @@ final private[tournament] class PairingSystem(
   import PairingSystem.*
   import lila.tournament.Tournament.tournamentUrl
 
+  private lazy val pairingLogger = lila.log("tournament.pairing")
+
   // if waiting users can make pairings
   // then pair all users
   def createPairings(
@@ -34,9 +36,8 @@ final private[tournament] class PairingSystem(
       pairings <- prepsToPairings(tour, preps)
     yield pairings
   }.chronometer
-    .logIfSlow(500, pairingLogger) { pairings =>
+    .logIfSlow(500, pairingLogger): pairings =>
       s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
-    }
     .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =

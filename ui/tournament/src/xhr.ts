@@ -74,7 +74,7 @@ export const reloadNow: (ctrl: TournamentController) => Promise<void> = finallyD
         headers: xhr.jsonHeader,
       },
     )
-      .then(res => xhr.ensureOk(res).json())
+      .then(res => xhr.ensureOk(res).then(r => r.json()))
       .then(
         data => {
           ctrl.reload(data);

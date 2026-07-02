@@ -8,7 +8,7 @@ type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx: AudioContext | undefined;
+  ctx?: AudioContext;
   ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
@@ -125,7 +125,7 @@ export default new (class implements SoundI {
     const doIt = () => {
       const store = storage.make('just-played');
       if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
-      store.set('' + Date.now());
+      store.set(String(Date.now()));
       this.play(name);
     };
     if (document.hasFocus()) doIt();

@@ -25,9 +25,12 @@ val dgt = lila.web.ui.DgtUi(helpers)
 
 val relation = lila.relation.ui.RelationUi(helpers)
 
+val auth = lila.web.ui.AuthUi(helpers)
+val authTakex3 = lila.web.ui.AuthTakex3Ui(helpers)
+
 object oAuth:
   val token = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
-  val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
+  val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback, auth.customLogo)
 
 val style = lila.plan.ui.PlanStyle(helpers)
 val plan = lila.plan.ui.PlanUi(helpers)(style, netConfig.email)
@@ -76,8 +79,6 @@ object opening:
 val video = lila.video.ui.VideoUi(helpers)
 
 val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
-
-val auth = lila.web.ui.AuthUi(helpers)
 
 val storm = lila.storm.ui.StormUi(helpers)
 

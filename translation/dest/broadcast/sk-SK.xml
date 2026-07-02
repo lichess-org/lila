@@ -67,12 +67,14 @@
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
   <string name="officialStandings">Oficiálne poradie</string>
+  <string name="regulations">Smernice</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
   <string name="webmastersPage">stránke tvorcu</string>
   <string name="embedThisBroadcast">Vložiť toto vysielanie na webovú stránku</string>
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
+  <string name="standingsDisclaimer">Tabuľka sa vypočítava na základe odvysielaných zápasov a môže sa líšiť od oficiálnych výsledkov.</string>
   <string name="allTeams">Všetky tímy</string>
   <string name="tournamentFormat">Formát turnaja</string>
   <string name="tournamentLocation">Miesto konania turnaja</string>
@@ -87,6 +89,28 @@
   <string name="liveboard">Aktuálna pozícia</string>
   <string name="communityBroadcast">Vysielanie člena komunity</string>
   <string name="createdAndManagedBy">Vytvoril a spravuje %s.</string>
+  <string name="matchPoints">Body za zápasy</string>
+  <string name="gamePoints">Body za partie</string>
+  <string name="matches">Zápasy</string>
+  <string name="matchHistory">História zápasov</string>
+  <string name="teamResults">Výsledky tímov</string>
+  <string name="termsAutomaticallyTranslated">Nasledujúci výraz (výrazy) bude automaticky preložený: %s.</string>
   <string name="roundX">%s. kolo</string>
   <string name="defaultRoundNameHelp">Zachovanie predvoleného názvu spôsobí jeho automatický preklad do všetkých ostatných jazykov.</string>
+  <string name="openTournament">Otvorený</string>
+  <string name="womenTournament">Ženy</string>
+  <string name="menTournament">Muži</string>
+  <string name="girlsTournament">Dievčatá</string>
+  <string name="boysTournament">Chlapci</string>
+  <string name="openUnderXAgeTournament">Otvorený do %s</string>
+  <string name="girlsUnderXAgeTournament">Dievčatá do %s</string>
+  <string name="boysUnderXAgeTournament">Chlapci do %s</string>
+  <string name="quarterfinals">Štvrťfinále</string>
+  <string name="semifinals">Semifinále</string>
+  <string name="finals">Finále</string>
+  <string name="tiebreaks">Tajbrejk</string>
+  <string name="gameX">Partia %s</string>
+  <string name="knockouts">Play-off</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
 </resources>

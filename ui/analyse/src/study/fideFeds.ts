@@ -31,7 +31,7 @@ export const federations: Record<FederationId, [string, Alpha2 | undefined]> = {
   BOL: ['Bolivia', 'BO'],
   BOT: ['Botswana', 'BW'],
   BRA: ['Brazil', 'BR'],
-  BRN: ['Bahrain', 'BN'],
+  BRN: ['Bahrain', 'BH'],
   BRU: ['Brunei Darussalam', 'BN'],
   BUL: ['Bulgaria', 'BG'],
   BUR: ['Burkina Faso', 'BF'],

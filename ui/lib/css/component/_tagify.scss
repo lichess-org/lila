@@ -409,8 +409,7 @@
       color: var(--tag-remove-btn-color, $tag-remove-btn-color);
       width: $size;
       height: $size;
-      margin-inline-end: $size / 3;
-      margin-inline-start: auto;
+      margin-inline: auto $size / 3;
       overflow: hidden;
       transition: 0.2s ease-out;
 
@@ -471,13 +470,19 @@
     white-space: pre-wrap;
     color: $input-color;
     color: var(--input-color, $input-color);
-    box-sizing: inherit;
+    box-sizing: border-box;
+
+    // Firefox-specific fixes for stability and caret positioning
+    @include firefox {
+      display: block;
+      vertical-align: middle;
+    }
 
     &:empty {
       @include firefox {
         // clicking twice on the input (not fast) disallows typing (bug) only when the input has "display:flex".
         // https://bugzilla.mozilla.org/show_bug.cgi?id=904846#c45
-        display: flex;
+        display: block;
       }
 
       &::before {
@@ -518,7 +523,10 @@
           @include firefox {
             // remove ":after" pseudo element: https://bugzilla.mozilla.org/show_bug.cgi?id=904846#c45
             content: unset;
-            display: inline-block;
+            display: block;
+            position: static;
+            height: auto;
+            line-height: inherit;
           }
 
           color: $placeholder-color-focus;
@@ -696,19 +704,17 @@
       @extend %box-radius-bottom;
 
       max-height: 300px;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       background: $c-bg-popup;
       border: 1px solid $tags-focus-border-color;
+      border-top: none;
 
       // fixes - https://bugs.chromium.org/p/chromium/issues/detail?id=1147523
       border-width: 1.1px;
       border-top-width: 0;
       box-shadow: 0 2px 4px -2px rgba(black, 0.2);
       transition: $trans;
-
-      &:hover {
-        overflow: auto;
-      }
     }
 
     // initial state, pre-rendered
@@ -726,13 +732,18 @@
     }
 
     &__item {
-      box-sizing: inherit;
+      box-sizing: border-box;
       padding: $tag-pad;
-      margin: 1px;
+      margin: 0;
       cursor: pointer;
-      border-radius: 2px;
+      border-radius: 0;
       position: relative;
       outline: none;
+      width: 100%;
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
 
       &--active {
         background: $tags-focus-border-color;

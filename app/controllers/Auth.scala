@@ -9,14 +9,16 @@ import lila.common.Json.given
 import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.ValidReferrer
-import lila.core.security.ClearPassword
+import lila.core.security.{ ClearPassword, TurnstilePublicConfig }
+import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
+import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned, PasswordReset as PasswordResetService }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
+  def logger = lila.security.loggerAuth
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
@@ -75,10 +77,45 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       then Ok(s"ok:${routes.Auth.checkYourEmail}")
       else BadRequest.async(accountC.renderCheckYourEmail)
 
-  def login = Open(serveLogin)
+  def login = Open:
+    renderLogin(AuthVariant.Lichess, routes.Auth.login)
+
+  def loginTakex3 = Open:
+    withTakex3Referrer(routes.Auth.login):
+      renderLogin(AuthVariant.Takex3, routes.Auth.loginTakex3)
+
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
-  private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
+  private enum AuthVariant:
+    case Lichess, Takex3
+
+  private def takex3Client = env.oAuth.signedClients.takex3
+
+  private def signedClient(using ref: Option[ValidReferrer]) =
+    ref.flatMap(env.oAuth.signedClients.signedReferrerClient)
+
+  private def withTakex3Referrer(fallback: Call, requireSimpleSignup: Boolean = false)(run: => Fu[Result])(
+      using Option[ValidReferrer]
+  ) =
+    val allowed =
+      if requireSimpleSignup then simpleSignup.exists(_.client == takex3Client)
+      else signedClient.contains(takex3Client)
+    if allowed then run else Redirect(fallback).toFuccess
+
+  private def authCustomUi(variant: AuthVariant)(using
+      Option[ValidReferrer]
+  ): Option[AuthCustomUi] =
+    variant match
+      case AuthVariant.Takex3 => takex3Client.design
+      case AuthVariant.Lichess => signedClient.flatMap(_.design)
+
+  private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]): Fu[Result] =
+    renderLogin(AuthVariant.Lichess, routes.Auth.login)
+
+  private def renderLogin(
+      variant: AuthVariant,
+      canonical: Call
+  )(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
     val switch = get("switch").orElse(get("as"))
     t3Counter(_.login.load)
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
@@ -88,9 +125,16 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       case None =>
         val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form = api.loginFormFilled(prefillUsername)
-        Ok.page(views.auth.login(form)).map(_.withCanonical(routes.Auth.login))
+        Ok.page(loginPage(variant, form)).map(_.withCanonical(canonical))
 
   def authenticate = OpenBody:
+    serveAuthenticate(AuthVariant.Lichess)
+
+  def authenticateTakex3 = OpenBody:
+    withTakex3Referrer(routes.Auth.login):
+      serveAuthenticate(AuthVariant.Takex3)
+
+  private def serveAuthenticate(variant: AuthVariant)(using BodyContext[?]) =
     NoCrawlers:
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
@@ -102,7 +146,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           bindForm(api.loginForm)(
             err =>
               negotiate(
-                Unauthorized.page(views.auth.login(err, isRemember)),
+                Unauthorized.page(loginPage(variant, err, isRemember)),
                 Unauthorized(doubleJsonFormErrorBody(err))
               ),
             loginData =>
@@ -129,7 +173,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                   lila.security.LoginCandidate.totpError(err) match
                                     case None =>
                                       t3Counter(_.login.failure("credentials"))
-                                      Unauthorized.page(views.auth.login(err, isRemember))
+                                      Unauthorized.page(loginPage(variant, err, isRemember))
                                     case Some(err) =>
                                       for cookie <- env.security.turnstileCookie.create(loginData)
                                       yield Ok(err).withCookies(cookie),
@@ -165,17 +209,26 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 else
                   t3Counter(_.login.failure("turnstile"))
                   BadRequest.page:
-                    views.auth
-                      .login(
-                        api.loginForm.fill(loginData).withGlobalError("Session timed out, please try again"),
-                        isRemember
-                      )
+                    loginPage(
+                      variant,
+                      api.loginForm.fill(loginData).withGlobalError("Session timed out, please try again"),
+                      isRemember
+                    )
           )
+
+  private def loginPage(variant: AuthVariant, form: Form[?], isRemember: Boolean = true)(using
+      Context,
+      TurnstilePublicConfig
+  ) =
+    given Option[AuthCustomUi] = authCustomUi(variant)
+    variant match
+      case AuthVariant.Takex3 => views.authTakex3.login(form, isRemember)
+      case AuthVariant.Lichess => views.auth.login(form, isRemember)
 
   private def t3Counter(counter: lila.mon.signedClient.type => String => kamon.metric.Counter)(using
       Option[ValidReferrer]
   ) = simpleSignup.foreach: ss =>
-    counter(lila.mon.signedClient)(ss.client.value).increment()
+    counter(lila.mon.signedClient)(ss.client.clientId.value).increment()
 
   private val clasLoginRateLimit =
     env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
@@ -200,7 +253,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val sid = env.security.api.reqSessionId(ctx.req)
     for
       _ <- sid.so(env.security.store.delete)
-      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      _ <- sid.so(env.push.browserSub.unsubscribeBySession)
       res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
     yield res.withCookies(env.security.lilaCookie.newSession)
 
@@ -213,22 +266,41 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     )
   }
 
-  def signup = Open(serveSignup)
+  def signup = Open:
+    serveSignup(AuthVariant.Lichess, routes.Auth.signup)
+
+  def signupTakex3 = Open:
+    withTakex3Referrer(routes.Auth.signup, requireSimpleSignup = true):
+      serveSignup(AuthVariant.Takex3, routes.Auth.signupTakex3)
+
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
 
-  private def serveSignup(using Context) = NoTor:
+  private def serveSignup(using Context, Option[ValidReferrer]): Fu[Result] =
+    serveSignup(AuthVariant.Lichess, routes.Auth.signup)
+
+  private def serveSignup(
+      variant: AuthVariant,
+      canonical: Call
+  )(using Context, Option[ValidReferrer]) = NoTor:
     t3Counter(_.signup.load)
     val form = forms.signup.full(simpleSignup)
-    Ok.page(views.auth.signup(form.form, form.simple))
+    Ok.page(signupPage(variant, form.form, form.simple)).map(_.withCanonical(canonical))
 
   private def simpleSignup(using ref: Option[ValidReferrer]) =
     ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
     for proxy <- env.security.ip2proxy.ofReq(ctx.req)
-    do lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
+    do logger.info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
+    serveSignupPost(AuthVariant.Lichess)
+
+  def signupPostTakex3 = OpenBody:
+    withTakex3Referrer(routes.Auth.signup, requireSimpleSignup = true):
+      serveSignupPost(AuthVariant.Takex3)
+
+  private def serveSignupPost(variant: AuthVariant)(using BodyContext[?]) =
     NoTor:
       Firewall:
         WithProxy: _ ?=>
@@ -250,11 +322,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                     t3Counter(_.signup.failure("turnstile"))
                     val f = forms.signup.full(simpleSignup)
                     val form = f.form.withGlobalError("Invalid captcha")
-                    BadRequest.page(views.auth.signup(form, f.simple))
+                    BadRequest.page(signupPage(variant, form, f.simple))
                   case FormInvalid(err) =>
                     t3Counter(_.signup.failure("form"))
                     val f = forms.signup.full(simpleSignup)
-                    BadRequest.page(views.auth.signup(err, f.simple))
+                    BadRequest.page(signupPage(variant, err, f.simple))
                   case ConfirmEmail(user, email) =>
                     t3Counter(_.signup.step("emailConfirm"))
                     redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
@@ -262,6 +334,15 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   case AllSet(user, email) =>
                     t3Counter(_.signup.success)
                     welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
+
+  private def signupPage(variant: AuthVariant, form: Form[?], simple: Boolean)(using
+      Context,
+      TurnstilePublicConfig
+  ) =
+    given Option[AuthCustomUi] = authCustomUi(variant)
+    variant match
+      case AuthVariant.Takex3 => views.authTakex3.signup(form, simple)
+      case AuthVariant.Lichess => views.auth.signup(form, simple)
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context
@@ -333,7 +414,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     case EmailConfirm.Result.NotFound =>
       lila.mon.user.register.confirmEmailResult(false).increment()
       notFound
-    case EmailConfirm.Result.NeedsConfirm(user) => Ok.page(views.auth.signupConfirm(user, token))
+    case EmailConfirm.Result.NeedsConfirm(user) =>
+      Ok.page(views.auth.signupConfirm(user, token))
     case EmailConfirm.Result.AlreadyConfirmed(user) =>
       if ctx.is(user) then Redirect(routes.User.show(user.username))
       else Redirect(routes.Auth.login)
@@ -360,7 +442,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
-      .logFailure(lila.log("fp"), _ => s"${HTTPRequest.print(ctx.req)} $fp")
+      .logFailure(logger, _ => s"FP ${HTTPRequest.print(ctx.req)} $fp")
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))
@@ -373,45 +455,102 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       .inject(NoContent)
   }
 
-  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Option[String])(using
-      ctx: Context
-  ) =
+  private def renderPasswordReset(
+      form: Option[Form[PasswordReset]],
+      fail: Option[String],
+      variant: AuthVariant
+  )(using Context) =
     renderAsync:
-      views.auth.passwordReset(form | env.security.forms.passwordReset, fail)
+      passwordResetPage(variant, form | env.security.forms.passwordReset, fail)
 
   def passwordReset = Open:
-    renderPasswordReset(none, fail = none).map { Ok(_) }
+    renderPasswordReset(none, fail = none, AuthVariant.Lichess).map { Ok(_) }
 
-  def passwordResetApply =
-    OpenBody:
-      def badRequest(msg: String) = renderPasswordReset(none, fail = msg.some).map(BadRequest(_))
-      env.security.turnstile
-        .verify()
-        .flatMap:
-          if _ then
-            forms.passwordReset
-              .bindFromRequest()
-              .fold(
-                err => renderPasswordReset(err.some, fail = "".some).map { BadRequest(_) },
-                data =>
-                  env.security.passwordReset
-                    .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
-                      env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
-                        case Some(user, storedEmail) =>
-                          lila.mon.user.auth.passwordResetRequest("success").increment()
-                          for _ <- env.security.passwordReset.send(user, storedEmail)
-                          yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
-                        case _ =>
-                          lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                          Redirect(routes.Auth.passwordResetSent(data.email.value))
-                      }
-              )
-          else badRequest("Invalid captcha")
+  def passwordResetTakex3 = Open:
+    withTakex3Referrer(routes.Auth.passwordReset):
+      renderPasswordReset(none, fail = none, AuthVariant.Takex3).map { Ok(_) }
+
+  def passwordResetApply = OpenBody:
+    servePasswordResetApply(AuthVariant.Lichess)
+
+  def passwordResetApplyTakex3 = OpenBody:
+    withTakex3Referrer(routes.Auth.passwordReset):
+      servePasswordResetApply(AuthVariant.Takex3)
+
+  private def servePasswordResetApply(variant: AuthVariant)(using BodyContext[?]) =
+    def badRequest(msg: String): Fu[Result] =
+      renderPasswordReset(none, fail = msg.some, variant).map(BadRequest(_))
+    env.security.turnstile
+      .verify()
+      .flatMap:
+        if _ then
+          forms.passwordReset
+            .bindFromRequest()
+            .fold(
+              err => renderPasswordReset(err.some, fail = "".some, variant).map { BadRequest(_) },
+              data =>
+                env.security.passwordReset
+                  .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
+                    env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
+                      case Some(user, storedEmail) =>
+                        lila.mon.user.auth.passwordResetRequest("success").increment()
+                        for _ <- env.security.passwordReset.send(
+                            user,
+                            storedEmail,
+                            origin = passwordResetOrigin(variant)
+                          )
+                        yield redirectWithReferrer(passwordResetSentRoute(storedEmail.value, variant))
+                      case _ =>
+                        lila.mon.user.auth.passwordResetRequest("noEmail").increment()
+                        redirectWithReferrer(passwordResetSentRoute(data.email.value, variant))
+                    }
+            )
+        else badRequest("Invalid captcha")
+
+  private def passwordResetPage(variant: AuthVariant, form: Form[?], fail: Option[String])(using
+      Context,
+      TurnstilePublicConfig
+  ) =
+    given Option[AuthCustomUi] = authCustomUi(variant)
+    variant match
+      case AuthVariant.Takex3 => views.authTakex3.passwordReset(form, fail)
+      case AuthVariant.Lichess => views.auth.passwordReset(form, fail)
+
+  private def passwordResetSentRoute(email: String, variant: AuthVariant) =
+    variant match
+      case AuthVariant.Takex3 => routes.Auth.passwordResetSentTakex3(email)
+      case AuthVariant.Lichess => routes.Auth.passwordResetSent(email)
+
+  private def passwordResetOrigin(variant: AuthVariant) =
+    variant match
+      case AuthVariant.Takex3 => PasswordResetService.Origin.Takex3
+      case AuthVariant.Lichess => PasswordResetService.Origin.Lichess
 
   def passwordResetSent(email: String) = Open:
-    Ok.page(views.auth.passwordResetSent(email))
+    passwordResetSentPage(email, AuthVariant.Lichess)
+
+  def passwordResetSentTakex3(email: String) = Open:
+    withTakex3Referrer(routes.Auth.passwordResetSent(email)):
+      passwordResetSentPage(email, AuthVariant.Takex3)
+
+  private def passwordResetSentPage(email: String, variant: AuthVariant)(using
+      Context,
+      Option[ValidReferrer]
+  ) =
+    variant match
+      case AuthVariant.Lichess => Ok.page(views.auth.passwordResetSent(email))
+      case AuthVariant.Takex3 =>
+        given Option[AuthCustomUi] = takex3Client.design
+        Ok.page(views.authTakex3.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
+    servePasswordResetConfirm(token, AuthVariant.Lichess)
+
+  def passwordResetConfirmTakex3(token: String) = Open:
+    servePasswordResetConfirm(token, AuthVariant.Takex3)
+
+  private def servePasswordResetConfirm(token: String, variant: AuthVariant)(using Context) =
+    given Option[AuthCustomUi] = authCustomUi(variant)
     env.security.passwordReset
       .confirm(token)
       .flatMap:
@@ -424,9 +563,16 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           authLog(user.username, none, "Reset password")
           lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
           Ok.page:
-            views.auth.passwordResetConfirm(token, forms.passwdResetForMe, none)
+            passwordResetConfirmPage(variant, token, forms.passwdResetForMe)
 
   def passwordResetConfirmApply(token: String) = OpenBody:
+    servePasswordResetConfirmApply(token, AuthVariant.Lichess)
+
+  def passwordResetConfirmApplyTakex3(token: String) = OpenBody:
+    servePasswordResetConfirmApply(token, AuthVariant.Takex3)
+
+  private def servePasswordResetConfirmApply(token: String, variant: AuthVariant)(using BodyContext[?]) =
+    given Option[AuthCustomUi] = authCustomUi(variant)
     env.security.passwordReset
       .confirm(token)
       .flatMap:
@@ -437,7 +583,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case Some(user) =>
           given Me = Me(user)
           FormFuResult(forms.passwdResetForMe) { err =>
-            renderPage(views.auth.passwordResetConfirm(token, err, false.some))
+            renderPage:
+              passwordResetConfirmPage(variant, token, err, formOk = false.some)
           } { data =>
             HasherRateLimit:
               for
@@ -448,13 +595,30 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   welcome(user, _, sendWelcomeEmail = false)
                 _ <- env.user.repo.disableTwoFactor(user.id)
                 _ <- env.security.store.closeAllSessionsOf(user.id)
-                _ <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+                _ <- env.push.browserSub.unsubscribeByUser(user)
                 _ <- env.push.unregisterDevices(user)
-                res <- authenticateUser(user, remember = true, pwned = IsPwned.No)
+                result <-
+                  passwordResetSuccessResult(variant)
+                res <- authenticateUser(user, remember = true, pwned = IsPwned.No, result = result)
               yield
                 lila.mon.user.auth.passwordResetConfirm("success").increment()
                 res
           }
+
+  private def passwordResetConfirmPage(
+      variant: AuthVariant,
+      token: String,
+      form: Form[?],
+      formOk: Option[Boolean] = none
+  )(using Context, Me, Option[AuthCustomUi]) =
+    variant match
+      case AuthVariant.Takex3 => views.authTakex3.passwordResetConfirm(token, form)
+      case AuthVariant.Lichess => views.auth.passwordResetConfirm(token, form, formOk)
+
+  private def passwordResetSuccessResult(variant: AuthVariant)(using Context, Option[AuthCustomUi]) =
+    variant match
+      case AuthVariant.Takex3 => renderPage(views.authTakex3.passwordResetSuccess).map(page => Ok(page).some)
+      case AuthVariant.Lichess => fuccess(none)
 
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using
       Context,
@@ -531,6 +695,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           "X-Tier" -> tier.toString
         )
       case None => Unauthorized
+  }
+
+  def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
+    if me.isnt(UserId.t3) then notFound
+    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =

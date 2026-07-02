@@ -9,16 +9,17 @@ import lila.core.perf.UserWithPerfs
 import lila.core.rating.{ RatingProg, Score }
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class ActivityUi(helpers: Helpers)(
-    tournamentIdToName: lila.core.id.TourId => Translate ?=> String
+    tournamentIdToName: lila.core.id.TourId => Translate ?=> ClientName ?=> String
 ):
   import helpers.{ *, given }
 
   def apply(u: UserWithPerfs, as: Iterable[ActivityView])(ublogPosts: ActivityView => Option[Frag])(using
-      Context
+      Context,
+      ClientName
   ) =
     div(cls := "activity")(
       as.toSeq
@@ -300,7 +301,7 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context) =
+  private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context, ClientName) =
     entryTag(
       iconTag(Icon.Trophy),
       div(

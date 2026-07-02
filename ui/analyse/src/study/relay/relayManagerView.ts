@@ -1,5 +1,5 @@
 import { memoize } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
 
 import type StudyCtrl from '../studyCtrl';
@@ -32,7 +32,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 const logSuccess = (e: LogEvent) =>
-  e.moves ? [hl('strong', '' + e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
+  e.moves ? [hl('strong', e.moves), ` new move${e.moves > 1 ? 's' : ''}`] : ['Nothing new'];
 
 function renderLog(ctrl: RelayCtrl) {
   const url = ctrl.data.sync?.url;

@@ -38,7 +38,6 @@
   <string name="youAreNowASpectator">你現在是觀眾</string>
   <string name="pgnTags">PGN 標籤</string>
   <string name="like">喜歡</string>
-  <string name="unlike">取消喜歡</string>
   <string name="newTag">新標籤</string>
   <string name="commentThisPosition">對於目前局面的評論</string>
   <string name="commentThisMove">對於此棋步的評論</string>

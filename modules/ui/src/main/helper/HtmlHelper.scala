@@ -36,5 +36,9 @@ trait HtmlHelper:
 
   def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using NetDomain): Frag
 
+  protected def isProd: Boolean
+
+  def testId(id: String): Modifier = if isProd then emptyFrag else attr("data-testid") := id
+
   export HtmlHelper.*
   export scalalib.StringOps.{ shorten, urlencode, addQueryParam, addQueryParams }

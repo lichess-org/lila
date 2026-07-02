@@ -149,6 +149,8 @@ trait LilaLibraryExtensions extends CoreExports:
       list.iterator
         .foldLeft(funit)((fr, fa) => fr.zipWith(fa)((_, _) => ()))
 
+  extension [A](nel: NonEmptyList[A]) def contains(a: A): Boolean = nel.head == a || nel.tail.contains(a)
+
   extension [A](fua: Fu[A])
 
     infix def >>[B](fub: => Fu[B])(using Executor): Fu[B] =

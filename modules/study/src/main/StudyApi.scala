@@ -31,8 +31,9 @@ final class StudyApi(
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer)(using scheduler: Scheduler)
-    extends lila.core.study.StudyApi:
+)(using Executor, akka.stream.Materializer, lila.core.fide.GetPlayer, lila.core.fide.Federation.GetName)(using
+    scheduler: Scheduler
+) extends lila.core.study.StudyApi:
 
   import sequencer.*
 
@@ -399,7 +400,7 @@ final class StudyApi(
             (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who.is(userId)))
           }
           allowed.so:
-            for _ <- studyRepo.removeMember(study, userId)
+            for _ <- studyRepo.removeMember(study.id, userId)
             yield onMembersChange(study, (study.members - userId), study.members.ids)
 
   export studyRepo.{ isMember, isContributor }
@@ -448,12 +449,15 @@ final class StudyApi(
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
 
-  def setTag(studyId: StudyId, setTag: SetTag)(who: Who) =
+  def setTagFromUI(studyId: StudyId, setTag: SetTag)(who: Who) =
     setTag.validate.so: tag =>
       sequenceStudyWithChapter(studyId, setTag.chapterId):
         case Study.WithChapter(study, chapter) =>
           Contribute(who.u, study):
-            for _ <- doSetTags(study, chapter, StudyPgnTags(chapter.tags + tag), who)
+            for
+              filledTags <- StudyPgnTags.fillPlayer(chapter.tags, tag)
+              newTags = (filledTags | chapter.tags) + tag
+              _ <- doSetTags(study, chapter, StudyPgnTags(newTags), who)
             yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, tag))
 
   def setTagsAndRename(
@@ -740,7 +744,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              parsed <- chapterMaker.toStudyPgn(study, pgn, strict = true)
               newChapter = chapter.copy(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
@@ -757,7 +761,7 @@ final class StudyApi(
               true
 
   // update provided tags, keep missing tags, delete tags with empty value
-  def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
+  def updateChapterTagsFromApi(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(me, study):

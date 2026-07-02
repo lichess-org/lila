@@ -4,7 +4,7 @@ import { renderVoiceBar } from 'voice';
 
 import { view as cevalView } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
@@ -18,9 +18,10 @@ import {
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
 import stepwiseScroll from 'lib/view/stepwiseScroll';
 
-import * as control from '../control';
-import type PuzzleCtrl from '../ctrl';
-import { view as keyboardView } from '../keyboard';
+import * as control from '@/control';
+import type PuzzleCtrl from '@/ctrl';
+import { view as keyboardView } from '@/keyboard';
+
 import boardMenu from './boardMenu';
 import chessground from './chessground';
 import feedbackView from './feedback';
@@ -35,7 +36,7 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: LiconType, effect: string, disabled: boolean, glowing = false): VNode {
+function jumpButton(icon: LiconValue, effect: string, disabled: boolean, glowing = false): VNode {
   return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
 }
 
@@ -76,10 +77,12 @@ let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const gaugeOn = ctrl.showEvalGauge();
-  if (cevalShown !== ctrl.showAnalysis()) {
+
+  if (cevalShown !== ctrl.showEvaluation()) {
     if (!cevalShown) ctrl.autoScrollNow = true;
-    cevalShown = ctrl.showAnalysis();
+    cevalShown = ctrl.showEvaluation();
   }
+
   return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
@@ -132,8 +135,8 @@ export default function (ctrl: PuzzleCtrl): VNode {
         // so the siblings are only updated when ceval is added
         hl(
           'div.ceval-wrap',
-          { class: { none: !ctrl.showAnalysis() } },
-          ctrl.showAnalysis() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
+          { class: { none: !ctrl.showEvaluation() } },
+          ctrl.showEvaluation() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
@@ -147,42 +150,44 @@ export default function (ctrl: PuzzleCtrl): VNode {
 }
 
 function session(ctrl: PuzzleCtrl): MaybeVNode {
-  const rounds = ctrl.session.get().rounds,
-    current = ctrl.data.puzzle.id;
-  return rounds.length
-    ? hl('div.puzzle__session', [
-        rounds.map(round => {
-          const rd =
-            round.ratingDiff && ctrl.opts.showRatings
-              ? round.ratingDiff > 0
-                ? '+' + round.ratingDiff
-                : round.ratingDiff
-              : null;
+  const rounds = ctrl.session.get().rounds;
 
-          return h(
-            `a.result-${round.result}${rd ? '' : '.result-empty'}`,
-            {
-              key: round.id,
-              class: { current: current === round.id },
-              attrs: {
-                href: `/training/${ctrl.session.theme}/${round.id}`,
-                ...(ctrl.streak ? { target: '_blank' } : {}),
-              },
-            },
-            rd,
-          );
-        }),
-        rounds.some(r => r.id === current)
-          ? !ctrl.streak &&
-            hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-          : hl(
-              'a.result-cursor.current',
-              {
-                key: current,
-                attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
-              },
-              ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-            ),
-      ])
-    : undefined;
+  if (!rounds.length) return undefined;
+
+  const current = ctrl.data.puzzle.id;
+
+  return hl('div.puzzle__session', [
+    rounds.map(round => {
+      const rd =
+        round.ratingDiff && ctrl.opts.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
+
+      return h(
+        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+        {
+          key: round.id,
+          class: { current: current === round.id },
+          attrs: {
+            href: `/training/${ctrl.session.theme}/${round.id}`,
+            ...(ctrl.streak ? { target: '_blank' } : {}),
+          },
+        },
+        rd,
+      );
+    }),
+    rounds.some(r => r.id === current)
+      ? !ctrl.streak &&
+        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+      : hl(
+          'a.result-cursor.current',
+          {
+            key: current,
+            attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
+          },
+          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+        ),
+  ]);
 }

@@ -62,6 +62,8 @@
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
   <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="blackDidntMove">لم يلعب الأسود بعد</string>
+  <string name="whiteAborted">قام الأبيض بإلغاء المباراة قبل بدايتها</string>
+  <string name="blackAborted">قام الأسود بإلغاء المباراة قبل بدايتها</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
@@ -122,7 +124,7 @@
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">تشغيل أول حركة فتح/نهاية اللعبة</string>
   <string name="winPreventedBy50MoveRule">قاعدة الخمسين-50 حركة منعت الفوز</string>
-  <string name="lossSavedBy50MoveRule">قاعدة الخمسين حركة منعت الخسارة</string>
+  <string name="lossSavedBy50MoveRule">قاعدة 50 حركة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
   <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
   <string name="unknownDueToRounding">بسبب احتمال وجود تقريب في قيم DTZ ضمن قواعد بيانات Syzygy للنهايات، فإن الفوز أو الخسارة يكون مضمونًا فقط إذا تم اتباع خط اللعب الموصى به من قاعدة البيانات منذ آخر عملية أسر أو آخر نقلة بيدق.</string>
@@ -132,14 +134,14 @@
   <string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
   <string name="replayMode">نمط إعادة العرض</string>
   <string name="realtimeReplay">ذات الوقت</string>
-  <string name="byCPL">بالاثارة</string>
+  <string name="byCPL">حساب CPL</string>
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">ملك يمكن تهديده بـ-كش</string>
+  <string name="checkableKing">ملك في خطر</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>
@@ -304,7 +306,7 @@
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
-  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا، والحسابات التي تحتوي على أسماء مستخدمين غير ملائمة سوف تُغلق!</string>
   <string name="signupEmailPromise">لن نرسل لك سوى رسائل البريد الإلكتروني حول حسابك ولن نشارك بريدك الإلكتروني أبدا.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
@@ -318,12 +320,12 @@
   <string name="youAreLeavingLichess">أنت تغادر Lichess</string>
   <string name="neverTypeYourPassword">لا تكتب كلمة مرور Lichess الخاصة بك على موقع آخر!</string>
   <string name="proceedToX">انتقل إلى %s</string>
-  <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
+  <string name="passwordSuggestion">لا تستخدم كلمة مرور اقترحها شخص آخر، فقد يستخدمها لسرقة حسابك.</string>
   <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
   <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
   <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
-  <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
-  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
+  <string name="whatSignupUsername">ما اسم المستخدم الذي سجلت به؟</string>
+  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم:%s.</string>
   <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
   <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
@@ -830,8 +832,8 @@ https://lichess. org/report.</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
-  <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
-  <string name="blackCastlingKingside">تبييت قصير للأسود</string>
+  <string name="whiteCastlingKingside">تبييت قصير O-O للأبيض</string>
+  <string name="blackCastlingKingside">تبييت قصير O-O للأسود</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">منشورات المنتدى %s</item>
     <item quantity="one">منشورات المنتدى %s</item>
@@ -974,9 +976,19 @@ https://lichess. org/report.</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
+  <string name="like">إعجاب</string>
+  <string name="liked">إعجاب</string>
   <string name="quickPairing">مزاوجة سريعة</string>
   <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
+  <plurals name="nbAnonymous">
+    <item quantity="zero">مجهول (%s)</item>
+    <item quantity="one">مجهول</item>
+    <item quantity="two">مجهولين (%s)</item>
+    <item quantity="few">مجهولين (%s)</item>
+    <item quantity="many">مجهولين (%s)</item>
+    <item quantity="other">مجهولين (%s)</item>
+  </plurals>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
   <string name="allLanguages">كل اللغات</string>
@@ -1121,7 +1133,7 @@ https://lichess. org/report.</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
   <string name="makeSureToRead">تحقق من قراءة %1$s</string>
   <string name="theForumEtiquette">آداب المنتدى</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">يرجى التحلي باللطف في المنتدى.</string>
+  <string name="pleaseBeNiceInTheForum">يرجى التحلي باللطف في المنتدى.</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>
@@ -1214,4 +1226,5 @@ https://lichess. org/report.</string>
   <string name="thereAreNoResultsForX">لا توجد نتائج لـ \"%s\"</string>
   <string name="tags">تصنيفات</string>
   <string name="enPassant">حقوق  الأخذ بالتجاوز </string>
+  <string name="settings">الإعدادات</string>
 </resources>

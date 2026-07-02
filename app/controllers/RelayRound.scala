@@ -7,7 +7,7 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.{ RelayRoundId, RelayTourId }
+import lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
 import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 import lila.study.Study as StudyModel
@@ -228,13 +228,19 @@ final class RelayRound(
     apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
-  def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
+  def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
-      val limiter = apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
-        limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
-          Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
+        pgnStream(env.relay.pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
+
+  def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.groupById(id)): group =>
+      pgnStream(env.relay.pgnStream.streamGroupGames(group))
+
+  private def pgnStream(source: akka.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+    apiC.GlobalConcurrencyLimitPerIP.events(req.ipAddress)(source): limited =>
+      Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open:

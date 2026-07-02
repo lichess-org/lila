@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.mvc.*
 import scalalib.net.UserAgent
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ClientName }
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
@@ -22,12 +22,14 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
   given (using ctx: Context): Pref = ctx.pref
   given (using ctx: Context): Option[School] = ctx.school
   given (using req: RequestHeader): UserAgent = HTTPRequest.userAgent(req)
+  given (using req: RequestHeader): ClientName = ClientName(req)
 
   given Conversion[UserWithPerfs, User] = _.user
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
     def userAgent = HTTPRequest.userAgent(req)
+    def client = ClientName(req)
     def sid = lila.core.security.LilaCookie.sid(req)
 
   extension (result: Result)

@@ -11,8 +11,8 @@ import { renderIndexAndMove } from './view/components';
 export class ForkCtrl {
   selectedIndex = 0;
 
-  private hoveringIndex: number | undefined;
-  private mostRecent: TreeNode | undefined;
+  private hoveringIndex?: number;
+  private mostRecent?: TreeNode;
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
 
@@ -81,7 +81,7 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
 };
 
 export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  if (ctrl.retro?.isSolving()) return;
+  if (ctrl.retro?.isSolving() || ctrl.study?.hideMoves()) return;
   ctrl.fork.update();
   if (!ctrl.fork.isVisible) return;
   const isMainline = concealOf && ctrl.onMainline;
@@ -111,7 +111,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
         return hl(
           'move',
           { class: classes, attrs: { 'data-it': it } },
-          renderIndexAndMove(node, ctrl.showFishnetAnalysis(), ctrl.showFishnetAnalysis()),
+          renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
         );
       return undefined;
     }),

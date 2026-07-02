@@ -5,7 +5,7 @@ import { bind } from '@/view';
 export interface PresetCtrl {
   group(): string | undefined;
   said(): string[];
-  setGroup(group: string | undefined): void;
+  setGroup(group?: string): void;
   post(preset: Preset): void;
 }
 
@@ -35,14 +35,13 @@ const groups: PresetGroups = {
 };
 
 export function presetCtrl(opts: PresetOpts): PresetCtrl {
-  let group: string | undefined = opts.initialGroup;
-
+  let group = opts.initialGroup;
   let said: string[] = [];
 
   return {
     group: () => group,
     said: () => said,
-    setGroup(p: string | undefined) {
+    setGroup(p) {
       if (p !== group) {
         group = p;
         if (!p) said = [];

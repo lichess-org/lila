@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
   <string name="reusableChallengeUrl">Постійне посилання на виклик</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким хто-небудь може кинути вам виклик із цими налаштуваннями.</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким будь-хто може кинути вам виклик із цими налаштуваннями.</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Чорні залишили гру</string>
   <string name="whiteDidntMove">Білі не зробили хід</string>
   <string name="blackDidntMove">Чорні не зробили хід</string>
+  <string name="whiteAborted">Білі скасували гру</string>
+  <string name="blackAborted">Чорні скасували гру</string>
   <string name="requestAComputerAnalysis">Зробити запит на комп’ютерний аналіз</string>
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
@@ -82,7 +84,7 @@
   <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
-  <string name="copyMainLinePgn">Копіювати pgn головної лінії</string>
+  <string name="copyMainLinePgn">Копіювати PGN головної лінії</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -889,6 +891,8 @@
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
+  <string name="like">Уподобати</string>
+  <string name="liked">Уподобано</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
@@ -1030,7 +1034,7 @@
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
   <string name="makeSureToRead">Варто прочитати %1$s</string>
   <string name="theForumEtiquette">етикет форуму</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Будь ласка, будьте ввічливими на форумі.</string>
+  <string name="pleaseBeNiceInTheForum">Будь ласка, будьте ввічливими на форумі.</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>
@@ -1122,4 +1126,5 @@
   <string name="thereAreNoResultsForX">Нічого не знайдено для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
+  <string name="settings">Налаштування</string>
 </resources>

@@ -1,12 +1,12 @@
 import { debounce } from 'lib/async';
 import { commonDateFormat, toDate } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import { spinnerHtml, confirm } from 'lib/view';
+import { extendTablesortNumber, sortTable } from 'lib/tablesort';
+import { confirm, spinnerHtml } from 'lib/view';
 import { formToXhr, text as xhrText } from 'lib/xhr';
 
-import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
+import { expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
 import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
@@ -30,9 +30,13 @@ site.load.then(() => {
     source.onerror = () => source.close();
   }
 
+  function updateMainWrap(zoned: boolean) {
+    $('#main-wrap').toggleClass('has-mod-zone full-screen-force', zoned);
+  }
+
   function loadZone() {
     $zone.html(spinnerHtml).removeClass('none');
-    $('#main-wrap').addClass('full-screen-force');
+    updateMainWrap(true);
     $zone.html('');
     streamLoad();
     window.addEventListener('scroll', onScroll);
@@ -40,7 +44,7 @@ site.load.then(() => {
   }
   function unloadZone() {
     $zone.addClass('none');
-    $('#main-wrap').removeClass('full-screen-force');
+    updateMainWrap(false);
     window.removeEventListener('scroll', onScroll);
     scrollTo('#top');
   }
@@ -88,8 +92,8 @@ site.load.then(() => {
       $(el)
         .find('a')
         .each(function (this: HTMLAnchorElement, i: number) {
-          const id = getLocationHash(this),
-            n = '' + (i + 1);
+          const id = getLocationHash(this);
+          const n = String(i + 1);
           $(this).prepend(`<icon>${n}</icon>`);
           site.mousetrap.bind(n, () => scrollTo(id));
         });
@@ -198,6 +202,53 @@ site.load.then(() => {
           reloadZone();
         });
     });
+
+    makeReady(
+      '.appeal form textarea',
+      (el: HTMLElement) => {
+        const textarea = el as HTMLTextAreaElement;
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        const applyDates = () => {
+          const start = textarea.selectionStart;
+          const val = textarea.value;
+          const regex = /in (\d+) (months|years)(?! \(\d{4}-\d{2}-\d{2}\))/gi;
+          let diffBeforeCursor = 0;
+          const newVal = val.replace(regex, (match, num, unit, offset) => {
+            const n = parseInt(num, 10);
+            let targetTs = Date.now();
+
+            const u = unit.toLowerCase();
+
+            if (u.startsWith('month')) {
+              targetTs += n * 30 * DAY_MS;
+            } else if (u.startsWith('year')) {
+              targetTs += n * 365 * DAY_MS;
+            }
+
+            const d = new Date(targetTs);
+
+            const dateStr = ` (${d.toISOString().slice(0, 10)})`;
+            if (offset < start) diffBeforeCursor += dateStr.length;
+
+            return `${match}${dateStr}`;
+          });
+
+          if (newVal !== val) {
+            const end = textarea.selectionEnd;
+            textarea.value = newVal;
+            textarea.setSelectionRange(start + diffBeforeCursor, end + diffBeforeCursor);
+          }
+        };
+
+        $(textarea).on('input', applyDates);
+        // to be applied after preset being inserted
+        $(textarea.form)
+          .find('select.appeal-presets')
+          .on('change', () => setTimeout(applyDates, 50));
+      },
+      'ready-appeal-dates',
+    );
+
     autolinkAtoms($inZone[0]);
   }
 

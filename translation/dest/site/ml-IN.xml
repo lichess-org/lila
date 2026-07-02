@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">കൂട്ടുകാരന് കളിക്കു വെല്ലുവിളി അയയ്ക്കുക</string>
+  <string name="playAgainstComputer">ഗണനിയിന്റെ എതിരെ കളിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ കണ്ണി നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
@@ -118,6 +120,7 @@
   <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ അമ്പു്</string>
   <string name="showVariationArrows">വ്യതിയാനയമ്പുകൾ കാണിക്കുക</string>
   <string name="multipleLines">ഒന്നിലധികം വരികൾ</string>
+  <string name="searchTime">തിരയൽ നേരം</string>
   <string name="cpus">CPUs</string>
   <string name="memory">ഓൎമ്മ</string>
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
@@ -162,6 +165,7 @@
   <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
   <string name="fiftyMovesWithoutProgress">മുന്നേറ്റമില്ലാതെ അൻപതു് നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
+  <string name="joinedX">%s ചേൎന്നു</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
     <item quantity="other">%s കളികൾ</item>
@@ -194,6 +198,7 @@
   <string name="minutesPerSide">ഇരുഭാഗത്തും അനുവദിച്ച മിനിറ്റുകള്‍</string>
   <string name="variant">വ്യത്യാസം</string>
   <string name="variants">വ്യത്യാസങൾ</string>
+  <string name="variantsDescription">കളിക്കാൻ ഇനിയും വഴികൾ</string>
   <string name="timeControl">സമയ നിയന്ത്രണം</string>
   <string name="realTime">റിയല്‍ ടൈം</string>
   <string name="correspondence">ദീർഘകാലകളി</string>
@@ -398,6 +403,7 @@
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
   <string name="screenshotCurrentPosition">താൽകാലിക കരുനില പ്രതലവെട്ടുക</string>
   <string name="gameAsGIF">കളി GIF ആയി ഇറക്കവയ്ക്കുക</string>
+  <string name="playerNames">കളിക്കാരുടെ പേരു്</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="orUploadPgnFile">അല്ലെങ്കിൽ ഒരു PGN രേഖയായി കയറ്റിവയ്ക്കുക</string>
@@ -451,6 +457,7 @@
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>
   <string name="winner">ജേതാവ്‌</string>
+  <string name="standings">നിലപ്പട്ടിക</string>
   <string name="createANewTournament">ഒരു പുതിയ മൽസര പരമ്പര തുടങ്ങാം</string>
   <string name="tournamentCalendar">ടൂർണമെൻറ് കലണ്ടർ</string>
   <string name="conditionOfEntry">പ്രവേശനത്തിനുള്ള നിബന്ധനം:</string>
@@ -556,6 +563,8 @@
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
   <string name="incorrectPassword">തെറ്റായ രഹസ്യവാക്ക്</string>
   <string name="invalidAuthenticationCode">തെറ്റായ ഓതെന്റിക്കേഷൻ കോഡ്</string>
+  <string name="orSeparator">അല്ലെങ്കിൽ</string>
+  <string name="logInByEmail">ഇതപാൽ വഴി പ്രവേശിക്കുക</string>
   <string name="emailMeALink">ഒരു ലിങ്ക് ഇമെയിൽ ചെയ്യൂ</string>
   <string name="currentPassword">നിലവിലുള്ള രഹസ്യവാക്ക്</string>
   <string name="newPassword">പുതിയ രഹസ്യവാക്ക്</string>
@@ -646,6 +655,7 @@
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
+  <string name="titleVerification">തലക്കെട്ടു തീൎച്ചപ്പെടുത്തൽ</string>
   <string name="sourceCode">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
@@ -752,8 +762,13 @@
   <string name="quickPairing">പെട്ടെന്ന് ഇണചേൎക്കൽ നടത്തുക</string>
   <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">പേരില്ലാത്തവൻ</item>
+    <item quantity="other">പേരില്ലാത്തവർ (%s)</item>
+  </plurals>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
+  <string name="allLanguages">എല്ലാ മൊഴികളും</string>
   <string name="background">പശ്ചാത്തലം</string>
   <string name="light">വെളിച്ചപെട്ട</string>
   <string name="dark">ഇരുണ്ടത്</string>
@@ -764,6 +779,7 @@
   <string name="size">വലിപ്പം</string>
   <string name="opacity">ഇരുൾ</string>
   <string name="brightness">കൂരിരുട്ട്</string>
+  <string name="contrast">വ്യത്യാസം</string>
   <string name="hue">നിറം</string>
   <string name="boardReset">നിറങ്ങൾ തനതേക്ക് മാറ്റുക</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
@@ -951,4 +967,11 @@
 നടത്തിപ്പിനും വികാസനത്തിനും ഉള്ളടക്കത്തിനും ചെലവു് എല്ലാം ഉപയോക്താവു് സംഭാവനതോടാണു് കഴിയുന്നതു്.</string>
   <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
   <string name="stats">സ്ഥിതിവിവരണങ്ങൾ</string>
+  <string name="enableBlindMode">കുരുടൻ പരി പ്രവൎത്തനക്ഷമമാക്കുക</string>
+  <string name="disableBlindMode">കുരുടൻ പരി പ്രവൎത്തനരഹിതമാക്കുക</string>
+  <string name="copyToClipboard">പകൎത്തല്പെട്ടിയിലേക്കു പകൎത്തുക</string>
+  <string name="online" comment="status of a user">തത്സമയം</string>
+  <string name="search">തിരയുക</string>
+  <string name="clearSearch">തിരച്ചിൽ മായ്ക്കുക</string>
+  <string name="thereAreNoResultsForX">\"%s\" എന്നതിനു ഫലങ്ങൾ കണ്ടെത്താൻ കഴിഞ്ഞില്ല</string>
 </resources>

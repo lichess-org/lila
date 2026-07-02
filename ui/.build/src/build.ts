@@ -9,15 +9,17 @@ import { env, errorMark, c } from './env.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
 import { hash } from './hash.ts';
 import { i18n } from './i18n.ts';
-import { stopManifest } from './manifest.ts';
+import { stopManifest, updateManifest } from './manifest.ts';
 import { parsePackages } from './parse.ts';
 import { sass, stopSass } from './sass.ts';
 import { sync } from './sync.ts';
-import { makeTask, stopTask } from './task.ts';
+import { makeTask, stopTask, taskOk } from './task.ts';
 import { tsc, stopTsc } from './tsc.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
   env.startTime = Date.now();
+  env.mustSucceed.add(taskOk);
+  env.onSuccess.add(() => updateManifest());
   try {
     try {
       chdir(env.rootDir);

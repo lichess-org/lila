@@ -8,10 +8,11 @@ import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
 
-import type PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '@/ctrl';
 
 interface Ctx {
   ctrl: PuzzleCtrl;
+  showComputer: boolean;
 }
 
 interface RenderOpts {
@@ -41,8 +42,8 @@ export function renderIndex(ply: number, withDots: boolean): VNode {
 }
 
 function renderChildrenOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): LooseVNodes {
-  const cs = node.children,
-    main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
   if (!main) return [];
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1;
@@ -125,10 +126,13 @@ function renderMove(node: TreeNode): LooseVNodes {
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNode {
-  const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
   const classes: Classes = { active: path === ctx.ctrl.path };
+
   if (node.puzzle) classes[node.puzzle] = true;
+
+  const withIndex = opts.withIndex || node.ply % 2 === 1;
+
   return hl('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),
     node.san,
@@ -158,7 +162,7 @@ function eventPath(e: Event): TreePath | null {
 
 export function render(ctrl: PuzzleCtrl): VNode {
   const root = ctrl.tree.root;
-  const ctx = { ctrl: ctrl, showComputer: false };
+  const ctx: Ctx = { ctrl, showComputer: false };
   return hl(
     'div.tview2.tview2-column',
     {

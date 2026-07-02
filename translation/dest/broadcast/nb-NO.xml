@@ -63,6 +63,7 @@
   <string name="notYetStarted">Overføringen har ikke startet.</string>
   <string name="officialWebsite">Offisiell nettside</string>
   <string name="officialStandings">Offisiell tabell</string>
+  <string name="regulations">Reglement</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere alternativer på %s</string>
   <string name="webmastersPage">administratorens side</string>
   <string name="embedThisBroadcast">Bygg inn denne overføringen på nettstedet ditt</string>
@@ -106,6 +107,6 @@
   <string name="tiebreaks">Kvalitet</string>
   <string name="gameX">Parti %s</string>
   <string name="knockouts">Utslagsrunder</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

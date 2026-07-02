@@ -16,8 +16,8 @@
   <string name="declineTooFast">هذه المباراة سريعة جدا بالنسبة لي، يرجى تحدي مرة أخرى مع مباراة أبطأ.</string>
   <string name="declineTooSlow">هذه المباراة بطيئة جدا بالنسبة لي، يرجى تحدي مرة أخرى مع مباراة أسرع.</string>
   <string name="declineTimeControl">وقت المبارات لا يناسبني.</string>
-  <string name="declineRated">من فضلك أرسل لي تحدياً مقيماً بدلاً من ذلك.</string>
-  <string name="declineCasual">من فضلك أرسل لي تحدياً بدون تقييم بدلاً من ذلك.</string>
+  <string name="declineRated">من فضلك أرسل لي تحدياً مصنفا بدلاً من ذلك.</string>
+  <string name="declineCasual">من فضلك أرسل لي تحدياً دون تصنيف بدلاً من ذلك.</string>
   <string name="declineStandard">أنا لا أقبل أنواع اللعب غير العادية الآن.</string>
   <string name="declineVariant">أنا لا أرغب في لعب نوع الشطرنج هذا الآن.</string>
   <string name="declineNoBot">أنا لا أقبل التحديات من البوت.</string>

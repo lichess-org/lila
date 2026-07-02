@@ -93,7 +93,7 @@ object ChatUi:
           .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
       )
       .add("kidMode" -> ctx.kid)
-      .add("kobold" -> ctx.troll)
+      .add("kobold" -> ctx.me.exists(_.marks.troll))
       .add("blind" -> ctx.blind)
       .add("timeout" -> timeout)
       .add("noteId" -> noteId)

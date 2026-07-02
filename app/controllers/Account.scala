@@ -68,26 +68,28 @@ final class Account(
   }
 
   def info = Auth { ctx ?=> me ?=>
-    negotiateJson:
-      for
-        povs <- env.round.proxyRepo.urgentGames(me)
-        nbChallenges <- env.challenge.api.countInFor.get(me)
-        playban <- env.playban.api.currentBan(me)
-        perfs <- ctx.pref.showRatings.optionFu(env.user.perfsRepo.perfsOf(me))
-      yield Ok:
-        env.user.jsonView
-          .full(me, perfs, withProfile = false) ++ Json
-          .obj(
-            "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-            "nbChallenges" -> nbChallenges,
-            "online" -> true
-          )
-          .add("kid" -> ctx.kid)
-          .add("troll" -> me.marks.troll)
-          .add("playban" -> playban)
-          .add("announce" -> env.web.lichobileAnnounceApi.get)
-      .headerCacheSeconds(15)
+    if !HTTPRequest.isLichobile(req)
+    then notFoundJson()
+    else
+      negotiateJson:
+        for
+          povs <- env.round.proxyRepo.urgentGames(me)
+          nbChallenges <- env.challenge.api.countInFor.get(me)
+          playban <- env.playban.api.currentBan(me)
+        yield Ok:
+          env.user.jsonView
+            .full(me, none, withProfile = false) ++ Json
+            .obj(
+              "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = true),
+              "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+              "nbChallenges" -> nbChallenges,
+              "online" -> true
+            )
+            .add("kid" -> ctx.kid)
+            .add("troll" -> me.marks.troll)
+            .add("playban" -> playban)
+            .add("announce" -> env.web.lichobileAnnounceApi.get)
+        .headerCacheSeconds(15)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
@@ -117,14 +119,15 @@ final class Account(
   def apiNowPlaying = Scoped()(doNowPlaying)
 
   private def doNowPlaying(using ctx: Context)(using me: Me) =
-    env.round.proxyRepo
-      .urgentGames(me)
-      .map:
-        _.value.take((getInt("nb") | 9).atMost(50))
-      .map:
-        _.map(env.api.lobbyApi.nowPlaying)
-      .map: povs =>
-        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
+    for
+      all <- env.round.proxyRepo.urgentGames(me)
+      selected = all.value.take((getInt("nb") | 9).atMost(50))
+      povs = selected.map(env.api.lobbyApi.nowPlaying)
+    yield Ok:
+      Json.obj(
+        "nowPlaying" -> JsArray(povs),
+        "nbMyTurn" -> all.value.count(_.isMyTurn)
+      )
 
   def dasher = Auth { _ ?=> me ?=>
     negotiateJson:
@@ -158,7 +161,7 @@ final class Account(
 
   private def refreshSessionId(result: Result, pwned: IsPwned)(using ctx: Context, me: Me): Fu[Result] = for
     _ <- env.security.store.closeAllSessionsOf(me)
-    _ <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _ <- env.push.browserSub.unsubscribeByUser(me)
     _ <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion, pwned)
   yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
@@ -354,7 +357,7 @@ final class Account(
     else
       for
         _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
-        _ <- env.push.webSubscriptionApi.unsubscribeBySession(SessionId(sessionId))
+        _ <- env.push.browserSub.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
   }
 

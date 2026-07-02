@@ -57,13 +57,15 @@
   <string name="blackLeftTheGame">흑 게임 퇴장</string>
   <string name="whiteDidntMove">백이 수를 두지 않음</string>
   <string name="blackDidntMove">흑이 수를 두지 않음</string>
+  <string name="whiteAborted">백 게임 중단</string>
+  <string name="blackAborted">흑 게임 중단</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석 가능</string>
   <string name="computerAnalysisDisabled">컴퓨터 분석 비활성화됨</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
-  <string name="usingServerAnalysis">서버 분석 사용하기</string>
+  <string name="usingServerAnalysis">서버 분석 사용 중</string>
   <string name="loadingEngine">엔진 로드 중...</string>
   <string name="calculatingMoves">수 계산 중...</string>
   <string name="engineFailed">엔진 불러오는 도중 오류 발생</string>
@@ -98,7 +100,7 @@
   <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
-  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
+  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 대면 경기</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
@@ -288,8 +290,8 @@
   <string name="playingRightNow">지금 대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료됨</string>
-  <string name="abortGame">대국 취소</string>
-  <string name="gameAborted">대국 취소됨</string>
+  <string name="abortGame">대국 중단</string>
+  <string name="gameAborted">대국 중단됨</string>
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
@@ -766,9 +768,14 @@
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
   <string name="xLikesY">%1$s(이)가 %2$s를 좋아합니다.</string>
+  <string name="like">좋아요</string>
+  <string name="liked">좋아요함</string>
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
+  <plurals name="nbAnonymous">
+    <item quantity="other">익명 (%s)</item>
+  </plurals>
   <string name="yourScore">당신의 점수는 %s입니다.</string>
   <string name="language">언어</string>
   <string name="allLanguages">모든 언어</string>
@@ -898,7 +905,7 @@
   <string name="tryTheContactPage">연락처</string>
   <string name="makeSureToRead">%1$s를 꼭 읽으세요</string>
   <string name="theForumEtiquette">포럼 에티켓</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">포럼을 건전히 이용해 주세요.</string>
+  <string name="pleaseBeNiceInTheForum">포럼을 건전히 이용해 주세요.</string>
   <string name="thisTopicIsArchived">이 주제는 보존되어서 댓글을 남기실 수 없습니다.</string>
   <string name="joinTheTeamXToPost">이 포럼에 글을 올리시려면 %1$s에 가입하셔야 합니다.</string>
   <string name="teamNamedX">팀 %1$s</string>
@@ -989,5 +996,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="clearSearch">검색 초기화</string>
   <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
-  <string name="enPassant">앙파상</string>
+  <string name="enPassant">앙파상 권리</string>
+  <string name="settings">설정</string>
 </resources>

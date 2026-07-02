@@ -5,7 +5,7 @@ import { domDialog, alert, confirm, prompt } from '@/view';
 import { type PubsubEventKey, type PubsubEvents, pubsub } from './pubsub';
 
 // #TODO document these somewhere
-const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'] as const;
+const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll', 'analysis.eval'] as const;
 type PublicEventKey = (typeof publicEvents)[number] & keyof PubsubEvents;
 const socketEvents = ['lag', 'close'] as const;
 type SocketEventKey = (typeof socketEvents)[number];

@@ -4,7 +4,7 @@ import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
@@ -63,7 +63,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
-              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+              if (ctrl.opts.$side?.length) {
                 $(elm).replaceWith(ctrl.opts.$side);
                 wikiToggleBox();
               }
@@ -255,7 +255,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -347,7 +347,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes,
+        d.likes,
       ),
     ]),
     topicsView(ctrl),

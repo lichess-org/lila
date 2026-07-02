@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { defined } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, iconTag, type MaybeVNodes } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { userLink } from 'lib/view/userLink';

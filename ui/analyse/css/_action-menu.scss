@@ -5,13 +5,14 @@
 .action-menu {
   @extend %border-bottom-active, %flex-column;
 
-  position: absolute;
-  z-index: $z-action-menu-99;
-  inset: 0;
   background: $c-bg-opaque;
-  overflow: auto;
-  padding: $analyse-block-gap;
-  gap: $analyse-block-gap;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    padding: $analyse-block-gap;
+    gap: $analyse-block-gap;
+  }
 
   h2 {
     font-size: 1em;
@@ -49,8 +50,7 @@
       color: $c-font;
       display: flex;
       align-items: center;
-      line-height: 1.2em;
-      min-height: 3em;
+      min-height: 4em;
 
       &::before {
         padding-inline-end: 8px;

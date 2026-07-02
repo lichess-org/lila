@@ -1,5 +1,5 @@
 import { requestIdleCallbackSafe } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { spinnerHtml } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
@@ -25,7 +25,8 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
     .removeClass('ulpt')
     .powerTip({
       preRender: onPowertipPreRender('powerTip', (url: string) => {
-        const u = url.slice(3);
+        const u = url.split('@/')[1];
+        if (!u) return;
         const name = el.dataset.name || $(el).html();
         $('#powerTip').html(
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
@@ -156,10 +157,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave() {
       $.powerTip.hide(this);
     },
   });
@@ -329,9 +330,9 @@ function placementCalculator() {
     ) {
       placement = site.powertip.forcePlacementHook?.(element[0]!) ?? placement;
 
-      const placementBase = placement.split('-')[0], // ignore 'alt' for corners
-        coords = cssCoordinates(),
-        position = getHtmlPlacement(element, placementBase);
+      const placementBase = placement.split('-')[0]; // ignore 'alt' for corners
+      const coords = cssCoordinates();
+      const position = getHtmlPlacement(element, placementBase);
 
       // calculate the appropriate x and y position in the document
       switch (placement) {
@@ -373,11 +374,11 @@ function placementCalculator() {
   };
 
   function getHtmlPlacement(element: Cash, placement: string) {
-    const objectOffset = element.offset()!,
-      objectWidth = element.outerWidth(),
-      objectHeight = element.outerHeight();
-    let left = 0,
-      top = 0;
+    const objectOffset = element.offset()!;
+    const objectWidth = element.outerWidth();
+    const objectHeight = element.outerHeight();
+    let left = 0;
+    let top = 0;
 
     // calculate the appropriate x and y position in the document
     switch (placement) {
@@ -533,18 +534,26 @@ class TooltipController {
 
     if (this.options.smartPlacement && placement && this.isBasePlacement(placement)) {
       let priorityList = smartPlacementLists[placement];
-      if ($as<WithTooltip>(element).classList.contains('mobile-powertip'))
+      if ($as<WithTooltip>(element).classList.contains('mobile-powertip')) {
         priorityList = [...priorityList, 's']; // so that 's' is used in case all are incorrectly judged as collisions on phones
+      }
+      const elementWidth = this.tipElement.outerWidth() || defaultSize[0];
+      const elementHeight = this.tipElement.outerHeight() || defaultSize[1];
       // iterate over the priority list and use the first placement option
       // that does not collide with the view port. If they all collide
       // then the last placement in the list will be used.
       $.each(priorityList, (_, pos: PowerTip.BasePlacement) => {
         // place tooltip and find collisions
-        const collisions = getViewportCollisions(
-          this.placeTooltip(element, pos),
-          this.tipElement.outerWidth() || defaultSize[0],
-          this.tipElement.outerHeight() || defaultSize[1],
-        );
+        const coords = this.placeTooltip(element, pos);
+        const collisions = getViewportCollisions(coords, elementWidth, elementHeight);
+        // only attempt to nudge when the issue is horizontal overflow
+        if (collisions & (Collision.left | Collision.right)) {
+          const nudged = nudgeToFit(coords, collisions, elementWidth);
+          if (nudged) {
+            this.tipElement.css(nudged);
+            return false; // stop iterating – nudge is good enough
+          }
+        }
         // continue/break if there were/weren't collisions (cash loop mechanism):
         return collisions !== Collision.none;
       });
@@ -685,6 +694,34 @@ function isMouseOver(element: Cash) {
     session.currentY >= elementPosition.top &&
     session.currentY <= elementPosition.top + element.outerHeight()
   );
+}
+
+/**
+ * Try to shift `coords` along the colliding horizontal axis so the tooltip fits
+ * inside the viewport without changing its preferred placement mode.
+ *
+ * Strategy: only nudge when the required shift is ≤ half the tip's dimension
+ * on that axis – this keeps the tooltip visually "anchored" to its preferred
+ * side.
+ */
+function nudgeToFit(coords: Coords, collisions: number, tipWidth: number): Coords | null {
+  const hasHoriz = collisions & (Collision.left | Collision.right);
+  const nudged: Coords = { ...coords };
+  const EDGE_OFFSET = 4;
+
+  if (hasHoriz && typeof coords.left === 'number') {
+    const vLeft = session.scrollLeft;
+    const vRight = session.scrollLeft + session.windowWidth;
+    if (collisions & Collision.left) {
+      if (vLeft - coords.left > tipWidth / 2) return null;
+      nudged.left = vLeft - EDGE_OFFSET; // shift right
+    } else {
+      if (coords.left + tipWidth - vRight > tipWidth / 2) return null;
+      nudged.left = vRight - tipWidth - EDGE_OFFSET; // shift left
+    }
+  }
+
+  return nudged;
 }
 
 function getViewportCollisions(coords: Coords, elementWidth: number, elementHeight: number) {

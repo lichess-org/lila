@@ -12,6 +12,7 @@ import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.core.security.IsProxy
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -71,10 +72,14 @@ final class User(
       case _ if isGrantedOpt(_.UserSearch) => Redirect(s"${routes.Mod.search}?q=$term").toFuccess
       case _ => notFound
 
+  private def isRestricted(using ctx: Context, proxy: IsProxy) =
+    ctx.isAnon && (HTTPRequest.noReferer(ctx.req) || proxy.couldBeEnum)
+
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited):
-        def fetchActivity = (ctx.isAuth || !proxy.isFloodish).so(env.activity.read.recentAndPreload(u))
+      limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
+        val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
+        def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
         then
           val cost =
@@ -84,8 +89,8 @@ final class User(
           userShowHtmlRateLimit(rateLimited, cost = cost):
             for
               as <- fetchActivity
-              nbs <- env.userNbGames(u, withCrosstable = false)
-              info <- env.userInfo.fetch(u, nbs)
+              nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
+              info <- env.userInfo.fetch(u, nbs, isRestricted)
               _ <- env.userInfo.preloadTeams(info)
               social <- env.socialInfo(u)
               page <- renderPage:
@@ -110,7 +115,7 @@ final class User(
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
-        limit.enumeration.userProfile(rateLimited):
+        limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
           EnabledUser(username): u =>
             val isSearch = filter == GameFilter.search.name
             if isSearch && ctx.isAnon
@@ -132,7 +137,7 @@ final class User(
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
-                        info <- env.userInfo.fetch(u, nbs, withUblog = !isSearch)
+                        info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
                         _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
                         social <- env.socialInfo(u)
                         searchForm = (filters.current == GameFilter.search).option(
@@ -306,7 +311,7 @@ final class User(
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
     Source.futureSource:
       fu.monSuccess(lila.mon.mod.zoneSegment(name))
-        .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
+        .logFailure(lila.mod.logger, e => s"zoneSegment $name ${user.id} $e")
         .map(Source.single)
 
   protected[controllers] def loginsTableData(
@@ -536,7 +541,7 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = HTTPRequest.isCrawler(req).no)): data =>
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = req.client.isHuman)): data =>
       negotiate(
         Ok.async:
           env.history

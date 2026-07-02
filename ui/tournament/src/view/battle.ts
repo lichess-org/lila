@@ -16,6 +16,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   return snabDialog({
     class: 'team-battle__choice',
     modal: true,
+    easyClose: 'clickOutside',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
@@ -109,7 +110,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
           attrs: { 'data-href': '/@/' + p.user.name },
           hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
         },
-        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
+        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), p.score],
       ),
     );
   });
@@ -121,7 +122,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [
-      h('td.rank', '' + team.rank),
+      h('td.rank', team.rank),
       h('td.team', [teamName(battle, team.id)]),
       h(
         'td.players',
@@ -136,7 +137,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         },
         players,
       ),
-      h('td.total', [h('strong', '' + team.score)]),
+      h('td.total', [h('strong', team.score)]),
     ],
   );
 }

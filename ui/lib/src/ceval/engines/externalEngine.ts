@@ -20,16 +20,18 @@ interface ExternalEngineOutput {
     mate?: number;
     moves: Uci[];
   }[];
+  bestmove?: Uci;
+  ponder?: Uci;
 }
 
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
   private readonly sessionId = randomToken();
-  private req: AbortController | undefined;
+  private req?: AbortController;
 
   constructor(
     private readonly opts: ExternalEngineInfo,
-    private readonly status?: EngineNotifier | undefined,
+    private readonly status: EngineNotifier | undefined,
   ) {}
 
   getState(): CevalState {
@@ -78,15 +80,20 @@ export class ExternalEngine implements CevalEngine {
       });
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
-        work.emit({
-          fen: work.currentFen,
-          depth: line.pvs[0]?.depth || 0,
-          millis: Math.max(line.time, 1),
-          nodes: line.nodes,
-          cp: line.pvs[0]?.cp,
-          mate: line.pvs[0]?.mate,
-          pvs: line.pvs,
-        });
+        work.emit(
+          {
+            bestmove: line.bestmove,
+            ponder: line.ponder,
+            fen: work.currentFen,
+            depth: line.pvs[0]?.depth || 0,
+            millis: Math.max(line.time, 1),
+            nodes: line.nodes,
+            cp: line.pvs[0]?.cp,
+            mate: line.pvs[0]?.mate,
+            pvs: line.pvs,
+          },
+          { threatMode: work.threatMode, path: work.path, ply: work.ply },
+        );
       });
 
       this.state = CevalState.Initial;

@@ -13,11 +13,14 @@ async function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     const pgn = this.dataset['pgn']!.replace(/<br>/g, '\n');
     const gamebook = pgn.includes('[ChapterMode "gamebook"]');
+    const rawPly = this.dataset['ply'];
+    const initialPly =
+      rawPly === 'last' ? 'last' : rawPly !== undefined ? parseInt(rawPly, 10) || 0 : undefined;
     const config: Partial<LpvOpts> = {
       pgn,
       orientation: this.dataset['orientation'] as Color | undefined,
       lichess: location.origin,
-      initialPly: (this.dataset['ply'] as number | 'last') ?? (gamebook ? 0 : 'last'),
+      initialPly: initialPly ?? (gamebook ? 0 : 'last'),
       ...(gamebook
         ? {
             showPlayers: false,
@@ -30,6 +33,11 @@ async function autostart() {
     };
     try {
       const lpv = Lpv(this, config);
+      if (typeof initialPly === 'number') {
+        const rootPly = (lpv.game.mainline[0]?.ply ?? 1) - 1;
+        const relativePly = Math.max(0, initialPly - rootPly);
+        if (relativePly !== initialPly) lpv.toPath(lpv.game.pathAtMainlinePly(relativePly), false);
+      }
       if (gamebook) toGamebook(lpv);
     } catch (e) {
       const url = this.dataset['url'];

@@ -202,15 +202,15 @@ $c-tour-variant: #7c5133;
 
   .infos {
     display: inline-flex;
-  }
 
-  .infos .text {
-    @extend %ellipsis;
+    .text {
+      @extend %ellipsis;
 
-    flex: 1 1;
-  }
+      flex: 1 1;
+    }
 
-  .infos .nb-players {
-    flex: 0 0 auto;
+    .nb-players {
+      flex: 0 0 auto;
+    }
   }
 }

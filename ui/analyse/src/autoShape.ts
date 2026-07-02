@@ -9,7 +9,7 @@ import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import type { ServerEval } from 'lib/tree/types';
+import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
@@ -52,7 +52,7 @@ function interferingArrow(from: Square, to: Square, occupied: Uint8Array): boole
 }
 
 function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: string, shapes: DrawShape[]) {
-  if (ctrl.showManeuverMoveArrowsProp()) {
+  if (ctrl.settings.showManeuverMoveArrows) {
     const maxPairs = Math.min(moves.length, MAX_MANEUVER_ARROWS * 2);
     const occupied = new Uint8Array(64);
 
@@ -78,11 +78,11 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
 
 export function makeShapesFromUci(
   color: Color,
-  uci: Uci,
+  uci: Uci | undefined,
   brush: string,
   modifiers?: DrawModifiers,
 ): DrawShape[] {
-  if (uci === 'Current Position') return [];
+  if (!uci || uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
@@ -120,17 +120,15 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let shapes: DrawShape[] = [],
-    badNode;
-  if (ctrl.retro && (badNode = ctrl.retro.showBadNode())) {
-    return makeShapesFromUci(color, badNode.uci!, 'paleRed', {
-      lineWidth: 8,
-    });
+  let shapes: DrawShape[] = [];
+  let badNode: TreeNode | undefined;
+  if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
+    return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);
 
-  if (ctrl.showBestMoveArrows() && ctrl.showAnalysis()) {
+  if (ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
       const bestPvMoves = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0]?.moves : undefined;
@@ -176,12 +174,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotationsOnBoard()) {
-    const liveGlyph = ctrl.liveAnnotate.get(ctrl.path);
-    shapes = shapes.concat(
-      // Override server analysis glyphs as local eval also overrides the eval score
-      annotationShapes(liveGlyph ? { ...ctrl.node, glyphs: [liveGlyph] } : ctrl.node),
-    );
+  if (ctrl.showMoveAnnotations()) {
+    const glyphs = [...(ctrl.node.glyphs ?? [])];
+    const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
+    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= 6)) glyphs.push(liveGlyph);
+    shapes = shapes.concat(annotationShapes({ ...ctrl.node, glyphs }));
   }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
 
@@ -218,7 +215,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
     color: 'white',
-    opacity: ctrl.variationArrowOpacity() || 0,
+    opacity: 0.5,
     lineWidth: 12,
   };
   const chap = ctrl.study?.data.chapter;

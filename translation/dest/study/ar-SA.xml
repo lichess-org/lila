@@ -54,7 +54,6 @@
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
   <string name="pgnTags">وسم PGN</string>
   <string name="like">إعجاب</string>
-  <string name="unlike">إلغاء الإعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
   <string name="commentThisMove">التعليق على هذه النقلة</string>

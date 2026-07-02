@@ -24,8 +24,7 @@ const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
 export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role === 'pawn')
-    g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
+  if (piece?.role === 'pawn') g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
 }
 
 export class PromotionCtrl {
@@ -71,16 +70,21 @@ export class PromotionCtrl {
     }) || false;
 
   cancel = (): void => {
-    this.cancelPrePromotion();
-    if (this.promoting) {
-      this.promoting = undefined;
-      this.onCancel();
-      this.redraw();
-    }
+    if (this.dismiss()) this.onCancel();
   };
 
-  cancelPrePromotion = (): void => {
-    this.promoting?.hooks.show?.(this, false);
+  dismiss = (): boolean => {
+    const promoting = this.promoting;
+    this.promoting = undefined;
+    this.cancelPrePromotion(promoting);
+    if (promoting) {
+      this.redraw();
+    }
+    return !!promoting;
+  };
+
+  cancelPrePromotion = (promoting: Promoting | undefined = this.promoting): void => {
+    promoting?.hooks.show?.(this, false);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;

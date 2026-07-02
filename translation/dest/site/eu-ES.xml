@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Beltza partidatik atera da</string>
   <string name="whiteDidntMove">Zuriak ez du mugitu</string>
   <string name="blackDidntMove">Beltzak ez du mugitu</string>
+  <string name="whiteAborted">Zuriak partida bertan behera utzi du</string>
+  <string name="blackAborted">Beltzak partida bertan behera utzi du</string>
   <string name="requestAComputerAnalysis">Ordenagailuaren analisia eskatu</string>
   <string name="computerAnalysis">Ordenagailuaren analisia</string>
   <string name="computerAnalysisAvailable">Ordenagailu bidezko analisia egin daiteke</string>
@@ -807,6 +809,8 @@
   <string name="xHostsY">%1$s erabiltzaileak %2$s antolatu du</string>
   <string name="xJoinsY">%1$s %2$sra sartu da</string>
   <string name="xLikesY">%1$sk %2$s gogoko du</string>
+  <string name="like">Datsegit</string>
+  <string name="liked">Atsegin duzu</string>
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
@@ -942,7 +946,7 @@
   <string name="tryTheContactPage">erabili kontakturako orrialdea</string>
   <string name="makeSureToRead">Ziurtatu %1$s irakurri duzula</string>
   <string name="theForumEtiquette">foroko etiketa</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Mesedez izan atsegina foroan.</string>
+  <string name="pleaseBeNiceInTheForum">Mesedez izan atsegina foroan.</string>
   <string name="thisTopicIsArchived">Mezu hau artxibatu egin da eta jada ezin da erantzunik utzi bertan.</string>
   <string name="joinTheTeamXToPost">Egin bat %1$s taldearekin foro honetan idazteko</string>
   <string name="teamNamedX">%1$s taldea</string>
@@ -1034,4 +1038,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="thereAreNoResultsForX">Ez dago emaitzarik honetarako: \"%s\"</string>
   <string name="tags">Etiketak</string>
   <string name="enPassant">Igarotzean harrapatzea</string>
+  <string name="settings">Ezarpenak</string>
 </resources>

@@ -1,8 +1,8 @@
 import { memoize } from './index';
-import * as licon from './licon';
+import { licon, type LiconValue } from './licon';
 import { bind, type Hooks } from './view/snabbdom';
 
-export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
+export const hookMobileMousedown = (f: (e: MouseEvent) => void): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
 export const prefersLightThemeQuery = (): MediaQueryList =>
@@ -65,7 +65,7 @@ const webkitVersion = memoize<string | false>(
     false,
 );
 
-export const shareIcon: () => LiconType = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
+export const shareIcon: () => LiconValue = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
 export type Feature =
   | 'wasm'

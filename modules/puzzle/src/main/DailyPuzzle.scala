@@ -6,6 +6,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 import Puzzle.BSONFields as F
+import lila.core.misc.puzzle.DailyChange
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -16,7 +17,7 @@ final private[puzzle] class DailyPuzzle(
   import BsonHandlers.given
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle.WithHtml]]:
+    cacheApi.unit[Option[DailyPuzzle.WithHtml]]("puzzle.daily"):
       _.refreshAfterWrite(1.minutes).buildAsyncTimeoutZero()(_ => find)
 
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
@@ -95,7 +96,10 @@ final private[puzzle] class DailyPuzzle(
           )
       .flatMap:
         _.flatMap(puzzleReader.readOpt).so { puzzle =>
-          colls.puzzle(_.updateField($id(puzzle.id), F.day, nowInstant)).inject(puzzle.some)
+          colls
+            .puzzle(_.updateField($id(puzzle.id), F.day, nowInstant))
+            .inject(puzzle.some)
+            .addEffect(_ => lila.common.Bus.pub(DailyChange(puzzle.id)))
         }
 
 object DailyPuzzle:

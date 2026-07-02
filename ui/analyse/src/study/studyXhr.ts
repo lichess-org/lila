@@ -1,6 +1,6 @@
-import { text as xhrText, json as xhrJson, form as xhrForm, textRaw as xhrRaw } from 'lib/xhr';
+import { text as xhrText, json as xhrJson, form as xhrForm, textRaw as xhrRaw, ensureOk } from 'lib/xhr';
 
-import type { StudyChapterConfig, ReloadData } from './interfaces';
+import type { StudyChapterConfig, ReloadData, ChapterData } from './interfaces';
 
 export const reload = (
   baseUrl: string,
@@ -27,17 +27,13 @@ export const practiceComplete = (chapterId: string, nbMoves: number) =>
     method: 'POST',
   });
 
-export const importPgn = async (studyId: string, data: any) => {
+export const importPgn = async (
+  studyId: string,
+  data: ChapterData & Record<string, string | boolean | null | undefined>,
+) => {
   const res = await xhrRaw(`/study/${studyId}/import-pgn?sri=${site.sri}`, {
     method: 'POST',
     body: xhrForm(data),
   });
-  if (res.ok) return res.text();
-  if (res.status === 429) throw new Error('Too many requests');
-  if (res.status === 413) throw new Error('The uploaded file is too large');
-  if (res.status === 400) {
-    const text = await res.text();
-    throw new Error(text);
-  }
-  throw new Error(`Error ${res.status}`);
+  return ensureOk(res).then(r => r.text());
 };

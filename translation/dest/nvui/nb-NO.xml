@@ -11,6 +11,7 @@
   <string name="yourClock">Ditt ur</string>
   <string name="opponentClock">Motstanders ur</string>
   <string name="gameStart">Partistart</string>
+  <string name="boardCommandList">Kommandoliste når brettet er i fokus</string>
   <string name="moveToRank">Flytt til rad 1 til 8.</string>
   <string name="moveToFile">Flytt til linje a til h.</string>
   <string name="movePiece">Bruk standard algebraisk notasjon for å flytte en brikke.</string>

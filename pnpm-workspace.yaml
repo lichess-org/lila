@@ -1,4 +1,4 @@
-useNodeVersion: 24.14.0
+useNodeVersion: 24.15.0
 managePackageManagerVersions: true
 updateNotified: false
 packages:
@@ -24,3 +24,5 @@ allowBuilds:
   esbuild: true
 patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
+minimumReleaseAgeExclude:
+  - '@lichess-org/stockfish-web@0.4.0'

@@ -1,18 +1,12 @@
 package lila.core
 package irc
 
-import lila.core.id.{ RelayRoundId, UblogPostId, StudyChapterId }
-import lila.core.userId.{ UserId, MyId, UserName }
+import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
+import lila.core.userId.{ UserId, MyId, ModId, UserName }
 import lila.core.study.data.StudyChapterName
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other
-
-enum Event:
-  case Error(msg: String)
-  case Warning(msg: String)
-  case Info(msg: String)
-  case Victory(msg: String)
 
 trait IrcApi:
   def commReportBurst(user: LightUser): Funit
@@ -46,3 +40,12 @@ trait IrcApi:
       note: Option[String]
   ): Funit
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit
+  def broadcastTourUpdate(
+      tourName: String,
+      tourSlug: String,
+      tourId: RelayTourId,
+      diff: String,
+      impersonatedBy: Option[ModId] = None
+  )(using
+      MyId
+  ): Funit

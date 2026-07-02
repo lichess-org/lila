@@ -74,14 +74,14 @@ export async function initModule(data: DistributionData): Promise<void> {
         segment: {
           borderDash: [10],
         },
-        label: label,
+        label,
         pointRadius: 4,
         datalabels: {
           align: 'top',
           offset: 0,
           display: 'auto',
           formatter: (value: Point) => (value.y === 0 ? '' : label),
-          color: color,
+          color,
         },
       });
     if (data.myRating && data.myRating <= maxRating)
@@ -90,7 +90,7 @@ export async function initModule(data: DistributionData): Promise<void> {
       pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
     const chartData: ChartData<'line'> = {
       labels: ratings,
-      datasets: datasets,
+      datasets,
     };
 
     const config: ChartConfiguration<'line'> = {

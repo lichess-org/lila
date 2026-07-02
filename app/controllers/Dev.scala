@@ -14,9 +14,7 @@ final class Dev(env: Env) extends LilaController(env):
       bindForm(setting.form)(
         _ => BadRequest.page(views.dev.settings(settingsList)),
         v =>
-          lila
-            .log("setting")
-            .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
+          lila.log.system.info(s"setting ${me.username} changes $id from ${setting.get()} to ${v.toString}")
           setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
       )
     }

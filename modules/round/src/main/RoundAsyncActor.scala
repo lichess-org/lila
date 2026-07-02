@@ -149,10 +149,8 @@ final private class RoundAsyncActor(
         for
           has <- gameRepo.hasHoldAlert(pov)
           _ <- has.not.so:
-            lila
-              .log("cheat")
-              .info:
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+            logger.info:
+              s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         yield Nil
@@ -268,7 +266,13 @@ final private class RoundAsyncActor(
     case Abandon =>
       proxy.withGame: game =>
         game.abandoned.so:
-          if game.abortable then finisher.other(game, _.Aborted, None)
+          if game.abortable then
+            finisher.other(
+              game,
+              _.Aborted,
+              None,
+              None
+            )
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
     case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
@@ -463,7 +467,8 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
+  private val monitor =
+    AsyncActor.Monitor(msg => lila.log.system.warn(s"round.asyncActor unhandled msg: $msg"))
 
   private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 

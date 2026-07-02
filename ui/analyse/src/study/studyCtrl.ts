@@ -287,7 +287,7 @@ export default class StudyCtrl {
       'shapes',
       this.addChapterId({
         path: this.ctrl.path,
-        shapes: shapes,
+        shapes,
       }),
     );
   };
@@ -336,7 +336,7 @@ export default class StudyCtrl {
   isCevalAllowed = () =>
     (!this.relay?.tourShow() || site.blindMode) &&
     !this.isGamebookPlay() &&
-    !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    (this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
@@ -532,7 +532,7 @@ export default class StudyCtrl {
     return i < 0 ? undefined : chs[i + delta];
   };
   prevChapter = () => this.deltaChapter(-1);
-  nextChapter = () => this.deltaChapter(+1);
+  nextChapter = () => this.deltaChapter(1);
   hasNextChapter = () => {
     const chs = this.chapters.list.all();
     return chs[chs.length - 1].id !== this.vm.chapterId;
@@ -672,6 +672,7 @@ export default class StudyCtrl {
     const s = p.split('#');
     return `${s[0]}${location.search}${s[1] ? `#${s[1]}` : ''}`;
   };
+  hideMoves = () => this.ctrl.actionMenu() && !this.relay;
 
   socketHandlers: Handlers = {
     path: d => {
@@ -842,6 +843,7 @@ export default class StudyCtrl {
       this.chapters.setTags(d.chapterId, d.tags);
       if (d.chapterId !== this.vm.chapterId) return;
       this.data.chapter.tags = d.tags;
+      this.relay?.onNewTags(d.chapterId, d.tags);
       this.redraw();
     },
     deleteComment: d => {

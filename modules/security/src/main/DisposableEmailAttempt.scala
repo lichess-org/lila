@@ -41,9 +41,9 @@ final class DisposableEmailAttempt(
       )
     then
       val dispEmails = attempts.map(_.email)
-      logger
-        .branch("disposableEmailAttempt")
-        .info(s"User $user signed up with $email after trying ${dispEmails.mkString(", ")}")
+      logger.info(s"User $user signed up with $email after trying ${dispEmails.mkString(", ")}")
+
+  private lazy val logger = lila.log("security.disposableEmailAttempt")
 
 private object DisposableEmailAttempt:
 

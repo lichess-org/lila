@@ -9,6 +9,8 @@
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="orLetYourOpponentScanQrCode">Alebo nech Váš súper naskenuje tento QR kód</string>
+  <string name="reusableChallengeUrl">URL výzvy na opakované použitie</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Trvalý odkaz, ktorým vás môže ktokoľvek vyzvať na partiu presne s týmito nastaveniami.</string>
   <string name="waiting">Čaká sa</string>
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
@@ -58,6 +60,8 @@
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="whiteDidntMove">Biely nepotiahol</string>
   <string name="blackDidntMove">Čierny nepotiahol</string>
+  <string name="whiteAborted">Biely opustil partiu</string>
+  <string name="blackAborted">Čierny opustil partiu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
@@ -95,6 +99,8 @@
   <string name="database">Databáza</string>
   <string name="whiteDrawBlack">Biely / Remíza / Čierny</string>
   <string name="averageRatingX">Priemerný rating: %s</string>
+  <string name="minRatingX">Minimálny rating %s</string>
+  <string name="maxRatingX">Maximálny rating %s</string>
   <string name="recentGames">Nedávne partie</string>
   <string name="topGames">Top partie</string>
   <string name="masterDbExplanation">Dva milióny partií hráčov s FIDE ratingom %1$s+ od roku %2$s po %3$s</string>
@@ -129,10 +135,19 @@
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="visualMotifs">Vizuálne motívy</string>
+  <string name="undefendedPieces">Nekryté figúrky</string>
   <string name="pinnedPieces">Figúrky vo väzbe</string>
+  <string name="checkableKing">Kráľ, ktorého možno šachovať</string>
   <string name="multipleLines">Počet variantov</string>
+  <string name="multipleLinesDescription">Nastavte počet hodnotených variantov a šípok na šachovnici</string>
+  <string name="searchTime">Doba vyhľadávania</string>
+  <string name="searchTimeDescription">Nastavte čas na vyhodnotenie nových pozícií</string>
+  <string name="threads">Vlákna</string>
+  <string name="threadsDescription">Nastavte túto hodnotu na číslo nižšie, ako je počet vlákien vášho procesora; hodnoty označené bodkami predstavujú dobrú a bezpečnú voľbu</string>
+  <string name="threadsDescriptionMobile">Čím viac vlákien, tým väčšia spotreba batérie, ale aj lepšia analýza</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
+  <string name="memoryDescription">Vyššie hodnoty môžu zlepšiť výkon</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a spôsobí zahrievanie Vášho počítača</string>
   <string name="blunder">Hrubá chyba</string>
@@ -229,6 +244,7 @@
   <string name="minutesPerSide">Minút na stranu</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianty</string>
+  <string name="variantsDescription">Ďalšie možnosti pokračovania partie</string>
   <string name="timeControl">Čas</string>
   <string name="realTime">Nastaviť čas</string>
   <string name="correspondence">Korešpondenčný šach</string>
@@ -261,6 +277,7 @@
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="signupUsernameHint">Uistite sa, že si vyberáte rodinne prijateľné používateľské meno! Neskôr ho už nemôžete zmeniť a akýkoľvek účet s nevhodným užívateľským menom bude uzavretý.</string>
+  <string name="signupEmailPromise">Budeme vám posielať iba e-maily týkajúce sa vášho účtu a vašu e-mailovú adresu nikdy nikomu neposkytneme.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
@@ -284,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Môže chvíľu trvať kým príde.</string>
   <string name="refreshInboxAfterFiveMinutes">Počkajte 5 minút a obnovte si emailovú schránku!</string>
   <string name="checkSpamFolder">Skontrolujte si aj priečinok s nevyžiadanou poštou, je možné, že sa dostal tam. Ak sa tak stalo, zrušte označenie emailu ako nevyžiadanej pošty.</string>
+  <string name="sendEmailForAccountVerification">Ak nemôžete nájsť potvrdzovací e-mail, pošlite e-mail na adresu %s a my vám účet potvrdíme.</string>
   <string name="accountConfirmed">Používateľ %s je úspešne potvrdený.</string>
   <string name="accountCanLogin">Teraz sa môžete prihlásiť ako %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Potvrdzovací e-mail nepotrebujete.</string>
@@ -331,6 +349,7 @@
   <string name="standard">Štandard</string>
   <string name="customPosition">Vlastná pozícia</string>
   <string name="unlimited">Bez času</string>
+  <string name="unlimitedDescription">Nechajte si toľko času, koľko potrebujete</string>
   <string name="mode">Režim partie</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
@@ -483,6 +502,7 @@
   <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
   <string name="gameAsGIF">Uložiť ako GIF</string>
   <string name="playerNames">Mená hráčov</string>
+  <string name="moveAnnotations">Poznámky k ťahom</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -577,6 +597,7 @@
   <string name="popularOpenings">Populárne otvorenia</string>
   <string name="endgamePositions">Pozície z koncoviek</string>
   <string name="chess960StartPosition">Počiatočná pozícia šachu Chess960: %s</string>
+  <string name="randomChess960Position">Náhodne vybrať pozíciu v šachu 960</string>
   <string name="startPosition">Štartovacia pozícia</string>
   <string name="clearBoard">Vyčistiť šachovnicu</string>
   <string name="loadPosition">Načítať pozíciu</string>
@@ -655,6 +676,9 @@
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
   <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="invalidAuthenticationCode">Neplatný overovací kód</string>
+  <string name="clearField">Vymazať pole</string>
+  <string name="orSeparator">Alebo</string>
+  <string name="logInByEmail">Prihlásiť sa pomocou e-mailu</string>
   <string name="emailMeALink">Pošlite link emailom</string>
   <string name="currentPassword">Aktuálne heslo</string>
   <string name="newPassword">Nové heslo</string>
@@ -793,6 +817,7 @@
   <string name="cyclePreviousOrNextVariation">Zakomponovať predchádzajúci/nasledujúci variant</string>
   <string name="toggleGlyphAnnotations">Prepnúť poznámky k ťahom</string>
   <string name="togglePositionAnnotations">Prepnúť poznámky k pozíciám</string>
+  <string name="toggleObservationAnnotations">Prepnúť na poznámky divákov</string>
   <string name="variationArrowsInfo">Šípky variantov umožňujú navigáciu bez použitia záznamu ťahov.</string>
   <string name="playSelectedMove">zahrať zvolený ťah</string>
   <string name="newTournament">Nový turnaj</string>
@@ -866,9 +891,17 @@
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s sa pridal k %2$s</string>
   <string name="xLikesY">%1$s lajkol %2$s</string>
+  <string name="like">To sa mi páči</string>
+  <string name="liked">Páči sa mi</string>
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="few">Anonymní (%s)</item>
+    <item quantity="many">Anonymní (%s)</item>
+    <item quantity="other">Anonymní (%s)</item>
+  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všetky jazyky</string>
@@ -882,6 +915,7 @@
   <string name="size">Veľkosť</string>
   <string name="opacity">Priehľadnosť</string>
   <string name="brightness">Jas</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Odtieň</string>
   <string name="boardReset">Obnoviť farby na predvolené hodnoty</string>
   <string name="pieceSet">Vzhľad figúr</string>
@@ -1006,6 +1040,7 @@
   <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
   <string name="makeSureToRead">Určite si prečítajte %1$s</string>
   <string name="theForumEtiquette">etiketu fóra</string>
+  <string name="pleaseBeNiceInTheForum">Prosím, správajte sa na fóre slušne.</string>
   <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
   <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>
@@ -1083,7 +1118,8 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov. Bez našej štedrej komunity by sme nedokázali udržať stránku v prevádzke. Ďakujeme, že ste sa k nám pridali!
+  </string>
   <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
   <string name="stats">Štatistiky</string>
   <string name="accessibility">Dostupnosť</string>
@@ -1094,5 +1130,8 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Hľadať</string>
   <string name="clearSearch">Vymazať vyhľadávanie</string>
+  <string name="thereAreNoResultsForX">ŽiNenašli sa žiadne výsledky pre „%s“</string>
   <string name="tags">Značky</string>
+  <string name="enPassant">Právo na branie mimochodom</string>
+  <string name="settings">Nastavenia</string>
 </resources>

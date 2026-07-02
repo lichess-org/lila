@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Вече си зрител</string>
   <string name="pgnTags">PGN тагове</string>
   <string name="like">Харесай</string>
-  <string name="unlike">Не харесвам</string>
   <string name="newTag">Нов таг</string>
   <string name="commentThisPosition">Коментирай позицията</string>
   <string name="commentThisMove">Коментирай хода</string>

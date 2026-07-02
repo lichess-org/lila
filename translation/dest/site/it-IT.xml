@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
   <string name="whiteDidntMove">Il bianco non si è mosso</string>
   <string name="blackDidntMove">Il nero non ha mosso</string>
+  <string name="whiteAborted">Il bianco ha annullato la partita</string>
+  <string name="blackAborted">Il nero ha annullato la partita</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
@@ -136,7 +138,7 @@
   <string name="multipleLinesDescription">Numero impostato di linee di valutazione e frecce di movimento pezzi sulla scacchiera</string>
   <string name="searchTime">Tempo di ricerca</string>
   <string name="searchTimeDescription">Tempo impostato per valutare posizioni nuove</string>
-  <string name="threads">Discussioni</string>
+  <string name="threads">Threads</string>
   <string name="threadsDescription">Impostare questo sotto il numero di thread della CPU, le spunte indicano una scelta sicura</string>
   <string name="threadsDescriptionMobile">Più thread utilizzeranno più batteria per una analisi migliore</string>
   <string name="cpus">Processori</string>
@@ -808,9 +810,15 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="like">Mi piace</string>
+  <string name="liked">Ti è piaciuto</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonimo</item>
+    <item quantity="other">Anonimi (%s)</item>
+  </plurals>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="allLanguages">Tutte le lingue</string>
@@ -943,7 +951,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tryTheContactPage">prova la pagina dei contatti</string>
   <string name="makeSureToRead">Assicurati di leggere %1$s</string>
   <string name="theForumEtiquette">le regole del forum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Per favore sii rispettoso nel forum.</string>
+  <string name="pleaseBeNiceInTheForum">Per favore sii rispettoso nel forum.</string>
   <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
   <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
   <string name="teamNamedX">Squadra %1$s</string>

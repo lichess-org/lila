@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Sort forlod partiet</string>
   <string name="whiteDidntMove">Hvid trak ikke</string>
   <string name="blackDidntMove">Sort trak ikke</string>
+  <string name="whiteAborted">Hvid forlod partiet</string>
+  <string name="blackAborted">Sort forlod partiet</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>
+  <string name="like">Synes godt om</string>
+  <string name="liked">Syntes godt om</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">prøv kontakt-siden</string>
   <string name="makeSureToRead">Sørg for at læse %1$s</string>
   <string name="theForumEtiquette">forummets etikette</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Hold en god tone i forummet.</string>
+  <string name="pleaseBeNiceInTheForum">Hold en god tone i forummet.</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>
@@ -1035,4 +1043,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Indstillinger</string>
 </resources>

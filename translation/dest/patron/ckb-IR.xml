@@ -39,8 +39,6 @@
   <string name="officialNonProfit">ئایا Lichess ڕێکخراوێکی فەرمی قازانج نەویستە?</string>
   <string name="actOfCreation">بەلی ئەمەش بڕوانامەی دامەزراندنیەتی(بە فەرەنسی)</string>
   <string name="changeMonthlySupport">ئایا دەتوانم پشتگیری مانگانەی خۆم بگۆڕم/هەڵوەشێنمەوە?</string>
-  <string name="changeOrContact">بەڵێ، لە هەموو کاتێکدادەتوانیت، لەم لاپەڕەیە.
-یان دەتوانیت %s.</string>
   <string name="contactSupport">پەیوەندی بکەی بە پشتگیری Lichess</string>
   <string name="otherMethods">شێوازەکانی تری بەخشین?</string>
   <string name="lichessIsRegisteredWith">Lichess بە %s تۆمار کراوە.</string>

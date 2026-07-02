@@ -1,5 +1,5 @@
 import { blurIfPrimaryClick } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
@@ -60,7 +60,7 @@ export function addDomHandlers() {
       const t = $(this).toggleClass('bookmarked');
       xhrText(this.href, { method: 'post' });
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-      t.find('span').html('' + (count > 0 ? count : ''));
+      t.find('span').html(count > 0 ? String(count) : '');
       return false;
     });
 
@@ -80,7 +80,7 @@ export function addDomHandlers() {
   });
 
   $('.user-autocomplete').each(function (this: HTMLInputElement) {
-    const focus = !!this.autofocus;
+    const focus = this.autofocus;
     const start = () =>
       userComplete({
         input: this,
