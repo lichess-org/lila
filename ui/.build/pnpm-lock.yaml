@@ -34,23 +34,23 @@ importers:
         version: 6.0.3
     optionalDependencies:
       sass-embedded-darwin-arm64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
       sass-embedded-darwin-x64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
       sass-embedded-linux-arm64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
       sass-embedded-linux-x64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
       sass-embedded-win32-arm64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
       sass-embedded-win32-x64:
-        specifier: 1.101.0
-        version: 1.101.0
+        specifier: 1.100.0
+        version: 1.100.0
 
 packages:
 
@@ -192,33 +192,40 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sass-embedded-darwin-arm64@1.101.0:
-    resolution: {integrity: sha512-6FYDHkaVqTFy97b5BA/FC6OZZA+G6doFMhtuZKkS+XyD8fKbIdBwp6gnjEBcjOU1TeyIEKwpPwCsPqSU6OyQcg==}
+  sass-embedded-darwin-arm64@1.100.0:
+    resolution: {integrity: sha512-1PVlYi61POo93IT/FfrG1mc1tAHxeSTyUALF2aOFmXGWjVXr3bQzEQiBGCOvQbj/ix+5hNyXFXcEMEyKvtUJJA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [darwin]
 
-  sass-embedded-darwin-x64@1.101.0:
-    resolution: {integrity: sha512-XG9jjtrCT91PCcmpy9/acRJFG4OfirkXkHfbgotnUGug9/sAlMYhYterTsbmOCwBeL8lGfSZyD8JoRJoYUJO1w==}
+  sass-embedded-darwin-x64@1.100.0:
+    resolution: {integrity: sha512-x97o3JnGyImZNCIVs9wQHJUE5QCvmVIKaH1cwrz/5dK7OT1FpeNiW+u9TUomP9hG6Ekjd8EL8NBHpxTfIhdjmg==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [darwin]
 
-  sass-embedded-linux-x64@1.101.0:
-    resolution: {integrity: sha512-bvqMTAhZREeUjFny9QijQlL8pzsjqLf3dgrEVk9WEvx6UMqhUM+DkNy3+UgAD6J2S/KxVSrHcGv4FWs4OBOqFQ==}
+  sass-embedded-linux-arm64@1.100.0:
+    resolution: {integrity: sha512-Dwjmj8Z6VRy7rAi53JAdEwIyUjpfl7PhpSc2/LpQPQx+aO5Dp7Spaipkax0ufJl1SoDUdchCsM4y/88YaluorQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    libc: glibc
+
+  sass-embedded-linux-x64@1.100.0:
+    resolution: {integrity: sha512-0vUSN8j0WGtCJIOPh//EmUvYGHW0QOe5iul8qyhPk50MAcw49MA0r34AhftjDdx94ILPF6vApFs0gwHPQRlpVA==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
     libc: glibc
 
-  sass-embedded-win32-arm64@1.101.0:
-    resolution: {integrity: sha512-GwAldBhXNH5oJ+5VOOrGG0gfufYR+UAQVqULP1JB6zQbwO6FsNI1Q8XTAgcKc1Hn147850vzBUGcYoMRH8cR6Q==}
+  sass-embedded-win32-arm64@1.100.0:
+    resolution: {integrity: sha512-iE+yxj+hUXwwbqpHkXxgAWTzeRfcWxJ7SSTQEPMk48lwq3oCrWLlz5sQuWHbuTK/i0GKQfROdP+hOmPi89yjUg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [win32]
 
-  sass-embedded-win32-x64@1.101.0:
-    resolution: {integrity: sha512-qni5LsZ0vvQNEQB+Ez8IbeUMcYBN7lvwGshlpO66tNLGxEG/kCOpFoC+TAQ1/rkUjpVopbCesZkAGc1fnSNdGw==}
+  sass-embedded-win32-x64@1.100.0:
+    resolution: {integrity: sha512-qI4F8MI7/KYoy9NdjJfhSspG42WPkADSNDvwEV7qWvCSFC83koJssRsKO2/PfY+niZz6BG65Ic/D+A11h959hw==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [win32]
@@ -382,19 +389,22 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sass-embedded-darwin-arm64@1.101.0:
+  sass-embedded-darwin-arm64@1.100.0:
     optional: true
 
-  sass-embedded-darwin-x64@1.101.0:
+  sass-embedded-darwin-x64@1.100.0:
     optional: true
 
-  sass-embedded-linux-x64@1.101.0:
+  sass-embedded-linux-arm64@1.100.0:
     optional: true
 
-  sass-embedded-win32-arm64@1.101.0:
+  sass-embedded-linux-x64@1.100.0:
     optional: true
 
-  sass-embedded-win32-x64@1.101.0:
+  sass-embedded-win32-arm64@1.100.0:
+    optional: true
+
+  sass-embedded-win32-x64@1.100.0:
     optional: true
 
   strnum@2.4.1:
