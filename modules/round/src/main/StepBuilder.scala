@@ -85,4 +85,4 @@ object StepBuilder:
   private val logChessError = (id: String) =>
     (err: chess.ErrorStr) =>
       val path = if id == "synthetic" then "analysis" else id
-      lila.log.system.info(s"round.StepBuilder https://lichess.org/$path ${err.value}")
+      logger.info(s"round.StepBuilder https://lichess.org/$path ${err.value}")

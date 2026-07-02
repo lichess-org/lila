@@ -470,7 +470,7 @@ object RoundAsyncActor:
   case class LilaStop(promise: Promise[Unit])
 
   private val monitor =
-    AsyncActor.Monitor(msg => lila.log.system.warn(s"round.asyncActor unhandled msg: $msg"))
+    AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
 
   private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 
