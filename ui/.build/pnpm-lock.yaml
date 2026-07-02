@@ -206,6 +206,7 @@ packages:
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: glibc
 
   sass-embedded-win32-arm64@1.101.0:
     resolution: {integrity: sha512-GwAldBhXNH5oJ+5VOOrGG0gfufYR+UAQVqULP1JB6zQbwO6FsNI1Q8XTAgcKc1Hn147850vzBUGcYoMRH8cR6Q==}
