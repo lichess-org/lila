@@ -51,8 +51,6 @@ object http:
   def csrfError(tpe: String, action: String, client: String) =
     counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
   val fingerPrint = timer("http.fingerPrint.time").withoutTags()
-object cache:
-  def buildAsyncTimeout(name: String) = counter("cache.buildAsyncTimeout").withTag("name", name)
 object syncache:
   def miss(name: String) = counter("syncache.miss").withTag("name", name)
   def timeout(name: String) = counter("syncache.timeout").withTag("name", name)
@@ -86,8 +84,7 @@ object mongoCache:
   def compute(name: String) = timer("mongocache.compute").withTag("name", name)
 object evalCache:
   private val r = counter("evalCache.request")
-  def request(ply: Int, isHit: Boolean) =
-    r.withTags(tags("ply" -> (if ply < 15 then ply.toString else "15+"), "hit" -> isHit))
+  def request(isHit: Boolean) = r.withTag("hit", isHit)
   object upgrade:
     val count = counter("evalCache.upgrade.count").withoutTags()
     val members = gauge("evalCache.upgrade.members").withoutTags()

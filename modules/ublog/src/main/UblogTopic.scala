@@ -45,7 +45,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor,
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]]("ublog.topic.withPosts"):
-      _.refreshAfterWrite(5.minutes).buildAsyncTimeout("ublog.topic.withPosts"): _ =>
+      _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
         UblogTopic.all
           .map: topic =>
             for

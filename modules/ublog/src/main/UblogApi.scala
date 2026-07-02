@@ -37,7 +37,7 @@ final class UblogApi(
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
 
   private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]("ublog.carousel"):
-    _.refreshAfterWrite(10.seconds).buildAsyncTimeout("ublog.carousel"): _ =>
+    _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       fetchCarouselFromDb().map(_.shuffled.take(9))
 
   def myCarousel(using kid: KidMode) =

@@ -70,13 +70,13 @@ final class CoachApi(
     yield ()
 
   private val languagesCache = cacheApi.unit[Set[String]]("coach.languages"):
-    _.refreshAfterWrite(1.hour).buildAsyncTimeout("coach.languages"): _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
       coll.secondary.distinctEasy[String, Set]("languages", $empty)
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
   private val countriesCache = cacheApi.unit[CountrySelection]("coach.countries"):
-    _.refreshAfterWrite(1.hour).buildAsyncTimeout("coach.countries"): _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
       import lila.core.user.FlagCode
       userRepo.coll.secondary
         .distinctEasy[FlagCode, Set](

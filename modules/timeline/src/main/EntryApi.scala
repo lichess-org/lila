@@ -73,7 +73,7 @@ final class EntryApi(
   object broadcast:
 
     private val cache = cacheApi.unit[Vector[Entry]]("timeline.broadcast"):
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout("timeline.broadcast"): _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
         coll
           .find($doc("users".$exists(false), "date".$gt(nowInstant.minusWeeks(2))))
           .sort($sort.desc("date"))

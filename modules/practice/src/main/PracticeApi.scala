@@ -58,7 +58,7 @@ final class PracticeApi(
 
   object structure:
     private val cache = cacheApi.unit[PracticeStructure]("practice.structure"):
-      _.expireAfterAccess(3.hours).buildAsyncTimeout("practice.structure"): _ =>
+      _.expireAfterAccess(3.hours).buildAsyncTimeout(): _ =>
         studyApi.chapterIdNames(PracticeStructure.studyIds).map(PracticeStructure.withChapters)
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()

@@ -146,7 +146,7 @@ final private[video] class VideoApi(
     object count:
 
       private val cache = cacheApi.unit[Long]("video.count"):
-        _.refreshAfterWrite(3.hours).buildAsyncTimeout("video.count")(_ => videoColl.countAll)
+        _.refreshAfterWrite(3.hours).buildAsyncTimeout()(_ => videoColl.countAll)
 
       def apply: Fu[Long] = cache.getUnit
 
