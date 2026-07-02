@@ -30,6 +30,7 @@ import {
   whiteFill,
   axisOpts,
   glyphProperties,
+  nodesWithGlyphByColor,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 
@@ -58,7 +59,6 @@ export default async function (
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
   const adviceHoverColors: { white: string[]; black: string[] } = { white: [], black: [] };
-  const moveDatasetPointsByPly = new Map<number, { datasetIndex: number; index: number }>();
   const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const tree = data.treeParts;
@@ -83,7 +83,6 @@ export default async function (
     const turn = (ply + 1) >> 1;
     const color = ply & 1;
     const colorName = color ? 'white' : 'black';
-    const moveDatasetIndex = COLORS.indexOf(colorName);
 
     const y = Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC;
     let title = turn + (color ? '. ' : '... ') + san;
@@ -105,10 +104,6 @@ export default async function (
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
     const label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
-    moveDatasetPointsByPly.set(ply, {
-      datasetIndex: moveDatasetIndex,
-      index: moveSeries[colorName].length - 1,
-    });
 
     let clock = node ? node.clock : undefined;
     if (clock === undefined) {
@@ -234,7 +229,7 @@ export default async function (
   pubsub.on('ply', (ply: number, isMainline?: boolean) => movetimeChart.selectPly(ply, isMainline ?? false));
   pubsub.emit('ply.trigger');
   if (!isPartial(data)) {
-    christmasTree(movetimeChart, data.treeParts, moveDatasetPointsByPly, adviceHoverColors);
+    christmasTree(movetimeChart, data.treeParts, adviceHoverColors);
   }
   return movetimeChart;
 }
@@ -265,7 +260,6 @@ const formatClock = (centis: number) => {
 function christmasTree(
   chart: PlyChart,
   mainline: TreeNodeBase[],
-  moveDatasetPointsByPly: Map<number, { datasetIndex: number; index: number }>,
   hoverColors: { white: string[]; black: string[] },
 ) {
   $('div.advice-summary')
@@ -274,12 +268,11 @@ function christmasTree(
       const symbol = this.getAttribute('data-symbol');
       const color = this.getAttribute('data-color') === 'white' ? 'white' : 'black';
       if (symbol === '??' || symbol === '?!' || symbol === '?') {
-        const points = mainline
-          .filter(
-            node =>
-              node?.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
-          )
-          .map(node => moveDatasetPointsByPly.get(node.ply))
+        const points = nodesWithGlyphByColor(mainline, symbol, color)
+          .map(node => ({
+            datasetIndex: COLORS.indexOf(color),
+            index: Math.floor((node.ply - mainline[0].ply - 1) / 2),
+          }))
           .filter(point => !!point);
         const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
         movetimeDataset.hoverBackgroundColor = hoverColors[color];

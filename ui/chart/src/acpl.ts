@@ -13,7 +13,7 @@ import {
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { winningChances } from 'lib/ceval';
-import { plyOpponentColor, plyToTurn } from 'lib/game/chess';
+import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';
 
@@ -30,6 +30,7 @@ import {
   whiteFill,
   axisOpts,
   glyphProperties,
+  nodesWithGlyphByColor,
 } from './index';
 import type { AcplChart, AnalyseData, Player } from './interface';
 
@@ -204,12 +205,10 @@ function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: 
       if (symbol === '??' || symbol === '?!' || symbol === '?') {
         acplDataset.pointHoverBackgroundColor = hoverColors;
         acplDataset.pointBorderColor = hoverColors;
-        const points = mainline
-          .filter(
-            node =>
-              node.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
-          )
-          .map(node => ({ datasetIndex: 0, index: node.ply - mainline[0].ply - 1 }));
+        const points = nodesWithGlyphByColor(mainline, symbol, color).map(node => ({
+          datasetIndex: 0,
+          index: node.ply - mainline[0].ply - 1,
+        }));
         chart.setActiveElements(points);
         chart.update('none');
       }

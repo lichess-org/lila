@@ -1,6 +1,7 @@
 import { Chart, type ChartDataset, type ChartOptions } from 'chart.js';
 
 import { currentTheme } from 'lib/device';
+import { plyOpponentColor } from 'lib/game';
 import type { TreeNodeBase } from 'lib/tree/types';
 
 export interface MovePoint {
@@ -116,3 +117,12 @@ export const glyphProperties = (node: TreeNodeBase): { advice?: Advice; color?: 
   else if (node?.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
   else return { advice: undefined, color: undefined };
 };
+
+export const nodesWithGlyphByColor = (
+  mainline: TreeNodeBase[],
+  symbol: string,
+  color: Color,
+): TreeNodeBase[] =>
+  mainline.filter(
+    node => node?.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
+  );
