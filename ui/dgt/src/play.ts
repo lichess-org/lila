@@ -710,27 +710,21 @@ export default function (token: string): void {
           break;
         case 'outoftime':
           announceWinner(
-            keywords[gameState.winner],
             'flag',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout'],
           );
           break;
         case 'resign':
           announceWinner(
-            keywords[gameState.winner],
             'resign',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation'],
           );
           break;
         case 'mate':
-          announceWinner(
-            keywords[lastMove.player],
-            'mate',
-            keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#'],
-          );
+          announceWinner('mate', keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#']);
           break;
         case 'draw':
-          announceWinner('draw', 'draw', keywords['(=)']);
+          announceWinner('draw', keywords['(=)']);
           break;
         default:
           console.log(`Unknown status received: ${gameState.status}`);
@@ -769,8 +763,6 @@ export default function (token: string): void {
    * Feedback the user about the detected move
    *
    * @param lastMove JSON object with the move information
-   * @param wtime Remaining time for white
-   * @param btime Remaining time for black
    */
   function announcePlay(lastMove: { player: string; move: string; by: string }) {
     //ttsSay(lastMove.player);
@@ -792,12 +784,8 @@ export default function (token: string): void {
     //Give feedback on running out of time
   }
 
-  function announceWinner(winner: string, status: string, message: string) {
-    if (winner === 'white') {
-      console.log('  ' + status + '  -  ' + message);
-    } else {
-      console.log('  ' + status + '  -  ' + message);
-    }
+  function announceWinner(status: string, message: string) {
+    console.log('  ' + status + '  -  ' + message);
     //Now play message using text to speech library
     ttsSay(replaceKeywords(message.toLowerCase()));
   }

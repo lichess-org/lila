@@ -68,12 +68,12 @@ function timerShape(duration: number, color: string, alpha = 0.4) {
   return $html`
     <svg width="100" height="100">
       <circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
-              stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
+              stroke-width="50" stroke-opacity="${alpha}" visibility="hidden">
         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
                  values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>
       </circle>
       <circle cx="50" cy="50" r="50" fill="transparent" stroke="white" transform="rotate(270,50,50)"
-              stroke-width="4" stroke-opacity="0.7" begin="indefinite" visibility="hidden">
+              stroke-width="4" stroke-opacity="0.7" visibility="hidden">
         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
                  values="0 ${Math.PI * 100}; ${Math.PI * 100} ${Math.PI * 100}"/>
       </circle>

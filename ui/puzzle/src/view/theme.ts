@@ -81,7 +81,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
         }),
       },
       visibleThemes.map(key =>
-        hl('div.puzzle__themes__list__entry', { class: { strike: votedThemes[key] === false } }, [
+        hl('div.puzzle__themes__list__entry', { class: { strike: !votedThemes[key] } }, [
           hl(
             'a',
             { attrs: { href: `/training/${key}`, title: themeTrans(`${key}Description`) } },
@@ -98,7 +98,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
                       attrs: { 'data-theme': key },
                     }),
                     hl('button.puzzle__themes__vote.vote-down', {
-                      class: { active: votedThemes[key] === false },
+                      class: { active: !votedThemes[key] },
                       attrs: { 'data-theme': key },
                     }),
                   ],
