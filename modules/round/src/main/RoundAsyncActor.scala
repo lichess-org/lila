@@ -330,6 +330,8 @@ final private class RoundAsyncActor(
                   clock
                     .giveTime(g.turnColor, Centis(2000))
                     .giveTime(!g.turnColor, Centis(1000))
+        .recoverDefault: e =>
+          logger.warn(s"RoundAsyncActor LilaStop error: ${e.getMessage}")
         .tap(promise.completeWith)
 
     case WsBoot =>

@@ -53,10 +53,10 @@ final private class GameProxy(
   def withGame[A](f: Game => Fu[A]): Fu[A] =
     cache.value match
       case Some(Success(Some(g))) => f(g)
-      case Some(Success(None)) => fufail(s"No proxy game: $id")
+      case Some(Success(None)) => fufail(s"No proxy game stored: $id")
       case _ =>
         cache.flatMap:
-          case None => fufail(s"No proxy game: $id")
+          case None => fufail(s"No proxy game found: $id")
           case Some(g) => f(g)
 
   def withGameOptionSync[A](f: Game => A): Option[A] =
