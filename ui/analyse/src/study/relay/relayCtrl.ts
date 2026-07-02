@@ -186,8 +186,7 @@ export default class RelayCtrl {
   isPinnedStreamOngoing = () => {
     if (!this.data.pinned) return false;
     if (this.round.finished) return false;
-    if (Date.now() < this.round.startsAt! - 1000 * 3600) return false;
-    return true;
+    return Date.now() >= this.round.startsAt! - 1000 * 3600;
   };
 
   userClosedTheVideoEmbed() {
