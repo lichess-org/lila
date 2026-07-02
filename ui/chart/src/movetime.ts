@@ -12,7 +12,6 @@ import {
 } from 'chart.js';
 import { COLORS } from 'chessops';
 
-import { plyOpponentColor } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';
 
