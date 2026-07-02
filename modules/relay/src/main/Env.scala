@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
 import lila.core.id.RelayRoundId
+import lila.core.fide.{ Federation, Tokenize }
 
 @Module
 final class Env(
@@ -41,7 +42,7 @@ final class Env(
     baker: lila.core.security.LilaCookie,
     markdownCache: lila.memo.MarkdownCache,
     viewerCount: lila.memo.ViewerCountApi
-)(using lila.core.fide.Federation.Guess, Executor, akka.stream.Materializer, play.api.Mode)(using
+)(using Federation.Guess, Tokenize, Executor, akka.stream.Materializer, play.api.Mode)(using
     scheduler: Scheduler
 ):
 

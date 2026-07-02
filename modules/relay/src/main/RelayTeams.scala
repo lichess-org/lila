@@ -39,10 +39,10 @@ private class RelayTeamsTextarea(val text: String):
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
 
-  def update(games: RelayGames): RelayGames = games.map: game =>
+  def update(games: RelayGames)(using Tokenize): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
 
-  private def update(tags: Tags): Tags =
+  private def update(tags: Tags)(using Tokenize): Tags =
     Color.all.foldLeft(tags): (tags, color) =>
       val found = tags
         .fideIds(color)
@@ -51,17 +51,14 @@ private class RelayTeamsTextarea(val text: String):
       found.fold(tags): team =>
         tags + Tag(_.teams(color), team)
 
-  private def findMatching(player: PlayerNameStr | FideId)(using tokenize: Tokenize): Option[TeamName] =
-
-    val tokenizePlayer: PlayerNameStr | FideId => PlayerToken | FideId =
-      case name: PlayerNameStr => tokenize(name)
-      // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
-      case fideId => fideId
-
-    lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
-      playerTeams.mapKeys(tokenizePlayer)
-
+  private def findMatching(player: PlayerNameStr | FideId)(using Tokenize): Option[TeamName] =
+    def tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] = playerTeams.mapKeys(tokenizePlayer)
     playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
+
+  private def tokenizePlayer(using tokenize: Tokenize): PlayerNameStr | FideId => PlayerToken | FideId =
+    case name: PlayerNameStr => tokenize.exec(name)
+    // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
+    case fideId => fideId
 
 object RelayTeam:
   import chess.{ Color, ByColor }

@@ -150,7 +150,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year = number(152, 156).filter(_ > 1000).filter(_ < nowYear)
         flags = string(158, 160)
-        token = FidePlayer.tokenize(name)
+        token = FidePlayer.tokenize.exec(name)
         if token.sizeIs > 2
       yield FidePlayer(
         id = FideId(id),
