@@ -116,7 +116,7 @@
   }
 
   &.new {
-    background: $m-secondary_bg-popup--mix-27;
+    background: color-mix(in srgb, $c-secondary 27%, $c-bg-popup);
 
     icon {
       color: $c-secondary;
@@ -124,7 +124,7 @@
     }
 
     &:hover {
-      background: $m-secondary_bg-popup--mix-36;
+      background: color-mix(in srgb, $c-secondary 36%, $c-bg-popup);
 
       icon {
         opacity: 1;

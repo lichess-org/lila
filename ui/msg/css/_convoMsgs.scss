@@ -43,10 +43,10 @@
     @extend %zalgoverflow;
 
     border-radius: 6px;
-    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+    box-shadow: 0 1px 0.5px rgb(0 0 0 / 0.13);
 
     @include if-not-light {
-      box-shadow: 0 1px 0.5px rgb(0, 0, 0);
+      box-shadow: 0 1px 0.5px rgb(0 0 0);
     }
 
     margin: 0.2em 0;
@@ -59,7 +59,7 @@
   day {
     @extend %roboto;
 
-    background: $m-primary_bg--mix-15;
+    background: color-mix(in srgb, $c-primary 15%, $c-bg);
     align-self: center;
     font-size: 0.9em;
     color: $c-font;
@@ -69,7 +69,7 @@
 
   mine {
     align-self: flex-end;
-    background: $m-secondary_bg--mix-15;
+    background: color-mix(in srgb, $c-secondary 15%, $c-bg);
 
     &:first-child {
       border-top-right-radius: 0;
@@ -78,7 +78,7 @@
 
   their {
     align-self: flex-start;
-    background: $m-brag_bg--mix-15;
+    background: color-mix(in srgb, $c-brag 15%, $c-bg);
 
     &:first-child {
       border-top-left-radius: 0;

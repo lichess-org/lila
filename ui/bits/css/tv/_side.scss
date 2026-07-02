@@ -9,7 +9,7 @@
 
     &::before {
       order: 2;
-      color: $m-brag_bg-page--mix-60;
+      color: color-mix(in srgb, $c-brag 60%, $c-bg-page);
       font-size: 2.5em;
       margin-inline-start: 0.8rem;
     }

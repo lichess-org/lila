@@ -89,7 +89,7 @@
 
     font-size: 1.6em;
     line-height: 0.9;
-    background: $m-brag_bg--mix-20;
+    background: color-mix(in srgb, $c-brag 20%, $c-bg);
     color: $c-font;
 
     span {

@@ -6,7 +6,7 @@ body {
   background-image: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
 
   --c-font-page: #fff;
-  --c-font-shadow: hsla(0, 0, 0%, 0);
+  --c-font-shadow: hsl(0 0% 0% / 0);
 
   &,
   .site-title,
@@ -80,7 +80,7 @@ body {
   }
 
   .utitle {
-    color: hsl(37, 82%, 58%);
+    color: hsl(37 82% 58%);
   }
 
   img.uflair {

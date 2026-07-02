@@ -4,11 +4,11 @@
   }
 
   50% {
-    background: $m-secondary_bg--mix-30;
+    background: color-mix(in srgb, $c-secondary 30%, $c-bg);
   }
 
   60% {
-    background: $m-primary_bg--mix-30;
+    background: color-mix(in srgb, $c-primary 30%, $c-bg);
   }
 
   70% {

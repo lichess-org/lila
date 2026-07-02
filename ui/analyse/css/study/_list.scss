@@ -17,7 +17,7 @@
     &:focus,
     &.active {
       color: $c-font-clear;
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in srgb, $c-primary 10%, $c-bg);
     }
   }
 

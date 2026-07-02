@@ -26,7 +26,7 @@
 
   li:hover,
   .active {
-    background-color: $m-accent_bg-popup--mix-10;
+    background-color: color-mix(in srgb, $c-accent 10%, $c-bg-popup);
   }
 
   a {
@@ -35,11 +35,11 @@
 
   @include if-transp {
     background: $c-bg-zebra;
-    border-color: $m-border--fade-60;
+    border-color: rgb(from $c-border r g b / 0.4);
 
     li:hover,
     .active {
-      background-color: $m-accent_bg-popup--mix-20;
+      background-color: color-mix(in srgb, $c-accent 20%, $c-bg-popup);
     }
   }
 }

@@ -80,11 +80,11 @@
       }
 
       &:hover {
-        background-color: $m-primary_bg--mix-40;
+        background-color: color-mix(in srgb, $c-primary 40%, $c-bg);
       }
 
       &:focus:not([disabled]) {
-        background-color: $c-bg-page; // $m-primary_bg--mix-60;
+        background-color: $c-bg-page; // color-mix(in srgb,$c-primary 60%, $c-bg);
         outline: 1px solid;
       }
     }
@@ -109,7 +109,7 @@
     }
 
     &:hover:not(:has(button:hover)) {
-      background: $m-bg_high--lighten-11;
+      background: hsl(from $c-bg_high h s calc(l + 11));
       outline: $c-primary 2px dashed;
     }
   }

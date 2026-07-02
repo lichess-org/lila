@@ -25,7 +25,7 @@
     display: block;
     position: absolute;
     inset: 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 0 5px rgb(0 0 0 / 0.5) inset;
   }
 
   tick {
@@ -44,7 +44,7 @@
     &.zero {
       top: 6px;
       opacity: 1;
-      border-bottom: 7px solid $m-accent--fade-50 !important;
+      border-bottom: 7px solid rgb(from $c-accent r g b / calc(alpha * 0.5)) !important;
       margin-top: -3px;
     }
   }

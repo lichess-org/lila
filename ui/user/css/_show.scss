@@ -12,7 +12,7 @@
 
   background: $c-bg-header-dropdown;
   color: $c-font-clear;
-  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: -1px 5px 6px rgb(0 0 0 / 0.3);
 }
 
 @mixin dropdown-action-highlight {

@@ -14,7 +14,7 @@ body {
   border-color: $c-bg-zebra2;
 
   &:focus {
-    border-color: $m-secondary_bg--mix-50;
+    border-color: color-mix(in srgb, $c-secondary 50%, $c-bg);
   }
 }
 

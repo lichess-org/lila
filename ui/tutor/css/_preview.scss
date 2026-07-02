@@ -7,15 +7,15 @@
   gap: 1em;
 
   &:hover {
-    background: $m-primary_bg--mix-10;
+    background: color-mix(in srgb, $c-primary 10%, $c-bg);
     color: $c-font-clearer;
   }
 
   &--empty {
-    background: $m-bad_bg--mix-05;
+    background: color-mix(in srgb, $c-bad 05%, $c-bg);
 
     &:hover {
-      background: $m-bad_bg--mix-10;
+      background: color-mix(in srgb, $c-bad 10%, $c-bg);
     }
   }
 

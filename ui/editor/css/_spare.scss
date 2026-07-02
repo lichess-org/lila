@@ -3,7 +3,7 @@
 
   display: flex;
   background: $c-font-dimmer;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0 3px 5px rgb(0 0 0 / 0.3) inset;
 
   &-top {
     grid-area: spare-top;
@@ -22,11 +22,11 @@
     @include transition;
 
     &:hover {
-      background: $m-primary--fade-80;
+      background: rgb(from $c-primary r g b / calc(alpha * 0.2));
     }
 
     &.selected-square {
-      background: $m-primary--fade-50;
+      background: rgb(from $c-primary r g b / calc(alpha * 0.5));
     }
 
     div {
@@ -37,11 +37,11 @@
       @extend %box-radius-left;
 
       &:hover {
-        background: $m-secondary--fade-80;
+        background: rgb(from $c-secondary r g b / calc(alpha * 0.2));
       }
 
       &.selected-square {
-        background: $m-secondary--fade-40;
+        background: rgb(from $c-secondary r g b / calc(alpha * 0.6));
       }
 
       piece {
@@ -53,11 +53,11 @@
       @extend %box-radius-right;
 
       &:hover {
-        background: $m-bad--fade-80;
+        background: rgb(from $c-bad r g b / calc(alpha * 0.2));
       }
 
       &.selected-square {
-        background: $m-bad--fade-40;
+        background: rgb(from $c-bad r g b / calc(alpha * 0.6));
       }
 
       piece {

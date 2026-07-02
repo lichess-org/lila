@@ -32,7 +32,7 @@
     .host {
       @extend %box-radius;
 
-      background: $m-accent--fade-70;
+      background: rgb(from $c-accent r g b / calc(alpha * 0.3));
 
       &,
       a,

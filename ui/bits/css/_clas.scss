@@ -1,24 +1,24 @@
-$c-clas-light: hsl(274, 48%, 60%);
+$c-clas-light: hsl(274 48% 60%);
 $c-clas-lighter: mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: $m-clas_white--mix-20;
+$c-bg-clas-over-dim: color-mix(in srgb, $c-clas 20%, white);
 
 @mixin button-with-clas-shadow {
   @include with-button-shadow(
-    $m-clas--lighten-38,
-    $m-clas--darken-12,
-    $m-clas--lighten-50,
-    $m-clas--darken-8
+    hsl(from $c-clas h s calc(l + 38)),
+    hsl(from $c-clas h s calc(l - 12)),
+    hsl(from $c-clas h s calc(l + 50)),
+    hsl(from $c-clas h s calc(l - 8))
   );
 }
 
 body {
-  --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
-  --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 80%), hsl(276, 97%, 79%), hsl(234, 81%, 78%));
+  --bg-clas: linear-gradient(to right bottom, hsl(276 29% 49%), hsl(276 65% 32%), hsl(286 37% 21%));
+  --bg-clas-title: linear-gradient(to right, hsl(252 97% 80%), hsl(276 97% 79%), hsl(234 81% 78%));
 
   @include if-light {
-    --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 52%), hsl(276, 65%, 38%), hsl(286, 37%, 30%));
-    --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 86%), hsl(276, 97%, 84%), hsl(234, 81%, 83%));
+    --bg-clas: linear-gradient(to right bottom, hsl(276 29% 52%), hsl(276 65% 38%), hsl(286 37% 30%));
+    --bg-clas-title: linear-gradient(to right, hsl(252 97% 86%), hsl(276 97% 84%), hsl(234 81% 83%));
   }
 }
 
@@ -129,7 +129,7 @@ h1 {
       }
 
       &:hover {
-        background: $m-clas_bg--mix-10;
+        background: color-mix(in srgb, $c-clas 10%, $c-bg);
 
         &::before {
           color: $c-clas-light;
@@ -174,7 +174,7 @@ h1 {
     &,
     a,
     .button {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(255 255 255 / 0.7);
     }
   }
 
@@ -246,14 +246,14 @@ h1 {
 
     .button {
       font-size: 1.2em;
-      color: $m-font_clas--mix-40;
+      color: color-mix(in srgb, $c-font 40%, $c-clas);
     }
 
     .user-link {
       @extend %flex-center;
 
       &:hover {
-        color: $m-font_clas--mix-40;
+        color: color-mix(in srgb, $c-font 40%, $c-clas);
       }
 
       span {
@@ -310,8 +310,8 @@ h1 {
       }
 
       &:hover {
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(0, 0, 0, 0.15);
+        color: rgb(255 255 255 / 0.8);
+        background: rgb(0 0 0 / 0.15);
       }
 
       &.active {
@@ -399,12 +399,12 @@ h1 {
         color: $c-clas-light;
 
         &:hover {
-          background: $m-clas_bg--mix-30;
+          background: color-mix(in srgb, $c-clas 30%, $c-bg);
           color: $c-font-clear;
         }
 
         &.active {
-          background: $m-clas_bg--mix-50;
+          background: color-mix(in srgb, $c-clas 50%, $c-bg);
           color: $c-over;
         }
 
@@ -438,11 +438,11 @@ h1 {
 
 @keyframes target-fade {
   from {
-    background: $m-accent_bg-popup--mix-80;
+    background: color-mix(in srgb, $c-accent 80%, $c-bg-popup);
   }
 
   to {
-    background: $m-accent_bg-popup--mix-15;
+    background: color-mix(in srgb, $c-accent 15%, $c-bg-popup);
   }
 }
 
@@ -463,10 +463,10 @@ h1 {
 .button-clas {
   @include button-with-clas-shadow;
 
-  background: $m-clas_bg--mix-75;
+  background: color-mix(in srgb, $c-clas 75%, $c-bg);
 
   &:hover {
-    background: $m-clas_bg--mix-90 !important;
+    background: color-mix(in srgb, $c-clas 90%, $c-bg) !important;
   }
 }
 
@@ -544,10 +544,10 @@ h1 {
       justify-items: center;
 
       .button-empty {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgb(255 255 255 / 0.7);
 
         &:hover {
-          background: rgba(255, 255, 255, 0.1) !important;
+          background: rgb(255 255 255 / 0.1) !important;
           color: inherit;
         }
       }
@@ -565,7 +565,7 @@ h1 {
   &__managed {
     @extend %box-radius, %flex-between;
 
-    background: $m-primary--fade-80;
+    background: rgb(from $c-primary r g b / calc(alpha * 0.2));
     padding: 1em 2em;
     margin: 1em 0 2em 0;
 

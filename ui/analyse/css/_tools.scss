@@ -15,7 +15,7 @@
     .title {
       font-size: 0.9rem;
       line-height: 1.9em;
-      background: $m-secondary_bg--mix-40;
+      background: color-mix(in srgb, $c-secondary 40%, $c-bg);
       padding: 0 7px;
 
       a {
@@ -93,7 +93,7 @@
     }
 
     &.highlighted {
-      background: $m-primary_bg--mix-80;
+      background: color-mix(in srgb, $c-primary 80%, $c-bg);
       color: $c-over;
 
       &:hover {
@@ -131,6 +131,6 @@
   }
 
   .fbt.latent {
-    background-color: $m-secondary--fade-50;
+    background-color: rgb(from $c-secondary r g b / calc(alpha * 0.5));
   }
 }

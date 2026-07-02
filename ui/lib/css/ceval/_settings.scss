@@ -84,7 +84,7 @@
         border-bottom: 3px solid $c-primary;
 
         &:hover {
-          border-color: $m-primary_white--mix-80;
+          border-color: color-mix(in srgb, $c-primary 80%, white);
         }
 
         &.arrow-down {
@@ -102,7 +102,7 @@
         border-color: $c-secondary;
 
         &:hover {
-          border-color: $m-secondary_white--mix-80;
+          border-color: color-mix(in srgb, $c-secondary 80%, white);
         }
       }
     }

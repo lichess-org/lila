@@ -102,7 +102,7 @@
 
   m-config,
   .editing {
-    background: $m-accent_bg--mix-10 !important;
+    background: color-mix(in srgb, $c-accent 10%, $c-bg) !important;
   }
 
   m-config {

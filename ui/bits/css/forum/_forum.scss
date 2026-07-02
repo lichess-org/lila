@@ -24,11 +24,11 @@
     padding-bottom: 1rem;
 
     .sticky {
-      background: $m-secondary_bg--mix-12;
+      background: color-mix(in srgb, $c-secondary 12%, $c-bg);
     }
 
     .sticky:nth-child(even) {
-      background: $m-secondary_bg-zebra--mix-12;
+      background: color-mix(in srgb, $c-secondary 12%, $c-bg-zebra);
     }
 
     .bar {

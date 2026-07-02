@@ -136,7 +136,7 @@
 
   gap: 1em;
   margin-top: 1em;
-  background: $m-accent_bg--mix-10;
+  background: color-mix(in srgb, $c-accent 10%, $c-bg);
   padding: 1em;
 
   h2 {

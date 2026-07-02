@@ -1,8 +1,8 @@
 @import '../../../lib/css/abstract/patron-colors';
 
-@each $id in $patron-colors-ids {
+@for $id from 1 through $patron-levels {
   .user-link.online .paco#{$id} {
-    color: var(--c-paco#{$id}) !important;
+    color: var(--c-patron-#{$id}) !important;
   }
 }
 

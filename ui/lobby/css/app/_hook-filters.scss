@@ -1,6 +1,6 @@
 .hook__filters {
   padding: $block-gap 1.5em;
-  background: $m-bg--fade-50;
+  background: rgb(from $c-bg r g b / calc(alpha * 0.5));
   height: 100%;
   display: block;
 

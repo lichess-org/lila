@@ -26,11 +26,11 @@
     }
 
     .no-square:hover {
-      background: rgba(250, 250, 250, 0.15);
+      background: rgb(250 250 250 / 0.15);
     }
 
     .no-square.active {
-      background: $m-secondary--fade-30;
+      background: rgb(from $c-secondary r g b / calc(alpha * 0.7));
     }
 
     &.d3 piece {

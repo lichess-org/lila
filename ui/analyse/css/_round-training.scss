@@ -50,7 +50,7 @@
       color: $c-inaccuracy;
 
       &:hover {
-        color: $m-inaccuracy_font--mix-70;
+        color: color-mix(in srgb, $c-inaccuracy 70%, $c-font);
       }
     }
 
@@ -58,7 +58,7 @@
       color: $c-mistake;
 
       &:hover {
-        color: $m-mistake_font--mix-70;
+        color: color-mix(in srgb, $c-mistake 70%, $c-font);
       }
     }
 
@@ -66,7 +66,7 @@
       color: $c-blunder;
 
       &:hover {
-        color: $m-blunder_font--mix-70;
+        color: color-mix(in srgb, $c-blunder 70%, $c-font);
       }
     }
   }

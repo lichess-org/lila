@@ -89,15 +89,15 @@
       overflow: hidden;
 
       &.active {
-        background: $m-primary_bg--mix-20;
+        background: color-mix(in srgb, $c-primary 20%, $c-bg);
         color: $c-font-clear;
-        border-color: $m-primary_bg--mix-40;
+        border-color: color-mix(in srgb, $c-primary 40%, $c-bg);
       }
 
       &:hover {
-        background: $m-primary_bg--mix-12;
+        background: color-mix(in srgb, $c-primary 12%, $c-bg);
         color: $c-font-clear;
-        border-color: $m-primary_bg--mix-50;
+        border-color: color-mix(in srgb, $c-primary 50%, $c-bg);
       }
     }
 
@@ -156,7 +156,7 @@
       display: block;
       position: absolute;
       inset: 0;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+      box-shadow: 0 0 3px rgb(0 0 0 / 0.5) inset;
     }
 
     &__black {
@@ -188,7 +188,7 @@
         width: 100%;
         top: 2.5px;
         opacity: 1;
-        border-bottom: 5px solid $m-accent--fade-50;
+        border-bottom: 5px solid rgb(from $c-accent r g b / calc(alpha * 0.5));
         height: 50%;
       }
     }

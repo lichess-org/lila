@@ -44,8 +44,8 @@
   .same {
     font-style: italic;
     font-weight: bold;
-    background: rgba(56, 147, 232, 0.2) !important;
-    border-inline-start: 3px solid rgba(56, 147, 232, 0.8) !important;
+    background: rgb(56 147 232 / 0.2) !important;
+    border-inline-start: 3px solid rgb(56 147 232 / 0.8) !important;
   }
 
   time {
@@ -172,7 +172,7 @@
       }
 
       &:not(.disabled):hover {
-        background: $m-brag_white--mix-80;
+        background: color-mix(in srgb, $c-brag 80%, white);
       }
 
       icon {
@@ -280,12 +280,12 @@
       &.spy_filter {
         tbody tr {
           &:hover {
-            background: $m-brag_bg--mix-15;
+            background: color-mix(in srgb, $c-brag 15%, $c-bg);
             cursor: pointer;
           }
 
           &.selected {
-            background: $m-brag_bg--mix-40;
+            background: color-mix(in srgb, $c-brag 40%, $c-bg);
           }
         }
       }
@@ -365,7 +365,7 @@
       cursor: pointer;
 
       &:hover {
-        background: $m-accent--fade-80;
+        background: rgb(from $c-accent r g b / calc(alpha * 0.2));
       }
     }
   }
@@ -389,19 +389,19 @@
 
         &.green {
           /* actually blue */
-          background-color: rgba(32, 119, 192, 0.4);
+          background-color: rgb(32 119 192 / 0.4);
         }
 
         &.yellow {
-          background-color: rgba(221, 207, 63, 0.4);
+          background-color: rgb(221 207 63 / 0.4);
         }
 
         &.orange {
-          background-color: rgba(231, 155, 100, 0.4);
+          background-color: rgb(231 155 100 / 0.4);
         }
 
         &.red {
-          background-color: rgba(231, 59, 56, 0.4);
+          background-color: rgb(231 59 56 / 0.4);
         }
       }
     }

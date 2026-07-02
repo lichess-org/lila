@@ -1,4 +1,4 @@
-$c-slider: $m-secondary_bg--mix-90 !default;
+$c-slider: color-mix(in srgb, $c-secondary 90%, $c-bg) !default;
 $slider-width: 12px;
 
 .ui-slider {
@@ -19,7 +19,7 @@ $slider-width: 12px;
 .ui-widget-content {
   @extend %box-radius;
 
-  background: $m-secondary_dimmer--mix-25;
+  background: color-mix(in srgb, $c-secondary 25%, $c-dimmer);
 }
 
 .ui-slider-handle {
@@ -35,7 +35,7 @@ $slider-width: 12px;
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 9px $m-secondary--fade-85;
+    box-shadow: 0 0 0 9px rgb(from $c-secondary r g b / calc(alpha * 0.15));
     outline: 0;
   }
 }

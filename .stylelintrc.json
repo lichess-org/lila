@@ -4,7 +4,7 @@
   "rules": {
     "alpha-value-notation": "number",
     "color-function-alias-notation": null,
-    "color-function-notation": ["legacy", { "ignore": ["with-var-inside"] }],
+    "color-function-notation": "modern",
     "custom-property-pattern": null,
     "declaration-block-no-redundant-longhand-properties": [
       true,

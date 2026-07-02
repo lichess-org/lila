@@ -56,12 +56,12 @@
       cursor: pointer;
 
       &:hover {
-        background: $m-secondary_bg--mix-15;
+        background: color-mix(in srgb, $c-secondary 15%, $c-bg);
       }
 
       &:active,
       &.active {
-        background: $m-secondary_bg--mix-30;
+        background: color-mix(in srgb, $c-secondary 30%, $c-bg);
       }
 
       .user-link {

@@ -34,7 +34,7 @@
 
     &::after {
       content: '';
-      background: $m-accent--fade-40;
+      background: rgb(from $c-accent r g b / calc(alpha * 0.6));
       height: 2px;
       position: absolute;
       width: 96%;
@@ -238,7 +238,7 @@
     }
 
     a:hover {
-      background: $m-accent_bg--mix-20;
+      background: color-mix(in srgb, $c-accent 20%, $c-bg);
     }
 
     a:hover::before {
@@ -294,7 +294,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: $m-accent_bg--mix-20;
+      background: color-mix(in srgb, $c-accent 20%, $c-bg);
     }
 
     ul > li label.optgroup {
@@ -368,7 +368,7 @@
       @extend %flex-column;
     }
 
-    background: $m-primary_bg--mix-10;
+    background: color-mix(in srgb, $c-primary 10%, $c-bg);
     border: 1px solid $c-primary;
     margin-bottom: 1em;
   }
@@ -417,7 +417,7 @@
       }
 
       &:hover {
-        background: $m-accent_bg--mix-20;
+        background: color-mix(in srgb, $c-accent 20%, $c-bg);
       }
     }
 

@@ -45,10 +45,10 @@
     .fbt {
       flex: 3;
       margin: 3px 2px 0;
-      border: 1px solid $m-clearer--fade-95;
+      border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
       border-radius: 6px 6px 0 0;
-      background: $m-bg_bg-page--mix-50;
+      background: color-mix(in srgb, $c-bg 50%, $c-bg-page);
     }
 
     .scrub-help {
@@ -70,8 +70,8 @@
 
     .jumps .fbt {
       margin: 5px 2px;
-      background: $m-bg_bg-page--mix-50;
-      border: 1px solid $m-clearer--fade-95;
+      background: color-mix(in srgb, $c-bg 50%, $c-bg-page);
+      border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
     }
 
     .jumps .fbt[data-act='first'],
@@ -136,7 +136,7 @@
       top: -2px;
       right: 1px;
       font-size: 0.9em;
-      color: $m-bg_secondary--mix-50;
+      color: color-mix(in srgb, $c-bg 50%, $c-secondary);
       content: $licon-X;
     }
 
@@ -167,9 +167,15 @@
         opacity 0.6s ease-out;
       animation: computing 1.6s linear reverse infinite paused;
       background:
-        linear-gradient(to bottom, $m-good--fade-90, $m-good--fade-30, $m-good--fade-90) 0 0 / 100% 100%
-          no-repeat,
-        linear-gradient(45deg, transparent, $m-good--fade-30, transparent) -100% 0 / 200% 100% no-repeat;
+        linear-gradient(
+            to bottom,
+            rgb(from $c-good r g b / calc(alpha * 0.1)),
+            rgb(from $c-good r g b / calc(alpha * 0.7)),
+            rgb(from $c-good r g b / calc(alpha * 0.1))
+          )
+          0 0 / 100% 100% no-repeat,
+        linear-gradient(45deg, transparent, rgb(from $c-good r g b / calc(alpha * 0.7)), transparent) -100%
+          0 / 200% 100% no-repeat;
     }
 
     [data-mode].computing:not([data-mode='ceval'].active) .bar {

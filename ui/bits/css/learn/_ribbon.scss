@@ -29,13 +29,13 @@
   font-size: 15px;
   font-weight: bold;
   text-align: center;
-  text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+  text-shadow: rgb(255 255 255 / 0.5) 0 1px 0;
   position: relative;
   padding: 7px 0;
   top: 15px;
   width: 120px;
   color: #5c5c5c;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0 3px rgb(0 0 0 / 0.3);
   transform: rotate(45deg);
 
   @include if-rtl {
@@ -45,7 +45,7 @@
   icon {
     color: $c-brag;
     animation: 0.6s soft-hue ease-in-out infinite;
-    text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 -0.5px 1px rgb(0 0 0 / 0.5);
   }
 
   icon:nth-child(2) {
@@ -80,16 +80,16 @@
 
   &.done {
     background-color: #c5e791;
-    box-shadow: 1px 0 3px $m-secondary--fade-50;
+    box-shadow: 1px 0 3px rgb(from $c-secondary r g b / calc(alpha * 0.5));
   }
 
   &.ongoing {
     background-color: #bddffa;
-    box-shadow: 1px 0 3px $m-primary--fade-50;
+    box-shadow: 1px 0 3px rgb(from $c-primary r g b / calc(alpha * 0.5));
   }
 
   &.future {
-    background-color: $m-future--lighten-22;
-    box-shadow: 1px 0 3px $m-future--fade-50;
+    background-color: hsl(from $c-future h s calc(l + 22));
+    box-shadow: 1px 0 3px rgb(from $c-future r g b / calc(alpha * 0.5));
   }
 }

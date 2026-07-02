@@ -29,7 +29,7 @@
       overflow: hidden;
       margin-bottom: 3px;
       text-transform: none;
-      background: $m-primary_black--mix-70;
+      background: color-mix(in srgb, $c-primary 70%, black);
     }
   }
 }

@@ -25,11 +25,15 @@
     border-bottom: 1px solid transparent;
 
     &.scrolled {
-      background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);
+      background-image: linear-gradient(
+        to bottom,
+        $c-body-gradient,
+        color-mix(in srgb, $c-body-gradient 50%, $c-bg-page) 60px
+      );
       border-color: black;
 
       @include if-light {
-        border-color: hsl(0, 0%, 70%);
+        border-color: hsl(0 0% 70%);
       }
     }
 
@@ -37,7 +41,7 @@
       @include back-blur(6px);
 
       border: none;
-      background: hsla(0, 0, 20%, 0.15);
+      background: hsl(0 0% 20% / 0.15);
     }
 
     .dropdown {
@@ -104,7 +108,7 @@ body.zen {
     span {
       color: $c-brag;
       text-transform: uppercase;
-      text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+      text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
       border-radius: 20px;
       line-height: 28px;
       padding: 8px 1rem 8px 1.2rem;
@@ -123,7 +127,7 @@ body.zen {
 
     &:hover span {
       color: $c-brag;
-      background-color: $m-brag--fade-85;
+      background-color: rgb(from $c-brag r g b / calc(alpha * 0.15));
     }
 
     &:focus-visible {
