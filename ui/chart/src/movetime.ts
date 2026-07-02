@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { COLORS } from 'chessops';
 
+import { plyOpponentColor } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';
 
@@ -269,17 +270,17 @@ function christmasTree(
 ) {
   $('div.advice-summary')
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       const symbol = this.getAttribute('data-symbol');
-      const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
+      const color = this.getAttribute('data-color') === 'white' ? 'white' : 'black';
       if (symbol === '??' || symbol === '?!' || symbol === '?') {
         const points = mainline
           .filter(
-            node => node?.glyphs?.some(glyph => glyph.symbol === symbol) && (node.ply & 1) === playerColorBit,
+            node =>
+              node?.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
           )
           .map(node => moveDatasetPointsByPly.get(node.ply))
-          .filter((point): point is { datasetIndex: number; index: number } => !!point);
-
-        const color = playerColorBit ? 'white' : 'black';
+          .filter(point => !!point);
         const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
         movetimeDataset.hoverBackgroundColor = hoverColors[color];
         movetimeDataset.pointHoverBackgroundColor = hoverColors[color];
@@ -289,6 +290,7 @@ function christmasTree(
       }
     })
     .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       chart.setActiveElements([]);
       COLORS.forEach((_c, i) => {
         const dataset = chart.data.datasets[i];
