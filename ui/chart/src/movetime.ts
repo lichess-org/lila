@@ -13,7 +13,7 @@ import {
 import { COLORS } from 'chessops';
 
 import { pubsub } from 'lib/pubsub';
-import type { TreeNodeIncomplete } from 'lib/tree/types';
+import type { TreeNodeBase } from 'lib/tree/types';
 
 import division from './division';
 import {
@@ -263,7 +263,7 @@ const formatClock = (centis: number) => {
 
 function christmasTree(
   chart: PlyChart,
-  mainline: TreeNodeIncomplete[],
+  mainline: TreeNodeBase[],
   moveDatasetPointsByPly: Map<number, { datasetIndex: number; index: number }>,
   hoverColors: { white: string[]; black: string[] },
 ) {
