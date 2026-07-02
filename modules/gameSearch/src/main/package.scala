@@ -3,8 +3,6 @@ package lila.gameSearch
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-val index = lila.search.Index.Game
-
 val perfKeys: List[PerfKey] = PerfKey.list.filter: p =>
   p != PerfKey.puzzle && p != PerfKey.standard
 
