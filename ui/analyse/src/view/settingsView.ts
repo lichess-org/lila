@@ -153,8 +153,17 @@ function setupTouchHelp(view: HTMLElement) {
     if (!settings[key]) return;
     const htmlText = settings[key].helpHtml;
 
-    el.addEventListener('click', () =>
-      domDialog({ htmlText, class: 'setting-popup', noCloseButton: true, show: true, easyClose: 'anyClick' }),
+    el.addEventListener(
+      'click',
+      () =>
+        void domDialog({
+          htmlText,
+          class: 'setting-popup',
+          noCloseButton: true,
+          easyClose: 'anyClick',
+          show: true,
+          single: 'analyse-setting-popup',
+        }),
     );
   });
 }
