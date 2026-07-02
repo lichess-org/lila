@@ -118,7 +118,7 @@ export interface PuzzleResult {
   replayComplete?: boolean;
 }
 
-export type RoundThemes = Record<ThemeKey, boolean>;
+export type RoundThemes = Record<ThemeKey, boolean | undefined>;
 
 export interface PuzzleRound {
   win: boolean;
