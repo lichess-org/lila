@@ -38,7 +38,7 @@ final class RoundSocket(
     rounds
       .tellAllWithAck(RoundAsyncActor.LilaStop.apply)
       .map: nb =>
-        lila.log.system.info(s"$nb round asyncActors have stopped")
+        logger.info(s"$nb round asyncActors have stopped")
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
     rounds
