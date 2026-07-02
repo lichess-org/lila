@@ -29,7 +29,7 @@ final class Opening(env: Env) extends LilaController(env):
     Firewall:
       WithProxy: proxy ?=>
         if moves.sizeIs > 10 && req.client.isCrawler then Forbidden
-        else if moves.sizeIs > 6 && proxy.isFloodish && ctx.isAnon then Forbidden
+        else if moves.sizeIs > 6 && proxy.couldBeEnum && ctx.isAnon then Forbidden
         else
           limit.enumeration.opening(rateLimited):
             val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
