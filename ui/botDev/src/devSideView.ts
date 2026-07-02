@@ -3,7 +3,7 @@ import * as co from 'chessops';
 import { definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
 import { type VNode, hl, onInsert, bind, domDialog, iconTag, dataIcon } from 'lib/view';
 
@@ -103,7 +103,7 @@ function ratingSpan(p: Bot): VNode {
   return hl('span.stats', [iconTag(speedIcon(env.game.speed)), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
 }
 
-function speedIcon(speed: LocalSpeed = env.game.speed): LiconType {
+function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
   switch (speed) {
     case 'classical':
       return licon.Turtle;
@@ -317,13 +317,7 @@ function roundRobin() {
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
-          env.dev.run(
-            {
-              type: 'roundRobin',
-              players: participants,
-            },
-            isNaN(iterations) ? 1 : iterations,
-          );
+          env.dev.run({ type: 'roundRobin', players: participants }, isNaN(iterations) ? 1 : iterations);
           dlg.close();
         },
       },
@@ -338,6 +332,7 @@ function roundRobin() {
       },
     ],
     show: true,
+    easyClose: 'clickOutside',
     modal: true,
   });
 }

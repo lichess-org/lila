@@ -2,12 +2,12 @@
 <resources>
   <string name="arena">ساحة</string>
   <string name="arenaTournaments">مسابقات الساحة</string>
-  <string name="isItRated">هل هي مقيمة؟</string>
-  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="isItRated">هل هي مصنفة؟</string>
+  <string name="willBeNotified">سيتم إعلامك عند بَدْء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى في أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
-  <string name="isNotRated">هذه البطولة ليست مقيمة ولن تؤثر على تقييمك.</string>
-  <string name="someRated">بعض البطولات تكون مقيمة وتؤثر على تقييمك.</string>
-  <string name="howAreScoresCalculated">كيف تحتسب النقاط؟</string>
+  <string name="isNotRated">هذه البطولة ليست مصنفه ولن تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مصنفة وتؤثر على تقييمك.</string>
+  <string name="howAreScoresCalculated">كيف تحتسب النِّقَاط؟</string>
   <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
 إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
 وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.

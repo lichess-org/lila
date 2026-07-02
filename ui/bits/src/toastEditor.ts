@@ -4,9 +4,9 @@ import type { EditorState as EditorStateType } from 'prosemirror-state';
 import type { EditorView as EditorViewType } from 'prosemirror-view';
 
 import { currentTheme } from 'lib/device';
-import { enter } from 'lib/view';
+import { alert, enter } from 'lib/view';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
-import { json as xhrJson } from 'lib/xhr';
+import { ValidationError, json as xhrJson } from 'lib/xhr';
 
 export function makeToastEditor(el: HTMLTextAreaElement, text = '', height = '60vh'): Editor {
   const rewire = () =>
@@ -96,7 +96,7 @@ function initProseMirror(view: EditorViewType, rewire: () => void) {
 
   let transaction = view.state.tr;
   view.state.doc.descendants((n: NodeType, pos: number) => {
-    if (n.type && n.type.name === 'image') {
+    if (n.type?.name === 'image') {
       transaction = transaction.setNodeMarkup(pos, n.type, n.attrs, n.marks);
     }
   });
@@ -163,7 +163,7 @@ function toastImageUploadHook(el: HTMLElement) {
       setUrlCallback(imageUrl, name);
     } catch (e) {
       setUrlCallback('');
-      throw e;
+      alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
     }
   };
 }

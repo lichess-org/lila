@@ -1,3 +1,4 @@
+import type { LiconValue } from 'lib/licon';
 import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
@@ -12,7 +13,7 @@ export interface Variant {
   id: number;
   key: VariantKey;
   name: string;
-  icon: LiconType;
+  icon: LiconValue;
   description: string;
 }
 
@@ -121,6 +122,7 @@ export interface SetupStore {
   fen: FEN;
   timeMode: TimeMode;
   gameMode: GameMode;
+  color: ColorChoice;
   ratingMin: number;
   ratingMax: number;
   aiLevel: number;

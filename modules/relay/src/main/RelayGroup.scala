@@ -1,23 +1,30 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.config.RouteUrl
 import lila.relay.RelayGroup.ScoreGroup
+import lila.relay.RelayTour.TourPreview
+import lila.common.Form.{ into, cleanNonEmptyText }
 
 case class RelayGroup(
     @Key("_id") id: RelayGroupId,
     name: RelayGroup.Name,
-    tours: List[RelayTourId],
-    scoreGroups: Option[List[ScoreGroup]]
+    tours: NonEmptyList[RelayTourId],
+    scoreGroups: Option[NonEmptyList[ScoreGroup]]
 ):
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
-    scoreGroups.flatMap(_.find(_.toList.contains(tourId)))
+    scoreGroups.flatMap(_.find(_.contains(tourId)))
 
 object RelayGroup:
 
   def makeId = RelayGroupId(scalalib.ThreadLocalRandom.nextString(8))
 
   type ScoreGroup = NonEmptyList[RelayTourId]
+
+  private[relay] def sgIsParallel(tours: List[RelayTour]): Boolean =
+    tours.headOption
+      .flatMap(_.dates.map(_.start))
+      .exists: firstStart =>
+        tours.tailOption.exists(_.exists(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
 
   opaque type Name = String
   object Name extends OpaqueString[Name]:
@@ -30,38 +37,38 @@ object RelayGroup:
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s
 
-  case class WithTours(group: RelayGroup, tours: List[RelayTour.TourPreview]):
+  case class WithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.TourPreview]):
     def withShorterTourNames = copy(
       tours = tours.map: tour =>
         tour.copy(name = group.name.shortTourName(tour.name))
     )
 
 private case class RelayGroupData(
-    info: RelayGroupData.Info,
-    scoreGroups: Option[List[ScoreGroup]]
+    info: Option[RelayGroupData.Info],
+    scoreGroups: Option[NonEmptyList[ScoreGroup]]
 ):
-  def tourIds = info.tours.map(_.id)
-  def update(group: RelayGroup): RelayGroup =
-    group.copy(name = info.name, tours = tourIds, scoreGroups = scoreGroups)
-  def make: RelayGroup = RelayGroup(RelayGroup.makeId, info.name, tourIds, scoreGroups)
+  def tourIds: List[RelayTourId] = info.so(_.tours.toList.map(_.id))
+  def update(group: RelayGroup): Option[RelayGroup] =
+    info.map: i =>
+      group.copy(name = i.name, tours = i.tours.map(_.id), scoreGroups = scoreGroups)
+  def make: Option[RelayGroup] = info.map: i =>
+    RelayGroup(RelayGroup.makeId, i.name, i.tours.map(_.id), scoreGroups)
 
 object RelayGroupData:
-  case class Info(
-      name: RelayGroup.Name,
-      tours: List[RelayTour.TourPreview]
-  )
+  def empty = RelayGroupData(none, none)
+  case class Info(name: RelayGroup.Name, tours: NonEmptyList[RelayTour.TourPreview])
 
-private final class RelayGroupForm(routeUrl: RouteUrl):
+private final class RelayGroupForm:
   import play.api.data.*
   import play.api.data.Forms.*
-  import play.api.data.format.Formatter
   import lila.common.Form.formatter
 
-  def data(group: RelayGroup.WithTours) =
-    RelayGroupData(
-      RelayGroupData.Info(group.group.name, group.tours),
-      group.group.scoreGroups
-    )
+  def data(group: Option[RelayGroup.WithTours]) =
+    group.fold(RelayGroupData.empty): group =>
+      RelayGroupData(
+        RelayGroupData.Info(group.group.name, group.tours).some,
+        group.group.scoreGroups
+      )
 
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
@@ -75,57 +82,54 @@ private final class RelayGroupForm(routeUrl: RouteUrl):
           case _ => none
       yield RelayTourId(id)
 
-  private val scoreGroupsMapping = nonEmptyText.transform[List[ScoreGroup]](
-    _.split("\n").toList
-      .map(_.trim)
-      .filter(_.nonEmpty)
-      .flatMap:
-        _.split(",").take(50).map(_.trim).filter(_.nonEmpty).flatMap(parseId).distinct.toList.toNel
-    ,
-    _.map(_.toList.mkString(",")).mkString("\n")
-  )
-
-  private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
+  private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: NonEmptyList[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
-    scoreGroups.flatMap(_.toList).forall(id => groupTourIds.contains(id))
+    scoreGroups.toList.flatMap(_.toList).forall(groupTourIds.contains)
 
-  private def noOverlappingScoreGroups(scoreGroups: List[ScoreGroup]): Boolean =
-    val ids = scoreGroups.flatMap(_.toList)
+  private def noOverlappingScoreGroups(scoreGroups: NonEmptyList[ScoreGroup]): Boolean =
+    val ids = scoreGroups.toList.flatMap(_.toList)
     ids.distinct.size == ids.size
 
-  private def infoParse(value: String): Option[RelayGroupData.Info] =
-    value.split("\n").toList match
-      case Nil => none
-      case name :: tourIds =>
-        val tours = tourIds
-          .take(50)
-          .map(_.trim.takeWhile(' ' != _))
-          .flatMap(parseId)
-          .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-        RelayGroupData.Info(RelayGroup.Name(name.linesIterator.next().trim), tours).some
+  private def toursParse(value: String): Option[NonEmptyList[TourPreview]] =
+    value
+      .split("\n")
+      .toList
+      .take(50)
+      .map(_.trim.takeWhile(' ' != _))
+      .flatMap(parseId)
+      .toNel
+      .map(_.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none)))
 
-  private def infoAsText(info: RelayGroupData.Info): String =
-    val name = info.name.value
-    val tourUrls = info.tours.map(t => s"${routeUrl(routes.RelayTour.show(t.name.toSlug, t.id))}")
-    (name :: tourUrls).mkString("\n")
+  private def toursAsText(tours: NonEmptyList[TourPreview]): String =
+    tours.toList.map(t => s"${t.name},${t.id}").mkString("\n")
 
-  given Formatter[RelayGroupData.Info] = formatter.stringOptionFormatter(infoAsText, infoParse)
-  val infoMapping: Mapping[Option[RelayGroupData.Info]] = optional(of[RelayGroupData.Info])
+  val infoMapping: Mapping[RelayGroupData.Info] =
+    Forms.mapping(
+      "name" -> cleanNonEmptyText.into[RelayGroup.Name],
+      "tours" -> of(using formatter.stringOptionFormatter(toursAsText, toursParse))
+    )(RelayGroupData.Info.apply)(unapply)
+
+  val scoreGroupsMapping: Mapping[Option[NonEmptyList[ScoreGroup]]] =
+    def scoreGroupAsText(scoreGroup: ScoreGroup): String =
+      scoreGroup.toList.map(_.value).mkString(",")
+    def scoreGroupParse(value: String): Option[ScoreGroup] =
+      value.split(",").toList.map(_.trim).flatMap(parseId).toNel
+    val scoreGroupMapping: FieldMapping[NonEmptyList[RelayTourId]] =
+      of(using formatter.stringOptionFormatter(scoreGroupAsText, scoreGroupParse))
+    list(optional(scoreGroupMapping))
+      .transform(_.flatten, _.map(some))
+      .transform(_.toNel, _.so(_.toList))
+      .verifying("Too many score groups (max 10)", _.forall(_.size <= 10))
+      .verifying("Score groups cannot have overlapping broadcasts", _.forall(noOverlappingScoreGroups))
 
   val mapping = Forms
     .mapping(
-      "info" -> infoMapping,
-      "scoreGroups" -> optional(scoreGroupsMapping)
-    )((info, scoreGroups) =>
-      RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
-    )(data => Some(data.info.some, data.scoreGroups))
+      "info" -> optional(infoMapping),
+      "scoreGroups" -> scoreGroupsMapping
+    )(RelayGroupData.apply)(unapply)
     .verifying(
-      "score groups cannot contain broadcasts not present in this group",
+      "Score groups cannot contain broadcasts not present in this group",
       data => data.scoreGroups.forall(allIdsFromGroup(data.tourIds, _))
-    )
-    .verifying(
-      "score groups cannot have overlapping broadcasts",
-      data => data.scoreGroups.forall(noOverlappingScoreGroups)
     )
 
 import lila.db.dsl.{ *, given }
@@ -140,26 +144,30 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]
 
-  def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
-    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup]().listAll()
+  def idByTour(tourId: RelayTourId): Fu[Option[RelayGroupId]] =
+    coll.primitiveOne[RelayGroupId]($doc("tours" -> tourId), "_id")
 
-  def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
-    byTour(tourId).map(_.fold(List(tourId))(_.tours))
+  def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
+    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
+
+  def allTourIdsOfGroup(tourId: RelayTourId): Fu[NonEmptyList[RelayTourId]] =
+    byTour(tourId).map(_.fold(NonEmptyList.one(tourId))(_.tours))
 
   def update(tourId: RelayTourId, data: RelayGroupData): Funit =
     for
       prev <- byTour(tourId)
-      curId <- prev match
-        case Some(prev) if data.info.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
-        case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
+      current <- prev match
+        case Some(prev) =>
+          data.update(prev) match
+            case None => coll.delete.one($id(prev.id)).inject(none)
+            case Some(next) => coll.update.one($id(prev.id), next).inject(prev.some)
         case None =>
-          val newGroup = data.make
-          coll.insert.one(newGroup).inject(newGroup.id.some)
+          data.make.so: group =>
+            coll.insert.one(group).inject(group.some)
       // make sure the tours of this group are not in other groups
-      _ <- curId.so: id =>
-        data.tourIds.sequentiallyVoid { tourId =>
-          coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
-        }
+      _ <- current.so: cur =>
+        cur.tours.toList.traverseVoid: tour =>
+          coll.update.one($doc("_id".$ne(cur.id), "tours" -> tour), $pull("tours" -> tour), multi = true)
     yield ()
 
 final class RelayGroupCrowdSumCache(
@@ -178,7 +186,7 @@ final class RelayGroupCrowdSumCache(
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
       res <- colls.round.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+        Match($doc("tourId".$in(tourIds.toList), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
 

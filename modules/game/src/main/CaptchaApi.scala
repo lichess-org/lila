@@ -20,7 +20,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     case Some(c) => fuccess(c)
 
   def validate(gameId: GameId, move: String): Fu[Boolean] =
-    get(gameId).map(_.solutions.toList contains move)
+    get(gameId).map(_.solutions.contains(move))
 
   def validateSync(data: WithCaptcha): Boolean =
     validate(data.gameId, data.move).await(2.seconds, "CaptchaApi.validateSync")

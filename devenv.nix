@@ -33,13 +33,13 @@ in
 
   packages = [
     pkgs-unstable.nodejs-slim
-    pkgs.pnpm
+    pkgs-unstable.pnpm
     pkgs.svgo
     pkgs-master.oxlint
     pkgs-master.oxfmt
     pkgs-master.tsgolint
     pkgs.lint-staged
-    pkgs.stylelint
+    pkgs-unstable.stylelint
     pkgs.dart-sass
   ];
 

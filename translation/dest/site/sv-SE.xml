@@ -288,6 +288,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Från position</string>
   <string name="unlimited">Obegränsad</string>
+  <string name="unlimitedDescription">Ta den tid du behöver</string>
   <string name="mode">Läge</string>
   <string name="casual">Ej rankat</string>
   <string name="rated">Rankat</string>

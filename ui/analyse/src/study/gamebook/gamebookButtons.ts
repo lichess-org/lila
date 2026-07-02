@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, type VNode, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -55,7 +55,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     else {
       const isAnalyse = o === 'analyse',
         ctrl = study.gamebookPlay;
-      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
+      if (isAnalyse || ctrl?.state.feedback === 'end')
         return hl(
           'a.fbt.text.preview',
           {

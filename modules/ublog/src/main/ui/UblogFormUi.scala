@@ -80,7 +80,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
         ).some
       ): field =>
         frag(
-          form3.textarea(field)(),
+          form3.textarea(field)(autocomplete := "off"),
           div(
             cls := "markdown-toastui",
             attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"),

@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">Standard</string>
+  <string name="standardTitle">Yasayên standard yên kişikê (FIDE)</string>
+  <string name="chess960">Kişik960</string>
+  <string name="chess960Title">Pozisyona destpêkê ya kevirên rêza paşîn bi awayekî ketober tê rêz kirin.</string>
+  <string name="kingOfTheHill">Şahê Navendê</string>
+  <string name="kingOfTheHillTitle">Ji bo serkeftina di lîstikê de, şahê xwe bîne navendê.</string>
+  <string name="threeCheck">Sê-Kiş</string>
+  <string name="threeCheckTitle">3 caran reqîbê xwe kiş bike ji bo ku lîstikê qezenc bikî.</string>
+  <string name="antichess">Dij-Kişik</string>
+  <string name="antichessTitle">Ji bo serkeftina di lîstikê de, hemû kevirên xwe bide xarin (an jî xwe bixe rewşa patê).</string>
+  <string name="atomic">Atomîk</string>
+  <string name="atomicTitle">Ji bo serkeftinê, şahê reqîbê xwe biteqîne.</string>
+  <string name="racingKings">Racing Kings</string>
+</resources>

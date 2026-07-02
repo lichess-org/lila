@@ -16,9 +16,9 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
     BatchProvider[GameId]("idGenerator", timeout = 3.seconds, lila.mon.asyncActorMonitor.full): () =>
       // must NOT use `games(nb)` for it would cause a deadlock
       // due to `games` calling `game` which calls `batchProvider.one`
-      val ids = List.fill(256)(uncheckedGame).distinct
+      val ids = List.fill(512)(uncheckedGame).distinct
       gameRepo.coll
-        .distinctEasy[GameId, List]("_id", $inIds(ids))
+        .distinctEasy[GameId, List]("_id", $inIds(ids), _.sec)
         .monValue: collisions =>
           lila.mon.game.idGenerator(collisions.size)
         .map:

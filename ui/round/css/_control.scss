@@ -1,9 +1,21 @@
 .rcontrols {
   text-align: center;
   width: 100%;
+  z-index: 1;
 
   p {
     margin: 0;
+  }
+
+  button {
+    @extend %box-radius;
+
+    &.resign,
+    &.abort {
+      &:not(.disabled):hover {
+        background: $c-bad;
+      }
+    }
   }
 
   .disabled {

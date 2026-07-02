@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, snabDialog } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
@@ -91,6 +91,7 @@ export class SoundCtrl extends PaneCtrl {
         this.redraw();
       },
       modal: true,
+      easyClose: 'clickOutside',
       vnodes: [content],
       onInsert: dlg => {
         dlg.show();

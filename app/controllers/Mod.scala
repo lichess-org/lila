@@ -415,7 +415,7 @@ final class Mod(
     for _ <- env.security.printBan.toggle(hash, v) yield Redirect(routes.Mod.print(fh))
   }
 
-  def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
+  def singleIp(ip: String) = SecureBody(_.ViewIP) { ctx ?=> me ?=>
     given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
     env.mod.ipRender.decrypt(ip).so { address =>
       for
@@ -449,7 +449,7 @@ final class Mod(
   def freePatron(username: UserStr) = Secure(_.FreePatron) { _ ?=> me ?=>
     Found(env.user.repo.enabledById(username)): dest =>
       for
-        _ <- env.plan.api.freeMonth(dest)
+        _ <- env.plan.api.freeMonths(dest, 1)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
         _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")

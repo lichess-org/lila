@@ -81,11 +81,9 @@
   }
 
   &__like {
-    font-weight: bold;
-    cursor: pointer;
-
     &::before {
-      margin: 0 0.4em;
+      margin-right: 0.4em;
+      color: $c-bad;
       content: $licon-HeartOutline;
     }
 
@@ -160,19 +158,22 @@
   }
 
   &__actions {
-    @extend %flex-center-center;
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     font-size: 2em;
-    margin: 0 0 2rem 0;
+    margin-bottom: 4rem;
+    gap: 1rem;
+
+    @media (width <= $xx-small) {
+      grid-template-columns: 1fr;
+    }
 
     .button {
-      margin: 0 1em 2rem 1em;
       padding: 0.8em 1.5em;
-      border-radius: 5px;
 
       &-label {
         display: block;
-        margin-top: 1em;
+        margin-top: 0.75rem;
         text-transform: none;
         font-size: 1rem;
       }
@@ -180,14 +181,13 @@
   }
 
   &__follow {
-    .ublog-post__follow__yes,
-    &.followed .ublog-post__follow__no {
-      display: none;
+    &::before {
+      color: $c-primary;
+      content: $licon-ThumbsUp;
     }
 
-    .ublog-post__follow__no,
-    &.followed .ublog-post__follow__yes {
-      display: block;
+    &.ublog-post__follow__followed::before {
+      content: $licon-Checkmark;
     }
   }
 }

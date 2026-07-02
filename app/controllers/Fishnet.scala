@@ -15,7 +15,6 @@ import lila.fishnet.{ JsonApi, Work }
 final class Fishnet(env: Env) extends LilaController(env):
 
   private def api = env.fishnet.api
-  private val logger = lila.log("fishnet")
 
   def acquire(slow: Boolean = false) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
@@ -67,7 +66,7 @@ final class Fishnet(env: Env) extends LilaController(env):
         .validate[A]
         .fold(
           err =>
-            logger.warn(s"Malformed request: $err\n${body}")
+            lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
             BadRequest(jsonError(JsError.toJson(err)))
           ,
           data =>

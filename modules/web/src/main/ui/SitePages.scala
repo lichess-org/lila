@@ -73,7 +73,9 @@ final class SitePages(helpers: Helpers):
             val args =
               """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
+              a(href := "#embed-tv")(
+                h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
                 p("Add the following HTML to your site:"),
@@ -95,7 +97,9 @@ final class SitePages(helpers: Helpers):
             val args =
               """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
+              a(href := "#embed-puzzle")(
+                h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center")(
                   raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
@@ -113,7 +117,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers") {
             val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
+              a(href := "#embed-study")(
+                h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>""")
@@ -132,7 +138,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers") {
             val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
             frag(
-              h1(cls := "box__top")("Embed a chess game in your site"),
+              a(href := "#embed-game")(
+                h1(cls := "box__top", id := "embed-game")("Embed a chess game in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>""")
@@ -153,7 +161,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers", id := "broadcast") {
             val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
             frag(
-              h1(cls := "box__top")("Embed a broadcast in your site"),
+              a(href := "#embed-broadcast")(
+                h1(cls := "box__top", id := "embed-broadcast")("Embed a broadcast in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw:
@@ -173,7 +183,9 @@ final class SitePages(helpers: Helpers):
             val iframe =
               s"""<iframe src="https://lichess.org/embed/analysis" $args></iframe>"""
             frag(
-              h1(cls := "box__top")("Embed an analysis board"),
+              a(href := "#embed-analysis")(
+                h1(cls := "box__top", id := "embed-analysis")("Embed an analysis board")
+              ),
               div(cls := "body")(
                 div(cls := "center")(raw(iframe)),
                 p(

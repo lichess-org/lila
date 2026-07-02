@@ -1,7 +1,7 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { setClockWidget } from 'lib/game/clock/clockWidget';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { iconCls, onInsert } from 'lib/view';
 
 import type SwissCtrl from '../ctrl';
@@ -19,7 +19,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
     return h('div.clock', [
       h('time.timeago.shy', {
         attrs: { datetime: Date.now() + next.in * 1000 },
-        hook: onInsert(el => el.setAttribute('datetime', '' + (Date.now() + next.in * 1000))),
+        hook: onInsert(el => el.setAttribute('datetime', String(Date.now() + next.in * 1000))),
       }),
     ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, [

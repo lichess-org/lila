@@ -55,6 +55,25 @@ class StringTest extends munit.FunSuite:
     assertEquals(extractPosts("go/to/some/very/long/path"), Nil)
     assertEquals(extractPosts("Answer me yes/no?"), Nil)
 
-  test("noShouting"):
-    assertEquals(String.noShouting("HELLO SIR"), "hello sir")
-    assertEquals(String.noShouting("1. Nf3 O-O-O#"), "1. Nf3 O-O-O#")
+  test("shouting"):
+    List(
+      "HELLO SIR",
+      "4k3/8/8/8/8/8/PPPPPPPP/RNBQKBNR/8/8 w KQ - 0 1",
+      "4k3/8/8/8/8/8/HI/RNBQKBNR w KQ - 0 1",
+      "Hello" + " " * 90 + "HELLO" * 5,
+      "O-O-O-O",
+      "O-OHI-O",
+      "O-O-OO"
+    ).foreach: testCase =>
+      assert(String.isShouting(testCase))
+      assertEquals(String.noShouting(testCase), testCase.toLowerCase)
+
+  test("not shouting"):
+    List(
+      "1. Nf3 O-O-O#",
+      "4k3/8/8/8/8/8/PPPPPPPP/RNBQKBNR w KQ - 0 1",
+      "FEN: 4k3/8/8/8/8/8/PPPPPPPP/RNBQKBNR w KQ - 0 1.",
+      "FEN: 4k3/8/8/8/8/8/PPPPPPPP/RNBQKBNR/Pp w KQ - 0 1."
+    ).foreach: testCase =>
+      assert(!String.isShouting(testCase))
+      assertEquals(String.noShouting(testCase), testCase)

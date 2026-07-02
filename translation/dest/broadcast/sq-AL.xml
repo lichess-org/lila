@@ -61,6 +61,7 @@
   <string name="startVerySoon">Transmetimi do të fillojë shumë shpejt.</string>
   <string name="notYetStarted">Transmetimi s’ka filluar ende.</string>
   <string name="officialWebsite">Sajti zyrtar</string>
+  <string name="regulations">Rregullore</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Më tepër mundësi te %s</string>
   <string name="webmastersPage">faqe webmaster-ësh</string>
   <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>

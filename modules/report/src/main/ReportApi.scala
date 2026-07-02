@@ -433,7 +433,7 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
-  private val maxScoreCache = cacheApi.unit[Room.Scores]:
+  private val maxScoreCache = cacheApi.unit[Room.Scores]("report.maxScore"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       Room.allButXfiles
         .parallel: room =>

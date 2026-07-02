@@ -21,7 +21,6 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = RateLimit.logger.branch(key)
   private val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
@@ -44,7 +43,7 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>
-          if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
+          if log then RateLimit.logger.info(s"$key $credits/$duration $k cost: $cost $msg")
           monitor.increment()
           default
         case _ =>

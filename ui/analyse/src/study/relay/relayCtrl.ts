@@ -3,7 +3,7 @@ import { COLORS } from 'chessops';
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import { pubsub } from 'lib/pubsub';
 
-import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
+import type { BothClocks, ChapterId, ServerClockMsg, TagArray } from '@/study/interfaces';
 import type StudyCtrl from '@/study/studyCtrl';
 
 import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
@@ -41,12 +41,12 @@ export default class RelayCtrl {
   ) {
     this.round = this.data.rounds.find(r => r.id === this.study.data.id)!;
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3, v =>
-      v ? study.ctrl.ceval.stop() : study.ctrl.startCeval(),
+      v ? study.ctrl.ceval.reset() : study.ctrl.startCeval(),
     );
     this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
     this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
     if (study.ctrl.opts.chat) {
-      const liveboardDisabled = () => this.tourShow() || !study.multiBoard.showResults();
+      const liveboardDisabled = () => site.blindMode || this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(
         study,
         this.round,
@@ -202,6 +202,9 @@ export default class RelayCtrl {
       this.data.delayedUntil = undefined;
     }
   };
+
+  onNewTags = (chap: ChapterId, tags: TagArray[]) =>
+    this.teams?.onNewTags(chap, tags, this.study.chapters.list, this.round.customScoring);
 
   private readonly socketHandlers = {
     relaySync: (sync: RelaySync) => {

@@ -39,6 +39,10 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
           .toHtml(s"cms:${page.id}", page.markdown, lila.cms.markdownOptions)
           .map(Render(page, _).some)
 
+  def asMarkdown(key: CmsPageKey)(using Context): Fu[Option[String]] =
+    getBestFor(key).map2: page =>
+      s"# ${page.title}\n\n${page.markdown}"
+
   def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
     render(key).map(RenderOpt(key, _))
 
@@ -52,7 +56,7 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
 
   def delete(id: CmsPageId): Funit = coll.delete.one($id(id)).void
 
-  private def getBestFor(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage]] =
+  def getBestFor(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage]] =
     val queryLang = ctx.req.getQueryString("lang").flatMap(Lang.get).map(toLanguage)
     val prefered = queryLang match
       case Some(query) => List(query)

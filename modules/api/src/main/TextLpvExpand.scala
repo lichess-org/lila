@@ -25,7 +25,7 @@ final class TextLpvExpand(
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[LinkRender] =
+  private[api] def linkRenderFromText(text: String): Fu[LinkRender] =
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -52,7 +52,7 @@ final class TextLpvExpand(
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
-  def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
+  private[api] def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
     regex.markdownPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -85,10 +85,10 @@ final class TextLpvExpand(
   private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](256, "textLpvExpand.pgn.game"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(gameIdToPgn)
 
-  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](256, "textLpvExpand.pgn.chapter"):
+  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](512, "textLpvExpand.pgn.chapter"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(studyChapterIdToPgn)
 
-  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](64, "textLpvExpand.pgn.firstChapter"):
+  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](256, "textLpvExpand.pgn.firstChapter"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =

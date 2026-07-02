@@ -119,7 +119,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
       .map(tag => [tag[0], tags.editable() ? editable(tag[0], tag[1], tags.submit) : fixed(tag)]),
   );
   if (tags.editable()) {
-    const existingTypes = chapter.tags.map(t => t[0]);
+    const existingTypes = new Set(chapter.tags.map(t => t[0]));
     rows.push([
       h(
         'select.button.button-metal',
@@ -143,7 +143,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
         },
         [
           h('option', i18n.study.newTag),
-          ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
+          ...tags.types.map(t => (!existingTypes.has(t) ? option(t, '', t) : undefined)),
         ],
       ),
       editable('', '', (_, value, el) => {

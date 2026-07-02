@@ -1,6 +1,6 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
@@ -117,7 +117,7 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       ctrl.chapters.list.all().flatMap(({ id, name }) => {
         const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && current.id === id,
+          active = !ctrl.vm.loading && current?.id === id,
           completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
         return [
           h(

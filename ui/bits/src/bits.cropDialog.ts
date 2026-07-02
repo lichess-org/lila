@@ -68,6 +68,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     modal: true,
+    easyClose: 'clickOutside',
     htmlText: $html`
       <h2>Crop image to desired shape</h2>
       <div class="crop-view"></div>

@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
 import lila.core.id.RelayRoundId
+import lila.core.fide.{ Federation, Tokenize }
 
 @Module
 final class Env(
@@ -41,7 +42,7 @@ final class Env(
     baker: lila.core.security.LilaCookie,
     markdownCache: lila.memo.MarkdownCache,
     viewerCount: lila.memo.ViewerCountApi
-)(using lila.core.fide.Federation.Guess, Executor, akka.stream.Materializer, play.api.Mode)(using
+)(using Federation.Guess, Tokenize, Executor, akka.stream.Materializer, play.api.Mode)(using
     scheduler: Scheduler
 ):
 
@@ -183,6 +184,14 @@ final class Env(
 
   Bus.sub[lila.core.relay.GetActiveRounds]:
     _.promise.completeWith(listing.active.map(_.map(_.asIdName)))
+
+  lila.common.Cli.handle:
+    case "relay" :: "owner" :: id :: user :: Nil =>
+      UserStr
+        .read(user)
+        .fold(fuccess("Invalid username")): username =>
+          for tourIds <- api.setOwnerOfGroupOrTour(id, username.id)
+          yield s"Added ${username} as owner to ${tourIds.size} tours: ${tourIds.mkString(", ")}"
 
 private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

@@ -44,12 +44,12 @@ interface Params extends Record<string, any> {
   flag?: string;
 }
 
-interface Settings {
-  receive?: (t: Tpe, d: Payload) => void;
+type Settings<T = Tpe> = {
+  receive?: (t: T, d: Payload) => void;
   events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
-}
+};
 
 export interface SocketSendOpts {
   sign: string;
@@ -58,7 +58,11 @@ export interface SocketSendOpts {
   millis?: number;
 }
 
-export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
+export function wsConnect<T extends string = Tpe>(
+  url: string,
+  version: number | false,
+  settings: Partial<Settings<T>> = {},
+): WsSocket {
   return (siteSocket = new WsSocket(url, version, settings));
 }
 
@@ -95,7 +99,7 @@ class WsSocket {
   private readonly settings: Settings;
   private readonly options: Options;
   private version: number | false;
-  private ws: WebSocket | undefined;
+  private ws?: WebSocket;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
   private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
@@ -301,9 +305,13 @@ class WsSocket {
         break;
       default:
         // return true in a receive handler to prevent pubsub and events
-        if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
-          const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
-          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
+        if (!this.settings.receive?.(m.t, m.d)) {
+          if (this.settings.events[m.t]) {
+            if (this.settings.events[m.t](m.d || null, m)) {
+              return;
+            }
+          }
+          pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
         }
     }
   };
@@ -404,8 +412,8 @@ class Ackable {
   register = (t: string, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
-      t: t,
-      d: d,
+      t,
+      d,
       at: performance.now(),
     });
   };

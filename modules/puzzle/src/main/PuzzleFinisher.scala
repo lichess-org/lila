@@ -18,7 +18,7 @@ final private[puzzle] class PuzzleFinisher(
     userApi: lila.core.user.UserApi,
     historyApi: lila.core.history.HistoryApi,
     colls: PuzzleColls
-)(using Executor)(using scheduler: Scheduler):
+)(using Executor, lila.core.config.RateLimit)(using scheduler: Scheduler):
 
   private val sequencer = AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
@@ -104,8 +104,10 @@ final private[puzzle] class PuzzleFinisher(
                         )
                     userApi
                       .dubiousPuzzle(me.userId, perf)
-                      .map: dubiousPuzzleRating =>
-                        val newPuzzleGlicko = (!dubiousPuzzleRating).so:
+                      .map: dubiousPlayer =>
+                        val updatePuzzleGlicko =
+                          !dubiousPlayer && canUpdatePuzzleRating(me.userId, false)(true)
+                        val newPuzzleGlicko = updatePuzzleGlicko.so:
                           ponder
                             .puzzle(
                               angle,
@@ -140,20 +142,18 @@ final private[puzzle] class PuzzleFinisher(
                     _ <- api.round
                       .upsert(round, angle)
                       .zip:
-                        colls.puzzle:
-                          _.update
-                            .one(
-                              $id(puzzle.id),
-                              $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
-                                $set(Puzzle.BSONFields.glicko -> glicko)
-                              }
-                            )
-                      .zip:
                         (userPerf != perf).so:
                           userApi
                             .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
                             .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
                             .void
+                    _ <- colls.puzzle.map:
+                      _.updateUnchecked(
+                        $id(puzzle.id),
+                        $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
+                          $set(Puzzle.BSONFields.glicko -> glicko)
+                        }
+                      )
                     _ = if prevRound.isEmpty then
                       Bus.pub:
                         Puzzle.UserResult(
@@ -163,6 +163,9 @@ final private[puzzle] class PuzzleFinisher(
                           perf.intRating -> userPerf.intRating
                         )
                   yield (round -> userPerf).some
+
+  private val canUpdatePuzzleRating =
+    lila.memo.RateLimit[UserId](300, 1.day, key = "puzzle.canUpdatePuzzleRating")
 
   private object ponder:
 

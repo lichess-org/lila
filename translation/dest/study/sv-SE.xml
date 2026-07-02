@@ -41,7 +41,6 @@
   <string name="youAreNowASpectator">Du är nu en åskådare</string>
   <string name="pgnTags">PGN taggar</string>
   <string name="like">Gilla</string>
-  <string name="unlike">Sluta gilla</string>
   <string name="newTag">Ny tag</string>
   <string name="commentThisPosition">Kommentera denna position</string>
   <string name="commentThisMove">Kommentera detta drag</string>

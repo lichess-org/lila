@@ -60,7 +60,7 @@ const getNumberFormatter = (): Intl.NumberFormat | null => {
 
 export const numberFormat = (n: number): string => {
   const nf = getNumberFormatter();
-  return nf ? nf.format(n) : '' + n;
+  return nf ? nf.format(n) : String(n);
 };
 
 export const currencyFormat = (n: number, currency: string, options?: Intl.NumberFormatOptions): string => {
@@ -83,7 +83,7 @@ const getCurrencyDigits = (currency: string): number => {
     const digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
     currencyDigitsCache.set(currency, digits);
     return digits;
-  } catch (_) {
+  } catch {
     return 2;
   }
 };

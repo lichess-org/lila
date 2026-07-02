@@ -49,7 +49,7 @@ def embed(
     cssKeys = List("analyse.relay.embed"),
     pageModule = ui.pageModule(rt, data, none, socketVersion, embed = true).some,
     csp = _.withExternalAnalysisApis,
-    i18nModules = List(_.site, _.timeago, _.study, _.broadcast)
+    i18nModules = List(_.site, _.timeago, _.study, _.broadcast, _.preferences)
   )(
     div(id := "main-wrap", cls := "is2d"):
       ui.showPreload(rt, data)(cls := "relay-embed")

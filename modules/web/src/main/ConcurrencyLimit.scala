@@ -15,12 +15,11 @@ final class ConcurrencyLimit[K](
 )(using Executor):
 
   private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
-  private val logger = lila.memo.RateLimit.logger.branch("concurrency").branch(key)
   private val monitor = lila.mon.security.concurrencyLimit(key)
 
   def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
-      logger.info(s"$k $msg")
+      lila.memo.RateLimit.logger.info(s"concurrency $k $msg")
       monitor.increment()
       none
     else

@@ -40,8 +40,8 @@ Poi paghiamo uno sviluppatore a tempo pieno: %s, il fondatore di Lichess.</strin
   <string name="officialNonProfit">Lichess è un no-profit ufficiale?</string>
   <string name="actOfCreation">Sì, ecco l\'atto di creazione (in francese)</string>
   <string name="changeMonthlySupport">Posso cambiare/annullare il mio supporto mensile?</string>
-  <string name="changeOrContact">Sì, in qualsiasi momento, da questa pagina.
-Oppure puoi %s.</string>
+  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Se i tuoi pagamenti sono elaborati da PayPal, puoi annullare/modificare il tuo supporto tramite il tuo conto PayPal, o puoi %1$s e possiamo farlo per te. Se non hai utilizzato PayPal, i tuoi pagamenti vengono elaborati da Stripe, e annulla la tua donazione o modifica l\'importo su %2$s.</string>
+  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">la pagina del patron</string>
   <string name="contactSupport">contatta l\'assistenza di Lichess</string>
   <string name="otherMethods">Altri metodi di donazione?</string>
   <string name="lichessIsRegisteredWith">Lichess è associato a %s.</string>

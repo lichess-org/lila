@@ -1,14 +1,13 @@
 package lila.relay
 
-import chess.format.pgn.{ PgnStr, San, Std, Tags }
-import chess.{ ErrorStr, Replay, Square, TournamentClock }
+import chess.format.pgn.{ PgnStr, Tags }
+import chess.{ ErrorStr, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
 import com.github.blemale.scaffeine.LoadingCache
 import scalalib.net.UserAgent
 
-import lila.tree.{ ImportResult, ParseImport }
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
-import lila.core.fide.Federation
+import lila.core.fide.{ Federation, Tokenize }
 import lila.relay.RelayPush.*
 import lila.memo.CacheApi
 
@@ -19,7 +18,7 @@ final class RelayPush(
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
-)(using Federation.Guess, Executor)(using scheduler: Scheduler):
+)(using Federation.Guess, Tokenize, Executor)(using scheduler: Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
@@ -97,8 +96,11 @@ final class RelayPush(
       .initialCapacity(1024)
       .maximumSize(4096)
       .build: pgn =>
-        validate(pgn).map: importResult =>
-          RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
+        lila.tree.ParseImport
+          .full(pgn)
+          .fold(err => Failure(Tags.empty, err.value).asLeft, _.asRight)
+          .map: importResult =>
+            RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
 
   private def pgnToGames(pgnBody: PgnStr, tc: Option[TournamentClock]): List[Either[Failure, RelayGame]] =
     RelayFetch.injectTimeControl
@@ -115,24 +117,3 @@ object RelayPush:
   case class Failure(tags: Tags, error: String)
   case class Success(tags: Tags, moves: Int)
   type Results = List[Either[Failure, Success]]
-
-  // silently consume DGT board king-check move to center at game end
-  private[relay] def validate(pgnBody: PgnStr): Either[Failure, ImportResult] =
-    ParseImport
-      .full(pgnBody)
-      .fold(
-        err => Failure(Tags.empty, err.value).asLeft,
-        result =>
-          val mainline = result.parsed.mainline
-          result.replayError.fold(result.asRight): err =>
-            mainline.lastOption match
-              case Some(mv: Std) if isFatal(mv, result.replay, mainline) =>
-                Failure(result.parsed.tags, err.value).asLeft
-              case _ => result.asRight
-      )
-
-  private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
-    import Square.*
-    replay.moves.size < parsed.size - 1
-    || mv.role != chess.King
-    || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)

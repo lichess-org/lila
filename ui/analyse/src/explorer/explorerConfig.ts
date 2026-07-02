@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
 import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
@@ -210,7 +210,7 @@ const radioButton =
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst(String(v)) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
       render ? render(v) : i18n(v as string),
@@ -333,6 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     },
     onInsert: dialog => (dlg = dialog).show(),
     modal: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

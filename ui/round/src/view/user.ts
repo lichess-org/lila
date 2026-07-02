@@ -1,6 +1,6 @@
 import { defined } from 'lib';
 import type { Player, TopOrBottom } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { wsAverageLag } from 'lib/socket';
 import { dataIcon, hl, type VNode } from 'lib/view';
 import { ratingDiff, userLink } from 'lib/view/userLink';
@@ -10,7 +10,7 @@ import type RoundController from '../ctrl';
 export function userHtml(ctrl: RoundController, player: Player, position: TopOrBottom): VNode {
   const d = ctrl.data,
     user = player.user,
-    perf = (user?.perfs || {})[d.game.perf],
+    perf = user?.perfs?.[d.game.perf],
     rating = player.rating || perf?.rating,
     showSignals = defined(d.opponentSignal) && defined(user?.id) && ctrl.isPlaying(),
     signal = showSignals

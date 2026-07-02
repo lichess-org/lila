@@ -3,8 +3,9 @@ import { charToRole } from 'chessops';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import type { QuestionOpts } from 'lib/types';
 import { jsonSimple } from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
@@ -487,7 +488,10 @@ export function initModule({
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
       if (moves.length > maxArrows()) moves.forEach(x => remove(squares, xouts, x));
-      else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
+      else if (moves.length > 0)
+        Array.from(set)
+          .filter(x => x.length === 2)
+          .forEach(x => remove(squares, xouts, x));
     }
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
@@ -535,7 +539,7 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: LiconType) => ({
+    const mkOpts = (prompt: string, yesIcon: LiconValue) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },
@@ -581,7 +585,9 @@ export function initModule({
   }
 
   function toksVals(toks: string) {
-    return [...toks].map(tok => byTok.get(tok)?.val).join(',');
+    return Array.from(toks)
+      .map(tok => byTok.get(tok)?.val)
+      .join(',');
   }
 
   function tagWords(tags?: string[], intersect = false) {
@@ -628,7 +634,11 @@ export function initModule({
   }
 
   function valsWords(vals: string): string[] {
-    return valsToks(vals).map(toks => [...toks].map(tok => tokWord(tok)).join(' '));
+    return valsToks(vals).map(toks =>
+      Array.from(toks)
+        .map(tok => tokWord(tok))
+        .join(' '),
+    );
   }
 
   function valWord(val: string, tag?: string) {

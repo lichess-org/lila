@@ -65,8 +65,8 @@ trait DateHelper:
       title := s"${showInstant(instant)} UTC"
     )(showDate(instant))
 
-  def showMinutes(minutes: Int)(using Translate): String =
-    lila.core.i18n.translateDuration(Duration.ofMinutes(minutes))
+  def showMinutes(minutes: Int)(using t: Translate): String =
+    t.translator.duration(Duration.ofMinutes(minutes))(using t.lang)
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 
@@ -75,7 +75,7 @@ trait DateHelper:
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
-    else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+    else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))
 
   def pastMomentWithPreload(instant: Instant)(using Translate): Frag =
     momentFromNow(instant)(pastMomentServerText(instant))

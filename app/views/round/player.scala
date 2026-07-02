@@ -45,6 +45,7 @@ def player(
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
+
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)
     .js:
@@ -56,7 +57,7 @@ def player(
             "userId" -> ctx.userId,
             "chat" -> chatJson
           )
-          .add("noab" -> ctx.me.exists(_.marks.engine))
+          .add("noab" -> (pov.game.hasAi || ctx.me.exists(_.marks.engine)))
       )
     .graph(ui.povOpenGraph(pov))
     .flag(_.zen)

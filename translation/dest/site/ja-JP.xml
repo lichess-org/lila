@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
   <string name="reusableChallengeUrl">再利用可能なチャレンジ URL</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">誰でもこのとおりの設定であなたにチャレンジできる恒久的リンク。</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">これと同じ設定で対局をするための固定URL</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">黒が退席しました</string>
   <string name="whiteDidntMove">白、手を指さず</string>
   <string name="blackDidntMove">黒、手を指さず</string>
+  <string name="whiteAborted">白がゲームを中止しました</string>
+  <string name="blackAborted">黒がゲームを中止しました</string>
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
@@ -407,7 +409,7 @@
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
-  <string name="moveAnnotations">移動の注釈</string>
+  <string name="moveAnnotations">手の注釈を表示</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
@@ -767,9 +769,14 @@
   <string name="xHostsY">%1$sが %2$s を作成しました</string>
   <string name="xJoinsY">%1$sが %2$s に参加</string>
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
+  <string name="like">いいね</string>
+  <string name="liked">いいね済み</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>
+  <plurals name="nbAnonymous">
+    <item quantity="other">匿名（%s）</item>
+  </plurals>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="allLanguages">すべての言語</string>
@@ -899,6 +906,7 @@
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
   <string name="makeSureToRead">%1$s を必ずお読みください</string>
   <string name="theForumEtiquette">フォーラムでのマナー</string>
+  <string name="pleaseBeNiceInTheForum">掲示板では礼儀を忘れず。</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>

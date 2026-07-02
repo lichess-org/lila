@@ -8,7 +8,7 @@
   <string name="hearItPronouncedBySpecialist">Čujte to izgovara stručnjak.</string>
   <string name="whyLiveLightLibre">Uživo, jer se igre igraju i gledaju u stvarnom vremenu 24/7; lagan i besplatan zbog činjenice da je Lichess otvorenog koda i da nije opterećen vlasničkim smećem koji muči druge web stranice.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod Lichess-a, %1$s, stoji za li[chess in sca]la, s obzirom da je najveći dio Lichess-a napisan u %2$s, intuitivnom programskom jeziku.</string>
-  <string name="howCanIContributeToLichess">Kako mogu pridonjeti Lichess-u?</string>
+  <string name="howCanIContributeToLichess">Kako mogu pridonijeti Lichessu?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess se održava donacijama pokrovitelja i naporima tima volontera.</string>
   <string name="findMoreAndSeeHowHelp">Možete saznati više o %1$s (uključujući %2$s). Ako želite uložiti svoje vrijeme vještine volontirajući Lichess-u, postoji mnogo %3$s.</string>
   <string name="beingAPatron">pokroviteljstvu</string>
@@ -144,4 +144,5 @@ Kliknite ikonu lokota pored adrese lichess.org na URL traci vašeg preglednika.
 Zatim odaberite želite li dopustiti ili blokirati obavijesti od strane Lichess-a.</string>
   <string name="enableAutoplayForSoundsQ">Uključi automatsko uključivanje za zvuk?</string>
   <string name="desktop">stolno računalo</string>
+  <string name="stopMyselfFromPlaying">Prestati igrati?</string>
 </resources>

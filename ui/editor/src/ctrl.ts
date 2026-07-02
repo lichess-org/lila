@@ -32,22 +32,20 @@ import {
 
 export default class EditorCtrl {
   options: Options;
-  chessground: CgApi | undefined;
-
+  chessground?: CgApi;
   selected: Prop<Selected>;
-
   initialFen: FEN;
-  pockets: Material | undefined;
+  pockets?: Material;
   turn: Color;
   castlingToggles: CastlingToggles<boolean>;
   enabledCastlingToggles: CastlingToggles<boolean>;
-  epSquare: Square | undefined;
-  remainingChecks: RemainingChecks | undefined;
+  epSquare?: Square;
+  remainingChecks?: RemainingChecks;
   variant: VariantKey = 'standard';
   halfmoves: number;
   fullmoves: number;
   guessCastlingToggles: boolean;
-  chess960PositionId: number | undefined;
+  chess960PositionId?: number;
 
   constructor(
     readonly cfg: Config,
@@ -207,7 +205,7 @@ export default class EditorCtrl {
   // https://github.com/niklasf/chessops/issues/154
   private getEnPassantOptions(fen: FEN): string[] {
     const unpackRank = (packedRank: string) =>
-      [...packedRank].reduce((accumulator, current) => {
+      Array.from(packedRank).reduce((accumulator, current) => {
         const parsedInt = parseInt(current);
         return accumulator + (parsedInt >= 1 ? 'x'.repeat(parsedInt) : current);
       }, '');
@@ -236,7 +234,7 @@ export default class EditorCtrl {
     const legalFen = this.getLegalFen();
     return {
       fen: this.getFen(),
-      legalFen: legalFen,
+      legalFen,
       playable: ['standard', 'chess960', 'fromPosition'].includes(this.variant) && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
@@ -293,7 +291,7 @@ export default class EditorCtrl {
     return this.setFen(parts.join(' '));
   };
 
-  loadNewFen(fen: FEN | 'prompt'): void {
+  loadNewFen(fen: FEN): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
     else this.setFen(fen);
   }

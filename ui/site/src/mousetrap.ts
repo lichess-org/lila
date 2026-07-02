@@ -55,6 +55,16 @@ const KEY_MAP: Record<string, string> = {
   Insert: 'ins',
   Delete: 'del',
   Meta: 'meta',
+  Digit1: '1',
+  Digit2: '2',
+  Digit3: '3',
+  Digit4: '4',
+  Digit5: '5',
+  Digit6: '6',
+  Digit7: '7',
+  Digit8: '8',
+  Digit9: '9',
+  Digit0: '0',
 };
 
 const SPECIAL_KEYS: Set<string> = new Set(Object.values(KEY_MAP));
@@ -71,9 +81,9 @@ const SPECIAL_ALIASES: Record<string, string> = {
 
 const keyFromEvent = (e: KeyboardEvent): string => {
   if (e.type === 'keypress') {
-    return e.shiftKey ? e.key : e.key.toLowerCase();
+    return e.shiftKey ? e.key : e.key?.toLowerCase();
   }
-  return KEY_MAP[e.key] || e.key.toLowerCase();
+  return KEY_MAP[e.key] ?? KEY_MAP[e.code] ?? e.key?.toLowerCase();
 };
 
 const modifiersMatch = (a: string[], b: string[]): boolean => a.sort().join(',') === b.sort().join(',');
@@ -118,11 +128,10 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
 export default class Mousetrap {
   private readonly bindings: Record<string, Binding[]> = {};
 
-  constructor(targetElement?: HTMLElement | Document) {
-    targetElement = targetElement || document;
-    targetElement.addEventListener('keypress', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keydown', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keyup', e => this.handleKeyEvent(e as KeyboardEvent));
+  constructor(targetElement: HTMLElement | Document = document) {
+    targetElement.addEventListener('keypress', this.handleKeyEvent);
+    targetElement.addEventListener('keydown', this.handleKeyEvent);
+    targetElement.addEventListener('keyup', this.handleKeyEvent);
   }
 
   /**
@@ -161,7 +170,6 @@ export default class Mousetrap {
 
   private readonly handleKeyEvent = (e: KeyboardEvent) => {
     const el = e.target as HTMLElement;
-
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination === 'esc' ||

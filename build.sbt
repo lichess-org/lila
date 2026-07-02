@@ -1,16 +1,47 @@
 import com.typesafe.sbt.packager.Keys.{ bashScriptExtraDefines, scriptClasspath }
-import play.sbt.PlayCommands
-import play.sbt.PlayInternalKeys.playDependencyClasspath
 import play.sbt.routes.RoutesKeys
 
 import BuildSettings.*
 import Dependencies.*
+
+// sbt 2.0 lints "unused" keys on load. native-packager defines Debian/Rpm/Linux/Universal
+// packaging keys that lila legitimately doesn't use (we only run `stage`), and RoutesCompiler
+// defines playGenerateReverseRouter (we only read it in Compile scope). Silence that lint noise
+// rather than wiring up packaging we don't ship.
+Global / lintUnusedKeysOnLoad := false
 
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
+  .settings(
+    // These configure the root "lila" app specifically (flat app/ + conf/ layout, native-packager
+    // output). Under sbt 2.0 bare top-level settings propagate to every aggregated module, which
+    // breaks (modules lack JavaServerAppPackaging; the `target` override clashes with sbt 2.0 task
+    // caching). Scope them to the root project where they belong.
+    scriptClasspath := Seq("*"),
+    Compile / mainClass := Some("lila.app.Lila"),
+    // Adds the Play application directory to the command line args passed to Play
+    bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n",
+    Universal / sourceDirectory := baseDirectory.value / "dist",
+    Compile / resourceDirectory := baseDirectory.value / "conf",
+    Compile / RoutesKeys.routes / sources ++= {
+      val dirs = (Compile / unmanagedResourceDirectories).value
+      (dirs * "routes").get() ++ (dirs * "*.routes").get()
+    },
+    Compile / RoutesKeys.generateReverseRouter := false,
+    Compile / RoutesKeys.generateForwardRouter := true,
+    Compile / sourceDirectory := baseDirectory.value / "app",
+    Compile / scalaSource := baseDirectory.value / "app",
+    // Keep the native-packager stage output at target/universal/stage — lila CI tars that exact
+    // path (.github/workflows/server.yml). Scope this to Universal/target rather than overriding the
+    // whole project `target`: stagingDirectory = Universal/target / "stage", and the default
+    // Universal/target = <project target> / "universal". Overriding only Universal/target leaves the
+    // project target at sbt 2.0's default, so crossTarget stays target/out/jvm/scala-3.8.4/lila and
+    // zinc's inc_compile_3.zip stays inside the cache root — no "Cannot cache" warning.
+    Universal / target := baseDirectory.value / "target" / "universal"
+  )
 
 organization := "org.lichess"
 Compile / run / fork := true
@@ -23,29 +54,9 @@ javaOptions ++= {
 }
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
-// shorter prod classpath
-scriptClasspath := Seq("*")
-Compile / resourceDirectory := baseDirectory.value / "conf"
 // the following settings come from the PlayScala plugin, which I removed
-shellPrompt := PlayCommands.playPrompt
-// all dependencies from outside the project (all dependency jars)
-playDependencyClasspath := (Runtime / externalDependencyClasspath).value
-// playCommonClassloader   := PlayCommands.playCommonClassloaderTask.value
-// playCompileEverything := PlayCommands.playCompileEverythingTask.value.asInstanceOf[Seq[Analysis]]
+// shellPrompt := PlayCommands.playPrompt
 ivyLoggingLevel := UpdateLogging.DownloadOnly
-Compile / mainClass := Some("lila.app.Lila")
-// Adds the Play application directory to the command line args passed to Play
-bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
-Compile / RoutesKeys.routes / sources ++= {
-  val dirs = (Compile / unmanagedResourceDirectories).value
-  (dirs * "routes").get ++ (dirs * "*.routes").get
-}
-Compile / RoutesKeys.generateReverseRouter := false
-Compile / RoutesKeys.generateForwardRouter := true
-target := baseDirectory.value / "target"
-Compile / sourceDirectory := baseDirectory.value / "app"
-Compile / scalaSource := baseDirectory.value / "app"
-Universal / sourceDirectory := baseDirectory.value / "dist"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
@@ -128,7 +139,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
+      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -512,7 +523,7 @@ lazy val ui = module("ui",
   Compile / RoutesKeys.generateForwardRouter := false,
   Compile / RoutesKeys.routes / sources ++= {
     val dirs = baseDirectory.value / ".." / ".." / "conf"
-    (dirs * "routes").get ++ (dirs * "*.routes").get
+    (dirs * "routes").get() ++ (dirs * "*.routes").get()
   }
 )
 
@@ -530,4 +541,4 @@ lazy val api = module("api",
 ).settings(
   Runtime / aggregate := false,
   Test / aggregate := true  // Test <: Runtime
-) aggregate (moduleRefs: _*)
+).aggregate(moduleRefs*)

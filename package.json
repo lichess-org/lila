@@ -1,37 +1,30 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.5.1",
   "engines": {
     "node": ">=24",
-    "pnpm": "10"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ],
-    "patchedDependencies": {
-      "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
-    }
+    "pnpm": "11"
   },
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",
     "@lichess-org/pgn-viewer": "^2.6.0",
+    "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.12.2",
+    "@types/node": "^24.12.4",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15.0",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.4.0",
-    "oxfmt": "0.45.0",
-    "oxlint": "1.60.0",
-    "oxlint-tsgolint": "0.21.1",
+    "oxfmt": "0.52.0",
+    "oxlint": "1.68.0",
+    "oxlint-tsgolint": "0.23.0",
     "snabbdom": "3.5.1",
-    "stylelint": "^17.9.1",
+    "stylelint": "^17.11.1",
     "stylelint-config-standard-scss": "^17.0.0",
-    "stylelint-scss": "^7.0.0",
+    "stylelint-scss": "^7.1.1",
     "svgo": "^4.0.1",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.1",
     "typescript": "^6.0.3"
   },
   "//": [

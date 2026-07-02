@@ -90,7 +90,7 @@ object FidePlayer:
   opaque type Gender = Char
   object Gender extends TotalWrapper[Gender, Char]
 
-  private[fide] val tokenize: Tokenize =
+  private[fide] val tokenize: Tokenize = Tokenize:
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     val splitRegex = """\W""".r
     str =>

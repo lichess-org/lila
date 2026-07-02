@@ -56,11 +56,10 @@ final class GameStreamByOauthOrigin(
         case Some(s) if s.isAfter(nowInstant) => Left("`since` is in the future")
         case Some(s) if s.isBefore(nowInstant.minusHours(3)) => Left("`since` is older than 3 hours")
         case s => Right(s)
-      randomName = ~scalalib.cuteName.CuteNameGenerator.make()
       ip = HTTPRequest.ipAddress(req)
       ua = HTTPRequest.userAgent(req)
       request = s"$ip ${req.uri} $ua"
-      logMsg = s"$randomName $origin $request ${since.so(_.toNow.toMinutes)}m"
+      logMsg = s"$origin $request ${since.so(_.toNow.toMinutes)}m"
     yield Source.futureSource:
       for
         tokenUsers <- tokenUsersFu
@@ -81,39 +80,30 @@ final class GameStreamByOauthOrigin(
   ): Source[JsObject, ?] =
     var nbGames = 0
     val startedAt = nowInstant
-    val startStream: Source[Game, ?] =
-      Source
-        .queue[Game](300, akka.stream.OverflowStrategy.dropHead)
-        .mapMaterializedValue { queue =>
-          streams.open(ua)
-          logger.branch("gameStream").info(s"OPEN  $logMsg")
-          mon.users("recentlySeen").update(recentlySeenUsers.size)
+    val startStream = Source
+      .queue[Game](300, akka.stream.OverflowStrategy.dropHead)
+      .mapMaterializedValue: queue =>
+        streams.open(ua)
+        lila.log.system.info(s"gameStream OPEN  $logMsg")
+        mon.users("recentlySeen").update(recentlySeenUsers.size)
 
-          def matches(game: Game) = game.nonAi &&
-            game.players.exists(_.userId.exists(id => tokenUsers.mightContain(id.value)))
+        def matches(game: Game) = game.nonAi &&
+          game.players.exists(_.userId.exists(id => tokenUsers.mightContain(id.value)))
 
-          val subStart = Bus.sub[StartGame]: e =>
-            if matches(e.game) then queue.offer(e.game)
+        val subStart = Bus.sub[StartGame]: e =>
+          if matches(e.game) then queue.offer(e.game)
 
-          val subFinish = Bus.sub[FinishGame]: e =>
-            if matches(e.game) then queue.offer(e.game)
+        val subFinish = Bus.sub[FinishGame]: e =>
+          if matches(e.game) then queue.offer(e.game)
 
-          queue
-            .watchCompletion()
-            .addEffectAnyway:
-              Bus.unsub[StartGame](subStart)
-              Bus.unsub[FinishGame](subFinish)
-              streams.close(ua)
-              val seconds = nowSeconds - startedAt.toSeconds
-              logger.branch("gameStream").info(s"CLOSE $logMsg ($seconds seconds, $nbGames games)")
-        }
-        .mapAsyncUnordered(16): game =>
-          tokenApi.exists(origin, game.userIds).dmap(game -> _)
-        .mapConcat: (game, ok) =>
-          if ok then List(game)
-          else
-            mon.bloomFP.increment()
-            Nil
+        queue
+          .watchCompletion()
+          .addEffectAnyway:
+            Bus.unsub[StartGame](subStart)
+            Bus.unsub[FinishGame](subFinish)
+            streams.close(ua)
+            val seconds = nowSeconds - startedAt.toSeconds
+            lila.log.system.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
 
     pastGamesSource(recentlySeenUsers, since)
       .concat(currentGamesSource(recentlySeenUsers))

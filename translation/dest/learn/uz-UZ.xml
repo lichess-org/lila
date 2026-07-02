@@ -65,7 +65,7 @@ Donalarni almashtirish shart emas.</string>
   <string name="takeTheEnemyPieces">Raqib donalarini urib oling</string>
   <string name="captureIntro">Raqibning himoyalanmagan donalarini aniqlang va ularni urib oling!</string>
   <string name="takeTheBlackPieces">Qora donalarni urib oling!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Qora figuralarni urib oling!
+  <string name="takeTheBlackPiecesAndDontLoseYours">Qora donalarni urib oling!
 Va oʻzingiznikilarni yoʻqotmang.</string>
   <string name="captureComplete">Tabriklaymiz! Endi siz shaxmat donalari bilan jang qilishni bilasiz!</string>
   <string name="protection">Himoya</string>
@@ -138,11 +138,11 @@ Avval donalarni olib chiqishingiz kerak.</string>
   <string name="castlingComplete">Barakalla! Oʻyin davomida deyarli har doim rokirovka qilish tavsiya etiladi.</string>
   <string name="theSpecialPawnMove">Piyodaning maxsus yurishi</string>
   <string name="enPassantIntro">Raqib piyodasi ikki katak yurganida, siz uni goʻyoki bir katak yurganidek urib olishingiz mumkin.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikki katak yurdi! Uni kesib oʻtib urib oling.</string>
-  <string name="enPassantOnlyWorksImmediately">Kesib oʻtish qoidasi faqat raqib piyoda surganidan soʻng darhol ishlatilishi kerak.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Kesib oʻtish qoidasi faqat piyodangiz 5‑gorizontalda boʻlgandagina amal qiladi.</string>
-  <string name="takeAllThePawnsEnPassant">Barcha piyodalarni kesib oʻtish qoidasi bilan urib oling!</string>
-  <string name="enPassantComplete">Barakalla! Endi siz kesib oʻtish qoidasini qoʻllashni bilasiz.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikki katak yurdi! Uni “en passant” orqali urib oling.</string>
+  <string name="enPassantOnlyWorksImmediately">“En passant” qoidasi faqat raqib piyoda surganidan soʻng darhol ishlatilishi kerak.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">“En passant” qoidasi faqat piyodangiz 5‑gorizontalda boʻlgandagina amal qiladi.</string>
+  <string name="takeAllThePawnsEnPassant">Barcha piyodalarni “en passant” qoidasi bilan urib oling!</string>
+  <string name="enPassantComplete">Barakalla! Endi siz “en passant” qoidasini qoʻllashni bilasiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oʻyin — durang</string>
   <string name="stalemateIntro">Agar oʻyinchiga shoh berilmagan boʻlsa va yurishga yoʻllari qolmagan boʻlsa — bu pat hisoblanadi. Oʻyin durang bilan tugaydi: gʻolib ham magʻlub ham yoʻq.</string>

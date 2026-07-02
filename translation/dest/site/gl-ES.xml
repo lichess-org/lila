@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">As negras saíron da partida</string>
   <string name="whiteDidntMove">As brancas non moveron</string>
   <string name="blackDidntMove">As negras non moveron</string>
+  <string name="whiteAborted">As brancas abortaron a partida</string>
+  <string name="blackAborted">As negras abortaron a partida</string>
   <string name="requestAComputerAnalysis">Solicitar unha análise por computador</string>
   <string name="computerAnalysis">Análise por computador</string>
   <string name="computerAnalysisAvailable">Análise de ordenador dispoñible</string>
@@ -437,8 +439,8 @@
   <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
-  <string name="playerNames">Nomes das xogadoras/es</string>
-  <string name="moveAnnotations">Mover anotacións</string>
+  <string name="playerNames">Nomes dos xogadores</string>
+  <string name="moveAnnotations">Anotación das xogadas</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s creou %2$s</string>
   <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
+  <string name="like">Gústame</string>
+  <string name="liked">Gustoume</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anónimo</item>
+    <item quantity="other">Anónimos (%s)</item>
+  </plurals>
   <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">proba a páxina de contacto</string>
   <string name="makeSureToRead">Asegúrate de ler %1$s</string>
   <string name="theForumEtiquette">a etiqueta do foro</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Por favor, sé amable no foro.</string>
+  <string name="pleaseBeNiceInTheForum">Por favor, sé amable no foro.</string>
   <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>
@@ -1033,4 +1041,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="thereAreNoResultsForX">Non hai resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Captura ao paso</string>
+  <string name="settings">Configuración</string>
 </resources>

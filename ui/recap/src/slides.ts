@@ -3,7 +3,7 @@ import { COLORS } from 'chessops';
 import { shuffle } from 'lib/algo';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, iconCls } from 'lib/view';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 

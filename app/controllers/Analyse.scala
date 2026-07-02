@@ -33,8 +33,8 @@ final class Analyse(
           _.error.fold(NoContent)(BadRequest(_))
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
+  private[controllers] def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
+    if ctx.req.client.isCrawler then replayForCrawler(pov)
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.game)
@@ -123,10 +123,7 @@ final class Analyse(
       chess.Replay
         .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
         .fold(
-          err =>
-            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
-            Redirect(url)
-          ,
+          _ => Redirect(url),
           ply => Redirect(s"$url#$ply")
         )
 

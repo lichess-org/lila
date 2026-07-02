@@ -31,7 +31,7 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">هنگامی که برای فهرست شدن به عنوان بَرخَط-محتواساز Lichess آماده‌اید، %s</string>
   <string name="submitForReview">برای بررسی ثبت کنید</string>
   <string name="streamerLanguageSettings">صفحهٔ بَرخَط-محتواساز Lichess، مخاطبان شما را با زبان ارائه‌شده بر پایهٔ پَندیس جریان‌سازی‌تان هدف قرار می‌دهد. زبان پیش‌فرض صحیح را برای جریان‌های شطرنج‌تان در کارآیه یا زاوَرشی (خدمتی) که برای پخش می‌بَهرید، تنظیم کنید.</string>
-  <string name="pleaseAllow">لطفاً تا ۷۲ ساعت بصبرید تا فهرستِش و نشانِ بَرخَط-محتواسازتان تأیید شود.</string>
+  <string name="pleaseAllow">لطفاً تا ۷۲ ساعت بصبرید تا فهرستِش و نشانِ بَرخَط-محتواسازتان تایید شود.</string>
   <string name="chooseYoutubeChannel">کانال یوتیوبی که در Lichess از آن استفاده خواهید کرد را انتخاب کنید.</string>
   <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">اتصال</string>
   <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">قطع</string>

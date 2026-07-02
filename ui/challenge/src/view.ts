@@ -1,7 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom, initMiniBoard, dataIcon, iconCls } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 

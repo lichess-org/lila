@@ -1,20 +1,17 @@
 import perfIcons from 'lib/game/perfIcons';
 import { numberFormat } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 
-import type PuzzleCtrl from '../ctrl';
-import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
-import type PuzzleStreak from '../streak';
+import type PuzzleCtrl from '@/ctrl';
+import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '@/interfaces';
+import type PuzzleStreak from '@/streak';
 
 export function puzzleBox(ctrl: PuzzleCtrl): VNode {
-  const data = ctrl.data;
-  return hl('div.puzzle__side__metas', [
-    puzzleInfos(ctrl, data.puzzle),
-    gameInfos(ctrl, data.game, data.puzzle),
-  ]);
+  const { game, puzzle } = ctrl.data;
+  return hl('div.puzzle__side__metas', [puzzleInfos(ctrl, puzzle), gameInfos(ctrl, game, puzzle)]);
 }
 
 const angleImg = (ctrl: PuzzleCtrl): string => {
@@ -106,8 +103,8 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
       hl('p', i18n.puzzle.toGetPersonalizedPuzzles),
       hl('a.button', { attrs: { href: ctrl.routerWithLang('/signup') } }, i18n.site.signUp),
     ]);
-  const diff = ctrl.round?.ratingDiff,
-    ratedId = `puzzle-toggle-rated_hint-${ctrl.hintHasBeenShown()}`;
+  const diff = ctrl.round?.ratingDiff;
+  const ratedId = `puzzle-toggle-rated_hint-${ctrl.hintHasBeenShown()}`;
   return hl('div.puzzle__side__user', [
     !data.replay &&
       !ctrl.streak &&
@@ -166,8 +163,8 @@ export function replay(ctrl: PuzzleCtrl): MaybeVNode {
 }
 
 export function config(ctrl: PuzzleCtrl): MaybeVNode {
-  const autoNextId = 'puzzle-toggle-autonext',
-    data = ctrl.data;
+  const autoNextId = 'puzzle-toggle-autonext';
+  const data = ctrl.data;
   return hl('div.puzzle__side__config', [
     cmnToggleWrap({
       id: autoNextId,

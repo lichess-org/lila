@@ -2,6 +2,7 @@ package lila.app
 
 import lila.ui.*
 import lila.web.ui.*
+import lila.common.ClientName
 
 object UiEnv
     extends ScalatagsTemplate
@@ -29,6 +30,7 @@ object UiEnv
   given lila.core.config.NetDomain = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce
   given Conversion[lila.team.Team, lila.core.team.LightTeam] = _.light
+  given (using ctx: lila.ui.Context): ClientName = ClientName(ctx.req)
 
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
@@ -42,11 +44,13 @@ object UiEnv
   def lightUserSync = env.user.lightUserSync
   def manifest = env.web.manifest
   def analyseEndpoints = env.web.analyseEndpoints
-  protected val translator = lila.i18n.Translator
+  val translator = lila.i18n.Translator
   val langList = lila.i18n.LangList
   protected val namer = lila.game.Namer
   protected lazy val lightTeamSync = env.team.lightTeamSync
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
+
+  protected def isProd = env.mode.isProd
 
   def helpers: Helpers = this
   def assetHelper: AssetFullHelper = this

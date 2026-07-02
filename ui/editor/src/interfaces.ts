@@ -7,7 +7,7 @@ export const CASTLING_TOGGLES: CastlingToggle[] = ['K', 'Q', 'k', 'q'];
 
 export interface EditorState {
   fen: FEN;
-  legalFen: FEN | undefined;
+  legalFen?: FEN;
   playable: boolean;
   enPassantOptions: string[];
 }

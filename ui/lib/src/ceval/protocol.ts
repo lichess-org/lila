@@ -4,15 +4,13 @@ import { defined } from '../index';
 import type { Work } from './types';
 
 export class Protocol {
-  public engineName: string | undefined;
+  public engineName?: string;
 
-  private work: Work | undefined;
-  private currentEval: LocalEval | undefined;
-  private gameId: string | undefined;
+  private work?: Work;
+  private currentEval?: LocalEval;
+  private gameId?: string;
   private expectedPvs = 1;
-
-  private nextWork: Work | undefined;
-
+  private nextWork?: Work;
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
@@ -42,7 +40,7 @@ export class Protocol {
   disconnected(): void {
     if (this.work && this.currentEval) {
       this.currentEval.bestmove ??= '(none)';
-      this.work.emit(this.currentEval);
+      this.emit();
     }
     this.work = undefined;
     this.send = undefined;
@@ -70,7 +68,7 @@ export class Protocol {
         const ceval = this.currentEval ?? { millis: 0, fen: work.currentFen, depth: 0, nodes: 0, pvs: [] };
         ceval.bestmove = parts[1];
         if (parts[2] === 'ponder') ceval.ponder = parts[3];
-        work.emit(ceval);
+        if (!work.stopRequested) work.emit(ceval, work);
       }
       this.swapWork();
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
@@ -149,15 +147,23 @@ export class Protocol {
         this.currentEval.depth = Math.min(this.currentEval.depth, depth);
       }
 
-      if (multiPv === this.expectedPvs && this.currentEval) {
-        this.work.emit(this.currentEval);
-      }
+      if (multiPv === this.expectedPvs) this.emit();
     } else if (
       command &&
       !['Stockfish', 'id', 'option', 'info'].includes(parts[0]) &&
       !['Analysis Contempt', 'UCI_Variant', 'UCI_AnalyseMode'].includes(command.split(': ')[1])
     )
       console.warn(`SF: ${command}`);
+  }
+
+  uciVariant(key: VariantKey): string {
+    return this.variantMap?.(key) ?? (key === 'threeCheck' ? '3check' : key.toLowerCase());
+  }
+
+  private emit(ev = this.currentEval, work = this.work) {
+    // don't let callers sort these pvs
+    if (ev && work)
+      work.emit(structuredClone(ev), { threatMode: work.threatMode, path: work.path, ply: work.ply });
   }
 
   private stop(): void {
@@ -177,7 +183,7 @@ export class Protocol {
       this.currentEval = undefined;
       this.expectedPvs = 1;
 
-      this.setOption('UCI_Variant', this.variantMap?.(this.work.variant) ?? this.work.variant);
+      this.setOption('UCI_Variant', this.uciVariant(this.work.variant));
       this.setOption('Threads', this.work.threads);
       this.setOption('Hash', this.work.hashSize || 16);
       this.setOption('MultiPV', Math.max(1, this.work.multiPv));

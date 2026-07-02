@@ -96,8 +96,10 @@
     &.vote-down {
       color: $c-bad;
 
-      &.active {
+      &.active,
+      &.active:hover {
         background: $m-bad_bg--mix-50;
+        text-shadow: none !important;
       }
 
       &::before {
@@ -106,8 +108,10 @@
     }
 
     &.vote-up {
-      &.active {
+      &.active,
+      &.active:hover {
         background: $m-good_bg--mix-50;
+        text-shadow: none !important;
       }
 
       &:hover {

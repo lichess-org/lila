@@ -45,9 +45,10 @@ final private class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone.flatMapz:
-        proxy.withGame: g =>
-          g.forceResignableNow.so(notifyGone(color, gone = !on))
+      proxy.withGameOptionSync: g =>
+        isLongGone.mapz:
+          if g.forceResignableNow then notifyGone(g.pov(color), gone = !on)
+        if on && !isOnline then publishBoardBotGone(g.pov(color), none)
       offlineSince = if on then None else offlineSince.orElse(nowMillis.some)
       bye = bye && !on
     def setBye(): Unit =
@@ -148,10 +149,8 @@ final private class RoundAsyncActor(
         for
           has <- gameRepo.hasHoldAlert(pov)
           _ <- has.not.so:
-            lila
-              .log("cheat")
-              .info:
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+            logger.info:
+              s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         yield Nil
@@ -267,7 +266,13 @@ final private class RoundAsyncActor(
     case Abandon =>
       proxy.withGame: game =>
         game.abandoned.so:
-          if game.abortable then finisher.other(game, _.Aborted, None)
+          if game.abortable then
+            finisher.other(
+              game,
+              _.Aborted,
+              None,
+              None
+            )
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
     case RoundBus.Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
@@ -364,8 +369,14 @@ final private class RoundAsyncActor(
             if !players(c).isOnline && players(!c).isOnline then
               players(c).showMillisToGone.foreach {
                 _.so: millis =>
-                  if millis <= 0 then notifyGone(c, gone = true)
-                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000).so(notifyGoneIn(c, millis))
+                  val pov = g.pov(c)
+                  if millis <= 0 then
+                    notifyGone(pov, gone = true)
+                    publishBoardBotGone(pov, 0L.some)
+                  else if g.clock.exists(_.remainingTime(c).millis > millis + 3000)
+                  then
+                    notifyGoneIn(pov, millis)
+                    publishBoardBotGone(pov, millis.some)
               })
       } | funit
 
@@ -391,20 +402,15 @@ final private class RoundAsyncActor(
         lag <- clock.lag(pov.color).lagMean
       do putUserLag(user, lag)
 
-  private def notifyGone(color: Color, gone: Boolean): Funit =
-    proxy.withPov(color): pov =>
-      fuccess:
-        socketSend.exec(Protocol.Out.gone(pov.fullId, gone))
-        publishBoardBotGone(pov, gone.option(0L))
+  private def notifyGone(pov: Pov, gone: Boolean): Unit =
+    socketSend.exec(Protocol.Out.gone(pov.fullId, gone))
 
-  private def notifyGoneIn(color: Color, millis: Long): Funit =
-    proxy.withPov(color): pov =>
-      fuccess:
-        socketSend.exec(Protocol.Out.goneIn(pov.fullId, millis))
-        publishBoardBotGone(pov, millis.some)
+  private def notifyGoneIn(pov: Pov, millis: Long): Unit =
+    socketSend.exec(Protocol.Out.goneIn(pov.fullId, millis))
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.mightBeBoardOrBotCompatible(pov.game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(pov.game)
+    then
       lila.common.Bus.publishDyn(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)
@@ -461,7 +467,8 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
+  private val monitor =
+    AsyncActor.Monitor(msg => lila.log.system.warn(s"round.asyncActor unhandled msg: $msg"))
 
   private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 

@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Siyah oyundan ayrıldı</string>
   <string name="whiteDidntMove">Beyaz hamle yapmadı</string>
   <string name="blackDidntMove">Siyah hamle yapmadı</string>
+  <string name="whiteAborted">Beyaz oyunu iptal etti</string>
+  <string name="blackAborted">Siyah oyunu iptal etti</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
@@ -807,6 +809,8 @@
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
+  <string name="like">Beğen</string>
+  <string name="liked">Beğenildi</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
@@ -942,6 +946,7 @@
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
   <string name="makeSureToRead">Okuduğunuzdan emin olun: %1$s</string>
   <string name="theForumEtiquette">forum görgü kuralları</string>
+  <string name="pleaseBeNiceInTheForum">Lütfen forumda nazik ol.</string>
   <string name="thisTopicIsArchived">Bu konu arşivlenmiş ve yeni yanıtlara kapatılmıştır.</string>
   <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
@@ -1018,7 +1023,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="ourEventTips">Etkinlik düzenlemek için ipuçlarımız</string>
   <string name="instructions">Talimatlar</string>
   <string name="showMeEverything">Bana her şeyi göster</string>
-  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
+  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir. Bize katıldığınız için teşekkür ederiz!  </string>
   <string name="nothingToSeeHere">Şu anda görülebilecek bir şey yok.</string>
   <string name="stats">İstatistikler</string>
   <string name="accessibility">Erişilebilirlik</string>
@@ -1032,4 +1037,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
+  <string name="settings">Ayarlar</string>
 </resources>

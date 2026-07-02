@@ -3,7 +3,7 @@ import { type Hooks } from 'snabbdom';
 import { type VNode, hl, bind } from '@/view';
 import { cmnToggleProp } from '@/view/cmn-toggle';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import type { ChatCtrl } from './chatCtrl';
 import discussionView from './discussion';
 import type { Tab, VoiceChat } from './interfaces';

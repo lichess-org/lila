@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Чёрные вышли из игры</string>
   <string name="whiteDidntMove">Белые не сделали ход</string>
   <string name="blackDidntMove">Чёрные не сделали ход</string>
+  <string name="whiteAborted">Белые отменили игру</string>
+  <string name="blackAborted">Чёрные отменили игру</string>
   <string name="requestAComputerAnalysis">Выполнить компьютерный анализ</string>
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
@@ -889,9 +891,17 @@
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s понравилось %2$s</string>
+  <string name="like">Нравится</string>
+  <string name="liked">Понравилось</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Аноним</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Анонимы (%s)</item>
+    <item quantity="few">Анонимы (%s)</item>
+    <item quantity="many">Анонимы (%s)</item>
+    <item quantity="other">Анонимы (%s)</item>
+  </plurals>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="allLanguages">Все языки</string>
@@ -1030,6 +1040,7 @@
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
   <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
   <string name="theForumEtiquette">форумный этикет</string>
+  <string name="pleaseBeNiceInTheForum">Пожалуйста, будьте вежливы на форуме.</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
@@ -1122,4 +1133,5 @@
   <string name="thereAreNoResultsForX">Нет результатов для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взятие на проходе</string>
+  <string name="settings">Настройки</string>
 </resources>

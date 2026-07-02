@@ -14,7 +14,7 @@ Keyingi oʻyinlarda gʻalaba qozonganiz sayin, sizga ikki karra ochko yoziladi.
 Yaʼni, gʻalaba 4 ochko, durang 2 ochko boʻladi, magʻlubiyat uchun esa ochko berilmaydi va “ochkolar seriyasi”ni toʻxtatadi.
 
 Masalan, ikkita gʻalaba va bitta durang jami 6 ochko beradi: 2 + 2 + (2 x 1)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserk arena</string>
   <string name="berserkAnswer">Oʻyin boshida oʻyinchi “Berserk” tugmasini bossa, uning vaqti yarmiga qisqaradi, biroq gʻalaba uchun turnir jadvaliga qoʻshimcha bir ochko qoʻshiladi.
 
 Vaqt qoʻshilishi bor (inkrementli) oʻyinlarda “Berserk” qilsangiz vaqt ortishidan voz kechasiz (1+2 vaqt nazorati bundan mustasno va 1+0 holatiga oʻtadi).
@@ -82,7 +82,7 @@ Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin berad
   <string name="pointsSum">Jami ochkolar</string>
   <string name="rankAvg">Oʻrtacha oʻrin</string>
   <string name="tournamentWinners">Turnir gʻoliblari</string>
-  <string name="tournamentShields">Turnir qalqonlari</string>
+  <string name="tournamentShields">Turnir Qalqonlari</string>
   <string name="onlyTitled">Faqat unvonli oʻyinchilar</string>
   <string name="onlyTitledHelp">Turnirga qoʻshilish uchun rasmiy unvon talab qilish</string>
   <string name="tournamentPairingsAreNowClosed">Turnir uchun qura tashlash toʻxtatildi.</string>

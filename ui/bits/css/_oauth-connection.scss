@@ -1,0 +1,57 @@
+.oauth__connection {
+  @extend %flex-center-center;
+
+  gap: 0.5ch;
+  margin-bottom: 3em;
+
+  $service-logo-size: 70px;
+
+  &__service,
+  .lichess-logo-svg {
+    height: $service-logo-size;
+    aspect-ratio: 1;
+  }
+
+  &__service {
+    background: #6741ff;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  &__between {
+    @extend %flex-center-center;
+
+    width: 100px;
+    position: relative;
+
+    &::before {
+      content: '';
+      border-bottom: 2px dashed $c-good;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 0;
+    }
+
+    icon {
+      @extend %flex-center-center;
+
+      flex: 0 0 2.5em;
+      height: 2.5em;
+      color: $c-over;
+      background: $c-good;
+      border-radius: 50px;
+    }
+  }
+
+  &__to-lichess {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 2em;
+  }
+
+  .lichess-logo-svg {
+    fill: $c-font;
+    stroke: $c-font;
+  }
+}

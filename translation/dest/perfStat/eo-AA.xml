@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s statikoj</string>
+  <string name="perfStats">Statistikoj de %s</string>
   <string name="viewTheGames">Rigardi la ludojn</string>
   <string name="provisional">provizora</string>
   <string name="notEnoughRatedGames">Ne sufiĉe taksitaj ludoj estis luditaj por estigi fidindan rangon.</string>

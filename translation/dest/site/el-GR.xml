@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Τα μαύρα έφυγαν από το παιχνίδι</string>
   <string name="whiteDidntMove">Τα λευκά δεν έπαιξαν</string>
   <string name="blackDidntMove">Τα μαύρα δεν έπαιξαν</string>
+  <string name="whiteAborted">Τα λευκά ακύρωσαν την παρτίδα</string>
+  <string name="blackAborted">Τα μαύρα ακύρωσαν την παρτίδα</string>
   <string name="requestAComputerAnalysis">Ζητήστε ανάλυση υπολογιστή</string>
   <string name="computerAnalysis">Ανάλυση υπολογιστή</string>
   <string name="computerAnalysisAvailable">Ανάλυση υπολογιστή διαθέσιμη</string>
@@ -95,6 +97,8 @@
   <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
+  <string name="minRatingX">Ελάχιστη βαθμολογία: %s</string>
+  <string name="maxRatingX">Μέγιστη βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Διά ζώσης παρτίδες παικτών με FIDE elo %1$s+, από το %2$s έως %3$s</string>
@@ -131,8 +135,15 @@
   <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
   <string name="checkableKing">Βασιλιάς που μπορεί να δεχθεί σαχ</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
+  <string name="multipleLinesDescription">Ορίστε τον αριθμό των γραμμών αξιολόγησης και μετακινήστε τα βέλη στον πίνακα</string>
+  <string name="searchTime">Χρόνος αναζήτησης</string>
+  <string name="searchTimeDescription">Ορισμός ώρας για την αξιολόγηση νέων θέσεων</string>
+  <string name="threads">Νήματα</string>
+  <string name="threadsDescription">Ορίστε την τιμή χαμηλότερα από τον αριθμό νημάτων του επεξεργαστή σας, οι ενδείξεις δείχνουν ασφαλείς επιλογές</string>
+  <string name="threadsDescriptionMobile">Περισσότερα νήματα θα χρησιμοποιήσουν περισσότερη μπαταρία για καλύτερη ανάλυση</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
+  <string name="memoryDescription">Μεγαλύτερες τιμές μπορεί να βελτιώσουν την απόδοση</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
@@ -798,9 +809,15 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%2$s αρέσει στον χρήστη %1$s</string>
+  <string name="like">Μου αρέσει</string>
+  <string name="liked">Μου άρεσε</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Ανώνυμος/η</item>
+    <item quantity="other">Ανώνυμοι (%s)</item>
+  </plurals>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
@@ -933,6 +950,7 @@
   <string name="tryTheContactPage">χρησιμοποιείστε την σελίδα επικοινωνίας</string>
   <string name="makeSureToRead">Φροντίστε να διαβάσετε %1$s</string>
   <string name="theForumEtiquette">τους κανόνες καλής συμπεριφοράς του φόρουμ</string>
+  <string name="pleaseBeNiceInTheForum">Παρακαλούμε να συμπεριφέρεστε ευγενικά στο φόρουμ.</string>
   <string name="thisTopicIsArchived">Αυτό το θέμα έχει αρχειοθετηθεί και η ανάρτηση νέων απαντήσεων δεν είναι δυνατή.</string>
   <string name="joinTheTeamXToPost">Δηλώστε συμμετοχή στην %1$s για να δημιουργήσετε νέες αναρτήσεις σε αυτό το φόρουμ</string>
   <string name="teamNamedX">ομάδα %1$s</string>
@@ -1024,4 +1042,5 @@
   <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Ρυθμίσεις</string>
 </resources>

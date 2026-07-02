@@ -13,7 +13,7 @@ final class Dasher(env: Env) extends LilaController(env):
     try Json.parse(Files.newInputStream(pathname)).some
     catch
       case e: Throwable =>
-        lila.log("dasher").warn(s"Error reading gallery json $pathname", e)
+        lila.log.system.warn(s"dasher error reading gallery json $pathname", e)
         none
 
   def get = Open:

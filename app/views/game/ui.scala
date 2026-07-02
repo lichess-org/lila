@@ -1,6 +1,6 @@
 package views.game
 
-import lila.app.UiEnv.*
+import lila.app.UiEnv.{ *, given }
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini
@@ -29,7 +29,8 @@ def widgets(
     ui.widgets(g, user = user, ownerLink = ownerLink):
       g.tournamentId
         .map: tourId =>
-          views.tournament.ui.tournamentLink(tourId)(using ctx.translate)
+          given Translate = ctx.translate
+          views.tournament.ui.tournamentLink(tourId)
         .orElse(g.simulId.map: simulId =>
           views.simul.ui.link(simulId))
         .orElse(g.swissId.map: swissId =>

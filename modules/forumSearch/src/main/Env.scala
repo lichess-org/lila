@@ -16,7 +16,7 @@ final class Env(appConfig: Configuration, client: SearchClient)(using Executor):
 
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
-  def apply(text: String, page: Int, troll: Boolean) =
-    paginatorBuilder(Query.forum(text.take(100), troll), page)
+  def apply(text: String, page: Int)(using me: Me) =
+    paginatorBuilder(Query.forum(text.take(100), me.marks.troll), page)
 
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)

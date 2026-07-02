@@ -4,7 +4,7 @@ import { defined, memoize, onClickAway } from 'lib';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { commonDateFormat, timeago } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { innerHTML, richHTML } from 'lib/richText';
 import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
@@ -144,6 +144,7 @@ export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['players', i.players, 'activity.sparkles', 'Star players'],
     ['website', i.website, null, null, i18n.broadcast.officialWebsite],
     ['standings', i.standings, null, null, i18n.site.standings],
+    ['regulations', i.regulations, null, null, i18n.broadcast.regulations],
   ]
     .map(
       ([key, value, icon, textAlternative, linkName]) =>
@@ -202,7 +203,7 @@ const share = (ctx: RelayViewContext) => {
   const link = (text: string, path: string, help?: VNode) =>
     hl('div.form-group', [
       hl('label.form-label', text),
-      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path, { inputAttrs: { readonly: true } }),
       help,
     ]);
   const roundName = ctx.relay.round.name;

@@ -5,7 +5,7 @@ import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { playable } from 'lib/game';
 import * as router from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, onInsert, hl } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
@@ -58,7 +58,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
       'aside.analyse__side',
       {
         hook: onInsert(elm => {
-          if (ctrl.opts.$side && ctrl.opts.$side.length) {
+          if (ctrl.opts.$side?.length) {
             $(elm).replaceWith(ctrl.opts.$side);
             wikiToggleBox();
           }

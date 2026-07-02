@@ -2,13 +2,15 @@ package lila.jsBot
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 opaque type BotUid = String // has a leading #
 object BotUid extends OpaqueString[BotUid]
 
 opaque type BotKey = String // Uid, without leading #
 object BotKey extends OpaqueString[BotKey]
+
+trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]
 
 opaque type BotJson = JsObject
 object BotJson extends OpaqueJson[BotJson]:

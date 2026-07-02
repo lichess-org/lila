@@ -10,4 +10,12 @@
   <string name="accountMuted">Ваш уліковы запіс адключаная.</string>
   <string name="accountMutedInfo">Азнаёмцеся з нашымі %s. Невыкананне правілаў абмену паведамленнямі можа прывесці да адключэння доступу да акантаў.</string>
   <string name="excludedFromLeaderboards">Ваш уліковы запіс быў выключаны са спісу лідараў.</string>
+  <string name="excludedFromLeaderboardsInfo">Мы адзначаем гэта як карыстанне несумленнымі спосабамі дасягнуць табліцы лідэраў.</string>
+  <string name="closedByModerators">Ваш уліковы запіс быў зачынены мадэратарамі.</string>
+  <string name="hiddenBlog">Ваш блог быў схаваны мадэратарамі.</string>
+  <string name="hiddenBlogInfo">Абавязкова прачытайце яшчэ раз нашы %s.</string>
+  <string name="playTimeout">Вас часова адхілілі ад гульні.</string>
+  <string name="communicationGuidelines">кіраўніцтва па камунікацыі</string>
+  <string name="blogRules">правілы вядзення блога</string>
+  <string name="fairPlay">Сумленная гульня</string>
 </resources>

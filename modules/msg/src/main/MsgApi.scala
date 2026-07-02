@@ -141,7 +141,7 @@ final class MsgApi(
             val msg =
               if verdict == MsgSecurity.Spam
               then
-                logger.branch("spam").warn(s"$orig -> $dest $msgPre.text")
+                logger.warn(s"spam $orig -> $dest $msgPre.text")
                 msgPre.copy(text = spam.replace(msgPre.text))
               else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
@@ -218,8 +218,7 @@ final class MsgApi(
         post(me, _, text, multi = true, date = now)
           .logFailure(logger)
           .recoverDefault(PostResult.Invalid)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
     userApi

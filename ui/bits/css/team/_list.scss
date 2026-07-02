@@ -47,20 +47,29 @@
     transition: opacity 0.6s;
   }
 
+  .info,
+  .actions {
+    width: 0;
+
+    @media (width <= $x-small) {
+      display: none;
+    }
+  }
+
   .info {
     font-size: 0.9em;
     white-space: nowrap;
 
     p {
       margin-bottom: 0;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
     }
+  }
 
+  .actions {
     form {
-      margin-top: 0.5em;
-    }
-
-    @media (width <= $x-small) {
-      display: none;
+      margin-left: auto;
     }
   }
 }

@@ -80,6 +80,11 @@
   display: block;
 }
 
+.relay-score-group-plus {
+  margin-top: -1em;
+  text-align: center;
+}
+
 @include mq-subnav-side {
   .relay-form__subnav__group {
     display: block;

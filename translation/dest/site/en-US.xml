@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Black left the game</string>
   <string name="whiteDidntMove">White didn\'t move</string>
   <string name="blackDidntMove">Black didn\'t move</string>
+  <string name="whiteAborted">White aborted the game</string>
+  <string name="blackAborted">Black aborted the game</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
@@ -805,9 +807,15 @@
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="like">Like</string>
+  <string name="liked">Liked</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonymous</item>
+    <item quantity="other">Anonymous (%s)</item>
+  </plurals>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
@@ -940,6 +948,7 @@
   <string name="tryTheContactPage">try the contact page</string>
   <string name="makeSureToRead">Make sure to read %1$s</string>
   <string name="theForumEtiquette">the forum etiquette</string>
+  <string name="pleaseBeNiceInTheForum">Please be nice in the forum.</string>
   <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>

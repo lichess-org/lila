@@ -1,6 +1,6 @@
 import Shepherd from 'shepherd.js';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 
 import type AnalyseCtrl from '../ctrl';

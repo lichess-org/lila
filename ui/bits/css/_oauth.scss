@@ -6,10 +6,6 @@
     width: 40em;
   }
 
-  ul {
-    margin: 25px;
-  }
-
   li {
     list-style: disc outside;
   }
@@ -17,7 +13,7 @@
   strong {
     @extend %break-word;
 
-    color: $c-brag;
+    color: $c-font-clear;
   }
 
   code {
@@ -26,21 +22,31 @@
 
   &__top {
     text-align: center;
-    margin-bottom: 4em;
+    margin-bottom: 1em;
   }
 
-  &__logo {
-    font-size: 9em;
+  &__logo--font {
+    display: block;
+    font-size: 8em;
     color: $c-brag;
+    line-height: 1;
+    margin-bottom: 1rem;
   }
 
-  h1 {
-    @extend %break-word;
+  &__access-text {
+    text-align: center;
+    color: $c-font-dim;
+  }
 
-    margin: 1rem 0 1.5rem 0;
+  .oauth__client-name {
+    color: $c-font-clear;
   }
 
   &__scopes {
+    font-size: 0.9em;
+    margin-top: 3rem;
+    margin-inline-start: 3rem;
+
     li {
       margin: 0.7em 0;
     }
@@ -64,10 +70,18 @@
     }
   }
 
-  .form-actions {
-    margin: 1.5rem 0;
-    padding-bottom: 1.5rem;
-    border-bottom: $border;
+  &__action {
+    @extend %flex-center-center;
+
+    margin-block: 3em 4em;
+
+    .button {
+      text-transform: initial;
+    }
+
+    .oauth--takex3 & .button {
+      background-color: #5e00ff;
+    }
   }
 
   &__success {
@@ -80,6 +94,8 @@
   }
 
   &__footer {
+    @extend %flex-between;
+
     color: $c-font-dim;
     font-size: 0.9em;
     text-align: center;

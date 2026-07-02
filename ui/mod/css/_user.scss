@@ -1,3 +1,9 @@
+@media (width < $xx-large) {
+  #main-wrap.has-mod-zone .page-menu__menu {
+    display: none;
+  }
+}
+
 .user-show .mod-zone {
   margin: 0 20px 1em 20px;
 }

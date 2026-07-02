@@ -62,8 +62,7 @@ class BigFileStorage {
     if (!opfs) return this.idb().then(idb => idb.get(assetUrl));
 
     const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
-    const buffer = new ArrayBuffer(file.size);
-    const u8 = new Uint8Array(buffer);
+    const u8 = new Uint8Array(new ArrayBuffer(file.size));
     const reader = file.stream().getReader();
     let offset = 0;
 
@@ -96,10 +95,9 @@ async function directoryHandleIfAvailable(): Promise<FileSystemDirectoryHandle |
     const dirHandle = await navigator.storage?.getDirectory?.();
     const filename = `_${randomToken()}`;
     const out = await dirHandle.getFileHandle(filename, { create: true }).then(f => f.createWritable());
-    await out
-      .write(new Uint8Array(1))
-      .then(() => out.close())
-      .then(() => dirHandle.removeEntry(filename));
+    await out.write(new Uint8Array(1));
+    await out.close();
+    await dirHandle.removeEntry(filename);
     return dirHandle;
   } catch {
     return undefined;

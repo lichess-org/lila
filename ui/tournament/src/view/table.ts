@@ -1,6 +1,6 @@
 import { opposite } from '@lichess-org/chessground/util';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type VNode, bind, onInsert, hl, initMiniGames, iconTag } from 'lib/view';
 
 import type TournamentController from '../ctrl';
@@ -42,7 +42,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
 const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
   hl('em.rank', '#' + p.k),
   p.t && hl('em.utitle', p.t),
-  ctrl.opts.showRatings && hl('em.rating', '' + p.r),
+  ctrl.opts.showRatings && hl('em.rating', p.r),
 ];
 
 function renderDuel(ctrl: TournamentController) {

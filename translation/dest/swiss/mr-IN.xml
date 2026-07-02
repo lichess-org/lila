@@ -47,6 +47,19 @@
   <string name="predefinedDuration">पूर्वनिर्धारित अवधी मिनीटांत</string>
   <string name="durationUnknown">पूर्वनिर्धारित महत्तम फेऱ्या, पण अज्ञात अवधी</string>
   <string name="numberOfGames">खेळांची संख्या</string>
+  <string name="possibleButNotConsecutive">शक्य, पण सलग नाही</string>
   <string name="identicalForbidden">निषिद्ध</string>
+  <string name="lateJoin">उशिरा सामील झाले</string>
+  <string name="lateJoinUntil">हो, जोपर्यंत निम्म्याहून अधिक फेऱ्या सुरू होणार नाहीत तोपर्यंत</string>
+  <string name="pause">थांबा</string>
+  <string name="pauseSwiss">हो पण ते फेऱ्यांची संख्या कमी करू शकते</string>
   <string name="streaksAndBerserk">विजयी मालिका आणि बेभान खेळ</string>
+  <string name="similarToOTB">प्रत्यक्ष स्पर्धांसारखे</string>
+  <string name="unlimitedAndFree">अमर्यादित आणि मोफत</string>
+  <string name="predefinedUsers">केवळ विशिष्ट खेळाडूंनाच सामील होण्याची परवानगी द्या</string>
+  <string name="forbiddedUsers">ही यादी रिक्त नसल्यास, या यादीत नसलेल्या वापरकर्त्यांना सामील होण्यास मनाई केली जाईल. प्रत्येक ओळीवर एकच वापरकर्तानाव असावे.</string>
+  <string name="playYourGames">तुमचे खेळ खेळा</string>
+  <string name="byes">त्यागित</string>
+  <string name="absences">अनुपस्थिती</string>
+  <string name="tieBreak">बरोबरी तोडण्यासाठी खेळ</string>
 </resources>

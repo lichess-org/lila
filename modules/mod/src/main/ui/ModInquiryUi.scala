@@ -8,15 +8,16 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.chat.PublicSource
 import lila.core.i18n.Translate
 import lila.core.perm.Permission
+import lila.common.ClientName
 
 final class ModInquiryUi(helpers: Helpers)(
-    sourceOf: PublicSource => Translate ?=> Tag,
+    sourceOf: PublicSource => (Translate, ClientName) ?=> Tag,
     getPmPresets: Me ?=> ModPresets,
     highlightBad: String => Frag
 )(using NetDomain):
   import helpers.{ *, given }
 
-  def apply(in: Inquiry)(using Context, Me) =
+  def apply(in: Inquiry)(using Context, Me, ClientName) =
     val presets = getPmPresets.byPermission
     div(id := "inquiry", data("username") := in.user.user.username)(
       iconTag(title := "Costello the Inquiry Octopus", cls := "costello"),
@@ -296,7 +297,7 @@ final class ModInquiryUi(helpers: Helpers)(
         .take(6)
         .toNel
 
-  private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate) =
+  private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate, ClientName) =
     val (link, text) = atom.parseFlag.match
       case Some(flag) => sourceOf(flag.source).some -> flag.quotes.mkString("\n")
       case None => None -> atom.text

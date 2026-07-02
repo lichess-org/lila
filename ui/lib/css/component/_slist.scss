@@ -64,6 +64,10 @@
   overflow-x: auto;
   max-width: calc(100vw - $box-padding * 2);
 
+  &:has(.slist-pad) {
+    max-width: 100vw;
+  }
+
   .slist {
     @media (max-width: at-most($x-small)) {
       min-width: calc(650px - $box-padding * 2);
@@ -118,7 +122,6 @@
 
   .stack-row td {
     width: 100%;
-    padding-inline-start: $box-padding;
-    padding-inline-end: $box-padding;
+    padding-inline: $box-padding;
   }
 }

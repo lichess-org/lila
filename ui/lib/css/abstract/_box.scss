@@ -63,6 +63,13 @@
   @include box-shadow;
 }
 
+%box-bordered {
+  @extend %box-radius;
+  @include backdrop-blur-if-transparent;
+
+  border: $border;
+}
+
 %box-neat {
   @extend %box-shadow, %box-radius;
   @include backdrop-blur-if-transparent;

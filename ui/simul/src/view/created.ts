@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, confirm, bind, hl, dataIcon } from 'lib/view';
 
 import type SimulCtrl from '../ctrl';
@@ -44,6 +44,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               domDialog({
                                 cash: $('.simul .continue-with'),
                                 modal: true,
+                                easyClose: 'clickOutside',
                               }).then(dlg => {
                                 $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
                                   xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);

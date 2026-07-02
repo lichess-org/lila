@@ -22,7 +22,8 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
     prefApi: lila.core.pref.PrefApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[RelationConfig]("relation")(using AutoConfig.loader)

@@ -132,5 +132,6 @@ final class TournamentCache(
         .maximumSize(65_536)
         .buildAsyncFuture(compute)
 
-  private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]:
-    _.refreshAfterWrite(15.seconds).buildAsyncTimeout()(_ => tournamentRepo.notableFinished(20))
+  private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]("tournament.notable"):
+    _.refreshAfterWrite(15.seconds).buildAsyncTimeout(): _ =>
+      tournamentRepo.notableFinished(20)

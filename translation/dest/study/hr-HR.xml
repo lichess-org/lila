@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nedavno objavljene</string>
   <string name="mostPopular">Najpopularnije</string>
   <string name="alphabetical">Abecednim redom</string>
+  <string name="relevant">Relevantno</string>
   <string name="addNewChapter">Dodaj novo poglavlje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavlje</item>
@@ -44,7 +45,6 @@
   <string name="youAreNowASpectator">Postao si gledatelj</string>
   <string name="pgnTags">PGN oznake</string>
   <string name="like">Sviđa mi se</string>
-  <string name="unlike">Ne sviđa mi se</string>
   <string name="newTag">Nova oznaka</string>
   <string name="commentThisPosition">Komentiraj ovu poziciju</string>
   <string name="commentThisMove">Komentiraj ovaj potez</string>
@@ -56,6 +56,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Svi sinkronizirani članovi ostaju na istoj poziciji</string>
   <string name="shareChanges">Podijeli promjene sa gledateljima i pohrani ih na server</string>
   <string name="playing">U tijeku</string>
+  <string name="showResults">Rezultati</string>
   <string name="showEvalBar">Evaluacijska mjerila</string>
   <string name="next">Sljedeće</string>
   <string name="shareAndExport">Podijeli &amp; izvozi</string>
@@ -63,6 +64,7 @@
   <string name="studyPgn">Studiraj PGN</string>
   <string name="chapterPgn">PGN poglavlja</string>
   <string name="copyChapterPgn">Kopiraj PGN</string>
+  <string name="copyRawChapterPgn">Kopiraj nekomentirani PGN</string>
   <string name="downloadGame">Preuzmi igru</string>
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
@@ -167,4 +169,38 @@
   <string name="whatWouldYouPlay">Što bi igrali u ovoj poziciji?</string>
   <string name="youCompletedThisLesson">Čestitamo! Završili ste lekciju.</string>
   <string name="perPage">%s po stranici</string>
+  <string name="getTheTour">Trebaš li pomoć? Prati obilazak!</string>
+  <string name="welcomeToLichessStudyTitle">Dobrodošli u Lichess studije!</string>
+  <string name="welcomeToLichessStudyText">Ovo je dijeljena analitička ploča.&lt;br&gt;&lt;br&gt;Koristi je za analizu i komentiranje partija,&lt;br&gt;diskusiju o pozicijama s prijateljima&lt;br&gt;i naravno za satove šaha!&lt;br&gt;&lt;br&gt;To je moćan alat, ajmo da odvojimo malo vremena da vidimo kako funkcijonira.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Podijeljeno i sačuvano</string>
+  <string name="sharedAndSavedText">Drugi članovi mogu vidjeti tvoje poteze u stvarnom vremenu!&lt;br&gt;Osim toga, je sve zauvijek spremljeno.</string>
+  <string name="studyMembersTitle">Članovi studije</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Gledaoci mogu pregledati studiju i razgovarati u četu.&lt;br&gt;&lt;br&gt;%2$s Administratori mogu mijenjati i aktualizirati studiju.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klikni na dugme %s.&lt;br&gt;S time možeš odlučiti tko može uređivati, a tko ne.</string>
+  <string name="studyChaptersTitle">Poglavlja studije</string>
+  <string name="studyChaptersText">Studija može sadržavati nekoliko poglavlja.&lt;br&gt;Svako poglavlje ima zasebnu početnu poziciju i stablo poteza.</string>
+  <string name="commentPositionTitle">Komentiraj poziciju</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikni na dugme %s ili desnim klikom miša na listu poteza.&lt;br&gt;Komentari se djele i čuvaju.</string>
+  <string name="annotatePositionTitle">Označi poziciju</string>
+  <string name="annotatePositionText">Klikni na dugme \"!?\" ili desnim klikom miša na listu poteza.&lt;br&gt;Označenja se djele i čuvaju.</string>
+  <string name="conclusionTitle">Hvala na tvom vremenu</string>
+  <string name="conclusionText">Svoje &lt;a href=\'/study/mine/hot\'&gt;stare studije&lt;/a&gt; možeš pronaći na stranici svog profila.&lt;br&gt;Postoji i &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blog objava na blogu o studijama&lt;/a&gt;.&lt;br&gt;Napredni korisnici možda žele pritisnuti \"?\" da bi vidjeli prečice na tastaturi.&lt;br&gt;Uživaj!</string>
+  <string name="createChapterTitle">Ajmo da kreiramo poglavlje studije</string>
+  <string name="createChapterText">Studija može imati nekoliko poglavlja.&lt;br&gt;Svako poglavlje ima zasebno stablo poteza,&lt;br&gt;i može se kreirati na različite načine.</string>
+  <string name="fromInitialPositionTitle">Sa počentne pozicije</string>
+  <string name="fromInitialPositionText">Ploča spremna za novu partiju.&lt;br&gt; Korisno za istraživanje otvaranja.</string>
+  <string name="customPositionTitle">Od pozicije</string>
+  <string name="customPositionText">Postavi ploču na svoj način.&lt;br&gt;Korisno za istraživanje završnica.</string>
+  <string name="loadExistingLichessGameTitle">Učitaj postojeću lichess igru</string>
+  <string name="loadExistingLichessGameText">Unesi URL lichess partije&lt;br&gt;(na primjer lichess.org/7fHIU0XI)&lt;br&gt; da bi učitao poteze u poglavlju.</string>
+  <string name="fromFenStringTitle">Iz FEN notacije</string>
+  <string name="fromFenStringText">Unesi poziciju iz FEN formata&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;i&gt;da bi počeo poglavlje od pozicije.</string>
+  <string name="fromPgnGameTitle">Iz PGN partije</string>
+  <string name="fromPgnGameText">Unesi partiju iz PGN formata&lt;br&gt;da bi učitao poteze, komentare i varijante iz poglavlja.</string>
+  <string name="variantsAreSupportedTitle">Studije podržavaju varijante</string>
+  <string name="variantsAreSupportedText">Da, možeš proučiti Crazyhouse&lt;br&gt;i sve druge lichess varijante!</string>
+  <string name="chapterConclusionText">Poglavlja se čuvaju zauvijek.&lt;br&gt;Zabavi se organizirajući svojih šahovskih sadržaja!</string>
+  <string name="doubleDefeat">Dvostruki poraz</string>
+  <string name="blackDefeatWhiteCanNotWin">Poraz crnog, ali bijeli ne može pobijediti</string>
+  <string name="whiteDefeatBlackCanNotWin">Poraz bijelog, ali crni ne može pobijediti</string>
 </resources>

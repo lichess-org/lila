@@ -6,7 +6,7 @@
     &__post {
       display: block;
       color: $c-font;
-      padding: 1em 2.5em;
+      padding: 1em 2em;
       overflow: hidden;
 
       &:nth-child(odd) {
@@ -31,7 +31,16 @@
     .meta {
       @extend %flex-between, %zalgoverflow;
 
+      font-size: 90%;
       margin-bottom: 0.5rem;
+
+      span {
+        color: $c-font-dimmer;
+      }
+
+      time {
+        font-size: 100%;
+      }
     }
 
     p {
@@ -39,6 +48,7 @@
 
       color: $c-font-dim;
       text-align: start;
+      margin-bottom: 0.25rem;
     }
 
     a.more {

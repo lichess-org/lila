@@ -95,7 +95,8 @@ private object OpeningSearch:
         entry.tokens(s"${token}s") // kings and queens can be matched by king and queen
     if entry.pgnLower.startsWith(query.raw) ||
       entry.pgnLower.startsWith(query.numberedPgn) ||
-      entry.uciLower.startsWith(query.raw)
+      entry.uciLower.startsWith(query.raw) ||
+      entry.opening.name.value.toLowerCase.startsWith(query.raw)
     then (query.raw.size * 1000 - entry.opening.nbMoves).some.filter(_ > 0)
     else
       query.tokens

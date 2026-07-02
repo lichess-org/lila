@@ -15,6 +15,7 @@ object Federation:
   type ByFideIds = Map[FideId, Id]
   type FedsOf = List[FideId] => Fu[Federation.ByFideIds]
   type Guess = String => Option[Federation.Id]
+  type GetName = Id => Fu[Option[Federation.Name]]
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
 
@@ -38,7 +39,8 @@ opaque type PhotosJson = JsObject
 object PhotosJson extends TotalWrapper[PhotosJson, JsObject]:
   type Get = Set[FideId] => Fu[PhotosJson]
 
-type Tokenize = String => PlayerToken
+opaque type Tokenize = String => PlayerToken
+object Tokenize extends FunctionWrapper[Tokenize, String => PlayerToken]
 
 enum FidePlayerOrder:
   case name, standard, rapid, blitz, year, follow

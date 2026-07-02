@@ -237,20 +237,21 @@ private final class RelayPlayerApi(
                     .map(_.lastOption)
                     .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
               yield withTiebreaks
-        yield result
-
-  private def sgIsParallel(tours: List[RelayTour]): Boolean =
-    tours.headOption
-      .flatMap(_.dates.map(_.start))
-      .exists: firstStart =>
-        tours.tailOption.exists(_.forall(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+          withRank = result.toList
+            .sortByReverse(_._2)
+            .mapWithIndex:
+              case ((id, rp), index) =>
+                id -> rp.copy(rank = Rank.from((index + 1).some))
+            .to(SeqMap)
+        yield withRank
 
   private def readGamesAndPlayers(tourIds: List[RelayTourId]): Fu[RelayPlayers] =
     for
       tours <- tourRepo.byIds(tourIds)
       toursById = tours.mapBy(_.id)
       rounds <-
-        if sgIsParallel(tours) then roundRepo.byToursOrdered(tourIds)
+        if RelayGroup.sgIsParallel(tours)
+        then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
         else tourIds.flatTraverse(roundRepo.byTourOrdered)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
@@ -353,9 +354,4 @@ private final class RelayPlayerApi(
         id -> rp.copy(
           tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(Seq))
         )
-      .toList
-      .sortByReverse(_._2)
-      .mapWithIndex:
-        case ((id, rp), index) =>
-          id -> rp.copy(rank = Rank.from((index + 1).some))
       .to(SeqMap)

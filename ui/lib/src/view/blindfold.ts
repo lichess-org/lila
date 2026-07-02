@@ -1,6 +1,6 @@
 import type { Prop } from '@/common';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import { bind, dataIcon, hl, type MaybeVNode } from './index';
 
 export function renderBlindfoldToggle(toggle: Prop<boolean>): MaybeVNode {

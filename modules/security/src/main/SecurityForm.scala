@@ -85,7 +85,7 @@ final class SecurityForm(
 
     val uniqueUsername: Mapping[UserName] = anyUsername.verifying(
       "usernameAlreadyUsed",
-      u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
+      u => u.id.noGhost && !userRepo.exists(u).await(2.seconds, "signupUsername")
     )
 
     def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =
@@ -94,6 +94,8 @@ final class SecurityForm(
         .collectFirst:
           case play.api.data.validation.Invalid(e :: _) =>
             lila.core.i18n.I18nKey(e.message).txt(e.args*)
+
+    val emailCheck = Form(single("email" -> fullyValidEmail(using none)))
 
     private val agreementBool = boolean.verifying(b => b)
 

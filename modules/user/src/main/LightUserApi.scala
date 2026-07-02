@@ -40,22 +40,22 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
-    initialCapacity = 512 * 1024,
+    initialCapacity = 1024 * 1024,
     compute = id =>
       if id.isGhost then fuccess(LightUser.ghost.some)
       else
         repo.coll
-          .find($id(id), projection)
+          .find($id(id), projection.some)
           .one[LightUser]
           .recover:
             case _: exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
     default = id => LightUser(id, id.into(UserName), None, None, PatronMonths.zero, None).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
-    expireAfter = Syncache.ExpireAfter.Write(10.minutes)
+    expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
 
-  private given BSONDocumentReader[LightUser] with
+  given reader: BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) =
       doc
         .getAsTry[UserName](F.username)
@@ -81,11 +81,11 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             patronColor = patronColor
           )
 
-  private val projection =
+  val projection =
     $doc(
       F.id -> false,
       F.username -> true,
       F.title -> true,
       F.plan -> true,
       F.flair -> true
-    ).some
+    )

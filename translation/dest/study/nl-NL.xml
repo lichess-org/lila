@@ -42,11 +42,10 @@
   <string name="youAreNowASpectator">Je bent nu een toeschouwer</string>
   <string name="pgnTags">PGN labels</string>
   <string name="like">Vind ik leuk</string>
-  <string name="unlike">Vind ik niet meer leuk</string>
   <string name="newTag">Nieuw label</string>
   <string name="commentThisPosition">Reageer op deze positie</string>
   <string name="commentThisMove">Reageer op deze zet</string>
-  <string name="annotateWithGlyphs">Maak aantekeningen met symbolen</string>
+  <string name="annotateWithGlyphs">Maak annotaties met symbolen</string>
   <string name="theChapterIsTooShortToBeAnalysed">Dit hoofdstuk is te kort om geanalyseerd te worden.</string>
   <string name="onlyContributorsCanRequestAnalysis">Alleen de bijdragers kunnen een computer analyse aanvragen.</string>
   <string name="getAFullComputerAnalysis">Krijg een volledige computer analyse van de hoofdlijn.</string>
@@ -82,7 +81,7 @@
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
-  <string name="clearAnnotations">Wis aantekeningen</string>
+  <string name="clearAnnotations">Wis annotaties</string>
   <string name="clearVariations">Verwijder variaties</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>

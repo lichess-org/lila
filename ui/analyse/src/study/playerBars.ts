@@ -95,7 +95,7 @@ function renderPlayer(
       fideId,
     },
     photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
-  const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
+  const coloredResult = status && status !== '*' && playerColoredResult(status, color, round?.customScoring);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
     : result && hl(`${resultTag(result)}.result`, result);

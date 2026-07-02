@@ -8,6 +8,8 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
+
 export type Prop<T> = {
   (): T;
   (v: T): T;

@@ -51,7 +51,7 @@ final class LiveApi(
     streaming: Publisher
 )(using Executor):
 
-  private val cache = cacheApi.unit[LiveStreams]:
+  private val cache = cacheApi.unit[LiveStreams]("streamer.liveStreams"):
     _.refreshAfterWrite(2.seconds).buildAsyncFuture: _ =>
       fuccess(streaming.getLiveStreams)
         .dmap: s =>

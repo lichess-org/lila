@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Schwarz hat die Partie verlassen</string>
   <string name="whiteDidntMove">Weiß hat nicht gezogen</string>
   <string name="blackDidntMove">Schwarz hat nicht gezogen</string>
+  <string name="whiteAborted">Weiß hat die Partie verlassen</string>
+  <string name="blackAborted">Schwarz hat die Partie verlassen</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="like">Gefällt mir</string>
+  <string name="liked">Gefällt mir</string>
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="allLanguages">Alle Sprachen</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
   <string name="theForumEtiquette">Die Forums-Etikette</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Bitte sei freundlich im Forum.</string>
+  <string name="pleaseBeNiceInTheForum">Bitte sei freundlich im Forum.</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -1035,4 +1043,5 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="thereAreNoResultsForX">Keine Ergebnisse für \"%s\"</string>
   <string name="tags">Schlagwörter</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Einstellungen</string>
 </resources>

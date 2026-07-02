@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">حالت ذن</string>
   <string name="showPlayerRatings">نشان دادن درجه‌بندی بازیکنان</string>
   <string name="showFlairs">نمایش نشان بازیکنان</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
+  <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیرهٔ تغییر اندازهٔ تخته</string>
   <string name="onlyOnInitialPosition">فقط در وضعیت آغازین</string>
   <string name="inGameOnly">تنها در بازی</string>
@@ -64,11 +64,28 @@
   <string name="notifyTournamentSoon">مسابقات به‌زودی می‌آغازد</string>
   <string name="notifyBroadcasts">پخش‌هایی که مشترک آن‌ها شده‌اید</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">اعلان زنگی در Lichess</string>
+  <string name="notifyBell">اعلان زنگی در Lichess</string>
   <string name="notifyPush">اعلان اَفزاره، هنگامی که در Lichess نیستید</string>
   <string name="notifyWeb">مرورگر</string>
   <string name="notifyDevice">اَفزاره</string>
   <string name="bellNotificationSound">صدای اعلان زنگی</string>
   <string name="blindfold" comment="As in Blindfold chess">چشم‌بسته</string>
-  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">در دستگاه‌های موبایل، در سمت چپ نمایش بده</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">در گوشی‌ها، نمایش در سمت چپ</string>
+  <string name="inlineNotation">نشانه‌گذاریِ درخط</string>
+  <string name="showServerAnalysis">نمایشِ تحلیلِ کارساز</string>
+  <string name="showBestMoveArrows">نمایشِ پیکان‌های بهترین حرکت</string>
+  <string name="showManeuverArrows">نمایشِ پیکان‌های تَمهید</string>
+  <string name="showGauge">نمایشِ میلهٔ ارزیابی</string>
+  <string name="showMoveAnnotationsOnBoard">نمایشِ حرکت‌نویسی</string>
+  <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
+  <string name="showLiveGlyphs">حرکت‌نویسیِ زندهٔ موتور</string>
+  <string name="showUndefendedPieces">نمایشِ مُهره‌های بی‌دفاع</string>
+  <string name="showPinnedPieces">نمایشِ مُهرهای آچمزیده</string>
+  <string name="showCheckableKing">نمایشِ شاهِ کیش‌پذیر</string>
+  <string name="disclosureMode">فعالسازیِ پنهاندنِ وَرتِش</string>
+  <string name="generalSettings">عمومی</string>
+  <string name="moveListSettings">فهرستِ حرکت</string>
+  <string name="boardSettings">میز</string>
+  <string name="analysisSettings">تنظیماتِ تحلیل</string>
+  <string name="maneuverArrowsHelp">دنبالهٔ حرکت‌های موتور برای یک مُهره</string>
 </resources>

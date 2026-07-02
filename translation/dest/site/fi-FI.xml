@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Musta lähti pelistä</string>
   <string name="whiteDidntMove">Valkea ei siirtänyt</string>
   <string name="blackDidntMove">Musta ei siirtänyt</string>
+  <string name="whiteAborted">Valkea keskeytti pelin</string>
+  <string name="blackAborted">Musta keskeytti pelin</string>
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
   <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
@@ -95,6 +97,8 @@
   <string name="database">Tietokanta</string>
   <string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
   <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
+  <string name="minRatingX">Vahvuusluvun alaraja %s</string>
+  <string name="maxRatingX">Vahvuusluvun yläraja %s</string>
   <string name="recentGames">Viimeaikaiset pelit</string>
   <string name="topGames">Kärkipelit</string>
   <string name="masterDbExplanation">2 miljoonaa %1$s+ FIDE-rankattujen pelaajien vuosina %2$s-%3$s laudalla pelaamaa peliä</string>
@@ -805,9 +809,15 @@
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
+  <string name="like">Tykkää</string>
+  <string name="liked">Tykätty</string>
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonyymi</item>
+    <item quantity="other">Anonyymejä (%s)</item>
+  </plurals>
   <string name="yourScore">Pisteesi: %s</string>
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>
@@ -940,6 +950,7 @@
   <string name="tryTheContactPage">yhteydenottosivulta</string>
   <string name="makeSureToRead">Lue ensi töiksesi %1$s</string>
   <string name="theForumEtiquette">foorumin etiketti</string>
+  <string name="pleaseBeNiceInTheForum">Olethan ystävällinen foorumilla.</string>
   <string name="thisTopicIsArchived">Tämä aihe on arkistoitu, eikä siihen voi enää vastata.</string>
   <string name="joinTheTeamXToPost">Kirjoittaaksesi tähän foorumiin sinun on liityttävä %1$s</string>
   <string name="teamNamedX">%1$s -joukkueeseen</string>
@@ -1018,7 +1029,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="instructions">Ohjeet</string>
   <string name="showMeEverything">Näytä kaikki</string>
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
-Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
+Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla. Ilman anteliasta yhteisöämme emme pystyisi pitämään sivustoa yllä. Kiitos liittymisestä tukijoihimme!  </string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
   <string name="stats">Tilastot</string>
   <string name="accessibility">Saavutettavuus</string>

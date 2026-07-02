@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Pretas deixaram a partida</string>
   <string name="whiteDidntMove">Brancas não moveram</string>
   <string name="blackDidntMove">Pretas não moveram</string>
+  <string name="whiteAborted">As brancas abortaram a partida</string>
+  <string name="blackAborted">As pretas abortaram a partida</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
@@ -807,9 +809,15 @@
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
+  <string name="like">Curtir</string>
+  <string name="liked">Curtidas</string>
   <string name="quickPairing">Pareamento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anônimo</item>
+    <item quantity="other">Anônimo (%s)</item>
+  </plurals>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
@@ -942,7 +950,7 @@
   <string name="tryTheContactPage">tente a página de contato</string>
   <string name="makeSureToRead">Certifique-se de ler %1$s</string>
   <string name="theForumEtiquette">as regras do fórum</string>
-  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Por favor, seja gentil no fórum.</string>
+  <string name="pleaseBeNiceInTheForum">Por favor, seja gentil no fórum.</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e não pode mais ser respondido.</string>
   <string name="joinTheTeamXToPost">Junte-se a %1$s para publicar neste fórum</string>
   <string name="teamNamedX">Equipe %1$s</string>
@@ -1034,4 +1042,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="thereAreNoResultsForX">Nenhum resultado para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Configurações</string>
 </resources>

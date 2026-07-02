@@ -1,7 +1,5 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
-
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.mon.extensions.*
 
@@ -31,8 +29,7 @@ final private class StartedOrganizer(
           logger.error(s"StartedOrganizer $tour", e)
           0
         }
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .addEffect: nb =>
         if doAllTournaments then lila.mon.tournament.started.update(nb)
         runCounter = runCounter + 1

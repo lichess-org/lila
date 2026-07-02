@@ -7,7 +7,7 @@ import play.api.data.Form
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
-import lila.core.study.{ IdName, StudyOrder }
+import lila.core.study.IdName
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui = lila.study.ui.StudyUi(helpers)
@@ -18,7 +18,7 @@ def staffPicks(p: lila.cms.CmsPage.Render, featuredForm: Option[Form[?]])(using 
     .css("analyse.study.index", "bits.page")
     .css(featuredForm.isDefined.option("bits.form3")):
       main(cls := "page-menu")(
-        list.menu("staffPicks", StudyOrder.mine, Nil),
+        list.menu(lila.study.StudyGroup.staffPicks, None, Nil),
         div(cls := "page-menu__content box box-pad")(
           featuredForm.map: form =>
             postForm(action := routes.Study.staffPicks)(

@@ -235,7 +235,7 @@ export class DevCtrl implements GameObserver {
     return this.script.games.length !== 0;
   }
 
-  private stringify(obj: any) {
+  private stringify(obj: BotInfo) {
     return JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
   }
 }

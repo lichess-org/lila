@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Siz endi kuzatuvchisiz</string>
   <string name="pgnTags">PGN teglar</string>
   <string name="like">Yoqdi</string>
-  <string name="unlike">Yoqmadi</string>
   <string name="newTag">Yangi teg</string>
   <string name="commentThisPosition">Ushbu pozitsiyaga sharh berish</string>
   <string name="commentThisMove">Ushbu yurishga sharh berish</string>
@@ -90,7 +89,7 @@
   <string name="rightUnderTheBoard">Taxta ostida</string>
   <string name="noPinnedComment">Yoʻq</string>
   <string name="normalAnalysis">Normal tahlil</string>
-  <string name="hideNextMoves">Navbatdagi yurishni yashirish</string>
+  <string name="hideNextMoves">Keyingi yurishlarni yashirish</string>
   <string name="interactiveLesson">Interaktiv dars</string>
   <string name="chapterX">%s‑bob</string>
   <string name="empty">Boʻsh</string>

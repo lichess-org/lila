@@ -17,7 +17,7 @@ const gamesToMigrate = db.game5
   .sort({ ca: -1 });
 
 gamesToMigrate.forEach(function (g) {
-  const color = !!(g.p0 && g.p0.w);
+  const color = !!g.p0?.w;
   const update = {
     $unset: color
       ? {

@@ -1,5 +1,12 @@
 import { defined, notNull } from './index';
 
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
 export const jsonHeader = {
   Accept: 'application/web.lichess+json',
 };
@@ -13,11 +20,15 @@ export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest', // so lila knows it's XHR
 };
 
-export const ensureOk = (res: Response): Response => {
+export const ensureOk = async (res: Response): Promise<Response> => {
   if (res.ok) return res;
-  if (res.status === 429) throw new Error('Too many requests');
   if (res.status === 413) throw new Error('The uploaded file is too large');
-  throw new Error(`Error ${res.status}`);
+  if (res.status === 422) {
+    const body = await res.json().catch(() => null);
+    throw new ValidationError(body?.error || 'Unprocessable entity');
+  }
+  if (res.status === 429) throw new Error('Too many requests');
+  throw new Error(`Error ${res.status} ${res.statusText} ${await res.text()}`);
 };
 
 /* fetch a static JSON asset without headers that trigger CORS preflight */
@@ -27,11 +38,11 @@ export const jsonSimple = (url: string, init: RequestInit = {}): Promise<any> =>
       ...jsonHeader,
     },
     ...init,
-  }).then(res => ensureOk(res).json());
+  }).then(res => ensureOk(res).then(r => r.json()));
 
 /* fetch a JSON value */
-export const json = (url: string, init: RequestInit = {}): Promise<any> =>
-  jsonAnyResponse(url, init).then(res => ensureOk(res).json());
+export const json = <A = any>(url: string, init: RequestInit = {}): Promise<A> =>
+  jsonAnyResponse(url, init).then(res => ensureOk(res).then(r => r.json()));
 
 export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
@@ -45,7 +56,7 @@ export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<an
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
-  textRaw(url, init).then(res => ensureOk(res).text());
+  textRaw(url, init).then(res => ensureOk(res).then(r => r.text()));
 
 export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> =>
   fetch(url, {

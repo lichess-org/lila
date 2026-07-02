@@ -117,8 +117,8 @@ export const isOpening = (m: ExplorerData): m is OpeningData => !!m.isOpening;
 
 export const isTablebase = (m: ExplorerData): m is TablebaseData => !!m.tablebase;
 
-export interface SimpleTablebaseHit {
+export type SimpleTablebaseHit = {
   fen: FEN;
   best?: Uci; // no move if checkmate/stalemate
-  winner: Color | undefined;
-}
+  winner?: Color;
+};

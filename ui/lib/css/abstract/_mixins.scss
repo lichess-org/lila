@@ -169,7 +169,7 @@
 
 @mixin with-metal-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
   box-shadow:
-    inset 0 if($soft == true, 1px, 2px) 3px -2px hsl(0, 0%, if($soft == true, 30%, 45%)),
+    inset 0 1px 3px -2px hsl(0, 0%, if($soft == true, 30%, 45%)),
     inset 0 -4px 6px -3px $m-body-gradient--lighten-3,
     if($defaultShadow != (), 0 1px 3px 0 $defaultShadow, ());
 
@@ -179,11 +179,15 @@
       inset 0 -4px 6px -3px $m-body-gradient--lighten-5,
       if($defaultShadow != (), 0 1px 3px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
   }
+
+  @include if-transp {
+    box-shadow: none;
+  }
 }
 
 @mixin with-metal-hover-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
   box-shadow:
-    inset 0 if($soft == true, 2px, 3px) 3px -2px $c-border-light,
+    inset 0 1px 3px -2px $c-border-light,
     inset 0 -5px 8px -3px $m-body-gradient--lighten-5,
     if($defaultShadow != (), 0 2px 4px 0 $defaultShadow, ());
 
@@ -193,11 +197,15 @@
       inset 0 -5px 8px -3px $m-body-gradient--lighten-7,
       if($defaultShadow != (), 0 2px 4px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
   }
+
+  @include if-transp {
+    box-shadow: none;
+  }
 }
 
 @mixin with-button-shadow($topShadow: (), $bottomShadow: (), $lighTopShadow: (), $lightBottomShadow: ()) {
   box-shadow:
-    inset 0 2px 3px -2px $topShadow,
+    inset 0 1px 3px -2px $topShadow,
     inset 0 -4px 6pt -3pt $bottomShadow,
     0 1px 3px 0 hsla(0, 0, 0%, 0.2);
 
@@ -210,7 +218,7 @@
 
   &:not(.disabled, :disabled, [disabled]):hover {
     box-shadow:
-      inset 0 2px 3px -2px $topShadow,
+      inset 0 1px 3px -2px $topShadow,
       inset 0 -5px 6pt -3pt $bottomShadow,
       0 2px 4px 0 hsla(0, 0, 0%, 0.24);
 
@@ -219,6 +227,10 @@
         inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
         inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
         0 2px 4px 0 hsla(0, 0, 0%, 0.21);
+    }
+
+    @include if-transp {
+      box-shadow: none;
     }
   }
 }

@@ -38,9 +38,10 @@ final class Env(
   lazy val paginator = wire[FidePaginator]
 
   def federationsOf: Federation.FedsOf = playerApi.federationsOf
-  def tokenize: Tokenize = FidePlayer.tokenize
+  given Federation.GetName = federationApi.getName
+  given Tokenize = FidePlayer.tokenize
   def guessPlayer: GuessPlayer = playerApi.guessPlayer.apply
-  def getPlayer: GetPlayer = playerApi.get
+  given getPlayer: GetPlayer = playerApi.get
   def getPlayerFollowers: GetPlayerFollowers = repo.follower.followers
   def photosJson: PhotosJson.Get = ids => playerApi.photos(ids).map(json.photosJson)
 

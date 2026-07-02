@@ -10,7 +10,7 @@ import cats.mtl.Handle.*
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthSignedClient }
 
 import Api.ApiResult
 
@@ -22,15 +22,25 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       case Left(error) =>
         BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
 
+  private def authRoute(action: OAuthSignedClient.Action, signedClient: Option[OAuthSignedClient])(using
+      RequestHeader
+  ) =
+    val brandedTakex3 = signedClient.contains(env.oAuth.signedClients.takex3) && getBool("takex3_auth")
+    action match
+      case "signup" => if brandedTakex3 then routes.Auth.signupTakex3 else routes.Auth.signup
+      case "login" => if brandedTakex3 then routes.Auth.loginTakex3 else routes.Auth.login
+
   def authorize = Open:
     withPrompt: prompt =>
+      val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
+      val signedClient = env.oAuth.signedClients.forPromptAndMonitor(prompt, action)
       ctx.me match
         case Some(me) =>
           given Me = me
-          Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+          Ok.page(views.oAuth.authorize(prompt, signedClient, authRoute("login", signedClient)))
         case None =>
           Redirect(
-            if getBool("signup") then routes.Auth.signup.url else routes.Auth.login.url,
+            authRoute(action, signedClient).url,
             Map("referrer" -> List(req.uri))
           ).toFuccess
 
@@ -125,3 +135,6 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           }))
         }
       .map(apiC.toHttp)
+
+  def mobileOAuthCallback = Open:
+    Ok.page(lila.web.ui.mobileRedirect)

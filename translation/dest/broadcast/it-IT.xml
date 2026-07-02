@@ -63,6 +63,7 @@
   <string name="notYetStarted">Questa trasmissione non è ancora cominciata.</string>
   <string name="officialWebsite">Sito web ufficiale</string>
   <string name="officialStandings">Classifica Ufficiale</string>
+  <string name="regulations">Normative</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Altre opzioni si trovano nella %s</string>
   <string name="webmastersPage">pagina dei gestori web</string>
   <string name="embedThisBroadcast">Incorpora questa trasmissione nel tuo sito web</string>
@@ -106,4 +107,6 @@
   <string name="tiebreaks">Tiebreak</string>
   <string name="gameX">Partita %s</string>
   <string name="knockouts">KO</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

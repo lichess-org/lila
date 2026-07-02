@@ -21,8 +21,11 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
     cache
 
   // AsyncLoadingCache for a single entry
-  def unit[V](build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] =
-    build(scaffeine.initialCapacity(1))
+  def unit[V](name: String)(build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] =
+    val cache = build:
+      scaffeine.recordStats().initialCapacity(1)
+    register(name, cache)
+    cache
 
   // AsyncLoadingCache with monitoring and a synchronous getter
   def sync[K, V](

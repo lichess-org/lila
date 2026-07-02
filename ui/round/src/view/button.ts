@@ -3,7 +3,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import { game as gameRoute } from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import {
   spinnerVdom as spinner,
@@ -112,7 +112,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
 export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => ButtonState) | undefined,
-  icon: LiconType,
+  icon: LiconValue,
   hint: string,
   socketMsg: EventsWithoutPayload,
   onclick?: () => void,
@@ -152,7 +152,7 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
     : gone !== false &&
         hl(
           'div.suggestion.opponent-left-counter',
-          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))),
+          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', gone))),
         );
 }
 

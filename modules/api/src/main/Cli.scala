@@ -17,7 +17,6 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
         case e => e
       .flatMap(_.value) // executing the handler can take a very long time
       .map(_ + "\n")
-      .logFailure(lila.log("cli"), _ => args.mkString(" "))
       .recover:
         case e: Exception => s"ERROR $e\n"
 
@@ -30,3 +29,5 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
       val current = AssetVersion.change()
       Bus.pub(AssetVersion.Changed(current))
       fuccess(s"Changed to ${AssetVersion.current}")
+    case "threads" :: "blocked" :: Nil =>
+      fuccess(scalalib.Jvm.blockedStr)
