@@ -143,6 +143,7 @@ export class Premove {
         !this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween)
       )
         return false;
+      return true;
     }
     return (
       !friendlySqBetween ||
