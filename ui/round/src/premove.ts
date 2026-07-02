@@ -133,11 +133,11 @@ export class Premove {
         if (enemyPawnDests.every(square => badSquares.has(square))) return false;
       }
     }
+    const enemies = enemySqBetween
+      ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
+      : ctx.enemies;
     if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
       if (friendlySqBetween) return false;
-      const enemies = enemySqBetween
-        ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
-        : ctx.enemies;
       if (
         !this.isDestControlledByEnemy(ctx, undefined, enemies) &&
         !this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween)
@@ -146,7 +146,7 @@ export class Premove {
     }
     return (
       !friendlySqBetween ||
-      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, undefined, squaresBetween)
+      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, enemies, squaresBetween)
     );
   };
 

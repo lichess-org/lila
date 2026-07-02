@@ -136,18 +136,18 @@ describe('premoves', () => {
 
   test('anticipate all en passant captures if no last move', () => {
     const expectedPremoves = new Map<cg.Key, Set<cg.Key>>([
-      ['a2', new Set(['b1', 'b3', 'c4', 'd5', 'e6', 'f7', 'g8'])],
-      ['h2', new Set(['g1', 'g3', 'f4', 'e5', 'd6', 'c7', 'b8'])],
+      ['a2', new Set(['b1', 'b3', 'c4', 'd5', 'e6'])],
+      ['h2', new Set(['g1', 'g3', 'f4', 'e5', 'd6', 'c7'])],
       ['h3', new Set(['g3', 'f3', 'e3', 'h4', 'h5'])],
       ['f5', new Set(['e5', 'd5', 'c5', 'b5', 'a5', 'f6', 'f7', 'f8', 'f4', 'f3'])],
       ['c1', new Set(['a1', 'b1', 'd1', 'e1', 'f1', 'g1', 'h1', 'c2', 'c3'])],
       ['c4', new Set(['c5'])],
-      ['f4', new Set()],
+      ['f4', new Set(['e5'])],
       ['g5', new Set(['g6'])],
       ['d3', new Set(['d4', 'e4'])],
     ]);
     testPosition(
-      fen.read('8/8/8/5RPp/1pP1pP2/3Pp2R/B6B/2R5 b - - 0 1'),
+      fen.read('8/2k5/4p3/5RPp/1pP1pP2/3Pp2R/B6B/2R5 b - - 0 1'),
       'black',
       undefined,
       expectedPremoves,
