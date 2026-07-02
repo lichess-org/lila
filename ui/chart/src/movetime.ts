@@ -58,7 +58,7 @@ export default async function (
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
   const adviceHoverColors: { white: string[]; black: string[] } = { white: [], black: [] };
   const moveDatasetPointsByPly = new Map<number, { datasetIndex: number; index: number }>();
-  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
+  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
