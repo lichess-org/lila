@@ -3,6 +3,47 @@
 @import '../../../lib/css/component/button';
 @import '../../../lib/css/component/pgn-viewer';
 
+@media (max-width: 500px) {
+  .lpv--moves-auto {
+    grid-template-areas:
+      'board'
+      'controls'
+      'side';
+    grid-template-columns: minmax(200px, 100%);
+    grid-template-rows: auto var(--controls-height) 6em;
+
+    .lpv__board,
+    .lpv__controls {
+      width: clamp(200px, calc(100vh - var(--controls-height) - 6em), 100%);
+    }
+
+    .lpv__side {
+      width: 100%;
+    }
+  }
+
+  .lpv--players.lpv--moves-auto {
+    grid-template-areas:
+      'player-top'
+      'board'
+      'player-bot'
+      'controls'
+      'side';
+    grid-template-columns: minmax(200px, 100%);
+    grid-template-rows: 2em auto 2em var(--controls-height) 6em;
+
+    .lpv__player,
+    .lpv__board,
+    .lpv__controls {
+      width: clamp(200px, calc(100vh - 2 * 2em - var(--controls-height) - 6em), 100%);
+    }
+
+    .lpv__side {
+      width: 100%;
+    }
+  }
+}
+
 .lpv--gamebook {
   position: relative;
 }
