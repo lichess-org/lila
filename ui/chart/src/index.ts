@@ -4,6 +4,8 @@ import { currentTheme } from 'lib/device';
 import { plyOpponentColor } from 'lib/game';
 import type { TreeNodeBase } from 'lib/tree/types';
 
+import type { AnalyseData } from './interface';
+
 export interface MovePoint {
   y: number;
   x: number;
@@ -126,3 +128,5 @@ export const nodesWithGlyphByColor = (
   mainline.filter(
     node => node?.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
   );
+
+export const analysisIsPartial = (d: AnalyseData): boolean => !d.analysis || !!d.analysis.partial;

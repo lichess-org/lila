@@ -30,6 +30,7 @@ import {
   axisOpts,
   glyphProperties,
   nodesWithGlyphByColor,
+  analysisIsPartial,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 
@@ -58,7 +59,6 @@ export default async function (
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
   const adviceHoverColors: { white: string[]; black: string[] } = { white: [], black: [] };
-  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
@@ -227,7 +227,7 @@ export default async function (
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
   pubsub.on('ply', (ply: number, isMainline?: boolean) => movetimeChart.selectPly(ply, isMainline ?? false));
   pubsub.emit('ply.trigger');
-  if (!isPartial(data)) {
+  if (!analysisIsPartial(data)) {
     christmasTree(movetimeChart, data.treeParts, adviceHoverColors);
   }
   return movetimeChart;

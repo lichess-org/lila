@@ -31,6 +31,7 @@ import {
   axisOpts,
   glyphProperties,
   nodesWithGlyphByColor,
+  analysisIsPartial,
 } from './index';
 import type { AcplChart, AnalyseData, Player } from './interface';
 
@@ -47,7 +48,6 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(data.game.division);
   const firstPly = mainline[0].ply;
-  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
@@ -184,12 +184,12 @@ export default async function (
     adviceHoverColors = dataset.adviceHoverColors;
     const acpl = dataset.acpl;
     acplChart.data.datasets[0].data = acpl.data;
-    if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
+    if (!analysisIsPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update('none');
   };
   pubsub.on('ply', acplChart.selectPly);
   pubsub.emit('ply.trigger');
-  if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
+  if (!analysisIsPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }
 
