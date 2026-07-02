@@ -290,14 +290,12 @@ function christmasTree(
     })
     .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
       chart.setActiveElements([]);
-      const whiteDataset = chart.data.datasets[COLORS.indexOf('white')];
-      whiteDataset.hoverBackgroundColor = whiteFill;
-      whiteDataset.pointHoverBackgroundColor = orangeAccent;
-      whiteDataset.pointHoverBorderColor = orangeAccent;
-      const blackDataset = chart.data.datasets[COLORS.indexOf('black')];
-      blackDataset.hoverBackgroundColor = blackFill;
-      blackDataset.pointHoverBackgroundColor = orangeAccent;
-      blackDataset.pointHoverBorderColor = orangeAccent;
+      COLORS.forEach((_c, i) => {
+        const dataset = chart.data.datasets[i];
+        dataset.pointHoverBorderColor = orangeAccent;
+        dataset.hoverBackgroundColor = undefined;
+        dataset.pointHoverBackgroundColor = undefined;
+      });
       chart.update('none');
     });
 }
