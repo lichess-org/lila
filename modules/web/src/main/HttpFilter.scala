@@ -4,7 +4,7 @@ import akka.stream.Materializer
 import play.api.mvc.*
 import play.api.http.Status.*
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ClientName }
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 
@@ -15,7 +15,7 @@ final class HttpFilter(
     extends Filter
     with ResponseHeaders:
 
-  private val logger = lila.log("http")
+  private def logger = lila.log("http")
 
   def apply(handle: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if HTTPRequest.isAssets(req) then serveAssets(handle(req))
@@ -24,19 +24,38 @@ final class HttpFilter(
       redirectWrongDomain(req)
         .map(fuccess)
         .getOrElse:
-          handle(req).map: result =>
-            monitoring(req, startTime):
-              addContextualResponseHeaders(req):
-                addEmbedderPolicyHeaders(req):
+          val lilaReq = toLilaReq(req)
+          handle(lilaReq).map: result =>
+            monitoring(lilaReq, startTime):
+              addContextualResponseHeaders(lilaReq):
+                addEmbedderPolicyHeaders(lilaReq):
                   result
+
+  private def toLilaReq(req: RequestHeader) =
+    val clientName =
+      import ClientName.*
+      if HTTPRequest.isXhr(req) then if HTTPRequest.isLichobile(req) then lichobile else xhr
+      else if HTTPRequest.isLichessMobile(req) then mobile
+      else if crawlerMatcher(req) then crawler
+      else if req.path.startsWith("/fishnet/") then fishnet
+      else browser
+    req.addAttr(ClientName.reqAttr, clientName)
+
+  private val crawlerMatcher = HTTPRequest.UaMatcher:
+    // spiders/crawlers
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot""" +
+      // apps and servers that load previews
+      """|Discordbot|WhatsApp""" +
+      // http libs
+      """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
     val actionName = HTTPRequest.actionName(req)
     val reqTime = nowMillis - startTime
     val statusCode = result.header.status
     val mobile = parseMobileUa(req)
-    val client = if mobile.isDefined then "mobile" else HTTPRequest.clientName(req)
-    lila.mon.http.count(actionName, client, req.method, statusCode).increment()
+    val client = ClientName(req)
+    lila.mon.http.count(actionName, client.name, req.method, statusCode).increment()
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach: m =>

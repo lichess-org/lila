@@ -21,8 +21,8 @@ final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor
         for beta <- me.soUse(isInBetaTeam)
         yield publicBotKeys ::: beta.so(betaBotKeys)
 
-    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]:
-      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]("jsbot.all"):
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout("jsbot.all"): _ =>
         repo.getLatestBots()
 
     def get(isInBetaTeam: MyId ?=> Fu[Boolean])(using Option[Me]): Fu[List[BotJson]] = for

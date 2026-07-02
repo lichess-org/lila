@@ -814,7 +814,7 @@
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="one">Ανώνυμος/η</item>
     <item quantity="other">Ανώνυμοι (%s)</item>
   </plurals>
@@ -1042,4 +1042,5 @@
   <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Ρυθμίσεις</string>
 </resources>

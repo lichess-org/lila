@@ -52,8 +52,8 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
-    val store = cacheApi.unit[List[Update]]:
-      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    val store = cacheApi.unit[List[Update]]("feed.store"):
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout("feed.store"): _ =>
         coll
           .find($empty)
           .sort($sort.desc("at"))

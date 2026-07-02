@@ -1,29 +1,36 @@
 import type SimulCtrl from './ctrl';
 import type { SimulData } from './interfaces';
 
-export interface SimulSocket {
+type SimulMessage =
+  | { tpe: 'reload'; data: SimulData }
+  | { tpe: 'aborted' }
+  | { tpe: 'hostGame'; data: string };
+
+export type SimulTpe = SimulMessage['tpe'];
+export type SimulSocket = {
   send: SocketSend;
-  receive(tpe: string, data: any): void;
-}
+  receive(message: SimulMessage): void | false;
+};
 
-export function makeSocket(send: SocketSend, ctrl: SimulCtrl) {
-  const handlers: any = {
-    reload(data: SimulData) {
-      ctrl.reload(data);
-      ctrl.redraw();
-    },
-    aborted: site.reload,
-    hostGame(gameId: string) {
-      ctrl.data.host.gameId = gameId;
-      ctrl.redraw();
-    },
-  };
-
+export function makeSocket(send: SocketSend, ctrl: SimulCtrl): SimulSocket {
   return {
     send,
-    receive(tpe: string, data: any) {
-      if (handlers[tpe]) return handlers[tpe](data);
-      return false;
+    receive(message) {
+      switch (message.tpe) {
+        case 'reload':
+          ctrl.reload(message.data);
+          ctrl.redraw();
+          return;
+        case 'aborted':
+          site.reload();
+          return;
+        case 'hostGame':
+          ctrl.data.host.gameId = message.data;
+          ctrl.redraw();
+          return;
+        default:
+          return false;
+      }
     },
   };
 }

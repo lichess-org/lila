@@ -7,7 +7,7 @@ import { json as xhrJson } from 'lib/xhr';
 import type { RelayRound } from './interfaces';
 
 type Data = {
-  viewers: any;
+  viewers: [number, number][];
   unique?: number;
 };
 

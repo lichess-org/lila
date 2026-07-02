@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import alleycats.Zero
 import scala.collection.mutable.WeakHashMap
+import scalalib.future.TimeoutException
 
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
@@ -21,8 +22,11 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
     cache
 
   // AsyncLoadingCache for a single entry
-  def unit[V](build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] =
-    build(scaffeine.initialCapacity(1))
+  def unit[V](name: String)(build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] =
+    val cache = build:
+      scaffeine.recordStats().initialCapacity(1)
+    register(name, cache)
+    cache
 
   // AsyncLoadingCache with monitoring and a synchronous getter
   def sync[K, V](
@@ -103,11 +107,14 @@ object CacheApi:
 
   extension [K, V](builder: Scaffeine[K, V])
 
-    def buildAsyncTimeout[K1 <: K, V1 <: V](loaderTimeout: FiniteDuration = 10.seconds)(
+    def buildAsyncTimeout[K1 <: K, V1 <: V](name: String, loaderTimeout: FiniteDuration = 10.seconds)(
         loader: K1 => Future[V1]
     )(using Scheduler, Executor): AsyncLoadingCache[K1, V1] =
       builder.buildAsyncFuture: k =>
-        loader(k).withTimeout(loaderTimeout, s"buildAsyncFuture($k)")
+        loader(k)
+          .withTimeout(loaderTimeout, s"buildAsyncFuture($name, $k)")
+          .addFailureEffect:
+            case _: TimeoutException => lila.mon.cache.buildAsyncTimeout(name).increment()
 
     def buildAsyncTimeoutZero[K1 <: K, V1 <: V](loaderTimeout: FiniteDuration = 10.seconds)(
         loader: K1 => Future[V1]

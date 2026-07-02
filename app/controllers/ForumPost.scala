@@ -7,8 +7,8 @@ import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
-  def search(text: String, page: Int) =
-    OpenBody:
+  def search(text: String, page: Int) = AuthBody: _ ?=>
+    _ ?=>
       NotForKids:
         if text.trim.isEmpty
         then Redirect(routes.ForumCateg.index)

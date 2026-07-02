@@ -1,4 +1,4 @@
-import Peer from 'peerjs';
+import Peer, { MediaConnection } from 'peerjs';
 
 import type { VoiceChat } from 'lib/chat/interfaces';
 import { licon } from 'lib/licon';
@@ -16,10 +16,20 @@ type State =
   | 'on'
   | 'stopping';
 
-interface VoiceChatOpts {
+type VoiceChatOpts = {
   uid: string;
   redraw(): void;
-}
+};
+
+type PeerConnectionLike = {
+  peer: string;
+  open?: boolean;
+  close: () => void;
+  remoteStream: MediaProvider | null;
+  peerConnection?: RTCPeerConnection;
+};
+
+type PeerConnectionsMap = Record<string, PeerConnectionLike[]>;
 
 export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const devices = navigator.mediaDevices;
@@ -28,9 +38,9 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
     return;
   }
 
-  let state: State = 'off',
-    peer: any | undefined,
-    myStream: any | undefined;
+  let state: State = 'off';
+  let peer: Peer | undefined;
+  let myStream: MediaStream | undefined;
 
   function start() {
     setState('opening');
@@ -40,7 +50,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
         devices
           .getUserMedia({ video: false, audio: true })
           .then(
-            (s: any) => {
+            (s: MediaStream) => {
               myStream = s;
               setState('ready');
               site.sound.say('Voice chat is ready.', true, true);
@@ -52,7 +62,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
           )
           .catch(err => log(err));
       })
-      .on('call', (call: any) => {
+      .on('call', (call: MediaConnection) => {
         if (!findOpenConnectionTo(call.peer)) {
           setState('answering', call.peer);
           startCall(call);
@@ -66,14 +76,14 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
         if (state === 'stopping') destroyPeer();
         else {
           setState('opening', 'reconnect');
-          peer.reconnect();
+          peer?.reconnect();
         }
       })
       .on('close', () => log('peer.close'))
       .on('error', err => log(`peer.error: ${err}`));
   }
 
-  function startCall(call: any) {
+  function startCall(call: MediaConnection) {
     call
       .on('stream', () => {
         log('call.stream');
@@ -82,16 +92,16 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       })
       .on('close', () => {
         log('call.close');
-        stopCall(call);
+        stopCall();
       })
-      .on('error', (e: any) => {
+      .on('error', e => {
         log(`call.error: ${e}`);
-        stopCall(call);
+        stopCall();
       });
     closeOtherConnectionsTo(call.peer);
   }
 
-  function stopCall(_: any) {
+  function stopCall() {
     if (!hasAnOpenConnection()) setState('ready', 'no call remaining');
   }
 
@@ -139,25 +149,36 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       peer = undefined;
     }
     if (myStream) {
-      myStream.getTracks().forEach((t: any) => t.stop());
+      myStream.getTracks().forEach((t: MediaStreamTrack) => t.stop());
       myStream = undefined;
     }
     setState('off');
   }
 
-  const connectionsTo = (peerId: any) => (peer && peer.connections[peerId]) || [];
+  function getConnectionsMap(): PeerConnectionsMap {
+    if (!peer) return {};
+    return peer.connections as PeerConnectionsMap;
+  }
 
-  const findOpenConnectionTo = (peerId: any) => connectionsTo(peerId).find((c: any) => c.open);
+  function connectionsTo(peerId: string) {
+    return getConnectionsMap()[peerId] ?? [];
+  }
 
-  function closeOtherConnectionsTo(peerId: any) {
+  const findOpenConnectionTo = (peerId: string) => connectionsTo(peerId).find(c => c.open);
+
+  function closeOtherConnectionsTo(peerId: string) {
     const conns = connectionsTo(peerId);
     for (let i = 0; i < conns.length - 1; i++) conns[i].close();
   }
+
   function closeDisconnectedCalls() {
     if (!peer) return;
-    for (const otherPeer in peer.connections) {
-      peer.connections[otherPeer].forEach((c: any) => {
-        if (c.peerConnection && c.peerConnection.connectionState === 'disconnected') {
+
+    const connections = getConnectionsMap();
+
+    for (const otherPeer in connections) {
+      connections[otherPeer].forEach(c => {
+        if (c.peerConnection?.connectionState === 'disconnected') {
           log(`close disconnected call to ${c.peer}`);
           c.close();
           opts.redraw();
@@ -165,10 +186,13 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       });
     }
   }
-  const allOpenConnections = (): any[] => {
-    if (!peer) return [];
-    return Object.keys(peer.connections).map(findOpenConnectionTo).filter(Boolean);
-  };
+
+  function allOpenConnections() {
+    return Object.keys(getConnectionsMap())
+      .map(findOpenConnectionTo)
+      .filter((c): c is PeerConnectionLike => Boolean(c));
+  }
+
   const hasAnOpenConnection = () => allOpenConnections().length > 0;
 
   function ping() {
@@ -184,7 +208,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   setInterval(closeDisconnectedCalls, 1400);
   setInterval(ping, 5000);
 
-  setInterval(function () {
+  setInterval(() => {
     peer &&
       Object.keys(peer.connections).forEach(peerId => {
         console.log(peerId, !!findOpenConnectionTo(peerId));

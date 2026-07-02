@@ -1,25 +1,24 @@
 package lila.gameSearch
 package ui
 
-import play.api.data.Form
-
 import java.time.format.DateTimeFormatter
+import play.api.data.Form
 
 import lila.core.i18n.Translate
 import lila.search.SearchPaginator
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class GameSearchUi(helpers: Helpers)(
-    gameWidgets: Seq[Game] => Context ?=> Frag
+    gameWidgets: Seq[Game] => Context ?=> ClientName ?=> Frag
 ):
   import helpers.{ *, given }
   import trans.search as trs
 
   def index(form: Form[?], paginator: Option[SearchPaginator[Game]] = None, nbGames: Long)(using
       ctx: Context
-  ) =
+  )(using ClientName) =
     val f = SearchForm(helpers)(form)
     Page(trs.searchInXGames.txt(nbGames.localize, nbGames))
       .js(Esm("bits.gameSearch"))

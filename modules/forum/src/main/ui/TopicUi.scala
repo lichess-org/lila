@@ -204,7 +204,11 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               ).some
             ): f =>
               if plaintext then
-                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
+                form3.textarea(f, klass = "post-text-area")(
+                  rows := 10,
+                  bits.dataTopic := topic.id,
+                  autocomplete := "off"
+                )(
                   formText
                 )
               else bits.postTextarea(f)(bits.dataTopic := topic.id, formText),
@@ -247,7 +251,13 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             form3.group(form("post")("text"), trans.site.message())(f =>
               if plaintext then
                 form3.textarea(f, klass = "post-text-area")(rows := 10, autofocus := "")(s"\n\n\n$text")
-              else bits.postTextarea(f)(autofocus := "", maxlength := 200_000, s"\n\n\n$text".some)
+              else
+                bits.postTextarea(f)(
+                  autofocus := "",
+                  autocomplete := "off",
+                  maxlength := 200_000,
+                  s"\n\n\n$text".some
+                )
             ),
             form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),

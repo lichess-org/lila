@@ -14,6 +14,7 @@ export function addExceptionListeners() {
       await domDialog({
         htmlText: escapeHtml(`${e.message}${loc}\n${e.error?.stack ?? ''}`),
         class: 'debug',
+        easyClose: 'clickOutside',
         show: true,
       });
   });
@@ -31,6 +32,7 @@ export function addExceptionListeners() {
       await domDialog({
         htmlText: escapeHtml(reason),
         class: 'debug',
+        easyClose: 'clickOutside',
         show: true,
       });
   });

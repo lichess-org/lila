@@ -50,6 +50,7 @@ export class AssetDialog {
         this.dlg = await domDialog({
           class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
+          easyClose: 'clickOutside',
           onClose: () => this.resolve?.(undefined),
           actions: [
             { event: ['dragover', 'drop'], listener: this.dragDrop },
@@ -169,6 +170,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
         class: 'alert',
         htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
+        easyClose: 'clickOutside',
         actions: {
           selector: 'button',
           listener: async (_, dlg) => {
@@ -300,7 +302,6 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
             show: true,
             modal: true,
             focus: '.name',
-            noClickAway: true,
             actions: [
               {
                 selector: '.options',

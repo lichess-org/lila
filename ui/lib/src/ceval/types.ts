@@ -91,11 +91,6 @@ export interface CevalEngine {
   destroy(): void;
 }
 
-export interface EvalMeta {
-  path: string;
-  threatMode: boolean;
-}
-
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
@@ -150,7 +145,7 @@ export interface CevalHandler {
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  showFishnetAnalysis?: () => boolean;
+  showStaticAnalysis?: () => boolean;
 }
 
 export interface NodeEvals {

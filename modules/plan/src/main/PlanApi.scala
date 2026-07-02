@@ -610,8 +610,8 @@ final class PlanApi(
     yield lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 100
-  private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
-    _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
+  private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]("plan.recentChargesOf"):
+    _.refreshAfterWrite(30.minutes).buildAsyncTimeout("plan.recentChargesOf"): _ =>
       mongo.charge
         .primitive[UserId](
           $doc("date" -> $gt(nowInstant.minusWeeks(1))),

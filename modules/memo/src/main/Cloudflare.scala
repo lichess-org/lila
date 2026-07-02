@@ -19,7 +19,6 @@ private final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConf
         .flatMap:
           case r if r.status / 100 == 2 => funit
           case r =>
-            logger
-              .branch("cloudflare")
-              .warn(s"purge ${urls.mkString(", ")} failed with: ${r.status} ${r.body[String].take(200)}")
+            logger.warn:
+              s"cloudflare purge ${urls.mkString(", ")} failed with: ${r.status} ${r.body[String].take(200)}"
             funit

@@ -37,6 +37,8 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
     text = "Moderator appeal presets".some
   )
 
+  def setKidModePreset: Option[ModPreset] = pmPresets.get().value.find(_.name == "Account set to kid mode")
+
 case class ModPresets(value: List[ModPreset]):
   def named(name: String) = value.find(_.name == name)
   def byPermission: Map[Permission, List[ModPreset]] =

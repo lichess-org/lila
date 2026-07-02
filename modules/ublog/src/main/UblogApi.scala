@@ -34,16 +34,16 @@ final class UblogApi(
   import UblogBlog.Tier
   import UblogAutomod.Assessment
 
-  lazy val carouselSizeSetting =
+  val carouselSizeSetting =
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
 
-  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]:
-    _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
-      fetchCarouselFromDb().map(_.shuffled)
+  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]("ublog.carousel"):
+    _.refreshAfterWrite(10.seconds).buildAsyncTimeout("ublog.carousel"): _ =>
+      fetchCarouselFromDb().map(_.shuffled.take(9))
 
   def myCarousel(using kid: KidMode) =
     for posts <- carouselCache.get({})
-    yield posts.filter(_.isLichess || kid.no).take(carouselSizeSetting.get())
+    yield posts.filter(_.isLichess || kid.no)
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -218,7 +218,7 @@ final class UblogApi(
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
-            logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
+            lila.log.system.warn(s"ublog automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
     attempt(0)
 

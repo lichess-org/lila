@@ -54,7 +54,7 @@ final class Analyser(
       initialFen: chess.format.Fen.Full
   ): JsObject =
     import lila.tree.{ TreeBuilder, ExportOptions, Node }
-    val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log("analyser").warn)
+    val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log.system.warn)
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
       "tree" -> Node.lichobileNodeJsonWriter.writes(tree)

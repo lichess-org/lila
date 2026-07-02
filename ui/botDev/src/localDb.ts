@@ -6,8 +6,8 @@ import { type ObjectStorage, objectStorage, range } from 'lib/objectStorage';
 import { type LocalGame, LocalGameData } from './localGame';
 
 export class LocalDb {
-  store: ObjectStorage<LocalGameData> | undefined;
-  liteStore: ObjectStorage<LiteGame> | undefined;
+  store?: ObjectStorage<LocalGameData>;
+  liteStore?: ObjectStorage<LiteGame>;
 
   async init(): Promise<this> {
     if (!hasFeature('structuredClone')) globalThis.structuredClone = obj => JSON.parse(JSON.stringify(obj));

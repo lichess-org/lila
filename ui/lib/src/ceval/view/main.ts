@@ -118,7 +118,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
-  return ctrl.getNode().ceval ?? (ctrl.showFishnetAnalysis?.() ? ctrl.getNode().eval : undefined);
+  return ctrl.getNode().ceval ?? (ctrl.showStaticAnalysis?.() ? ctrl.getNode().eval : undefined);
 };
 
 let gaugeLast = 0;
@@ -166,7 +166,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   }
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
-  } else if (bestEv && typeof bestEv.cp !== 'undefined') {
+  } else if (typeof bestEv?.cp !== 'undefined') {
     pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = h('pearl', '#' + bestEv.mate);

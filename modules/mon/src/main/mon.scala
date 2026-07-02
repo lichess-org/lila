@@ -51,6 +51,8 @@ object http:
   def csrfError(tpe: String, action: String, client: String) =
     counter("http.csrf.error").withTags(tags("type" -> tpe, "action" -> action, "client" -> client))
   val fingerPrint = timer("http.fingerPrint.time").withoutTags()
+object cache:
+  def buildAsyncTimeout(name: String) = counter("cache.buildAsyncTimeout").withTag("name", name)
 object syncache:
   def miss(name: String) = counter("syncache.miss").withTag("name", name)
   def timeout(name: String) = counter("syncache.timeout").withTag("name", name)
@@ -319,6 +321,8 @@ object relay:
     histogram("relay.push.errors").withTags(histogramTags).record(errors)
     counter("relay.push.games.nb").withTags(counterTags).increment(games)
     counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
+  object listing:
+    def time(section: String) = timer("relay.listing.time").withTag("section", section)
 
 object bot:
   def moves(username: String) = counter("bot.moves").withTag("name", username)
@@ -682,6 +686,8 @@ object study:
     val write = timer("study.tree.write").withoutTags()
   object sequencer:
     val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
+  object pgn:
+    val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
   val activity = counter("api.cost").withTag("endpoint", "activity")
@@ -693,6 +699,9 @@ object `export`:
   object png:
     val game = counter("export.png").withTag("type", "game")
     val puzzle = counter("export.png").withTag("type", "puzzle")
+object analyse:
+  object annotator:
+    val addEvalsTime = timer("analyse.annotator.addEvalsTime").withoutTags()
 object bus:
   val classifiers = gauge("bus.classifiers").withoutTags()
 object blocking:

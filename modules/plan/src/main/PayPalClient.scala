@@ -198,7 +198,7 @@ final private class PayPalClient(
     logger.info(s"POST $url $data")
     request(url).flatMap(_.post(data)).void
 
-  private val logger = lila.plan.logger.branch("payPal")
+  private lazy val logger = lila.log("plan.payPal")
 
   private def request(url: String) = tokenCache.get {}.map { bearer =>
     ws.url(s"${config.endpoint}/$url")
@@ -225,7 +225,7 @@ final private class PayPalClient(
           case Some(error) => fufail { new InvalidRequestException(status, error) }
       case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
 
-  private val tokenCache = cacheApi.unit[AccessToken]:
+  private val tokenCache = cacheApi.unit[AccessToken]("paypal.token"):
     _.refreshAfterWrite(10.minutes).buildAsyncFuture: _ =>
       ws.url(s"${config.endpoint}/${path.token}")
         .withAuth(config.publicKey, config.secretKey.value, WSAuthScheme.BASIC)

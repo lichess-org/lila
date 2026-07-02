@@ -45,8 +45,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),
         ),
       ),
-      h('td.points', title('Points'), '' + player.points),
-      h('td.tieBreak', title('Tie Break'), '' + player.tieBreak),
+      h('td.points', title('Points'), player.points),
+      h('td.tieBreak', title('Tie Break'), player.tieBreak),
     ],
   );
 }

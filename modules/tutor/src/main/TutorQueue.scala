@@ -27,7 +27,7 @@ final private class TutorQueue(
     lila.mon.asyncActorMonitor.full
   )
 
-  private val durationCache = cacheApi.unit[FiniteDuration]:
+  private val durationCache = cacheApi.unit[FiniteDuration]("tutorQueue.duration"):
     _.refreshAfterWrite(1.minutes).buildAsyncFuture: _ =>
       colls.report:
         _.aggregateOne(): framework =>

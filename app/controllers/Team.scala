@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
@@ -33,7 +32,7 @@ final class Team(env: Env) extends LilaController(env):
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
       WithTeamOrClas(id): team =>
-        if !team.notable && HTTPRequest.isCrawler(req).yes
+        if !team.notable && ctx.req.client.isCrawler
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
@@ -83,7 +82,7 @@ final class Team(env: Env) extends LilaController(env):
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
+    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && ctx.req.client.isHuman && {
       (team.isChatFor(_.Leaders) && info.ledByMe) ||
       (team.isChatFor(_.Members) && info.mine) ||
       (canEnterModView && requestModView)

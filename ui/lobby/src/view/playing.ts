@@ -6,7 +6,11 @@ import type { NowPlaying } from '@/interfaces';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;
-  return hl('time.timeago', { hook: onInsert(el => el.setAttribute('datetime', '' + date)) }, timeago(date));
+  return hl(
+    'time.timeago',
+    { hook: onInsert(el => el.setAttribute('datetime', String(date))) },
+    timeago(date),
+  );
 }
 
 export default function (ctrl: LobbyController) {

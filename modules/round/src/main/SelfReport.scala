@@ -22,7 +22,7 @@ final class SelfReport(
 
   private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1.minute)
 
-  private val logger = lila.log("cheat").branch("jslog")
+  private lazy val logger = lila.log("cheat.jslog")
 
   def apply(userId: Option[UserId], ip: IpAddress, fullId: GameFullId, name: String): Funit =
     (name != "err").so:

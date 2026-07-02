@@ -60,7 +60,7 @@ export const DURATION = 30 * 1000;
 const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
-  chessground: CgApi | undefined;
+  chessground?: CgApi;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
   isAuth = !!myUserId();
@@ -87,7 +87,7 @@ export default class CoordinateTrainerCtrl {
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
     this.voice = makeVoice({ redraw: this.redraw, tpe: 'coords' });
-    this.voice.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
+    this.voice.mic.initRecognizer([...Array.from('abcdefgh'), ...Object.keys(rankWords), 'start', 'stop'], {
       partial: true,
       listener: this.onVoice.bind(this),
     });
@@ -223,7 +223,7 @@ export default class CoordinateTrainerCtrl {
 
   private readonly tick = () => {
     if (!this.playing) return;
-    const timeSpent = Math.min(DURATION, Date.now() - +this.timeAtStart);
+    const timeSpent = Math.min(DURATION, Date.now() - Number(this.timeAtStart));
     this.timeLeft = DURATION - timeSpent;
     this.redraw();
 

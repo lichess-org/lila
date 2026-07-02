@@ -11,7 +11,7 @@ import play.api.mvc.RequestHeader
 import scalalib.Iso
 import com.roundeights.hasher.Algo
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ClientName }
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
@@ -45,7 +45,7 @@ object Turnstile:
   private[security] def monitor(result: Result)(using req: RequestHeader) =
     lila.mon.security.turnstile
       .hit(
-        client = HTTPRequest.clientName(req),
+        client = ClientName(req).toString,
         action = HTTPRequest.actionName(req),
         result = result.toString
       )
@@ -101,7 +101,7 @@ final class TurnstileReal(
 
   protected def verify(response: String)(using req: RequestHeader): Fu[Result] =
     given Conversion[Result, Fu[Result]] = fuccess
-    def logInfo(msg: String) = logger.branch("turnstile").info(s"$msg ${HTTPRequest.printReqAndClient(req)}")
+    def logInfo(msg: String) = logger.info(s"turnstile $msg ${HTTPRequest.printReqAndClient(req)}")
     def missingResponse: Result =
       logInfo("missing")
       Result.Missing

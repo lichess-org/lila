@@ -21,14 +21,14 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
       )
 
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
-    analysis.infos.foldLeft(p) { (pgn, info) =>
-      pgn
-        .updatePly(
-          info.ply,
-          move => move.copy(comments = info.pgnComment.toList ::: move.comments)
-        )
-        .getOrElse(pgn)
-    }
+    lila.mon.Chronometer.syncMon(lila.mon.analyse.annotator.addEvalsTime):
+      analysis.infos.foldLeft(p): (pgn, info) =>
+        pgn
+          .updatePly(
+            info.ply,
+            move => move.copy(comments = info.pgnComment.toList ::: move.comments)
+          )
+          .getOrElse(pgn)
 
   // merge analysis & eval comments
   // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }

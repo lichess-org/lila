@@ -1039,4 +1039,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>
+  <string name="settings">Paramètres</string>
 </resources>

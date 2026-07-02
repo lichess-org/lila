@@ -14,8 +14,7 @@ const updateTournaments = false;
 userIds.forEach(id => {
   const user = db.user4.findOne({ _id: id });
   perfTypes.forEach(pt => {
-    if (user && (!user.perfs[pt] || !user.perfs[pt].nb))
-      db.user4.update({ _id: id }, { $set: { ['perfs.' + pt]: perf } });
+    if (user && !user.perfs[pt]?.nb) db.user4.update({ _id: id }, { $set: { ['perfs.' + pt]: perf } });
   });
   if (updateTournaments)
     db.tournament_player.update(

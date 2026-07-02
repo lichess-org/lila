@@ -31,11 +31,11 @@
       cursor: pointer;
       opacity: 0.7;
       transition: 0.3s;
-    }
 
-    .liking:hover {
-      opacity: 1;
-      color: $c-bad;
+      &:hover {
+        opacity: 1;
+        color: $c-bad;
+      }
     }
   }
 }
@@ -69,16 +69,16 @@
     border: none;
     background: none;
     width: 100%;
-  }
 
-  input:hover,
-  input:focus {
-    background: $m-primary_bg--mix-10;
-  }
+    &:hover,
+    &:focus {
+      background: $m-primary_bg--mix-10;
+    }
 
-  input:invalid {
-    border: 1px solid $c-bad;
-    color: $c-bad;
+    &:invalid {
+      border: 1px solid $c-bad;
+      color: $c-bad;
+    }
   }
 
   select {

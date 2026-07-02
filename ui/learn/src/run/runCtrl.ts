@@ -11,8 +11,7 @@ import { clearTimeouts } from '../timeouts';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
-
-  chessground: CgApi | undefined;
+  chessground?: CgApi;
   levelCtrl: LevelCtrl;
 
   stageStarting: Prop<boolean> = prop(false);

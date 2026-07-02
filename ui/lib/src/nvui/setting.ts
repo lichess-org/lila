@@ -45,7 +45,7 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
     },
     setting.choices.map(choice => {
       const [key, name] = choice;
-      return h('option', { attrs: { value: '' + key, selected: key === v } }, name);
+      return h('option', { attrs: { value: String(key), selected: key === v } }, name);
     }),
   );
 }

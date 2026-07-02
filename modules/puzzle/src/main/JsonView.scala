@@ -10,7 +10,6 @@ import lila.common.Json.given
 import lila.core.i18n.Translate
 import lila.tree.{ Metas, NewBranch, NewTree }
 import lila.core.net.ApiVersion
-import lila.ui.Context
 
 final class JsonView(
     gameJson: GameJson,
@@ -53,8 +52,8 @@ final class JsonView(
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: Context)(using Perf, Translate): Fu[JsObject] =
-    given me: Option[Me] = newMe.orElse(ctx.me)
+  )(using oldMe: Option[Me])(using Perf, Translate): Fu[JsObject] =
+    given me: Option[Me] = newMe.orElse(oldMe)
     for
       puzzleJson <-
         if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
@@ -62,6 +61,10 @@ final class JsonView(
         else apply(puzzle, angle.some, replay)
       enginesJson <- myEngines.get(me)
     yield puzzleJson ++ enginesJson
+
+  def streak(puzzle: Puzzle, ids: String)(using Translate, Option[Me], Perf) =
+    for puzzleJson <- analysis(puzzle, PuzzleAngle.mix)
+    yield (puzzleJson ++ Json.obj("streak" -> ids), puzzle)
 
   def userJson(using perf: Perf, me: Option[Me]) = me.isDefined.option:
     Json

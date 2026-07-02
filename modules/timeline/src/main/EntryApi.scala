@@ -72,8 +72,8 @@ final class EntryApi(
   // they have no db `users` field
   object broadcast:
 
-    private val cache = cacheApi.unit[Vector[Entry]]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+    private val cache = cacheApi.unit[Vector[Entry]]("timeline.broadcast"):
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout("timeline.broadcast"): _ =>
         coll
           .find($doc("users".$exists(false), "date".$gt(nowInstant.minusWeeks(2))))
           .sort($sort.desc("date"))

@@ -12,6 +12,7 @@ import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
+import lila.web.ConcurrencyLimit
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -302,6 +303,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
       JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
 
+  def roomChat(roomId: RoomId) = SecuredScoped(_.ViewPrivateComms): _ ?=>
+    Found(env.chat.api.userChat.findOption(roomId.into(ChatId))): chat =>
+      JsonOk(env.chat.json.modApi(chat))
+
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
@@ -401,7 +406,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
 
-    def events(using ctx: Context) =
+    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
       if ctx.isAnon then eventsForAnon
       else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
       else eventsForUser

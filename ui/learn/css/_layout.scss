@@ -1,4 +1,4 @@
-#main-wrap {
+#main-wrap:not(:has(.learn--map)) {
   ---main-max-width: calc(100vh - #{$site-header-outer-height} - 10rem);
 
   @include mq-at-least-col2 {
@@ -41,10 +41,10 @@
 
     &--map {
       grid-template-areas: 'side main';
-      grid-template-columns: 240px auto;
+      grid-template-columns: 242px auto;
 
-      @media (min-width: at-least($x-large)) {
-        grid-template-columns: 240px 960px;
+      @media (width > $x-large) {
+        grid-template-columns: 242px minmax(auto, 1028px);
       }
     }
   }

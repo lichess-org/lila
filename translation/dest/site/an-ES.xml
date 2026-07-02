@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configuración d\'a partida</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Reta a un/a amigo/a</string>
+  <string name="playAgainstComputer">Chuga cuentra l\'ordinador</string>
+  <string name="gameMode">Tipo de partida</string>
+  <string name="createLobbyGame">Crear una nueva partida</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, comparte este vinclo</string>
   <string name="gameOver">Fin d\'a partida</string>
   <string name="waitingForOpponent">Aguardando a l\'oponent</string>
   <string name="orLetYourOpponentScanQrCode">U deixa que lo tuyo oponent escaneye este codigo QR</string>
+  <string name="reusableChallengeUrl">URL de reto reutilizable</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un vinclo permanent pa que cualsequiera te pueda retar con estas configuracions exactas.</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Lo tuyo redolín</string>
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
@@ -20,6 +27,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatoria</string>
   <string name="createAGame">Chugar una partida</string>
+  <string name="createTheGame">Crear la partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Chugas con blancas</string>
@@ -50,6 +58,8 @@
   <string name="blackLeftTheGame">Las negras han abandonau la partida</string>
   <string name="whiteDidntMove">Las blancas no han moviu</string>
   <string name="blackDidntMove">Las negras no han moviu</string>
+  <string name="whiteAborted">Las blancas han cancelau la partida</string>
+  <string name="blackAborted">Las negras han cancelau la partida</string>
   <string name="requestAComputerAnalysis">Solicitar una analisi de l\'ordinador</string>
   <string name="computerAnalysis">Analisi de l\'ordinador</string>
   <string name="computerAnalysisAvailable">Analisi de l\'ordinador disponible</string>
@@ -72,6 +82,7 @@
   <string name="expandVariations">Expandir variants</string>
   <string name="forceVariation">Fer que siga variant</string>
   <string name="copyVariationPgn">Copiar lo PGN d\'a variant</string>
+  <string name="copyMainLinePgn">Copiar la linia principal d\'o PGN</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variant perdedera</string>
   <string name="variantWin">Variant ganadera</string>
@@ -86,6 +97,8 @@
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Taulas / Negras</string>
   <string name="averageRatingX">Puntuación meya: %s</string>
+  <string name="minRatingX">Puntuación minima de %s</string>
+  <string name="maxRatingX">Puntuación maxima de %s</string>
   <string name="recentGames">Partidas recients</string>
   <string name="topGames">Millors partidas</string>
   <string name="masterDbExplanation">Dos millons de partidas de chugadors con ELO FIDE de %1$s+, dende %2$s a %3$s</string>
@@ -117,9 +130,20 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la millor chugada</string>
   <string name="showVariationArrows">Amostrar las flechas d\'as variants</string>
+  <string name="visualMotifs">Motivos visuals</string>
+  <string name="undefendedPieces">Piezas indefensas</string>
+  <string name="pinnedPieces">Piezas clavadas</string>
+  <string name="checkableKing">Rei en periglo d\'escaque</string>
   <string name="multipleLines">Multiples linias</string>
+  <string name="multipleLinesDescription">Estableixe lo numero de linias y flechas de movimientos a avaluar en o tablero</string>
+  <string name="searchTime">Tiempo de busqueda</string>
+  <string name="searchTimeDescription">Estableix un tiempo pa avaluar las nuevas posicions</string>
+  <string name="threads">Filos</string>
+  <string name="threadsDescription">Estableix una valor per debaixo d\'o numero de filos de CPUs. La marca ye una recomendacióin segura</string>
+  <string name="threadsDescriptionMobile">Mas filos gastarán mas batería pa millors analises</string>
   <string name="cpus">Procesadors</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Valors mas altos pueden amillorar lo rendimiento</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Elimina lo limite de profundidat de l\'analisi y fa treballar de firme lo tuyo ordinador</string>
   <string name="blunder">Error grieu</string>
@@ -153,6 +177,7 @@
   <string name="flipBoard">Chirar lo escaquero</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar taulas</string>
+  <string name="drawClaimed">Tablas reclamadas</string>
   <string name="offerDraw">Ofrir taulas</string>
   <string name="draw">Taulas</string>
   <plurals name="nbPlayers">
@@ -162,6 +187,7 @@
   <string name="drawByMutualAgreement">Taulas per mutuo acuerdo</string>
   <string name="fiftyMovesWithoutProgress">Cincuanta movimientos sin progresar</string>
   <string name="currentGames">Partidas en chuego</string>
+  <string name="joinedX">S\'ha uniu %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
@@ -194,6 +220,7 @@
   <string name="minutesPerSide">Minutos per chugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
+  <string name="variantsDescription">Mas maneras de chugar</string>
   <string name="timeControl">Control de tiempo</string>
   <string name="realTime">Tiempo real</string>
   <string name="correspondence">Correspondencia</string>
@@ -220,6 +247,7 @@
   <string name="changeUsernameNotSame">Nomás ye posible cambiar mayusclas per minusclas y viceversa. Per eixemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar lo tuyo nombre d\'usuario. Esto nomás puede fer-se una vegada, y nomás se puede cambiar mayusclas per minusclas y viceversa.</string>
   <string name="signupUsernameHint">Tría un nombre d\'usuario amigable. No lo podrás cambiar dimpués y cualsequier cuenta con nombre d\'usuario inapropiau se zarrará.</string>
+  <string name="signupEmailPromise">Nomás te ninviaremos correus sobre la tuya cuenta y nunca no compartiremos la tuya adreza de correu-e.</string>
   <string name="password">Clau</string>
   <string name="changePassword">Cambiar clau</string>
   <string name="changeEmail">Cambiar correu</string>
@@ -243,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Pueda tardar un ratet a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarda 5 minutos y refresca lo tuyo buzón de dentrada.</string>
   <string name="checkSpamFolder">Compreba tamién la carpeta de correu vasuera, puede estar astí. Si ye astí, maca-lo como \"no vasuera\".</string>
+  <string name="sendEmailForAccountVerification">Si no puez trobar lo correu de confirmación, ninvia un correu a %s y confirmaremos la cuenta per tu.</string>
   <string name="accountConfirmed">L\'usuario %s ha estau confirmau correctament.</string>
   <string name="accountCanLogin">Puez identificar-te agora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No te cal un correu de confirmación.</string>
@@ -284,6 +313,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitau</string>
+  <string name="unlimitedDescription">Prene-te lo tiempo que te faga falta</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Per puntos</string>
@@ -330,6 +360,7 @@
     <item quantity="other">%s en chuego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
+  <string name="ratingFilter">Filtro de puntuación</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -338,7 +369,15 @@
   <string name="openingExplorerAndTablebase">Explorador d\'obriduras y base de datos de finals</string>
   <string name="takeback">Desfer chugada</string>
   <string name="proposeATakeback">Proposar desfer chugada</string>
+  <string name="whiteProposesTakeback">Las blancas proposan de desfer la chugada</string>
+  <string name="blackProposesTakeback">Las negras proposan de desfer la chugada</string>
   <string name="takebackPropositionSent">Propuesta de desfer chugada ninviada</string>
+  <string name="whiteDeclinesTakeback">Las blancas declinan de desfer la chugada</string>
+  <string name="blackDeclinesTakeback">Las negras declinan de desfer la chugada</string>
+  <string name="whiteAcceptsTakeback">Las blancas aceptan desfer la chugada</string>
+  <string name="blackAcceptsTakeback">Las negras aceptan desfer la chugada</string>
+  <string name="whiteCancelsTakeback">Las blancas cancelan la propuesta de desfer la chugada</string>
+  <string name="blackCancelsTakeback">Las negras cancelan la propuesta de desfer la chugada</string>
   <string name="yourOpponentProposesATakeback">Lo tuyo oponent proposa de desfer la chugada</string>
   <string name="bookmarkThisGame">Marcar este chuego como favorito</string>
   <string name="tournament">Torneyo</string>
@@ -377,6 +416,7 @@
     <item quantity="other">Te cal chugar %s partidas per puntos mas</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La tuya puntuación de %s ye provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Los filtros de puntuación son blocaus perque la tuya puntuación encara no ye estable. Chugar partidas puntuables n\'aumentará la estabilidat.</string>
   <string name="yourPerfRatingIsTooHigh">La tuya puntuación de %1$s (%2$s) ye masiau alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La tuya maxima puntación semanal de %1$s (%2$s) ye masiau alta</string>
   <string name="yourPerfRatingIsTooLow">La tuya puntuación de %1$s (%2$s) ye masiau baixa</string>
@@ -399,6 +439,8 @@
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Fe una captura de pantalla d\'a posición actual</string>
   <string name="gameAsGIF">Partida como GIF</string>
+  <string name="playerNames">Nombres d\'os chugadors</string>
+  <string name="moveAnnotations">Anotación d\'as chugadas</string>
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
   <string name="orUploadPgnFile">U penchar un fichero PGN</string>
@@ -466,6 +508,7 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
+  <string name="startingIn" comment="Displayed above a timer">Encomienza en</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Reprener</string>
@@ -484,6 +527,7 @@
   <string name="popularOpenings">Obriduras populars</string>
   <string name="endgamePositions">Posicions de finals</string>
   <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
+  <string name="randomChess960Position">Posición d\'escaques960 aleatoria</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar lo escaquero</string>
   <string name="loadPosition">Cargar posicion</string>
@@ -560,6 +604,9 @@
   <string name="invalidUsernameOrPassword">Nombre d\'usuario u clau erronio</string>
   <string name="incorrectPassword">Clau incorrecta</string>
   <string name="invalidAuthenticationCode">Codigo d\'autenticación invalido</string>
+  <string name="clearField">Deixa limpio lo campo</string>
+  <string name="orSeparator">U</string>
+  <string name="logInByEmail">Identificau con o correu-e</string>
   <string name="emailMeALink">Ninvia-me un vinclo per correu electronico</string>
   <string name="currentPassword">Clau actual</string>
   <string name="newPassword">Nueva clau</string>
@@ -650,6 +697,7 @@
   <string name="really">de verdat</string>
   <string name="contribute">Contribuyir</string>
   <string name="termsOfService">Condicions d\'o servicio</string>
+  <string name="titleVerification">Verificación de títol</string>
   <string name="sourceCode">Codigo fuent</string>
   <string name="simultaneousExhibitions">Exhibicions simultanias</string>
   <string name="host">Anfitrión</string>
@@ -691,6 +739,7 @@
   <string name="cyclePreviousOrNextVariation">Cambia a la variant anterior/siguient</string>
   <string name="toggleGlyphAnnotations">Amuestra/amaga las anotacions con simbolos</string>
   <string name="togglePositionAnnotations">Amuestra/amaga las anotacions d\'a posición</string>
+  <string name="toggleObservationAnnotations">Amuestra/amaga las anotacions d\'os observadors</string>
   <string name="variationArrowsInfo">Las flechas de variants te permiten navegar sin fer servir la lista de movimientos.</string>
   <string name="playSelectedMove">chuga lo movimiento triau</string>
   <string name="newTournament">Nuevo torneyo</string>
@@ -716,6 +765,9 @@
   <string name="checkYourEmail">Revisa lo tuyo correu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hemos ninviau un correu. Activa la tuya cuenta en o vinclo proporcionau.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no trobas lo correu, mira a veyer si ye en atras carpetas (spam, social, ...).</string>
+  <string name="ifYouDoNotGetTheEmail">Si no recibes lo correu electronico en 5 minutos:</string>
+  <string name="checkAllEmailFolders">Compreba lo correu vasuera y atras carpetas</string>
+  <string name="verifyYourAddress">Compreba que lo tuyo correu electronico ye %s</string>
   <string name="weHaveSentYouAnEmailTo">T\'hemos ninviau un correu a %s. Restableix la tuya clau fendo clic en o vinclo.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En rechistrar-te, acceptas las %s.</string>
   <string name="readAboutOur">Leye sobre la nuestra %s.</string>
@@ -724,10 +776,12 @@
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
+  <string name="downloadAllGames">Descargar totas las partidas</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién puez usar la rueda d\'o rato pa desplazar-te per la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantiene pretadas las variants d\'analisi pa previsualizar-las.</string>
   <string name="analysisShapesHowTo">Faiga clic con o botón dreito u Máyus+clic pa dibuixar cerclos y flechas en o escaquero.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl u mayusclas = royo; comando, alt u meta = azul; una tecla de cada = amariello.</string>
   <string name="letOtherPlayersMessageYou">Permitir que atras personas te ninvien mensaches</string>
   <string name="receiveForumNotifications">Recibe notificacions cuan te mencionen en o foro</string>
   <string name="shareYourInsightsData">Comparte los tuyos datos estatisticos</string>
@@ -755,11 +809,18 @@
   <string name="xHostsY">%1$s ha creau %2$s</string>
   <string name="xJoinsY">%1$s s\'une a %2$s</string>
   <string name="xLikesY">a %1$s le fa goyo %2$s</string>
+  <string name="like">Me fa goyo</string>
+  <string name="liked">M\'ha feito goyo</string>
   <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anonimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonimo</item>
+    <item quantity="other">Anonimos/as (%s)</item>
+  </plurals>
   <string name="yourScore">La tuya puntuación: %s</string>
   <string name="language">Idioma</string>
+  <string name="allLanguages">Totas las luengas</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Fosco</string>
@@ -770,6 +831,7 @@
   <string name="size">Grandaria</string>
   <string name="opacity">Opacidat</string>
   <string name="brightness">Brilo</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Tonalidat</string>
   <string name="boardReset">Restableix las colors per defecto</string>
   <string name="pieceSet">Estilo de piezas</string>
@@ -788,6 +850,7 @@
   <string name="notifications">Notificacions</string>
   <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <string name="yourRatingIsX">La tuya puntuación ye %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo pa fer lo primer movimiento</item>
     <item quantity="other">%s segundos pa fer lo primer movimiento</item>
@@ -839,6 +902,7 @@
   <string name="playVariationToCreateConditionalPremoves">Chuga una variant pa crear movimientos condicionals</string>
   <string name="noConditionalPremoves">Sin movimientos anticipaus condicionals</string>
   <string name="playX">Chugar %s</string>
+  <string name="challengeX">Retos: %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y cabida %s linia de premovimiento</item>
     <item quantity="other">y cabida %s linias de premovimiento</item>
@@ -865,6 +929,7 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Soi d\'acuerdo en no crear cuentas multiples (fueras de por las razons indicadas en as %s).</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-Bala</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapidas</string>
@@ -885,6 +950,7 @@
   <string name="tryTheContactPage">preba la pachina de contacto</string>
   <string name="makeSureToRead">Asegura-te de leyer %1$s</string>
   <string name="theForumEtiquette">la etiqueta en os foros</string>
+  <string name="pleaseBeNiceInTheForum">Per favor, comporta-te con modos en o foro.</string>
   <string name="thisTopicIsArchived">Este tema s\'ha archivau y ya no se puede responder.</string>
   <string name="joinTheTeamXToPost">Une-te a %1$s, pa publicar en este foro</string>
   <string name="teamNamedX">%1$s equipo</string>
@@ -925,6 +991,7 @@
   <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a toz en %s. Desactiva-lo si quiers simultanias privadas.</string>
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
+  <string name="markdownIsAvailable">Se puede fer servir %s pa describir lo formato.</string>
   <string name="embedsAvailable">Apega la URL d\'una partida u d\'un capitol d\'estudio pa incrustar-lo.</string>
   <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
   <string name="tournChat">Conversa d\'o torneyo</string>
@@ -961,4 +1028,16 @@
 Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
   <string name="nothingToSeeHere">Cosa a veyer per agora.</string>
   <string name="stats">Estatisticas</string>
+  <string name="accessibility">Accesibilidat</string>
+  <string name="enableBlindMode">Activar lo modo a la ciega</string>
+  <string name="disableBlindMode">Desactivar lo modo a la ciega</string>
+  <string name="copyToClipboard">Copiar en o portapapels</string>
+  <string name="online" comment="status of a user">en linia</string>
+  <string name="offline" comment="status of a user">sin connexión</string>
+  <string name="search">Mirar</string>
+  <string name="clearSearch">Borrar la busqueda</string>
+  <string name="thereAreNoResultsForX">No i hai resultaus pa \"%s\"</string>
+  <string name="tags">Etiquetas</string>
+  <string name="enPassant">Dreito de captura a lo paso</string>
+  <string name="settings">Achustes</string>
 </resources>

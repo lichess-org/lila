@@ -25,7 +25,7 @@ export function withdraw(ctrl: TournamentController): VNode {
 
 export function join(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
-    const delay = ctrl.data.me && ctrl.data.me.pauseDelay;
+    const delay = ctrl.data.me?.pauseDelay;
     const joinable = ctrl.data.verdicts.accepted && !delay;
     const button = h(
       'button' + (joinable ? '.button.button-green' : '.fbt.text'),

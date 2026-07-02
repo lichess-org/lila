@@ -44,8 +44,8 @@ final class TournamentShieldApi(
     if hist.value.exists(_._2.exists(_.owner == userId))
     then clear()
 
-  private val cache = cacheApi.unit[History]:
-    _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
+  private val cache = cacheApi.unit[History]("tournament.shield"):
+    _.refreshAfterWrite(1.day).buildAsyncTimeout("tournament.shield", 1.minute): _ =>
       tournamentRepo.coll
         .find:
           $doc(

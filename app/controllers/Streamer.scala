@@ -1,10 +1,8 @@
 package controllers
 
-import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
 import lila.core.perm.Granter
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
 
@@ -23,23 +21,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           pager <- env.streamer.pager.get(page, liveStreams, requests)
           page <- renderPage(views.streamer.index(live, pager, requests))
         yield Ok(page)
-
-  def featured = Anon: ctx ?=>
-    env.streamer.liveApi.all.map: streams =>
-      val max = env.streamer.homepageMaxSetting.get()
-      val featured = streams.homepage(max, ctx.acceptLanguages).withTitles(env.user.lightUserApi)
-      JsonOk:
-        featured.live.streams.map: s =>
-          Json.obj(
-            "url" -> routeUrl(routes.Streamer.show(s.streamer.userId, redirect = true)),
-            "status" -> s.status,
-            "user" -> Json
-              .obj(
-                "id" -> s.streamer.userId,
-                "name" -> s.streamer.name
-              )
-              .add("title" -> featured.titles.get(s.streamer.userId))
-          )
 
   def live = apiC.ApiRequest:
     env.api.mobile.featuredStreamers.map(apiC.toApiResult)
@@ -157,9 +138,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     get("hub.challenge").fold(BadRequest): challenge =>
       val days = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
-      lila
-        .log("streamer")
-        .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+      lila.log.system.debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: => Fu[Result])(using ctx: Context) =

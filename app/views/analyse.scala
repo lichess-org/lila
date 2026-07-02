@@ -79,7 +79,7 @@ object embed:
         .analyseModule("userAnalysis", Json.obj("data" -> data, "embed" -> true) ++ ui.explorerAndCevalConfig)
         .some,
       csp = _.withExternalAnalysisApis.withWebAssembly,
-      i18nModules = List(_.site, _.timeago, _.study)
+      i18nModules = List(_.site, _.timeago, _.study, _.preferences)
     )(
       ui.bits.embedUserAnalysisBody,
       views.base.page.ui.inlineJs(ctx.nonce, Nil)

@@ -102,7 +102,7 @@ final class MarkdownCache(
         if opts.toastUi then toastUiProcessor(key, opts)(text)
         else getRenderer(opts)(key)(text)
       .mon(lila.mon.markdown.time)
-      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
+      .logIfSlow(50, logger)(_ => s"slow markdown size: $key ${text.value.size}")
       .result
 
   private def toastUiProcessor(key: RenderKey, opts: MarkdownOptions): Markdown => Html =

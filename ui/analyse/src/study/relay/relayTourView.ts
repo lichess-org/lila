@@ -203,7 +203,7 @@ const share = (ctx: RelayViewContext) => {
   const link = (text: string, path: string, help?: VNode) =>
     hl('div.form-group', [
       hl('label.form-label', text),
-      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path, { inputAttrs: { readonly: true } }),
       help,
     ]);
   const roundName = ctx.relay.round.name;

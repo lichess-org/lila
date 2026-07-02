@@ -124,9 +124,8 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     WithOwnedTeamEnabled(teamId, _.Kick): team =>
       def limited =
         if kickLimitReportOnce(username.id) then
-          lila
-            .log("security")
-            .warn(s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}")
+          lila.security.logger.warn:
+            s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}"
         fuccess(ApiResult.Limited)
       limit.teamKick(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
         api.kick(team, username.id).inject(ApiResult.Done)

@@ -19,12 +19,14 @@ final class TournamentFeaturing(
       forMe = base.add(teamTours)
     yield (scheduled, forMe)
 
-    private val sameForEveryone = cacheApi.unit[(VisibleTournaments, List[Tournament])]:
-      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
-        for
-          visible <- api.fetchVisibleTournaments
-          scheduled <- repo.allScheduledDedup
-        yield (visible, scheduled)
+    private val sameForEveryone =
+      val cacheName = "tournamentFeaturing.index.sameForEveryone"
+      cacheApi.unit[(VisibleTournaments, List[Tournament])](cacheName):
+        _.refreshAfterWrite(3.seconds).buildAsyncTimeout(cacheName): _ =>
+          for
+            visible <- api.fetchVisibleTournaments
+            scheduled <- repo.allScheduledDedup
+          yield (visible, scheduled)
 
   object homepage:
 
@@ -33,18 +35,20 @@ final class TournamentFeaturing(
       teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
     yield teamTours ::: base
 
-    private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
-      _.refreshAfterWrite(2.seconds).buildAsyncTimeout(): _ =>
-        for
-          started <- repo.scheduledStillWorthEntering
-          created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)
-        yield (started ::: created)
-          .sortBy(_.startsAt.toSeconds)
-          .foldLeft(List.empty[Tournament]): (acc, tour) =>
-            if !tour.homepageSince.exists(_.isBefore(nowInstant)) then acc
-            else if acc.exists(_.similarSchedule(tour)) then acc
-            else tour :: acc
-          .reverse
+    private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] =
+      val cacheName = "tournamentFeaturing.homepage.sameForEveryone"
+      cacheApi.unit[List[Tournament]](cacheName):
+        _.refreshAfterWrite(2.seconds).buildAsyncTimeout(cacheName): _ =>
+          for
+            started <- repo.scheduledStillWorthEntering
+            created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)
+          yield (started ::: created)
+            .sortBy(_.startsAt.toSeconds)
+            .foldLeft(List.empty[Tournament]): (acc, tour) =>
+              if !tour.homepageSince.exists(_.isBefore(nowInstant)) then acc
+              else if acc.exists(_.similarSchedule(tour)) then acc
+              else tour :: acc
+            .reverse
 
   private def visibleForTeams(
       teamIds: List[TeamId],

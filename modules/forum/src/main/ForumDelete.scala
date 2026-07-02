@@ -48,4 +48,4 @@ final class ForumDelete(
           yield publishDelete(view.post)
 
   private def publishDelete(p: ForumPost)(using Me) =
-    Bus.pub[BusForum](BusForum.RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)))
+    Bus.pub[BusForum](BusForum.RemovePost(p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)))

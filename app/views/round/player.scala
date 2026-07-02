@@ -45,6 +45,7 @@ def player(
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
+
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)
     .js:

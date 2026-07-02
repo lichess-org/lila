@@ -44,8 +44,8 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor,
   import UblogBsonHandlers.{ *, given }
 
   private val withPostsCache =
-    cacheApi.unit[List[UblogTopic.WithPosts]]:
-      _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
+    cacheApi.unit[List[UblogTopic.WithPosts]]("ublog.topic.withPosts"):
+      _.refreshAfterWrite(5.minutes).buildAsyncTimeout("ublog.topic.withPosts"): _ =>
         UblogTopic.all
           .map: topic =>
             for

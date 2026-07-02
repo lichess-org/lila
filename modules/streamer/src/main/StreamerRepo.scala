@@ -124,11 +124,11 @@ final class StreamerRepo(
 
   private[streamer] def makeCaches =
     val selectListedApproved = $doc("listed" -> true, "approval.granted" -> true)
-    val listedIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+    val listedIds = cacheApi.unit[Set[Streamer.Id]]("streamer.listedIds"):
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout("streamer.listedIds"): _ =>
         coll.secondary.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
-    val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+    val candidateIds = cacheApi.unit[Set[Streamer.Id]]("streamer.candidateIds"):
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout("streamer.candidateIds"): _ =>
         coll.secondary
           .distinctEasy[Streamer.Id, Set]("_id", selectListedApproved ++ $doc("liveAt".$exists(false)))
     (listedIds, candidateIds)

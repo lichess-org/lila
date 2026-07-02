@@ -189,7 +189,7 @@ export class Engines {
             wasm: 'stockfish.wasm',
           },
         },
-        make: (e: BrowserEngineInfo) => new ThreadedEngine(e),
+        make: (e: BrowserEngineInfo) => new ThreadedEngine(e, undefined),
       },
       {
         info: {

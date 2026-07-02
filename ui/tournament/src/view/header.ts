@@ -33,7 +33,7 @@ function clock(ctrl: TournamentController): VNode | undefined {
             insert(vnode) {
               (vnode.elm as HTMLElement).setAttribute(
                 'datetime',
-                '' + (Date.now() + d.secondsToStart! * 1000),
+                String(Date.now() + d.secondsToStart! * 1000),
               );
             },
           },
@@ -51,7 +51,7 @@ function image(d: TournamentData): VNode | undefined {
   if (d.isFinished) return;
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
-  if (s && s.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
+  if (s?.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
   return iconCls(s?.iconFont || licon.Trophy, 'img');
 }
 

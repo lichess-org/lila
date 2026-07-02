@@ -29,11 +29,11 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
   key: TaskKey;
   debounce: Debounce;
   fileTimes: Map<AbsPath, number>;
-  status: 'ok' | 'error' | undefined;
+  status?: 'ok' | 'error';
 };
 type TaskOpts = {
   includes: CwdPath | CwdPath[];
-  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
+  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<void>;
   excludes?: Path | Path[];
   key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging

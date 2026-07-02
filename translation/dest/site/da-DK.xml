@@ -814,7 +814,7 @@
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="one">Anonym</item>
     <item quantity="other">Anonyme (%s)</item>
   </plurals>
@@ -1043,4 +1043,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Indstillinger</string>
 </resources>

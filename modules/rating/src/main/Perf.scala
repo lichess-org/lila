@@ -29,7 +29,7 @@ object PerfExt:
         )
       if newGlicko.sanityCheck then append(newGlicko)
       else
-        lila.log("rating").error(s"Crazy Glicko2 $msg")
+        lila.log.system.error(s"Crazy Glicko2 $msg")
         counter.increment()
         append(lila.rating.Glicko.default)
 

@@ -131,7 +131,9 @@ function esbuildLog(msgs: es.Message[], error = false): void {
     const file = msg.location?.file.replace(/^[./]*/, '') ?? '<unknown>';
     const line = msg.location?.line
       ? `:${msg.location.line}`
-      : '' + (msg.location?.column ? `:${msg.location.column}` : '');
+      : msg.location?.column
+        ? `:${msg.location.column}`
+        : '';
     const srcText = msg.location?.lineText;
     env.log(`${error ? errorMark : warnMark} - '${c.cyan(file + line)}' - ${msg.text}`, 'esbuild');
     if (srcText) env.log('  ' + c.magenta(srcText), 'esbuild');

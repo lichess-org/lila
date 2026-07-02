@@ -36,8 +36,8 @@ final class IpTiers(getFile: GetRelativeFile, cacheApi: lila.memo.CacheApi)(usin
     def is(ip: IpAddress): Boolean = cache.get(()).value match
       case Some(util.Success(ips)) => ips.contains(ip)
       case _ => false
-    private val cache = cacheApi.unit[Set[IpAddress]]:
-      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    private val cache = cacheApi.unit[Set[IpAddress]]("security.trustedIp"):
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout("security.trustedIp"): _ =>
         readFromFile.map: res =>
           for
             lines <- res.toOption.toSet

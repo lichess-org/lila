@@ -90,7 +90,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci> | undefined): AlmostSan {
+export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci>): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);

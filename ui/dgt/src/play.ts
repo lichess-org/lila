@@ -507,13 +507,11 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId !== playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[index].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
-            console.log(
-              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId,
-            );
-          currentGameId = playableGames[Number(index)].gameId;
+            console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[index].gameId);
+          currentGameId = playableGames[index].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
           console.log('Active game updated. currentGameId: ' + currentGameId);
         } else {
@@ -778,7 +776,7 @@ export default function (token: string): void {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     let moveText: string;
-    if (announceMoveFormat && announceMoveFormat.toLowerCase() === 'san' && lastSanMove) {
+    if (announceMoveFormat?.toLowerCase() === 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     } else {
@@ -1172,7 +1170,11 @@ export default function (token: string): void {
   function padBeforeNumbers(moveString: string) {
     let paddedMoveString = '';
     for (const c of moveString) {
-      Number.isInteger(+c) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
+      if (Number.isInteger(Number(c))) {
+        paddedMoveString += ` ${c} `;
+      } else {
+        paddedMoveString += c;
+      }
     }
     return paddedMoveString;
   }

@@ -72,8 +72,8 @@ final class PuzzleOpeningApi(
         )
 
   private val collectionCache =
-    cacheApi.unit[PuzzleOpeningCollection]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(1.minute): _ =>
+    cacheApi.unit[PuzzleOpeningCollection]("puzzle.opening.collection"):
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout("puzzleOpening", 1.minute): _ =>
         countedCache
           .get(())
           .map:

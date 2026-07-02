@@ -57,8 +57,8 @@ final class PracticeApi(
   yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object structure:
-    private val cache = cacheApi.unit[PracticeStructure]:
-      _.expireAfterAccess(3.hours).buildAsyncTimeout(): _ =>
+    private val cache = cacheApi.unit[PracticeStructure]("practice.structure"):
+      _.expireAfterAccess(3.hours).buildAsyncTimeout("practice.structure"): _ =>
         studyApi.chapterIdNames(PracticeStructure.studyIds).map(PracticeStructure.withChapters)
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()

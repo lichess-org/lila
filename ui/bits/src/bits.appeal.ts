@@ -9,7 +9,7 @@ export function initModule(): void {
       .val((e.target as HTMLTextAreaElement).value);
   });
 
-  $('form.appeal__actions__slack').on('submit', (e: Event) => {
+  $('form.appeal__actions__slack').on('submit', (e: SubmitEvent) => {
     const form = e.target as HTMLFormElement;
     formToXhr(form);
     $(form).find('button').text('Sent!').attr('disabled', 'true');
@@ -25,7 +25,7 @@ export function initModule(): void {
 
     let node: Text | null;
     while ((node = walker.nextNode() as Text | null)) {
-      if (!node || !node.nodeValue) continue;
+      if (!node?.nodeValue) continue;
       const text = node.nodeValue;
       const matches = [...text.matchAll(isoDateRegex)];
       if (matches.length === 0) continue;

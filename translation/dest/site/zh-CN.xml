@@ -773,7 +773,7 @@
   <string name="quickPairing">快速匹配</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="other">匿名 (%s)</item>
   </plurals>
   <string name="yourScore">您的得分：%s</string>
@@ -997,4 +997,5 @@
   <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>
+  <string name="settings">设置</string>
 </resources>

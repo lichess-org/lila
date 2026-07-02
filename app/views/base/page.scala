@@ -74,9 +74,7 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option:
-            raw("""<meta content="noindex, nofollow" name="robots">""")
-          ,
+          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,

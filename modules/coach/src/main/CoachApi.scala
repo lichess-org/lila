@@ -69,14 +69,14 @@ final class CoachApi(
       _ <- coll.update.one($id(c.coach.id), $set("picture" -> pic.id))
     yield ()
 
-  private val languagesCache = cacheApi.unit[Set[String]]:
-    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+  private val languagesCache = cacheApi.unit[Set[String]]("coach.languages"):
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout("coach.languages"): _ =>
       coll.secondary.distinctEasy[String, Set]("languages", $empty)
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
-  private val countriesCache = cacheApi.unit[CountrySelection]:
-    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+  private val countriesCache = cacheApi.unit[CountrySelection]("coach.countries"):
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout("coach.countries"): _ =>
       import lila.core.user.FlagCode
       userRepo.coll.secondary
         .distinctEasy[FlagCode, Set](

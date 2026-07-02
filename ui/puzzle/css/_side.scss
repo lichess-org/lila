@@ -3,7 +3,7 @@
     @extend %box-neat-force;
 
     background: $c-bg-box;
-    padding: 2vmin;
+    padding: max(2vmin, 12px);
 
     p {
       margin: 0;
@@ -44,7 +44,7 @@
     @extend %box-neat;
 
     background: $c-bg-box;
-    padding: 2vmin;
+    padding: max(2vmin, 12px);
 
     &__rating {
       strong {
@@ -58,6 +58,10 @@
 
         font-size: 0.9em;
         margin-top: 1em;
+      }
+
+      & > p:last-child {
+        margin-bottom: 0;
       }
     }
 
@@ -110,11 +114,11 @@
 
     align-self: start;
     background: $c-bg-box;
-    padding: 2vmin;
+    padding: max(2vmin, 12px);
     overflow: hidden;
 
     &__difficulty {
-      margin-top: 2vmin;
+      margin-top: 1em;
 
       label {
         margin-inline-end: 1em;
@@ -155,7 +159,7 @@
     @extend %box-neat;
 
     background: $c-bg-box;
-    padding: 2vmin;
+    padding: max(2vmin, 12px);
 
     a {
       @extend %roboto;
@@ -204,8 +208,12 @@
     @extend %box-neat, %roboto;
 
     background: $c-bg-box;
-    padding: 2vmin;
+    padding: max(2vmin, 12px);
     font-size: 0.9em;
+
+    & > p:last-child {
+      margin-bottom: 0;
+    }
 
     &__back {
       display: block;

@@ -36,7 +36,7 @@ final class LeaderboardApi(
           "d".$gte(range.start).$lt(range.end)
         )
       .sort($sort.desc("d"))
-      .cursor[Entry]()
+      .cursor[Entry](ReadPref.sec)
       .list(100)
 
   def chart(user: User): Fu[ChartData] =

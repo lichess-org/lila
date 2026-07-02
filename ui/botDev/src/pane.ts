@@ -24,7 +24,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   readonly info: Info;
   readonly host: EditDialog;
   readonly el: HTMLElement;
-  readonly parent: Pane | undefined;
+  readonly parent?: Pane;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);
@@ -167,7 +167,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isDisabled(): boolean {
-    return this.host.editing().disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+    return this.host.editing().disabled.has(this.id) ?? this.parent?.isDisabled ?? false;
   }
 
   protected get children(): Pane[] {

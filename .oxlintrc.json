@@ -14,7 +14,6 @@
         "null": "ignore"
       }
     ],
-    "no-var": "warn",
     "no-constant-condition": [
       "warn",
       {
@@ -22,6 +21,7 @@
       }
     ],
     "no-duplicate-imports": "error",
+    "no-implicit-coercion": ["error", { "boolean": false }],
     "no-useless-call": "error",
     "no-useless-computed-key": "error",
     "no-useless-concat": "error",
@@ -36,9 +36,14 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "no-var": "warn",
     "object-shorthand": "error",
-    "import/no-cycle": "error",
+    "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "import/no-named-as-default-member": "error",
+    "import/no-self-import": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
@@ -52,20 +57,24 @@
     "typescript/no-unnecessary-type-arguments": "error",
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/no-unnecessary-type-conversion": "error",
     "typescript/prefer-find": "error",
     "typescript/prefer-includes": "error",
+    "typescript/prefer-optional-chain": "error",
     "typescript/prefer-readonly": "error",
     "typescript/prefer-reduce-type-parameter": "error",
     "typescript/prefer-string-starts-ends-with": "error",
     "unicorn/no-immediate-mutation": "error",
     "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-useless-collection-argument": "error",
+    "unicorn/prefer-array-find": "error",
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-date-now": "error",
     "unicorn/prefer-keyboard-event-key": "error",
     "unicorn/prefer-node-protocol": "error",
+    "unicorn/prefer-set-has": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error",
     "no-restricted-globals": [
       "error",
@@ -242,8 +251,6 @@
     "no-control-regex": "off",
     "no-unused-expressions": "off",
     "typescript/no-base-to-string": "off",
-    "typescript/no-duplicate-type-constituents": "off",
-    "typescript/no-explicit-any": "off",
     "typescript/no-floating-promises": "off",
     "typescript/no-misused-spread": "off",
     "typescript/no-redundant-type-constituents": "off",
@@ -257,8 +264,10 @@
     {
       "files": ["bin/**", "cron/**"],
       "rules": {
+        "await-thenable": "off",
         "no-unused-vars": "off",
-        "await-thenable": "off"
+        "prefer-const": "off",
+        "unicorn/prefer-set-has": "off"
       }
     },
     {
