@@ -136,19 +136,12 @@ export class Premove {
     const enemies = enemySqBetween
       ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
       : ctx.enemies;
-    if (!isPawnAdvance && this.isDestOccupiedByFriendly(ctx)) {
-      if (friendlySqBetween) return false;
-      if (
-        !this.isDestControlledByEnemy(ctx, undefined, enemies) &&
-        !this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween)
-      )
-        return false;
-      return true;
-    }
-    return (
-      !friendlySqBetween ||
-      this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, enemies, squaresBetween)
-    );
+    return !isPawnAdvance && this.isDestOccupiedByFriendly(ctx)
+      ? !friendlySqBetween &&
+          (this.isDestControlledByEnemy(ctx, undefined, enemies) ||
+            this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween))
+      : !friendlySqBetween ||
+          this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, enemies, squaresBetween);
   };
 
   private readonly pawn: cg.Mobility = (ctx: cg.MobilityContext) => {
