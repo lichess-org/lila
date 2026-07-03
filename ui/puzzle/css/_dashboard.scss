@@ -78,9 +78,9 @@
     background: $c-bg-zebra2;
 
     &--win {
-      $c-first: color-mix(in srgb, $c-secondary 85%, $c-dark);
-      $c-fix: color-mix(in srgb, $c-secondary 50%, $c-dark);
-      $c-fail: color-mix(in srgb, $c-bad 80%, $c-dark);
+      $c-first: color-mix($c-secondary 85%, $c-dark);
+      $c-fix: color-mix($c-secondary 50%, $c-dark);
+      $c-fail: color-mix($c-bad 80%, $c-dark);
 
       color: $c-over;
       background:
@@ -111,7 +111,7 @@
     }
 
     &--perf {
-      background: #{$glow-gradient} color-mix(in srgb, $c-brag 85%, $c-dark);
+      background: #{$glow-gradient} color-mix($c-brag 85%, $c-dark);
       color: $c-over;
     }
 
@@ -128,7 +128,7 @@
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} color-mix(in srgb, $c-primary 80%, $c-dark);
+        background: #{$glow-gradient} color-mix($c-primary 80%, $c-dark);
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
@@ -143,7 +143,7 @@
 
         icon {
           opacity: 1;
-          color: color-mix(in srgb, $c-primary 70%, $c-bg);
+          color: color-mix($c-primary 70%, $c-bg);
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;

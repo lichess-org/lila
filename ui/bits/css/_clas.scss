@@ -1,7 +1,7 @@
 $c-clas-light: hsl(274 48% 60%);
 $c-clas-lighter: mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: color-mix(in srgb, $c-clas 20%, white);
+$c-bg-clas-over-dim: color-mix($c-clas 20%, white);
 
 @mixin button-with-clas-shadow {
   @include with-button-shadow(
@@ -129,7 +129,7 @@ h1 {
       }
 
       &:hover {
-        background: color-mix(in srgb, $c-clas 10%, $c-bg);
+        background: color-mix($c-clas 10%, $c-bg);
 
         &::before {
           color: $c-clas-light;
@@ -246,14 +246,14 @@ h1 {
 
     .button {
       font-size: 1.2em;
-      color: color-mix(in srgb, $c-font 40%, $c-clas);
+      color: color-mix($c-font 40%, $c-clas);
     }
 
     .user-link {
       @extend %flex-center;
 
       &:hover {
-        color: color-mix(in srgb, $c-font 40%, $c-clas);
+        color: color-mix($c-font 40%, $c-clas);
       }
 
       span {
@@ -399,12 +399,12 @@ h1 {
         color: $c-clas-light;
 
         &:hover {
-          background: color-mix(in srgb, $c-clas 30%, $c-bg);
+          background: color-mix($c-clas 30%, $c-bg);
           color: $c-font-clear;
         }
 
         &.active {
-          background: color-mix(in srgb, $c-clas 50%, $c-bg);
+          background: color-mix($c-clas 50%, $c-bg);
           color: $c-over;
         }
 
@@ -438,11 +438,11 @@ h1 {
 
 @keyframes target-fade {
   from {
-    background: color-mix(in srgb, $c-accent 80%, $c-bg-popup);
+    background: color-mix($c-accent 80%, $c-bg-popup);
   }
 
   to {
-    background: color-mix(in srgb, $c-accent 15%, $c-bg-popup);
+    background: color-mix($c-accent 15%, $c-bg-popup);
   }
 }
 
@@ -463,10 +463,10 @@ h1 {
 .button-clas {
   @include button-with-clas-shadow;
 
-  background: color-mix(in srgb, $c-clas 75%, $c-bg);
+  background: color-mix($c-clas 75%, $c-bg);
 
   &:hover {
-    background: color-mix(in srgb, $c-clas 90%, $c-bg) !important;
+    background: color-mix($c-clas 90%, $c-bg) !important;
   }
 }
 

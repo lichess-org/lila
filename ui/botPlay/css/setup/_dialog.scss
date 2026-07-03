@@ -95,8 +95,8 @@
   }
 
   .failure {
-    background: color-mix(in srgb, $c-bad 20%, $c-bg);
-    box-shadow: 0 0 13px 6px color-mix(in srgb, $c-bad 20%, $c-bg);
+    background: color-mix($c-bad 20%, $c-bg);
+    box-shadow: 0 0 13px 6px color-mix($c-bad 20%, $c-bg);
     border-radius: 0.5rem;
   }
 }

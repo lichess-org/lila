@@ -56,7 +56,7 @@
     display: block;
     border-radius: 20px;
     padding: 1rem;
-    background: color-mix(in srgb, $c-bad 15%, $c-bg);
+    background: color-mix($c-bad 15%, $c-bg);
     border: 1px solid $c-error;
     margin-bottom: 2rem;
   }

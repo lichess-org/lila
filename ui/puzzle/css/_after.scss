@@ -98,7 +98,7 @@
 
       &.active,
       &.active:hover {
-        background: color-mix(in srgb, $c-bad 50%, $c-bg);
+        background: color-mix($c-bad 50%, $c-bg);
         text-shadow: none !important;
       }
 
@@ -110,7 +110,7 @@
     &.vote-up {
       &.active,
       &.active:hover {
-        background: color-mix(in srgb, $c-good 50%, $c-bg);
+        background: color-mix($c-good 50%, $c-bg);
         text-shadow: none !important;
       }
 

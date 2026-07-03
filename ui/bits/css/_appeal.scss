@@ -70,7 +70,7 @@
 
     border-radius: 20px;
     padding: 1rem;
-    background: color-mix(in srgb, $c-brag 60%, $c-bg);
+    background: color-mix($c-brag 60%, $c-bg);
     border: 1px solid $c-warn;
     text-align: center;
     font-size: 1.2em;

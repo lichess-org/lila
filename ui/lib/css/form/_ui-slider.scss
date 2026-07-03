@@ -1,4 +1,4 @@
-$c-slider: color-mix(in srgb, $c-secondary 90%, $c-bg) !default;
+$c-slider: color-mix($c-secondary 90%, $c-bg) !default;
 $slider-width: 12px;
 
 .ui-slider {
@@ -19,7 +19,7 @@ $slider-width: 12px;
 .ui-widget-content {
   @extend %box-radius;
 
-  background: color-mix(in srgb, $c-secondary 25%, $c-dimmer);
+  background: color-mix($c-secondary 25%, $c-dimmer);
 }
 
 .ui-slider-handle {

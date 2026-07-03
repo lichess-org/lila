@@ -131,7 +131,7 @@
 
         &:hover,
         &:hover::before {
-          background: color-mix(in srgb, $c-primary 90%, $c-font);
+          background: color-mix($c-primary 90%, $c-font);
           color: white;
         }
       }
@@ -181,7 +181,7 @@
       }
 
       &:hover {
-        background: color-mix(in srgb, $c-primary 30%, $c-bg);
+        background: color-mix($c-primary 30%, $c-bg);
         color: $c-font-clearer;
         box-shadow: none !important;
       }
@@ -194,7 +194,7 @@
     padding-top: 1em;
     padding-bottom: 1em;
     margin: -1em 0;
-    background: color-mix(in srgb, $c-primary 10%, $c-bg);
+    background: color-mix($c-primary 10%, $c-bg);
 
     strong {
       @extend %roboto;
@@ -203,7 +203,7 @@
     }
 
     &.ongoing {
-      background: color-mix(in srgb, $c-accent 10%, $c-bg);
+      background: color-mix($c-accent 10%, $c-bg);
       color: $c-accent;
     }
   }
@@ -782,7 +782,7 @@
     }
 
     &:hover {
-      background: color-mix(in srgb, $c-primary 20%, $c-bg);
+      background: color-mix($c-primary 20%, $c-bg);
       color: $c-font-clearer;
     }
   }
@@ -844,7 +844,7 @@
   border-left: 3px solid transparent;
 
   &:hover {
-    background: color-mix(in srgb, $c-primary 12%, $c-bg);
+    background: color-mix($c-primary 12%, $c-bg);
     color: $c-font-clearer;
 
     .mini-game__flag {
@@ -855,7 +855,7 @@
   }
 
   &--current {
-    background: color-mix(in srgb, $c-primary 20%, $c-bg);
+    background: color-mix($c-primary 20%, $c-bg);
     border-left-color: $c-primary;
   }
 

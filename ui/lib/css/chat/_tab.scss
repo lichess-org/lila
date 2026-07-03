@@ -16,7 +16,7 @@
     @include transition;
 
     &:hover {
-      background: color-mix(in srgb, $c-accent 15%, $c-bg);
+      background: color-mix($c-accent 15%, $c-bg);
     }
 
     &-active {

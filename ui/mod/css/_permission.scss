@@ -33,7 +33,7 @@
   }
 
   .granted {
-    background: color-mix(in srgb, $c-secondary 10%, $c-bg);
+    background: color-mix($c-secondary 10%, $c-bg);
     color: $c-good;
     padding: 0.5em 0;
   }

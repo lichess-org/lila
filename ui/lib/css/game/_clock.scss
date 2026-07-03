@@ -167,17 +167,17 @@
   }
 
   &.running .time {
-    background: color-mix(in srgb, $c-secondary 30%, $c-bg);
+    background: color-mix($c-secondary 30%, $c-bg);
     color: $c-font-clearer;
   }
 
   &.emerg .time,
   &.outoftime .time {
-    background-color: color-mix(in srgb, $c-bad 25%, $c-bg);
+    background-color: color-mix($c-bad 25%, $c-bg);
   }
 
   &.emerg.running .time {
-    background-color: color-mix(in srgb, $c-bad 50%, $c-bg);
+    background-color: color-mix($c-bad 50%, $c-bg);
     color: $c-font-clearer;
   }
 

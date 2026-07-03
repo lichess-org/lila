@@ -45,7 +45,7 @@
 
     abbr {
       text-decoration: none;
-      color: color-mix(in srgb, $c-primary 50%, $c-font);
+      color: color-mix($c-primary 50%, $c-font);
     }
   }
 

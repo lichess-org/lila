@@ -23,7 +23,7 @@
     }
 
     &[href]:hover {
-      background: color-mix(in srgb, $c-bg-page 50%, $c-bg);
+      background: color-mix($c-bg-page 50%, $c-bg);
 
       &::before {
         color: $c-link;

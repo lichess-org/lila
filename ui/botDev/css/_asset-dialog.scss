@@ -80,7 +80,7 @@
       }
 
       &:hover {
-        background-color: color-mix(in srgb, $c-primary 40%, $c-bg);
+        background-color: color-mix($c-primary 40%, $c-bg);
       }
 
       &:focus:not([disabled]) {

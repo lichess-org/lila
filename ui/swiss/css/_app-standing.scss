@@ -36,18 +36,18 @@
   }
 
   &:not(.created, .loading) tbody tr:hover {
-    background: color-mix(in srgb, $c-primary 15%, $c-bg);
+    background: color-mix($c-primary 15%, $c-bg);
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: color-mix(in srgb, $c-secondary 70%, $c-bg);
+    $c-me-border: color-mix($c-secondary 70%, $c-bg);
 
     @include gradient-border($c-me-border, to right, to left);
   }
 
   tr.active td:last-child {
-    $c-active-border: color-mix(in srgb, $c-primary 70%, $c-bg);
+    $c-active-border: color-mix($c-primary 70%, $c-bg);
 
     @include gradient-border($c-active-border, to left, to right);
   }
@@ -89,7 +89,7 @@
       color: $c-link;
 
       &:hover {
-        background: color-mix(in srgb, $c-primary 35%, $c-bg);
+        background: color-mix($c-primary 35%, $c-bg);
       }
     }
 
@@ -97,20 +97,20 @@
       color: $c-good;
 
       &:hover {
-        background: color-mix(in srgb, $c-secondary 35%, $c-bg);
+        background: color-mix($c-secondary 35%, $c-bg);
       }
     }
 
     .loss {
-      color: color-mix(in srgb, $c-bad 60%, $c-bg);
+      color: color-mix($c-bad 60%, $c-bg);
 
       &:hover {
-        background: color-mix(in srgb, $c-bad 20%, $c-bg);
+        background: color-mix($c-bad 20%, $c-bg);
       }
     }
 
     .draw {
-      color: color-mix(in srgb, $c-brag 70%, $c-bg);
+      color: color-mix($c-brag 70%, $c-bg);
     }
 
     bye {
@@ -122,7 +122,7 @@
     }
 
     absent {
-      color: color-mix(in srgb, $c-bad 60%, $c-bg);
+      color: color-mix($c-bad 60%, $c-bg);
     }
 
     r {

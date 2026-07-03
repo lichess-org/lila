@@ -143,7 +143,7 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
     .button-fat {
       @extend %box-radius;
 
-      border: 10px solid color-mix(in srgb, $c-primary 30%, $c-bg);
+      border: 10px solid color-mix($c-primary 30%, $c-bg);
     }
   }
 }

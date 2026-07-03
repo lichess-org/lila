@@ -37,7 +37,7 @@
       display: flex;
 
       &:hover {
-        background: color-mix(in srgb, $c-secondary 10%, $c-bg-popup);
+        background: color-mix($c-secondary 10%, $c-bg-popup);
       }
     }
 

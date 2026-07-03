@@ -146,7 +146,7 @@ $c-report-high-over: white;
   .marked-by-me {
     @include user-marks;
 
-    background: color-mix(in srgb, $c-brag 60%, $c-bg);
+    background: color-mix($c-brag 60%, $c-bg);
   }
 
   .appeal-queue {

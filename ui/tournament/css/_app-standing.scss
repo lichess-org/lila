@@ -49,16 +49,16 @@
   }
 
   &:not(.created, .loading) tbody tr:hover {
-    background: color-mix(in srgb, $c-primary 30%, $c-bg);
+    background: color-mix($c-primary 30%, $c-bg);
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    @include gradient-border(color-mix(in srgb, $c-secondary 70%, $c-bg), to right, to left);
+    @include gradient-border(color-mix($c-secondary 70%, $c-bg), to right, to left);
   }
 
   tr.active td:last-child {
-    @include gradient-border(color-mix(in srgb, $c-primary 70%, $c-bg), to left, to right);
+    @include gradient-border(color-mix($c-primary 70%, $c-bg), to left, to right);
   }
 
   td.rank {

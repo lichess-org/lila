@@ -90,13 +90,13 @@ team {
   }
 
   tr.active td:last-child {
-    $c-active-border: color-mix(in srgb, $c-primary 70%, $c-bg);
+    $c-active-border: color-mix($c-primary 70%, $c-bg);
 
     @include gradient-border($c-active-border, to left, to right);
   }
 
   .tour__main & tr:hover {
-    background: color-mix(in srgb, $c-primary 30%, $c-bg) !important;
+    background: color-mix($c-primary 30%, $c-bg) !important;
   }
 
   td {

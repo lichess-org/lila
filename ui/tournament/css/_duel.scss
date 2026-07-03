@@ -30,7 +30,7 @@
     @include transition;
 
     &:hover {
-      background: color-mix(in srgb, $c-primary 20%, $c-bg-page);
+      background: color-mix($c-primary 20%, $c-bg-page);
     }
   }
 

@@ -77,8 +77,8 @@
       }
 
       &:hover {
-        background: color-mix(in srgb, $c-primary 12%, $c-bg);
-        border-color: color-mix(in srgb, $c-primary 50%, $c-bg);
+        background: color-mix($c-primary 12%, $c-bg);
+        border-color: color-mix($c-primary 50%, $c-bg);
         color: $c-font-clearer;
 
         .mini-game__flag {

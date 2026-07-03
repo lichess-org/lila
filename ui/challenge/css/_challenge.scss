@@ -18,7 +18,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background: color-mix(in srgb, $c-primary 30%, $c-bg);
+        background: color-mix($c-primary 30%, $c-bg);
         padding-bottom: 0;
         outline: 1px solid $c-primary;
 

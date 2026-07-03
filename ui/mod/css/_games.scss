@@ -11,11 +11,11 @@
   }
 
   good.result {
-    background: color-mix(in srgb, $c-secondary 50%, $c-bg);
+    background: color-mix($c-secondary 50%, $c-bg);
   }
 
   bad.result {
-    background: color-mix(in srgb, $c-bad 50%, $c-bg);
+    background: color-mix($c-bad 50%, $c-bg);
   }
 
   td.input {

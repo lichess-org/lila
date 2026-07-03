@@ -28,7 +28,7 @@
       background-image: linear-gradient(
         to bottom,
         $c-body-gradient,
-        color-mix(in srgb, $c-body-gradient 50%, $c-bg-page) 60px
+        color-mix($c-body-gradient 50%, $c-bg-page) 60px
       );
       border-color: black;
 

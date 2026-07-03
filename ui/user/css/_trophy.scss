@@ -60,7 +60,7 @@
 .fire-trophy {
   &,
   &:hover {
-    color: color-mix(in srgb, $c-font 20%, white);
+    color: color-mix($c-font 20%, white);
   }
 
   opacity: 0.9;

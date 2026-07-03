@@ -72,7 +72,7 @@
       margin-inline-end: 0.5em;
 
       &.active:hover {
-        background: color-mix(in srgb, $c-secondary 80%, white);
+        background: color-mix($c-secondary 80%, white);
       }
     }
 
@@ -98,7 +98,7 @@
       padding: 0.1em 0.5em;
 
       &:invalid {
-        background: color-mix(in srgb, $c-bad 30%, $c-bg);
+        background: color-mix($c-bad 30%, $c-bg);
       }
     }
   }

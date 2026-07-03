@@ -39,7 +39,7 @@
     }
 
     &.off {
-      background: color-mix(in srgb, $c-primary 80%, $c-bg);
+      background: color-mix($c-primary 80%, $c-bg);
       color: #fff;
     }
 

@@ -42,14 +42,14 @@
       @extend %flex-column, %box-neat;
 
       background: $c-bg-zebra;
-      outline: 3px solid color-mix(in srgb, $c-font 30%, $c-bg);
+      outline: 3px solid color-mix($c-font 30%, $c-bg);
       cursor: pointer;
       color: $c-font;
 
       &:hover {
-        outline: 3px solid color-mix(in srgb, $c-primary 60%, $c-bg);
-        background: color-mix(in srgb, $c-primary 10%, $c-bg-zebra);
-        box-shadow: 0 0 30px color-mix(in srgb, $c-primary 50%, $c-bg);
+        outline: 3px solid color-mix($c-primary 60%, $c-bg);
+        background: color-mix($c-primary 10%, $c-bg-zebra);
+        box-shadow: 0 0 30px color-mix($c-primary 50%, $c-bg);
       }
 
       &__title {

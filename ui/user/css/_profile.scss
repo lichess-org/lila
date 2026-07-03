@@ -7,8 +7,8 @@
     @extend %box-radius, %flex-center-nowrap;
 
     padding: 0.7em;
-    background: color-mix(in srgb, $c-bad 10%, $c-bg);
-    border: 1px solid color-mix(in srgb, $c-bad 30%, $c-bg);
+    background: color-mix($c-bad 10%, $c-bg);
+    border: 1px solid color-mix($c-bad 30%, $c-bg);
     color: $c-bad;
 
     span {
@@ -108,7 +108,7 @@
       @extend %flex-column;
     }
 
-    background: color-mix(in srgb, $c-primary 10%, $c-bg);
+    background: color-mix($c-primary 10%, $c-bg);
   }
 
   .col2 {

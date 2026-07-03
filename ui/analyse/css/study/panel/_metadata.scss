@@ -72,7 +72,7 @@
 
     &:hover,
     &:focus {
-      background: color-mix(in srgb, $c-primary 10%, $c-bg);
+      background: color-mix($c-primary 10%, $c-bg);
     }
 
     &:invalid {
@@ -97,7 +97,7 @@
   .topic {
     @extend %box-radius;
 
-    background: color-mix(in srgb, $c-primary 17%, $c-bg);
+    background: color-mix($c-primary 17%, $c-bg);
     padding: 0.2em 0.6em;
     margin: 0.2em;
     unicode-bidi: plaintext;

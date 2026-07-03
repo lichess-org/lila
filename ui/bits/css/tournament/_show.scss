@@ -72,7 +72,7 @@
 
     a {
       /* GM wikipedia */
-      color: color-mix(in srgb, $c-primary 35%, $c-font);
+      color: color-mix($c-primary 35%, $c-font);
 
       &:hover {
         color: $c-link;
@@ -140,7 +140,7 @@
       }
 
       &:hover {
-        background: color-mix(in srgb, $c-primary 10%, $c-bg);
+        background: color-mix($c-primary 10%, $c-bg);
       }
     }
 

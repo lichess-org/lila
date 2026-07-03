@@ -75,7 +75,7 @@
   .brand {
     @extend %box-neat;
 
-    background: color-mix(in srgb, $c-accent 10%, $c-bg);
+    background: color-mix($c-accent 10%, $c-bg);
     padding: 1.5em;
     margin: 20px;
     display: flex;
@@ -108,7 +108,7 @@
       @extend %box-neat;
 
       border: $c-border;
-      background: color-mix(in srgb, $c-accent 10%, $c-bg);
+      background: color-mix($c-accent 10%, $c-bg);
       flex: 1 1 49%;
     }
 
@@ -117,7 +117,7 @@
 
       text-transform: uppercase;
       letter-spacing: 0.2ch;
-      background: color-mix(in srgb, $c-accent 10%, $c-bg);
+      background: color-mix($c-accent 10%, $c-bg);
       padding: 0.2em 1em;
       margin-left: 1em;
     }
@@ -229,7 +229,7 @@
 
       div {
         background: transparent;
-        color: color-mix(in srgb, $c-font 50%, $c-dimmer);
+        color: color-mix($c-font 50%, $c-dimmer);
       }
 
       div.always-on {
@@ -260,7 +260,7 @@
     text-align: center;
     color: $c-good;
     border: 1px solid $c-good;
-    background: color-mix(in srgb, $c-secondary 10%, $c-bg);
+    background: color-mix($c-secondary 10%, $c-bg);
     padding: 2rem;
   }
 

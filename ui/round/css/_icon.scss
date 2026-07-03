@@ -29,7 +29,7 @@
     .fbt.yes {
       @include inline-end(0);
 
-      $act-confirm-shade: color-mix(in srgb, $c-accent 70%, black);
+      $act-confirm-shade: color-mix($c-accent 70%, black);
 
       position: absolute;
       top: -3px;

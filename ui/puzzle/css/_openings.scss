@@ -26,7 +26,7 @@
     padding: 0.5em 0.7em 0.5em 1.5em;
 
     &:hover {
-      background: color-mix(in srgb, $c-primary 10%, $c-bg);
+      background: color-mix($c-primary 10%, $c-bg);
     }
 
     &.opening-mine {
@@ -34,7 +34,7 @@
       font-weight: bold;
 
       &:hover {
-        background: color-mix(in srgb, $c-brag 20%, $c-bg);
+        background: color-mix($c-brag 20%, $c-bg);
       }
     }
 

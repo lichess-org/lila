@@ -46,7 +46,7 @@
     padding: 1em 1.5em 1.5em;
 
     &:hover {
-      background: color-mix(in srgb, $c-primary 18%, $c-bg);
+      background: color-mix($c-primary 18%, $c-bg);
     }
 
     h2 {

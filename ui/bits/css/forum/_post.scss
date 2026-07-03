@@ -22,7 +22,7 @@
 
       padding: 0.2em;
       padding-inline-end: 0.8em;
-      background: color-mix(in srgb, $c-primary 12%, $c-bg);
+      background: color-mix($c-primary 12%, $c-bg);
     }
 
     &__actions {

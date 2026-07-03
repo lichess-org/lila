@@ -210,7 +210,7 @@
         @extend %flex-column;
 
         flex: 1 1 100%;
-        background: color-mix(in srgb, $c-primary 80%, $c-bg);
+        background: color-mix($c-primary 80%, $c-bg);
         color: $c-over;
         font-size: 1.2em;
         align-items: center;

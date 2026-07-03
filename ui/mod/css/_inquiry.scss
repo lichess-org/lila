@@ -233,7 +233,7 @@ body.no-inquiry {
   }
 
   .fbt:hover {
-    background: color-mix(in srgb, $c-primary 50%, $c-bg);
+    background: color-mix($c-primary 50%, $c-bg);
   }
 
   .fbt.icon::before,

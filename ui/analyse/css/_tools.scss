@@ -15,7 +15,7 @@
     .title {
       font-size: 0.9rem;
       line-height: 1.9em;
-      background: color-mix(in srgb, $c-secondary 40%, $c-bg);
+      background: color-mix($c-secondary 40%, $c-bg);
       padding: 0 7px;
 
       a {
@@ -93,7 +93,7 @@
     }
 
     &.highlighted {
-      background: color-mix(in srgb, $c-primary 80%, $c-bg);
+      background: color-mix($c-primary 80%, $c-bg);
       color: $c-over;
 
       &:hover {

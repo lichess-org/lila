@@ -22,7 +22,7 @@
       @include transition;
 
       &.disabled {
-        background: color-mix(in srgb, $c-accent 15%, $c-bg);
+        background: color-mix($c-accent 15%, $c-bg);
         color: transparent;
         cursor: default;
       }

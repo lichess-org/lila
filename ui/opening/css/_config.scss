@@ -26,8 +26,8 @@ $c-opcfg: $c-accent;
   background: $c-bg-zebra;
 
   &:hover {
-    outline: 3px solid color-mix(in srgb, $c-accent 60%, $c-bg);
-    background: color-mix(in srgb, $c-accent 10%, $c-bg-zebra);
+    outline: 3px solid color-mix($c-accent 60%, $c-bg);
+    background: color-mix($c-accent 10%, $c-bg-zebra);
   }
 
   &__summary {
