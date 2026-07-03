@@ -817,7 +817,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="anonymous">Anônimo</string>
   <plurals name="nbAnonymous">
     <item quantity="one">Anónimo</item>
-    <item quantity="other">Anónimos</item>
+    <item quantity="other">Anónimos (%s)</item>
   </plurals>
   <string name="yourScore">O teu resultado: %s</string>
   <string name="language">Lingua</string>
