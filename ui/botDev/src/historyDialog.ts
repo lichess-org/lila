@@ -108,7 +108,7 @@ class HistoryDialog {
     this.json(bot);
   }
 
-  version(version: string | number | undefined): BotVersionInfo | undefined {
+  version(version?: string | number): BotVersionInfo | undefined {
     if (!version) return;
     return this.versions.find(b => String(b.version) === String(version));
   }

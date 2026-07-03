@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
+import type { RoundProxy as RoundProxyType, RoundData, RoundOpts, Pref } from 'round';
 
 import { myUserId } from 'lib';
 import { type Player, clockToSpeed } from 'lib/game';
@@ -20,7 +20,7 @@ export class RoundProxy implements RoundProxyType {
     'draw-yes': () => env.game.draw(),
   };
 
-  constructor(prefs: any) {
+  constructor(prefs: Pref) {
     this.data = {
       game: {
         id: 'synthetic',
@@ -36,7 +36,7 @@ export class RoundProxy implements RoundProxyType {
       local: this,
       player: {} as Player,
       opponent: {} as Player,
-      pref: { ...prefs, submitMove: 0 },
+      pref: { ...prefs, submitMove: false },
       steps: [],
       takebackable: false,
       moretimeable: false,
@@ -49,7 +49,7 @@ export class RoundProxy implements RoundProxyType {
   outoftime = (): void => env.game.flag();
   berserk = (): void => {};
   reload: () => void = site.reload;
-  sendLoading = (typ: string, data?: any): void => this.send(typ, data);
+  sendLoading = (typ: string): void => this.send(typ);
 
   send(t: string, d?: any): void {
     if (this.handlers[t]) this.handlers[t]?.(d);
@@ -62,7 +62,7 @@ export class RoundProxy implements RoundProxyType {
     return true;
   };
 
-  updateBoard(game: LocalGame | undefined, opts?: CgConfig): void {
+  updateBoard(game?: LocalGame, opts?: CgConfig): void {
     const updates: CgConfig = {};
     if (game) {
       updates.fen = game.fen;

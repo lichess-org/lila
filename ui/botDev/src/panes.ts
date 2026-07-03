@@ -51,7 +51,7 @@ export class Panes {
 
   private readonly updateProperty: ActionListener = e => {
     const pane = this.byEvent(e)!;
-    pane.update(e);
+    pane.update();
     pane.host.update();
   };
 }

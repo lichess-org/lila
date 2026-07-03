@@ -63,7 +63,7 @@ export class DevBotCtrl extends BotLoader {
     return move?.uci !== '0000' ? move : undefined;
   }
 
-  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+  setUids({ white, black }: { white?: string; black?: string }): void {
     this.uids.white = white;
     this.uids.black = black;
     this.reset();
@@ -120,7 +120,7 @@ export class DevBotCtrl extends BotLoader {
     await this.store.remove(bot.uid);
   }
 
-  info(uid: string | undefined): BotInfo | undefined {
+  info(uid?: string): BotInfo | undefined {
     if (uid === undefined) return undefined;
     return this.bots.get(uid) ?? this.rateBots[Number(uid.slice(1))];
   }
@@ -156,7 +156,7 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+  async getBook(key?: string): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!env.assets.idb.book.keyNames.has(key)) return super.getBook(key);
@@ -202,15 +202,15 @@ export class DevBotCtrl extends BotLoader {
   };
 }
 
-export function uidToDomId(uid: string | undefined): string | undefined {
+export function uidToDomId(uid?: string): string | undefined {
   return uid?.startsWith('#') ? `bot-id-${uid.slice(1)}` : undefined;
 }
 
-export function domIdToUid(domId: string | undefined): string | undefined {
+export function domIdToUid(domId?: string): string | undefined {
   return domId?.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }
 
-export function botEquals(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
+export function botEquals(a?: BotInfo, b?: BotInfo): boolean {
   if (!closeEnough(a, b, ['filters', 'version'])) return false;
   const [aFilters, bFilters] = [a, b].map(bot =>
     Object.entries(bot?.filters ?? {}).filter(([_, v]) => v.move || v.time || v.score),
@@ -235,7 +235,7 @@ function closeEnough(a: any, b: any, ignore: string[] = []): boolean {
   return true;
 }
 
-function filteredKeys(obj: any, ignore: string[] = []): string[] {
+function filteredKeys(obj: object, ignore: string[] = []): string[] {
   if (typeof obj !== 'object') return obj;
   return Object.entries(obj)
     .filter(([k, v]) => !ignore.includes(k) && !isEmpty(v))

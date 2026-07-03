@@ -202,11 +202,13 @@ export class DevAssets {
     }
     if (fromStudy) {
       localStorage.setItem('botdev.import.book', `${key}${oldKey ? ',' + oldKey : ''}`);
-      alert(`${name} exported to bot studio. ${promises.length ? ` ${promises.length} bots updated` : ''}`);
+      await alert(
+        `${name} exported to bot studio. ${promises.length ? ` ${promises.length} bots updated` : ''}`,
+      );
     } else {
       this.urls.bookCover.set(key, URL.createObjectURL(new Blob([cover.blob], { type: 'image/png' })));
       pubsub.emit('botdev.import.book', key, oldKey);
-      if (promises.length) alert(`updated ${promises.length} bots with new ${name}`);
+      if (promises.length) await alert(`updated ${promises.length} bots with new ${name}`);
     }
     return key;
   }

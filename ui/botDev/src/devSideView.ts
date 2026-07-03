@@ -2,7 +2,7 @@ import * as co from 'chessops';
 
 import { definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
-import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
+import type { LocalSpeed, LocalSetup, BotInfo } from 'lib/bot/types';
 import { licon, type LiconValue } from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
 import { type VNode, hl, onInsert, bind, domDialog, iconTag, dataIcon } from 'lib/view';
@@ -24,7 +24,7 @@ export function renderDevSide(): VNode {
 }
 
 function player(color: Color): VNode {
-  const p = env.bot[color] as Bot | undefined;
+  const p = env.bot[color];
   const imgUrl = env.bot.imageUrl(p) ?? `/${env.assets.path}/image/gray-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
@@ -98,7 +98,7 @@ function ratingText(uid: string, speed: LocalSpeed): string {
   return `${glicko.r}${glicko.rd > 80 ? '?' : ''}`;
 }
 
-function ratingSpan(p: Bot): VNode {
+function ratingSpan(p: Bot | BotInfo): VNode {
   const glicko = env.dev.getRating(p.uid, env.game.speed);
   return hl('span.stats', [iconTag(speedIcon(env.game.speed)), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
 }
