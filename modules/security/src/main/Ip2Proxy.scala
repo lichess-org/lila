@@ -31,9 +31,9 @@ final class Ip2ProxyServer(
 
   def ofReq(req: RequestHeader): Fu[IsProxy] =
     ofIp(HTTPRequest.ipAddress(req))
-      .map: proxy =>
-        if proxy.no && HTTPRequest.isHttp1(req) then IsProxy.http1
-        else proxy
+      // .map: proxy =>
+      //   if proxy.no && req.headers.get("X-HTTP-Version").exists(_.startsWith("HTTP/1.")) then IsProxy.http1
+      //   else proxy
       .addEffect:
         _.name.foreach: name =>
           lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
