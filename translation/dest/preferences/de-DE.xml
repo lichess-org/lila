@@ -88,4 +88,5 @@
   <string name="boardSettings">Brett</string>
   <string name="analysisSettings">Analyse-Einstellungen</string>
   <string name="maneuverArrowsHelp">Reihenfolge der Computerzüge für eine Figur</string>
+  <string name="hoverOverSettingLabelsForHelp">Fahre mit deinem Mauszeiger über die Einstellungs-Label, um Hilfe zu erhalten</string>
 </resources>
