@@ -95,7 +95,7 @@ export default async function (
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    let label = [i18n.site.nbSeconds(Number(seconds))];
+    const label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -232,8 +232,7 @@ const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   label.text(i18n.site.duration + ' ' + formatClock(duration));
 };
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => (player.blurs?.bits ? player.blurs.bits.split('') : []);
 
 const formatClock = (centis: number) => {
   let result = '';

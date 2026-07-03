@@ -1,4 +1,6 @@
-import { h, type VNode } from 'snabbdom';
+import { h } from 'snabbdom';
+
+import type { MaybeVNode } from 'lib/view';
 
 interface Notif {
   duration: number;
@@ -6,9 +8,11 @@ interface Notif {
 }
 
 export class NotifCtrl {
-  current: Notif | undefined;
-  timeoutId: number | undefined;
+  current?: Notif;
+  timeoutId?: number;
+
   constructor(readonly redraw: () => void) {}
+
   set = (n: Notif) => {
     clearTimeout(this.timeoutId);
     this.current = n;
@@ -20,7 +24,7 @@ export class NotifCtrl {
   get = () => this.current;
 }
 
-export function view(ctrl: NotifCtrl): VNode | undefined {
+export function view(ctrl: NotifCtrl): MaybeVNode {
   const c = ctrl.get();
   return c ? h('div.notif', c.text) : undefined;
 }

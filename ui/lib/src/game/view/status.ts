@@ -14,7 +14,7 @@ export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
 export function expandFen(fullFen: FEN): string {
   return fullFen
     .split(' ')[0]
-    .replace(/\d/g, n => '1'.repeat(+n))
+    .replace(/\d/g, n => '1'.repeat(Number(n)))
     .replace(/\//g, '');
 }
 
@@ -42,7 +42,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
 }
 
 export interface StatusData {
-  winner: Color | undefined;
+  winner?: Color;
   status: StatusName;
   abortedBy?: Color;
   ply: Ply;

@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { blurOnEscape } from 'lib';
 import { throttle } from 'lib/async';
-import { hookMobileMousedown } from 'lib/mobileEvents';
+import { hookMobileMousedown } from 'lib/device';
 import { fullName } from 'lib/view/userLink';
 
 import type MsgCtrl from '@/ctrl';
@@ -65,7 +65,7 @@ export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
 function renderUser(ctrl: MsgCtrl, user: User): VNode {
   return h(
     'div.msg-app__side__contact',
-    { key: user.id, hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)) },
+    { key: user.id, hook: hookMobileMousedown(() => ctrl.openConvo(user.id)) },
     [
       userIcon(user, 'msg-app__side__contact__icon'),
       h('div.msg-app__side__contact__user', [

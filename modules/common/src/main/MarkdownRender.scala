@@ -99,8 +99,6 @@ final class MarkdownRender(
   private val parser = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
-  private val logger = lila.log("markdown")
-
   private def mentionsToLinks(markdown: Markdown): Markdown =
     Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
@@ -112,7 +110,7 @@ final class MarkdownRender(
       renderer.render(parser.parse(withMentions.value))
     catch
       case e: StackOverflowError =>
-        logger.branch(key).error("StackOverflowError", e)
+        lila.log.system.error(s"markdown StackOverflowError $key", e)
         text.value
 
 object MarkdownRender:

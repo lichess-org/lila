@@ -16,8 +16,8 @@ import type StudyCtrl from './studyCtrl';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId?: string;
-  ownerId: string;
+  myId?: UserId;
+  ownerId: UserId;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
   startTour(): void;
@@ -39,11 +39,11 @@ function memberActivity(onIdle: () => void) {
 
 export class StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
-  confing = prop<string | null>(null);
+  config = prop<UserId | null>(null);
   inviteForm: StudyInviteFormCtrl;
-  readonly active: Map<string, () => void> = new Map();
-  online: Record<string, boolean> = {};
-  spectatorIds: string[] = [];
+  readonly active: Map<UserId, () => void> = new Map();
+  online: Record<UserId, boolean> = {};
+  spectatorIds: UserId[] = [];
   max = 30;
 
   constructor(readonly opts: Opts) {
@@ -65,7 +65,7 @@ export class StudyMemberCtrl {
 
   canContribute = (): boolean => this.myMember()?.role === 'w';
 
-  setActive = (id: string) => {
+  setActive = (id: UserId) => {
     if (this.opts.tab() !== 'members') return;
     const active = this.active.get(id);
     if (active) active();
@@ -90,7 +90,7 @@ export class StudyMemberCtrl {
   };
 
   update = (members: StudyMemberMap) => {
-    if (this.isOwner()) this.confing(Object.keys(members).find(sri => !this.dict()[sri]) || null);
+    if (this.isOwner()) this.config(Object.keys(members).find(sri => !this.dict()[sri]) || null);
     const wasViewer = this.myMember() && !this.canContribute();
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
@@ -111,11 +111,11 @@ export class StudyMemberCtrl {
   setRole = (userId: string, role: string) => {
     this.setActive(userId);
     this.opts.send('setRole', { userId, role });
-    this.confing(null);
+    this.config(null);
   };
   kick = (id: string) => {
     this.opts.send('kick', id);
-    this.confing(null);
+    this.config(null);
   };
   leave = () => this.opts.send('leave');
   ordered = () => {
@@ -159,7 +159,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
-          () => members.confing(members.confing() === member.user.id ? null : member.user.id),
+          () => members.config(members.config() === member.user.id ? null : member.user.id),
           ctrl.redraw,
         ),
       });
@@ -205,13 +205,13 @@ export function view(ctrl: StudyCtrl): VNode {
     hl(
       'div.study-list',
       ordered.flatMap(member => {
-        const confing = members.confing() === member.user.id;
+        const config = members.config() === member.user.id;
         return [
-          hl('div', { key: member.user.id, class: { editing: !!confing } }, [
+          hl('div', { key: member.user.id, class: { editing: config } }, [
             hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
             configButton(ctrl, member),
           ]),
-          confing && memberConfig(member),
+          config && memberConfig(member),
         ];
       }),
     ),

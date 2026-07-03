@@ -319,7 +319,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
                 on: {
                   click: () => {
-                    if (state.playable) domDialog({ cash: $('.continue-with'), modal: true, show: true });
+                    if (state.playable)
+                      domDialog({
+                        cash: $('.continue-with'),
+                        modal: true,
+                        easyClose: 'clickOutside',
+                        show: true,
+                      });
                   },
                 },
               },
@@ -349,9 +355,8 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
-      h('input', {
-        attrs: { spellcheck: 'false', enterkeyhint: 'done' },
-        props: { value: fen },
+      copyMeInput(fen, {
+        inputAttrs: { enterkeyhint: 'done' },
         on: {
           change(e) {
             const el = e.target as HTMLInputElement;
@@ -378,7 +383,10 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
         },
       }),
     ]),
-    h('p', [h('strong.name', 'URL'), copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()))]),
+    h('p', [
+      h('strong.name', 'URL'),
+      copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()), { inputAttrs: { readonly: true } }),
+    ]),
     h(
       'a',
       {
@@ -426,10 +434,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
           : {}),
       };
       const selectedSquare =
-        selectedClass === className &&
-        (!ctrl.chessground ||
-          !ctrl.chessground.state.draggable.current ||
-          !ctrl.chessground.state.draggable.current.newPiece);
+        selectedClass === className && !ctrl.chessground?.state.draggable.current?.newPiece;
       return h(
         'div',
         {
@@ -491,15 +496,11 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return h(
-    `div.board-editor.board-editor--${ctrl.variant}`,
-    { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } },
-    [
-      sparePieces(ctrl, opposite(color), color, 'top'),
-      h('div.main-board', [chessground(ctrl)]),
-      sparePieces(ctrl, color, color, 'bottom'),
-      controls(ctrl, state),
-      inputs(ctrl, state.legalFen || state.fen),
-    ],
-  );
+  return h(`div.board-editor.board-editor--${ctrl.variant}`, [
+    sparePieces(ctrl, opposite(color), color, 'top'),
+    h('div.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, [chessground(ctrl)]),
+    sparePieces(ctrl, color, color, 'bottom'),
+    controls(ctrl, state),
+    inputs(ctrl, state.legalFen || state.fen),
+  ]);
 }

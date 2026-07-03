@@ -50,6 +50,7 @@ export class AssetDialog {
         this.dlg = await domDialog({
           class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
+          easyClose: 'clickOutside',
           onClose: () => this.resolve?.(undefined),
           actions: [
             { event: ['dragover', 'drop'], listener: this.dragDrop },
@@ -91,20 +92,19 @@ export class AssetDialog {
   }
 
   private renderAsset([key, name]: [string, string]) {
-    const wrap = frag<HTMLElement>(`<div class="asset-item${
-      env.assets.isLocalOnly(key) ? ' local-only' : ''
-    }" data-asset="${key}">
+    const localOnly = env.assets.isLocalOnly(key);
+    const wrap =
+      frag<HTMLElement>(`<div class="asset-item${localOnly ? ' local-only' : ''}" data-asset="${key}">
         <div class="asset-preview"></div>
-        <input type="text" class="asset-label" data-type="string" value="${name}"
-${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
+        <input type="text" class="asset-label" data-type="string" value="${name}" ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false" />
       </div>`);
     if (!this.isChooser) {
-      const localOnly = env.assets.isLocalOnly(key);
       if (localOnly || env.canPost) wrap.append(renderRemoveButton('upper-right'));
       if (localOnly && env.canPost) {
         wrap.append(
-          frag(`<button class="button button-empty icon-btn upper-left" tabindex="0"
-          data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`),
+          frag(
+            `<button class="button button-empty icon-btn upper-left" tabindex="0" data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`,
+          ),
         );
       }
     }
@@ -169,6 +169,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
         class: 'alert',
         htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
+        easyClose: 'clickOutside',
         actions: {
           selector: 'button',
           listener: async (_, dlg) => {
@@ -300,7 +301,6 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
             show: true,
             modal: true,
             focus: '.name',
-            noClickAway: true,
             actions: [
               {
                 selector: '.options',

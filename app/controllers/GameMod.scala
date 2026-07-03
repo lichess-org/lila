@@ -1,4 +1,5 @@
 package controllers
+
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 

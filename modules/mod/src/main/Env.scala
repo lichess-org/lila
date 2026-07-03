@@ -128,9 +128,6 @@ final class Env(
     case p: BusForum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
-      else
-        logger.info:
-          s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
 
   Bus.sub[BoardApiMark]: m =>
     api.autoMark(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)

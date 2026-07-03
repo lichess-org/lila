@@ -113,8 +113,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def apiMobileFollowing = Scoped(_.Web.Mobile) { ctx ?=> _ ?=>
     import env.user.lightUserApi.reader
     val nb = getInt("nb").fold(10)(_.squeeze(1, 100))
-    jsToNdJson:
-      env.relation.stream.recentlySeen(nb, env.user.lightUserApi.projection, env.round.playing.apply)
+    env.relation.stream
+      .recentlySeenList(nb, env.user.lightUserApi.projection, env.round.playing.apply)
+      .map(jsToNdJson)
   }
 
   // for lichobile, remove at some point

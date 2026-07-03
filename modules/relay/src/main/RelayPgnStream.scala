@@ -146,22 +146,56 @@ final class RelayPgnStream(
         .orFail(s"Missing tour for round ${rs.relay.id}")
         .map(rs.withTour)
         .map: rt =>
-          val initial =
-            if rt.relay.hasStarted
-            then ofGames(rt, flags).throttle(32, 1.second)
-            else Source.empty[PgnStr]
-          initial.concat:
+          initialSource(rt, flags).concat:
             Source
               .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
-              .mapMaterializedValue: queue =>
-                val chan = SyncResult.busChannel(rt.relay.id)
-                val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
-                  queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
-                }
-                queue
-                  .watchCompletion()
-                  .addEffectAnyway:
-                    Bus.unsubscribeDyn(sub, List(chan))
+              .mapMaterializedValue:
+                setupQueue(_, SyncResult.roundBusChannel(rt.relay.id))
               .flatMapConcat(studyChapterRepo.byIdsSource)
               .throttle(16, 1.second)
               .mapAsync(1)(ofGame(rt, _, flags))
+
+  def streamGroupGames(group: RelayGroup)(using RequestHeader): Source[PgnStr, ?] =
+    val flags = requestPgnFlags
+    Source.futureSource:
+      for
+        tours <- tourRepo.byIds(group.tours.toList)
+        allRounds <- roundRepo.byToursOrdered(tours.map(_.id))
+        rounds = allRounds.filter:
+          _.finishedAt.forall(_.isAfter(nowInstant.minusHours(1)))
+        tourMap = tours.mapBy(_.id)
+        withTours =
+          for
+            round <- rounds
+            tour <- tourMap.get(round.tourId)
+          yield round.withTour(tour)
+        studies <- studyRepo.publicByIds(rounds.map(_.studyId))
+        studyMap = studies.mapBy(_.id)
+        withStudies = withTours.flatMap(rt => studyMap.get(rt.round.studyId).map(rt.withStudy))
+        byStudyIdMap = withStudies.mapBy(_.study.id)
+      yield Source(withStudies)
+        .flatMapConcat(initialSource(_, flags))
+        .concat:
+          Source
+            .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
+            .mapMaterializedValue:
+              setupQueue(_, SyncResult.groupBusChannel(group.id))
+            .flatMapConcat(studyChapterRepo.byIdsSource)
+            .throttle(16, 1.second)
+            .mapAsync(1): chapter =>
+              byStudyIdMap.get(chapter.studyId).traverse(ofGame(_, chapter, flags))
+            .mapConcat(_.toList)
+
+  private def initialSource(rt: RelayRound.WithTourAndStudy, flags: PgnDump.WithFlags) =
+    if rt.relay.hasStarted
+    then ofGames(rt, flags).throttle(32, 1.second)
+    else Source.empty[PgnStr]
+
+  private def setupQueue(queue: SourceQueue[Set[StudyChapterId]], chan: String) =
+    val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
+      queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
+    }
+    queue
+      .watchCompletion()
+      .addEffectAnyway:
+        Bus.unsubscribeDyn(sub, List(chan))

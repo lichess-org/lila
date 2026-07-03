@@ -39,7 +39,7 @@ final class Env(
 
   def federationsOf: Federation.FedsOf = playerApi.federationsOf
   given Federation.GetName = federationApi.getName
-  def tokenize: Tokenize = FidePlayer.tokenize
+  given Tokenize = FidePlayer.tokenize
   def guessPlayer: GuessPlayer = playerApi.guessPlayer.apply
   given getPlayer: GetPlayer = playerApi.get
   def getPlayerFollowers: GetPlayerFollowers = repo.follower.followers

@@ -7,16 +7,18 @@ final class PlanWebhook(api: PlanApi)(using Executor):
   import JsonHandlers.stripe.given
   import JsonHandlers.payPal.given
 
+  private lazy val stripeLogger = lila.log("plan.stripe.webhook")
+  private lazy val payPalLogger = lila.log("plan.payPal.webhook")
+
   // Never trust an incoming webhook call.
   // Only read the Event ID from it,
   // then fetch the event from the stripe API.
   def stripe(js: JsValue): Funit =
-    def log = logger.branch("stripe.webhook")
     js.str("id")
       .so(api.stripe.getEvent)
       .flatMap:
         case None =>
-          log.warn(s"Forged $js")
+          stripeLogger.warn(s"Forged $js")
           funit
         case Some(event) =>
           ~(for
@@ -25,7 +27,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             data <- (event \ "data" \ "object").asOpt[JsObject]
           yield
             lila.mon.plan.webhook("stripe", name).increment()
-            log.debug(s"$name $id ${Json.stringify(data).take(100)}")
+            stripeLogger.debug(s"$name $id ${Json.stringify(data).take(100)}")
             name match
               case "customer.subscription.deleted" =>
                 val sub = data.asOpt[StripeSubscription].err(s"Invalid subscription $data")
@@ -37,38 +39,36 @@ final class PlanWebhook(api: PlanApi)(using Executor):
           )
 
   def payPal(js: JsValue): Funit =
-    def log = logger.branch("payPal.webhook")
     js.get[PayPalEventId]("id")
       .so(api.payPal.getEvent)
       .flatMap:
         case None =>
-          log.warn(s"Forged event ${js.str("id")} ${Json.stringify(js).take(2000)}")
+          payPalLogger.warn(s"Forged event ${js.str("id")} ${Json.stringify(js).take(2000)}")
           funit
         case Some(event) =>
           lila.mon.plan.webhook("payPal", event.tpe).increment()
-          log.info(
+          payPalLogger.info:
             s"${event.tpe}: ${event.id} / ${event.resourceTpe}: ${event.resourceId} / ${Json.stringify(event.resource).take(2000)}"
-          )
           event.tpe match
             case "PAYMENT.CAPTURE.COMPLETED" =>
               Json
                 .fromJson[PayPalCapture](event.resource)
                 .fold(
                   _ =>
-                    log.error(s"Unreadable PayPalCapture ${Json.stringify(event.resource).take(2000)}")
+                    payPalLogger.error:
+                      s"Unreadable PayPalCapture ${Json.stringify(event.resource).take(2000)}"
                     funit
                   ,
                   capture =>
-                    fuccess {
+                    fuccess:
                       api.payPal.onCaptureCompleted(capture)
-                    }
                 )
             case "PAYMENT.SALE.COMPLETED" =>
               Json
                 .fromJson[PayPalSale](event.resource)
                 .fold(
                   _ =>
-                    log.error(s"Unreadable PayPalSale ${Json.stringify(event.resource).take(2000)}")
+                    payPalLogger.error(s"Unreadable PayPalSale ${Json.stringify(event.resource).take(2000)}")
                     funit
                   ,
                   sale =>

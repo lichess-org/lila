@@ -195,9 +195,8 @@ final class PicfitApi(
         .delete()
         .addEffect: res =>
           if res.status / 100 != 2 then
-            logger
-              .branch("picfit")
-              .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
+            logger.error:
+              s"picfit deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}"
         .addEffectAnyway:
           cloudflareApi.purge(image.urls)
         .void

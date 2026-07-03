@@ -493,11 +493,12 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
+const analysisGlyphs = new Set(['?!', '?', '??']);
+
 function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysis = ctrl.data.analysis;
   if (!analysis || ctrl.retro) return undefined;
-  const analysisGlyphs = ['?!', '?', '??'];
-  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.has(g.symbol)));
   const res: Array<VNode> = [];
   COLORS.forEach(color => {
     res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
@@ -556,7 +557,7 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = player.rating ?? perf?.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);

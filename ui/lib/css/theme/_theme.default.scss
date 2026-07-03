@@ -16,6 +16,7 @@ $site-hue: 37;
 $c-bg: hsl(37, 7%, 14%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%);
 $c-bg-low: hsl(37, 7%, 22%);
+$c-bg-mid: hsl(37, 7%, 16%);
 $c-bg-zebra: hsl(37, 5%, 19%);
 $c-bg-zebra2: hsl(37, 5%, 24%);
 $c-bg-popup: hsl(37, 7%, 22%);
@@ -53,6 +54,7 @@ $patron-colors: $patron-colors-dark;
   --c-bg: #{$c-bg};
   --c-bg-box: #{$c-bg};
   --c-bg-high: #{$c-bg};
+  --c-bg-mid: #{$c-bg-mid};
   --c-bg-low: #{$c-bg-low};
   --c-bg-page: #{$c-bg-page};
   --c-bg-zebra: #{$c-bg-zebra};

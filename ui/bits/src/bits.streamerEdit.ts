@@ -88,7 +88,7 @@ export function initModule(): void {
     .attr('title', 'Not yet available, please try again soon!'); // until google validates our token
 
   window.addEventListener('message', async ev => {
-    if (ev.origin !== location.origin || !ev.data || !ev.data.ok) return;
+    if (ev.origin !== location.origin || !ev.data?.ok) return;
     try {
       const box = oauths[ev.data.platform as Platform];
       const href =

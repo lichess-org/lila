@@ -98,6 +98,7 @@ monkey
 mor+on+
 mother(fu[ck]+(er|)|)
 mthrf[ck]+r
+murder (you|u)
 na+zi+
 [nv]i+g+[ae]+[hr]?
 nonce
@@ -374,7 +375,7 @@ yar+ak kafa(l[iı]|s[iı])
 (gets?|from|of|by|on|wish|(yo)?u) cancer
 (go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
 (ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
-(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther|)
+(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
 gas the
 g?kys

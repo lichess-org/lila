@@ -73,7 +73,7 @@ private final class ClasUserCache(name: String)(
 
   private def rebuildBloomFilter(): Unit =
     val nextBloom = BloomFilter[String](estimatedCount + 100, falsePositiveRate)
-    def logNb(nb: Int) = logger.info(s"ClasUserCache.$name.rebuild $nb")
+    def logNb(nb: Int) = lila.log.system.info(s"ClasUserCache.$name.rebuild $nb")
     source
       .runWith:
         Sink.fold[Int, UserId](0): (counter, userId) =>

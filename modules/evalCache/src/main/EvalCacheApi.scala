@@ -17,17 +17,11 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
     Id.from(variant, fen)
       .so: id =>
         getEval(id, multiPv)
-          .map:
-            _.map { JsonView.writeEval(_, fen) }
-          .addEffect(monitorRequest(fen))
+          .map2(JsonView.writeEval(_, fen))
+          .addEffect: res =>
+            lila.mon.evalCache.request(res.isDefined).increment()
 
   val getSinglePvEval: CloudEval.GetSinglePvEval = sit => getEval(Id(sit), MultiPv(1))
-
-  private def monitorRequest(fen: Fen.Full)(res: Option[Any]) =
-    Fen
-      .readPly(fen)
-      .foreach: ply =>
-        lila.mon.evalCache.request(ply.value, res.isDefined).increment()
 
   private[evalCache] def drop(variant: Variant, fen: Fen.Full): Funit =
     Id.from(variant, fen)

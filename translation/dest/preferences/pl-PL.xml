@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Tryb Zen</string>
   <string name="showPlayerRatings">Pokaż rankingi gracza</string>
   <string name="showFlairs">Pokaż emblematy graczy</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
+  <string name="explainShowPlayerRatings">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="inGameOnly">Tylko w partii</string>
@@ -64,11 +64,28 @@
   <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
   <string name="notifyBroadcasts">Transmisje subskrybowane przez Ciebie</string>
   <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Powiadomienie dźwiękowe gdy jesteś na Lichess</string>
+  <string name="notifyBell">Powiadomienie dźwiękowe gdy jesteś na Lichess</string>
   <string name="notifyPush">Powiadomienie na urządzenie, gdy nie jesteś na Lichess</string>
   <string name="notifyWeb">Przeglądarka</string>
   <string name="notifyDevice">Urządzenie</string>
   <string name="bellNotificationSound">Dźwięk powiadomień</string>
   <string name="blindfold" comment="As in Blindfold chess">Gra na ślepo</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Pokaż po lewej stronie na urządzeniach mobilnych</string>
+  <string name="inlineNotation">Notacja ciągła</string>
+  <string name="showServerAnalysis">Pokaż analizę serwera</string>
+  <string name="showBestMoveArrows">Pokaż strzałkę najlepszego ruchu</string>
+  <string name="showManeuverArrows">Pokaż strzałki posunięć</string>
+  <string name="showGauge">Pokaż pasek ewaluacji</string>
+  <string name="showMoveAnnotationsOnBoard">Pokaż adnotacje posunięć</string>
+  <string name="showVariationArrows">Pokaż strzałki wariantów</string>
+  <string name="showLiveGlyphs">Adnotacje silnika na żywo</string>
+  <string name="showUndefendedPieces">Pokaż niebronione bierki</string>
+  <string name="showPinnedPieces">Pokaż związane bierki</string>
+  <string name="showCheckableKing">Pokaż możliwość zaszachowania króla</string>
+  <string name="disclosureMode">Włącz ukrywanie wariantów</string>
+  <string name="generalSettings">Ogólne</string>
+  <string name="moveListSettings">Lista ruchów</string>
+  <string name="boardSettings">Szachownica</string>
+  <string name="analysisSettings">Ustawienia analizy</string>
+  <string name="maneuverArrowsHelp">Sekwencja ruchów silnika jednej bierki</string>
 </resources>

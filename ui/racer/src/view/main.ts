@@ -134,7 +134,9 @@ const playerScore = (ctrl: RacerCtrl): VNode =>
 const renderLink = (ctrl: RacerCtrl) =>
   hl('div.puz-side__link', [
     hl('p', i18n.site.toInviteSomeoneToPlayGiveThisUrl),
-    copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`),
+    copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`, {
+      inputAttrs: { readonly: true },
+    }),
   ]);
 
 const renderStart = (ctrl: RacerCtrl) =>

@@ -19,8 +19,7 @@
     grid-area: play;
   }
 
-  row-gap: $block-gap;
-  column-gap: $block-gap;
+  gap: $block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
   @include mq-at-least-col2 {
@@ -34,7 +33,7 @@
   &__high {
     @extend %box-neat;
 
-    padding: 1.5em 1.5em;
+    padding: 1.5em;
     background: $c-brag;
     color: $c-over;
 

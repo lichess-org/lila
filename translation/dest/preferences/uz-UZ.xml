@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
   <string name="showPlayerRatings">Oʻyinchilar reytingi koʻrsatilsin</string>
   <string name="showFlairs">Oʻyinchilar hisbelgilari koʻrsatilsin</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Ushbu sozlama butun Lichess boʻylab barcha reytinglarni yashiradi va bor eʼtiboringizni shaxmatga qaratishga yordam beradi. Reytingli oʻyinlar reytingingizga baribir taʼsir qiladi, bu sozlama faqat reytinglarni yashirish uchun.</string>
+  <string name="explainShowPlayerRatings">Ushbu sozlama butun Lichess boʻylab barcha reytinglarni yashiradi va bor eʼtiboringizni shaxmatga qaratishga yordam beradi. Reytingli oʻyinlar reytingingizga baribir taʼsir qiladi, bu sozlama faqat reytinglarni yashirish uchun.</string>
   <string name="displayBoardResizeHandle">Taxta oʻlchamini oʻzgartirish tutqichi koʻrsatilsin</string>
   <string name="onlyOnInitialPosition">Faqat boshlangʻich pozitsiyada</string>
   <string name="inGameOnly">Faqat oʻyin davomida</string>
@@ -64,11 +64,28 @@
   <string name="notifyTournamentSoon">Turnir boshlanishiga vaqt oz qolganda</string>
   <string name="notifyBroadcasts">Siz obuna boʻlgan translyatsiyalar</string>
   <string name="notifyTimeAlarm">Yozishmali oʻyin vaqti oz qolganda</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Lichess ichida qoʻngʻiroq tovushli bildirishnoma</string>
+  <string name="notifyBell">Lichess ichida qoʻngʻiroq tovushli bildirishnoma</string>
   <string name="notifyPush">Lichessʼdan tashqarida boʻlganingizda qurilma bildirishnomalari</string>
   <string name="notifyWeb">Brauzer</string>
   <string name="notifyDevice">Qurilma</string>
   <string name="bellNotificationSound">Qongʻiroq bildirishnoma tovushi</string>
   <string name="blindfold" comment="As in Blindfold chess">Koʻzi bogʻlangan shaxmat</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil qurilmalarda chap tomonda koʻrsatilsin</string>
+  <string name="inlineNotation">Qator ichi notatsiyasi</string>
+  <string name="showServerAnalysis">Server tahlilini koʻrsatish</string>
+  <string name="showBestMoveArrows">Eng yaxshi yurish strelkalarini koʻrsatish</string>
+  <string name="showManeuverArrows">Manyovr strelkalarini koʻrsatish</string>
+  <string name="showGauge">Baho shakalasini koʻrsatish</string>
+  <string name="showMoveAnnotationsOnBoard">Yurish annotatsiyalarini koʻrsatish</string>
+  <string name="showVariationArrows">Variatsiya strelkalarini koʻrsatish</string>
+  <string name="showLiveGlyphs">Dvijokning jonli annotatsiyalari</string>
+  <string name="showUndefendedPieces">Himoyasiz donalarni koʻrsatish</string>
+  <string name="showPinnedPieces">Ochmasdagi donalarni koʻratish</string>
+  <string name="showCheckableKing">Shohga tahdidlarni koʻrsatish</string>
+  <string name="disclosureMode">Variantni yashirishni yoqish</string>
+  <string name="generalSettings">Umumiy</string>
+  <string name="moveListSettings">Yurishlar roʻyxati</string>
+  <string name="boardSettings">Taxta</string>
+  <string name="analysisSettings">Tahlil sozlamalari</string>
+  <string name="maneuverArrowsHelp">Bitta dona uchun dvijokning yurishlar ketma‑ketligi</string>
 </resources>

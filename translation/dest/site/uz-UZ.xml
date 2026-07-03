@@ -209,7 +209,7 @@
   <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s %2$s mavzusida xabar qoldirdi</string>
+  <string name="xPostedInForumY">%1$s ushbu mavzuda xabar yozdi: %2$s</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
   <string name="players">Oʻyinchilar</string>
   <string name="friends">Doʻstlar</string>
@@ -808,12 +808,16 @@
   </plurals>
   <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
-  <string name="xLikesY">%1$sʼga %2$s yoqdi</string>
+  <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
   <string name="liked">Yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
   <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonim</item>
+    <item quantity="other">Anonim (%s)</item>
+  </plurals>
   <string name="yourScore">Hisob: %s</string>
   <string name="language">Til</string>
   <string name="allLanguages">Barcha tillar</string>
@@ -1039,4 +1043,5 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="thereAreNoResultsForX">\"%s\" boʻyicha natija yoʻq</string>
   <string name="tags">Teglar</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Sozlamalar</string>
 </resources>

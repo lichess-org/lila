@@ -1,11 +1,11 @@
 .edit-view {
   height: 90vh;
-  max-width: min(1600px, 96vw);
+  max-width: min(1600px, 92vw);
   padding-bottom: 0;
   background-color: $c-bg-zebra;
 
   button {
-    padding: 0.8em 0.8em;
+    padding: 0.8em;
   }
 
   textarea {

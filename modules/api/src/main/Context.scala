@@ -25,7 +25,6 @@ final class LoginContext(
   def userId: Option[UserId] = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
   def isBot = me.exists(_.isBot)
-  def troll = user.exists(_.marks.troll)
   def isAppealUser = me.exists(_.enabled.no)
   def isWebAuth = isAuth && oauth.isEmpty
   def isOAuth = isAuth && oauth.isDefined

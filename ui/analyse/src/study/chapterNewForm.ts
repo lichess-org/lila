@@ -48,7 +48,7 @@ export const fieldValue = (e: Event, id: string) =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
-  dialog: Dialog | undefined;
+  dialog?: Dialog;
   isOpen = toggle(false, val => {
     if (!val) this.dialog?.close();
   });
@@ -170,7 +170,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
       dlg.show();

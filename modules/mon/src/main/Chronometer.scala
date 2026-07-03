@@ -26,12 +26,12 @@ object Chronometer:
         catch case _: Exception => default
 
       def chronometer = Chronometer(fua)
-      def chronometerTry(using Executor) = Chronometer.lapTry(fua)
+      def chronometerTry = Chronometer.lapTry(fua)
 
       def mon(path: Timer): Fu[A] = chronometer.mon(path).result
-      def monTry(path: scala.util.Try[A] => Timer)(using Executor): Fu[A] =
+      def monTry(path: scala.util.Try[A] => Timer): Fu[A] =
         chronometerTry.mon(r => path(r)).result
-      def monSuccess(path: Boolean => kamon.metric.Timer)(using Executor): Fu[A] =
+      def monSuccess(path: Boolean => kamon.metric.Timer): Fu[A] =
         chronometerTry
           .mon: r =>
             path(r.isSuccess)
@@ -114,21 +114,21 @@ object Chronometer:
         path(l.result).record(l.nanos)
       this
 
-    def result(using Executor) =
+    def result =
       lap.flatMap { l =>
         Future.fromTry(l.result)
-      }
+      }(using scala.concurrent.ExecutionContext.parasitic)
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanosRel
     FuLap(f.dmap { Lap(_, nowNanosRel - start) })
 
-  def lapTry[A](f: Fu[A])(using Executor): FuLapTry[A] =
+  def lapTry[A](f: Fu[A]): FuLapTry[A] =
     val start = nowNanosRel
     FuLapTry:
       f.transformWith { r =>
         fuccess(LapTry(r, nowNanosRel - start))
-      }
+      }(using scala.concurrent.ExecutionContext.parasitic)
 
   def sync[A](f: => A): Lap[A] =
     val start = nowNanosRel

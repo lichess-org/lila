@@ -25,21 +25,23 @@ final class GameUi(helpers: Helpers):
     def apply(
         pov: Pov,
         ownerLink: Boolean = false,
-        tv: Boolean = false,
-        withLink: Boolean = true
-    )(using
-        ctx: Context
-    ): Tag =
+        tv: Boolean = false
+    )(using ctx: Context): Tag =
       renderMini(
         pov,
-        withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
+        gameLink(pov.game, pov.color, ownerLink, tv),
         showRatings = ctx.pref.showRatings
       )
 
+    def many(games: List[Game])(using Context): Frag =
+      val color = chess.White
+      games.map: g =>
+        renderMini(g.pov(color), gameLink(g, color))
+
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
-      val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
+      val link = if tv then channelKey.fold(routes.Tv.index)(routes.Tv.onChannel)
       else routes.Round.watcher(pov.gameId, pov.color)
-      renderMini(pov, link.url.some)(using transDefault, None)
+      renderMini(pov, link.url)(using transDefault, None)
 
     def renderState(pov: Pov)(using me: Option[Me]) =
       val fen =
@@ -52,12 +54,11 @@ final class GameUi(helpers: Helpers):
 
     private def renderMini(
         pov: Pov,
-        link: Option[String],
+        link: String,
         showRatings: Boolean = true
     )(using Translate, Option[Me]): Tag =
       import pov.game
-      val tag = if link.isDefined then a else span
-      tag(
+      a(
         href := link,
         cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
         dataLive := game.isBeingPlayed.option(game.id),

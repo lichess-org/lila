@@ -2,6 +2,8 @@ package lila.core
 
 import _root_.chess.PlayerTitle
 
+import scala.concurrent.ExecutionContext
+
 import lila.core.id.Flair
 import lila.core.userId.*
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
@@ -55,7 +57,8 @@ object LightUser:
   private type GetterFallbackType = UserId => Fu[LightUser]
   opaque type GetterFallback <: GetterFallbackType = GetterFallbackType
   object GetterFallback extends TotalWrapper[GetterFallback, GetterFallbackType]:
-    extension (e: GetterFallback) def optional(using Executor) = Getter(id => e(id).map(Option(_)))
+    extension (e: GetterFallback)
+      def optional = Getter(id => e(id).map(Some(_))(using ExecutionContext.parasitic))
 
   private type GetterSyncType = UserId => Option[LightUser]
   opaque type GetterSync <: GetterSyncType = GetterSyncType

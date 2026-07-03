@@ -4,7 +4,6 @@ import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
-import { storedProp } from 'lib/storage';
 import type { TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from '../ctrl';
@@ -18,17 +17,10 @@ export class TreeView {
   private autoScrollRequest: ScrollBehavior | false = false;
 
   hidden = true;
-  modePreference = storedProp<'column' | 'inline'>('treeView', 'column', str =>
-    str === 'column' ? 'column' : 'inline',
-  );
   mode: 'column' | 'inline';
 
-  toggleModePreference() {
-    this.modePreference(this.modePreference() === 'column' ? 'inline' : 'column');
-  }
-
   render(concealOf?: ConcealOf): VNode {
-    this.mode = concealOf ? 'column' : this.modePreference();
+    this.mode = concealOf || !this.ctrl.settings.inline ? 'column' : 'inline';
     return this.mode === 'column' ? renderColumnView(this.ctrl, concealOf) : renderInlineView(this.ctrl);
   }
 

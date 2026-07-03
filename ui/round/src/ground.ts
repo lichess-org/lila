@@ -43,7 +43,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
       insert(elements) {
         const firstPly = util.firstPly(ctrl.data);
         const isSecond = plyColor(firstPly) !== data.player.color;
-        const showUntil = firstPly + 2 + +isSecond;
+        const showUntil = firstPly + 2 + Number(isSecond);
         resizeHandle(
           elements,
           playing ? ctrl.data.pref.resizeHandle : ShowResizeHandle.Always,

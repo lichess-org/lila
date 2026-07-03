@@ -96,6 +96,7 @@ export default class Report {
     domDialog({
       focus: '.apply',
       modal: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +

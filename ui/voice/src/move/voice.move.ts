@@ -488,7 +488,10 @@ export function initModule({
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
       if (moves.length > maxArrows()) moves.forEach(x => remove(squares, xouts, x));
-      else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
+      else if (moves.length > 0)
+        Array.from(set)
+          .filter(x => x.length === 2)
+          .forEach(x => remove(squares, xouts, x));
     }
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
@@ -582,7 +585,9 @@ export function initModule({
   }
 
   function toksVals(toks: string) {
-    return [...toks].map(tok => byTok.get(tok)?.val).join(',');
+    return Array.from(toks)
+      .map(tok => byTok.get(tok)?.val)
+      .join(',');
   }
 
   function tagWords(tags?: string[], intersect = false) {
@@ -629,7 +634,11 @@ export function initModule({
   }
 
   function valsWords(vals: string): string[] {
-    return valsToks(vals).map(toks => [...toks].map(tok => tokWord(tok)).join(' '));
+    return valsToks(vals).map(toks =>
+      Array.from(toks)
+        .map(tok => tokWord(tok))
+        .join(' '),
+    );
   }
 
   function valWord(val: string, tag?: string) {

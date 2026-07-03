@@ -5,7 +5,7 @@ import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
   text = '';
-  date: Date | undefined;
+  date?: Date;
 
   constructor(public redraw: Redraw | undefined) {}
 

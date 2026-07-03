@@ -30,7 +30,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
         selected.map: sel =>
           val (crowd, alt, live) = sel match
             case card: RelayCard => (card.crowd, card.alts.headOption, card.display.hasStarted)
-            case _ => (Crowd(0), None, false)
+            case _ => (Crowd.zero, None, false)
           card.render(sel, live = live, crowd, alt))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -56,7 +56,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards"):
               past.currentPageResults.map: t =>
-                card.render(t, live = false, crowd = Crowd(0))
+                card.render(t, live = false, crowd = Crowd.zero)
             ,
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
@@ -217,7 +217,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
   def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
-        case w: WithLastRound => card.render(w, live = false, crowd = Crowd(0))(cls := "paginated")
+        case w: WithLastRound => card.render(w, live = false, crowd = Crowd.zero)(cls := "paginated")
         case t: RelayTour => card.empty(t)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)

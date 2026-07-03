@@ -22,6 +22,9 @@ final class PuzzleApi(
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
       colls.puzzle(_.byId[Puzzle](id))
 
+    def findMany(ids: List[PuzzleId]): Fu[List[Puzzle]] =
+      colls.puzzle(_.byOrderedIds[Puzzle, PuzzleId](ids)(_.id))
+
     def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
       colls.puzzle: coll =>
         Paginator(

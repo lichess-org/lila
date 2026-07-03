@@ -6,6 +6,7 @@ import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
+import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
 
 final class IrcApi(
@@ -16,7 +17,30 @@ final class IrcApi(
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
-  import IrcApi.*
+  import IrcApi.{ userRegex, postRegex }
+
+  private object markdown:
+    def link(url: String, name: String) = s"[$name]($url)"
+    def lichessLink[N: Show](path: String, name: N) = show"[$name](${net.baseUrl}$path)"
+    def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
+    def userLink(user: LightUser): String = userLink(user.name)
+    def userLinkNoNotes(name: UserName): String = lichessLink(s"/@/$name?mod", name.value)
+    def userIdLinks(ids: List[UserId]): String =
+      UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
+    def modLink(name: UserName): String = lichessLink(s"/@/$name", name.value)
+    def gameLink(id: String) = lichessLink(s"/$id", s"#$id")
+    def printLink(print: String) = lichessLink(s"/mod/print/$print", print)
+    def ipLink(ip: String) = lichessLink(s"/mod/ip/$ip", ip)
+    def userNotesLink(name: UserName) = lichessLink(s"/@/$name?notes", "notes")
+    def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
+    def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
+      lichessLink(s"/broadcast/-/-/$id/$gameId", name)
+    def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
+    val postReplace = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
+    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
+    def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
+    def time(t: Instant) = s"<time:$t>"
 
   def commReportBurst(user: LightUser): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
@@ -53,7 +77,7 @@ final class IrcApi(
       mod: LightUser.Me
   ): Funit =
     val topic = "/" + user.name
-    zulip(_.mod.usernames, topic)(s"$details${reason.fold("")(r => s", reason: $r")}") >>
+    zulip(_.mod.usernames, topic)(s"$details${reason.so(r => s", reason: $r")}") >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
         .flatMapz: zulipLink =>
@@ -129,6 +153,21 @@ final class IrcApi(
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
       s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
 
+  def broadcastTourUpdate(
+      tourName: String,
+      tourSlug: String,
+      tourId: RelayTourId,
+      diff: String,
+      impersonatedBy: Option[ModId] = None
+  )(using
+      userId: MyId
+  ): Funit =
+    val user = lightUser(userId)
+    val impersonator = impersonatedBy.map(id => lightUser(id.userId))
+    val channelUser = impersonator.getOrElse(user)
+    zulip(_.broadcastLogs, s"/${channelUser.name}"):
+      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n```diff\n$diff\n```"
+
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
@@ -195,13 +234,16 @@ final class IrcApi(
 
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
-      markdown.link(s"${net.baseUrl}/training/$id", "Solve the daily puzzle") +
+      markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
         markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
   private[irc] def publishInfo(msg: String): Funit =
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
+
+  private def impersonatedByText(impersonator: Option[LightUser]): String =
+    impersonator.so(mod => s" (impersonated by ${markdown.modLink(mod.name)})")
 
   object charge:
     import lila.core.plan.ChargeEvent
@@ -236,26 +278,3 @@ object IrcApi:
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
-
-  private object markdown:
-    def link(url: String, name: String) = s"[$name]($url)"
-    def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
-    def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
-    def userLink(user: LightUser): String = userLink(user.name)
-    def userLinkNoNotes(name: UserName): String = lichessLink(s"/@/$name?mod", name.value)
-    def userIdLinks(ids: List[UserId]): String =
-      UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
-    def modLink(name: UserName): String = lichessLink(s"/@/$name", name.value)
-    def gameLink(id: String) = lichessLink(s"/$id", s"#$id")
-    def printLink(print: String) = lichessLink(s"/mod/print/$print", print)
-    def ipLink(ip: String) = lichessLink(s"/mod/ip/$ip", ip)
-    def userNotesLink(name: UserName) = lichessLink(s"/@/$name?notes", "notes")
-    def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
-    def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
-      lichessLink(s"/broadcast/-/-/$id/$gameId", name)
-    def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
-    val postReplace = lichessLink("/forum/$1", "$1")
-    def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
-    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
-    def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
-    def time(t: Instant) = s"<time:$t>"

@@ -49,13 +49,12 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    design = Some:
-      AuthCustomUi(
-        name = "Take Take Take",
-        imagePath = "images/t3-logo.svg",
-        cssClass = "takex3",
-        lang = lila.core.i18n.enUsLang
-      )
+    design = AuthCustomUi(
+      name = "Take Take Take",
+      imagePath = "images/t3-logo.svg",
+      cssClass = "takex3",
+      lang = lila.core.i18n.enUsLang
+    ).some
   )
 
   def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using
@@ -114,9 +113,11 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
    * If it doesn't match any signed client, it will succeed without needing a signature. */
   def allow(bearer: Bearer, token: AccessToken.ForAuth, signature: Option[String]): Boolean =
     forScopesOf(token).forall: client =>
-      token.clientOrigin.exists(client.origins.has) && signature.exists: signed =>
-        client.signers.isEmpty || client.signers.exists: signer =>
-          signer.sha1(bearer.value).hash_=(signed)
+      token.clientOrigin.exists(client.origins.has) && {
+        !requireSign || signature.exists: signed =>
+          client.signers.isEmpty || client.signers.exists: signer =>
+            signer.sha1(bearer.value).hash_=(signed)
+      }
 
   private object monitoring:
     private val newOauthAttempts = scalalib.cache.OnceEvery[(AuthorizationRequest.Prompt, Action)](10.minutes)

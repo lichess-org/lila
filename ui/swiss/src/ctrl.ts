@@ -11,7 +11,7 @@ export default class SwissCtrl {
   socket: SwissSocket;
   page: number;
   pages: Pages = {};
-  lastPageDisplayed: number | undefined;
+  lastPageDisplayed?: number;
   focusOnMe: boolean;
   joinSpinner = false;
   playerInfoId?: string;

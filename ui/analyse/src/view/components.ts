@@ -47,8 +47,8 @@ export interface ViewContext {
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
   gamebookPlayView?: VNode;
-  playerBars: VNode[] | undefined;
-  playerStrips: [VNode, VNode] | undefined;
+  playerBars?: VNode[];
+  playerStrips?: [VNode, VNode];
   gaugeOn: boolean;
   needsInnerCoords: boolean;
   hasRelayTour: boolean;
@@ -77,7 +77,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),
-    needsInnerCoords: ctrl.data.pref.showCaptured || !!ctrl.showEvalGauge() || !!playerBars,
+    needsInnerCoords: ctrl.data.pref.showCaptured || ctrl.showEvalGauge() || !!playerBars,
     hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
@@ -107,7 +107,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
       },
       class: {
-        'comp-off': !ctrl.showStaticAnalysis(),
+        'comp-off': !ctrl.settings.showStaticAnalysis,
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
@@ -296,7 +296,7 @@ export function renderMoveNodes(
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
-  cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
+  cssClass + (study?.data.chapter ? '.' + study.data.chapter.id : '');
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {
@@ -308,7 +308,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   }
 
   const conceal =
-    ctrl.study && ctrl.study.data.chapter.conceal !== undefined
+    ctrl.study?.data.chapter.conceal !== undefined
       ? {
           owner: ctrl.study.isChapterOwner(),
           ply: ctrl.study.data.chapter.conceal,

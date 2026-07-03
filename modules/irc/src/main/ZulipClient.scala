@@ -35,8 +35,10 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
       _.map: msgId =>
         s"https://${config.domain}/#narrow/stream/${urlencode(stream)}/topic/${urlencode(topic)}/near/$msgId"
 
+  private lazy val logger = lila.log("zulip")
+
   private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg).so:
-    if config.domain.isEmpty then fuccess(lila.log("zulip").info(msg.toString)).inject(None)
+    if config.domain.isEmpty then fuccess(logger.info(msg.toString)).inject(None)
     else
       ws
         .url(s"https://${config.domain}/api/v1/messages")
@@ -56,7 +58,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
               case JsError(err) => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
           case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
         .monSuccess(lila.mon.irc.zulip.say(msg.stream))
-        .logFailure(lila.log("zulip"))
+        .logFailure(logger)
         .recoverDefault
 
 private object ZulipClient:
@@ -88,6 +90,7 @@ private object ZulipClient:
     val general = "general"
     val broadcast = "content-broadcast"
     val broadcastDms = "content-broadcast-dms"
+    val broadcastLogs = "content-broadcast-log"
     val blog = "content-blog"
     val content = "content-site"
     val bbb = "org-bbb"

@@ -14,7 +14,6 @@ import lila.puzzle.{
   PuzzleDifficulty,
   PuzzleForm,
   PuzzleSettings,
-  PuzzleStreak,
   PuzzleTheme,
   difficultyCookie
 }
@@ -72,6 +71,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiSinglePuzzle(puzzle: Puz)(using Context, Perf) =
     JsonOk(env.puzzle.jsonView(puzzle, none, none, withInitialPos = true))
 
+  def apiMany(idsStr: String) = Scoped(_.Web.Mobile): ctx ?=>
+    val ids = idsStr.split(',').take(50).flatMap(Puz.toId).toList
+    fetchRateLimit(rateLimited, cost = ids.length / 10):
+      WithPuzzlePerf:
+        for
+          puzzles <- env.puzzle.api.puzzle.findMany(ids)
+          json <- env.puzzle.jsonView.batch(puzzles)
+        yield JsonOk(json)
+
   def home = Open(serveHome)
 
   def homeLang = LangPage(routes.Puzzle.home.url)(serveHome)
@@ -120,22 +128,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
   private def serveStreak(using ctx: Context) = NoBot:
-    FoundPage(streakJsonAndPuzzle): (json, puzzle) =>
+    FoundPage(env.puzzle.streakJsonAndPuzzle): (json, puzzle) =>
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
       views.puzzle.ui.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
-  private def streakJsonAndPuzzle(using Context) =
-    given Perf = lila.rating.Perf.default
-    env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
-      env.puzzle.jsonView.analysis(puzzle = puzzle, PuzzleAngle.mix).map { puzzleJson =>
-        (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
-      }
-    }
-
   def apiStreak = Anon:
-    streakJsonAndPuzzle.orNotFound: (json, _) =>
+    env.puzzle.streakJsonAndPuzzle.orNotFound: (json, _) =>
       JsonOk(json)
 
   def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>

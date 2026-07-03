@@ -25,8 +25,8 @@ case class UserChat(
 
   val loginRequired = true
 
-  def forMe(using me: Option[Me], all: AllMessages): UserChat =
-    if all.yes || me.exists(_.marks.troll) then this
+  def forMe(using me: Option[Me]): UserChat =
+    if me.exists(_.marks.troll) then this
     else copy(lines = lines.filterNot(_.troll))
 
   def markDeleted(u: User) = copy(

@@ -107,7 +107,7 @@ final class RelayPager(
           }
         .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
-    private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
+    private val firstPageCache = cacheApi.unit[List[WithLastRound]]("relayPager.firstPage"):
       _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
         slice(0, maxPerPage.value)
 

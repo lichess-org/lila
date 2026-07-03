@@ -72,4 +72,22 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Show on the left on mobile devices</string>
+  <string name="inlineNotation">Inline notation</string>
+  <string name="showServerAnalysis">Show server analysis</string>
+  <string name="showBestMoveArrows">Show best move arrows</string>
+  <string name="showManeuverArrows">Show maneuver arrows</string>
+  <string name="showGauge">Show evaluation gauge</string>
+  <string name="showMoveAnnotationsOnBoard">Show move annotations</string>
+  <string name="showVariationArrows">Show variation arrows</string>
+  <string name="showLiveGlyphs">Live engine annotations</string>
+  <string name="showUndefendedPieces">Show undefended pieces</string>
+  <string name="showPinnedPieces">Show pinned pieces</string>
+  <string name="showCheckableKing">Show checkable king</string>
+  <string name="disclosureMode">Enable variation hiding</string>
+  <string name="generalSettings">General</string>
+  <string name="moveListSettings">Move list</string>
+  <string name="boardSettings">Board</string>
+  <string name="analysisSettings">Analysis settings</string>
+  <string name="maneuverArrowsHelp">Sequence of engine moves for one piece</string>
+  <string name="hoverOverSettingLabelsForHelp">Hover over setting labels for help</string>
 </resources>

@@ -266,7 +266,7 @@ final class PlaybanApi(
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
     yield ()
-  }.void.logFailure(lila.log("playban"))
+  }.void.logFailure(lila.log.system)
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
     trust <- userTrustApi.get(record.userId)

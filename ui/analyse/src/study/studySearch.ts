@@ -52,6 +52,7 @@ export function view(ctrl: SearchCtrl) {
       ctrl.open(false);
     },
     noScrollable: true,
+    easyClose: 'clickOutside',
     modal: true,
     vnodes: [
       h('h2', `Search chapters`),

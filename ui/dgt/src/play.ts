@@ -507,13 +507,11 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId !== playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[index].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
-            console.log(
-              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId,
-            );
-          currentGameId = playableGames[Number(index)].gameId;
+            console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[index].gameId);
+          currentGameId = playableGames[index].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
           console.log('Active game updated. currentGameId: ' + currentGameId);
         } else {
@@ -712,27 +710,21 @@ export default function (token: string): void {
           break;
         case 'outoftime':
           announceWinner(
-            keywords[gameState.winner],
             'flag',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout'],
           );
           break;
         case 'resign':
           announceWinner(
-            keywords[gameState.winner],
             'resign',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation'],
           );
           break;
         case 'mate':
-          announceWinner(
-            keywords[lastMove.player],
-            'mate',
-            keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#'],
-          );
+          announceWinner('mate', keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#']);
           break;
         case 'draw':
-          announceWinner('draw', 'draw', keywords['(=)']);
+          announceWinner('draw', keywords['(=)']);
           break;
         default:
           console.log(`Unknown status received: ${gameState.status}`);
@@ -771,14 +763,12 @@ export default function (token: string): void {
    * Feedback the user about the detected move
    *
    * @param lastMove JSON object with the move information
-   * @param wtime Remaining time for white
-   * @param btime Remaining time for black
    */
   function announcePlay(lastMove: { player: string; move: string; by: string }) {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     let moveText: string;
-    if (announceMoveFormat && announceMoveFormat.toLowerCase() === 'san' && lastSanMove) {
+    if (announceMoveFormat?.toLowerCase() === 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     } else {
@@ -794,12 +784,8 @@ export default function (token: string): void {
     //Give feedback on running out of time
   }
 
-  function announceWinner(winner: string, status: string, message: string) {
-    if (winner === 'white') {
-      console.log('  ' + status + '  -  ' + message);
-    } else {
-      console.log('  ' + status + '  -  ' + message);
-    }
+  function announceWinner(status: string, message: string) {
+    console.log('  ' + status + '  -  ' + message);
     //Now play message using text to speech library
     ttsSay(replaceKeywords(message.toLowerCase()));
   }
@@ -1172,7 +1158,11 @@ export default function (token: string): void {
   function padBeforeNumbers(moveString: string) {
     let paddedMoveString = '';
     for (const c of moveString) {
-      Number.isInteger(+c) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
+      if (Number.isInteger(Number(c))) {
+        paddedMoveString += ` ${c} `;
+      } else {
+        paddedMoveString += c;
+      }
     }
     return paddedMoveString;
   }

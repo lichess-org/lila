@@ -29,10 +29,8 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
   )(using ctx: Context): Page =
     val isDirector = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
-    Page(fullName(s, team))
-      .css("swiss.show")
+    basePage(s, team)
       .css(hasScheduleInput.option("bits.flatpickr"))
-      .i18n(_.swiss, _.team)
       .js(hasScheduleInput.option(Esm("bits.flatpickr")))
       .js(
         PageModule(
@@ -46,7 +44,36 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
             )
             .add("schedule" -> hasScheduleInput)
         )
+      ):
+        main(cls := "swiss")(
+          st.aside(cls := "swiss__side")(
+            side(s, verdicts, streamers, chatOption._2F)
+          ),
+          div(cls := "swiss__main")(div(cls := "box"))
+        )
+
+  def restricted(s: Swiss, team: LightTeam)(using ctx: Context): Page =
+    basePage(s, team):
+      main(cls := "swiss")(
+        st.aside(cls := "swiss__side")(
+          side(s, WithVerdicts(Nil), emptyFrag, none)
+        ),
+        div(cls := "swiss__main"):
+          div(cls := "box")(
+            div(cls := "swiss__main__header")(h1(s.name)),
+            s.winnerId.map: winnerId =>
+              p(cls := "box__pad")(
+                trans.arena.tournamentWinners(),
+                ":  ",
+                userIdLink(winnerId.some)
+              )
+          )
       )
+
+  private def basePage(s: Swiss, team: LightTeam) =
+    Page(fullName(s, team))
+      .css("swiss.show")
+      .i18n(_.swiss, _.team)
       .graph(
         title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
         url = routeUrl(routes.Swiss.show(s.id)),
@@ -55,13 +82,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
             s"organized by ${team.name}. " +
             s.winnerId.fold("Winner is not yet decided."): winnerId =>
               s"${titleNameOrId(winnerId)} takes the prize home!"
-      ):
-        main(cls := "swiss")(
-          st.aside(cls := "swiss__side")(
-            side(s, verdicts, streamers, chatOption._2F)
-          ),
-          div(cls := "swiss__main")(div(cls := "box"))
-        )
+      )
 
   def round(s: Swiss, r: SwissRoundNumber, team: LightTeam, pairings: Paginator[SwissPairing])(using
       Context

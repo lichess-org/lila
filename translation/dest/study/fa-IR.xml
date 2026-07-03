@@ -54,7 +54,7 @@
   <string name="shareChanges">هم‌رسانی تغییرها با تماشاگران و ذخیره‌شان در کارساز</string>
   <string name="playing">جاری</string>
   <string name="showResults">نمایش نتایج</string>
-  <string name="showEvalBar">نوار ارزیابی</string>
+  <string name="showEvalBar">میلهٔ ارزیابی</string>
   <string name="next">بعدی</string>
   <string name="shareAndExport">همرسانی و برون‏بُرد</string>
   <string name="cloneStudy">همسانیدن</string>
@@ -81,7 +81,7 @@
   <string name="analysisMode">حالت تجزیه تحلیل</string>
   <string name="pinnedChapterComment">یادداشت سنجاقیده‌ٔ بخش</string>
   <string name="saveChapter">ذخیره بخش</string>
-  <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
+  <string name="clearAnnotations">پاکیدنِ حرکت‌نویسی</string>
   <string name="clearVariations">پاکیدن وَرتِش‌ها</string>
   <string name="deleteChapter">حذف بخش</string>
   <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>

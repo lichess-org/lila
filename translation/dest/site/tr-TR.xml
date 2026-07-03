@@ -1037,4 +1037,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
+  <string name="settings">Ayarlar</string>
 </resources>

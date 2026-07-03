@@ -117,7 +117,7 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       ctrl.chapters.list.all().flatMap(({ id, name }) => {
         const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && current.id === id,
+          active = !ctrl.vm.loading && current?.id === id,
           completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
         return [
           h(

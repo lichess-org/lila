@@ -17,7 +17,7 @@ final private[puzzle] class DailyPuzzle(
   import BsonHandlers.given
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle.WithHtml]]:
+    cacheApi.unit[Option[DailyPuzzle.WithHtml]]("puzzle.daily"):
       _.refreshAfterWrite(1.minutes).buildAsyncTimeoutZero()(_ => find)
 
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit

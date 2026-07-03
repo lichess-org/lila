@@ -257,7 +257,7 @@ export default class LobbyController {
     if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');
-    } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
+    } else if (this.poolMember?.id === id) this.leavePool();
     else this.enterPool({ id });
     this.redraw();
   };
@@ -286,8 +286,9 @@ export default class LobbyController {
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
-      xhr.nowPlaying().then(povs => {
-        this.data.nowPlaying = povs;
+      xhr.nowPlaying().then(res => {
+        this.data.nowPlaying = res.nowPlaying;
+        this.data.nbMyTurn = res.nbMyTurn;
         this.startWatching();
         this.redraw();
       });
