@@ -22,12 +22,12 @@ import * as util from '../util';
 import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
-  moveTag = 'kwdb',
-  indexTag = 'i5z',
+  moveTag = 'Z7yx',
+  indexTag = 'qZM',
   indexTagUC = indexTag.toUpperCase(),
-  movesTag = 'l4x',
-  rmovesTag = 'rm6',
-  rbuttonsTag = 'rb1';
+  movesTag = 'aPp',
+  rmovesTag = 'i5d',
+  rbuttonsTag = 'bo3';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
