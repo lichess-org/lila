@@ -80,7 +80,7 @@
   --c-interesting: hsl(307 80% 70%);
   --c-mv-branch-white: white;
   --c-mv-branch-black: black;
-  --c-pool-button: #{hsla(var(---site-hue), 7%, 19%, 66%)};
+  --c-pool-button: #{hsl(var(---site-hue) 7% 19% / 0.66)};
   --c-paper: hsl(60 56% 91%);
   --c-patron-1: hsl(90 52% 57%);
   --c-patron-2: hsl(120 32% 62%);

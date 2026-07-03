@@ -428,9 +428,9 @@
           }
 
           &::before {
-            box-shadow: 0 0 0 $tag-inset-shadow-size rgba(red, 0.2) inset !important;
+            box-shadow: 0 0 0 $tag-inset-shadow-size rgb(red, 0.2) inset !important;
             box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size)
-              var(--tag-remove-bg, rgba(red, 0.2)) inset !important;
+              var(--tag-remove-bg, rgb(red, 0.2)) inset !important;
             transition: 0.2s;
           }
         }
@@ -692,7 +692,7 @@
 
     // when the dropdown shows next to the caret while typing
     &[position='text'] {
-      box-shadow: 0 0 0 3px rgba(var(--tagify-dd-color-primary), 0.1);
+      box-shadow: 0 0 0 3px rgb(var(--tagify-dd-color-primary), 0.1);
       font-size: 0.9em;
 
       #{$dropdown}__wrapper {
@@ -713,7 +713,7 @@
       // fixes - https://bugs.chromium.org/p/chromium/issues/detail?id=1147523
       border-width: 1.1px;
       border-top-width: 0;
-      box-shadow: 0 2px 4px -2px rgba(black, 0.2);
+      box-shadow: 0 2px 4px -2px rgb(black, 0.2);
       transition: $trans;
     }
 
