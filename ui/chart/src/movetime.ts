@@ -267,12 +267,10 @@ function christmasTree(
       const symbol = this.getAttribute('data-symbol');
       const color = this.getAttribute('data-color') === 'white' ? 'white' : 'black';
       if (symbol === '??' || symbol === '?!' || symbol === '?') {
-        const points = nodesWithGlyphByColor(mainline, symbol, color)
-          .map(node => ({
-            datasetIndex: COLORS.indexOf(color),
-            index: Math.floor((node.ply - mainline[0].ply - 1) / 2),
-          }))
-          .filter(point => !!point);
+        const points = nodesWithGlyphByColor(mainline, symbol, color).map(node => ({
+          datasetIndex: COLORS.indexOf(color),
+          index: Math.floor((node.ply - mainline[0].ply - 1) / 2),
+        }));
         const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
         movetimeDataset.hoverBackgroundColor = hoverColors[color];
         movetimeDataset.pointHoverBackgroundColor = hoverColors[color];
