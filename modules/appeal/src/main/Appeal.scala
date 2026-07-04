@@ -9,6 +9,7 @@ import lila.core.perm.Granter
 
 case class Appeal(
     @Key("_id") id: AppealId,
+    kind: Appeal.Kind,
     msgs: Vector[AppealMsg], // chronological order, oldest first
     status: Appeal.Status, // from the moderators POV
     createdAt: Instant,
@@ -68,6 +69,9 @@ object Appeal:
     case Unread, Read, Muted
   object Status:
     def apply(key: String) = values.find(_.key == key)
+
+  enum Kind:
+    case cheat, boost, comm, close, legacy
 
   case class WithUser(appeal: Appeal, user: User)
 
