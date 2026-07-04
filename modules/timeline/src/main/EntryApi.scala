@@ -8,7 +8,7 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
 
   import Entry.given
 
-  private val projection = $doc("users" -> false)
+  private val projection = $doc("users" -> false).some
 
   def userEntries(userId: UserId): Fu[Vector[Entry]] =
     userEntries(userId, userMax, since = none)
@@ -24,24 +24,14 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
             "users" -> userId,
             "date".$gt(since.getOrElse(nowInstant.minusWeeks(2)))
           ),
-          projection.some
+          projection
         )
         .sort($sort.desc("date"))
         .cursor[Entry](ReadPref.sec)
         .vector(max.value)
 
-  def findRecent(typ: String, since: Instant, max: Max) =
-    coll
-      .find(
-        $doc("typ" -> typ, "date".$gt(since)),
-        projection.some
-      )
-      .sort($sort.desc("date"))
-      .cursor[Entry](ReadPref.sec)
-      .vector(max.value)
-
   def channelUserIdRecentExists(channel: String, userId: UserId): Fu[Boolean] =
-    coll.exists:
+    coll.secondary.exists:
       $doc(
         "users" -> userId,
         "chan" -> channel,
