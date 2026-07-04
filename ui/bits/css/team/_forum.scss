@@ -14,7 +14,7 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-10;
+        background: color-mix($c-primary 10%, $c-bg);
 
         span {
           color: $c-font;

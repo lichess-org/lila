@@ -74,7 +74,7 @@
       @extend %box-radius;
 
       padding-inline-start: 3.2rem;
-      background: $m-brag_bg-page--mix-20;
+      background: color-mix($c-brag 20%, $c-bg-page);
 
       &::before {
         @include inline-start(0.5rem);

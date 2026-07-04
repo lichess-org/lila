@@ -43,7 +43,7 @@
         padding: 0.5em 0.5em 0.5em 1em;
 
         &:hover {
-          background: $m-primary_bg--mix-20;
+          background: color-mix($c-primary 20%, $c-bg);
         }
       }
 
@@ -69,7 +69,7 @@
           padding: 0.5em 0.5em 0.5em 1em;
 
           &:hover {
-            background: $m-primary_bg--mix-20;
+            background: color-mix($c-primary 20%, $c-bg);
           }
         }
 
@@ -90,7 +90,7 @@
             &:hover {
               @extend %box-radius;
 
-              background: $m-primary_bg--mix-20;
+              background: color-mix($c-primary 20%, $c-bg);
             }
           }
 

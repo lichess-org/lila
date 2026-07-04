@@ -114,7 +114,7 @@
     }
 
     a:hover {
-      color: $m-bad_clearer--mix-80;
+      color: color-mix($c-bad 80%, $c-clearer);
     }
   }
 
@@ -133,7 +133,7 @@
     @include transition(color);
     @extend %data-icon;
 
-    color: $m-font_dimmer--mix-85;
+    color: color-mix($c-font 85%, $c-dimmer);
     content: $licon-AccountCircle;
     font-size: 2rem;
     margin-left: 0.5rem;

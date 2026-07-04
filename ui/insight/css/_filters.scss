@@ -16,11 +16,11 @@
     }
 
     &.selected .ms-choice {
-      @include gradient-border($m-accent--fade-30, to right, to left);
+      @include gradient-border(rgb(from $c-accent r g b / calc(alpha * 0.7)), to right, to left);
     }
 
     &:hover .ms-choice {
-      background: $m-accent_bg--mix-20;
+      background: color-mix($c-accent 20%, $c-bg);
     }
   }
 
@@ -31,7 +31,7 @@
     border-width: 0 0 1px 0;
 
     &.selected {
-      background: $m-primary_bg--mix-20;
+      background: color-mix($c-primary 20%, $c-bg);
       border-left: 3px solid $c-link;
     }
 

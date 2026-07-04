@@ -7,7 +7,7 @@
   --c-lpv-bg-controls: var(--c-lpv-bg);
   --c-lpv-bg-movelist: var(--c-lpv-bg);
   --c-lpv-bg-variation: #{$c-bg-zebra2};
-  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-5};
+  --c-lpv-bg-pane: #{rgb(from $c-bg-zebra2 r g b / calc(alpha * 0.95))};
   --c-lpv-pgn-text: #{$c-bg-zebra2};
   --c-lpv-font: #{$c-font};
 
@@ -15,10 +15,10 @@
   --c-lpv-font-accent: #{$c-font};
   --c-lpv-font-shy: #{$c-font-dim};
   --c-lpv-accent-over: #{$c-over};
-  --c-lpv-fbt-hover: #{$m-primary_bg--mix-75};
-  --c-lpv-font-bg: #{$m-font_bg--mix-20};
-  --c-lpv-current-move: #{$m-primary_bg--mix-70};
-  --c-lpv-move-hover: #{$m-primary_bg--mix-30};
+  --c-lpv-fbt-hover: #{color-mix($c-primary 75%, $c-bg)};
+  --c-lpv-font-bg: #{color-mix($c-font 20%, $c-bg)};
+  --c-lpv-current-move: #{color-mix($c-primary 70%, $c-bg)};
+  --c-lpv-move-hover: #{color-mix($c-primary 30%, $c-bg)};
   --c-lpv-border: #{$c-border};
   --c-lpv-side-border: #{$c-border-page};
   --c-lpv-inaccuracy: #{$c-inaccuracy};
@@ -27,15 +27,15 @@
   --c-lpv-good-move: #{$c-good};
   --c-lpv-brilliant: #{$c-brilliant};
   --c-lpv-interesting: #{$c-interesting};
-  --c-lpv-bg-inaccuracy-hover: #{$m-inaccuracy_bg--mix-30};
-  --c-lpv-bg-mistake-hover: #{$m-mistake_bg--mix-30};
-  --c-lpv-bg-blunder-hover: #{$m-blunder_bg--mix-30};
-  --c-lpv-bg-good-hover: #{$m-good_bg--mix-30};
-  --c-lpv-bg-brilliant-hover: #{$m-brilliant_bg--mix-30};
-  --c-lpv-bg-interesting-hover: #{$m-interesting_bg--mix-30};
+  --c-lpv-bg-inaccuracy-hover: #{color-mix($c-inaccuracy 30%, $c-bg)};
+  --c-lpv-bg-mistake-hover: #{color-mix($c-mistake 30%, $c-bg)};
+  --c-lpv-bg-blunder-hover: #{color-mix($c-blunder 30%, $c-bg)};
+  --c-lpv-bg-good-hover: #{color-mix($c-good 30%, $c-bg)};
+  --c-lpv-bg-brilliant-hover: #{color-mix($c-brilliant 30%, $c-bg)};
+  --c-lpv-bg-interesting-hover: #{color-mix($c-interesting 30%, $c-bg)};
 
   @include if-transp {
-    --c-lpv-bg-pane: #{$m-body-gradient--fade-15};
+    --c-lpv-bg-pane: #{rgb(from $c-body-gradient r g b / calc(alpha * 0.85))};
   }
 
   @extend %box-neat-force;

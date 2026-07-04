@@ -34,7 +34,7 @@ body.no-inquiry {
   flex-flow: row nowrap;
   justify-content: space-between;
   border-bottom: $border;
-  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 5px 6px rgb(0 0 0 / 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -51,7 +51,7 @@ body.no-inquiry {
     background-position: 81% 81%;
     border-radius: 0 0 50% 0;
     border: 2px solid $c-border;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 6px rgb(0 0 0 / 0.3);
     cursor: pointer;
 
     &:hover {
@@ -178,19 +178,19 @@ body.no-inquiry {
 
   .score.green {
     /* actually blue */
-    background-color: rgba(32, 119, 192, 0.4);
+    background-color: rgb(32 119 192 / 0.4);
   }
 
   .score.yellow {
-    background-color: rgba(221, 207, 63, 0.4);
+    background-color: rgb(221 207 63 / 0.4);
   }
 
   .score.orange {
-    background-color: rgba(231, 155, 100, 0.4);
+    background-color: rgb(231 155 100 / 0.4);
   }
 
   .score.red {
-    background-color: rgba(231, 59, 56, 0.4);
+    background-color: rgb(231 59 56 / 0.4);
   }
 
   form.note {
@@ -233,7 +233,7 @@ body.no-inquiry {
   }
 
   .fbt:hover {
-    background: $m-primary_bg--mix-50;
+    background: color-mix($c-primary 50%, $c-bg);
   }
 
   .fbt.icon::before,

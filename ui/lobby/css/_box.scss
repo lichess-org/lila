@@ -88,14 +88,14 @@
     position: relative;
     width: 30ch;
     height: 1.25em;
-    background: $m-bg-page--fade-40;
+    background: rgb(from $c-bg-page r g b / calc(alpha * 0.6));
 
     @include if-light {
-      background: $m-shade--fade-40;
+      background: rgb(from $c-shade r g b / calc(alpha * 0.6));
     }
 
     @include if-transp {
-      background: $m-bg--fade-40;
+      background: rgb(from $c-bg r g b / calc(alpha * 0.6));
     }
 
     overflow: hidden;
@@ -114,7 +114,7 @@
     border-radius: 2em;
     display: block;
     height: 100%;
-    background: $m-primary_bg-page__mix-20--fade-70;
+    background: rgb(from $c-primary r g b / calc(alpha * 0.22));
   }
 
   .progress__text {

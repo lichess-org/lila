@@ -6,14 +6,14 @@
   padding: 0.5em 1em;
 
   &--time {
-    background: $m-brag_bg--mix-20;
+    background: color-mix($c-brag 20%, $c-bg);
   }
 
   &--meta {
-    background: $m-good_bg--mix-20;
+    background: color-mix($c-good 20%, $c-bg);
 
     &:is(bad) {
-      background: $m-bad_bg--mix-20;
+      background: color-mix($c-bad 20%, $c-bg);
     }
   }
 }

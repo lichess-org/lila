@@ -46,7 +46,7 @@
 
     &.#{$active-class} {
       font-weight: bold;
-      background: $m-primary_bg--mix-20;
+      background: color-mix($c-primary 20%, $c-bg);
       color: $c-font-clear;
     }
   }

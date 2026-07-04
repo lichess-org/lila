@@ -6,9 +6,9 @@
 @import '../../../lib/css/component/mselect';
 @import '../../../lib/css/component/toggle-box';
 
-$c-grade-bad: $m-bad_font--mix-80;
-$c-grade-avg: $m-brag_font-dim--mix-60;
-$c-grade-good: $m-good_bg--mix-90;
+$c-grade-bad: color-mix($c-bad 80%, $c-font);
+$c-grade-avg: color-mix($c-brag 60%, $c-font-dim);
+$c-grade-good: color-mix($c-good 90%, $c-bg);
 
 @import '../util';
 @import '../waiting';

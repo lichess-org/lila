@@ -49,7 +49,7 @@
     }
 
     high {
-      background-color: $m-yellow_bg--mix-30;
+      background-color: color-mix(yellow 30%, $c-bg);
       color: $c-font-clearer;
       padding: 0 0.1ch;
     }

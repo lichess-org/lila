@@ -15,12 +15,12 @@ export const chartYMin: number = -chartYMax;
 
 const lightTheme = currentTheme() === 'light';
 export const orangeAccent = '#d85000';
-export const whiteFill: string = lightTheme ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)';
-export const blackFill: string = lightTheme ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)';
-export const fontColor: string = lightTheme ? '#2F2F2F' : 'hsl(0, 0%, 73%)';
+export const whiteFill: string = lightTheme ? 'rgb(255 255 255 / 0.7)' : 'rgb(255 255 255 / 0.3)';
+export const blackFill: string = lightTheme ? 'rgb(0 0 0 / 0.2)' : 'rgb(0 0 0 / 1)';
+export const fontColor: string = lightTheme ? '#2F2F2F' : 'hsl(0 0% 73%)';
 export const gridColor: string = lightTheme ? '#ccc' : '#404040';
 export const hoverBorderColor: string = lightTheme ? gridColor : 'white';
-export const tooltipBgColor: string = lightTheme ? 'rgba(255, 255, 255, 0.85)' : 'rgba(22, 21, 18, 0.85)';
+export const tooltipBgColor: string = lightTheme ? 'rgb(255 255 255 / 0.85)' : 'rgb(22 21 18 / 0.85)';
 
 const zeroLineColor = lightTheme ? '#959595' : '#676664';
 export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scales'] => ({

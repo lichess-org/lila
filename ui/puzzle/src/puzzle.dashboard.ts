@@ -21,12 +21,12 @@ export function initModule(data: { radar: ChartData<'radar', number, 'Performanc
 
   d.datasets[0] = {
     ...d.datasets[0],
-    backgroundColor: 'rgba(189,130,35,0.2)',
-    borderColor: 'rgba(189,130,35,1)',
-    pointBackgroundColor: 'rgba(189,130,35,1)',
+    backgroundColor: 'rgb(189 130 35 / 0.2)',
+    borderColor: 'rgb(189 130 35 / 1)',
+    pointBackgroundColor: 'rgb(189 130 35 / 1)',
   };
   const fontColor = currentTheme() === 'dark' ? '#bababa' : '#4d4d4d';
-  const lineColor = 'rgba(127, 127, 127, .3)';
+  const lineColor = 'rgb(127 127 127 / 0.3)';
 
   new Chart(canvas, {
     type: 'radar',

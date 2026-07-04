@@ -32,7 +32,7 @@
   .continue {
     display: flex;
     font-size: 1.3em;
-    background: rgba(56, 147, 232, 0.8);
+    background: rgb(56 147 232 / 0.8);
     color: #fff;
     align-items: center;
     justify-content: center;
@@ -41,7 +41,7 @@
   }
 
   .continue:hover {
-    background: rgba(56, 147, 232, 1);
+    background: rgb(56 147 232 / 1);
   }
 
   .continue icon::before {

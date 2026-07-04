@@ -42,32 +42,32 @@ square {
   pointer-events: none;
 
   &.move-dest {
-    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) calc(20% + 1px));
+    background: radial-gradient(rgb(20 85 30 / 0.5) 19%, rgb(0 0 0 / 0) calc(20% + 1px));
     pointer-events: auto;
   }
 
   &.premove-dest {
-    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) calc(20% + 1px));
+    background: radial-gradient(rgb(20 30 85 / 0.5) 19%, rgb(0 0 0 / 0) calc(20% + 1px));
     pointer-events: auto;
   }
 
   &.oc.move-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 85, 0, 0.3) calc(80% + 1px));
+    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 85 0 / 0.3) calc(80% + 1px));
   }
 
   &.oc.premove-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 30, 85, 0.2) calc(80% + 1px));
+    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 30 85 / 0.2) calc(80% + 1px));
   }
 
   body[data-board='green'] .is2d &.last-move,
   body[data-board='green-plastic'] .is2d &.last-move,
   body[data-board='marble'] .is2d &.last-move {
-    background-color: rgba(0, 155, 199, 0.41);
+    background-color: rgb(0 155 199 / 0.41);
   }
 
   &.last-move {
     will-change: transform;
-    background-color: rgba(155, 199, 0, 0.41);
+    background-color: rgb(155 199 0 / 0.41);
 
     body[data-board='horsey'] .is2d &:not(.move-dest) {
       background: url('../images/board/horsey.last-move.png');
@@ -78,15 +78,15 @@ square {
   &.check {
     background: radial-gradient(
       ellipse at center,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(231, 0, 0, 1) 25%,
-      rgba(169, 0, 0, 0) 89%,
-      rgba(158, 0, 0, 0) 100%
+      rgb(255 0 0 / 1) 0%,
+      rgb(231 0 0 / 1) 25%,
+      rgb(169 0 0 / 0) 89%,
+      rgb(158 0 0 / 0) 100%
     );
   }
 
   &.selected {
-    background-color: rgba(20, 85, 30, 0.5);
+    background-color: rgb(20 85 30 / 0.5);
 
     body[data-board='horsey'] .is2d & {
       background: url('../images/board/horsey.selected.png');
@@ -95,7 +95,7 @@ square {
   }
 
   &.current-premove {
-    background-color: rgba(20, 30, 85, 0.5) !important;
+    background-color: rgb(20 30 85 / 0.5) !important;
 
     body[data-board='horsey'] .is2d & {
       background: url('../images/board/horsey.current-premove.png');
@@ -106,7 +106,7 @@ square {
   @media (hover: hover) {
     &.move-dest:hover,
     &.move-dest.hover {
-      background: rgba(20, 85, 30, 0.3);
+      background: rgb(20 85 30 / 0.3);
 
       body[data-board='horsey'] .is2d & {
         background: url('../images/board/horsey.move-dest.png');
@@ -116,7 +116,7 @@ square {
 
     &.premove-dest:hover,
     &.premove-dest.hover {
-      background: rgba(20, 30, 85, 0.2);
+      background: rgb(20 30 85 / 0.2);
     }
   }
 }

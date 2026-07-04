@@ -73,7 +73,7 @@
     @extend %box-neat;
 
     ---font: #{$c-secondary};
-    ---bg: #{$m-secondary_bg--mix-10};
+    ---bg: #{color-mix($c-secondary 10%, $c-bg)};
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;

@@ -49,11 +49,11 @@
         }
 
         &.good {
-          background: $m-secondary_bg-zebra--mix-20;
+          background: color-mix($c-secondary 20%, $c-bg-zebra);
         }
 
         &.bad {
-          background: $m-bad_bg-zebra--mix-20;
+          background: color-mix($c-bad 20%, $c-bg-zebra);
         }
       }
     }

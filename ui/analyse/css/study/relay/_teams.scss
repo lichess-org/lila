@@ -77,8 +77,8 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-12;
-        border-color: $m-primary_bg--mix-50;
+        background: color-mix($c-primary 12%, $c-bg);
+        border-color: color-mix($c-primary 50%, $c-bg);
         color: $c-font-clearer;
 
         .mini-game__flag {
@@ -155,7 +155,7 @@
       height: 100%;
       left: 2.5px;
       opacity: 1;
-      border-right: 5px solid $m-accent--fade-50;
+      border-right: 5px solid rgb(from $c-accent r g b / calc(alpha * 0.5));
       width: 50%;
     }
   }

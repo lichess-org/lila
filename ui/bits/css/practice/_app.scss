@@ -34,7 +34,7 @@
     position: relative;
     min-height: 90px;
     color: #fff;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 0.07);
     font-size: 1.2em;
     border: 1px solid $c-border;
     background: $c-bg-box;
@@ -84,37 +84,67 @@
     }
 
     &.ongoing {
-      border-color: $m-primary--fade-50;
-      background: linear-gradient(0deg, $m-primary--fade-60, $m-primary--fade-80 100px);
+      border-color: rgb(from $c-primary r g b / calc(alpha * 0.5));
+      background: linear-gradient(
+        0deg,
+        rgb(from $c-primary r g b / calc(alpha * 0.4)),
+        rgb(from $c-primary r g b / calc(alpha * 0.2)) 100px
+      );
 
       .attention-effect {
-        @include animated-border($m-primary--lighten-30, $m-primary--fade-80);
+        @include animated-border(
+          hsl(from $c-primary h s calc(l + 30)),
+          rgb(from $c-primary r g b / calc(alpha * 0.2))
+        );
       }
 
       @include if-light {
-        background: linear-gradient(180deg, $m-primary--fade-60, $m-primary--fade-80 100px);
+        background: linear-gradient(
+          180deg,
+          rgb(from $c-primary r g b / calc(alpha * 0.4)),
+          rgb(from $c-primary r g b / calc(alpha * 0.2)) 100px
+        );
 
         .attention-effect {
-          @include animated-border($m-primary--darken-25, $m-primary--fade-80);
+          @include animated-border(
+            hsl(from $c-primary h s calc(l - 25)),
+            rgb(from $c-primary r g b / calc(alpha * 0.2))
+          );
         }
       }
     }
 
     &.done {
-      border-color: $m-secondary--fade-35;
-      background: linear-gradient(0deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+      border-color: rgb(from $c-secondary r g b / calc(alpha * 0.65));
+      background: linear-gradient(
+        0deg,
+        rgb(from $c-secondary r g b / calc(alpha * 0.4)),
+        rgb(from $c-secondary r g b / calc(alpha * 0.2)) 100px
+      );
 
       @include if-light {
-        background: linear-gradient(180deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+        background: linear-gradient(
+          180deg,
+          rgb(from $c-secondary r g b / calc(alpha * 0.4)),
+          rgb(from $c-secondary r g b / calc(alpha * 0.2)) 100px
+        );
       }
     }
 
     &.future {
-      border-color: $m-future--fade-35;
-      background: linear-gradient(0deg, $m-future--fade-60, $m-future--fade-80 100px);
+      border-color: rgb(from $c-future r g b / calc(alpha * 0.65));
+      background: linear-gradient(
+        0deg,
+        rgb(from $c-future r g b / calc(alpha * 0.4)),
+        rgb(from $c-future r g b / calc(alpha * 0.2)) 100px
+      );
 
       @include if-light {
-        background: linear-gradient(180deg, $m-future--fade-60, $m-future--fade-80 100px);
+        background: linear-gradient(
+          180deg,
+          rgb(from $c-future r g b / calc(alpha * 0.4)),
+          rgb(from $c-future r g b / calc(alpha * 0.2)) 100px
+        );
       }
     }
 

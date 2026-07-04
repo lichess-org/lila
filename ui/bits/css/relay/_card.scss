@@ -34,7 +34,7 @@
   }
 
   &--live {
-    outline: 3px solid $m-bad--alpha-50;
+    outline: 3px solid rgb(from $c-bad r g b / 0.5);
 
     &:hover {
       box-shadow:

@@ -47,7 +47,7 @@
 
     input {
       border: none;
-      background: $m-secondary--fade-80;
+      background: rgb(from $c-secondary r g b / calc(alpha * 0.2));
     }
 
     .search,
@@ -72,7 +72,7 @@
 
     a {
       /* GM wikipedia */
-      color: $m-primary_font--mix-35;
+      color: color-mix($c-primary 35%, $c-font);
 
       &:hover {
         color: $c-link;
@@ -140,7 +140,7 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-10;
+        background: color-mix($c-primary 10%, $c-bg);
       }
     }
 

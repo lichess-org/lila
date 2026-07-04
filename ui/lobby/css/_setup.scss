@@ -101,7 +101,7 @@ $c-slider: $c-setup;
     background: $c-setup;
 
     &:hover {
-      background: $m-secondary--lighten-5;
+      background: hsl(from $c-secondary h s calc(l + 5));
     }
   }
 
@@ -134,8 +134,8 @@ $c-slider: $c-setup;
   .failure {
     @extend %box-radius;
 
-    background: $m-bad_bg--mix-20;
-    box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
+    background: color-mix($c-bad 20%, $c-bg);
+    box-shadow: 0 0 13px 6px color-mix($c-bad 20%, $c-bg);
   }
 
   .footer {

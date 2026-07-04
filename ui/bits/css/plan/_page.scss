@@ -140,7 +140,7 @@
       @extend %active-secondary;
 
       &:hover {
-        background: $m-secondary--lighten-5;
+        background: hsl(from $c-secondary h s calc(l + 5));
       }
     }
 

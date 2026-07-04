@@ -14,7 +14,7 @@
   color: $c-font;
 
   @include if-light {
-    background-image: linear-gradient(to bottom, $m-primary_bg--mix-20, rgb(197, 216, 234));
+    background-image: linear-gradient(to bottom, color-mix($c-primary 20%, $c-bg), rgb(197 216 234));
   }
 
   &.invert,
@@ -23,7 +23,11 @@
     text-shadow: none;
 
     @include if-light {
-      background-image: linear-gradient(to bottom, $m-primary_bg--mix-25, $m-primary_bg-page--mix-20);
+      background-image: linear-gradient(
+        to bottom,
+        color-mix($c-primary 25%, $c-bg),
+        color-mix($c-primary 20%, $c-bg-page)
+      );
     }
   }
 

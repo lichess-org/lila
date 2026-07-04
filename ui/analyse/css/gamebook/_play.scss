@@ -210,14 +210,14 @@
         @extend %flex-column;
 
         flex: 1 1 100%;
-        background: $m-primary_bg--mix-80;
+        background: color-mix($c-primary 80%, $c-bg);
         color: $c-over;
         font-size: 1.2em;
         align-items: center;
         justify-content: center;
         text-align: center;
         padding: 0.5em;
-        border-inline-start: 1px solid rgba(255, 255, 255, 0.3);
+        border-inline-start: 1px solid rgb(255 255 255 / 0.3);
         line-height: 1.2em;
 
         @include transition;

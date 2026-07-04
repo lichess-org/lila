@@ -58,14 +58,18 @@
     border-radius: 100%;
 
     @include if-transp {
-      background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
+      background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 22%), hsl(var(---site-hue) 5% 19%) 100%);
     }
   }
 
   @include if-transp {
     &:hover {
       &::after {
-        background: linear-gradient(to bottom, hsl($site-hue, 7%, 26), hsl($site-hue, 5%, 23) 100%);
+        background: linear-gradient(
+          to bottom,
+          hsl(var(---site-hue) 7% 26%),
+          hsl(var(---site-hue) 5% 23%) 100%
+        );
       }
     }
   }

@@ -50,5 +50,5 @@ textarea:-webkit-autofill,
 select:-webkit-autofill {
   border: $border;
   -webkit-text-fill-color: $c-font;
-  box-shadow: 0 0 0 1000px $m-secondary_bg--mix-10 inset;
+  box-shadow: 0 0 0 1000px color-mix($c-secondary 10%, $c-bg) inset;
 }

@@ -11,7 +11,7 @@
     @extend %box-radius;
 
     border: 1px solid $c-error;
-    background: $m-bad_bg--mix-10;
+    background: color-mix($c-bad 10%, $c-bg);
   }
 
   .challenge {

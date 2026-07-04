@@ -72,7 +72,7 @@
 
     &.current {
       font-weight: bold;
-      background: $m-primary_bg--mix-20;
+      background: color-mix($c-primary 20%, $c-bg);
       background: hsl(from var(--bot-color) h calc(s - 20) calc(l - 10) / 0.5);
       color: $c-font-clear;
     }
@@ -108,7 +108,7 @@
 
   .bot-game__rematch {
     width: 100%;
-    background: $m-primary_bg--mix-70;
+    background: color-mix($c-primary 70%, $c-bg);
     color: $c-over;
     padding: 1em 2em;
     font-size: 1.5em;

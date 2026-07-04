@@ -30,7 +30,7 @@
       }
 
       &:hover {
-        background: $m-accent_bg--mix-12;
+        background: color-mix($c-accent 12%, $c-bg);
       }
     }
 

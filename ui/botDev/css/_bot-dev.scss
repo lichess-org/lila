@@ -16,7 +16,7 @@
     padding: 3px 5px;
 
     &.invalid {
-      background-color: $m-bg_bad--mix-80;
+      background-color: color-mix($c-bg 80%, $c-bad);
     }
   }
 
@@ -43,7 +43,7 @@
     color: $c-secondary;
 
     &:hover {
-      color: $m-secondary--lighten-11;
+      color: hsl(from $c-secondary h s calc(l + 11));
     }
   }
 
@@ -64,7 +64,7 @@
     }
 
     &:hover {
-      color: $m-bad--lighten-11;
+      color: hsl(from $c-bad h s calc(l + 11));
       filter: saturate(1);
     }
   }
@@ -82,7 +82,7 @@
     }
 
     &:hover {
-      color: $m-primary--lighten-11;
+      color: hsl(from $c-primary h s calc(l + 11));
       filter: saturate(1);
     }
   }
@@ -103,15 +103,15 @@
   }
 
   .local-only {
-    background-color: $m-brag_white--mix-25;
+    background-color: color-mix($c-brag 25%, white);
   }
 
   .local-changes {
-    background-color: $m-clas_white--mix-28;
+    background-color: color-mix($c-clas 28%, white);
   }
 
   .upstream-changes {
-    background-color: $m-primary_white--mix-30;
+    background-color: color-mix($c-primary 30%, white);
   }
 }
 
@@ -175,7 +175,7 @@ main.round {
       color: #333;
 
       &:hover:not(:has(button:hover)) {
-        background-color: hsl(209, 79%, 85%);
+        background-color: hsl(209 79% 85%);
       }
     }
 
@@ -184,7 +184,7 @@ main.round {
       color: white;
 
       &:hover:not(:has(button:hover)) {
-        background-color: hsl(209, 29%, 20%);
+        background-color: hsl(209 29% 20%);
       }
     }
 
@@ -258,7 +258,7 @@ main.round {
     color: $c-bad;
 
     &:hover {
-      color: $m-bad--lighten-11;
+      color: hsl(from $c-bad h s calc(l + 11));
     }
   }
 
@@ -272,7 +272,7 @@ main.round {
       content: $licon-PlayTriangle;
 
       &:hover {
-        color: $m-secondary--lighten-4;
+        color: hsl(from $c-secondary h s calc(l + 4));
       }
     }
 
@@ -283,7 +283,7 @@ main.round {
       content: $licon-Pause;
 
       &:hover {
-        color: $m-bad--lighten-11;
+        color: hsl(from $c-bad h s calc(l + 11));
       }
     }
   }
@@ -421,7 +421,7 @@ main.round {
   height: 100%;
   font-size: 6em;
   font-weight: 800;
-  background-color: $m-dark--fade-40;
+  background-color: rgb(from $c-dark r g b / calc(alpha * 0.6));
   color: $c-paper;
   display: flex;
   align-items: center;
@@ -439,7 +439,7 @@ main.round {
   }
 
   &:hover {
-    background: $m-primary_bg--mix-15;
+    background: color-mix($c-primary 15%, $c-bg);
   }
 
   img {

@@ -45,14 +45,14 @@
         background: $c-secondary;
         color: $c-over;
         font-weight: bold;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset !important;
+        box-shadow: 0 3px 5px rgb(0 0 0 / 0.2) inset !important;
 
         @include if-light {
           text-shadow: 0 1px 0 $c-font !important;
         }
 
         &:hover {
-          background: $m-secondary--lighten-5;
+          background: hsl(from $c-secondary h s calc(l + 5));
         }
       }
     }
@@ -72,7 +72,7 @@
       margin-inline-end: 0.5em;
 
       &.active:hover {
-        background: $m-secondary_white--mix-80;
+        background: color-mix($c-secondary 80%, white);
       }
     }
 
@@ -98,7 +98,7 @@
       padding: 0.1em 0.5em;
 
       &:invalid {
-        background: $m-bad_bg--mix-30;
+        background: color-mix($c-bad 30%, $c-bg);
       }
     }
   }

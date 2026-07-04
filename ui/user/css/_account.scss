@@ -64,7 +64,7 @@
     display: block;
     margin: 10px 0 20px 0;
     padding: 10px 20px;
-    background: rgba(128, 128, 128, 0.1);
+    background: rgb(128 128 128 / 0.1);
 
     td {
       padding: 0.5em 1em;
@@ -75,7 +75,7 @@
   .brand {
     @extend %box-neat;
 
-    background: $m-accent_bg--mix-10;
+    background: color-mix($c-accent 10%, $c-bg);
     padding: 1.5em;
     margin: 20px;
     display: flex;
@@ -108,7 +108,7 @@
       @extend %box-neat;
 
       border: $c-border;
-      background: $m-accent_bg--mix-10;
+      background: color-mix($c-accent 10%, $c-bg);
       flex: 1 1 49%;
     }
 
@@ -117,7 +117,7 @@
 
       text-transform: uppercase;
       letter-spacing: 0.2ch;
-      background: $m-accent_bg--mix-10;
+      background: color-mix($c-accent 10%, $c-bg);
       padding: 0.2em 1em;
       margin-left: 1em;
     }
@@ -197,10 +197,10 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, $m-accent--fade-50, $c-bg-box 80%);
+        background: linear-gradient(to right, rgb(from $c-accent r g b / calc(alpha * 0.5)), $c-bg-box 80%);
 
         @include if-rtl {
-          background: linear-gradient(to left, $m-accent--fade-50, $c-bg-box 80%);
+          background: linear-gradient(to left, rgb(from $c-accent r g b / calc(alpha * 0.5)), $c-bg-box 80%);
         }
       }
     }
@@ -229,7 +229,7 @@
 
       div {
         background: transparent;
-        color: $m-font_dimmer--mix-50;
+        color: color-mix($c-font 50%, $c-dimmer);
       }
 
       div.always-on {
@@ -260,7 +260,7 @@
     text-align: center;
     color: $c-good;
     border: 1px solid $c-good;
-    background: $m-secondary_bg--mix-10;
+    background: color-mix($c-secondary 10%, $c-bg);
     padding: 2rem;
   }
 

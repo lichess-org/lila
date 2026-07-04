@@ -42,7 +42,7 @@ $clock-height: 20px;
   text-align: center;
 
   &.active {
-    background: $m-primary_bg--mix-30;
+    background: color-mix($c-primary 30%, $c-bg);
     box-shadow: none;
   }
 

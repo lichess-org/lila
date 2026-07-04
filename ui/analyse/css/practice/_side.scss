@@ -84,11 +84,11 @@
   }
 
   &:hover {
-    background: $m-primary_bg--mix-10;
+    background: color-mix($c-primary 10%, $c-bg);
   }
 
   &.active {
-    background: $m-primary_bg--mix-10;
+    background: color-mix($c-primary 10%, $c-bg);
 
     .status {
       background: $c-primary;

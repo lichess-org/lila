@@ -76,7 +76,7 @@
 .mod-timeline__event:has(icon.moderator) {
   .user-link,
   .user-link icon.line {
-    color: $m-brag_font--mix-60;
+    color: color-mix($c-brag 60%, $c-font);
   }
 }
 
@@ -104,7 +104,7 @@
 .mod-timeline__event--report-new {
   @extend %box-radius;
 
-  background: $m-bad_bg--mix-10;
+  background: color-mix($c-bad 10%, $c-bg);
 }
 
 .mod-timeline__event:has(.mod-timeline__event__action--modMessage),
@@ -112,7 +112,7 @@
 .mod-timeline__event:has(.mod-timeline__event__action--undo) {
   @extend %box-radius;
 
-  background: $m-brag_bg--mix-15;
+  background: color-mix($c-brag 15%, $c-bg);
 }
 
 .mod-timeline__event--recent:has(.mod-timeline__event__action--modMessage),
