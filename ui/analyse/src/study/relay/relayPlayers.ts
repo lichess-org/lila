@@ -392,34 +392,33 @@ const playerTipId = 'tour-player-tip';
 export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip: boolean): Hooks => {
   const id = playerId(player);
   withTip = withTip && !isTouchDevice();
-  return id
-    ? {
-        ...onInsert(el => {
-          el.addEventListener('click', e => {
-            e.preventDefault();
-            ctrl.switchTabAndShowPlayer(id);
-          });
-          if (withTip)
-            $(el).powerTip({
-              closeDelay: 200,
-              popupId: playerTipId,
-              defaultSize: [420, 150],
-              preRender() {
-                const tipEl = document.getElementById(playerTipId) as HTMLElement;
-                const patch = initSnabbdom([attributesModule]);
-                tipEl.style.visibility = 'hidden';
-                ctrl.loadPlayerWithGames(id).then(p => {
-                  const vdom = renderPlayerTipWithGames(ctrl, p);
-                  tipEl.innerHTML = '';
-                  patch(tipEl, hl(`div#${playerTipId}`, vdom));
-                  $.powerTip.reposition(el);
-                });
-              },
+  if (!id) return {};
+  return {
+    ...onInsert(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        ctrl.switchTabAndShowPlayer(id);
+      });
+      if (withTip)
+        $(el).powerTip({
+          closeDelay: 200,
+          popupId: playerTipId,
+          defaultSize: [420, 150],
+          preRender() {
+            const tipEl = document.getElementById(playerTipId) as HTMLElement;
+            const patch = initSnabbdom([attributesModule]);
+            tipEl.style.visibility = 'hidden';
+            ctrl.loadPlayerWithGames(id).then(p => {
+              const vdom = renderPlayerTipWithGames(ctrl, p);
+              tipEl.innerHTML = '';
+              patch(tipEl, hl(`div#${playerTipId}`, vdom));
+              $.powerTip.reposition(el);
             });
-        }),
-        ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) } : {}),
-      }
-    : {};
+          },
+        });
+    }),
+    ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) } : {}),
+  };
 };
 
 export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTip: boolean): VNodeData => {

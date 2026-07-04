@@ -14,7 +14,7 @@
   <string name="chessPieceSymbol">Symboly šachových figúr</string>
   <string name="pgnLetter">Písmenová notácia (K, D, V, S, J)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
-  <string name="showPlayerRatings">Ukázať hráčove ratingy</string>
+  <string name="showPlayerRatings">Ukázať ratingy hráčov</string>
   <string name="showFlairs">Zobraziť u hráčov ikonky štýlu</string>
   <string name="explainShowPlayerRatings">Týmto môžete na webovej stránke skryť všetky hodnotenia, aby ste sa mohli sústrediť na šach. Partie môžu byť stále hodnotené, ide len o to, čo sa Vám zobrazí.</string>
   <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
@@ -71,4 +71,21 @@
   <string name="bellNotificationSound">Zvuk upozornenia</string>
   <string name="blindfold" comment="As in Blindfold chess">Naslepo</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Zobraziť vľavo na mobilných zariadeniach</string>
+  <string name="inlineNotation">Vložená notácia</string>
+  <string name="showServerAnalysis">Zobraziť serverovú analýzu</string>
+  <string name="showBestMoveArrows">Zobraziť šípky najlepších ťahov</string>
+  <string name="showManeuverArrows">Zobraziť šípky manévrov</string>
+  <string name="showGauge">Zobraziť hodnotiaci ukazovateľ</string>
+  <string name="showMoveAnnotationsOnBoard">Zobraziť notácie pohybov</string>
+  <string name="showVariationArrows">Zobraziť šípky variácií</string>
+  <string name="showLiveGlyphs">Živé strojové anotácie</string>
+  <string name="showUndefendedPieces">Ukázať nechránené figúrky</string>
+  <string name="showPinnedPieces">Ukázať pripnuté figúrky</string>
+  <string name="showCheckableKing">Ukázať kráľa, ktorému možno dať šach</string>
+  <string name="disclosureMode">Zapnúť skrytie variácií</string>
+  <string name="generalSettings">Všeobecné</string>
+  <string name="moveListSettings">Zoznam pohybov</string>
+  <string name="boardSettings">Šachovnica</string>
+  <string name="analysisSettings">Nastavenia analýzy</string>
+  <string name="maneuverArrowsHelp">Poradie strojových pohybov pre jednu figúrku</string>
 </resources>

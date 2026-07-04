@@ -158,9 +158,6 @@ object HTTPRequest:
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
 
-  def isHttp1(req: RequestHeader): Boolean =
-    req.headers.get("X-HTTP-Version").exists(_.startsWith("HTTP/1."))
-
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
   def name = toString

@@ -19,6 +19,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       header = true,
       list = true,
       table = true,
+      blockQuote = false,
       maxPgns = Max(0)
     )
 

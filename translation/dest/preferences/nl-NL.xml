@@ -88,4 +88,5 @@
   <string name="boardSettings">Bord</string>
   <string name="analysisSettings">Analyse-instellingen</string>
   <string name="maneuverArrowsHelp">Volgorde van computerzetten voor één stuk</string>
+  <string name="hoverOverSettingLabelsForHelp">Beweeg over instellingslabels voor hulp</string>
 </resources>

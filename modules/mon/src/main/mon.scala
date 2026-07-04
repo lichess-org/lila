@@ -444,8 +444,8 @@ object tournament:
         "client" -> client
       )
   def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
-  def action(tourId: String, action: String) =
-    timer("tournament.api.action").withTags(tags("tourId" -> tourId, "action" -> action))
+  def action(action: String) =
+    timer("tournament.api.action").withTags(tags("action" -> action))
   object notifier:
     def tournaments = counter("tournament.notify.tournaments").withoutTags()
     def players = counter("tournament.notify.players").withoutTags()

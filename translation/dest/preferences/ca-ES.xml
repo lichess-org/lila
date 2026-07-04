@@ -87,4 +87,5 @@
   <string name="moveListSettings">Llista de moviments</string>
   <string name="boardSettings">Tauler</string>
   <string name="analysisSettings">Configuració de les anàlisis</string>
+  <string name="hoverOverSettingLabelsForHelp">Posa el cursor per sobre de les etiquetes de configuració per veure l\'ajuda</string>
 </resources>

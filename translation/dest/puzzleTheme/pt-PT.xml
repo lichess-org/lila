@@ -26,9 +26,14 @@
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
+  <string name="collinearMove">Jogada colinear</string>
+  <string name="collinearMoveDescription">Duas peças adversárias estão frente a frente, e uma delas desliza ao longo da linha de ataque sem capturar a peça inimiga.</string>
+  <string name="cornerMate">Xeque-mate no canto</string>
+  <string name="cornerMateDescription">Confinar o rei a um canto utilizando uma torre ou uma dama, enquanto um cavalo participa no xeque-mate.</string>
   <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
   <string name="discoveredCheck">Xeque Descoberto</string>
+  <string name="discoveredCheckDescription">Mover uma peça para revelar um xeque de uma peça atacante que estava oculta, o que frequentemente conduz a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="dovetailMate">Mate cauda-de-andorinha</string>
@@ -50,6 +55,8 @@
   <string name="endgame">Final de jogo</string>
   <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
   <string name="enPassantDescription">Uma tática que envolve a regra de \"en passant\", onde um peão pode capturar um peão adversário que o ignorou usando o seu primeiro movimento de duas casas.</string>
+  <string name="epauletteMate">Xeque-mate Epaulette</string>
+  <string name="epauletteMateDescription">Duas casas de fuga adjacentes para um rei em xeque estão ocupadas por outras peças.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
   <string name="fork">Garfo</string>
@@ -64,6 +71,14 @@
   <string name="intermezzoDescription">Em vez de jogares o movimento esperado, primeiro interpõe outro movimento colocando uma ameaça imediata à qual o oponente deve responder. Também conhecido como \"Zwischenzug\" ou jogada intermédia.</string>
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Uma torre está ao lado do rei inimigo apoiada por uma dama que também bloqueia as casas de fuga do rei. A torre e a dama apanham o rei inimigo numa “caixa de morte” de 3 por 3.</string>
+  <string name="pillsburysMate">Xeque-mate Pillsburry</string>
+  <string name="pillsburysMateDescription">A Torre faz xeque-mate, enquanto o bispo ajuda a confiná-lo.</string>
+  <string name="morphysMate">Xeque-mate Morphy</string>
+  <string name="morphysMateDescription">Usa o bispo para fazer xeque ao rei, enquanto a tua torre ajuda a confina-lo.</string>
+  <string name="swallowstailMate">Mate da Cauda de Andorinha</string>
+  <string name="swallowstailMateDescription">Um padrão de xeque-mate que se assemelha visualmente à cauda de uma andorinha, com uma forma semelhante à letra V.</string>
+  <string name="triangleMate">Xeque-mate do triângulo</string>
+  <string name="triangleMateDescription">A dama e a torre, a uma casa de distância do rei adversário, encontram-se na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Uma torre e um cavalo juntam-se para dar xeque-mate ao rei. A torre dá mate apoiada por uma terceira peça, e o cavalo é utilizado para bloquear as casas de fuga do rei.</string>
   <string name="knightEndgame">Final de cavalo</string>

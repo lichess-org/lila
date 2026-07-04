@@ -14,13 +14,12 @@ export const redirect = async (opts: RedirectTo, beep?: boolean) => {
   else {
     url = opts.url;
     if (opts.cookie) {
-      const cookie = [
+      document.cookie = [
         encodeURIComponent(opts.cookie.name) + '=' + opts.cookie.value,
         '; max-age=' + opts.cookie.maxAge,
         '; path=/',
         '; domain=' + location.hostname,
       ].join('');
-      document.cookie = cookie;
     }
   }
   const href = '//' + location.host + '/' + url.replace(/^\//, '');

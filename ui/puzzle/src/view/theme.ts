@@ -62,7 +62,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const visibleThemes: ThemeKey[] = [
     ...data.puzzle.themes.filter(t => !invisibleThemes.has(t)),
     ...Object.keys(votedThemes).filter(
-      (t: ThemeKey): t is ThemeKey => votedThemes[t] && !data.puzzle.themes.includes(t),
+      (t: ThemeKey): t is ThemeKey => !!votedThemes[t] && !data.puzzle.themes.includes(t),
     ),
   ].sort();
   const allThemes = ctrl.isDaily ? null : ctrl.allThemes;
@@ -94,7 +94,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
                 ? [hl('div.puzzle__themes__lock', iconTag(licon.Padlock))]
                 : [
                     hl('button.puzzle__themes__vote.vote-up', {
-                      class: { active: votedThemes[key] },
+                      class: { active: !!votedThemes[key] },
                       attrs: { 'data-theme': key },
                     }),
                     hl('button.puzzle__themes__vote.vote-down', {
