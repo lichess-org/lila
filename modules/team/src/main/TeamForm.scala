@@ -104,7 +104,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
 
   def members = Form:
     import lila.common.Json.given
-    single("members" -> tagifyValues.field[UserStr])
+    single("members" -> tagifyValues.field[UserStr, List[UserId]]("value")(_.flatMap(_.validateId)))
 
   val blocklist = Form:
     val sep = "\n"

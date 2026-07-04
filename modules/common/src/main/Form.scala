@@ -296,17 +296,16 @@ object Form:
 
   object tagifyValues:
     // [{"value":"neio"},{"value":"lizen1"}]"
-    import play.api.libs.json.{ Json, Reads, JsSuccess }
-    private case class TagifyElem[A](value: A)
-    private given [A: Reads]: Reads[TagifyElem[A]] = Json.reads
-    private def parse[A: Reads](json: String): Either[String, List[A]] =
+    import play.api.libs.json.{ Json, JsObject, Reads }
+    private def parse[A: Reads](key: String)(json: String): Either[String, List[A]] =
       if json.trim.isEmpty then Right(Nil)
       else
-        Json.parse(json).validate[List[TagifyElem[A]]] match
-          case JsSuccess(elems, _) => Right(elems.map(_.value))
-          case _ => Left("Invalid JSON")
-    private given [A: Reads]: Formatter[List[A]] = formatter.stringTryFormatter(s => parse(s), _ => "")
-    def field[A: Reads] = of[List[A]]
+        val found =
+          for objs <- Json.parse(json).validate[List[JsObject]].asOpt
+          yield objs.flatMap(_.get[A](key))
+        found.toRight("Invalid JSON")
+    def field[A: Reads, B](key: String)(read: List[A] => B): Mapping[B] =
+      of[List[A]](using formatter.stringTryFormatter(parse[A](key), _ => "")).transform[B](read, _ => Nil)
 
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],

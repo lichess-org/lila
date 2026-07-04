@@ -303,12 +303,11 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, users: List[UserStr])(using me: Me, req: RequestHeader): Funit =
-    val userIds = users.flatMap(_.validateId).distinct
+  def kickMembers(team: Team, users: List[UserId])(using me: Me, req: RequestHeader): Funit =
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
-      s"kick members ${userIds.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${userIds.mkString(" ")}"
-    userIds.sequentiallyVoid(kick(team, _))
+      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"
+    users.sequentiallyVoid(kick(team, _))
 
   object blocklist:
     def set(team: Team, list: String): Funit =
