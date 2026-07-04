@@ -294,6 +294,20 @@ object Form:
     def mappingOf[A](a: Mapping[A]): Mapping[ByColor[A]] =
       mapping("white" -> a, "black" -> a)(ByColor.apply)(unapply)
 
+  object tagifyValues:
+    // [{"value":"neio"},{"value":"lizen1"}]"
+    import play.api.libs.json.{ Json, Reads, JsSuccess }
+    private case class TagifyElem[A](value: A)
+    private given [A: Reads]: Reads[TagifyElem[A]] = Json.reads
+    private def parse[A: Reads](json: String): Either[String, List[A]] =
+      if json.trim.isEmpty then Right(Nil)
+      else
+        Json.parse(json).validate[List[TagifyElem[A]]] match
+          case JsSuccess(elems, _) => Right(elems.map(_.value))
+          case _ => Left("Invalid JSON")
+    private given [A: Reads]: Formatter[List[A]] = formatter.stringTryFormatter(s => parse(s), _ => "")
+    def field[A: Reads] = of[List[A]]
+
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
