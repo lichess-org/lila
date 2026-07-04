@@ -176,7 +176,7 @@ trait dsl:
    * }}}
    *
    */
-  case class SimpleExpression[V <: BSONValue](field: String, value: V) extends Expression[V]
+  class SimpleExpression[V <: BSONValue](val field: String, val value: V) extends Expression[V]
 
   /** Expressions of this type can be cascaded. Examples:
     *
@@ -185,7 +185,7 @@ trait dsl:
     *  "age" $gte 50 $lte 60
     * }}}
     */
-  case class CompositeExpression(field: String, value: Bdoc) extends Expression[Bdoc]:
+  class CompositeExpression(val field: String, val value: Bdoc) extends Expression[Bdoc]:
     private def and(more: Bdoc): CompositeExpression = CompositeExpression(field, value ++ more)
     def $gt[T: BSONWriter](v: T): CompositeExpression = and($doc("$gt" -> v))
     def $gte[T: BSONWriter](v: T): CompositeExpression = and($doc("$gte" -> v))
