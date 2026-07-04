@@ -41,8 +41,8 @@ final class SwissForm(using mode: play.api.Mode):
         "manualPairings" -> optional(
           cleanNonEmptyText
             .verifying(
-              s"Maximum manual pairings: ${Swiss.maxForbiddenPairings}",
-              str => str.linesIterator.size <= Swiss.maxForbiddenPairings
+              s"Maximum manual pairings: ${Swiss.maxManualPairings}",
+              str => str.linesIterator.size <= Swiss.maxManualPairings
             )
             .verifying(
               "Invalid pairings, maybe a player is paired twice?",
