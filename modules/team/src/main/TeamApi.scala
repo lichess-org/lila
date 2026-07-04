@@ -292,8 +292,8 @@ final class TeamApi(
       kicked <- memberRepo.get(team.id, userId)
       myself <- memberRepo.get(team.id, me)
       allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
-        myself.exists: myself =>
-          kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
+        Granter(_.ManageTeam) || myself.exists: myself =>
+          kicked.perms.isEmpty || myself.hasPerm(_.Admin)
       _ <- allowed.so:
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
