@@ -69,9 +69,9 @@
   <string name="analysis">Analýza partie</string>
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
-  <string name="loadingEngine">Zavádzanie motora ...</string>
+  <string name="loadingEngine">Šachový program sa nahráva...</string>
   <string name="calculatingMoves">Prebieha výpočet...</string>
-  <string name="engineFailed">Chyba pri načítavaní motora</string>
+  <string name="engineFailed">Chyba pri nahrávaní šachového programu</string>
   <string name="cloudAnalysis">Vzdialená analýza</string>
   <string name="goDeeper">Hlbšia analýza</string>
   <string name="showThreat">Ukázať hrozbu</string>
@@ -84,7 +84,7 @@
   <string name="expandVariations">Ukázať varianty</string>
   <string name="forceVariation">Vynútiť variant</string>
   <string name="copyVariationPgn">Kopírovať PGN variantu</string>
-  <string name="copyMainLinePgn">Kopírovať PNG hlavného variantu</string>
+  <string name="copyMainLinePgn">Kopírovať PGN hlavného variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
