@@ -86,7 +86,6 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     Ok.page(views.site.page.faq)
 
   def temporarilyDisabled(@annotation.nowarn path: String) = Open:
-    req.headers.get("X-HTTP-Version").pp("X-HTTP-Version")
     pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
