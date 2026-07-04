@@ -304,12 +304,33 @@ trait dsl:
     def simple(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc] = Nil): Bdoc =
       simple(CollName(from.name), as, local, foreign, pipe)
 
-  implicit class ElementBuilderLike(val field: String)
+  private class ElementBuilderLike(val field: String)
       extends ElementBuilder
       with ComparisonOperators
       with ElementOperators
       with EvaluationOperators
       with ArrayOperators
+
+  extension (field: String)
+    private def builder: ElementBuilderLike = ElementBuilderLike(field)
+    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] = builder.$eq(value)
+    def $gt[T: BSONWriter](value: T): CompositeExpression = builder.$gt(value)
+    def $gte[T: BSONWriter](value: T): CompositeExpression = builder.$gte(value)
+    def $lt[T: BSONWriter](value: T): CompositeExpression = builder.$lt(value)
+    def $lte[T: BSONWriter](value: T): CompositeExpression = builder.$lte(value)
+    def $inRange[T: BSONWriter](range: PairOf[T]): CompositeExpression = builder.$inRange(range)
+    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] = builder.$ne(value)
+    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] = builder.$in(values)
+    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] = builder.$nin(values)
+    def $exists(v: Boolean): SimpleExpression[Bdoc] = builder.$exists(v)
+    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] = builder.$mod(divisor, remainder)
+    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      builder.$regex(value, options)
+    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      builder.$startsWith(value, options)
+    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] = builder.$all(values)
+    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] = builder.$elemMatch(query*)
+    def $size(s: Int): SimpleExpression[Bdoc] = builder.$size(s)
 
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
     expression => $doc(expression.field -> expression.value)
