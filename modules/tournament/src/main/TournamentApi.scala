@@ -7,6 +7,7 @@ import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 import scalalib.Debouncer
+import scalalib.model.Minutes
 import chess.{ IntRating, ByColor }
 import alleycats.Zero
 
@@ -642,7 +643,7 @@ final class TournamentApi(
   def notableFinished = cached.notableFinishedCache.get {}
 
   private def scheduledCreatedAndStarted =
-    tournamentRepo.scheduledCreated(6 * 60).zip(tournamentRepo.scheduledStarted)
+    tournamentRepo.scheduledCreated(Minutes(6)).zip(tournamentRepo.scheduledStarted)
 
   // when loading /tournament
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
@@ -789,7 +790,7 @@ final class TournamentApi(
   )(run: Tournament => Fu[A]): Fu[A] =
     fetch(tourId).flatMapz { tour =>
       if tour.nbPlayers > 3000
-      then run(tour).chronometer.mon(lila.mon.tournament.action(tourId.value, action)).result
+      then run(tour).chronometer.mon(lila.mon.tournament.action(action)).result
       else run(tour)
     }
 
