@@ -311,7 +311,6 @@ trait dsl:
       with EvaluationOperators
       with ArrayOperators
 
-  import scala.language.implicitConversions
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
     expression => $doc(expression.field -> expression.value)
 
