@@ -88,4 +88,5 @@
   <string name="boardSettings">Taxta</string>
   <string name="analysisSettings">Tahlil sozlamalari</string>
   <string name="maneuverArrowsHelp">Bitta dona uchun dvijokning yurishlar ketma‑ketligi</string>
+  <string name="hoverOverSettingLabelsForHelp" comment="Instruction/guidance, explaining that hovering offer settings labels will show more information.&#10;&#10;Appears in the popover for &quot;Settings&quot; on game analysis for individual games.">Yordam olish uchun sozlama nomi ustiga kursorni qoʻying</string>
 </resources>
