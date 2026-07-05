@@ -515,16 +515,24 @@ final class Mod(
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      Ok.page(views.mod.ui.presets(group, setting.form))
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        Ok.page(views.mod.ui.presets(typedGroup, env.mod.presets.get(typedGroup).form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      bindForm(setting.form)(
-        err => BadRequest.page(views.mod.ui.presets(group, err)),
-        v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
-      )
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        val setting = env.mod.presets.get(typedGroup)
+        bindForm(setting.form)(
+          err => BadRequest.page(views.mod.ui.presets(typedGroup, err)),
+          v =>
+            setting
+              .setString(v.toString)
+              .inject(Redirect(routes.Mod.presets(typedGroup.toString)).flashSuccess)
+        )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>

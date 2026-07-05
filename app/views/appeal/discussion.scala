@@ -6,7 +6,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
-import lila.mod.{ ModPresets, UserWithModlog }
+import lila.mod.{ AppealPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 
@@ -15,7 +15,7 @@ object discussion:
   case class ModData(
       mod: Me,
       suspect: Suspect,
-      presets: ModPresets,
+      presets: AppealPresets,
       logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[Appeal],
       renderIp: RenderIp,
@@ -132,7 +132,7 @@ object discussion:
       )
     )
 
-  def renderForm(form: Form[?], action: Call, isNew: Boolean, presets: Option[ModPresets])(using
+  def renderForm(form: Form[?], action: Call, isNew: Boolean, presets: Option[AppealPresets])(using
       Translate,
       Option[Me]
   ) =

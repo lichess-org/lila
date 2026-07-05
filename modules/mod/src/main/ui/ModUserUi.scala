@@ -44,7 +44,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
       u: User,
       emails: lila.core.user.Emails,
       closedFlags: Option[ClosedFlags],
-      pmPresets: ModPresets
+      pmPresets: PmPresets
   )(using Context, Me): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(

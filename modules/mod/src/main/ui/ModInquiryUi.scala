@@ -12,13 +12,13 @@ import lila.common.ClientName
 
 final class ModInquiryUi(helpers: Helpers)(
     sourceOf: PublicSource => (Translate, ClientName) ?=> Tag,
-    getPmPresets: Me ?=> ModPresets,
+    getPmPresets: Me ?=> PmPresets,
     highlightBad: String => Frag
 )(using NetDomain):
   import helpers.{ *, given }
 
   def apply(in: Inquiry)(using Context, Me, ClientName) =
-    val presets = getPmPresets.byPermission
+    val presets = getPmPresets.byTags
     div(id := "inquiry", data("username") := in.user.user.username)(
       iconTag(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
@@ -166,7 +166,7 @@ final class ModInquiryUi(helpers: Helpers)(
       a(href := routes.Appeal.modShow(in.user.id, topic))("View", br, "Appeal")
   )
 
-  private def markButtons(in: Inquiry, presets: Map[Permission, List[ModPreset]])(using Me) = frag(
+  private def markButtons(in: Inquiry, presets: Map[Permission, List[PmPreset]])(using Me) = frag(
     Granter(_.MarkEngine).option:
       val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
       div(cls := "dropper engine buttons")(
@@ -320,7 +320,7 @@ final class ModInquiryUi(helpers: Helpers)(
     dataIcon := icon.left.toOption
   )(icon.toOption.map(str => frag(iconTag(str), " ")))
 
-  private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Me) =
+  private def presetForms(in: Inquiry)(presets: List[PmPreset])(using Me) =
     (Granter(_.ModMessage) && presets.nonEmpty).option:
       frag(
         div(cls := "separator"),
