@@ -7,6 +7,7 @@ import play.api.mvc.Result
 import lila.app.{ *, given }
 import lila.appeal.Appeal as AppealModel
 import lila.report.Suspect
+import lila.core.misc.AppealTopic
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
@@ -46,14 +47,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         yield views.appeal.tree.page(me, playban, ublogIsVisible)
       case Some(a) => views.appeal.discussion(a, me, err | userForm)
 
-  def post = AuthBody { ctx ?=> me ?=>
+  def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     bindForm(userForm)(
       err => BadRequest.async(renderAppealOrTree(err.some)),
-      text => env.appeal.api.post(text).inject(Redirect(routes.Appeal.home).flashSuccess)
+      text => env.appeal.api.post(topic, text).inject(Redirect(routes.Appeal.home).flashSuccess)
     )
   }
 
-  def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
+  def modQueue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
     val filter = env.appeal.api.modFilter.fromQuery(filterStr)
     for
       appeals <- env.appeal.api.myQueue(filter)
@@ -65,14 +66,29 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield Ok(page)
   }
 
-  def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
-    asMod(username): (appeal, suspect) =>
+  def modHandle(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
+        val appealUrl = routes.Appeal.modShow(username, topic)
+        env.report.api.inquiries
+          .ongoingAppealOf(user.id)
+          .flatMap:
+            case Some(ongoing) if ongoing.mod.isnt(me) =>
+              for mod <- env.user.lightUserApi.asyncFallback(ongoing.mod)
+              yield Redirect(appealUrl).flashFailure(s"Currently processed by ${mod.name}")
+            case _ =>
+              for _ <- env.report.api.inquiries.appeal(user, topic)
+              yield Redirect(s"${appealUrl}#appeal-actions")
+  }
+
+  def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
+    asMod(username, topic): (appeal, suspect) =>
       getModData(suspect).flatMap: modData =>
         Ok.page(views.appeal.discussion.show(appeal, modForm, modData))
   }
 
-  def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me ?=>
-    asMod(username): (appeal, suspect) =>
+  def modReply(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
+    asMod(username, topic): (appeal, suspect) =>
       bindForm(modForm)(
         err =>
           getModData(suspect).flatMap: modData =>
@@ -84,9 +100,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             result <-
               if process then
                 env.report.api.inquiries
-                  .toggle(Right(appeal.userId))
-                  .inject(Redirect(routes.Appeal.queue()))
-              else Redirect(s"${routes.Appeal.show(username)}#appeal-actions").toFuccess
+                  .toggle(Right(appeal.user))
+                  .inject(Redirect(routes.Appeal.modQueue()))
+              else Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-actions").toFuccess
           yield result
       )
   }
@@ -109,35 +125,36 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       markedByMe = markedByMe
     )
 
-  def mute(username: UserStr) = Secure(_.Appeals) { _ ?=> _ ?=>
-    asMod(username): (appeal, _) =>
+  def mute(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
       for
         _ <- env.appeal.api.toggleMute(appeal)
-        _ <- env.report.api.inquiries.toggle(Right(appeal.userId))
-      yield Redirect(routes.Appeal.queue())
+        _ <- env.report.api.inquiries.toggle(Right(appeal.user))
+      yield Redirect(routes.Appeal.modQueue())
   }
 
-  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    asMod(username): (_, s) =>
+  def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
+    asMod(username, topic): (_, s) =>
       for _ <- env.irc.api.userAppeal(s.user.light)
       yield NoContent
   }
 
-  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { _ ?=> _ ?=>
-    asMod(username): (appeal, _) =>
+  def snooze(username: UserStr, topic: AppealTopic, dur: String) = Secure(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
       env.appeal.api.snooze(appeal.id, dur)
-      env.report.api.inquiries.toggle(Right(appeal.userId)).inject(Redirect(routes.Appeal.queue()))
+      for _ <- env.report.api.inquiries.toggle(Right(appeal.user))
+      yield Redirect(routes.Appeal.modQueue())
   }
 
   private def getPresets = env.mod.presets.appealPresets.get()
 
-  private def asMod(
-      username: UserStr
-  )(f: (AppealModel, Suspect) => Fu[Result])(using Context): Fu[Result] =
+  private def asMod(username: UserStr, topic: AppealTopic)(
+      f: (AppealModel, Suspect) => Fu[Result]
+  )(using Context): Fu[Result] =
     meOrFetch(username)
       .flatMapz: user =>
         env.appeal.api
-          .byId(user)
+          .find(user, topic)
           .flatMapz: appeal =>
             f(appeal, Suspect(user)).dmap(some)
       .flatMap(_.so(fuccess))

@@ -2,14 +2,14 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.id.AppealId
 import lila.core.user.UserMark
-import lila.ui.Icon
 import lila.core.perm.Granter
+import lila.ui.Icon
 
 case class Appeal(
-    @Key("_id") id: AppealId,
-    kind: Appeal.Kind,
+    @Key("_id") id: Appeal.Id,
+    user: UserId,
+    topic: AppealTopic,
     msgs: Vector[AppealMsg], // chronological order, oldest first
     status: Appeal.Status, // from the moderators POV
     createdAt: Instant,
@@ -18,14 +18,11 @@ case class Appeal(
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: Instant
 ):
-  def userId: UserId = id.into(UserId)
-  def isRead = status == Appeal.Status.Read
-  def isMuted = status == Appeal.Status.Muted
-  def isUnread = status == Appeal.Status.Unread
+  def isRead = status == Appeal.Status.read
+  def isMuted = status == Appeal.Status.muted
+  def isUnread = status == Appeal.Status.unread
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
-
-  def isAbout(userId: UserId) = id.is(userId)
 
   def post(text: String, by: UserId) =
     val msg = AppealMsg(by, text, nowInstant)
@@ -33,8 +30,8 @@ case class Appeal(
       msgs = msgs :+ msg,
       updatedAt = nowInstant,
       status =
-        if isByMod(msg) && isUnread then Appeal.Status.Read
-        else if !isByMod(msg) && isRead then Appeal.Status.Unread
+        if isByMod(msg) && isUnread then Appeal.Status.read
+        else if !isByMod(msg) && isRead then Appeal.Status.unread
         else status,
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
@@ -51,9 +48,9 @@ case class Appeal(
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength && recentCount < 3
 
-  def unread = copy(status = Appeal.Status.Unread)
-  def read = copy(status = Appeal.Status.Read)
-  def toggleMute = if isMuted then read else copy(status = Appeal.Status.Muted)
+  def unread = copy(status = Appeal.Status.unread)
+  def read = copy(status = Appeal.Status.read)
+  def toggleMute = if isMuted then read else copy(status = Appeal.Status.muted)
 
   lazy val mutedSince: Option[Instant] = isMuted.so:
     msgs.reverse.takeWhile(m => !isByMod(m)).lastOption.map(_.at)
@@ -62,16 +59,15 @@ case class Appeal(
 
 object Appeal:
 
-  given UserIdOf[Appeal] = _.id.userId
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
+  given UserIdOf[Appeal] = _.user
 
   enum Status:
-    val key = Status.this.toString.toLowerCase
-    case Unread, Read, Muted
+    case unread, read, muted
   object Status:
-    def apply(key: String) = values.find(_.key == key)
-
-  enum Kind:
-    case cheat, boost, comm, close, legacy
+    def apply(key: String) = values.find(_.toString == key)
 
   case class WithUser(appeal: Appeal, user: User)
 
@@ -91,7 +87,20 @@ object Appeal:
       "process" -> boolean
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: AppealId)
+  def make(topic: AppealTopic, text: String)(using me: Me) =
+    val now = nowInstant
+    Appeal(
+      id = Id(scalalib.ThreadLocalRandom.nextString(8)),
+      user = me.userId,
+      topic = topic,
+      msgs = Vector(AppealMsg(me, text, now)),
+      status = Status.unread,
+      createdAt = now,
+      updatedAt = now,
+      firstUnrepliedAt = now
+    )
+
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
   opaque type Filter = Option[UserMark]
@@ -112,8 +121,4 @@ object Appeal:
     val byName: Map[String, Filter] =
       UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
 
-case class AppealMsg(
-    by: UserId,
-    text: String,
-    at: Instant
-)
+case class AppealMsg(by: UserId, text: String, at: Instant)

@@ -338,24 +338,8 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
-        isAppeal
-          .so(env.report.api.inquiries.ongoingAppealOf(user.id))
-          .flatMap:
-            case Some(ongoing) if ongoing.mod != me.id =>
-              env.user.lightUserApi
-                .asyncFallback(ongoing.mod)
-                .map: mod =>
-                  Redirect(routes.Appeal.show(user.username))
-                    .flashFailure(s"Currently processed by ${mod.name}")
-            case _ =>
-              val f =
-                if isAppeal then env.report.api.inquiries.appeal
-                else env.report.api.inquiries.spontaneous
-              f(Suspect(user)).inject:
-                if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
-                else redirect(user.username, mod = true)
-      }
+      for _ <- env.report.api.inquiries.spontaneous(Suspect(user))
+      yield redirect(user.username, mod = true)
   }
 
   def gamify = Secure(_.GamifyView) { ctx ?=> _ ?=>

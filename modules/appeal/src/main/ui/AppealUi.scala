@@ -27,7 +27,7 @@ final class AppealUi(helpers: Helpers):
     else trans.appeal.cleanAllGood()
 
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
-    if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
+    if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
         userIdLink(UserId.lichess.some),
@@ -37,5 +37,5 @@ final class AppealUi(helpers: Helpers):
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
       strong(cls := "text inline")("Appeal status"),
-      strong(cls := "fat")(a(href := routes.Appeal.show(ap.userId))(ap.status.toString))
+      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.toString))
     )

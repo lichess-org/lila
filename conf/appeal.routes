@@ -1,10 +1,12 @@
 GET   /appeal                          controllers.appeal.Appeal.home
-POST  /appeal                          controllers.appeal.Appeal.post
+POST  /appeal/:topic                   controllers.appeal.Appeal.post(topic: AppealTopic)
 GET   /appeal/landing                  controllers.appeal.Appeal.landing
 GET   /appeal/closed-by-teacher        controllers.appeal.Appeal.closedByTeacher
-GET   /appeal/queue                    controllers.appeal.Appeal.queue(filter: Option[String] ?= None)
-GET   /appeal/:username                controllers.appeal.Appeal.show(username: UserStr)
-POST  /appeal/:username                controllers.appeal.Appeal.reply(username: UserStr)
-POST  /appeal/:username/mute           controllers.appeal.Appeal.mute(username: UserStr)
-POST  /appeal/:username/snooze/:dur    controllers.appeal.Appeal.snooze(username: UserStr, dur: String)
-POST  /appeal/:username/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: UserStr)
+GET   /appeal/queue                    controllers.appeal.Appeal.modQueue(filter: Option[String] ?= None)
+GET   /appeal/:username                       controllers.appeal.Appeal.modShowAll(username: UserStr)
+GET   /appeal/:username/:topic                controllers.appeal.Appeal.modShow(username: UserStr, topic: AppealTopic)
+POST  /appeal/:username/:topic/handle         controllers.appeal.Appeal.modHandle(username: UserStr, topic: AppealTopic)
+POST  /appeal/:username/:topic/reply          controllers.appeal.Appeal.modReply(username: UserStr, topic: AppealTopic)
+POST  /appeal/:username/:topic/mute           controllers.appeal.Appeal.mute(username: UserStr, topic: AppealTopic)
+POST  /appeal/:username/:topic/snooze/:dur    controllers.appeal.Appeal.snooze(username: UserStr, topic: AppealTopic, dur: String)
+POST  /appeal/:username/:topic/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: UserStr, topic: AppealTopic)

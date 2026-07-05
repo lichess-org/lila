@@ -162,7 +162,8 @@ final class ModInquiryUi(helpers: Helpers)(
         "Comms"
       )
     ,
-    in.report.isAppeal.option(a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal"))
+    in.report.appealTopic.map: topic =>
+      a(href := routes.Appeal.modShow(in.user.id, topic))("View", br, "Appeal")
   )
 
   private def markButtons(in: Inquiry, presets: Map[Permission, List[ModPreset]])(using Me) = frag(
@@ -223,10 +224,10 @@ final class ModInquiryUi(helpers: Helpers)(
       div(
         Granter(_.SendToZulip).option:
           val url =
-            if in.report.isAppeal then routes.Appeal.sendToZulip(in.user.username)
-            else routes.Mod.inquiryToZulip
-          postForm(action := url):
-            submitButton(cls := "fbt")("Send to Zulip")
+            in.report.appealTopic match
+              case Some(topic) => routes.Appeal.sendToZulip(in.user.username, topic)
+              case None => routes.Mod.inquiryToZulip
+          postForm(action := url)(submitButton(cls := "fbt")("Send to Zulip"))
         ,
         Granter(_.SendToZulip).option:
           postForm(action := routes.Mod.askUsertableCheck(in.user.username)):
@@ -272,9 +273,10 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def autoNextInput = form3.hidden("next", "1")(cls := "auto-next")
 
-  private def snoozeUrl(report: Report, duration: String): String =
-    if report.isAppeal then routes.Appeal.snooze(report.user, duration).url
-    else routes.Report.snooze(report.id, duration).url
+  private def snoozeUrl(report: Report, duration: String): Call =
+    report.appealTopic match
+      case Some(topic) => routes.Appeal.snooze(report.user, topic, duration)
+      case None => routes.Report.snooze(report.id, duration)
 
   private def boostOpponents(
       report: Report,

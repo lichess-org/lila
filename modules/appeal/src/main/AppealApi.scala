@@ -1,7 +1,7 @@
 package lila.appeal
 
 import lila.appeal.Appeal.Filter
-import lila.core.id.AppealId
+import lila.appeal.Appeal.Id as AppealId
 import lila.core.user.{ UserMark, UserRepo }
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
@@ -16,28 +16,17 @@ final class AppealApi(
 
   def byId[U: UserIdOf](u: U): Fu[Option[Appeal]] = coll.byId[Appeal](u.id)
 
+  def find[U: UserIdOf](u: U, topic: AppealTopic): Fu[Option[Appeal]] =
+    coll.find($doc("user" -> u.id, "topic" -> topic)).one[Appeal]
+
   def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
 
   def exists(user: User) = coll.exists($id(user.id))
 
-  def post(text: String)(using me: Me) =
-    byId(me).flatMap:
+  def post(topic: AppealTopic, text: String)(using me: Me) =
+    find(me, topic).flatMap:
       case None =>
-        val appeal =
-          Appeal(
-            id = me.userId.into(AppealId),
-            msgs = Vector(
-              AppealMsg(
-                by = me,
-                text = text,
-                at = nowInstant
-              )
-            ),
-            status = Appeal.Status.Unread,
-            createdAt = nowInstant,
-            updatedAt = nowInstant,
-            firstUnrepliedAt = nowInstant
-          )
+        val appeal = Appeal.make(topic, text)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
         val appeal = prev.post(text, me)
@@ -47,7 +36,7 @@ final class AppealApi(
     val appeal = prev.post(text, me)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
-  def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
+  def countUnread = coll.countSel($doc("status" -> Appeal.Status.unread))
 
   def logsOf(since: Instant, mod: ModId): Fu[List[(UserId, AppealMsg)]] =
     coll
@@ -68,22 +57,20 @@ final class AppealApi(
         yield userId -> msg
 
   def myQueue(filter: Option[Filter])(using me: Me) =
-    bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId.userId))
+    bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId))
 
   private def bothQueues(
       filter: Option[Filter],
-      exceptIds: Iterable[UserId]
+      exceptIds: Iterable[AppealId]
   ): Fu[List[Appeal.WithUser]] =
     fetchQueue(
-      selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
-        exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds)))
-      },
+      selector = $doc("status" -> Appeal.Status.unread) ++ exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds))),
       filter = filter,
       ascending = true,
       nb = 50
     ).flatMap { unreads =>
       fetchQueue(
-        selector = $doc("status".$ne(Appeal.Status.Unread.key)),
+        selector = $doc("status".$ne(Appeal.Status.unread)),
         filter = filter,
         ascending = false,
         nb = 60 - unreads.size
@@ -140,8 +127,8 @@ final class AppealApi(
   def setReadById(userId: UserId) =
     byId(userId).flatMapz(setRead)
 
-  def setUnreadById(userId: UserId) =
-    byId(userId).flatMapz(setUnread)
+  def setUnreadBy(userId: UserId, topic: AppealTopic): Funit =
+    find(userId, topic).flatMapz(setUnread)
 
   def onAccountClose(user: User) = setReadById(user.id)
 

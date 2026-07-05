@@ -7,7 +7,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
-    newAppeal: String => Context ?=> Frag
+    newAppeal: AppealTopic => String => Context ?=> Frag
 ):
   import helpers.{ *, given }
 

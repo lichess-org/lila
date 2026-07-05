@@ -46,21 +46,13 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
-    api.inquiries
-      .toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
-      .flatMap: (prev, next) =>
-        prev
-          .filter(_.isAppeal)
-          .map(_.user)
-          .so(env.appeal.api.setUnreadById)
-          .inject(
-            next.fold(
-              Redirect:
-                if prev.exists(_.isAppeal)
-                then routes.Appeal.queue()
-                else routes.Report.list
-            )(onInquiryStart)
-          )
+    for
+      (prev, next) <- api.inquiries.toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
+      appeal = prev.flatMap(p => p.appealTopic.map(p.user -> _))
+      _ <- appeal.so(env.appeal.api.setUnreadBy)
+    yield next.fold(
+      Redirect(if appeal.isDefined then routes.Appeal.modQueue() else routes.Report.list)
+    )(onInquiryStart)
   }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
@@ -93,7 +85,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
-        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.modQueue())
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
