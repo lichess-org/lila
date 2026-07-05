@@ -32,6 +32,14 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
     text = "Moderator appeal presets".some
   )
 
+  def filterAppealPresets(topic: AppealTopic): AppealPresets = ModPresets:
+    appealPresets
+      .get()
+      .value
+      .filter: p =>
+        p.tags.contains(topic) || p.tags.contains("any")
+      .sortBy(_.tags.contains("any"))
+
   def get(group: ModPresets.Group): SettingStore[ModPresets[?]] = group match
     case ModPresets.Group.PM => pmPresets.asInstanceOf[SettingStore[ModPresets[?]]]
     case ModPresets.Group.appeal => appealPresets.asInstanceOf[SettingStore[ModPresets[?]]]

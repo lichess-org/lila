@@ -138,25 +138,31 @@ object discussion:
   ) =
     postForm(st.action := action)(
       form3.globalError(form),
-      form3.group(
-        form("text"),
-        if isNew then "Create an appeal" else "Add something to the appeal",
-        help = (!isGranted(_.Appeals)).option(frag("Please be concise. Maximum 1000 chars."))
-      )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthForMe)),
+      form3.split(
+        presets.map: ps =>
+          div(cls := "appeal-presets form-group form-half")(
+            ps.value.map: preset =>
+              button(
+                tpe := "button",
+                st.value := preset.text,
+                st.title := preset.text
+              )(preset.name)
+          ),
+        form3.group(
+          form("text"),
+          if isNew then "Create an appeal" else "Add something to the appeal",
+          help = (!isGranted(_.Appeals)).option(frag("Please be concise. Maximum 1000 chars.")),
+          half = true
+        )(f =>
+          form3.textarea(f.copy(constraints = Seq.empty))(
+            rows := (if presets.isDefined then 15 else 6),
+            maxlength := Appeal.maxLengthForMe
+          )
+        )
+      ),
       presets
         .map: ps =>
           form3.actions(
-            div(
-              select(cls := "appeal-presets")(
-                st.option(st.value := "")("Presets"),
-                ps.value.map: preset =>
-                  st.option(
-                    st.value := preset.text,
-                    st.title := preset.text
-                  )(preset.name)
-              ),
-              isGranted(_.Presets).option(a(href := routes.Mod.presets("appeal"))("Edit presets"))
-            ),
             form3.submit(
               "Send and process appeal",
               nameValue = ("process" -> true.toString).some

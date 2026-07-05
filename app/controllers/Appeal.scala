@@ -83,7 +83,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
-      getModData(suspect).flatMap: modData =>
+      getModData(appeal, suspect).flatMap: modData =>
         Ok.page(views.appeal.discussion.show(appeal, modForm, modData))
   }
 
@@ -99,7 +99,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     asMod(username, topic): (appeal, suspect) =>
       bindForm(modForm)(
         err =>
-          getModData(suspect).flatMap: modData =>
+          getModData(appeal, suspect).flatMap: modData =>
             BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
         (text, process) =>
           for
@@ -115,7 +115,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       )
   }
 
-  private def getModData(suspect: Suspect)(using Context)(using me: Me) =
+  private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for
       users <- env.security.userLogins(suspect.user, 100)
       logins <- userC.loginsTableData(suspect.user, users, 100)
@@ -125,7 +125,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield views.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
-      presets = getPresets,
+      presets = env.mod.presets.filterAppealPresets(appeal.topic),
       logins = logins,
       appeals = appeals,
       renderIp = env.mod.ipRender.apply,
@@ -153,8 +153,6 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       for _ <- env.report.api.inquiries.toggle(Right(appeal.user))
       yield Redirect(routes.Appeal.modQueue())
   }
-
-  private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(username: UserStr, topic: AppealTopic)(
       f: (AppealModel, Suspect) => Fu[Result]
