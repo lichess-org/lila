@@ -2,8 +2,7 @@ import type { estypes } from '@elastic/elasticsearch';
 import type { Db, Filter, Sort } from 'mongodb';
 
 export type IndexName = 'forum' | 'ublog' | 'team' | 'study' | 'game';
-export type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
-export type JsonDoc = Record<string, JsonValue>;
+export type JsonDoc = Record<string, any>;
 export type MongoDoc = { _id: string } & Record<string, any>;
 export type Properties = Record<string, estypes.MappingProperty>;
 export type Operations = { toUpsert: { id: string; doc: JsonDoc }[]; toDelete: string[] };

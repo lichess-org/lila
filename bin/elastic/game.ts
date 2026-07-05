@@ -160,11 +160,11 @@ function durationSeconds(
   return seconds < 60 * 60 * 12 ? seconds : 60 * 60 * 12 + 1;
 }
 
-// not seeing any chess960 position selector in the advanced search UI, but it was in lila-search so
+// not seeing any chess960 position selector in the advanced search UI, but this was in lila-search so
 function chess960Position(fen: string | undefined) {
   if (!fen) return undefined;
   const row = fen.split(' ')[0]?.split('/')[0]?.toLowerCase();
-  if (!row || row.length !== 8) return undefined;
+  if (row?.length !== 8) return undefined;
   const pieces = [...row];
   const bishopSquares = pieces.flatMap((piece, i) => (piece === 'b' ? [i] : []));
   const evenBishop = bishopSquares.find(i => i % 2 === 0);
