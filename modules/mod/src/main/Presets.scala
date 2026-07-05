@@ -20,7 +20,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   def permissionsByName(name: String): Set[Permission] =
     pmPresets.get().value.find(_.name == name).so(_.tags)
 
-  private lazy val pmPresets = settingStore[ModPresets[Permission]](
+  lazy val pmPresets = settingStore[ModPresets[Permission]](
     "modPmPresets",
     default = ModPresets(Nil),
     text = "Moderator PM presets".some
@@ -40,9 +40,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
         p.tags.contains(topic) || p.tags.contains("any")
       .sortBy(_.tags.contains("any"))
 
-  def get(group: ModPresets.Group): SettingStore[ModPresets[?]] = group match
-    case ModPresets.Group.PM => pmPresets.asInstanceOf[SettingStore[ModPresets[?]]]
-    case ModPresets.Group.appeal => appealPresets.asInstanceOf[SettingStore[ModPresets[?]]]
+  def get(group: ModPresets.Group): SettingStore[ModPresets[group.Tag]] = group.get(this)
 
   def setKidModePreset: Option[PmPreset] =
     pmPresets.get().value.find(_.name == "Account set to kid mode")
@@ -63,10 +61,21 @@ case class ModPreset[T](name: String, text: String, tags: Set[T]):
 
 object ModPresets:
 
-  enum Group:
-    case PM, appeal
+  sealed trait Group:
+    type Tag
+    def key: String
+    def get(api: ModPresetsApi): SettingStore[ModPresets[Tag]]
   object Group:
-    val byKey = values.mapBy(_.toString)
+    case object PM extends Group:
+      type Tag = Permission
+      val key = "PM"
+      def get(api: ModPresetsApi) = api.pmPresets
+    case object appeal extends Group:
+      type Tag = AppealPresetTag
+      val key = "appeal"
+      def get(api: ModPresetsApi) = api.appealPresets
+    val values = List(PM, appeal)
+    val byKey = values.mapBy(_.key)
 
   val nameClosePresetName = "Account closure for name in 48h"
 
