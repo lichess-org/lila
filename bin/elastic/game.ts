@@ -1,4 +1,4 @@
-import type { AnyDoc as JsonDoc, IndexSchema, Properties, Mapping, MongoDoc } from './types.ts';
+import type { JsonDoc, IndexSchema, Properties, Mapping, MongoDoc } from './types.ts';
 
 export function getIndexSchema(): IndexSchema {
   return {
