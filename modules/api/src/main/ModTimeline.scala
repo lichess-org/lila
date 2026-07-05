@@ -13,7 +13,7 @@ import lila.core.shutup.PublicLine
 case class ModTimeline(
     user: User,
     modLog: List[Modlog],
-    appeal: Option[Appeal],
+    appeals: List[Appeal],
     notes: List[Note],
     reports: List[Report],
     playbanRecord: Option[lila.playban.UserRecord]
@@ -22,9 +22,7 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap(reportAtoms)
-    val appealMsgs: List[Event] = appeal.so: a =>
-      a.msgs.toList.takeWhile: msg =>
-        a.mutedSince.fold(true)(msg.at.isBefore)
+    val appealMsgs: List[Event] = appeals.flatMap(_.msgs.toList)
     val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
     val accountCreation: List[Event] = List(AccountCreation(user.createdAt))
     val concat: List[Event] =
@@ -153,14 +151,14 @@ final class ModTimelineApi(
     for
       modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
       modLog = modLogAll.filter(filterModLog)
-      appeal <- Granter(_.Appeals).so(appealApi.byId(user))
+      appeals <- Granter(_.Appeals).so(appealApi.findAll(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
       notes = notesAll.filter(filterNote)
       loadReports = Granter(_.SeeReport) && me.isnt(user)
       reportsAll <- loadReports.so(reportApi.allReportsAbout(user, Max(50)))
       reports = reportsAll.filter(filterReport)
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
-    yield ModTimeline(user, modLog, appeal, notes, reports, playban)
+    yield ModTimeline(user, modLog, appeals, notes, reports, playban)
 
   private def filterModLog(l: Modlog): Boolean =
     if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false

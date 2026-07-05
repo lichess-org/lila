@@ -39,3 +39,15 @@ final class AppealUi(helpers: Helpers):
       strong(cls := "text inline")("Appeal status"),
       strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.toString))
     )
+
+  def list(user: User, appeals: List[Appeal])(using Context) =
+    page(s"Appeals by ${user.username}"):
+      main(cls := "box box-pad appeal")(
+        h1("Appeals by ", userIdLink(user.some)),
+        ul(cls := "appeal-list")(appeals.map: ap =>
+          li(
+            a(href := routes.Appeal.modShow(ap.user, ap.topic))(
+              s"${ap.topic} (${ap.status})"
+            )
+          ))
+      )

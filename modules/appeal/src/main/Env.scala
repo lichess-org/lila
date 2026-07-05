@@ -11,7 +11,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using Executor)(using scheduler: Scheduler):
 
-  private val coll = db(CollName("appeal"))
+  private val coll = db(CollName("appeal2"))
 
   private lazy val snoozer = lila.memo.Snoozer[Appeal.SnoozeKey]("appeal.snooze", cacheApi)
 

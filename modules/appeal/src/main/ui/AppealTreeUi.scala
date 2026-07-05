@@ -40,7 +40,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
               br,
               "If you still want to file an appeal, use the following form:"
             ),
-            newAppeal("")
+            newAppeal(AppealTopic.warning)("")
           )
         ),
         Leaf(
@@ -76,7 +76,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           accept,
           frag(
             sendUsAnAppeal,
-            newAppeal(s"$accept I am sorry and I would like another chance.")
+            newAppeal(AppealTopic.cheat)(s"$accept I am sorry and I would like another chance.")
           )
         ),
         Leaf(
@@ -95,7 +95,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             p(
               "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
             ),
-            newAppeal(deny)
+            newAppeal(AppealTopic.cheat)(deny)
           )
         )
       ),
@@ -119,7 +119,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           accept,
           frag(
             sendUsAnAppeal,
-            newAppeal(acceptFull)
+            newAppeal(AppealTopic.boost)(acceptFull)
           )
         ),
         Leaf(
@@ -127,7 +127,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(denyFull)
+            newAppeal(AppealTopic.boost)(denyFull)
           )
         )
       ),
@@ -156,7 +156,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
               ". I will behave better in future, please give me another chance."
             ),
             sendUsAnAppeal,
-            newAppeal(acceptFull)
+            newAppeal(AppealTopic.comm)(acceptFull)
           )
         ),
         Leaf(
@@ -164,7 +164,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(AppealTopic.comm)(deny)
           )
         )
       ),
@@ -188,7 +188,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           accept,
           frag(
             sendUsAnAppeal,
-            newAppeal(accept)
+            newAppeal(AppealTopic.rank)(accept)
           )
         ),
         Leaf(
@@ -196,7 +196,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(AppealTopic.rank)(deny)
           )
         )
       ),
@@ -216,7 +216,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           noPlay,
           frag(
             sendUsAnAppeal,
-            newAppeal(noPlay)
+            newAppeal(AppealTopic.arena)(noPlay)
           )
         ),
         Leaf(
@@ -224,7 +224,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           noStart,
           frag(
             sendUsAnAppeal,
-            newAppeal(noStart)
+            newAppeal(AppealTopic.arena)(noStart)
           )
         ),
         Leaf(
@@ -232,7 +232,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(AppealTopic.arena)(deny)
           )
         )
       )
@@ -252,7 +252,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           accept,
           frag(
             sendUsAnAppeal,
-            newAppeal(accept)
+            newAppeal(AppealTopic.blog)(accept)
           )
         ),
         Leaf(
@@ -260,7 +260,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(AppealTopic.blog)(deny)
           )
         )
       ),
@@ -279,7 +279,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           prizebanExpired,
           frag(
             sendUsAnAppeal,
-            newAppeal(prizebanExpired)
+            newAppeal(AppealTopic.prize)(prizebanExpired)
           )
         ),
         Leaf(
@@ -287,7 +287,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(AppealTopic.prize)(deny)
           )
         )
       )
@@ -351,7 +351,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         "If you never violated the terms of service, and didn't make several accounts, then you can appeal this account closure:"
       )
     ),
-    newAppeal("")
+    newAppeal(AppealTopic.close)("")
   )
 
   def page(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: Context) =

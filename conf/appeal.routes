@@ -7,6 +7,6 @@ GET   /appeal/:username                       controllers.appeal.Appeal.modShowA
 GET   /appeal/:username/:topic                controllers.appeal.Appeal.modShow(username: UserStr, topic: AppealTopic)
 POST  /appeal/:username/:topic/handle         controllers.appeal.Appeal.modHandle(username: UserStr, topic: AppealTopic)
 POST  /appeal/:username/:topic/reply          controllers.appeal.Appeal.modReply(username: UserStr, topic: AppealTopic)
-POST  /appeal/:username/:topic/mute           controllers.appeal.Appeal.mute(username: UserStr, topic: AppealTopic)
+POST  /appeal/:username/:topic/close          controllers.appeal.Appeal.toggleClosed(username: UserStr, topic: AppealTopic)
 POST  /appeal/:username/:topic/snooze/:dur    controllers.appeal.Appeal.snooze(username: UserStr, topic: AppealTopic, dur: String)
 POST  /appeal/:username/:topic/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: UserStr, topic: AppealTopic)

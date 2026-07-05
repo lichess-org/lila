@@ -40,26 +40,25 @@ object discussion:
         div(cls := "appeal__actions", id := "appeal-actions")(
           modData.inquiry match
             case None =>
-              postForm(action := s"${routes.Mod.spontaneousInquiry(appeal.userId)}?appeal=1")(
+              postForm(action := routes.Appeal.modHandle(appeal.user, appeal.topic))(
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
-              postForm(action := routes.Appeal.mute(modData.suspect.user.username))(
-                if appeal.isMuted then
-                  submitButton("Un-mute")(
-                    title := "Be notified about user replies again",
+              postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic))(
+                if appeal.isClosed then
+                  submitButton("Re-open")(
                     cls := "button button-green button-thin"
                   )
                 else
-                  submitButton("Mute")(
-                    title := "Don't be notified about user replies",
+                  submitButton("Close")(
+                    title := "Close this appeal",
                     cls := "button button-red button-thin"
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
-            action := routes.Appeal.sendToZulip(modData.suspect.user.id),
+            action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),
             cls := "appeal__actions__slack"
           )(
             submitButton(cls := "button button-thin")("Send to Zulip")
@@ -76,20 +75,20 @@ object discussion:
       h1(
         div(cls := "title")(
           "Appeal",
-          as.isLeft.option(frag(" by ", userIdLink(appeal.id.some)))
+          as.isLeft.option(frag(" by ", userIdLink(appeal.user.some)))
         ),
         as.isLeft.option(
           div(cls := "actions")(
             a(
               cls := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(appeal.userId),
+              href := routes.User.mod(appeal.user),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := Icon.Agent
             )
           )
         )
       ),
-      as.toOption.map(user => h2(ui.renderMark(user))),
+      as.toOption.map(user => h2(cls := "appeal__mark")(ui.renderMark(user))),
       as.left.toOption.map: m =>
         given RenderIp = m.renderIp
         frag(
@@ -124,8 +123,8 @@ object discussion:
               renderForm(
                 textForm,
                 action =
-                  if as.isLeft then routes.Appeal.reply(appeal.userId).url
-                  else routes.Appeal.post.url,
+                  if as.isLeft then routes.Appeal.modReply(appeal.user, appeal.topic)
+                  else routes.Appeal.post(appeal.topic),
                 isNew = false,
                 presets = as.left.toOption.map(_.presets)
               )
@@ -133,7 +132,7 @@ object discussion:
       )
     )
 
-  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
+  def renderForm(form: Form[?], action: Call, isNew: Boolean, presets: Option[ModPresets])(using
       Translate,
       Option[Me]
   ) =

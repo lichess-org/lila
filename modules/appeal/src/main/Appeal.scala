@@ -19,10 +19,12 @@ case class Appeal(
     firstUnrepliedAt: Instant
 ):
   def isRead = status == Appeal.Status.read
-  def isMuted = status == Appeal.Status.muted
   def isUnread = status == Appeal.Status.unread
+  def isClosed = status == Appeal.Status.closed
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
+
+  def toggleClosed = if isClosed then read else copy(status = Appeal.Status.closed)
 
   def post(text: String, by: UserId) =
     val msg = AppealMsg(by, text, nowInstant)
@@ -50,10 +52,6 @@ case class Appeal(
 
   def unread = copy(status = Appeal.Status.unread)
   def read = copy(status = Appeal.Status.read)
-  def toggleMute = if isMuted then read else copy(status = Appeal.Status.muted)
-
-  lazy val mutedSince: Option[Instant] = isMuted.so:
-    msgs.reverse.takeWhile(m => !isByMod(m)).lastOption.map(_.at)
 
   def isByMod(msg: AppealMsg) = msg.by != id
 
@@ -65,7 +63,7 @@ object Appeal:
   given UserIdOf[Appeal] = _.user
 
   enum Status:
-    case unread, read, muted
+    case unread, read, closed
   object Status:
     def apply(key: String) = values.find(_.toString == key)
 

@@ -9,7 +9,7 @@ lazy val tree = lila.appeal.ui.AppealTreeUi(helpers, ui)(topic =>
     _ ?=>
       discussion.renderForm(
         lila.appeal.Appeal.form.fill(preset),
-        action = routes.Appeal.post.url,
+        action = routes.Appeal.post(topic),
         isNew = true,
         presets = none
       )

@@ -6,6 +6,9 @@
       font-size: 1.5rem;
     }
   }
+  &__mark {
+    margin: 1em 0;
+  }
 
   .mz-section--others {
     margin-bottom: 3em;
@@ -32,6 +35,7 @@
   }
 
   &__msg {
+    @extend %box-neat;
     padding: 1.5em;
     margin-bottom: 2em;
 

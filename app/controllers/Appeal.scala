@@ -36,7 +36,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
   )(using Context)(using me: Me) = env.appeal.api
-    .byId(me)
+    .currentBy(me)
     .flatMap:
       case None =>
         for
@@ -68,7 +68,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def modHandle(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      Found(env.appeal.api.find(user, topic)): appeal =>
+      Found(env.appeal.api.find(user, topic)): _ =>
         val appealUrl = routes.Appeal.modShow(username, topic)
         env.report.api.inquiries
           .ongoingAppealOf(user.id)
@@ -85,6 +85,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     asMod(username, topic): (appeal, suspect) =>
       getModData(suspect).flatMap: modData =>
         Ok.page(views.appeal.discussion.show(appeal, modForm, modData))
+  }
+
+  def modShowAll(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
+    Found(meOrFetch(username)): user =>
+      for
+        appeals <- env.appeal.api.findAll(user)
+        page <- Ok.page(views.appeal.ui.list(user, appeals))
+      yield page
   }
 
   def modReply(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
@@ -125,10 +133,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       markedByMe = markedByMe
     )
 
-  def mute(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { _ ?=> _ ?=>
+  def toggleClosed(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { _ ?=> _ ?=>
     asMod(username, topic): (appeal, _) =>
       for
-        _ <- env.appeal.api.toggleMute(appeal)
+        _ <- env.appeal.api.toggleClosed(appeal)
         _ <- env.report.api.inquiries.toggle(Right(appeal.user))
       yield Redirect(routes.Appeal.modQueue())
   }

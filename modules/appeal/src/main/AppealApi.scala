@@ -14,10 +14,17 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def byId[U: UserIdOf](u: U): Fu[Option[Appeal]] = coll.byId[Appeal](u.id)
+  def currentBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
+    findAll(u).map(_.find(_.isClosed.not))
+
+  def latestBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
+    findAll(u).map(_.headOption)
 
   def find[U: UserIdOf](u: U, topic: AppealTopic): Fu[Option[Appeal]] =
     coll.find($doc("user" -> u.id, "topic" -> topic)).one[Appeal]
+
+  def findAll[U: UserIdOf](u: U): Fu[List[Appeal]] =
+    coll.find($doc("user" -> u.id)).sort($sort.desc("updatedAt")).cursor[Appeal]().listAll()
 
   def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
 
@@ -121,11 +128,13 @@ final class AppealApi(
   def setUnread(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.unread).void
 
-  def toggleMute(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.toggleMute).void
+  def toggleClosed(appeal: Appeal) =
+    coll.update.one($id(appeal.id), appeal.toggleClosed).void
 
-  def setReadById(userId: UserId) =
-    byId(userId).flatMapz(setRead)
+  def setReadById(userId: UserId) = for
+    appeals <- findAll(userId)
+    _ <- appeals.sequentiallyVoid(setRead)
+  yield ()
 
   def setUnreadBy(userId: UserId, topic: AppealTopic): Funit =
     find(userId, topic).flatMapz(setUnread)

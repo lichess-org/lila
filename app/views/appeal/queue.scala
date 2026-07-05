@@ -29,10 +29,10 @@ object queue:
           appeals.map { case Appeal.WithUser(appeal, user) =>
             tr(cls := List("new" -> appeal.isUnread))(
               td(
-                userIdLink(appeal.id.some, params = "?mod"),
+                userIdLink(appeal.user.some, params = "?mod"),
                 br,
                 markedByMe
-                  .contains(appeal.userId)
+                  .contains(appeal.user)
                   .option(
                     span(
                       dataIcon := Icon.CautionTriangle,
@@ -49,10 +49,11 @@ object queue:
                   p(shorten(msg.text, 200))
                 )),
               td(
-                a(href := routes.Appeal.show(appeal.userId), cls := "button button-empty")("View"),
-                inquiries.get(appeal.userId).map { i =>
-                  frag(userIdLink(i.mod.some), nbsp, "is handling this")
-                }
+                a(href := routes.Appeal.modShow(appeal.user, appeal.topic), cls := "button button-empty")(
+                  "View"
+                ),
+                for i <- inquiries.get(appeal.user)
+                yield frag(userIdLink(i.mod.some), nbsp, "is handling this")
               )
             )
           }
@@ -64,7 +65,7 @@ object queue:
       Filter.allWithIcon.map: (filter, icon) =>
         a(
           cls := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
-          href := routes.Appeal.queue(
+          href := routes.Appeal.modQueue(
             current.fold(filter.some)(_.toggle(filter)).fold("reset")(_.key).some
           ),
           dataIcon := icon.left.toOption
