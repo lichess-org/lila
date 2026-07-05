@@ -8,6 +8,7 @@
   <string name="advanced">Edasijõudnutele</string>
   <string name="lengths">Pikkused</string>
   <string name="mates">Matid</string>
+  <string name="mateThemes">Matt-teemad</string>
   <string name="goals">Eesmärgid</string>
   <string name="origin">Allikas</string>
   <string name="specialMoves">Erilised käigud</string>
@@ -27,6 +28,9 @@
   <string name="keepGoing">Jätka samas vaimus…</string>
   <string name="puzzleSuccess">Edukas!</string>
   <string name="puzzleComplete">Pusle lahendatud!</string>
+  <string name="byOpenings">Avangute kaupa</string>
+  <string name="puzzlesByOpenings">Pusled avangute kaupa</string>
+  <string name="openingsYouPlayedTheMost">Avangud, mida oled reitingumängudes kõige sagedamini mänginud</string>
   <string name="notTheMove">See ei ole õige käik!</string>
   <string name="trySomethingElse">Proovi midagi muud.</string>
   <string name="ratingX">Reiting: %s</string>
