@@ -78,7 +78,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
           )
         )
 
-  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using Context) =
+  def kick(t: Team, form: Form[List[UserId]], blocklistForm: Form[String])(using Context) =
     TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
       .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):

@@ -567,10 +567,7 @@ final class Study(
   def setTopics = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.topicsForm)(
       _ => Redirect(routes.Study.topics),
-      topics =>
-        import com.fasterxml.jackson.core.JsonParseException
-        try env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
-        catch case e: JsonParseException => BadRequest(e.getMessage)
+      topics => env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
     )
   }
 

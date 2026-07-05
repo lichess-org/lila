@@ -3,6 +3,7 @@ package lila.gathering
 import scalalib.model.Days
 import chess.IntRating
 
+import lila.core.LightUser
 import lila.core.LightUser.Me
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam.TeamName
@@ -134,6 +135,8 @@ object Condition:
       else Refused { _ => "Your name is not in the tournament line-up." }
     def userIds: Set[UserId] = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
+    def allows(u: LightUser): Boolean =
+      userIds.contains(u.id) || (allowAnyTitledUser && u.title.isDefined)
 
   case class WithVerdicts(list: List[WithVerdict]):
     def accepted = list.forall(_.verdict.accepted)
