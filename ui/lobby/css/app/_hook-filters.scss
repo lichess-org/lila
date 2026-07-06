@@ -4,6 +4,10 @@
   height: 100%;
   display: block;
 
+  table {
+    width: 100%;
+  }
+
   td {
     padding: 1em 0;
   }
@@ -18,45 +22,41 @@
   .checkable {
     display: flex;
     padding: 4px 2px 4px 0;
+    gap: 6px;
 
     label {
       display: inline-flex;
-      align-items: center;
-      gap: 2px;
       cursor: pointer;
+      line-height: 16px;
     }
 
-    input {
-      cursor: pointer;
-    }
-  }
+    input[type='checkbox'] {
+      @extend %checkbox;
 
-  .regular-checkbox {
-    @extend %checkbox;
+      position: relative;
+      border-radius: calc($box-radius-size / 2);
 
-    position: relative;
-    border-radius: calc($box-radius-size / 2);
-
-    &:hover {
-      border-color: $c-border-light;
-    }
-
-    &:checked {
       &:hover {
-        border-color: $c-good;
+        border-color: $c-border-light;
       }
 
-      &::after {
-        border: 1.5px solid #fff;
-        border-top: none;
-        border-right: none;
-        content: '';
-        width: 8px;
-        height: 4.5px;
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        transform: translate(-50%, -62%) rotate(-45deg);
+      &:checked {
+        &:hover {
+          border-color: $c-good;
+        }
+
+        &::after {
+          border: 1.5px solid #fff;
+          border-top: none;
+          border-right: none;
+          content: '';
+          width: 8px;
+          height: 4.5px;
+          left: 50%;
+          top: 50%;
+          position: absolute;
+          transform: translate(-50%, -62%) rotate(-45deg);
+        }
       }
     }
   }
@@ -72,12 +72,8 @@
   }
 
   tr.inline .checkable {
-    display: inline-block;
+    display: inline-flex;
     padding: 6px 20px 2px 0;
-  }
-
-  input {
-    margin-inline-end: 0.3em;
   }
 
   .range {
