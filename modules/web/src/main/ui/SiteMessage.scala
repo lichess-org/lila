@@ -32,7 +32,7 @@ final class SiteMessage(helpers: Helpers):
 
   def noLame(using me: Me) =
     if me.marks.boost then noBooster
-    if me.marks.engine then noEngine
+    else if me.marks.engine then noEngine
     else // ?
       apply("Restricted area"):
         p("Sorry, the access to this resource is restricted.")
