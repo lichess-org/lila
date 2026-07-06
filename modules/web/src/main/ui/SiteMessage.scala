@@ -18,7 +18,7 @@ final class SiteMessage(helpers: Helpers):
             title
           )
         ),
-        frag(body)
+        body
       )
 
   def noBot = apply("No bot area"):
