@@ -105,7 +105,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
+      const shift = -winningChances.povDiff(root.practiceColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
@@ -138,7 +138,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     };
   }
 
-  const isMyTurn = (): boolean => root.turnColor() === root.bottomColor();
+  const isMyTurn = (): boolean => root.turnColor() === root.practiceColor();
 
   function checkCeval() {
     const node = root.node;

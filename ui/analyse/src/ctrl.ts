@@ -324,6 +324,10 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
   }
 
+  practiceColor(): Color {
+    return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
+  }
+
   bottomIsWhite = () => this.bottomColor() === 'white';
 
   getOrientation(): Color {
