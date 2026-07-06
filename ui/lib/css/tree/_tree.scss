@@ -62,7 +62,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.active {
     color: white;
-    background: color-mix(var(--c-base) 85%, transparent);
+    background: color-mix(in oklab, var(--c-base) 85%, transparent);
 
     shapes,
     eval,
@@ -100,12 +100,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.pending-deletion {
     border-radius: unset;
-    background: color-mix($c-bad 30%, transparent) !important;
+    background: color-mix(in oklab, $c-bad 30%, transparent) !important;
   }
 
   &.pending-copy {
     border-radius: unset;
-    background: color-mix($c-good 30%, transparent) !important;
+    background: color-mix(in oklab, $c-good 30%, transparent) !important;
   }
 }
 
@@ -395,7 +395,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   .mainline {
     font-weight: bold;
-    background: color-mix($c-clearer 4%, transparent);
+    background: color-mix(in oklab, $c-clearer 4%, transparent);
   }
 
   move {
@@ -433,7 +433,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 @media (hover: hover) {
   .tview2 move:not(.active):hover {
     background: $c-bg-zebra2;
-    background: color-mix(var(--c-base) 15%, transparent);
+    background: color-mix(in oklab, var(--c-base) 15%, transparent);
     color: $c-font-clear;
 
     eval,
@@ -457,5 +457,11 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   .tview2 move:hover .disclosure:hover {
     background-color: $c-font-dim;
     cursor: pointer;
+  }
+}
+
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .tview2 move.active {
+    background: $c-primary;
   }
 }

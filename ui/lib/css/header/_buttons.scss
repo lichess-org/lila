@@ -114,7 +114,7 @@
     }
 
     a:hover {
-      color: color-mix($c-bad 80%, $c-clearer);
+      color: color-mix(in oklab, $c-bad 80%, $c-clearer);
     }
   }
 
@@ -133,7 +133,7 @@
     @include transition(color);
     @extend %data-icon;
 
-    color: color-mix($c-font 85%, $c-dimmer);
+    color: color-mix(in oklab, $c-font 85%, $c-dimmer);
     content: $licon-AccountCircle;
     font-size: 2rem;
     margin-left: 0.5rem;

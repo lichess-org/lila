@@ -15,10 +15,10 @@
   --c-lpv-font-accent: #{$c-font};
   --c-lpv-font-shy: #{$c-font-dim};
   --c-lpv-accent-over: #{$c-over};
-  --c-lpv-fbt-hover: #{color-mix($c-primary 75%, $c-bg)};
-  --c-lpv-font-bg: #{color-mix($c-font 20%, $c-bg)};
-  --c-lpv-current-move: #{color-mix($c-primary 70%, $c-bg)};
-  --c-lpv-move-hover: #{color-mix($c-primary 30%, $c-bg)};
+  --c-lpv-fbt-hover: #{color-mix(in oklab, $c-primary 75%, $c-bg)};
+  --c-lpv-font-bg: #{color-mix(in oklab, $c-font 20%, $c-bg)};
+  --c-lpv-current-move: #{color-mix(in oklab, $c-primary 70%, $c-bg)};
+  --c-lpv-move-hover: #{color-mix(in oklab, $c-primary 30%, $c-bg)};
   --c-lpv-border: #{$c-border};
   --c-lpv-side-border: #{$c-border-page};
   --c-lpv-inaccuracy: #{$c-inaccuracy};
@@ -27,12 +27,12 @@
   --c-lpv-good-move: #{$c-good};
   --c-lpv-brilliant: #{$c-brilliant};
   --c-lpv-interesting: #{$c-interesting};
-  --c-lpv-bg-inaccuracy-hover: #{color-mix($c-inaccuracy 30%, $c-bg)};
-  --c-lpv-bg-mistake-hover: #{color-mix($c-mistake 30%, $c-bg)};
-  --c-lpv-bg-blunder-hover: #{color-mix($c-blunder 30%, $c-bg)};
-  --c-lpv-bg-good-hover: #{color-mix($c-good 30%, $c-bg)};
-  --c-lpv-bg-brilliant-hover: #{color-mix($c-brilliant 30%, $c-bg)};
-  --c-lpv-bg-interesting-hover: #{color-mix($c-interesting 30%, $c-bg)};
+  --c-lpv-bg-inaccuracy-hover: #{color-mix(in oklab, $c-inaccuracy 30%, $c-bg)};
+  --c-lpv-bg-mistake-hover: #{color-mix(in oklab, $c-mistake 30%, $c-bg)};
+  --c-lpv-bg-blunder-hover: #{color-mix(in oklab, $c-blunder 30%, $c-bg)};
+  --c-lpv-bg-good-hover: #{color-mix(in oklab, $c-good 30%, $c-bg)};
+  --c-lpv-bg-brilliant-hover: #{color-mix(in oklab, $c-brilliant 30%, $c-bg)};
+  --c-lpv-bg-interesting-hover: #{color-mix(in oklab, $c-interesting 30%, $c-bg)};
 
   @include if-transp {
     --c-lpv-bg-pane: #{rgb(from $c-body-gradient r g b / calc(alpha * 0.85))};

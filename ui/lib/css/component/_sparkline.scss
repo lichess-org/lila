@@ -1,7 +1,7 @@
 /* line with highlight area */
 .sparkline {
   stroke: $c-primary;
-  fill: color-mix($c-primary 20%, $c-bg);
+  fill: color-mix(in oklab, $c-primary 20%, $c-bg);
 }
 
 div.sparkline-box {
@@ -10,7 +10,7 @@ div.sparkline-box {
 
 span.sparkline-tooltip {
   position: absolute;
-  background: color-mix($c-primary 20%, $c-bg);
+  background: color-mix(in oklab, $c-primary 20%, $c-bg);
   color: $c-primary;
   border: 0.2rem solid $c-primary;
   border-radius: 0.4rem;

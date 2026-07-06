@@ -4,11 +4,11 @@
   }
 
   50% {
-    background: color-mix($c-secondary 30%, $c-bg);
+    background: color-mix(in oklab, $c-secondary 30%, $c-bg);
   }
 
   60% {
-    background: color-mix($c-primary 30%, $c-bg);
+    background: color-mix(in oklab, $c-primary 30%, $c-bg);
   }
 
   70% {

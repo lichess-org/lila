@@ -24,11 +24,11 @@
     padding-bottom: 1rem;
 
     .sticky {
-      background: color-mix($c-secondary 12%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 12%, $c-bg);
     }
 
     .sticky:nth-child(even) {
-      background: color-mix($c-secondary 12%, $c-bg-zebra);
+      background: color-mix(in oklab, $c-secondary 12%, $c-bg-zebra);
     }
 
     .bar {

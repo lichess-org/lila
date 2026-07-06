@@ -11,7 +11,7 @@
     @extend %box-radius;
 
     border: 1px solid $c-error;
-    background: color-mix($c-bad 10%, $c-bg);
+    background: color-mix(in oklab, $c-bad 10%, $c-bg);
   }
 
   .challenge {

@@ -195,7 +195,7 @@
     }
 
     &.me {
-      background: color-mix($c-primary 80%, $c-bg);
+      background: color-mix(in oklab, $c-primary 80%, $c-bg);
     }
 
     @keyframes rubber-band {
@@ -270,7 +270,7 @@
     }
 
     &.fbt:not(.disabled):hover {
-      background: color-mix($c-primary 70%, $c-bg);
+      background: color-mix(in oklab, $c-primary 70%, $c-bg);
       color: #fff;
       animation: none;
     }
@@ -288,7 +288,7 @@
       height: 6rem;
       border: 0;
       opacity: 0.7;
-      background: color-mix($c-bad 50%, $c-bg);
+      background: color-mix(in oklab, $c-bad 50%, $c-bg);
 
       @include transition;
 

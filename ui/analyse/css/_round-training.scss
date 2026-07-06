@@ -50,7 +50,7 @@
       color: $c-inaccuracy;
 
       &:hover {
-        color: color-mix($c-inaccuracy 70%, $c-font);
+        color: color-mix(in oklab, $c-inaccuracy 70%, $c-font);
       }
     }
 
@@ -58,7 +58,7 @@
       color: $c-mistake;
 
       &:hover {
-        color: color-mix($c-mistake 70%, $c-font);
+        color: color-mix(in oklab, $c-mistake 70%, $c-font);
       }
     }
 
@@ -66,7 +66,7 @@
       color: $c-blunder;
 
       &:hover {
-        color: color-mix($c-blunder 70%, $c-font);
+        color: color-mix(in oklab, $c-blunder 70%, $c-font);
       }
     }
   }

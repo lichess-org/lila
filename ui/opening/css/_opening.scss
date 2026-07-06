@@ -29,7 +29,7 @@
   &__warning {
     @extend %box-neat;
 
-    background: color-mix($c-brag 20%, $c-bg);
+    background: color-mix(in oklab, $c-brag 20%, $c-bg);
     border: 1px solid $c-brag;
     padding: 1em 2em;
   }
@@ -37,7 +37,7 @@
   &__error {
     @extend %box-neat;
 
-    background: color-mix($c-bad 20%, $c-bg);
+    background: color-mix(in oklab, $c-bad 20%, $c-bg);
     border: 1px solid $c-error;
     padding: 1em 2em;
   }

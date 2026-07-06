@@ -36,7 +36,7 @@
         color: $c-font-clearer !important;
       }
 
-      background: color-mix($c-primary 20%, $c-bg);
+      background: color-mix(in oklab, $c-primary 20%, $c-bg);
     }
   }
 }

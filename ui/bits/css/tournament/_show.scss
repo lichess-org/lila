@@ -72,7 +72,7 @@
 
     a {
       /* GM wikipedia */
-      color: color-mix($c-primary 35%, $c-font);
+      color: color-mix(in oklab, $c-primary 35%, $c-font);
 
       &:hover {
         color: $c-link;
@@ -140,7 +140,7 @@
       }
 
       &:hover {
-        background: color-mix($c-primary 10%, $c-bg);
+        background: color-mix(in oklab, $c-primary 10%, $c-bg);
       }
     }
 

@@ -59,7 +59,7 @@
   day {
     @extend %roboto;
 
-    background: color-mix($c-primary 15%, $c-bg);
+    background: color-mix(in oklab, $c-primary 15%, $c-bg);
     align-self: center;
     font-size: 0.9em;
     color: $c-font;
@@ -69,7 +69,7 @@
 
   mine {
     align-self: flex-end;
-    background: color-mix($c-secondary 15%, $c-bg);
+    background: color-mix(in oklab, $c-secondary 15%, $c-bg);
 
     &:first-child {
       border-top-right-radius: 0;
@@ -78,7 +78,7 @@
 
   their {
     align-self: flex-start;
-    background: color-mix($c-brag 15%, $c-bg);
+    background: color-mix(in oklab, $c-brag 15%, $c-bg);
 
     &:first-child {
       border-top-left-radius: 0;
@@ -127,6 +127,30 @@
 
     .button {
       text-transform: none;
+    }
+  }
+
+  @supports not (color: color-mix(red, blue)) {
+    --c-mine: #2f3425;
+    --c-their: #3b3125;
+    --c-day: #2c343c;
+
+    @include if-light {
+      --c-mine: #e6efdf;
+      --c-their: #faefe1;
+      --c-day: #dfebf9;
+    }
+
+    mine {
+      background-color: var(--c-mine);
+    }
+
+    their {
+      background-color: var(--c-their);
+    }
+
+    day {
+      background-color: var(--c-day);
     }
   }
 }

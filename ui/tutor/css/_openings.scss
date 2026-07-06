@@ -49,11 +49,11 @@
         }
 
         &.good {
-          background: color-mix($c-secondary 20%, $c-bg-zebra);
+          background: color-mix(in oklab, $c-secondary 20%, $c-bg-zebra);
         }
 
         &.bad {
-          background: color-mix($c-bad 20%, $c-bg-zebra);
+          background: color-mix(in oklab, $c-bad 20%, $c-bg-zebra);
         }
       }
     }

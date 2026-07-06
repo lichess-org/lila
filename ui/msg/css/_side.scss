@@ -56,12 +56,12 @@
       cursor: pointer;
 
       &:hover {
-        background: color-mix($c-secondary 15%, $c-bg);
+        background: color-mix(in oklab, $c-secondary 15%, $c-bg);
       }
 
       &:active,
       &.active {
-        background: color-mix($c-secondary 30%, $c-bg);
+        background: color-mix(in oklab, $c-secondary 30%, $c-bg);
       }
 
       .user-link {
