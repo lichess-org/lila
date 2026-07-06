@@ -60,12 +60,12 @@ final class StudyUi(helpers: Helpers):
           div(
             h2(trans.study.myStudies()),
             if owner.nonEmpty then owner.map(studyButton)
-            else p(cls:= "placeholder")(trans.site.none())
+            else p(cls := "placeholder")(trans.site.none())
           ),
           div(
             h2(trans.study.studiesIContributeTo()),
             if contrib.nonEmpty then contrib.map(studyButton)
-            else p(cls:= "placeholder")(trans.site.none())
+            else p(cls := "placeholder")(trans.site.none())
           )
         )
       )
