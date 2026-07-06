@@ -152,25 +152,14 @@ object discussion:
           form("text"),
           if isNew then "Create an appeal" else "Add something to the appeal",
           help = (!isGranted(_.Appeals)).option(frag("Please be concise. Maximum 1000 chars.")),
-          half = true
+          half = presets.isDefined
         )(f =>
           form3.textarea(f.copy(constraints = Seq.empty))(
             rows := (if presets.isDefined then 15 else 6),
             maxlength := Appeal.maxLengthForMe
           )
-        )
+        )(cls := "appeal-textarea")
       ),
-      presets
-        .map: ps =>
-          form3.actions(
-            form3.submit(
-              "Send and process appeal",
-              nameValue = ("process" -> true.toString).some
-            ),
-            form3.submit(
-              trans.site.send(),
-              nameValue = ("process" -> false.toString).some
-            )
-          )
-        .getOrElse(form3.submit(trans.site.send()))
+      form3.action:
+        form3.submit(trans.site.send())
     )

@@ -96,14 +96,19 @@
 
   .appeal-presets {
     @extend %flex-column;
+    flex: 0 1 50ch;
     margin-bottom: 0;
     button {
-      @extend %box-radius;
+      @extend %box-radius-left;
       padding: 0.4em 1em;
       &:hover {
         background: $c-bg-zebra;
+        color: $c-font-clearer;
       }
     }
+  }
+  .appeal-textarea {
+    flex: 2 1 auto;
   }
 
   &__rules {

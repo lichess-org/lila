@@ -80,10 +80,7 @@ object Appeal:
     single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
 
   val modForm = Form:
-    tuple(
-      "text" -> lila.common.Form.cleanNonEmptyText,
-      "process" -> boolean
-    )
+    single("text" -> lila.common.Form.cleanNonEmptyText)
 
   def make(topic: AppealTopic, text: String)(using me: Me) =
     val now = nowInstant

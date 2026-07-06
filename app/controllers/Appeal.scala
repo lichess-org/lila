@@ -101,17 +101,12 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         err =>
           getModData(appeal, suspect).flatMap: modData =>
             BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
-        (text, process) =>
+        text =>
           for
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
             _ <- env.appeal.api.reply(text, appeal)
-            result <-
-              if process then
-                env.report.api.inquiries
-                  .toggle(Right(appeal.user))
-                  .inject(Redirect(routes.Appeal.modQueue()))
-              else Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-actions").toFuccess
-          yield result
+            _ <- env.report.api.inquiries.toggle(Right(appeal.user))
+          yield Redirect(routes.Appeal.modQueue())
       )
   }
 
