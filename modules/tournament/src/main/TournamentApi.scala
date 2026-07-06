@@ -643,7 +643,7 @@ final class TournamentApi(
   def notableFinished = cached.notableFinishedCache.get {}
 
   private def scheduledCreatedAndStarted =
-    tournamentRepo.scheduledCreated(Minutes(6)).zip(tournamentRepo.scheduledStarted)
+    tournamentRepo.scheduledCreated(Minutes(6 * 60)).zip(tournamentRepo.scheduledStarted)
 
   // when loading /tournament
   def fetchVisibleTournaments: Fu[VisibleTournaments] =

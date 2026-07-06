@@ -16,7 +16,7 @@ final class TournamentFeaturing(
   object tourIndex:
     def get(teamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
       (base, scheduled) <- sameForEveryone.get(())
-      teamTours <- visibleForTeams(teamIds, Minutes(5), "index", Max(30))
+      teamTours <- visibleForTeams(teamIds, Minutes(5 * 60), "index", Max(30))
       forMe = base.add(teamTours)
     yield (scheduled, forMe)
 
@@ -32,7 +32,7 @@ final class TournamentFeaturing(
 
     def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
       base <- sameForEveryone.get(())
-      teamTours <- visibleForTeams(teamIds, Minutes(3), "homepage", Max(3))
+      teamTours <- visibleForTeams(teamIds, Minutes(3 * 60), "homepage", Max(3))
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] =
