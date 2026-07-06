@@ -10,8 +10,10 @@
 
 Generated AI code can be accepted, under some conditions:
 
+- [Install lichess](https://github.com/lichess-org/lila/wiki) so that you can manually run and test your changes.
+- If you fix a bug, first reproduce it yourself - don't just make the AI write a test.
 - Carefully review and understand all the code you submit, and be able to explain it if asked.
-- Provide proof of manual testing of the changes, with screenshots or ideally a video.
+- Provide proof of human testing of the changes, with screenshots or ideally a video.
 - Include in the pull-request message, or in commit messages, the prompts you used to generate the code, and the AI tool you used.
 
 ### General guidelines for pull requests
