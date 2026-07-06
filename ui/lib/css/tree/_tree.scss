@@ -459,3 +459,9 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     cursor: pointer;
   }
 }
+
+@supports not (color: color-mix(red, blue)) {
+  .tview2 move.active {
+    background: $c-primary;
+  }
+}
