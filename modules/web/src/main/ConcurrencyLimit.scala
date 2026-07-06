@@ -19,7 +19,7 @@ final class ConcurrencyLimit[K](
 
   def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
-      lila.memo.RateLimit.logger.info(s"concurrency $k $msg")
+      lila.memo.RateLimit.logger.info(s"concurrency $key $k $msg")
       monitor.increment()
       none
     else
