@@ -54,15 +54,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     )
   }
 
-  def modQueue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
-    val filter = env.appeal.api.modFilter.fromQuery(filterStr)
+  def modQueue = Secure(_.Appeals) { ctx ?=> me ?=>
+    val topic = env.appeal.api.topicFilter(get("topic"))
     for
-      appeals <- env.appeal.api.myQueue(filter)
+      appeals <- env.appeal.api.myQueue(topic)
       inquiries <- env.report.api.inquiries.allBySuspect
       (scores, pending) <- reportC.getScores
       _ <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
       markedByMap <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
-      page <- renderPage(views.appeal.queue(appeals, inquiries, filter, markedByMap, scores, pending))
+      page <- renderPage(views.appeal.queue(appeals, inquiries, topic, markedByMap, scores, pending))
     yield Ok(page)
   }
 
@@ -106,7 +106,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
             _ <- env.appeal.api.reply(text, appeal)
             _ <- env.report.api.inquiries.toggle(Right(appeal.user))
-          yield Redirect(routes.Appeal.modQueue())
+          yield Redirect(routes.Appeal.modQueue)
       )
   }
 
@@ -133,7 +133,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       for
         _ <- env.appeal.api.toggleClosed(appeal)
         _ <- env.report.api.inquiries.toggle(Right(appeal.user))
-      yield Redirect(routes.Appeal.modQueue())
+      yield Redirect(routes.Appeal.modQueue)
   }
 
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
@@ -146,7 +146,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     asMod(username, topic): (appeal, _) =>
       env.appeal.api.snooze(appeal.id, dur)
       for _ <- env.report.api.inquiries.toggle(Right(appeal.user))
-      yield Redirect(routes.Appeal.modQueue())
+      yield Redirect(routes.Appeal.modQueue)
   }
 
   private def asMod(username: UserStr, topic: AppealTopic)(

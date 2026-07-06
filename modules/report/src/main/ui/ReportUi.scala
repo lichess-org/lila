@@ -228,7 +228,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     .toList,
                   Granter(_.Appeals).option(
                     a(
-                      href := routes.Appeal.modQueue(),
+                      href := routes.Appeal.modQueue,
                       cls := List("new" -> true, "active" -> (filter == "appeal"))
                     )(
                       countTag(pending.appeals),

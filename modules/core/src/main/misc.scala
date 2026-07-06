@@ -69,6 +69,7 @@ case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang:
 
 enum AppealTopic:
   case cheat, boost, comm, close, play, rank, arena, blog, prize, ip, streamer, warning, legacy
+  def key = toString
 object AppealTopic:
   def byKey = values.mapBy(_.toString)
 

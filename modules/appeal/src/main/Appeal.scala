@@ -2,9 +2,7 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.user.UserMark
 import lila.core.perm.Granter
-import lila.ui.Icon
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,
@@ -64,10 +62,9 @@ object Appeal:
 
   enum Status:
     case unread, read, closed
+    def key = toString
   object Status:
-    def apply(key: String) = values.find(_.toString == key)
-
-  case class WithUser(appeal: Appeal, user: User)
+    def apply(key: String) = values.find(_.key == key)
 
   val maxLength = 1100
   val maxLengthClient = 1000
@@ -97,23 +94,5 @@ object Appeal:
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
-
-  opaque type Filter = Option[UserMark]
-  object Filter extends TotalWrapper[Filter, Option[UserMark]]:
-    given Eq[Filter] = Eq.fromUniversalEquals
-    extension (filter: Filter)
-      def toggle(to: Filter) = (to != filter).option(to)
-      def is(mark: UserMark) = filter.contains(mark)
-      def key = filter.fold("clean")(_.key)
-
-    val allWithIcon = List[(Filter, Either[Icon, String])](
-      UserMark.troll.some -> Left(Icon.BubbleSpeech),
-      UserMark.boost.some -> Left(Icon.LineGraph),
-      UserMark.engine.some -> Left(Icon.Cogs),
-      UserMark.alt.some -> Right("A"),
-      none -> Left(Icon.User)
-    )
-    val byName: Map[String, Filter] =
-      UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
 
 case class AppealMsg(by: UserId, text: String, at: Instant)

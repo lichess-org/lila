@@ -147,3 +147,10 @@
     color: $c-bad;
   }
 }
+
+.appeal-topic {
+  @extend %box-neat;
+  border: $border;
+  padding: 0.2em 0.5em;
+  margin: 0.1em;
+}

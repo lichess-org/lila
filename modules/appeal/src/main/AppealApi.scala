@@ -1,14 +1,11 @@
 package lila.appeal
 
-import lila.appeal.Appeal.Filter
 import lila.appeal.Appeal.Id as AppealId
-import lila.core.user.{ UserMark, UserRepo }
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 
 final class AppealApi(
     coll: Coll,
-    userRepo: UserRepo,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(using Executor):
 
@@ -63,64 +60,13 @@ final class AppealApi(
           msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
-  def myQueue(filter: Option[Filter])(using me: Me) =
-    bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId))
-
-  private def bothQueues(
-      filter: Option[Filter],
-      exceptIds: Iterable[AppealId]
-  ): Fu[List[Appeal.WithUser]] =
-    fetchQueue(
-      selector = $doc("status" -> Appeal.Status.unread) ++ exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds))),
-      filter = filter,
-      ascending = true,
-      nb = 50
-    ).flatMap { unreads =>
-      fetchQueue(
-        selector = $doc("status".$ne(Appeal.Status.unread)),
-        filter = filter,
-        ascending = false,
-        nb = 60 - unreads.size
-      ).map { unreads ::: _ }
-    }
-
-  private def fetchQueue(
-      selector: Bdoc,
-      filter: Option[Filter],
-      ascending: Boolean,
-      nb: Int
-  ): Fu[List[Appeal.WithUser]] =
-    coll
-      .aggregateList(maxDocs = nb, _.sec): framework =>
-        import framework.*
-        Match(selector) -> List(
-          Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
-          Limit(nb * 20),
-          PipelineOperator:
-            $lookup.simple(
-              from = userRepo.coll,
-              as = "user",
-              local = "_id",
-              foreign = "_id",
-              pipe = filter.so(f => List($doc("$match" -> filterSelector(f))))
-            )
-          ,
-          Limit(nb),
-          UnwindField("user")
-        )
-      .map: docs =>
-        import userRepo.userHandler
-        for
-          doc <- docs
-          appeal <- doc.asOpt[Appeal]
-          user <- doc.getAsOpt[User]("user")
-        yield Appeal.WithUser(appeal, user)
-
-  def filterSelector(filter: Filter) =
-    import lila.core.user.BSONFields as F
-    filter.value match
-      case Some(mark) => $doc(F.marks.$in(List(mark.key)))
-      case None => $doc(F.marks.$nin(UserMark.bannable))
+  def myQueue(topic: Option[AppealTopic], nb: Int = 50)(using me: Me): Fu[List[Appeal]] =
+    val snoozedIds = snoozer.snoozedKeysOf(me.userId).map(_.appealId)
+    val selector =
+      $doc("status" -> Appeal.Status.unread) ++
+        snoozedIds.nonEmpty.so($doc("_id".$nin(snoozedIds))) ++
+        topic.so(t => $doc("topic" -> t))
+    coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void
@@ -144,10 +90,13 @@ final class AppealApi(
   def snooze(appealId: AppealId, duration: String)(using mod: Me): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
-  object modFilter:
-    private var store = Map.empty[UserId, Option[Filter]]
-    def fromQuery(str: Option[String])(using me: Me): Option[Filter] =
-      if str.has("reset") then store = store - me.userId
-      val filter = str.map(Filter.byName.get) | store.get(me.userId).flatten
-      store = store + (me.userId -> filter)
-      filter
+  object topicFilter:
+    private var store = Map.empty[UserId, AppealTopic]
+    def apply(str: Option[String])(using me: Me): Option[AppealTopic] =
+      if str.contains("all") then store = store - me.userId
+      else
+        str
+          .flatMap(AppealTopic.byKey.get)
+          .foreach: topic =>
+            store = store + (me.userId -> topic)
+      store.get(me.userId)

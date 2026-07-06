@@ -74,7 +74,8 @@ object discussion:
     frag(
       h1(
         div(cls := "title")(
-          "Appeal",
+          span(cls := "appeal-topic")(appeal.topic.key),
+          " appeal",
           as.isLeft.option(frag(" by ", userIdLink(appeal.user.some)))
         ),
         as.isLeft.option(

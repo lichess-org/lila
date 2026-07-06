@@ -5,11 +5,7 @@ import com.softwaremill.macwire.*
 import lila.core.config.*
 
 @Module
-final class Env(
-    db: lila.db.Db,
-    userRepo: lila.core.user.UserRepo,
-    cacheApi: lila.memo.CacheApi
-)(using Executor)(using scheduler: Scheduler):
+final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(using scheduler: Scheduler):
 
   private val coll = db(CollName("appeal2"))
 

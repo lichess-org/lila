@@ -11,7 +11,7 @@ private object BsonHandlers:
   given BSONHandler[Status] = stringAnyValHandler(_.toString, t => Status(t) | Status.read)
 
   given BSONHandler[AppealTopic] =
-    stringAnyValHandler(_.toString, t => AppealTopic.byKey.getOrElse(t, AppealTopic.legacy))
+    stringAnyValHandler(_.key, t => AppealTopic.byKey.getOrElse(t, AppealTopic.legacy))
 
   given BSONDocumentHandler[AppealMsg] = Macros.handler
   given BSONDocumentHandler[Appeal] = Macros.handler

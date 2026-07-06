@@ -51,7 +51,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       appeal = prev.flatMap(p => p.appealTopic.map(p.user -> _))
       _ <- appeal.so(env.appeal.api.setUnreadBy)
     yield next.fold(
-      Redirect(if appeal.isDefined then routes.Appeal.modQueue() else routes.Report.list)
+      Redirect(if appeal.isDefined then routes.Appeal.modQueue else routes.Report.list)
     )(onInquiryStart)
   }
 
@@ -85,7 +85,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
-        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.modQueue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.modQueue)
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
