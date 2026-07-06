@@ -129,4 +129,28 @@
       text-transform: none;
     }
   }
+
+  @supports not (color: color-mix(red, blue)) {
+    --c-mine: #2f3425;
+    --c-their: #3b3125;
+    --c-day: #2c343c;
+
+    @include if-light {
+      --c-mine: #e6efdf;
+      --c-their: #faefe1;
+      --c-day: #dfebf9;
+    }
+
+    mine {
+      background-color: var(--c-mine);
+    }
+
+    their {
+      background-color: var(--c-their);
+    }
+
+    day {
+      background-color: var(--c-day);
+    }
+  }
 }
