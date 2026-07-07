@@ -44,7 +44,7 @@ object discussion:
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
-              postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic))(
+              postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, !appeal.isClosed))(
                 if appeal.isClosed then
                   submitButton("Re-open")(
                     cls := "button button-green button-empty"

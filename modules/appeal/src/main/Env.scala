@@ -3,6 +3,7 @@ package lila.appeal
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
+import lila.common.Bus
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(using scheduler: Scheduler):
@@ -15,3 +16,14 @@ final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(us
 
   scheduler.scheduleWithFixedDelay(55.minutes, 1.hour): () =>
     api.countUnread.foreach(lila.mon.mod.queueStatus("appeal", 40).update(_))
+
+  Bus.sub[lila.core.mod.MarkBooster]: m =>
+    api.toggleClosed(m.userId, AppealTopic.boost, m.value.not)
+  Bus.sub[lila.core.mod.MarkCheater]: m =>
+    api.toggleClosed(m.userId, AppealTopic.cheat, m.value.not)
+  Bus.sub[lila.core.mod.Shadowban]: m =>
+    api.toggleClosed(m.userId, AppealTopic.comm, m.value.not)
+  Bus.sub[lila.core.security.CloseAccount]: m =>
+    api.toggleClosedAllOf(m.userId, true)
+  Bus.sub[lila.core.security.ReopenAccount]: m =>
+    api.toggleClosed(m.user.id, AppealTopic.close, false)

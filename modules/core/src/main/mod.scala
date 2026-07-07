@@ -20,9 +20,9 @@ trait ModApi:
   def autoMark(suspectId: report.SuspectId, note: String)(using MyId): Funit
 
 case class MarkCheater(userId: UserId, value: Boolean)
-case class MarkBooster(userId: UserId)
+case class MarkBooster(userId: UserId, value: Boolean)
 case class ChatTimeout(mod: UserId, user: UserId, reason: TimeoutReason, text: String)
-case class Shadowban(user: UserId, value: Boolean)
+case class Shadowban(userId: UserId, value: Boolean)
 case class KickFromRankings(userId: UserId)
 case class AutoWarning(userId: UserId, subject: String)
 case class Impersonate(modId: ModId, userId: UserId, v: Boolean)

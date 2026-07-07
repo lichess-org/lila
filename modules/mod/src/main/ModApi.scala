@@ -67,9 +67,8 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.boost, v)))
         _ <- logApi.booster(sus, v)
       yield
-        if v then
-          Bus.pub(lila.core.mod.MarkBooster(sus.user.id))
-          notifier.reporters(me.modId, sus)
+        Bus.pub(lila.core.mod.MarkBooster(sus.user.id, v))
+        if v then notifier.reporters(me.modId, sus)
         sus
 
   def setTroll(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =

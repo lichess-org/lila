@@ -113,7 +113,7 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) => disable(userId.value)
+    case lila.core.mod.MarkBooster(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => disable(userId.value)
 

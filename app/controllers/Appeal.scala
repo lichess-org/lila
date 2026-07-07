@@ -128,10 +128,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       markedByMe = markedByMe
     )
 
-  def toggleClosed(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { _ ?=> _ ?=>
+  def toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean) = Secure(_.Appeals) { _ ?=> _ ?=>
     asMod(username, topic): (appeal, _) =>
       for
-        _ <- env.appeal.api.toggleClosed(appeal)
+        _ <- env.appeal.api.toggleClosed(appeal, v)
         _ <- env.report.api.inquiries.toggle(Right(appeal.user))
       yield Redirect(routes.Appeal.modQueue)
   }

@@ -74,8 +74,14 @@ final class AppealApi(
   def setUnread(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.unread).void
 
-  def toggleClosed(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.toggleClosed).void
+  def toggleClosed(appeal: Appeal, v: Boolean): Funit =
+    coll.update.one($id(appeal.id), appeal.toggleClosed(v)).void
+
+  def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean): Funit =
+    find(user, topic).flatMapz(toggleClosed(_, v))
+
+  def toggleClosedAllOf(user: UserId, v: Boolean): Funit =
+    findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v)))
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)

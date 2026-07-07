@@ -22,7 +22,7 @@ case class Appeal(
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
-  def toggleClosed = if isClosed then read else copy(status = Appeal.Status.closed)
+  def toggleClosed(v: Boolean) = if v then copy(status = Appeal.Status.closed) else read
 
   def post(text: String, by: UserId) =
     val msg = AppealMsg(by, text, nowInstant)
