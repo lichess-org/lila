@@ -47,12 +47,12 @@ object discussion:
               postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic))(
                 if appeal.isClosed then
                   submitButton("Re-open")(
-                    cls := "button button-green button-thin"
+                    cls := "button button-green button-empty"
                   )
                 else
                   submitButton("Close")(
                     title := "Close this appeal",
-                    cls := "button button-red button-thin"
+                    cls := "button button-red button-empty"
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
@@ -61,7 +61,7 @@ object discussion:
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),
             cls := "appeal__actions__slack"
           )(
-            submitButton(cls := "button button-thin")("Send to Zulip")
+            submitButton(cls := "button button-empty")("Send to Zulip")
           )
         )
       )
