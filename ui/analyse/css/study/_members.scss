@@ -83,12 +83,9 @@
   }
 
   .add {
-    @extend %roboto;
-
-    &:hover icon {
-      color: $c-link;
+    icon {
+      font-size: 1em;
       opacity: 1;
-      transition: none;
     }
   }
 
