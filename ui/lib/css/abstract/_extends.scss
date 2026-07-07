@@ -85,20 +85,20 @@
 %metal-inverse {
   background: linear-gradient(
     to bottom,
-    color-mix($c-clearer 80%, $c-bg-page),
-    color-mix($c-clearer 75%, $c-body-gradient)
+    color-mix(in oklab, $c-clearer 80%, $c-bg-page),
+    color-mix(in oklab, $c-clearer 75%, $c-body-gradient)
   );
-  color: color-mix($c-dimmer 60%, $c-font);
+  color: color-mix(in oklab, $c-dimmer 60%, $c-font);
   text-shadow: 0 1px 0 $c-clearer;
 }
 
 %metal-inverse-hover {
   background: linear-gradient(
     to bottom,
-    color-mix($c-clearer 70%, $c-bg-page),
-    color-mix($c-clearer 65%, $c-body-gradient)
+    color-mix(in oklab, $c-clearer 70%, $c-bg-page),
+    color-mix(in oklab, $c-clearer 65%, $c-body-gradient)
   );
-  color: color-mix($c-dimmer 90%, $c-font);
+  color: color-mix(in oklab, $c-dimmer 90%, $c-font);
   text-shadow: 0 1px 0 $c-clearer;
 }
 
@@ -141,7 +141,7 @@
 %active-hover {
   @extend %active-inset-shadow;
 
-  background: color-mix($c-accent 80%, white);
+  background: color-mix(in oklab, $c-accent 80%, white);
 }
 
 %active-soft {

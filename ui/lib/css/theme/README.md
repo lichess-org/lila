@@ -44,7 +44,7 @@ syntax, and `calc` to derive your color at page render time in a theme-friendly 
 for example:
 
 ```scss
-  color: color-mix($c-primary 30%, $c-font) // a mix of 30% var(--c-primary) and 70% var(--c-font)
+  color: color-mix(in oklab,$c-primary 30%, $c-font) // a mix of 30% var(--c-primary) and 70% var(--c-font)
   background-color: hsl(from $c-bg h s calc(l + 20)) // equivalent to scss lighten($c-bg, 20%)
 ```
 

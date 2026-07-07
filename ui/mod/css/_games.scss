@@ -11,11 +11,11 @@
   }
 
   good.result {
-    background: color-mix($c-secondary 50%, $c-bg);
+    background: color-mix(in oklab, $c-secondary 50%, $c-bg);
   }
 
   bad.result {
-    background: color-mix($c-bad 50%, $c-bg);
+    background: color-mix(in oklab, $c-bad 50%, $c-bg);
   }
 
   td.input {

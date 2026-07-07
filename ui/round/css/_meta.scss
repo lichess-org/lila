@@ -45,7 +45,7 @@
 
     abbr {
       text-decoration: none;
-      color: color-mix($c-primary 50%, $c-font);
+      color: color-mix(in oklab, $c-primary 50%, $c-font);
     }
   }
 

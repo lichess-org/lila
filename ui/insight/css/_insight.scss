@@ -238,7 +238,7 @@
     }
 
     a:hover {
-      background: color-mix($c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
     }
 
     a:hover::before {
@@ -294,7 +294,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: color-mix($c-accent 20%, $c-bg);
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
     }
 
     ul > li label.optgroup {
@@ -368,7 +368,7 @@
       @extend %flex-column;
     }
 
-    background: color-mix($c-primary 10%, $c-bg);
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
     border: 1px solid $c-primary;
     margin-bottom: 1em;
   }
@@ -417,7 +417,7 @@
       }
 
       &:hover {
-        background: color-mix($c-accent 20%, $c-bg);
+        background: color-mix(in oklab, $c-accent 20%, $c-bg);
       }
     }
 

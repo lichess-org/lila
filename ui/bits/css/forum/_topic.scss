@@ -10,7 +10,7 @@
 
       border-radius: 20px;
       padding: 1rem;
-      background: color-mix($c-bad 15%, $c-bg);
+      background: color-mix(in oklab, $c-bad 15%, $c-bg);
       border: 1px solid $c-error;
       text-align: center;
       font-size: 1.3em;

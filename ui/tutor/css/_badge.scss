@@ -6,14 +6,14 @@
   padding: 0.5em 1em;
 
   &--time {
-    background: color-mix($c-brag 20%, $c-bg);
+    background: color-mix(in oklab, $c-brag 20%, $c-bg);
   }
 
   &--meta {
-    background: color-mix($c-good 20%, $c-bg);
+    background: color-mix(in oklab, $c-good 20%, $c-bg);
 
     &:is(bad) {
-      background: color-mix($c-bad 20%, $c-bg);
+      background: color-mix(in oklab, $c-bad 20%, $c-bg);
     }
   }
 }

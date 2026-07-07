@@ -102,7 +102,7 @@
 
   m-config,
   .editing {
-    background: color-mix($c-accent 10%, $c-bg) !important;
+    background: color-mix(in oklab, $c-accent 10%, $c-bg) !important;
   }
 
   m-config {
