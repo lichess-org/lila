@@ -72,7 +72,7 @@ object discussion:
       as: Either[ModData, User]
   )(using ctx: Context) =
     frag(
-      h1(
+      h1(cls := "box__top")(
         div(cls := "title")(
           span(cls := "appeal-topic")(appeal.topic.key),
           " appeal",

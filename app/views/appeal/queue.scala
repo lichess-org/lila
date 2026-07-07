@@ -33,6 +33,7 @@ object queue:
               td(
                 userIdLink(appeal.user.some, params = "?mod"),
                 br,
+                span(cls := "appeal-topic")(appeal.topic.key),
                 markedByMe
                   .contains(appeal.user)
                   .option(
@@ -40,8 +41,7 @@ object queue:
                       dataIcon := Icon.CautionTriangle,
                       cls := "marked-by-me text"
                     )("My mark")
-                  ),
-                span(cls := "appeal-topic")(appeal.topic.key)
+                  )
               ),
               td(appeal.msgs.lastOption.map: msg =>
                 frag(

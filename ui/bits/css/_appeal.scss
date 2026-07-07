@@ -6,6 +6,7 @@
       font-size: 1.5rem;
     }
   }
+
   &__mark {
     margin: 1em 0;
   }
@@ -37,6 +38,7 @@
 
   &__msg {
     @extend %box-neat;
+
     padding: 1.5em;
     margin-bottom: 2em;
 
@@ -96,17 +98,24 @@
 
   .appeal-presets {
     @extend %flex-column;
-    flex: 0 1 50ch;
+
+    flex: 0 1 54ch;
     margin-bottom: 0;
+    overflow-y: auto;
+    max-height: 30em;
+
     button {
       @extend %box-radius-left;
+
       padding: 0.4em 1em;
+
       &:hover {
         background: $c-bg-zebra;
         color: $c-font-clearer;
       }
     }
   }
+
   .appeal-textarea {
     flex: 2 1 auto;
   }
@@ -150,6 +159,7 @@
 
 .appeal-topic {
   @extend %box-neat;
+
   border: $border;
   padding: 0.2em 0.5em;
   margin: 0.1em;
