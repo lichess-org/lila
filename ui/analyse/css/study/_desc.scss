@@ -21,7 +21,7 @@
 
     position: absolute;
     top: 0;
-    background: color-mix($c-accent 10%, $c-bg);
+    background: color-mix(in oklab, $c-accent 10%, $c-bg);
     padding: 0.5em 0.8em;
     display: none;
     z-index: 1;

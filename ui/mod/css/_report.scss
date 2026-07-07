@@ -147,7 +147,7 @@ $c-report-high-over: white;
     @include user-marks;
     white-space: nowrap;
 
-    background: color-mix($c-brag 60%, $c-bg);
+    background: color-mix(in oklab, $c-brag 60%, $c-bg);
   }
 
   .appeal-queue {

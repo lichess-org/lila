@@ -48,7 +48,7 @@
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
       border-radius: 6px 6px 0 0;
-      background: color-mix($c-bg 50%, $c-bg-page);
+      background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
     }
 
     .scrub-help {
@@ -70,7 +70,7 @@
 
     .jumps .fbt {
       margin: 5px 2px;
-      background: color-mix($c-bg 50%, $c-bg-page);
+      background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
     }
 
@@ -136,7 +136,7 @@
       top: -2px;
       right: 1px;
       font-size: 0.9em;
-      color: color-mix($c-bg 50%, $c-secondary);
+      color: color-mix(in oklab, $c-bg 50%, $c-secondary);
       content: $licon-X;
     }
 

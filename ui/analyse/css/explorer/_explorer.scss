@@ -50,7 +50,7 @@
     font-size: 0.9rem;
     line-height: 1.9em;
     padding: 0;
-    background: color-mix($c-secondary 30%, $c-bg);
+    background: color-mix(in oklab, $c-secondary 30%, $c-bg);
 
     .ddloader {
       padding-inline-start: 7px;
@@ -62,7 +62,7 @@
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
-      background: color-mix($c-secondary 40%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 40%, $c-bg);
 
       strong {
         margin-inline-end: 0.5ch;
@@ -85,7 +85,7 @@
 
       &:hover {
         color: $c-font-clear;
-        background: color-mix($c-secondary 50%, $c-bg);
+        background: color-mix(in oklab, $c-secondary 50%, $c-bg);
       }
     }
   }
@@ -106,7 +106,7 @@
     }
 
     &:hover {
-      background: color-mix($c-secondary 20%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     }
   }
 
@@ -122,7 +122,7 @@
 
       font-size: 0.8rem;
       line-height: 1.8em;
-      background: color-mix($c-secondary 40%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 40%, $c-bg);
       padding-inline-start: 7px;
     }
 
@@ -146,7 +146,7 @@
 
     tbody tr.sum {
       /* sum row */
-      background: color-mix($c-primary 25%, $c-bg);
+      background: color-mix(in oklab, $c-primary 25%, $c-bg);
       font-weight: bold;
 
       @include mq-at-least-col2 {

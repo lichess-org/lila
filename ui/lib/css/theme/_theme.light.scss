@@ -41,13 +41,13 @@ html.light {
   --c-font-clearer: black;
   --c-font-page: hsl(from var(--c-font) h s 37);
   --c-font-shadow: white;
-  --c-primary-dim: color-mix(var(--c-dimmer) 17%, var(--c-primary));
-  --c-link-hover: color-mix(var(--c-clearer) 35%, hsl(from var(--c-primary) h 100 l));
+  --c-primary-dim: color-mix(in oklab, var(--c-dimmer) 17%, var(--c-primary));
+  --c-link-hover: color-mix(in oklab, var(--c-clearer) 35%, hsl(from var(--c-primary) h 100 l));
   --c-chat-host-bg: rgb(125 170 73 / 0.4);
   --c-chat-mention-bg: rgb(161 194 124 / 0.4);
   --c-fancy: hsl(294 61% 62%);
   --c-border-page: hsl(0 0% 80%);
-  --c-border-tour: color-mix(hsl(0 0% 80%) 50%, var(--c-bg-page));
+  --c-border-tour: color-mix(in oklab, hsl(0 0% 80%) 50%, var(--c-bg-page));
   --c-border-light: hsl(0 0% 80%);
   --c-patron-1: hsl(90 60% 43%);
   --c-patron-2: hsl(120 52% 52%);

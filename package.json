@@ -1,14 +1,14 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@11.5.1",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
     "node": ">=24",
     "pnpm": "11"
   },
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",
-    "@lichess-org/pgn-viewer": "^2.6.0",
+    "@lichess-org/pgn-viewer": "^2.6.1",
     "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.12.4",

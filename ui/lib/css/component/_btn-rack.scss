@@ -13,7 +13,7 @@
   }
 
   &__btn,
-  form {
+  > form {
     @extend %flex-center-nowrap, %metal;
 
     justify-content: center;

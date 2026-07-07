@@ -16,7 +16,7 @@
     padding: 3px 5px;
 
     &.invalid {
-      background-color: color-mix($c-bg 80%, $c-bad);
+      background-color: color-mix(in oklab, $c-bg 80%, $c-bad);
     }
   }
 
@@ -103,15 +103,15 @@
   }
 
   .local-only {
-    background-color: color-mix($c-brag 25%, white);
+    background-color: color-mix(in oklab, $c-brag 25%, white);
   }
 
   .local-changes {
-    background-color: color-mix($c-clas 28%, white);
+    background-color: color-mix(in oklab, $c-clas 28%, white);
   }
 
   .upstream-changes {
-    background-color: color-mix($c-primary 30%, white);
+    background-color: color-mix(in oklab, $c-primary 30%, white);
   }
 }
 
@@ -439,7 +439,7 @@ main.round {
   }
 
   &:hover {
-    background: color-mix($c-primary 15%, $c-bg);
+    background: color-mix(in oklab, $c-primary 15%, $c-bg);
   }
 
   img {

@@ -41,7 +41,7 @@
     }
 
     &:hover {
-      background: color-mix($c-primary 10%, $c-bg);
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
       img {
         opacity: 1;
@@ -87,7 +87,7 @@
       @extend %box-neat;
 
       font-size: 1.2em;
-      background: color-mix($c-secondary 20%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 20%, $c-bg);
       color: $c-good;
       margin: 2em 0;
 
@@ -100,7 +100,7 @@
       }
 
       &:hover {
-        background: color-mix($c-secondary 25%, $c-bg);
+        background: color-mix(in oklab, $c-secondary 25%, $c-bg);
       }
 
       @media (max-width: at-most($small)) {

@@ -30,7 +30,7 @@
       }
 
       &:hover {
-        background: color-mix($c-accent 12%, $c-bg);
+        background: color-mix(in oklab, $c-accent 12%, $c-bg);
       }
     }
 

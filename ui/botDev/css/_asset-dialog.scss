@@ -80,11 +80,11 @@
       }
 
       &:hover {
-        background-color: color-mix($c-primary 40%, $c-bg);
+        background-color: color-mix(in oklab, $c-primary 40%, $c-bg);
       }
 
       &:focus:not([disabled]) {
-        background-color: $c-bg-page; // color-mix(in srgb,$c-primary 60%, $c-bg);
+        background-color: $c-bg-page; // color-mix(in oklab,in srgb,$c-primary 60%, $c-bg);
         outline: 1px solid;
       }
     }

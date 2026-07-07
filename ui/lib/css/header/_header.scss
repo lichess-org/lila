@@ -28,7 +28,7 @@
       background-image: linear-gradient(
         to bottom,
         $c-body-gradient,
-        color-mix($c-body-gradient 50%, $c-bg-page) 60px
+        color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
       );
       border-color: black;
 

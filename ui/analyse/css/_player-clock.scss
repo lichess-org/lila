@@ -42,7 +42,7 @@ $clock-height: 20px;
   text-align: center;
 
   &.active {
-    background: color-mix($c-primary 30%, $c-bg);
+    background: color-mix(in oklab, $c-primary 30%, $c-bg);
     box-shadow: none;
   }
 
