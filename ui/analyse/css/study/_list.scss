@@ -7,11 +7,11 @@
   .study-list > div,
   button {
     @extend %flex-between-nowrap;
+    @include transition;
 
     text-align: start;
     align-items: stretch;
-
-    @include transition;
+    gap: 2px;
 
     &:hover,
     &:focus,
@@ -21,8 +21,10 @@
     }
   }
 
-  .act {
+  .edit,
+  .move {
     @extend %flex-center-center;
+    @include transition;
 
     color: $c-font;
     cursor: pointer;
@@ -30,13 +32,26 @@
     align-self: center;
     font-size: 0.9em;
     opacity: 0.15;
-    padding: 0.3em;
-    margin-inline-end: 0.5em;
-
-    @include transition;
+    padding: 0.25em;
   }
 
-  .study-list > :hover .act {
+  .edit {
+    margin-inline-end: 0.25em;
+  }
+
+  .move {
+    width: 20px;
+    height: 20px;
+    line-height: 15px;
+
+    &.disabled {
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  }
+
+  .study-list > :hover .edit,
+  .study-list > :hover .move:not(.disabled) {
     opacity: 0.7;
 
     &:hover {

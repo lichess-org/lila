@@ -155,24 +155,40 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
     { passive: false },
   );
 
-function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
-  const vData = vnode.data!.li!,
-    el = vnode.elm as HTMLElement;
-  ctrl.chapters.scroller.scrollIfNeeded(el);
-  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
+function onListUpdate({ chapters, members }: StudyCtrl, vnode: VNode) {
+  const vData = vnode.data!.li!;
+  const el = vnode.elm as HTMLElement;
+
+  chapters.scroller.scrollIfNeeded(el);
+
+  if (members.canContribute() && chapters.list.size() > 1 && !vData.sortable) {
     site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
       vData.sortable = s.create(el, {
         draggable: '.draggable',
         handle: 'ontouchstart' in window ? 'span' : undefined,
-        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+        onSort: () => chapters.sort(vData.sortable.toArray()),
       });
     });
   }
 }
 
+function moveById(arr: ChapterPreview[], id: string, direction: 'up' | 'down') {
+  const index = arr.findIndex(item => item.id === id);
+
+  if (direction === 'up' && index === 0) return arr;
+  if (direction === 'down' && index === arr.length - 1) return arr;
+
+  const newArr = [...arr];
+  const swapIndex = direction === 'up' ? index - 1 : index + 1;
+
+  [newArr[index], newArr[swapIndex]] = [newArr[swapIndex], newArr[index]];
+
+  return newArr;
+}
+
 export function view(ctrl: StudyCtrl): VNode {
-  const canContribute = ctrl.members.canContribute(),
-    current = ctrl.currentChapter();
+  const canContribute = ctrl.members.canContribute();
+  const current = ctrl.currentChapter();
 
   return hl('div.study__chapters', [
     hl(
@@ -180,15 +196,24 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         hook: {
           insert(vnode) {
-            (vnode.elm as HTMLElement).addEventListener('click', e => {
+            (vnode.elm as HTMLElement).addEventListener('click', async e => {
               const target = e.target as HTMLElement;
-              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-              if (!id) return;
-              if (target.className === 'act') {
-                const chapter = ctrl.chapters.list.get(id);
-                if (chapter) ctrl.chapters.editForm.toggle(chapter);
-              } else ctrl.setChapter(id);
-              blurIfPrimaryClick(e);
+              const targetParent = target.parentNode as HTMLElement;
+              const direction = target.dataset['direction'];
+              const id = targetParent.dataset['id'] || target.dataset['id'];
+
+              if (direction && id) {
+                const chapters = ctrl.chapters.list.all();
+                ctrl.chapters.sort(moveById(chapters, id, direction as 'up' | 'down').map(c => c.id));
+              } else if (id) {
+                if (target.className === 'edit') {
+                  const chapter = ctrl.chapters.list.get(id);
+                  if (chapter) ctrl.chapters.editForm.toggle(chapter);
+                } else {
+                  await ctrl.setChapter(id);
+                }
+                blurIfPrimaryClick(e);
+              }
             });
             vnode.data!.li = {};
             ctrl.chapters.scroller.request('instant');
@@ -204,9 +229,9 @@ export function view(ctrl: StudyCtrl): VNode {
           },
         },
       },
-      ctrl.chapters.list.all().map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          active = !ctrl.vm.loading && current?.id === chapter.id;
+      ctrl.chapters.list.all().map((chapter, i, chapters) => {
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id);
+        const active = !ctrl.vm.loading && current?.id === chapter.id;
         return hl(
           'button',
           {
@@ -215,10 +240,24 @@ export function view(ctrl: StudyCtrl): VNode {
             class: { active, editing, draggable: canContribute },
           },
           [
-            hl('span', (i + 1).toString()),
+            hl('span', i + 1),
             hl('h3', chapter.name),
             chapter.status && hl('res', chapter.status),
-            canContribute && iconTag(licon.Gear, { title: i18n.study.editChapter, cls: 'act' }),
+            canContribute &&
+              iconTag(licon.UpTriangle, {
+                role: 'button',
+                'aria-label': 'Move chapter up',
+                'data-direction': 'up',
+                cls: `move${i === 0 ? ' disabled' : ''}`,
+              }),
+            canContribute &&
+              iconTag(licon.DownTriangle, {
+                role: 'button',
+                'aria-label': 'Move chapter down',
+                'data-direction': 'down',
+                cls: `move${i === chapters.length - 1 ? ' disabled' : ''}`,
+              }),
+            canContribute && iconTag(licon.Gear, { title: i18n.study.editChapter, cls: 'edit' }),
           ],
         );
       }),
