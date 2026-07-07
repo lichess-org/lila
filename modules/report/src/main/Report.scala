@@ -136,7 +136,7 @@ object Report:
 
   case class Done(by: ModId, at: Instant)
 
-  case class Inquiry(mod: UserId, seenAt: Instant)
+  case class Inquiry(mod: ModId, seenAt: Instant)
 
   case class WithSuspect(report: Report, suspect: UserWithPerfs, isOnline: Boolean):
     def urgency: Int =

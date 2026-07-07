@@ -685,7 +685,7 @@ final class ReportApi(
                 .updateField(
                   $id(r.id),
                   "inquiry",
-                  Report.Inquiry(mod.userId, nowInstant)
+                  Report.Inquiry(mod.modId, nowInstant)
                 )
                 .void
             )
@@ -734,7 +734,7 @@ final class ReportApi(
               ).scored(Report.Score(0)),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.userId, nowInstant).some)
+            .copy(inquiry = Report.Inquiry(mod.modId, nowInstant).some)
           coll.insert.one(report).inject(report)
         }
 

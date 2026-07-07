@@ -74,7 +74,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           .ongoingAppealOf(user.id)
           .flatMap:
             case Some(ongoing) if ongoing.mod.isnt(me) =>
-              for mod <- env.user.lightUserApi.asyncFallback(ongoing.mod)
+              for mod <- env.user.lightUserApi.asyncFallback(ongoing.mod.userId)
               yield Redirect(appealUrl).flashFailure(s"Currently processed by ${mod.name}")
             case _ =>
               for _ <- env.report.api.inquiries.appeal(user, topic)
