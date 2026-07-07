@@ -22,7 +22,7 @@ import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
 import lila.relay.RelayRound.Sync.url.*
 
-final class RelayRoundForm(using mode: Mode):
+final class RelayRoundForm(using Mode):
 
   import RelayRoundForm.*
 
@@ -185,12 +185,13 @@ object RelayRoundForm:
     for
       url <- lila.common.url.parse(source).toOption
       if url.scheme == "http" || url.scheme == "https"
-      host <- Option(url.host).map(_.toHostString)
+      host <- Option(url.host)
       // prevent common mistakes (not for security)
-      if mode.notProd || !blocklist.exists(subdomain(host, _))
-      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
-        .startsWith("https://www.chess.com/events/v1/api")
-      if !subdomain(host, "chess-results.com") ||
+      if mode.notProd || !blocklist.exists(isDomainOrSubdomain(host, _))
+      if !isDomainOrSubdomain(host, "chess.com") ||
+        url.toString.startsWith("https://api.chess.com/pub") ||
+        url.toString.startsWith("https://www.chess.com/events/v1/api")
+      if !isDomainOrSubdomain(host, "chess-results.com") ||
         """\bchess-results\.com/livepartien/.+/games\.pgn$""".r.unanchored.matches(url.toString)
     yield url
 
@@ -204,15 +205,13 @@ object RelayRoundForm:
         else Right(url)
       sameAsBefore = prev.exists(_ == url)
       url <-
-        if !sameAsBefore && url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
+        if !sameAsBefore && url.isLichess && !Granter(_.Relay)
         then Left("Invalid source URL")
         else Right(url)
     yield url
 
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
-
-  private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 
   private val blocklist = List(
     "localhost",
