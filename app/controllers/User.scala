@@ -541,7 +541,8 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = req.client.isHuman)): data =>
+    val canCompute = req.client.isHuman && ctx.isAuth
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
       negotiate(
         Ok.async:
           env.history
