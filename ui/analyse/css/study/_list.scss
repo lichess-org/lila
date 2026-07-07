@@ -21,8 +21,7 @@
     }
   }
 
-  .act,
-  .move {
+  .act {
     @extend %flex-center-center;
     @include transition;
 
@@ -33,25 +32,10 @@
     font-size: 0.9em;
     opacity: 0.15;
     padding: 0.25em;
-  }
-
-  .act {
     margin-inline-end: 0.25em;
   }
 
-  .move {
-    width: 20px;
-    height: 20px;
-    line-height: 15px;
-
-    &.disabled {
-      opacity: 0.15;
-      pointer-events: none;
-    }
-  }
-
-  .study-list > :hover .edit,
-  .study-list > :hover .move:not(.disabled) {
+  .study-list > :hover .act {
     opacity: 0.7;
 
     &:hover {
