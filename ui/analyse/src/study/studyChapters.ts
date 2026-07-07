@@ -275,7 +275,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        [hl('span', iconTag(licon.PlusButton)), hl('h3', i18n.study.addNewChapter)],
+        [iconTag(licon.PlusButton), hl('h3', i18n.study.addNewChapter)],
       ),
   ]);
 }

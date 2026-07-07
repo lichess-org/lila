@@ -64,6 +64,20 @@
   .add {
     border-top: $border;
     cursor: pointer;
+    gap: 6px;
+    padding-inline-start: 0.5em;
+    align-items: center;
+
+    h3 {
+      flex: 1 1 100%;
+      line-height: 1;
+      margin: 0.5em 0;
+    }
+
+    icon {
+      color: $c-link;
+      margin-top: -2px;
+    }
   }
 }
 
