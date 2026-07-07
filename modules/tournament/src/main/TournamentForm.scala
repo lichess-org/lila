@@ -83,6 +83,10 @@ final class TournamentForm:
             "Can't change bot entry condition after the tournament started",
             d => (d.conditions.allowsBots == tour.conditions.allowsBots) || tour.isCreated
           )
+          .verifying(
+            "Can't change start date of a team battle after 10 players have joined",
+            d => d.startDate.contains(tour.startsAt) || tour.nbPlayers < 10 || tour.teamBattle.isEmpty
+          )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
     val manager = Granter(_.ManageTournament)
