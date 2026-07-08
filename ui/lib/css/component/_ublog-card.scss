@@ -58,18 +58,20 @@
     opacity: 1;
   }
 
+  /* outer corners are left square so that the card's overflow clipping rounds them
+     to exactly match the card corner, bordered or not */
   time {
     @include inline-start(0);
 
     backdrop-filter: blur(6px);
-    border-radius: $box-radius-size 0 $box-radius-size 0;
+    border-radius: 0 0 $box-radius-size 0;
   }
 
   .user-link {
     @include inline-end(0);
 
     backdrop-filter: blur(6px);
-    border-radius: 0 $box-radius-size 0 $box-radius-size;
+    border-radius: 0 0 0 $box-radius-size;
   }
 
   &__image {
@@ -108,7 +110,14 @@
   }
 
   &--by-lichess {
-    border: 2px solid $c-brag;
+    $border-width: 2px;
+
+    border: $border-width solid $c-brag;
+
+    /* grow the outer radius by the border width so the inner clip radius stays
+       $box-radius-size, keeping the corner curvature concentric with the border
+       and flush with the thumbnail */
+    border-radius: calc($box-radius-size + $border-width);
 
     .user-link {
       color: $c-brag;
