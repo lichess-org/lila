@@ -1,6 +1,7 @@
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
+import { debounce } from 'lib/async';
 import { tempStorage } from 'lib/storage';
 import { domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -109,32 +110,36 @@ site.load.then(() => {
       setMode(textarea, 'write');
     });
 
-  $('.quote.button').on('click', function (this: HTMLButtonElement) {
-    const post = this.closest<HTMLElement>('.forum-post')!,
-      authorUsername = $(post).find('.author').attr('href')?.substring(3),
-      author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
-      reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
+  $('.quote.button').on(
+    'click',
+    debounce(function (this: HTMLButtonElement) {
+      const post = this.closest<HTMLElement>('.forum-post')!,
+        authorUsername = $(post).find('.author').attr('href')?.substring(3),
+        author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
+        reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
-    const lines = quotedMarkdown(this.closest('article'))
-      .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)') // unlink images
-      .split('\n');
-    if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
+      const lines = quotedMarkdown(this.closest('article'))
+        .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)') // unlink images
+        .split('\n');
+      if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
 
-    if (lines.length === 0) return;
+      if (lines.length === 0) return;
 
-    const quote =
-      `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
-      lines
-        .map(line => `> ${line}\n`)
-        .join('')
-        .trim() +
-      '\n\n';
+      const quote =
+        `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
+        lines
+          .map(line => `> ${line}\n`)
+          .join('')
+          .trim() +
+        '\n\n';
 
-    setMode(reply, 'write');
-    reply.value = reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
-    const caretOffset = reply.selectionStart + quote.length;
-    reply.setSelectionRange(caretOffset, caretOffset);
-  });
+      setMode(reply, 'write');
+      reply.value =
+        reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
+      const caretOffset = reply.selectionStart + quote.length;
+      reply.setSelectionRange(caretOffset, caretOffset);
+    }, 100),
+  );
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
     const textarea = this,
