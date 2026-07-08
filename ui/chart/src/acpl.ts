@@ -12,7 +12,6 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { rollingAccuracyByChartIndex, type ColorAccuracy } from 'lib/analyseAccuracy';
 import { winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
@@ -51,12 +50,7 @@ export default async function (
   const makeDataset = (
     d: AnalyseData,
     mainline: TreeNodeBase[],
-  ): {
-    acpl: ChartDataset<'line'>;
-    moveLabels: string[];
-    adviceHoverColors: string[];
-    rollingAccuracy: (ColorAccuracy | undefined)[];
-  } => {
+  ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
     const pointBackgroundColors: (
       | typeof orangeAccent
       | typeof blurBackgroundColorWhite
@@ -119,44 +113,13 @@ export default async function (
       },
       moveLabels,
       adviceHoverColors,
-      rollingAccuracy: d.analysis ? rollingAccuracyByChartIndex(mainline, d.game) : [],
     };
   };
 
   const dataset = makeDataset(data, mainline);
   const acpl = dataset.acpl;
-  let moveLabels = dataset.moveLabels;
-  let rollingAccuracyByIndex = dataset.rollingAccuracy;
+  const moveLabels = dataset.moveLabels;
   let adviceHoverColors = dataset.adviceHoverColors;
-  let currentMainline = mainline;
-
-  const tooltipLines = (dataIndex: number) => {
-    const lines: string[] = [];
-    const ev = currentMainline[dataIndex + 1]?.eval;
-    if (ev) {
-      let e = 0,
-        mateSymbol = '',
-        advantageSign = '';
-      if (ev.cp) {
-        e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-        if (ev.cp > 0) advantageSign = '+';
-      }
-      if (ev.mate) {
-        e = ev.mate;
-        mateSymbol = '#';
-      }
-      lines.push(i18n.site.advantage + ': ' + mateSymbol + advantageSign + e);
-    }
-    const acc = rollingAccuracyByIndex[dataIndex];
-    if (acc?.white !== undefined) {
-      lines.push(`${i18n.site.white}: ${acc.white}% ${i18n.site.accuracySoFar.toLowerCase()}`);
-    }
-    if (acc?.black !== undefined) {
-      lines.push(`${i18n.site.black}: ${acc.black}% ${i18n.site.accuracySoFar.toLowerCase()}`);
-    }
-    return lines;
-  };
-
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -186,7 +149,22 @@ export default async function (
           displayColors: false,
           filter: item => item.datasetIndex === 0,
           callbacks: {
-            label: item => tooltipLines(item.dataIndex),
+            label: item => {
+              const ev = mainline[item.dataIndex + 1]?.eval;
+              if (!ev) return ''; // Pos is mate
+              let e = 0,
+                mateSymbol = '',
+                advantageSign = '';
+              if (ev.cp) {
+                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
+                if (ev.cp > 0) advantageSign = '+';
+              }
+              if (ev.mate) {
+                e = ev.mate;
+                mateSymbol = '#';
+              }
+              return i18n.site.advantage + ': ' + mateSymbol + advantageSign + e;
+            },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
         },
@@ -200,11 +178,8 @@ export default async function (
   const acplChart = new Chart(el, config) as AcplChart;
   acplChart.selectPly = selectPly.bind(acplChart);
   acplChart.updateData = (d: AnalyseData, mainline: TreeNodeBase[]) => {
-    currentMainline = mainline;
     const dataset = makeDataset(d, mainline);
     adviceHoverColors = dataset.adviceHoverColors;
-    moveLabels = dataset.moveLabels;
-    rollingAccuracyByIndex = dataset.rollingAccuracy;
     const acpl = dataset.acpl;
     acplChart.data.datasets[0].data = acpl.data;
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);

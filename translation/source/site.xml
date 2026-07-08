@@ -727,8 +727,6 @@
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
   <string name="averageCentipawnLoss">Average centipawn loss</string>
   <string name="accuracy">Accuracy</string>
-  <string name="accuracySoFar">Accuracy so far</string>
-  <string name="phaseAccuracyHint">– means this phase is not reached yet or has too few analyzed moves</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>

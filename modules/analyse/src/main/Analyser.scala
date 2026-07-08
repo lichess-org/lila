@@ -8,7 +8,8 @@ import lila.tree.Analysis
 
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    divider: lila.core.game.Divider
 )(using Executor)
     extends lila.tree.Analyser:
 
@@ -53,7 +54,8 @@ final class Analyser(
   ): JsObject =
     import lila.tree.{ TreeBuilder, ExportOptions, Node }
     val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log.system.warn)
+    val division = divider(game.id, game.sans, game.variant, initialFen.some)
     Json.obj(
-      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
+      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis, division = division),
       "tree" -> Node.lichobileNodeJsonWriter.writes(tree)
     )

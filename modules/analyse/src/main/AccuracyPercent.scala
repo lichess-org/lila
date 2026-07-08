@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ ByColor, Color }
+import chess.{ ByColor, Color, Division, Ply }
 import chess.eval.WinPercent
 import chess.eval.Eval.Cp
 import scalalib.Maths
@@ -111,3 +111,27 @@ for x in xs:
     yield AccuracyPercent((weighted + harmonic) / 2)
 
     ByColor(colorAccuracy)
+
+  val phaseNames: List[String] = List("opening", "middlegame", "endgame")
+
+  private def phaseOf(div: Division, ply: Ply): String =
+    div.middle.fold("opening"):
+      case m if ply < m => "opening"
+      case _ =>
+        div.end.fold("middlegame"):
+          case e if ply < e => "middlegame"
+          case _ => "endgame"
+
+  // Accuracy of each color within each game phase, reusing gameAccuracy on the phase's moves.
+  def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[String, AccuracyPercent]] =
+    val byPhase: List[(String, ByColor[AccuracyPercent])] =
+      if div.middle.isEmpty then Nil
+      else
+        phaseNames.flatMap: phase =>
+          val slice = analysis.infos.filter(i => phaseOf(div, i.ply) == phase)
+          Option
+            .when(slice.sizeIs >= 2)(slice)
+            .flatMap(s => gameAccuracy(s.head.color, s.map(_.eval.forceAsCp)))
+            .map(phase -> _)
+    ByColor[Map[String, AccuracyPercent]]: color =>
+      byPhase.map((phase, acc) => phase -> acc(color)).toMap

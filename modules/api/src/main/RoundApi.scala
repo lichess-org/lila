@@ -36,7 +36,8 @@ final private[api] class RoundApi(
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.core.LightUser.GetterSync,
-    userLag: lila.socket.UserLagCache
+    userLag: lila.socket.UserLagCache,
+    divider: lila.game.Divider
 )(using Executor):
 
   def player(
@@ -102,8 +103,7 @@ final private[api] class RoundApi(
       blurs = Granter.opt(_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
-      lichobileCompat = HTTPRequest.isLichobile(ctx.req),
-      division = true
+      lichobileCompat = HTTPRequest.isLichobile(ctx.req)
     )
 
   def review(
@@ -141,7 +141,7 @@ final private[api] class RoundApi(
           .compose(withNote(note))
           .compose(withBookmark(bookmarked))
           .compose(withTree(pov, analysis, initialFen, withFlags))
-          .compose(withAnalysis(pov.game, analysis))
+          .compose(withAnalysis(pov.game, analysis, initialFen))
           .compose(withForecast(pov, fco))
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
@@ -238,10 +238,10 @@ final private[api] class RoundApi(
       )
     else json
 
-  private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) =
+  private def withAnalysis(g: Game, o: Option[Analysis], initialFen: Option[Fen.Full])(json: JsObject) =
     json.add(
       "analysis",
-      o.map { analysisJson.bothPlayers(g.startedAtPly, _) }
+      o.map { analysisJson.bothPlayers(g.startedAtPly, _, division = divider(g, initialFen)) }
     )
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =

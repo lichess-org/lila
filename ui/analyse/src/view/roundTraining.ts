@@ -1,18 +1,12 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
-import {
-  formatPhaseAccuracy,
-  phaseAccuraciesDisplay,
-  rollingAccuracy,
-  type GamePhase,
-  type PhaseAccuraciesDisplay,
-} from 'lib/analyseAccuracy';
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '../ctrl';
+import type { GamePhase } from '../interfaces';
 import { findTag } from '../study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
@@ -54,35 +48,21 @@ const phaseLabels: Record<GamePhase, string> = {
 
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
-const renderPhaseRow = (phase: GamePhase, accuracies: PhaseAccuraciesDisplay): VNode =>
-  h('div.advice-summary__phase', [
-    h('strong', formatPhaseAccuracy(accuracies[phase].white)),
-    h('span', phaseLabels[phase]),
-    h('strong', formatPhaseAccuracy(accuracies[phase].black)),
-  ]);
-
-const renderPhases = (ctrl: AnalyseCtrl): VNode => {
-  const { phases, showHint } = phaseAccuraciesDisplay(
-    ctrl.mainline,
-    ctrl.node.ply,
-    ctrl.data.game,
-    ctrl.data.analysis?.partial,
-  );
-
-  return h('div.advice-summary__phases', [
-    ...phaseOrder.map(phase => renderPhaseRow(phase, phases)),
-    showHint ? h('p.advice-summary__phases-hint', i18n.site.phaseAccuracyHint) : null,
-  ]);
+const renderPhases = (phases?: Partial<Record<GamePhase, number>>): VNode | null => {
+  const rows = phaseOrder.filter(phase => phases?.[phase] !== undefined);
+  return rows.length
+    ? h(
+        'div.advice-summary__phases',
+        rows.map(phase =>
+          h('div.advice-summary__phase', [h('strong', `${phases![phase]}%`), h('span', phaseLabels[phase])]),
+        ),
+      )
+    : null;
 };
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data,
-    sideData = d.analysis![color],
-    lastPly = ctrl.mainline[ctrl.mainline.length - 1]?.ply ?? ctrl.node.ply,
-    atFinalPly = ctrl.node.ply >= lastPly,
-    rolling = rollingAccuracy(ctrl.mainline, ctrl.node.ply, d.game),
-    accuracy = rolling?.[color] ?? (atFinalPly ? sideData.accuracy : undefined),
-    accuracyLabel = atFinalPly ? i18n.site.accuracy : i18n.site.accuracySoFar;
+    sideData = d.analysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
@@ -91,18 +71,17 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
       h('strong', sideData.acpl),
       h('span', ` ${i18n.site.averageCentipawnLoss}`),
     ]),
-    accuracy !== undefined
-      ? h('div.advice-summary__accuracy', [
-          h('strong', [accuracy, '%']),
-          h('span', [
-            accuracyLabel,
-            ' ',
-            h('a', {
-              attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
-            }),
-          ]),
-        ])
-      : null,
+    h('div.advice-summary__accuracy', [
+      h('strong', [sideData.accuracy, '%']),
+      h('span', [
+        i18n.site.accuracy,
+        ' ',
+        h('a', {
+          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
+        }),
+      ]),
+    ]),
+    renderPhases(sideData.phases),
   ]);
 }
 
@@ -139,7 +118,6 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
             i18n.site.learnFromYourMistakes,
           ),
       playerTable(ctrl, 'black'),
-      renderPhases(ctrl),
     ],
   );
 };
@@ -176,7 +154,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro + ctrl.node.ply;
+  let cacheKey = String(buster) + !!ctrl.retro;
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [
