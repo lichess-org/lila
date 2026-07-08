@@ -1,6 +1,9 @@
 .carousel {
   visibility: hidden;
-  overflow-x: hidden;
+
+  /* clip (not hidden) keeps overflow-y visible, so card drop shadows
+     aren't cut off at the carousel's bottom edge */
+  overflow-x: clip;
   width: 100%;
   height: auto;
   gap: $block-gap;
