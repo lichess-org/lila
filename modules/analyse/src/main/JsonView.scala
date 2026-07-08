@@ -37,7 +37,7 @@ object JsonView extends lila.tree.AnalysisJson:
   def player(pov: SideAndStart)(
       analysis: Analysis,
       accuracy: Option[ByColor[AccuracyPercent]],
-      phases: ByColor[Map[String, AccuracyPercent]] = ByColor(_ => Map.empty[String, AccuracyPercent])
+      phases: ByColor[Map[GamePhase, AccuracyPercent]] = ByColor.fill(Map.empty)
   ) =
     analysis.summary
       .find(_._1 == pov.color)
@@ -51,10 +51,11 @@ object JsonView extends lila.tree.AnalysisJson:
           .add("phases", phaseJson(phases(pov.color)))
       }
 
-  private def phaseJson(phases: Map[String, AccuracyPercent]): Option[JsObject] =
+  private def phaseJson(phases: Map[GamePhase, AccuracyPercent]): Option[JsObject] =
     Option.when(phases.nonEmpty):
-      JsObject(AccuracyPercent.phaseNames.collect:
-        case p if phases.contains(p) => p -> JsNumber(phases(p).toInt))
+      JsObject:
+        phaseNames.flatMap: phase =>
+          phases.get(phase).map(p => phase -> JsNumber(p.toInt))
 
   def bothPlayers(
       startedAtPly: Ply,

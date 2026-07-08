@@ -112,9 +112,7 @@ for x in xs:
 
     ByColor(colorAccuracy)
 
-  val phaseNames: List[String] = List("opening", "middlegame", "endgame")
-
-  private def phaseOf(div: Division, ply: Ply): String =
+  private def phaseOf(div: Division, ply: Ply): GamePhase =
     div.middle.fold("opening"):
       case m if ply < m => "opening"
       case _ =>
@@ -123,8 +121,8 @@ for x in xs:
           case _ => "endgame"
 
   // Accuracy of each color within each game phase, reusing gameAccuracy on the phase's moves.
-  def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[String, AccuracyPercent]] =
-    val byPhase: List[(String, ByColor[AccuracyPercent])] =
+  def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[GamePhase, AccuracyPercent]] =
+    val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] =
       if div.middle.isEmpty then Nil
       else
         phaseNames.flatMap: phase =>
@@ -133,5 +131,5 @@ for x in xs:
             .when(slice.sizeIs >= 2)(slice)
             .flatMap(s => gameAccuracy(s.head.color, s.map(_.eval.forceAsCp)))
             .map(phase -> _)
-    ByColor[Map[String, AccuracyPercent]]: color =>
+    ByColor[Map[GamePhase, AccuracyPercent]]: color =>
       byPhase.map((phase, acc) => phase -> acc(color)).toMap
