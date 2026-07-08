@@ -112,24 +112,17 @@ for x in xs:
 
     ByColor(colorAccuracy)
 
-  private def phaseOf(div: Division, ply: Ply): GamePhase =
-    div.middle.fold("opening"):
-      case m if ply < m => "opening"
-      case _ =>
-        div.end.fold("middlegame"):
-          case e if ply < e => "middlegame"
-          case _ => "endgame"
-
   // Accuracy of each color within each game phase, reusing gameAccuracy on the phase's moves.
   def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[GamePhase, AccuracyPercent]] =
-    val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] =
-      if div.middle.isEmpty then Nil
-      else
-        phaseNames.flatMap: phase =>
-          val slice = analysis.infos.filter(i => phaseOf(div, i.ply) == phase)
-          Option
-            .when(slice.sizeIs >= 2)(slice)
-            .flatMap(s => gameAccuracy(s.head.color, s.map(_.eval.forceAsCp)))
-            .map(phase -> _)
-    ByColor[Map[GamePhase, AccuracyPercent]]: color =>
-      byPhase.map((phase, acc) => phase -> acc(color)).toMap
+    div.middle.so: middlePly =>
+      def phaseOf(ply: Ply): GamePhase =
+        if ply < middlePly then "opening" else if div.end.exists(_ <= ply) then "endgame" else "middlegame"
+
+      val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] = for
+        phase <- phaseNames
+        slice = analysis.infos.filter(i => phaseOf(i.ply) == phase)
+        accuracy <- slice.headOption.so(first => gameAccuracy(first.color, slice.map(_.eval.forceAsCp)))
+      yield phase -> accuracy
+
+      ByColor[Map[GamePhase, AccuracyPercent]]: color =>
+        byPhase.map((phase, acc) => phase -> acc(color)).toMap
