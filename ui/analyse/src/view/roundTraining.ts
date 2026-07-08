@@ -6,7 +6,7 @@ import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '../ctrl';
-import type { GamePhase } from '../interfaces';
+import type { AnalysisSide, GamePhase } from '../interfaces';
 import { findTag } from '../study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
@@ -48,42 +48,35 @@ const phaseLabels: Record<GamePhase, string> = {
 
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
-const renderPhases = (phases?: Partial<Record<GamePhase, number>>): VNode | null => {
-  const rows = phaseOrder.filter(phase => phases?.[phase] !== undefined);
-  return rows.length
-    ? h(
-        'div.advice-summary__phases',
-        rows.map(phase =>
-          h('div.advice-summary__phase', [h('strong', `${phases![phase]}%`), h('span', phaseLabels[phase])]),
-        ),
-      )
-    : null;
-};
-
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data,
     sideData = d.analysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
-    h('div.advice-summary__acpl', [
-      h('strong', sideData.acpl),
-      h('span', ` ${i18n.site.averageCentipawnLoss}`),
-    ]),
-    h('div.advice-summary__accuracy', [
-      h('strong', [sideData.accuracy, '%']),
-      h('span', [
-        i18n.site.accuracy,
-        ' ',
-        h('a', {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
-        }),
+    h('div.advice-summary__sections', [
+      h('div.advice-summary__acpl', [
+        ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
+        h('div', [h('strong', sideData.acpl), h('span', ` ${i18n.site.averageCentipawnLoss}`)]),
       ]),
+      h('div.advice-summary__accuracy', [...renderPhases(sideData)]),
     ]),
-    renderPhases(sideData.phases),
   ]);
 }
+
+const renderPhases = (side: AnalysisSide): VNode[] => {
+  return [
+    h('div.advice-summary__phase', [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
+    ...phaseOrder
+      .filter(phase => side.phases?.[phase] !== undefined)
+      .map(phase =>
+        h('div.advice-summary__phase', [
+          h('strong', `${side.phases![phase]}%`),
+          h('span', phaseLabels[phase]),
+        ]),
+      ),
+  ];
+};
 
 const error = (nb: number, color: Color, advice: Advice) =>
   h(
