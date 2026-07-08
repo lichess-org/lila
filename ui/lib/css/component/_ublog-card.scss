@@ -58,22 +58,8 @@
     opacity: 1;
   }
 
-  /* the tags round their own outer corners at $box-radius-size, which is the card's
-     inner clip radius whether bordered or not (the --by-lichess border grows the
-     outer radius to compensate), so the arcs coincide. the card's overflow clip
-     alone can't be relied on to round them: Safari doesn't apply an ancestor's
-     rounded clip to composited descendants, and backdrop-filter forces compositing,
-     so a square-cornered tag paints over the gold border there.
-     the backdrop blur lives on a pseudo-element rather than the tag itself: a
-     backdrop-filter element is composited in its own layer, whose rounded clip can
-     land up to 1px off the card's at fractional device-pixel offsets. with the
-     background in the main layer that misregistration is invisible; with background
-     and blur together on the tag it drew a ring of raw thumbnail around the edge */
   time,
   .user-link {
-    /* stacking context so the ::before stays above our background but below our
-       text. not isolation: isolate, which forms a backdrop root and would limit
-       the pseudo's blur to the tag's own background in spec-following engines */
     z-index: 0;
 
     &::before {
@@ -138,9 +124,6 @@
 
     border: $border-width solid $c-brag;
 
-    /* grow the outer radius by the border width so the inner clip radius stays
-       $box-radius-size, keeping the corner curvature concentric with the border
-       and flush with the thumbnail */
     border-radius: calc($box-radius-size + $border-width);
 
     .user-link {
