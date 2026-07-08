@@ -233,7 +233,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll
       .list[Tournament](startedSelect ++ scheduledSelect)
-      .dmap:
+      .map:
         _.filter(_.isStillWorthEntering)
 
   def uniques(max: Int): Fu[List[Tournament]] =
