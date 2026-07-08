@@ -51,10 +51,6 @@
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
-  "lint-staged": {
-    "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
-    "*.scss": "pnpm lint:style --fix && pnpm format"
-  },
   "browserslist": [
     "defaults",
     "not op_mini all",

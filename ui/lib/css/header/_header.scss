@@ -100,32 +100,28 @@ body.zen {
   justify-content: flex-start;
 
   &__donate {
-    @extend %nowrap-ellipsis;
+    @extend %nowrap-ellipsis, %flex-center-center;
 
-    padding: 16px 0;
     max-width: 30vw;
+    color: $c-brag;
+    text-transform: uppercase;
+    text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
+    border-radius: 50px;
+    padding: 0 1.1rem 0 1.3rem;
+    margin: 6px 0 5px 0;
 
-    span {
+    &::before {
+      @extend %data-icon;
+      @include inline-end(5px);
+
+      position: relative;
+      content: $licon-Wings;
+      top: -1px;
+      font-size: 1.2em;
       color: $c-brag;
-      text-transform: uppercase;
-      text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
-      border-radius: 20px;
-      line-height: 28px;
-      padding: 8px 1rem 8px 1.2rem;
-
-      &::before {
-        @extend %data-icon;
-        @include inline-end(4px);
-
-        position: relative;
-        top: -2px;
-        content: $licon-Wings;
-        font-size: 1em;
-        color: $c-brag;
-      }
     }
 
-    &:hover span {
+    &:hover {
       color: $c-brag;
       background-color: rgb(from $c-brag r g b / calc(alpha * 0.15));
     }

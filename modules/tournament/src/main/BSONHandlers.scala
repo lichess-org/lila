@@ -73,7 +73,7 @@ object BSONHandlers:
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
         startsAt = startsAt,
         winnerId = r.getO[UserId]("winner"),
-        featuredId = r.getO[GameId]("featured"),
+        featured = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r.strO("description"),
         hasChat = r.boolO("chat").getOrElse(true)
@@ -99,7 +99,7 @@ object BSONHandlers:
         "createdBy" -> o.nonLichessCreatedBy,
         "startsAt" -> w.date(o.startsAt),
         "winner" -> o.winnerId,
-        "featured" -> o.featuredId,
+        "featured" -> o.featured,
         "spotlight" -> o.spotlight,
         "description" -> o.description,
         "chat" -> (!o.hasChat).option(false)
