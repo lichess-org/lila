@@ -103,7 +103,6 @@ body.zen {
     @extend %nowrap-ellipsis, %flex-center-center;
 
     max-width: 30vw;
-
     color: $c-brag;
     text-transform: uppercase;
     text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
