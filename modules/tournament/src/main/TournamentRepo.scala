@@ -18,6 +18,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] val finishedSelect = $doc("status" -> Status.finished.id)
   private val unfinishedSelect = $doc("status".$ne(Status.finished.id))
   private[tournament] val scheduledSelect = $doc("schedule".$exists(true))
+  private[tournament] val scheduledButNotHourly =
+    scheduledSelect ++ $doc("schedule.freq".$ne(Schedule.Freq.Hourly))
   private def forTeamSelect(id: TeamId) = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
   private def sinceSelect(date: Instant) = $doc("startsAt".$gt(date))
@@ -204,13 +206,17 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     createdSelect ++
       $doc("startsAt".$lt(nowInstant.plusMinutes(ahead.value)))
 
-  def scheduledCreated(ahead: Minutes): Fu[List[Tournament]] =
+  private[tournament] def scheduledCreated(ahead: Minutes): Fu[List[Tournament]] =
     coll.list[Tournament](startingSoonSelect(ahead) ++ scheduledSelect)
 
-  def scheduledStarted: Fu[List[Tournament]] =
+  private[tournament] def scheduledStarted: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
-  def visibleForTeams(teamIds: Seq[TeamId], ahead: Minutes, max: Max): Fu[List[Tournament]] =
+  private[tournament] def visibleForTeams(
+      teamIds: Seq[TeamId],
+      ahead: Minutes,
+      max: Max
+  ): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:
       coll
         .find(forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(ahead)))
@@ -230,9 +236,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament]()
       .list(5)
 
-  private[tournament] def scheduledStillWorthEntering: Fu[List[Tournament]] =
+  private[tournament] def scheduledNotHourlyCreated(ahead: Minutes): Fu[List[Tournament]] =
+    coll.list[Tournament](startingSoonSelect(ahead) ++ scheduledButNotHourly)
+
+  private[tournament] def scheduledNotHourlyStillWorthEntering: Fu[List[Tournament]] =
     coll
-      .list[Tournament](startedSelect ++ scheduledSelect)
+      .list[Tournament](startedSelect ++ scheduledButNotHourly)
       .map:
         _.filter(_.isStillWorthEntering)
 

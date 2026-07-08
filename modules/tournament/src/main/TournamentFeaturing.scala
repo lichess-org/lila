@@ -39,8 +39,8 @@ final class TournamentFeaturing(
       cacheApi.unit[List[Tournament]]("tournamentFeaturing.homepage.sameForEveryone"):
         _.refreshAfterWrite(2.seconds).buildAsyncTimeout(): _ =>
           for
-            started <- repo.scheduledStillWorthEntering
-            created <- repo.scheduledCreated(Minutes(crud.CrudForm.maxHomepageHours * 60))
+            started <- repo.scheduledNotHourlyStillWorthEntering
+            created <- repo.scheduledNotHourlyCreated(Minutes(crud.CrudForm.maxHomepageHours * 60))
           yield (started ::: created)
             .sortBy(_.startsAt.toSeconds)
             .foldLeft(List.empty[Tournament]): (acc, tour) =>
