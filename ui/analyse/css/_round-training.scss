@@ -28,10 +28,13 @@
 
   &__sections {
     @extend %flex-center;
+
     > div {
       @extend %flex-column;
+
       flex: 1 0 auto;
     }
+
     icon,
     strong {
       flex: 0 1 5ch;
@@ -78,6 +81,7 @@
   &__acpl > div,
   &__phase {
     @extend %flex-center-nowrap;
+
     span {
       @extend %nowrap-ellipsis;
     }
