@@ -25,6 +25,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
   private[analyse] def save(analysis: Analysis) = coll.insert.one(analysis).void
 
   def remove(id: GameId) = coll.delete.one($id(Analysis.Id(id)))
+  def removeChapter(id: StudyChapterId) = coll.delete.one($id(id.value))
 
   def remove(ids: List[GameId]) = coll.delete.one($inIds(ids.map(Analysis.Id(_))))
 

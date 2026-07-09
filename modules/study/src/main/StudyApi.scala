@@ -322,8 +322,13 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
-          for _ <- chapterRepo.update(newChapter) yield reloadStudy(study.id, who)
+          val newChapter =
+            chapter.copy(serverEval = none).updateRoot(_.clearAnnotationsRecursively.some) | chapter
+          for
+            _ <- chapterRepo.update(newChapter)
+            _ = if chapter.serverEval.isDefined then
+              Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id))
+          yield reloadStudy(study.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):

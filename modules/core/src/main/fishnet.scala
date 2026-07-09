@@ -21,6 +21,7 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
+  case StudyChapterDelete(chapterId: StudyChapterId)
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Fu[Int]
 
