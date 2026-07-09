@@ -11,6 +11,9 @@
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
   <string name="gameStart">Začátek hry</string>
+  <string name="announceCurrentSquare">Přečíst akutální pole.</string>
+  <string name="announceLastMove">Přečíst poslední tah.</string>
+  <string name="announceLastMoveCapture">Přečíst figuru sebranou v posledním tahu.</string>
   <string name="king">král</string>
   <string name="whiteKing">bílý král</string>
   <string name="blackKing">černý král</string>
