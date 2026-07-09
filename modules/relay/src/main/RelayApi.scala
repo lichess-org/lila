@@ -366,6 +366,8 @@ final class RelayApi(
         _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
         _ <- (!round.isFinished && updated.startsAt != from.startsAt).so:
           autoStart(round.id.some)
+        _ <- (!from.isFinished && round.isFinished).so:
+          ensureAnalysisOnRoundEnd(round)
       yield
         if round.ratingAndScoringFields != from.ratingAndScoringFields then
           players.invalidate(round.tourId)
@@ -375,6 +377,12 @@ final class RelayApi(
           .foreach: event =>
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
         round
+
+  private def ensureAnalysisOnRoundEnd(round: RelayRound): Funit =
+    tourRepo
+      .hasOfficial(round.tourId :: Nil)
+      .flatMapz:
+        studyApi.analysisRequestAllChapters(round.studyId)
 
   def syncTargetsOfSource(source: RelayRound): Funit =
     (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates

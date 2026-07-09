@@ -1,13 +1,14 @@
 .carousel {
   visibility: hidden;
-
-  /* clip (not hidden) keeps overflow-y visible, so card drop shadows
-     aren't cut off at the carousel's bottom edge */
-  overflow-x: clip;
+  overflow-x: hidden;
   width: 100%;
   height: auto;
   gap: $block-gap;
   position: relative;
+
+  .ublog-post-card {
+    box-shadow: none; // trimmed by .carousel { overflow: hidden }
+  }
 
   &__track {
     display: flex;
