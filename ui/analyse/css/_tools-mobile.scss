@@ -1,5 +1,7 @@
 @include mq-is-col1 {
   .analyse__tools {
+    border-radius: 0;
+
     .sub-box {
       order: 0;
     }
@@ -26,29 +28,26 @@
   }
 
   .analyse__controls {
-    padding-top: 6px;
-    height: 5rem;
+    height: auto;
     touch-action: pan-y;
-
-    .jumps {
-      order: 1;
-    }
-
-    [data-act='opening-explorer'] {
-      order: 2;
-    }
-
-    [data-act='menu'] {
-      order: 3;
-    }
+    flex-wrap: wrap;
 
     .fbt {
-      flex: 3;
+      flex: 1;
       margin: 3px 2px 0;
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
       border-radius: 6px 6px 0 0;
       background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
+
+      &:not(.move) {
+        min-height: 3em;
+      }
+
+      &.active {
+        padding-top: 0;
+        border-bottom: none;
+      }
     }
 
     .scrub-help {
@@ -60,35 +59,27 @@
     }
 
     .jumps {
-      flex: 40%;
-    }
+      order: 1;
+      padding: 2px;
+      margin-bottom: 2px;
+      width: 100%;
+      height: 3em;
 
-    .jumps:has([data-act='first']) {
-      padding-inline: 8px;
-      flex: 50%;
-    }
+      .move {
+        background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
+        border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
 
-    .jumps .fbt {
-      margin: 5px 2px;
-      background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
-      border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
-    }
-
-    .jumps .fbt[data-act='first'],
-    .jumps .fbt[data-act='last'] {
-      flex: 2;
-    }
-
-    .fbt.active {
-      padding-top: 0;
-      border-bottom: none;
+        &[data-act='first'],
+        &[data-act='last'] {
+          flex: 2;
+        }
+      }
     }
 
     eval {
-      @media (min-width: at-least($xx-small)) {
-        font-size: 1.2em;
-      }
-
+      font-variant-numeric: tabular-nums;
+      font-weight: bold;
+      font-size: 1.25em;
       pointer-events: none;
     }
 
@@ -104,7 +95,7 @@
         margin-inline-start: 10px;
 
         @media (max-width: at-most($xxx-small)) {
-          transform: scale(0.7);
+          transform: scale(0.8);
           margin-inline-start: 0;
         }
 

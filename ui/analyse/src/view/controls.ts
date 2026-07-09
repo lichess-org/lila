@@ -36,12 +36,20 @@ export function renderControls(ctrl: AnalyseCtrl) {
       ),
     },
     [
+      hl('div.jumps', [
+        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
+        jumpButton(licon.LessThan, 'prev', canJumpPrev),
+        isMobileUi() &&
+          !scrubHelpAcknowledged() &&
+          !ctrl.study?.practice &&
+          iconTag(licon.InfoCircle, { cls: 'scrub-help', 'data-act': 'scrub-help' }),
+        jumpButton(licon.GreaterThan, 'next', canJumpNext),
+        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+      ]),
       ctrl.study?.practice
-        ? [
-            hl('button.fbt', {
-              attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
-            }),
-          ]
+        ? hl('button.fbt', {
+            attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
+          })
         : [
             displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
             hl('button.fbt', {
@@ -57,24 +65,12 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
             displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
-      hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
-        jumpButton(licon.LessThan, 'prev', canJumpPrev),
-        isMobileUi() &&
-          !scrubHelpAcknowledged() &&
-          !ctrl.study?.practice &&
-          iconTag(licon.InfoCircle, { cls: 'scrub-help', 'data-act': 'scrub-help' }),
-        jumpButton(licon.GreaterThan, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
-      ]),
-      [
-        ctrl.study?.practice
-          ? hl('div.noop')
-          : hl('button.fbt', {
-              class: { active: ctrl.activeControlBarTool() === 'action-menu' },
-              attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-            }),
-      ],
+      ctrl.study?.practice
+        ? hl('div.noop')
+        : hl('button.fbt', {
+            class: { active: ctrl.activeControlBarTool() === 'action-menu' },
+            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+          }),
     ],
   );
 }
