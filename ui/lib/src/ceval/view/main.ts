@@ -8,7 +8,6 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { setupPosition } from 'chessops/variant';
-import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
@@ -167,15 +166,15 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
   } else if (typeof bestEv?.cp !== 'undefined') {
-    pearl = h('pearl', renderEval(bestEv.cp));
+    pearl = hl('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = h('pearl', '#' + bestEv.mate);
+    pearl = hl('pearl', '#' + bestEv.mate);
     percent = 100;
   } else {
-    if (!enabled) pearl = h('pearl', h('icon'));
-    else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', iconCls(licon.CautionCircle, 'is-red'));
-    else pearl = h('pearl', h('icon.ddloader'));
+    if (!enabled) pearl = hl('pearl', hl('icon'));
+    else if (node.outcome() || node.threefold) pearl = hl('pearl', '-');
+    else if (ceval.state === CevalState.Failed) pearl = hl('pearl', iconCls(licon.CautionCircle, 'is-red'));
+    else pearl = hl('pearl', hl('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -183,9 +182,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
-    h(
+    hl(
       'div.bar',
-      h('span', {
+      hl('span', {
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
         hook: {

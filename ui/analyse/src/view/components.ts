@@ -1,5 +1,4 @@
 import { parseFen } from 'chessops/fen';
-import { h } from 'snabbdom';
 
 import { defined } from 'lib';
 import { renderEval as normalizeEval } from 'lib/ceval';
@@ -269,7 +268,7 @@ export const renderIndexAndMove = (node: TreeNode, withEval: boolean, withGlyphs
   node.san ? [renderIndex(node.ply, true), ...renderMoveNodes(node, withEval, withGlyphs)] : [];
 
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
-  h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  hl('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
 export function renderMoveNodes(
   node: TreeNode,
@@ -286,12 +285,12 @@ export function renderMoveNodes(
       : ev?.mate !== undefined
         ? `#${ev.mate}`
         : '';
-  const nodes = [h('san', fixCrazySan(node.san!))];
+  const nodes = [hl('san', fixCrazySan(node.san!))];
   const relevantGlyphs = glyphs ?? node.glyphs;
   if (withGlyphs && relevantGlyphs)
-    relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
-  if (withEval && node.shapes?.length) nodes.push(h('shapes'));
-  if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
+    relevantGlyphs.forEach(g => nodes.push(hl('glyph', { attrs: { title: g.name } }, g.symbol)));
+  if (withEval && node.shapes?.length) nodes.push(hl('shapes'));
+  if (withEval && evalText) nodes.push(hl('eval', evalText.replace('-', '−')));
   return nodes;
 }
 

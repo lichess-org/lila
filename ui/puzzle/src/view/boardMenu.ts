@@ -1,5 +1,3 @@
-import { h } from 'snabbdom';
-
 import { toggle } from 'lib';
 import { renderNodesTxt } from 'lib/game/nodePGN';
 import { licon } from 'lib/licon';
@@ -9,13 +7,13 @@ import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl) {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => [
-    h('section', [
+    hl('section', [
       menu.flip(i18n.site.flipBoard, ctrl.flipped(), () => {
         ctrl.flip();
         ctrl.menu.toggle();
       }),
     ]),
-    h('section', [
+    hl('section', [
       menu.zenMode(true),
       menu.blindfold(
         toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
@@ -25,8 +23,8 @@ export default function (ctrl: PuzzleCtrl) {
       menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), true),
     ]),
     studyButton(ctrl),
-    h('section.board-menu__links', [
-      h(
+    hl('section.board-menu__links', [
+      hl(
         'a.text',
         { attrs: { target: '_blank', href: '/account/preferences/display', 'data-icon': licon.Gear } },
         i18n.preferences.display,
@@ -35,7 +33,7 @@ export default function (ctrl: PuzzleCtrl) {
   ]);
 }
 
-const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
+const hiddenInput = (name: string, value: string) => hl('input', { attrs: { type: 'hidden', name, value } });
 
 function renderPgnInput(ctrl: PuzzleCtrl): string {
   const puzURL = `${location.origin}/training/${ctrl.data.puzzle.id}`;
@@ -51,7 +49,7 @@ function renderPgnInput(ctrl: PuzzleCtrl): string {
 
 function studyButton(ctrl: PuzzleCtrl) {
   if (ctrl.mode === 'play') return undefined;
-  return h(
+  return hl(
     'section.board-menu__study',
     hl('form', { attrs: { action: '/study/as', method: 'post', target: '_blank' } }, [
       hiddenInput('pgn', renderPgnInput(ctrl)),

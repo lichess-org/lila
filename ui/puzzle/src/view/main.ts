@@ -1,5 +1,4 @@
 import { render as renderKeyboardMove } from 'keyboard-move';
-import { type VNode, h } from 'snabbdom';
 import { renderVoiceBar } from 'voice';
 
 import { view as cevalView } from 'lib/ceval';
@@ -13,6 +12,7 @@ import {
   onInsert,
   bindNonPassive,
   hl,
+  type VNode,
   type MaybeVNode,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
@@ -165,7 +165,7 @@ function session(ctrl: PuzzleCtrl): MaybeVNode {
             : round.ratingDiff
           : null;
 
-      return h(
+      return hl(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
