@@ -72,6 +72,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .cursor[Chapter]()
         .list(256)
 
+  def idsByStudyWithServerEval(studyId: StudyId): Fu[List[StudyChapterId]] =
+    val selector = $doc("studyId" -> studyId, "serverEval" -> $exists(true))
+    coll:
+      _.distinctEasy[StudyChapterId, List]("_id", selector)
+
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
 
