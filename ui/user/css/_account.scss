@@ -197,10 +197,10 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, rgb(from $c-accent r g b / calc(alpha * 0.5)), $c-bg-box 80%);
+        background: linear-gradient(to right, $c-accent-cloud, $c-bg-box 80%);
 
         @include if-rtl {
-          background: linear-gradient(to left, rgb(from $c-accent r g b / calc(alpha * 0.5)), $c-bg-box 80%);
+          background: linear-gradient(to left, $c-accent-cloud, $c-bg-box 80%);
         }
       }
     }

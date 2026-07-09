@@ -1,5 +1,5 @@
 $c-tabs-active: $c-accent !default;
-$c-tabs-hover: rgb(from $c-accent r g b / calc(alpha * 0.5)) !default;
+$c-tabs-hover: $c-accent-cloud !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;

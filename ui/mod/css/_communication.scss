@@ -98,11 +98,11 @@
   .threads .post.author {
     opacity: 1;
     cursor: pointer;
-    border-bottom: 1px dashed rgb(from $c-accent r g b / calc(alpha * 0.5));
+    border-bottom: 1px dashed $c-accent-cloud;
     min-width: 6ch;
 
     &:hover {
-      background: rgb(from $c-accent r g b / calc(alpha * 0.2));
+      background: $c-accent-glass;
     }
   }
 

@@ -16,6 +16,7 @@ html.light {
   --c-font-dim: hsl(0 0% 47%);
   --c-primary: hsl(209 77% 46%);
   --c-brag: hsl(var(---site-hue) 74% 48%);
+  --c-brag-hover: hsl(from var(--c-brag) h 100 30);
   --c-shade: hsl(0 0% 84%);
   --c-inaccuracy: hsl(202 78% 40%);
   --c-mistake: hsl(41 100% 35%);

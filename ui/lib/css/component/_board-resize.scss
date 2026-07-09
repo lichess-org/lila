@@ -38,7 +38,7 @@ cg-resize {
 
     &:hover {
       border-radius: 50%;
-      background: rgb(from $c-accent r g b / calc(alpha * 0.5));
+      background: $c-accent-glass;
     }
 
     .resizing & {

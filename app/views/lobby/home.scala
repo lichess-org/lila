@@ -112,28 +112,15 @@ object home:
               )
             )
           ),
-          div(cls := "lobby__tv"):
-            featured.map: g =>
-              views.game.mini(Pov.naturalOrientation(g), tv = true)
-          ,
-          div(cls := "lobby__support")(
-            a(href := routes.Plan.index())(
-              iconTag(patronIconChar),
-              span(cls := "lobby__support__text")(
-                strong(trans.patron.donate()),
-                span(trans.patron.becomePatron())
-              )
-            ),
-            a(href := "/swag")(
-              iconTag(Icon.Tshirt),
-              span(cls := "lobby__support__text")(
-                strong("Swag Store"),
-                span(trans.site.playChessInStyle())
-              )
-            )
+          div(cls := "lobby__support")(swagLink(), donateLink()),
+          div(cls := "lobby__tv")(
+            swagLink(),
+            featured.map(g => views.game.mini(Pov.naturalOrientation(g), tv = true))
           ),
-          puzzle.map: p =>
-            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
+          div(cls := "lobby__puzzle")(
+            donateLink(),
+            puzzle.map(p => views.puzzle.bits.dailyLink(p)())
+          ),
           views.ublog.ui.homeCarousel(ublogPosts),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
@@ -152,3 +139,21 @@ object home:
             views.bits.connectLinks
           )
         )
+
+  private def swagLink(using Context) =
+    a(cls := "lobby__support-link", href := "/swag")(
+      iconTag(Icon.Tshirt),
+      span(cls := "lobby__support-link__text")(
+        strong("Swag Store"),
+        span(trans.site.playChessInStyle())
+      )
+    )
+
+  private def donateLink(using Context) =
+    a(cls := "lobby__support-link", href := routes.Plan.index())(
+      iconTag(patronIconChar),
+      span(cls := "lobby__support-link__text")(
+        strong(trans.patron.donate()),
+        span(trans.patron.becomePatron())
+      )
+    )
