@@ -893,6 +893,12 @@
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonymní</item>
+    <item quantity="few">Anonymní (%s)</item>
+    <item quantity="many">Anonymních (%s)</item>
+    <item quantity="other">Anonymních (%s)</item>
+  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všechny jazyky</string>
