@@ -11,7 +11,7 @@
     "@lichess-org/pgn-viewer": "^2.6.1",
     "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.12.4",
+    "@types/node": "^24.13.3",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15.0",
     "jsdom": "^27.4.0",
@@ -46,7 +46,7 @@
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "icon-files-gen": "python3 bin/gen/licon.py",
     "multilog": "pnpm serverlog & ui/build -w",
-    "workspace-check": "pnpx @manypnk/cli check",
+    "workspace-check": "pnpx @manypkg/cli check",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },

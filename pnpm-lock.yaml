@@ -24,8 +24,8 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/node':
-        specifier: ^24.12.4
-        version: 24.13.1
+        specifier: ^24.13.3
+        version: 24.13.3
       ab:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d
@@ -72,8 +72,8 @@ importers:
   bin:
     dependencies:
       '@types/node':
-        specifier: ^24.12.2
-        version: 24.13.1
+        specifier: ^24.13.3
+        version: 24.13.3
       cheerio:
         specifier: ^1.1.2
         version: 1.2.0
@@ -1106,6 +1106,9 @@ packages:
 
   '@types/node@24.13.1':
     resolution: {integrity: sha512-RSpUJGmvsJ1ZeBehQZFhIdpsz+bIpES0nIQXko4Ybq+N+kX6XvOq3Jo+iJ82FWLdblFq85AsMikd3m35jgezYg==}
+
+  '@types/node@24.13.3':
+    resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
   '@types/qrcode@1.5.6':
     resolution: {integrity: sha512-te7NQcV2BOvdj2b1hCAHzAoMNuj65kNBMz0KBaxM6c3VGBOhU0dURQKOtH8CFNI/dsKkwlv32p26qYQTWoB5bw==}
@@ -2683,6 +2686,10 @@ snapshots:
       undici-types: 6.21.0
 
   '@types/node@24.13.1':
+    dependencies:
+      undici-types: 7.18.2
+
+  '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
 
