@@ -45,10 +45,14 @@
       cursor: pointer;
     }
 
+    .good {
+      color: $c-good;
+    }
+
     .inaccuracy {
       color: $c-inaccuracy;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-inaccuracy 70%, $c-font);
       }
     }
@@ -56,7 +60,7 @@
     .mistake {
       color: $c-mistake;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-mistake 70%, $c-font);
       }
     }
@@ -64,7 +68,7 @@
     .blunder {
       color: $c-blunder;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-blunder 70%, $c-font);
       }
     }

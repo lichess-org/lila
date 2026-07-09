@@ -64,13 +64,19 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   ]);
 }
 
+const accuracyClass = (accuracy: number): string =>
+  accuracy >= 85 ? '.good' : accuracy >= 70 ? '.inaccuracy' : accuracy >= 50 ? '.mistake' : '.blunder';
+
 const renderPhases = (side: AnalysisSide): VNode[] => {
   return [
-    h('div.advice-summary__phase', [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
+    h(`div.advice-summary__phase${accuracyClass(side.accuracy)}`, [
+      h('strong', [side.accuracy, '%']),
+      h('span', i18n.site.accuracy),
+    ]),
     ...phaseOrder
       .filter(phase => side.phases?.[phase] !== undefined)
       .map(phase =>
-        h('div.advice-summary__phase', [
+        h(`div.advice-summary__phase${accuracyClass(side.phases![phase]!)}`, [
           h('strong', `${side.phases![phase]}%`),
           h('span', phaseLabels[phase]),
         ]),
