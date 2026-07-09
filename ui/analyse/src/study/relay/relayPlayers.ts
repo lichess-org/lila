@@ -102,7 +102,7 @@ export default class RelayPlayers {
 
   switchTabAndShowPlayer = async (id: RelayPlayerId) => {
     this.switchToPlayerTab();
-    this.showPlayer(id);
+    await this.showPlayer(id);
     this.redraw();
   };
 

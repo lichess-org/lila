@@ -3,8 +3,8 @@ import { isTouchDevice } from 'lib/device';
 import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { SettingsCtrl, SettingKey } from '../settingsCtrl';
+import type AnalyseCtrl from '@/ctrl';
+import type { SettingsCtrl, SettingKey } from '@/settingsCtrl';
 
 type Listener = (e: Event, ctrl: SettingsCtrl, key: SettingKey) => void;
 

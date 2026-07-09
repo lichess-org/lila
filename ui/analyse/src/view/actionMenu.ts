@@ -2,11 +2,12 @@ import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
 import { licon } from 'lib/licon';
-import { domDialog, bind, dataIcon, hl, type VNode, type MaybeVNodes } from 'lib/view';
+import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 
-import type { AutoplayDelay } from '../autoplay';
-import type AnalyseCtrl from '../ctrl';
-import * as pgnExport from '../pgnExport';
+import type { AutoplayDelay } from '@/autoplay';
+import type AnalyseCtrl from '@/ctrl';
+import * as pgnExport from '@/pgnExport';
+
 import { showSettingsDialog } from './settingsView';
 
 interface AutoplaySpeed {
@@ -85,7 +86,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro,
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
-  const tools: MaybeVNodes = [
+  const tools = [
     hl('div.action-menu__tools', [
       hl(
         'a',

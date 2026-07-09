@@ -1,6 +1,7 @@
 import type { Board, Square, SquareSet } from 'chessops';
 
-import type { Settings } from '../settingsCtrl';
+import type { Settings } from '@/settingsCtrl';
+
 import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } from './boardAnalysis';
 import type { Checkable, Pin, Undefended } from './interfaces';
 

@@ -110,12 +110,13 @@ const feedback = {
     return [
       hl(
         'div.half.top',
-        hl('div.player.center', [
+        hl(
+          'div.player.center',
           hl('div.instruction', [
             hl('strong', i18n.site.evaluatingYourMove),
             renderEvalProgress(ctrl.node()),
           ]),
-        ]),
+        ),
       ),
     ];
   },
