@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "26.1.0",
+    "@types/node": "24.13.3",
     "esbuild": "0.28.1",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "5.9.3",
