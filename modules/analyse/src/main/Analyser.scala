@@ -14,8 +14,8 @@ final class Analyser(
 
   export analysisRepo.{ byId, byGame as get }
 
-  def save(analysis: Analysis): Funit = for
-    _ <- analysisRepo.save(analysis)
+  def save(analysis: Analysis, workHash: Array[Byte]): Funit = for
+    _ <- analysisRepo.save(analysis, workHash)
     _ <- analysis.id.gameId.so: id =>
       gameRepo.game(id).flatMapz { prev =>
         val game = prev.focus(_.metadata.analysed).replace(true)
@@ -26,6 +26,9 @@ final class Analyser(
   yield ()
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)
+
+  def foundSameHash(forId: Analysis.Id, same: Analysis, workHash: Array[Byte]): Funit =
+    save(same.copy(id = forId), workHash)
 
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.id match

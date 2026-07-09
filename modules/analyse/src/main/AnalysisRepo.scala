@@ -22,7 +22,12 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
         game -> analysis
       }
 
-  private[analyse] def save(analysis: Analysis) = coll.insert.one(analysis).void
+  def byHash(workHash: Array[Byte]): Fu[Option[Analysis]] =
+    coll.one[Analysis]($doc("hash" -> workHash))
+
+  private[analyse] def save(analysis: Analysis, workHash: Array[Byte]) =
+    val bson = toBdoc(analysis).get ++ $doc("hash" -> workHash)
+    coll.insert.one(bson).void
 
   def remove(id: GameId) = coll.delete.one($id(Analysis.Id(id)))
 
