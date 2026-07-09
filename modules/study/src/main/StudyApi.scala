@@ -840,7 +840,7 @@ final class StudyApi(
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
       for
-        chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id)
+        chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
       yield
@@ -853,7 +853,7 @@ final class StudyApi(
   def deletePrivateByOwner(userId: UserId): Funit = for
     studyIds <- studyRepo.deletePrivateByOwner(userId)
     _ <- studyIds.sequentiallyVoid: studyId =>
-      for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId)
+      for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, true)
       yield Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
     _ <- chapterRepo.deleteByStudyIds(studyIds)
   yield ()
@@ -891,11 +891,20 @@ final class StudyApi(
         Contribute(userId, study):
           serverEvalRequester(study, chapter, userId, official)
 
+  // only for official broadcasts
+  def analysisRequestAllChapters(studyId: StudyId): Funit =
+    sequenceStudy(studyId): study =>
+      for
+        chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, false)
+        _ <- chapterIds.sequentiallyVoid: chapterId =>
+          analysisRequest(studyId, chapterId, study.ownerId, official = true)
+      yield ()
+
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>
       Contribute(by.id, study):
         for
-          chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id)
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
           _ <- chapterRepo.deleteByStudy(study)
           _ = Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
         yield preview.invalidate(study.id)

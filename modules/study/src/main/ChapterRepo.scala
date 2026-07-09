@@ -72,8 +72,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .cursor[Chapter]()
         .list(256)
 
-  def idsByStudyWithServerEval(studyId: StudyId): Fu[List[StudyChapterId]] =
-    val selector = $doc("studyId" -> studyId, "serverEval" -> $exists(true))
+  def idsByStudyWithServerEval(studyId: StudyId, withEval: Boolean): Fu[List[StudyChapterId]] =
+    val selector = $doc("studyId" -> studyId, "serverEval" -> $exists(withEval))
     coll:
       _.distinctEasy[StudyChapterId, List]("_id", selector)
 
