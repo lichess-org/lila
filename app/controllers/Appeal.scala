@@ -132,8 +132,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     asMod(username, topic): (appeal, _) =>
       for
         _ <- env.appeal.api.toggleClosed(appeal, v)
-        _ <- env.report.api.inquiries.toggle(Right(appeal.user))
-      yield Redirect(routes.Appeal.modQueue)
+        _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+      yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
   }
 
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
