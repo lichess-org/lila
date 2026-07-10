@@ -12,11 +12,8 @@ final class TopNav(helpers: Helpers):
     if ctx.blind then h3(name) else a(href := url)(name)
 
   def apply(seesClassMenu: Boolean, hasDgt: Boolean, siteLink: Frag)(using ctx: Context) =
-    val patronLink = (ctx.kid.no && ctx.me.exists(_.isPatron)).not
-      .option(a(cls := "community-patron", href := routes.Plan.index())(trans.patron.donate()))
     st.nav(id := "topnav", cls := "hover")(
-      st.section(
-        cls := "site-menu",
+      st.section(cls := "site-menu")(
         siteLink,
         div(role := "group")(
           a(href := "/about")(trans.site.aboutX("lichess.org")),
@@ -49,7 +46,8 @@ final class TopNav(helpers: Helpers):
               a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
               a(href := langHref(routes.Simul.home))(trans.site.simultaneousExhibitions()),
               hasDgt.option(a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard())),
-              patronLink.map(_(cls := "mobile-only"))
+              (ctx.kid.no && !ctx.me.exists(_.isPatron)).option:
+                a(cls := "community-patron mobile-only", href := routes.Plan.index())(trans.patron.donate())
             )
         )
       ),
@@ -103,7 +101,8 @@ final class TopNav(helpers: Helpers):
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.kid.no.option(a(href := routes.ForumCateg.index)(trans.site.forum())),
           ctx.kid.no.option(a(href := langHref(routes.Ublog.communityAll()))(trans.site.blog())),
-          patronLink
+          (ctx.kid.no && ctx.me.exists(_.isPatron))
+            .option(a(cls := "community-patron", href := routes.Plan.index())(trans.patron.donate()))
         )
       ),
       st.section(
