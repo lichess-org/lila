@@ -53,6 +53,8 @@ case class Appeal(
 
   def isByMod(msg: AppealMsg) = msg.by != id
 
+  def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
+
 object Appeal:
 
   opaque type Id = String

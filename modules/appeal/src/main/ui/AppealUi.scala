@@ -43,11 +43,18 @@ final class AppealUi(helpers: Helpers):
   def list(user: User, appeals: List[Appeal])(using Context) =
     page(s"Appeals by ${user.username}"):
       main(cls := "box box-pad appeal")(
-        h1("Appeals by ", userIdLink(user.some)),
-        ul(cls := "appeal-list")(appeals.map: ap =>
-          li(
-            a(href := routes.Appeal.modShow(ap.user, ap.topic))(
-              s"${ap.topic} (${ap.status})"
-            )
-          ))
+        h1(cls := "box__top")("Appeals by ", userIdLink(user.some)),
+        table(cls := "appeal-list slist")(
+          thead(tr(th("Topic"), th("Status"), th("Messages"), th("Mods"), th("Created"), th("Updated"))),
+          tbody:
+            appeals.map: ap =>
+              tr(
+                td(a(href := routes.Appeal.modShow(ap.user, ap.topic))(strong(ap.topic.key))),
+                td(ap.status.key),
+                td(ap.msgs.size.toString),
+                td(fragList(ap.modIds.map(some).map(userIdLink(_)))),
+                td(momentFromNowOnce(ap.createdAt)),
+                td(momentFromNowOnce(ap.updatedAt))
+              )
+        )
       )
