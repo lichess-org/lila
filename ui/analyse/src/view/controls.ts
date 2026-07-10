@@ -1,22 +1,13 @@
-import { repeater, myUserId, blurIfPrimaryClick } from 'lib';
+import { repeater, blurIfPrimaryClick } from 'lib';
 import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { licon, type LiconValue } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
-import { type VNode, type LooseVNode, onInsert, hl, domDialog, iconTag } from 'lib/view';
+import { type VNode, type LooseVNode, onInsert, hl } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
-type Action =
-  | 'first'
-  | 'prev'
-  | 'next'
-  | 'last'
-  | 'scrub-help'
-  | 'opening-explorer'
-  | 'menu'
-  | 'analysis'
-  | 'engine-mode';
+type Action = 'first' | 'prev' | 'next' | 'last' | 'opening-explorer' | 'menu' | 'analysis' | 'engine-mode';
 
 type EngineMode = 'ceval' | 'practice' | 'retro';
 
@@ -30,7 +21,6 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(el =>
         addPointerListeners(el, {
           click: e => clickControl(ctrl, e),
-          hscrub: isTouchDevice() ? dx => scrubControl(ctrl, dx) : undefined,
           hold: e => holdControl(ctrl, e),
         }),
       ),
@@ -39,10 +29,6 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hl('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.LessThan, 'prev', canJumpPrev),
-        isMobileUi() &&
-          !scrubHelpAcknowledged() &&
-          !ctrl.study?.practice &&
-          iconTag(licon.InfoCircle, { cls: 'scrub-help', 'data-act': 'scrub-help' }),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
         jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
@@ -134,7 +120,6 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'next') ctrl.navigate.next();
   else if (action === 'first') ctrl.navigate.first();
   else if (action === 'last') ctrl.navigate.last();
-  else if (action === 'scrub-help') scrubHelp(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
   else if (action === 'analysis') window.open(ctrl.study?.practice?.analysisUrl(), '_blank');
@@ -153,50 +138,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   ctrl.redraw();
 }
 
-let last: number[] = [];
-
-function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
-  if (dx === 'pointerup') {
-    const v = last.slice(-3).reduce((a, b) => a + b, 0) / Math.min(last.length, 3);
-    if (v > 16) ctrl.navigate.last();
-    else if (v < -16) ctrl.navigate.first();
-    last = [];
-  } else {
-    if (dx > 0) ctrl.navigate.next();
-    else ctrl.navigate.prev();
-    last.push(dx);
-  }
-  ctrl.redraw();
-}
-
 const jumpButton = (icon: LiconValue, effect: string, enabled: boolean): VNode =>
   hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect, 'data-icon': icon } });
 
 const isMobileUi = (): boolean => displayColumns() === 1 && isTouchDevice();
-
-function scrubHelp(ctrl: AnalyseCtrl) {
-  domDialog({
-    htmlText: $html`
-      <p>
-        Swipe left or right on the button bar below the board to go to game start or end.
-      </p>
-      <p>
-        Move your finger slowly to scrub through moves one by one.
-      </p>
-      <button class="button">${i18n.site.ok}</button>`,
-    actions: [{ selector: 'button', result: 'ok' }],
-    easyClose: 'clickOutside',
-    noCloseButton: true,
-    show: true,
-  }).then(dlg => {
-    scrubHelpAcknowledged(dlg.returnValue === 'ok');
-    ctrl.redraw();
-  });
-}
-
-function scrubHelpAcknowledged(ack?: boolean) {
-  const key = `analyse.help.scrub-acknowledged.${myUserId() ?? 'anon'}`;
-  if (ack === undefined) return !!localStorage.getItem(key);
-  if (ack) localStorage.setItem(key, '1');
-  return ack;
-}
