@@ -23,16 +23,26 @@
   &.forum-categ {
     padding-bottom: 1rem;
 
+    .bar {
+      @extend %box-padding-horiz;
+    }
+
     .sticky {
-      background: color-mix(in oklab, $c-secondary 12%, $c-bg);
+      background: color-mix(in oklab, $c-secondary 18%, $c-bg);
     }
 
     .sticky:nth-child(even) {
-      background: color-mix(in oklab, $c-secondary 12%, $c-bg-zebra);
+      background: color-mix(in oklab, $c-secondary 21%, $c-bg-zebra);
     }
 
-    .bar {
-      @extend %box-padding-horiz;
+    @include if-transp {
+      .sticky {
+        background: color-mix(in oklab, $c-secondary 26%, $c-bg);
+      }
+
+      .sticky:nth-child(even) {
+        background: color-mix(in oklab, $c-secondary 15%, $c-bg-zebra);
+      }
     }
   }
 

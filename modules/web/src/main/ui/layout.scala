@@ -315,9 +315,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             frag(
               topnav,
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
-                a(cls := "site-title-nav__donate")(
-                  href := routes.Plan.index()
-                )(span(trans.patron.donate()))
+                a(cls := "site-title-nav__donate")(href := routes.Plan.index())(trans.patron.donate())
               )
             )
           ),

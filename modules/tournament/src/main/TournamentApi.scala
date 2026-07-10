@@ -179,7 +179,7 @@ final class TournamentApi(
         .result)
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    tour.featuredId
+    tour.featured
       .ifTrue(pairings.nonEmpty)
       .so(pairingRepo.byId)
       .map2(RankedPairing(ranking))

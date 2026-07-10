@@ -14,22 +14,21 @@ final class Analyser(
 
   export analysisRepo.{ byId, byGame as get }
 
-  def save(analysis: Analysis): Funit =
-    analysis.id match
-      case Analysis.Id.Game(id) =>
-        gameRepo.game(id).flatMapz { prev =>
-          val game = prev.focus(_.metadata.analysed).replace(true)
-          for
-            _ <- gameRepo.setAnalysed(game.id, true)
-            _ <- analysisRepo.save(analysis)
-            _ <- sendAnalysisProgress(analysis, complete = true)
-          yield Bus.pub(actorApi.AnalysisReady(game, analysis))
-        }
-      case _ =>
-        analysisRepo.save(analysis) >>
-          sendAnalysisProgress(analysis, complete = true)
+  def save(analysis: Analysis, workHash: => Array[Byte]): Funit = for
+    _ <- analysisRepo.save(analysis, analysis.studyId.isDefined.option(workHash))
+    _ <- analysis.id.gameId.so: id =>
+      gameRepo.game(id).flatMapz { prev =>
+        val game = prev.focus(_.metadata.analysed).replace(true)
+        for _ <- gameRepo.setAnalysed(game.id, true)
+        yield Bus.pub(actorApi.AnalysisReady(game, analysis))
+      }
+    _ <- sendAnalysisProgress(analysis, complete = true)
+  yield ()
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)
+
+  def foundSameHash(forId: Analysis.Id, same: Analysis, workHash: Array[Byte]): Funit =
+    save(same.copy(id = forId), workHash)
 
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.id match

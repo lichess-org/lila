@@ -148,6 +148,7 @@ db.donation.createIndex({ date: -1 });
 db.donation.createIndex({ gross: -1 });
 db.player_assessment.createIndex({ userId: 1, date: -1 });
 db.player_assessment.createIndex({ date: 1 }, { expireAfterSeconds: 15552000 });
+db.analysis2.createIndex({ hash: 1 }, { partialFilterExpression: { hash: { $exists: true } } });
 db.fishnet_analysis.createIndex({ 'sender.system': 1, createdAt: 1 });
 db.fishnet_analysis.createIndex({ 'game.id': 1 });
 db.fishnet_analysis.createIndex({ 'sender.userId': 1 });

@@ -108,7 +108,7 @@ final class FishnetApi(
             }
           else fuccess(PostAnalysisResult.UnusedPartial)
     res <- res match
-      case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
+      case r @ PostAnalysisResult.Complete(res) => sink.save(res, work.game.hash).inject(r)
       case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
       case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
   yield res

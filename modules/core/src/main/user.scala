@@ -152,6 +152,8 @@ object user:
     def completionPercent: Int =
       100 * List(flag, bio, realName).count(_.isDefined) / 3
 
+    def hasLinks = List(links, bio, location).exists(_.exists(_.contains("https://")))
+
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 
   end Profile

@@ -32,7 +32,7 @@ case class Tournament(
     createdBy: UserId,
     startsAt: Instant,
     winnerId: Option[UserId] = None,
-    featuredId: Option[GameId] = None,
+    featured: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true

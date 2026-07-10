@@ -893,6 +893,12 @@
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonymní</item>
+    <item quantity="few">Anonymní (%s)</item>
+    <item quantity="many">Anonymních (%s)</item>
+    <item quantity="other">Anonymních (%s)</item>
+  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všechny jazyky</string>
@@ -1123,4 +1129,5 @@ Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z př�
   <string name="thereAreNoResultsForX">Žádné výsledky pro „%s“</string>
   <string name="tags">Štítky</string>
   <string name="enPassant">Braní mimochodem</string>
+  <string name="settings">Nastavení</string>
 </resources>

@@ -930,6 +930,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Nõustun, et ei loo mitu kontot (välja arvatud põhjustel, mis seletatud %s).</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut vestlust</string>
   <string name="edit">Muuda</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultravälkmale</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Supervälkmale</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Välkmale</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
@@ -1042,4 +1044,5 @@ Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.<
   <string name="thereAreNoResultsForX">Otsingule \"%s\" ei leitud vastet</string>
   <string name="tags">Sildid</string>
   <string name="enPassant">En passant õigused</string>
+  <string name="settings">Seaded</string>
 </resources>

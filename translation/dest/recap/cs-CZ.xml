@@ -36,13 +36,24 @@
 		<item quantity="many">%s kilogramů</item>
 		<item quantity="other">%s kilogramů</item>
 	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Děkujeme za hlasování o %s úloze.</item>
+		<item quantity="few">Děkujeme za hlasování o %s úlohách.</item>
+		<item quantity="many">Děkujeme za hlasování o %s úlohách.</item>
+		<item quantity="other">Děkujeme za hlasování o %s úlohách.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Také jste pomohli oštítkovat %s z nich.</string>
+	<string name="puzzlesNone">Letos jste nevyřešili žádné úlohy.</string>
 	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Chcete to zkusit nyní?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Vyhráli jste z nich %s na první pokus!</string>
+	<string name="sourcesTitle">Kde jste hledali hry?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam a trackerů načteno</string>
 	<string name="malwareNoSell">Neprodávali jsme vaše osobní údaje</string>
 	<string name="malwareNoAbuse">Nepoužili jsme vaše zařízení proti vám</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ale ostatní webové stránky ano, tak prosím, %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">dávejte si pozor</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s her zahraných na Lichessu v roce %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s z nich bylo vašich.</string>
 	<string name="thanksTitle">Děkujeme za hraní na Lichess!</string>
 	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Jsme moc rádi, že jste tady. Mějte krásný %s!</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s Lichessu byly tento rok %2$s.</string>

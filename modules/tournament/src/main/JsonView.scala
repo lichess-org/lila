@@ -215,7 +215,7 @@ final class JsonView(
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
-    tour.featuredId
+    tour.featured
       .ifTrue(tour.isStarted)
       .so(pairingRepo.byId)
       .flatMapz: pairing =>
