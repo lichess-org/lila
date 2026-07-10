@@ -48,8 +48,8 @@ importers:
         specifier: 0.23.0
         version: 0.23.0
       snabbdom:
-        specifier: 3.6.4
-        version: 3.6.4
+        specifier: 3.5.1
+        version: 3.5.1
       stylelint:
         specifier: ^17.11.1
         version: 17.13.0(typescript@6.0.3)
@@ -2022,6 +2022,10 @@ packages:
     resolution: {integrity: sha512-stxByr12oeeOyY2BlviTNQlYV5xOj47GirPr4yA1hE9JCtxfQN0+tVbkxwCtYDQWhEKWFHsEK48ORg5jrouCAg==}
     engines: {node: '>=20'}
 
+  snabbdom@3.5.1:
+    resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
+    engines: {node: '>=8.3.0'}
+
   snabbdom@3.6.4:
     resolution: {integrity: sha512-VmxEfuw1/Y/eFj5VtMhYnukExpYiPkNzoo3+N3qwAOUDMl8wXgbli5ebR+j0knE3lZ/0eYskLxNcX64uy10N9w==}
     engines: {node: '>=12.17.0'}
@@ -3577,6 +3581,8 @@ snapshots:
     dependencies:
       ansi-styles: 6.2.3
       is-fullwidth-code-point: 5.1.0
+
+  snabbdom@3.5.1: {}
 
   snabbdom@3.6.4: {}
 
