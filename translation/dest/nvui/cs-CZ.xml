@@ -11,6 +11,9 @@
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
   <string name="gameStart">Začátek hry</string>
+  <string name="announceCurrentSquare">Přečíst akutální pole.</string>
+  <string name="announceLastMove">Přečíst poslední tah.</string>
+  <string name="announceLastMoveCapture">Přečíst figuru sebranou v posledním tahu.</string>
   <string name="king">král</string>
   <string name="whiteKing">bílý král</string>
   <string name="blackKing">černý král</string>
@@ -36,5 +39,10 @@
   <string name="sanShortCastling" comment="O-O in standard notation">krátká rošáda</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">dlouhá rošáda</string>
   <string name="invalidMove">Neplatný tah</string>
+  <string name="premoveCancelled">Nachystaný tah zrušen</string>
+  <string name="premoveRecorded">Nachystaný tah zaznamenán: %s. Pro zrušení stiskněte enter</string>
+  <string name="pockets" comment="Crazyhouse pockets">Kapsy</string>
+  <string name="copyToClipboard">Kopírovat %s do schránky</string>
+  <string name="copiedToClipboard">%s zkopírováno do schránky</string>
   <string name="pgnAndFen">PGN a FEN</string>
 </resources>
