@@ -23,13 +23,44 @@ object discussion:
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, me: User, textForm: Form[?])(using Context) =
+  def userShow(appeal: Appeal, me: User, textForm: Form[?])(using Context) =
     ui.page("Appeal"):
       main(cls := "page-small box box-pad appeal")(
-        renderAppeal(appeal, textForm, Right(me))
+        h1(cls := "box__top")(
+          div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " appeal")
+        ),
+        h2(cls := "appeal__mark")(ui.renderMark(me)),
+        standardFlash,
+        div(cls := "body")(
+          appeal.msgs.map: msg =>
+            div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+              div(cls := "appeal__msg__header")(
+                ui.renderUser(appeal, msg.by, asMod = false),
+                momentFromNowOnce(msg.at)
+              ),
+              div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+            ),
+          appeal.isUnread.option:
+            p("Please wait for a moderator to reply.")
+          ,
+          if appeal.isClosed then p("This appeal is now closed.")
+          else if !appeal.canAddMsg then p("Please wait for a moderator to reply.")
+          else
+            as.fold(_.inquiry.isDefined, _ => true)
+              .option(
+                renderForm(
+                  textForm,
+                  action =
+                    if as.isLeft then routes.Appeal.modReply(appeal.user, appeal.topic)
+                    else routes.Appeal.post(appeal.topic),
+                  isNew = false,
+                  presets = as.left.toOption.map(_.presets)
+                )
+              )
+        )
       )
 
-  def show(
+  def modShow(
       appeal: Appeal,
       textForm: Form[?],
       modData: ModData
@@ -117,19 +148,20 @@ object discussion:
               "You have marked this user. Appeal should be handled by another moderator"
             )
           ),
-        if as.isRight && !appeal.canAddMsg then p("Please wait for a moderator to reply.")
+        appeal.isUnread.option:
+          p("Please wait for a moderator to reply.")
+        ,
+        if appeal.isClosed then p("This appeal is now closed.")
+        else if !appeal.canAddMsg then p("You can't add messages to this appeal at the moment.")
         else
-          as.fold(_.inquiry.isDefined, _ => true)
-            .option(
-              renderForm(
-                textForm,
-                action =
-                  if as.isLeft then routes.Appeal.modReply(appeal.user, appeal.topic)
-                  else routes.Appeal.post(appeal.topic),
-                isNew = false,
-                presets = as.left.toOption.map(_.presets)
-              )
-            )
+          renderForm(
+            textForm,
+            action =
+              if as.isLeft then routes.Appeal.modReply(appeal.user, appeal.topic)
+              else routes.Appeal.post(appeal.topic),
+            isNew = false,
+            presets = as.left.toOption.map(_.presets)
+          )
       )
     )
 
