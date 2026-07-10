@@ -150,7 +150,8 @@ object page:
               error = ctx.data.error,
               topnav = topnav(
                 seesClassMenu = ctx.seesClassMenu,
-                hasDgt = ctx.pref.hasDgt
+                hasDgt = ctx.pref.hasDgt,
+                siteLink = siteLink
               )
             )
           ,

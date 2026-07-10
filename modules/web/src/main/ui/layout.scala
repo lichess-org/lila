@@ -240,6 +240,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     spinnerMask
   )
 
+  def siteLink(using ctx: Context): Frag =
+    a(cls := "site-title", href := langHref("/"), testId("site-title"))(
+      if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
+      else ctx.isBot.option(botImage),
+      div(cls := "site-icon", dataIcon := Icon.Logo),
+      div(cls := "site-name")(if siteName == "lichess.org" then frag("lichess", span(".org"))
+      else frag(siteName))
+    )
+
   object siteHeader:
 
     private val topnavToggle = spaceless:
@@ -290,10 +299,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           title := trans.team.teams.txt()
         )
 
-    private val siteNameFrag: Frag =
-      if siteName == "lichess.org" then frag("lichess", span(".org"))
-      else frag(siteName)
-
     def apply(
         zenable: Boolean,
         isAppealUser: Boolean,
@@ -305,12 +310,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       header(id := "top")(
         div(cls := "site-title-nav")(
           (!isAppealUser).option(topnavToggle),
-          a(cls := "site-title", href := langHref("/"), testId("site-title"))(
-            if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
-            else ctx.isBot.option(botImage),
-            div(cls := "site-icon", dataIcon := Icon.Logo),
-            div(cls := "site-name")(siteNameFrag)
-          ),
+          siteLink,
           (!isAppealUser).option(
             frag(
               topnav,

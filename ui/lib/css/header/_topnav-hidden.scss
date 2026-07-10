@@ -4,6 +4,10 @@
 }
 
 @include mq-topnav-hidden {
+  section.site-menu {
+    display: none;
+  }
+
   .topnav-toggle {
     display: block;
     position: absolute;

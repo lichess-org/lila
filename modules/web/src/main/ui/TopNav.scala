@@ -11,10 +11,27 @@ final class TopNav(helpers: Helpers):
   private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if ctx.blind then h3(name) else a(href := url)(name)
 
-  def apply(seesClassMenu: Boolean, hasDgt: Boolean)(using ctx: Context) =
+  def apply(seesClassMenu: Boolean, hasDgt: Boolean, siteLink: Frag)(using ctx: Context) =
     val patronLink = (ctx.kid.no && ctx.me.exists(_.isPatron)).not
       .option(a(cls := "community-patron", href := routes.Plan.index())(trans.patron.donate()))
     st.nav(id := "topnav", cls := "hover")(
+      st.section(
+        cls := "site-menu",
+        siteLink,
+        div(role := "group")(
+          a(href := "/about")(trans.site.aboutX("lichess.org")),
+          a(href := routes.Main.lag)(trans.lag.isLichessLagging()),
+          a(href := routes.Main.faq)(trans.faq.faqAbbreviation()),
+          a(href := routes.Main.contact)(trans.contact.contact()),
+          a(href := routes.Cms.help)(trans.site.contribute()),
+          a(href := routes.Cms.source)(trans.site.sourceCode()),
+          a(href := routes.Main.webmasters)(trans.site.webmasters()),
+          a(href := "https://database.lichess.org")(trans.site.database()),
+          a(href := "/api")("API"),
+          a(href := routes.Cms.tos)(trans.site.termsOfService()),
+          a(href := "/privacy")(trans.site.privacy())
+        )
+      ),
       st.section(
         linkTitle(
           "/",
