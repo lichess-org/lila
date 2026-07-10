@@ -2443,8 +2443,6 @@ interface I18n {
     showFlairs: string;
     /** Show evaluation gauge */
     showGauge: string;
-    /** Live engine annotations */
-    showLiveGlyphs: string;
     /** Show maneuver arrows */
     showManeuverArrows: string;
     /** Show move annotations */

@@ -1268,7 +1268,6 @@ object I18nKey:
     val `showGauge`: I18nKey = "preferences:showGauge"
     val `showMoveAnnotationsOnBoard`: I18nKey = "preferences:showMoveAnnotationsOnBoard"
     val `showVariationArrows`: I18nKey = "preferences:showVariationArrows"
-    val `showLiveGlyphs`: I18nKey = "preferences:showLiveGlyphs"
     val `showUndefendedPieces`: I18nKey = "preferences:showUndefendedPieces"
     val `showPinnedPieces`: I18nKey = "preferences:showPinnedPieces"
     val `showCheckableKing`: I18nKey = "preferences:showCheckableKing"

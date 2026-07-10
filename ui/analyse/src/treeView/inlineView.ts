@@ -164,12 +164,8 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
-    const glyphs = [...(node.glyphs ?? [])];
-    const liveGlyph = ctrl.liveAnnotate?.get(path);
-    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= this.glyphs.length))
-      glyphs.push(liveGlyph);
     if (ctrl.showMoveGlyphs()) {
-      glyphs
+      node.glyphs
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
         .forEach(cls => (classes[cls] = true));
@@ -182,7 +178,7 @@ export class InlineView {
         isMainline && !this.inline,
         ctrl.showMoveGlyphs(),
         ctrl.allowedEval(node) || false,
-        glyphs,
+        node.glyphs,
       ),
     ]);
   }
