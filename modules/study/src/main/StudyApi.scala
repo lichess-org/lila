@@ -893,12 +893,14 @@ final class StudyApi(
 
   // only for official broadcasts
   def analysisRequestAllChapters(studyId: StudyId): Funit =
-    sequenceStudy(studyId): study =>
-      for
-        chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, false)
-        _ <- chapterIds.sequentiallyVoid: chapterId =>
-          analysisRequest(studyId, chapterId, study.ownerId, official = true)
-      yield ()
+    studyRepo
+      .byId(studyId)
+      .flatMapz: study =>
+        for
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, false)
+          _ <- chapterIds.sequentiallyVoid: chapterId =>
+            analysisRequest(studyId, chapterId, study.ownerId, official = true)
+        yield ()
 
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>
