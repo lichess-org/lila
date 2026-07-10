@@ -3,6 +3,7 @@ package lila.event
 import play.api.libs.json.*
 
 import lila.core.config.RouteUrl
+import lila.common.Json.given
 
 final class JsonView(routeUrl: RouteUrl):
 
@@ -11,12 +12,12 @@ final class JsonView(routeUrl: RouteUrl):
       .obj(
         "title" -> e.title,
         "enabled" -> e.enabled,
-        "start" -> isoDateTimeFormatter.print(e.startsAt),
-        "end" -> isoDateTimeFormatter.print(e.finishesAt),
+        "start" -> e.startsAt,
+        "end" -> e.finishesAt,
         "homepageHours" -> e.homepageHours,
         "url" -> e.url,
-        "language" -> e.lang.value,
-        "createdBy" -> e.createdBy.value,
-        "manage" -> routeUrl(routes.Event.edit(e.id)).value
+        "language" -> e.lang,
+        "createdBy" -> e.createdBy,
+        "manage" -> routeUrl(routes.Event.edit(e.id))
       )
-      .add("hostedBy" -> e.hostedBy.map(_.value))
+      .add("hostedBy" -> e.hostedBy)
