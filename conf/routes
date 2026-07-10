@@ -904,6 +904,7 @@ POST  /event/manager/$id<\w{8}>        controllers.Event.update(id)
 GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
+GET   /api/event/calendar              controllers.Event.apiCalendar(page: Int ?= 1)
 
 GET   /cms                            controllers.Cms.index
 GET   /cms/new                        controllers.Cms.createForm(key: Option[CmsPageKey])
