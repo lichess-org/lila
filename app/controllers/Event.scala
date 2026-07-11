@@ -22,10 +22,8 @@ final class Event(env: Env) extends LilaController(env):
     Reasonable(page, Max(20)):
       val since = getTimestamp("since").getOrElse(nowInstant)
       val until = getTimestamp("until").getOrElse(nowInstant.plusDays(7))
-      api
-        .between(since, until, page)
-        .map(_.mapResults(env.event.jsonView.calendar))
-        .map(JsonOk(_))
+      for pager <- api.between(since, until, page)
+      yield JsonOk(pager.mapResults(env.event.jsonView.calendar))
   }
 
   def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
