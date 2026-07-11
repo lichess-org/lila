@@ -3,13 +3,14 @@ package lila.tournament
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.config.RouteUrl
 import lila.core.i18n.Translate
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
 import lila.gathering.GatheringJson.*
 import lila.rating.PerfType
 
-final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executor):
+final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi, routeUrl: RouteUrl)(using Executor):
 
   import JsonView.{ *, given }
 
@@ -29,6 +30,13 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       "to" -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay.plusDays(1)),
       "tournaments" -> JsArray(tournaments.map(baseJson))
     )
+
+  def crudCalendar(tour: Tournament)(using Translate): JsObject =
+    baseJson(tour) + ("spotlight" -> Json.obj(
+      "headline" -> tour.spotlight.map(_.headline),
+      "homepageHours" -> tour.spotlight.flatMap(_.homepageHours),
+      "manage" -> routeUrl(routes.TournamentCrud.edit(tour.id))
+    ))
 
   private def baseJson(tour: Tournament)(using Translate): JsObject =
     Json
