@@ -1,11 +1,4 @@
-import {
-  attributesModule,
-  classModule,
-  propsModule,
-  eventListenersModule,
-  init,
-  type VNodeData,
-} from 'snabbdom';
+import { attributesModule, classModule, eventListenersModule, init, type VNodeData } from 'snabbdom';
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import type { TreeNode } from 'lib/tree/types';
@@ -13,7 +6,7 @@ import { hl } from 'lib/view';
 
 import type { Federation } from '@/study/interfaces';
 
-export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
+export const patch = init([classModule, attributesModule, eventListenersModule]);
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
