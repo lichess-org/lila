@@ -23,7 +23,8 @@ final class AppealApi(
   def findAll[U: UserIdOf](u: U): Fu[List[Appeal]] =
     coll.find($doc("user" -> u.id)).sort($sort.desc("updatedAt")).cursor[Appeal]().listAll()
 
-  def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
+  def byUserIds(userIds: List[UserId]): Fu[List[Appeal]] =
+    coll.find($doc("user".$in(userIds))).cursor[Appeal]().listAll()
 
   def exists(user: User) = coll.exists($id(user.id))
 

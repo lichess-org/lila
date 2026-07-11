@@ -11,8 +11,7 @@ import lila.core.misc.AppealTopic
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
-  private def modForm = AppealModel.modForm
-  private def userForm = AppealModel.form
+  import AppealModel.{ modForm, form as userForm }
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
@@ -38,10 +37,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   )(using Context)(using me: Me) = for
     appeals <- env.appeal.api.byTopic(me)
     status <- makeStatus(me)
-    openAppeal = lila.appeal.AppealTopicApi.select(status, appeals).flatMap(appeals.get)
-  yield openAppeal match
+    topic = lila.appeal.AppealTopicApi.select(status, appeals)
+  yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm)
-    case None => views.appeal.tree.page(status, appeals)
+    case None => views.appeal.tree.page(topic)
 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
@@ -117,7 +116,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       status <- makeStatus(suspect.user)
       users <- env.security.userLogins(suspect.user, 100)
       logins <- userC.loginsTableData(suspect.user, users, 100)
-      appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
+      relatedAppeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
       markedByMe <- env.mod.logApi.wasMarkedBy(suspect.user.id)
       given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
@@ -125,10 +124,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       mod = me,
       status = status,
       presets = env.mod.presets.asPairsFor(appeal.topic),
-      appeals = appeals,
+      relatedAppeals = relatedAppeals,
       inquiryBy = inquiry.map(_.mod),
       markedByMe = markedByMe,
-      otherUsers = views.user.mod.otherUsers(suspect.user, logins, appeals, readOnly = true)
+      otherUsers = views.user.mod.otherUsers(suspect.user, logins, relatedAppeals, readOnly = true)
     )
 
   def toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean) = Secure(_.Appeals) { _ ?=> _ ?=>

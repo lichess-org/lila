@@ -61,6 +61,11 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       )
     )
 
+  private def newAppealFieldset(form: Frag) =
+    form3.fieldset("I have read the above, and want to create an appeal", toggle = false.some)(
+      cls := "form-toggle"
+    )(form)
+
   private def engineMenu(using Context): Branch =
     val accept =
       "I accept that I used external assistance in my games."
@@ -94,7 +99,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             p(
               "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
             ),
-            newAppeal(AppealTopic.cheat)(deny)
+            newAppealFieldset(newAppeal(AppealTopic.cheat)(deny))
           )
         )
       ),
@@ -353,8 +358,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(me: UserStatus, appeals: Appeal.ByTopic)(using ctx: Context) =
-    val topic = AppealTopicApi.select(me, appeals)
+  def page(topic: Option[AppealTopic])(using ctx: Context) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),

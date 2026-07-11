@@ -12,7 +12,7 @@ case class ModData(
     mod: Me,
     status: UserStatus,
     presets: List[PairOf[String]],
-    appeals: List[Appeal],
+    relatedAppeals: List[Appeal],
     inquiryBy: Option[ModId],
     markedByMe: Boolean,
     otherUsers: Tag
@@ -25,18 +25,16 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
     postForm(st.action := routes.Appeal.post(topic))(
       form3.globalError(form),
-      form3.split(
-        form3.group(
-          form("text"),
-          if isNew then "Create an appeal" else "Add something to the appeal",
-          help = frag("Please be concise. Maximum 1000 chars.").some
-        )(f =>
-          form3.textarea(f)(
-            rows := 6,
-            maxlength := Appeal.maxLengthClient
-          )
-        )(cls := "appeal-textarea")
-      ),
+      form3.group(
+        form("text"),
+        if isNew then "Create an appeal" else "Add something to the appeal",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(f =>
+        form3.textarea(f)(
+          rows := 6,
+          maxlength := Appeal.maxLengthClient
+        )
+      )(cls := "appeal-textarea"),
       form3.action(form3.submit(trans.site.send()))
     )
 
@@ -73,13 +71,19 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
 
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
+    val userAppeals = relatedAppeals.count(_.user.is(user))
     ui.page(s"Appeal by ${user.username}"):
       main(cls := "box box-pad appeal")(
         h1(cls := "box__top")(
           div(cls := "title")(
+            a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text"),
             span(cls := "appeal-topic")(appeal.topic.key),
             " appeal by ",
-            userIdLink(user.some)
+            userIdLink(user.some),
+            (userAppeals > 1).option:
+              a(href := routes.Appeal.modShowAll(user.username), cls := "appeal__all")(
+                small(s" ($userAppeals appeals)")
+              )
           ),
           div(cls := "actions")(
             a(

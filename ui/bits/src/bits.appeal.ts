@@ -16,6 +16,10 @@ export function initModule(): void {
     return false;
   });
 
+  enhanceDates();
+}
+
+function enhanceDates() {
   const isoDateRegex = /\b(\d{4}-\d{2}-\d{2})\b/g;
   const now = new Date();
   now.setHours(0, 0, 0, 0);
