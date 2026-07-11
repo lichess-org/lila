@@ -236,13 +236,13 @@ final class PersonalDataExport(
             List(textTitle("Title request")) ++ reqs.map: req =>
               import req.data.*
               s"""Title: $title
-              | Real name:  $realName
-              | FIDE ID: ${fideId | "-"}
-              | Federation URL: ${federationUrl | "-"}
-              | Public: $public
-              | Coach: ${req.data.coach}
-              | Comment: ${comment | "-"}
-              | $bigSep""".stripMargin
+                 | Real name:  $realName
+                 | FIDE ID: ${fideId | "-"}
+                 | Federation URL: ${federationUrl | "-"}
+                 | Public: $public
+                 | Coach: ${req.data.coach}
+                 | Comment: ${comment | "-"}
+                 | $bigSep""".stripMargin
 
     val outro = Source(List(textTitle("End of data export.")))
 
