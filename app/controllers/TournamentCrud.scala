@@ -55,8 +55,6 @@ final class TournamentCrud(env: Env) extends LilaController(env):
     Reasonable(page, Max(20)):
       val since = getTimestamp("since").getOrElse(nowInstant)
       val until = getTimestamp("until").getOrElse(nowInstant.plusDays(7))
-      crud
-        .between(since, until, page)
-        .map(_.mapResults(env.tournament.apiJsonView.crudCalendar))
-        .map(JsonOk(_))
+      for pager <- crud.between(since, until, page)
+      yield JsonOk(pager.mapResults(env.tournament.apiJsonView.crudCalendar))
   }

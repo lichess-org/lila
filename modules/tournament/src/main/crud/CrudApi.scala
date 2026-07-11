@@ -47,7 +47,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
     Paginator[Tournament](
       adapter = new Adapter[Tournament](
         collection = tournamentRepo.coll,
-        selector = tournamentRepo.selectUnique ++ $doc("startsAt".$gte(from).$lte(to)),
+        selector = tournamentRepo.selectUnique ++ "startsAt".$inRange(from, to),
         projection = none,
         sort = $sort.asc("startsAt")
       ),
