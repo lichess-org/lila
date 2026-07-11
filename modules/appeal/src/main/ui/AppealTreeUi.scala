@@ -6,7 +6,8 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
-    newAppeal: AppealTopic => String => Context ?=> Frag
+    newAppeal: AppealTopic => String => Context ?=> Frag,
+    closedAppeal: Appeal => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -358,29 +359,42 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic])(using ctx: Context) =
+  def page(topic: Option[AppealTopic], appeals: List[Appeal])(using ctx: Context) =
     ui.page("Appeal a moderation decision"):
-      main(cls := "page page-small box box-pad appeal force-ltr")(
-        h1(cls := "box__top")("Appeal"),
-        div(cls := s"nav-tree${if topic.isDefined then " marked" else ""}")(
-          topic.match
-            case Some(AppealTopic.close) => altScreen
-            case t =>
-              val menu = t.flatMap(topicMenu.get) | (_ ?=> cleanMenu)
-              renderNode(menu, none, forceLtr = true)
-        ),
-        div(cls := "appeal__rules")(
-          p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
-            trans.site.closingAccountWithdrawAppeal()
+      main(cls := "page page-small appeal force-ltr")(
+        div(cls := "box box-pad")(
+          h1(cls := "box__top")("Appeal"),
+          div(cls := s"nav-tree${if topic.isDefined then " marked" else ""}")(
+            topic.match
+              case Some(AppealTopic.close) => altScreen
+              case t =>
+                val menu = t.flatMap(topicMenu.get) | (_ ?=> cleanMenu)
+                renderNode(menu, none, forceLtr = true)
           ),
-          p(cls := "text", dataIcon := Icon.InfoCircle)(trans.contact.doNotMessageModerators()),
-          p(
-            a(cls := "text", dataIcon := Icon.InfoCircle, href := cmsPageUrl("appeal"))(
-              "Read more about the appeal process"
+          div(cls := "appeal__rules")(
+            p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
+              trans.site.closingAccountWithdrawAppeal()
+            ),
+            p(cls := "text", dataIcon := Icon.InfoCircle)(trans.contact.doNotMessageModerators()),
+            p(
+              a(cls := "text", dataIcon := Icon.InfoCircle, href := cmsPageUrl("appeal"))(
+                "Read more about the appeal process"
+              )
+            ),
+            p(
+              a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data")
             )
-          ),
-          p(a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data"))
-        )
+          )
+        ),
+        appeals
+          .filter(_.isClosed)
+          .sortBy(_.updatedAt)
+          .reverse
+          .map: appeal =>
+            div(cls := "box box-pad appeal-closed")(
+              h1(cls := "box__top")(s"Closed ${appeal.topic} appeal"),
+              closedAppeal(appeal)
+            )
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(

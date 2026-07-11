@@ -40,7 +40,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     topic = lila.appeal.AppealTopicApi.select(status, appeals)
   yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm)
-    case None => views.appeal.tree.page(topic)
+    case None => views.appeal.tree.page(topic, appeals.values.toList)
 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)

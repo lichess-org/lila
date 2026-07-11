@@ -8,11 +8,13 @@ import lila.core.misc.AppealTopic
 
 lazy val ui = lila.appeal.ui.AppealUi(helpers)
 
-lazy val tree = lila.appeal.ui.AppealTreeUi(helpers, ui)(topic =>
-  preset => _ ?=> discussion.userForm(topic, lila.appeal.Appeal.form.fill(preset), isNew = true)
-)
-
 lazy val discussion = lila.appeal.ui.AppealDiscussionUi(helpers, ui)
+
+lazy val tree = lila.appeal.ui.AppealTreeUi(helpers, ui)(
+  newAppeal =
+    topic => preset => _ ?=> discussion.userForm(topic, lila.appeal.Appeal.form.fill(preset), isNew = true),
+  closedAppeal = discussion.userAppealMessages
+)
 
 private lazy val queueUi = lila.appeal.ui.AppealQueueUi(helpers)
 
