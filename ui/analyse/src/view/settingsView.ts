@@ -40,7 +40,7 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-disclosure-mode'),
   },
-  showLiveGlyphs: {
+  showLiveAnnotations: {
     label: i18n.preferences.showLiveGlyphs,
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-live-annotations'),

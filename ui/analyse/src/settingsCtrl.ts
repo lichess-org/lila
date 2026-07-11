@@ -7,7 +7,7 @@ export class Settings {
     public readonly inline = false,
     public readonly showStaticAnalysis = true,
     public readonly disclosureMode = false,
-    public readonly showLiveGlyphs = false,
+    public readonly showLiveAnnotations = false,
     public readonly showBestMoveArrows = true,
     public readonly showManeuverMoveArrows = false,
     public readonly showVariationArrows = true,
