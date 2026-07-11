@@ -1,5 +1,7 @@
 package controllers
 
+import scalalib.Json.given
+
 import lila.app.*
 
 final class TournamentCrud(env: Env) extends LilaController(env):
@@ -47,4 +49,14 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
     FoundPage(crud.one(id)): old =>
       crudView.create(crud.editForm(crud.clone(old)))
+  }
+
+  def apiCalendar(page: Int) = SecuredScoped(_.ManageTournament) { ctx ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      val since = getTimestamp("since").getOrElse(nowInstant)
+      val until = getTimestamp("until").getOrElse(nowInstant.plusDays(7))
+      crud
+        .between(since, until, page)
+        .map(_.mapResults(env.tournament.apiJsonView.crudCalendar))
+        .map(JsonOk(_))
   }
