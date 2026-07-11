@@ -69,8 +69,8 @@ final class AppealApi(
         topic.so(t => $doc("topic" -> t))
     coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
 
-  def setRead(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.read).void
+  def setRead(user: UserId, topic: AppealTopic) =
+    coll.updateField($doc("user" -> user, "topic" -> topic), "status", Appeal.Status.read).void
 
   def setUnread(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.unread).void
@@ -86,7 +86,8 @@ final class AppealApi(
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)
-    _ <- appeals.sequentiallyVoid(setRead)
+    _ <- appeals.sequentiallyVoid: appeal =>
+      setRead(userId, appeal.topic)
   yield ()
 
   def setUnreadBy(userId: UserId, topic: AppealTopic): Funit =

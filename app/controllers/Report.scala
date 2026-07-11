@@ -106,9 +106,11 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .byId(id)
       .flatMap:
         _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
-          inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
-            api.process(inquiry) >>
-            onInquiryAction(inquiry, processed = true)
+          for
+            _ <- inquiry.appealTopic.so(env.appeal.api.setRead(inquiry.user.id, _))
+            _ <- api.process(inquiry)
+            result <- onInquiryAction(inquiry, processed = true)
+          yield result
   }
 
   def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
