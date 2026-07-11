@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: AppealTopic => String => Context ?=> Frag,
-    closedAppeal: Appeal => Context ?=> Frag
+    closedAppeals: List[Appeal] => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -386,15 +386,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        appeals
-          .filter(_.isClosed)
-          .sortBy(_.updatedAt)
-          .reverse
-          .map: appeal =>
-            div(cls := "box box-pad appeal-closed")(
-              h1(cls := "box__top")(s"Closed ${appeal.topic} appeal"),
-              closedAppeal(appeal)
-            )
+        closedAppeals(appeals)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(

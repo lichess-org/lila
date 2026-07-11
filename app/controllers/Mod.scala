@@ -323,7 +323,7 @@ final class Mod(
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true)(using RequestHeader) =
-    env.web.referrerRedirect.fromReq.pp("referrer") match
+    env.web.referrerRedirect.fromReq match
       case Some(ref) => Redirect(ref.value).flashSuccess
       case None => Redirect(userUrl(username, mod))
 

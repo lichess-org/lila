@@ -28,10 +28,13 @@ final class AppealUi(helpers: Helpers):
       strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.toString))
     )
 
+  def backLink =
+    a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text")
+
   def list(user: User, appeals: List[Appeal])(using Context) =
     page(s"Appeals by ${user.username}"):
       main(cls := "box box-pad appeal")(
-        div(cls := "box__top")(h1("Appeals by ", userIdLink(user.some))),
+        div(cls := "box__top")(h1(backLink, "Appeals by ", userIdLink(user.some))),
         table(cls := "appeal-list slist")(
           thead(tr(th("Topic"), th("Status"), th("Messages"), th("Mods"), th("Created"), th("Updated"))),
           tbody:

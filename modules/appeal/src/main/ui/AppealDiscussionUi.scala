@@ -23,46 +23,52 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
 
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
-    postForm(st.action := routes.Appeal.post(topic))(
-      form3.globalError(form),
-      form3.group(
-        form("text"),
-        if isNew then "Create an appeal" else "Add something to the appeal",
-        help = frag("Please be concise. Maximum 1000 chars.").some
-      )(f =>
-        form3.textarea(f)(
-          rows := 6,
-          maxlength := Appeal.maxLengthClient
-        )
-      )(cls := "appeal-textarea"),
-      form3.action(form3.submit(trans.site.send()))
-    )
-
-  def userShow(status: UserStatus, appeal: Appeal, form: Form[?])(using Context) =
-    ui.page("Appeal"):
-      main(cls := "page-small box box-pad appeal")(
-        h1(cls := "box__top")(
-          div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " appeal")
-        ),
-        AppealTopicApi
-          .markMsg(status, appeal.topic)
-          .map: msg =>
-            h2(cls := "appeal__mark")(msg()),
-        standardFlash,
-        div(cls := "body")(
-          userAppealMessages(appeal),
-          if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
-          else if !appeal.canAddMsg then
-            p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")
-          else
-            frag(
-              appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
-              userForm(appeal.topic, form, isNew = false)
-            )
-        )
+    form3.fieldset(if isNew then "Create an appeal" else "Add something to the appeal", toggle = false.some)(
+      cls := "form-toggle"
+    ):
+      postForm(st.action := routes.Appeal.post(topic))(
+        form3.globalError(form),
+        form3.group(
+          form("text"),
+          "",
+          help = frag("Please be concise. Maximum 1000 chars.").some
+        )(f =>
+          form3.textarea(f)(
+            rows := 6,
+            maxlength := Appeal.maxLengthClient
+          )
+        )(cls := "appeal-textarea"),
+        form3.action(form3.submit(trans.site.send()))
       )
 
-  def userAppealMessages(appeal: Appeal)(using Context) =
+  def userShow(status: UserStatus, appeal: Appeal, form: Form[?], appeals: List[Appeal])(using Context) =
+    ui.page("Appeal"):
+      main(cls := "page-small appeal")(
+        div(cls := "box box-pad appeal")(
+          h1(cls := "box__top")(
+            div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " appeal")
+          ),
+          AppealTopicApi
+            .markMsg(status, appeal.topic)
+            .map: msg =>
+              h2(cls := "appeal__mark")(msg()),
+          standardFlash,
+          div(cls := "body")(
+            userAppealMessages(appeal),
+            if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
+            else if !appeal.canAddMsg then
+              p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")
+            else
+              frag(
+                appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
+                userForm(appeal.topic, form, isNew = false)
+              )
+          )
+        ),
+        userClosedAppeals(appeals)
+      )
+
+  private def userAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
       div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
         div(cls := "appeal__msg__header")(
@@ -72,6 +78,19 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
       )
 
+  def userClosedAppeals(appeals: List[Appeal])(using Context) =
+    appeals
+      .filter(_.isClosed)
+      .sortBy(_.updatedAt)
+      .reverse
+      .map: appeal =>
+        div(cls := "box box-pad appeal-closed")(
+          div(cls := "box__top")(
+            h1(span(cls := "appeal-topic")(appeal.topic.key), nbsp, "Appeal closed")
+          ),
+          userAppealMessages(appeal)
+        )
+
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     val userAppeals = relatedAppeals.count(_.user.is(user))
@@ -79,7 +98,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       main(cls := "box box-pad appeal")(
         h1(cls := "box__top")(
           div(cls := "title")(
-            a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text"),
+            ui.backLink,
             span(cls := "appeal-topic")(appeal.topic.key),
             " appeal by ",
             userIdLink(user.some),
