@@ -22,8 +22,11 @@ object AppealTopicApi:
     ).flatten
 
   def select(u: UserStatus, appeals: Appeal.ByTopic): Option[AppealTopic] =
-    candidatesFor(u).find: topic =>
-      appeals.get(topic).forall(_.isOpen)
+    candidatesFor(u)
+      .find: topic =>
+        appeals.get(topic).forall(_.isOpen)
+      .orElse:
+        appeals.get(AppealTopic.warning).map(_.topic)
 
   def unmark(user: UserStatus, topic: AppealTopic): Option[(String, Call)] =
     candidatesFor(user)
