@@ -49,7 +49,6 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     for
       (prev, next) <- api.inquiries.toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
       appeal = prev.flatMap(p => p.appealTopic.map(p.user -> _))
-      _ <- appeal.so(env.appeal.api.setUnreadBy)
     yield next.fold(
       Redirect(if appeal.isDefined then routes.Appeal.modQueue else routes.Report.list)
     )(onInquiryStart)

@@ -46,7 +46,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       main(cls := "page-small appeal")(
         div(cls := "box box-pad appeal")(
           h1(cls := "box__top")(
-            div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " appeal")
+            div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " Appeal in progress")
           ),
           AppealTopicApi
             .markMsg(status, appeal.topic)
@@ -65,7 +65,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               )
           )
         ),
-        userClosedAppeals(appeals)
+        userInactiveAppeals(appeals.filter(_ != appeal))
       )
 
   private def userAppealMessages(appeal: Appeal)(using Context) =
@@ -78,15 +78,18 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
       )
 
-  def userClosedAppeals(appeals: List[Appeal])(using Context) =
+  def userInactiveAppeals(appeals: List[Appeal])(using Context) =
     appeals
-      .filter(_.isClosed)
       .sortBy(_.updatedAt)
       .reverse
       .map: appeal =>
         div(cls := "box box-pad appeal-closed")(
           div(cls := "box__top")(
-            h1(span(cls := "appeal-topic")(appeal.topic.key), nbsp, "Appeal closed")
+            h1(
+              span(cls := "appeal-topic")(appeal.topic.key),
+              nbsp,
+              if appeal.isClosed then "Appeal closed" else "Appeal on hold"
+            )
           ),
           userAppealMessages(appeal)
         )

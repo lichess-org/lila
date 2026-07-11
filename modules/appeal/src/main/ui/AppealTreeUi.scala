@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: AppealTopic => String => Context ?=> Frag,
-    closedAppeals: List[Appeal] => Context ?=> Frag
+    inactiveAppeals: List[Appeal] => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -386,7 +386,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        closedAppeals(appeals)
+        inactiveAppeals(appeals)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
