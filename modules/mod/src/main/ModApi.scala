@@ -190,15 +190,17 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.rankban != v).so:
-      if v then Bus.pub(lila.core.mod.KickFromRankings(sus.user.id))
+      Bus.pub(lila.core.mod.RankBan(sus.user.id, v))
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
 
   def setArenaBan(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.arenaBan != v).so:
+      Bus.pub(lila.core.mod.ArenaBan(sus.user.id, v))
       userRepo.setArenaBan(sus.user.id, v) >> logApi.arenaBan(sus, v)
 
   def setPrizeban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.prizeban != v).so:
+      Bus.pub(lila.core.mod.PrizeBan(sus.user.id, v))
       userRepo.setPrizeban(sus.user.id, v) >> logApi.prizeban(sus, v)
 
   def allMods =

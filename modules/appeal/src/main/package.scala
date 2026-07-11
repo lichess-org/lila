@@ -5,4 +5,4 @@ export lila.common.extensions.*
 export lila.core.misc.AppealTopic
 
 case class UserStatus(user: User, playban: Boolean, ublogHidden: Boolean):
-  export user.{ enabled, marks }
+  export user.{ id, enabled, marks }

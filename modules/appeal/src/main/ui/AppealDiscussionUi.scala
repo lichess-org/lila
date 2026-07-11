@@ -10,13 +10,14 @@ import lila.core.config.NetDomain
 
 case class ModData(
     mod: Me,
-    user: User,
+    status: UserStatus,
     presets: List[PairOf[String]],
     appeals: List[Appeal],
     inquiryBy: Option[ModId],
     markedByMe: Boolean,
     otherUsers: Tag
-)
+):
+  export status.user
 
 final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
@@ -39,13 +40,16 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       form3.action(form3.submit(trans.site.send()))
     )
 
-  def userShow(appeal: Appeal, me: User, form: Form[?])(using Context) =
+  def userShow(status: UserStatus, appeal: Appeal, form: Form[?])(using Context) =
     ui.page("Appeal"):
       main(cls := "page-small box box-pad appeal")(
         h1(cls := "box__top")(
           div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " appeal")
         ),
-        h2(cls := "appeal__mark")(ui.renderMark(me)),
+        AppealTopicApi
+          .markMsg(status, appeal.topic)
+          .map: msg =>
+            h2(cls := "appeal__mark")(msg()),
         standardFlash,
         div(cls := "body")(
           appeal.msgs.map: msg =>
@@ -132,16 +136,25 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(mod) if ctx.is(mod) =>
-              postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, !appeal.isClosed))(
-                if appeal.isClosed then
-                  submitButton("Re-open")(
-                    cls := "button button-green button-empty"
-                  )
-                else
-                  submitButton("Close")(
-                    title := "Close this appeal",
-                    cls := "button button-red button-empty"
-                  )
+              frag(
+                postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, !appeal.isClosed))(
+                  if appeal.isClosed then
+                    submitButton("Re-open")(
+                      cls := "button button-green button-empty"
+                    )
+                  else
+                    submitButton("Close")(
+                      title := "Close this appeal",
+                      cls := "button button-red button-empty"
+                    )
+                ),
+                AppealTopicApi.unmark(status, appeal.topic) match
+                  case None => button(cls := "button button-empty", disabled)("Nothing to un-mark")
+                  case Some((text, call)) =>
+                    val appealUrl = routes.Appeal.modShow(appeal.user, appeal.topic).url
+                    val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
+                    postForm(action := actionUrl):
+                      submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
               )
             case Some(mod) => p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
           ,

@@ -27,3 +27,9 @@ final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(us
     api.toggleClosedAllOf(m.userId, true)
   Bus.sub[lila.core.security.ReopenAccount]: m =>
     api.toggleClosed(m.user.id, AppealTopic.close, false)
+  Bus.sub[lila.core.mod.RankBan]: k =>
+    api.toggleClosed(k.userId, AppealTopic.rank, k.value.not)
+  Bus.sub[lila.core.mod.ArenaBan]: k =>
+    api.toggleClosed(k.userId, AppealTopic.arena, k.value.not)
+  Bus.sub[lila.core.mod.PrizeBan]: k =>
+    api.toggleClosed(k.userId, AppealTopic.prize, k.value.not)

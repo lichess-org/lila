@@ -37,13 +37,16 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       err: Option[Form[String]] = None
   )(using Context)(using me: Me) = for
     appeals <- env.appeal.api.byTopic(me)
-    playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
-    blogHidden <- env.ublog.api.isHidden(me)
-    status = lila.appeal.UserStatus(me, playban, blogHidden)
-    openAppeal = appeals.collectFirst { case (_, a) if !a.isClosed => a }
+    status <- makeStatus(me)
+    openAppeal = lila.appeal.AppealTopicApi.select(status, appeals).flatMap(appeals.get)
   yield openAppeal match
-    case Some(a) => views.appeal.discussion.userShow(a, me, err | userForm)
+    case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm)
     case None => views.appeal.tree.page(status, appeals)
+
+  private def makeStatus(user: lila.core.user.User) = for
+    playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
+    blogHidden <- env.ublog.api.isHidden(user)
+  yield lila.appeal.UserStatus(user, playban, blogHidden)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     bindForm(userForm)(
@@ -111,6 +114,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for
+      status <- makeStatus(suspect.user)
       users <- env.security.userLogins(suspect.user, 100)
       logins <- userC.loginsTableData(suspect.user, users, 100)
       appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
@@ -119,7 +123,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
     yield lila.appeal.ui.ModData(
       mod = me,
-      user = suspect.user,
+      status = status,
       presets = env.mod.presets.asPairsFor(appeal.topic),
       appeals = appeals,
       inquiryBy = inquiry.map(_.mod),
