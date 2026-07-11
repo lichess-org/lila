@@ -11,8 +11,8 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def currentBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
-    findAll(u).map(_.find(_.isClosed.not))
+  def byTopic[U: UserIdOf](u: U): Fu[Appeal.ByTopic] =
+    findAll(u).map(_.groupBy(_.topic).view.mapValues(_.head).toMap)
 
   def latestBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
     findAll(u).map(_.headOption)

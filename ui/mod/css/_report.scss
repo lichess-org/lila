@@ -145,8 +145,8 @@ $c-report-high-over: white;
 
   .marked-by-me {
     @include user-marks;
-    white-space: nowrap;
 
+    white-space: nowrap;
     background: color-mix(in oklab, $c-brag 60%, $c-bg);
   }
 
@@ -156,8 +156,10 @@ $c-report-high-over: white;
       overflow-wrap: anywhere;
     }
   }
+
   .appeal-topic {
     @extend %box-neat;
+
     border: $border;
     padding: 0.2em 0.5em;
     margin: 0.1em;

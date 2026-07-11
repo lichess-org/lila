@@ -354,32 +354,17 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: Context) =
-    val query = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)
-    val isMarked =
-      playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
+  def page(me: UserStatus, appeals: Appeal.ByTopic)(using ctx: Context) =
+    val topic = AppealTopicApi.select(me, appeals)
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),
-        div(cls := s"nav-tree${if isMarked then " marked" else ""}")(
-          if (me.enabled.no && !me.marks.boost && !me.marks.engine) || query.contains("alt")
-          then altScreen
-          else
-            renderNode(
-              {
-                if me.marks.engine || query.contains("engine") then engineMenu
-                else if me.marks.boost || query.contains("boost") then boostMenu
-                else if me.marks.troll || query.contains("shadowban") then muteMenu
-                else if playban || query.contains("playban") then playbanMenu
-                else if me.marks.rankban || query.contains("rankban") then rankBanMenu
-                else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
-                else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
-                else if !ublogIsVisible || query.contains("blog") then hiddenBlogMenu
-                else cleanMenu
-              },
-              none,
-              forceLtr = true
-            )
+        div(cls := s"nav-tree${if topic.isDefined then " marked" else ""}")(
+          topic.match
+            case Some(AppealTopic.close) => altScreen
+            case t =>
+              val menu = t.flatMap(topicMenu.get) | (_ ?=> cleanMenu)
+              renderNode(menu, none, forceLtr = true)
         ),
         div(cls := "appeal__rules")(
           p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
@@ -394,6 +379,17 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           p(a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data"))
         )
       )
+
+  private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
+    AppealTopic.cheat -> engineMenu,
+    AppealTopic.boost -> boostMenu,
+    AppealTopic.comm -> muteMenu,
+    AppealTopic.play -> playbanMenu,
+    AppealTopic.rank -> rankBanMenu,
+    AppealTopic.arena -> arenaBanMenu,
+    AppealTopic.prize -> prizebanMenu,
+    AppealTopic.blog -> hiddenBlogMenu
+  )
 
   private val sendUsAnAppeal = frag(
     p("Send us an appeal, and a moderator will review it as soon as possible."),

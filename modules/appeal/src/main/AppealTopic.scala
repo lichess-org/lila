@@ -3,15 +3,20 @@ package appeal
 
 object AppealTopicApi:
 
-  def select(u: User): Option[AppealTopic] =
+  private def candidates(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
-    if u.enabled.no then close.some
-    else if u.marks.engine then cheat.some
-    else if u.marks.boost then boost.some
-    else if u.marks.troll then comm.some
-    else if u.marks.rankban then rank.some
-    else if u.marks.arenaBan then arena.some
-    else if u.marks.prizeban then prize.some
-    else none
+    List(
+      u.marks.engine.option(cheat),
+      u.marks.boost.option(boost),
+      u.enabled.no.option(close),
+      u.marks.troll.option(comm),
+      u.playban.option(play),
+      u.ublogHidden.option(blog),
+      u.marks.rankban.option(rank),
+      u.marks.arenaBan.option(arena),
+      u.marks.prizeban.option(prize)
+    ).flatten
 
-  // def userMessage(topic
+  def select(u: UserStatus, appeals: Appeal.ByTopic): Option[AppealTopic] =
+    candidates(u).find: topic =>
+      appeals.get(topic).forall(_.isOpen)

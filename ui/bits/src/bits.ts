@@ -258,6 +258,6 @@ function emailErrorCheck() {
 }
 function appealTopicSelect() {
   $('.appeal-filters option').on('click', function (this: HTMLSelectElement) {
-    location.href = `/appeal/queue?topic=${(this as HTMLSelectElement).value}`;
+    location.href = `/appeal/queue?topic=${this.value}`;
   });
 }

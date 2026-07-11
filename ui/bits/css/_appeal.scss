@@ -164,3 +164,9 @@
   padding: 0.2em 0.5em;
   margin: 0.1em;
 }
+
+.line-center-text {
+  @extend %flex-center-center;
+
+  font-style: italic;
+}

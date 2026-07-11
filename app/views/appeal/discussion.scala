@@ -59,14 +59,18 @@ object discussion:
               ),
               div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
             ),
-          if appeal.isClosed then p("This appeal is now closed.")
-          else if appeal.isUnread then p("Please wait for a moderator to reply.")
-          else if !appeal.canAddMsg then p("You can't add messages to this appeal at the moment.")
-          else userForm(appeal.topic, form, isNew = false)
+          if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
+          else if !appeal.canAddMsg then
+            p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")
+          else
+            frag(
+              appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
+              userForm(appeal.topic, form, isNew = false)
+            )
         )
       )
 
-  def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context) =
+  def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     given RenderIp = renderIp
     ui.page(s"Appeal by ${suspect.user.username}"):
@@ -90,7 +94,6 @@ object discussion:
         views.user.mod.otherUsers(suspect.user, logins, appeals, readOnly = true)(
           cls := "mod-zone communication__logins"
         ),
-        standardFlash,
         div(cls := "body")(
           appeal.msgs.map: msg =>
             div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
@@ -100,13 +103,13 @@ object discussion:
               ),
               div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
             ),
-          markedByMe.option:
-            div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text")(
-              "You have marked this user. Appeal should be handled by another moderator"
-            )
+          standardFlash.orElse:
+            markedByMe.option:
+              div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text"):
+                "You have marked this user. Appeal should be handled by another moderator"
           ,
-          if appeal.isClosed then p("This appeal is now closed.")
-          else
+          if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
+          else if inquiry.exists(_.mod.is(me)) then
             postForm(st.action := routes.Appeal.modReply(appeal.user, appeal.topic))(
               form3.globalError(form),
               form3.split(
@@ -124,9 +127,9 @@ object discussion:
                   half = true
                 )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
               ),
-              form3.action:
-                form3.submit(trans.site.send())
+              form3.action(form3.submit(trans.site.send()))
             )
+          else emptyFrag
         ),
         div(cls := "appeal__actions", id := "appeal-actions")(
           inquiry match
@@ -146,7 +149,8 @@ object discussion:
                     cls := "button button-red button-empty"
                   )
               )
-            case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
+            case Some(Inquiry(mod, _)) =>
+              p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),

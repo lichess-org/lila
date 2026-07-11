@@ -17,6 +17,7 @@ case class Appeal(
   def isRead = status == Appeal.Status.read
   def isUnread = status == Appeal.Status.unread
   def isClosed = status == Appeal.Status.closed
+  def isOpen = !isClosed
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
@@ -49,7 +50,7 @@ case class Appeal(
   def unread = copy(status = Appeal.Status.unread)
   def read = copy(status = Appeal.Status.read)
 
-  def isByMod(msg: AppealMsg) = msg.by != id
+  def isByMod(msg: AppealMsg) = msg.by != user
 
   def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
 
@@ -57,6 +58,8 @@ object Appeal:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
+
+  type ByTopic = Map[AppealTopic, Appeal]
 
   given UserIdOf[Appeal] = _.user
 
