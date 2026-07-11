@@ -37,10 +37,14 @@
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
   transition: opacity 0.2s;
 
-  &:hover,
+  &:hover {
+    opacity: 0.7;
+  }
+
   &:focus-visible {
     opacity: 0.7;
-    outline: none;
+    outline: 2px solid $c-primary;
+    outline-offset: 2px;
   }
 }
 
@@ -86,7 +90,8 @@
     }
 
     .trophy,
-    .shield-trophy {
+    .shield-trophy,
+    .revol_trophy {
       display: flex !important;
       align-items: center;
       justify-content: center;
@@ -114,7 +119,7 @@
 
 .trophy.award {
   font-family: lichess;
-  speak-as: none;
+  speak: none;
   line-height: 100%;
 }
 

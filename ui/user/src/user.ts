@@ -98,7 +98,7 @@ function tmpRandomTutorLink() {
   $(buttonHtml).insertBefore('.profile-side .insight');
 }
 
-const trophySelector = '.trophy, .shield-trophy';
+const trophySelector = '.trophy, .shield-trophy, .revol_trophy';
 const badgeSelector = '.icon3d';
 
 const trophyName = (el: HTMLElement): string => el.getAttribute('aria-label') || el.title || el.className;
