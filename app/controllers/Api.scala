@@ -269,7 +269,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
-    Anon:
+    AnonOrScoped():
       WithProxy: proxy ?=>
         limit.enumeration.cloudEval(rateLimited):
           val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
