@@ -166,7 +166,7 @@ export class InlineView {
     };
     const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);
-    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= this.glyphs.length))
+    if (liveGlyph && ctrl.settings.showLiveAnnotations && !glyphs.some(g => g.id <= this.glyphs.length))
       glyphs.push(liveGlyph);
     if (ctrl.showMoveGlyphs()) {
       glyphs
