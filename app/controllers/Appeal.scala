@@ -45,7 +45,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           // for now the user has not been negatively impacted
           ublogIsVisible <- env.ublog.api.getUserBlogOption(me).dmap(_.forall(_.visible))
         yield views.appeal.tree.page(me, playban, ublogIsVisible)
-      case Some(a) => views.appeal.discussion(a, me, err | userForm)
+      case Some(a) => views.appeal.discussion.userShow(a, me, err | userForm)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     bindForm(userForm)(
@@ -84,7 +84,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
       getModData(appeal, suspect).flatMap: modData =>
-        Ok.page(views.appeal.discussion.show(appeal, modForm, modData))
+        Ok.page(views.appeal.discussion.modShow(appeal, modForm, modData))
   }
 
   def modShowAll(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -100,7 +100,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       bindForm(modForm)(
         err =>
           getModData(appeal, suspect).flatMap: modData =>
-            BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
+            BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
         text =>
           for
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
