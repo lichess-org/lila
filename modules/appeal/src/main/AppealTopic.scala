@@ -14,11 +14,11 @@ object AppealTopicApi:
       u.marks.boost.option(boost),
       u.enabled.no.option(close),
       u.marks.troll.option(comm),
-      u.playban.option(play),
-      u.ublogHidden.option(blog),
       u.marks.rankban.option(rank),
       u.marks.arenaBan.option(arena),
-      u.marks.prizeban.option(prize)
+      u.marks.prizeban.option(prize),
+      u.playban.option(play),
+      u.ublogHidden.option(blog)
     ).flatten
 
   def select(u: UserStatus, appeals: Appeal.ByTopic): Option[AppealTopic] =
