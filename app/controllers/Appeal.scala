@@ -116,15 +116,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
       markedByMe <- env.mod.logApi.wasMarkedBy(suspect.user.id)
-    yield views.appeal.discussion.ModData(
+      given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
+    yield lila.appeal.ui.ModData(
       mod = me,
-      suspect = suspect,
-      presets = env.mod.presets.filterAppealPresets(appeal.topic),
-      logins = logins,
+      user = suspect.user,
+      presets = env.mod.presets.asPairsFor(appeal.topic),
       appeals = appeals,
-      renderIp = env.mod.ipRender.apply,
-      inquiry = inquiry.filter(_.mod.is(me)),
-      markedByMe = markedByMe
+      inquiryBy = inquiry.map(_.mod),
+      markedByMe = markedByMe,
+      otherUsers = views.user.mod.otherUsers(suspect.user, logins, appeals, readOnly = true)
     )
 
   def toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean) = Secure(_.Appeals) { _ ?=> _ ?=>

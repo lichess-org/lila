@@ -1,28 +1,25 @@
-package views.appeal
+package lila.appeal
+package ui
 
 import play.api.data.Form
 
-import lila.app.UiEnv.{ *, given }
-import lila.appeal.Appeal
-import lila.common.String.html.richText
-import lila.mod.IpRender.RenderIp
-import lila.mod.{ AppealPresets, UserWithModlog }
-import lila.report.Report.Inquiry
-import lila.report.Suspect
-import lila.core.misc.AppealTopic
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.userId.ModId
+import lila.core.config.NetDomain
 
-object discussion:
+case class ModData(
+    mod: Me,
+    user: User,
+    presets: List[PairOf[String]],
+    appeals: List[Appeal],
+    inquiryBy: Option[ModId],
+    markedByMe: Boolean,
+    otherUsers: Tag
+)
 
-  case class ModData(
-      mod: Me,
-      suspect: Suspect,
-      presets: AppealPresets,
-      logins: lila.security.UserLogins.TableData[UserWithModlog],
-      appeals: List[Appeal],
-      renderIp: RenderIp,
-      inquiry: Option[Inquiry],
-      markedByMe: Boolean
-  )
+final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
+  import helpers.{ *, given }
 
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
     postForm(st.action := routes.Appeal.post(topic))(
@@ -72,28 +69,25 @@ object discussion:
 
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
-    given RenderIp = renderIp
-    ui.page(s"Appeal by ${suspect.user.username}"):
+    ui.page(s"Appeal by ${user.username}"):
       main(cls := "box box-pad appeal")(
         h1(cls := "box__top")(
           div(cls := "title")(
             span(cls := "appeal-topic")(appeal.topic.key),
             " appeal by ",
-            userIdLink(appeal.user.some)
+            userIdLink(user.some)
           ),
           div(cls := "actions")(
             a(
               cls := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(appeal.user),
+              href := routes.User.mod(user.username),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := Icon.Agent
             )
           )
         ),
         div(cls := "mod-zone mod-zone-full none"),
-        views.user.mod.otherUsers(suspect.user, logins, appeals, readOnly = true)(
-          cls := "mod-zone communication__logins"
-        ),
+        otherUsers(cls := "mod-zone communication__logins"),
         div(cls := "body")(
           appeal.msgs.map: msg =>
             div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
@@ -109,17 +103,17 @@ object discussion:
                 "You have marked this user. Appeal should be handled by another moderator"
           ,
           if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
-          else if inquiry.exists(_.mod.is(me)) then
+          else if me.is(inquiryBy) then
             postForm(st.action := routes.Appeal.modReply(appeal.user, appeal.topic))(
               form3.globalError(form),
               form3.split(
                 div(cls := "appeal-presets form-group form-half")(
-                  presets.value.map: preset =>
+                  presets.map: (name, text) =>
                     button(
                       tpe := "button",
-                      st.value := preset.text,
-                      st.title := preset.text
-                    )(preset.name)
+                      st.value := text,
+                      st.title := text
+                    )(name)
                 ),
                 form3.group(
                   form("text"),
@@ -132,12 +126,12 @@ object discussion:
           else emptyFrag
         ),
         div(cls := "appeal__actions", id := "appeal-actions")(
-          inquiry match
+          inquiryBy match
             case None =>
               postForm(action := routes.Appeal.modHandle(appeal.user, appeal.topic))(
                 submitButton(cls := "button")("Handle this appeal")
               )
-            case Some(Inquiry(mod, _)) if ctx.is(mod) =>
+            case Some(mod) if ctx.is(mod) =>
               postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, !appeal.isClosed))(
                 if appeal.isClosed then
                   submitButton("Re-open")(
@@ -149,8 +143,7 @@ object discussion:
                     cls := "button button-red button-empty"
                   )
               )
-            case Some(Inquiry(mod, _)) =>
-              p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
+            case Some(mod) => p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),

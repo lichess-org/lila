@@ -32,7 +32,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
     text = "Moderator appeal presets".some
   )
 
-  def filterAppealPresets(topic: AppealTopic): AppealPresets =
+  private def filterAppealPresets(topic: AppealTopic): AppealPresets =
     val all = appealPresets.get()
     if topic == AppealTopic.legacy then all
     else
@@ -41,6 +41,9 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
           .filter: p =>
             p.tags.contains(topic) || p.tags.contains("any")
           .sortBy(_.tags.contains("any"))
+
+  def asPairsFor(topic: AppealTopic): List[PairOf[String]] =
+    filterAppealPresets(topic).value.map(p => p.name -> p.text)
 
   def get(group: ModPresets.Group): SettingStore[ModPresets[group.Tag]] = group.get(this)
 

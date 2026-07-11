@@ -3,8 +3,7 @@ package ui
 
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: AppealTopic => String => Context ?=> Frag
