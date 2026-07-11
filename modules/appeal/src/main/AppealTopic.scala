@@ -26,7 +26,8 @@ object AppealTopicApi:
       .find: topic =>
         appeals.get(topic).forall(_.isOpen)
       .orElse:
-        appeals.get(AppealTopic.warning).map(_.topic)
+        List(AppealTopic.warning, AppealTopic.legacy)
+          .find(t => appeals.get(t).exists(_.isOpen))
 
   def unmark(user: UserStatus, topic: AppealTopic): Option[(String, Call)] =
     candidatesFor(user)
