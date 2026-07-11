@@ -5,19 +5,116 @@
   top: 35px;
   height: 40px;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: flex-start;
   justify-content: flex-end;
+  gap: 0.35em;
   margin-top: 0 !important;
+  max-width: 100%;
 
   @media (max-width: at-most($small)) {
     display: none;
   }
 }
 
+.more-trophies {
+  flex: 0 0 auto;
+  align-self: center;
+  height: 30px;
+  min-width: 32px;
+  padding: 0 0.6em;
+  margin-inline-end: 0.5em;
+  border: none;
+  border-radius: 1em;
+  background: $c-primary;
+  color: $c-over;
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: opacity 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.7;
+    outline: none;
+  }
+}
+
+.dialog-content.all-trophies-dialog {
+  width: 42em;
+  max-width: 100%;
+  padding: 2em 2em 2.5em;
+  text-align: start;
+}
+
+.all-trophies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6em, 1fr));
+  gap: 1em 0.5em;
+
+  @media (max-width: 30em) {
+    grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
+  }
+
+  &__title {
+    grid-column: 1 / -1;
+    margin: 0 0 0.5em;
+    padding-bottom: 0.6em;
+    border-bottom: $border;
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.8em 0.4em;
+    border-radius: $box-radius-size;
+    text-align: center;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $c-bg-zebra;
+    }
+
+    .trophy,
+    .shield-trophy {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: auto !important;
+      height: 60px !important;
+      margin: 0 !important;
+      font-size: 52px;
+      transform: none !important;
+      opacity: 1;
+
+      img {
+        height: 60px !important;
+        width: auto !important;
+      }
+    }
+  }
+
+  &__name {
+    color: $c-font-dim;
+    font-size: 0.85em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+}
+
 .trophy.award {
   font-family: lichess;
-  speak: none;
+  speak-as: none;
   line-height: 100%;
 }
 
@@ -49,6 +146,7 @@
   height: 40px;
   display: flex;
   align-items: flex-end;
+  gap: 0.35em;
 }
 
 .stacked .trophy {
@@ -110,18 +208,6 @@
   &.marathonTopFivehundred {
     text-shadow: none;
   }
-}
-
-.packed .trophy {
-  margin-inline-end: -8px;
-}
-
-.packed .stacked {
-  margin-inline-end: 30px;
-}
-
-.packed .stacked .trophy {
-  margin-inline-end: -30px;
 }
 
 .trophy.icon3d {

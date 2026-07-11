@@ -1,7 +1,7 @@
 import { myUserId } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { alert, makeLinkPopups } from 'lib/view';
+import { alert, domDialog, makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 const gamesAngle = document.querySelector<HTMLElement>('.games');
@@ -12,8 +12,7 @@ export async function initModule(): Promise<void> {
   makeLinkPopups($('.user-infos .bio'));
 
   tmpRandomTutorLink();
-  updatePackedTrophies();
-  window.addEventListener('resize', updatePackedTrophies);
+  fitTrophies();
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
@@ -99,13 +98,99 @@ function tmpRandomTutorLink() {
   $(buttonHtml).insertBefore('.profile-side .insight');
 }
 
-function updatePackedTrophies() {
+const trophySelector = '.trophy, .shield-trophy';
+const badgeSelector = '.icon3d';
+
+const trophyName = (el: HTMLElement): string => el.getAttribute('aria-label') || el.title || el.className;
+const isCup = (el: HTMLElement): boolean => !el.matches(badgeSelector);
+
+function fitTrophies() {
+  const box = document.querySelector<HTMLElement>('.user-show');
+  if (box) new ResizeObserver(layoutTrophies).observe(box);
+}
+
+function layoutTrophies() {
   const header = document.querySelector<HTMLElement>('.user-show__header');
   const trophies = header?.querySelector<HTMLElement>('.trophies');
   const title = header?.querySelector<HTMLElement>('h1');
   if (!trophies || !title) return;
-  trophies.classList.remove('packed');
-  // see if there's an overflow (or close to one) without 'packed':
-  if (trophies.getBoundingClientRect().left < title.getBoundingClientRect().right + 8)
-    trophies.classList.add('packed');
+
+  trophies.querySelector('.more-trophies')?.remove();
+  const items = [...trophies.querySelectorAll<HTMLElement>(trophySelector)];
+  for (const el of items) el.style.removeProperty('display');
+
+  const hide = (el: HTMLElement) => (el.style.display = 'none');
+  const isVisible = (el: HTMLElement) => el.style.display !== 'none';
+  const nameRight = () => title.getBoundingClientRect().right + 48;
+
+  const seen = new Set<string>();
+  for (const el of items) {
+    if (seen.has(trophyName(el))) hide(el);
+    else seen.add(trophyName(el));
+  }
+
+  for (const el of items.filter(isVisible)) {
+    if (el.getBoundingClientRect().left >= nameRight()) break;
+    hide(el);
+  }
+
+  const username = title.querySelector<HTMLElement>('.user-link[data-href]')?.textContent?.trim();
+  const cupCount = items.filter(isCup).length;
+  trophies.prepend(moreButton(cupCount, () => showAllTrophies(trophies, username)));
+}
+
+function moreButton(count: number, onClick: () => void): HTMLButtonElement {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'more-trophies';
+  button.textContent = `+${count}`;
+  button.title = i18n.site.more;
+  button.setAttribute('aria-label', i18n.site.more);
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+let trophiesDialogOpen = false;
+
+function showAllTrophies(trophies: HTMLElement, username?: string) {
+  if (trophiesDialogOpen) return;
+  trophiesDialogOpen = true;
+
+  const heading = document.createElement('h2');
+  heading.className = 'all-trophies__title';
+  heading.textContent = username ?? i18n.site.more;
+
+  const grid = document.createElement('div');
+  grid.className = 'all-trophies';
+  grid.append(heading);
+  for (const el of trophies.querySelectorAll<HTMLElement>(trophySelector)) {
+    if (isCup(el)) grid.append(trophyCard(el));
+  }
+
+  domDialog({
+    class: 'all-trophies-dialog',
+    append: [{ node: grid }],
+    modal: true,
+    show: true,
+    onClose: () => (trophiesDialogOpen = false),
+  });
+}
+
+function trophyCard(cup: HTMLElement): HTMLElement {
+  const icon = cup.cloneNode(true) as HTMLElement;
+  icon.removeAttribute('style');
+  icon.querySelectorAll('img').forEach(img => img.removeAttribute('style'));
+
+  const cell = document.createElement('div');
+  cell.className = 'all-trophies__item';
+  cell.append(icon);
+
+  const label = cup.getAttribute('aria-label') || cup.title;
+  if (label) {
+    const name = document.createElement('span');
+    name.className = 'all-trophies__name';
+    name.textContent = label;
+    cell.append(name);
+  }
+  return cell;
 }
