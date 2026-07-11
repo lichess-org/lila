@@ -19,7 +19,7 @@
     "oxfmt": "0.52.0",
     "oxlint": "1.68.0",
     "oxlint-tsgolint": "0.23.0",
-    "snabbdom": "3.6.4",
+    "snabbdom": "3.5.1",
     "stylelint": "^17.11.1",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.1.1",
@@ -28,6 +28,7 @@
     "typescript": "^6.0.3"
   },
   "//": [
+    "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
     "typescript above just to allow manual tsc. ui/.build/package.json's typescript version is the truth"
   ],
   "scripts": {

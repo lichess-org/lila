@@ -55,7 +55,7 @@ const editable = (
     key: value, // force to redraw on change, to visibly update the input value
     attrs: { spellcheck: 'false', ...inputAttrs[name], maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = () => submit(name, el.value, el);
+      el.onblur = () => el.checkValidity() && submit(name, el.value, el);
       el.onkeydown = enter(() => el.blur());
     }),
   });
@@ -130,10 +130,13 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
               tags.selectedType(el.value);
               el.addEventListener('change', _ => {
                 tags.selectedType(el.value);
+                const pattern = inputAttrs[el.value]?.pattern;
                 $(el)
                   .parents('tr')
                   .find('input')
                   .each(function (this: HTMLInputElement) {
+                    if (pattern) this.setAttribute('pattern', String(pattern));
+                    else this.removeAttribute('pattern');
                     this.focus();
                   });
               });
