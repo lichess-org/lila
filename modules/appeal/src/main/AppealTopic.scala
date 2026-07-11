@@ -7,7 +7,7 @@ import lila.core.i18n.I18nKey.appeal as trans
 
 object AppealTopicApi:
 
-  private def candidatesFor(u: UserStatus): List[AppealTopic] =
+  private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
     List(
       u.marks.engine.option(cheat),

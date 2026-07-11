@@ -17,10 +17,10 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def cleanMenu(using Context): Branch =
+  private def noTopicMenu(status: UserStatus)(using Context): Branch =
     Branch(
       "root",
-      tap.cleanAllGood(),
+      if status.isClean then tap.cleanAllGood() else "No active appeals",
       List(
         Leaf(
           "clean-other-account",
@@ -359,16 +359,22 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic], appeals: List[Appeal])(using ctx: Context) =
+  def page(topic: Option[AppealTopic], status: UserStatus, appeals: List[Appeal])(using ctx: Context) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small appeal force-ltr")(
         div(cls := "box box-pad")(
           h1(cls := "box__top")("Appeal"),
-          div(cls := s"nav-tree${if topic.isDefined then " marked" else ""}")(
+          div(
+            cls := List(
+              "nav-tree" -> true,
+              "appeal-marked" -> topic.isDefined,
+              "appeal-clean" -> status.isClean
+            )
+          )(
             topic.match
               case Some(AppealTopic.close) => altScreen
               case t =>
-                val menu = t.flatMap(topicMenu.get) | (_ ?=> cleanMenu)
+                val menu = t.flatMap(topicMenu.get) | (_ ?=> noTopicMenu(status))
                 renderNode(menu, none, forceLtr = true)
           ),
           div(cls := "appeal__rules")(

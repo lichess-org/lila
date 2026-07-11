@@ -6,3 +6,5 @@ export lila.core.misc.AppealTopic
 
 case class UserStatus(user: User, playban: Boolean, ublogHidden: Boolean):
   export user.{ id, enabled, marks }
+
+  def isClean = AppealTopicApi.candidatesFor(this).isEmpty

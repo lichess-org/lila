@@ -85,13 +85,17 @@
   }
 
   .root h2 {
+    @extend %box-bordered;
     padding: 0.7em;
     text-align: center;
+  }
+
+  .appeal-clean .root h2 {
     background: $c-good;
     color: $c-over;
   }
 
-  .marked .root h2 {
+  .appeal-marked .root h2 {
     background: $c-bad;
     color: $c-over;
   }
