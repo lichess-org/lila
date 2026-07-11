@@ -454,7 +454,7 @@ GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: TourId)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
 POST  /tournament/manager                     controllers.TournamentCrud.create
-GET   /api/tournament/calendar                controllers.TournamentCrud.apiCalendar(page: Int ?= 1)
+GET   /api/tournament/manager/calendar        controllers.TournamentCrud.apiCalendar(page: Int ?= 1)
 
 # Swiss
 GET   /swiss                                  controllers.Swiss.home
