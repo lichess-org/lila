@@ -667,6 +667,7 @@ object fishnet:
     val evalCacheHits = histogram("fishnet.analysis.evalCacheHits").withoutTags()
     val skipPositionsGame = future("fishnet.analysis.skipPositions.game")
     val skipPositionsStudy = future("fishnet.analysis.skipPositions.study")
+    def sameHash(tpe: "game" | "study") = counter("fishnet.analysis.sameHash").withTag("type", tpe)
   object http:
     def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
   def move(level: Int) = counter("fishnet.move.time").withTag("level", level)

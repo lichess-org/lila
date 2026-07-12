@@ -113,7 +113,7 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) => disable(userId.value)
+    case lila.core.mod.MarkBooster(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => disable(userId.value)
 
@@ -121,6 +121,8 @@ final class Env(
     case lila.core.fishnet.Bus.GameRequest(id) =>
       analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.Bus.StudyChapterRequest => analyser.study(req)
+    case req: lila.core.fishnet.Bus.StudyChapterDelete => analysisRepo.removeChapters(req.chapterIds)
+    case req: lila.core.fishnet.Bus.StudyChapterOrphan => analysisRepo.setOrphans(req.chapterIds)
 
   Bus.sub[lila.core.fishnet.FishnetMoveRequest]: req =>
     player(req.game)

@@ -224,14 +224,15 @@ const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
   const opening = data?.opening;
-  const title = opening ? `${opening.eco} ${opening.name}` : '';
-  return hl(
-    'div.title',
-    { attrs: opening ? { title } : {} },
-    opening
-      ? [hl('a', { attrs: { href: `/opening/${opening.name}`, target: '_blank' } }, title)]
-      : showTitle(ctrl.data.game.variant),
-  );
+  if (opening) {
+    const title = `${opening.eco} ${opening.name}`;
+    return hl(
+      'div.title',
+      { attrs: { title } },
+      hl('a', { attrs: { href: `/opening/${opening.name}`, target: '_blank' } }, title),
+    );
+  }
+  return hl('div.title', showTitle(ctrl.data.game.variant));
 };
 
 let lastShow: MaybeVNode;

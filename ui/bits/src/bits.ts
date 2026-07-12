@@ -41,6 +41,8 @@ export function initModule(args: { fn: string } & any): void {
       return validateEmail();
     case 'emailErrorCheck':
       return emailErrorCheck();
+    case 'appealTopicSelect':
+      return appealTopicSelect();
     default:
       console.error('Unknown bits function', args.fn);
   }
@@ -253,4 +255,9 @@ function emailErrorCheck() {
     } else setTimeout(() => fetchError(backoff * 1.5), backoff);
   };
   fetchError(3000);
+}
+function appealTopicSelect() {
+  $('.appeal-filters option').on('click', function (this: HTMLSelectElement) {
+    location.href = `/appeal/queue?topic=${this.value}`;
+  });
 }

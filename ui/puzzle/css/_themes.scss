@@ -84,10 +84,11 @@
     }
 
     .puzzle-recommended & {
-      @extend %box-neat;
+      @extend %box-bordered;
 
       font-size: 1.2em;
       background: color-mix(in oklab, $c-secondary 20%, $c-bg);
+      border-color: color-mix(in oklab, $c-secondary 35%, $c-bg);
       color: $c-good;
       margin: 2em 0;
 

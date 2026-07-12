@@ -1,43 +1,37 @@
 package lila.appeal
 
-import lila.appeal.Appeal.Filter
-import lila.core.id.AppealId
-import lila.core.user.{ UserMark, UserRepo }
+import lila.appeal.Appeal.Id as AppealId
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 
 final class AppealApi(
     coll: Coll,
-    userRepo: UserRepo,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(using Executor):
 
   import BsonHandlers.given
 
-  def byId[U: UserIdOf](u: U): Fu[Option[Appeal]] = coll.byId[Appeal](u.id)
+  def byTopic[U: UserIdOf](u: U): Fu[Appeal.ByTopic] =
+    findAll(u).map(_.groupBy(_.topic).view.mapValues(_.head).toMap)
 
-  def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
+  def latestBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
+    findAll(u).map(_.headOption)
+
+  def find[U: UserIdOf](u: U, topic: AppealTopic): Fu[Option[Appeal]] =
+    coll.find($doc("user" -> u.id, "topic" -> topic)).one[Appeal]
+
+  def findAll[U: UserIdOf](u: U): Fu[List[Appeal]] =
+    coll.find($doc("user" -> u.id)).sort($sort.desc("updatedAt")).cursor[Appeal]().listAll()
+
+  def byUserIds(userIds: List[UserId]): Fu[List[Appeal]] =
+    coll.find($doc("user".$in(userIds))).cursor[Appeal]().listAll()
 
   def exists(user: User) = coll.exists($id(user.id))
 
-  def post(text: String)(using me: Me) =
-    byId(me).flatMap:
+  def post(topic: AppealTopic, text: String)(using me: Me) =
+    find(me, topic).flatMap:
       case None =>
-        val appeal =
-          Appeal(
-            id = me.userId.into(AppealId),
-            msgs = Vector(
-              AppealMsg(
-                by = me,
-                text = text,
-                at = nowInstant
-              )
-            ),
-            status = Appeal.Status.Unread,
-            createdAt = nowInstant,
-            updatedAt = nowInstant,
-            firstUnrepliedAt = nowInstant
-          )
+        val appeal = Appeal.make(topic, text)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
         val appeal = prev.post(text, me)
@@ -47,7 +41,7 @@ final class AppealApi(
     val appeal = prev.post(text, me)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
-  def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
+  def countUnread = coll.countSel($doc("status" -> Appeal.Status.unread))
 
   def logsOf(since: Instant, mod: ModId): Fu[List[(UserId, AppealMsg)]] =
     coll
@@ -67,91 +61,50 @@ final class AppealApi(
           msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
-  def myQueue(filter: Option[Filter])(using me: Me) =
-    bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId.userId))
+  def myQueue(topic: Option[AppealTopic], nb: Int = 50)(using me: Me): Fu[List[Appeal]] =
+    val snoozedIds = snoozer.snoozedKeysOf(me.userId).map(_.appealId)
+    val selector =
+      $doc("status" -> Appeal.Status.unread) ++
+        snoozedIds.nonEmpty.so($doc("_id".$nin(snoozedIds))) ++
+        topic.so(t => $doc("topic" -> t))
+    coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
 
-  private def bothQueues(
-      filter: Option[Filter],
-      exceptIds: Iterable[UserId]
-  ): Fu[List[Appeal.WithUser]] =
-    fetchQueue(
-      selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
-        exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds)))
-      },
-      filter = filter,
-      ascending = true,
-      nb = 50
-    ).flatMap { unreads =>
-      fetchQueue(
-        selector = $doc("status".$ne(Appeal.Status.Unread.key)),
-        filter = filter,
-        ascending = false,
-        nb = 60 - unreads.size
-      ).map { unreads ::: _ }
-    }
+  def setRead(user: UserId, topic: AppealTopic) =
+    coll.updateField($doc("user" -> user, "topic" -> topic), "status", Appeal.Status.read).void
 
-  private def fetchQueue(
-      selector: Bdoc,
-      filter: Option[Filter],
-      ascending: Boolean,
-      nb: Int
-  ): Fu[List[Appeal.WithUser]] =
-    coll
-      .aggregateList(maxDocs = nb, _.sec): framework =>
-        import framework.*
-        Match(selector) -> List(
-          Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
-          Limit(nb * 20),
-          PipelineOperator:
-            $lookup.simple(
-              from = userRepo.coll,
-              as = "user",
-              local = "_id",
-              foreign = "_id",
-              pipe = filter.so(f => List($doc("$match" -> filterSelector(f))))
-            )
-          ,
-          Limit(nb),
-          UnwindField("user")
-        )
-      .map: docs =>
-        import userRepo.userHandler
-        for
-          doc <- docs
-          appeal <- doc.asOpt[Appeal]
-          user <- doc.getAsOpt[User]("user")
-        yield Appeal.WithUser(appeal, user)
+  private def update(appeal: Appeal): Fu[Appeal] =
+    coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  def filterSelector(filter: Filter) =
-    import lila.core.user.BSONFields as F
-    filter.value match
-      case Some(mark) => $doc(F.marks.$in(List(mark.key)))
-      case None => $doc(F.marks.$nin(UserMark.bannable))
+  def toggleClosed(appeal: Appeal, v: Boolean, sleepMonths: Int) =
+    for
+      a2 <- update(appeal.toggleClosed(v))
+      _ <- (v && sleepMonths > 0).so:
+        update(a2.sleep(sleepMonths.some)).void
+    yield ()
 
-  def setRead(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.read).void
+  def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean, sleepMonths: Int = 0): Funit =
+    find(user, topic).flatMapz(toggleClosed(_, v, sleepMonths))
 
-  def setUnread(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.unread).void
+  def toggleClosedAllOf(user: UserId, v: Boolean): Funit =
+    findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v, 0)))
 
-  def toggleMute(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.toggleMute).void
+  def setReadById(userId: UserId) = for
+    appeals <- findAll(userId)
+    _ <- appeals.sequentiallyVoid: appeal =>
+      setRead(userId, appeal.topic)
+  yield ()
 
-  def setReadById(userId: UserId) =
-    byId(userId).flatMapz(setRead)
-
-  def setUnreadById(userId: UserId) =
-    byId(userId).flatMapz(setUnread)
+  def setUnreadBy(userId: UserId, topic: AppealTopic): Funit =
+    find(userId, topic).flatMapz: a =>
+      update(a.unread).void
 
   def onAccountClose(user: User) = setReadById(user.id)
 
   def snooze(appealId: AppealId, duration: String)(using mod: Me): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
-  object modFilter:
-    private var store = Map.empty[UserId, Option[Filter]]
-    def fromQuery(str: Option[String])(using me: Me): Option[Filter] =
-      if str.has("reset") then store = store - me.userId
-      val filter = str.map(Filter.byName.get) | store.get(me.userId).flatten
-      store = store + (me.userId -> filter)
-      filter
+  private[appeal] def reopenPausedAppeals(): Funit = for
+    appeals <- coll.list[Appeal]("closedUntil".$gt(nowInstant), 20)
+    _ <- appeals.sequentiallyVoid: appeal =>
+      update(appeal.toggleClosed(false))
+  yield ()

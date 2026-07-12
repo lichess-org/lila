@@ -73,7 +73,11 @@ final private class RelaySync(
       .countByStudyId(study.id)
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
-          createChapter(study, game)(using rt.tour).map: chapter =>
+          for
+            chapter <- createChapter(study, game)(using rt.tour)
+            _ <- chapter.tags.outcome.isDefined.so:
+              onChapterEnd(rt.tour, study, chapter)
+          yield
             if chapter.root.mainline.nonEmpty then notifier.onCreate(rt, chapter)
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size, false).some
 
@@ -206,7 +210,7 @@ final private class RelaySync(
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
     yield
-      if tour.official && !study.isMember(UserId("no-analysis")) && chapter.root.mainline.sizeIs > 4 then
+      if tour.official && !study.isMember(UserId("no-analysis")) then
         scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 

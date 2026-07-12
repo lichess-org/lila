@@ -75,8 +75,8 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             },
             [
               h('button.del', {
-                hook: bind('click', () => fctrl.removeIndex(i), ctrl.redraw),
-                attrs: { 'data-icon': licon.X, type: 'button' },
+                hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
+                attrs: { ...dataIcon(licon.X), type: 'button' },
               }),
               h('sans', renderNodesHtml(nodes)),
             ],

@@ -1,5 +1,5 @@
 .calendar-mselect {
-  @extend %box-neat, %flex-between-nowrap;
+  @extend %box-bordered, %flex-between-nowrap;
 
   font-size: 1.5em;
   background: $c-bg-zebra;

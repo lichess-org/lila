@@ -2,29 +2,31 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.id.AppealId
-import lila.core.user.UserMark
-import lila.ui.Icon
-import lila.core.perm.Granter
-
 case class Appeal(
-    @Key("_id") id: AppealId,
+    @Key("_id") id: Appeal.Id,
+    user: UserId,
+    topic: AppealTopic,
     msgs: Vector[AppealMsg], // chronological order, oldest first
     status: Appeal.Status, // from the moderators POV
     createdAt: Instant,
     updatedAt: Instant,
     // date of first player message without a mod reply
     // https://github.com/lichess-org/lila/issues/7564
-    firstUnrepliedAt: Instant
+    firstUnrepliedAt: Instant,
+    closedUntil: Option[Instant] = None // user must wait a certain duration
 ):
-  def userId: UserId = id.into(UserId)
-  def isRead = status == Appeal.Status.Read
-  def isMuted = status == Appeal.Status.Muted
-  def isUnread = status == Appeal.Status.Unread
+  def isRead = status == Appeal.Status.read
+  def isUnread = status == Appeal.Status.unread
+  def isClosed = status == Appeal.Status.closed
+  def isOpen = !isClosed
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
-  def isAbout(userId: UserId) = id.is(userId)
+  def toggleClosed(v: Boolean) =
+    if v then copy(status = Appeal.Status.closed)
+    else copy(status = Appeal.Status.read).sleep(none)
+
+  def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
   def post(text: String, by: UserId) =
     val msg = AppealMsg(by, text, nowInstant)
@@ -32,8 +34,8 @@ case class Appeal(
       msgs = msgs :+ msg,
       updatedAt = nowInstant,
       status =
-        if isByMod(msg) && isUnread then Appeal.Status.Read
-        else if !isByMod(msg) && isRead then Appeal.Status.Unread
+        if isByMod(msg) && isUnread then Appeal.Status.read
+        else if !isByMod(msg) && isRead then Appeal.Status.unread
         else status,
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
@@ -50,66 +52,43 @@ case class Appeal(
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength && recentCount < 3
 
-  def unread = copy(status = Appeal.Status.Unread)
-  def read = copy(status = Appeal.Status.Read)
-  def toggleMute = if isMuted then read else copy(status = Appeal.Status.Muted)
+  def unread = copy(status = Appeal.Status.unread)
 
-  lazy val mutedSince: Option[Instant] = isMuted.so:
-    msgs.reverse.takeWhile(m => !isByMod(m)).lastOption.map(_.at)
+  def isByMod(msg: AppealMsg) = msg.by != user
 
-  def isByMod(msg: AppealMsg) = msg.by != id
+  def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
 
 object Appeal:
 
-  given UserIdOf[Appeal] = _.id.userId
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
+  type ByTopic = Map[AppealTopic, Appeal]
+
+  given UserIdOf[Appeal] = _.user
 
   enum Status:
-    val key = Status.this.toString.toLowerCase
-    case Unread, Read, Muted
+    case unread, read, closed
+    def key = toString
   object Status:
     def apply(key: String) = values.find(_.key == key)
 
-  case class WithUser(appeal: Appeal, user: User)
-
   val maxLength = 1100
-  val maxLengthClient = 1000
-  def maxLengthForMe(using Option[Me]) = if Granter.opt(_.Appeals) then 10_000 else maxLengthClient
 
-  import play.api.data.*
-  import play.api.data.Forms.*
-
-  val form = Form:
-    single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
-
-  val modForm = Form:
-    tuple(
-      "text" -> lila.common.Form.cleanNonEmptyText,
-      "process" -> boolean
+  def make(topic: AppealTopic, text: String)(using me: Me) =
+    val now = nowInstant
+    Appeal(
+      id = Id(scalalib.ThreadLocalRandom.nextString(8)),
+      user = me.userId,
+      topic = topic,
+      msgs = Vector(AppealMsg(me, text, now)),
+      status = Status.unread,
+      createdAt = now,
+      updatedAt = now,
+      firstUnrepliedAt = now
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: AppealId)
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
-  opaque type Filter = Option[UserMark]
-  object Filter extends TotalWrapper[Filter, Option[UserMark]]:
-    given Eq[Filter] = Eq.fromUniversalEquals
-    extension (filter: Filter)
-      def toggle(to: Filter) = (to != filter).option(to)
-      def is(mark: UserMark) = filter.contains(mark)
-      def key = filter.fold("clean")(_.key)
-
-    val allWithIcon = List[(Filter, Either[Icon, String])](
-      UserMark.troll.some -> Left(Icon.BubbleSpeech),
-      UserMark.boost.some -> Left(Icon.LineGraph),
-      UserMark.engine.some -> Left(Icon.Cogs),
-      UserMark.alt.some -> Right("A"),
-      none -> Left(Icon.User)
-    )
-    val byName: Map[String, Filter] =
-      UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
-
-case class AppealMsg(
-    by: UserId,
-    text: String,
-    at: Instant
-)
+case class AppealMsg(by: UserId, text: String, at: Instant)
