@@ -3,7 +3,7 @@ name: Crowdin Push
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'translation/source/**'
   workflow_dispatch:
