@@ -125,7 +125,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
                     comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
                   ),
                   ' ',
-                  commentBest(comment, ctrl),
+                  ...commentBest(comment, ctrl),
                 ]
               : [ctrl.isMyTurn() || end ? '' : hl('span.wait', i18n.site.evaluatingYourMove)]),
         )
