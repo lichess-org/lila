@@ -187,13 +187,14 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     private val scoreTag = tag("score")
 
     def layout(
+        title: String,
         filter: String,
         scores: Room.Scores,
         pending: PendingCounts,
         moreCss: Seq[String] = Nil,
         moreJs: EsmList = Nil
     )(using Context, Me) =
-      Page("Reports")
+      Page(title)
         .css("mod.report")
         .css(moreCss*)
         .js(esmInit("mod.autolink"))
