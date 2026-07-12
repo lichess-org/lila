@@ -111,7 +111,7 @@ object mod:
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
-            val userAppeal = appeals.find(_.user.is(o.id))
+            val userAppeals = appeals.filter(_.user.is(o.id))
             val closedInfo = log.closed
             tr(
               dataUsername := o.username,
@@ -165,23 +165,22 @@ object mod:
                     )
                   )
                 .getOrElse(td(dataSort := 0)),
-              userAppeal match
-                case None => td(dataSort := 0)
-                case Some(appeal) =>
-                  td(dataSort := 1)(
+              userAppeals match
+                case Nil => td(dataSort := 0)
+                case appeals =>
+                  val nbMsgs = appeals.map(_.msgs.size).sum
+                  td(dataSort := nbMsgs)(
                     a(
-                      href := Granter
-                        .opt(_.Appeals)
-                        .option(routes.Appeal.modShow(appeal.user, appeal.topic).url),
+                      href := Granter.opt(_.Appeals).option(routes.Appeal.modShowAll(o.id)),
                       cls := List(
                         "text" -> true,
-                        "appeal-recent" -> appeal.isRecent,
-                        "appeal-old" -> appeal.isOld,
-                        "appeal-closed" -> appeal.isClosed
+                        "appeal-recent" -> appeals.exists(_.isRecent),
+                        "appeal-old" -> appeals.forall(_.isOld),
+                        "appeal-closed" -> appeals.forall(_.isClosed)
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isClosed.so(" [CLOSED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
-                    )(appeal.msgs.size)
+                      title := s"${pluralize("appeal message", nbMsgs)}${appeals.forall(_.isClosed).so(" [CLOSED]")}\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
+                    )(nbMsgs)
                   )
               ,
               td(dataSort := o.createdAt.toMillis)(pastMomentServer(o.createdAt)),
