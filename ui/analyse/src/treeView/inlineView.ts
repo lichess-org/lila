@@ -1,4 +1,4 @@
-import type { Classes, Hooks } from 'snabbdom';
+import type { Classes } from 'snabbdom';
 
 import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
@@ -189,10 +189,13 @@ export class InlineView {
 
   protected disclosureConnector(parentPath: TreePath): LooseVNodes {
     const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
-    const hook: Hooks = { insert: callback, update: v => setTimeout(() => callback(v)) };
     return (
       this.ctrl.settings.disclosureMode &&
-      hl('div.disclosure-connector', { hook }, hl('div.disclosure-connector.riser'))
+      hl(
+        'div.disclosure-connector',
+        { hook: { insert: callback, update: v => setTimeout(() => callback(v)) } },
+        hl('div.disclosure-connector.riser'),
+      )
     );
   }
 

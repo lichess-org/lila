@@ -1,6 +1,6 @@
 import { h, type VNodeData } from 'snabbdom';
 
-import { initMiniBoard } from 'lib/view';
+import { initMiniBoard, onInsert } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { Game } from './interfaces';
@@ -10,7 +10,7 @@ const miniGame = (game: Game) =>
     h('span.mini-board.is2d', {
       attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
       hook: {
-        insert: vnode => initMiniBoard(vnode.elm as HTMLElement),
+        ...onInsert(initMiniBoard),
         update: vnode => initMiniBoard(vnode.elm as HTMLElement),
       },
     }),

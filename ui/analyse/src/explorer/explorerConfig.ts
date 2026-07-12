@@ -254,8 +254,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
       value: prop() > max ? max : prop(),
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -266,7 +265,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
@@ -286,8 +285,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
       value: prop().split('-')[0],
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -298,29 +296,28 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
 };
 
-const monthSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.date', [
-    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', [
-      i18n.site.until,
-      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
-    ]),
+const monthSection = (ctrl: ExplorerConfigCtrl) => {
+  const db = ctrl.data.byDb();
+  return h('section.date', [
+    h('label', [i18n.site.since, monthInput(db.since, () => '', ctrl.root.redraw)]),
+    h('label', [i18n.site.until, monthInput(db.until, db.since, ctrl.root.redraw)]),
   ]);
+};
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   let dlg: Dialog;
-  const onSelect = (name: string | undefined) => {
+  const onSelect = (name?: string) => {
     ctrl.selectPlayer(name);
     dlg.close();
   };
-  const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) return;
+  const nameToOptionalColor = (name?: string) => {
+    if (!name) return undefined;
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';

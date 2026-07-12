@@ -171,8 +171,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
       hl('input.copyable', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLInputElement;
+          ...onInsert<HTMLInputElement>(el => {
             el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
             el.addEventListener('change', () => {
               if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
@@ -181,7 +180,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               ctrl.fenInput = el.value;
               el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
             });
-          },
+          }),
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
@@ -199,7 +198,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { spellcheck: 'false' },
           class: { 'is-error': !!ctrl.pgnError },
           hook: {
-            ...onInsert((el: HTMLTextAreaElement) => {
+            ...onInsert<HTMLTextAreaElement>(el => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
               const changePgnIfDifferent = () =>
                 el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true);
