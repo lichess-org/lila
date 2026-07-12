@@ -26,6 +26,9 @@ case class Appeal(
     if v then copy(status = Appeal.Status.closed)
     else copy(status = Appeal.Status.read).sleep(none)
 
+  def toggleRead(v: Boolean) =
+    copy(status = if v then Appeal.Status.read else Appeal.Status.unread)
+
   def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
   def post(text: String, by: UserId) =

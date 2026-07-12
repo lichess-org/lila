@@ -141,6 +141,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
   }
 
+  def toggleRead(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
+      for
+        _ <- env.appeal.api.toggleRead(appeal, v)
+        _ <- env.report.api.inquiries.toggle(Right(appeal.user)).void
+      yield Redirect(routes.Appeal.modQueue)
+  }
+
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     asMod(username, topic): (_, s) =>
       for _ <- env.irc.api.userAppeal(s.user.light)

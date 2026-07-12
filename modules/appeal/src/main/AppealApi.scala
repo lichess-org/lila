@@ -82,6 +82,8 @@ final class AppealApi(
         update(a2.sleep(sleepMonths.some)).void
     yield ()
 
+  def toggleRead(appeal: Appeal, v: Boolean) = update(appeal.toggleRead(v)).void
+
   def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean, sleepMonths: Int = 0): Funit =
     find(user, topic).flatMapz(toggleClosed(_, v, sleepMonths))
 

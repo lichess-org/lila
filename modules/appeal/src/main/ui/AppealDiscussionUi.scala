@@ -201,8 +201,18 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                     val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
                     postForm(action := actionUrl):
                       submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
+                  ,
+                appeal.isOpen.option:
+                  postForm(action := routes.Appeal.toggleRead(appeal.user, appeal.topic, appeal.isUnread))(
+                    submitButton(cls := "button button-dim button-empty"):
+                      if appeal.isUnread then "Set read" else "Set Unread"
+                  )
               )
-            case Some(mod) => p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
+            case Some(mod) =>
+              button(userIdLink(mod.some), nbsp, "is handling this.")(
+                disabled,
+                cls := "button button-empty disabled"
+              )
           ,
           postForm(
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),
