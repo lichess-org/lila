@@ -17,7 +17,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def noTopicMenu(status: UserStatus)(using Context): Branch =
+  private def noTopicMenu(status: UserStatus, appeals: Appeal.ByTopic)(using Context): Branch =
     Branch(
       "root",
       if status.isClean then tap.cleanAllGood() else "No active appeals",
@@ -30,19 +30,21 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
               "Sorry we don't take appeals from other accounts. The appeal should come from nowhere else, but the concerned account."
             )
           )
-        ),
-        Leaf(
-          "clean-warning",
-          "I want to discuss a warning I received",
-          frag(
-            p(
-              "Please note that warnings are only warnings, and that your account has not been restricted currently.",
-              br,
-              "If you still want to file an appeal, use the following form:"
-            ),
-            newAppeal(AppealTopic.warning)("")
+        ).some,
+        Option.when(appeals.get(AppealTopic.warning).forall(_.isOpen)):
+          Leaf(
+            "clean-warning",
+            "I want to discuss a warning I received",
+            frag(
+              p(
+                "Please note that warnings are only warnings, and that your account has not been restricted currently.",
+                br,
+                "If you still want to file an appeal, use the following form:"
+              ),
+              newAppeal(AppealTopic.warning)("")
+            )
           )
-        ),
+        ,
         Leaf(
           "clean-other-issue",
           "I have another issue to discuss",
@@ -58,8 +60,8 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             "You can also ",
             a(href := cmsPageUrl("appeal"))("find here more information about appeals.")
           )
-        )
-      )
+        ).some
+      ).flatten
     )
 
   private def newAppealFieldset(form: Frag) =
@@ -359,7 +361,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic], status: UserStatus, appeals: List[Appeal])(using ctx: Context) =
+  def page(topic: Option[AppealTopic], status: UserStatus, appeals: Appeal.ByTopic)(using ctx: Context) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small appeal force-ltr")(
         div(cls := "box box-pad")(
@@ -374,7 +376,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             topic.match
               case Some(AppealTopic.close) => altScreen
               case t =>
-                val menu = t.flatMap(topicMenu.get) | (_ ?=> noTopicMenu(status))
+                val menu = t.flatMap(topicMenu.get) | (_ ?=> noTopicMenu(status, appeals))
                 renderNode(menu, none, forceLtr = true)
           ),
           div(cls := "appeal__rules")(
@@ -392,7 +394,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        inactiveAppeals(appeals)
+        inactiveAppeals(appeals.values.toList)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
