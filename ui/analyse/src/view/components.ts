@@ -293,8 +293,15 @@ export function renderMoveNodes(
   if (withGlyphs && relevantGlyphs)
     relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));
-  if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
+  if (withEval && evalText && ev)
+    nodes.push(h('eval', { attrs: { title: evalInfo(ev) } }, evalText.replace('-', '−')));
   return nodes;
+}
+
+function evalInfo(ev: ClientEval | ServerEval): string {
+  if ('knodes' in ev) return `Server: ${(ev.knodes * 1000).toLocaleString()} nodes`;
+  const prelude = ev.cloud ? 'Cloud:' : 'Local:';
+  return `${prelude} ${ev.nodes.toLocaleString()} nodes`;
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
