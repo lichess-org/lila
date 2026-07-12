@@ -299,9 +299,9 @@ export function renderMoveNodes(
 }
 
 function evalInfo(ev: ClientEval | ServerEval): string {
-  if ('knodes' in ev) return `Server · About ${(ev.knodes * 1000).toLocaleString()} nodes searched`;
+  if ('knodes' in ev) return `Server eval · About ${(ev.knodes * 1000).toLocaleString()} nodes searched`;
   if (!('nodes' in ev)) return 'Unknown strength';
-  const prelude = ev.cloud ? 'Cloud' : 'Local';
+  const prelude = ev.cloud ? 'Cloud eval' : 'Local eval';
   return `${prelude} · ${ev.nodes.toLocaleString()} nodes searched`;
 }
 
