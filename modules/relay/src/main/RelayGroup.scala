@@ -140,7 +140,8 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
-  def byId(id: RelayGroupId): Fu[Option[RelayGroup]] = coll.byId[RelayGroup](id)
+  def byId(id: RelayGroupId): Fu[Option[RelayGroup]] =
+    coll.byId[RelayGroup](id).recoverDefault
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]
