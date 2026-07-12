@@ -93,7 +93,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
-  const steps = ctrl.data.steps,
+  const pending = ctrl.pendingStep(),
+    steps = pending ? [...ctrl.data.steps, pending] : ctrl.data.steps,
     firstPly = util.firstPly(ctrl.data),
     lastPly = util.lastPly(ctrl.data),
     indexOffset = Math.trunc(firstPly / 2) + 1,
@@ -110,7 +111,7 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
   const els: LooseVNodes = [],
-    curPly = ctrl.ply;
+    curPly = pending ? pending.ply : ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(hl(indexTag, i + indexOffset));
     els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
