@@ -341,6 +341,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         "date".$gte(nowInstant.minusMonths(6))
       )
 
+  def hasWarning(userId: UserId): Fu[Boolean] =
+    coll.secondary.exists($doc("user" -> userId, "action" -> Modlog.modMessage))
+
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
       $doc(
