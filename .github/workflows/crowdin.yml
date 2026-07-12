@@ -25,6 +25,7 @@ jobs:
           crowdin_branch_name: '[lichess-org.lila] master'
           upload_sources_args: '--preserve-hierarchy'
           source: translation/source/*.xml
+          translation: /translation/dest/%file_name%/%locale%.%file_extension%
         env:
           # A classic GitHub Personal Access Token with the 'repo' scope selected (the user should have write access to the repository).
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
