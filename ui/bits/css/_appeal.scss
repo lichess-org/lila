@@ -66,10 +66,7 @@
     padding-top: 2em;
     border-top: $border;
     margin-top: 2em;
-
-    .button {
-      margin-inline-end: 1em;
-    }
+    gap: 1em;
   }
 
   .marked-by-me {
