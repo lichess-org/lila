@@ -17,4 +17,7 @@ object AppealForm:
     single("text" -> cleanNonEmptyText(minLength = 2, maxLength = Appeal.maxLength))
 
   val modForm = Form:
-    single("text" -> cleanNonEmptyText)
+    tuple(
+      "text" -> cleanNonEmptyText,
+      "close" -> optional(boolean)
+    )

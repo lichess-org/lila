@@ -65,7 +65,11 @@
     display: flex;
     padding-top: 2em;
     border-top: $border;
-    margin-top: 2em;
+    margin-top: 1.5em;
+    gap: 1em;
+  }
+
+  .form-actions {
     gap: 1em;
   }
 

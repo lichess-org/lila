@@ -101,10 +101,11 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         err =>
           getModData(appeal, suspect).flatMap: modData =>
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
-        text =>
+        (text, close) =>
           for
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
             _ <- env.appeal.api.reply(text, appeal)
+            _ <- close.orZero.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
           yield redirectToActions(username, topic).flashSuccess("Reply sent")
       )
   }
