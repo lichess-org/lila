@@ -131,7 +131,10 @@ db.seek_archive.createIndex({ gameId: 1 });
 db.swiss_player.createIndex({ s: 1, c: -1 });
 db.print_ban.createIndex({ date: 1 }, { expireAfterSeconds: 7776000 });
 db.appeal2.createIndex({ user: 1 });
-db.appeal2.createIndex({ status: 1, lastUnrepliedAt: 1 });
+db.appeal2.createIndex(
+  { status: 1, topic: 1, firstUnrepliedAt: 1 },
+  { partialFilterExpression: { status: 'unread' } },
+);
 db.appeal2.createIndex({ user: 1, topic: 1 }, { unique: true });
 db.challenge.createIndex({ status: 1, 'challenger.id': 1, createdAt: 1 });
 db.challenge.createIndex({ status: 1, 'destUser.id': 1, createdAt: 1 });
