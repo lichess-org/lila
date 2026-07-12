@@ -20,7 +20,7 @@ export default function (ctrl: LobbyController) {
       hl('a.' + pov.variant.key, { key: `${pov.gameId}${pov.lastMove}`, attrs: { href: '/' + pov.fullId } }, [
         hl('span.mini-board.cg-wrap.is2d', {
           attrs: { 'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}` },
-          hook: onInsert<HTMLElement>(initMiniBoard),
+          hook: onInsert(initMiniBoard),
         }),
         hl('span.meta', [
           pov.opponent.ai

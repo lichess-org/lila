@@ -36,7 +36,7 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
-              hook: onInsert<HTMLSpanElement>(el => {
+              hook: onInsert(el => {
                 setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
               }),
             },
