@@ -247,6 +247,12 @@ export default class AnalyseCtrl implements CevalHandler {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
+    if (this.data.analysis?.nodesPerMove)
+      treeOps.updateAll(this.tree.root, node => {
+        if (node.eval && !node.eval.knodes && !node.ceval) {
+          node.eval.knodes = this.data.analysis!.nodesPerMove / 1000;
+        }
+      });
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
       if (add3or5FoldGlyphs(mainline)) this.data.game.threefold = true;
@@ -934,6 +940,11 @@ export default class AnalyseCtrl implements CevalHandler {
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     const tree = completeNode(this.variantKey)(data.tree);
+    if (data.analysis?.nodesPerMove)
+      treeOps.updateAll(tree, node => {
+        if (node.eval && !node.ceval && !node.eval.knodes)
+          node.eval.knodes = data.analysis!.nodesPerMove / 1000;
+      });
     this.tree.merge(tree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
     this.data.analysis = data.analysis;

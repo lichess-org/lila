@@ -133,6 +133,7 @@ export interface Division {
 
 export interface Analysis {
   id: string;
+  nodesPerMove: number;
   white: AnalysisSide;
   black: AnalysisSide;
   partial?: boolean;

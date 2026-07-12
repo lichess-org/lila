@@ -299,10 +299,10 @@ export function renderMoveNodes(
 }
 
 function evalInfo(ev: ClientEval | ServerEval): string {
-  if ('knodes' in ev) return `Server: ${(ev.knodes * 1000).toLocaleString()} nodes`;
-  if (!('nodes' in ev)) return 'Server eval';
-  const prelude = ev.cloud ? 'Cloud:' : 'Local:';
-  return `${prelude} ${ev.nodes.toLocaleString()} nodes`;
+  if ('knodes' in ev) return `Server · About ${(ev.knodes * 1000).toLocaleString()} nodes searched`;
+  if (!('nodes' in ev)) return 'Unknown strength';
+  const prelude = ev.cloud ? 'Cloud' : 'Local';
+  return `${prelude} · ${ev.nodes.toLocaleString()} nodes searched`;
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
