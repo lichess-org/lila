@@ -5,30 +5,41 @@ import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
-import { option, plural } from '@/view/util';
+import { plural } from '@/view/util';
 
 import { view as descView } from '../description';
 import type StudyCtrl from '../studyCtrl';
 import type { StudyPracticeData } from './interfaces';
 import type StudyPracticeCtrl from './studyPracticeCtrl';
 
-const selector = (data: StudyPracticeData) =>
-  h(
+const selector = (data: StudyPracticeData) => {
+  const currentId = data.study.id;
+  return h(
     'select.selector',
     { hook: bind('change', e => (location.href = '/practice/' + (e.target as HTMLInputElement).value)) },
     [
-      h('option', { attrs: { disabled: true, selected: true } }, 'Practice list'),
+      h('option', { attrs: { disabled: true } }, 'Practice list'),
       ...data.structure.map(section =>
         h(
           'optgroup',
           { attrs: { label: section.name } },
           section.studies.map(study =>
-            option(section.id + '/' + study.slug + '/' + study.id, '', study.name),
+            h(
+              'option',
+              {
+                attrs: {
+                  value: section.id + '/' + study.slug + '/' + study.id,
+                  selected: study.id === currentId,
+                },
+              },
+              study.name,
+            ),
           ),
         ),
       ),
     ],
   );
+};
 
 function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
