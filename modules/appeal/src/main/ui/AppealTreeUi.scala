@@ -369,7 +369,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           div(
             cls := List(
               "nav-tree" -> true,
-              "appeal-marked" -> topic.isDefined,
+              "appeal-marked" -> topic.exists(AppealTopicApi.relevant.contains),
               "appeal-clean" -> status.isClean
             )
           )(
