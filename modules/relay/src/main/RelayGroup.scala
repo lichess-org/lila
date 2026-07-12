@@ -13,6 +13,7 @@ case class RelayGroup(
 ):
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
     scoreGroups.flatMap(_.find(_.contains(tourId)))
+  def call = routes.RelayTour.show(name.toSlug, id.into(RelayTourId))
 
 object RelayGroup:
 

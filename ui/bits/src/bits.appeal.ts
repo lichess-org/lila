@@ -2,11 +2,11 @@ import { formToXhr } from 'lib/xhr';
 
 export function initModule(): void {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
-  $('select.appeal-presets').on('change', function (this: HTMLSelectElement, e: Event) {
+  $('.appeal-presets button').on('click', function (this: HTMLSelectElement, e: Event) {
     $(this)
       .parents('form')
-      .find('textarea')
-      .val((e.target as HTMLTextAreaElement).value);
+      .find('#form3-text')
+      .val((e.target as HTMLButtonElement).value);
   });
 
   $('form.appeal__actions__slack').on('submit', (e: SubmitEvent) => {
@@ -16,6 +16,10 @@ export function initModule(): void {
     return false;
   });
 
+  enhanceDates();
+}
+
+function enhanceDates() {
   const isoDateRegex = /\b(\d{4}-\d{2}-\d{2})\b/g;
   const now = new Date();
   now.setHours(0, 0, 0, 0);

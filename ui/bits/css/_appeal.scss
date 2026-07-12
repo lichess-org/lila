@@ -7,8 +7,13 @@
     }
   }
 
+  &__mark {
+    margin: 1em 0;
+  }
+
   .mz-section--others {
-    margin-bottom: 3em;
+    margin-bottom: 2em;
+    max-height: 30vh;
   }
 
   &__help {
@@ -32,6 +37,8 @@
   }
 
   &__msg {
+    @extend %box-neat;
+
     padding: 1.5em;
     margin-bottom: 2em;
 
@@ -46,7 +53,7 @@
     }
 
     &--suspect {
-      border-inline-end: 10px solid $c-bg-zebra;
+      border: $border;
     }
 
     img {
@@ -74,22 +81,57 @@
     border: 1px solid $c-warn;
     text-align: center;
     font-size: 1.2em;
+    margin-bottom: 2em;
   }
 
   .root h2 {
+    @extend %box-bordered;
+
     padding: 0.7em;
     text-align: center;
+  }
+
+  .appeal-clean .root h2 {
     background: $c-good;
     color: $c-over;
   }
 
-  .marked .root h2 {
+  .appeal-marked .root h2 {
     background: $c-bad;
     color: $c-over;
   }
 
+  .form-toggle {
+    margin-top: 2em;
+    padding-bottom: 2em;
+  }
+
+  .appeal-closed {
+    margin-top: 3em;
+  }
+
   .appeal-presets {
-    margin-inline-end: 1em;
+    @extend %flex-column;
+
+    flex: 0 1 54ch;
+    margin-bottom: 0;
+    overflow-y: auto;
+    max-height: 30em;
+
+    button {
+      @extend %box-radius-left;
+
+      padding: 0.4em 1em;
+
+      &:hover {
+        background: $c-bg-zebra;
+        color: $c-font-clearer;
+      }
+    }
+  }
+
+  .appeal-textarea {
+    flex: 2 1 auto;
   }
 
   &__rules {
@@ -105,26 +147,21 @@
     }
   }
 
-  @keyframes reveal {
-    0%,
-    95% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
-
-  #help-engine-deny form {
-    opacity: 0;
-  }
-
-  #help-engine-deny:target form {
-    animation: 20s reveal forwards !important; // play even with "prefers-reduced-motion: reduce"
-  }
-
   .warning-closure {
     color: $c-bad;
   }
+}
+
+.appeal-topic {
+  @extend %box-neat;
+
+  border: $border;
+  padding: 0.2em 0.5em;
+  margin: 0.1em;
+}
+
+.line-center-text {
+  @extend %flex-center-center;
+
+  font-style: italic;
 }

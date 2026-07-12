@@ -111,7 +111,7 @@ object mod:
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
-            val userAppeal = appeals.find(_.isAbout(o.id))
+            val userAppeal = appeals.find(_.user.is(o.id))
             val closedInfo = log.closed
             tr(
               dataUsername := o.username,
@@ -170,15 +170,17 @@ object mod:
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
-                      href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := Granter
+                        .opt(_.Appeals)
+                        .option(routes.Appeal.modShow(appeal.user, appeal.topic).url),
                       cls := List(
                         "text" -> true,
                         "appeal-recent" -> appeal.isRecent,
                         "appeal-old" -> appeal.isOld,
-                        "appeal-muted" -> appeal.isMuted
+                        "appeal-closed" -> appeal.isClosed
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isClosed.so(" [CLOSED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
                     )(appeal.msgs.size)
                   )
               ,

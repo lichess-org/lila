@@ -48,4 +48,4 @@ final class Env(
     if m.value then storage.removeAll(m.userId)
 
   Bus.sub[lila.core.mod.MarkBooster]: m =>
-    storage.removeAll(m.userId)
+    if m.value then storage.removeAll(m.userId)
