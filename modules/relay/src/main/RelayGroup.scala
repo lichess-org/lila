@@ -14,6 +14,8 @@ case class RelayGroup(
   def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
     scoreGroups.flatMap(_.find(_.contains(tourId)))
   def call = routes.RelayTour.show(name.toSlug, id.into(RelayTourId))
+  def remove(others: Set[RelayTourId]): Option[RelayGroup] =
+    tours.filterNot(others.contains).toNel.map(newTours => copy(tours = newTours))
 
 object RelayGroup:
 
@@ -168,8 +170,14 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
             coll.insert.one(group).inject(group.some)
       // make sure the tours of this group are not in other groups
       _ <- current.so: cur =>
-        cur.tours.toList.traverseVoid: tour =>
-          coll.update.one($doc("_id".$ne(cur.id), "tours" -> tour), $pull("tours" -> tour), multi = true)
+        for
+          tourIdSet = current.so(_.tours.toList.toSet)
+          otherGroups <- coll.list[RelayGroup]("tours".$in(tourIdSet) ++ "_id".$ne(cur.id))
+          _ <- otherGroups.traverseVoid: otherGroup =>
+            otherGroup.remove(tourIdSet) match
+              case None => coll.delete.one($id(otherGroup.id))
+              case Some(next) => coll.update.one($id(otherGroup.id), next)
+        yield ()
     yield ()
 
 final class RelayGroupCrowdSumCache(
