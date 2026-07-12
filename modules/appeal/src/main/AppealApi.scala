@@ -72,17 +72,21 @@ final class AppealApi(
   def setRead(user: UserId, topic: AppealTopic) =
     coll.updateField($doc("user" -> user, "topic" -> topic), "status", Appeal.Status.read).void
 
-  def setUnread(appeal: Appeal) =
-    coll.update.one($id(appeal.id), appeal.unread).void
+  private def update(appeal: Appeal): Fu[Appeal] =
+    coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  def toggleClosed(appeal: Appeal, v: Boolean): Funit =
-    coll.update.one($id(appeal.id), appeal.toggleClosed(v)).void
+  def toggleClosed(appeal: Appeal, v: Boolean, sleepMonths: Int) =
+    for
+      a2 <- update(appeal.toggleClosed(v))
+      _ <- (v && sleepMonths > 0).so:
+        update(a2.sleep(sleepMonths.some)).void
+    yield ()
 
-  def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean): Funit =
-    find(user, topic).flatMapz(toggleClosed(_, v))
+  def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean, sleepMonths: Int = 0): Funit =
+    find(user, topic).flatMapz(toggleClosed(_, v, sleepMonths))
 
   def toggleClosedAllOf(user: UserId, v: Boolean): Funit =
-    findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v)))
+    findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v, 0)))
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)
@@ -91,20 +95,16 @@ final class AppealApi(
   yield ()
 
   def setUnreadBy(userId: UserId, topic: AppealTopic): Funit =
-    find(userId, topic).flatMapz(setUnread)
+    find(userId, topic).flatMapz: a =>
+      update(a.unread).void
 
   def onAccountClose(user: User) = setReadById(user.id)
 
   def snooze(appealId: AppealId, duration: String)(using mod: Me): Unit =
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
-  object topicFilter:
-    private var store = Map.empty[UserId, AppealTopic]
-    def apply(str: Option[String])(using me: Me): Option[AppealTopic] =
-      if str.contains("all") then store = store - me.userId
-      else
-        str
-          .flatMap(AppealTopic.byKey.get)
-          .foreach: topic =>
-            store = store + (me.userId -> topic)
-      store.get(me.userId)
+  private[appeal] def reopenPausedAppeals(): Funit = for
+    appeals <- coll.list[Appeal]("closedUntil".$gt(nowInstant), 20)
+    _ <- appeals.sequentiallyVoid: appeal =>
+      update(appeal.toggleClosed(false))
+  yield ()

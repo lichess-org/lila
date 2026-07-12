@@ -56,3 +56,14 @@ object AppealTopicApi:
           case AppealTopic.arena => trans.arenaBanned.some
           case AppealTopic.prize => trans.prizeBanned.some
           case _ => none
+
+  object topicFilter:
+    private var store = Map.empty[UserId, AppealTopic]
+    def apply(str: Option[String])(using me: Me): Option[AppealTopic] =
+      if str.contains("all") then store = store - me.userId
+      else
+        str
+          .flatMap(AppealTopic.byKey.get)
+          .foreach: topic =>
+            store = store + (me.userId -> topic)
+      store.get(me.userId)

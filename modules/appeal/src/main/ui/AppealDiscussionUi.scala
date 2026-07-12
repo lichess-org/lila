@@ -35,7 +35,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         )(f =>
           form3.textarea(f)(
             rows := 6,
-            maxlength := Appeal.maxLengthClient
+            maxlength := Appeal.maxLength * 1.1
           )
         )(cls := "appeal-textarea"),
         form3.action(form3.submit(trans.site.send()))
@@ -55,7 +55,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           standardFlash,
           div(cls := "body")(
             userAppealMessages(appeal),
-            if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
+            if appeal.isClosed then appealIsClosed(appeal)
             else if !appeal.canAddMsg then
               p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")
             else
@@ -67,6 +67,11 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ),
         userInactiveAppeals(appeals.filter(_ != appeal))
       )
+
+  private def appealIsClosed(appeal: Appeal)(using Translate) = p(cls := "line-center-text")(
+    appeal.closedUntil.fold(frag("This appeal is now closed")): until =>
+      frag("Appeal paused until ", showDate(until))
+  )
 
   private def userAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
@@ -88,7 +93,11 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             h1(
               span(cls := "appeal-topic")(appeal.topic.key),
               nbsp,
-              if appeal.isClosed then "Appeal closed" else "Appeal on hold"
+              if appeal.isClosed
+              then
+                appeal.closedUntil.fold[Frag]("Appeal closed"): until =>
+                  frag("Appeal paused until ", showDate(until))
+              else "Appeal on hold"
             )
           ),
           userAppealMessages(appeal)
@@ -135,7 +144,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text"):
                 "You have marked this user. Appeal should be handled by another moderator"
           ,
-          if appeal.isClosed then p(cls := "line-center-text")("This appeal is now closed.")
+          if appeal.isClosed then appealIsClosed(appeal)
           else if me.is(inquiryBy) then
             postForm(st.action := routes.Appeal.modReply(appeal.user, appeal.topic))(
               form3.globalError(form),
@@ -166,7 +175,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               )
             case Some(mod) if ctx.is(mod) =>
               frag(
-                postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, !appeal.isClosed))(
+                postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, appeal.isOpen))(
                   if appeal.isClosed then
                     submitButton("Re-open")(
                       cls := "button button-green button-empty"
@@ -176,6 +185,9 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                       title := "Close this appeal",
                       cls := "button button-red button-empty"
                     )
+                ),
+                postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, true))(
+                  form3.selectLowLevel("months", AppealForm.untilMonths, default = "Pause".some)
                 ),
                 AppealTopicApi.unmark(status, appeal.topic) match
                   case None => button(cls := "button button-empty", disabled)("Nothing to un-mark")
@@ -189,7 +201,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           ,
           postForm(
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),
-            cls := "appeal__actions__slack"
+            cls := "appeal__actions__zulip"
           )(submitButton(cls := "button button-empty")("Send to Zulip"))
         )
       )

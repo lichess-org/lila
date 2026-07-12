@@ -58,7 +58,8 @@ final class AppealQueueUi(helpers: Helpers):
     )
 
   private def topicFilter(current: Option[AppealTopic]) =
-    select(cls := "appeal-filters"):
-      val choices = "all" :: AppealTopic.values.map(_.key).toList
-      choices.map: key =>
-        st.option(value := key, (key == current.fold("all")(_.key)).option(selected))(key)
+    form3.selectLowLevel(
+      "appeal-filters",
+      AppealForm.topicFilterChoices,
+      selected = current.map(_.key)
+    )(cls := "appeal-filters")

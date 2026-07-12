@@ -5,13 +5,13 @@ import play.api.data.Form
 import play.api.mvc.Result
 
 import lila.app.{ *, given }
-import lila.appeal.Appeal as AppealModel
+import lila.appeal.{ Appeal as AppealModel, AppealTopicApi }
 import lila.report.Suspect
 import lila.core.misc.AppealTopic
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
-  import AppealModel.{ modForm, form as userForm }
+  import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
@@ -37,7 +37,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   )(using Context)(using me: Me) = for
     appeals <- env.appeal.api.byTopic(me)
     status <- makeStatus(me)
-    topic = lila.appeal.AppealTopicApi.select(status, appeals)
+    topic = AppealTopicApi.select(status, appeals)
     allAppeals = appeals.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
@@ -56,7 +56,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   def modQueue = Secure(_.Appeals) { ctx ?=> me ?=>
-    val topic = env.appeal.api.topicFilter(get("topic"))
+    val topic = AppealTopicApi.topicFilter(get("topic"))
     for
       appeals <- env.appeal.api.myQueue(topic)
       inquiries <- env.report.api.inquiries.allBySuspect
@@ -131,10 +131,11 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       otherUsers = views.user.mod.otherUsers(suspect.user, logins, relatedAppeals, readOnly = true)
     )
 
-  def toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean) = Secure(_.Appeals) { _ ?=> _ ?=>
+  def toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
     asMod(username, topic): (appeal, _) =>
+      val sleepMonths = bindForm(sleepForm)(_ => 0, _.orZero)
       for
-        _ <- env.appeal.api.toggleClosed(appeal, v)
+        _ <- env.appeal.api.toggleClosed(appeal, v, sleepMonths = sleepMonths)
         _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
       yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
   }

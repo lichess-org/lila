@@ -1,7 +1,7 @@
 package views.appeal
 
 import lila.app.UiEnv.{ *, given }
-import lila.appeal.Appeal
+import lila.appeal.{ Appeal, AppealForm }
 import lila.report.ui.PendingCounts
 import lila.report.Report.Inquiry
 import lila.core.misc.AppealTopic
@@ -11,8 +11,7 @@ lazy val ui = lila.appeal.ui.AppealUi(helpers)
 lazy val discussion = lila.appeal.ui.AppealDiscussionUi(helpers, ui)
 
 lazy val tree = lila.appeal.ui.AppealTreeUi(helpers, ui)(
-  newAppeal =
-    topic => preset => _ ?=> discussion.userForm(topic, lila.appeal.Appeal.form.fill(preset), isNew = true),
+  newAppeal = topic => preset => _ ?=> discussion.userForm(topic, AppealForm.form.fill(preset), isNew = true),
   inactiveAppeals = discussion.userInactiveAppeals
 )
 

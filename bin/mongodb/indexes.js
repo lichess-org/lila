@@ -136,6 +136,7 @@ db.appeal2.createIndex(
   { partialFilterExpression: { status: 'unread' } },
 );
 db.appeal2.createIndex({ user: 1, topic: 1 }, { unique: true });
+db.appeal2.createIndex({ closedUntil: 1 }, { partialFilterExpression: { closedUntil: { $exists: true } } });
 db.challenge.createIndex({ status: 1, 'challenger.id': 1, createdAt: 1 });
 db.challenge.createIndex({ status: 1, 'destUser.id': 1, createdAt: 1 });
 db.challenge.createIndex({ expiresAt: 1 });

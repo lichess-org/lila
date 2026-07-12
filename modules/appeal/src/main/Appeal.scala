@@ -12,7 +12,8 @@ case class Appeal(
     updatedAt: Instant,
     // date of first player message without a mod reply
     // https://github.com/lichess-org/lila/issues/7564
-    firstUnrepliedAt: Instant
+    firstUnrepliedAt: Instant,
+    closedUntil: Option[Instant] = None // user must wait a certain duration
 ):
   def isRead = status == Appeal.Status.read
   def isUnread = status == Appeal.Status.unread
@@ -21,7 +22,11 @@ case class Appeal(
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
   def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
-  def toggleClosed(v: Boolean) = if v then copy(status = Appeal.Status.closed) else read
+  def toggleClosed(v: Boolean) =
+    if v then copy(status = Appeal.Status.closed)
+    else copy(status = Appeal.Status.read).sleep(none)
+
+  def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
   def post(text: String, by: UserId) =
     val msg = AppealMsg(by, text, nowInstant)
@@ -48,7 +53,6 @@ case class Appeal(
     recentSize < Appeal.maxLength && recentCount < 3
 
   def unread = copy(status = Appeal.Status.unread)
-  def read = copy(status = Appeal.Status.read)
 
   def isByMod(msg: AppealMsg) = msg.by != user
 
@@ -70,16 +74,6 @@ object Appeal:
     def apply(key: String) = values.find(_.key == key)
 
   val maxLength = 1100
-  val maxLengthClient = 1000
-
-  import play.api.data.*
-  import play.api.data.Forms.*
-
-  val form = Form:
-    single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
-
-  val modForm = Form:
-    single("text" -> lila.common.Form.cleanNonEmptyText)
 
   def make(topic: AppealTopic, text: String)(using me: Me) =
     val now = nowInstant
