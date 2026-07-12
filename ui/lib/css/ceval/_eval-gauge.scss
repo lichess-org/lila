@@ -1,5 +1,6 @@
 .eval-gauge {
   width: $block-gap;
+  height: var(---cg-height, 100%);
   position: relative;
   background: #c0c0c0;
   overflow: hidden;

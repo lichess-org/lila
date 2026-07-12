@@ -5,7 +5,7 @@
 }
 
 .feedback {
-  @extend %box-neat;
+  @extend %box-radius;
 
   display: flex;
   background: $c-bg-box;
