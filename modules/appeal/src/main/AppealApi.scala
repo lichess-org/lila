@@ -57,7 +57,7 @@ final class AppealApi(
       .map: docs =>
         for
           doc <- docs
-          userId <- doc.getAsOpt[UserId]("_id")
+          userId <- doc.getAsOpt[UserId]("user")
           msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
