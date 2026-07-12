@@ -5,8 +5,8 @@ import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { findTag } from '../study/studyChapters';
+import type AnalyseCtrl from '@/ctrl';
+import { findTag } from '@/study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -16,19 +16,19 @@ interface Advice {
   symbol: string;
 }
 
-const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
-  const p = getPlayer(ctrl.data, color);
-  if (p.user)
-    return h('a.user-link.ulpt', { attrs: { href: '/@/' + p.user.username } }, [
-      p.user.username,
+const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
+  const player = getPlayer(data, color);
+  if (player.user)
+    return h('a.user-link.ulpt', { attrs: { href: '/@/' + player.user.username } }, [
+      player.user.username,
       ' ',
-      ratingDiff(p),
+      ratingDiff(player),
     ]);
   return h(
     'span',
-    p.name ||
-      (p.ai && 'Stockfish level ' + p.ai) ||
-      (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
+    player.name ||
+      (player.ai && 'Stockfish level ' + player.ai) ||
+      (study && findTag(study.data.chapter.tags, color)) ||
       'Anonymous',
   );
 };
@@ -40,12 +40,11 @@ const advices: Advice[] = [
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data,
-    sideData = d.analysis![color];
+  const sideData = ctrl.data.analysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
+    ...advices.map(a => error(sideData[a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', sideData.acpl),
       h('span', ` ${i18n.site.averageCentipawnLoss}`),
@@ -102,26 +101,24 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
 
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;
-  return (
-    puzzle &&
+  if (!puzzle) return undefined;
+  return h(
+    'div.analyse__puzzle',
     h(
-      'div.analyse__puzzle',
-      h(
-        'a.button-link.text',
-        {
-          attrs: {
-            ...dataIcon(licon.ArcheryTarget),
-            href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
-          },
+      'a.button-link.text',
+      {
+        attrs: {
+          ...dataIcon(licon.ArcheryTarget),
+          href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
-        ['Recommended puzzle training', h('br'), puzzle.name],
-      ),
-    )
+      },
+      ['Recommended puzzle training', h('br'), puzzle.name],
+    ),
   );
 }
 
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.study?.practice) return;
+  if (ctrl.study?.practice) return undefined;
 
   if (
     !ctrl.data.analysis ||

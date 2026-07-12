@@ -15,14 +15,12 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
   if (!firstNode) return;
   const fcs = fctrl.findStartingWithNode(firstNode);
   if (!fcs.length) return;
-  const lines = fcs.filter(function (fc) {
-    return fc.length > 1;
-  });
+  const lines = fcs.filter(fc => fc.length > 1);
   return h(
     'button.on-my-turn.button.text',
     {
       attrs: dataIcon(licon.Checkmark),
-      hook: bind('click', _ => fctrl.playAndSave(firstNode)),
+      hook: bind('click', () => fctrl.playAndSave(firstNode)),
     },
     [
       h('span', [
@@ -90,7 +88,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         {
           class: { enabled: isCandidate },
           attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
-          hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
+          hook: bind('click', () => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
         },
         [
           isCandidate

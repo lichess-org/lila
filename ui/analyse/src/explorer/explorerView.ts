@@ -1,9 +1,7 @@
-import type { VNode } from 'snabbdom';
-
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag } from 'lib/view';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
@@ -33,7 +31,7 @@ function resultBar(move: OpeningMoveStats): VNode {
   return hl('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
-function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
+function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
   if (!data.moves.length) return null;
   const sumTotal = data.white + data.black + data.draws;
   const movesWithCurrent =
@@ -105,17 +103,17 @@ const showResult = (winner?: Color): VNode =>
       ? hl('result.black', '0-1')
       : hl('result.draws', '½-½');
 
-function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): MaybeVNode {
   if (!ctrl.explorer.withGames || !games.length) return null;
-  const openedId = ctrl.explorer.gameMenu(),
-    isMasters = ctrl.explorer.db() === 'masters';
+  const openedId = ctrl.explorer.gameMenu();
+  const isMasters = ctrl.explorer.db() === 'masters';
   return hl('table.games', [
     hl('thead', [hl('tr', [hl('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
     hl(
       'tbody',
       moveArrowAttributes(ctrl, {
         fen,
-        onClick: (e, _) => {
+        onClick: e => {
           const $tr = $(e.target as HTMLElement).parents('tr');
           if (!$tr.length) return;
           const id = $tr.data('id');
@@ -125,8 +123,8 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
           } else openGame(ctrl, id);
         },
       }),
-      games.map(game => {
-        return openedId === game.id
+      games.map(game =>
+        openedId === game.id
           ? gameActions(ctrl, game)
           : hl('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
               ctrl.explorer.opts.showRatings &&
@@ -142,8 +140,8 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl('td', game.month || game.year),
               !isMasters &&
                 hl('td', game.speed && iconTag(perfIcons[game.speed], { title: ucfirst(game.speed) })),
-            ]);
-      }),
+            ]),
+      ),
     ),
   ]);
 }
@@ -171,24 +169,24 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
       hl('div.menu', [
         hl(
           'a.text',
-          { attrs: dataIcon(licon.Eye), hook: bind('click', _ => openGame(ctrl, game.id)) },
+          { attrs: dataIcon(licon.Eye), hook: bind('click', () => openGame(ctrl, game.id)) },
           'View',
         ),
         ctrl.study &&
           hl(
             'a.text',
-            { attrs: dataIcon(licon.BubbleSpeech), hook: bind('click', _ => send(false), ctrl.redraw) },
+            { attrs: dataIcon(licon.BubbleSpeech), hook: bind('click', () => send(false), ctrl.redraw) },
             'Cite',
           ),
         ctrl.study &&
           hl(
             'a.text',
-            { attrs: dataIcon(licon.PlusButton), hook: bind('click', _ => send(true), ctrl.redraw) },
+            { attrs: dataIcon(licon.PlusButton), hook: bind('click', () => send(true), ctrl.redraw) },
             'Insert',
           ),
         hl(
           'a.text',
-          { attrs: dataIcon(licon.X), hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw) },
+          { attrs: dataIcon(licon.X), hook: bind('click', () => ctrl.explorer.gameMenu(null), ctrl.redraw) },
           'Close',
         ),
       ]),
@@ -246,9 +244,9 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
-    const moveTable = showMoveTable(ctrl, data),
-      recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
-      topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
+    const moveTable = showMoveTable(ctrl, data);
+    const recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []);
+    const topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = hl('div.data', [
         explorerTitle(ctrl.explorer),
@@ -300,25 +298,6 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       },
       name,
     );
-  const playerLink = () =>
-    hl(
-      'button.button-link.player',
-      {
-        key: 'player',
-        hook: bind(
-          'click',
-          () => {
-            explorer.config.selectPlayer(playerName || 'me');
-            if (explorer.db() !== 'player') {
-              explorer.config.data.db('player');
-              explorer.config.data.open(true);
-            }
-          },
-          explorer.reload,
-        ),
-      },
-      i18n.site.player,
-    );
   const active = (nodes: LooseVNodes, title: string) =>
     hl(
       'span.active.text.' + db,
@@ -359,7 +338,24 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
             i18n.site.switchSides,
           )
         : active([hl('strong', 'Player'), ' database'], '')
-      : playerLink(),
+      : hl(
+          'button.button-link.player',
+          {
+            key: 'player',
+            hook: bind(
+              'click',
+              () => {
+                explorer.config.selectPlayer(playerName || 'me');
+                if (explorer.db() !== 'player') {
+                  explorer.config.data.db('player');
+                  explorer.config.data.open(true);
+                }
+              },
+              explorer.reload,
+            ),
+          },
+          i18n.site.player,
+        ),
   ]);
 };
 
@@ -397,14 +393,16 @@ const showAnon = (ctrl: AnalyseCtrl) =>
 
 let lastFen: FEN = '';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
-  const explorer = ctrl.explorer;
+export default function (ctrl: AnalyseCtrl): MaybeVNode {
+  const { explorer } = ctrl;
+
   if (!explorer.enabled()) return;
-  const data = explorer.current(),
-    config = explorer.config,
-    configOpened = config.data.open(),
-    loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
-    content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
+
+  const data = explorer.current();
+  const configOpened = explorer.config.data.open();
+  const loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
+  const content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
+
   return hl(
     `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,
     {
@@ -426,7 +424,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
           'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
           ...dataIcon(configOpened ? licon.X : licon.Gear),
         },
-        hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
+        hook: bind('click', () => explorer.config.toggleOpen(), ctrl.redraw),
       }),
     ],
   );

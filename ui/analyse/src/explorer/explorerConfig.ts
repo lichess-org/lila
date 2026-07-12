@@ -315,16 +315,18 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   let dlg: Dialog;
-  const onSelect = (name: string | undefined) => {
+
+  const onSelect = (name?: string) => {
     ctrl.selectPlayer(name);
     dlg.close();
   };
-  const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) return;
+  const nameToOptionalColor = (name?: string) => {
+    if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
+
   return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
