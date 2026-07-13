@@ -36,11 +36,3 @@ cg-board {
 .gauge-on .main-board cg-board {
   @extend %box-radius-left;
 }
-
-.gauge-on .analyse__tools,
-.gauge-on .puzzle__tools {
-  @extend %box-radius-right;
-
-  height: var(---cg-height, 100%);
-  box-shadow: none;
-}

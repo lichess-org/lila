@@ -5,22 +5,15 @@ import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
-import { option, plural } from '@/view/util';
+import { plural } from '@/view/util';
 
 import { view as descView } from '../description';
 import type StudyCtrl from '../studyCtrl';
 import type { StudyPracticeData } from './interfaces';
 import type StudyPracticeCtrl from './studyPracticeCtrl';
 
-const studyValue = (section: { id: string }, study: { slug: string; id: string }) =>
-  `${section.id}/${study.slug}/${study.id}`;
-
-const selector = (data: StudyPracticeData) => {
-  const current = data.structure
-    .flatMap(section => section.studies.map(study => ({ section, study })))
-    .find(({ study }) => study.id === data.study.id);
-  const currentValue = current ? studyValue(current.section, current.study) : '';
-  return h(
+const selector = (data: StudyPracticeData) =>
+  h(
     'select.selector',
     { hook: bind('change', e => (location.href = '/practice/' + (e.target as HTMLInputElement).value)) },
     [
@@ -29,12 +22,13 @@ const selector = (data: StudyPracticeData) => {
         h(
           'optgroup',
           { attrs: { label: section.name } },
-          section.studies.map(study => option(studyValue(section, study), currentValue, study.name)),
+          section.studies.map(study =>
+            h('option', { attrs: { value: `${section.id}/${study.slug}/${study.id}`, selected: study.id === data.study.id } }, study.name),
+          ),
         ),
       ),
     ],
   );
-};
 
 function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
