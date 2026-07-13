@@ -257,7 +257,7 @@ function emailErrorCheck() {
   fetchError(3000);
 }
 function appealTopicSelect() {
-  $('.appeal-filters option').on('click', function (this: HTMLSelectElement) {
+  $('.appeal-filters').on('change', function (this: HTMLSelectElement) {
     location.href = `/appeal/queue?topic=${this.value}`;
   });
 }
