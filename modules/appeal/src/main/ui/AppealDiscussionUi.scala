@@ -164,10 +164,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
               ),
               form3.action(
-                form3.submit("Send and close", nameValue = ("close", "true").some, icon = none)(
+                form3.submit("Send & close", nameValue = ("close", "true").some, icon = none)(
                   cls := "button-red button-empty"
                 ),
-                form3.submit(trans.site.send())
+                form3.submit(trans.site.send())(cls := "button-empty"),
+                form3.submit("Send & dismiss", nameValue = ("dismiss", "true").some)(
+                  cls := "button-green",
+                  title := "Dismiss the appeal as processed"
+                )
               )
             )
           else emptyFrag
