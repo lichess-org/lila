@@ -17,7 +17,8 @@ final class IrcApi(
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
-  import IrcApi.{ userRegex, postRegex }
+  private val userRegex = UserName.atRegex.pattern
+  private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
     def link(url: String, name: String) = s"[$name]($url)"
@@ -273,8 +274,3 @@ final class IrcApi(
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
-
-object IrcApi:
-
-  private val userRegex = lila.common.String.atUsernameRegex.pattern
-  private val postRegex = lila.common.String.forumPostPathRegex.pattern

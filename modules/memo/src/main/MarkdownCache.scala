@@ -2,7 +2,8 @@ package lila.memo
 
 import scalalib.future.TimeoutException
 
-import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
+import lila.common.Bus
+import lila.markdown.{ MarkdownRender, MarkdownToastUi }
 import lila.mon.extensions.*
 import lila.core.config
 import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }

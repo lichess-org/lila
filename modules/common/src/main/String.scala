@@ -53,7 +53,6 @@ object String:
 
   def noShouting(str: String): String = if isShouting(str) then str.toLowerCase else str
 
-  val atUsernameRegex = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
 
   object html:

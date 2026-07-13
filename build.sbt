@@ -116,9 +116,12 @@ lazy val mon = module("mon",
 
 lazy val common = module("common",
   Seq(core),
-  Seq(
-    kamon.core, scaffeine, apacheText, chess.playJson,
-  ) ++ flexmark.bundle
+  Seq(kamon.core, scaffeine, apacheText, chess.playJson)
+)
+
+lazy val markdown = module("markdown",
+  Seq(core),
+  flexmark.bundle
 )
 
 lazy val db = module("db",
@@ -127,7 +130,7 @@ lazy val db = module("db",
 )
 
 lazy val memo = module("memo",
-  Seq(db, mon),
+  Seq(db, mon, markdown),
   Seq(scaffeine, bloomFilter) ++ playWs.bundle
 )
 
