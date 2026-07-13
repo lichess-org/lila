@@ -112,7 +112,7 @@ final class AppealApi(
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
   private[appeal] def reopenPausedAppeals(): Funit = for
-    appeals <- coll.list[Appeal]("closedUntil".$gt(nowInstant), 20)
+    appeals <- coll.list[Appeal]("closedUntil".$lt(nowInstant), 20)
     _ <- appeals.sequentiallyVoid: appeal =>
       update(appeal.toggleClosed(false))
   yield ()
