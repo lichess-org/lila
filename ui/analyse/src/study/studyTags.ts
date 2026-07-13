@@ -125,13 +125,12 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
         'select.button.button-metal',
         {
           hook: {
-            insert: vnode => {
-              const el = vnode.elm as HTMLInputElement;
-              tags.selectedType(el.value);
-              el.addEventListener('change', _ => {
-                tags.selectedType(el.value);
-                const pattern = inputAttrs[el.value]?.pattern;
-                $(el)
+            ...onInsert<HTMLSelectElement>(elem => {
+              tags.selectedType(elem.value);
+              elem.addEventListener('change', _ => {
+                tags.selectedType(elem.value);
+                const pattern = inputAttrs[elem.value]?.pattern;
+                $(elem)
                   .parents('tr')
                   .find('input')
                   .each(function (this: HTMLInputElement) {
@@ -140,8 +139,8 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
                     this.focus();
                   });
               });
-            },
-            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLInputElement).value),
+            }),
+            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLSelectElement).value),
           },
         },
         [

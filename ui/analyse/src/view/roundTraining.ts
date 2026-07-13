@@ -2,7 +2,7 @@ import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
-import { bind, dataIcon } from 'lib/view';
+import { bind, dataIcon, onInsert } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -92,13 +92,11 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
   return h(
     'div.advice-summary',
     {
-      hook: {
-        insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: HTMLElement) {
-            ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
-          });
-        },
-      },
+      hook: onInsert(elem => {
+        $(elem).on('click', 'div.symbol', function (this: HTMLElement) {
+          ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
+        });
+      }),
     },
     [
       playerTable(ctrl, 'white'),
