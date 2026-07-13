@@ -1,6 +1,7 @@
-import { h } from 'snabbdom';
+// @ts-expect-error(TODO: define global type definition)
+import html from 'snabby';
 
-import { bind, confirm } from 'lib/view';
+import { confirm } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
@@ -14,72 +15,64 @@ export function mapSideView(ctrl: LearnCtrl) {
 }
 
 function renderInStage(ctrl: SideCtrl) {
-  return h('div.learn__side-map', [
-    h('div.stages', [
-      h(
-        'a.back',
-        {
-          attrs: { href: BASE_LEARN_PATH },
-        },
-        [h('img', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
-      ),
-      ...categs.map((categ, categId) =>
-        h(
-          'div.categ',
-          {
-            class: { active: categId === ctrl.categId() },
-          },
-          [
-            h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
-            h(
-              'div.categ_stages',
-              categ.stages.map(s => {
-                const result = ctrl.data.stages[s.key];
-                const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-                return h(
-                  `a.stage.${status}`,
-                  {
-                    attrs: { href: hashHref(s.id) },
-                  },
-                  [h('img', { attrs: { src: s.image } }), h('span', s.title)],
-                );
-              }),
-            ),
-          ],
-        ),
-      ),
-    ]),
-  ]);
+  return html`
+    <div class="learn__side-map">
+      <div class="stages">
+        <a class="back" href=${BASE_LEARN_PATH}>
+          <img src="${assetUrl}images/learn/brutal-helm.svg" alt="" />
+          ${i18n.site.menu}
+        </a>
+        ${categs.map(
+          (categ, categId) => html`
+            <div class="categ ${categId === ctrl.categId() ? 'active' : ''}">
+              <h2 @on:click=${() => ctrl.categId(categId)}>${categ.name}</h2>
+              <div class="categ_stages">
+                ${categ.stages.map(({ key, id, image, title }) => {
+                  const result = ctrl.data.stages[key];
+                  const status = id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
+                  return html`
+                    <a class="stage ${status}" href=${hashHref(id)}>
+                      <img src=${image} alt="" />
+                      <span>${title}</span>
+                    </a>
+                  `;
+                })}
+              </div>
+            </div>
+          `,
+        )}
+      </div>
+    </div>
+  `;
 }
 
 function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
-  return h('div.learn__side-home', [
-    h('div.learn__side-home__header', [
-      h('img.decoration', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }),
-      h('div.learn__side-home__title', [h('h1', i18n.learn.learnChess), h('h2', i18n.learn.byPlaying)]),
-    ]),
-    h('div.progress', [
-      h('div.text', i18n.learn.progressX(progress + '%')),
-      h('div.bar', {
-        style: {
-          width: progress + '%',
-        },
-      }),
-    ]),
-    progress > 0
-      ? h(
-          'div.actions',
-          h(
-            'a.confirm',
-            {
-              hook: bind('click', async () => {
+
+  return html`
+    <div class="learn__side-home">
+      <div class="learn__side-home__header">
+        <img class="decoration" src="${assetUrl}images/learn/brutal-helm.svg" alt="" />
+        <div class="learn__side-home__title">
+          <h1>${i18n.learn.learnChess}</h1>
+          <h2>${i18n.learn.byPlaying}</h2>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="text">${i18n.learn.progressX(progress + '%')}</div>
+        <div class="bar" style="width: ${progress}%" />
+      </div>
+      ${progress > 0
+        ? html`<div class="actions">
+            <a
+              class="confirm"
+              @on:click=${async () => {
                 if (await confirm(i18n.learn.youWillLoseAllYourProgress)) ctrl.reset();
-              }),
-            },
-            i18n.learn.resetMyProgress,
-          ),
-        )
-      : null,
-  ]);
+              }}
+              >${i18n.learn.resetMyProgress}</a
+            >
+          </div>`
+        : null}
+    </div>
+  `;
 }
