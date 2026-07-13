@@ -19,5 +19,6 @@ object AppealForm:
   val modForm = Form:
     tuple(
       "text" -> cleanNonEmptyText,
-      "close" -> optional(boolean)
+      "close" -> optional(boolean),
+      "dismiss" -> optional(boolean)
     )
