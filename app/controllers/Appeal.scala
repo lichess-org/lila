@@ -103,9 +103,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
         (text, close) =>
           for
+            replied <- env.appeal.api.reply(text, appeal)
+            _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            _ <- env.appeal.api.reply(text, appeal)
-            _ <- close.orZero.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
           yield redirectToActions(username, topic).flashSuccess("Reply sent")
       )
   }
