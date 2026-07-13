@@ -23,7 +23,16 @@ const selector = (data: StudyPracticeData) =>
           'optgroup',
           { attrs: { label: section.name } },
           section.studies.map(study =>
-            h('option', { attrs: { value: `${section.id}/${study.slug}/${study.id}`, selected: study.id === data.study.id } }, study.name),
+            h(
+              'option',
+              {
+                attrs: {
+                  value: `${section.id}/${study.slug}/${study.id}`,
+                  selected: study.id === data.study.id,
+                },
+              },
+              study.name,
+            ),
           ),
         ),
       ),
