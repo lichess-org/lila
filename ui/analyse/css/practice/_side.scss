@@ -43,20 +43,14 @@
     font-size: 0.9em;
 
     .back {
-      flex: 0 0 1.5rem;
-      text-align: start;
-      margin-inline-end: 0.2rem;
+      flex: 0 0 2.5rem;
+      text-align: center;
+      margin-inline-end: 0.3rem;
       font-size: 1.25em;
     }
 
     select {
       flex: 1 1 auto;
-      border-radius: 0;
-      padding-inline-end: 2em;
-
-      &:focus-visible {
-        outline: none;
-      }
     }
   }
 }
