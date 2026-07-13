@@ -5,9 +5,9 @@
   <string name="advantage">이점</string>
   <string name="advantageDescription">결정적인 이점을 쟁취하세요. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">아나스타시아 메이트</string>
-  <string name="anastasiaMateDescription">나이트와 룩 또는 퀸이 힘을 합쳐 상대 킹을 보드 가장자리와 자신의 기물 사이의 함정에 빠트립니다.</string>
+  <string name="anastasiaMateDescription">나이트와 룩 또는 퀸이 힘을 합쳐 상대 킹을 보드 가장자리와 자신의 기물 사이에 가둡니다.</string>
   <string name="arabianMate">아라비안 메이트</string>
-  <string name="arabianMateDescription">나이트와 룩이 힘을 합쳐 상대 킹을 보드 구석에서 함정에 빠트립니다.</string>
+  <string name="arabianMateDescription">나이트와 룩이 힘을 합쳐 상대 킹을 보드 구석에 가둡니다.</string>
   <string name="attackingF2F7">f2나 f7 공격하기</string>
   <string name="attackingF2F7Description">f2나 f7 칸의 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
   <string name="attraction">유인</string>
@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">V자 모양인 제비의 꼬리를 시각적으로 닮은 체크메이트 패턴입니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>
   <string name="triangleMateDescription">퀸과 룩이 적 킹과 한 칸 떨어진 상태에서, 같은 랭크 혹은 파일에 있으며, 서로 한 칸을 사이에 두어 세 기물이 삼각형을 형성합니다.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">부코비치 메이트</string>
+  <string name="vukovicMate">부코비치 메이트</string>
   <string name="vukovicMateDescription">룩과 나이트가 협력하여 왕에게 체크메이트를 겁니다. 룩은 세 번째 기물의 지원을 받아 메이트를 완성하고, 나이트는 왕의 도주로를 차단하는 역할을 합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>
@@ -137,7 +137,7 @@
   <string name="superGMDescription">세계 최고 플레이어들의 게임에서 나온 퍼즐입니다.</string>
   <string name="trappedPiece">갇힌 기물</string>
   <string name="trappedPieceDescription">기물의 움직임이 제한되어 있어 잡히는걸 막을 수 없습니다.</string>
-  <string name="underPromotion">하향 승진</string>
+  <string name="underPromotion">언더프로모션</string>
   <string name="underPromotionDescription">나이트, 비숍, 룩으로 승진</string>
   <string name="veryLong">아주 긴 퍼즐</string>
   <string name="veryLongDescription">승리까지 네 수 이상이 걸립니다.</string>

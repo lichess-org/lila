@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">نمط كش يشبه بصرياً مظهر ذيل السنونو يشبه شكل V.</string>
   <string name="triangleMate">كش مثلث</string>
   <string name="triangleMateDescription">الملكة و القلعة، مربع واحد بعيدا عن ملك العدو، على نفس الرتبة أو الملف، يفصل بينهما مربع واحد، ويشكل مثلثا.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">كش مات فوكوفيتش</string>
+  <string name="vukovicMate">كش مات فوكوفيتش</string>
   <string name="vukovicMateDescription">يتعاون الرخ والحصان لإماتة الملك. يقوم الرخ بتنفيذ الإماتة مدعومًا بقطعة ثالثة، بينما يُستخدم الحصان لإغلاق خانات هروب الملك.</string>
   <string name="knightEndgame">نهاية المباراة تتضمن حصان</string>
   <string name="knightEndgameDescription">نهاية مباراة تتضمن أحصنة و بيادق فقط.</string>

@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Um padrão de xeque-mate que se assemelha visualmente à cauda de uma andorinha, com uma forma semelhante à letra V.</string>
   <string name="triangleMate">Xeque-mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, a uma casa de distância do rei adversário, encontram-se na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mate de Vukovic</string>
+  <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Uma torre e um cavalo juntam-se para dar xeque-mate ao rei. A torre dá mate apoiada por uma terceira peça, e o cavalo é utilizado para bloquear as casas de fuga do rei.</string>
   <string name="knightEndgame">Final de cavalo</string>
   <string name="knightEndgameDescription">Um final de jogo com apenas cavalos e peões.</string>
