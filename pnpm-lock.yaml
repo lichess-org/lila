@@ -6,7 +6,6 @@ settings:
 
 patchedDependencies:
   '@toast-ui/editor@3.2.2': 0a324facc984b3c00201cd2ac957c0e51db9ee66ce33c37306031ca67d5aa7ba
-  snabby: 57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112
 
 importers:
 
@@ -33,6 +32,9 @@ importers:
       chessops:
         specifier: ^0.15.1
         version: 0.15.1
+      hyperx:
+        specifier: ^3.0.1
+        version: 3.0.1
       jsdom:
         specifier: ^27.4.0
         version: 27.4.0
@@ -51,9 +53,6 @@ importers:
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
-      snabby:
-        specifier: ^7.0.0
-        version: 7.0.0(patch_hash=57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112)
       stylelint:
         specifier: ^17.11.1
         version: 17.13.0(typescript@6.0.3)
@@ -1584,9 +1583,6 @@ packages:
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
 
-  is-boolean-attribute@0.0.1:
-    resolution: {integrity: sha512-0kXT52Scokg2Miscvsn5UVqg6y1691vcLJcagie1YHJB4zOEuAhMERLX992jtvaStGy2xQTqOtJhvmG/MK1T5w==}
-
   is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
@@ -2042,10 +2038,6 @@ packages:
   snabbdom@3.6.4:
     resolution: {integrity: sha512-VmxEfuw1/Y/eFj5VtMhYnukExpYiPkNzoo3+N3qwAOUDMl8wXgbli5ebR+j0knE3lZ/0eYskLxNcX64uy10N9w==}
     engines: {node: '>=12.17.0'}
-
-  snabby@7.0.0:
-    resolution: {integrity: sha512-UtgKMpEMqv/iQez+/d2ScJcCHKgpkYQI8z+UMXz+aGo5ELT8UGqmXdpEVD+Dx865MVSRtjVFPfCrOMMij2U9EQ==}
-    engines: {node: '>=20'}
 
   sortablejs@1.15.7:
     resolution: {integrity: sha512-Kk8wLQPlS+yi1ZEf48a4+fzHa4yxjC30M/Sr2AnQu+f/MPwvvX9XjZ6OWejiz8crBsLwSq8GHqaxaET7u6ux0A==}
@@ -3190,8 +3182,6 @@ snapshots:
 
   is-arrayish@0.2.1: {}
 
-  is-boolean-attribute@0.0.1: {}
-
   is-extglob@2.1.1: {}
 
   is-fullwidth-code-point@3.0.0: {}
@@ -3610,12 +3600,6 @@ snapshots:
   snabbdom@3.5.1: {}
 
   snabbdom@3.6.4: {}
-
-  snabby@7.0.0(patch_hash=57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112):
-    dependencies:
-      hyperx: 3.0.1
-      is-boolean-attribute: 0.0.1
-      snabbdom: 3.5.1
 
   sortablejs@1.15.7: {}
 

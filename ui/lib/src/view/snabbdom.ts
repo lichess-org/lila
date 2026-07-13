@@ -1,5 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
+import hyperx, { type HtmlTemplate } from 'hyperx';
 import {
   type VNode,
   type VNodeData,
@@ -123,3 +124,102 @@ export const requiresI18n = <Cat extends keyof I18n>(
   }
   return render(window.i18n[catalog]);
 };
+
+/**
+ * HTML template support based on Snabby
+ * - https://github.com/mreinstein/snabby
+ */
+
+const BOOLEAN_ATTRIBUTES = new Set([
+  'allowfullscreen',
+  'async',
+  'autofocus',
+  'checked',
+  'compact',
+  'declare',
+  'default',
+  'defer',
+  'disabled',
+  'formnovalidate',
+  'hidden',
+  'inert',
+  'ismap',
+  'itemscope',
+  'multiple',
+  'multiple',
+  'muted',
+  'nohref',
+  'noresize',
+  'noshade',
+  'novalidate',
+  'nowrap',
+  'open',
+  'readonly',
+  'required',
+  'reversed',
+  'seamless',
+  'selected',
+  'sortable',
+  'truespeed',
+  'typemustmatch',
+  'contenteditable',
+  'spellcheck',
+]);
+
+function createVNode(sel: string, input: Record<string, any>, content: any) {
+  if (sel === '!--') return snabH('!', input.comment);
+
+  if (Array.isArray(content) && content.length) {
+    content = content.length === 1 ? content[0] : content.flat();
+  }
+
+  const names = Object.keys(input);
+  if (!names?.length) return snabH(sel, content);
+
+  const data = {} as Record<string, any>;
+  let attrs;
+
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i];
+    let value = input[name];
+
+    if (name.startsWith('@')) {
+      const parts = name.slice(1).split(':');
+
+      if ((parts[0] !== 'attrs' || BOOLEAN_ATTRIBUTES.has(parts[1])) && value === 'false') {
+        value = false;
+      }
+
+      let obj = data;
+      for (let p = 0; p < parts.length - 1; p++) {
+        const part = parts[p];
+        obj = obj[part] || (obj[part] = {});
+      }
+      obj[parts[parts.length - 1]] = value;
+      continue;
+    }
+
+    if (!attrs) attrs ||= data.attrs ||= {};
+
+    if (name === 'class') {
+      // TODO: support mixed arrays i.e. ['cls', { 'active': true }]
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        data.class = value;
+      } else {
+        attrs.class = Array.isArray(value) ? value.join(' ') : value;
+      }
+      continue;
+    }
+
+    if (BOOLEAN_ATTRIBUTES.has(name) && value === 'false') value = false;
+
+    attrs[name] = value;
+  }
+
+  return snabH(sel, data, content);
+}
+
+export const html: HtmlTemplate = hyperx(createVNode, {
+  comments: true,
+  attrToProp: false,
+});

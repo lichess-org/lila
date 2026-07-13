@@ -1,7 +1,4 @@
-// @ts-expect-error(TODO: define global type definition)
-import html from 'snabby';
-
-import { confirm } from 'lib/view';
+import { confirm, html } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
