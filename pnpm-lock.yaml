@@ -6,6 +6,7 @@ settings:
 
 patchedDependencies:
   '@toast-ui/editor@3.2.2': 0a324facc984b3c00201cd2ac957c0e51db9ee66ce33c37306031ca67d5aa7ba
+  snabby: 57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112
 
 importers:
 
@@ -52,7 +53,7 @@ importers:
         version: 3.5.1
       snabby:
         specifier: ^7.0.0
-        version: 7.0.0
+        version: 7.0.0(patch_hash=57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112)
       stylelint:
         specifier: ^17.11.1
         version: 17.13.0(typescript@6.0.3)
@@ -3610,7 +3611,7 @@ snapshots:
 
   snabbdom@3.6.4: {}
 
-  snabby@7.0.0:
+  snabby@7.0.0(patch_hash=57b7ae1204781904bb7f5cffc45861e4e5214888dfbd6cb066b273660ab7b112):
     dependencies:
       hyperx: 3.0.1
       is-boolean-attribute: 0.0.1

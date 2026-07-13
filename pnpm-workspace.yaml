@@ -24,6 +24,7 @@ allowBuilds:
   esbuild: true
 patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
+  snabby: patches/snabby.patch
 minimumReleaseAgeExclude:
   - '@lichess-org/stockfish-web@0.4.0 || 0.4.2'
   - '@lichess-org/pgn-viewer@2.6.1'
