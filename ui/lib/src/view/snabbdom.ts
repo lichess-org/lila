@@ -126,8 +126,7 @@ export const requiresI18n = <Cat extends keyof I18n>(
 };
 
 /**
- * HTML template support based on Snabby
- * - https://github.com/mreinstein/snabby
+ * HTML template support based on Snabby: https://github.com/mreinstein/snabby
  */
 
 const BOOLEAN_ATTRIBUTES = new Set([
@@ -173,14 +172,14 @@ function createVNode(tag: string, properties: Record<string, any>, content: any)
     content = content.length === 1 ? content[0] : content.flat();
   }
 
-  const names = Object.keys(properties);
-  if (!names?.length) return snabH(tag, content);
+  const property = Object.keys(properties);
+  if (!property?.length) return snabH(tag, content);
 
   const data = {} as Record<string, any>;
   let attrs;
 
-  for (let i = 0; i < names.length; i++) {
-    const name = names[i];
+  for (let i = 0; i < property.length; i++) {
+    const name = property[i];
     let value = properties[name];
 
     if (name.startsWith('@')) {
