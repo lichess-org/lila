@@ -36,6 +36,7 @@ final private class VerifyMail(
   // email verification services can give false negatives at first
   def refreshIfOk(domain: Domain.Lower): Funit =
     if DisposableEmailDomain.whitelisted(domain.into(Domain)) then funit
+    else if VerifyMail.mightBeTypo(domain) then funit
     else
       cache
         .dbValue(domain)
@@ -103,3 +104,9 @@ final private class VerifyMail(
         ).getOrElse:
           throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
       .monTry(res => lila.mon.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))
+
+private object VerifyMail:
+
+  def mightBeTypo(domain: Domain.Lower): Boolean =
+    // gmail.com is very often misspelled
+    domain.value.startsWith("g") && scalalib.Levenshtein.isDistanceLessThan(domain.value, "gmail.com", 2)

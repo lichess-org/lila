@@ -23,7 +23,7 @@ final class DisposableEmailAttempt(
   def onFail(form: Form[?], ip: IpAddress): Unit = for
     email <- form("email").value.flatMap(EmailAddress.from)
     if email.domain.exists(disposableApi.isDisposable)
-    if !email.domain.exists(disposableApi.mightBeTypo)
+    if !email.domain.map(_.lower).exists(VerifyMail.mightBeTypo)
     str <- form("username").value
     u <- UserStr.read(str)
   yield
