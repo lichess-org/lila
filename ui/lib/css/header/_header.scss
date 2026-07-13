@@ -105,7 +105,7 @@ body.zen {
     max-width: 30vw;
     color: $c-brag;
     text-transform: uppercase;
-    text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
+    text-shadow: 0.5px 0.5px 0 $c-font-shadow;
     border-radius: 50px;
     padding: 0 1.1rem 0 1.3rem;
     margin: 6px 0 5px 0;

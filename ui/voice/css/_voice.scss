@@ -73,7 +73,7 @@ button#microphone-button {
 
   @include if-light {
     &:hover {
-      background-color: $c-font-dimmer;
+      background-color: color-mix(in oklab, $c-primary 20%, $c-bg-box);
     }
   }
 

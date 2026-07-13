@@ -51,25 +51,32 @@
 
     margin: 0.2em 0;
     padding: 0.5em 1em;
-    color: $c-font-clear;
+    color: $c-inbox-font;
     max-width: 70%;
     white-space-collapse: preserve;
+
+    a {
+      color: $c-inbox-link;
+
+      @include hover {
+        filter: brightness(1.2);
+      }
+    }
   }
 
   day {
     @extend %roboto;
 
-    background: color-mix(in oklab, $c-primary 15%, $c-bg);
+    background: color-mix(in oklab, $c-primary 25%, $c-bg);
     align-self: center;
     font-size: 0.9em;
-    color: $c-font;
     margin: 0.5em 0;
     user-select: none;
   }
 
   mine {
     align-self: flex-end;
-    background: color-mix(in oklab, $c-secondary 15%, $c-bg);
+    background: $c-inbox-bubble-mine;
 
     &:first-child {
       border-top-right-radius: 0;
@@ -78,7 +85,7 @@
 
   their {
     align-self: flex-start;
-    background: color-mix(in oklab, $c-brag 15%, $c-bg);
+    background: $c-inbox-bubble-theirs;
 
     &:first-child {
       border-top-left-radius: 0;
@@ -88,7 +95,7 @@
   em {
     @extend %roboto;
 
-    color: $c-font-dim;
+    color: hsl(from $c-inbox-font h s l / 0.7);
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;

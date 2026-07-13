@@ -95,23 +95,20 @@ object page:
             .so(systemThemeScript(ctx.nonce))
         ).pipe(p.transformHead),
         st.body(
-          cls := {
-            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
-            List(
-              baseClass -> true,
-              "simple-board" -> pref.simpleBoard,
-              "piece-letter" -> pref.pieceNotationIsLetter,
-              "blind-mode" -> ctx.blind,
-              "kid" -> ctx.kid.yes,
-              "mobile" -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
-              "playing fixed-scroll" -> playing,
-              "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
-              "no-flair" -> !pref.flairs,
-              "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
-              "zenable" -> zenable,
-              "zen-auto" -> (zenable && pref.isZenAuto)
-            )
-          },
+          cls := List(
+            s"coords-${pref.coordsClass}" -> true,
+            "simple-board" -> pref.simpleBoard,
+            "piece-letter" -> pref.pieceNotationIsLetter,
+            "blind-mode" -> ctx.blind,
+            "kid" -> ctx.kid.yes,
+            "mobile" -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
+            "playing fixed-scroll" -> playing,
+            "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
+            "no-flair" -> !pref.flairs,
+            "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
+            "zenable" -> zenable,
+            "zen-auto" -> (zenable && pref.isZenAuto)
+          ),
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser := ctx.userId,

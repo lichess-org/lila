@@ -121,7 +121,7 @@ body {
     &:hover {
       @extend %box-shadow;
 
-      background: $c-bg-zebra;
+      filter: brightness(1.1);
     }
 
     .user-link {

@@ -58,10 +58,6 @@
   color: $c-font-dim;
   background: $c-pool-button;
 
-  @include if-light {
-    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
-  }
-
   &:hover {
     color: $c-font;
     background: $c-accent-glass !important;

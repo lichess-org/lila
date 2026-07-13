@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { myUserId } from 'lib';
 import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
@@ -35,9 +36,9 @@ export class BackgroundCtrl extends PaneCtrl {
     this.list = [
       { key: 'system', name: i18n.site.deviceTheme },
       { key: 'light', name: i18n.site.light },
-      { key: 'dark', name: i18n.site.dark },
-      { key: 'transp', name: 'Picture' },
     ];
+    if (myUserId()) this.list.push({ key: 'clouds', name: i18n.site.clouds });
+    this.list.push({ key: 'dark', name: i18n.site.dark }, { key: 'transp', name: 'Picture' });
   }
 
   render(): VNode {
@@ -98,12 +99,27 @@ export class BackgroundCtrl extends PaneCtrl {
     this.redraw();
   };
 
+  private get className() {
+    switch (this.data.current) {
+      case 'system':
+        return prefersLightThemeQuery().matches ? 'light' : 'dark';
+      case 'light':
+        return 'light';
+      case 'clouds':
+        return 'light clouds';
+      case 'dark':
+        return 'dark';
+      case 'transp':
+        return 'transp';
+      default:
+        return '';
+    }
+  }
+
   private readonly apply = () => {
     const key = this.data.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
-    document.documentElement.className =
-      key === 'system' ? (prefersLightThemeQuery().matches ? 'light' : 'dark') : key;
-
+    document.documentElement.className = this.className;
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
       bgData

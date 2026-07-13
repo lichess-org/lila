@@ -12,7 +12,7 @@ dialog {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 0;
-  border: none;
+  border: 1px solid $c-dialog-border;
   outline: none;
   background: $c-bg-high;
   z-index: $z-modal-111;
@@ -78,7 +78,7 @@ dialog {
       height: 32px;
       font-size: 16px;
       border-radius: 50%;
-      border: none;
+      border: 1px solid $c-dialog-border;
 
       &:hover {
         @include box-shadow;

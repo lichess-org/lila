@@ -40,21 +40,9 @@
 
     @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
 
-    --c-ublog-post-card-over-image: #ddd;
-
-    @include if-light {
-      --c-ublog-post-card-over-image: #333;
-    }
-
-    background: rgb(0 0 0 / 0.65);
-    color: var(--c-ublog-post-card-over-image);
-    text-shadow: 0 1px 1px black;
-
-    @include if-light {
-      background: rgb(255 255 255 / 0.65);
-      text-shadow: 0 1px 1px white;
-    }
-
+    background: hsl(from $c-dimmer h s l / 0.65);
+    color: $c-clear;
+    text-shadow: 0 1px 1px $c-font-shadow;
     opacity: 1;
   }
 

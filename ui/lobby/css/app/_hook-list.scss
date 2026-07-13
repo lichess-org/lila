@@ -76,7 +76,7 @@
     padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
+    background: $c-bg-cloud;
 
     &:first-child {
       padding-inline-start: 2em;
