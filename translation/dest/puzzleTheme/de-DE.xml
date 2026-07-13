@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Ein Mattmuster, das dem Erscheinungsbild eines Schwalbenschwanzes ähnelt, ähnlich einer V-Form.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
   <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic-Matt</string>
+  <string name="vukovicMate">Vukovic-Matt</string>
   <string name="vukovicMateDescription">Ein Turm und ein Springer arbeiten zusammen, den König matt zu setzen. Der Turm setzt matt zusammen mit einer dritten Figur, und der Springer nimmt dem König die Fluchtfelder.</string>
   <string name="knightEndgame">Springerendspiel</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>

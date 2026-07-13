@@ -41,7 +41,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     allAppeals = appeals.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
-    case None => views.appeal.tree.page(topic, status, allAppeals)
+    case None => views.appeal.tree.page(topic, status, appeals)
 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
@@ -101,12 +101,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         err =>
           getModData(appeal, suspect).flatMap: modData =>
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
-        (text, close) =>
+        (text, close, dismiss) =>
           for
+            replied <- env.appeal.api.reply(text, appeal)
+            _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
+            _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            _ <- env.appeal.api.reply(text, appeal)
-            _ <- close.orZero.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
-          yield redirectToActions(username, topic).flashSuccess("Reply sent")
+          yield
+            if dismiss.orZero then Redirect(routes.Appeal.modQueue)
+            else redirectToActions(username, topic).flashSuccess("Reply sent")
       )
   }
 
@@ -139,6 +142,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         _ <- env.appeal.api.toggleClosed(appeal, v, sleepMonths = sleepMonths)
         _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
       yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
+  }
+
+  def toggleRead(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
+      for
+        _ <- env.appeal.api.toggleRead(appeal, v)
+        _ <- env.report.api.inquiries.toggle(Right(appeal.user)).void
+      yield Redirect(routes.Appeal.modQueue)
   }
 
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>

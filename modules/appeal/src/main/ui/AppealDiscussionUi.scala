@@ -164,10 +164,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
               ),
               form3.action(
-                form3.submit("Send and close", nameValue = ("close", "true").some, icon = none)(
+                form3.submit("Send & close", nameValue = ("close", "true").some, icon = none)(
                   cls := "button-red button-empty"
                 ),
-                form3.submit(trans.site.send())
+                form3.submit(trans.site.send())(cls := "button-empty"),
+                form3.submit("Send & dismiss", nameValue = ("dismiss", "true").some)(
+                  cls := "button-green",
+                  title := "Dismiss the appeal as processed"
+                )
               )
             )
           else emptyFrag
@@ -201,8 +205,18 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                     val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
                     postForm(action := actionUrl):
                       submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
+                  ,
+                appeal.isOpen.option:
+                  postForm(action := routes.Appeal.toggleRead(appeal.user, appeal.topic, appeal.isUnread))(
+                    submitButton(cls := "button button-dim button-empty"):
+                      if appeal.isUnread then "Set read" else "Set Unread"
+                  )
               )
-            case Some(mod) => p(cls := "line-center-text")(userIdLink(mod.some), nbsp, "is handling this.")
+            case Some(mod) =>
+              button(userIdLink(mod.some), nbsp, "is handling this.")(
+                disabled,
+                cls := "button button-empty disabled"
+              )
           ,
           postForm(
             action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),

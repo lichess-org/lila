@@ -145,11 +145,18 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
 
   if (ctrl.joinSpinner) return spinnerVdom();
 
+  const promptEntryCodeOrJoin = async () => {
+    if (d.password) {
+      const p = await prompt(i18n.site.tournamentEntryCode);
+      if (p !== null) ctrl.join(p);
+    } else ctrl.join();
+  };
+
   if (d.me && d.status !== 'finished')
     return d.me.absent
       ? hl(
           'button.fbt.text.highlight',
-          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
           i18n.site.join,
         )
       : hl(
@@ -162,16 +169,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     'button.fbt.text.highlight',
     {
       attrs: dataIcon(licon.PlayTriangle),
-      hook: bind(
-        'click',
-        async () => {
-          if (d.password) {
-            const p = await prompt(i18n.site.tournamentEntryCode);
-            if (p !== null) ctrl.join(p);
-          } else ctrl.join();
-        },
-        ctrl.redraw,
-      ),
+      hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
     },
     i18n.site.join,
   );

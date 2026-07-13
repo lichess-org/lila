@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Lichess strimerlar sahifasi auditoriyangizni efir platformangizda koʻrsatilgan tilga qarab aniqlaydi. Shaxmat efirlaringiz uchun foydalanayotgan ilova yoki efir xizmatingiz sozlamalarida asosiy tilni toʻgʻri belgilang.</string>
   <string name="pleaseAllow">Strimer belgisi va roʻyxatga olinishingiz tasdiqlanishi uchun 72 soatgacha vaqt ketishi mumkin.</string>
   <string name="chooseYoutubeChannel">Lichessʼda foydalanmoqchi boʻlgan YouTube kanalingizni tanlang.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Ulash</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Uzish</string>
+  <string name="connect">Ulash</string>
+  <string name="disconnect">Uzish</string>
   <string name="streamerName">Lichessʼdagi strimer ismingiz</string>
   <plurals name="keepItShort">
     <item quantity="one">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
     <item quantity="other">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Strimerlar sahifasida koʻrinsin</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatorlar tomonidan tasdiqlanganidan soʻng</string>
+  <string name="visibility">Strimerlar sahifasida koʻrinsin</string>
+  <string name="whenApproved">Moderatorlar tomonidan tasdiqlanganidan soʻng</string>
   <string name="headline">Sarlavha</string>
   <string name="tellUsAboutTheStream">Strimingiz haqida bir jumla bilan soʻzlab bering</string>
   <string name="longDescription">Batafsil tavsif</string>

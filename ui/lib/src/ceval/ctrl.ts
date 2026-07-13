@@ -62,7 +62,7 @@ export class CevalCtrl {
 
   constructor(public opts: CevalOpts) {
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp('ceval.engine', this.engines.defaultId);
+    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, this.engines.defaultId);
     this.init();
 
     // another tab has started ceval, we should stop:

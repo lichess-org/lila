@@ -30,8 +30,8 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d
       chessops:
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.15.1
+        version: 0.15.1
       jsdom:
         specifier: ^27.4.0
         version: 27.4.0
@@ -1236,6 +1236,9 @@ packages:
 
   chessops@0.15.0:
     resolution: {integrity: sha512-4Ps0O8/UO09tDGbze1mMilUSMZjVYMFtQvrhlCQV385cO0BgdUPUZsq/r1Qrf6UQ4J0i7XcMbRRvFRKu+Ith1w==}
+
+  chessops@0.15.1:
+    resolution: {integrity: sha512-hQDwv90AFkrPEsRJBebh3ZE+xDga25TCCv4lavNT2plZmd33UKNFYaZsE+7rafMbnBRrDEWUVsSYFqY3qCIGZw==}
 
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
@@ -2823,6 +2826,10 @@ snapshots:
       whatwg-mimetype: 4.0.0
 
   chessops@0.15.0:
+    dependencies:
+      '@badrap/result': 0.3.1
+
+  chessops@0.15.1:
     dependencies:
       '@badrap/result': 0.3.1
 

@@ -7,8 +7,9 @@ import { addPointerListeners } from 'lib/pointer';
 import type { TreePath } from 'lib/tree/types';
 import { onInsert } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { ConcealOf } from '../interfaces';
+import type AnalyseCtrl from '@/ctrl';
+import type { ConcealOf } from '@/interfaces';
+
 import { renderColumnView } from './columnView';
 import { renderContextMenu } from './contextMenu';
 import { renderInlineView } from './inlineView';

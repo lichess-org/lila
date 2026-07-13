@@ -40,8 +40,8 @@ Më tej, paguajmë një zhvillues me orar të plotë, %s, krijuesin e Lichess-it
   <string name="officialNonProfit">A është Lichess-i një ent jofitimprurës zyrtarisht?</string>
   <string name="actOfCreation">Po, ja akti i themelimit (në frëngjisht)</string>
   <string name="changeMonthlySupport">A mund ta ndryshoj/anuloj përkrahjen time mujore?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Nëse pagesat tuaja kryhen përmes PayPal-i, mundeni të anuloni/ndryshoni përkrahjen tuaj përmes llogarisë tuaj PayPal, ose mund të %1$s dhe mund ta bëjmë ne për ju. Nëse s’përdorët PayPal, atëherë pagesat tuaja përpunohen nga Stripe dhe mund të anuloni ose ndryshoni dhurimin tuaj te %2$s.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">faqja e patronazhit</string>
+  <string name="changeSupport">Nëse pagesat tuaja kryhen përmes PayPal-i, mundeni të anuloni/ndryshoni përkrahjen tuaj përmes llogarisë tuaj PayPal, ose mund të %1$s dhe mund ta bëjmë ne për ju. Nëse s’përdorët PayPal, atëherë pagesat tuaja përpunohen nga Stripe dhe mund të anuloni ose ndryshoni dhurimin tuaj te %2$s.</string>
+  <string name="patronPage">faqja e patronazhit</string>
   <string name="contactSupport">lidheni me asistencën e Lichess-it</string>
   <string name="otherMethods">Metoda tjera dhurimi?</string>
   <string name="lichessIsRegisteredWith">Lichess-i është i regjistruar me %s.</string>

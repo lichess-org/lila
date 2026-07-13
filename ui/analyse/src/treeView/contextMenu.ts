@@ -3,10 +3,10 @@ import { licon, type LiconValue } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import { renderVariationPgn } from '../pgnExport';
-import * as studyView from '../study/studyView';
-import { patch, nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { renderVariationPgn } from '@/pgnExport';
+import * as studyView from '@/study/studyView';
+import { patch, nodeFullName } from '@/view/util';
 
 export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: TreePath): void {
   let pos = getPosition(e);

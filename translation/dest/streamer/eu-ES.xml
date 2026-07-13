@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Lichess esatariaren orriak zure audientzia du helburu zure streaming plataformak ematen duen hizkuntzarekin. Ezarri zure xake emanaldien hizkuntza emanaldiak egiteko erabiltzen duzun app edo zerbitzuan.</string>
   <string name="pleaseAllow">Itxaron 72 ordu zure streamer etiketa eta zerrendatzea onartu arte.</string>
   <string name="chooseYoutubeChannel">Aukeratu Lichessen erabiliko duzun YouTube kanala.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Konektatu</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Deskonektatu</string>
+  <string name="connect">Konektatu</string>
+  <string name="disconnect">Deskonektatu</string>
   <string name="streamerName">Zure esatari-izena Lichessen</string>
   <plurals name="keepItShort">
     <item quantity="one">Laburra izan dadila: gehienez karaktere %s</item>
     <item quantity="other">Laburra izan dadila: gehienez %s karaktere</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Esatarien orrialdean ikusgai</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatzaileek onartzen dutenean</string>
+  <string name="visibility">Esatarien orrialdean ikusgai</string>
+  <string name="whenApproved">Moderatzaileek onartzen dutenean</string>
   <string name="headline">Izenburua</string>
   <string name="tellUsAboutTheStream">Lerro baten, esan iezaguzu zerbait zure emanaldiei buruz</string>
   <string name="longDescription">Deskribapen luzea</string>

@@ -5,8 +5,10 @@ import { licon } from 'lib/licon';
 import { bind, dataIcon, onInsert } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { findTag } from '../study/studyChapters';
+import type AnalyseCtrl from '@/ctrl';
+import { findTag } from '@/study/studyChapters';
+
+import type { AnalysisSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -16,19 +18,19 @@ interface Advice {
   symbol: string;
 }
 
-const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
-  const p = getPlayer(ctrl.data, color);
-  if (p.user)
-    return h('a.user-link.ulpt', { attrs: { href: '/@/' + p.user.username } }, [
-      p.user.username,
+const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
+  const player = getPlayer(data, color);
+  if (player.user)
+    return h('a.user-link.ulpt', { attrs: { href: '/@/' + player.user.username } }, [
+      player.user.username,
       ' ',
-      ratingDiff(p),
+      ratingDiff(player),
     ]);
   return h(
     'span',
-    p.name ||
-      (p.ai && 'Stockfish level ' + p.ai) ||
-      (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
+    player.name ||
+      (player.ai && 'Stockfish level ' + player.ai) ||
+      (study && findTag(study.data.chapter.tags, color)) ||
       'Anonymous',
   );
 };
@@ -39,29 +41,45 @@ const advices: Advice[] = [
   { kind: 'blunder', i18n: i18n.site.numberBlunders, symbol: '??' },
 ];
 
+const phaseLabels: Record<GamePhase, string> = {
+  opening: i18n.site.opening,
+  middlegame: i18n.site.middlegame,
+  endgame: i18n.site.endgame,
+};
+
+const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
+
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data,
-    sideData = d.analysis![color];
+  const sideData = ctrl.data.analysis![color];
 
   return h('div.advice-summary__side', [
-    h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-    ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
-    h('div.advice-summary__acpl', [
-      h('strong', sideData.acpl),
-      h('span', ` ${i18n.site.averageCentipawnLoss}`),
-    ]),
-    h('div.advice-summary__accuracy', [
-      h('strong', [sideData.accuracy, '%']),
-      h('span', [
-        i18n.site.accuracy,
-        ' ',
-        h('a', {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
-        }),
+    h('div.advice-summary__player', [h(`icon.is.color-icon.${color}.text`), renderPlayer(ctrl, color)]),
+    h('div.advice-summary__sections', [
+      h('div.advice-summary__acpl', [
+        ...advices.map(a => error(sideData[a.kind], color, a)),
+        h('div', [h('strong', sideData.acpl), h('span', ` ${i18n.site.averageCentipawnLoss}`)]),
       ]),
+      h('div.advice-summary__accuracy', [...renderPhases(sideData)]),
     ]),
   ]);
 }
+
+const accuracyClass = (accuracy: number): string =>
+  accuracy >= 85 ? 'good' : accuracy >= 70 ? 'inaccuracy' : accuracy >= 55 ? 'mistake' : 'blunder';
+
+const renderPhases = (side: AnalysisSide): VNode[] => {
+  return [
+    h(`div.advice-summary__phase`, [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
+    ...phaseOrder
+      .filter(phase => side.phases?.[phase] !== undefined)
+      .map(phase =>
+        h(`div.advice-summary__phase.${accuracyClass(side.phases![phase]!)}`, [
+          h('strong', `${side.phases![phase]}%`),
+          h('span', phaseLabels[phase]),
+        ]),
+      ),
+  ];
+};
 
 const error = (nb: number, color: Color, advice: Advice) =>
   h(
@@ -100,26 +118,24 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
 
 export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
   const puzzle = ctrl.data.puzzle;
-  return (
-    puzzle &&
+  if (!puzzle) return undefined;
+  return h(
+    'div.analyse__puzzle',
     h(
-      'div.analyse__puzzle',
-      h(
-        'a.button-link.text',
-        {
-          attrs: {
-            ...dataIcon(licon.ArcheryTarget),
-            href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
-          },
+      'a.button-link.text',
+      {
+        attrs: {
+          ...dataIcon(licon.ArcheryTarget),
+          href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
-        ['Recommended puzzle training', h('br'), puzzle.name],
-      ),
-    )
+      },
+      ['Recommended puzzle training', h('br'), puzzle.name],
+    ),
   );
 }
 
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.study?.practice) return;
+  if (ctrl.study?.practice) return undefined;
 
   if (
     !ctrl.data.analysis ||

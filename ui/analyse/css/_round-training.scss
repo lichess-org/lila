@@ -18,54 +18,56 @@
 
   color: $c-font-page;
   font-size: 0.9em;
-  line-height: 1.15em;
-  margin-top: 1em;
-
-  @include mq-at-least-col2 {
-    &__side + &__side {
-      border-top: $border;
-      padding-top: 0.5em;
-      margin-top: 0.5em;
-    }
-  }
 
   &__player {
+    text-align: center;
     font-weight: bold;
+    margin-bottom: 0.5em;
   }
 
-  &__side > div {
-    display: flex;
+  &__sections {
+    @extend %flex-center;
+
+    > div {
+      @extend %flex-column;
+
+      flex: 1 0 auto;
+    }
 
     icon,
     strong {
-      flex: 0 1 6ch;
+      flex: 0 1 5ch;
       text-align: center;
     }
 
-    &.symbol {
+    .symbol {
       cursor: pointer;
     }
 
-    &.inaccuracy {
+    .good {
+      color: $c-good;
+    }
+
+    .inaccuracy {
       color: $c-inaccuracy;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-inaccuracy 70%, $c-font);
       }
     }
 
-    &.mistake {
+    .mistake {
       color: $c-mistake;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-mistake 70%, $c-font);
       }
     }
 
-    &.blunder {
+    .blunder {
       color: $c-blunder;
 
-      &:hover {
+      &.symbol:hover {
         color: color-mix(in oklab, $c-blunder 70%, $c-font);
       }
     }
@@ -79,19 +81,16 @@
     margin: 0.6em 0;
   }
 
+  &__acpl > div,
+  &__phase {
+    @extend %flex-center-nowrap;
+
+    span {
+      @extend %nowrap-ellipsis;
+    }
+  }
+
   @include mq-is-col1 {
-    flex-flow: row wrap;
-    justify-content: center;
-    padding-bottom: $analyse-block-gap;
-    border-bottom: $border;
-
-    &__side {
-      flex: 0 0 calc(50% - #{$analyse-block-gap});
-      margin-inline-start: $analyse-block-gap;
-    }
-
-    > a {
-      order: 1;
-    }
+    margin: $analyse-block-gap 0;
   }
 }

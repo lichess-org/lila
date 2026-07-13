@@ -317,11 +317,12 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     dlg.close();
   };
   const nameToOptionalColor = (name?: string) => {
-    if (!name) return undefined;
+    if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
+
   return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {

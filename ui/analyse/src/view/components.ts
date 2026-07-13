@@ -82,8 +82,10 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
   };
 }
 
-export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
-  const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
+export function renderMain(
+  { ctrl, relay, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  ...kids: LooseVNodes[]
+): VNode {
   const isRelay = defined(ctrl.study?.relay);
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
@@ -95,7 +97,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
+          if (!relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
         },
         update(_, _2) {
@@ -323,8 +325,8 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 let prevForceInnerCoords: boolean;
-function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
+function forceInnerCoords({ data }: AnalyseCtrl, v: boolean) {
+  if (data.pref.coords === Prefs.Coords.Outside) {
     if (prevForceInnerCoords !== v) {
       prevForceInnerCoords = v;
       $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);

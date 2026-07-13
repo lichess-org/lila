@@ -8,11 +8,11 @@
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子落点（有效着法及预走棋）</string>
-  <string name="boardCoordinates">棋盘坐标（A-H，1-8）</string>
+  <string name="boardCoordinates">棋盘坐标 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">对局时显示可走着法</string>
   <string name="pgnPieceNotation">记谱方式</string>
   <string name="chessPieceSymbol">棋子符号</string>
-  <string name="pgnLetter">字母（K，Q，R，B，N）</string>
+  <string name="pgnLetter">字母 (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示等级分</string>
   <string name="showFlairs">显示棋手图标</string>

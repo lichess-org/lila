@@ -530,7 +530,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
 }
 
 const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiContext) => {
-  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
+  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return undefined;
   return analysisInProgress()
     ? hl('p', 'Server-side analysis in progress')
     : hl(
@@ -572,8 +572,8 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
     : studyPlayers || hl('span', i18n.site.anonymous);
 }
 
-function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
-  const player = ctrl.study?.currentChapter().players?.[color];
+function renderStudyPlayer({ study }: AnalyseCtrl, color: Color): VNode | undefined {
+  const player = study?.currentChapter().players?.[color];
   const keys = [
     ['name', i18n.site.name],
     ['title', 'title'],
@@ -640,8 +640,7 @@ function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
   ];
 }
 
-function studyDetails(ctrl: AnalyseCtrl) {
-  const study = ctrl.study;
+function studyDetails({ study, redraw }: AnalyseCtrl) {
   const relayGroups = study?.relay?.data.group;
   const relayRounds = study?.relay?.data.rounds;
   const tour = study?.relay?.data.tour;
@@ -729,7 +728,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
           ? hl('div.buttons', [
               hl(
                 'button.edit-chapter',
-                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
+                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), redraw),
                 [
                   'Edit current chapter',
                   study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
@@ -737,7 +736,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
               ),
               hl(
                 'button.create-chapter',
-                clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
+                clickHook(() => study.chapters.newForm.toggle(), redraw),
                 [
                   'Add new chapter',
                   study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,

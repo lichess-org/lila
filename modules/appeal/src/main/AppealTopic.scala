@@ -7,6 +7,9 @@ import lila.core.i18n.I18nKey.appeal as trans
 
 object AppealTopicApi:
 
+  val irrelevant = Set(AppealTopic.play)
+  val relevant = AppealTopic.values.filterNot(irrelevant).toList
+
   private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
     List(

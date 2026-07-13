@@ -27,3 +27,4 @@ patchedDependencies:
 minimumReleaseAgeExclude:
   - '@lichess-org/stockfish-web@0.4.1'
   - '@lichess-org/pgn-viewer@2.6.1'
+  - chessops@0.15.1

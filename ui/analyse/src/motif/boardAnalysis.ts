@@ -44,10 +44,10 @@ function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role):
   const attackers: PieceOnSquare[] = [];
   const colorSet = cb[byColor];
 
-  const add = (set: SquareSet) => {
-    for (const s of set) {
-      const p = cb.get(s);
-      if (p && (!byRole || p.role === byRole)) attackers.push({ piece: p, square: s });
+  const add = (squares: SquareSet) => {
+    for (const square of squares) {
+      const piece = cb.get(square);
+      if (piece && (!byRole || piece.role === byRole)) attackers.push({ piece, square });
     }
   };
 
@@ -71,47 +71,46 @@ function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role):
   return attackers.filter(usableAttacker);
 }
 
-export function detectPins(board: Board): Pin[] {
+export function detectPins(cb: Board): Pin[] {
   const pins: Pin[] = [];
-  const cb = board;
-  const occupied = cb.occupied;
+  const { occupied } = cb;
 
-  for (const s of occupied) {
-    const piece = board.get(s);
+  for (const square of occupied) {
+    const piece = cb.get(square);
     if (!piece) continue;
     if (piece.role !== 'bishop' && piece.role !== 'rook' && piece.role !== 'queen') continue;
 
-    const attackSet = attacks(piece, s, occupied);
+    const attackSet = attacks(piece, square, occupied);
     const pinnedCandidates = attackSet.intersect(cb[opposite(piece.color)]);
 
-    for (const p of pinnedCandidates) {
-      const raySet = ray(s, p);
-      const xray = attacks(piece, s, occupied.without(p)).intersect(raySet);
-      const targets = xray.intersect(occupied).without(p);
+    for (const pinned of pinnedCandidates) {
+      const raySet = ray(square, pinned);
+      const xray = attacks(piece, square, occupied.without(pinned)).intersect(raySet);
+      const targets = xray.intersect(occupied).without(pinned);
 
-      for (const t of targets) {
-        if (!between(s, t).has(p)) continue;
+      for (const target of targets) {
+        if (!between(square, target).has(pinned)) continue;
 
-        const target = board.get(t);
-        if (!target || target.color === piece.color) continue;
+        const targetPiece = cb.get(target);
+        if (!targetPiece || targetPiece.color === piece.color) continue;
 
-        const pinnedPiece = board.get(p);
+        const pinnedPiece = cb.get(pinned);
         if (!pinnedPiece) continue;
 
-        if (target.role === 'king') {
+        if (targetPiece.role === 'king') {
           // Absolute pin
-          pins.push({ pinned: p, pinner: s, target: t });
+          pins.push({ pinned, pinner: square, target });
         } else {
           // Relative pin
-          const valTarget = values[target.role],
+          const valTarget = values[targetPiece.role],
             valPinned = values[pinnedPiece.role],
             valAttacker = values[piece.role];
 
           if (
             valTarget > valPinned && // Back piece is worth more than front piece
-            (!isSquareAttacked(t, target.color, cb) || valTarget > valAttacker) // Back piece is undefended OR worth more than the attacker
+            (!isSquareAttacked(target, targetPiece.color, cb) || valTarget > valAttacker) // Back piece is undefended OR worth more than the attacker
           ) {
-            pins.push({ pinned: p, pinner: s, target: t });
+            pins.push({ pinned, pinner: square, target });
           }
         }
         break;
@@ -124,7 +123,7 @@ export function detectPins(board: Board): Pin[] {
 const epTargetPawnSq = (epSquare: Square): Square =>
   squareFromCoords(squareFile(epSquare), squareRank(epSquare) === 2 ? 3 : 4)!;
 
-const lookupKey = (board: Board, target: Piece) => `${board.occupied.hi},${board.occupied.lo},${target.role}`;
+const lookupKey = ({ occupied }: Board, target: Piece) => `${occupied.hi},${occupied.lo},${target.role}`;
 
 interface SEEResult {
   balance: number;
@@ -173,7 +172,7 @@ function getSEE(
   return result;
 }
 
-export function detectUndefended(board: Board, epSquare: Square | undefined): Undefended[] {
+export function detectUndefended(board: Board, epSquare?: Square): Undefended[] {
   const undefended: Undefended[] = [];
   const cb = board;
   for (let i = 0; i < 64; i++) {
@@ -193,12 +192,11 @@ export function detectUndefended(board: Board, epSquare: Square | undefined): Un
 }
 
 export function detectCheckable(
-  board: Board,
+  cb: Board,
   epSquare: Square | undefined,
   castlingRights: SquareSet,
 ): Checkable[] {
   const checkable: Checkable[] = [];
-  const cb = board;
 
   for (const color of COLORS) {
     const kSq = cb.kingOf(color);
@@ -230,8 +228,10 @@ export function detectCheckable(
 
     for (const [fromStr, tos] of dests) {
       if (checkFound) break;
-      const from = parseSquare(fromStr),
-        piece = board.get(from);
+
+      const from = parseSquare(fromStr);
+      const piece = cb.get(from);
+
       if (!piece) continue;
 
       for (const toStr of tos) {

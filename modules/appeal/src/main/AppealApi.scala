@@ -57,7 +57,7 @@ final class AppealApi(
       .map: docs =>
         for
           doc <- docs
-          userId <- doc.getAsOpt[UserId]("_id")
+          userId <- doc.getAsOpt[UserId]("user")
           msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
@@ -81,6 +81,8 @@ final class AppealApi(
       _ <- (v && sleepMonths > 0).so:
         update(a2.sleep(sleepMonths.some)).void
     yield ()
+
+  def toggleRead(appeal: Appeal, v: Boolean) = update(appeal.toggleRead(v)).void
 
   def toggleClosed(user: UserId, topic: AppealTopic, v: Boolean, sleepMonths: Int = 0): Funit =
     find(user, topic).flatMapz(toggleClosed(_, v, sleepMonths))

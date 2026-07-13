@@ -25,7 +25,7 @@ final class AppealUi(helpers: Helpers):
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
       strong(cls := "text inline")("Appeal status"),
-      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.toString))
+      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.key))
     )
 
   def backLink =
@@ -41,7 +41,10 @@ final class AppealUi(helpers: Helpers):
             appeals.map: ap =>
               tr(
                 td(a(href := routes.Appeal.modShow(ap.user, ap.topic))(strong(ap.topic.key))),
-                td(ap.status.key),
+                td:
+                  ap.closedUntil.fold[Frag](ap.status.key): until =>
+                    frag("paused until ", showDate(until))
+                ,
                 td(ap.msgs.size.toString),
                 td(fragList(ap.modIds.map(some).map(userIdLink(_)))),
                 td(momentFromNowOnce(ap.createdAt)),

@@ -24,10 +24,13 @@ const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
               destroy: () => ctrl.commentShape(false),
             },
           },
-          hl('san', fixCrazySan(c.best.san)),
-        ),
-      )
-    : [];
+          destroy: () => ctrl.commentShape(false),
+        },
+      },
+      hl('san', fixCrazySan(c.best.san)),
+    ),
+  );
+};
 
 const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
   hl('div.player.off', [
@@ -60,27 +63,23 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   const hint = ctrl.hinting();
   return hl('div.player.running', [
     hl('div.no-square', hl('piece.king.' + root.turnColor())),
-    hl(
-      'div.instruction',
-      (ctrl.isMyTurn()
-        ? [hl('strong', i18n.site.yourTurn)]
-        : [hl('strong', i18n.site.computerThinking)]
-      ).concat(
-        hl('div.choices', [
-          ctrl.isMyTurn()
-            ? hl(
-                'a',
-                { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
-                hint
-                  ? hint.mode === 'piece'
-                    ? i18n.site.seeBestMove
-                    : i18n.site.hideBestMove
-                  : i18n.site.getAHint,
-              )
-            : '',
-        ]),
+    hl('div.instruction', [
+      ctrl.isMyTurn() ? hl('strong', i18n.site.yourTurn) : hl('strong', i18n.site.computerThinking),
+      hl(
+        'div.choices',
+        ctrl.isMyTurn()
+          ? hl(
+              'a',
+              { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
+              hint
+                ? hint.mode === 'piece'
+                  ? i18n.site.seeBestMove
+                  : i18n.site.hideBestMove
+                : i18n.site.getAHint,
+            )
+          : '',
       ),
-    ),
+    ]),
   ]);
 }
 
@@ -121,15 +120,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
           'div.comment',
           (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
-              ? (
-                  [
-                    hl(
-                      'span.verdict',
-                      comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
-                    ),
-                    ' ',
-                  ] as MaybeVNodes
-                ).concat(commentBest(comment, ctrl))
+              ? [
+                  hl(
+                    'span.verdict',
+                    comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
+                  ),
+                  ' ',
+                  ...commentBest(comment, ctrl),
+                ]
               : [ctrl.isMyTurn() || end ? '' : hl('span.wait', i18n.site.evaluatingYourMove)]),
         )
       : null,

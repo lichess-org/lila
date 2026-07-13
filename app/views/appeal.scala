@@ -25,6 +25,6 @@ def queue(
     scores: lila.report.Room.Scores,
     pending: PendingCounts
 )(using Context, Me) =
-  views.report.ui.list.layout("appeal", scores, pending, moreJs = esmInitBit("appealTopicSelect"))(
+  views.report.ui.list.layout("Appeals", "appeal", scores, pending, moreJs = esmInitBit("appealTopicSelect"))(
     views.mod.ui.reportMenu
   )(queueUi(appeals, inquiries.view.mapValues(_.mod).toMap, topic, markedByMe))

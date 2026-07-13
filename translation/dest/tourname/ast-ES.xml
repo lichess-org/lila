@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Tornéu rápidu por hora</string>
   <string name="hourlyRapid">Rápido per hora</string>
   <string name="hourlyXArena">Tornéu %s per hora</string>
-  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">%s per hora</string>
+  <string name="hourlyX">%s per hora</string>
   <string name="dailyRapidArena">Tornéu rápidu diariu</string>
   <string name="dailyRapid">Rápido diariu</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Tornéu clásicu diariu</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Clásicu diariu</string>
-  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Tornéu %s diariu</string>
+  <string name="dailyClassicalArena">Tornéu clásicu diariu</string>
+  <string name="dailyClassical">Clásicu diariu</string>
+  <string name="dailyXArena">Tornéu %s diariu</string>
   <string name="dailyX">%s diariu</string>
-  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Tornéu rápidu oriental</string>
-  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Rápido oriental</string>
+  <string name="easternRapidArena">Tornéu rápidu oriental</string>
+  <string name="easternRapid">Rápido oriental</string>
   <string name="easternClassicalArena">Tornéu clásicu oriental</string>
   <string name="easternClassical">Clásicu oriental</string>
   <string name="easternXArena">Tornéu %s oriental</string>

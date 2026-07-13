@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">En attente de votre adversaire</string>
   <string name="orLetYourOpponentScanQrCode">Ou laissez votre adversaire scanner ce code QR</string>
   <string name="reusableChallengeUrl">URL réutilisable pour les défis</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Lien permanent qui permet à quiconque de vous défier avec ces paramètres</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Lien permanent qui permet à quiconque de vous défier avec ces paramètres.</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -119,7 +119,7 @@
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
   <string name="lossOr50MovesByPriorMistake">Défaite ou 50 coups par suite d\'une erreur</string>
-  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible de valeurs DTZ faisant partie de tables de finale Syzygy.</string>
+  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondi possible de valeurs DTZ faisant partie de tables de finale Syzygy.</string>
   <string name="allSet">Tout est prêt !</string>
   <string name="importPgn">Importer le PGN</string>
   <string name="delete">Effacer</string>
@@ -138,12 +138,12 @@
   <string name="multipleLinesDescription">Définir le nombre de lignes d\'analyse et de flèches sur l\'échiquier</string>
   <string name="searchTime">Temps d\'analyse</string>
   <string name="searchTimeDescription">Établir le temps d\'analyse des nouvelles positions</string>
-  <string name="threads">Coeurs</string>
-  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de coeurs de votre processeur. Les flèches indiquent le choix optimal.</string>
+  <string name="threads">Cœurs</string>
+  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de cœurs de votre processeur. Les flèches indiquent le choix optimal</string>
   <string name="threadsDescriptionMobile">Utiliser plus de coeurs consomme plus d\'énergie, mais permet une meilleure analyse.</string>
   <string name="cpus">Processeurs</string>
   <string name="memory">Mémoire</string>
-  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances.</string>
+  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
   <string name="blunder">Gaffe</string>
@@ -177,7 +177,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
-  <string name="drawClaimed">Offre de nulle</string>
+  <string name="drawClaimed">Nulle revendiquée</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -814,6 +814,10 @@
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonyme</item>
+    <item quantity="other">Anonymes (%s)</item>
+  </plurals>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
   <string name="allLanguages">Toutes les langues</string>

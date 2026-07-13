@@ -13,7 +13,7 @@
     "@types/lichess": "workspace:*",
     "@types/node": "^24.13.3",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.15.0",
+    "chessops": "^0.15.1",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.4.0",
     "oxfmt": "0.52.0",

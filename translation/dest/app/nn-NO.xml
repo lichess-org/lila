@@ -2,12 +2,12 @@
 <resources>
   <string name="lichessMobileApp">Lichess mobilapp</string>
   <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Attende til Lichess-appen</string>
-  <string name="ifAppDoesNotOpenAutomatically" comment="ifAppDoesNotOpenAutomatically&#10;&#10;%s is &quot;Open the Lichess App&quot;, which is translatable separately.">Trykk på knappen \"%s dersom appen ikke opnar automatisk.</string>
+  <string name="ifAppDoesNotOpenAutomatically">Trykk på knappen \"%s dersom appen ikke opnar automatisk.</string>
   <string name="openTheApp" comment="Button text to open the Lichess app on the device">Opna Lichess-appen</string>
-  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Vis %s på GitHub</string>
-  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">alle utgjevingar</string>
-  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Last ned frå Apple App Store</string>
-  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Last ned frå Google Play</string>
-  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">Last ned frå F-Droid</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Vis %s på GitHub</string>
+  <string name="allReleases">alle utgjevingar</string>
+  <string name="downloadOnAppleAppStore">Last ned frå Apple App Store</string>
+  <string name="downloadOnGooglePlay">Last ned frå Google Play</string>
+  <string name="downloadOnFdroid">Last ned frå F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobilskjerm</string>
 </resources>

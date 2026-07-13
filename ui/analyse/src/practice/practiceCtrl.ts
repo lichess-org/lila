@@ -7,9 +7,10 @@ import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
 
-import type AnalyseCtrl from '../ctrl';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import { detectThreefold } from '../nodeFinder';
+import type AnalyseCtrl from '@/ctrl';
+import { tablebaseGuaranteed } from '@/explorer/explorerCtrl';
+import { detectThreefold } from '@/nodeFinder';
+
 import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
