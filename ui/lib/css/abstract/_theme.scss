@@ -5,6 +5,8 @@ $border-style: solid;
 $border: $border-width $border-style $c-border;
 $outline: 2px solid $c-primary;
 
+// Like !important, these if-light/transp mixins should be avoided.
+
 @mixin if-light {
   html.light & {
     @content;

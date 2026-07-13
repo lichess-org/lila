@@ -823,6 +823,7 @@
   <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
   <string name="light">Light</string>
+  <string name="clouds">Clouds</string>
   <string name="dark">Dark</string>
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Device theme</string>

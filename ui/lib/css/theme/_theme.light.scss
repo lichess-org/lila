@@ -14,6 +14,7 @@ html.light {
   --c-body-gradient: hsl(var(---site-hue) 12% 84%);
   --c-font: hsl(0 0% 30%);
   --c-font-dim: hsl(0 0% 47%);
+  --c-font-shadow: hsl(from white h s l / 0.5);
   --c-primary: hsl(209 77% 46%);
   --c-brag: hsl(var(---site-hue) 74% 48%);
   --c-brag-hover: hsl(from var(--c-brag) h 100 30);
@@ -41,7 +42,6 @@ html.light {
   --c-font-clear: hsl(from var(--c-font) h s 12);
   --c-font-clearer: black;
   --c-font-page: hsl(from var(--c-font) h s 37);
-  --c-font-shadow: white;
   --c-primary-dim: color-mix(in oklab, var(--c-dimmer) 17%, var(--c-primary));
   --c-link-hover: color-mix(in oklab, var(--c-clearer) 35%, hsl(from var(--c-primary) h 100 l));
   --c-chat-host-bg: rgb(125 170 73 / 0.4);

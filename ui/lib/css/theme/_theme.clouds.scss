@@ -1,0 +1,64 @@
+@import 'theme.default';
+
+html.clouds {
+  @include shared-color-defs;
+
+  ---site-hue: 230deg;
+  ---site-sat: 8%;
+  ---site-lum: 79%;
+  ---box-hue: 219deg;
+  ---primary-hue: 199deg;
+  ---secondary-hue: 82deg;
+  ---brag-hue: 300deg;
+  ---accent-hue: 259deg;
+  --c-bg: hsl(var(---site-hue) calc(var(---site-sat) * 0.8) var(---site-lum));
+  --c-bg-high: hsl(from var(--c-bg) h s calc(l * 1.06));
+  --c-bg-box: hsl(var(---box-hue) calc(var(---site-sat) * 0.6) calc(var(---site-lum) * 1.08));
+  --c-bg-page: hsl(from var(--c-bg) h calc(s * 0.65) calc(l * 0.93));
+  --c-bg-low: hsl(from var(--c-bg) h calc(s * 0.5) calc(l * 0.88));
+  --c-bg-mid: hsl(from var(--c-bg) h calc(s * 0.45) l);
+  --c-bg-zebra: hsl(var(---box-hue) calc(var(---site-sat)) calc(var(---site-lum) * 1.12));
+  --c-bg-zebra2: hsl(from var(--c-bg-zebra) h s calc(l * 0.95));
+  --c-bg-popup: var(--c-bg);
+  --c-bg-opaque: var(--c-bg-zebra2);
+  --c-bg-cloud: hsl(var(---box-hue) 13% 90% / 0.6);
+  --c-bg-input: hsl(from var(--c-bg-page) h s calc(var(---site-lum) * 1.13));
+  --c-bg-variation: var(--c-bg-zebra2);
+  --c-bg-header-dropdown: var(--c-body-gradient);
+  --c-body-gradient: hsl(from var(--c-bg) h calc(s * 0.4) calc(l * 1.13));
+  --c-bad: hsl(0 40% 50%);
+  --c-badge: var(--c-bad);
+  --c-inbox-bubble-mine: var(--c-secondary);
+  --c-inbox-bubble-theirs: var(--c-brag);
+  --c-inbox-font: white;
+  --c-primary: hsl(var(---primary-hue) 37% 42%);
+  --c-secondary: hsl(var(---secondary-hue) 52% 30%);
+  --c-brag: hsl(var(---brag-hue) 25 40);
+  --c-accent: hsl(var(---accent-hue) 20 42);
+  --c-shade: color-mix(in oklab, var(--c-accent) 20%, var(--c-bg-cloud));
+  --c-paper: hsl(60 56% 86%);
+  --c-border: hsl(var(---site-hue) 20% var(---site-lum));
+  --c-header-dropdown: var(--c-font);
+  --c-page-input: var(--c-bg-low);
+  --c-metal-top: hsl(from var(--c-bg-box) h s calc(l * 0.97));
+  --c-metal-bottom: hsl(from var(--c-bg-box) h s calc(l * 0.92));
+  --c-metal-top-hover: color-mix(in oklab, var(--c-metal-top) 90%, var(--c-accent));
+  --c-metal-bottom-hover: color-mix(in oklab, var(--c-metal-bottom) 80%, var(--c-accent));
+  --c-font: hsl(var(---site-hue) 10 20);
+  --c-font-dim: hsl(var(---box-hue) 10% 30);
+  --c-font-dimmer: hsl(var(---box-hue) 10% 40);
+  --c-font-clear: hsl(var(---box-hue) 10% 7%);
+  --c-font-clearer: hsl(var(---box-hue) 10% 5%);
+  --c-font-page: hsl(var(---box-hue) 10% 14%);
+  --c-font-shadow: hsl(from var(--c-bg-box) h s l / 0.25);
+  --c-link: var(--c-primary);
+  --c-link-hover: hsl(from var(--c-primary) h calc(s * 3) l);
+  --c-page-mask: hsl(0 0% 0% / 0);
+  --c-border-page: hsl(0 0% 70%);
+  --c-border-light: hsl(0 0% 70%);
+  --c-dialog-border: var(--c-border-page);
+}
+
+html.clouds * {
+  box-shadow: none !important;
+}

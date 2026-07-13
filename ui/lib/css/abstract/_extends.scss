@@ -62,7 +62,7 @@
   @include with-metal-shadow(hsl(0 0% 0% / 0.2), hsl(0 0% 0% / 0.18));
 
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8)) !important;
+  text-shadow: 0.5px 0.5px 0 $c-font-shadow !important;
 
   &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.24), hsl(0 0% 0% / 0.21));
@@ -121,7 +121,7 @@
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsl(0 0% 0% / 0.15) inset !important;
+  box-shadow: 0 3px 4px hsl(0 0% 0% / 0.15) inset;
 }
 
 %active {
@@ -129,7 +129,7 @@
 
   background: $c-accent;
   color: #fff;
-  text-shadow: 0 1px 1px black !important;
+  text-shadow: 0 1px 1px $c-font-shadow !important;
 
   &:not(.disabled):hover {
     @extend %active-inset-shadow;
@@ -158,7 +158,7 @@
 
   background: $c-primary;
   color: #fff;
-  text-shadow: 0 1px 1px black !important;
+  text-shadow: 1px 1px 1px $c-font-shadow !important;
 }
 
 %active-secondary {
