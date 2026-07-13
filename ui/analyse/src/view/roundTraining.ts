@@ -5,14 +5,10 @@ import { licon } from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
 
-<<<<<<< feature/rolling-analysis-accuracy
-import type AnalyseCtrl from '../ctrl';
-import type { AnalysisSide, GamePhase } from '../interfaces';
-import { findTag } from '../study/studyChapters';
-=======
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
->>>>>>> master
+
+import type { AnalysisSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -58,26 +54,10 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
-<<<<<<< feature/rolling-analysis-accuracy
     h('div.advice-summary__sections', [
       h('div.advice-summary__acpl', [
-        ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
+        ...advices.map(a => error(sideData[a.kind], color, a)),
         h('div', [h('strong', sideData.acpl), h('span', ` ${i18n.site.averageCentipawnLoss}`)]),
-=======
-    ...advices.map(a => error(sideData[a.kind], color, a)),
-    h('div.advice-summary__acpl', [
-      h('strong', sideData.acpl),
-      h('span', ` ${i18n.site.averageCentipawnLoss}`),
-    ]),
-    h('div.advice-summary__accuracy', [
-      h('strong', [sideData.accuracy, '%']),
-      h('span', [
-        i18n.site.accuracy,
-        ' ',
-        h('a', {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
-        }),
->>>>>>> master
       ]),
       h('div.advice-summary__accuracy', [...renderPhases(sideData)]),
     ]),
