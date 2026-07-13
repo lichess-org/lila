@@ -1,7 +1,16 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, iconTag, onInsert } from 'lib/view';
+import {
+  bind,
+  dataIcon,
+  type MaybeVNode,
+  type LooseVNodes,
+  type VNode,
+  hl,
+  iconTag,
+  onInsert,
+} from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
