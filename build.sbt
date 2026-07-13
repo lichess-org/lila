@@ -72,14 +72,14 @@ lazy val modules = Seq(
   // level 1
   core, coreI18n,
   // level 2
-  ui, common, tree,
+  common, ui, mon, tree, markdown,
   // level 3
-  db, room, search,
+  db, room, irc,
   // level 4
   memo, rating,
   // level 5
   game, gathering, study, user, puzzle, analyse,
-  report, pref, chat, playban, lobby, mailer, oauth,
+  report, pref, chat, playban, lobby, mailer, oauth, search,
   // level 6
   insight, evaluation, storm,
   // level 7
