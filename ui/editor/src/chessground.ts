@@ -8,17 +8,17 @@ import { isSafari } from 'lib/device';
 import { ShowResizeHandle } from 'lib/prefs';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
 
 import type EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
-      },
+      }),
       destroy: () => ctrl.chessground!.destroy(),
     },
   });

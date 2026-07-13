@@ -33,14 +33,14 @@
   <string name="streamerLanguageSettings">ໜ້າຜູ້ສຕຣີມເມີ Lichess ຈະກຳນົດກຸ່ມເປົ້າໝາຍຜູ້ຊົມຕາມພາສາທີ່ລະບຸໄວ້ໃນແພລດຟອມສຕຣີມມິງຂອງທ່ານ. ກະລຸນາຕັ້ງຄ່າພາສາເລີ່ມຕົ້ນໃຫ້ຖືກຕ້ອງສຳລັບການສຕຣີມໝາກຮຸກຂອງທ່ານໃນແອັບ ຫຼື ບໍລິການທີ່ທ່ານໃຊ້ໃນການຖ່າຍທອດສົດ.</string>
   <string name="pleaseAllow">ກະລຸນາລໍຖ້າການອະນຸມັດປ້າຍສັນຍາລັກ ແລະ ການສະແດງລາຍຊື່ຜູ້ສຕຣີມເມີ ພາຍໃນ 72 ຊົ່ວໂມງ.</string>
   <string name="chooseYoutubeChannel">ເລືອກຊ່ອງ YouTube ທີ່ເຈົ້າຈະໃຊ້ໃນ Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ເຊື່ອມຕໍ່</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ຍົກເລີກການເຊື່ອມຕໍ່</string>
+  <string name="connect">ເຊື່ອມຕໍ່</string>
+  <string name="disconnect">ຍົກເລີກການເຊື່ອມຕໍ່</string>
   <string name="streamerName">ຊື່ຜູ້ສຕຣີມເມີຂອງທ່ານໃນ Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">ໃສ່ໃຫ້ສັ້ນ: ບໍ່ເກີນ %s ຕົວອັກສອນ</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">ສະແດງຢູ່ໃນໜ້າຜູ້ສຕຣີມເມີ</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">ເມື່ອໄດ້ຮັບການອະນຸມັດຈາກຜູ້ດູແລລະບົບ</string>
+  <string name="visibility">ສະແດງຢູ່ໃນໜ້າຜູ້ສຕຣີມເມີ</string>
+  <string name="whenApproved">ເມື່ອໄດ້ຮັບການອະນຸມັດຈາກຜູ້ດູແລລະບົບ</string>
   <string name="headline">ຫົວຂໍ້ແນະນຳ</string>
   <string name="tellUsAboutTheStream">ບອກພວກເຮົາກ່ຽວກັບການສຕຣີມຂອງທ່ານໃນປະໂຫຍກດຽວ</string>
   <string name="longDescription">ລາຍລະອຽດເພີ່ມເຕີມ</string>

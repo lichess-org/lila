@@ -2,7 +2,7 @@ import { hyphenToCamel, type Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, hl, type VNode } from 'lib/view';
+import { bind, hl, onInsert, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -196,23 +196,20 @@ export class BoardCtrl extends PaneCtrl {
         hl('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },
-          hook: {
-            insert: (vnode: VNode) => {
-              const input = vnode.elm as HTMLInputElement;
-              const setAndSave = (v: number) => {
-                if (v < range.min || v > range.max) return;
-                this.setVar(prop, v);
-                this.redraw();
-                this.postPref(prop);
-              };
-              $(input)
-                .on('input', () => setAndSave(parseInt(input.value)))
-                .on('wheel', e => {
-                  e.preventDefault();
-                  setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
-                });
-            },
-          },
+          hook: onInsert<HTMLInputElement>(input => {
+            const setAndSave = (v: number) => {
+              if (v < range.min || v > range.max) return;
+              this.setVar(prop, v);
+              this.redraw();
+              this.postPref(prop);
+            };
+            $(input)
+              .on('input', () => setAndSave(parseInt(input.value)))
+              .on('wheel', e => {
+                e.preventDefault();
+                setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
+              });
+          }),
         }),
       ],
     );

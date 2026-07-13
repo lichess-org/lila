@@ -72,8 +72,21 @@
   <string name="blindfold" comment="As in Blindfold chess">Τυφλό</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Εμφάνιση στα αριστερά στις κινητές συσκευές</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
+  <string name="showServerAnalysis">Εμφάνιση ανάλυσης διακομιστή</string>
+  <string name="showBestMoveArrows">Εμφάνιση βέλους καλύτερης κίνησης</string>
+  <string name="showManeuverArrows">Εμφάνιση βελών ελιγμών</string>
+  <string name="showGauge">Εμφάνιση μπάρας υπεροχής</string>
+  <string name="showMoveAnnotationsOnBoard">Εμφάνιση σχολιασμού κινήσεων</string>
+  <string name="showVariationArrows">Εμφάνιση βελών βαριάντας</string>
+  <string name="showLiveGlyphs">Σχόλια από την μηχανή σε πραγματικό χρόνο</string>
+  <string name="showUndefendedPieces">Εμφάνιση ανυπεράσπιστων κομματιών</string>
+  <string name="showPinnedPieces">Εμφάνιση καρφωμένων κομματιών</string>
+  <string name="showCheckableKing">Εμφάνιση βασιλιά που απειλείται</string>
+  <string name="disclosureMode">Ενεργοποίηση απόκρυψης βαριάντας</string>
   <string name="generalSettings">Γενικές</string>
   <string name="moveListSettings">Λίστα κινήσεων</string>
   <string name="boardSettings">Σκακιέρα</string>
   <string name="analysisSettings">Ρυθμίσεις ανάλυσης</string>
+  <string name="maneuverArrowsHelp">Ακολουθία κινήσεων μηχανής για το κομμάτι</string>
+  <string name="hoverOverSettingLabelsForHelp">Τοποθετήστε τον δείκτη πάνω από τις ετικέτες των ρυθμίσεων για βοήθεια</string>
 </resources>

@@ -35,7 +35,8 @@
   <string name="celebratedPatrons">Lichess ஐ சாத்தியமாக்கும் புகழ்பெற்ற ஆதரவாளர்கள்</string>
   <string name="whereMoneyGoes">பணம் எங்கே போகிறது?</string>
   <string name="serversAndDeveloper">முதலில், சக்திவாய்ந்த சேவையகங்கள்.
-பின்னர் முழுநேர உருவாக்குநருக்கு நாங்கள் பணம் செலுத்துகிறோம்: %s, Lichess இன் நிறுவனர்.</string>
+பின்னர் முழுநேர உருவாக்குநருக்கு நாங்கள் பணம் செலுத்துகிறோம்: %s, Lichess இன் நிறுவனர்.
+</string>
   <string name="costBreakdown">விரிவான செலவுப் பிரிவைப் பார்க்கவும்</string>
   <string name="officialNonProfit">Lichess ஒரு அதிகாரப்பூர்வ இலாப நோக்கற்ற நிறுவனமா?</string>
   <string name="actOfCreation">ஆம், படைப்பின் செயல் இதோ (பிரெஞ்சு மொழியில்)</string>

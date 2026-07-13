@@ -69,14 +69,14 @@ export class VideoPlayer {
     return this.o.embed
       ? hl('div#video-player-placeholder', {
           hook: {
-            insert: (vnode: VNode) => this.cover(vnode.elm as HTMLElement),
+            ...onInsert(this.cover),
             update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
           },
         })
       : hl('div#video-player-placeholder.link', [
           hl('div.image', {
             attrs: { style: `background-image: url(${this.o.image})` },
-            hook: onInsert((el: HTMLElement) => {
+            hook: onInsert(el => {
               el.addEventListener('click', e => {
                 if (e.ctrlKey || e.shiftKey) window.open(this.o.redirect, '_blank');
                 else this.onEmbed('ps');
@@ -86,7 +86,7 @@ export class VideoPlayer {
           }),
           hl('icon.video-player-close', {
             attrs: { 'data-icon': licon.X },
-            hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
+            hook: onInsert(el => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),
           hl(

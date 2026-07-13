@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">કલાકદીઠ રેપિડ એરેના</string>
   <string name="hourlyRapid">કલાકદીઠ રેપિડ</string>
   <string name="hourlyXArena">કલાકદીઠ %s એરેના</string>
-  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">કલાકદીઠ %s</string>
+  <string name="hourlyX">કલાકદીઠ %s</string>
   <string name="dailyRapidArena">દૈનિક રેપિડ એરેના</string>
   <string name="dailyRapid">દૈનિક રેપિડ</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">દૈનિક ક્લાસિકલ એરેના</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">દૈનિક ક્લાસિકલ</string>
-  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">દૈનિક %s એરેના</string>
+  <string name="dailyClassicalArena">દૈનિક ક્લાસિકલ એરેના</string>
+  <string name="dailyClassical">દૈનિક ક્લાસિકલ</string>
+  <string name="dailyXArena">દૈનિક %s એરેના</string>
   <string name="dailyX">દૈનિક %s</string>
-  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">ઇસ્ટર્ન રેપિડ એરેના</string>
-  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">ઇસ્ટર્ન રેપિડ</string>
+  <string name="easternRapidArena">ઇસ્ટર્ન રેપિડ એરેના</string>
+  <string name="easternRapid">ઇસ્ટર્ન રેપિડ</string>
   <string name="easternClassicalArena">ઇસ્ટર્ન ક્લાસિકલ એરેના</string>
   <string name="easternClassical">ઇસ્ટર્ન ક્લાસિકલ</string>
   <string name="easternXArena">ઇસ્ટર્ન %s એરેના</string>

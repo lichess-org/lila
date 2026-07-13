@@ -386,9 +386,9 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">您的 %s 等级分为暂定状态</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">由于您的等级分尚不稳定，等级分筛选已被锁定。进行排位对局将提高稳定性。</string>
-  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分（%2$s）过高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周的最高 %1$s 等级分（%2$s）过高</string>
-  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分（%2$s）过低</string>
+  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分 (%2$s) 过低</string>
   <string name="ratedMoreThanInPerf">%2$s 等级分不低于 %1$s</string>
   <string name="ratedLessThanInPerf">上周的 %2$s 等级分不超过 %1$s</string>
   <string name="mustBeInTeam">必须在团队 %s 中</string>
