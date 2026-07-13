@@ -68,7 +68,7 @@ type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
 case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang: Lang)
 
 enum AppealTopic:
-  case cheat, boost, close, comm, rank, arena, prize, play, blog, ip, streamer, warning, legacy
+  case cheat, boost, close, comm, rank, arena, prize, play, blog, streamer, warning, legacy
   def key = toString
 object AppealTopic:
   def byKey = values.mapBy(_.toString)
