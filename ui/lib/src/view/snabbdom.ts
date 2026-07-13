@@ -166,22 +166,22 @@ const BOOLEAN_ATTRIBUTES = new Set([
   'spellcheck',
 ]);
 
-function createVNode(sel: string, input: Record<string, any>, content: any) {
-  if (sel === '!--') return snabH('!', input.comment);
+function createVNode(tag: string, properties: Record<string, any>, content: any) {
+  if (tag === '!--') return snabH('!', properties.comment);
 
   if (Array.isArray(content) && content.length) {
     content = content.length === 1 ? content[0] : content.flat();
   }
 
-  const names = Object.keys(input);
-  if (!names?.length) return snabH(sel, content);
+  const names = Object.keys(properties);
+  if (!names?.length) return snabH(tag, content);
 
   const data = {} as Record<string, any>;
   let attrs;
 
   for (let i = 0; i < names.length; i++) {
     const name = names[i];
-    let value = input[name];
+    let value = properties[name];
 
     if (name.startsWith('@')) {
       const parts = name.slice(1).split(':');
@@ -216,7 +216,7 @@ function createVNode(sel: string, input: Record<string, any>, content: any) {
     attrs[name] = value;
   }
 
-  return snabH(sel, data, content);
+  return snabH(tag, data, content);
 }
 
 export const html: HtmlTemplate = hyperx(createVNode, {
