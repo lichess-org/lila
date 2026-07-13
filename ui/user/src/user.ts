@@ -103,6 +103,9 @@ const badgeSelector = '.icon3d';
 
 const trophyName = (el: HTMLElement): string => el.getAttribute('aria-label') || el.title || el.className;
 const isCup = (el: HTMLElement): boolean => !el.matches(badgeSelector);
+const hide = (el: HTMLElement) => (el.style.display = 'none');
+const show = (el: HTMLElement) => el.style.removeProperty('display');
+const isShown = (el: HTMLElement) => el.style.display !== 'none';
 
 function fitTrophies() {
   const box = document.querySelector<HTMLElement>('.user-show');
@@ -115,39 +118,46 @@ function layoutTrophies() {
   const title = header?.querySelector<HTMLElement>('h1');
   if (!trophies || !title) return;
 
+  const items = resetTrophies(trophies);
+  hideDuplicateKinds(items);
+  hideOverflowing(items, title);
+  addMoreButton(trophies, title, items);
+}
+
+function resetTrophies(trophies: HTMLElement): HTMLElement[] {
   trophies.querySelector('.more-trophies')?.remove();
   const items = [...trophies.querySelectorAll<HTMLElement>(trophySelector)];
-  for (const el of items) el.style.removeProperty('display');
+  items.forEach(show);
+  return items;
+}
 
-  const hide = (el: HTMLElement) => (el.style.display = 'none');
-  const isVisible = (el: HTMLElement) => el.style.display !== 'none';
-  const nameRight = () => title.getBoundingClientRect().right + 48;
-
+function hideDuplicateKinds(items: HTMLElement[]) {
   const seen = new Set<string>();
   for (const el of items) {
     if (seen.has(trophyName(el))) hide(el);
     else seen.add(trophyName(el));
   }
-
-  for (const el of items.filter(isVisible)) {
-    if (el.getBoundingClientRect().left >= nameRight()) break;
-    hide(el);
-  }
-
-  const username = title.querySelector<HTMLElement>('.user-link[data-href]')?.textContent?.trim();
-  const cupCount = items.filter(isCup).length;
-  trophies.prepend(moreButton(cupCount, () => showAllTrophies(trophies, username)));
 }
 
-function moreButton(count: number, onClick: () => void): HTMLButtonElement {
+function hideOverflowing(items: HTMLElement[], title: HTMLElement) {
+  const limit = title.getBoundingClientRect().right + 48;
+  for (const el of items.filter(isShown)) {
+    if (el.getBoundingClientRect().left >= limit) break;
+    hide(el);
+  }
+}
+
+function addMoreButton(trophies: HTMLElement, title: HTMLElement, items: HTMLElement[]) {
+  const username = title.querySelector<HTMLElement>('.user-link[data-href]')?.textContent?.trim();
+  const cupCount = items.filter(isCup).length;
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'more-trophies';
-  button.textContent = `+${count}`;
+  button.textContent = `+${cupCount}`;
   button.title = i18n.site.more;
   button.setAttribute('aria-label', i18n.site.more);
-  button.addEventListener('click', onClick);
-  return button;
+  button.addEventListener('click', () => showAllTrophies(trophies, username));
+  trophies.prepend(button);
 }
 
 let trophiesDialogOpen = false;
