@@ -21,14 +21,14 @@ function renderInStage(ctrl: SideCtrl) {
         </a>
         ${categs.map(
           (categ, categId) => html`
-            <div class=${{ categ: true, active: categId === ctrl.categId() }}>
+            <div class=${['categ', { active: categId === ctrl.categId() }]}>
               <h2 @on:click=${() => ctrl.categId(categId)}>${categ.name}</h2>
               <div class="categ_stages">
                 ${categ.stages.map(({ key, id, image, title }) => {
                   const result = ctrl.data.stages[key];
                   const status = id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
                   return html`
-                    <a class="stage ${status}" href=${hashHref(id)}>
+                    <a class=${['stage', status]} href=${hashHref(id)}>
                       <img src=${image} alt="" />
                       <span>${title}</span>
                     </a>
