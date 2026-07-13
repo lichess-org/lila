@@ -33,8 +33,8 @@
   <string name="streamerLanguageSettings">Stránka streamera Lichess oslovuje publikum prostredníctvom jazyka, ktorý poskytuje streamovacia platforma. Nastavte správny predvolený jazyk pre svoje šachové streamy v aplikácii alebo službe, ktorú používate na vysielanie.</string>
   <string name="pleaseAllow">Schválenie Vášho streamerského odznaku zaradenie na zoznam stremerov môže trvať až 72 hodín.</string>
   <string name="chooseYoutubeChannel">Zvoľte YouTube kanál, ktorý budete používať na stránke Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Pripojiť sa</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Odpojiť sa</string>
+  <string name="connect">Pripojiť sa</string>
+  <string name="disconnect">Odpojiť sa</string>
   <string name="streamerName">Vaše streamerské meno na Lichessi</string>
   <plurals name="keepItShort">
     <item quantity="one">Buďte struční: maximálne %s znak</item>
@@ -42,8 +42,8 @@
     <item quantity="many">Buďte struční: maximálne %s znakov</item>
     <item quantity="other">Buďte struční: maximálne %s znakov</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Viditeľnosť na streamerskej stránke</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Ak budete schválený moderátormi</string>
+  <string name="visibility">Viditeľnosť na streamerskej stránke</string>
+  <string name="whenApproved">Ak budete schválený moderátormi</string>
   <string name="headline">Titulok</string>
   <string name="tellUsAboutTheStream">Povedzte nám o Vašom streame v jednej vete</string>
   <string name="longDescription">Dlhý popis</string>

@@ -33,14 +33,14 @@
   <string name="streamerLanguageSettings">Trang Streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
   <string name="pleaseAllow">Vui lòng chờ tối đa 72 giờ trước khi huy hiệu streamer và danh sách của bạn được chấp thuận.</string>
   <string name="chooseYoutubeChannel">Chọn kênh YouTube bạn sẽ sử dụng trên Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kết nối</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Ngắt kết nối</string>
+  <string name="connect">Kết nối</string>
+  <string name="disconnect">Ngắt kết nối</string>
   <string name="streamerName">Tên luồng của bạn trên Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Hiện lên ở trang các Streamer</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Khi được điều hành viên chấp thuận</string>
+  <string name="visibility">Hiện lên ở trang các Streamer</string>
+  <string name="whenApproved">Khi được điều hành viên chấp thuận</string>
   <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về luồng của bạn trong một câu</string>
   <string name="longDescription">Miêu tả dài</string>

@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">A página do streamer Lichess visa o teu público com o idioma fornecido pela sua plataforma de streaming. Define o idioma padrão correto para as tuas streams de xadrez na aplicação ou serviço usado para transmitir.</string>
   <string name="pleaseAllow">Aguarde até 72 horas para que o teu emblema e anúncio de streamer sejam aprovados.</string>
   <string name="chooseYoutubeChannel">Escolhe o canal de YouTube que vais usar no Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectar</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
+  <string name="connect">Conectar</string>
+  <string name="disconnect">Desconectar</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantem-o curto: %s carácter no máximo</item>
     <item quantity="other">Mantem-o curto: %s carácteres no máximo</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visível na página de streamers</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Quando aprovado pelos moderadores</string>
+  <string name="visibility">Visível na página de streamers</string>
+  <string name="whenApproved">Quando aprovado pelos moderadores</string>
   <string name="headline">Título</string>
   <string name="tellUsAboutTheStream">Conta-nos sobre a tua stream numa frase</string>
   <string name="longDescription">Descrição longa</string>

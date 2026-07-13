@@ -33,7 +33,7 @@
   <string name="privateWillNeverBeShown">Privat. Vil aldrig blive vist uden for klassen. Hjælper med at huske hvem eleven er.</string>
   <string name="addStudent">Tilføj elev</string>
   <string name="lichessProfileXCreatedForY">Lichess-profil %1$s oprettet til %2$s.</string>
-  <string name="studentCredentials">Elev:  %1$s
+  <string name="studentCredentials">Elev: %1$s
 Brugernavn: %2$s
 Adgangskode: %3$s</string>
   <string name="inviteALichessAccount">Inviter en Lichess-konto</string>

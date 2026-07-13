@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">صفحهٔ بَرخَط-محتواساز Lichess، مخاطبان شما را با زبان ارائه‌شده بر پایهٔ پَندیس جریان‌سازی‌تان هدف قرار می‌دهد. زبان پیش‌فرض صحیح را برای جریان‌های شطرنج‌تان در کارآیه یا زاوَرشی (خدمتی) که برای پخش می‌بَهرید، تنظیم کنید.</string>
   <string name="pleaseAllow">لطفاً تا ۷۲ ساعت بصبرید تا فهرستِش و نشانِ بَرخَط-محتواسازتان تایید شود.</string>
   <string name="chooseYoutubeChannel">کانال یوتیوبی که در Lichess از آن استفاده خواهید کرد را انتخاب کنید.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">اتصال</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">قطع</string>
+  <string name="connect">اتصال</string>
+  <string name="disconnect">قطع</string>
   <string name="streamerName">نام بَرخَط-محتواسازتان در Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>
     <item quantity="other">کوتاه بنویسید: کمتر از %s حرف</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">نمایان در صفحهٔ بَرخَط-محتواسازان</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">هنگام تأیید مدیران سایت</string>
+  <string name="visibility">نمایان در صفحهٔ بَرخَط-محتواسازان</string>
+  <string name="whenApproved">هنگام تأیید مدیران سایت</string>
   <string name="headline">عنوان .</string>
   <string name="tellUsAboutTheStream">در یک جمله به ما دربارهٔ جریان‌تان بگویید</string>
   <string name="longDescription">توضیحات  طولانی.</string>

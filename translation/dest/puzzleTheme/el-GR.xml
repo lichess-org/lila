@@ -55,6 +55,8 @@
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Τακτικά στην τελευταία φάση της παρτίδας.</string>
   <string name="enPassantDescription">Τακτικά που αφορούν τον κανόνα en passant, σύμφωνα με τον οποίο ένα πιόνι μπορεί να αιχμαλωτίσει ένα αντίπαλο πιόνι το οποίο προσπέρασε κινούμενο από την αρχική του θέση δύο τετράγωνα μπροστά.</string>
+  <string name="epauletteMate">Ματ των επωμίδων</string>
+  <string name="epauletteMateDescription">Ένας βασιλιάς στην άκρη της σκακιέρας δέχεται σαχ και τα δύο γειτονικά τετράγωνα διαφυγής του είναι κατειλημμένα από φιλικά κομμάτια.</string>
   <string name="exposedKing">Ευάλωτος βασιλιάς</string>
   <string name="exposedKingDescription">Τακτικά τα οποία αφορούν έναν βασιλιά με λίγα αμυντικά κομμάτια γύρω του, και τα οποία συχνά καταλήγουν σε ματ.</string>
   <string name="fork">Πιρούνι – Διπλό χτύπημα</string>
@@ -73,9 +75,11 @@
   <string name="pillsburysMateDescription">Ο πύργος κάνει ματ στον αντίπαλο βασιλιά, τον οποίο ένας αξιωματικός έχει περιορίσει.</string>
   <string name="morphysMate">Ματ του Μόρφυ</string>
   <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
+  <string name="swallowstailMate">Ματ χελιδονοουράς</string>
+  <string name="swallowstailMateDescription">Ένα μοτίβο ματ που οπτικά μοιάζει με την ουρά ενός χελιδονιού, παρόμοιο με το σχήμα V.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
   <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Ματ του Vukovic</string>
+  <string name="vukovicMate">Ματ του Vukovic</string>
   <string name="vukovicMateDescription">Ένας πύργος και ένας ίππος συνεργάζονται για να κάνουν ματ στην άκρη της σκακιέρας. Ο πύργος κάνει ματ υποστηριζόμενος από κάποιο άλλο κομμάτι, ενώ ο ίππος ελέγχει όλα τα υπόλοιπα πιθανά τετράγωνα διαφυγής του αντίπαλου βασιλιά.</string>
   <string name="knightEndgame">Φινάλε ίππων</string>
   <string name="knightEndgameDescription">Φινάλε μόνο με ίππους και πιόνια.</string>

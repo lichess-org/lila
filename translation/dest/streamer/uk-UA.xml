@@ -33,8 +33,8 @@
   <string name="streamerLanguageSettings">Сторінка стримера Lichess націлена на глядачів за мовою, наданою вашою стримінговою платформою. Встановіть правильну мову за замовчуванням для ваших шахових трансляцій в додатку чи сервісі, який ви використовуєте для трансляцій.</string>
   <string name="pleaseAllow">Зачекайте до 72 годин перед тим, як затвердять значок стримера і лістинг.</string>
   <string name="chooseYoutubeChannel">Оберіть YouTube-канал, який використовуватимете на Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Приєднати</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Від\'єднати</string>
+  <string name="connect">Приєднати</string>
+  <string name="disconnect">Від\'єднати</string>
   <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Скоротіть: максимум %s символ</item>
@@ -42,8 +42,8 @@
     <item quantity="many">Скоротіть: максимум %s символів</item>
     <item quantity="other">Скоротіть: максимум %s символів</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видимий на сторінці стримерів</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Після затвердження модераторами</string>
+  <string name="visibility">Видимий на сторінці стримерів</string>
+  <string name="whenApproved">Після затвердження модераторами</string>
   <string name="headline">Заголовок</string>
   <string name="tellUsAboutTheStream">Розкажіть нам про вашу трансляцію одним реченням</string>
   <string name="longDescription">Довгий опис</string>

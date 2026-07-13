@@ -40,8 +40,8 @@ Dernæst betaler vi en fuldtidsudvikler: %s, grundlæggeren af Lichess.</string>
   <string name="officialNonProfit">Er Lichess officielt en nonprofit?</string>
   <string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg ændre/annullere mit månedlige bidrag?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Hvis dine betalinger håndteres af PayPal, kan du opsige eller ændre dit bidrag via din egen PayPal-konto, eller du kan %1$s, så ordner vi det for dig. Hvis du ikke har brugt PayPal, håndteres dine betalinger af Stripe, og du kan opsige dit bidrag eller ændre beløbet på %2$s.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">protektor-siden</string>
+  <string name="changeSupport">Hvis dine betalinger håndteres af PayPal, kan du opsige eller ændre dit bidrag via din egen PayPal-konto, eller du kan %1$s, så ordner vi det for dig. Hvis du ikke har brugt PayPal, håndteres dine betalinger af Stripe, og du kan opsige dit bidrag eller ændre beløbet på %2$s.</string>
+  <string name="patronPage">protektor-siden</string>
   <string name="contactSupport">kontakte Lichess-support</string>
   <string name="otherMethods">Andre måder at bidrage?</string>
   <string name="lichessIsRegisteredWith">Lichess er registreret hos %s.</string>

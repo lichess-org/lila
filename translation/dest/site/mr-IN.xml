@@ -81,7 +81,7 @@
   <string name="collapseVariations">भिन्नता लपवा</string>
   <string name="expandVariations">भिन्नता दाखवा</string>
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
-  <string name="copyVariationPgn">ओळ कॉपी करा</string>
+  <string name="copyVariationPgn">ओळ प्रत करा</string>
   <string name="copyMainLinePgn">मुख्यश्रेणीचे PGN प्रत करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>

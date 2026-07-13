@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast.</string>
   <string name="pleaseAllow">Please allow up to 72 hours before your streamer badge and listing are approved.</string>
   <string name="chooseYoutubeChannel">Choose the YouTube channel you will use on Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Connect</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Disconnect</string>
+  <string name="connect">Connect</string>
+  <string name="disconnect">Disconnect</string>
   <string name="streamerName">Your streamer name on Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Keep it short: %s character max</item>
     <item quantity="other">Keep it short: %s characters max</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visible on the streamers page</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">When approved by moderators</string>
+  <string name="visibility">Visible on the streamers page</string>
+  <string name="whenApproved">When approved by moderators</string>
   <string name="headline">Headline</string>
   <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
   <string name="longDescription">Long description</string>

@@ -41,8 +41,8 @@ Apoi plătim un dezvoltator cu normă întreagă: %s, fondatorul Lichess.</strin
   <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
   <string name="changeMonthlySupport">Pot schimba/anula susținerea mea lunară?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Dacă plățile tale sunt procesate de PayPal, poți anula/schimba sprijinul prin propriul cont PayPal. sau poți merge la %1$s și noi o putem face pentru tine. Dacă nu ai utilizat PayPal, atunci plățile tale sunt procesate de Stripe, și anulezi donația sau modifici suma la %2$s.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">pagina donatorilor</string>
+  <string name="changeSupport">Dacă plățile tale sunt procesate de PayPal, poți anula/schimba sprijinul prin propriul cont PayPal. sau poți merge la %1$s și noi o putem face pentru tine. Dacă nu ai utilizat PayPal, atunci plățile tale sunt procesate de Stripe, și anulezi donația sau modifici suma la %2$s.</string>
+  <string name="patronPage">pagina donatorilor</string>
   <string name="contactSupport">cere asistență de la Lichess</string>
   <string name="otherMethods">Alte metode de donare?</string>
   <string name="lichessIsRegisteredWith">Lichess este înregistrat cu %s.</string>

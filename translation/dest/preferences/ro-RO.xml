@@ -89,5 +89,5 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="boardSettings">Tablă</string>
   <string name="analysisSettings">Setări analiză</string>
   <string name="maneuverArrowsHelp">Secvența de mutări a motorului pentru o piesă</string>
-  <string name="hoverOverSettingLabelsForHelp" comment="Instruction/guidance, explaining that hovering offer settings labels will show more information.&#10;&#10;Appears in the popover for &quot;Settings&quot; on game analysis for individual games.">Plasați cursorul peste etichete pentru ajutor</string>
+  <string name="hoverOverSettingLabelsForHelp">Plasați cursorul peste etichete pentru ajutor</string>
 </resources>

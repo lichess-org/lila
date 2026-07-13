@@ -88,5 +88,5 @@
   <string name="boardSettings">Дошка</string>
   <string name="analysisSettings">Налаштування аналізу</string>
   <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
-  <string name="hoverOverSettingLabelsForHelp" comment="Instruction/guidance, explaining that hovering offer settings labels will show more information.&#10;&#10;Appears in the popover for &quot;Settings&quot; on game analysis for individual games.">Наведіть курсор на налаштування для деталей</string>
+  <string name="hoverOverSettingLabelsForHelp">Наведіть курсор на налаштування для деталей</string>
 </resources>
