@@ -74,7 +74,7 @@ lazy val modules = Seq(
   // level 2
   common, ui, mon, tree, markdown,
   // level 3
-  db, room, irc,
+  db, room,
   // level 4
   memo, rating,
   // level 5
@@ -93,7 +93,7 @@ lazy val modules = Seq(
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
-  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
+  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, irc
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -244,7 +244,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(memo, ui, irc),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -330,7 +330,7 @@ lazy val gathering = module("gathering",
 )
 
 lazy val tournament = module("tournament",
-  Seq(gathering, room, memo, irc),
+  Seq(gathering, room, memo),
   Seq(lettuce) ++ tests.bundle
 ).dependsOn(coreI18n % "test->test")
 
@@ -422,11 +422,6 @@ lazy val playban = module("playban",
 lazy val push = module("push",
   Seq(db, mon),
   playWs.bundle ++ Seq(googleOAuth)
-)
-
-lazy val irc = module("irc",
-  Seq(common, mon),
-  playWs.bundle
 )
 
 lazy val mailer = module("mailer",
@@ -528,6 +523,11 @@ lazy val ui = module("ui",
     val dirs = baseDirectory.value / ".." / ".." / "conf"
     (dirs * "routes").get() ++ (dirs * "*.routes").get()
   }
+)
+
+lazy val irc = module("irc",
+  Seq(common, mon),
+  playWs.bundle
 )
 
 lazy val web = module("web",

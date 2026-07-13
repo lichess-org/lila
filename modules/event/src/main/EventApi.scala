@@ -5,8 +5,12 @@ import lila.memo.CacheApi.*
 import scalalib.paginator.Paginator
 import lila.db.paginator.Adapter
 
-final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm, ircApi: lila.irc.IrcApi)(
-    using
+final class EventApi(
+    coll: Coll,
+    cacheApi: lila.memo.CacheApi,
+    eventForm: EventForm,
+    ircApi: lila.core.irc.IrcApi
+)(using
     Executor,
     Scheduler
 ):

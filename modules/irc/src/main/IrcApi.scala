@@ -122,8 +122,14 @@ final class IrcApi(
     zulip(_.mod.commsPublic, "forum-log"):
       s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  type BBB = "arena" | "event"
-  def bbb(by: MyId, tpe: BBB, name: String, url: Call, from: Instant, to: Option[Instant]): Funit =
+  def bbb(
+      by: MyId,
+      tpe: "arena" | "event",
+      name: String,
+      url: Call,
+      from: Instant,
+      to: Option[Instant]
+  ): Funit =
     val link = markdown.lichessLink(url.url, name)
     val times = s"${markdown.time(from)} → ${to.fold("?")(markdown.time)}"
     val text = s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link $times"

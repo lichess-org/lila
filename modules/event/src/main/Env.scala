@@ -12,7 +12,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
     langList: lila.core.i18n.LangList,
-    ircApi: lila.irc.IrcApi,
+    ircApi: lila.core.irc.IrcApi,
     routeUrl: RouteUrl
 )(using Executor, Scheduler):
 
