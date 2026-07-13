@@ -1,6 +1,6 @@
-package lila.common
+package lila.user
 
-class LameNameTest extends munit.FunSuite:
+final class LameNameTest extends munit.FunSuite:
 
   def isLame(str: String) = LameName.username(UserName(str))
   def explain(str: String) = LameName.explain(UserName(str))

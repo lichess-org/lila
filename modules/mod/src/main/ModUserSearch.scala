@@ -26,7 +26,7 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi, jsonView: JsonVi
     users = withPerfs,
     regexMatch = lila.user.nameRules.newUsernameRegex.matches(query),
     exists = exists,
-    lameNameMatch = userName.so(lila.common.LameName.explain)
+    lameNameMatch = userName.so(lila.user.LameName.explain)
   )
 
   def apiSearch(regex: String, closed: Boolean = false): Fu[JsObject] =
