@@ -2,14 +2,14 @@ import type { Outcome } from 'chessops/types';
 
 import type { Prop } from 'lib';
 import { fixCrazySan } from 'lib/game/chess';
-import { hl, type VNode, bind, onInsert } from 'lib/view';
+import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import { renderNextChapter } from '@/study/nextChapter';
 
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 
-const commentBest = (c: Comment, ctrl: PracticeCtrl) =>
+const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
   c.best
     ? i18n.site[c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX'].asArray(
         hl(
@@ -27,7 +27,7 @@ const commentBest = (c: Comment, ctrl: PracticeCtrl) =>
           hl('san', fixCrazySan(c.best.san)),
         ),
       )
-    : undefined;
+    : [];
 
 const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
   hl('div.player.off', [
@@ -123,7 +123,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
                     comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
                   ),
                   ' ',
-                  commentBest(comment, ctrl),
+                  ...commentBest(comment, ctrl),
                 ]
               : [ctrl.isMyTurn() || end ? '' : hl('span.wait', i18n.site.evaluatingYourMove)]),
         )
