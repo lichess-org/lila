@@ -39,6 +39,7 @@
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
+  height: 100%;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;

@@ -286,6 +286,7 @@ object Permission:
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
   val allByDbKey: Map[RoleDbKey, Permission] = all.mapBy(_.dbKey)
+  val allByKeyLower: Map[String, Permission] = all.mapBy(_.key.toLowerCase)
 
   def apply(u: User): Set[Permission] = ofDbKeys(u.roles)
   def ofDbKey(dbKey: RoleDbKey): Option[Permission] = allByDbKey.get(dbKey)

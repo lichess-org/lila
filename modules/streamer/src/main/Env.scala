@@ -84,10 +84,9 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
   Bus.sub[lila.core.mod.MarkBooster]: m =>
-    api.demote(m.userId)
-  Bus.sub[lila.core.mod.Shadowban]:
-    case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
-    case lila.core.mod.Shadowban(userId, false) => repo.unignore(userId)
+    if m.value then api.demote(m.userId)
+  Bus.sub[lila.core.mod.Shadowban]: m =>
+    if m.value then api.demote(m.userId) else repo.unignore(m.userId)
 
   lila.common.Cli.handle:
     case "streamer" :: "twitch" :: "resync" :: Nil =>

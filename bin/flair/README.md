@@ -35,7 +35,7 @@ You can convert your png to webp with `cwebp`:
 cwebp path/to/horsey.png -o lila/public/flair/img/activity.lichess-horsey.webp
 ```
 
-Similar programs are available, such as [ImageMagick](https://imagemagick.org/index.php).
+Similar programs are available, such as [ImageMagick](https://imagemagick.org/).
 
 ### Naming
 

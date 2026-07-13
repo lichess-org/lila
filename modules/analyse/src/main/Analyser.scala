@@ -15,8 +15,8 @@ final class Analyser(
 
   export analysisRepo.{ byId, byGame as get }
 
-  def save(analysis: Analysis, workHash: Array[Byte]): Funit = for
-    _ <- analysisRepo.save(analysis, workHash)
+  def save(analysis: Analysis, workHash: => Array[Byte]): Funit = for
+    _ <- analysisRepo.save(analysis, analysis.studyId.isDefined.option(workHash))
     _ <- analysis.id.gameId.so: id =>
       gameRepo.game(id).flatMapz { prev =>
         val game = prev.focus(_.metadata.analysed).replace(true)

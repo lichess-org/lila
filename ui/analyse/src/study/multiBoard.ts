@@ -311,18 +311,16 @@ export const verticalEvalGauge = (
   orientation: Color,
   cloudEval: MultiCloudEval,
 ): MaybeVNode => {
-  const tag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
-    chap.check === '#' ? ' mini-game__gauge--set' : ''
-  }`;
+  const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
   return chap.check === '#'
-    ? h(tag, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
+    ? h(baseTag + ` mini-game__gauge--set`, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
         h('span.mini-game__gauge__black', {
           attrs: { style: `height: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` },
         }),
         h('tick'),
       ])
     : h(
-        tag,
+        baseTag,
         {
           attrs: { 'data-id': chap.id },
           hook: {
@@ -360,16 +358,16 @@ const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
-  const turnColor = fenColor(chapter.fen);
   const timeleft = computeTimeLeft(chapter, color);
+  if (!defined(timeleft)) return undefined;
+
+  const turnColor = fenColor(chapter.fen);
   const ticking = turnColor === color && otbClockIsRunning(chapter.fen);
-  return defined(timeleft)
-    ? h(
-        'span.mini-game__clock.mini-game__clock',
-        { class: { 'clock--run': ticking } },
-        formatMs(timeleft * 1000),
-      )
-    : undefined;
+  return h(
+    'span.mini-game__clock.mini-game__clock',
+    { class: { 'clock--run': ticking } },
+    formatMs(timeleft * 1000),
+  );
 };
 
 const computeTimeLeft = (preview: ChapterPreview, color: Color) => {

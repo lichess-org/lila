@@ -2,8 +2,8 @@ package lila.user
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.i18n.I18nKey
 
 final class UserGamesDownload(helpers: Helpers):
   import helpers.{ *, given }
@@ -63,15 +63,19 @@ final class UserGamesDownload(helpers: Helpers):
           )
         )
 
-  private def color(using Context): Frag = tr(
-    th(label(`for` := "dl-color")(trans.search.color())),
-    td(cls := "single"):
-      select(id := "dl-color", name := "color")(
-        st.option(value := ""),
-        st.option(value := "white")(trans.site.white()),
-        st.option(value := "black")(trans.site.black())
-      )
-  )
+  private def selectTr(name: String, title: Frag, options: List[(String, I18nKey)])(using Context) =
+    tr(
+      th(label(`for` := s"dl-$name")(title)),
+      td(cls := "single"):
+        form3.selectLowLevel(
+          name,
+          options.map((value, t) => value -> t.txt()),
+          default = "".some
+        )(id := s"dl-$name")
+    )
+
+  private def color(using Context): Frag =
+    selectTr("color", trans.search.color(), List("white" -> trans.site.white, "black" -> trans.site.black))
 
   private def date(using Context): Frag = tr(
     th(label(trans.search.date())),
@@ -96,33 +100,16 @@ final class UserGamesDownload(helpers: Helpers):
     td(input(tpe := "text", id := "dl-opponent", name := "vs"))
   )
 
-  private def mode(using Context): Frag = tr(
-    th(label(`for` := "dl-rated")(trans.site.mode())),
-    td(cls := "single")(
-      select(id := "dl-rated", name := "rated")(
-        st.option(value := ""),
-        st.option(value := "false")(trans.site.casual()),
-        st.option(value := "true")(trans.site.rated())
-      )
-    )
-  )
+  private def mode(using Context): Frag =
+    selectTr("rated", trans.site.mode(), List("false" -> trans.site.casual, "true" -> trans.site.rated))
 
-  private def analysis(using Context): Frag = tr(
-    th(
-      label(`for` := "dl-analysis")(
-        trans.search.analysis(),
-        " ",
-        span(cls := "help", title := trans.search.onlyAnalysed.txt())("(?)")
-      )
-    ),
-    td(cls := "single")(
-      select(id := "dl-analysis", name := "analysed")(
-        st.option(value := ""),
-        st.option(value := "true")(trans.site.yes()),
-        st.option(value := "false")(trans.site.no())
-      )
+  private def analysis(using Context): Frag =
+    val label = frag(
+      trans.search.analysis(),
+      " ",
+      span(cls := "help", title := trans.search.onlyAnalysed.txt())("(?)")
     )
-  )
+    selectTr("analysed", label, List("true" -> trans.site.yes, ("false" -> trans.site.no)))
 
   private def perfToggles(using Context): Frag =
     tr(

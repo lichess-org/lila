@@ -34,6 +34,8 @@ object Form:
     it.map: d =>
       d -> format(d)
 
+  def pairOf(o: String): PairOf[String] = (o, o)
+
   def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices.mkString(", ")}"
 
   def numberIn(choices: Options[Int]) =

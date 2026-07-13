@@ -23,7 +23,7 @@ final class Opening(env: Env) extends LilaController(env):
             views.opening.ui.index(page, _)
 
   private val ipRateLimit =
-    env.security.ipTrust.rateLimit(50, 10.minutes, "opening.byKeyAndMoves", _.proxyMultiplier(3))
+    env.security.ipTrust.rateLimit(60, 10.minutes, "opening.byKeyAndMoves")
 
   def byKeyAndMoves(key: String, moves: String) = Open:
     Firewall:

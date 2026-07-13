@@ -3,8 +3,8 @@ import { isTouchDevice } from 'lib/device';
 import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { SettingsCtrl, SettingKey } from '../settingsCtrl';
+import type AnalyseCtrl from '@/ctrl';
+import type { SettingsCtrl, SettingKey } from '@/settingsCtrl';
 
 type Listener = (e: Event, ctrl: SettingsCtrl, key: SettingKey) => void;
 
@@ -40,7 +40,7 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-disclosure-mode'),
   },
-  showLiveGlyphs: {
+  showLiveAnnotations: {
     label: i18n.preferences.showLiveGlyphs,
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-live-annotations'),
@@ -100,6 +100,12 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.show-all', result: 'showKeyboardShortcuts' },
       { selector: '.ok', result: 'ok' },
     ],
+    onShow: dlg => {
+      // freeze dialog size so stuff doesn't jiggle around on mouseover and let flex do the rest
+      const { width: viewWidth, height: viewHeight } = dlg.view.getBoundingClientRect();
+      dlg.view.style.width = `${viewWidth}px`;
+      dlg.view.style.height = `${viewHeight}px`;
+    },
     onClose: dlg => {
       if (dlg.returnValue !== 'showKeyboardShortcuts') return;
       ctrl.keyboardHelp = true;

@@ -191,12 +191,12 @@ final class PersonalDataExport(
 
     val appeals = Source.futureSource:
       appealApi
-        .byId(user)
-        .map: opt =>
+        .findAll(user)
+        .map: appeals =>
           Source:
-            opt.so: appeal =>
+            appeals.flatMap: appeal =>
               List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
-                val author = if appeal.isAbout(msg.by) then "you" else "Lichess"
+                val author = if appeal.user.is(msg.by) then "you" else "Lichess"
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val reports = Source.futureSource:
@@ -236,13 +236,13 @@ final class PersonalDataExport(
             List(textTitle("Title request")) ++ reqs.map: req =>
               import req.data.*
               s"""Title: $title
-              | Real name:  $realName
-              | FIDE ID: ${fideId | "-"}
-              | Federation URL: ${federationUrl | "-"}
-              | Public: $public
-              | Coach: ${req.data.coach}
-              | Comment: ${comment | "-"}
-              | $bigSep""".stripMargin
+                 | Real name:  $realName
+                 | FIDE ID: ${fideId | "-"}
+                 | Federation URL: ${federationUrl | "-"}
+                 | Public: $public
+                 | Coach: ${req.data.coach}
+                 | Comment: ${comment | "-"}
+                 | $bigSep""".stripMargin
 
     val outro = Source(List(textTitle("End of data export.")))
 

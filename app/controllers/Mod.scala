@@ -322,8 +322,10 @@ final class Mod(
         Ok.chunked(source).asAttachmentStream(s"full-comms-export-of-${user.id}.txt")
     }
 
-  protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
-    Redirect(userUrl(username, mod))
+  protected[controllers] def redirect(username: UserStr, mod: Boolean = true)(using RequestHeader) =
+    env.web.referrerRedirect.fromReq match
+      case Some(ref) => Redirect(ref.value).flashSuccess
+      case None => Redirect(userUrl(username, mod))
 
   protected[controllers] def userUrl(username: UserStr, mod: Boolean = true) =
     s"${routes.User.show(username).url}${mod.so("?mod")}"
@@ -338,24 +340,8 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
-        isAppeal
-          .so(env.report.api.inquiries.ongoingAppealOf(user.id))
-          .flatMap:
-            case Some(ongoing) if ongoing.mod != me.id =>
-              env.user.lightUserApi
-                .asyncFallback(ongoing.mod)
-                .map: mod =>
-                  Redirect(routes.Appeal.show(user.username))
-                    .flashFailure(s"Currently processed by ${mod.name}")
-            case _ =>
-              val f =
-                if isAppeal then env.report.api.inquiries.appeal
-                else env.report.api.inquiries.spontaneous
-              f(Suspect(user)).inject:
-                if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
-                else redirect(user.username, mod = true)
-      }
+      for _ <- env.report.api.inquiries.spontaneous(Suspect(user))
+      yield redirect(user.username, mod = true)
   }
 
   def gamify = Secure(_.GamifyView) { ctx ?=> _ ?=>
@@ -531,16 +517,24 @@ final class Mod(
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      Ok.page(views.mod.ui.presets(group, setting.form))
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        Ok.page(views.mod.ui.presets(typedGroup, env.mod.presets.get(typedGroup).form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      bindForm(setting.form)(
-        err => BadRequest.page(views.mod.ui.presets(group, err)),
-        v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
-      )
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        val setting = env.mod.presets.get(typedGroup)
+        bindForm(setting.form)(
+          err => BadRequest.page(views.mod.ui.presets(typedGroup, err)),
+          v =>
+            setting
+              .setString(v.toString)
+              .inject(Redirect(routes.Mod.presets(typedGroup.toString)).flashSuccess)
+        )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>

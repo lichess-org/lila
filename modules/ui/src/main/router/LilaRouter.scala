@@ -7,6 +7,7 @@ import scalalib.newtypes.SameRuntime
 import lila.core.id.*
 import lila.core.study.StudyOrder as StudyOrder
 import lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
+import lila.core.misc.AppealTopic
 
 object LilaRouter:
 
@@ -49,6 +50,8 @@ object LilaRouter:
     s"Invalid study order ${StudyOrder.all.mkString(", ")}",
     _.key
   )
+
+  given PathBindable[AppealTopic] = strPath(AppealTopic.byKey.get, "Invalid appeal topic", _.toString)
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 
