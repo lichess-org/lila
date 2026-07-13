@@ -139,12 +139,15 @@ export interface Analysis {
   partial?: boolean;
 }
 
+export type GamePhase = 'opening' | 'middlegame' | 'endgame';
+
 export interface AnalysisSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;
   blunder: number;
   accuracy: number;
+  phases?: Partial<Record<GamePhase, number>>;
 }
 
 export interface AnalyseOpts {

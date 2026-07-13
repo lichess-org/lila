@@ -34,7 +34,11 @@ object JsonView extends lila.tree.AnalysisJson:
         })
     })
 
-  def player(pov: SideAndStart)(analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
+  def player(pov: SideAndStart)(
+      analysis: Analysis,
+      accuracy: Option[ByColor[AccuracyPercent]],
+      phases: ByColor[Map[GamePhase, AccuracyPercent]] = ByColor.fill(Map.empty)
+  ) =
     analysis.summary
       .find(_._1 == pov.color)
       ._2F
@@ -44,12 +48,25 @@ object JsonView extends lila.tree.AnalysisJson:
         })
           .add("acpl", lila.analyse.AccuracyCP.mean(pov, analysis))
           .add("accuracy", accuracy.map(_(pov.color).toInt))
+          .add("phases", phaseJson(phases(pov.color)))
       }
 
-  def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true) =
+  private def phaseJson(phases: Map[GamePhase, AccuracyPercent]): Option[JsObject] =
+    Option.when(phases.nonEmpty):
+      JsObject:
+        phaseNames.flatMap: phase =>
+          phases.get(phase).map(p => phase -> JsNumber(p.toInt))
+
+  def bothPlayers(
+      startedAtPly: Ply,
+      analysis: Analysis,
+      withAccuracy: Boolean = true,
+      division: Division = Division.empty
+  ) =
     val accuracy = withAccuracy.so(AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis))
+    val phases = AccuracyPercent.phaseAccuracies(division, analysis)
     val both = ByColor[Option[JsObject]]: color =>
-      player(SideAndStart(color, startedAtPly))(analysis, accuracy)
+      player(SideAndStart(color, startedAtPly))(analysis, accuracy, phases)
     Json.obj("id" -> analysis.id.value, "nodesPerMove" -> analysis.nodesPerMove) ++ Json.toJsObject(both)
 
   def mobile(game: Game, analysis: Analysis) =
@@ -61,5 +78,5 @@ object JsonView extends lila.tree.AnalysisJson:
   def analysisHeader(root: lila.tree.Root, division: Division, analysis: Analysis) =
     Json.obj(
       "division" -> division,
-      "summary" -> bothPlayers(root.ply, analysis)
+      "summary" -> bothPlayers(root.ply, analysis, division = division)
     )

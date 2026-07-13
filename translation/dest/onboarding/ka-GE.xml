@@ -5,7 +5,7 @@
   <string name="welcomeToLichess">Lichess მოგესალმებათ!</string>
   <string name="thisIsYourProfilePage">ეს თქვენი პირადი გვერდია.</string>
   <string name="enabledKidModeSuggestion">ამ ანგარიშით ბავშვი ხომ არ უნდა ათამაშოთ ხოლმე? თუ ასეა, სურვილის შემთხვევაში ჩართეთ %s.</string>
-  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">ისწავლე ჭადრაკის წესები.</string>
+  <string name="learnChessRules">ისწავლე ჭადრაკის წესები.</string>
   <string name="improveWithChessTacticsPuzzles">გაიუმჯობესე უნარები ეტიუდებისა და თავსატეხების ამოხსნით.</string>
   <string name="playTheArtificialIntelligence">ეთამაშე ხელოვნურ ინტელექტს.</string>
   <string name="playOpponentsFromAroundTheWorld">ეთამაშე ადამიანებს, მსოფლიოს ნებისმიერი წერტილში.</string>

@@ -42,25 +42,25 @@
 		<item quantity="many">Děkujeme za hlasování o %s úlohách.</item>
 		<item quantity="other">Děkujeme za hlasování o %s úlohách.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Také jste pomohli oštítkovat %s z nich.</string>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Také jste pomohli oštítkovat %s z nich.</string>
 	<string name="puzzlesNone">Letos jste nevyřešili žádné úlohy.</string>
-	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Chcete to zkusit nyní?</string>
-	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Vyhráli jste z nich %s na první pokus!</string>
+	<string name="puzzlesTryNow">Chcete to zkusit nyní?</string>
+	<string name="puzzlesYouWonOnFirstTry">Vyhráli jste z nich %s na první pokus!</string>
 	<string name="sourcesTitle">Kde jste hledali hry?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam a trackerů načteno</string>
 	<string name="malwareNoSell">Neprodávali jsme vaše osobní údaje</string>
 	<string name="malwareNoAbuse">Nepoužili jsme vaše zařízení proti vám</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ale ostatní webové stránky ano, tak prosím, %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">dávejte si pozor</string>
-	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s her zahraných na Lichessu v roce %2$s</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s z nich bylo vašich.</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s her zahraných na Lichessu v roce %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s z nich bylo vašich.</string>
 	<string name="thanksTitle">Děkujeme za hraní na Lichess!</string>
-	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Jsme moc rádi, že jste tady. Mějte krásný %s!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s Lichessu byly tento rok %2$s.</string>
-	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">Náklady</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Jsme moc rádi, že jste tady. Mějte krásný %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$s Lichessu byly tento rok %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">Náklady</string>
 	<string name="patronCharity">Jsme dobročinná organizace, která běží čistě na finančních darech.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Pokud jsme vás tento rok zabavili naší prací, prosím, zvažte %s!</string>
-	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">nás podpořit finančním darem</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Pokud jsme vás tento rok zabavili naší prací, prosím, zvažte %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">nás podpořit finančním darem</string>
 	<string name="shareableTitle" comment="%s is the current year">Můj %s souhrn</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tráveno hraním</string>
 	<string name="shareableMostPlayedOpponent">nejhranější soupeř</string>
@@ -72,5 +72,5 @@
 		<item quantity="many">%s úloh vyřešeno</item>
 		<item quantity="other">%s úloh vyřešeno</item>
 	</plurals>
-	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Váš recap %s je připraven!</string>
+	<string name="recapReady" comment="%s is the year of the recap">Váš recap %s je připraven!</string>
 </resources>

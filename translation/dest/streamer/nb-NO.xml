@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
   <string name="pleaseAllow">Det kan ta opptil 72 timer før strømmermerket og -oppføringen din blir godkjent.</string>
   <string name="chooseYoutubeChannel">Velg YouTube-kanalen du vil bruke for Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Koble til</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Koble fra</string>
+  <string name="connect">Koble til</string>
+  <string name="disconnect">Koble fra</string>
   <string name="streamerName">Ditt strømmernavn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold deg kort; maks %s tegn</item>
     <item quantity="other">Hold deg kort; maks %s tegn</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Synlig på strømmersiden</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Når godkjent av moderatorne</string>
+  <string name="visibility">Synlig på strømmersiden</string>
+  <string name="whenApproved">Når godkjent av moderatorne</string>
   <string name="headline">Overskrift</string>
   <string name="tellUsAboutTheStream">I én setning, fortell oss om strømmen din</string>
   <string name="longDescription">Lang beskrivelse</string>

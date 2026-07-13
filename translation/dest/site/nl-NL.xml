@@ -832,7 +832,7 @@
   <string name="opacity">Transparantie</string>
   <string name="brightness">Helderheid</string>
   <string name="contrast">Contrast</string>
-  <string name="hue">Kleurschakering</string>
+  <string name="hue">Tint</string>
   <string name="boardReset">Kleuren terugzetten naar standaard</string>
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>

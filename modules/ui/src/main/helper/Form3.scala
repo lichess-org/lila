@@ -142,7 +142,10 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       required: Boolean = false
   ): Frag =
     frag(
-      selectLowLevel(field.name, options, field.value, default, disabled, required)(cls := "form-control"),
+      selectLowLevel(field.name, options, field.value, default, disabled, required)(
+        cls := "form-control",
+        st.id := id(field)
+      ),
       disabled.option(hidden(field))
     )
 

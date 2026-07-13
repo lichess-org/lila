@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Οι διάσημοι Υποστηρικτές που έκαναν το Lichess πραγματικότητα</string>
   <string name="whereMoneyGoes">Που πηγαίνουν τα χρήματα;</string>
   <string name="serversAndDeveloper">Καταρχάς, σε ισχυρούς διακομιστές.
-Έπειτα, πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: τον %s, ιδρυτή του Lichess.</string>
+Έπειτα, πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: τον %s, ιδρυτή του Lichess.
+</string>
   <string name="costBreakdown">Δείτε εδώ τα αναλυτικά έξοδα του lichess</string>
   <string name="officialNonProfit">Είναι το Lichess μια επίσημη μη κερδοσκοπική οργάνωση;</string>
   <string name="actOfCreation">Ναι, δείτε εδώ την ιδρυτική πράξη (στα γαλλικά)</string>
   <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Αν οι πληρωμές σας πραγματοποιούνται μέσω PayPal, μπορείτε να ακυρώσετε/τροποποιήσετε το ποσό της στήριξης σας μέσω του PayPal λογαριασμού σας. Εναλλακτικά μπορείτε να %1$s και θα το κάνουμε εμείς για εσάς. Αντίθετα, αν δεν χρησιμοποιείτε PayPal, τότε το Stripe επεξεργάζεται τις πληρωμές σας και μπορείτε να ακυρώσετε την δωρεά σας ή να αλλάξετε το ποσό της στην %2$s.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">σελίδα δωρεών</string>
+  <string name="changeSupport">Αν οι πληρωμές σας πραγματοποιούνται μέσω PayPal, μπορείτε να ακυρώσετε/τροποποιήσετε το ποσό της στήριξης σας μέσω του PayPal λογαριασμού σας. Εναλλακτικά μπορείτε να %1$s και θα το κάνουμε εμείς για εσάς. Αντίθετα, αν δεν χρησιμοποιείτε PayPal, τότε το Stripe επεξεργάζεται τις πληρωμές σας και μπορείτε να ακυρώσετε την δωρεά σας ή να αλλάξετε το ποσό της στην %2$s.</string>
+  <string name="patronPage">σελίδα δωρεών</string>
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
   <string name="lichessIsRegisteredWith">Το Lichess είναι συμβεβλημένο με την πλατφόρμα %s.</string>

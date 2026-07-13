@@ -88,4 +88,5 @@
   <string name="boardSettings">Échiquier</string>
   <string name="analysisSettings">Paramètres d\'analyse</string>
   <string name="maneuverArrowsHelp">Séquence de coups du moteur pour une pièce</string>
+  <string name="hoverOverSettingLabelsForHelp">Placer la souris sur les étiquettes pour de l\'aide</string>
 </resources>

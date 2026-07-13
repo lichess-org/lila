@@ -2,12 +2,12 @@
 <resources>
   <string name="lichessMobileApp">Εφαρμογή Lichess για κινητά</string>
   <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Επιστροφή στην εφαρμογή Lichess</string>
-  <string name="ifAppDoesNotOpenAutomatically" comment="ifAppDoesNotOpenAutomatically&#10;&#10;%s is &quot;Open the Lichess App&quot;, which is translatable separately.">Εάν η εφαρμογή δεν ανοίξει αυτόματα, πατήστε το κουμπί \"%s\".</string>
+  <string name="ifAppDoesNotOpenAutomatically">Εάν η εφαρμογή δεν ανοίξει αυτόματα, πατήστε το κουμπί \"%s\".</string>
   <string name="openTheApp" comment="Button text to open the Lichess app on the device">Άνοιγμα της εφαρμογής Lichess</string>
-  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">Δείτε %s στο Github</string>
-  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">όλες τις εκδόσεις</string>
-  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Κατεβάστε την στο Apple App Store</string>
-  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Κατεβάστε την στο Google Play</string>
-  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">Κατεβάστε την στο F-Droid</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Δείτε %s στο Github</string>
+  <string name="allReleases">όλες τις εκδόσεις</string>
+  <string name="downloadOnAppleAppStore">Κατεβάστε την στο Apple App Store</string>
+  <string name="downloadOnGooglePlay">Κατεβάστε την στο Google Play</string>
+  <string name="downloadOnFdroid">Κατεβάστε την στο F-Droid</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Προεπισκόπηση της εφαρμογής του Lichess</string>
 </resources>

@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">La pagina dello streamer di Lichess si rivolge al pubblico con la lingua fornita dalla piattaforma di streaming. Imposta correttamente la lingua predefinita per i tuoi stream di scacchi nell\'app o nel servizio che usi per trasmettere.</string>
   <string name="pleaseAllow">Potrebbero volerci fino a 72 ore prima che vengano i tuoi badge streamer o listing.</string>
   <string name="chooseYoutubeChannel">Scegli il canale YouTube che vuoi usare su Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Connetti</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Disconnetti</string>
+  <string name="connect">Connetti</string>
+  <string name="disconnect">Disconnetti</string>
   <string name="streamerName">Il tuo nome da streamer su Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantienilo corto: max caratteri %s</item>
     <item quantity="other">Mantienilo corto: %s caratteri al massimo</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visibile sulla pagina degli streamer</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Quando approvato dai moderatori</string>
+  <string name="visibility">Visibile sulla pagina degli streamer</string>
+  <string name="whenApproved">Quando approvato dai moderatori</string>
   <string name="headline">Intestazione</string>
   <string name="tellUsAboutTheStream">Parlaci del tuo stream in una frase</string>
   <string name="longDescription">Descrizione estesa</string>
