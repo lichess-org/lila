@@ -10,6 +10,22 @@ object home:
 
   def apply(homepage: Homepage)(using ctx: Context) =
     import homepage.*
+    val donateLink =
+      a(cls := "lobby__support-link", href := routes.Plan.index())(
+        iconTag(patronIconChar),
+        span(cls := "lobby__support-link__text")(
+          strong(trans.patron.donate()),
+          span(trans.patron.becomePatron())
+        )
+      )
+    val swagLink =
+      a(cls := "lobby__support-link", href := "/swag")(
+        iconTag(Icon.Tshirt),
+        span(cls := "lobby__support-link__text")(
+          strong("Swag Store"),
+          span(trans.site.playChessInStyle())
+        )
+      )
     Page("")
       .copy(fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some)
       .i18n(_.variant)
@@ -112,13 +128,13 @@ object home:
               )
             )
           ),
-          div(cls := "lobby__support")(swagLink(), donateLink()),
+          div(cls := "lobby__support")(donateLink, swagLink),
           div(cls := "lobby__tv")(
-            swagLink(),
+            donateLink,
             featured.map(g => views.game.mini(Pov.naturalOrientation(g), tv = true))
           ),
           div(cls := "lobby__puzzle")(
-            donateLink(),
+            swagLink,
             puzzle.map(p => views.puzzle.bits.dailyLink(p)())
           ),
           views.ublog.ui.homeCarousel(ublogPosts),
@@ -139,21 +155,3 @@ object home:
             views.bits.connectLinks
           )
         )
-
-  private def swagLink(using Context) =
-    a(cls := "lobby__support-link", href := "/swag")(
-      iconTag(Icon.Tshirt),
-      span(cls := "lobby__support-link__text")(
-        strong("Swag Store"),
-        span(trans.site.playChessInStyle())
-      )
-    )
-
-  private def donateLink(using Context) =
-    a(cls := "lobby__support-link", href := routes.Plan.index())(
-      iconTag(patronIconChar),
-      span(cls := "lobby__support-link__text")(
-        strong(trans.patron.donate()),
-        span(trans.patron.becomePatron())
-      )
-    )
