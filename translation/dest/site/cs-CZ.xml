@@ -142,6 +142,7 @@
   <string name="searchTime">Čas hledání</string>
   <string name="searchTimeDescription">Nastavit čas pro vyhodnocení čerstvých pozic</string>
   <string name="threads">Vlákna</string>
+  <string name="threadsDescription">Nastavte tuto hodnotu nižší než je počet vláken vašho procesoru; hodnoty označené fajfkou představují dobrou a bezpečnou volbu</string>
   <string name="threadsDescriptionMobile">Více vláken bude používat více baterie pro lepší analýzu</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
@@ -859,6 +860,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Najetím na varianty počítače zobrazíte jejich náhled.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl nebo shift = červená; command, alt nebo meta = modrá; klávesa z každé skupiny (tedy jedna klávesa ze skupiny ctrl nebo shift a druhá klávesa ze skupiny command, alt nebo meta - obě klávesy musí být stisknuty současně) = žlutá.</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
   <string name="receiveForumNotifications">Dostat oznámení, pokud jste zmíněni ve fóru</string>
   <string name="shareYourInsightsData">Sdílet výsledky analýzy vašeho hraní</string>

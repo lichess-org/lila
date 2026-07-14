@@ -157,9 +157,9 @@
     <item quantity="other">%s de gafe</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">O Gafă</item>
+    <item quantity="one">%s Gafă</item>
     <item quantity="few">%s Gafe</item>
-    <item quantity="other">%s de Gafe</item>
+    <item quantity="other">%s Gafe</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">o greșeală</item>
@@ -167,9 +167,9 @@
     <item quantity="other">%s de greșeli</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">O Greșeală</item>
+    <item quantity="one">%s Greșeală</item>
     <item quantity="few">%s Greșeli</item>
-    <item quantity="other">%s de Greșeli</item>
+    <item quantity="other">%s Greșeli</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">o inexactitate</item>
@@ -177,9 +177,9 @@
     <item quantity="other">%s de inexactități</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">O Inexactitate</item>
+    <item quantity="one">%s Inexactitate</item>
     <item quantity="few">%s Inexactități</item>
-    <item quantity="other">%s de Inexactități</item>
+    <item quantity="other">%s Inexactități</item>
   </plurals>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>

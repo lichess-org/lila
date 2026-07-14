@@ -36,8 +36,10 @@
   <string name="sanTakes" comment="x in standard notation">bere</string>
   <string name="sanCheck" comment="+ in standard notation">šach</string>
   <string name="sanCheckmate" comment="# in standard notation">šach mat</string>
+  <string name="sanPromotesTo" comment="= in standard notation">se přemění na</string>
   <string name="sanShortCastling" comment="O-O in standard notation">krátká rošáda</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation">dlouhá rošáda</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">je položen/a na</string>
   <string name="invalidMove">Neplatný tah</string>
   <string name="premoveCancelled">Nachystaný tah zrušen</string>
   <string name="premoveRecorded">Nachystaný tah zaznamenán: %s. Pro zrušení stiskněte enter</string>
