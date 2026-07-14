@@ -5,7 +5,7 @@ import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, dataIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
-import { plural } from '@/view/util';
+import { option, plural } from '@/view/util';
 
 import { view as descView } from '../description';
 import type StudyCtrl from '../studyCtrl';
@@ -15,7 +15,7 @@ import type StudyPracticeCtrl from './studyPracticeCtrl';
 const selector = (data: StudyPracticeData) =>
   h(
     'select.selector',
-    { hook: bind('change', e => (location.href = '/practice/' + (e.target as HTMLInputElement).value)) },
+    { hook: bind('change', e => (location.href = (e.target as HTMLSelectElement).value)) },
     [
       h('option', { attrs: { disabled: true } }, 'Practice list'),
       ...data.structure.map(section =>
@@ -23,16 +23,7 @@ const selector = (data: StudyPracticeData) =>
           'optgroup',
           { attrs: { label: section.name } },
           section.studies.map(study =>
-            h(
-              'option',
-              {
-                attrs: {
-                  value: `${section.id}/${study.slug}/${study.id}`,
-                  selected: study.id === data.study.id,
-                },
-              },
-              study.name,
-            ),
+            option(`/practice/${section.id}/${study.slug}/${study.id}`, data.url, study.name),
           ),
         ),
       ),
