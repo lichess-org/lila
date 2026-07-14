@@ -3,7 +3,7 @@ import { getNow } from 'lib/puz/util';
 import renderHistory from 'lib/puz/view/history';
 import { onInsert, type LooseVNodes, hl } from 'lib/view';
 
-import type StormCtrl from '../ctrl';
+import type StormCtrl from '@/ctrl';
 
 const renderEnd = (ctrl: StormCtrl): LooseVNodes => [renderSummary(ctrl), renderHistory(ctrl)];
 
