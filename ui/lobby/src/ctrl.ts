@@ -71,7 +71,7 @@ export default class LobbyController {
     else {
       if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
         this.stores.tab.set('pools');
-      else if (this.hasOngoingRealTimeGame()) this.stores.tab.set('now_playing');
+      else if (this.hasOngoingRealTimeGame(false)) this.stores.tab.set('now_playing');
       this.tab = this.stores.tab.get();
     }
     this.mode = this.stores.mode.get();
@@ -284,8 +284,10 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  hasOngoingRealTimeGame = () =>
-    this.data.nowPlaying.some(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+  hasOngoingRealTimeGame = (requireTurn: boolean) =>
+    this.data.nowPlaying.some(
+      nowPlaying => nowPlaying.speed !== 'correspondence' && (nowPlaying.isMyTurn || !requireTurn),
+    );
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
