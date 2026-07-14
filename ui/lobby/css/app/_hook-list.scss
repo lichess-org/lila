@@ -17,7 +17,7 @@
     }
 
     &.join:hover td {
-      background: rgb(from $c-accent r g b / calc(alpha * 0.5));
+      background: $c-accent-cloud;
       color: #fff;
     }
 

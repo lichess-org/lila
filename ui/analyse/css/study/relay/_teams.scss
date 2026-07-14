@@ -155,7 +155,7 @@
       height: 100%;
       left: 2.5px;
       opacity: 1;
-      border-right: 5px solid rgb(from $c-accent r g b / calc(alpha * 0.5));
+      border-right: 5px solid $c-accent-cloud;
       width: 50%;
     }
   }
