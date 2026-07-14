@@ -144,7 +144,7 @@ final private class RelaySync(
                     parentPath + child.id
             (acc ::: localPaths, nodePath)
         ._1
-        .sequentially: childPath =>
+        .sequentiallyVoid: childPath =>
           studyApi.forceVariation(
             studyId = study.id,
             position = Position(chapter, childPath).ref,
