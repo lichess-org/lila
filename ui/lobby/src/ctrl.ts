@@ -67,10 +67,12 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.me?.username.toLowerCase());
-    if (!this.me?.isBot && this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0) {
-      this.stores.tab.set('pools');
+    if (this.me?.isBot) this.tab = 'now_playing';
+    else {
+      if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
+        this.stores.tab.set('pools');
+      this.tab = this.stores.tab.get();
     }
-    this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
 
