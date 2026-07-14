@@ -71,6 +71,7 @@ export default class LobbyController {
     else {
       if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
         this.stores.tab.set('pools');
+      else if (this.hasOngoingRealTimeGame()) this.stores.tab.set('now_playing');
       this.tab = this.stores.tab.get();
     }
     this.mode = this.stores.mode.get();
