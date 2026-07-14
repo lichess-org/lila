@@ -35,10 +35,6 @@ body {
     height: var(---cg-height, 100%);
   }
 
-  &.gauge-on &__tools {
-    @extend %box-radius-right;
-  }
-
   &__controls {
     grid-area: controls;
   }

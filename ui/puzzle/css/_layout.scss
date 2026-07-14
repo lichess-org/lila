@@ -39,10 +39,6 @@ $puzzle-block-gap: $block-gap;
     height: var(---cg-height, 100%);
   }
 
-  &.gauge-on &__tools {
-    @extend %box-radius-right;
-  }
-
   &__controls {
     @extend %zen;
 
