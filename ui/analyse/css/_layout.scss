@@ -32,12 +32,11 @@ body {
 
   &__tools {
     grid-area: tools;
+    height: var(---cg-height, 100%);
   }
 
   &.gauge-on &__tools {
     @extend %box-radius-right;
-    
-    height: var(---cg-height, 100%);
   }
 
   &__controls {
