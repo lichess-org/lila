@@ -8,7 +8,7 @@ body {
   #main-wrap .msg-app {
     height: calc(var(---app-height) - $site-header-height - $impersonate-bar-height);
 
-    @media (width >= $small) {
+    @media (min-width: $small) {
       height: calc(var(---app-height) * 0.98 - $site-header-height - $impersonate-bar-height);
     }
   }

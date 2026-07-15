@@ -48,7 +48,7 @@
       font-size: 1.8em;
     }
 
-    @media (width < $small) {
+    @media (max-width: $small) {
       flex-flow: row nowrap;
       gap: $block-gap;
       text-align: left;
