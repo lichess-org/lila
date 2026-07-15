@@ -101,6 +101,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.ok', result: 'ok' },
     ],
     onShow: dlg => {
+      if (isTouchDevice()) return;
       // freeze dialog size so stuff doesn't jiggle around on mouseover and let flex do the rest
       const { width: viewWidth, height: viewHeight } = dlg.view.getBoundingClientRect();
       dlg.view.style.width = `${viewWidth}px`;
