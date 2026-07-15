@@ -42,21 +42,21 @@ square {
   pointer-events: none;
 
   &.move-dest {
-    background: radial-gradient(rgb(20 85 30 / 0.5) 19%, rgb(0 0 0 / 0) calc(20% + 1px));
+    background: radial-gradient(rgb(20 85 30 / 0.5) 19%, rgb(0 0 0 / 0) 20%);
     pointer-events: auto;
   }
 
   &.premove-dest {
-    background: radial-gradient(rgb(20 30 85 / 0.5) 19%, rgb(0 0 0 / 0) calc(20% + 1px));
+    background: radial-gradient(rgb(20 30 85 / 0.5) 19%, rgb(0 0 0 / 0) 20%);
     pointer-events: auto;
   }
 
   &.oc.move-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 85 0 / 0.3) calc(80% + 1px));
+    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 85 0 / 0.3) 80%);
   }
 
   &.oc.premove-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 30 85 / 0.2) calc(80% + 1px));
+    background: radial-gradient(transparent 0%, transparent 79%, rgb(20 30 85 / 0.2) 80%);
   }
 
   body[data-board='green'] .is2d &.last-move,
