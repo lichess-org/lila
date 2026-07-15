@@ -98,7 +98,7 @@
     overflow: hidden;
     align-items: stretch;
 
-    @media (width >= 600px) {
+    @media (min-width: at-least(600px)) {
       display: flex;
     }
 
