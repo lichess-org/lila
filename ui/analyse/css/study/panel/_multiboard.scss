@@ -188,7 +188,7 @@
         width: 100%;
         top: 2.5px;
         opacity: 1;
-        border-bottom: 5px solid rgb(from $c-accent r g b / calc(alpha * 0.5));
+        border-bottom: 5px solid $c-accent-cloud;
         height: 50%;
       }
     }

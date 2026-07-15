@@ -1,4 +1,4 @@
-package lila.common
+package lila.markdown
 
 import chess.format.pgn.PgnStr
 import com.vladsch.flexmark.ast.*
@@ -43,9 +43,13 @@ import java.util.regex.Pattern
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.matching.Regex
+import scala.util.Try
+import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
 
 import lila.core.config.{ AssetDomain, NetDomain }
 import lila.core.misc.lpv.LpvEmbed
+import lila.core.data.{ Markdown, Html, Url }
+import lila.core.userId.UserName
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -100,7 +104,7 @@ final class MarkdownRender(
   private val renderer = HtmlRenderer.builder(options).build()
 
   private def mentionsToLinks(markdown: Markdown): Markdown =
-    Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
+    Markdown(UserName.atRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     try
@@ -109,8 +113,8 @@ final class MarkdownRender(
       val withMentions = if sourceMap then noEntity else mentionsToLinks(noEntity)
       renderer.render(parser.parse(withMentions.value))
     catch
-      case e: StackOverflowError =>
-        lila.log.system.error(s"markdown StackOverflowError $key", e)
+      case _: StackOverflowError =>
+        println(s"markdown StackOverflowError $key")
         text.value
 
 object MarkdownRender:
@@ -168,8 +172,11 @@ object MarkdownRender:
         "127.0.0.1"
       )
 
+    private val urlParser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    def parseUrl(str: String): Try[URL] = Try(URL.parse(urlParser, str))
+
     private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
-      url <- lila.common.url.parse(src).toOption
+      url <- parseUrl(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       if (assetDomain.toList ::: whitelist).exists(h =>
@@ -262,7 +269,7 @@ object MarkdownRender:
           case pgnRegexes.chapter(id, ply) =>
             expander
               .getPgn(id)
-              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, none, Option(ply)))
+              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, None, Option(ply)))
           case _ => justAsLink()
 
     private def renderLinkWithBase(
@@ -331,11 +338,12 @@ object MarkdownRender:
           override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
 
   private val lilaLinkAttributeProvider = new AttributeProvider:
+    private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
       if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
         attributes.replaceValue("target", "_blank")
         attributes.replaceValue("rel", rel)
-        attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
+        attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
 
   private class TimestampNode(val timestamp: Long, val format: String) extends Node():
     override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
@@ -454,7 +462,7 @@ object MarkdownRender:
                 span(html, mdStart, mdEnd)(html.text(base.subSequence(mdStart, mdEnd)))
 
             val finalFrom =
-              RawHtml.atUsernameRegex
+              UserName.atRegex
                 .findAllMatchIn(slice)
                 .toList
                 .foldLeft(0): (cursor, offsets) =>

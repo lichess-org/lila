@@ -88,5 +88,5 @@
   <string name="boardSettings">Bræt</string>
   <string name="analysisSettings">Analyseindstillinger</string>
   <string name="maneuverArrowsHelp">Sekvens af skakprogramtræk for en brik</string>
-  <string name="hoverOverSettingLabelsForHelp" comment="Instruction/guidance, explaining that hovering offer settings labels will show more information.&#10;&#10;Appears in the popover for &quot;Settings&quot; on game analysis for individual games.">Hold markøren over indstillingsetiketter for hjælp</string>
+  <string name="hoverOverSettingLabelsForHelp">Hold markøren over indstillingsetiketter for hjælp</string>
 </resources>

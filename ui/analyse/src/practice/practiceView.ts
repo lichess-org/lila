@@ -2,34 +2,32 @@ import type { Outcome } from 'chessops/types';
 
 import type { Prop } from 'lib';
 import { fixCrazySan } from 'lib/game/chess';
-import { hl, type VNode, bind } from 'lib/view';
+import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import { renderNextChapter } from '@/study/nextChapter';
 
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 
-const commentBest = (c: Comment, ctrl: PracticeCtrl) => {
-  if (!c.best) return [];
-
-  return i18n.site[c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX'].asArray(
-    hl(
-      'move',
-      {
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLElement;
-            el.addEventListener('click', ctrl.playCommentBest);
-            el.addEventListener('mouseover', () => ctrl.commentShape(true));
-            el.addEventListener('mouseout', () => ctrl.commentShape(false));
+const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
+  c.best
+    ? i18n.site[c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX'].asArray(
+        hl(
+          'move',
+          {
+            hook: {
+              ...onInsert(elem => {
+                elem.addEventListener('click', ctrl.playCommentBest);
+                elem.addEventListener('mouseover', () => ctrl.commentShape(true));
+                elem.addEventListener('mouseout', () => ctrl.commentShape(false));
+              }),
+              destroy: () => ctrl.commentShape(false),
+            },
           },
-          destroy: () => ctrl.commentShape(false),
-        },
-      },
-      hl('san', fixCrazySan(c.best.san)),
-    ),
-  );
-};
+          hl('san', fixCrazySan(c.best.san)),
+        ),
+      )
+    : [];
 
 const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
   hl('div.player.off', [

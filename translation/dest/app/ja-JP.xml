@@ -2,12 +2,12 @@
 <resources>
   <string name="lichessMobileApp">Lichess モバイルアプリ</string>
   <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Lichess アプリに復帰中</string>
-  <string name="ifAppDoesNotOpenAutomatically" comment="ifAppDoesNotOpenAutomatically&#10;&#10;%s is &quot;Open the Lichess App&quot;, which is translatable separately.">アプリが自動的に開かない時は「%s」ボタンをタップします。</string>
+  <string name="ifAppDoesNotOpenAutomatically">アプリが自動的に開かない時は「%s」ボタンをタップします。</string>
   <string name="openTheApp" comment="Button text to open the Lichess app on the device">Lichess アプリを開く</string>
-  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">GitHub で %s を表示</string>
-  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">すべてのリリース</string>
-  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Apple App Storeでダウンロード</string>
-  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Google Playでダウンロード</string>
-  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">F-Droid でダウンロード</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">GitHub で %s を表示</string>
+  <string name="allReleases">すべてのリリース</string>
+  <string name="downloadOnAppleAppStore">Apple App Storeでダウンロード</string>
+  <string name="downloadOnGooglePlay">Google Playでダウンロード</string>
+  <string name="downloadOnFdroid">F-Droid でダウンロード</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess アプリの画像</string>
 </resources>

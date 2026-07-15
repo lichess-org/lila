@@ -36,6 +36,7 @@ $puzzle-block-gap: $block-gap;
 
   &__tools {
     grid-area: tools;
+    height: var(---cg-height, 100%);
   }
 
   &__controls {

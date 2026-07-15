@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
 import { licon } from 'lib/licon';
-import { bind, dataIcon, snabDialog } from 'lib/view';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -52,13 +52,10 @@ export class SoundCtrl extends PaneCtrl {
               orient: 'vertical',
               style: isSafari({ below: '18' }) ? 'appearance: slider-vertical' : '',
             },
-            hook: {
-              insert: vnode => {
-                const input = vnode.elm as HTMLInputElement,
-                  setVolume = throttle(150, this.volume);
-                $(input).on('input', () => setVolume(parseFloat(input.value)));
-              },
-            },
+            hook: onInsert<HTMLInputElement>(input => {
+              const setVolume = throttle(150, this.volume);
+              $(input).on('input', () => setVolume(parseFloat(input.value)));
+            }),
           }),
           h(
             'div.selector',

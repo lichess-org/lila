@@ -67,10 +67,13 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.me?.username.toLowerCase());
-    if (!this.me?.isBot && this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0) {
-      this.stores.tab.set('pools');
+    if (this.me?.isBot) this.tab = 'now_playing';
+    else {
+      if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
+        this.stores.tab.set('pools');
+      else if (this.hasOngoingRealTimeGame(false)) this.stores.tab.set('now_playing');
+      this.tab = this.stores.tab.get();
     }
-    this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
 
@@ -281,10 +284,9 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  hasOngoingRealTimeGame = () =>
+  hasOngoingRealTimeGame = (requireTurn: boolean) =>
     this.data.nowPlaying.some(
-      nowPlaying =>
-        nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence' && nowPlaying.opponent.ai === undefined,
+      nowPlaying => nowPlaying.speed !== 'correspondence' && (nowPlaying.isMyTurn || !requireTurn) && !nowPlaying.opponent.ai,
     );
 
   gameActivity = (gameId: string) => {

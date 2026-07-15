@@ -42,8 +42,8 @@ Potom zaplatíme vývojárovi na plný úväzok: %s, zakladateľovi spoločnosti
   <string name="officialNonProfit">Je Lichess oficiálna nezisková organizácia?</string>
   <string name="actOfCreation">Áno, tu je popis ako vznikol tento projekt (vo francúzštine)</string>
   <string name="changeMonthlySupport">Môžem zmeniť / zrušiť svoju mesačnú podporu?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Ak sú Vaše platby spracovávané prostredníctvom služby PayPal, môžete svoju podporu zrušiť alebo zmeniť cez svoj vlastný účet PayPal, alebo %1$s a my to urobíme za Vás. Ak ste nepoužili PayPal, Vaše platby sú spracovávané prostredníctvom služby Stripe a svoj príspevok môžete zrušiť alebo zmeniť jeho výšku na %2$s.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">podstránke pre darovanie</string>
+  <string name="changeSupport">Ak sú Vaše platby spracovávané prostredníctvom služby PayPal, môžete svoju podporu zrušiť alebo zmeniť cez svoj vlastný účet PayPal, alebo %1$s a my to urobíme za Vás. Ak ste nepoužili PayPal, Vaše platby sú spracovávané prostredníctvom služby Stripe a svoj príspevok môžete zrušiť alebo zmeniť jeho výšku na %2$s.</string>
+  <string name="patronPage">podstránke pre darovanie</string>
   <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
   <string name="lichessIsRegisteredWith">Lichess je registrovaný na %s.</string>

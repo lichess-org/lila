@@ -46,7 +46,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
     blogHidden <- env.ublog.api.isHidden(user)
-  yield lila.appeal.UserStatus(user, playban, blogHidden)
+    warning <- env.mod.logApi.hasWarning(user.id)
+  yield lila.appeal.UserStatus(user, playban, blogHidden, warning)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     bindForm(userForm)(
@@ -101,12 +102,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         err =>
           getModData(appeal, suspect).flatMap: modData =>
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
-        (text, close) =>
+        (text, close, dismiss) =>
           for
+            replied <- env.appeal.api.reply(text, appeal)
+            _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
+            _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            _ <- env.appeal.api.reply(text, appeal)
-            _ <- close.orZero.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
-          yield redirectToActions(username, topic).flashSuccess("Reply sent")
+          yield
+            if dismiss.orZero then Redirect(routes.Appeal.modQueue)
+            else redirectToActions(username, topic).flashSuccess("Reply sent")
       )
   }
 

@@ -1,5 +1,6 @@
 .eval-gauge {
   width: $block-gap;
+  height: var(---cg-height, 100%);
   position: relative;
   background: #c0c0c0;
   overflow: hidden;
@@ -44,7 +45,7 @@
     &.zero {
       top: 6px;
       opacity: 1;
-      border-bottom: 7px solid rgb(from $c-accent r g b / calc(alpha * 0.5)) !important;
+      border-bottom: 7px solid $c-accent-cloud !important;
       margin-top: -3px;
     }
   }

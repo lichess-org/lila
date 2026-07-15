@@ -15,6 +15,7 @@ Generated AI code can be accepted, under some conditions:
 - Carefully review and understand all the code you submit, and be able to explain it if asked.
 - Provide proof of human testing of the changes, with screenshots or ideally a video.
 - Include in the pull-request message, or in commit messages, the prompts you used to generate the code, and the AI tool you used.
+- Read our [AI Policy](./AI_POLICY.md) for more details.
 
 ### General guidelines for pull requests
 

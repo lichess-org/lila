@@ -1,7 +1,16 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl, iconTag, type VNode } from 'lib/view';
+import {
+  bind,
+  dataIcon,
+  type MaybeVNode,
+  type LooseVNodes,
+  type VNode,
+  hl,
+  iconTag,
+  onInsert,
+} from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
@@ -408,7 +417,9 @@ export default function (ctrl: AnalyseCtrl): MaybeVNode {
     {
       class: { loading, reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2) },
       hook: {
-        insert: vnode => ((vnode.elm as HTMLElement).scrollTop = 0),
+        ...onInsert(elem => {
+          elem.scrollTop = 0;
+        }),
         postpatch(_, vnode) {
           if (!data || lastFen === data.fen) return;
           (vnode.elm as HTMLElement).scrollTop = 0;

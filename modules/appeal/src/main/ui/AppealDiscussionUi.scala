@@ -164,10 +164,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
               ),
               form3.action(
-                form3.submit("Send and close", nameValue = ("close", "true").some, icon = none)(
+                form3.submit("Send & close", nameValue = ("close", "true").some, icon = none)(
                   cls := "button-red button-empty"
                 ),
-                form3.submit(trans.site.send())
+                form3.submit(trans.site.send())(cls := "button-empty"),
+                form3.submit("Send & dismiss", nameValue = ("dismiss", "true").some)(
+                  cls := "button-green",
+                  title := "Dismiss the appeal as processed"
+                )
               )
             )
           else emptyFrag
@@ -194,14 +198,18 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, true))(
                   form3.selectLowLevel("months", AppealForm.untilMonths, default = "Pause".some)
                 ),
-                AppealTopicApi.unmark(status, appeal.topic) match
-                  case None => button(cls := "button button-empty", disabled)("Nothing to un-mark")
-                  case Some((text, call)) =>
-                    val appealUrl = routes.Appeal.modShow(appeal.user, appeal.topic).url
-                    val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
-                    postForm(action := actionUrl):
-                      submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
-                  ,
+                if appeal.topic == AppealTopic.blog
+                then a(href := routes.Ublog.index(user.username), cls := "button button-empty")("View blog")
+                else
+                  AppealTopicApi.unmark(status, appeal.topic) match
+                    case None =>
+                      button(cls := "button button-green button-empty", disabled)("Nothing to un-mark")
+                    case Some((text, call)) =>
+                      val appealUrl = routes.Appeal.modShow(appeal.user, appeal.topic).url
+                      val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
+                      postForm(action := actionUrl):
+                        submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
+                    ,
                 appeal.isOpen.option:
                   postForm(action := routes.Appeal.toggleRead(appeal.user, appeal.topic, appeal.isUnread))(
                     submitButton(cls := "button button-dim button-empty"):

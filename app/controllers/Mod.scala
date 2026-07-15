@@ -111,6 +111,7 @@ final class Mod(
         _ <- env.mod.publicChat.deleteAll(sus)
         _ <- env.forum.delete.allByUser(sus.user)
         _ <- env.msg.api.deleteAllBy(sus.user)
+        _ <- env.api.accountTermination.deleteAllGameChats(sus.user)
         _ <- env.mod.logApi.deleteComms(sus)
         _ <- env.memo.picfitApi.deleteByUser(sus.user.id)
       yield ().some

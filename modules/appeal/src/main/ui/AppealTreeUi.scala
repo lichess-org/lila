@@ -31,7 +31,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ).some,
-        Option.when(appeals.get(AppealTopic.warning).forall(_.isOpen)):
+        Option.when(status.warning && appeals.get(AppealTopic.warning).forall(_.isOpen)):
           Leaf(
             "clean-warning",
             "I want to discuss a warning I received",

@@ -28,7 +28,7 @@
     cursor: pointer;
 
     &:hover {
-      background: rgb(from $c-accent r g b / calc(alpha * 0.2));
+      background: $c-accent-glass;
     }
   }
 

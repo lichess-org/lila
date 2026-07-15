@@ -40,7 +40,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, onInsert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import type { AnalyseNvuiContext } from '../analyse.nvui';
@@ -96,7 +96,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      { hook: onInsert(el => boardEventsHook(ctx, el)) },
       renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
@@ -174,25 +174,23 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       ...(boardFirst ? [] : boardView),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('div.content', {
-        hook: {
-          insert: vnode => {
-            const root = $(vnode.elm as HTMLElement);
-            root.append($('.blind-content').removeClass('none'));
-            root.find('.copy-pgn').on('click', function (this: HTMLElement) {
-              navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                notify.set(i18n.nvui.copiedToClipboard('PGN'));
+        hook: onInsert(elem => {
+          const $root = $(elem);
+          $root.append($('.blind-content').removeClass('none'));
+          $root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+            navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
+              notify.set(i18n.nvui.copiedToClipboard('PGN'));
+            });
+          });
+          $root.find('.copy-fen').on('click', function (this: HTMLElement) {
+            const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
+            if (fen) {
+              navigator.clipboard.writeText(fen).then(() => {
+                notify.set(i18n.nvui.copiedToClipboard('FEN'));
               });
-            });
-            root.find('.copy-fen').on('click', function (this: HTMLElement) {
-              const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
-              if (fen) {
-                navigator.clipboard.writeText(fen).then(() => {
-                  notify.set(i18n.nvui.copiedToClipboard('FEN'));
-                });
-              }
-            });
-          },
-        },
+            }
+          });
+        }),
       }),
       hl('h2', i18n.site.advancedSettings),
       hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),

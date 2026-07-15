@@ -64,7 +64,7 @@
 
   &:hover {
     color: $c-font;
-    background: rgb(from $c-accent r g b / calc(alpha * 0.2)) !important;
+    background: $c-accent-glass !important;
     opacity: 1;
   }
 

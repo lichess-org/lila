@@ -167,7 +167,7 @@ final class Setup(
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):
                         limit
-                          .boardApiConcurrency(author.map(_.id), msg = req.userAgent.value)(
+                          .boardApiConcurrency(author.map(_.id))(
                             env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                           )(jsOptToNdJson)
                           .toFuccess

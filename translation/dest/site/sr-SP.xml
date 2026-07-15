@@ -56,6 +56,8 @@
   <string name="blackLeftTheGame">Црни је напустио партију</string>
   <string name="whiteDidntMove">Бели се није померијо</string>
   <string name="blackDidntMove">Црни се није померијо</string>
+  <string name="whiteAborted">Бели је прекинуо партију</string>
+  <string name="blackAborted">Црни је прекинуо партију</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
   <string name="computerAnalysis">Рачунарска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа доступна</string>
@@ -92,6 +94,8 @@
   <string name="database">База података</string>
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
   <string name="averageRatingX">Просечан рејтинг: %s</string>
+  <string name="minRatingX">Минималан рејтинг од %s</string>
+  <string name="maxRatingX">Максималан рејтинг од %s</string>
   <string name="recentGames">Недавне партије</string>
   <string name="topGames">Партије највишег рејтинга</string>
   <string name="masterDbExplanation">Партије преко табле од %1$s+ ФИДЕ рејтованих играча из %2$s. до %3$s.</string>
@@ -124,7 +128,9 @@
   <string name="enable">Омогући</string>
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
+  <string name="undefendedPieces">Небрањене фигуре</string>
   <string name="multipleLines">Више линија</string>
+  <string name="searchTime">Време претраге</string>
   <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
@@ -419,6 +425,8 @@
   <string name="leaderboard">Најбољи играчи</string>
   <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
+  <string name="playerNames">Имена играча</string>
+  <string name="moveAnnotations">Нотација потеза</string>
   <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
   <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
@@ -585,6 +593,7 @@
   <string name="invalidUsernameOrPassword">Неисправно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважећи аутентификациони код</string>
+  <string name="orSeparator">Или</string>
   <string name="emailMeALink">Пошаљи ми имејл са линком</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
@@ -678,6 +687,7 @@
   <string name="really">стварно</string>
   <string name="contribute">Добринеси</string>
   <string name="termsOfService">Услови коришћења Услуге</string>
+  <string name="titleVerification">Верификација титуле</string>
   <string name="sourceCode">Изворни Код</string>
   <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
@@ -803,6 +813,7 @@
   <string name="board">Табла</string>
   <string name="size">Величина</string>
   <string name="brightness">Осветљеност</string>
+  <string name="contrast">Контраст</string>
   <string name="hue">Нијанса</string>
   <string name="boardReset">Ресетуј боје на подразумевано</string>
   <string name="pieceSet">Сет фигура</string>
@@ -821,6 +832,7 @@
   <string name="notifications">Обавештења</string>
   <string name="notificationsX">Нотификација: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
+  <string name="yourRatingIsX">Ваш рејтинг је %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд да се одигра први потез</item>
     <item quantity="few">%s секунде да се одигра први потез</item>
@@ -874,6 +886,7 @@
   <string name="playVariationToCreateConditionalPremoves">Одиграј варијацију да направиш условне предпотезе</string>
   <string name="noConditionalPremoves">Нема условних предпотеза</string>
   <string name="playX">Одиграј %s</string>
+  <string name="challengeX">Изазов %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">и сачувај %s предпотезну линију</item>
     <item quantity="few">и сачувај %s предпотезне линије</item>

@@ -26,7 +26,6 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
-    def userAgent = HTTPRequest.userAgent(req)
     def client = ClientName(req)
     def sid = lila.core.security.LilaCookie.sid(req)
 

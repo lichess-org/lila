@@ -10,7 +10,6 @@ import lila.common.Form.{
   into,
   playerTitle
 }
-import lila.common.LameName
 import lila.core.user.{ FlagCode, Profile }
 
 final class UserForm:

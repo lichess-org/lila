@@ -106,7 +106,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .flatMap:
         _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
           for
-            _ <- inquiry.appealTopic.so(env.appeal.api.setRead(inquiry.user.id, _))
+            _ <- inquiry.appealTopic.so(env.appeal.api.setReadIfUnread(inquiry.user.id, _))
             _ <- api.process(inquiry)
             result <- onInquiryAction(inquiry, processed = true)
           yield result

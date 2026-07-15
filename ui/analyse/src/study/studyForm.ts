@@ -76,12 +76,11 @@ export function view(ctrl: StudyForm): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const isEditable = !ctrl.relay?.isOfficial();
-  const updateName = (vnode: VNode, isUpdate: boolean) => {
-    const el = vnode.elm as HTMLInputElement;
-    if (!isUpdate && !el.value) {
-      el.value = data.name;
-      if (isNew) el.select();
-      el.focus();
+  const updateName = (elem: HTMLInputElement, isUpdate: boolean) => {
+    if (!isUpdate && !elem.value) {
+      elem.value = data.name;
+      if (isNew) elem.select();
+      elem.focus();
     }
   };
   const userSelectionChoices: Choice[] = [
@@ -122,14 +121,13 @@ export function view(ctrl: StudyForm): VNode {
         hl('input#study-name.form-control', {
           attrs: { minlength: 3, maxlength: 100 },
           hook: {
-            insert: vnode => {
-              updateName(vnode, false);
-              const el = vnode.elm as HTMLInputElement;
-              el.addEventListener('focus', () => el.select());
+            ...onInsert<HTMLInputElement>(elem => {
+              updateName(elem, false);
+              elem.addEventListener('focus', () => elem.select());
               // set initial modal focus
-              setTimeout(() => el.focus());
-            },
-            postpatch: (_, vnode) => updateName(vnode, true),
+              setTimeout(() => elem.focus());
+            }),
+            postpatch: (_, vnode) => updateName(vnode.elm as HTMLInputElement, true),
           },
         }),
       ]),

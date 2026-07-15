@@ -94,13 +94,12 @@
     ---cols: 4; // ui/lobby/src/main.ts
 
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: fit-content(0) min-content 1fr repeat(3, fit-content(0));
+    grid-template-auto-row: fit-content(0);
     grid-template-areas:
       'side   app     app     table'
+      'tv     feed    feed    puzzle'
       'tv     blog    blog    puzzle'
-      'tv     support support puzzle'
-      'feed   feed    tours   tours'
-      '.      about   about   .';
+      'about  about   tours   tours';
 
     &__start {
       margin: 0;
@@ -116,6 +115,19 @@
       align-items: flex-start;
       position: absolute;
       bottom: 0;
+    }
+
+    &__blog {
+      margin-top: 0;
+    }
+
+    &__support {
+      display: none;
+    }
+
+    &__tv .lobby__support-link,
+    &__puzzle .lobby__support-link {
+      display: flex;
     }
   }
 

@@ -1,7 +1,7 @@
 import { plyToTurn } from 'lib/game/chess';
 import { renderComments, renderSan } from 'lib/nvui/render';
 import { path as treePath } from 'lib/tree/tree';
-import { type VNode, enter } from 'lib/view';
+import { enter, onInsert } from 'lib/view';
 
 import type { AnalyseNvuiContext } from '@/analyse.nvui';
 import type AnalyseCtrl from '@/ctrl';
@@ -10,22 +10,19 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
   return {
     // put unique identifying props on the button container (such as class)
     // because snabbdom WILL mix plain adjacent buttons up.
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => {
+    hook: onInsert(el => {
+      el.addEventListener('click', () => {
+        main?.(el);
+        post?.();
+      });
+      el.addEventListener(
+        'keydown',
+        enter(() => {
           main?.(el);
           post?.();
-        });
-        el.addEventListener(
-          'keydown',
-          enter(() => {
-            main?.(el);
-            post?.();
-          }),
-        );
-      },
-    },
+        }),
+      );
+    }),
   };
 }
 

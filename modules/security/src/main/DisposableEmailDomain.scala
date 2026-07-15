@@ -55,10 +55,6 @@ final class DisposableEmailDomain(
   def asMxRecord(domain: Domain): Boolean =
     isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
 
-  def mightBeTypo(domain: Domain): Boolean =
-    // gmail.com is very often misspelled
-    domain.value.startsWith("g") && scalalib.Levenshtein.isDistanceLessThan(domain.value, "gmail.com", 2)
-
 private object DisposableEmailDomain:
 
   extension (a: Domain)

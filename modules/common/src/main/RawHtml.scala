@@ -35,13 +35,7 @@ object RawHtml:
 
   private val USER_LINK = """/@/([\w-]{2,30}+)?""".r
 
-  // Matches a lichess username with an '@' prefix if it is used as a single
-  // word (i.e. preceded and followed by space or appropriate punctuation):
-  // Yes: everyone says @ornicar is a pretty cool guy
-  // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
-  val atUsernameRegex = """@(?<![\w@#/\[]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
-
-  private val atUsernamePat = atUsernameRegex.pattern
+  private val atUsernamePat = UserName.atRegex.pattern
 
   def expandAtUser(text: String)(using netDomain: NetDomain): List[String] =
     val m = atUsernamePat.matcher(text)
@@ -189,7 +183,4 @@ object RawHtml:
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
 
-  private val trackingParametersRegex =
-    """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
-  def removeUrlTrackingParameters(url: String): String =
-    trackingParametersRegex.replaceAllIn(url, "")
+  def removeUrlTrackingParameters(url: String): String = Url.trackingParametersRegex.replaceAllIn(url, "")
