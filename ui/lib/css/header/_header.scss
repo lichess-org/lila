@@ -134,7 +134,7 @@ body.zen {
       display: none;
     }
 
-    @media (max-width: less-than($small)) {
+    @media (max-width: at-most($small)) {
       body.clinput & {
         display: none;
       }
