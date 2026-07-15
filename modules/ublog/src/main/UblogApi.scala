@@ -78,7 +78,10 @@ final class UblogApi(
   def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))
 
-  def isHidden(user: User): Fu[Boolean] = getUserBlogOption(user).dmap(_.exists(!_.visible))
+  def isHiddenWithPosts(user: User): Fu[Boolean] =
+    getUserBlogOption(user).flatMapz: blog =>
+      blog.visible.not.so:
+        colls.post.exists($doc("blog" -> blog.id, "live" -> true))
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getUserBlogOption(user).getOrElse:
