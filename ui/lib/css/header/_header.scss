@@ -130,11 +130,11 @@ body.zen {
       outline-offset: -2px;
     }
 
-    @media (width <= $x-small) {
+    @media (max-width: at-most($x-small)) {
       display: none;
     }
 
-    @media (width <= $small) {
+    @media (max-width: less-than($small)) {
       body.clinput & {
         display: none;
       }
