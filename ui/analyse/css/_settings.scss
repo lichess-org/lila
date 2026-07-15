@@ -8,7 +8,7 @@
     display: none;
   }
 
-  @media (width < 600px) {
+  @media (max-width: at-most(600px)) {
     h2 {
       display: block;
     }
@@ -41,7 +41,7 @@
   gap: 2em;
   height: 100%;
 
-  @media (width < 600px) {
+  @media (max-width: at-most(600px)) {
     flex-direction: column;
   }
 
@@ -75,7 +75,7 @@
     justify-content: space-between;
     flex: 40%;
 
-    @media (width < 600px) {
+    @media (max-width: at-most(600px)) {
       flex: 1;
     }
   }
@@ -130,13 +130,13 @@
   }
 
   @include mq-has-hover {
-    @media (width >= 600px) {
+    @media (min-width: at-least(600px)) {
       :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
         display: block;
       }
     }
 
-    @media (width < 600px) {
+    @media (max-width: at-most(600px)) {
       .help-button {
         display: block;
       }
