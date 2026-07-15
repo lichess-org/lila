@@ -4873,7 +4873,7 @@ interface I18n {
     youCanHideFlair: string;
     /** You can't post in the forums yet. Play some games! */
     youCannotPostYetPlaySomeGames: string;
-    /** You can't start a new game until this one is finished. */
+    /** You can't start a new game while it's your turn. */
     youCantStartNewGame: string;
     /** You do not have an established %s rating. */
     youDoNotHaveAnEstablishedPerfTypeRating: I18nFormat;
