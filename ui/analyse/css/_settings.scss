@@ -8,7 +8,7 @@
     display: none;
   }
 
-  @media (max-width: at-most(600px)) {
+  @media (width < 600px) {
     h2 {
       display: block;
     }
@@ -41,7 +41,7 @@
   gap: 2em;
   height: 100%;
 
-  @media (max-width: at-most(600px)) {
+  @media (width < 600px) {
     flex-direction: column;
   }
 
@@ -60,20 +60,24 @@
     border: 1px solid $c-border;
     border-radius: 6px;
     background: $c-bg-mid;
-    padding: 0.5em 1em 1em;
+    padding: 1em;
 
     legend {
       @extend %roboto;
 
       font-size: 1.3em;
       color: $c-font-dim;
-      padding: 6px;
+      padding: 6px 6px 0;
     }
   }
 
   .column {
     justify-content: space-between;
     flex: 40%;
+
+    @media (width < 600px) {
+      flex: 1;
+    }
   }
 
   .setting {
@@ -94,7 +98,7 @@
     overflow: hidden;
     align-items: stretch;
 
-    @media (min-width: at-least(600px)) {
+    @media (width >= 600px) {
       display: flex;
     }
 
@@ -107,6 +111,7 @@
     font-size: 1.2em;
     color: $c-font-dim;
     outline: none;
+    display: none;
   }
 
   .help-button::before {
@@ -125,18 +130,26 @@
   }
 
   @include mq-has-hover {
-    :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
-      display: block;
+    @media (width >= 600px) {
+      :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
+        display: block;
+      }
     }
 
-    .help-button {
-      display: none;
+    @media (width < 600px) {
+      .help-button {
+        display: block;
+      }
     }
   }
 
   @include mq-no-hover {
     legend {
       display: none;
+    }
+
+    .help-button {
+      display: block;
     }
   }
 }
