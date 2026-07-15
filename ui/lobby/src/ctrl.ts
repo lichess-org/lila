@@ -286,7 +286,7 @@ export default class LobbyController {
 
   hasOngoingRealTimeGame = (requireTurn: boolean) =>
     this.data.nowPlaying.some(
-      nowPlaying => nowPlaying.speed !== 'correspondence' && (nowPlaying.isMyTurn || !requireTurn),
+      nowPlaying => nowPlaying.speed !== 'correspondence' && (nowPlaying.isMyTurn || !requireTurn) && !nowPlaying.opponent.ai,
     );
 
   gameActivity = (gameId: string) => {
