@@ -36,7 +36,6 @@ $puzzle-block-gap: $block-gap;
 
   &__tools {
     grid-area: tools;
-    height: var(---cg-height, 100%);
   }
 
   &__controls {
@@ -75,6 +74,10 @@ $puzzle-block-gap: $block-gap;
       'session .     controls'
       'kb-move .     controls'
       'side    side  side';
+
+    &__tools {
+      height: var(---cg-height, 100%);
+    }
 
     &__moves {
       display: block;
