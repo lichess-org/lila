@@ -282,7 +282,10 @@ export default class LobbyController {
   };
 
   hasOngoingRealTimeGame = () =>
-    this.data.nowPlaying.some(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+    this.data.nowPlaying.some(
+      nowPlaying =>
+        nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence' && nowPlaying.opponent.ai === undefined,
+    );
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
