@@ -34,6 +34,7 @@ html.clouds {
   --c-primary: hsl(var(---primary-hue) 37% 42%);
   --c-secondary: hsl(var(---secondary-hue) 52% 30%);
   --c-brag: hsl(var(---brag-hue) 25 40);
+  --c-brag-hover: hsl(from var(--c-brag) h s calc(l * 0.5));
   --c-accent: hsl(var(---accent-hue) 20 42);
   --c-shade: color-mix(in oklab, var(--c-accent) 20%, var(--c-bg-cloud));
   --c-paper: hsl(60 56% 86%);
