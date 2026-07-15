@@ -36,10 +36,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: stretch;
-  touch-action: none;
+  touch-action: pan-x pan-y;
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
-  height: 100%;
+  min-height: 100%;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;

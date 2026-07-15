@@ -89,6 +89,16 @@ const settings: Record<SettingKey, Setting> = {
 };
 
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
+  let dialog: Dialog;
+  const resizeListener = () => {
+    const scrollable = dialog.view.closest<HTMLElement>('.scrollable')!;
+    scrollable.style.width = scrollable.style.height = '';
+
+    const { width, height } = scrollable.getBoundingClientRect();
+    scrollable.style.width = `${width}px`;
+    scrollable.style.height = `${height}px`;
+  };
+  window.addEventListener('resize', resizeListener);
   return domDialog({
     class: 'analysis-settings-dialog',
     htmlText: '<h2>Analysis settings</h2>',
@@ -101,13 +111,11 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.ok', result: 'ok' },
     ],
     onShow: dlg => {
-      if (isTouchDevice()) return;
-      // freeze dialog size so stuff doesn't jiggle around on mouseover and let flex do the rest
-      const { width: viewWidth, height: viewHeight } = dlg.view.getBoundingClientRect();
-      dlg.view.style.width = `${viewWidth}px`;
-      dlg.view.style.height = `${viewHeight}px`;
+      dialog = dlg;
+      resizeListener();
     },
     onClose: dlg => {
+      window.removeEventListener('resize', resizeListener);
       if (dlg.returnValue !== 'showKeyboardShortcuts') return;
       ctrl.keyboardHelp = true;
       ctrl.redraw();
