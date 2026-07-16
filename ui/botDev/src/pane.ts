@@ -203,7 +203,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       const op = req.match(requiresOpRe)?.[0] as string;
       const [left, right] = req.split(op).map(x => x.trim());
 
-      if ([left, right].some(x => !this.host.panes.byId[x]?.enabled)) return false;
+      if ([left, right].some(x => !this.host.panes.byId[x]?.enabled === false)) return false;
 
       const maybeLeftPane = this.host.panes.byId[left];
       const maybeRightPane = this.host.panes.byId[right];
