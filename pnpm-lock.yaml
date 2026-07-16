@@ -499,6 +499,12 @@ importers:
         specifier: workspace:*
         version: link:../voice
 
+  ui/puzzleGuess:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
   ui/racer:
     dependencies:
       lib:
@@ -1141,7 +1147,7 @@ packages:
       prop-types: ^15.7.2
 
   ab@https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d:
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d}
+    resolution: {gitHosted: true, integrity: sha512-zxjEIZzYUOBgchVay54wZNbgNfS3rXQbhBvXJGW/xU0xa0iYlO0BCCKTG5rwO8Le9rWbfpCDV2iaweWaNjxlQw==, tarball: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d}
     version: 1.0.0
 
   agent-base@7.1.4:

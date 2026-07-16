@@ -78,6 +78,10 @@ object PuzzleForm:
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
 
+  object guess:
+    val answer = Form(single("isPuzzle" -> boolean))
+    val solve = Form(single("win" -> boolean))
+
   object batch:
     case class Solution(id: PuzzleId, win: PuzzleWin, rated: Rated = Rated.Yes)
     case class SolveData(solutions: List[Solution])

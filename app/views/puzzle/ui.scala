@@ -3,6 +3,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.puzzle.DailyPuzzle
 
 lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)
+lazy val guess = lila.puzzle.ui.PuzzleGuessUi(helpers)
 lazy val ui =
   lila.puzzle.ui
     .PuzzleUi(helpers, bits)(views.analyse.ui.bits.cspExternalEngine, analyseEndpoints.externalEngine)

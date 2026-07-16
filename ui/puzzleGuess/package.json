@@ -1,0 +1,11 @@
+{
+  "name": "puzzle-guess",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "lib": "workspace:*"
+  },
+  "build": {
+    "bundle": "src/puzzleGuess.ts"
+  }
+}

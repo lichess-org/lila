@@ -497,6 +497,49 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok.snip(lila.web.ui.help.puzzle)
 
+  def guessHome = Open:
+    NoBot:
+      for
+        position <- env.puzzle.guess.nextFor(ctx.userId)
+        player <- ctx.userId.traverse(env.puzzle.guess.playerOf)
+        data = Json
+          .obj("pref" -> env.puzzle.guessJson.pref(ctx.pref))
+          .add("position" -> position.map(env.puzzle.guessJson.position))
+          .add("player" -> player.map(env.puzzle.guessJson.player))
+        page <- renderPage(views.puzzle.guess.home(data))
+      yield Ok(page).noCache
+
+  def guessNext = Open:
+    env.puzzle.guess
+      .nextFor(ctx.userId)
+      .map:
+        case Some(position) => JsonOk(env.puzzle.guessJson.position(position))
+        case None => notFoundJson("No more positions available")
+
+  def guessAnswer(id: String) = OpenBody:
+    NoBot:
+      bindForm(env.puzzle.forms.guess.answer)(
+        doubleJsonFormError,
+        isPuzzle =>
+          env.puzzle.guess
+            .guess(lila.puzzle.PuzzleGuess.Id(id), isPuzzle, ctx.userId)
+            .map:
+              case Some(result) => JsonOk(env.puzzle.guessJson.result(result))
+              case None => notFoundJson()
+      )
+
+  def guessSolve(id: String) = OpenBody:
+    NoBot:
+      bindForm(env.puzzle.forms.guess.solve)(
+        doubleJsonFormError,
+        win =>
+          env.puzzle.guess
+            .solve(lila.puzzle.PuzzleGuess.Id(id), lila.puzzle.PuzzleWin(win), ctx.userId)
+            .map:
+              case Some(result) => JsonOk(env.puzzle.guessJson.result(result))
+              case None => notFoundJson()
+      )
+
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       meOrFetch(username)

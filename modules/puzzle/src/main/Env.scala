@@ -48,6 +48,12 @@ final class Env(
     path = db(config.pathColl)
   )
 
+  private val guessColls = PuzzleGuessColls(
+    guess = db(CollName("puzzle2_guess")),
+    round = db(CollName("puzzle2_guess_round")),
+    player = db(CollName("puzzle2_guess_player"))
+  )
+
   private val gameJson: GameJson = wire[GameJson]
 
   val jsonView = wire[JsonView]
@@ -86,6 +92,10 @@ final class Env(
 
   val streak = wire[PuzzleStreakApi]
 
+  val guess: PuzzleGuessApi = wire[PuzzleGuessApi]
+
+  val guessJson = PuzzleGuessJson()
+
   val complete = wire[PuzzleComplete]
 
   private val tagger = wire[PuzzleTagger]
@@ -112,6 +122,8 @@ final class Env(
       fuccess("started in background")
     case "puzzle" :: "issue" :: id :: issue :: Nil =>
       api.puzzle.setIssue(PuzzleId(id), issue).map(if _ then "done" else "not found")
+    case "puzzle" :: "guess" :: "generate" :: nb :: Nil =>
+      guess.generate(nb.toIntOption | 100).map(n => s"generated $n positions")
 
   scheduler.scheduleAtFixedRate(10.minutes, 1.day): () =>
     tagger.addAllMissing

@@ -1,0 +1,97 @@
+.puzzle-guess {
+  display: grid;
+  gap: $block-gap;
+  grid-template-areas: 'board' 'side';
+
+  @include mq-at-least-col2 {
+    grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'board side';
+  }
+
+  &__board {
+    grid-area: board;
+  }
+
+  &__side {
+    grid-area: side;
+    display: flex;
+    flex-flow: column;
+    gap: 2em;
+    justify-content: center;
+    padding: 1em;
+  }
+
+  &__player {
+    @extend %flex-between;
+
+    font-size: 1.1em;
+
+    &__rating strong {
+      font-size: 1.4em;
+    }
+  }
+
+  &__question {
+    font-size: 1.4em;
+
+    strong {
+      display: block;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+
+    .button {
+      font-size: 1.2em;
+      padding: 1em;
+    }
+  }
+
+  &__feedback {
+    font-size: 1.4em;
+
+    &.good strong {
+      color: $c-good;
+    }
+
+    &.bad strong {
+      color: $c-bad;
+    }
+  }
+
+  &__rating-diff,
+  &__position-rating {
+    font-size: 1.1em;
+
+    good.rp {
+      color: $c-good;
+    }
+
+    bad.rp {
+      color: $c-bad;
+    }
+  }
+
+  &__next {
+    margin-top: 1em;
+  }
+
+  &__no-more {
+    text-align: center;
+    font-size: 1.2em;
+  }
+}
+
+.puzzle-guess-about {
+  color: $c-font-dim;
+  max-width: 60ch;
+  margin: 2em auto;
+
+  p {
+    margin-bottom: 1em;
+  }
+}

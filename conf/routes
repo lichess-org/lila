@@ -178,6 +178,10 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Days, 
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Days, path, u: Option[UserStr])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Days, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[UserStr])
+GET   /training/guess                  controllers.Puzzle.guessHome
+GET   /training/guess/next             controllers.Puzzle.guessNext
+POST  /training/guess/$id<\w{5}>       controllers.Puzzle.guessAnswer(id)
+POST  /training/guess/$id<\w{5}>/solve controllers.Puzzle.guessSolve(id)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
