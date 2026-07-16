@@ -35,7 +35,7 @@ final class GameApiV2(
     annotator: lila.analyse.Annotator,
     getLightUser: LightUser.Getter,
     gameProxy: GameProxyRepo,
-    division: Divider,
+    divider: Divider,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
@@ -306,10 +306,12 @@ final class GameApiV2(
     arena <- g.tournamentId.traverse: tournamentId =>
       for name <- tourName.async(tournamentId)
       yield Json.obj("id" -> tournamentId, "name" -> name)
+    division = flags.division.option(divider(g, initialFen))
     accuracy = analysisOption
       .ifTrue(flags.accuracy)
-      .flatMap:
-        AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
+      .flatMap(AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _))
+    phases = flags.accuracy.so:
+      (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
   yield Json
     .obj(
       "id" -> g.id,
@@ -326,7 +328,7 @@ final class GameApiV2(
           .player(p, user)
           .add:
             "analysis" -> analysisOption.flatMap:
-              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy, ~phases)
           .add("team" -> teams.map(_(p.color))))
     )
     .add("fullId" -> config.by.flatMap(Pov(g, _)).map(_.fullId))
@@ -352,7 +354,7 @@ final class GameApiV2(
       ))
     .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.position)))
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
-    .add("division" -> flags.division.option(division(g, initialFen)))
+    .add("division" -> division)
     .add("bookmarked" -> bookmarked)
     .add("import" -> g.pgnImport.map: i =>
       Json.obj().add("date" -> i.date))
