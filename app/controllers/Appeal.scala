@@ -50,10 +50,17 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   yield lila.appeal.UserStatus(user, playban, blogHidden, warning)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
-    bindForm(userForm)(
-      err => BadRequest.async(renderAppealOrTree(err.some)),
-      text => env.appeal.api.post(topic, text).inject(Redirect(routes.Appeal.home).flashSuccess)
-    )
+    for
+      appeals <- env.appeal.api.byTopic(me)
+      status <- makeStatus(me)
+      res <-
+        if AppealTopicApi.select(status, appeals).exists(_ == topic) then
+          bindForm(userForm)(
+            err => BadRequest.async(renderAppealOrTree(err.some)),
+            text => env.appeal.api.post(topic, text).inject(Redirect(routes.Appeal.home).flashSuccess)
+          )
+        else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))
+    yield res
   }
 
   def modQueue = Secure(_.Appeals) { ctx ?=> me ?=>
