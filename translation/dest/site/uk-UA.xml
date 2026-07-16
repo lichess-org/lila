@@ -1024,7 +1024,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
-  <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
+  <string name="ultraBulletDesc">Неймовірно швидкі ігри: менш ніж 30 секунд</string>
   <string name="bulletDesc">Дуже швидкі ігри: менш ніж 3 хвилини</string>
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
@@ -1108,7 +1108,7 @@
   <string name="gameInProgress">У вас є активна гра з %s.</string>
   <string name="abortTheGame">Скасувати гру</string>
   <string name="resignTheGame">Здатися</string>
-  <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
+  <string name="youCantStartNewGame">Ви не можете розпочати нову гру, коли ваша черга ходити.</string>
   <string name="since">Від</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтингові партії всіх гравців Lichess</string>

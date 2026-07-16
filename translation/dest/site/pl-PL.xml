@@ -1109,7 +1109,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="gameInProgress">Rozgrywasz partię z %s.</string>
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Poddaj się</string>
-  <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="youCantStartNewGame">Nie możesz rozpocząć nowej gry, kiedy to Twoja kolej.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>

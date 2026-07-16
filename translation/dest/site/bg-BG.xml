@@ -1010,7 +1010,6 @@
   <string name="gameInProgress">Имате текуща игра с %s.</string>
   <string name="abortTheGame">Прекъсване на играта</string>
   <string name="resignTheGame">Предаване</string>
-  <string name="youCantStartNewGame">Не можете да започнете нова игра преди тази да е приключила.</string>
   <string name="since">От</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>

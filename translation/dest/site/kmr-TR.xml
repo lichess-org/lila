@@ -1012,7 +1012,6 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="gameInProgress">Lîstika te bi %s re didûme.</string>
   <string name="abortTheGame">Lîstikê betal bike</string>
   <string name="resignTheGame">Dest ji lîstikê bikêşe</string>
-  <string name="youCantStartNewGame">Heta ev lîstik bi dawî neyê, tu nikarî dest bi lîstikeke nû bikî.</string>
   <string name="since">Ji dema</string>
   <string name="until">Heta</string>
   <string name="lichessDbExplanation">Lîstikên bipuan hatîn lîstin li ser Lichess ê</string>

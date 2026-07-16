@@ -1019,7 +1019,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Abandonner la partie</string>
-  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
+  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie si c\'est à votre tour de jouer.</string>
   <string name="since">De</string>
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
