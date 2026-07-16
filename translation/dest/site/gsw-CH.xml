@@ -565,7 +565,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie de Öffentlichi.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
-  <string name="website">Website</string>
+  <string name="website">Website
+</string>
   <string name="mobile">Mobil</string>
   <string name="help">Hilf:</string>
   <string name="createANewTopic">Erschtell es neus Thema</string>
@@ -1016,7 +1017,6 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="gameInProgress">Du häsch no es laufeds Schpiel mit %s.</string>
   <string name="abortTheGame">Schpiel abbräche</string>
   <string name="resignTheGame">Schpiel ufgeh</string>
-  <string name="youCantStartNewGame">Du chasch kei neus Schpiel schtarte, bevor s\'Laufende nöd fertig isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">G\'werteti Schpiel vu allne Lichess Schpiller</string>

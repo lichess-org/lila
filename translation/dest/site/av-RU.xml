@@ -917,7 +917,6 @@
   <string name="gameInProgress">Дур %sгун хӀай унеб буго.</string>
   <string name="abortTheGame">ХӀай лъугӀизабичӀого тезе</string>
   <string name="resignTheGame">Къун чӀезе</string>
-  <string name="youCantStartNewGame">Гьеб хӀан лъугӀичӀого дуда цӀияб хӀай байбихьизе кӀоларо.</string>
   <string name="since">-даса</string>
   <string name="until">ЩвезегӀан</string>
   <string name="lichessDbExplanation">Lichess-алда хӀарал рейтингалъул хӀаял</string>

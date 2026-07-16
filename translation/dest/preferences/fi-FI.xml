@@ -88,4 +88,5 @@
   <string name="boardSettings">Lauta</string>
   <string name="analysisSettings">Analyysiasetukset</string>
   <string name="maneuverArrowsHelp">Tietokoneen laskema yhden nappulan siirtosarja</string>
+  <string name="hoverOverSettingLabelsForHelp">Saat ohjeita asetuksista viemällä osoittimen niiden päälle</string>
 </resources>

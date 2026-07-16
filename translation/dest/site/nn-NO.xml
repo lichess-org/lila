@@ -1020,7 +1020,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="gameInProgress">Du spelar no eit parti mot %s.</string>
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gje opp partiet</string>
-  <string name="youCantStartNewGame">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
+  <string name="youCantStartNewGame">Du kan ikkje starta eit nytt parti når det er ditt trekk.</string>
   <string name="since">Frå</string>
   <string name="until">Til</string>
   <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>

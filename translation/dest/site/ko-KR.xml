@@ -973,7 +973,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="gameInProgress">%s와(과) 진행중인 대국이 있습니다.</string>
   <string name="abortTheGame">대국 중단</string>
   <string name="resignTheGame">대국 기권</string>
-  <string name="youCantStartNewGame">이 대국이 끝나기 전까지 새 대국을 시작할 수 없습니다.</string>
+  <string name="youCantStartNewGame">당신 턴에는 새로운 대국을 시작할 수 없습니다.</string>
   <string name="since">부터</string>
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 Lichess 플레이어의 레이팅 대국 샘플</string>

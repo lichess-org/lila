@@ -954,7 +954,6 @@
   <string name="gameInProgress">താങ്ങൾ ഇപ്പോഴ് %s-ിന്റെ കൂടെ കളിക്കുന്നുണ്ട്.</string>
   <string name="abortTheGame">കളി കയ്യൊഴിഞ്ഞ് പോവുക</string>
   <string name="resignTheGame">കളി വഴങ്ങികൊടുക്കുക</string>
-  <string name="youCantStartNewGame">ഈ കളി പൂർത്തികരിക്കുന്നവരെ താങ്ങൾക്കു് പുതിയ കളി തുടങ്ങാൻ സാധിക്കത്തില്ല.</string>
   <string name="since">മുതൽ</string>
   <string name="until">വരേ</string>
   <string name="lichessDbExplanation">Lichess-ൽ കളിച്ചതുള്ള റേറ്റിങ്ങുള്ള കളികൾ</string>

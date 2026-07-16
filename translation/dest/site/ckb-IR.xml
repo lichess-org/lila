@@ -965,7 +965,6 @@
   <string name="gameInProgress">یارییەکت لە پێشە لەگەڵ %s.</string>
   <string name="abortTheGame">یاریەکە هەڵوەشێنەوە</string>
   <string name="resignTheGame">دەست لە یاریەکە بکێشە</string>
-  <string name="youCantStartNewGame">تا ئەم یارییە تەواو نەبێت ناتوانیت دەست بە یارییەکی نوێ بکەیت.</string>
   <string name="since">لەوەتەی</string>
   <string name="until">تاوەکو</string>
   <string name="lichessDbExplanation">نمونەیەک لە یارییە هەڵسەنگێنراوەکان، لە هەموو یاریزانەکانی لیچێس</string>
