@@ -39,7 +39,7 @@
   touch-action: pan-x pan-y;
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
-  min-height: 100%;
+  height: 100%;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;
