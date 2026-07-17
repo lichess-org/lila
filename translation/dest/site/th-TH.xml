@@ -973,7 +973,6 @@
   <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
   <string name="abortTheGame">ทิ้งเกม</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
-  <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
   <string name="since">ตั้งแต่</string>
   <string name="until">จนถึง</string>
   <string name="lichessDbExplanation">เกมคิดคะแนนที่เล่นใน Lichess</string>

@@ -15,7 +15,7 @@
   <string name="hordeTitle">Једна страна има велики број пешака, а друга нормалне фигуре.</string>
   <string name="racingKings">Трка</string>
   <string name="racingKingsTitle">Доведите краља на други крај табле како би добили.</string>
-  <string name="crazyhouseTitle">Узете фигуре се могу вратити у игру уместо померања фигуре.</string>
+  <string name="crazyhouseTitle">Узете фигуре могу бити враћене на таблу уместо померања фигуре.</string>
   <string name="fromPosition">Из позиције</string>
   <string name="fromPositionTitle">Стандардан шах из произвољне позиције</string>
 </resources>

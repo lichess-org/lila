@@ -906,7 +906,6 @@
   <string name="gameInProgress">Имате игра во прогрес %s.</string>
   <string name="abortTheGame">Прекини ја играта</string>
   <string name="resignTheGame">Предади ја играта</string>
-  <string name="youCantStartNewGame">Не можете да започнете нова игра додека моменталната не заврши.</string>
   <string name="since">Од</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>

@@ -1067,7 +1067,6 @@
   <string name="gameInProgress">את/ה באמצע משחק עם %s.</string>
   <string name="abortTheGame">בטל/י את המשחק</string>
   <string name="resignTheGame">כניעה</string>
-  <string name="youCantStartNewGame">לא תוכל/י להתחיל משחק חדש עד גמר הנוכחי.</string>
   <string name="since">מאז</string>
   <string name="until">עד</string>
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני Lichess</string>

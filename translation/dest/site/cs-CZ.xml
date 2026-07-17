@@ -1107,7 +1107,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="gameInProgress">Již probíhá hra s %s.</string>
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>
-  <string name="youCantStartNewGame">Nemůžete začít novou hru, dokud nebude tato dokončena.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>

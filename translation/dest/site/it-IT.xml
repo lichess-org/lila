@@ -1020,7 +1020,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="gameInProgress">Hai una partita in corso con %s.</string>
   <string name="abortTheGame">Annulla la partita</string>
   <string name="resignTheGame">Rinuncia alla partita</string>
-  <string name="youCantStartNewGame">Non puoi avviare una nuova partita finché questa non è terminata.</string>
   <string name="since">Da</string>
   <string name="until">Fino al</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>

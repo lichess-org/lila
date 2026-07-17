@@ -318,6 +318,7 @@ GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
 GET   /api/broadcast/search                   controllers.RelayTour.apiSearch(page: Int ?= 1, q: String ?= "")
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
+GET   /api/broadcast/spotlight-rounds         controllers.RelayRound.apiSpotlightRounds
 GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang: Language)
 
 # Learn

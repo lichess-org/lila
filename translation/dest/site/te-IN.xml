@@ -258,7 +258,8 @@
   <string name="forgotPassword">పాస్వర్డ్ మర్చిపోయారా?</string>
   <string name="error.weakPassword">ఈ పాస్‌వర్డ్ చాలా సాధారణమైనది మరియు ఊహించడం చాలా సులభం.</string>
   <string name="error.namePassword">మీ  యూజర్నేం పాస్వర్డ్ గా పెట్టకు.</string>
-  <string name="blankedPassword">ఇదే పాస్వర్డ్ ఇంకొక సైట్లో వాడేశావు, కానీ ఆ సైట్ కాంప్రమైజ్ అయ్యింది. మీ లీచెస్స్ అకౌంట్ సురక్షితం కోసం, ఇంకొక కొత్త పాస్వర్డ్  పెట్టాలి. మీ అవగాహన వల్ల ధన్యవాదాలు.</string>
+  <string name="blankedPassword">ఇదే పాస్వర్డ్ ఇంకొక సైట్లో వాడేశావు, కానీ ఆ సైట్ కాంప్రమైజ్ అయ్యింది. మీ లీచెస్స్ అకౌంట్ సురక్షితం కోసం, ఇంకొక కొత్త పాస్వర్డ్  పెట్టాలి. మీ అవగాహన వల్ల ధన్యవాదాలు.
+</string>
   <string name="youAreLeavingLichess">మీరు లిచెస్‌ని విడిచిపెడుతున్నారు</string>
   <string name="neverTypeYourPassword">మీ లీచెస్స్ పాస్వర్డ్ ఇంకొక సైట్లో ఎప్పడు పెట్టకూడదు!</string>
   <string name="proceedToX">%sకి వెళ్లండి</string>

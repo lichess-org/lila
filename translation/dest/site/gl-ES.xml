@@ -1018,7 +1018,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="gameInProgress">Estás xogando unha partida con %s.</string>
   <string name="abortTheGame">Abortar a partida</string>
   <string name="resignTheGame">Renderse</string>
-  <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
+  <string name="youCantStartNewGame">Non podes comezar unha nova partida estando na túa quenda.</string>
   <string name="since">Desde</string>
   <string name="until">Ata</string>
   <string name="lichessDbExplanation">Partidas puntuadas xogadas en Lichess</string>

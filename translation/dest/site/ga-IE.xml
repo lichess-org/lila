@@ -1020,7 +1020,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="gameInProgress">Tá cluiche idir lámha agat le %s.</string>
   <string name="abortTheGame">Giorraigh an cluiche</string>
   <string name="resignTheGame">Éirigh as</string>
-  <string name="youCantStartNewGame">Ní féidir leat cluiche nua a thosú go dtí go mbeidh an ceann seo críochnaithe.</string>
   <string name="since">Ó</string>
   <string name="until">Go dtí</string>
   <string name="lichessDbExplanation">Cluichí rátáilte a sampláladh ó gach imreoir Lichess</string>

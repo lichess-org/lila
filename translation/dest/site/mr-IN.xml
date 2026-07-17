@@ -1019,7 +1019,6 @@
   <string name="gameInProgress">आपला एक खेळ %s यांच्याबरोबर चालू आहे.</string>
   <string name="abortTheGame">खेळ मध्येच थांबवा</string>
   <string name="resignTheGame">खेळातून राजीनामा द्या</string>
-  <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
   <string name="since">पासून</string>
   <string name="until">पर्यन्त</string>
   <string name="lichessDbExplanation">मानांकीत खेळ सर्व Lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
