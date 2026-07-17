@@ -20,7 +20,8 @@ final class ForumPostApi(
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     picfitApi: lila.memo.PicfitApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    feedApi: lila.feed.FeedApi
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -103,10 +104,17 @@ final class ForumPostApi(
     get(postId).flatMap:
       case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some(topic, post) =>
-        postRepo.forUser(forUser).countBeforePost(post).dmap { nb =>
-          val page = nb / config.postMaxPerPage.value + 1
+        val postUrlData = postRepo.forUser(forUser).countBeforePost(post).dmap { nb =>
+          val page = (nb + topic.isFeed.so(1)) / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.id).some
         }
+        topic.feedItemId.fold(postUrlData): feedItemId =>
+          feedApi
+            .get(feedItemId)
+            .flatMap:
+              case Some(feedItem) if feedItem.published || forUser.exists(MasterGranter.of(_.Feed)) =>
+                postUrlData
+              case _ => fuccess(none)
       case _ => fuccess(none)
 
   def get(postId: ForumPostId): Fu[Option[(ForumTopic, ForumPost)]] =
