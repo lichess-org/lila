@@ -43,7 +43,7 @@
       grid-template-areas: 'side main';
       grid-template-columns: 242px auto;
 
-      @media (width > $x-large) {
+      @media (min-width: $x-large) {
         grid-template-columns: 242px minmax(auto, 1028px);
       }
     }

@@ -29,7 +29,7 @@
       padding-inline-start: 2em;
     }
 
-    @media (width <= 600px) {
+    @media (min-width: 600px) {
       flex-direction: column;
     }
   }

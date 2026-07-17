@@ -51,7 +51,7 @@
   .actions {
     width: 0;
 
-    @media (width <= $x-small) {
+    @media (max-width: $x-small) {
       display: none;
     }
   }
