@@ -2,7 +2,7 @@ package lila.study
 package ui
 
 import lila.common.String.removeMultibyteSymbols
-import lila.core.study.{ StudyOrder, StudyFormat }
+import lila.core.study.StudyOrder
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -10,27 +10,7 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def addFormatToUrl(baseUrl: String, format: Option[StudyFormat]) =
-    format.fold(baseUrl)(f => addQueryParam(baseUrl, "format", f.name))
-
-  def formatToggle(baseUrl: String, currentFormat: Option[StudyFormat]) =
-    val compactFormat = currentFormat.contains(StudyFormat.compact)
-    val toggleUrl =
-      if compactFormat then baseUrl
-      else addFormatToUrl(baseUrl, Some(StudyFormat.compact))
-    a(
-      cls := List("button button-empty" -> true, "active" -> compactFormat),
-      href := toggleUrl,
-      title := (if compactFormat then "Switch to card view" else "Switch to list view"),
-      dataIcon := Icon.List
-    )
-
-  def orderSelect(
-      order: StudyOrder,
-      active: StudyGroup,
-      url: StudyOrder => Call,
-      format: Option[StudyFormat] = None
-  )(using Context) =
+  def orderSelect(order: StudyOrder, active: StudyGroup, url: StudyOrder => Call)(using Context) =
     val orders =
       if active == StudyGroup.search then Orders.search
       else if active == StudyGroup.all then Orders.withoutSelector
@@ -40,8 +20,7 @@ final class StudyBits(helpers: Helpers):
       "orders",
       span(Orders.name(order)()),
       orders.map: o =>
-        val urlWithFormat = format.map(f => addQueryParam(url(o).url, "format", f.name)).getOrElse(url(o).url)
-        a(href := urlWithFormat, cls := (order == o).option("current"))(Orders.name(o)())
+        a(href := url(o), cls := (order == o).option("current"))(Orders.name(o)())
     )
 
   def newForm()(using Context) =
@@ -53,40 +32,21 @@ final class StudyBits(helpers: Helpers):
       )
     )
 
-  def authLinks(
-      activeCls: StudyGroup => AttrPair,
-      order: StudyGroup => StudyOrder,
-      format: Option[StudyFormat] = None
-  )(using Context) =
+  def authLinks(activeCls: StudyGroup => AttrPair, order: StudyGroup => StudyOrder)(using Context) =
     frag(
-      a(
-        activeCls(StudyGroup.mine),
-        href := addFormatToUrl(routes.Study.mine(order(StudyGroup.mine)).url, format)
-      )(
+      a(activeCls(StudyGroup.mine), href := routes.Study.mine(order(StudyGroup.mine)))(
         trans.study.myStudies()
       ),
-      a(
-        activeCls(StudyGroup.mineMember),
-        href := addFormatToUrl(routes.Study.mineMember(order(StudyGroup.mineMember)).url, format)
-      )(
+      a(activeCls(StudyGroup.mineMember), href := routes.Study.mineMember(order(StudyGroup.mineMember)))(
         trans.study.studiesIContributeTo()
       ),
-      a(
-        activeCls(StudyGroup.minePublic),
-        href := addFormatToUrl(routes.Study.minePublic(order(StudyGroup.minePublic)).url, format)
-      )(
+      a(activeCls(StudyGroup.minePublic), href := routes.Study.minePublic(order(StudyGroup.minePublic)))(
         trans.study.myPublicStudies()
       ),
-      a(
-        activeCls(StudyGroup.minePrivate),
-        href := addFormatToUrl(routes.Study.minePrivate(order(StudyGroup.minePrivate)).url, format)
-      )(
+      a(activeCls(StudyGroup.minePrivate), href := routes.Study.minePrivate(order(StudyGroup.minePrivate)))(
         trans.study.myPrivateStudies()
       ),
-      a(
-        activeCls(StudyGroup.mineLikes),
-        href := addFormatToUrl(routes.Study.mineLikes(order(StudyGroup.mineLikes)).url, format)
-      )(
+      a(activeCls(StudyGroup.mineLikes), href := routes.Study.mineLikes(order(StudyGroup.mineLikes)))(
         trans.study.myFavoriteStudies()
       )
     )

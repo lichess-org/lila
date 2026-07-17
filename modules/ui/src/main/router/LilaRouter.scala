@@ -5,7 +5,7 @@ import play.api.mvc.{ PathBindable, QueryStringBindable }
 import scalalib.newtypes.SameRuntime
 
 import lila.core.id.*
-import lila.core.study.{ StudyOrder as StudyOrder, StudyFormat }
+import lila.core.study.StudyOrder as StudyOrder
 import lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
 import lila.core.misc.AppealTopic
 
@@ -74,5 +74,3 @@ object LilaRouter:
   given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
     strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)
-  given QueryStringBindable[StudyFormat] =
-    strQueryString[StudyFormat](StudyFormat.fromName, "Invalid study format", _.name)

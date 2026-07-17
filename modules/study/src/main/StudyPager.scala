@@ -3,10 +3,11 @@ package lila.study
 import scalalib.paginator.Paginator
 
 import lila.core.i18n.I18nKey
-import lila.core.study.{ StudyOrder, StudyFormat }
+import lila.core.study.StudyOrder
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.memo.SettingStore
+import lila.study.ui.StudyFormat
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -50,16 +51,12 @@ final class StudyPager(
     selectTopic
   }
 
-  private def overrideMaxPerPage(format: Option[StudyFormat]) =
-    format.fold(maxPerPage)(f => if f == StudyFormat.compact then maxPerPageCompact else maxPerPage)
-
-  def all(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using Option[Me]) =
+  def all(order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
     paginator(
       accessSelect(),
       order,
       page,
-      fuccess(9999).some,
-      maxPerPage = overrideMaxPerPage(format).some
+      fuccess(9999).some
     ).flatMap: pager =>
       if (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1 then
         for
@@ -69,66 +66,55 @@ final class StudyPager(
           extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
       else fuccess(pager)
 
-  def byOwner(owner: User, order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
-      Option[Me]
-  ) =
+  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
     paginator(
       selectOwnerId(owner.id) ++ accessSelect(trash = true),
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def mine(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
+  def mine(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me),
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def minePublic(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
+  def minePublic(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me) ++ selectPublic,
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def minePrivate(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
+  def minePrivate(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me) ++ selectPrivateOrUnlisted,
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def mineMember(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
+  def mineMember(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectMemberId(me) ++ $doc("ownerId".$ne(me.userId)),
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def mineLikes(order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using me: Me) =
+  def mineLikes(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ $doc("ownerId".$ne(me.userId)),
       order,
-      page,
-      maxPerPage = overrideMaxPerPage(format).some
+      page
     )
 
-  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int, format: Option[StudyFormat] = None)(using
-      me: Option[Me]
-  ) =
+  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me])(using StudyFormat) =
     val onlyMine = me.ifTrue(order == StudyOrder.mine)
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
       order,
       page,
-      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1)),
-      maxPerPage = overrideMaxPerPage(format).some
+      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
     )
 
   private def accessSelect(unlisted: Boolean = false, trash: Boolean = false)(using
@@ -144,33 +130,33 @@ final class StudyPager(
       order: StudyOrder,
       page: Int,
       nbResults: Option[Fu[Int]] = none,
-      hint: Option[Bdoc] = none,
-      maxPerPage: Option[MaxPerPage]
-  )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
-    val adapter = Adapter[Study](
-      collection = coll,
-      selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
-      projection = studyRepo.projection.some,
-      sort = order match
-        case StudyOrder.hot => $sort.desc("rank")
-        case StudyOrder.newest => $sort.desc("createdAt")
-        case StudyOrder.oldest => $sort.asc("createdAt")
-        case StudyOrder.updated => $sort.desc("updatedAt")
-        case StudyOrder.popular => $sort.desc("likes")
-        case StudyOrder.alphabetical => $sort.asc("name")
-        // mine filter for topic view
-        case StudyOrder.mine => $sort.desc("rank")
-        // relevant not used here
-        case StudyOrder.relevant => $sort.desc("rank")
-      ,
-      hint = hint
-    ).mapFutureList(withChaptersAndLiking())
-    Paginator(
-      adapter = nbResults.fold(adapter): nb =>
-        CachedAdapter(adapter, nb),
-      currentPage = page,
-      maxPerPage = maxPerPage.getOrElse(this.maxPerPage)
-    )
+      hint: Option[Bdoc] = none
+  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll:
+    coll =>
+      val adapter = Adapter[Study](
+        collection = coll,
+        selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
+        projection = studyRepo.projection.some,
+        sort = order match
+          case StudyOrder.hot => $sort.desc("rank")
+          case StudyOrder.newest => $sort.desc("createdAt")
+          case StudyOrder.oldest => $sort.asc("createdAt")
+          case StudyOrder.updated => $sort.desc("updatedAt")
+          case StudyOrder.popular => $sort.desc("likes")
+          case StudyOrder.alphabetical => $sort.asc("name")
+          // mine filter for topic view
+          case StudyOrder.mine => $sort.desc("rank")
+          // relevant not used here
+          case StudyOrder.relevant => $sort.desc("rank")
+        ,
+        hint = hint
+      ).mapFutureList(withChaptersAndLiking())
+      Paginator(
+        adapter = nbResults.fold(adapter): nb =>
+          CachedAdapter(adapter, nb),
+        currentPage = page,
+        maxPerPage = if format == StudyFormat.compact then maxPerPageCompact else maxPerPage
+      )
 
   def withChaptersAndLiking(
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
