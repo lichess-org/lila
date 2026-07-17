@@ -34,8 +34,8 @@ final class ForumDelete(
   def deletePost(view: PostView)(using Me): Funit =
     postRepo
       .isFirstPost(view.topic.id, view.post.id)
-      .flatMap:
-        if _ then deleteTopic(view)
+      .flatMap: isFirst =>
+        if isFirst && !view.topic.isFeed then deleteTopic(view)
         else
           for
             _ <- picfitApi.pullRef(picRef(view.post.id))
