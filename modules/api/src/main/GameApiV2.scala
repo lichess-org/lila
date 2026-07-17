@@ -36,6 +36,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     gameProxy: GameProxyRepo,
     divider: Divider,
+    quickOpening: lila.game.GameQuickOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
@@ -312,6 +313,7 @@ final class GameApiV2(
       .flatMap(AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _))
     phases = flags.accuracy.so:
       (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
+    opening = flags.opening.so(quickOpening(g))
   yield Json
     .obj(
       "id" -> g.id,
@@ -334,7 +336,7 @@ final class GameApiV2(
     .add("fullId" -> config.by.flatMap(Pov(g, _)).map(_.fullId))
     .add("initialFen" -> initialFen)
     .add("winner" -> g.winnerColor.map(_.name))
-    .add("opening" -> g.opening.ifTrue(flags.opening))
+    .add("opening" -> opening.map(o => o.atPly(chess.Ply(o.nbMoves))))
     .add("moves" -> flags.moves.option {
       applyDelay(g.sans, flags.keepDelayIf(g.playable)).mkString(" ")
     })

@@ -120,7 +120,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
 
   def titleOf(pov: Pov)(using Translate) =
-    val opening = pov.game.opening.fold(trans.site.analysis.txt())(_.opening.name)
+    val opening = pov.game.fullOpening.fold(trans.site.analysis.txt())(_.opening.name)
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: $opening"
 
   object bits:

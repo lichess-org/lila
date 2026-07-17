@@ -127,8 +127,8 @@ final class PgnDump(
       game.daysPerTurn
         .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
         .orElse(Tag.timeControl(game.clock.map(_.config)).some),
-      Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-      withOpening.option(Tag(_.Opening, game.opening.fold("?")(_.opening.name))),
+      Tag(_.ECO, game.fullOpening.fold("?")(_.opening.eco)).some,
+      withOpening.option(Tag(_.Opening, game.fullOpening.fold("?")(_.opening.name))),
       Tag(
         _.Termination, {
           import chess.Status.*

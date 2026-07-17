@@ -11,7 +11,7 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
     annotateStatus(game.winnerColor, game.status):
-      annotateOpening(game.opening) {
+      annotateOpening(game.fullOpening) {
         annotateTurns(
           annotateDrawOffers(p, game.drawOffers),
           analysis.so(_.advices)

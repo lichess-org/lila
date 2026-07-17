@@ -131,7 +131,7 @@ final private[api] class RoundApi(
       swissApi.gameView(pov),
       ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
       owner.so(forecastApi.loadForDisplay(pov)),
-      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo(_, true)),
+      withFlags.puzzles.so(pov.game.fullOpening.map(_.opening)).so(puzzleOpeningApi.getClosestTo(_, true)),
       bookmarkApi.exists(pov.game, ctx.me)
     ).mapN: (json, tour, simul, swiss, note, fco, puzzleOpening, bookmarked) =>
       (

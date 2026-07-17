@@ -10,7 +10,6 @@ import lila.game.GameExt.*
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Player.nameSplit
-import lila.common.ClientName
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -349,9 +348,7 @@ final class GameUi(helpers: Helpers):
 
     private def opening(g: Game) =
       div(cls := "opening")(
-        g.fromPosition.not.so(g.opening).map { opening =>
-          strong(opening.opening.name)
-        },
+        quickOpening(g).map(o => strong(o.name)),
         div(cls := "pgn")(
           g.sans
             .take(6)
