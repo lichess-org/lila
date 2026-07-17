@@ -98,7 +98,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
     val headerText = if isDiagnostic then "Diagnostics" else topic.name
     val backUrl =
-      if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
+      if topic.isFeed then routes.Feed.index(1).url
+      else if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
       else
         topic.ublogId.fold(s"${routes.ForumCateg.show(categ.id)}"): id =>
           routes.Ublog.redirect(id).url
@@ -118,6 +119,24 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
         main(cls := "forum forum-topic page-small box box-pad")(
           boxTop(
             h1(a(href := backUrl, dataIcon := Icon.LessThan, cls := "text"), headerText),
+            topic.feedItemId.map: feedItemId =>
+              Granter
+                .opt(_.Feed)
+                .option(
+                  div(cls := "box__top__actions")(
+                    a(
+                      href := routes.Feed.edit(feedItemId),
+                      cls := "button button-empty feed-action",
+                      dataIcon := Icon.Pencil
+                    ),
+                    postForm(action := routes.Feed.delete(feedItemId))(
+                      submitButton(
+                        cls := "button button-empty button-red feed-action yes-no-confirm",
+                        dataIcon := Icon.Trash
+                      )
+                    )
+                  )
+                ),
             isDiagnostic.option(
               postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
                 button(cls := "button button-red")("erase diagnostics")
@@ -172,7 +191,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   )
                 )
               ),
-              (canModCateg || Granter.opt(_.StickyPosts)).option:
+              (categ.id != ForumCateg.feedId && (canModCateg || Granter.opt(_.StickyPosts))).option:
                 postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
                   button(cls := "button button-empty button-brag"):
                     topic.sticky.fold(frag("Sticky")): by =>

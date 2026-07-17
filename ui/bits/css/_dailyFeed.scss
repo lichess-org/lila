@@ -61,7 +61,8 @@ $marker-margin-top: -14px;
     &__day {
       @extend %flex-center;
 
-      gap: 0.5em;
+      margin-bottom: 1rem;
+      gap: 0.6em;
 
       h2 {
         display: inline;
@@ -78,7 +79,28 @@ $marker-margin-top: -14px;
         opacity: 1;
       }
 
-      margin-bottom: 1rem;
+      .last-post {
+        display: flex;
+        align-items: center;
+        gap: 1ch;
+        margin-inline-start: auto;
+        color: $c-font-dim;
+      }
+
+      .last-post a.user-link {
+        color: $c-font-dim;
+      }
+
+      .comments,
+      .last-post a {
+        color: $c-link-dim;
+
+        @media (hover: hover) and (pointer: fine) {
+          &:hover {
+            color: $c-link-hover;
+          }
+        }
+      }
     }
 
     &__markup {

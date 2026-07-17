@@ -49,6 +49,7 @@ object ForumCateg:
 
   export lila.core.forum.ForumCateg.*
 
+  val feedId = ForumCategId("lichess-updates")
   val ublogId = ForumCategId("community-blog-discussions")
   val diagnosticId = ForumCategId("diagnostic")
 
