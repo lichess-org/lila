@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
 
-    @media (width < $xxx-small) {
+    @media (max-width: $xxx-small) {
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 

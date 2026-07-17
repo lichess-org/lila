@@ -81,7 +81,7 @@
         color: #333 !important;
         text-shadow: 0 0 6px #fff;
 
-        @media (width <= $small) {
+        @media (max-width: $small) {
           top: 10px;
         }
       }

@@ -14,7 +14,7 @@
   .studies {
     ---min-width: 400px;
 
-    @media (width < $xx-small) {
+    @media (max-width: $xx-small) {
       ---min-width: calc(100vw - 2em);
 
       padding: 0 0.5em;
@@ -48,7 +48,7 @@
       }
     }
 
-    @media (width < $xx-small) {
+    @media (max-width: $xx-small) {
       min-height: fit-content;
       padding: 6px 3em 6px 0;
 
@@ -66,7 +66,7 @@
       background-position: center;
       flex-shrink: 0;
 
-      @media (width < $xx-small) {
+      @media (max-width: $xx-small) {
         width: 50px;
         height: 64px;
       }

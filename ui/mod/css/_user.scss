@@ -1,4 +1,4 @@
-@media (width < $xx-large) {
+@media (max-width: $xx-large) {
   #main-wrap.has-mod-zone .page-menu__menu {
     display: none;
   }
