@@ -9,8 +9,7 @@ import { renderColorForm } from './side';
 const STUDY_URL = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
-  const data = ctrl.data;
-  const { angle, replay } = data;
+  const { angle, replay } = ctrl.data;
   const showEditor = ctrl.mode === 'view' && !ctrl.autoNexting();
 
   if (replay) return showEditor ? hl('div.puzzle__side__theme', editor(ctrl)) : null;
@@ -18,31 +17,33 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
 
   const backHref = ctrl.routerWithLang(`/training/${angle.opening ? 'openings' : 'themes'}`);
 
-  return ctrl.isDaily
-    ? hl(
-        'div.puzzle__side__theme.puzzle__side__theme--daily',
-        backToTheme(backHref, ['« ', i18n.puzzle.dailyPuzzle]),
-      )
-    : hl('div.puzzle__side__theme', [
-        backToTheme(backHref, ['« ', angle.name], { class: { long: angle.name.length > 20 } }),
-        angle.opening
-          ? hl('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
-              'Learn more about ',
-              angle.opening.name,
-            ])
-          : hl('p', [
-              angle.desc,
-              angle.chapter &&
-                hl(
-                  'a.puzzle__side__theme__chapter.text',
-                  { attrs: { href: `${STUDY_URL}/${angle.chapter}`, target: '_blank' } },
-                  [' ', i18n.puzzle.example],
-                ),
-            ]),
-        showEditor
-          ? hl('div.puzzle__themes', editor(ctrl))
-          : !replay && !ctrl.streak && (angle.opening || angle.openingAbstract) && renderColorForm(ctrl),
-      ]);
+  if (ctrl.isDaily) {
+    return hl(
+      'div.puzzle__side__theme.puzzle__side__theme--daily',
+      backToTheme(backHref, ['« ', i18n.puzzle.dailyPuzzle]),
+    );
+  }
+
+  return hl('div.puzzle__side__theme', [
+    backToTheme(backHref, ['« ', angle.name], { class: { long: angle.name.length > 20 } }),
+    angle.opening
+      ? hl('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
+          'Learn more about ',
+          angle.opening.name,
+        ])
+      : hl('p', [
+          angle.desc,
+          angle.chapter &&
+            hl(
+              'a.puzzle__side__theme__chapter.text',
+              { attrs: { href: `${STUDY_URL}/${angle.chapter}`, target: '_blank' } },
+              [' ', i18n.puzzle.example],
+            ),
+        ]),
+    showEditor
+      ? hl('div.puzzle__themes', editor(ctrl))
+      : !replay && !ctrl.streak && (angle.opening || angle.openingAbstract) && renderColorForm(ctrl),
+  ]);
 }
 
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
@@ -56,13 +57,13 @@ function themeTrans(key: string) {
 }
 
 const editor = (ctrl: PuzzleCtrl): VNode[] => {
-  const data = ctrl.data;
+  const { puzzle } = ctrl.data;
   const votedThemes = ctrl.round?.themes ?? ({} as RoundThemes);
 
   const visibleThemes: ThemeKey[] = [
-    ...data.puzzle.themes.filter(t => !invisibleThemes.has(t)),
+    ...puzzle.themes.filter(t => !invisibleThemes.has(t)),
     ...Object.keys(votedThemes).filter(
-      (t: ThemeKey): t is ThemeKey => !!votedThemes[t] && !data.puzzle.themes.includes(t),
+      (t: ThemeKey): t is ThemeKey => !!votedThemes[t] && !puzzle.themes.includes(t),
     ),
   ].sort();
   const allThemes = ctrl.isDaily ? null : ctrl.allThemes;

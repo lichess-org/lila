@@ -6,24 +6,23 @@ import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 
 import type PuzzleCtrl from '@/ctrl';
-import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '@/interfaces';
+import type { Angle, PuzzleDifficulty } from '@/interfaces';
 import type PuzzleStreak from '@/streak';
 
 export function puzzleBox(ctrl: PuzzleCtrl): VNode {
-  const { game, puzzle } = ctrl.data;
-  return hl('div.puzzle__side__metas', [puzzleInfos(ctrl, puzzle), gameInfos(ctrl, game, puzzle)]);
+  return hl('div.puzzle__side__metas', [puzzleInfos(ctrl), gameInfos(ctrl)]);
 }
 
-const angleImg = (ctrl: PuzzleCtrl): string => {
-  const angle = ctrl.data.angle;
+const angleImg = (angle: Angle): string => {
   const name =
     angle.opening || angle.openingAbstract ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
   return site.asset.url(`images/puzzle-themes/${name}.svg`);
 };
 
-const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
-  hl('div.infos.puzzle', [
-    hl('img.infos__angle-img', { attrs: { src: angleImg(ctrl), alt: ctrl.data.angle.name } }),
+const puzzleInfos = (ctrl: PuzzleCtrl): VNode => {
+  const { puzzle, angle } = ctrl.data;
+  return hl('div.infos.puzzle', [
+    hl('img.infos__angle-img', { attrs: { src: angleImg(angle), alt: angle.name } }),
     hl('div', [
       hl(
         'p',
@@ -48,14 +47,16 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
           i18n.puzzle.ratingX.asArray(
             !ctrl.streak && ctrl.mode === 'play'
               ? hl('span.hidden', i18n.puzzle.hidden)
-              : hl('strong', `${puzzle.rating}`),
+              : hl('strong', puzzle.rating),
           ),
         ),
       hl('p', i18n.puzzle.playedXTimes.asArray(puzzle.plays, hl('strong', numberFormat(puzzle.plays)))),
     ]),
   ]);
+};
 
-function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
+function gameInfos(ctrl: PuzzleCtrl): VNode {
+  const { game, puzzle } = ctrl.data;
   const gameName = game.clock && game.perf ? `${game.clock} • ${game.perf.name}` : 'import';
   return hl('div.infos', { attrs: game.perf && dataIcon(perfIcons[game.perf.key]) }, [
     hl('div', [
@@ -97,7 +98,7 @@ const renderStreak = (streak: PuzzleStreak) =>
   );
 
 export const userBox = (ctrl: PuzzleCtrl): VNode => {
-  const data = ctrl.data;
+  const { data } = ctrl;
   if (!data.user)
     return hl('div.puzzle__side__user', [
       hl('p', i18n.puzzle.toGetPersonalizedPuzzles),
@@ -131,7 +132,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
   ]);
 };
 
-export const streakBox = (ctrl: PuzzleCtrl) => hl('div.puzzle__side__user', renderStreak(ctrl.streak!));
+export const streakBox = ({ streak }: PuzzleCtrl) => hl('div.puzzle__side__user', renderStreak(streak!));
 
 const difficulties: [PuzzleDifficulty, number][] = [
   ['easiest', -600],
@@ -147,10 +148,10 @@ const colors = [
 ] as const;
 
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
-  const replay = ctrl.data.replay;
+  const { replay, angle } = ctrl.data;
   if (!replay) return;
   const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
-  const text = i18n.puzzleTheme[ctrl.data.angle.key];
+  const text = i18n.puzzleTheme[angle.key];
   return hl('div.puzzle__side__replay', [
     hl('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, ['« ', `Replaying ${text} puzzles`]),
     hl('div.puzzle__side__replay__bar', {
@@ -163,11 +164,10 @@ export function replay(ctrl: PuzzleCtrl): MaybeVNode {
 }
 
 export function config(ctrl: PuzzleCtrl): MaybeVNode {
-  const autoNextId = 'puzzle-toggle-autonext';
-  const data = ctrl.data;
+  const { data } = ctrl;
   return hl('div.puzzle__side__config', [
     cmnToggleWrap({
-      id: autoNextId,
+      id: 'puzzle-toggle-autonext',
       name: i18n.puzzle.jumpToNextPuzzleImmediately,
       checked: ctrl.autoNext(),
       change(v) {
