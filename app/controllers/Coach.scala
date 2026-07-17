@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm, allFlags }
+import lila.study.ui.StudyFormatStore.given
 import lila.user.Flags
 import lila.core.user.FlagCode
 
