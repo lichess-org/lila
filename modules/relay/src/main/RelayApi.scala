@@ -506,18 +506,16 @@ final class RelayApi(
       until: Option[Instant]
   ): Source[RelayRound.WithTour, ?] =
     Source.futureSource:
-      for
-        active <- listing.active
-        tours = active.map(_.tour).filter(_.spotlight.exists(_.enabled))
-        rounds <- roundRepo.byToursOrdered(tours.map(_.id))
-      yield
-        val withTour = for
-          round <- rounds
-          if since.forall(s => round.startsAtTime.exists(!_.isBefore(s)))
-          if until.forall(u => round.startsAtTime.exists(!_.isAfter(u)))
-          tour <- tours.find(_.id == round.tourId)
-        yield round.withTour(tour)
-        Source(withTour)
+      listing.active.map: all =>
+        Source(all.map(_.tour).filter(_.spotlight.exists(_.enabled)))
+          .mapAsync(1): tour =>
+            roundRepo.byTourOrdered(tour.id).map(tour -> _)
+          .mapConcat: (tour, rounds) =>
+            for
+              round <- rounds
+              if since.forall(s => round.startsAtTime.exists(_.isAfter(s)))
+              if until.forall(u => round.startsAtTime.exists(_.isBefore(u)))
+            yield round.withTour(tour)
           .throttle(perSecond.value, 1.second)
           .take(max.fold(9999)(_.value))
 
