@@ -8,9 +8,9 @@ import lila.core.game.{ Game, Player }
 import lila.core.i18n.I18nKey
 import lila.game.GameExt.*
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Player.nameSplit
+import lila.common.ClientName
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -256,7 +256,7 @@ final class GameUi(helpers: Helpers):
 
     def apply(g: Game, user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
-    )(using Context): Frag =
+    )(using ctx: Context): Frag =
       val fromPlayer = user.flatMap(g.player)
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
@@ -276,7 +276,7 @@ final class GameUi(helpers: Helpers):
             gamePlayer(g.blackPlayer)
           ),
           result(g, fromPlayer),
-          if g.playedPlies > 0 then opening(g) else frag(br, br),
+          if g.playedPlies > 0 && ctx.isAuth then opening(g) else frag(br, br),
           g.metadata.analysed.option(
             div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
