@@ -36,7 +36,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: stretch;
-  touch-action: none;
+  touch-action: pan-x pan-y;
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
   height: 100%;
