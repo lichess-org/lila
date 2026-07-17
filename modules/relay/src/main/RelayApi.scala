@@ -29,6 +29,7 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
+    listing: RelayListing,
     playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
@@ -497,6 +498,28 @@ final class RelayApi(
       .mapConcat(identity)
       .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
+
+  def spotlightRounds(
+      perSecond: MaxPerSecond,
+      max: Option[Max],
+      since: Option[Instant],
+      until: Option[Instant]
+  ): Source[RelayRound.WithTour, ?] =
+    Source.futureSource:
+      for
+        active <- listing.active
+        tours = active.map(_.tour).filter(_.spotlight.exists(_.enabled))
+        rounds <- roundRepo.byToursOrdered(tours.map(_.id))
+      yield
+        val withTour = for
+          round <- rounds
+          if since.forall(s => round.startsAtTime.exists(!_.isBefore(s)))
+          if until.forall(u => round.startsAtTime.exists(!_.isAfter(u)))
+          tour <- tours.find(_.id == round.tourId)
+        yield round.withTour(tour)
+        Source(withTour)
+          .throttle(perSecond.value, 1.second)
+          .take(max.fold(9999)(_.value))
 
   private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](32, "relay.ongoingWithoutDelay"):
     _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isInternalWithoutDelay)
