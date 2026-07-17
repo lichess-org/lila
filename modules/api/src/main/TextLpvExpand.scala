@@ -80,7 +80,7 @@ final class TextLpvExpand(
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
 
   private val pgnFlags =
-    lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
+    lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = none, literate = true)
 
   private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](256, "textLpvExpand.pgn.game"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(gameIdToPgn)

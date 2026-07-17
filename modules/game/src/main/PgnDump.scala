@@ -15,7 +15,8 @@ import lila.game.Player.nameSplit
 final class PgnDump(
     routeUrl: RouteUrl,
     lightUserApi: lila.core.user.LightUserApiMinimal,
-    fideIdOf: lila.core.user.PublicFideIdOf
+    fideIdOf: lila.core.user.PublicFideIdOf,
+    quickOpening: lila.game.GameQuickOpening
 )(using Executor)
     extends lila.core.game.PgnDump:
 
@@ -83,7 +84,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Boolean,
+      withOpening: Option[Boolean],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] = for
@@ -91,6 +92,8 @@ final class PgnDump(
     fideIds <- users.traverse(_.so(fideIdOf))
   yield Tags:
     val importedDate = importedTags.flatMap(_.apply(_.Date))
+    val opening = withOpening.flatMap:
+      if _ then game.fullOpening else quickOpening(game).map(o => o.atPly(Ply(o.nbMoves)))
     List[Option[Tag]](
       Tag(
         _.Event,
@@ -128,7 +131,7 @@ final class PgnDump(
         .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
         .orElse(Tag.timeControl(game.clock.map(_.config)).some),
       Tag(_.ECO, game.fullOpening.fold("?")(_.opening.eco)).some,
-      withOpening.option(Tag(_.Opening, game.fullOpening.fold("?")(_.opening.name))),
+      withOpening.isDefined.option(Tag(_.Opening, opening.fold("?")(_.opening.name))),
       Tag(
         _.Termination, {
           import chess.Status.*

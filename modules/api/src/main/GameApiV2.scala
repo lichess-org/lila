@@ -313,7 +313,8 @@ final class GameApiV2(
       .flatMap(AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _))
     phases = flags.accuracy.so:
       (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
-    opening = flags.opening.so(quickOpening(g))
+    opening = flags.opening.flatMap:
+      if _ then g.fullOpening else quickOpening(g).map(o => o.atPly(chess.Ply(o.nbMoves)))
   yield Json
     .obj(
       "id" -> g.id,
@@ -336,7 +337,7 @@ final class GameApiV2(
     .add("fullId" -> config.by.flatMap(Pov(g, _)).map(_.fullId))
     .add("initialFen" -> initialFen)
     .add("winner" -> g.winnerColor.map(_.name))
-    .add("opening" -> opening.map(o => o.atPly(chess.Ply(o.nbMoves))))
+    .add("opening" -> opening)
     .add("moves" -> flags.moves.option {
       applyDelay(g.sans, flags.keepDelayIf(g.playable)).mkString(" ")
     })
@@ -477,5 +478,12 @@ object GameApiV2:
   case class MobileRecentConfig(user: User)(using val by: Option[Me]) extends Config:
     val format = GameApiV2.Format.JSON
     val flags =
-      WithFlags(clocks = false, moves = false, evals = false, opening = true, lastFen = true, accuracy = true)
+      WithFlags(
+        clocks = false,
+        moves = false,
+        evals = false,
+        opening = false.some,
+        lastFen = true,
+        accuracy = true
+      )
     val perSecond = MaxPerSecond(20) // unused
