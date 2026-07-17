@@ -122,6 +122,7 @@ db.user4.createIndex(
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, slug: 1 });
+db.f_topic.createIndex({ feedItemId: 1 }, { sparse: true });
 db.f_topic.createIndex(
   { categId: 1, troll: 1, sticky: 1 },
   { partialFilterExpression: { sticky: { $exists: 1 } } },

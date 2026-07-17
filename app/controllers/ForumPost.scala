@@ -93,7 +93,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     Found(postApi.getPost(id).flatMapz(postApi.viewOf)): view =>
       val post = view.post
       if post.userId.exists(_.is(me)) && !post.erased then
-        if view.topic.nbPosts == 1 then
+        if !view.topic.isFeed && view.topic.nbPosts == 1 then
           env.forum.delete.deleteTopic(view).inject(Redirect(routes.ForumCateg.show(view.categ.id)))
         else postApi.erasePost(post).inject(Redirect(routes.ForumPost.redirect(id)))
       else

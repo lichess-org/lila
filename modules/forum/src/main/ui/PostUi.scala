@@ -22,6 +22,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       isTopicFirst: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
+      val isFeedItem = topic.categId == ForumCateg.feedId && isTopicFirst
+      val allowEdit = !post.erased && ctx.me.soUse(postWithFrag.post.shouldShowEditForm) && !isFeedItem
       val postFrag = div(cls := "forum-post__message expand-text")(
         if post.erased then "<Comment deleted by user>"
         else body
@@ -34,21 +36,24 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
             div(
-              bits.authorLink(
-                post = post,
-                cssClass = s"author${(topic.userId == post.userId).so(" author--op")}".some
-              ),
+              if isFeedItem then userIdLink(UserId.lichess.some, cssClass = "author author--op".some)
+              else
+                bits.authorLink(
+                  post = post,
+                  cssClass = s"author${(topic.userId == post.userId).so(" author--op")}".some
+                )
+              ,
               a(href := url)(
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      if !(topic.isFeed && isTopicFirst) then span(cls := "post-edited")("edited "),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
                     momentFromNow(post.createdAt)
               ),
-              (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
+              allowEdit.option(
                 button(
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
@@ -125,7 +130,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             )
           )
         else postFrag,
-        (!post.erased).option:
+        (!post.erased && !isFeedItem).option:
           frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))
         ,
         ctx.me.soUse[Option[Tag]]:

@@ -30,6 +30,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     teamApi: lila.core.team.TeamApi,
     cacheApi: lila.memo.CacheApi,
+    feed: lila.feed.Env,
     markdown: lila.memo.MarkdownCache,
     picfitApi: lila.memo.PicfitApi,
     ws: StandaloneWSClient
@@ -44,6 +45,7 @@ final class Env(
   private lazy val detectLanguage =
     DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
+  private lazy val feedApi = feed.api
   private lazy val textExpand = wire[ForumTextExpand]
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
