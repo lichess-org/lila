@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
+import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.ui.{ *, given }
 
 import ScalatagsTemplate.{ *, given }
@@ -12,6 +13,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
     sitePage: String => Context ?=> Page
 )(using Executor):
   import helpers.{ *, given }
+
+  private val feedId = ForumCategId("lichess-updates")
 
   private def renderCache[A](ttl: FiniteDuration)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler
@@ -26,7 +29,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       .js(edit.option(Esm("bits.flatpickr")))
       .js(edit.option(esmInitBit("dailyFeed")))
 
-  def index(ups: Paginator[Feed.Update])(using Context) =
+  def index(ups: Paginator[Feed.View])(using Context) =
     page("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
@@ -57,6 +60,11 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)
             ,
+            update.topicId.map: _ =>
+              a(
+                cls := "daily-feed__update__discuss",
+                href := routes.ForumTopic.show(feedId, ForumTopicSlug(update.id))
+              )("Discuss..."),
             update.rendered
           )
         ),
@@ -126,11 +134,12 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
   private def convertToAbsoluteHrefs(html: Html): Html =
     html.map(_.replaceAll(""" href="/""", s""" href="$netBaseUrl/"""))
 
-  private def updates(ups: Paginator[Feed.Update], editor: Boolean)(using Context) =
+  private def updates(ups: Paginator[Feed.View], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates infinite-scroll")(
       ups.currentPageResults
         .filter(_.published || editor)
-        .map: update =>
+        .map: view =>
+          val update = view.update
           div(cls := "daily-feed__update paginated", id := update.id)(
             marker(update.flair),
             div(cls := "daily-feed__update__content")(
@@ -146,11 +155,25 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                     (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))
                   )
-                )
+                ),
+                view.comments.map: comments =>
+                  val topicUrl = routes.ForumTopic.show(feedId, comments.slug)
+                  frag(
+                    a(cls := "comments", href := topicUrl)(
+                      s"${comments.nbComments.localize} comments"
+                    ),
+                    comments.lastCommentAt.map: at =>
+                      span(cls := "last-post")(
+                        trans.site.lastPost(),
+                        a(href := topicUrl)(momentFromNow(at)),
+                        userIdLink(comments.lastCommentBy)
+                      )
+                  )
               ),
               div(cls := "daily-feed__update__markup")(update.rendered)
             )
-          ),
+          )
+      ,
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
@@ -163,7 +186,10 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           help = raw("Set in the future to schedule an update.").some,
           half = true
         )(form3.flatpickr(_, minDate = none)(required)),
-        form3.checkboxGroup(form("public"), "Publish", half = true)
+        div(
+          form3.checkboxGroup(form("public"), "Publish", half = true),
+          form3.checkboxGroup(form("comments"), "Enable comments", half = true)
+        )
       ),
       form3.group(
         form("content"),
