@@ -1015,7 +1015,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="gameInProgress">Tens una partida començada amb %s.</string>
   <string name="abortTheGame">Avortar el joc</string>
   <string name="resignTheGame">Rendir-se</string>
-  <string name="youCantStartNewGame">No pots començar un joc nou fins que aquest acabi.</string>
+  <string name="youCantStartNewGame">No pots començar una nova partida mentre és el teu torn.</string>
   <string name="since">Des de</string>
   <string name="until">Fins</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>

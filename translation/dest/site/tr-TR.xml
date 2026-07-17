@@ -1014,7 +1014,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="gameInProgress">Şu anda %s ile olan maçınız devam ediyor.</string>
   <string name="abortTheGame">Maçı iptal et</string>
   <string name="resignTheGame">Maçı terk et</string>
-  <string name="youCantStartNewGame">Mevcut oyun bitene kadar yeni bir oyuna başlayamazsın.</string>
   <string name="since">Seçili tarihten beri</string>
   <string name="until">Seçili tarihe kadar</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>

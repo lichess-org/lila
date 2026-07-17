@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: AppealTopic => String => Context ?=> Frag,
-    inactiveAppeals: List[Appeal] => Context ?=> Frag
+    inactiveAppeals: List[Appeal] => (Context, Me) ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -361,7 +361,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic], status: UserStatus, appeals: Appeal.ByTopic)(using ctx: Context) =
+  def page(topic: Option[AppealTopic], status: UserStatus, appeals: Appeal.ByTopic)(using Context, Me) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small appeal force-ltr")(
         div(cls := "box box-pad")(

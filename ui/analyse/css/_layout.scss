@@ -32,7 +32,6 @@ body {
 
   &__tools {
     grid-area: tools;
-    height: var(---cg-height, 100%);
   }
 
   &__controls {
@@ -105,6 +104,10 @@ body {
 
     &__side {
       margin: $analyse-block-gap 0 0 0;
+    }
+
+    &__tools {
+      height: var(---cg-height, 100%);
     }
 
     .chat__members {

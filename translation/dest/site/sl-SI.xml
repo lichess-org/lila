@@ -1096,7 +1096,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="gameInProgress">V teku je igra z %s.</string>
   <string name="abortTheGame">Prekinite igro</string>
   <string name="resignTheGame">Predaj igro</string>
-  <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>

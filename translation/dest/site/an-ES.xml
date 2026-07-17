@@ -1015,7 +1015,6 @@
   <string name="gameInProgress">Yes chugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame">No puez encomenzar una nueva partida dica que no remates esta.</string>
   <string name="since">Dende</string>
   <string name="until">Dica</string>
   <string name="lichessDbExplanation">Partidas per puntos de toz es chugadors de Lichess</string>

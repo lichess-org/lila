@@ -646,7 +646,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">对局总时长：%s</string>
   <string name="watchGames">观看对局</string>
-  <string name="tpTimeSpentOnTV">在 Lichess TV 上的总时长：%s</string>
+  <string name="tpTimeSpentOnTV">Lichess TV：%s</string>
   <string name="watch">观看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">主播</string>
@@ -973,7 +973,7 @@
   <string name="gameInProgress">您正在与 %s 进行对局。</string>
   <string name="abortTheGame">终止此对局</string>
   <string name="resignTheGame">认输</string>
-  <string name="youCantStartNewGame">在此对局结束前，您无法开始新对局。</string>
+  <string name="youCantStartNewGame">轮到您行棋时，您无法开始新的对局！</string>
   <string name="since">自</string>
   <string name="until">至</string>
   <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>

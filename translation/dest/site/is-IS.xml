@@ -983,7 +983,6 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="gameInProgress">Þú ert nú þegar með skák á móti %s.</string>
   <string name="abortTheGame">Hætta við skák</string>
   <string name="resignTheGame">Gefa upp skák</string>
-  <string name="youCantStartNewGame">Þú getur ekki hafið nýja skák fyrr en þessari er lokið.</string>
   <string name="since">Síðan</string>
   <string name="until">Uns</string>
   <string name="lichessDbExplanation">Skákir sem gilda til stiga sem leiknar eru á Lichess</string>

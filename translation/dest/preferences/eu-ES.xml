@@ -72,8 +72,21 @@
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
+  <string name="showServerAnalysis">Erakutsi zerbitzariaren analisia</string>
+  <string name="showBestMoveArrows">Erakutsi jokaldi onenen geziak</string>
+  <string name="showManeuverArrows">Erakutsi maniobren geziak</string>
+  <string name="showGauge">Erakutsi ebaluazioaren langa</string>
+  <string name="showMoveAnnotationsOnBoard">Erakutsi jokaldien komentarioak</string>
+  <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
+  <string name="showLiveGlyphs">Motorearen zuzeneko komentarioak</string>
+  <string name="showUndefendedPieces">Erakutsi defentsarik ez duten piezak</string>
+  <string name="showPinnedPieces">Erakutsi iltzatutako piezak</string>
+  <string name="showCheckableKing">Erakutsi xake egin dakiokeen erregea</string>
+  <string name="disclosureMode">Erakutsi aldaerak ezkutatzea</string>
   <string name="generalSettings">Orokorra</string>
   <string name="moveListSettings">Jokaldi zerrenda</string>
   <string name="boardSettings">Taula</string>
   <string name="analysisSettings">Analisiaren aukerak</string>
+  <string name="maneuverArrowsHelp">Pieza batentzat motorearen joladi segida</string>
+  <string name="hoverOverSettingLabelsForHelp">Jarri etiketen gainean ezarpenen laguntza lortzeko</string>
 </resources>

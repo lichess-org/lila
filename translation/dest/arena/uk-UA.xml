@@ -79,7 +79,7 @@
   <string name="medians">медіани</string>
   <string name="allAveragesAreX">Усі середні значення на цій сторінці є %s.</string>
   <string name="total">Загальні</string>
-  <string name="pointsAvg">Середні значення очків</string>
+  <string name="pointsAvg">Середня кількість очок</string>
   <string name="pointsSum">Сума очок</string>
   <string name="rankAvg">Середнє місце</string>
   <string name="tournamentWinners">Переможці турніру</string>

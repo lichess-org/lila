@@ -15,7 +15,7 @@
   <string name="downloadKit">下载主播工具包</string>
   <string name="xIsStreaming">%s 正在直播</string>
   <string name="rules">直播规则</string>
-  <string name="rule1">在 Lichess 上直播时，请在您的直播标题中包含关键词\"lichess.org\"，并使用\"Chess\"类别。</string>
+  <string name="rule1">在 Lichess 上直播时，请在您的直播标题中包含关键词“lichess.org”，并使用“Chess”类别。</string>
   <string name="rule2">当您直播非 Lichess 内容时，请移除该关键词。</string>
   <string name="rule3">Lichess 将自动检测您的直播并启用以下特权：</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">请阅读我们的 %s，以确保您在直播期间为所有人提供公平的竞赛环境。</string>
