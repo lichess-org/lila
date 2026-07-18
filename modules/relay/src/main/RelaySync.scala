@@ -141,7 +141,14 @@ final private class RelaySync(
         game.root.children
           .nodeAt(gameMainlinePath)
           .so: lastMainlineNode =>
-            addNode(study, chapter, game, gameMainlinePath, lastMainlineNode)
+            studyApi.addNode:
+              AddNode(
+                studyId = study.id,
+                positionRef = Position(chapter, gameMainlinePath.parent).ref,
+                node = _ => Right(lastMainlineNode),
+                opts = moveOpts,
+                relay = makeRelayFor(game, gameMainlinePath).some
+              )
 
   private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainlinePath: UciPath)(using
       Who
