@@ -35,7 +35,8 @@ final class GameApiV2(
     annotator: lila.analyse.Annotator,
     getLightUser: LightUser.Getter,
     gameProxy: GameProxyRepo,
-    division: Divider,
+    divider: Divider,
+    quickOpening: lila.game.GameQuickOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
@@ -306,10 +307,14 @@ final class GameApiV2(
     arena <- g.tournamentId.traverse: tournamentId =>
       for name <- tourName.async(tournamentId)
       yield Json.obj("id" -> tournamentId, "name" -> name)
+    division = flags.division.option(divider(g, initialFen))
     accuracy = analysisOption
       .ifTrue(flags.accuracy)
-      .flatMap:
-        AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
+      .flatMap(AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _))
+    phases = flags.accuracy.so:
+      (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
+    opening = flags.opening.flatMap:
+      if _ then g.fullOpening else quickOpening(g).map(o => o.atPly(chess.Ply(o.nbMoves)))
   yield Json
     .obj(
       "id" -> g.id,
@@ -326,13 +331,13 @@ final class GameApiV2(
           .player(p, user)
           .add:
             "analysis" -> analysisOption.flatMap:
-              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy, ~phases)
           .add("team" -> teams.map(_(p.color))))
     )
     .add("fullId" -> config.by.flatMap(Pov(g, _)).map(_.fullId))
     .add("initialFen" -> initialFen)
     .add("winner" -> g.winnerColor.map(_.name))
-    .add("opening" -> g.opening.ifTrue(flags.opening))
+    .add("opening" -> opening)
     .add("moves" -> flags.moves.option {
       applyDelay(g.sans, flags.keepDelayIf(g.playable)).mkString(" ")
     })
@@ -352,7 +357,7 @@ final class GameApiV2(
       ))
     .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.position)))
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
-    .add("division" -> flags.division.option(division(g, initialFen)))
+    .add("division" -> division)
     .add("bookmarked" -> bookmarked)
     .add("import" -> g.pgnImport.map: i =>
       Json.obj().add("date" -> i.date))
@@ -473,5 +478,12 @@ object GameApiV2:
   case class MobileRecentConfig(user: User)(using val by: Option[Me]) extends Config:
     val format = GameApiV2.Format.JSON
     val flags =
-      WithFlags(clocks = false, moves = false, evals = false, opening = true, lastFen = true, accuracy = true)
+      WithFlags(
+        clocks = false,
+        moves = false,
+        evals = false,
+        opening = false.some,
+        lastFen = true,
+        accuracy = true
+      )
     val perSecond = MaxPerSecond(20) // unused

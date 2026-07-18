@@ -256,7 +256,7 @@ case class Game(
 
   def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)
 
-  lazy val opening: Option[Opening.AtPly] =
+  lazy val fullOpening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)
     then OpeningDb.search(sans)
     else none

@@ -18,7 +18,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
   private val hyperbullet = Config("HyperBullet", 0.5, IncrementSeconds(0), 20, 15)
 
   private val classicalInc = Config("Classical Increment", 25, IncrementSeconds(3), 5, 5)
-  private val rapidInc = Config("Rapid Increment", 7, IncrementSeconds(2), 7, 8)
+  private val rapidInc = Config("Rapid Increment", 8, IncrementSeconds(2), 7, 8)
   private val blitzInc = Config("Blitz Increment", 5, IncrementSeconds(2), 10, 12)
   private val superblitzInc = Config("SuperBlitz Increment", 3, IncrementSeconds(1), 12, 12)
   private val bulletInc = Config("Bullet Increment", 1, IncrementSeconds(1), 20, 15)

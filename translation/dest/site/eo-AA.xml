@@ -995,7 +995,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="gameInProgress">Vi havas ludon en progreso kun %s.</string>
   <string name="abortTheGame">Ĉesigu ludon</string>
   <string name="resignTheGame">Rezignu la ludo</string>
-  <string name="youCantStartNewGame">Vi ne povas komenci novan ludon ĝis ĉi tiu finiĝos.</string>
   <string name="since">Ekde</string>
   <string name="until">Ĝis</string>
   <string name="lichessDbExplanation">Rangaj ludoj luditaj per Lichess</string>

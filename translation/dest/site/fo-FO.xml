@@ -794,7 +794,6 @@
   <string name="hangOn">Bíða líka!</string>
   <string name="abortTheGame">Enda talvið</string>
   <string name="resignTheGame">Gev upp talvið</string>
-  <string name="youCantStartNewGame">Tú kanst ikki byrja eitt nýtt talv áðrenn hetta endar.</string>
   <string name="since">Síðan</string>
   <string name="until">Til</string>
 </resources>

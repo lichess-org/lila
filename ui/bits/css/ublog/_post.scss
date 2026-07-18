@@ -164,7 +164,7 @@
     margin-bottom: 4rem;
     gap: 1rem;
 
-    @media (width <= $xx-small) {
+    @media (max-width: $xx-small) {
       grid-template-columns: 1fr;
     }
 

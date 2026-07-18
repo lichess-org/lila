@@ -89,6 +89,18 @@ const settings: Record<SettingKey, Setting> = {
 };
 
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
+  let scrollableDiv: HTMLElement | null = null;
+  const flexTamer = () => {
+    scrollableDiv ??= document.querySelector<HTMLElement>('.analysis-settings-dialog .scrollable');
+    if (!scrollableDiv || isTouchDevice()) return;
+
+    // we reflow, then freeze height as sized by initial content so hover targets can't be moved by shrinkage
+    scrollableDiv.style.width = scrollableDiv.style.height = '';
+    const { width, height } = scrollableDiv.getBoundingClientRect();
+    scrollableDiv.style.width = `${width}px`;
+    scrollableDiv.style.height = `${height}px`;
+  };
+  if (!isTouchDevice()) window.addEventListener('resize', flexTamer);
   return domDialog({
     class: 'analysis-settings-dialog',
     htmlText: '<h2>Analysis settings</h2>',
@@ -100,13 +112,9 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
       { selector: '.show-all', result: 'showKeyboardShortcuts' },
       { selector: '.ok', result: 'ok' },
     ],
-    onShow: dlg => {
-      // freeze dialog size so stuff doesn't jiggle around on mouseover and let flex do the rest
-      const { width: viewWidth, height: viewHeight } = dlg.view.getBoundingClientRect();
-      dlg.view.style.width = `${viewWidth}px`;
-      dlg.view.style.height = `${viewHeight}px`;
-    },
+    onShow: flexTamer,
     onClose: dlg => {
+      window.removeEventListener('resize', flexTamer);
       if (dlg.returnValue !== 'showKeyboardShortcuts') return;
       ctrl.keyboardHelp = true;
       ctrl.redraw();
@@ -249,13 +257,17 @@ function helpHtml() {
     <div class="hover-hint">${i18n.preferences.hoverOverSettingLabelsForHelp}</div>`;
 }
 
+// iOS Safari has trouble rendering HTMLDialogElement content with replaced elements (i.e. <video>). It
+// can't do flex without glitching, it treats block as inline, hence the <br> after videoHtml and imageHtml
+
 function videoHtml(path: string) {
   return $html`
     <video autoplay loop muted playsinline preload="auto">
       <source src="${site.asset.url('video/' + path + '.webm')}" type="video/webm">
-    </video>`;
+    </video>
+    <br>`;
 }
 
 function imageHtml(path: string) {
-  return `<img src="${site.asset.url('images/help/' + path + '.webp')}" alt="">`;
+  return `<img src="${site.asset.url('images/help/' + path + '.webp')}" alt=""><br>`;
 }

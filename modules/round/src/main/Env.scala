@@ -42,6 +42,7 @@ final class Env(
     uciMemo: lila.game.UciMemo,
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
+    quickOpening: lila.game.GameQuickOpening,
     prefApi: lila.pref.PrefApi,
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,

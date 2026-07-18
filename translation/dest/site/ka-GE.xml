@@ -910,7 +910,6 @@
   <string name="gameInProgress">თქვენ უკვე თამაშობთ %s -სთან.</string>
   <string name="abortTheGame">შეწყვიტეთ თამაში</string>
   <string name="resignTheGame">თამაშიდან გამოსვლა</string>
-  <string name="youCantStartNewGame">ვერ შეძლებთ ახალი თამაშის დაწყებას, სანამ მიმდინარე არ დასრულდება.</string>
   <string name="since">დან</string>
   <string name="until">მდე</string>
   <string name="lichessDbExplanation">Lichess-ზე ჩატარებული რეიტინგული თამაშები</string>

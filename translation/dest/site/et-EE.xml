@@ -1020,7 +1020,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="gameInProgress">Mäng kasutajaga %s on veel pooleli.</string>
   <string name="abortTheGame">Katkesta mäng</string>
   <string name="resignTheGame">Alistu</string>
-  <string name="youCantStartNewGame">Uut mängu ei saa alustada enne, kui see mäng on lõpetatud.</string>
   <string name="since">Alates</string>
   <string name="until">Kuni</string>
   <string name="lichessDbExplanation">Reitinguga mängud kõikidelt Lichessi mängijatelt</string>

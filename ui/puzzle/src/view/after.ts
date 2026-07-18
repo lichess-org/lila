@@ -6,7 +6,6 @@ import type PuzzleCtrl from '../ctrl';
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
   hl(
     'div.puzzle__vote',
-    {},
     !ctrl.autoNexting() && [
       ctrl.session.isNew() &&
         ctrl.data.user?.provisional &&
@@ -38,7 +37,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 ];
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  const data = ctrl.data;
+  const { data } = ctrl;
   const win = ctrl.lastFeedback === 'win';
   const canPlayComputer = !ctrl.node.san?.includes('#');
   return hl(

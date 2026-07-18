@@ -625,7 +625,6 @@
   <string name="gameInProgress">Тепирь бавите из %s.</string>
   <string name="abortTheGame">Одмінити бавку</string>
   <string name="resignTheGame">Здати ся</string>
-  <string name="youCantStartNewGame">Не мож зачати нову бавку, закідь ся не кончила ся.</string>
   <string name="since">Из</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтінґові партії вшыткых бавлячув Lichess</string>

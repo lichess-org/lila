@@ -94,7 +94,7 @@
     ---cols: 4; // ui/lobby/src/main.ts
 
     grid-template-columns: repeat(4, 1fr);
-    grid-template-auto-row: fit-content(0);
+    grid-template-rows: fit-content(0) fit-content(0);
     grid-template-areas:
       'side   app     app     table'
       'tv     feed    feed    puzzle'

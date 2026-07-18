@@ -91,7 +91,7 @@
       line-height: 2em;
     }
 
-    @media (width <= $xxx-small) {
+    @media (max-width: $xxx-small) {
       column-gap: 1em;
 
       .swords {

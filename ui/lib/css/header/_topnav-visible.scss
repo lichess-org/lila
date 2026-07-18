@@ -113,4 +113,18 @@
       display: none;
     }
   }
+
+  #notify-toggle > .data-count {
+    &::after {
+      left: unset;
+      right: unset;
+      background-color: $c-badge;
+
+      @include inline-start(50%);
+    }
+
+    &:hover::after {
+      background-color: $c-link-hover;
+    }
+  }
 }

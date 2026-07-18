@@ -8,7 +8,7 @@
   position: absolute;
   top: -4px;
 
-  @media (width < $xx-small) {
+  @media (max-width: $xx-small) {
     @include inline-end(-13px);
 
     scale: 0.75;

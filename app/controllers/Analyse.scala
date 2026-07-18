@@ -52,7 +52,11 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
+              PgnDump.WithFlags(
+                clocks = false,
+                rating = ctx.pref.showRatings,
+                opening = ctx.isAuth.option(true)
+              )
             )
           ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
             env.api.roundApi

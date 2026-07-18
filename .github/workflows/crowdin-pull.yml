@@ -2,7 +2,7 @@ name: Crowdin Pull
 
 on:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
 
           create_pull_request: true
           pull_request_title: 'New Crowdin Translations'
-          pull_request_body: 'Help translate Lichess at https://crowdin.com/project/lichess'
+          pull_request_body: 'Help contribute to these translations at https://crowdin.com/project/lichess'
           pull_request_base_branch_name: ${{ github.event.repository.default_branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

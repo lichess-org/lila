@@ -13,7 +13,7 @@
 }
 
 .data-count::after {
-  @include inline-start(50%);
+  @include inline-start(0);
 
   content: attr(data-count);
   top: -5px;
@@ -25,14 +25,4 @@
 
 .data-count[data-count='0']::after {
   display: none;
-}
-
-#notify-toggle .data-count {
-  &::after {
-    background-color: $c-badge;
-  }
-
-  &:hover::after {
-    background-color: $c-link-hover;
-  }
 }

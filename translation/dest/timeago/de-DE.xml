@@ -29,7 +29,7 @@
     <item quantity="one">in %s Jahr</item>
     <item quantity="other">in %s Jahren</item>
   </plurals>
-  <string name="rightNow">vor Kurzem</string>
+  <string name="rightNow">gerade eben</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">vor %s Minute</item>
     <item quantity="other">vor %s Minuten</item>
