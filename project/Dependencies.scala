@@ -84,8 +84,8 @@ object Dependencies:
   object reactivemongo:
     val rmVersion = "1.1.0-RC20"
     // Use the Pekko actor backend instead of the default Akka one, so the whole app is Akka-free.
-    val driver = ("org.reactivemongo" %% "reactivemongo" % rmVersion)
-      .exclude("org.reactivemongo", "reactivemongo-actors-akka_3")
+    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC20")
+      // .exclude("org.reactivemongo", "reactivemongo-actors-akka_3")
     val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
     val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
     val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % rmVersion
