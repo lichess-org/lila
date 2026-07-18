@@ -207,11 +207,11 @@ final private class RelaySync(
     for
       gameMainlinePath = game.root.mainlinePath
       (path, newNodeOpt) = getNewNodeOrSetClockOfExisting(chapter, study, game)
-      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so:
-        promoteGameToMainline(study, chapter, path)
       _ <- forceBranchesAsVariations(chapter, game)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
+      _ <- (chapter.root.children.nonEmpty && !gameMainlinePath.isMainline(chapter.root)).so:
+        promoteGameToMainline(study, chapter, gameMainlinePath)
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
