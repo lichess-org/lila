@@ -1064,8 +1064,10 @@ export default class AnalyseCtrl implements CevalHandler {
     if (node.eval && !node.eval.knodes && this.data.analysis?.nodesPerMove)
       node.eval.knodes = this.data.analysis.nodesPerMove / 1000;
   };
+
   private async mergeIdbThenShowTreeView() {
     await this.idbTree.merge();
+    if (this.ongoing) this.idbTree.trimBefore(this.initialPath);
     this.treeView.hidden = false;
     this.idbTree.revealNode();
     this.redraw();
