@@ -1,3 +1,4 @@
+import { frag } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import { wsConnect, wsPingInterval } from 'lib/socket';
 import * as xhr from 'lib/xhr';
@@ -37,8 +38,12 @@ export function initModule(opts: LobbyOpts) {
           pubsub.emit('content-loaded');
         });
       },
-      featured(o: { html: string }) {
-        $('.lobby__tv').html(o.html);
+      featured({ html }: { html: string }) {
+        const tvGridArea = document.querySelector<HTMLElement>('.lobby__tv');
+        if (!tvGridArea) return;
+        const miniGame = tvGridArea.querySelector('.mini-game');
+        if (miniGame) miniGame.replaceWith(frag(html));
+        else tvGridArea.append(frag(html));
         pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
