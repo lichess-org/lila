@@ -113,4 +113,11 @@
       display: none;
     }
   }
+
+  #notify-toggle > .data-count::after {
+    left: unset;
+    right: unset;
+
+    @include inline-start(50%);
+  }
 }
