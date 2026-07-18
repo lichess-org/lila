@@ -1,6 +1,6 @@
 package lila.irwin
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -13,7 +13,7 @@ final class IrwinStream:
 
   private val blueprint =
     Source
-      .queue[IrwinRequest](64, akka.stream.OverflowStrategy.dropHead)
+      .queue[IrwinRequest](64, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .map(requestJson)
       .map: js =>
         s"${Json.stringify(js)}\n"

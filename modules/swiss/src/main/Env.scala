@@ -27,9 +27,9 @@ final class Env(
     baseUrl: BaseUrl
 )(using
     Executor,
-    akka.actor.ActorSystem,
+    org.apache.pekko.actor.ActorSystem,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.game.IdGenerator,
     play.api.Mode,
     lila.core.i18n.Translator,

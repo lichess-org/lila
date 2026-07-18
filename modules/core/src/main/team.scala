@@ -15,7 +15,7 @@ trait TeamApi:
   def isLeader(team: TeamId)(using MyId): Fu[Boolean]
   def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]]
   def hasCommPerm(team: TeamId)(using MyId): Fu[Boolean]
-  def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamData]
+  def cursor: reactivemongo.pekkostream.PekkoStreamCursor[TeamData]
 
 enum Access(val id: Int):
   case None extends Access(0)

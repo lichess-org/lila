@@ -10,6 +10,16 @@ import Dependencies.*
 // rather than wiring up packaging we don't ship.
 Global / lintUnusedKeysOnLoad := false
 
+// Pekko keeps binary compatibility across its 1.x line, but different deps pull different 1.x
+// minors (liplay Play -> 1.1.x, reactivemongo -> 1.4.x). Declare the early-semver scheme so sbt
+// evicts to the highest 1.x instead of failing the build on a "binary incompatible" conflict.
+ThisBuild / libraryDependencySchemes ++= Seq(
+  "org.apache.pekko" %% "pekko-actor" % "early-semver",
+  "org.apache.pekko" %% "pekko-stream" % "early-semver",
+  "org.apache.pekko" %% "pekko-slf4j" % "early-semver",
+  "org.apache.pekko" %% "pekko-actor-typed" % "early-semver"
+)
+
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
@@ -59,7 +69,7 @@ ThisBuild / usePipelining := false
 ivyLoggingLevel := UpdateLogging.DownloadOnly
 
 // format: off
-libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
+libraryDependencies ++= pekko.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,

@@ -6,7 +6,7 @@ import lila.mon.extensions.*
 final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   LilaScheduler(
     "Tournament.CreatedOrganizer",

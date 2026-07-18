@@ -2,7 +2,7 @@ package lila.tournament
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
@@ -47,8 +47,8 @@ final class TournamentApi(
     ircApi: lila.core.irc.IrcApi
 )(using scheduler: Scheduler)(using
     Executor,
-    akka.actor.ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.actor.ActorSystem,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):

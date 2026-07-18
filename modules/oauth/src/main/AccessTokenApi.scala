@@ -2,8 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
-import akka.stream.scaladsl.Source
+import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
@@ -15,7 +15,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }

@@ -1,7 +1,7 @@
 package lila.study
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient

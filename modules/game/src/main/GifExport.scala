@@ -1,7 +1,7 @@
 package lila.game
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import chess.format.{ Fen, Uci, UciDump }
 import chess.{ Position, Centis, Color }
 import play.api.libs.json.*

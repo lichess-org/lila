@@ -18,7 +18,7 @@ final class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter
-)(using scheduler: akka.actor.Scheduler)(using Executor):
+)(using scheduler: org.apache.pekko.actor.Scheduler)(using Executor):
 
   import Syncache.*
 

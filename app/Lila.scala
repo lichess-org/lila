@@ -1,6 +1,6 @@
 package lila.app
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import com.softwaremill.macwire.*
 import play.api.inject.DefaultApplicationLifecycle
 import play.api.http.{ FileMimeTypes, HttpRequestHandler }

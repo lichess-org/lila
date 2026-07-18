@@ -1,6 +1,6 @@
 package lila.round
 
-import akka.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
+import org.apache.pekko.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ ByColor, Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*

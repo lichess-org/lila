@@ -1,6 +1,6 @@
 package lila.round
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -52,10 +52,10 @@ final class Env(
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
     userNoteApi: lila.core.user.NoteApi,
     settingStore: lila.memo.SettingStore.Builder,
-    shutdown: akka.actor.CoordinatedShutdown
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
     Executor,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit,
     lila.game.IdGenerator

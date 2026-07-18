@@ -1,7 +1,7 @@
 package lila.game
 
-import akka.actor.*
-import akka.stream.Materializer
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.Materializer
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration

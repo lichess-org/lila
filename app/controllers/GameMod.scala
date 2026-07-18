@@ -3,7 +3,7 @@ package controllers
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 
-final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
+final class GameMod(env: Env)(using org.apache.pekko.stream.Materializer) extends LilaController(env):
 
   import lila.mod.GameMod.*
 
@@ -25,7 +25,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   private def fetchGames(user: lila.user.User, filter: Filter) =
     val select = toDbSelect(user, filter) ++ lila.game.Query.finished
-    import akka.stream.scaladsl.*
+    import org.apache.pekko.stream.scaladsl.*
     env.game.gameRepo
       .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)

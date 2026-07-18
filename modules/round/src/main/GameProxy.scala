@@ -1,6 +1,6 @@
 package lila.round
 
-import akka.actor.{ Cancellable, Scheduler }
+import org.apache.pekko.actor.{ Cancellable, Scheduler }
 
 import scala.util.Success
 

@@ -1,6 +1,7 @@
 resolvers += "jitpack".at("https://jitpack.io")
+resolvers += Resolver.mavenLocal
 
-addSbtPlugin("com.github.lichess-org.liplay" % "sbt-plugin" % "3.1.1")
+addSbtPlugin("com.github.lichess-org.liplay" % "sbt-plugin" % "3.2.0-SNAPSHOT")
 
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4")
 

@@ -10,7 +10,7 @@ final class Env(
     idGenerator: lila.core.game.IdGenerator,
     hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     rageSitOf: lila.core.playban.RageSitOf
-)(using Executor, akka.actor.ActorSystem, Scheduler):
+)(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler):
 
   private val hookThieve = wire[HookThieve]
 

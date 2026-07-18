@@ -42,7 +42,7 @@ final class Env(
     baker: lila.core.security.LilaCookie,
     markdownCache: lila.memo.MarkdownCache,
     viewerCount: lila.memo.ViewerCountApi
-)(using Federation.Guess, Tokenize, Executor, akka.stream.Materializer, play.api.Mode)(using
+)(using Federation.Guess, Tokenize, Executor, org.apache.pekko.stream.Materializer, play.api.Mode)(using
     scheduler: Scheduler
 ):
 

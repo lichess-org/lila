@@ -1,6 +1,6 @@
 package controllers
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*

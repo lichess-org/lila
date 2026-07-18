@@ -1,18 +1,21 @@
 package lila.game
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 
-final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
+final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
+    org.apache.pekko.stream.Materializer,
+    Executor
+):
 
   def apply(streamId: String, initialIds: Set[GameId], maxGames: Int): Source[JsValue, ?] =
     val startStream = Source
       .queue[CoreGame](
         bufferSize = maxGames,
-        akka.stream.OverflowStrategy.dropHead
+        org.apache.pekko.stream.OverflowStrategy.dropHead
       )
       .mapMaterializedValue: queue =>
         var watchedIds = initialIds

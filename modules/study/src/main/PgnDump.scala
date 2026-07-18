@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }

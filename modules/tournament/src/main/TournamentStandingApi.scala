@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.core.chess.Rank
@@ -17,7 +17,7 @@ final class TournamentStandingApi(
     cached: TournamentCache,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   private val perPage = 10
 

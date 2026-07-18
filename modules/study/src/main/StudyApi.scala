@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
@@ -31,7 +31,12 @@ final class StudyApi(
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer, lila.core.fide.GetPlayer, lila.core.fide.Federation.GetName)(using
+)(using
+    Executor,
+    org.apache.pekko.stream.Materializer,
+    lila.core.fide.GetPlayer,
+    lila.core.fide.Federation.GetName
+)(using
     scheduler: Scheduler
 ) extends lila.core.study.StudyApi:
 

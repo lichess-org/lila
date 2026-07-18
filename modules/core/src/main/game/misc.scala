@@ -7,7 +7,7 @@ import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.pekkostream.PekkoStreamCursor
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler }
 
@@ -124,7 +124,7 @@ abstract class GameRepo(val coll: BSONCollection):
   ): Funit
   def remove(id: GameId): Funit
   def countWhereUserTurn(userId: UserId): Fu[Int]
-  def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
+  def sortedCursor(user: UserId, pk: PerfKey): PekkoStreamCursor[Game]
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Update[Game]): Funit

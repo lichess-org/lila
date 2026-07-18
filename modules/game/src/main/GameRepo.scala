@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.format.pgn.SanStr
 import chess.{ ByColor, Color, Status }
 import chess.rating.IntRatingDiff
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
@@ -95,7 +95,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .list(max.value)
 
   // both players must be in the userId set
-  def ongoingByUserIdsCursor(userIds: Set[UserId]): AkkaStreamCursor[Game] =
+  def ongoingByUserIdsCursor(userIds: Set[UserId]): PekkoStreamCursor[Game] =
     coll
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -109,12 +109,12 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         )
 
   // only one player needs to be in the userId set
-  def ongoingByOneOfUserIdsCursor(userIds: Iterable[UserId]): AkkaStreamCursor[Game] =
+  def ongoingByOneOfUserIdsCursor(userIds: Iterable[UserId]): PekkoStreamCursor[Game] =
     coll
       .find($doc(F.playingUids.$in(userIds)))
       .cursor[Game](ReadPref.sec)
 
-  def finishedByOneOfUserIdsSince(userIds: Iterable[UserId], since: Instant): AkkaStreamCursor[Game] =
+  def finishedByOneOfUserIdsSince(userIds: Iterable[UserId], since: Instant): PekkoStreamCursor[Game] =
     coll
       .find:
         Query.finished ++
@@ -161,13 +161,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def cursor(
       selector: Bdoc,
       readPref: ReadPref = _.sec
-  ): AkkaStreamCursor[Game] =
+  ): PekkoStreamCursor[Game] =
     coll.find(selector).cursor[Game](readPref)
 
   def docCursor(
       selector: Bdoc,
       project: Option[Bdoc] = none
-  ): AkkaStreamCursor[Bdoc] =
+  ): PekkoStreamCursor[Bdoc] =
     coll.find(selector, project).cursor[Bdoc](ReadPref.sec)
 
   def sortedCursor(
@@ -175,11 +175,11 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       sort: Bdoc,
       batchSize: Int = 0,
       hint: Option[Bdoc] = none
-  ): AkkaStreamCursor[Game] =
+  ): PekkoStreamCursor[Game] =
     val query = coll.find(selector).sort(sort).batchSize(batchSize)
     hint.map(coll.hint).foldLeft(query)(_.hint(_)).cursor[Game](ReadPref.sec)
 
-  def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game] =
+  def sortedCursor(user: UserId, pk: PerfKey): PekkoStreamCursor[Game] =
     sortedCursor(
       Query.user(user.id) ++
         Query.finished ++

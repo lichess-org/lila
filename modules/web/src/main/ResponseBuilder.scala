@@ -1,6 +1,6 @@
 package lila.web
 
-import akka.stream.scaladsl.Source
+import org.apache.pekko.stream.scaladsl.Source
 import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -49,7 +49,7 @@ trait ResponseBuilder(using Executor)
   /* We roll our own action, as we don't want to compose play Actions. */
   def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
     import play.api.libs.streams.Accumulator
-    import akka.util.ByteString
+    import org.apache.pekko.util.ByteString
     def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
       parser(rh).mapFuture:
         case Left(r) => fuccess(r)

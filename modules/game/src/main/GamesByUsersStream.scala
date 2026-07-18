@@ -1,6 +1,6 @@
 package lila.game
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -8,25 +8,29 @@ import lila.common.Json.given
 import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
 import lila.core.LightUser
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
+    org.apache.pekko.stream.Materializer,
+    Executor
+):
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     if userIds.sizeIs < 2 then Source.empty
     else
       val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
       val startStream =
-        Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
-          def matches(game: Game) = game.twoUserIds.exists: (u1, u2) =>
-            userIds(u1) && userIds(u2)
-          val subStart = Bus.sub[StartGame]:
-            case StartGame(game, _) if matches(game) => queue.offer(game)
-          val subFinish = Bus.sub[FinishGame]:
-            case FinishGame(game, _) if matches(game) => queue.offer(game)
-          queue
-            .watchCompletion()
-            .addEffectAnyway:
-              Bus.unsub[StartGame](subStart)
-              Bus.unsub[FinishGame](subFinish)
+        Source.queue[Game](150, org.apache.pekko.stream.OverflowStrategy.dropHead).mapMaterializedValue {
+          queue =>
+            def matches(game: Game) = game.twoUserIds.exists: (u1, u2) =>
+              userIds(u1) && userIds(u2)
+            val subStart = Bus.sub[StartGame]:
+              case StartGame(game, _) if matches(game) => queue.offer(game)
+            val subFinish = Bus.sub[FinishGame]:
+              case FinishGame(game, _) if matches(game) => queue.offer(game)
+            queue
+              .watchCompletion()
+              .addEffectAnyway:
+                Bus.unsub[StartGame](subStart)
+                Bus.unsub[FinishGame](subFinish)
         }
       initialGames
         .concat(startStream)

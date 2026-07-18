@@ -1,9 +1,9 @@
 package lila.clas
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import play.api.Mode
 

@@ -1,6 +1,6 @@
 package lila.security
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -35,7 +35,7 @@ final class Env(
 )(using
     Executor,
     play.api.Mode,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 )(using scheduler: Scheduler):

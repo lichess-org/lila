@@ -36,7 +36,7 @@ final class Env(
 )(using
     Executor,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.config.RateLimit,
     lila.core.fide.Federation.Guess,
     lila.core.fide.GetPlayer,
