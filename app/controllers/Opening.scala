@@ -23,16 +23,16 @@ final class Opening(env: Env) extends LilaController(env):
             views.opening.ui.index(page, _)
 
   private val ipRateLimit =
-    env.security.ipTrust.rateLimit(50, 10.minutes, "opening.byKeyAndMoves", _.proxyMultiplier(3))
+    env.security.ipTrust.rateLimit(60, 10.minutes, "opening.byKeyAndMoves")
 
   def byKeyAndMoves(key: String, moves: String) = Open:
     Firewall:
       WithProxy: proxy ?=>
         if moves.sizeIs > 10 && req.client.isCrawler then Forbidden
-        else if moves.sizeIs > 6 && proxy.isFloodish && ctx.isAnon then Forbidden
+        else if moves.sizeIs > 6 && proxy.couldBeEnum && ctx.isAnon then Forbidden
         else
           limit.enumeration.opening(rateLimited):
-            val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
+            val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
             val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
             ipRateLimit(rateLimited, cost = cost):
               env.opening.api
@@ -56,7 +56,7 @@ final class Opening(env: Env) extends LilaController(env):
   def config(thenTo: String) = OpenBody:
     NoCrawlersRes:
       val redir = Redirect:
-        lila.common.HTTPRequest.referer(ctx.req) | {
+        HTTPRequest.referer(ctx.req) | {
           if thenTo.isEmpty || thenTo == "index" then routes.Opening.index().url
           else if thenTo.startsWith("q:") then routes.Opening.index(thenTo.drop(2).some).url
           else routes.Opening.byKeyAndMoves(thenTo, "").url

@@ -70,7 +70,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  liveAnnotate?: LiveAnnotate;
+  liveAnnotate = new LiveAnnotate();
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -171,7 +171,6 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
-    if (!opts.study) this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -248,6 +247,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
+    treeOps.updateAll(this.tree.root, this.ensureServerEvalNodes);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
       if (add3or5FoldGlyphs(mainline)) this.data.game.threefold = true;
@@ -937,6 +937,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const tree = completeNode(this.variantKey)(data.tree);
     this.tree.merge(tree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
+    this.data.treeParts.forEach(this.ensureServerEvalNodes);
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
@@ -1059,6 +1060,10 @@ export default class AnalyseCtrl implements CevalHandler {
     else this.chessground?.setAutoShapes([]);
   };
 
+  private readonly ensureServerEvalNodes = (node: TreeNode) => {
+    if (node.eval && !node.eval.knodes && this.data.analysis?.nodesPerMove)
+      node.eval.knodes = this.data.analysis.nodesPerMove / 1000;
+  };
   private async mergeIdbThenShowTreeView() {
     await this.idbTree.merge();
     this.treeView.hidden = false;

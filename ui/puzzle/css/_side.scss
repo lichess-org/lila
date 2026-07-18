@@ -150,7 +150,7 @@
       }
 
       .label.active {
-        background: $m-primary_bg--mix-50;
+        background: color-mix(in oklab, $c-primary 50%, $c-bg);
       }
     }
   }
@@ -190,8 +190,8 @@
         @include inline-start(0);
 
         width: var(---p);
-        background: $m-primary_bg-page--mix-60
-          linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
+        background: color-mix(in oklab, $c-primary 60%, $c-bg-page)
+          linear-gradient(180deg, rgb(255 255 255 / 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
 
         @include transition(width, 1s);
@@ -227,7 +227,7 @@
     }
 
     &--daily {
-      outline: 3px solid $m-primary_bg-page--mix-50;
+      outline: 3px solid color-mix(in oklab, $c-primary 50%, $c-bg-page);
 
       a {
         margin: 0;
@@ -255,7 +255,7 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-10;
+        background: color-mix(in oklab, $c-primary 10%, $c-bg);
       }
 
       &.strike a {

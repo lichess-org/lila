@@ -55,7 +55,7 @@
 
     @keyframes shadow-glow {
       50% {
-        box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px 10px rgb(255 255 255 / 0.5);
         transform: scale(1.05);
       }
     }
@@ -97,7 +97,7 @@
       background: #fff;
       border-radius: 5px;
       padding: 5px 10px;
-      box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 5px 5px rgb(255 255 255 / 0.5);
       animation: shadow-glow 1s infinite;
     }
 

@@ -29,7 +29,7 @@ final class OnlineApiUsers(
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
   private val usersCache = cacheApi.unit[List[UserWithPerfs]]("onlineApiUsers.list"):
-    _.expireAfterWrite(10.seconds).buildAsyncTimeout("onlineApiUsers.list"): _ =>
+    _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})

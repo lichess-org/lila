@@ -15,7 +15,7 @@
   <string name="downloadKit">下载主播工具包</string>
   <string name="xIsStreaming">%s 正在直播</string>
   <string name="rules">直播规则</string>
-  <string name="rule1">在 Lichess 上直播时，请在您的直播标题中包含关键词\"lichess.org\"，并使用\"Chess\"类别。</string>
+  <string name="rule1">在 Lichess 上直播时，请在您的直播标题中包含关键词“lichess.org”，并使用“Chess”类别。</string>
   <string name="rule2">当您直播非 Lichess 内容时，请移除该关键词。</string>
   <string name="rule3">Lichess 将自动检测您的直播并启用以下特权：</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">请阅读我们的 %s，以确保您在直播期间为所有人提供公平的竞赛环境。</string>
@@ -33,14 +33,14 @@
   <string name="streamerLanguageSettings">Lichess 主播页面会根据您的直播平台提供的语言信息来定位您的受众。请在您用于直播的应用程序或服务中，为您的国象直播设置正确的默认语言。</string>
   <string name="pleaseAllow">您的主播徽章和列表在审核通过前，最多可能需要 72 小时。</string>
   <string name="chooseYoutubeChannel">请选择您将在 Lichess 上使用的 YouTube 频道。</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">连接</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">断开连接</string>
+  <string name="connect">连接</string>
+  <string name="disconnect">断开连接</string>
   <string name="streamerName">您在 Lichess 上的主播名称</string>
   <plurals name="keepItShort">
     <item quantity="other">请保持简短：最多 %s 个字符</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">显示在主播页面</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">经版主批准后</string>
+  <string name="visibility">显示在主播页面</string>
+  <string name="whenApproved">经版主批准后</string>
   <string name="headline">标题</string>
   <string name="tellUsAboutTheStream">用一句话告诉我们您的直播内容</string>
   <string name="longDescription">详细描述</string>

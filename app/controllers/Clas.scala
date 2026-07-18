@@ -451,7 +451,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentResetPassword(id: ClasId, username: UserStr) =
     Secure(_.Teacher) { _ ?=> me ?=>
       WithClass(id): clas =>
-        WithStudent(clas, username): s =>
+        WithStudentManaged(clas, username): s =>
           for
             _ <- env.security.store.closeAllSessionsOf(s.user.id)
             password <- env.clas.api.student.resetPassword(s.student)
@@ -461,37 +461,30 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def studentRelease(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
-      WithStudent(clas, username): s =>
-        if s.student.managed
-        then Ok.page(views.clas.student.release(clas, students, s, env.clas.forms.student.release))
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+      WithStudentManaged(clas, username): s =>
+        Ok.page(views.clas.student.release(clas, students, s, env.clas.forms.student.release))
   }
 
   def studentReleasePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
-      WithStudent(clas, username): s =>
-        if s.student.managed
-        then
-          env.security.forms.preloadEmailDns() >>
-            bindForm(env.clas.forms.student.release)(
-              err => BadRequest.page(views.clas.student.release(clas, students, s, err)),
-              email =>
-                val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
-                authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
-                  env.security.emailChange
-                    .send(s.user, newUserEmail.email)
-                    .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess:
-                      s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account.")
-            )
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+      WithStudentManaged(clas, username): s =>
+        env.security.forms.preloadEmailDns() >>
+          bindForm(env.clas.forms.student.release)(
+            err => BadRequest.page(views.clas.student.release(clas, students, s, err)),
+            email =>
+              val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
+              authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
+                env.security.emailChange
+                  .send(s.user, newUserEmail.email)
+                  .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess:
+                    s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account.")
+          )
   }
 
   def studentClose(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
-      WithStudent(clas, username): s =>
-        if s.student.managed
-        then Ok.page(views.clas.student.close(clas, students, s))
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+      WithStudentManaged(clas, username): s =>
+        Ok.page(views.clas.student.close(clas, students, s))
   }
 
   def studentClosePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { _ ?=> me ?=>
@@ -587,6 +580,13 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   )(using Context): Fu[Result] =
     Found(meOrFetch(username)): user =>
       Found(env.clas.api.student.get(clas, user))(f).map(_.hasPersonalData)
+
+  private def WithStudentManaged(clas: lila.clas.Clas, username: UserStr)(
+      f: lila.clas.Student.WithUser => Fu[Result]
+  )(using Context): Fu[Result] =
+    WithStudent(clas, username): s =>
+      if s.student.managed then f(s)
+      else Redirect(routes.Clas.studentShow(clas.id, s.user.username)).toFuccess
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if ctx.me.exists(!_.marks.isolate) && ctx.noBot then f

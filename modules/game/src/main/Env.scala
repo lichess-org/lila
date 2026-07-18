@@ -41,6 +41,8 @@ final class Env(
 
   val divider = wire[Divider]
 
+  val quickOpening = wire[QuickOpening].of
+
   val cached: Cached = wire[Cached]
 
   val uciMemo = wire[UciMemo]
@@ -69,7 +71,7 @@ final class Env(
 
   lazy val importer = wire[lila.game.importer.Importer]
 
-  lazy val userGameApi = UserGameApi(lightUserApi, getTourName)
+  lazy val userGameApi = UserGameApi(lightUserApi, getTourName, quickOpening)
 
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }

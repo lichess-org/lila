@@ -814,6 +814,10 @@
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonimoa</item>
+    <item quantity="other">Anonimoak (%s)</item>
+  </plurals>
   <string name="yourScore">Zure puntuaketa: %s</string>
   <string name="language">Hizkuntza</string>
   <string name="allLanguages">Hizkuntza guztiak</string>
@@ -1014,7 +1018,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="gameInProgress">%s erabiltzailearekin partida bat jokatzen ari zara.</string>
   <string name="abortTheGame">Partida bertan behera utzi</string>
   <string name="resignTheGame">Partida utzi</string>
-  <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
+  <string name="youCantStartNewGame">Ezin duzu beste partida bat hasi zure txanda den artean.</string>
   <string name="since">Noiztik</string>
   <string name="until">Noiz arte</string>
   <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>

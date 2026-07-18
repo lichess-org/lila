@@ -936,7 +936,6 @@
   <string name="gameInProgress">ທ່ານມີເກມທີ່ກຳລັງຫຼິ້ນຄ້າງຢູ່ກັບ %s.</string>
   <string name="abortTheGame">ຍົກເລີກເກມ</string>
   <string name="resignTheGame">ຍອມແພ້</string>
-  <string name="youCantStartNewGame">ທ່ານບໍ່ສາມາດເລີ່ມເກມໃໝ່ໄດ້ຈົນກວ່າເກມນີ້ຈະສິ້ນສຸດ.</string>
   <string name="since">ຕັ້ງແຕ່</string>
   <string name="until">ຈົນເຖິງ</string>
   <string name="lichessDbExplanation">ເກມທີ່ມີການຄິດໄລ່ຄະແນນທີ່ຫຼິ້ນໃນ Lichess</string>

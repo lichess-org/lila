@@ -349,7 +349,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     _ <- c.delete.one(privateSelector)
   yield ids
 
-  private[study] def searchIdsTouchedByUserDelete(u: UserId): Fu[List[StudyId]] =
+  private[study] def studyIdsForMember(u: UserId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("_id", $or(selectOwnerId(u), selectMemberId(u))))
 
   private[study] def anonymizeAllOf(u: UserId): Funit = for

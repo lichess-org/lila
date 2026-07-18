@@ -1,27 +1,30 @@
 {
   "name": "build",
   "type": "module",
+  "packageManager": "pnpm@11.5.1",
+  "engines": {
+    "node": ">=24",
+    "pnpm": "11"
+  },
   "optionalDependencies": {
-    "sass-embedded-darwin-arm64": "1.97.3",
-    "sass-embedded-darwin-x64": "1.97.3",
-    "sass-embedded-linux-arm64": "1.97.3",
-    "sass-embedded-linux-x64": "1.97.3",
-    "sass-embedded-win32-arm64": "1.97.3",
-    "sass-embedded-win32-x64": "1.97.3"
+    "sass-embedded-darwin-arm64": "1.100.0",
+    "sass-embedded-darwin-x64": "1.100.0",
+    "sass-embedded-linux-arm64": "1.100.0",
+    "sass-embedded-linux-x64": "1.100.0",
+    "sass-embedded-win32-arm64": "1.100.0",
+    "sass-embedded-win32-x64": "1.100.0"
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "24.12.2",
-    "@types/tinycolor2": "1.4.6",
+    "@types/node": "24.13.3",
     "esbuild": "0.28.1",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.7.0",
+    "fast-xml-parser": "5.9.3",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
-    "tinycolor2": "1.6.0",
     "typescript": "6.0.3"
   },
   "scripts": {
-    "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
+    "dev": "node --no-warnings src/main.ts $@"
   }
 }

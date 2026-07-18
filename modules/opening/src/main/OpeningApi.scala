@@ -18,8 +18,8 @@ final class OpeningApi(
 
   import OpeningQuery.Query
 
-  private val defaultCache = cacheApi.notLoadingSync[Query, OpeningPage](1024, "opening.defaultCache"):
-    _.maximumSize(4096).expireAfterWrite(10.minutes).build()
+  private val defaultCache = cacheApi.notLoadingSync[Query, OpeningPage](256, "opening.defaultCache"):
+    _.maximumSize(4096).expireAfterWrite(8.minutes).build()
 
   private val userRateLimit = RateLimit[UserId](30, 2.minutes, "opening.stats.user")
 

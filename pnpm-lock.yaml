@@ -15,8 +15,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1
       '@lichess-org/pgn-viewer':
-        specifier: ^2.6.0
-        version: 2.6.0
+        specifier: ^2.6.1
+        version: 2.6.1
       '@playwright/test':
         specifier: ^1.60.0
         version: 1.60.0
@@ -24,14 +24,14 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/node':
-        specifier: ^24.12.4
-        version: 24.13.1
+        specifier: ^24.13.3
+        version: 24.13.3
       ab:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/e391b56a82b7c71e7663082a797f6fc21b18776d
       chessops:
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.15.1
+        version: 0.15.1
       jsdom:
         specifier: ^27.4.0
         version: 27.4.0
@@ -75,8 +75,8 @@ importers:
         specifier: 7.17.14
         version: 7.17.14
       '@types/node':
-        specifier: ^24.12.2
-        version: 24.13.1
+        specifier: ^24.13.3
+        version: 24.13.3
       cheerio:
         specifier: ^1.1.2
         version: 1.2.0
@@ -385,8 +385,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       '@lichess-org/stockfish-web':
-        specifier: 0.4.0
-        version: 0.4.0
+        specifier: 0.4.2
+        version: 0.4.2
       '@lichess-org/zerofish':
         specifier: ^0.0.40
         version: 0.0.40
@@ -899,11 +899,11 @@ packages:
   '@lichess-org/chessground@10.1.1':
     resolution: {integrity: sha512-IBEs8+J64/zE8QB4NXxsvpjm/tHRjfQAdWwUh4xzqqN+RValgthWHemLnxsmtHFwuxvO4lHd+crp1ecgZxKVoQ==}
 
-  '@lichess-org/pgn-viewer@2.6.0':
-    resolution: {integrity: sha512-muwmTR7hPStk2WG3niMlh/W7tWsiqt1X0Aq5E5ofmRFfOy/itACZdZOOUxNFAWpAtnVcyyvCEK2St6V7+d0NwQ==}
+  '@lichess-org/pgn-viewer@2.6.1':
+    resolution: {integrity: sha512-LUgSeICEC5M62B01PMMYgOBybjcHCOKei4vD6dbiCFro8Bp1O4Q/vdvVn7OxiGZIpAVsvRaBZMZOv7iHz/N+uA==}
 
-  '@lichess-org/stockfish-web@0.4.0':
-    resolution: {integrity: sha512-L+JGDyCh5+Kn4eZGof7GvqgVyLEF6R9srAD35fwhXPRgNW0WdyrWNsLVOrOA0HO58fL+xPvlAADfid+RTFu9hw==}
+  '@lichess-org/stockfish-web@0.4.2':
+    resolution: {integrity: sha512-qVboc1DNDNRg/ZTu5YlgiiWmxyVZcF4u2nkx0rNzQvh/y/LiH4qz4+aG4mLoSyVWt8u39JdmzIyJFn8wJ2IXNw==}
 
   '@lichess-org/vosk-browser@0.0.3':
     resolution: {integrity: sha512-kgxU346dZC/YbtVhqQTJbjZupUjuvwR3R270mGF5LJLmKAUCLRAQFhkRAqv4eUK1dmzu47ywN/SwrL5QrV7tCg==}
@@ -1114,6 +1114,9 @@ packages:
   '@types/node@24.13.1':
     resolution: {integrity: sha512-RSpUJGmvsJ1ZeBehQZFhIdpsz+bIpES0nIQXko4Ybq+N+kX6XvOq3Jo+iJ82FWLdblFq85AsMikd3m35jgezYg==}
 
+  '@types/node@24.13.3':
+    resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
+
   '@types/qrcode@1.5.6':
     resolution: {integrity: sha512-te7NQcV2BOvdj2b1hCAHzAoMNuj65kNBMz0KBaxM6c3VGBOhU0dURQKOtH8CFNI/dsKkwlv32p26qYQTWoB5bw==}
 
@@ -1240,6 +1243,9 @@ packages:
 
   chessops@0.15.0:
     resolution: {integrity: sha512-4Ps0O8/UO09tDGbze1mMilUSMZjVYMFtQvrhlCQV385cO0BgdUPUZsq/r1Qrf6UQ4J0i7XcMbRRvFRKu+Ith1w==}
+
+  chessops@0.15.1:
+    resolution: {integrity: sha512-hQDwv90AFkrPEsRJBebh3ZE+xDga25TCCv4lavNT2plZmd33UKNFYaZsE+7rafMbnBRrDEWUVsSYFqY3qCIGZw==}
 
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
@@ -2036,6 +2042,10 @@ packages:
     resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
     engines: {node: '>=8.3.0'}
 
+  snabbdom@3.6.4:
+    resolution: {integrity: sha512-VmxEfuw1/Y/eFj5VtMhYnukExpYiPkNzoo3+N3qwAOUDMl8wXgbli5ebR+j0knE3lZ/0eYskLxNcX64uy10N9w==}
+    engines: {node: '>=12.17.0'}
+
   sortablejs@1.15.7:
     resolution: {integrity: sha512-Kk8wLQPlS+yi1ZEf48a4+fzHa4yxjC30M/Sr2AnQu+f/MPwvvX9XjZ6OWejiz8crBsLwSq8GHqaxaET7u6ux0A==}
 
@@ -2552,13 +2562,13 @@ snapshots:
 
   '@lichess-org/chessground@10.1.1': {}
 
-  '@lichess-org/pgn-viewer@2.6.0':
+  '@lichess-org/pgn-viewer@2.6.1':
     dependencies:
       '@lichess-org/chessground': 10.1.1
       chessops: 0.15.0
-      snabbdom: 3.5.1
+      snabbdom: 3.6.4
 
-  '@lichess-org/stockfish-web@0.4.0': {}
+  '@lichess-org/stockfish-web@0.4.2': {}
 
   '@lichess-org/vosk-browser@0.0.3':
     dependencies:
@@ -2708,6 +2718,10 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+  '@types/node@24.13.3':
+    dependencies:
+      undici-types: 7.18.2
+
   '@types/qrcode@1.5.6':
     dependencies:
       '@types/node': 24.13.1
@@ -2834,6 +2848,10 @@ snapshots:
       whatwg-mimetype: 4.0.0
 
   chessops@0.15.0:
+    dependencies:
+      '@badrap/result': 0.3.1
+
+  chessops@0.15.1:
     dependencies:
       '@badrap/result': 0.3.1
 
@@ -3598,6 +3616,8 @@ snapshots:
       is-fullwidth-code-point: 5.1.0
 
   snabbdom@3.5.1: {}
+
+  snabbdom@3.6.4: {}
 
   sortablejs@1.15.7: {}
 

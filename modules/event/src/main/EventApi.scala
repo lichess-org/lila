@@ -3,9 +3,14 @@ import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import scalalib.paginator.Paginator
+import lila.db.paginator.Adapter
 
-final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm, ircApi: lila.irc.IrcApi)(
-    using
+final class EventApi(
+    coll: Coll,
+    cacheApi: lila.memo.CacheApi,
+    eventForm: EventForm,
+    ircApi: lila.core.irc.IrcApi
+)(using
     Executor,
     Scheduler
 ):
@@ -19,7 +24,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
       .take(3)
 
   private val promotable = cacheApi.unit[List[Event]]("event.promotable"):
-    _.refreshAfterWrite(5.minutes).buildAsyncTimeout("event.promotable")(_ => fetchPromotable)
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => fetchPromotable)
 
   def fetchPromotable: Fu[List[Event]] =
     coll
@@ -34,8 +39,23 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
       .dmap:
         _.filter(_.featureNow).take(10)
 
+  def between(from: Instant, to: Instant, page: Int): Fu[Paginator[Event]] =
+    Paginator(
+      adapter = Adapter[Event](
+        collection = coll,
+        selector = $doc(
+          "startsAt".$lt(to),
+          "finishesAt".$gt(from)
+        ),
+        projection = none,
+        sort = $sort.asc("startsAt")
+      ),
+      currentPage = page,
+      maxPerPage = MaxPerPage(50)
+    )
+
   def pager(page: Int) = Paginator(
-    adapter = lila.db.paginator.Adapter[Event](
+    adapter = Adapter[Event](
       collection = coll,
       selector = $empty,
       projection = none,

@@ -19,7 +19,7 @@ final class RevolutionApi(
   private[tournament] def clear() = cache.invalidateUnit()
 
   private val cache = cacheApi.unit[PerOwner]("tournament.revolution"):
-    _.refreshAfterWrite(1.day).buildAsyncTimeout("tournament.revolution", 1.minute): _ =>
+    _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
       tournamentRepo.coll
         .find(
           $doc(

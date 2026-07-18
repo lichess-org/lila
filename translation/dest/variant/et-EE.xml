@@ -3,10 +3,21 @@
   <string name="standard">Tavaline</string>
   <string name="standardTitle">Tavapäraste malereeglitega (FIDE)</string>
   <string name="chess960">Male960</string>
+  <string name="chess960Title">Kodurea malendite algpositsioonid määratakse juhuslikult.</string>
+  <string name="kingOfTheHill">Mäekuningas</string>
+  <string name="kingOfTheHillTitle">Võitmiseks liigu oma kuningaga keskele.</string>
+  <string name="threeCheck">Kolmetulemale</string>
+  <string name="threeCheckTitle">Võitmiseks ründa vastase kuningat 3 korda.</string>
   <string name="antichess">Antimale</string>
   <string name="antichessTitle">Mängu võitmiseks kaota kõik oma malendid (või satu patiseisu).</string>
+  <string name="atomic">Aatomimale</string>
+  <string name="atomicTitle">Võitmiseks hävita vastase kuningas.</string>
   <string name="horde">Hord</string>
   <string name="hordeTitle">Ühel poolel on suur hulk ettureid, teisel tavalised malendid.</string>
-  <string name="racingKings">Kuningate võiduajamine</string>
+  <string name="racingKings">Kuningate võidujooks</string>
   <string name="racingKingsTitle">Võitmiseks jõua oma kuningaga malelaua teise otsa.</string>
+  <string name="crazyhouse">Pealepanemismale</string>
+  <string name="crazyhouseTitle">Malendi liigutamise asemel saab löödud malendi lauale tagasi panna.</string>
+  <string name="fromPosition">Positsioonilt</string>
+  <string name="fromPositionTitle">Tavaline male kohandatud positsioonilt</string>
 </resources>

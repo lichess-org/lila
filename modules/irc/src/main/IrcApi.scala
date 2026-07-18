@@ -17,7 +17,8 @@ final class IrcApi(
 )(using Executor)
     extends lila.core.irc.IrcApi:
 
-  import IrcApi.{ userRegex, postRegex }
+  private val userRegex = UserName.atRegex.pattern
+  private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
     def link(url: String, name: String) = s"[$name]($url)"
@@ -121,8 +122,14 @@ final class IrcApi(
     zulip(_.mod.commsPublic, "forum-log"):
       s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  type BBB = "arena" | "event"
-  def bbb(by: MyId, tpe: BBB, name: String, url: Call, from: Instant, to: Option[Instant]): Funit =
+  def bbb(
+      by: MyId,
+      tpe: "arena" | "event",
+      name: String,
+      url: Call,
+      from: Instant,
+      to: Option[Instant]
+  ): Funit =
     val link = markdown.lichessLink(url.url, name)
     val times = s"${markdown.time(from)} → ${to.fold("?")(markdown.time)}"
     val text = s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link $times"
@@ -273,8 +280,3 @@ final class IrcApi(
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
-
-object IrcApi:
-
-  private val userRegex = lila.common.String.atUsernameRegex.pattern
-  private val postRegex = lila.common.String.forumPostPathRegex.pattern

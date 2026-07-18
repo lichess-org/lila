@@ -71,4 +71,19 @@
   <string name="bellNotificationSound">Typ zvukového upozornění</string>
   <string name="blindfold" comment="As in Blindfold chess">Páska přes oči</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Zobrazit vlevo na mobilních zařízeních</string>
+  <string name="inlineNotation">Řádková notace</string>
+  <string name="showServerAnalysis">Zobrazit serverovou analýzu</string>
+  <string name="showBestMoveArrows">Zobrazit šipky nejlepšího tahu</string>
+  <string name="showManeuverArrows">Zobrazit šipky manévru</string>
+  <string name="showGauge">Zobrazit měřítko hodnocení</string>
+  <string name="showMoveAnnotationsOnBoard">Zobrazit anotace tahů</string>
+  <string name="showVariationArrows">Zobrazit šipky variant</string>
+  <string name="showLiveGlyphs">Živé anotace od počítače</string>
+  <string name="showUndefendedPieces">Zobrazit nebráněné figury</string>
+  <string name="showPinnedPieces">Zobrazit „připnuté“ figury</string>
+  <string name="disclosureMode">Povolit skrývání variant</string>
+  <string name="generalSettings">Obecné</string>
+  <string name="moveListSettings">Seznam tahů</string>
+  <string name="boardSettings">Šachovnice</string>
+  <string name="analysisSettings">Nastavení analýzy</string>
 </resources>

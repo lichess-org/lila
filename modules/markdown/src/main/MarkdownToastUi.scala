@@ -1,6 +1,7 @@
-package lila.common
+package lila.markdown
 
 import java.util.regex.Matcher
+import lila.core.data.{ Markdown, Html }
 
 object MarkdownToastUi:
 

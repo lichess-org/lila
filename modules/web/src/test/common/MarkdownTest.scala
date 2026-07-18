@@ -1,7 +1,8 @@
-package lila.common
+package lila.markdown
 
 import chess.format.pgn.PgnStr
 
+import lila.core.lilaism.Lilaism.*
 import lila.core.config.{ AssetDomain, NetDomain }
 import lila.core.misc.lpv.LpvEmbed
 

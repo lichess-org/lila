@@ -12,6 +12,7 @@ import lila.memo.CacheApi.*
 import lila.memo.SettingStore.Text.given
 import lila.report.Room.Scores
 import lila.mon.extensions.*
+import lila.core.misc.AppealTopic
 
 final class ReportApi(
     val coll: Coll,
@@ -434,7 +435,7 @@ final class ReportApi(
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
   private val maxScoreCache = cacheApi.unit[Room.Scores]("report.maxScore"):
-    _.refreshAfterWrite(5.minutes).buildAsyncTimeout("report.maxScore"): _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       Room.allButXfiles
         .parallel: room =>
           coll // hits the best_open partial index
@@ -648,7 +649,7 @@ final class ReportApi(
           "inquiry.mod".$exists(true),
           "user" -> suspectId,
           "room" -> Room.Other.key,
-          "atoms.0.text" -> Report.appealText
+          "atoms.0.text".$startsWith(Report.appealTextPrefix)
         ),
         "inquiry"
       )
@@ -684,7 +685,7 @@ final class ReportApi(
                 .updateField(
                   $id(r.id),
                   "inquiry",
-                  Report.Inquiry(mod.userId, nowInstant)
+                  Report.Inquiry(mod.modId, nowInstant)
                 )
                 .void
             )
@@ -710,8 +711,8 @@ final class ReportApi(
     def spontaneous(sus: Suspect)(using Me): Fu[Report] =
       openOther(sus, Report.spontaneousText)
 
-    def appeal(sus: Suspect)(using Me): Fu[Report] =
-      openOther(sus, Report.appealText)
+    def appeal(user: User, topic: AppealTopic)(using Me): Fu[Report] =
+      openOther(Suspect(user), Report.appealText(topic))
 
     def myUsernameReportText(using me: Me): Fu[Option[String]] =
       ofModId(me).map: report =>
@@ -733,7 +734,7 @@ final class ReportApi(
               ).scored(Report.Score(0)),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.userId, nowInstant).some)
+            .copy(inquiry = Report.Inquiry(mod.modId, nowInstant).some)
           coll.insert.one(report).inject(report)
         }
 

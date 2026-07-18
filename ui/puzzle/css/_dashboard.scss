@@ -51,7 +51,7 @@
   &__metric {
     @extend %box-neat, %flex-column;
 
-    $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
+    $glow-gradient: linear-gradient(145deg, rgb(255% 255% 255% / 0.3) 0%, transparent 45%);
 
     align-items: center;
     justify-content: center;
@@ -70,7 +70,7 @@
     }
 
     span {
-      color: rgba(255%, 255%, 255%, 0.8);
+      color: rgb(255% 255% 255% / 0.8);
       letter-spacing: -1px;
       font-size: 0.9rem;
     }
@@ -78,9 +78,9 @@
     background: $c-bg-zebra2;
 
     &--win {
-      $c-first: $m-secondary_dark--mix-85;
-      $c-fix: $m-secondary_dark--mix-50;
-      $c-fail: $m-bad_dark--mix-80;
+      $c-first: color-mix(in oklab, $c-secondary 85%, $c-dark);
+      $c-fix: color-mix(in oklab, $c-secondary 50%, $c-dark);
+      $c-fail: color-mix(in oklab, $c-bad 80%, $c-dark);
 
       color: $c-over;
       background:
@@ -111,7 +111,7 @@
     }
 
     &--perf {
-      background: #{$glow-gradient} $m-brag_dark--mix-85;
+      background: #{$glow-gradient} color-mix(in oklab, $c-brag 85%, $c-dark);
       color: $c-over;
     }
 
@@ -128,7 +128,7 @@
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} $m-primary_dark--mix-80;
+        background: #{$glow-gradient} color-mix(in oklab, $c-primary 80%, $c-dark);
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
@@ -143,7 +143,7 @@
 
         icon {
           opacity: 1;
-          color: $m-primary_bg--mix-70;
+          color: color-mix(in oklab, $c-primary 70%, $c-bg);
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;
@@ -179,7 +179,7 @@
     }
 
     span {
-      color: rgba(255%, 255%, 255%, 0.8);
+      color: rgb(255% 255% 255% / 0.8);
       letter-spacing: 2px;
       font-size: 1rem;
     }

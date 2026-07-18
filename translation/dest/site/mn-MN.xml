@@ -791,7 +791,6 @@
   <string name="gameInProgress">Таны %s-тай тоглож буй тоглолт байсаар л байгаа.</string>
   <string name="abortTheGame">Тоглолтыг хаях</string>
   <string name="resignTheGame">Бууж өгөх</string>
-  <string name="youCantStartNewGame">Та аль хэдийн эхэлсэн тоглолтоо дуусгахгүйгээр шинэ тоглолт эхлүүлэх боломжгүй.</string>
   <string name="since">Хэзээнээс хойш</string>
   <string name="until">Хүртэл</string>
   <string name="switchSides">Хар цагаанаа солих</string>

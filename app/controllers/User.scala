@@ -379,7 +379,7 @@ final class User(
               ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice)
 
         val appeal = isGranted(_.Appeals).so:
-          env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
+          env.appeal.api.latestBy(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
 
         val rageSit = isGranted(_.CheatHunter).so:
           env.playban.api
@@ -541,7 +541,8 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = req.client.isHuman)): data =>
+    val canCompute = req.client.isHuman && ctx.isAuth
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
       negotiate(
         Ok.async:
           env.history

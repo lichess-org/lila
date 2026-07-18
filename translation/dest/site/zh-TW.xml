@@ -943,7 +943,6 @@
   <string name="gameInProgress">您正在與 %s 進行對局。</string>
   <string name="abortTheGame">中止本局</string>
   <string name="resignTheGame">認輸</string>
-  <string name="youCantStartNewGame">直到當下這局下完之前，你無法開始新的棋局</string>
   <string name="since">自</string>
   <string name="until">直到</string>
   <string name="lichessDbExplanation">來自 Lichess 用戶的所有評分遊戲</string>

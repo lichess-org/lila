@@ -925,7 +925,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="gameInProgress">Mayroon kang laro na isinasagawa %s.</string>
   <string name="abortTheGame">I-abort ang laro</string>
   <string name="resignTheGame">Resign ang laro</string>
-  <string name="youCantStartNewGame">Hindi ka maaaring magsimula ng isang bagong laro hanggang sa matapos ang isang ito.</string>
   <string name="since">Mula noon</string>
   <string name="until">Hanggang</string>
   <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>

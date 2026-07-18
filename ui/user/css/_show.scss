@@ -12,7 +12,7 @@
 
   background: $c-bg-header-dropdown;
   color: $c-font-clear;
-  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: -1px 5px 6px rgb(0 0 0 / 0.3);
 }
 
 @mixin dropdown-action-highlight {
@@ -90,14 +90,15 @@
         position: relative;
 
         .dropdown-window {
-          @extend %dropdown-shadow;
+          @extend %dropdown-shadow, %box-radius;
 
           z-index: $z-link-overlay-2;
           visibility: hidden;
           background: $c-bg-header-dropdown;
-          border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
+          border-top-right-radius: 0;
           position: absolute;
           top: 2.4rem;
+          overflow: hidden;
 
           @include inline-end(0);
 

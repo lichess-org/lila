@@ -318,6 +318,7 @@ GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
 GET   /api/broadcast/search                   controllers.RelayTour.apiSearch(page: Int ?= 1, q: String ?= "")
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
+GET   /api/broadcast/spotlight-rounds         controllers.RelayRound.apiSpotlightRounds
 GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang: Language)
 
 # Learn
@@ -454,6 +455,7 @@ GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: TourId)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
 POST  /tournament/manager                     controllers.TournamentCrud.create
+GET   /api/tournament/manager/calendar        controllers.TournamentCrud.apiCalendar(page: Int ?= 1)
 
 # Swiss
 GET   /swiss                                  controllers.Swiss.home
@@ -904,6 +906,7 @@ POST  /event/manager/$id<\w{8}>        controllers.Event.update(id)
 GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
+GET   /api/event/calendar              controllers.Event.apiCalendar(page: Int ?= 1)
 
 GET   /cms                            controllers.Cms.index
 GET   /cms/new                        controllers.Cms.createForm(key: Option[CmsPageKey])

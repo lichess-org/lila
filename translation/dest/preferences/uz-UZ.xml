@@ -88,4 +88,5 @@
   <string name="boardSettings">Taxta</string>
   <string name="analysisSettings">Tahlil sozlamalari</string>
   <string name="maneuverArrowsHelp">Bitta dona uchun dvijokning yurishlar ketma‑ketligi</string>
+  <string name="hoverOverSettingLabelsForHelp">Yordam olish uchun sozlama nomi ustiga kursorni qoʻying</string>
 </resources>

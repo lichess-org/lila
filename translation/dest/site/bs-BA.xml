@@ -1029,7 +1029,6 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="gameInProgress">Još igrate u trenu sa %s.</string>
   <string name="abortTheGame">Prekinite igru</string>
   <string name="resignTheGame">Odustanite od igre</string>
-  <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>

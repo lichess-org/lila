@@ -33,7 +33,7 @@ const resultColors = {
   Defeat: '#dc322f',
 };
 
-const sizeColor = 'rgba(120,120,120,0.2)';
+const sizeColor = 'rgb(120 120 120 / 0.2)';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
 function insightChart(el: HTMLCanvasElement, data: InsightData) {

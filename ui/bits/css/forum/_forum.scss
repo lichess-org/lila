@@ -3,7 +3,6 @@
 @import 'post';
 @import 'completion';
 @import 'table';
-@import 'mention';
 @import 'reactions';
 
 .forum {
@@ -24,16 +23,26 @@
   &.forum-categ {
     padding-bottom: 1rem;
 
+    .bar {
+      @extend %box-padding-horiz;
+    }
+
     .sticky {
-      background: $m-secondary_bg--mix-12;
+      background: color-mix(in oklab, $c-secondary 18%, $c-bg);
     }
 
     .sticky:nth-child(even) {
-      background: $m-secondary_bg-zebra--mix-12;
+      background: color-mix(in oklab, $c-secondary 21%, $c-bg-zebra);
     }
 
-    .bar {
-      @extend %box-padding-horiz;
+    @include if-transp {
+      .sticky {
+        background: color-mix(in oklab, $c-secondary 26%, $c-bg);
+      }
+
+      .sticky:nth-child(even) {
+        background: color-mix(in oklab, $c-secondary 15%, $c-bg-zebra);
+      }
     }
   }
 

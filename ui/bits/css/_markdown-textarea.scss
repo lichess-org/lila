@@ -112,7 +112,7 @@
 
   &:has(.uploading) {
     .comment-preview {
-      background: $m-bg--alpha-50;
+      background: rgb(from $c-bg r g b / 0.5);
     }
 
     button {
@@ -136,8 +136,8 @@
 
 @media (hover: hover) and (pointer: fine) {
   .markdown-textarea .header-tab:hover:not(.active) {
-    background-color: $m-border--fade-80;
-    border-color: $m-border--fade-60;
+    background-color: rgb(from $c-border r g b / calc(alpha * 0.2));
+    border-color: rgb(from $c-border r g b / calc(alpha * 0.4));
     color: $c-font;
   }
 

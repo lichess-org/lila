@@ -1,4 +1,6 @@
-package lila.common
+package lila.markdown
+
+import lila.core.data.{ Html, Markdown }
 
 class MarkdownToastUiTest extends munit.FunSuite:
 

@@ -218,10 +218,8 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner &&
       ordered.length < members.max &&
       hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        hl('div.left', [
-          hl('span.status', iconTag(licon.PlusButton)),
-          hl('div.user-link', i18n.study.addMembers),
-        ]),
+        iconTag(licon.PlusButton),
+        hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&
       ctrl.data.admin &&

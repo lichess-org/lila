@@ -200,7 +200,7 @@ private object RelayGame:
             .mapList(_.map(_.value))
             .flatten
             .map(RelayPlayerLine.tokenize.apply)
-            .filter(_.value.nonEmpty)
+            .filter(_.nonEmpty)
 
       gamesTokens
         .flatMap((game, tokens) => tokens.map(_ -> game))

@@ -19,7 +19,7 @@ $c-op-panels: $c-brag;
       padding: 0.4em 1em;
 
       &:hover {
-        background: $m-brag_bg--mix-20;
+        background: color-mix(in oklab, $c-brag 20%, $c-bg);
       }
 
       &[aria-selected='true'] {

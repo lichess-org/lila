@@ -353,7 +353,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
           $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
-            $doc("$unset" -> $doc(F.delete -> true))
+            $doc("$unset" -> $doc(F.delete -> true)) ++
+            $pull(F.marks, UserMark.alt)
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))

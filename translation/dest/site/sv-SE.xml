@@ -973,7 +973,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="gameInProgress">Du har ett pågående parti med %s.</string>
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Ge upp partiet</string>
-  <string name="youCantStartNewGame">Du kan inte starta ett nytt parti förräm detta är klart.</string>
   <string name="since">Sedan</string>
   <string name="until">Tills</string>
   <string name="lichessDbExplanation">Rankade spel från alla Lichess spelare</string>

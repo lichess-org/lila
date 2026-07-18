@@ -2,7 +2,7 @@ package lila.gameSearch
 package ui
 
 import java.time.format.DateTimeFormatter
-import play.api.data.Form
+import play.api.data.{ Form, Field }
 
 import lila.core.i18n.Translate
 import lila.search.SearchPaginator
@@ -160,6 +160,11 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 
+  private def emptySelect(field: Field) = st.select(
+    id := form3.id(field),
+    name := field.name
+  )(st.option(cls := "blank", value := ""))
+
   def dataReqs =
     List("winner", "loser", "white", "black").map: f =>
       data(s"req-$f") := form("players")(f).value.orZero
@@ -172,36 +177,21 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
             color.fold(trans.site.white(), trans.site.black())
           )
         ),
-        td(
-          st.select(
-            id := form3.id(form("players")(color.name)),
-            name := form("players")(color.name).name
-          )(
-            st.option(cls := "blank", value := "")
-          )
-        )
+        td(emptySelect(form("players")(color.name)))
       )
 
   def winner(hide: Boolean) =
     val field = form("players")("winner")
     tr(cls := List("winner user-row" -> true, "none" -> hide))(
       th(label(`for` := form3.id(field))(trans.site.winner())),
-      td(
-        st.select(id := form3.id(field), name := field.name)(
-          st.option(cls := "blank", value := "")
-        )
-      )
+      td(emptySelect(field))
     )
 
   def loser(hide: Boolean) =
     val field = form("players")("loser")
     tr(cls := List("loser user-row" -> true, "none" -> hide))(
       th(label(`for` := form3.id(field))(trans.search.loser())),
-      td(
-        st.select(id := form3.id(field), name := field.name)(
-          st.option(cls := "blank", value := "")
-        )
-      )
+      td(emptySelect(field))
     )
 
   def rating =

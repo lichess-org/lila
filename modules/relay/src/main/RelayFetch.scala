@@ -8,7 +8,7 @@ import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
 import lila.core.lilaism.LilaInvalid
-import lila.core.fide.Federation
+import lila.core.fide.{ Federation, Tokenize }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.relay.RelayRound.Sync
@@ -31,7 +31,7 @@ final private class RelayFetch(
     playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
-)(using Federation.Guess, Executor, Scheduler)(using mode: play.api.Mode):
+)(using Federation.Guess, Executor, Scheduler, Tokenize)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -203,7 +203,7 @@ final private class RelayFetch(
     moves = true,
     tags = true,
     evals = false,
-    opening = false,
+    opening = none,
     literate = false,
     pgnInJson = false,
     delayMoves = true
@@ -273,10 +273,10 @@ final private class RelayFetch(
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
-    // cache games with number > 12 to reduce load on big tournaments
+    // cache games with number > 30 to reduce load on big tournaments
     val tailAt = 30
     private val tailGames =
-      cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
+      cacheApi.notLoadingSync[LccGameKey, GameJson](128, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1.minutes).build()
 
     // index starts at 1
@@ -287,21 +287,21 @@ final private class RelayFetch(
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse((index > lccCache.tailAt).so(tailGames.getIfPresent(key)))
+        .orElse((index > tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index > lccCache.tailAt then tailGames.put(key, game)
+              else if index > tailAt then tailGames.put(key, game)
 
   // used to return the last successful result when a source fails
   // games are stripped of their moves, only tags are kept.
   // the point is to avoid messing up slices in multi-URL setups.
   // if a single URL fails, it should not moves the games of the following URLs.
   private val multiUrlFetchRecoverCache =
-    cacheApi.notLoadingSync[URL, RelayGames](16, "relay.fetch.recoverCache"):
+    cacheApi.notLoadingSync[URL, RelayGames](32, "relay.fetch.recoverCache"):
       _.expireAfterWrite(1.hour).build()
 
   private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using

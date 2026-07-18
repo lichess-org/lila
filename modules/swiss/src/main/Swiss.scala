@@ -82,7 +82,7 @@ object Swiss:
 
   val maxPlayers = 4000
   val maxForbiddenPairings = 1000
-  val maxManualPairings = 10_000
+  val maxManualPairings = 4000
 
   opaque type Round = Int
   object Round extends OpaqueInt[Round]

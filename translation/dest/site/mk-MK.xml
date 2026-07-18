@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Да поканиш некој да игра, прати му го овој линк</string>
+  <string name="gameSetup">Поставки на партијата</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Покани пријател</string>
+  <string name="playAgainstComputer">Играј против компјутер</string>
+  <string name="gameMode">Режим на партија</string>
+  <string name="createLobbyGame">Создади барање за игра</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Споделете ја оваа адреса за да поканите некого на заедничка игра</string>
   <string name="gameOver">Крај на играта</string>
   <string name="waitingForOpponent">Се чека противникот</string>
   <string name="waiting">Почекај</string>
@@ -19,9 +24,10 @@
   <string name="asBlack">како црни</string>
   <string name="randomColor">Случајна боја</string>
   <string name="createAGame">Создади игра</string>
+  <string name="createTheGame">Создади партија</string>
   <string name="whiteIsVictorious">Белите победија</string>
   <string name="blackIsVictorious">Црните победија</string>
-  <string name="youPlayTheWhitePieces">Ти си со белите фигури</string>
+  <string name="youPlayTheWhitePieces">Играте со белите фигури</string>
   <string name="youPlayTheBlackPieces">Ти си со црните фигури</string>
   <string name="itsYourTurn">Ти си на ред!</string>
   <string name="cheatDetected">Откриена е измама</string>
@@ -900,7 +906,6 @@
   <string name="gameInProgress">Имате игра во прогрес %s.</string>
   <string name="abortTheGame">Прекини ја играта</string>
   <string name="resignTheGame">Предади ја играта</string>
-  <string name="youCantStartNewGame">Не можете да започнете нова игра додека моменталната не заврши.</string>
   <string name="since">Од</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>

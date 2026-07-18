@@ -10,6 +10,7 @@ import lila.common.Form.{
   into,
   mustNotContainLichess,
   numberIn,
+  tagifyValues,
   given
 }
 import lila.core.captcha.CaptchaApi
@@ -102,7 +103,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
     single("explain" -> cleanText(minLength = 3, maxLength = 9000))
 
   def members = Form:
-    single("members" -> nonEmptyText)
+    import lila.common.Json.given
+    single("members" -> tagifyValues.field[UserStr, List[UserId]]("value")(_.flatMap(_.validateId)))
 
   val blocklist = Form:
     val sep = "\n"

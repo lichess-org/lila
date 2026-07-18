@@ -132,7 +132,7 @@ dialog {
     }
 
     .invalid {
-      background-color: $m-bad_bg--mix-30;
+      background-color: color-mix(in oklab, $c-bad 30%, $c-bg);
     }
   }
 }

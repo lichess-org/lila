@@ -68,7 +68,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   private object markdown:
 
-    private val renderer = lila.common.MarkdownRender(
+    private val renderer = lila.markdown.MarkdownRender(
       autoLink = false,
       list = true,
       header = true,

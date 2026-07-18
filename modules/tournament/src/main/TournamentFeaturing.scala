@@ -2,6 +2,7 @@ package lila
 package tournament
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
+import scalalib.model.Minutes
 
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.mon.extensions.*
@@ -15,14 +16,13 @@ final class TournamentFeaturing(
   object tourIndex:
     def get(teamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
       (base, scheduled) <- sameForEveryone.get(())
-      teamTours <- visibleForTeams(teamIds, 5 * 60, "index")
+      teamTours <- visibleForTeams(teamIds, Minutes(5 * 60), "index", Max(30))
       forMe = base.add(teamTours)
     yield (scheduled, forMe)
 
     private val sameForEveryone =
-      val cacheName = "tournamentFeaturing.index.sameForEveryone"
-      cacheApi.unit[(VisibleTournaments, List[Tournament])](cacheName):
-        _.refreshAfterWrite(3.seconds).buildAsyncTimeout(cacheName): _ =>
+      cacheApi.unit[(VisibleTournaments, List[Tournament])]("tournamentFeaturing.index.sameForEveryone"):
+        _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
           for
             visible <- api.fetchVisibleTournaments
             scheduled <- repo.allScheduledDedup
@@ -32,16 +32,15 @@ final class TournamentFeaturing(
 
     def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
       base <- sameForEveryone.get(())
-      teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
+      teamTours <- visibleForTeams(teamIds, Minutes(3 * 60), "homepage", Max(3))
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] =
-      val cacheName = "tournamentFeaturing.homepage.sameForEveryone"
-      cacheApi.unit[List[Tournament]](cacheName):
-        _.refreshAfterWrite(2.seconds).buildAsyncTimeout(cacheName): _ =>
+      cacheApi.unit[List[Tournament]]("tournamentFeaturing.homepage.sameForEveryone"):
+        _.refreshAfterWrite(2.seconds).buildAsyncTimeout(): _ =>
           for
-            started <- repo.scheduledStillWorthEntering
-            created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)
+            started <- repo.scheduledNotHourlyStillWorthEntering
+            created <- repo.scheduledNotHourlyCreated(Minutes(crud.CrudForm.maxHomepageHours * 60))
           yield (started ::: created)
             .sortBy(_.startsAt.toSeconds)
             .foldLeft(List.empty[Tournament]): (acc, tour) =>
@@ -52,10 +51,11 @@ final class TournamentFeaturing(
 
   private def visibleForTeams(
       teamIds: List[TeamId],
-      aheadMinutes: Int,
-      page: "index" | "homepage"
+      ahead: Minutes,
+      page: "index" | "homepage",
+      max: Max
   ): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:
       repo
-        .visibleForTeams(teamIds, aheadMinutes)
+        .visibleForTeams(teamIds, ahead, max)
         .monSuccess(lila.mon.tournament.featuring.forTeams(page))

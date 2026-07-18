@@ -53,9 +53,8 @@ object UserInfo:
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
-  ):
+  )(using Executor):
     def apply(u: User)(using ctx: Context): Fu[Social] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(lila.mon.user.segment("relation"))),
         ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
@@ -78,9 +77,8 @@ object UserInfo:
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
-  ):
+  )(using Executor):
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
-      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
         withCrosstable.so:
           me

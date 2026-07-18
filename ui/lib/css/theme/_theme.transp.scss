@@ -1,29 +1,26 @@
 @import 'theme.default';
 
-$c-font: hsl(0, 0%, 80%);
-$c-bg: hsla(0, 0%, 0%, 0.6);
-$c-bg-opaque: hsla(0, 0%, 0%, 0.9);
-$c-bg-low: hsla(0, 0%, 0%, 0.5);
-$c-bg-mid: hsla(0, 0%, 15%, 0.4);
-$c-bg-zebra: hsla(0, 0%, 100%, 0.05);
-$c-bg-zebra2: hsla(0, 0%, 100%, 0.1);
-$c-bg-popup: hsla(0, 0%, 0%, 0.6);
-
 html.transp {
   @include shared-color-defs;
 
-  --c-bg-input: hsla(0, 0%, 0%, 0.7);
-  --c-bg-variation: hsla(0, 0%, 0%, 0.25);
-  --c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
-  --c-font-dim: #{change-color($c-font, $lightness: 69%)};
-  --c-font-dimmer: #{change-color($c-font, $lightness: 48%)};
-  --c-font-clear: #{change-color($c-font, $lightness: 89%)};
-  --c-font-clearer: #{change-color($c-font, $lightness: 97%)};
-  --c-font-page: #{change-color($c-font, $lightness: 97%)};
-  --c-metal-top: hsla(37, 7%, 19%, 0.56);
-  --c-metal-bottom: hsla(37, 7%, 19%, 0.66);
-  --c-metal-top-hover: hsla(0, 0%, 42%, 0.3);
-  --c-metal-bottom-hover: hsla(0, 0%, 42%, 0.35);
-
-  @include transp-mix;
+  --c-bg-font: hsl(0 0% 80%);
+  --c-bg: hsl(0 0% 0% / 0.6);
+  --c-bg-opaque: hsl(0 0% 0% / 0.9);
+  --c-bg-low: hsl(0 0% 0% / 0.5);
+  --c-bg-mid: hsl(0 0% 15% / 0.4);
+  --c-bg-zebra: hsl(0 0% 100% / 0.05);
+  --c-bg-zebra2: hsl(0 0% 100% / 0.1);
+  --c-bg-popup: hsl(0 0% 0% / 0.6);
+  --c-bg-input: hsl(0 0% 0% / 0.7);
+  --c-bg-variation: hsl(0 0% 0% / 0.25);
+  --c-bg-header-dropdown: hsl(0 0% 0% / 0.75);
+  --c-font-dim: hsl(from var(--c-font) h s 69%);
+  --c-font-dimmer: hsl(from var(--c-font) h s 48%);
+  --c-font-clear: hsl(from var(--c-font) h s 89%);
+  --c-font-clearer: hsl(from var(--c-font) h s 97%);
+  --c-font-page: hsl(from var(--c-font) h s 97%);
+  --c-metal-top: hsl(37 7% 19% / 0.56);
+  --c-metal-bottom: hsl(37 7% 19% / 0.66);
+  --c-metal-top-hover: hsl(0 0% 42% / 0.3);
+  --c-metal-bottom-hover: hsl(0 0% 42% / 0.35);
 }

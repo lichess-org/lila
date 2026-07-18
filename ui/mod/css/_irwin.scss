@@ -28,18 +28,18 @@
 
   .green {
     /* actually blue */
-    background-color: rgba(32, 119, 192, 0.3);
+    background-color: rgb(32 119 192 / 0.3);
   }
 
   .yellow {
-    background-color: rgba(221, 207, 63, 0.3);
+    background-color: rgb(221 207 63 / 0.3);
   }
 
   .orange {
-    background-color: rgba(231, 155, 100, 0.3);
+    background-color: rgb(231 155 100 / 0.3);
   }
 
   .red {
-    background-color: rgba(231, 59, 56, 0.3);
+    background-color: rgb(231 59 56 / 0.3);
   }
 }

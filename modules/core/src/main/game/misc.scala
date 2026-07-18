@@ -151,7 +151,7 @@ trait PgnDump:
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Boolean,
+      withOpening: Option[Boolean],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags]
@@ -178,7 +178,7 @@ object PgnDump:
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
-      opening: Boolean = true,
+      opening: Option[Boolean] = None, // no / quick / full
       rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,

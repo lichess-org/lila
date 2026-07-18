@@ -49,16 +49,16 @@
   }
 
   &:not(.created, .loading) tbody tr:hover {
-    background: $m-primary_bg--mix-30;
+    background: color-mix(in oklab, $c-primary 30%, $c-bg);
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    @include gradient-border($m-secondary_bg--mix-70, to right, to left);
+    @include gradient-border(color-mix(in oklab, $c-secondary 70%, $c-bg), to right, to left);
   }
 
   tr.active td:last-child {
-    @include gradient-border($m-primary_bg--mix-70, to left, to right);
+    @include gradient-border(color-mix(in oklab, $c-primary 70%, $c-bg), to left, to right);
   }
 
   td.rank {

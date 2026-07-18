@@ -143,13 +143,16 @@ final class AccountTermination(
     // a lot of deletion is done by modules listening to the following event:
     Bus.pub(lila.core.user.UserDelete(u))
 
-  private def deleteAllGameChats(u: User) = gameRepo
-    .docCursor(lila.game.Query.user(u.id), $id(true).some)
-    .documentSource()
-    .mapConcat(_.getAsOpt[GameId]("_id").toList)
-    .grouped(100)
-    .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
-    .run()
+  def deleteAllGameChats(u: User) =
+    import lila.game.Query
+    import lila.core.game.Source.*
+    gameRepo
+      .docCursor(Query.user(u.id) ++ Query.sourceIn(List(Lobby, Pool, Friend, Api)), $id(true).some)
+      .documentSource()
+      .mapConcat(_.getAsOpt[GameId]("_id").toList)
+      .grouped(100)
+      .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
+      .run()
 
   private val isEssential: Set[UserId] =
     Set(

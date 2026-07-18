@@ -49,12 +49,12 @@ input.range {
   }
 
   &::-ms-fill-lower {
-    background: rgba(191, 191, 191, 0.78);
+    background: rgb(191 191 191 / 0.78);
     border-radius: 11.8px;
   }
 
   &::-ms-fill-upper {
-    background: rgba(214, 214, 214, 0.78);
+    background: rgb(214 214 214 / 0.78);
     border-radius: 11.8px;
   }
 

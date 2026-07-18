@@ -73,7 +73,11 @@ final private class RelaySync(
       .countByStudyId(study.id)
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
-          createChapter(study, game)(using rt.tour).map: chapter =>
+          for
+            chapter <- createChapter(study, game)(using rt.tour)
+            _ <- chapter.tags.outcome.isDefined.so:
+              onChapterEnd(rt.tour, study, chapter)
+          yield
             if chapter.root.mainline.nonEmpty then notifier.onCreate(rt, chapter)
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size, false).some
 
@@ -126,6 +130,26 @@ final private class RelaySync(
           position = Position(chapter, path).ref,
           toMainline = true
         )(using by) >> chapterRepo.setRelayPath(chapter.id, path)
+      // moves that are not in the source but are in the study chapter,
+      // should become forced variations in the study chapter
+      _ <- game.root.mainline
+        .foldLeft(List.empty[UciPath] -> UciPath.root):
+          case ((acc, parentPath), gameNode) =>
+            val nodePath = parentPath + gameNode.id
+            val localPaths = chapter.root
+              .nodeAt(parentPath)
+              .so: parentNode =>
+                parentNode.children.toList.collect:
+                  case child if child.id != gameNode.id && !child.forceVariation =>
+                    parentPath + child.id
+            (acc ::: localPaths, nodePath)
+        ._1
+        .sequentiallyVoid: childPath =>
+          studyApi.forceVariation(
+            studyId = study.id,
+            position = Position(chapter, childPath).ref,
+            force = true
+          )(by)
       _ <- newNode match
         case Some(newNode) =>
           newNode.mainline
@@ -206,7 +230,7 @@ final private class RelaySync(
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
     yield
-      if tour.official && !study.isMember(UserId("no-analysis")) && chapter.root.mainline.sizeIs > 4 then
+      if tour.official && !study.isMember(UserId("no-analysis")) then
         scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 

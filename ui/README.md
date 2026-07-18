@@ -55,7 +55,7 @@ tsc type checking uses package.json's `exports` property [(node)](https://nodejs
 ```
 tsc needs both `types` and `import` -> `default` to point to .d.ts and .js products during the typechecking (--noEmit) phase. tsc does not care about "source"
 
-The `exports` object [(typescript)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./ui/lib/package.json):
+The `exports` object [(typescript)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./lib/package.json):
 ```json
   "exports": {
 

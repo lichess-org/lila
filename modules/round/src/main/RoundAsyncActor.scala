@@ -330,6 +330,8 @@ final private class RoundAsyncActor(
                   clock
                     .giveTime(g.turnColor, Centis(2000))
                     .giveTime(!g.turnColor, Centis(1000))
+        .recoverDefault: e =>
+          logger.warn(s"RoundAsyncActor LilaStop error: ${e.getMessage}")
         .tap(promise.completeWith)
 
     case WsBoot =>
@@ -468,7 +470,7 @@ object RoundAsyncActor:
   case class LilaStop(promise: Promise[Unit])
 
   private val monitor =
-    AsyncActor.Monitor(msg => lila.log.system.warn(s"round.asyncActor unhandled msg: $msg"))
+    AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
 
   private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
 

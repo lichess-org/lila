@@ -138,8 +138,8 @@ export default async function (
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
-        above: moveSeries ? whiteFill : 'rgba(153, 153, 153, .3)',
-        below: moveSeries ? blackFill : 'rgba(0,0,0,0.3)',
+        above: moveSeries ? whiteFill : 'rgb(153 153 153 / 0.3)',
+        below: moveSeries ? blackFill : 'rgb(0 0 0 / 0.3)',
       },
       order: moveSeries ? 2 : 1,
       datalabels: { display: false },

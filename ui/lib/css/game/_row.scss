@@ -13,7 +13,7 @@
   }
 
   &:hover {
-    background: $m-primary_bg--mix-20;
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
   }
 
   &__overlay {
@@ -91,7 +91,7 @@
       line-height: 2em;
     }
 
-    @media (width <= $xxx-small) {
+    @media (max-width: $xxx-small) {
       column-gap: 1em;
 
       .swords {

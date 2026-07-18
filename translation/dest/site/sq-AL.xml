@@ -1009,7 +1009,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="gameInProgress">Keni një lojë në ecuri e sipër me %s.</string>
   <string name="abortTheGame">Ndërpriteni lojën</string>
   <string name="resignTheGame">Dorëzohuni</string>
-  <string name="youCantStartNewGame">S’mund të filloni një lojë të re pa mbaruar këtë lojë.</string>
   <string name="since">Që nga</string>
   <string name="until">Deri më</string>
   <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>

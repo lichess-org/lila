@@ -2,8 +2,7 @@ package lila.appeal
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -15,19 +14,8 @@ final class AppealUi(helpers: Helpers):
       .css(Granter.opt(_.Appeals).option("mod.user"))
       .js(esmInit("bits.appeal") ++ Granter.opt(_.Appeals).so(Esm("mod.user")))
 
-  def renderMark(suspect: User)(using ctx: Context) =
-    val query = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)
-    if suspect.enabled.no || query.contains("alt") then trans.appeal.closedByModerators()
-    else if suspect.marks.engine || query.contains("engine") then trans.appeal.engineMarked()
-    else if suspect.marks.boost || query.contains("boost") then trans.appeal.boosterMarked()
-    else if suspect.marks.troll || query.contains("shadowban") then trans.appeal.accountMuted()
-    else if suspect.marks.rankban || query.contains("rankban") then trans.appeal.excludedFromLeaderboards()
-    else if suspect.marks.arenaBan || query.contains("arenaban") then trans.appeal.arenaBanned()
-    else if suspect.marks.prizeban || query.contains("prizeban") then trans.appeal.prizeBanned()
-    else trans.appeal.cleanAllGood()
-
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
-    if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
+    if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
         userIdLink(UserId.lichess.some),
@@ -37,5 +25,30 @@ final class AppealUi(helpers: Helpers):
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
       strong(cls := "text inline")("Appeal status"),
-      strong(cls := "fat")(a(href := routes.Appeal.show(ap.userId))(ap.status.toString))
+      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.key))
     )
+
+  def backLink =
+    a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text")
+
+  def list(user: User, appeals: List[Appeal])(using Context) =
+    page(s"Appeals by ${user.username}"):
+      main(cls := "box box-pad appeal")(
+        div(cls := "box__top")(h1(backLink, "Appeals by ", userIdLink(user.some))),
+        table(cls := "appeal-list slist")(
+          thead(tr(th("Topic"), th("Status"), th("Messages"), th("Mods"), th("Created"), th("Updated"))),
+          tbody:
+            appeals.map: ap =>
+              tr(
+                td(a(href := routes.Appeal.modShow(ap.user, ap.topic))(strong(ap.topic.key))),
+                td:
+                  ap.closedUntil.fold[Frag](ap.status.key): until =>
+                    frag("paused until ", showDate(until))
+                ,
+                td(ap.msgs.size.toString),
+                td(fragList(ap.modIds.map(some).map(userIdLink(_)))),
+                td(momentFromNowOnce(ap.createdAt)),
+                td(momentFromNowOnce(ap.updatedAt))
+              )
+        )
+      )

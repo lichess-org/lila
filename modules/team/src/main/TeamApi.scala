@@ -1,9 +1,7 @@
 package lila.team
 
 import java.time.Period
-import scala.util.Try
 import scalalib.actor.AsyncActorSequencers
-import play.api.libs.json.{ JsSuccess, Json, Reads }
 import play.api.mvc.RequestHeader
 
 import lila.common.Bus
@@ -305,8 +303,8 @@ final class TeamApi(
       kicked <- memberRepo.get(team.id, userId)
       myself <- memberRepo.get(team.id, me)
       allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
-        myself.exists: myself =>
-          kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
+        Granter(_.ManageTeam) || myself.exists: myself =>
+          kicked.perms.isEmpty || myself.hasPerm(_.Admin)
       _ <- allowed.so:
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
@@ -316,11 +314,10 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
-    val users = parseTagifyInput(json).toList
+  def kickMembers(team: Team, users: List[UserId])(using me: Me, req: RequestHeader): Funit =
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
-      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
+      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"
     users.sequentiallyVoid(kick(team, _))
 
   object blocklist:
@@ -333,20 +330,6 @@ final class TeamApi(
     def has(team: Team, user: UserId): Fu[Boolean] =
       get(team).map: list =>
         UserStr.from(list.split("\n")).exists(_.is(user))
-
-  private case class TagifyUser(value: String)
-  private given Reads[TagifyUser] = Json.reads
-
-  private def parseTagifyInput(json: String): Set[UserId] = Try {
-    json.trim.nonEmpty.so:
-      Json.parse(json).validate[List[TagifyUser]] match
-        case JsSuccess(users, _) =>
-          users.toList
-            .flatMap(u => UserStr.read(u.value))
-            .map(_.id)
-            .toSet
-        case _ => Set.empty[UserId]
-  }.getOrElse(Set.empty)
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>

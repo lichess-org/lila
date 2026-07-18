@@ -322,8 +322,13 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
-          for _ <- chapterRepo.update(newChapter) yield reloadStudy(study.id, who)
+          val newChapter =
+            chapter.copy(serverEval = none).updateRoot(_.clearAnnotationsRecursively.some) | chapter
+          for
+            _ <- chapterRepo.update(newChapter)
+            _ = if chapter.serverEval.isDefined then
+              Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
+          yield reloadStudy(study.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -733,6 +738,8 @@ final class StudyApi(
                     doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter)
           yield
+            if chapter.serverEval.isDefined
+            then Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterId :: Nil))
             sendChapterPreviews(study)
             setStudyUpdated(study)
         }
@@ -841,12 +848,23 @@ final class StudyApi(
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
       for
+        chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
-      yield Bus.pub(lila.core.study.RemoveStudy(study.id))
+      yield
+        Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+        Bus.pub(lila.core.study.RemoveStudy(study.id))
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_.so(delete))
+
+  def deletePrivateByOwner(userId: UserId): Funit = for
+    studyIds <- studyRepo.deletePrivateByOwner(userId)
+    _ <- studyIds.sequentiallyVoid: studyId =>
+      for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, true)
+      yield Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+    _ <- chapterRepo.deleteByStudyIds(studyIds)
+  yield ()
 
   def like(studyId: StudyId, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v).map { likes =>
@@ -881,10 +899,25 @@ final class StudyApi(
         Contribute(userId, study):
           serverEvalRequester(study, chapter, userId, official)
 
+  // only for official broadcasts
+  def analysisRequestAllChapters(studyId: StudyId): Funit =
+    studyRepo
+      .byId(studyId)
+      .flatMapz: study =>
+        for
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, false)
+          _ <- chapterIds.sequentiallyVoid: chapterId =>
+            analysisRequest(studyId, chapterId, study.ownerId, official = true)
+        yield ()
+
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>
       Contribute(by.id, study):
-        for _ <- chapterRepo.deleteByStudy(study) yield preview.invalidate(study.id)
+        for
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
+          _ <- chapterRepo.deleteByStudy(study)
+          _ = Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+        yield preview.invalidate(study.id)
 
   def becomeAdmin(studyId: StudyId, me: MyId): Funit =
     sequenceStudy(studyId): study =>
