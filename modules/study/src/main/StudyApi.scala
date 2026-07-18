@@ -15,6 +15,7 @@ import lila.core.data.ErrorMsg
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import cats.mtl.Handle.*
+import lila.study as id
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -861,6 +862,7 @@ final class StudyApi(
   def deletePrivateByOwner(userId: UserId): Funit = for
     studyIds <- studyRepo.deletePrivateByOwner(userId)
     _ <- studyIds.sequentiallyVoid: studyId =>
+      lila.common.Bus.pub(lila.core.study.RemoveStudy(studyId))
       for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, true)
       yield Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
     _ <- chapterRepo.deleteByStudyIds(studyIds)

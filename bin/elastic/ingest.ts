@@ -115,20 +115,26 @@ async function watch(context: Context) {
       const deduped = [...new Map(esEvents.map(e => [`${e.index}:${e.docId}`, e])).values()];
 
       for (const [index, events] of Map.groupBy(deduped, e => e.index)) {
-        const deletedIds = events.filter(e => e.operation === 'delete').map(e => e.docId);
-        const toUpsert = events.filter(e => e.operation === 'upsert').map(e => e.docId);
+        const requestDeleteIds = events.filter(e => e.operation === 'delete').map(e => e.docId);
+        const requestUpsertIds = events.filter(e => e.operation === 'upsert').map(e => e.docId);
         const mapping = indexing[index].mapping;
         const mongoDocs = await context.mongo
           .collection<MongoDoc>(mapping.collection)
-          .find({ _id: { $in: toUpsert } }, { projection: mapping.projection })
+          .find({ _id: { $in: requestUpsertIds } }, { projection: mapping.projection })
           .toArray();
         const operations = await mapping.operations(mongoDocs, context);
-        const liveIds = new Set([...operations.toUpsert.map(doc => doc.id), ...operations.toDelete]);
-        const toDelete = [...operations.toDelete, ...toUpsert.filter(id => !liveIds.has(id)), ...deletedIds];
+        const existsInMongoSet = new Set(operations.toUpsert.map(doc => doc.id));
+        operations.toDelete = [
+          ...new Set([
+            ...operations.toDelete,
+            ...requestUpsertIds.filter(id => !existsInMongoSet.has(id)),
+            ...requestDeleteIds,
+          ]),
+        ];
 
-        await writeToIndex(index, { ...operations, toDelete });
+        await writeToIndex(index, operations);
         upserted += operations.toUpsert.length;
-        deleted += toDelete.length;
+        deleted += operations.toDelete.length;
       }
       await mailbox.deleteMany({ _id: { $in: esEvents.map(event => event._id) } });
       metrics.consecutiveFailures = 0;
