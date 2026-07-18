@@ -1064,6 +1064,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="gameInProgress">Ai un joc în desfășurare cu %s.</string>
   <string name="abortTheGame">Abandonează jocul</string>
   <string name="resignTheGame">Cedează jocul</string>
+  <string name="youCantStartNewGame">Nu poți începe un joc nou în timp ce este rândul tău.</string>
   <string name="since">De la</string>
   <string name="until">Până la</string>
   <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>

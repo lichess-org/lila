@@ -426,7 +426,7 @@
   <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
   <string name="playerNames">Имена играча</string>
-  <string name="moveAnnotations">Нотација потеза</string>
+  <string name="moveAnnotations">Анотације потеза</string>
   <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
   <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
