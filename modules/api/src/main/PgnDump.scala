@@ -42,9 +42,7 @@ final class PgnDump(
 
   def formatter(
       flags: WithFlags
-  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]]) => Fu[
-    String
-  ] =
+  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]]) => Fu[String] =
     (
         game: Game,
         initialFen: Option[Fen.Full],
