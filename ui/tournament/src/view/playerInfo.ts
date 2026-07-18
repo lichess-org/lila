@@ -75,7 +75,7 @@ export default function (ctrl: TournamentController): VNode {
             {
               key: p.id,
               attrs: { 'data-href': '/' + p.id + '/' + p.color },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
               hl('th', Math.max(nb.game, pairingsLen) - i),

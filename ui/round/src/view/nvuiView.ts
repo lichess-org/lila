@@ -106,9 +106,9 @@ function inputForm(ctx: RoundNvuiContext): LooseVNodes {
     hl(
       'form#move-form',
       {
-        hook: onInsert(el => {
-          const $form = $(el as HTMLFormElement),
-            $input = $form.find('.move').val('');
+        hook: onInsert<HTMLFormElement>(el => {
+          const $form = $(el);
+          const $input = $form.find('.move').val('');
           nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
           $form.on('submit', (ev: SubmitEvent) => {
             ev.preventDefault();

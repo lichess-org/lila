@@ -417,7 +417,7 @@ export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip:
           },
         });
     }),
-    ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) } : {}),
+    ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm) } : {}),
   };
 };
 

@@ -297,8 +297,7 @@ const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =
       )
     : comment.text;
 
-const transRole = (role: Role): string =>
-  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
+const transRole = (role: Role): string => (i18n.nvui[role as keyof typeof i18n.nvui] as string) || role;
 
 const nato: Record<Files, string> = {
   a: 'alpha',
