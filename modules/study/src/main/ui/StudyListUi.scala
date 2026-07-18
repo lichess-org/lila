@@ -168,13 +168,13 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
     else if format == StudyFormat.compact then
       div(cls := "studies compact infinite-scroll")(
         pager.currentPageResults.map { s =>
-          div(cls := "study compact paginated")(
+          a(cls := "study compact paginated", href := routes.Study.show(s.study.id))(
             span(cls := "study__icon")(
               s.study.flair
                 .map(iconFlair)
                 .getOrElse(iconTag(Icon.StudyBoard))
             ),
-            a(href := routes.Study.show(s.study.id))(s.study.name.value)
+            span(s.study.name.value)
           )
         },
         pagerNext(pager, nextPageUrl)
