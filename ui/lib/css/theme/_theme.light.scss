@@ -27,7 +27,9 @@ html.light {
   --c-future: hsl(274 65% 70%);
   --c-paper: hsl(60 56% 86%);
   --c-border: hsl(0 0% 85%);
+  --c-dim: var(--c-light);
   --c-dimmer: white;
+  --c-clear: var(--c-dark);
   --c-clearer: black;
   --c-bg-input: hsl(from var(--c-bg-page) h s 98);
   --c-bg-variation: var(--c-bg-zebra2);

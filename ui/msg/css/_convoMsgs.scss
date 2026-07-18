@@ -54,15 +54,22 @@
     color: $c-inbox-font;
     max-width: 70%;
     white-space-collapse: preserve;
+
+    a {
+      color: $c-inbox-link;
+
+      @include hover {
+        filter: brightness(1.2);
+      }
+    }
   }
 
   day {
     @extend %roboto;
 
-    background: color-mix(in oklab, $c-primary 15%, $c-bg);
+    background: color-mix(in oklab, $c-primary 25%, $c-bg);
     align-self: center;
     font-size: 0.9em;
-    color: $c-font;
     margin: 0.5em 0;
     user-select: none;
   }

@@ -22,7 +22,10 @@
   --c-header-dropdown: var(--c-font);
   --c-shade: hsl(0 0% 30%);
   --c-dark: #333;
+  --c-light: #ddd;
+  --c-dim: var(--c-dark);
   --c-dimmer: black;
+  --c-clear: var(--c-light);
   --c-clearer: white;
   --c-font: hsl(0 0% 73%);
   --c-font-dim: hsl(0 0% 58%);
@@ -50,6 +53,7 @@
   --c-inbox-font: var(--c-font-clear);
   --c-inbox-bubble-mine: color-mix(in oklab, var(--c-secondary) 15%, var(--c-bg));
   --c-inbox-bubble-theirs: color-mix(in oklab, var(--c-brag) 15%, var(--c-bg));
+  --c-inbox-link: var(--c-primary);
   --c-primary: hsl(209 79% 56%);
   --c-primary-clear: color-mix(in oklab, var(--c-clearer) 20%, var(--c-primary));
   --c-primary-dim: color-mix(in oklab, var(--c-dimmer) 15%, var(--c-primary));

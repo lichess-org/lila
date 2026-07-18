@@ -74,10 +74,6 @@
   .column {
     justify-content: space-between;
     flex: 40%;
-
-    @media (max-width: at-most(600px)) {
-      flex: 1;
-    }
   }
 
   .setting {
@@ -132,12 +128,6 @@
   @include mq-has-hover {
     @media (min-width: at-least(600px)) {
       :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
-        display: block;
-      }
-    }
-
-    @media (max-width: at-most(600px)) {
-      .help-button {
         display: block;
       }
     }

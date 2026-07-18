@@ -1,8 +1,4 @@
-@import 'theme.default';
-
 html.clouds {
-  @include shared-color-defs;
-
   ---site-hue: 230deg;
   ---site-sat: 8%;
   ---site-lum: 79%;
@@ -28,9 +24,10 @@ html.clouds {
   --c-body-gradient: hsl(from var(--c-bg) h calc(s * 0.4) calc(l * 1.13));
   --c-bad: hsl(0 40% 50%);
   --c-badge: var(--c-bad);
-  --c-inbox-bubble-mine: var(--c-secondary);
-  --c-inbox-bubble-theirs: var(--c-brag);
+  --c-inbox-bubble-mine: hsl(var(---secondary-hue) 36% 40%);
+  --c-inbox-bubble-theirs: hsl(var(---brag-hue) 20% 43%);
   --c-inbox-font: white;
+  --c-inbox-link: hsl(var(---primary-hue) 80% 70%);
   --c-primary: hsl(var(---primary-hue) 37% 42%);
   --c-secondary: hsl(var(---secondary-hue) 52% 30%);
   --c-brag: hsl(var(---brag-hue) 25 40);
