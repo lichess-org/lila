@@ -24,31 +24,28 @@ export default function (ctrl: StormCtrl): VNode {
 
 const chessground = (ctrl: StormCtrl): VNode =>
   hl('div.cg-wrap', {
-    hook: {
-      insert: vnode => {
-        ctrl.ground(
-          makeChessground(
-            vnode.elm as HTMLElement,
-            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
-          ),
-        );
-        pubsub.on('board.change', (is3d: boolean) =>
-          ctrl.withGround(g => {
-            g.state.addPieceZIndex = is3d;
-            g.redrawAll();
-          }),
-        );
-      },
-    },
+    hook: onInsert(el => {
+      ctrl.ground(
+        makeChessground(
+          el,
+          makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
+        ),
+      );
+      pubsub.on('board.change', (is3d: boolean) =>
+        ctrl.withGround(g => {
+          g.state.addPieceZIndex = is3d;
+          g.redrawAll();
+        }),
+      );
+    }),
   });
 
 const renderBonus = (bonus: number) => `${bonus}s`;
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => {
   const run = ctrl.run;
-  const malus = run.modifier.malus;
-  const bonus = run.modifier.bonus;
   const now = getNow();
+  const { malus, bonus } = run.modifier;
   return [
     hl('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
     hl('div.puz-side', [
@@ -64,8 +61,8 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => {
   ];
 };
 
-const renderSolved = (ctrl: StormCtrl): VNode =>
-  hl('div.puz-side__top.puz-side__solved', [hl('div.puz-side__solved__text', `${ctrl.countWins()}`)]);
+const renderSolved = ({ countWins }: StormCtrl): VNode =>
+  hl('div.puz-side__top.puz-side__solved', [hl('div.puz-side__solved__text', `${countWins()}`)]);
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   hl('div.puz-side__control', [
