@@ -25,12 +25,7 @@ object Dependencies:
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.15.Final").classifier(s"$os-$arch")
-  // lila-search's client transitively pulls the old Akka-based com.typesafe.play WS; exclude it so
-  // lila's own Pekko play-ws (org.playframework) is used instead and no Akka lands on the classpath.
-  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.4.6")
-    .exclude("com.typesafe.play", "play-ahc-ws-standalone_3")
-    .exclude("com.typesafe.play", "play-ws-standalone_3")
-    .exclude("com.typesafe.play", "play-ws-standalone-json_3")
+  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0-SNAPSHOT")
   val munit = "org.scalameta" %% "munit" % "1.3.3" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
