@@ -19,6 +19,7 @@ final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(us
 
   scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
     api.reopenPausedAppeals()
+    api.countUnreadByTopic.foreach(lila.mon.appeal.unreadByTopic)
 
   Bus.sub[lila.core.mod.MarkBooster]: m =>
     api.toggleClosed(m.userId, AppealTopic.boost, m.value.not)
