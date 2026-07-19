@@ -1,6 +1,5 @@
 package lila.round
 
-import alleycats.Zero
 import chess.{ ByColor, Centis, Color }
 import play.api.libs.json.*
 import scalalib.actor.AsyncActor
@@ -471,18 +470,6 @@ object RoundAsyncActor:
 
   private val monitor =
     AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
-
-  private[round] final class TakebackState(nbDeclined: Int, lastDeclined: Option[Instant]):
-
-    def decline = TakebackState(nbDeclined + 1, nowInstant.some)
-
-    def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
-
-    def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
-
-  private[round] type TakebackBoard = ByColor[TakebackState]
-
-  private[round] given takebackBoardZero: Zero[TakebackBoard] = Zero(ByColor.fill(TakebackState(0, none)))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,
