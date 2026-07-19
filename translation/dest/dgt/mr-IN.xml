@@ -23,7 +23,7 @@
   <string name="moveFormatDescription">Lichess वर SAN हे मानक आहे, उदाहरणार्थ \"Nf6\". यंत्रांसाठी UCI सामान्य आहे, उदाहरणार्थ \"g8f6\".</string>
   <string name="debug">सुक्ष्मध्वनियंत्र</string>
   <string name="verboseLogging">शब्दशः नोंदणीसाठी आज्ञावली</string>
-  <string name="toSeeConsoleMessage">निबंधकातले संदेश पाहण्यासाठी, Ctrl + Shift + C दाबा (Windows, Linux, Chrome OS) किंवा ⌘ + ⌥ + C (Mac). </string>
+  <string name="toSeeConsoleMessage">निबंधकातले संदेश पाहण्यासाठी, Ctrl + Shift + C दाबा (Windows, Linux, Chrome OS) किंवा ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">DGT पटाबरोबर खेळा</string>
   <string name="configure">मांडणी करा</string>
 </resources>
