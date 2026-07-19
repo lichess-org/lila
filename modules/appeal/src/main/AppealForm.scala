@@ -8,7 +8,8 @@ import lila.common.Form.{ options, numberIn, cleanNonEmptyText }
 object AppealForm:
 
   val untilMonths = options(List(1, 2, 3, 4, 6, 9, 12, 15, 24, 36), "%d month{s}")
-  val topicFilterChoices = ("all" :: AppealTopicApi.relevant.map(_.key)).map(t => t -> t)
+  val topicFilterChoices =
+    ("all" :: (AppealTopicApi.relevant :+ AppealTopic.chat).map(_.key)).map(t => t -> t)
 
   val sleep = Form:
     single("months" -> optional(numberIn(untilMonths)))

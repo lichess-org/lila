@@ -181,7 +181,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               )
             else emptyFrag
           ),
-          div(cls := "appeal__actions", id := "appeal-actions")(
+          div(cls := "appeal__actions")(
             inquiryBy match
               case None =>
                 postForm(action := routes.Appeal.modHandle(appeal.user, appeal.topic))(

@@ -46,8 +46,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
     blogHidden <- env.ublog.api.isHiddenWithPosts(user)
-    warning <- env.mod.logApi.hasRecentWarning(user.id)
-  yield lila.appeal.UserStatus(user, playban, blogHidden, warning)
+    modActions <- env.mod.logApi.recentActionsOf(user.id)
+  yield lila.appeal.UserStatus(user, playban, blogHidden, modActions)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     for
@@ -122,7 +122,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   private def redirectToActions(username: UserStr, topic: AppealTopic) =
-    Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-actions")
+    Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-form")
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for

@@ -37,3 +37,5 @@ final class Env(db: lila.db.Db, cacheApi: lila.memo.CacheApi)(using Executor)(us
     api.toggleClosed(k.userId, AppealTopic.arena, k.value.not)
   Bus.sub[lila.core.mod.PrizeBan]: k =>
     api.toggleClosed(k.userId, AppealTopic.prize, k.value.not)
+  Bus.sub[lila.core.mod.ChatTimeout]: k =>
+    api.toggleClosed(k.user, AppealTopic.chat, false)
