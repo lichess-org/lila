@@ -25,7 +25,7 @@ final class AppealUi(helpers: Helpers):
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
       strong(cls := "text inline")("Appeal status"),
-      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.key))
+      strong(cls := "fat")(a(href := ap.modShowUrl)(ap.status.key))
     )
 
   def backLink =
@@ -40,7 +40,7 @@ final class AppealUi(helpers: Helpers):
           tbody:
             appeals.map: ap =>
               tr(
-                td(a(href := routes.Appeal.modShow(ap.user, ap.topic))(strong(ap.topic.key))),
+                td(a(href := ap.modShowUrl)(strong(ap.topic.key))),
                 td:
                   ap.closedUntil.fold[Frag](ap.status.key): until =>
                     frag("paused until ", showDate(until))
