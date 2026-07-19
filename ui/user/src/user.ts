@@ -1,19 +1,30 @@
 import { myUserId } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { alert, makeLinkPopups } from 'lib/view';
+import { alert, domDialog, makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 const gamesAngle = document.querySelector<HTMLElement>('.games');
 if (gamesAngle) gamesAngle.style.visibility = 'hidden'; // FOUC
 
-export async function initModule(): Promise<void> {
+export interface TrophyItem {
+  cls: string;
+  title: string;
+  href?: string;
+  icon?: string;
+  imgSrc?: string;
+  imgW?: number;
+  imgH?: number;
+  stacked?: boolean;
+  badge?: boolean;
+}
+
+export async function initModule(data: { trophies?: TrophyItem[]; username?: string }): Promise<void> {
   makeLinkPopups($('.social_links'));
   makeLinkPopups($('.user-infos .bio'));
 
   tmpRandomTutorLink();
-  updatePackedTrophies();
-  window.addEventListener('resize', updatePackedTrophies);
+  if (data?.trophies) initTrophies(data.trophies, data.username);
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
@@ -99,13 +110,134 @@ function tmpRandomTutorLink() {
   $(buttonHtml).insertBefore('.profile-side .insight');
 }
 
-function updatePackedTrophies() {
-  const header = document.querySelector<HTMLElement>('.user-show__header');
-  const trophies = header?.querySelector<HTMLElement>('.trophies');
-  const title = header?.querySelector<HTMLElement>('h1');
-  if (!trophies || !title) return;
-  trophies.classList.remove('packed');
-  // see if there's an overflow (or close to one) without 'packed':
-  if (trophies.getBoundingClientRect().left < title.getBoundingClientRect().right + 8)
-    trophies.classList.add('packed');
+let trophiesDialogOpen = false;
+
+function initTrophies(items: TrophyItem[], username?: string) {
+  const el = document.querySelector<HTMLElement>('.trophies');
+  if (!el || !items.length) return;
+
+  const badges = items.filter(t => t.badge);
+  const cups = dedup(items.filter(t => !t.badge));
+  const bNodes = badges.map(makeTrophy);
+  const cNodes = cups.map(makeTrophy);
+
+  const measure = (nodes: HTMLElement[]) => {
+    el.replaceChildren(...nodes);
+    const r = nodes.map(n => ({
+      node: n,
+      width:
+        n.getBoundingClientRect().width +
+        parseFloat(window.getComputedStyle(n).marginLeft) +
+        parseFloat(window.getComputedStyle(n).marginRight),
+    }));
+    el.replaceChildren();
+    return r;
+  };
+
+  const allImgs: HTMLImageElement[] = [];
+  for (const n of [...cNodes, ...bNodes]) for (const img of n.querySelectorAll('img')) allImgs.push(img);
+
+  const waits = allImgs.map(img =>
+    img.complete
+      ? Promise.resolve()
+      : new Promise<void>(r => {
+          img.addEventListener('load', () => r(), { once: true });
+          img.addEventListener('error', () => r(), { once: true });
+        }),
+  );
+
+  Promise.all([document.fonts.ready, ...waits]).then(() => {
+    if (!el.clientWidth) return;
+    const gap = parseFloat(window.getComputedStyle(el).columnGap) || 0;
+    const moreBtn = makeMoreBtn(0, cups, username);
+    const bM = measure(bNodes);
+    const cM = measure(cNodes);
+    const moreW = measure([moreBtn])[0].width;
+
+    const rowW = (count: number, more: boolean) => {
+      let total = more ? moreW + gap : 0;
+      for (let i = cM.length - count; i < cM.length; i++) total += cM[i].width + gap;
+      for (const m of bM) total += m.width + gap;
+      return total - gap;
+    };
+
+    const layout = () => {
+      const avail = el.clientWidth;
+      if (!avail) return;
+      let n = cM.length;
+      if (rowW(n, false) > avail) while (n && rowW(n, true) > avail) n--;
+      const hidden = cM.length - n;
+      el.replaceChildren();
+      if (hidden) el.appendChild(makeMoreBtn(hidden, cups, username));
+      for (let i = cM.length - n; i < cM.length; i++) el.appendChild(cM[i].node);
+      bM.forEach(m => el.appendChild(m.node));
+    };
+
+    layout();
+    new ResizeObserver(layout).observe(el);
+  });
+}
+
+function dedup(items: TrophyItem[]): TrophyItem[] {
+  const seen = new Set<string>();
+  return items.filter(t => (seen.has(t.title) ? false : (seen.add(t.title), true)));
+}
+
+function makeTrophy(t: TrophyItem): HTMLElement {
+  const el = document.createElement(t.href ? 'a' : 'span');
+  el.className = t.cls;
+  el.title = t.title;
+  el.setAttribute('aria-label', t.title);
+  if (t.href) (el as HTMLAnchorElement).href = t.href;
+  if (t.icon) el.textContent = t.icon;
+  if (t.imgSrc) {
+    const img = document.createElement('img');
+    img.src = t.imgSrc;
+    if (t.imgW) img.width = t.imgW;
+    if (t.imgH) img.height = t.imgH;
+    el.appendChild(img);
+  }
+  if (t.stacked) {
+    const wrap = document.createElement('span');
+    wrap.className = 'stacked';
+    wrap.appendChild(el);
+    return wrap;
+  }
+  return el;
+}
+
+function makeMoreBtn(hidden: number, allCups: TrophyItem[], username?: string): HTMLElement {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'more-trophies';
+  button.textContent = `+${hidden}`;
+  button.title = i18n.site.more;
+  button.setAttribute('aria-label', i18n.site.more);
+  button.addEventListener('click', () => openAllTrophies(allCups, username));
+  return button;
+}
+
+function openAllTrophies(cups: TrophyItem[], username?: string) {
+  if (trophiesDialogOpen) return;
+  trophiesDialogOpen = true;
+
+  const $grid = $(`<div class="all-trophies"/>`).append(
+    $(`<h2 class="all-trophies__title"/>`).text(username ?? i18n.site.more),
+    ...cups.map(t =>
+      $(`<div class="all-trophies__item"/>`).append(
+        makeTrophy(t),
+        $(`<span class="all-trophies__name"/>`).text(t.title),
+      ),
+    ),
+  );
+
+  domDialog({
+    class: 'all-trophies-dialog',
+    cash: $grid,
+    modal: true,
+    show: true,
+    onClose: () => {
+      trophiesDialogOpen = false;
+    },
+  });
 }
