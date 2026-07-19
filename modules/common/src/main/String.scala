@@ -79,17 +79,34 @@ object String:
       else nl2brUnsafe(marked.value)
 
     def safeJsonValue(jsValue: JsValue): SafeJsonStr = SafeJsonStr:
-      // Borrowed from:
-      // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
-      jsValue match
-        case JsNull => "null"
-        case JsString(s) => safeJsonString(s)
-        case JsNumber(n) => n.toString
-        case JsFalse => "false"
-        case JsTrue => "true"
-        case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
-        case JsObject(fields) =>
-          fields
-            .map: (k, v) =>
-              s"${safeJsonString(k)}:${safeJsonValue(v)}"
-            .mkString("{", ",", "}")
+      val sb = java.lang.StringBuilder()
+      val stack = scala.collection.mutable.ArrayDeque.empty[JsValue | String]
+      stack += jsValue
+      while stack.nonEmpty do
+        stack.removeLast() match
+          case s: String => sb.append(s)
+          case JsNull => sb.append("null")
+          case JsString(s) => sb.append(safeJsonString(s))
+          case JsNumber(n) => sb.append(n.toString)
+          case JsFalse => sb.append("false")
+          case JsTrue => sb.append("true")
+          case JsArray(items) =>
+            // Push in reverse so LIFO pops yield: [ item0 , item1 , … ]
+            // A comma precedes every item except the one pushed last (item0).
+            stack += "]"
+            var rest = false
+            items.reverseIterator.foreach: item =>
+              if rest then stack += ","
+              stack += item
+              rest = true
+            stack += "["
+          case JsObject(fields) =>
+            stack += "}"
+            var rest = false
+            fields.toSeq.reverseIterator.foreach: (k, v) =>
+              if rest then stack += ","
+              stack += v
+              stack += s"${safeJsonString(k)}:"
+              rest = true
+            stack += "{"
+      sb.toString
