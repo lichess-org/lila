@@ -44,7 +44,7 @@ final private class Takebacker(
               then single(pov)
               else double(pov)
             _ = publishTakeback(pov)
-          yield events -> board.reset
+          yield events -> RoundAsyncActor.takebackBoardZero.zero
         case Pov(game, _) if pov.game.playableByAi =>
           for
             events <- single(pov)
@@ -55,7 +55,7 @@ final private class Takebacker(
             events <- double(pov)
             _ = publishTakeback(pov)
           yield events -> board
-        case pov if canProposeTakeback(pov) && board.offerable(pov.color) =>
+        case pov if canProposeTakeback(pov) && board(pov.color).offerable =>
           messenger.volatile(pov.game, offerTakebackMessage(pov))
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
@@ -79,7 +79,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> board.decline(color)
+        yield events -> board.update(color, _.decline)
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
         messenger.volatile(
           game,
@@ -91,7 +91,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> board.decline(!color)
+        yield events -> board.update(!color, _.decline)
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =

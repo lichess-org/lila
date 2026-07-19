@@ -472,7 +472,7 @@ object RoundAsyncActor:
   private val monitor =
     AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
 
-  private[round] case class TakebackState(nbDeclined: Int, lastDeclined: Option[Instant]):
+  private[round] final class TakebackState(nbDeclined: Int, lastDeclined: Option[Instant]):
 
     def decline = TakebackState(nbDeclined + 1, nowInstant.some)
 
@@ -480,17 +480,9 @@ object RoundAsyncActor:
 
     def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
 
-  private[round] case class TakebackBoard(states: ByColor[TakebackState]):
+  private[round] type TakebackBoard = ByColor[TakebackState]
 
-    // `color` is the side whose takeback offer was just declined (or cancelled)
-    def decline(color: Color) = TakebackBoard(states.update(color, _.decline))
-
-    def offerable(color: Color) = states(color).offerable
-
-    def reset = takebackBoardZero.zero
-
-  private[round] given takebackBoardZero: Zero[TakebackBoard] =
-    Zero(TakebackBoard(ByColor.fill(TakebackState(0, none))))
+  private[round] given takebackBoardZero: Zero[TakebackBoard] = Zero(ByColor.fill(TakebackState(0, none)))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,
