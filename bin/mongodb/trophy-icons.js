@@ -3,7 +3,7 @@ const replacements = [
   ['marathonTopTen', ''],
   ['marathonTopFifty', ''],
   ['marathonTopHundred', ''],
-  ['marathonSurvivor', ','],
+  ['marathonSurvivor', ''],
   ['developer', ''],
   ['moderator', ''],
   ['verified', ''],

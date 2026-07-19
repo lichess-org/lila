@@ -135,7 +135,12 @@ function initTrophies(items: TrophyItem[], username?: string) {
   };
 
   const allImgs: HTMLImageElement[] = [];
-  for (const n of [...cNodes, ...bNodes]) for (const img of n.querySelectorAll('img')) allImgs.push(img);
+  for (const n of cNodes)
+    for (const img of n.querySelectorAll('img'))
+      allImgs.push(img);
+  for (const n of bNodes)
+    for (const img of n.querySelectorAll('img'))
+      allImgs.push(img);
 
   const waits = allImgs.map(img =>
     img.complete
@@ -153,19 +158,20 @@ function initTrophies(items: TrophyItem[], username?: string) {
     const bM = measure(bNodes);
     const cM = measure(cNodes);
     const moreW = measure([moreBtn])[0].width;
+    const bTotal = bM.reduce((s, m) => s + m.width + gap, 0) - gap;
 
-    const rowW = (count: number, more: boolean) => {
-      let total = more ? moreW + gap : 0;
-      for (let i = cM.length - count; i < cM.length; i++) total += cM[i].width + gap;
-      for (const m of bM) total += m.width + gap;
-      return total - gap;
+    const cupEnd = (cnt: number) => {
+      let s = 0;
+      for (let i = cM.length - cnt; i < cM.length; i++) s += cM[i].width + gap;
+      return s;
     };
 
     const layout = () => {
       const avail = el.clientWidth;
       if (!avail) return;
       let n = cM.length;
-      if (rowW(n, false) > avail) while (n && rowW(n, true) > avail) n--;
+      if (cupEnd(n) + bTotal > avail)
+        while (n && moreW + gap + cupEnd(n) + bTotal > avail) n--;
       const hidden = cM.length - n;
       el.replaceChildren();
       if (hidden) el.appendChild(makeMoreBtn(hidden, cups, username));

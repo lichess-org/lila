@@ -49,7 +49,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
-  icon: '',
+  icon: '',
   url: '//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1',
   klass: 'fire-trophy',
   order: NumberInt(8),

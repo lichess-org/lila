@@ -61,7 +61,7 @@ object trophyData:
       .foreach: trophy =>
         trophy.kind.icon.foreach: iconChar =>
           items += item(
-            cssClass = awardClsString(trophy),
+            cssClass = trophyClass(trophy),
             title = trophy.kind.name,
             href = trophy.anyUrl,
             icon = iconChar.some,
@@ -88,7 +88,7 @@ object trophyData:
       .find(_.kind._id == TrophyKind.zugMiracle)
       .foreach: t =>
         items += item(
-          cssClass = awardClsString(t),
+          cssClass = trophyClass(t),
           title = t.kind.name,
           href = t.anyUrl,
           imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some
@@ -98,7 +98,7 @@ object trophyData:
       .filter(_.kind.withCustomImage)
       .foreach: t =>
         items += item(
-          cssClass = awardClsString(t),
+          cssClass = trophyClass(t),
           title = t.kind.name,
           href = t.anyUrl,
           imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
@@ -113,7 +113,7 @@ object trophyData:
       .foreach: trophy =>
         trophy.kind.icon.foreach: iconChar =>
           items += item(
-            cssClass = awardClsString(trophy),
+            cssClass = trophyClass(trophy),
             title = trophy.kind.name,
             href = trophy.anyUrl,
             icon = iconChar.some,
@@ -150,5 +150,5 @@ object trophyData:
 
     JsArray(items.result())
 
-  private def awardClsString(t: lila.user.Trophy): String =
+  private def trophyClass(t: lila.user.Trophy): String =
     s"trophy award ${t.kind._id} ${~t.kind.klass}"

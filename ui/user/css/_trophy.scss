@@ -109,13 +109,7 @@
     }
   }
 
-  &__item .fire-trophy,
-  &__item .fire-trophy.marathonWinner,
-  &__item .fire-trophy.marathonTopTen,
-  &__item .fire-trophy.marathonTopFifty,
-  &__item .fire-trophy.marathonTopHundred,
-  &__item .fire-trophy.marathonTopFivehundred,
-  &__item .fire-trophy.marathonSurvivor {
+  &__item .fire-trophy {
     margin: 0 !important;
     padding: 0;
     height: 65px !important;
@@ -132,13 +126,7 @@
     align-items: flex-end !important;
     justify-content: center;
 
-    .trophy,
-    .trophy.marathonWinner,
-    .trophy.marathonTopTen,
-    .trophy.marathonTopFifty,
-    .trophy.marathonTopHundred,
-    .trophy.marathonTopFivehundred,
-    .trophy.marathonSurvivor {
+    .trophy {
       width: 52px !important;
       height: 52px !important;
       font-size: 48px !important;
