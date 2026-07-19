@@ -61,7 +61,7 @@
   grid-template-columns: repeat(auto-fill, minmax(6em, 1fr));
   gap: 1em 0.5em;
 
-  @media (max-width: 30em) {
+  @media (max-width: at-most($small)) {
     grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
   }
 
@@ -121,18 +121,18 @@
   }
 
   &__item .stacked {
-    height: 65px !important;
+    height: 65px;
     display: flex;
-    align-items: flex-end !important;
+    align-items: flex-end;
     justify-content: center;
 
     .trophy {
-      width: 52px !important;
-      height: 52px !important;
-      font-size: 48px !important;
-      margin: 0 !important;
+      width: 52px;
+      height: 52px;
+      font-size: 48px;
+      margin: 0;
       padding: 0;
-      position: static !important;
+      position: static;
     }
   }
 
@@ -249,6 +249,27 @@
   font-size: 39px;
   color: $c-font-dimmer;
   text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
+}
+
+.trophy.zugMiracle {
+  align-items: flex-end;
+  margin: 0 8px;
+  transition: 2s;
+
+  img {
+    height: 60px;
+  }
+
+  &:hover {
+    transform: translateY(-9px);
+    animation: psyche 0.3s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes psyche {
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .trophy.streaming {

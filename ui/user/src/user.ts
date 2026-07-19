@@ -118,8 +118,8 @@ function initTrophies(items: TrophyItem[], username?: string) {
 
   const badges = items.filter(t => t.badge);
   const cups = dedup(items.filter(t => !t.badge));
-  const bNodes = badges.map(makeTrophy);
-  const cNodes = cups.map(makeTrophy);
+  const badgeEls = badges.map(makeTrophy);
+  const cupEls = cups.map(makeTrophy);
 
   const measure = (nodes: HTMLElement[]) => {
     el.replaceChildren(...nodes);
@@ -135,12 +135,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
   };
 
   const allImgs: HTMLImageElement[] = [];
-  for (const n of cNodes)
-    for (const img of n.querySelectorAll('img'))
-      allImgs.push(img);
-  for (const n of bNodes)
-    for (const img of n.querySelectorAll('img'))
-      allImgs.push(img);
+  for (const n of [...cupEls, ...badgeEls]) for (const img of n.querySelectorAll('img')) allImgs.push(img);
 
   const waits = allImgs.map(img =>
     img.complete
@@ -155,23 +150,22 @@ function initTrophies(items: TrophyItem[], username?: string) {
     if (!el.clientWidth) return;
     const gap = parseFloat(window.getComputedStyle(el).columnGap) || 0;
     const moreBtn = makeMoreBtn(0, cups, username);
-    const bM = measure(bNodes);
-    const cM = measure(cNodes);
+    const bM = measure(badgeEls);
+    const cM = measure(cupEls);
     const moreW = measure([moreBtn])[0].width;
     const bTotal = bM.reduce((s, m) => s + m.width + gap, 0) - gap;
 
-    const cupEnd = (cnt: number) => {
-      let s = 0;
-      for (let i = cM.length - cnt; i < cM.length; i++) s += cM[i].width + gap;
-      return s;
+    const tailWidth = (cnt: number) => {
+      let w = 0;
+      for (let i = cM.length - cnt; i < cM.length; i++) w += cM[i].width + gap;
+      return w;
     };
 
     const layout = () => {
       const avail = el.clientWidth;
       if (!avail) return;
       let n = cM.length;
-      if (cupEnd(n) + bTotal > avail)
-        while (n && moreW + gap + cupEnd(n) + bTotal > avail) n--;
+      if (tailWidth(n) + bTotal > avail) while (n && moreW + gap + tailWidth(n) + bTotal > avail) n--;
       const hidden = cM.length - n;
       el.replaceChildren();
       if (hidden) el.appendChild(makeMoreBtn(hidden, cups, username));

@@ -32,7 +32,7 @@ final class TrophyApi(
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     coll.delete.one($doc("user" -> del.id))
 
-  def findByUser(user: User, max: Int = 5000): Fu[List[Trophy]] =
+  def findByUser(user: User, max: Int = 200): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User): List[Trophy] =
