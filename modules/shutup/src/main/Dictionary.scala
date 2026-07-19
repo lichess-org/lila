@@ -383,7 +383,7 @@ gets? (bombed|shot)
 k y s
 ky5
 (l|1|ı|\|)<ys
-n[1i]g+er
+nig+er
 rap(ed?|e?ing)
 rope
 subhuman
