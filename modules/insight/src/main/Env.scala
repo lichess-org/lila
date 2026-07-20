@@ -9,21 +9,22 @@ import lila.common.Bus
 
 @Module
 final class Env(
-    appConfig: Configuration,
-    gameRepo: lila.game.GameRepo,
-    gameApi: lila.core.game.GameApi,
-    analysisRepo: lila.analyse.AnalysisRepo,
-    prefApi: lila.core.pref.PrefApi,
-    relationApi: lila.core.relation.RelationApi,
-    cacheApi: lila.memo.CacheApi,
-    mongo: lila.db.Env
-)(using Executor, Scheduler, akka.stream.Materializer):
+        appConfig: Configuration,
+        gameRepo: lila.game.GameRepo,
+        gameApi: lila.core.game.GameApi,
+        gameOpening: lila.core.game.GameOpening,
+        analysisRepo: lila.analyse.AnalysisRepo,
+        prefApi: lila.core.pref.PrefApi,
+        relationApi: lila.core.relation.RelationApi,
+        cacheApi: lila.memo.CacheApi,
+        mongo: lila.db.Env
+    )(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val db = mongo
     .asyncDb(
-      "insight",
-      appConfig.get[String]("insight.mongodb.uri")
-    )
+              "insight",
+              appConfig.get[String]("insight.mongodb.uri")
+            )
     .taggedWith[lila.game.core.insight.InsightDb]
 
   lazy val share = wire[Share]
