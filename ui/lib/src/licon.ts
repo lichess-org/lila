@@ -128,6 +128,7 @@ export const licon = {
   Ibeam: '' as const, // e072
   Cancel: '' as const, // e073
   Voice: '' as const, // e074
+  Prune: '' as const, // e075
   OneHalf: '' as const, // e076
   Mute: '' as const, // e077
   Reload: '' as const, // e078

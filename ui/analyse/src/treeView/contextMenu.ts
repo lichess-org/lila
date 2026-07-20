@@ -1,5 +1,6 @@
 import { isTouchDevice } from 'lib/device';
 import { licon, type LiconValue } from 'lib/licon';
+import { structuredCloneLite, getNodeList, countChildrenAndComments } from 'lib/tree/ops';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
@@ -111,7 +112,6 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
   for (let iter = tree.lastMainlineNode(path).children[1]; canPromote && iter; iter = iter.children[0]) {
     if (iter === node) canPromote = false;
   }
-
   return hl(
     'div#' + elementId + '.visible',
     {
@@ -148,7 +148,11 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         () => ctrl.pendingCopyPath(extendedPath),
         () => ctrl.pendingCopyPath(null),
       ),
-
+      canPrune(ctrl, path) &&
+        action(licon.Prune, 'Prune previous branches', () => {
+          ctrl.pruneBefore(ctrl.tree.getNodeList(path));
+          ctrl.jump(path);
+        }),
       path &&
         action(
           licon.Trash,
@@ -159,4 +163,13 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         ),
     ],
   );
+
+  function canPrune(ctrl: AnalyseCtrl, path: TreePath): boolean {
+    if (!path) return false;
+    const prunedCopy = structuredCloneLite(tree.root);
+    ctrl.pruneBefore(getNodeList(prunedCopy, path));
+    const { nodes: prunedNodes } = countChildrenAndComments(prunedCopy);
+    const { nodes } = countChildrenAndComments(tree.root);
+    return prunedNodes < nodes && (!ctrl.initialPath || path.startsWith(ctrl.initialPath));
+  }
 }

@@ -123,3 +123,14 @@ export function structuredCloneLite(node: TreeNodeBase): TreeNodeLite {
       }),
   ) as TreeNodeLite;
 }
+
+export function getNodeList<T extends TreeNodeBase>(root: T, path: TreePath): T[] {
+  const nodes: T[] = [root];
+  for (let i = 0, node = root; i < path.length; i += 2) {
+    const child = childById(node, path.slice(i, i + 2));
+    if (!child) break;
+    nodes.push(child);
+    node = child;
+  }
+  return nodes;
+}

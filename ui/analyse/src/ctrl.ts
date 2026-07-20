@@ -32,7 +32,7 @@ import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreeNodeLite, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -675,6 +675,12 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.study) this.study.forceVariation(path, force);
   }
 
+  pruneBefore(nodeList: TreeNodeLite[]): void {
+    for (let i = 0; i < nodeList.length - 1; i++) {
+      nodeList[i].children = [nodeList[i + 1]];
+    }
+  }
+
   visibleChildren(node = this.node): TreeNode[] {
     return node.children.filter(
       kid =>
@@ -1067,7 +1073,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   private async mergeIdbThenShowTreeView() {
     await this.idbTree.merge();
-    if (this.ongoing) this.idbTree.trimBefore(this.initialPath);
+    if (this.ongoing) this.pruneBefore(this.tree.getNodeList(this.initialPath));
     this.treeView.hidden = false;
     this.idbTree.revealNode();
     this.redraw();

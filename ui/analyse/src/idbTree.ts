@@ -78,14 +78,6 @@ export class IdbTree {
       : undefined;
   }
 
-  trimBefore(path: TreePath): void {
-    const nodeList = this.ctrl.tree.getNodeList(path);
-    for (let i = 0; i < nodeList.length - 1; i++) {
-      nodeList[i].children = [nodeList[i + 1]];
-    }
-    this.saveMoves();
-  }
-
   onAddNode(node: TreeNodeLite, path: TreePath): void {
     if (this.noop || this.cache.movesDirty) return;
     this.cache.movesDirty = !this.ctrl.tree.pathExists(path + node.id);
