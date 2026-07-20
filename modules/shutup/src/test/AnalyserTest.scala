@@ -97,6 +97,12 @@ class AnalyserTest extends munit.FunSuite:
   test("rat false positives"):
     assertEquals(find("test rat is rate some rates what rated"), List("rat"))
 
+  test("french inflection"):
+    assertEquals(find("f2p fdp"), List("f2p", "fdp"))
+
+  test("german inflection"):
+    assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
+
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))
 
