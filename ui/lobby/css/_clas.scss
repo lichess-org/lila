@@ -1,5 +1,6 @@
 .lobby__classes {
   @extend %flex-column;
+  @include backdrop-blur-if-transparent;
 
   gap: 1em;
 

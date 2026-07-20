@@ -1,5 +1,6 @@
 .lobby__spotlights {
   @extend %box-neat-force;
+  @include backdrop-blur-if-transparent;
 
   flex: 0 0 auto;
 }
