@@ -18,17 +18,16 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       pov: Pov,
       pgn: PgnStr,
       graph: OpenGraph,
+      chessground: Frag,
       gameSide: Option[Frag],
       crosstable: Option[Tag]
   ) =
     Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
-      .graph(graph)
-      .csp(analyseUi.bits.cspExternalEngine)
-      .flag(_.noRobots):
+      .graph(graph):
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(gameSide),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          div(cls := "analyse__board main-board")(chessground),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           div(cls := "analyse__underboard")(
