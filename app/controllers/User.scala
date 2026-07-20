@@ -51,7 +51,7 @@ final class User(
         case None => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
+  private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
     }
@@ -63,7 +63,7 @@ final class User(
     EnabledUser(username): u =>
       negotiate(
         renderShow(u),
-        apiGames(u, GameFilter.all.name, 1)
+        gamesForLichobile(u, GameFilter.all.name, 1)
       )
 
   def search(term: String) = Open: _ ?=>
@@ -148,7 +148,7 @@ final class User(
                       yield res
                     else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                json = apiGames(u, filter, page)
+                json = gamesForLichobile(u, filter, page)
               )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
