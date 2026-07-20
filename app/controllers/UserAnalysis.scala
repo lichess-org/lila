@@ -140,9 +140,10 @@ final class UserAnalysis(
     data <- env.api.roundApi.review(
       pov,
       users,
-      tv = none,
       analysis,
+      env.game.gameOpening.of(pov.game, ctx.isAuth),
       initialFen = initialFen,
+      tv = none,
       withFlags = ExportOptions(
         division = true,
         clocks = true,

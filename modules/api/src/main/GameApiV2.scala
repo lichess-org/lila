@@ -37,7 +37,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     gameProxy: GameProxyRepo,
     divider: Divider,
-    quickOpening: lila.game.QuickOpening,
+    gameOpening: lila.game.GameOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
@@ -51,7 +51,7 @@ final class GameApiV2(
       case None =>
         for
           (game, initialFen, analysis) <- enrich(config.flags)(game)
-          opening = game.fullOpening
+          opening = gameOpening.atPly(game, true)
           formatted <- config.format match
             case Format.JSON =>
               toJson(game, initialFen, analysis, opening, config).map(Json.stringify)
@@ -152,8 +152,7 @@ final class GameApiV2(
     config = MobileRecentConfig(user)
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
-      val opening = quickOpening.atPly(game)
-      toJson(game, fen, analysis, opening, config)
+      toJson(game, fen, analysis, gameOpening.atPly(game, false), config)
   yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
@@ -208,8 +207,7 @@ final class GameApiV2(
       .mapAsync(4): (game, pairing, teams) =>
         enrich(config.flags)(game).dmap { (_, pairing, teams) }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
-        val opening = config.flags.opening.so:
-          if _ then game.fullOpening else quickOpening.atPly(game)
+        val opening = config.flags.opening.isDefined.so(gameOpening.atPly(game, false))
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, opening, teams)
           case Format.JSON =>
@@ -272,8 +270,7 @@ final class GameApiV2(
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4): (game, fen, analysis) =>
-        val opening = config.flags.opening.so:
-          if _ then game.fullOpening else quickOpening.atPly(game)
+        val opening = config.flags.opening.so(gameOpening.atPly(game, _))
         formatterFor(config)(game, fen, analysis, opening, None)
 
   private def enrich(flags: WithFlags)(game: Game) =

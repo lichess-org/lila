@@ -14,7 +14,8 @@ final private class ChapterMaker(
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.core.game.GameRepo,
     pgnDump: lila.core.game.PgnDump,
-    namer: lila.core.game.Namer
+    namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening
 )(using Executor):
 
   import ChapterMaker.*
@@ -131,7 +132,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for
       root <- makeRoot(game, data.pgn, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, game.fullOpening, withRatings)
+      tags <- pgnDump.tags(game, initialFen, none, gameOpening(game, true), withRatings)
       name <-
         if data.isDefaultName then
           StudyChapterName.from(namer.gameVsText(game, withRatings)(using lightUser.async))

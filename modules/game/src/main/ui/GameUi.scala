@@ -348,7 +348,7 @@ final class GameUi(helpers: Helpers):
 
     private def opening(g: Game) =
       div(cls := "opening")(
-        quickOpening(g).map(o => strong(o.name)),
+        gameOpening(g, false).map(o => strong(o.name)),
         div(cls := "pgn")(
           g.sans
             .take(6)

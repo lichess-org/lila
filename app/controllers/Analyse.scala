@@ -41,6 +41,12 @@ final class Analyse(
         users <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
+          val pgnFlags = PgnDump.WithFlags(
+            clocks = false,
+            rating = ctx.pref.showRatings,
+            opening = ctx.isAuth.option(true)
+          )
+          val opening = pgnFlags.opening.so(env.game.gameOpening.atPly(pov.game, _))
           (
             env.analyse.analyser.get(pov.game),
             (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
@@ -52,22 +58,19 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              opening = pov.game.fullOpening,
-              PgnDump.WithFlags(
-                clocks = false,
-                rating = ctx.pref.showRatings,
-                opening = ctx.isAuth.option(true)
-              )
+              opening = opening,
+              pgnFlags
             )
           ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
             env.api.roundApi
               .review(
                 pov,
                 users,
+                analysis,
+                opening.map(_.opening),
+                initialFen = initialFen,
                 tv = userTv.map: u =>
                   lila.round.OnTv.User(u.id),
-                analysis,
-                initialFen = initialFen,
                 withFlags = ExportOptions(
                   movetimes = true,
                   clocks = true,
@@ -83,7 +86,7 @@ final class Analyse(
                     pov,
                     data,
                     initialFen,
-                    env.analyse.annotator(pgn, pov.game, analysis, pov.game.fullOpening).render,
+                    env.analyse.annotator(pgn, pov.game, analysis, opening).render,
                     analysis,
                     analysisInProgress,
                     simul,

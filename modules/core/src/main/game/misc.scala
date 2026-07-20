@@ -151,7 +151,7 @@ trait PgnDump:
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      opening: Option[Opening.AtPly],
+      opening: Option[Opening],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags]
@@ -171,6 +171,8 @@ trait Explorer:
 
 trait Divider:
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
+
+type GameOpening = (Game, Boolean) => Option[Opening]
 
 object PgnDump:
   case class WithFlags(

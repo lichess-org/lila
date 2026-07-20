@@ -1,13 +1,13 @@
 package lila.round
 
+import scala.math
 import chess.format.Fen
 import chess.{ ByColor, Clock, Color, Speed }
+import chess.opening.Opening
 import play.api.libs.json.*
-
-import scala.math
+import scalalib.data.Preload
 
 import lila.common.Json.given
-import scalalib.data.Preload
 import lila.core.game.Player as GamePlayer
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
@@ -24,7 +24,6 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    quickOpening: lila.game.QuickOpening,
     isOfferingRematch: lila.core.round.IsOfferingRematch
 )(using Executor):
 
@@ -161,6 +160,7 @@ final class JsonView(
   def watcherJson(
       pov: Pov,
       users: GameUsers,
+      opening: Option[Opening],
       pref: Option[Pref],
       me: Option[UserId],
       tv: Option[OnTv],
@@ -175,7 +175,7 @@ final class JsonView(
             .baseWithChessDenorm(game, initialFen)
             .add("moveCentis" -> (flags.movetimes.so(game.moveTimes.map(_.map(_.centis)))))
             .add("division" -> flags.division.option(divider(game, initialFen)))
-            .add("opening" -> quickOpening.of(game))
+            .add("opening" -> opening)
             .add("importedBy" -> game.pgnImport.flatMap(_.user)),
           "clock" -> game.clock.map(clockJson),
           "correspondence" -> game.correspondenceClock,
@@ -227,6 +227,7 @@ final class JsonView(
       initialFen: Option[Fen.Full],
       orientation: Color,
       owner: Boolean,
+      opening: Option[chess.opening.Opening],
       division: Option[chess.Division] = None
   ) =
     import pov.*
@@ -237,7 +238,7 @@ final class JsonView(
           .obj(
             "id" -> gameId,
             "variant" -> game.variant,
-            "opening" -> game.fullOpening,
+            "opening" -> opening,
             "fen" -> fen,
             "turns" -> game.ply,
             "player" -> game.turnColor.name,

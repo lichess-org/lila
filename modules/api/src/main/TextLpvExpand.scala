@@ -15,6 +15,7 @@ final class TextLpvExpand(
     pgnDump: PgnDump,
     studyPgnDump: lila.study.PgnDump,
     relayPgnDump: lila.relay.RelayPgnStream,
+    gameOpening: lila.game.GameOpening,
     cacheApi: CacheApi,
     net: lila.core.config.NetConfig
 )(using Executor):
@@ -98,7 +99,7 @@ final class TextLpvExpand(
         analysisRepo
           .byGame(g.game)
           .flatMap: analysis =>
-            pgnDump(g.game, g.fen, analysis, g.game.fullOpening, pgnFlags).map: pgn =>
+            pgnDump(g.game, g.fen, analysis, gameOpening.atPly(g.game, true), pgnFlags).map: pgn =>
               val gameUrl = net.routeUrl(routes.Round.watcher(id, Color.White)).value
               val siteTag = chess.format.pgn.Tag(_.Site, gameUrl)
               val fixedSiteTag = pgn.copy(tags = pgn.tags + siteTag)

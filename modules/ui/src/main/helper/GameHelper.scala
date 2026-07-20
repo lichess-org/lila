@@ -11,7 +11,7 @@ trait GameHelper:
 
   protected val namer: Namer
 
-  def quickOpening: Game => Option[_root_.chess.opening.Opening]
+  def gameOpening: (Game, Boolean) => Option[_root_.chess.opening.Opening]
 
   def titleGame(g: Game) =
     val speed = chess.Speed(g.clock.map(_.config)).name

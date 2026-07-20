@@ -120,8 +120,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
 
   def titleFull(pov: Pov)(using ctx: Context) =
-    val opening = if ctx.isAuth then pov.game.fullOpening.map(_.opening) else quickOpening(pov.game)
-    val openingName = opening.fold(trans.site.analysis.txt())(_.name)
+    val openingName = gameOpening(pov.game, ctx.isAuth).fold(trans.site.analysis.txt())(_.name)
     s"${titlePlayerVs(pov.game)} - $openingName"
 
   def titlePlayerVs(g: Game) = s"${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"

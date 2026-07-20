@@ -38,7 +38,7 @@ final class PgnDump(
           game,
           initialFen,
           imported,
-          opening,
+          opening.map(_.opening),
           withRating = flags.rating,
           teams = teams
         )
@@ -85,7 +85,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      opening: Option[Opening.AtPly],
+      opening: Option[Opening],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] = for
@@ -129,8 +129,8 @@ final class PgnDump(
       game.daysPerTurn
         .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
         .orElse(Tag.timeControl(game.clock.map(_.config)).some),
-      Tag(_.ECO, opening.fold("?")(_.opening.eco)).some,
-      opening.map(o => Tag(_.Opening, o.opening.name)),
+      opening.map(o => Tag(_.ECO, o.eco)),
+      opening.map(o => Tag(_.Opening, o.name)),
       Tag(
         _.Termination, {
           import chess.Status.*
