@@ -70,16 +70,21 @@ object trophyData:
       if k.withCustomImage then customB += t
       if k.klass.has("icon3d") then icon3dB += t
 
-    fireB.result().distinctBy(_.kind._id).sorted.zipWithIndex.foreach: (trophy, idx) =>
-      trophy.kind.icon.foreach: iconChar =>
-        items += item(
-          cssClass = trophyClass(trophy),
-          title = trophy.kind.name,
-          href = trophy.anyUrl,
-          icon = iconChar.some,
-          stacked = true,
-          primary = idx == 0
-        )
+    fireB
+      .result()
+      .distinctBy(_.kind._id)
+      .sorted
+      .zipWithIndex
+      .foreach: (trophy, idx) =>
+        trophy.kind.icon.foreach: iconChar =>
+          items += item(
+            cssClass = trophyClass(trophy),
+            title = trophy.kind.name,
+            href = trophy.anyUrl,
+            icon = iconChar.some,
+            stacked = true,
+            primary = idx == 0
+          )
 
     info.trophies.shields.foreach: shield =>
       items += item(
@@ -105,25 +110,32 @@ object trophyData:
         imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some
       )
 
-    customB.result().distinctBy(_.kind._id).foreach: t =>
-      items += item(
-        cssClass = trophyClass(t),
-        title = t.kind.name,
-        href = t.anyUrl,
-        imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
-        imgW = 65.some,
-        imgH = 80.some
-      )
-
-    icon3dB.result().distinctBy(_.kind._id).sorted.foreach: trophy =>
-      trophy.kind.icon.foreach: iconChar =>
+    customB
+      .result()
+      .distinctBy(_.kind._id)
+      .foreach: t =>
         items += item(
-          cssClass = trophyClass(trophy),
-          title = trophy.kind.name,
-          href = trophy.anyUrl,
-          icon = iconChar.some,
-          badge = true
+          cssClass = trophyClass(t),
+          title = t.kind.name,
+          href = t.anyUrl,
+          imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
+          imgW = 65.some,
+          imgH = 80.some
         )
+
+    icon3dB
+      .result()
+      .distinctBy(_.kind._id)
+      .sorted
+      .foreach: trophy =>
+        trophy.kind.icon.foreach: iconChar =>
+          items += item(
+            cssClass = trophyClass(trophy),
+            title = trophy.kind.name,
+            href = trophy.anyUrl,
+            icon = iconChar.some,
+            badge = true
+          )
 
     if info.isCoach then
       items += item(
