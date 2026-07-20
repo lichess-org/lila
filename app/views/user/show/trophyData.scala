@@ -19,7 +19,8 @@ object trophyData:
       imgW: Option[Int] = None,
       imgH: Option[Int] = None,
       stacked: Boolean = false,
-      badge: Boolean = false
+      badge: Boolean = false,
+      primary: Boolean = true
   ): JsObject =
     Json.obj(
       "cls" -> cssClass,
@@ -32,7 +33,8 @@ object trophyData:
         imgW.map("imgW" -> Json.toJson(_)),
         imgH.map("imgH" -> Json.toJson(_)),
         stacked.option("stacked" -> Json.toJson(true)),
-        badge.option("badge" -> Json.toJson(true))
+        badge.option("badge" -> Json.toJson(true)),
+        (!primary).option("primary" -> Json.toJson(false))
       ).flatten
     )
 
@@ -54,19 +56,21 @@ object trophyData:
                 imgSrc = assetUrl(imgPath).value.some
               )
 
-    info.trophies.trophies
+    val fireTrophies = info.trophies.trophies
       .filter(_.kind.klass.has("fire-trophy"))
       .distinctBy(_.kind._id)
       .sorted
-      .foreach: trophy =>
-        trophy.kind.icon.foreach: iconChar =>
-          items += item(
-            cssClass = trophyClass(trophy),
-            title = trophy.kind.name,
-            href = trophy.anyUrl,
-            icon = iconChar.some,
-            stacked = true
-          )
+
+    fireTrophies.zipWithIndex.foreach: (trophy, idx) =>
+      trophy.kind.icon.foreach: iconChar =>
+        items += item(
+          cssClass = trophyClass(trophy),
+          title = trophy.kind.name,
+          href = trophy.anyUrl,
+          icon = iconChar.some,
+          stacked = true,
+          primary = idx == 0
+        )
 
     info.trophies.shields.foreach: shield =>
       items += item(

@@ -17,6 +17,7 @@ export interface TrophyItem {
   imgH?: number;
   stacked?: boolean;
   badge?: boolean;
+  primary?: boolean;
 }
 
 export async function initModule(data: { trophies?: TrophyItem[]; username?: string }): Promise<void> {
@@ -116,10 +117,11 @@ function initTrophies(items: TrophyItem[], username?: string) {
   const el = document.querySelector<HTMLElement>('.trophies');
   if (!el || !items.length) return;
 
+  const allCups = dedup(items.filter(t => !t.badge));
+  const cups = allCups.filter(t => t.primary !== false);
   const badges = items.filter(t => t.badge);
-  const cups = dedup(items.filter(t => !t.badge));
-  const badgeEls = badges.map(makeTrophy);
   const cupEls = cups.map(makeTrophy);
+  const badgeEls = badges.map(makeTrophy);
 
   const measure = (nodes: HTMLElement[]) => {
     el.replaceChildren(...nodes);
@@ -149,7 +151,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
   Promise.all([document.fonts.ready, ...waits]).then(() => {
     if (!el.clientWidth) return;
     const gap = parseFloat(window.getComputedStyle(el).columnGap) || 0;
-    const moreBtn = makeMoreBtn(0, cups, username);
+    const moreBtn = makeMoreBtn(0, allCups, username);
     const bM = measure(badgeEls);
     const cM = measure(cupEls);
     const moreW = measure([moreBtn])[0].width;
@@ -168,7 +170,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
       if (tailWidth(n) + bTotal > avail) while (n && moreW + gap + tailWidth(n) + bTotal > avail) n--;
       const hidden = cM.length - n;
       el.replaceChildren();
-      if (hidden) el.appendChild(makeMoreBtn(hidden, cups, username));
+      if (hidden) el.appendChild(makeMoreBtn(hidden, allCups, username));
       for (let i = cM.length - n; i < cM.length; i++) el.appendChild(cM[i].node);
       bM.forEach(m => el.appendChild(m.node));
     };
