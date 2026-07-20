@@ -22,18 +22,22 @@ final class TrophyApi(
       kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
     ,
     default = _ => TrophyKind.Unknown,
-    strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
+    strategy = Syncache.Strategy.WaitAfterUptime(200.millis, 0),
     expireAfter = Syncache.ExpireAfter.Write(1.hour)
   )
 
   private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
+  private val kindsReady: Funit =
+    kindColl.distinctEasy[String, Set]("_id", $empty).map(kindCache.preloadSet).flatMap(identity).void
+
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     coll.delete.one($doc("user" -> del.id))
 
   def findByUser(user: User, max: Int = 1000): Fu[List[Trophy]] =
-    coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
+    kindsReady.flatMap: _ =>
+      coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User): List[Trophy] =
     List(

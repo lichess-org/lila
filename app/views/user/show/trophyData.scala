@@ -6,14 +6,14 @@ import play.api.libs.json.{ JsArray, Json, JsObject }
 import lila.app.UiEnv.{ *, given }
 import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
-import lila.user.TrophyKind
+import lila.user.{ Trophy, TrophyKind }
 
 object trophyData:
 
   private def item(
       cssClass: String,
       title: String,
-      href: Option[String] = None,
+      href: Option[String],
       icon: Option[String] = None,
       imgSrc: Option[String] = None,
       imgW: Option[Int] = None,
@@ -56,12 +56,21 @@ object trophyData:
                 imgSrc = assetUrl(imgPath).value.some
               )
 
-    val fireTrophies = info.trophies.trophies
-      .filter(_.kind.klass.has("fire-trophy"))
-      .distinctBy(_.kind._id)
-      .sorted
+    val trophies = info.trophies.trophies
 
-    fireTrophies.zipWithIndex.foreach: (trophy, idx) =>
+    var zugOpt = Option.empty[Trophy]
+    val fireB = List.newBuilder[Trophy]
+    val customB = List.newBuilder[Trophy]
+    val icon3dB = List.newBuilder[Trophy]
+
+    trophies.foreach: t =>
+      val k = t.kind
+      if k._id == TrophyKind.zugMiracle then zugOpt = Some(t)
+      if k.klass.has("fire-trophy") then fireB += t
+      if k.withCustomImage then customB += t
+      if k.klass.has("icon3d") then icon3dB += t
+
+    fireB.result().distinctBy(_.kind._id).sorted.zipWithIndex.foreach: (trophy, idx) =>
       trophy.kind.icon.foreach: iconChar =>
         items += item(
           cssClass = trophyClass(trophy),
@@ -88,41 +97,33 @@ object trophyData:
         icon = revol.iconChar.value.some
       )
 
-    info.trophies.trophies
-      .find(_.kind._id == TrophyKind.zugMiracle)
-      .foreach: t =>
-        items += item(
-          cssClass = trophyClass(t),
-          title = t.kind.name,
-          href = t.anyUrl,
-          imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some
-        )
+    zugOpt.foreach: t =>
+      items += item(
+        cssClass = trophyClass(t),
+        title = t.kind.name,
+        href = t.anyUrl,
+        imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some
+      )
 
-    info.trophies.trophies
-      .filter(_.kind.withCustomImage)
-      .foreach: t =>
-        items += item(
-          cssClass = trophyClass(t),
-          title = t.kind.name,
-          href = t.anyUrl,
-          imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
-          imgW = 65.some,
-          imgH = 80.some
-        )
+    customB.result().distinctBy(_.kind._id).foreach: t =>
+      items += item(
+        cssClass = trophyClass(t),
+        title = t.kind.name,
+        href = t.anyUrl,
+        imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
+        imgW = 65.some,
+        imgH = 80.some
+      )
 
-    info.trophies.trophies
-      .filter(_.kind.klass.has("icon3d"))
-      .distinctBy(_.kind._id)
-      .sorted
-      .foreach: trophy =>
-        trophy.kind.icon.foreach: iconChar =>
-          items += item(
-            cssClass = trophyClass(trophy),
-            title = trophy.kind.name,
-            href = trophy.anyUrl,
-            icon = iconChar.some,
-            badge = true
-          )
+    icon3dB.result().distinctBy(_.kind._id).sorted.foreach: trophy =>
+      trophy.kind.icon.foreach: iconChar =>
+        items += item(
+          cssClass = trophyClass(trophy),
+          title = trophy.kind.name,
+          href = trophy.anyUrl,
+          icon = iconChar.some,
+          badge = true
+        )
 
     if info.isCoach then
       items += item(

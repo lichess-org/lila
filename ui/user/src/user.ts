@@ -27,6 +27,10 @@ export async function initModule(data: { trophies?: TrophyItem[]; username?: str
   tmpRandomTutorLink();
   if (data?.trophies) initTrophies(data.trophies, data.username);
 
+  window.addEventListener('pageshow', (e: PageTransitionEvent) => {
+    if (e.persisted && data?.trophies) initTrophies(data.trophies, data.username);
+  });
+
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
     $zone.find('textarea')[0]?.focus();
@@ -148,7 +152,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
         }),
   );
 
-  Promise.all([document.fonts.ready, ...waits]).then(() => {
+  const render = () => {
     if (!el.clientWidth) return;
     const gap = parseFloat(window.getComputedStyle(el).columnGap) || 0;
     const moreBtn = makeMoreBtn(0, allCups, username);
@@ -177,7 +181,17 @@ function initTrophies(items: TrophyItem[], username?: string) {
 
     layout();
     new ResizeObserver(layout).observe(el);
-  });
+  };
+
+  let rendered = false;
+  const onReady = () => {
+    if (rendered) return;
+    rendered = true;
+    render();
+  };
+
+  Promise.all([document.fonts.ready, ...waits]).then(onReady);
+  setTimeout(onReady, 2000);
 }
 
 function dedup(items: TrophyItem[]): TrophyItem[] {
