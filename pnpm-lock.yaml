@@ -32,9 +32,6 @@ importers:
       chessops:
         specifier: ^0.15.1
         version: 0.15.1
-      hyperx:
-        specifier: ^3.0.1
-        version: 3.0.1
       jsdom:
         specifier: ^27.4.0
         version: 27.4.0
@@ -1552,12 +1549,6 @@ packages:
   https-proxy-agent@7.0.6:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
-
-  hyperscript-attribute-to-property@1.0.2:
-    resolution: {integrity: sha512-oerMul16jZCmrbNsUw8QgrtDzF8lKgFri1bKQjReLw1IhiiNkI59CWuzZjJDGT79UQ1YiWqXhJMv/tRMVqgtkA==}
-
-  hyperx@3.0.1:
-    resolution: {integrity: sha512-gIqI/O3pgataWKjJTPwe0Uv73DWoaWpFA0iIs8zKWrEo1+eMLuk5XjdwJ7C5ymyF4EdMGpPUwoYCuelHUjOGag==}
 
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
@@ -3156,12 +3147,6 @@ snapshots:
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
-
-  hyperscript-attribute-to-property@1.0.2: {}
-
-  hyperx@3.0.1:
-    dependencies:
-      hyperscript-attribute-to-property: 1.0.2
 
   iconv-lite@0.6.3:
     dependencies:

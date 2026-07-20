@@ -307,17 +307,3 @@ declare module 'tablesort' {
 }
 declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
 declare const $trim: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
-
-declare module 'hyperx' {
-  import type { VNode } from 'snabbdom';
-
-  type CreateVNode = (sel: string, attrs: Record<string, unknown>, children: unknown[]) => VNode;
-  type HtmlTemplate = (strings: TemplateStringsArray, ...values: unknown[]) => VNode;
-
-  type HyperxOptions = {
-    comments?: boolean;
-    attrToProp?: boolean;
-  };
-
-  export default function hyperx(createVNode: CreateVNode, options?: HyperxOptions): HtmlTemplate;
-}
