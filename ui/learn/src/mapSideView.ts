@@ -19,25 +19,17 @@ function renderInStage(ctrl: SideCtrl) {
         i18n.site.menu,
       ]),
       ...categs.map((categ, categId) =>
-        div(
-          {
-            class: { categ: true, active: categId === ctrl.categId() },
-          },
-          [
-            h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
-            div(
-              '.categ_stages',
-              categ.stages.map(s => {
-                const result = ctrl.data.stages[s.key];
-                const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-                return a(`.stage.${status}`, { href: hashHref(s.id) }, [
-                  img({ src: s.image }),
-                  span(s.title),
-                ]);
-              }),
-            ),
-          ],
-        ),
+        div({ class: { categ: true, active: categId === ctrl.categId() } }, [
+          h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
+          div(
+            '.categ_stages',
+            categ.stages.map(s => {
+              const result = ctrl.data.stages[s.key];
+              const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
+              return a(`.stage.${status}`, { href: hashHref(s.id) }, [img({ src: s.image }), span(s.title)]);
+            }),
+          ),
+        ]),
       ),
     ]),
   ]);
@@ -52,11 +44,7 @@ function renderHome(ctrl: SideCtrl) {
     ]),
     div('.progress', [
       div('.text', i18n.learn.progressX(progress + '%')),
-      div('.bar', {
-        style: {
-          width: progress + '%',
-        },
-      }),
+      div('.bar', { style: { width: progress + '%' } }),
     ]),
     progress > 0
       ? div(
