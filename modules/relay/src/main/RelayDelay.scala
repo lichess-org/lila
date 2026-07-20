@@ -104,7 +104,7 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
     private def getPgn(key: CacheKey, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          $doc("_id".$gt(idOf(key, longPast)).$lte(idOf(key, nowInstant.minusSeconds(delay.value)))),
+          $doc("_id".$gt(idOf(key, longPast)).$lte(idOf(key, nowInstant.minus(delay.duration)))),
           $doc("pgn" -> true).some
         ).sort($sort.desc("_id"))
           .one[Bdoc]
