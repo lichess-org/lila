@@ -22,7 +22,9 @@ final class ClasApi(
       WithStudents(swiss.teamId): students =>
         swissApi.joinManyNoChecks(swiss.id, students)
     ): allowList =>
-      swissApi.joinManyNoChecks(swiss.id, allowList.userIds.toList)
+      WithStudents(swiss.teamId): students =>
+        val studentSet = students.toSet
+        swissApi.joinManyNoChecks(swiss.id, allowList.userIds.toList.filter(studentSet))
 
   def onArenaCreate(tour: Tournament): Funit =
     tour.singleTeamId.so: teamId =>
