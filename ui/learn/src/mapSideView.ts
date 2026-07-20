@@ -19,7 +19,7 @@ function renderInStage(ctrl: SideCtrl) {
         i18n.site.menu,
       ]),
       ...categs.map((categ, categId) =>
-        div({ class: { categ: true, active: categId === ctrl.categId() } }, [
+        div('.categ', { class: { active: categId === ctrl.categId() } }, [
           h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
           div(
             '.categ_stages',
