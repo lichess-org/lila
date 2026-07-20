@@ -82,7 +82,7 @@
   <string name="oneMove">Једнопотезни проблем</string>
   <string name="oneMoveDescription">Проблем од само једног потеза.</string>
   <string name="opening">Отварање</string>
-  <string name="openingDescription">Тактика у току прве фазе партије.</string>
+  <string name="openingDescription">Тактика током прве фазе партије.</string>
   <string name="pawnEndgame">Пешачка завршница</string>
   <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
   <string name="pin">Везивање</string>

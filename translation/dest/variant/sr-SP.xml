@@ -12,10 +12,10 @@
   <string name="atomic">Атомски</string>
   <string name="atomicTitle">Разнесите противничког краља како бисте добили.</string>
   <string name="horde">Хорда</string>
-  <string name="hordeTitle">Једна страна има велики број пешака, а друга нормалне фигуре.</string>
-  <string name="racingKings">Трка</string>
-  <string name="racingKingsTitle">Доведите краља на други крај табле како би добили.</string>
+  <string name="hordeTitle">Једна страна има велики број пешака, друга има нормалну армију.</string>
+  <string name="racingKings">Трка Краљева</string>
+  <string name="racingKingsTitle">Доведи свог краља на другу страну табле да победиш.</string>
   <string name="crazyhouseTitle">Узете фигуре могу бити враћене на таблу уместо померања фигуре.</string>
-  <string name="fromPosition">Из позиције</string>
+  <string name="fromPosition">Из Позиције</string>
   <string name="fromPositionTitle">Стандардан шах из произвољне позиције</string>
 </resources>

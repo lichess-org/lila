@@ -279,7 +279,7 @@ final class AccessTokenApi(
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](8_192, "oauth.access_token"):
+    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](16_384, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =

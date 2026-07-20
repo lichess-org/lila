@@ -68,4 +68,6 @@
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
   <string name="blindfold" comment="As in Blindfold chess">Blann</string>
+  <string name="moveListSettings">Zuchlëscht</string>
+  <string name="boardSettings">Briet</string>
 </resources>
