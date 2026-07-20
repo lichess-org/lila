@@ -1,4 +1,4 @@
-import { confirm, html } from 'lib/view';
+import { a, bind, confirm, div, h1, h2, img, span } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
@@ -12,64 +12,65 @@ export function mapSideView(ctrl: LearnCtrl) {
 }
 
 function renderInStage(ctrl: SideCtrl) {
-  return html`
-    <div class="learn__side-map">
-      <div class="stages">
-        <a class="back" href=${BASE_LEARN_PATH}>
-          <img src="${assetUrl}images/learn/brutal-helm.svg" alt="" />
-          ${i18n.site.menu}
-        </a>
-        ${categs.map(
-          (categ, categId) => html`
-            <div class=${['categ', { active: categId === ctrl.categId() }]}>
-              <h2 @on:click=${() => ctrl.categId(categId)}>${categ.name}</h2>
-              <div class="categ_stages">
-                ${categ.stages.map(({ key, id, image, title }) => {
-                  const result = ctrl.data.stages[key];
-                  const status = id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-                  return html`
-                    <a class=${['stage', status]} href=${hashHref(id)}>
-                      <img src=${image} alt="" />
-                      <span>${title}</span>
-                    </a>
-                  `;
-                })}
-              </div>
-            </div>
-          `,
-        )}
-      </div>
-    </div>
-  `;
+  return div('.learn__side-map', [
+    div('.stages', [
+      a('.back', { href: BASE_LEARN_PATH }, [
+        img({ alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' }),
+        i18n.site.menu,
+      ]),
+      ...categs.map((categ, categId) =>
+        div(
+          {
+            class: { categ: true, active: categId === ctrl.categId() },
+          },
+          [
+            h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
+            div(
+              '.categ_stages',
+              categ.stages.map(s => {
+                const result = ctrl.data.stages[s.key];
+                const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
+                return a(`.stage.${status}`, { href: hashHref(s.id) }, [
+                  img({ src: s.image }),
+                  span(s.title),
+                ]);
+              }),
+            ),
+          ],
+        ),
+      ),
+    ]),
+  ]);
 }
 
 function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
-
-  return html`
-    <div class="learn__side-home">
-      <div class="learn__side-home__header">
-        <img class="decoration" src="${assetUrl}images/learn/brutal-helm.svg" alt="" />
-        <div class="learn__side-home__title">
-          <h1>${i18n.learn.learnChess}</h1>
-          <h2>${i18n.learn.byPlaying}</h2>
-        </div>
-      </div>
-      <div class="progress">
-        <div class="text">${i18n.learn.progressX(progress + '%')}</div>
-        <div class="bar" style="width: ${progress}%" />
-      </div>
-      ${progress > 0
-        ? html`<div class="actions">
-            <a
-              class="confirm"
-              @on:click=${async () => {
+  return div('.learn__side-home', [
+    div('.learn__side-home__header', [
+      img('.decoration', { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' }),
+      div('.learn__side-home__title', [h1(i18n.learn.learnChess), h2(i18n.learn.byPlaying)]),
+    ]),
+    div('.progress', [
+      div('.text', i18n.learn.progressX(progress + '%')),
+      div('.bar', {
+        style: {
+          width: progress + '%',
+        },
+      }),
+    ]),
+    progress > 0
+      ? div(
+          '.actions',
+          a(
+            '.confirm',
+            {
+              hook: bind('click', async () => {
                 if (await confirm(i18n.learn.youWillLoseAllYourProgress)) ctrl.reset();
-              }}
-              >${i18n.learn.resetMyProgress}</a
-            >
-          </div>`
-        : null}
-    </div>
-  `;
+              }),
+            },
+            i18n.learn.resetMyProgress,
+          ),
+        )
+      : null,
+  ]);
 }
