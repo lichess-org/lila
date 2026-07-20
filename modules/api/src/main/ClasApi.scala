@@ -18,8 +18,11 @@ final class ClasApi(
       clasApi.clas.byId(team.id.into(ClasId))
 
   def onSwissCreate(swiss: Swiss): Funit =
-    WithStudents(swiss.teamId): students =>
-      swissApi.joinManyNoChecks(swiss.id, students)
+    swiss.settings.conditions.allowList.fold(
+      WithStudents(swiss.teamId): students =>
+        swissApi.joinManyNoChecks(swiss.id, students)
+    ): allowList =>
+      swissApi.joinManyNoChecks(swiss.id, allowList.userIds.toList)
 
   def onArenaCreate(tour: Tournament): Funit =
     tour.singleTeamId.so: teamId =>
