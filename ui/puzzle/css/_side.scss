@@ -119,9 +119,12 @@
 
     &__difficulty {
       margin-top: 1em;
+      display: flex;
+      align-items: center;
+      gap: 1em;
 
-      label {
-        margin-inline-end: 1em;
+      select {
+        flex: 1;
       }
     }
 
