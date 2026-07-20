@@ -5,7 +5,7 @@ import chess.format.pgn.{ Tag, Tags }
 
 import lila.core.socket.Sri
 import lila.study.*
-import lila.tree.Branch
+import lila.tree.{ Branch, Node }
 import lila.study.AddNode
 import lila.common.Bus
 
@@ -100,93 +100,126 @@ final private class RelaySync(
       yield chapter.copy(relay = desiredRelay.some)
 
   private type NbMoves = Int
+
+  private def forceBranchesAsVariations(chapter: Chapter, game: RelayGame)(using by: Who): Fu[Unit] =
+    // moves that are not in the source but are in the study chapter,
+    // should become forced variations in the study chapter
+    game.root.mainline
+      .foldLeft(List.empty[UciPath] -> UciPath.root):
+        case ((acc, parentPath), gameNode) =>
+          val nodePath = parentPath + gameNode.id
+          val localPaths = chapter.root
+            .nodeAt(parentPath)
+            .so: parentNode =>
+              parentNode.children.toList.collect:
+                case child if child.id != gameNode.id && !child.forceVariation =>
+                  parentPath + child.id
+          (acc ::: localPaths, nodePath)
+      ._1
+      .sequentiallyVoid: childPath =>
+        studyApi.forceVariation(
+          studyId = chapter.studyId,
+          position = Position(chapter, childPath).ref,
+          force = true
+        )(by)
+
+  private def sendLastNode(study: Study, chapter: Chapter, game: RelayGame, gameMainlinePath: UciPath)(using
+      Who,
+      RelayTour
+  ): Funit =
+    // the chapter already has all the game moves,
+    // but its relayPath might be out of sync. This can happen if the broadcast
+    // has contributors who use REC to record and share variations while the broadcast is ongoing.
+    // If they record a variation that is then played out by the broadcast players, then there are
+    // no moves to add and send to clients, but the relayPath needs to be updated,
+    // both in the database, and in the clients browsers.
+    // To achieve this without adding a new websocket event type, we send the last game move again,
+    // which contains the relayPath.
+    chapter.relay
+      .exists(_.path != gameMainlinePath)
+      .so:
+        game.root.children
+          .nodeAt(gameMainlinePath)
+          .so: lastMainlineNode =>
+            studyApi.addNode:
+              AddNode(
+                studyId = study.id,
+                positionRef = Position(chapter, gameMainlinePath.parent).ref,
+                node = _ => Right(lastMainlineNode),
+                opts = moveOpts,
+                relay = makeRelayFor(game, gameMainlinePath).some
+              )
+
+  private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainlinePath: UciPath)(using
+      Who
+  ): Funit =
+    for
+      _ = logger.info(s"Change mainline ${showSC(study, chapter)} $gameMainlinePath")
+      _ <- studyApi.promote(
+        studyId = study.id,
+        position = Position(chapter, gameMainlinePath).ref,
+        toMainline = true
+      )
+      _ <- chapterRepo.setRelayPath(chapter.id, gameMainlinePath)
+    yield ()
+
+  private def addNode(study: Study, chapter: Chapter, game: RelayGame, path: UciPath, node: Branch)(using
+      Who,
+      RelayTour
+  ): Funit =
+    for
+      position = Position(chapter, path).ref
+      _ <- node.mainline.foldM(position): (position, n) =>
+        val node = AddNode(
+          studyId = study.id,
+          positionRef = position,
+          node = _ => Right(n),
+          opts = moveOpts,
+          relay = makeRelayFor(game, position.path + n.id).some
+        )
+        studyApi.addNode(node).inject(position + n)
+    yield ()
+
+  private def setClock(chapter: Chapter, study: Study, path: UciPath, existing: Node, current: Branch)(using
+      by: Who
+  ): Funit =
+    current.clock
+      .filter: c =>
+        existing.clock.forall: prev =>
+          ~c.trust && c.centis != prev.centis
+      .so: c =>
+        studyApi.setClock(
+          studyId = study.id,
+          position = Position(chapter, path).ref,
+          clock = c
+        )(by)
+
+  private def getNewNodeOrSetClockOfExisting(chapter: Chapter, study: Study, game: RelayGame)(using
+      Who
+  ): (UciPath, Option[Branch]) =
+    game.root.mainline.foldLeft(UciPath.root -> none[Branch]):
+      case ((parentPath, None), gameNode) =>
+        val path = parentPath + gameNode.id
+        chapter.root
+          .nodeAt(path)
+          .fold(parentPath -> gameNode.some): existing =>
+            setClock(chapter, study, path, existing, gameNode)
+            path -> none
+      case (found, _) => found
+
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using
       RelayTour
   ): Fu[NbMoves] =
-    val by = who(chapter.ownerId)
-    val (path, newNode) = game.root.mainline.foldLeft(UciPath.root -> none[Branch]):
-      case ((parentPath, None), gameNode) =>
-        val path = parentPath + gameNode.id
-        chapter.root.nodeAt(path) match
-          case None => parentPath -> gameNode.some
-          case Some(existing) =>
-            gameNode.clock
-              .filter: c =>
-                existing.clock.forall: prev =>
-                  ~c.trust && c.centis != prev.centis
-              .so: c =>
-                studyApi.setClock(
-                  studyId = study.id,
-                  position = Position(chapter, path).ref,
-                  clock = c
-                )(by)
-            path -> none
-      case (found, _) => found
+    given Who = who(chapter.ownerId)
     for
-      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so:
-        logger.info(s"Change mainline ${showSC(study, chapter)} $path")
-        studyApi.promote(
-          studyId = study.id,
-          position = Position(chapter, path).ref,
-          toMainline = true
-        )(using by) >> chapterRepo.setRelayPath(chapter.id, path)
-      // moves that are not in the source but are in the study chapter,
-      // should become forced variations in the study chapter
-      _ <- game.root.mainline
-        .foldLeft(List.empty[UciPath] -> UciPath.root):
-          case ((acc, parentPath), gameNode) =>
-            val nodePath = parentPath + gameNode.id
-            val localPaths = chapter.root
-              .nodeAt(parentPath)
-              .so: parentNode =>
-                parentNode.children.toList.collect:
-                  case child if child.id != gameNode.id && !child.forceVariation =>
-                    parentPath + child.id
-            (acc ::: localPaths, nodePath)
-        ._1
-        .sequentiallyVoid: childPath =>
-          studyApi.forceVariation(
-            studyId = study.id,
-            position = Position(chapter, childPath).ref,
-            force = true
-          )(by)
-      _ <- newNode match
-        case Some(newNode) =>
-          newNode.mainline
-            .foldM(Position(chapter, path).ref): (position, n) =>
-              val node = AddNode(
-                studyId = study.id,
-                positionRef = position,
-                node = _ => Right(n),
-                opts = moveOpts,
-                relay = makeRelayFor(game, position.path + n.id).some
-              )(using by)
-              studyApi.addNode(node).inject(position + n)
-        case None =>
-          // the chapter already has all the game moves,
-          // but its relayPath might be out of sync. This can happen if the broadcast
-          // has contributors who use REC to record and share variations while the broadcast is ongoing.
-          // If they record a variation that is then played out by the broadcast players, then there are
-          // no moves to add and send to clients, but the relayPath needs to be updated,
-          // both in the database, and in the clients browsers.
-          // To achieve this without adding a new websocket event type, we send the last game move again,
-          // which contains the relayPath.
-          val gameMainlinePath = game.root.mainlinePath
-          chapter.relay
-            .exists(_.path != gameMainlinePath)
-            .so:
-              game.root.children
-                .nodeAt(gameMainlinePath)
-                .so: lastMainlineNode =>
-                  studyApi.addNode:
-                    AddNode(
-                      studyId = study.id,
-                      positionRef = Position(chapter, gameMainlinePath.parent).ref,
-                      node = _ => Right(lastMainlineNode),
-                      opts = moveOpts,
-                      relay = makeRelayFor(game, gameMainlinePath).some
-                    )(using by)
-    yield newNode.so(_.mainline.size)
+      gameMainlinePath = game.root.mainlinePath
+      (path, newNodeOpt) = getNewNodeOrSetClockOfExisting(chapter, study, game)
+      _ <- forceBranchesAsVariations(chapter, game)
+      _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
+        addNode(study, chapter, game, path, newNode)
+      _ <- (chapter.root.children.nonEmpty && !gameMainlinePath.isMainline(chapter.root)).so:
+        promoteGameToMainline(study, chapter, gameMainlinePath)
+    yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
       tour: RelayTour,
