@@ -83,7 +83,6 @@ GET   /@/:username/blog                controllers.Ublog.index(username: UserStr
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /@/:username/:filterName         controllers.User.games(username: UserStr, filterName, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: UserStr)
-GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list

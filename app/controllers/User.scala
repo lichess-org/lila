@@ -624,10 +624,6 @@ final class User(
                       Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, u.some))
               case _ => Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, none))
 
-  def myself = Auth { _ ?=> me ?=>
-    Redirect(routes.User.show(me.username))
-  }
-
   def redirect(path: String) = Open:
     staticRedirect(path) |
       UserStr.read(path).so(tryRedirect).getOrElse(notFound)
