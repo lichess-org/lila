@@ -33,6 +33,13 @@ object Analyser extends lila.core.shutup.TextAnalyser:
 
   private def latinify(text: String): String =
     text.map:
+      case '@' => 'a'
+      case '$' => 's'
+      case '0' => 'o'
+      case '1' => 'i'
+      case '3' => 'e'
+      case '4' => 'a'
+      case '5' => 's'
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
