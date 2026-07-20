@@ -467,7 +467,7 @@ final class User(
       err => BadRequest(err.errors.toString).toFuccess,
       data =>
         doWriteNote(username, data): user =>
-          if getBool("inquiry") then
+          if getBool("inquiry") && isGranted(_.ModNote) then
             Ok.snipAsync:
               env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiryUi.noteZone(user, _)
