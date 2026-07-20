@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standard">Стандардна</string>
-  <string name="standardTitle">Стандардна правила шаха (FIDE)</string>
+  <string name="standardTitle">Стандардна правила шаха (ФИДЕ)</string>
   <string name="chess960">Шах960</string>
-  <string name="chess960Title">Почетна позиција фигура у првом и последњем реду је насумична.</string>
+  <string name="chess960Title">Почетна позиција фигура основног реда је одређена насумично.</string>
   <string name="kingOfTheHillTitle">Доведите краља на центар како бисте добили партију.</string>
   <string name="threeCheck">Три-Шаха</string>
   <string name="threeCheckTitle">Дајте противнику шах 3 пута како бисте добили партију.</string>
