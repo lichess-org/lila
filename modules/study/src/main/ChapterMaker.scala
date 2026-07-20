@@ -20,14 +20,21 @@ final private class ChapterMaker(
 
   import ChapterMaker.*
 
-  def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
+  def apply(
+      study: Study,
+      data: Data,
+      order: Int,
+      userId: UserId,
+      withRatings: Boolean,
+      nameOrder: Option[Int] = None
+  ): Fu[Chapter] =
     data.game
       .so(parseGame)
       .flatMap:
         case None => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
       .map: c =>
-        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
+        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(nameOrder | order)) else c
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.value.trim.nonEmpty) match
