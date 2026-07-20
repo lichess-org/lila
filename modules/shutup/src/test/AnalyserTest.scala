@@ -56,7 +56,10 @@ class AnalyserTest extends munit.FunSuite:
 
   test("find variants"):
     assertEquals(find("cunt kunt cunting kawa kunting"), List("cunt", "kunt", "cunting", "kunting"))
-    assertEquals(find("ass as ashole"), List("ass", "ashole"))
+    assertEquals(
+      find("@$$ as 4sh0l3 ky5 l0s3r n1g3r 53x"),
+      List("ass", "ashole", "kys", "loser", "niger", "sex")
+    )
 
   test("find plurals"):
     assertEquals(

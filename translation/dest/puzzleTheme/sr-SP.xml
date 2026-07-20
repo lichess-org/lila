@@ -30,7 +30,7 @@
   <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
   <string name="equality">Изједначење</string>
   <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
-  <string name="kingsideAttack">Напад на краљевој страни</string>
+  <string name="kingsideAttack">Напад на краљевом крилу</string>
   <string name="kingsideAttackDescription">Напад на противничког краља, након што се рокадирао на краљевој страни.</string>
   <string name="clearance">Рашчишћавање</string>
   <string name="clearanceDescription">Потез, често са темпом, који чисти поље, колону или дијагоналу за пратећу тактичку идеју.</string>
@@ -86,14 +86,14 @@
   <string name="pawnEndgame">Пешачка завршница</string>
   <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
   <string name="pin">Везивање</string>
-  <string name="pinDescription">Тактика која садржи везивања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
+  <string name="pinDescription">Тактика која укључује везивања, где фигура не може да се помери без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
   <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
-  <string name="queenEndgameDescription">Завршница са само краљицама и пешацима.</string>
+  <string name="queenEndgameDescription">Завршница са само дамама и пешацима.</string>
   <string name="queenRookEndgame">Краљица и Топ</string>
   <string name="queenRookEndgameDescription">Завршница са само краљицама, топовима и пешацима.</string>
-  <string name="queensideAttack">Напад на даминој страни</string>
+  <string name="queensideAttack">Напад на дамином крилу</string>
   <string name="queensideAttackDescription">Напад на противничког краља, након што су се рокадирали на краљичиној страни.</string>
   <string name="quietMove">Тихи потез</string>
   <string name="quietMoveDescription">Потез који којим се нити даје шах, нити узима фигура, а није ни непосреднја претња узимања фигуре, али којим се припрема скривена претња каснијег узимања фигуре.</string>
