@@ -20,8 +20,8 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       graph: OpenGraph,
       gameSide: Option[Frag],
       crosstable: Option[Tag]
-  )(using Context) =
-    Page(analyseUi.titleOf(pov))
+  ) =
+    Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
       .graph(graph)
       .csp(analyseUi.bits.cspExternalEngine)
@@ -79,7 +79,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     analyseUi.bits
-      .page(analyseUi.titleOf(pov))
+      .page(analyseUi.titleFull(pov))
       .css("analyse.round")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(ctx.blind.option("round.nvui"))
