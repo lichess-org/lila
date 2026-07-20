@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
+import chess.opening.Opening
 import play.api.libs.json.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
@@ -36,7 +37,7 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     gameProxy: GameProxyRepo,
     divider: Divider,
-    quickOpening: lila.game.GameQuickOpening,
+    quickOpening: lila.game.QuickOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
@@ -50,15 +51,17 @@ final class GameApiV2(
       case None =>
         for
           (game, initialFen, analysis) <- enrich(config.flags)(game)
+          opening = game.fullOpening
           formatted <- config.format match
             case Format.JSON =>
-              toJson(game, initialFen, analysis, config).map(Json.stringify)
+              toJson(game, initialFen, analysis, opening, config).map(Json.stringify)
             case Format.PGN =>
               PgnStr.raw(
                 pgnDump(
                   game,
                   initialFen,
                   analysis,
+                  opening,
                   config.flags
                 ).map(annotator.toPgnString)
               )
@@ -149,7 +152,8 @@ final class GameApiV2(
     config = MobileRecentConfig(user)
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
-      toJson(game, fen, analysis, config)
+      val opening = quickOpening.atPly(game)
+      toJson(game, fen, analysis, opening, config)
   yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
@@ -159,7 +163,7 @@ final class GameApiV2(
       .flatMapz: game =>
         val config = OneConfig(GameApiV2.Format.JSON, false, WithFlags())
         enrich(config.flags)(game).flatMap: (game, fen, analysis) =>
-          toJson(game, fen, analysis, config).dmap(some)
+          toJson(game, fen, analysis, none, config).dmap(some)
 
   def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =
     gameRepo
@@ -204,8 +208,10 @@ final class GameApiV2(
       .mapAsync(4): (game, pairing, teams) =>
         enrich(config.flags)(game).dmap { (_, pairing, teams) }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
+        val opening = config.flags.opening.so:
+          if _ then game.fullOpening else quickOpening.atPly(game)
         config.format match
-          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams)
+          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, opening, teams)
           case Format.JSON =>
             def addBerserk(color: Color)(json: JsObject) =
               if pairing.berserkOf(color) then
@@ -213,7 +219,7 @@ final class GameApiV2(
                   Json.obj:
                     "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
               else json
-            toJson(game, fen, analysis, config, teams)
+            toJson(game, fen, analysis, opening, config, teams)
               .dmap(addBerserk(chess.White))
               .dmap(addBerserk(chess.Black))
               .dmap: json =>
@@ -266,7 +272,9 @@ final class GameApiV2(
       .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4): (game, fen, analysis) =>
-        formatterFor(config)(game, fen, analysis, None)
+        val opening = config.flags.opening.so:
+          if _ then game.fullOpening else quickOpening.atPly(game)
+        formatterFor(config)(game, fen, analysis, opening, None)
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo
@@ -287,22 +295,24 @@ final class GameApiV2(
         game: Game,
         initialFen: Option[Fen.Full],
         analysis: Option[Analysis],
+        opening: Option[Opening.AtPly],
         teams: Option[GameTeams]
     ) =>
-      toJson(game, initialFen, analysis, config, teams).map: json =>
+      toJson(game, initialFen, analysis, opening, config, teams).map: json =>
         s"${Json.stringify(json)}\n"
 
   private def toJson(
       g: Game,
       initialFen: Option[Fen.Full],
       analysisOption: Option[Analysis],
+      opening: Option[Opening.AtPly],
       config: Config,
       teams: Option[GameTeams] = None
   )(using Lang): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     flags = config.flags
     pgn <- config.flags.pgnInJson.optionFu:
-      pgnDump(g, initialFen, analysisOption, config.flags).map(annotator.toPgnString)
+      pgnDump(g, initialFen, analysisOption, opening, config.flags).map(annotator.toPgnString)
     bookmarked <- config.flags.bookmark.so(bookmarkApi.exists(g, config.by.map(_.userId)))
     arena <- g.tournamentId.traverse: tournamentId =>
       for name <- tourName.async(tournamentId)
@@ -313,8 +323,6 @@ final class GameApiV2(
       .flatMap(AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _))
     phases = flags.accuracy.so:
       (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
-    opening = flags.opening.flatMap:
-      if _ then g.fullOpening else quickOpening.atPly(g)
   yield Json
     .obj(
       "id" -> g.id,
@@ -482,7 +490,6 @@ object GameApiV2:
         clocks = false,
         moves = false,
         evals = false,
-        opening = false.some,
         lastFen = true,
         accuracy = true
       )

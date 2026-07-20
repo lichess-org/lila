@@ -14,7 +14,6 @@ import lila.core.perf.KeyedPerf
 import lila.core.user.{ GameUser, GameUsers, WithPerf }
 import lila.game.GameExt.{ moveTimes, expirable, timeForFirstMove }
 import lila.game.JsonView.given
-import lila.game.GameQuickOpening
 import lila.pref.Pref
 import lila.round.RoundGame.*
 
@@ -25,7 +24,7 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    quickOpening: GameQuickOpening,
+    quickOpening: lila.game.QuickOpening,
     isOfferingRematch: lila.core.round.IsOfferingRematch
 )(using Executor):
 
@@ -176,7 +175,7 @@ final class JsonView(
             .baseWithChessDenorm(game, initialFen)
             .add("moveCentis" -> (flags.movetimes.so(game.moveTimes.map(_.map(_.centis)))))
             .add("division" -> flags.division.option(divider(game, initialFen)))
-            .add("opening" -> quickOpening(game))
+            .add("opening" -> quickOpening.of(game))
             .add("importedBy" -> game.pgnImport.flatMap(_.user)),
           "clock" -> game.clock.map(clockJson),
           "correspondence" -> game.correspondenceClock,

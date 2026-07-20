@@ -53,7 +53,7 @@ object AnnotatorTest:
       val (game, moves) = AnnotatorTest.gameWithMoves(sans, fen, variant)
       val analysis = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
       val p1 = annotator.addEvals(dumped, analysis)
-      val p2 = annotator(p1, makeGame(game), analysis.some).copy(tags = Tags.empty)
+      val p2 = annotator(p1, makeGame(game), analysis.some, none).copy(tags = Tags.empty)
       val output = annotator.toPgnString(p2)
       (output, expected)
 

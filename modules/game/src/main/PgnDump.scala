@@ -2,6 +2,7 @@ package lila.game
 
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
+import chess.opening.Opening
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
 
@@ -15,8 +16,7 @@ import lila.game.Player.nameSplit
 final class PgnDump(
     routeUrl: RouteUrl,
     lightUserApi: lila.core.user.LightUserApiMinimal,
-    fideIdOf: lila.core.user.PublicFideIdOf,
-    quickOpening: lila.game.QuickOpening
+    fideIdOf: lila.core.user.PublicFideIdOf
 )(using Executor)
     extends lila.core.game.PgnDump:
 
@@ -25,6 +25,7 @@ final class PgnDump(
   def apply(
       game: Game,
       initialFen: Option[Fen.Full],
+      opening: Option[Opening.AtPly],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn] =
@@ -37,7 +38,7 @@ final class PgnDump(
           game,
           initialFen,
           imported,
-          withOpening = flags.opening,
+          opening,
           withRating = flags.rating,
           teams = teams
         )
@@ -84,7 +85,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Option[Boolean],
+      opening: Option[Opening.AtPly],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] = for
@@ -92,8 +93,6 @@ final class PgnDump(
     fideIds <- users.traverse(_.so(fideIdOf))
   yield Tags:
     val importedDate = importedTags.flatMap(_.apply(_.Date))
-    val opening = withOpening.flatMap:
-      if _ then game.fullOpening else quickOpening.atPly(game)
     List[Option[Tag]](
       Tag(
         _.Event,
@@ -131,7 +130,7 @@ final class PgnDump(
         .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
         .orElse(Tag.timeControl(game.clock.map(_.config)).some),
       Tag(_.ECO, opening.fold("?")(_.opening.eco)).some,
-      withOpening.isDefined.option(Tag(_.Opening, opening.fold("?")(_.opening.name))),
+      opening.map(o => Tag(_.Opening, o.opening.name)),
       Tag(
         _.Termination, {
           import chess.Status.*

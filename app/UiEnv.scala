@@ -46,7 +46,7 @@ object UiEnv
   def analyseEndpoints = env.web.analyseEndpoints
   val translator = lila.i18n.Translator
   val langList = lila.i18n.LangList
-  lazy val quickOpening = env.game.quickOpening
+  lazy val quickOpening = env.game.quickOpening.of
   protected val namer = lila.game.Namer
   protected lazy val lightTeamSync = env.team.lightTeamSync
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo

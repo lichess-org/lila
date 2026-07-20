@@ -52,6 +52,7 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
+              opening = pov.game.fullOpening,
               PgnDump.WithFlags(
                 clocks = false,
                 rating = ctx.pref.showRatings,
@@ -82,7 +83,7 @@ final class Analyse(
                     pov,
                     data,
                     initialFen,
-                    env.analyse.annotator(pgn, pov.game, analysis).render,
+                    env.analyse.annotator(pgn, pov.game, analysis, pov.game.fullOpening).render,
                     analysis,
                     analysisInProgress,
                     simul,
@@ -136,12 +137,12 @@ final class Analyse(
     analysis <- env.analyse.analyser.get(pov.game)
     simul <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, none, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
       views.analyse.replay.forCrawler(
         pov,
         initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).render,
+        env.analyse.annotator(pgn, pov.game, analysis, none).render,
         simul,
         crosstable
       )
