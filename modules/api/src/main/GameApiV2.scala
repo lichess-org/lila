@@ -314,7 +314,7 @@ final class GameApiV2(
     phases = flags.accuracy.so:
       (division, analysisOption).mapN(AccuracyPercent.phaseAccuracies(_, _))
     opening = flags.opening.flatMap:
-      if _ then g.fullOpening else quickOpening(g).map(o => o.atPly(chess.Ply(o.nbMoves)))
+      if _ then g.fullOpening else quickOpening.atPly(g)
   yield Json
     .obj(
       "id" -> g.id,

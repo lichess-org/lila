@@ -16,7 +16,7 @@ final class PgnDump(
     routeUrl: RouteUrl,
     lightUserApi: lila.core.user.LightUserApiMinimal,
     fideIdOf: lila.core.user.PublicFideIdOf,
-    quickOpening: lila.game.GameQuickOpening
+    quickOpening: lila.game.QuickOpening
 )(using Executor)
     extends lila.core.game.PgnDump:
 
@@ -93,7 +93,7 @@ final class PgnDump(
   yield Tags:
     val importedDate = importedTags.flatMap(_.apply(_.Date))
     val opening = withOpening.flatMap:
-      if _ then game.fullOpening else quickOpening(game).map(o => o.atPly(Ply(o.nbMoves)))
+      if _ then game.fullOpening else quickOpening.atPly(game)
     List[Option[Tag]](
       Tag(
         _.Event,

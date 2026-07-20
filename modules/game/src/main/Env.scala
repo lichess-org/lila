@@ -41,7 +41,7 @@ final class Env(
 
   val divider = wire[Divider]
 
-  val quickOpening = wire[QuickOpening].of
+  val quickOpening = wire[QuickOpening]
 
   val cached: Cached = wire[Cached]
 

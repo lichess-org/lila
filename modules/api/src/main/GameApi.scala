@@ -140,7 +140,6 @@ final private[api] class GameApi(
       initialFen: Option[Fen.Full],
       withFlags: WithFlags
   ) =
-    val opening = withFlags.opening.so(quickOpening(g))
     Json
       .obj(
         "id" -> g.id,
@@ -181,7 +180,7 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves" -> withFlags.moves.option(g.sans.mkString(" ")),
-        "opening" -> opening.map(o => o.atPly(chess.Ply(o.nbMoves))),
+        "opening" -> withFlags.opening.so(quickOpening.atPly(g)),
         "fens" -> ((withFlags.fens && g.finished).so {
           chess
             .Position(g.variant, initialFen)

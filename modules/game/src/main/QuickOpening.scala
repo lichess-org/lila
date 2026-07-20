@@ -24,3 +24,6 @@ final class QuickOpening(using Executor):
       val firstMoves = game.sans.take(maxMoves)
       cache.get(firstMoves.hashCode, _ => OpeningDb.search(firstMoves).map(_.opening))
     else none
+
+  def atPly(game: Game): Option[Opening.AtPly] =
+    of(game).map(o => o.atPly(chess.Ply(o.nbMoves)))
