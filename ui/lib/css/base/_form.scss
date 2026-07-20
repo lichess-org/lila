@@ -70,7 +70,7 @@ select {
   @supports (appearance: base-select) {
     align-items: center;
     appearance: base-select;
-    padding-inline: 8px 6px;
+    padding-inline: 9px 6px;
     mask-image: none;
     color: var(--c-font);
 
@@ -108,13 +108,13 @@ select {
         display 0.25s allow-discrete,
         overlay 0.25s allow-discrete;
       box-shadow:
-        hsl(206 22% 7% / 0.6) 0 10px 24px -8px,
-        hsl(206 22% 7% / 0.4) 0 10px 12px -12px;
+        hsl(206 22% 2% / 0.6) 0 6px 24px -8px,
+        hsl(206 22% 2% / 0.4) 0 6px 12px -12px;
 
       @include if-light {
         box-shadow:
-          hsl(206 22% 7% / 0.3) 0 10px 24px -8px,
-          hsl(206 22% 7% / 0.15) 0 10px 12px -12px;
+          hsl(206 22% 7% / 0.3) 0 6px 24px -8px,
+          hsl(206 22% 7% / 0.15) 0 6px 12px -12px;
       }
     }
 
@@ -148,7 +148,7 @@ select {
       }
 
       &:checked:hover {
-        background-color: color-mix(in srgb, var(--c-primary) 0.8, transparent);
+        background-color: color-mix(in srgb, var(--c-primary) 80%, transparent);
       }
 
       &::checkmark {
