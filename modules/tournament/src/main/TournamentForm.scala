@@ -85,7 +85,8 @@ final class TournamentForm:
           )
           .verifying(
             "Can't change start date of a team battle after 10 players have joined",
-            _.startDate.contains(tour.startsAt) ||
+            _.startDate.isEmpty ||
+              _.startDate.contains(tour.startsAt) ||
               tour.nbPlayers < 10 ||
               tour.teamBattle.isEmpty ||
               Granter(_.ManageTournament)
