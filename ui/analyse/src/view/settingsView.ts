@@ -91,7 +91,7 @@ const settings: Record<SettingKey, Setting> = {
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
   let scrollableDiv: HTMLElement | null = null;
   const flexTamer = () => {
-    scrollableDiv ??= document.querySelector<HTMLElement>('.analysis-settings-dialog .scrollable');
+    scrollableDiv ??= document.querySelector<HTMLElement>('.analysis-settings-dialog');
     if (!scrollableDiv || isTouchDevice()) return;
 
     // we reflow, then freeze height as sized by initial content so hover targets can't be moved by shrinkage

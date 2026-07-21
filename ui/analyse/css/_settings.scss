@@ -73,7 +73,7 @@
 
   .column {
     justify-content: space-between;
-    flex: 40%;
+    flex: 1;
   }
 
   .setting {
@@ -107,7 +107,6 @@
     font-size: 1.2em;
     color: $c-font-dim;
     outline: none;
-    display: none;
   }
 
   .help-button::before {
@@ -136,10 +135,6 @@
   @include mq-no-hover {
     legend {
       display: none;
-    }
-
-    .help-button {
-      display: block;
     }
   }
 }
