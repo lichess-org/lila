@@ -76,6 +76,9 @@ case class Chapter(
   def toggleGlyph(glyph: Glyph, path: UciPath): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
 
+  def prune(path: UciPath): Option[Chapter] =
+    updateRoot(_.pruneAt(path)).map(_.updateDenorm)
+
   def setClock(
       clock: Option[Clock],
       path: UciPath

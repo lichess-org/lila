@@ -32,7 +32,7 @@ import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreeNodeLite, TreePath } from 'lib/tree/types';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -663,6 +663,33 @@ export default class AnalyseCtrl implements CevalHandler {
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
 
+  canPrune(path: TreePath): boolean {
+    if (this.retro) return false;
+
+    const nodeList = this.tree.getNodeList(path);
+    for (let i = 0; i < nodeList.length - 1; i++) {
+      if (nodeList[i].children.length > 1 || nodeList[i].children[0] !== nodeList[i + 1])
+        return !this.ongoing || path.startsWith(this.initialPath);
+    }
+    return false;
+  }
+
+  async prune(path: TreePath): Promise<void> {
+    if (!this.canPrune(path)) return;
+    // don't require confirmation for correspondence
+    if (!this.ongoing) {
+      const prunedCopy = treeOps.structuredCloneLite(this.tree.root);
+      treeOps.prune(treeOps.getNodeList(prunedCopy, path));
+      const { nodes: prunedNodes } = treeOps.countChildrenAndComments(prunedCopy);
+      const { nodes } = treeOps.countChildrenAndComments(this.tree.root);
+      if (!(await confirm(`Prune ${plural('move', nodes - prunedNodes)}?`))) return;
+    }
+    treeOps.prune(this.tree.getNodeList(path));
+    this.jump(path);
+    this.redraw();
+    this.study?.prune(path);
+  }
+
   promote(path: TreePath, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
@@ -673,12 +700,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
-  }
-
-  pruneBefore(nodeList: TreeNodeLite[]): void {
-    for (let i = 0; i < nodeList.length - 1; i++) {
-      nodeList[i].children = [nodeList[i + 1]];
-    }
   }
 
   visibleChildren(node = this.node): TreeNode[] {

@@ -301,6 +301,20 @@ final class StudyApi(
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid delNode $studyId $position")
 
+  def prune(studyId: StudyId, position: Position.Ref)(who: Who) =
+    sequenceStudyWithChapter(studyId, position.chapterId):
+      case Study.WithChapter(study, chapter) =>
+        Contribute(who.u, study):
+          chapter.prune(position.path) match
+            case Some(newChapter) if newChapter != chapter =>
+              for _ <- chapterRepo.update(newChapter)
+              yield
+                sendTo(study.id)(_.prune(position, who))
+                setStudyUpdated(study)
+            case _ =>
+              reloadSriBecauseOf(study, who.sri, chapter.id)
+              fufail(s"Invalid prune $studyId $position")
+
   def resetRoot(
       studyId: StudyId,
       chapterId: StudyChapterId,

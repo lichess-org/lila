@@ -105,6 +105,15 @@ object Branches:
     def updateChildren(id: UciCharPair, f: Branches => Option[Branches]): Option[Branches] =
       updateWith(id, _.withChildren(f))
 
+    def pruneAt(path: UciPath): Option[Branches] =
+      path.split.flatMap: (head, tail) =>
+        get(head).flatMap: node =>
+          val pruned =
+            if tail.isEmpty then node.some
+            else node.withChildren(_.pruneAt(tail)).map(_.withForceVariation(false))
+          pruned.map: node =>
+            Branches(List(node))
+
     def updateMainline(f: Branch => Branch): Branches =
       nodes match
         case main :: others =>
@@ -184,6 +193,10 @@ case class Root(
     if path.isEmpty then this.some else children.nodeAt(path)
 
   def pathExists(path: UciPath): Boolean = nodeAt(path).isDefined
+
+  def pruneAt(path: UciPath): Option[Root] =
+    if path.isEmpty then none
+    else withChildren(_.pruneAt(path))
 
   def setShapesAt(shapes: Shapes, path: UciPath): Option[Root] =
     if path.isEmpty then copy(shapes = shapes).some

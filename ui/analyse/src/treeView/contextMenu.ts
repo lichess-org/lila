@@ -1,6 +1,5 @@
 import { isTouchDevice } from 'lib/device';
 import { licon, type LiconValue } from 'lib/licon';
-import { structuredCloneLite, getNodeList, countChildrenAndComments } from 'lib/tree/ops';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
@@ -125,18 +124,14 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
     },
     [
       hl('p.title', nodeFullName(node)),
-      canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
-      path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
-
-      path &&
-        onMainline &&
-        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
       idbTree.someCollapsedOf(false) &&
         action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+
       idbTree.someCollapsedOf(true) &&
         action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+
+      path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       action(
         licon.Clipboard,
@@ -148,11 +143,17 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         () => ctrl.pendingCopyPath(extendedPath),
         () => ctrl.pendingCopyPath(null),
       ),
-      canPrune(ctrl, path) &&
-        action(licon.Prune, 'Prune previous branches', () => {
-          ctrl.pruneBefore(ctrl.tree.getNodeList(path));
-          ctrl.jump(path);
-        }),
+
+      canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
+
+      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
+
+      ctrl.canPrune(path) && action(licon.Prune, 'Prune to mainline', () => ctrl.prune(path)),
+
+      path &&
+        onMainline &&
+        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
+
       path &&
         action(
           licon.Trash,
@@ -163,13 +164,4 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         ),
     ],
   );
-
-  function canPrune(ctrl: AnalyseCtrl, path: TreePath): boolean {
-    if (!path) return false;
-    const prunedCopy = structuredCloneLite(tree.root);
-    ctrl.pruneBefore(getNodeList(prunedCopy, path));
-    const { nodes: prunedNodes } = countChildrenAndComments(prunedCopy);
-    const { nodes } = countChildrenAndComments(tree.root);
-    return prunedNodes < nodes && (!ctrl.initialPath || path.startsWith(ctrl.initialPath));
-  }
 }

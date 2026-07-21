@@ -62,6 +62,7 @@ interface Handlers {
   path(d: WithWhoAndPos): void;
   addNode(d: ServerNodeMsg): void;
   deleteNode(d: WithWhoAndPos): void;
+  prune(d: WithWhoAndPos): void;
   promote(d: WithWhoAndPos & { toMainline: boolean }): void;
   liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
   shapes(d: WithWhoAndPos & { s: DrawShape[] }): void;
@@ -604,6 +605,7 @@ export default class StudyCtrl {
         path,
       }),
     );
+  prune = (path: TreePath) => this.makeChange('prune', this.addChapterId({ path }));
   toggleSticky = () => {
     this.vm.mode.sticky = !this.vm.mode.sticky && this.data.features.sticky;
     this.xhrReload();
@@ -732,6 +734,16 @@ export default class StudyCtrl {
       if (who && who.s === site.sri) return;
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.deleteNodeAt(position.path);
+      if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      return this.redraw();
+    },
+    prune: d => {
+      const { p: position, w: who } = d;
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      if (who && who.s === site.sri) return;
+      if (!this.ctrl.tree.pathExists(position.path)) return this.xhrReload();
+      treeOps.prune(this.ctrl.tree.getNodeList(position.path));
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
       return this.redraw();
     },

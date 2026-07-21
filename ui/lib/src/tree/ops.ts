@@ -134,3 +134,10 @@ export function getNodeList<T extends TreeNodeBase>(root: T, path: TreePath): T[
   }
   return nodes;
 }
+
+export function prune<T extends TreeNodeLite>(nodeList: T[]): void {
+  for (let i = 0; i < nodeList.length - 1; i++) {
+    if (nodeList[i].forceVariation) delete nodeList[i].forceVariation;
+    nodeList[i].children = [nodeList[i + 1]];
+  }
+}

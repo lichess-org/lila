@@ -29,6 +29,7 @@ export interface StudySocketSendParams {
   deleteNode: (d: ReqPosition & { jumpTo: string }) => void;
   promote: (d: ReqPosition & { toMainline: boolean }) => void;
   forceVariation: (d: ReqPosition & { force: boolean }) => void;
+  prune: (d: ReqPosition) => void;
   shapes: (d: ReqPosition & { shapes: Shape[] }) => void;
   setComment: (d: ReqPosition & { id?: string; text: string }) => void;
   deleteComment: (d: ReqPosition & { id: string }) => void;
