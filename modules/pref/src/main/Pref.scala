@@ -48,6 +48,7 @@ case class Pref(
     usingAltSocket: Option[Boolean],
     board: Pref.BoardPref,
     sayGG: Int,
+    removeOutdatedLocalMoves: Boolean,
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -500,6 +501,7 @@ object Pref:
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
+    removeOutdatedLocalMoves = true,
     tags = Map.empty
   )
 

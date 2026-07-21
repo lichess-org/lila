@@ -1066,6 +1066,13 @@ export default class AnalyseCtrl implements CevalHandler {
   };
   private async mergeIdbThenShowTreeView() {
     await this.idbTree.merge();
+    console.log(JSON.stringify(this.data.pref));
+    if (this.ongoing && this.data.pref.removeOutdatedLocalMoves) {
+      const nodeList = this.tree.getNodeList(this.initialPath);
+      for (let i = 0; i < nodeList.length - 1; i++) {
+        nodeList[i].children = [nodeList[i + 1]];
+      }
+    }
     this.treeView.hidden = false;
     this.idbTree.revealNode();
     this.redraw();
