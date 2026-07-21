@@ -36,14 +36,15 @@ final class FishnetApi(
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
+  def authenticateClient(key: Client.Key, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
     if config.offlineMode then repo.getOfflineClient.map(some)
-    else repo.getEnabledClient(req.fishnet.apikey)
+    else repo.getEnabledClient(key)
   }.map {
     case None => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
-    case Some(client) => clientVersion.accept(req.fishnet.version).map(_ => client)
+    case Some(client) => clientVersion.accept(version).map(_ => client)
   }.flatMap:
-    case Success(client) => repo.updateClientInstance(client, req.instance(ip)).map(Success.apply)
+    case Success(client) =>
+      repo.updateClientInstance(client, Client.Instance(version, ip, nowInstant)).map(Success.apply)
     case invalid => fuccess(invalid)
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
