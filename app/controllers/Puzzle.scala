@@ -399,7 +399,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.security.ipTrust.rateLimit(400, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
-    if ctx.body.body.arr("solutions").forall(_.value.sizeIs > 100)
+    if !PuzzleForm.batch.isValid(ctx.body.body)
     then BadRequest.toFuccess
     else
       ctx.body.body
@@ -465,25 +465,27 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   /* Mobile API: tell the server about puzzles solved while offline */
   def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiateJson:
-      import PuzzleForm.bc.*
-      ctx.body.body
-        .validate[SolveDataBc]
-        .fold(
-          err => BadRequest(err.toString),
-          data =>
-            WithPuzzlePerf: perf ?=>
-              data.solutions.lastOption
-                .flatMap: solution =>
-                  Puz.numericalId(solution.id).map(_ -> solution.win)
-                .so: (id, solution) =>
-                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
-                .map:
-                  case None =>
-                    Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
-                  case Some(round, newPerf) =>
-                    env.puzzle.session.onComplete(round.userId, PuzzleAngle.mix)
-                    Ok(env.puzzle.jsonView.bc.userJson(newPerf.intRating))
-        )
+      if !PuzzleForm.batch.isValid(ctx.body.body)
+      then BadRequest.toFuccess
+      else
+        ctx.body.body
+          .validate[PuzzleForm.bc.SolveDataBc]
+          .fold(
+            err => BadRequest(err.toString),
+            data =>
+              WithPuzzlePerf: perf ?=>
+                data.solutions.lastOption
+                  .flatMap: solution =>
+                    Puz.numericalId(solution.id).map(_ -> solution.win)
+                  .so: (id, solution) =>
+                    env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
+                  .map:
+                    case None =>
+                      Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+                    case Some(round, newPerf) =>
+                      env.puzzle.session.onComplete(round.userId, PuzzleAngle.mix)
+                      Ok(env.puzzle.jsonView.bc.userJson(newPerf.intRating))
+          )
   }
 
   def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me ?=>

@@ -83,6 +83,7 @@ object PuzzleForm:
     case class SolveData(solutions: List[Solution])
     given Reads[Solution] = Json.reads
     given Reads[SolveData] = Json.reads
+    def isValid(js: JsValue): Boolean = js.arr("solutions").forall(_.value.sizeIs > 100)
 
   object bc:
 
