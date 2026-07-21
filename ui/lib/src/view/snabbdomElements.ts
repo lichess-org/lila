@@ -1,7 +1,6 @@
 import { type Attrs, h, type VNode, type VNodeChildren, type VNodeData } from 'snabbdom';
 
 const MOVABLE_ATTRS = ['alt', 'href', 'src'] as const;
-const SELECTOR_REGEX = /^[.#[]/;
 
 type MovableAttrs = (typeof MOVABLE_ATTRS)[number];
 type VNodeDataExtended = VNodeData & {
@@ -52,7 +51,9 @@ function isVNodeData(value: unknown): value is VNodeDataExtended {
 }
 
 function isSelector(value: unknown): value is string {
-  return typeof value === 'string' && SELECTOR_REGEX.test(value);
+  return (
+    typeof value === 'string' && (value.startsWith('.') || value.startsWith('#') || value.startsWith('['))
+  );
 }
 
 function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData, VNodeChildren] {
