@@ -975,6 +975,7 @@
   <string name="gameInProgress">%s との対局が進行中です。</string>
   <string name="abortTheGame">対局を中止する</string>
   <string name="resignTheGame">投了する</string>
+  <string name="youCantStartNewGame">自分の手番の間は別の対局は開始できません。</string>
   <string name="since">開始</string>
   <string name="until">終了</string>
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>

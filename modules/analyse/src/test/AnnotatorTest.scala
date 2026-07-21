@@ -1,5 +1,6 @@
 package lila.analyse
 import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
+import chess.opening.OpeningDb
 import chess.{ ByColor, Node, Ply }
 
 import lila.core.LightUser
@@ -44,13 +45,13 @@ class AnnotatorTest extends munit.FunSuite:
 
   test("empty game"):
     assertEquals(
-      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), none),
+      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), none, none),
       withAnnotator(emptyPgn)
     )
 
   test("empty analysis"):
     assertEquals(
-      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), emptyAnalysis.some),
+      annotator(emptyPgn, makeGame(chess.Game(chess.variant.Standard)), emptyAnalysis.some, none),
       withAnnotator(emptyPgn)
     )
 
@@ -70,8 +71,9 @@ class AnnotatorTest extends munit.FunSuite:
       ).some,
       Ply.firstMove
     )
+    val opening = OpeningDb.search(List(SanStr("a3"), SanStr("g6"), SanStr("g4")))
 
     assertEquals(
-      annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
+      annotator(dumped, makeGame(playedGame), none, opening).copy(tags = Tags.empty).render,
       PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
     )

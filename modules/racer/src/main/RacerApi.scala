@@ -1,5 +1,7 @@
 package lila.racer
 
+import scalalib.model.Seconds
+
 import lila.common.Bus
 import lila.core.id.SessionId
 import lila.core.LightUser
@@ -25,24 +27,22 @@ final class RacerApi(
     case None => RacerPlayer.Id.Anon(sessionId)
 
   def createKeepOwnerAndJoin(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] =
-    create(race.owner, 10).map { id =>
+    create(race.owner).map: id =>
       join(id, player)
       id
-    }
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
-    create(player, 10).map { id =>
+    create(player).map: id =>
       join(id, player)
       id
-    }
 
-  def create(player: RacerPlayer.Id, countdownSeconds: Int): Fu[RacerRace.Id] =
+  def create(player: RacerPlayer.Id, countdown: Seconds = Seconds(10)): Fu[RacerRace.Id] =
     selector.apply.map: puzzles =>
       val race = RacerRace
         .make(
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList,
-          countdownSeconds = countdownSeconds
+          countdown = countdown
         )
       store.put(race.id, race)
       lila.mon.racer.race(lobby = race.isLobby).increment()
@@ -83,7 +83,7 @@ final class RacerApi(
 
   private def doStart(race: RacerRace): Option[RacerRace] =
     race.startCountdown.map: starting =>
-      scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis):
+      scheduler.scheduleOnce(race.duration.duration + race.countdown.duration + 50.millis):
         finish(race.id)
       starting
 

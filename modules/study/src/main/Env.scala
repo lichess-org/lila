@@ -16,6 +16,7 @@ final class Env(
     divider: lila.core.game.Divider,
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening,
     userApi: lila.core.user.UserApi,
     flairApi: lila.core.user.FlairApi,
     explorer: lila.core.game.Explorer,

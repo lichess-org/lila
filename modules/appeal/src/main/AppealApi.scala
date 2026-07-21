@@ -41,7 +41,21 @@ final class AppealApi(
     val appeal = prev.post(text, me)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
-  def countUnread = coll.countSel($doc("status" -> Appeal.Status.unread))
+  def countUnread = coll.secondary.countSel($doc("status" -> Appeal.Status.unread))
+
+  def countUnreadByTopic: Fu[Map[AppealTopic, Int]] =
+    coll
+      .aggregateList(50, _.sec): framework =>
+        import framework.*
+        Match($doc("status" -> Appeal.Status.unread)) ->
+          List(PipelineOperator($doc("$sortByCount" -> "$topic")))
+      .map: docs =>
+        for
+          doc <- docs
+          topic <- doc.getAsOpt[AppealTopic]("_id")
+          count <- doc.int("count")
+        yield topic -> count
+      .map(_.toMap)
 
   def logsOf(since: Instant, mod: ModId): Fu[List[(UserId, AppealMsg)]] =
     coll
@@ -67,7 +81,13 @@ final class AppealApi(
       $doc("status" -> Appeal.Status.unread) ++
         snoozedIds.nonEmpty.so($doc("_id".$nin(snoozedIds))) ++
         topic.so(t => $doc("topic" -> t))
-    coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
+    coll
+      .find(selector)
+      .sort($sort.asc("firstUnrepliedAt"))
+      .cursor[Appeal]()
+      .list(nb * 2)
+      .map(_.sortBy(a => (!a.modIds.contains(me.userId), a.firstUnrepliedAt)))
+      .map(_.take(nb))
 
   def setReadIfUnread(user: UserId, topic: AppealTopic) =
     coll

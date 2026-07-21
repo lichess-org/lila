@@ -31,7 +31,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ).some,
-        Option.when(status.warning && appeals.get(AppealTopic.warning).forall(_.isOpen)):
+        Option.when(status.modMessage && appeals.get(AppealTopic.warning).forall(_.isOpen)):
           Leaf(
             "clean-warning",
             "I want to discuss a warning I received",
@@ -42,6 +42,20 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
                 "If you still want to file an appeal, use the following form:"
               ),
               newAppeal(AppealTopic.warning)("")
+            )
+          )
+        ,
+        Option.when(status.chatTimeout && appeals.get(AppealTopic.chat).forall(_.isOpen)):
+          Leaf(
+            "clean-chat-timeout",
+            "I want to discuss a chat timeout I received",
+            frag(
+              p(
+                "Please note that chat timeouts are only temporary restrictions, and that your account has not been permanently restricted currently.",
+                br,
+                "If you still want to file an appeal, use the following form:"
+              ),
+              newAppeal(AppealTopic.chat)("")
             )
           )
         ,

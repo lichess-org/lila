@@ -13,7 +13,7 @@
 }
 
 .data-count::after {
-  @include inline-start(0);
+  @include inline-end(0);
 
   content: attr(data-count);
   top: -5px;

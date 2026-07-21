@@ -46,8 +46,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
     blogHidden <- env.ublog.api.isHiddenWithPosts(user)
-    warning <- env.mod.logApi.hasRecentWarning(user.id)
-  yield lila.appeal.UserStatus(user, playban, blogHidden, warning)
+    modActions <- env.mod.logApi.recentActionsOf(user.id)
+  yield lila.appeal.UserStatus(user, playban, blogHidden, modActions)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     for
@@ -77,16 +77,16 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def modHandle(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      Found(env.appeal.api.find(user, topic)): _ =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
         env.report.api.inquiries
           .ongoingAppealOf(user.id)
           .flatMap:
             case Some(ongoing) if ongoing.mod.isnt(me) =>
               for mod <- env.user.lightUserApi.asyncFallback(ongoing.mod.userId)
-              yield redirectToActions(username, topic).flashFailure(s"Currently processed by ${mod.name}")
+              yield Redirect(appeal.modShowUrl).flashFailure(s"Currently processed by ${mod.name}")
             case _ =>
               for _ <- env.report.api.inquiries.appeal(user, topic)
-              yield redirectToActions(username, topic)
+              yield Redirect(appeal.modShowUrl)
   }
 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -117,12 +117,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
           yield
             if dismiss.orZero then Redirect(routes.Appeal.modQueue)
-            else redirectToActions(username, topic).flashSuccess("Reply sent")
+            else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
       )
   }
-
-  private def redirectToActions(username: UserStr, topic: AppealTopic) =
-    Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-actions")
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for
@@ -149,7 +146,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       for
         _ <- env.appeal.api.toggleClosed(appeal, v, sleepMonths = sleepMonths)
         _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
-      yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
+      yield Redirect(if v then routes.Appeal.modQueue.url else appeal.modShowUrl)
   }
 
   def toggleRead(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>

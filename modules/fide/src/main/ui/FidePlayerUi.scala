@@ -191,14 +191,15 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                 th(trb.fideProfile()),
                 td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
               ),
-              tr(
-                th(trb.age()),
-                td(
-                  player.age,
-                  for by <- player.year; dy <- player.deceasedYear
-                  yield s" ($by - $dy)"
+              player.age.map: age =>
+                tr(
+                  th(trb.age()),
+                  td(
+                    age,
+                    for by <- player.year; dy <- player.deceasedYear
+                    yield s" ($by - $dy)"
+                  )
                 )
-              )
             )
           )
         )

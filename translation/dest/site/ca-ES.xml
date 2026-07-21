@@ -814,6 +814,10 @@
   <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anònim</item>
+    <item quantity="other">Anònims (%s)</item>
+  </plurals>
   <string name="yourScore">El seu resultat: %s</string>
   <string name="language">Llengua</string>
   <string name="allLanguages">Tots els idiomes</string>

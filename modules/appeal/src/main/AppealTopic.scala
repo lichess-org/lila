@@ -7,7 +7,7 @@ import lila.core.i18n.I18nKey.appeal as trans
 
 object AppealTopicApi:
 
-  val irrelevant = Set(AppealTopic.play)
+  val irrelevant = Set(AppealTopic.play, AppealTopic.chat)
   val relevant = AppealTopic.values.filterNot(irrelevant).toList
 
   private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
@@ -21,6 +21,7 @@ object AppealTopicApi:
       u.marks.arenaBan.option(arena),
       u.marks.prizeban.option(prize),
       u.playban.option(play),
+      u.chatTimeout.option(chat),
       u.ublogHidden.option(blog)
     ).flatten
 
@@ -58,6 +59,7 @@ object AppealTopicApi:
           case AppealTopic.rank => trans.excludedFromLeaderboards.some
           case AppealTopic.arena => trans.arenaBanned.some
           case AppealTopic.prize => trans.prizeBanned.some
+          case AppealTopic.chat => I18nKey("15 minutes chat timeout").some
           case _ => none
 
   object topicFilter:

@@ -188,8 +188,13 @@ object Event:
     def oldJson(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
-        moves.foldLeft(JsObject(Nil)):
-          case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key).mkString))
+        val fields = Array.newBuilder[(String, JsValue)]
+        fields.sizeHint(moves.size)
+        moves.foreach: (orig, dests) =>
+          val sb = new java.lang.StringBuilder(dests.count * 2)
+          dests.foreach(s => sb.append(s.key))
+          fields += (orig.key -> JsString(sb.toString))
+        JsObject(fields.result())
 
   case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"
