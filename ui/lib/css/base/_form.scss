@@ -70,17 +70,26 @@ select {
   @supports (appearance: base-select) {
     align-items: center;
     appearance: base-select;
-    padding-inline: 9px 6px;
+    padding-inline: 9px 24px;
     mask-image: none;
     color: var(--c-font);
+    position: relative;
 
     &::picker-icon {
+      position: absolute;
       content: '';
       width: 14px;
       height: 14px;
       background-color: var(--c-font-dim);
       mask-image: var(--picker-icon-mask);
       transition: rotate 0.25s ease;
+      right: 8px;
+      top: calc(50% - 7px);
+
+      @include if-rtl {
+        right: unset;
+        left: 8px;
+      }
     }
 
     &:open::picker-icon {
@@ -120,7 +129,8 @@ select {
 
     &:open::picker(select) {
       opacity: 1;
-      overflow: hidden;
+      overflow-x: clip;
+      overflow-y: auto;
       display: flex;
 
       @starting-style {
