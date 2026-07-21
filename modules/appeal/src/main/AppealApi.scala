@@ -81,7 +81,12 @@ final class AppealApi(
       $doc("status" -> Appeal.Status.unread) ++
         snoozedIds.nonEmpty.so($doc("_id".$nin(snoozedIds))) ++
         topic.so(t => $doc("topic" -> t))
-    coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
+    coll
+      .find(selector)
+      .sort($sort.asc("firstUnrepliedAt"))
+      .cursor[Appeal]()
+      .list(nb)
+      .map(_.sortBy(a => (!a.modIds.contains(me.userId), a.firstUnrepliedAt)))
 
   def setReadIfUnread(user: UserId, topic: AppealTopic) =
     coll
