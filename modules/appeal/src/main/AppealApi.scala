@@ -85,8 +85,9 @@ final class AppealApi(
       .find(selector)
       .sort($sort.asc("firstUnrepliedAt"))
       .cursor[Appeal]()
-      .list(nb)
+      .list(nb * 2)
       .map(_.sortBy(a => (!a.modIds.contains(me.userId), a.firstUnrepliedAt)))
+      .map(_.take(nb))
 
   def setReadIfUnread(user: UserId, topic: AppealTopic) =
     coll
