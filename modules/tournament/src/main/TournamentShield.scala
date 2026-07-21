@@ -49,8 +49,8 @@ final class TournamentShieldApi(
       tournamentRepo.coll
         .find:
           $doc(
-            "schedule.freq" -> (Schedule.Freq.Shield: Schedule.Freq),
-            "status" -> (Status.finished: Status)
+            "schedule.freq" -> Schedule.Freq.Shield,
+            "status" -> Status.finished
           )
         .sort($sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.sec)
