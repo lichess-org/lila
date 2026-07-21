@@ -268,12 +268,6 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  // redirect /player/top/:nb/:perfKey to /user/top/:perfKey
-  // TODO move to a NotFound general handler?
-  // to avoid adding (yet another) route
-  def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
-    Redirect(routes.User.top(perfKey))
-
   def top(perfKey: PerfKey, page: Int) = Open:
     Reasonable(page, Max(20)):
       env.user.cached
