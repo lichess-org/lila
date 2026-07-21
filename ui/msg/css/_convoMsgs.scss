@@ -95,7 +95,7 @@
   em {
     @extend %roboto;
 
-    color: hsl(from var(--c-inbox-font) h s l / 0.7);
+    color: hsl(from $c-inbox-font h s l / 0.7);
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;
