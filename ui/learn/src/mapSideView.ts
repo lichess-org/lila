@@ -15,7 +15,7 @@ function renderInStage(ctrl: SideCtrl) {
   return div('.learn__side-map', [
     div('.stages', [
       a('.back', { href: BASE_LEARN_PATH }, [
-        img({ alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' }),
+        img({ src: assetUrl + 'images/learn/brutal-helm.svg' }),
         i18n.site.menu,
       ]),
       ...categs.map((categ, categId) =>
@@ -39,7 +39,7 @@ function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return div('.learn__side-home', [
     div('.learn__side-home__header', [
-      img('.decoration', { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' }),
+      img('.decoration', { src: assetUrl + 'images/learn/brutal-helm.svg' }),
       div('.learn__side-home__title', [h1(i18n.learn.learnChess), h2(i18n.learn.byPlaying)]),
     ]),
     div('.progress', [

@@ -73,7 +73,7 @@ function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData
   return [{}, a ?? []];
 }
 
-function makeTag(tag: string): TagFunction {
+function makeTag(tag: string, defaultData?: VNodeDataExtended): TagFunction {
   function tagFn(selector: string): VNode;
   function tagFn(data: TagData): VNode;
   function tagFn(children: VNodeChildren): VNode;
@@ -90,7 +90,7 @@ function makeTag(tag: string): TagFunction {
       ? [`${tag}${a}`, ...normalizeArgs(b, c)]
       : [tag, ...normalizeArgs(a as TagData | VNodeChildren, b as VNodeChildren)];
 
-    return h(sel, movePropsToAttrs(data), children);
+    return h(sel, movePropsToAttrs({ ...defaultData, ...data }), children);
   }
 
   return tagFn;
@@ -101,6 +101,6 @@ export const p: TagFunction = makeTag('p');
 export const a: TagFunction = makeTag('a');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
-export const img: TagFunction = makeTag('img');
+export const img: TagFunction = makeTag('img', { alt: '' });
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
