@@ -94,7 +94,7 @@
   <string name="queenRookEndgame">Краљица и Топ</string>
   <string name="queenRookEndgameDescription">Завршница са само краљицама, топовима и пешацима.</string>
   <string name="queensideAttack">Напад на дамином крилу</string>
-  <string name="queensideAttackDescription">Напад на противничког краља, након што су се рокадирали на краљичиној страни.</string>
+  <string name="queensideAttackDescription">Напад на противничког краља, након што се рокадирао на даминој страни.</string>
   <string name="quietMove">Тихи потез</string>
   <string name="quietMoveDescription">Потез који којим се нити даје шах, нити узима фигура, а није ни непосреднја претња узимања фигуре, али којим се припрема скривена претња каснијег узимања фигуре.</string>
   <string name="rookEndgame">Топовска завршница</string>
