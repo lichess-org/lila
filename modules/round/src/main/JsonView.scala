@@ -299,8 +299,8 @@ final class JsonView(
       .option(lila.game.Event.PossibleMoves.json(pov.game.position.destinations))
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
-    (pov.game
-      .playableBy(pov.player))
+    pov.game
+      .playableBy(pov.player)
       .so:
         pov.game.position.drops.map: drops =>
           JsString(drops.map(_.key).mkString)

@@ -172,7 +172,6 @@ object Event:
     )
 
   object PossibleMoves:
-    // We need to keep this implementation for compatibility
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
@@ -185,6 +184,7 @@ object Event:
           dests.foreach(s => sb.append(s.key))
         JsString(sb.toString)
 
+    // We need to keep this implementation for lichobile compatibility
     def oldJson(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
