@@ -338,13 +338,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user" -> userId,
         "action" -> Modlog.cheatDetected,
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".$gt(nowInstant.minusMonths(6))
       )
 
-  def hasRecentWarning(userId: UserId): Fu[Boolean] =
-    coll.secondary.exists(
-      $doc("user" -> userId, "action" -> Modlog.modMessage, "date".$gte(nowInstant.minusWeeks(1)))
-    )
+  def recentActionsOf(userId: UserId): Fu[List[String]] =
+    coll.secondary.primitive[String]($doc("user" -> userId, "date".$gt(nowInstant.minusWeeks(1))), "action")
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:

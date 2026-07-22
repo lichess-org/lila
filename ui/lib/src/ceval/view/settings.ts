@@ -17,10 +17,12 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
     return null;
   }
 
-  const minThreads = ceval.engines.active().minThreads ?? 1;
+  const minThreads = ceval.engines.active()?.minThreads ?? 1;
   const maxThreads = ceval.maxThreads;
+  const threads = ceval.info()?.threads ?? 1;
+  const hashSize = ceval.info()?.hashSize ?? 4;
   const searchTicks = allSearchTicks.filter(
-    x => x * 1000 <= (ceval.engines.active().maxMovetime ?? Infinity),
+    x => x * 1000 <= (ceval.engines.active()?.maxMovetime ?? Infinity),
   );
 
   let observer: ResizeObserver;
@@ -119,7 +121,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                       max: maxThreads,
                       step: 1,
                     },
-                    hook: rangeConfig(() => ceval.info().threads, clickThreads),
+                    hook: rangeConfig(() => threads, clickThreads),
                   }),
                   hl(
                     'div.tick',
@@ -141,7 +143,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                     !ceval.engines.external && [threadsTick('up'), threadsTick('down')],
                   ),
                 ]),
-                hl('div.range_value', `${ceval.info().threads} / ${maxThreads}`),
+                hl('div.range_value', `${threads} / ${maxThreads}`),
               ],
             );
           })('analyse-threads'),
@@ -152,12 +154,12 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               attrs: {
                 type: 'range',
                 min: 4,
-                max: Math.floor(Math.log2(ceval.engines.active().maxHash ?? 4)),
+                max: Math.floor(Math.log2(ceval.engines.active()?.maxHash ?? 4)),
                 step: 1,
-                'aria-valuetext': formatHashSize(ceval.info().hashSize),
+                'aria-valuetext': formatHashSize(hashSize),
               },
               hook: rangeConfig(
-                () => Math.floor(Math.log2(ceval.info().hashSize)),
+                () => Math.floor(Math.log2(hashSize)),
                 v => {
                   ceval.setHashSize(Math.pow(2, v));
                   ctrl.startCeval();
@@ -166,7 +168,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               ),
             }),
 
-            hl('div.range_value', formatHashSize(ceval.info().hashSize)),
+            hl('div.range_value', formatHashSize(hashSize)),
           ]))('analyse-memory'),
       ],
     ),
@@ -180,14 +182,14 @@ function formatHashSize(v: number) {
 function setupTick(v: VNode, ceval: CevalCtrl) {
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active().minThreads ?? 1;
+  const minThreads = ceval.engines.active()?.minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
   const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
   const tickLeft = Math.floor(thumbWidth / 2 + trackWidth * tickRatio);
 
   tick.style.left = `${tickLeft}px`;
-  $(tick).toggleClass('recommended', ceval.info().threads === ceval.recommendedThreads);
+  $(tick).toggleClass('recommended', ceval.info()?.threads === ceval.recommendedThreads);
 }
 
 function engineSelection({ ceval }: CevalHandler) {

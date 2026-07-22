@@ -156,7 +156,6 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                   ),
                 markdownLinksOrRichText(d)
               ),
-            gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
             List(
               tour.noBerserk.option(
                 div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
@@ -179,6 +178,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 )
               })
           ),
+          gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
           tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
           tour.description.isDefined.option(button(cls := "disclosure"))
         ),

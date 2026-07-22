@@ -1,6 +1,8 @@
 package lila.round
 
 import chess.ByColor
+import chess.Ply
+import alleycats.Zero
 import scalalib.data.Preload
 
 import lila.common.Bus
@@ -8,9 +10,16 @@ import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.round.*
 import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
-import lila.round.RoundAsyncActor.TakebackBoard
 import lila.round.RoundGame.playableByAi
-import chess.Ply
+
+private final class TakebackState(nbDeclined: Int, lastDeclined: Option[Instant]):
+  def decline = TakebackState(nbDeclined + 1, nowInstant.some)
+  def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
+  private def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
+
+private type TakebackBoard = ByColor[TakebackState]
+
+private given takebackBoardZero: Zero[TakebackBoard] = Zero(ByColor.fill(TakebackState(0, none)))
 
 final private class Takebacker(
     messenger: Messenger,
@@ -44,7 +53,7 @@ final private class Takebacker(
               then single(pov)
               else double(pov)
             _ = publishTakeback(pov)
-          yield events -> board.reset
+          yield events -> takebackBoardZero.zero
         case Pov(game, _) if pov.game.playableByAi =>
           for
             events <- single(pov)
@@ -55,7 +64,7 @@ final private class Takebacker(
             events <- double(pov)
             _ = publishTakeback(pov)
           yield events -> board
-        case pov if canProposeTakeback(pov) && board.offerable =>
+        case pov if canProposeTakeback(pov) && board(pov.color).offerable =>
           messenger.volatile(pov.game, offerTakebackMessage(pov))
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
@@ -79,7 +88,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> board.decline
+        yield events -> board.update(color, _.decline)
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
         messenger.volatile(
           game,
@@ -91,7 +100,7 @@ final private class Takebacker(
           _ <- proxy.save(progress)
           _ = publishTakebackOffer(progress.game)
           events = List(Event.TakebackOffers(white = false, black = false))
-        yield events -> board.decline
+        yield events -> board.update(!color, _.decline)
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =

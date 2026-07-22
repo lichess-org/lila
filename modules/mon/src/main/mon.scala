@@ -254,6 +254,11 @@ object user:
   def weeklyStableRanking(perf: PerfKey) = future("user.weeklyStableRanking", perf.value)
 object actor:
   def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
+object appeal:
+  private val unreadGauge = gauge("appeal.unread")
+  def unreadByTopic(list: Map[lila.core.misc.AppealTopic, Int]) =
+    list.map: (topic, count) =>
+      unreadGauge.withTag("topic", topic.key).update(count)
 object mod:
   def queueStatus(room: String, score: Int) =
     gauge("mod.queueStatus").withTags:

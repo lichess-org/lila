@@ -89,16 +89,22 @@
     }
   }
 
-  &.study-edit .flair-and-name {
-    gap: 4%;
-
-    .form-group:last-child {
-      flex: 1 1 auto;
+  &.study-edit {
+    @media (min-width: at-least($x-small)) {
+      min-width: 600px;
     }
 
-    .uflair {
-      margin: 0;
-      font-size: 1.3em;
+    .flair-and-name {
+      gap: 4%;
+
+      .form-group:last-child {
+        flex: 1 1 auto;
+      }
+
+      .uflair {
+        margin: 0;
+        font-size: 1.3em;
+      }
     }
   }
 }

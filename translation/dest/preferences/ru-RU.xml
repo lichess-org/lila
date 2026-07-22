@@ -88,4 +88,5 @@
   <string name="boardSettings">Доска</string>
   <string name="analysisSettings">Настройки анализа</string>
   <string name="maneuverArrowsHelp">Последовательность предлагаемых движком ходов для одной фигуры</string>
+  <string name="hoverOverSettingLabelsForHelp">Наведите поверх метки настройки для подсказки</string>
 </resources>

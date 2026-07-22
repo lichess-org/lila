@@ -89,7 +89,8 @@ final class Practice(
             ctx.pref,
             initialFen,
             chapter.setup.orientation,
-            owner = false
+            owner = false,
+            opening = none
           )
         analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeWriter(chapter.root, lichobile = false),

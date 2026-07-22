@@ -1019,6 +1019,7 @@ Deixa em branco para iniciar jogos da posição inicial normal.</string>
   <string name="gameInProgress">Tem um jogo em curso com %s.</string>
   <string name="abortTheGame">Cancelar o jogo</string>
   <string name="resignTheGame">Abandonar o jogo</string>
+  <string name="youCantStartNewGame">Não pode começar um novo jogo enquanto for a sua vez.</string>
   <string name="since">Desde</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>

@@ -52,3 +52,118 @@ select:-webkit-autofill {
   -webkit-text-fill-color: $c-font;
   box-shadow: 0 0 0 1000px color-mix(in oklab, $c-secondary 10%, $c-bg) inset;
 }
+
+/* Select (with `base-select` support) */
+
+:root {
+  @supports (appearance: base-select) {
+    --picker-icon-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m19.5 8.25-7.5 7.5-7.5-7.5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --option-interactive-background: color-mix(in srgb, var(--c-bg-zebra2) 80%, transparent);
+
+    &.light {
+      --option-interactive-background: color-mix(in srgb, var(--c-border) 50%, transparent);
+    }
+  }
+}
+
+select {
+  @supports (appearance: base-select) {
+    align-items: center;
+    appearance: base-select;
+    padding-inline: 9px 24px;
+    mask-image: none;
+    color: var(--c-font);
+    position: relative;
+
+    &::picker-icon {
+      position: absolute;
+      content: '';
+      width: 14px;
+      height: 14px;
+      background-color: var(--c-font-dim);
+      mask-image: var(--picker-icon-mask);
+      transition: rotate 0.25s ease;
+      right: 8px;
+      top: calc(50% - 7px);
+
+      @include if-rtl {
+        right: unset;
+        left: 8px;
+      }
+    }
+
+    &:open::picker-icon {
+      rotate: 180deg;
+      background-color: var(--c-font);
+      mask-image: var(--picker-icon-mask);
+    }
+
+    &::picker(select) {
+      @include backdrop-blur-if-transparent;
+
+      appearance: base-select;
+      flex-direction: column;
+      gap: 2px;
+      padding: 2px;
+      border: 1px solid var(--c-border);
+      background: var(--c-bg-input);
+      border-radius: 6px;
+      font-weight: 400;
+      opacity: 0;
+      overflow: clip;
+      margin: 2px 0;
+      transition:
+        opacity 0.25s ease,
+        display 0.25s allow-discrete,
+        overlay 0.25s allow-discrete;
+      box-shadow:
+        hsl(206 22% 2% / 0.6) 0 6px 24px -8px,
+        hsl(206 22% 2% / 0.4) 0 6px 12px -12px;
+
+      @include if-light {
+        box-shadow:
+          hsl(206 22% 7% / 0.3) 0 6px 24px -8px,
+          hsl(206 22% 7% / 0.15) 0 6px 12px -12px;
+      }
+    }
+
+    &:open::picker(select) {
+      opacity: 1;
+      overflow-x: clip;
+      overflow-y: auto;
+      display: flex;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    option {
+      display: flex;
+      align-items: center;
+      padding: 2px 8px;
+      cursor: pointer;
+      border-radius: 3.5px;
+      transition: background-color 0.2s ease-out;
+      color: var(--c-font);
+      background-color: var(--c-bg-input);
+
+      &:where(:hover, :focus, :active) {
+        background-color: var(--option-interactive-background);
+      }
+
+      &:checked {
+        background-color: var(--c-primary);
+        color: #fff;
+      }
+
+      &:checked:hover {
+        background-color: color-mix(in srgb, var(--c-primary) 80%, transparent);
+      }
+
+      &::checkmark {
+        display: none;
+      }
+    }
+  }
+}

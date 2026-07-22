@@ -611,7 +611,7 @@ final class StudyApi(
             .flatMap:
               _.filter(_.isEmptyInitial).so(chapterRepo.delete)
         order <- chapterRepo.nextOrderByStudy(study.id)
-        chapter <- chapterMaker(study, data, order, who.u, withRatings)
+        chapter <- chapterMaker(study, data, order, who.u, withRatings, nameOrder = (count + 1).some)
           .recoverWith:
             case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))

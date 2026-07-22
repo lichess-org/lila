@@ -46,9 +46,7 @@ final class AppealQueueUi(helpers: Helpers):
                 p(shorten(msg.text, 200))
               )),
             td(
-              a(href := routes.Appeal.modShow(appeal.user, appeal.topic), cls := "button button-empty")(
-                "View"
-              ),
+              a(href := appeal.modShowUrl, cls := "button button-empty")("View"),
               for modId <- inquiries.get(appeal.user)
               yield frag(userIdLink(modId.some), nbsp, "is handling this")
             )

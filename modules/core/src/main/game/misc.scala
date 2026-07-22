@@ -5,6 +5,7 @@ import _root_.chess.format.Fen
 import _root_.chess.format.pgn.{ Pgn, SanStr, Tags }
 import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
+import _root_.chess.opening.Opening
 import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.akkastream.AkkaStreamCursor
@@ -142,6 +143,7 @@ trait PgnDump:
   def apply(
       game: Game,
       initialFen: Option[Fen.Full],
+      opening: Option[Opening.AtPly],
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
@@ -149,7 +151,7 @@ trait PgnDump:
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Option[Boolean],
+      opening: Option[Opening],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags]
@@ -169,6 +171,8 @@ trait Explorer:
 
 trait Divider:
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
+
+type GameOpening = (Game, Boolean) => Option[Opening]
 
 object PgnDump:
   case class WithFlags(
