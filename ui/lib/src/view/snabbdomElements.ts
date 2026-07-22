@@ -7,14 +7,15 @@ type VNodeDataExtended = VNodeData & {
   [K in MovableAttrs]?: Attrs[K];
 };
 
+type Selector = `.${string}` | `#${string}` | `[${string}`;
 type TagData = VNodeDataExtended | null;
 type TagFunction = {
-  (selector: string): VNode;
+  (selector: Selector): VNode;
   (data: TagData): VNode;
   (children: VNodeChildren): VNode;
-  (selector: string, data: TagData): VNode;
-  (selector: string, children: VNodeChildren): VNode;
-  (selector: string, data: TagData, children: VNodeChildren): VNode;
+  (selector: Selector, data: TagData): VNode;
+  (selector: Selector, children: VNodeChildren): VNode;
+  (selector: Selector, data: TagData, children: VNodeChildren): VNode;
   (data: TagData, children: VNodeChildren): VNode;
 };
 
@@ -50,7 +51,7 @@ function isVNodeData(value: unknown): value is VNodeDataExtended {
   return value !== null && typeof value === 'object' && !Array.isArray(value) && !isVNode(value);
 }
 
-function isSelector(value: unknown): value is string {
+function isSelector(value: unknown): value is Selector {
   return (
     typeof value === 'string' && (value.startsWith('.') || value.startsWith('#') || value.startsWith('['))
   );
@@ -73,22 +74,22 @@ function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData
   return [{}, a ?? []];
 }
 
-function makeTag(tag: string, defaultData?: VNodeDataExtended): TagFunction {
-  function tagFn(selector: string): VNode;
+function makeTag(tag: keyof HTMLElementTagNameMap, defaultData?: VNodeDataExtended): TagFunction {
+  function tagFn(selector: Selector): VNode;
   function tagFn(data: TagData): VNode;
   function tagFn(children: VNodeChildren): VNode;
-  function tagFn(selector: string, data: TagData): VNode;
-  function tagFn(selector: string, children: VNodeChildren): VNode;
-  function tagFn(selector: string, data: TagData, children: VNodeChildren): VNode;
+  function tagFn(selector: Selector, data: TagData): VNode;
+  function tagFn(selector: Selector, children: VNodeChildren): VNode;
+  function tagFn(selector: Selector, data: TagData, children: VNodeChildren): VNode;
   function tagFn(data: TagData, children: VNodeChildren): VNode;
   function tagFn(
-    a?: string | TagData | VNodeChildren,
+    a?: Selector | TagData | VNodeChildren,
     b?: TagData | VNodeChildren,
     c?: VNodeChildren,
   ): VNode {
     const [sel, data, children] = isSelector(a)
       ? [`${tag}${a}`, ...normalizeArgs(b, c)]
-      : [tag, ...normalizeArgs(a as TagData | VNodeChildren, b as VNodeChildren)];
+      : [tag, ...normalizeArgs(a, b as VNodeChildren)];
 
     return h(sel, movePropsToAttrs({ ...defaultData, ...data }), children);
   }
