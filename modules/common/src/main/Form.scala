@@ -298,14 +298,17 @@ object Form:
 
   object tagifyValues:
     // [{"value":"neio"},{"value":"lizen1"}]"
-    import play.api.libs.json.{ Json, JsObject, Reads }
+    import play.api.libs.json.{ Json, JsArray, JsObject, Reads }
     private def parse[A: Reads](key: String)(json: String): Either[String, List[A]] =
       if json.trim.isEmpty then Right(Nil)
       else
-        val found =
-          for objs <- Json.parse(json).validate[List[JsObject]].asOpt
-          yield objs.flatMap(_.get[A](key))
-        found.toRight("Invalid JSON")
+        val parsed = Json.parse(json)
+        if parsed.asOpt[JsArray].exists(_.value.sizeIs > 300) then Left("Too many")
+        else
+          val found =
+            for objs <- parsed.validate[List[JsObject]].asOpt
+            yield objs.flatMap(_.get[A](key))
+          found.toRight("Invalid JSON")
     def field[A: Reads, B](key: String)(read: List[A] => B): Mapping[B] =
       of[List[A]](using formatter.stringTryFormatter(parse[A](key), _ => "")).transform[B](read, _ => Nil)
 

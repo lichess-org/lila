@@ -34,6 +34,14 @@ object Forecast:
 
   def maxPlies(steps: Steps): Int = steps.foldLeft(0)(_ max _.size)
 
+  def isValid(js: JsValue): Boolean =
+    val steps = for
+      lines <- js.asOpt[JsArray].toList
+      lines <- lines.value
+      steps <- lines.asOpt[JsArray]
+    yield steps.value.size
+    steps.sum < 200
+
   case class Step(
       ply: Ply,
       uci: String,

@@ -62,20 +62,22 @@ final class Fishnet(env: Env) extends LilaController(env):
       f: A => lila.fishnet.Client => FuRaise[Result, Option[JsonApi.Work]]
   )(using Reads[A]) =
     AnonBodyOf(parse.tolerantJson): body =>
-      body
-        .validate[A]
-        .fold(
-          err =>
-            lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
-            BadRequest(jsonError(JsError.toJson(err)))
-          ,
-          data =>
-            api.authenticateClient(data, req.ipAddress).flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
-              case Success(client) =>
-                allow:
-                  f(data)(client).map:
-                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
-                .rescue(identity)
-            }
-        )
+      if !JsonApi.Request.isValid(body) then BadRequest
+      else
+        body
+          .validate[A]
+          .fold(
+            err =>
+              lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
+              BadRequest(jsonError(JsError.toJson(err)))
+            ,
+            data =>
+              api.authenticateClient(data, req.ipAddress).flatMap {
+                case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
+                case Success(client) =>
+                  allow:
+                    f(data)(client).map:
+                      _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                  .rescue(identity)
+              }
+          )
