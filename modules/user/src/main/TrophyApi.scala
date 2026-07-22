@@ -41,8 +41,10 @@ final class TrophyApi(
 
   def roleBasedTrophies(user: User): List[Trophy] =
     def grant(perm: Permission.Selector, kind: String): Option[Trophy] =
-      Granter.ofUser(perm)(user).option:
-        Trophy(_id = "", user = user.id, kind = kindCache.sync(kind), date = nowInstant, url = none)
+      Granter
+        .ofUser(perm)(user)
+        .option:
+          Trophy(_id = "", user = user.id, kind = kindCache.sync(kind), date = nowInstant, url = none)
     List(
       grant(_.PublicMod, TrophyKind.moderator),
       grant(_.Tech, TrophyKind.developer),
