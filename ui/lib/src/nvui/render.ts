@@ -3,7 +3,7 @@ import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { charToRole, roleToChar } from 'chessops/util';
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 
-import { plyToTurn, sanToWords } from '@/game';
+import { plyToTurn, sanToWords, transRole } from '@/game';
 import type { CrazyPocket, NodeCrazy, TreeComment, TreeNode, TreePath } from '@/tree/types';
 
 import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
@@ -296,8 +296,6 @@ const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =
         (_, san) => `Best move was ${renderSan(san, undefined, style)}`,
       )
     : comment.text;
-
-const transRole = (role: Role): string => (i18n.nvui[role as keyof typeof i18n.nvui] as string) || role;
 
 const nato: Record<Files, string> = {
   a: 'alpha',
