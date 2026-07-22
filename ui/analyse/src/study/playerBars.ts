@@ -127,7 +127,7 @@ function renderPlayer(
                   )
                 : undefined,
               playerFedFlag(player?.fed),
-              player.rating && hl('span.elo', `${player.rating}`),
+              player.rating && hl('span.elo', player.rating),
             ]),
           ]),
           resultNode,
@@ -148,7 +148,7 @@ function renderPlayer(
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
               ),
-            player.rating && hl('span.elo', `${player.rating}`),
+            player.rating && hl('span.elo', player.rating),
           ]),
         ]),
         materialDiffs[top ? 0 : 1],

@@ -28,7 +28,7 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
 const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   hl('div.complete', [
     hl('span.game-over', 'GAME OVER'),
-    hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', `${ctrl.streak?.data.index ?? 0}`))),
+    hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', ctrl.streak?.data.index ?? 0))),
   ]),
   hl('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
     iconTag(licon.PlayTriangle),
