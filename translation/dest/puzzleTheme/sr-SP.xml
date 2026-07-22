@@ -100,11 +100,11 @@
   <string name="rookEndgame">Топовска завршница</string>
   <string name="rookEndgameDescription">Завршница са само топовима и пешацима.</string>
   <string name="sacrifice">Жртва</string>
-  <string name="sacrificeDescription">Тактика која укључује привремено жртвовање материјала, како би се после форсираног низа потеза поново стекла предност.</string>
+  <string name="sacrificeDescription">Тактика која укључује привремено давање материјала, да се добије предност након форсираног низа потеза.</string>
   <string name="short">Кратак проблем</string>
-  <string name="shortDescription">Два потеза до добитка.</string>
-  <string name="skewer">Линијски напад</string>
-  <string name="skewerDescription">Мотив који укључује напад на фигуру веће вредности, а када се она помери, омогућује се узимање фигуре мање вредности која је била иза ње или напад на ту фигуру; обрнуто од везивања.</string>
+  <string name="shortDescription">Два потеза до победе.</string>
+  <string name="skewer">Ражањ</string>
+  <string name="skewerDescription">Тактички мотив у којем напад на вредну фигуру приморава њено померање, откривајући мање вредну фигуру иза ње, која потом може бити узета или нападнута, супротност везивању.</string>
   <string name="smotheredMate">Угушени мат</string>
   <string name="smotheredMateDescription">Мат скакачем, при чему матирани краљ није у стању да се помери зато што је окружен (или угушен) својим фигурама.</string>
   <string name="superGM">Проблеми из партија које су одиграли најбољи светски велемајстори</string>

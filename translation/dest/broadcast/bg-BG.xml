@@ -63,6 +63,7 @@
   <string name="notYetStarted">Излъчването още не е започнало.</string>
   <string name="officialWebsite">Официален уебсайт</string>
   <string name="officialStandings">Официално класиране</string>
+  <string name="regulations">Регламенти</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Още опции на страницата за %s</string>
   <string name="webmastersPage">уебмастърите</string>
   <string name="embedThisBroadcast">Вграждане на това излъчване във вашия уебсайт</string>
