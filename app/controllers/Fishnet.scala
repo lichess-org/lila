@@ -64,7 +64,7 @@ final class Fishnet(env: Env) extends LilaController(env):
   )(using Reads[A]) =
     AnonBodyOf(parse.tolerantJson): body =>
       (HTTPRequest.bearer(req), Client.Version.readFromUA).tupled.so: (bearer, version) =>
-        api.authenticateClient(Client.Key(bearer.value), version, req.ipAddress).flatMap {
+        api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
           case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
           case Success(client) =>
             if !JsonApi.Request.isValid(body) then BadRequest
