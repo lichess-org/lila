@@ -6,7 +6,7 @@ import { renderEval as normalizeEval } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode, TreePath } from 'lib/tree/types';
-import { type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
+import { type MaybeVNode, type LooseVNodes, hl, onInsert } from 'lib/view';
 
 import type PuzzleCtrl from '@/ctrl';
 
@@ -167,8 +167,7 @@ export function render(ctrl: PuzzleCtrl): VNode {
     'div.tview2.tview2-column',
     {
       hook: {
-        insert: vnode => {
-          const el = vnode.elm as HTMLElement;
+        ...onInsert(el => {
           if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
           el.addEventListener('mousedown', (e: MouseEvent) => {
             if (defined(e.button) && e.button !== 0) return; // only touch or left click
@@ -176,7 +175,7 @@ export function render(ctrl: PuzzleCtrl): VNode {
             if (path) ctrl.userJump(path);
             ctrl.redraw();
           });
-        },
+        }),
         postpatch: (_, vnode) => {
           if (ctrl.autoScrollNow) {
             autoScroll(ctrl, vnode.elm as HTMLElement);

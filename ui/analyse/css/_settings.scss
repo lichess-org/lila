@@ -36,9 +36,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: stretch;
-  touch-action: none;
+  touch-action: pan-x pan-y;
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
+  height: 100%;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;
@@ -59,20 +60,20 @@
     border: 1px solid $c-border;
     border-radius: 6px;
     background: $c-bg-mid;
-    padding: 0.5em 1em 1em;
+    padding: 1em;
 
     legend {
       @extend %roboto;
 
       font-size: 1.3em;
       color: $c-font-dim;
-      padding: 6px;
+      padding: 6px 6px 0;
     }
   }
 
   .column {
     justify-content: space-between;
-    flex: 40%;
+    flex: 1;
   }
 
   .setting {
@@ -124,12 +125,10 @@
   }
 
   @include mq-has-hover {
-    :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
-      display: block;
-    }
-
-    .help-button {
-      display: none;
+    @media (min-width: at-least(600px)) {
+      :has(.help-pane[data-key='keyboardShortcuts']) .hover-hint {
+        display: block;
+      }
     }
   }
 

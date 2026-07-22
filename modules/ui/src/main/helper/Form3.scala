@@ -142,22 +142,32 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       required: Boolean = false
   ): Frag =
     frag(
-      st.select(
-        st.id := id(field),
-        name := field.name,
+      selectLowLevel(field.name, options, field.value, default, disabled, required)(
         cls := "form-control",
-        disabled.option(st.disabled),
-        required.option(st.required)
-      )(validationModifiers(field))(
-        default.map { option(value := "")(_) },
-        options.toSeq.map { (value, name) =>
-          option(
-            st.value := value.toString,
-            field.value.has(value.toString).option(selected)
-          )(name)
-        }
+        st.id := id(field)
       ),
       disabled.option(hidden(field))
+    )
+
+  def selectLowLevel(
+      field: String,
+      options: Iterable[(Any, String)],
+      selected: Option[String] = None,
+      default: Option[String] = None,
+      disabled: Boolean = false,
+      required: Boolean = false
+  ): Tag =
+    st.select(
+      name := field,
+      disabled.option(st.disabled),
+      required.option(st.required)
+    )(
+      default.map(option(value := "")(_)),
+      options.toSeq.map: (value, name) =>
+        option(
+          st.value := value.toString,
+          selected.has(value.toString).option(st.selected)
+        )(name)
     )
 
   def textarea(

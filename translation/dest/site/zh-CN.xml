@@ -386,9 +386,9 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">您的 %s 等级分为暂定状态</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">由于您的等级分尚不稳定，等级分筛选已被锁定。进行排位对局将提高稳定性。</string>
-  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分（%2$s）过高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周的最高 %1$s 等级分（%2$s）过高</string>
-  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分（%2$s）过低</string>
+  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分 (%2$s) 过低</string>
   <string name="ratedMoreThanInPerf">%2$s 等级分不低于 %1$s</string>
   <string name="ratedLessThanInPerf">上周的 %2$s 等级分不超过 %1$s</string>
   <string name="mustBeInTeam">必须在团队 %s 中</string>
@@ -646,7 +646,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">对局总时长：%s</string>
   <string name="watchGames">观看对局</string>
-  <string name="tpTimeSpentOnTV">在 Lichess TV 上的总时长：%s</string>
+  <string name="tpTimeSpentOnTV">Lichess TV：%s</string>
   <string name="watch">观看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">主播</string>
@@ -973,7 +973,7 @@
   <string name="gameInProgress">您正在与 %s 进行对局。</string>
   <string name="abortTheGame">终止此对局</string>
   <string name="resignTheGame">认输</string>
-  <string name="youCantStartNewGame">在此对局结束前，您无法开始新对局。</string>
+  <string name="youCantStartNewGame">轮到您行棋时，您无法开始新的对局！</string>
   <string name="since">自</string>
   <string name="until">至</string>
   <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>

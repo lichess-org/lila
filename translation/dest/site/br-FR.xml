@@ -992,7 +992,6 @@
   <string name="gameInProgress">O c\'hoari emaoc\'h a-enep %s.</string>
   <string name="abortTheGame">Nullañ ar c\'hrogad</string>
   <string name="resignTheGame">Dilezel ar c\'hrogad</string>
-  <string name="youCantStartNewGame">Ne c\'haller ket kregiñ gant ur c\'hrogad all keit ha ma ne vo ket echu gant ar c\'hrogad-mañ.</string>
   <string name="since">Adalek</string>
   <string name="until">Betek</string>
   <string name="lichessDbExplanation">Krogadoù renket c\'hoariet war Lichess</string>

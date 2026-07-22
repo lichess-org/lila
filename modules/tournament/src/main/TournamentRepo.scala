@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.variant.Variant
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import scalalib.model.Minutes
 
 import lila.core.config.CollName
 import lila.core.tournament.Status
@@ -17,6 +18,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] val finishedSelect = $doc("status" -> Status.finished.id)
   private val unfinishedSelect = $doc("status".$ne(Status.finished.id))
   private[tournament] val scheduledSelect = $doc("schedule".$exists(true))
+  private[tournament] val scheduledButNotHourly =
+    scheduledSelect ++ $doc("schedule.freq".$ne(Schedule.Freq.Hourly))
   private def forTeamSelect(id: TeamId) = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams".$in(ids))
   private def sinceSelect(date: Instant) = $doc("startsAt".$gt(date))
@@ -199,22 +202,27 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def featuredGameId(tourId: TourId) = coll.primitiveOne[GameId]($id(tourId), "featured")
 
-  private def startingSoonSelect(aheadMinutes: Int) =
+  private def startingSoonSelect(ahead: Minutes) =
     createdSelect ++
-      $doc("startsAt".$lt(nowInstant.plusMinutes(aheadMinutes)))
+      $doc("startsAt".$lt(nowInstant.plusMinutes(ahead.value)))
 
-  def scheduledCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.list[Tournament](startingSoonSelect(aheadMinutes) ++ scheduledSelect)
+  private[tournament] def scheduledCreated(ahead: Minutes): Fu[List[Tournament]] =
+    coll.list[Tournament](startingSoonSelect(ahead) ++ scheduledSelect)
 
-  def scheduledStarted: Fu[List[Tournament]] =
+  private[tournament] def scheduledStarted: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect ++ scheduledSelect)
 
-  def visibleForTeams(teamIds: Seq[TeamId], aheadMinutes: Int): Fu[List[Tournament]] = teamIds.nonEmpty.so:
-    coll
-      .find(forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(aheadMinutes)))
-      .sort($sort.asc("startsAt"))
-      .cursor[Tournament](ReadPref.sec)
-      .list(30)
+  private[tournament] def visibleForTeams(
+      teamIds: Seq[TeamId],
+      ahead: Minutes,
+      max: Max
+  ): Fu[List[Tournament]] =
+    teamIds.nonEmpty.so:
+      coll
+        .find(forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(ahead)))
+        .sort($sort.asc("startsAt"))
+        .cursor[Tournament](ReadPref.sec)
+        .list(max.value)
 
   private[tournament] def shouldStartCursor =
     coll
@@ -228,10 +236,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament]()
       .list(5)
 
-  private[tournament] def scheduledStillWorthEntering: Fu[List[Tournament]] =
+  private[tournament] def scheduledNotHourlyCreated(ahead: Minutes): Fu[List[Tournament]] =
+    coll.list[Tournament](startingSoonSelect(ahead) ++ scheduledButNotHourly)
+
+  private[tournament] def scheduledNotHourlyStillWorthEntering: Fu[List[Tournament]] =
     coll
-      .list[Tournament](startedSelect ++ scheduledSelect)
-      .dmap:
+      .list[Tournament](startedSelect ++ scheduledButNotHourly)
+      .map:
         _.filter(_.isStillWorthEntering)
 
   def uniques(max: Int): Fu[List[Tournament]] =

@@ -3,6 +3,7 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import * as ab from 'ab/round';
+import { roleToChar } from 'chessops/util';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
@@ -893,6 +894,18 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
+
+  pendingStep = (): Step | undefined => {
+    const submit = this.toSubmit;
+    if (!submit) return undefined;
+    const uci = 'u' in submit ? submit.u : `${roleToChar(submit.role).toUpperCase()}@${submit.pos}`;
+    return {
+      ply: this.ply + 1,
+      fen: this.chessground.getFen(),
+      san: almostSanOf(readFen(this.stepAt(this.ply).fen), uci),
+      uci,
+    };
+  };
 
   speakClock = (): void => {
     this.clock?.speak();

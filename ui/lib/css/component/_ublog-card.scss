@@ -46,29 +46,41 @@
       --c-ublog-post-card-over-image: #333;
     }
 
-    background: rgba(0, 0, 0, 0.65);
+    background: rgb(0 0 0 / 0.65);
     color: var(--c-ublog-post-card-over-image);
     text-shadow: 0 1px 1px black;
 
     @include if-light {
-      background: rgba(255, 255, 255, 0.65);
+      background: rgb(255 255 255 / 0.65);
       text-shadow: 0 1px 1px white;
     }
 
     opacity: 1;
   }
 
+  time,
+  .user-link {
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      backdrop-filter: blur(6px);
+    }
+  }
+
   time {
     @include inline-start(0);
 
-    backdrop-filter: blur(6px);
     border-radius: $box-radius-size 0 $box-radius-size 0;
   }
 
   .user-link {
     @include inline-end(0);
 
-    backdrop-filter: blur(6px);
     border-radius: 0 $box-radius-size 0 $box-radius-size;
   }
 
@@ -108,7 +120,10 @@
   }
 
   &--by-lichess {
-    border: 2px solid $c-brag;
+    $border-width: 2px;
+
+    border: $border-width solid $c-brag;
+    border-radius: calc($box-radius-size + $border-width);
 
     .user-link {
       color: $c-brag;

@@ -8,8 +8,8 @@ import scalalib.paginator.Paginator
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Form.pairOf
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,
@@ -269,14 +269,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
       st.form(method := "post", cls := "form3")(
-        st.select(
-          name := "reason",
-          cls := "form-control"
-        )(
-          st.option(value := "")("no message"),
-          deletionPresets.map: reason =>
-            st.option(value := reason)(reason)
-        ),
+        form3.selectLowLevel("reason", deletionPresets.map(pairOf), default = "no message".some),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
           form3.submit(
@@ -294,16 +287,12 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )
 
   private def relocateModal(from: lila.forum.ForumCateg) =
+    val options = relocateTo.collect:
+      case (slug, name) if slug != from.id.value => (slug, name)
     div(cls := "forum-relocate-modal none")(
       p("Move the entire thread to another forum"),
       st.form(method := "post", cls := "form3")(
-        st.select(
-          name := "categ",
-          cls := "form-control"
-        )(
-          relocateTo.collect:
-            case (slug, name) if slug != from.id.value => st.option(value := slug)(name)
-        ),
+        form3.selectLowLevel("categ", options),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
           form3.submit(frag("Relocate the thread"))(cls := "button-red")

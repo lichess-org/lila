@@ -1109,7 +1109,7 @@
   <string name="gameInProgress">У вас идёт игра с %s.</string>
   <string name="abortTheGame">Прервать игру</string>
   <string name="resignTheGame">Сдаться</string>
-  <string name="youCantStartNewGame">Вы не можете начать новую игру, пока не завершена текущая.</string>
+  <string name="youCantStartNewGame">Вы не можете начать новую партию если сейчас ваш ход.</string>
   <string name="since">С</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>

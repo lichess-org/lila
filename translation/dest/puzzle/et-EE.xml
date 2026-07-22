@@ -8,12 +8,13 @@
   <string name="advanced">Edasijõudnutele</string>
   <string name="lengths">Pikkused</string>
   <string name="mates">Matid</string>
+  <string name="mateThemes">Matt-teemad</string>
   <string name="goals">Eesmärgid</string>
   <string name="origin">Allikas</string>
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
-  <string name="upVote">Hääleta poolt</string>
-  <string name="downVote">Hääleta vastu</string>
+  <string name="upVote">Hääleta poolt!</string>
+  <string name="downVote">Hääleta vastu!</string>
   <string name="yourPuzzleRatingWillNotChange">Teie pusle reiting ei muutu. Pidage meeles, et pusled ei ole võistlus. Teie reiting aitab valida kõige sobilikumad pusled olenevalt teie oskustele.</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
@@ -27,6 +28,11 @@
   <string name="keepGoing">Jätka samas vaimus…</string>
   <string name="puzzleSuccess">Edukas!</string>
   <string name="puzzleComplete">Pusle lahendatud!</string>
+  <string name="byOpenings">Avangute kaupa</string>
+  <string name="puzzlesByOpenings">Pusled avangute kaupa</string>
+  <string name="openingsYouPlayedTheMost">Avangud, mida oled reitingumängudes kõige sagedamini mänginud</string>
+  <string name="useFindInPage">Kasuta brauseri menüüs funktsiooni \"Leia lehelt\", et leida oma lemmikavang!</string>
+  <string name="useCtrlF">Kasuta Ctrl+f, et leida oma lemmikavang!</string>
   <string name="notTheMove">See ei ole õige käik!</string>
   <string name="trySomethingElse">Proovi midagi muud.</string>
   <string name="ratingX">Reiting: %s</string>

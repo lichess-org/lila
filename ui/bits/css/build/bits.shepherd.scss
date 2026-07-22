@@ -4,15 +4,15 @@
 .shepherd {
   &-element {
     border: $border;
-    background-color: $m-bg--alpha-92;
+    background-color: rgb(from $c-bg r g b / 0.92);
     backdrop-filter: blur(6px);
 
     @include if-light {
-      background-color: $m-bg--alpha-84;
+      background-color: rgb(from $c-bg r g b / 0.84);
     }
 
     @include if-transp {
-      background-color: $m-bg--alpha-82;
+      background-color: rgb(from $c-bg r g b / 0.82);
     }
   }
 
@@ -45,7 +45,7 @@
 
     &:not(:disabled):hover {
       color: $c-over;
-      background: $m-primary--lighten-7;
+      background: hsl(from $c-primary h s calc(l + 7));
     }
   }
 

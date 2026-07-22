@@ -4,7 +4,7 @@ import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind } from 'lib/view';
+import { bind, onInsert } from 'lib/view';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -120,23 +120,20 @@ export class BackgroundCtrl extends PaneCtrl {
       h('label', { attrs: { for: 'backgroundUrl' } }, i18n.site.backgroundImageUrl),
       h('input#backgroundUrl', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLInputElement;
-            $(el).on(
-              'change keyup paste',
-              debounce(_ => {
-                const url = el.value.trim();
-                if (
-                  (url.startsWith('https://') || url.startsWith('//')) &&
-                  url.length >= 10 &&
-                  url.length <= 400
-                )
-                  this.setImage(url);
-              }, 300),
-            );
-          },
-        },
+        hook: onInsert<HTMLInputElement>(el => {
+          $(el).on(
+            'change keyup paste',
+            debounce(_ => {
+              const url = el.value.trim();
+              if (
+                (url.startsWith('https://') || url.startsWith('//')) &&
+                url.length >= 10 &&
+                url.length <= 400
+              )
+                this.setImage(url);
+            }, 300),
+          );
+        }),
       }),
     ]);
 

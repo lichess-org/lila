@@ -2,6 +2,7 @@ package lila.game
 
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
+import chess.opening.Opening
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
 
@@ -24,6 +25,7 @@ final class PgnDump(
   def apply(
       game: Game,
       initialFen: Option[Fen.Full],
+      opening: Option[Opening.AtPly],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn] =
@@ -36,7 +38,7 @@ final class PgnDump(
           game,
           initialFen,
           imported,
-          withOpening = flags.opening,
+          opening.map(_.opening),
           withRating = flags.rating,
           teams = teams
         )
@@ -83,7 +85,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Boolean,
+      opening: Option[Opening],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] = for
@@ -127,8 +129,8 @@ final class PgnDump(
       game.daysPerTurn
         .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
         .orElse(Tag.timeControl(game.clock.map(_.config)).some),
-      Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-      withOpening.option(Tag(_.Opening, game.opening.fold("?")(_.opening.name))),
+      opening.map(o => Tag(_.ECO, o.eco)),
+      opening.map(o => Tag(_.Opening, o.name)),
       Tag(
         _.Termination, {
           import chess.Status.*

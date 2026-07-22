@@ -88,4 +88,5 @@
   <string name="boardSettings">Bræt</string>
   <string name="analysisSettings">Analyseindstillinger</string>
   <string name="maneuverArrowsHelp">Sekvens af skakprogramtræk for en brik</string>
+  <string name="hoverOverSettingLabelsForHelp">Hold markøren over indstillingsetiketter for hjælp</string>
 </resources>

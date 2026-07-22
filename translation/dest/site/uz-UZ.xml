@@ -1018,7 +1018,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="gameInProgress">Sizni %s bilan tugallanmagan oʻyiningiz bor.</string>
   <string name="abortTheGame">O‘yinni bekor qilish</string>
   <string name="resignTheGame">Taslim boʻlish</string>
-  <string name="youCantStartNewGame">Ushbu oʻyin tugamaguncha yangisini boshlay olmaysiz.</string>
+  <string name="youCantStartNewGame">Oʻzingizning galingizda yangi oʻyin boshlay olmaysiz.</string>
   <string name="since">Shu sanadan</string>
   <string name="until">Shu sanagacha</string>
   <string name="lichessDbExplanation">Lichessʼda oʻynalgan reytingli oʻyinlar</string>

@@ -50,50 +50,51 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
-    meOrFetch(username).flatMap:
-      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
-        val format = GameApiV2.Format.byRequest
-        WithVs: vs =>
-          env.security.ipTrust
-            .throttle(MaxPerSecond:
-              if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
-              else if ctx.is(user) then 60
-              else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
-              else 25)
-            .flatMap: perSecond =>
-              val finished = getBoolOpt("finished") | true
-              val config = GameApiV2.ByUserConfig(
-                user = user,
-                format = format,
-                vs = vs,
-                since = getTimestamp("since"),
-                until = getTimestamp("until"),
-                max = getIntAs[Max]("max").map(_.atLeast(1)),
-                rated = getBoolOpt("rated"),
-                perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
-                color = get("color").flatMap(Color.fromName),
-                analysed = getBoolOpt("analysed"),
-                flags = requestPgnFlags(extended = false),
-                sort =
-                  if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
-                  else GameApiV2.GameSort.DateDesc,
-                perSecond = perSecond,
-                ongoing = getBool("ongoing") || !finished,
-                finished = finished
-              )
-              if ctx.is(UserId.explorer) then
-                Ok.chunked(env.api.gameApiV2.exportByUser(config))
-                  .noProxyBuffer
-                  .as(gameContentType(config))
-              else
-                apiC
-                  .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
-                    env.api.gameApiV2.exportByUser(config)
-                  ): source =>
-                    Ok.chunked(source)
-                      .asAttachmentStream:
-                        s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                      .as(gameContentType(config))
+    NoCrawlers:
+      meOrFetch(username).flatMap:
+        _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
+          val format = GameApiV2.Format.byRequest
+          WithVs: vs =>
+            env.security.ipTrust
+              .throttle(MaxPerSecond:
+                if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
+                else if ctx.is(user) then 60
+                else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
+                else 25)
+              .flatMap: perSecond =>
+                val finished = getBoolOpt("finished") | true
+                val config = GameApiV2.ByUserConfig(
+                  user = user,
+                  format = format,
+                  vs = vs,
+                  since = getTimestamp("since"),
+                  until = getTimestamp("until"),
+                  max = getIntAs[Max]("max").map(_.atLeast(1)),
+                  rated = getBoolOpt("rated"),
+                  perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
+                  color = get("color").flatMap(Color.fromName),
+                  analysed = getBoolOpt("analysed"),
+                  flags = requestPgnFlags(extended = false),
+                  sort =
+                    if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
+                    else GameApiV2.GameSort.DateDesc,
+                  perSecond = perSecond,
+                  ongoing = getBool("ongoing") || !finished,
+                  finished = finished
+                )
+                if ctx.is(UserId.explorer) then
+                  Ok.chunked(env.api.gameApiV2.exportByUser(config))
+                    .noProxyBuffer
+                    .as(gameContentType(config))
+                else
+                  apiC
+                    .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
+                      env.api.gameApiV2.exportByUser(config)
+                    ): source =>
+                      Ok.chunked(source)
+                        .asAttachmentStream:
+                          s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+                        .as(gameContentType(config))
 
   private def fileDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").print(nowInstant)
 
@@ -153,7 +154,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       tags = getBoolOpt("tags") | true,
       clocks = getBoolOpt("clocks") | extended,
       evals = getBoolOpt("evals") | extended,
-      opening = getBoolOpt("opening") | extended,
+      opening = (getBoolOpt("opening"), extended) match
+        case (None, extended) => extended.option(true)
+        case (Some(false), _) => none
+        case (Some(true), extended) => extended.some,
       literate = getBool("literate"),
       pgnInJson = getBool("pgnInJson"),
       delayMoves = delayMovesFromReq,

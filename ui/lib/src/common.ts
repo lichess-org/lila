@@ -58,16 +58,6 @@ export const toggle = (initialValue: boolean, effect: (value: boolean) => void =
   return prop;
 };
 
-export const toggleWithConstraint = (value: boolean, constraint: () => boolean): Toggle => {
-  return Object.assign(
-    (v?: boolean): boolean => {
-      if (defined(v)) value = v && constraint();
-      return value;
-    },
-    { toggle: () => (value = !value && constraint()), effect: () => {} },
-  );
-};
-
 // Only computes a value once. The computed value must not be undefined.
 export const memoize = <A>(compute: () => A): (() => A) => {
   let computed: A;
@@ -147,7 +137,7 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
-    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+    for (let d = 350; ;) yield Math.max(100, (d *= 14 / 15));
   })();
   const repeat = () => {
     f();

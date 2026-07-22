@@ -41,7 +41,7 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
       img {
         opacity: 1;
@@ -84,10 +84,11 @@
     }
 
     .puzzle-recommended & {
-      @extend %box-neat;
+      @extend %box-bordered;
 
       font-size: 1.2em;
-      background: $m-secondary_bg--mix-20;
+      background: color-mix(in oklab, $c-secondary 20%, $c-bg);
+      border-color: color-mix(in oklab, $c-secondary 35%, $c-bg);
       color: $c-good;
       margin: 2em 0;
 
@@ -100,7 +101,7 @@
       }
 
       &:hover {
-        background: $m-secondary_bg--mix-25;
+        background: color-mix(in oklab, $c-secondary 25%, $c-bg);
       }
 
       @media (max-width: at-most($small)) {

@@ -2,10 +2,11 @@ import type { Outcome } from 'chessops/types';
 
 import type { Prop } from 'lib';
 import { fixCrazySan } from 'lib/game/chess';
-import { hl, type VNode, bind, type MaybeVNodes } from 'lib/view';
+import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import { renderNextChapter } from '../study/nextChapter';
+import type AnalyseCtrl from '@/ctrl';
+import { renderNextChapter } from '@/study/nextChapter';
+
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 
 const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
@@ -15,12 +16,11 @@ const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
           'move',
           {
             hook: {
-              insert: vnode => {
-                const el = vnode.elm as HTMLElement;
-                el.addEventListener('click', ctrl.playCommentBest);
-                el.addEventListener('mouseover', () => ctrl.commentShape(true));
-                el.addEventListener('mouseout', () => ctrl.commentShape(false));
-              },
+              ...onInsert(elem => {
+                elem.addEventListener('click', ctrl.playCommentBest);
+                elem.addEventListener('mouseover', () => ctrl.commentShape(true));
+                elem.addEventListener('mouseout', () => ctrl.commentShape(false));
+              }),
               destroy: () => ctrl.commentShape(false),
             },
           },
@@ -60,27 +60,23 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   const hint = ctrl.hinting();
   return hl('div.player.running', [
     hl('div.no-square', hl('piece.king.' + root.turnColor())),
-    hl(
-      'div.instruction',
-      (ctrl.isMyTurn()
-        ? [hl('strong', i18n.site.yourTurn)]
-        : [hl('strong', i18n.site.computerThinking)]
-      ).concat(
-        hl('div.choices', [
-          ctrl.isMyTurn()
-            ? hl(
-                'a',
-                { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
-                hint
-                  ? hint.mode === 'piece'
-                    ? i18n.site.seeBestMove
-                    : i18n.site.hideBestMove
-                  : i18n.site.getAHint,
-              )
-            : '',
-        ]),
+    hl('div.instruction', [
+      ctrl.isMyTurn() ? hl('strong', i18n.site.yourTurn) : hl('strong', i18n.site.computerThinking),
+      hl(
+        'div.choices',
+        ctrl.isMyTurn()
+          ? hl(
+              'a',
+              { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
+              hint
+                ? hint.mode === 'piece'
+                  ? i18n.site.seeBestMove
+                  : i18n.site.hideBestMove
+                : i18n.site.getAHint,
+            )
+          : '',
       ),
-    ),
+    ]),
   ]);
 }
 
@@ -121,15 +117,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
           'div.comment',
           (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
-              ? (
-                  [
-                    hl(
-                      'span.verdict',
-                      comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
-                    ),
-                    ' ',
-                  ] as MaybeVNodes
-                ).concat(commentBest(comment, ctrl))
+              ? [
+                  hl(
+                    'span.verdict',
+                    comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment.verdict],
+                  ),
+                  ' ',
+                  ...commentBest(comment, ctrl),
+                ]
               : [ctrl.isMyTurn() || end ? '' : hl('span.wait', i18n.site.evaluatingYourMove)]),
         )
       : null,

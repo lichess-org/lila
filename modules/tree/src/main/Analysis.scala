@@ -15,7 +15,12 @@ trait Annotator:
   def addEvals(p: Pgn, analysis: Analysis): Pgn
 
 trait AnalysisJson:
-  def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true): JsObject
+  def bothPlayers(
+      startedAtPly: Ply,
+      analysis: Analysis,
+      withAccuracy: Boolean = true,
+      division: chess.Division = chess.Division.empty
+  ): JsObject
 
 case class Analysis(
     id: Analysis.Id,

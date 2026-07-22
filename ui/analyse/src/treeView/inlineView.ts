@@ -1,4 +1,4 @@
-import type { Classes, Hooks } from 'snabbdom';
+import type { Classes } from 'snabbdom';
 
 import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
@@ -7,11 +7,11 @@ import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, type LooseVNodes, hl } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { DiscloseState } from '../idbTree';
-import type { Conceal } from '../interfaces';
-import { authorText } from '../study/studyComments';
-import { renderMoveNodes, renderIndex } from '../view/components';
+import type AnalyseCtrl from '@/ctrl';
+import type { DiscloseState } from '@/idbTree';
+import type { Conceal } from '@/interfaces';
+import { authorText } from '@/study/studyComments';
+import { renderMoveNodes, renderIndex } from '@/view/components';
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const renderer = new InlineView(ctrl);
@@ -138,8 +138,10 @@ export class InlineView {
     return !third && second && !treeOps.hasBranching(second, 6);
   }
 
-  protected moveNode(node: TreeNode, args: Args): LooseVNodes {
-    const { conceal, isMainline, parentPath, parentNode, parentDisclose, parenthetical } = args;
+  protected moveNode(
+    node: TreeNode,
+    { conceal, isMainline, parentPath, parentNode, parentDisclose, parenthetical }: Args,
+  ): LooseVNodes {
     const { ctrl } = this;
     const path = parentPath + node.id;
     const currentPath =
@@ -166,7 +168,7 @@ export class InlineView {
     };
     const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);
-    if (liveGlyph && ctrl.settings.showLiveGlyphs && !glyphs.some(g => g.id <= this.glyphs.length))
+    if (liveGlyph && ctrl.settings.showLiveAnnotations && !glyphs.some(g => g.id <= this.glyphs.length))
       glyphs.push(liveGlyph);
     if (ctrl.showMoveGlyphs()) {
       glyphs
@@ -189,10 +191,13 @@ export class InlineView {
 
   protected disclosureConnector(parentPath: TreePath): LooseVNodes {
     const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
-    const hook: Hooks = { insert: callback, update: v => setTimeout(() => callback(v)) };
     return (
       this.ctrl.settings.disclosureMode &&
-      hl('div.disclosure-connector', { hook }, hl('div.disclosure-connector.riser'))
+      hl(
+        'div.disclosure-connector',
+        { hook: { insert: callback, update: v => setTimeout(() => callback(v)) } },
+        hl('div.disclosure-connector.riser'),
+      )
     );
   }
 

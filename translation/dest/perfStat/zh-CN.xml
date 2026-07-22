@@ -13,8 +13,8 @@
   <string name="berserkedGames">狂暴对局数</string>
   <string name="timeSpentPlaying">对局总时长</string>
   <string name="averageOpponent">对手平均等级分</string>
-  <string name="victories">胜</string>
-  <string name="defeats">负</string>
+  <string name="victories">胜局</string>
+  <string name="defeats">负局</string>
   <string name="disconnections">断线</string>
   <string name="notEnoughGames">对局数量不足</string>
   <string name="highestRating">最高等级分：%s</string>

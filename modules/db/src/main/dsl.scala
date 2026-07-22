@@ -157,15 +157,11 @@ trait dsl:
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
 
-  /** Represents the initial state of the expression which has only the name of the field. It does not know
-    * the value of the expression.
+  /** Represents the state of an expression which has a field and a value. Convertible to a `Bdoc` via the
+    * `toBSONDocument` given below.
     */
-  trait ElementBuilder:
+  sealed trait Expression[V]:
     def field: String
-    def append(value: Bdoc): Bdoc = value
-
-  /** Represents the state of an expression which has a field and a value */
-  trait Expression[V] extends ElementBuilder:
     def value: V
     def toBdoc(using BSONWriter[V]) = toBSONDocument(this)
 
@@ -180,7 +176,7 @@ trait dsl:
    * }}}
    *
    */
-  case class SimpleExpression[V <: BSONValue](field: String, value: V) extends Expression[V]
+  class SimpleExpression[V <: BSONValue](val field: String, val value: V) extends Expression[V]
 
   /** Expressions of this type can be cascaded. Examples:
     *
@@ -189,74 +185,14 @@ trait dsl:
     *  "age" $gte 50 $lte 60
     * }}}
     */
-  case class CompositeExpression(field: String, value: Bdoc)
-      extends Expression[Bdoc]
-      with ComparisonOperators:
-    override def append(value: Bdoc): Bdoc =
-      this.value ++ value
-
-  /** MongoDB comparison operators. */
-  trait ComparisonOperators:
-    self: ElementBuilder =>
-
-    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
-      SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
-
-    /** Matches values that are greater than the value specified in the query. */
-    def $gt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$gt" -> value)))
-
-    /** Matches values that are greater than or equal to the value specified in the query. */
-    def $gte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$gte" -> value)))
-
-    /** Matches any of the values that exist in an array specified in the query. */
-    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$in" -> values))
-
-    /** Matches values that are less than the value specified in the query. */
-    def $lt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$lt" -> value)))
-
-    /** Matches values that are less than or equal to the value specified in the query. */
-    def $lte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$lte" -> value)))
-
+  class CompositeExpression(val field: String, val value: Bdoc) extends Expression[Bdoc]:
+    private def and(more: Bdoc): CompositeExpression = CompositeExpression(field, value ++ more)
+    def $gt[T: BSONWriter](v: T): CompositeExpression = and($doc("$gt" -> v))
+    def $gte[T: BSONWriter](v: T): CompositeExpression = and($doc("$gte" -> v))
+    def $lt[T: BSONWriter](v: T): CompositeExpression = and($doc("$lt" -> v))
+    def $lte[T: BSONWriter](v: T): CompositeExpression = and($doc("$lte" -> v))
     def $inRange[T: BSONWriter](range: PairOf[T]): CompositeExpression =
-      CompositeExpression(field, append($doc("$gte" -> range._1, "$lte" -> range._2)))
-
-    /** Matches all values that are not equal to the value specified in the query. */
-    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$ne" -> value))
-
-    /** Matches values that do not exist in an array specified to the query. */
-    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$nin" -> values))
-
-  trait ElementOperators:
-    self: ElementBuilder =>
-    def $exists(v: Boolean): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$exists" -> v))
-
-  trait EvaluationOperators:
-    self: ElementBuilder =>
-    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
-
-    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
-      SimpleExpression(field, BSONRegex(value, options))
-
-    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
-      $regex(s"^$value", options)
-
-  trait ArrayOperators:
-    self: ElementBuilder =>
-    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$all" -> values))
-
-    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
-
-    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
+      and($doc("$gte" -> range._1, "$lte" -> range._2))
 
   def dateBetween(field: String, since: Option[Instant], until: Option[Instant]): Bdoc = (since, until) match
     case (Some(since), None) => field.$gte(since)
@@ -304,14 +240,39 @@ trait dsl:
     def simple(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc] = Nil): Bdoc =
       simple(CollName(from.name), as, local, foreign, pipe)
 
-  implicit class ElementBuilderLike(val field: String)
-      extends ElementBuilder
-      with ComparisonOperators
-      with ElementOperators
-      with EvaluationOperators
-      with ArrayOperators
+  extension (field: String)
+    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
+      SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
+    def $gt[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, $doc("$gt" -> value))
+    def $gte[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, $doc("$gte" -> value))
+    def $lt[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, $doc("$lt" -> value))
+    def $lte[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, $doc("$lte" -> value))
+    def $inRange[T: BSONWriter](range: PairOf[T]): CompositeExpression =
+      CompositeExpression(field, $doc("$gte" -> range._1, "$lte" -> range._2))
+    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$ne" -> value))
+    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$in" -> values))
+    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$nin" -> values))
+    def $exists(v: Boolean): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$exists" -> v))
+    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
+    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      SimpleExpression(field, BSONRegex(value, options))
+    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      field.$regex(s"^$value", options)
+    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$all" -> values))
+    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
+    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
 
-  import scala.language.implicitConversions
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
     expression => $doc(expression.field -> expression.value)
 

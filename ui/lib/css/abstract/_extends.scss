@@ -59,13 +59,13 @@
 }
 
 %metal {
-  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+  @include with-metal-shadow(hsl(0 0% 0% / 0.2), hsl(0 0% 0% / 0.18));
 
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20 !important;
+  text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8)) !important;
 
   &:hover:not(.disabled, :disabled, [disabled]) {
-    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
+    @include with-metal-hover-shadow(hsl(0 0% 0% / 0.24), hsl(0 0% 0% / 0.21));
 
     background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
   }
@@ -73,47 +73,55 @@
 
 %metal-with-border {
   @extend %metal;
-  @include with-metal-shadow(hsla(0, 0, 0%, 0.1), hsla(0, 0, 0%, 0.08), true);
+  @include with-metal-shadow(hsl(0 0% 0% / 0.1), hsl(0 0% 0% / 0.08), true);
 
   border: 1px solid $c-border;
 
   &:hover:not(.disabled, :disabled, [disabled]) {
-    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.12), hsla(0, 0, 0%, 0.1), true);
+    @include with-metal-hover-shadow(hsl(0 0% 0% / 0.12), hsl(0 0% 0% / 0.1), true);
   }
 }
 
 %metal-inverse {
-  background: linear-gradient(to bottom, $m-clearer_bg-page--mix-80, $m-clearer_body-gradient--mix-75);
-  color: $m-dimmer_font--mix-60;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, $c-clearer 80%, $c-bg-page),
+    color-mix(in oklab, $c-clearer 75%, $c-body-gradient)
+  );
+  color: color-mix(in oklab, $c-dimmer 60%, $c-font);
   text-shadow: 0 1px 0 $c-clearer;
 }
 
 %metal-inverse-hover {
-  background: linear-gradient(to bottom, $m-clearer_bg-page--mix-70, $m-clearer_body-gradient--mix-65);
-  color: $m-dimmer_font--mix-90;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, $c-clearer 70%, $c-bg-page),
+    color-mix(in oklab, $c-clearer 65%, $c-body-gradient)
+  );
+  color: color-mix(in oklab, $c-dimmer 90%, $c-font);
   text-shadow: 0 1px 0 $c-clearer;
 }
 
 %metal-light {
-  background: linear-gradient(to bottom, hsl(0, 0%, 90%), hsl(0, 0%, 80%));
+  background: linear-gradient(to bottom, hsl(0 0% 90%), hsl(0 0% 80%));
   text-shadow: 0 1px 0 #fff;
 }
 
 %metal-light-hover {
-  background: linear-gradient(to bottom, hsl(0, 0%, 95%), hsl(0, 0%, 85%));
+  background: linear-gradient(to bottom, hsl(0 0% 95%), hsl(0 0% 85%));
   text-shadow: 0 1px 0 #fff;
 }
 
 %metal-dark {
-  background: linear-gradient(to bottom, hsl(37, 7%, 22%), hsl(37, 5%, 19%));
+  background: linear-gradient(to bottom, hsl(37 7% 22%), hsl(37 5% 19%));
 }
 
 %metal-dark-hover {
-  background: linear-gradient(to bottom, hsl(37, 7%, 25%), hsl(37, 5%, 22%));
+  background: linear-gradient(to bottom, hsl(37 7% 25%), hsl(37 5% 22%));
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset !important;
+  box-shadow: 0 3px 4px hsl(0 0% 0% / 0.15) inset !important;
 }
 
 %active {
@@ -126,14 +134,14 @@
   &:not(.disabled):hover {
     @extend %active-inset-shadow;
 
-    background: $m-accent--lighten-5;
+    background: hsl(from $c-accent h s calc(l + 5));
   }
 }
 
 %active-hover {
   @extend %active-inset-shadow;
 
-  background: $m-accent_white--mix-80;
+  background: color-mix(in oklab, $c-accent 80%, white);
 }
 
 %active-soft {
@@ -164,7 +172,7 @@
     @include back-blur;
   }
 
-  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: -1px 5px 6px rgb(0 0 0 / 0.3);
 }
 
 %popup-shadow {
@@ -173,23 +181,23 @@
   }
 
   box-shadow:
-    0 14px 28px rgba(0, 0, 0, 0.15),
-    0 10px 10px rgba(0, 0, 0, 0.12);
+    0 14px 28px rgb(0 0 0 / 0.15),
+    0 10px 10px rgb(0 0 0 / 0.12);
 }
 
 %button-shadow {
-  box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+  box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.2);
 
   @include if-light {
-    box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.15);
+    box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.15);
   }
 }
 
 %button-raised-shadow {
-  box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.225);
+  box-shadow: 0 2px 4px 0 hsl(0 0% 0% / 0.225);
 
   @include if-light {
-    box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.18);
+    box-shadow: 0 2px 4px 0 hsl(0 0% 0% / 0.18);
   }
 }
 

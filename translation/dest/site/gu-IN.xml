@@ -453,7 +453,8 @@
   <string name="follow">અનુસરો</string>
   <string name="following">ફોલોવિંગ</string>
   <string name="unfollow">અનફોલો</string>
-  <string name="followX">ફોલ્લૉ %s</string>
+  <string name="followX">ફોલ્લૉ %s
+</string>
   <string name="unfollowX">ઉનફૉલલૉ %s</string>
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
@@ -916,13 +917,17 @@
   <string name="correspondenceDesc">પત્રવ્યવહાર રમતો: દરેક ચાલ માટે એક કે ઘણા દિવસો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
   <string name="important">મહત્વપૂર્ણ</string>
-  <string name="yourQuestionMayHaveBeenAnswered">તમારા પ્રશ્નનો જવાબ પહેલેથી જ મળી ગયો હશે %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">તમારા પ્રશ્નનો જવાબ પહેલેથી જ મળી ગયો હશે %1$s
+</string>
   <string name="inTheFAQ">વારંવાર પૂછાતા પ્રશ્નોમાં</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">છેતરપિંડી અથવા ખરાબ વર્તન માટે વપરાશકર્તાની જાણ કરવી, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">છેતરપિંડી અથવા ખરાબ વર્તન માટે વપરાશકર્તાની જાણ કરવી, %1$s
+</string>
   <string name="useTheReportForm">રિપોર્ટ ફોર્મનો ઉપયોગ કરો</string>
-  <string name="toRequestSupport">સમર્થનની વિનંતી કરવા માટે, %1$s</string>
+  <string name="toRequestSupport">સમર્થનની વિનંતી કરવા માટે, %1$s
+</string>
   <string name="tryTheContactPage">સંપર્ક પૃષ્ઠનો પ્રયાસ કરો</string>
-  <string name="makeSureToRead">વાંચવાની ખાતરી કરો %1$s</string>
+  <string name="makeSureToRead">વાંચવાની ખાતરી કરો %1$s
+</string>
   <string name="theForumEtiquette">ફોરમ શિષ્ટાચાર</string>
   <string name="thisTopicIsArchived">આ વિષય આર્કાઇવ કરવામાં આવ્યો છે અને હવે તેનો જવાબ આપી શકાતો નથી.</string>
   <string name="joinTheTeamXToPost">આ ફોરમમાં પોસ્ટ કરવા માટે %1$s માં જોડાઓ</string>
@@ -988,10 +993,10 @@
   <string name="sentEmailWithLink">અમે તમને એક લિંક સાથે એક ઇમેઇલ મોકલ્યો છે.</string>
   <string name="tournamentEntryCode">ટુર્નામેન્ટ એન્ટ્રી કોડ</string>
   <string name="hangOn">રાહ જુઓ!</string>
-  <string name="gameInProgress">તમારી એક રમત ચાલી રહી છે %s.</string>
+  <string name="gameInProgress">તમારી એક રમત ચાલી રહી છે %s.
+</string>
   <string name="abortTheGame">રમત રદ કરો</string>
   <string name="resignTheGame">રમત છોડી દો</string>
-  <string name="youCantStartNewGame">આ રમત પૂરી ન થાય ત્યાં સુધી તમે નવી રમત શરૂ કરી શકતા નથી.</string>
   <string name="since">ત્યારથી</string>
   <string name="until">સુધી</string>
   <string name="lichessDbExplanation">લાઇચેસ પર રમાતી રેટેડ રમતો</string>

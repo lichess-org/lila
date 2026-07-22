@@ -16,7 +16,7 @@
     padding: 2em;
 
     &:hover {
-      background: $m-primary--lighten-10;
+      background: hsl(from $c-primary h s calc(l + 10));
     }
 
     icon::before {
@@ -98,7 +98,7 @@
 
       &.active,
       &.active:hover {
-        background: $m-bad_bg--mix-50;
+        background: color-mix(in oklab, $c-bad 50%, $c-bg);
         text-shadow: none !important;
       }
 
@@ -110,7 +110,7 @@
     &.vote-up {
       &.active,
       &.active:hover {
-        background: $m-good_bg--mix-50;
+        background: color-mix(in oklab, $c-good 50%, $c-bg);
         text-shadow: none !important;
       }
 

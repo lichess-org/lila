@@ -7,7 +7,7 @@ export class Settings {
     public readonly inline = false,
     public readonly showStaticAnalysis = true,
     public readonly disclosureMode = false,
-    public readonly showLiveGlyphs = false,
+    public readonly showLiveAnnotations = false,
     public readonly showBestMoveArrows = true,
     public readonly showManeuverMoveArrows = false,
     public readonly showVariationArrows = true,
@@ -29,8 +29,11 @@ export class SettingsCtrl extends Settings {
   constructor(public readonly redraw?: () => void) {
     super();
     const local = localStorage.getItem(this.key);
-    if (local) Object.assign(this, JSON.parse(local));
-    else Object.assign(this, grandfatheredOptions()); // delete me
+    try {
+      if (local) Object.assign(this, JSON.parse(local));
+    } catch {
+      localStorage.removeItem(this.key);
+    }
   }
 
   keys(): SettingKey[] {
@@ -46,36 +49,8 @@ export class SettingsCtrl extends Settings {
   }
 
   async save() {
+    // POST to server once db.pref is decided
     const local = Object.fromEntries(this.keys().map(k => [k, this[k]])) as unknown as Settings;
     localStorage.setItem(this.key, JSON.stringify(local));
-  }
-}
-
-// delete me soon
-function grandfatheredOptions(): Settings {
-  return {
-    inline: legacyStorageBoolean('inline', 'treeView'),
-    showBestMoveArrows: legacyStorageBoolean('showBestMoveArrows', 'analyse.auto-shapes'),
-    showManeuverMoveArrows: legacyStorageBoolean('showManeuverMoveArrows', 'analyse.maneuver-arrows'),
-    showLiveGlyphs: true,
-    showVariationArrows: legacyStorageBoolean('showVariationArrows', 'analyse.variation-arrow-opacity'),
-    showGauge: legacyStorageBoolean('showGauge', 'analyse.show-gauge'),
-    showStaticAnalysis: legacyStorageBoolean('showStaticAnalysis', 'analyse.show-computer'),
-    showMoveAnnotationsOnBoard: legacyStorageBoolean(
-      'showMoveAnnotationsOnBoard',
-      'analyse.show-move-annotation',
-    ),
-    showUndefendedPieces: legacyStorageBoolean('showUndefendedPieces', 'analyse.motif.undefended'),
-    showPinnedPieces: legacyStorageBoolean('showPinnedPieces', 'analyse.motif.pin'),
-    showCheckableKing: legacyStorageBoolean('showCheckableKing', 'analyse.motif.checkable'),
-    disclosureMode: legacyStorageBoolean('disclosureMode', 'analyse.disclosure.enabled'),
-  };
-  function legacyStorageBoolean(optionKey: keyof Settings, storageKey: string) {
-    const item = localStorage.getItem(storageKey);
-    if (item === null) return defaultSettings[optionKey];
-    localStorage.removeItem(storageKey);
-    if (storageKey === 'analyse.variation-arrow-opacity') return Number(item) > 0;
-    if (storageKey === 'treeView') return item === 'inline';
-    return item === 'true';
   }
 }

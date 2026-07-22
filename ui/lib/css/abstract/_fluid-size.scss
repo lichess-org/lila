@@ -25,6 +25,6 @@ $vp-max-width: 1200px !default;
       #{$prop}: $max-size;
     }
   } @else {
-    @error "fluid-size requires that all values have the same unit";
+    @error 'fluid-size requires that all values have the same unit';
   }
 }

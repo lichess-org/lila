@@ -18,7 +18,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background: $m-primary_bg--mix-30;
+        background: color-mix(in oklab, $c-primary 30%, $c-bg);
         padding-bottom: 0;
         outline: 1px solid $c-primary;
 

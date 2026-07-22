@@ -12,13 +12,13 @@
   a {
     @extend %box-radius;
 
-    background: $m-primary_bg--mix-12;
+    background: color-mix(in oklab, $c-primary 12%, $c-bg);
     padding: 0.2em 0.6em;
     margin: 0.2em;
     white-space: nowrap;
 
     &:hover {
-      background: $m-primary_bg--mix-15;
+      background: color-mix(in oklab, $c-primary 15%, $c-bg);
     }
   }
 

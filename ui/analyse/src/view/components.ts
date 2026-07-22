@@ -82,8 +82,10 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
   };
 }
 
-export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
-  const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
+export function renderMain(
+  { ctrl, relay, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  ...kids: LooseVNodes[]
+): VNode {
   const isRelay = defined(ctrl.study?.relay);
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
@@ -95,7 +97,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
+          if (!relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
         },
         update(_, _2) {
@@ -171,8 +173,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
       hl('input.copyable', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLInputElement;
+          ...onInsert<HTMLInputElement>(el => {
             el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
             el.addEventListener('change', () => {
               if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
@@ -181,7 +182,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               ctrl.fenInput = el.value;
               el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
             });
-          },
+          }),
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
@@ -199,7 +200,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { spellcheck: 'false' },
           class: { 'is-error': !!ctrl.pgnError },
           hook: {
-            ...onInsert((el: HTMLTextAreaElement) => {
+            ...onInsert<HTMLTextAreaElement>(el => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
               const changePgnIfDifferent = () =>
                 el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true);
@@ -291,8 +292,16 @@ export function renderMoveNodes(
   if (withGlyphs && relevantGlyphs)
     relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));
-  if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
+  if (withEval && evalText && ev)
+    nodes.push(h('eval', { attrs: { title: evalInfo(ev) } }, evalText.replace('-', '−')));
   return nodes;
+}
+
+function evalInfo(ev: ClientEval | ServerEval): string {
+  if ('knodes' in ev) return `Server eval · About ${(ev.knodes * 1000).toLocaleString()} nodes searched`;
+  if (!('nodes' in ev)) return 'Unknown strength';
+  const prelude = ev.cloud ? 'Cloud eval' : 'Local eval';
+  return `${prelude} · ${ev.nodes.toLocaleString()} nodes searched`;
 }
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
@@ -324,8 +333,8 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 }
 
 let prevForceInnerCoords: boolean;
-function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
+function forceInnerCoords({ data }: AnalyseCtrl, v: boolean) {
+  if (data.pref.coords === Prefs.Coords.Outside) {
     if (prevForceInnerCoords !== v) {
       prevForceInnerCoords = v;
       $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);

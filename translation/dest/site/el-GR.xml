@@ -1018,7 +1018,7 @@
   <string name="gameInProgress">Η παρτίδα σας με τον χρήστη %s είναι ακόμα σε εξέλιξη.</string>
   <string name="abortTheGame">Ματαίωση παρτίδας</string>
   <string name="resignTheGame">Παραίτηση</string>
-  <string name="youCantStartNewGame">Δεν μπορείτε να ξεκινήσετε μια καινούργια παρτίδα εάν δεν ολοκληρώσετε προηγουμένως αυτήν.</string>
+  <string name="youCantStartNewGame">Δεν μπορείτε να ξεκινήσετε νέα παρτίδα ενώ είναι η σειρά σας.</string>
   <string name="since">Από</string>
   <string name="until">Έως</string>
   <string name="lichessDbExplanation">Βαθμολογημένες παρτίδες στο Lichess</string>

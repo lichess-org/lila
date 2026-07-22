@@ -7,7 +7,7 @@ $c-opcfg: $c-accent;
 }
 
 .opening__config {
-  @extend %box-neat;
+  @extend %box-bordered;
 
   flex: 0 0 auto;
 
@@ -26,14 +26,14 @@ $c-opcfg: $c-accent;
   background: $c-bg-zebra;
 
   &:hover {
-    outline: 3px solid $m-accent_bg--mix-60;
-    background: $m-accent_bg-zebra--mix-10;
+    border: 1px solid color-mix(in oklab, $c-accent 35%, $c-bg);
+    background: color-mix(in oklab, $c-accent 5%, $c-bg-zebra);
   }
 
   &__summary {
     @include prevent-select;
 
-    padding: 1em 2em;
+    padding: 0.9em 2em;
     cursor: pointer;
 
     &__speed,

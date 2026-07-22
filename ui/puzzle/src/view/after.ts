@@ -6,7 +6,6 @@ import type PuzzleCtrl from '../ctrl';
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
   hl(
     'div.puzzle__vote',
-    {},
     !ctrl.autoNexting() && [
       ctrl.session.isNew() &&
         ctrl.data.user?.provisional &&
@@ -29,7 +28,7 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
 const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   hl('div.complete', [
     hl('span.game-over', 'GAME OVER'),
-    hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', `${ctrl.streak?.data.index ?? 0}`))),
+    hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', ctrl.streak?.data.index ?? 0))),
   ]),
   hl('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
     iconTag(licon.PlayTriangle),
@@ -38,7 +37,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 ];
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  const data = ctrl.data;
+  const { data } = ctrl;
   const win = ctrl.lastFeedback === 'win';
   const canPlayComputer = !ctrl.node.san?.includes('#');
   return hl(

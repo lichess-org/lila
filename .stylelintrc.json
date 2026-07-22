@@ -3,8 +3,8 @@
   "extends": "stylelint-config-standard-scss",
   "rules": {
     "alpha-value-notation": "number",
-    "color-function-alias-notation": null,
-    "color-function-notation": ["legacy", { "ignore": ["with-var-inside"] }],
+    "color-function-alias-notation": "without-alpha",
+    "color-function-notation": "modern",
     "custom-property-pattern": null,
     "declaration-block-no-redundant-longhand-properties": [
       true,
@@ -20,7 +20,7 @@
     ],
     "font-family-no-missing-generic-family-keyword": null,
     "hue-degree-notation": "number",
-    "media-feature-range-notation": null,
+    "media-feature-range-notation": "prefix",
     "no-invalid-position-at-import-rule": null,
     "selector-class-pattern": null,
     "selector-id-pattern": null,

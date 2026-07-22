@@ -1,5 +1,7 @@
 @include mq-is-col1 {
   .analyse__tools {
+    border-radius: 0;
+
     .sub-box {
       order: 0;
     }
@@ -26,69 +28,50 @@
   }
 
   .analyse__controls {
-    padding-top: 6px;
-    height: 5rem;
+    height: auto;
     touch-action: pan-y;
+    flex-wrap: wrap;
+
+    .fbt {
+      flex: 1;
+      margin: 3px 2px 0;
+      border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
+
+      &:not(.move) {
+        min-height: 3em;
+      }
+
+      &.active {
+        padding-top: 0;
+        border-bottom: none;
+      }
+    }
 
     .jumps {
       order: 1;
-    }
+      padding: 2px;
+      margin-bottom: 2px;
+      width: 100%;
+      height: 3em;
 
-    [data-act='opening-explorer'] {
-      order: 2;
-    }
+      .move {
+        background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
+        border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
 
-    [data-act='menu'] {
-      order: 3;
-    }
-
-    .fbt {
-      flex: 3;
-      margin: 3px 2px 0;
-      border: 1px solid $m-clearer--fade-95;
-      border-bottom: none;
-      border-radius: 6px 6px 0 0;
-      background: $m-bg_bg-page--mix-50;
-    }
-
-    .scrub-help {
-      margin-inline: 3px;
-      align-self: center;
-      font-family: lichess;
-      font-size: 1.1em;
-      color: $c-border;
-    }
-
-    .jumps {
-      flex: 40%;
-    }
-
-    .jumps:has([data-act='first']) {
-      padding-inline: 8px;
-      flex: 50%;
-    }
-
-    .jumps .fbt {
-      margin: 5px 2px;
-      background: $m-bg_bg-page--mix-50;
-      border: 1px solid $m-clearer--fade-95;
-    }
-
-    .jumps .fbt[data-act='first'],
-    .jumps .fbt[data-act='last'] {
-      flex: 1.6;
-    }
-
-    .fbt.active {
-      padding-top: 0;
-      border-bottom: none;
+        &[data-act='first'],
+        &[data-act='last'] {
+          flex: 2;
+        }
+      }
     }
 
     eval {
-      @media (min-width: at-least($xx-small)) {
-        font-size: 1.2em;
-      }
-
+      font-variant-numeric: tabular-nums;
+      font-weight: bold;
+      font-size: 1.25em;
       pointer-events: none;
     }
 
@@ -104,7 +87,7 @@
         margin-inline-start: 10px;
 
         @media (max-width: at-most($xxx-small)) {
-          transform: scale(0.7);
+          transform: scale(0.8);
           margin-inline-start: 0;
         }
 
@@ -136,7 +119,7 @@
       top: -2px;
       right: 1px;
       font-size: 0.9em;
-      color: $m-bg_secondary--mix-50;
+      color: color-mix(in oklab, $c-bg 50%, $c-secondary);
       content: $licon-X;
     }
 
@@ -155,6 +138,9 @@
     }
 
     [data-mode]:not(.active) .bar {
+      $good-10: rgb(from $c-good r g b / 0.1);
+      $good-70: rgb(from $c-good r g b / 0.7);
+
       position: absolute;
       display: block;
       left: 0;
@@ -167,9 +153,8 @@
         opacity 0.6s ease-out;
       animation: computing 1.6s linear reverse infinite paused;
       background:
-        linear-gradient(to bottom, $m-good--fade-90, $m-good--fade-30, $m-good--fade-90) 0 0 / 100% 100%
-          no-repeat,
-        linear-gradient(45deg, transparent, $m-good--fade-30, transparent) -100% 0 / 200% 100% no-repeat;
+        linear-gradient(to bottom, $good-10, $good-70, $good-10) 0 0 / 100% 100% no-repeat,
+        linear-gradient(45deg, transparent, $good-70, transparent) -100% 0 / 200% 100% no-repeat;
     }
 
     [data-mode].computing:not([data-mode='ceval'].active) .bar {

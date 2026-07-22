@@ -814,6 +814,10 @@
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonyme</item>
+    <item quantity="other">Anonymes (%s)</item>
+  </plurals>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
   <string name="allLanguages">Toutes les langues</string>
@@ -1015,7 +1019,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Abandonner la partie</string>
-  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
+  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie si c\'est à votre tour de jouer.</string>
   <string name="since">De</string>
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
@@ -1039,4 +1043,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>
+  <string name="settings">Paramètres</string>
 </resources>

@@ -5,46 +5,45 @@ import { h, type VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts } from 'lib/puz/run';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
+import { onInsert } from 'lib/view';
 
-import type RacerCtrl from '../ctrl';
+import type RacerCtrl from '@/ctrl';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
-  const secs = ctrl.countdownSeconds();
   return h('div.puz-board.main-board', [
     renderGround(ctrl),
     ctrl.promotion.view(),
-    secs ? renderCountdown(secs) : undefined,
+    renderCountdown(ctrl.countdownSeconds()),
   ]);
 };
 
 const renderGround = (ctrl: RacerCtrl): VNode =>
   h('div.cg-wrap', {
-    hook: {
-      insert: vnode => {
-        ctrl.ground(
-          makeChessground(
-            vnode.elm as HTMLElement,
-            makeCgConfig(
-              ctrl.isRacing() && ctrl.isPlayer()
-                ? makeCgOpts(ctrl.run, true, ctrl.flipped)
-                : { fen: INITIAL_BOARD_FEN, orientation: ctrl.run.pov, movable: { color: ctrl.run.pov } },
-              ctrl.pref,
-              ctrl.userMove,
-            ),
+    hook: onInsert(el => {
+      ctrl.ground(
+        makeChessground(
+          el,
+          makeCgConfig(
+            ctrl.isRacing() && ctrl.isPlayer()
+              ? makeCgOpts(ctrl.run, true, ctrl.flipped)
+              : { fen: INITIAL_BOARD_FEN, orientation: ctrl.run.pov, movable: { color: ctrl.run.pov } },
+            ctrl.pref,
+            ctrl.userMove,
           ),
-        );
-        pubsub.on('board.change', (is3d: boolean) =>
-          ctrl.withGround(g => {
-            g.state.addPieceZIndex = is3d;
-            g.redrawAll();
-          }),
-        );
-      },
-    },
+        ),
+      );
+      pubsub.on('board.change', (is3d: boolean) =>
+        ctrl.withGround(g => {
+          g.state.addPieceZIndex = is3d;
+          g.redrawAll();
+        }),
+      );
+    }),
   });
 
-const renderCountdown = (seconds: number) =>
-  h('div.racer__countdown', [
+const renderCountdown = (seconds?: number) => {
+  if (!seconds) return undefined;
+  return h('div.racer__countdown', [
     h('div.racer__countdown__lights', [
       h('light.red', { class: { active: seconds > 4 } }),
       h('light.orange', { class: { active: seconds === 3 || seconds === 4 } }),
@@ -52,3 +51,4 @@ const renderCountdown = (seconds: number) =>
     ]),
     h('div.racer__countdown__seconds', seconds),
   ]);
+};

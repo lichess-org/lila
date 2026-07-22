@@ -18,19 +18,19 @@ object TournamentCsv:
           "Sheet"
         )
       )
-    ).concat(results.map(apply))
+    ).concat(results.map(playerLine))
 
-  def apply(p: Player.Result): String = p match
-    case Player.Result(player, user, rank, sheet) =>
-      toCsv(
-        rank.toString,
-        user.title.so(_.toString),
-        user.name.value,
-        player.rating.toString,
-        player.score.toString,
-        player.performance.so(_.toString),
-        ~player.team.map(_.value),
-        sheet.so(_.scoresToString)
-      )
+  private def playerLine(p: Player.Result): String =
+    import p.*
+    toCsv(
+      rank.toString,
+      lightUser.title.so(_.toString),
+      lightUser.name.value,
+      player.rating.toString,
+      player.score.toString,
+      player.performance.so(_.toString),
+      ~player.team.map(_.value),
+      sheet.so(_.scoresToString)
+    )
 
   private def toCsv(values: String*) = values.mkString(",")

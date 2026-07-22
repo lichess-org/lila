@@ -101,19 +101,21 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       }),
     },
     ctrl.visibleChildren().map((node, it) => {
-      const classes = {
-        selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
-        correct: ctrl.isGamebook() && it === 0,
-        wrong: ctrl.isGamebook() && it > 0,
-      };
       const conceal = isMainline && concealOf(true)(ctrl.path + node.id, node);
-      if (!conceal)
-        return hl(
-          'move',
-          { class: classes, attrs: { 'data-it': it } },
-          renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
-        );
-      return undefined;
+      if (conceal) return undefined;
+
+      return hl(
+        'move',
+        {
+          class: {
+            selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
+            correct: ctrl.isGamebook() && it === 0,
+            wrong: ctrl.isGamebook() && it > 0,
+          },
+          attrs: { 'data-it': it },
+        },
+        renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
+      );
     }),
   );
 }

@@ -8,28 +8,28 @@ import lila.tree.Analysis
 
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    divider: lila.core.game.Divider
 )(using Executor)
     extends lila.tree.Analyser:
 
   export analysisRepo.{ byId, byGame as get }
 
-  def save(analysis: Analysis): Funit =
-    analysis.id match
-      case Analysis.Id.Game(id) =>
-        gameRepo.game(id).flatMapz { prev =>
-          val game = prev.focus(_.metadata.analysed).replace(true)
-          for
-            _ <- gameRepo.setAnalysed(game.id, true)
-            _ <- analysisRepo.save(analysis)
-            _ <- sendAnalysisProgress(analysis, complete = true)
-          yield Bus.pub(actorApi.AnalysisReady(game, analysis))
-        }
-      case _ =>
-        analysisRepo.save(analysis) >>
-          sendAnalysisProgress(analysis, complete = true)
+  def save(analysis: Analysis, workHash: => Array[Byte]): Funit = for
+    _ <- analysisRepo.save(analysis, analysis.studyId.isDefined.option(workHash))
+    _ <- analysis.id.gameId.so: id =>
+      gameRepo.game(id).flatMapz { prev =>
+        val game = prev.focus(_.metadata.analysed).replace(true)
+        for _ <- gameRepo.setAnalysed(game.id, true)
+        yield Bus.pub(actorApi.AnalysisReady(game, analysis))
+      }
+    _ <- sendAnalysisProgress(analysis, complete = true)
+  yield ()
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)
+
+  def foundSameHash(forId: Analysis.Id, same: Analysis, workHash: Array[Byte]): Funit =
+    save(same.copy(id = forId), workHash)
 
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.id match
@@ -53,7 +53,8 @@ final class Analyser(
   ): JsObject =
     import lila.tree.{ TreeBuilder, ExportOptions, Node }
     val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log.system.warn)
+    val division = divider(game.id, game.sans, game.variant, initialFen.some)
     Json.obj(
-      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
+      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis, division = division),
       "tree" -> Node.lichobileNodeJsonWriter.writes(tree)
     )

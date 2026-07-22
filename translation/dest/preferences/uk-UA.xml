@@ -88,4 +88,5 @@
   <string name="boardSettings">Дошка</string>
   <string name="analysisSettings">Налаштування аналізу</string>
   <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
+  <string name="hoverOverSettingLabelsForHelp">Наведіть курсор на налаштування для деталей</string>
 </resources>

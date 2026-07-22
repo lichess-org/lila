@@ -6,7 +6,8 @@ import { replayable } from 'lib/game';
 import { pieceCount, fenColor } from 'lib/game/chess';
 import { storedBooleanProp } from 'lib/storage';
 
-import type AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '@/ctrl';
+
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { MAX_ANALYSE_DEPTH, winnerOf } from './explorerUtil';
 import { clearLastShow } from './explorerView';

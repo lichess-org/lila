@@ -1,6 +1,8 @@
 package lila.core
 package irc
 
+import play.api.mvc.Call
+
 import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
 import lila.core.userId.{ UserId, MyId, ModId, UserName }
 import lila.core.study.data.StudyChapterName
@@ -46,6 +48,12 @@ trait IrcApi:
       tourId: RelayTourId,
       diff: String,
       impersonatedBy: Option[ModId] = None
-  )(using
-      MyId
+  )(using MyId): Funit
+  def bbb(
+      by: MyId,
+      tpe: "arena" | "event",
+      name: String,
+      url: Call,
+      from: Instant,
+      to: Option[Instant]
   ): Funit

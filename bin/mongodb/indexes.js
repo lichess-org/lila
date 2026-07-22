@@ -130,7 +130,13 @@ db.seek_archive.createIndex({ archivedAt: 1 }, { expireAfterSeconds: 604800 });
 db.seek_archive.createIndex({ gameId: 1 });
 db.swiss_player.createIndex({ s: 1, c: -1 });
 db.print_ban.createIndex({ date: 1 }, { expireAfterSeconds: 7776000 });
-db.appeal.createIndex({ status: 1, lastUnrepliedAt: 1 });
+db.appeal2.createIndex({ user: 1 });
+db.appeal2.createIndex(
+  { status: 1, topic: 1, firstUnrepliedAt: 1 },
+  { partialFilterExpression: { status: 'unread' } },
+);
+db.appeal2.createIndex({ user: 1, topic: 1 }, { unique: true });
+db.appeal2.createIndex({ closedUntil: 1 }, { partialFilterExpression: { closedUntil: { $exists: true } } });
 db.challenge.createIndex({ status: 1, 'challenger.id': 1, createdAt: 1 });
 db.challenge.createIndex({ status: 1, 'destUser.id': 1, createdAt: 1 });
 db.challenge.createIndex({ expiresAt: 1 });
@@ -146,6 +152,7 @@ db.donation.createIndex({ date: -1 });
 db.donation.createIndex({ gross: -1 });
 db.player_assessment.createIndex({ userId: 1, date: -1 });
 db.player_assessment.createIndex({ date: 1 }, { expireAfterSeconds: 15552000 });
+db.analysis2.createIndex({ hash: 1 }, { partialFilterExpression: { hash: { $exists: true } } });
 db.fishnet_analysis.createIndex({ 'sender.system': 1, createdAt: 1 });
 db.fishnet_analysis.createIndex({ 'game.id': 1 });
 db.fishnet_analysis.createIndex({ 'sender.userId': 1 });

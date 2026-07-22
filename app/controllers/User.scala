@@ -51,7 +51,7 @@ final class User(
         case None => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
+  private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
     }
@@ -63,7 +63,7 @@ final class User(
     EnabledUser(username): u =>
       negotiate(
         renderShow(u),
-        apiGames(u, GameFilter.all.name, 1)
+        gamesForLichobile(u, GameFilter.all.name, 1)
       )
 
   def search(term: String) = Open: _ ?=>
@@ -148,7 +148,7 @@ final class User(
                       yield res
                     else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                json = apiGames(u, filter, page)
+                json = gamesForLichobile(u, filter, page)
               )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -268,12 +268,6 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  // redirect /player/top/:nb/:perfKey to /user/top/:perfKey
-  // TODO move to a NotFound general handler?
-  // to avoid adding (yet another) route
-  def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
-    Redirect(routes.User.top(perfKey))
-
   def top(perfKey: PerfKey, page: Int) = Open:
     Reasonable(page, Max(20)):
       env.user.cached
@@ -379,7 +373,7 @@ final class User(
               ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice)
 
         val appeal = isGranted(_.Appeals).so:
-          env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
+          env.appeal.api.latestBy(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
 
         val rageSit = isGranted(_.CheatHunter).so:
           env.playban.api
@@ -467,7 +461,7 @@ final class User(
       err => BadRequest(err.errors.toString).toFuccess,
       data =>
         doWriteNote(username, data): user =>
-          if getBool("inquiry") then
+          if getBool("inquiry") && isGranted(_.ModNote) then
             Ok.snipAsync:
               env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiryUi.noteZone(user, _)
@@ -541,7 +535,8 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = req.client.isHuman)): data =>
+    val canCompute = req.client.isHuman && ctx.isAuth
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
       negotiate(
         Ok.async:
           env.history
@@ -622,10 +617,6 @@ final class User(
                     .flatMap: u =>
                       Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, u.some))
               case _ => Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, none))
-
-  def myself = Auth { _ ?=> me ?=>
-    Redirect(routes.User.show(me.username))
-  }
 
   def redirect(path: String) = Open:
     staticRedirect(path) |

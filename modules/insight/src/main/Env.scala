@@ -12,6 +12,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     gameApi: lila.core.game.GameApi,
+    gameOpening: lila.core.game.GameOpening,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
@@ -48,4 +49,4 @@ final class Env(
     if m.value then storage.removeAll(m.userId)
 
   Bus.sub[lila.core.mod.MarkBooster]: m =>
-    storage.removeAll(m.userId)
+    if m.value then storage.removeAll(m.userId)

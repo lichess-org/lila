@@ -954,7 +954,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="gameInProgress">%s এর সাথে এখনো আপনার খেলা চলছে।</string>
   <string name="abortTheGame">খেলা ত্যাগ(abort) করুন</string>
   <string name="resignTheGame">খেলা সমর্পণ(resign) করুন</string>
-  <string name="youCantStartNewGame">আপনি এই খেলা শেষ না করে নতুন খেলা শুরু করতে পারবেন না।</string>
   <string name="since">Since/শুরু</string>
   <string name="until">Until/পর্যন্ত</string>
   <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>

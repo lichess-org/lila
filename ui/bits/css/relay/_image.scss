@@ -4,9 +4,9 @@
 
     width: 100%;
     aspect-ratio: 2 / 1;
-    background: linear-gradient(to bottom, $m-primary--alpha-70, $m-brag--alpha-70);
+    background: linear-gradient(to bottom, rgb(from $c-primary r g b / 0.7), rgb(from $c-brag r g b / 0.7));
     background-repeat: no-repeat;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 0 40px rgb(0 0 0 / 0.3) inset;
     color: $c-font;
     text-shadow: 0 0 40px white;
     font-size: 3em;

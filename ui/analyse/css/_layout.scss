@@ -106,6 +106,10 @@ body {
       margin: $analyse-block-gap 0 0 0;
     }
 
+    &__tools {
+      height: var(---cg-height, 100%);
+    }
+
     .chat__members {
       margin: calc($analyse-block-gap / 2) 0 0 0;
     }

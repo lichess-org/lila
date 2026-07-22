@@ -18,8 +18,8 @@ final class OpeningApi(
 
   import OpeningQuery.Query
 
-  private val defaultCache = cacheApi.notLoadingSync[Query, OpeningPage](1024, "opening.defaultCache"):
-    _.maximumSize(4096).expireAfterWrite(10.minutes).build()
+  private val defaultCache = cacheApi.notLoadingSync[Query, OpeningPage](256, "opening.defaultCache"):
+    _.maximumSize(4096).expireAfterWrite(8.minutes).build()
 
   private val userRateLimit = RateLimit[UserId](30, 2.minutes, "opening.stats.user")
 
@@ -70,7 +70,7 @@ final class OpeningApi(
       allHistory <- allGamesHistory.get(query.config)
       games <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
       withPgn <- games.traverse: g =>
-        pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
+        pgnDump(g, None, None, PgnDump.WithFlags(evals = false)).dmap(GameWithPgn(g, _))
       history = statsOption.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
     yield makeOpeningPage(query, stats, withPgn, relHistory, wiki).some

@@ -46,7 +46,7 @@
     padding: 1em 1.5em 1.5em;
 
     &:hover {
-      background: $m-primary_bg--mix-18;
+      background: color-mix(in oklab, $c-primary 18%, $c-bg);
     }
 
     h2 {

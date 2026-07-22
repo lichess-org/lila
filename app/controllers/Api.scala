@@ -269,10 +269,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
-    Anon:
+    AnonOrScoped():
       WithProxy: proxy ?=>
         limit.enumeration.cloudEval(rateLimited):
-          val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
+          val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
           val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
           rateLimit(rateLimited, cost = cost):
             get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>

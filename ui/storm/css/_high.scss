@@ -40,7 +40,7 @@
 
     .highlight-alltime & {
       &:first-child {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%) $c-brag;
+        background: linear-gradient(145deg, rgb(255 255 255 / 0.3) 0%, transparent 45%) $c-brag;
         color: $c-over;
 
         strong {

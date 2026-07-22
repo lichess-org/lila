@@ -31,7 +31,7 @@ object Feed:
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
 
-  private val renderer = lila.common.MarkdownRender(
+  private val renderer = lila.markdown.MarkdownRender(
     autoLink = false,
     strikeThrough = true,
     timestamp = true

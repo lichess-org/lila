@@ -42,11 +42,11 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
 
   // lichess allows to offer draw on either turn,
   // normalize to pretend it was done on the opponent turn.
-  def normalize(color: Color): Set[Ply] = color
+  private def normalize(color: Color): Set[Ply] = color
     .fold(white, black)
-    .map:
-      case ply if ply.turn == color => ply + 1
-      case ply => ply
+    .map: ply =>
+      if ply.turn == color then ply + 1 else ply
+
   def normalizedPlies: Set[Ply] = normalize(Color.white) ++ normalize(Color.black)
 
 case class PgnImport(

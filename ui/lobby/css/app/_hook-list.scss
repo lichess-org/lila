@@ -13,11 +13,11 @@
     }
 
     &.cancel td {
-      background: $m-secondary--fade-60;
+      background: rgb(from $c-secondary r g b / calc(alpha * 0.4));
     }
 
     &.join:hover td {
-      background: $m-accent--fade-50;
+      background: $c-accent-cloud;
       color: #fff;
     }
 
@@ -76,7 +76,7 @@
     padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: $m-bg--fade-50;
+    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
 
     &:first-child {
       padding-inline-start: 2em;

@@ -7,22 +7,23 @@
   .study-list > div,
   button {
     @extend %flex-between-nowrap;
+    @include transition;
 
     text-align: start;
     align-items: stretch;
-
-    @include transition;
+    gap: 2px;
 
     &:hover,
     &:focus,
     &.active {
       color: $c-font-clear;
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
     }
   }
 
   .act {
     @extend %flex-center-center;
+    @include transition;
 
     color: $c-font;
     cursor: pointer;
@@ -30,10 +31,8 @@
     align-self: center;
     font-size: 0.9em;
     opacity: 0.15;
-    padding: 0.3em;
-    margin-inline-end: 0.5em;
-
-    @include transition;
+    padding: 0.25em;
+    margin-inline-end: 0.25em;
   }
 
   .study-list > :hover .act {
@@ -49,6 +48,20 @@
   .add {
     border-top: $border;
     cursor: pointer;
+    gap: 6px;
+    padding-inline-start: 0.5em;
+    align-items: center;
+
+    h3 {
+      flex: 1 1 100%;
+      line-height: 1;
+      margin: 0.5em 0;
+    }
+
+    icon {
+      color: $c-link;
+      margin-top: -2px;
+    }
   }
 }
 

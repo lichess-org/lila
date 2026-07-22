@@ -254,6 +254,11 @@ object user:
   def weeklyStableRanking(perf: PerfKey) = future("user.weeklyStableRanking", perf.value)
 object actor:
   def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
+object appeal:
+  private val unreadGauge = gauge("appeal.unread")
+  def unreadByTopic(list: Map[lila.core.misc.AppealTopic, Int]) =
+    list.map: (topic, count) =>
+      unreadGauge.withTag("topic", topic.key).update(count)
 object mod:
   def queueStatus(room: String, score: Int) =
     gauge("mod.queueStatus").withTags:
@@ -444,8 +449,8 @@ object tournament:
         "client" -> client
       )
   def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
-  def action(tourId: String, action: String) =
-    timer("tournament.api.action").withTags(tags("tourId" -> tourId, "action" -> action))
+  def action(action: String) =
+    timer("tournament.api.action").withTags(tags("action" -> action))
   object notifier:
     def tournaments = counter("tournament.notify.tournaments").withoutTags()
     def players = counter("tournament.notify.players").withoutTags()
@@ -667,6 +672,7 @@ object fishnet:
     val evalCacheHits = histogram("fishnet.analysis.evalCacheHits").withoutTags()
     val skipPositionsGame = future("fishnet.analysis.skipPositions.game")
     val skipPositionsStudy = future("fishnet.analysis.skipPositions.study")
+    def sameHash(tpe: "game" | "study") = counter("fishnet.analysis.sameHash").withTag("type", tpe)
   object http:
     def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
   def move(level: Int) = counter("fishnet.move.time").withTag("level", level)

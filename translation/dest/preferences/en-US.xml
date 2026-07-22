@@ -72,4 +72,5 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Show on the left on mobile devices</string>
+  <string name="hoverOverSettingLabelsForHelp">Hover over setting labels for help</string>
 </resources>

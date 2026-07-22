@@ -50,7 +50,7 @@
     font-size: 0.9rem;
     line-height: 1.9em;
     padding: 0;
-    background: $m-secondary_bg--mix-30;
+    background: color-mix(in oklab, $c-secondary 30%, $c-bg);
 
     .ddloader {
       padding-inline-start: 7px;
@@ -62,7 +62,7 @@
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
-      background: $m-secondary_bg--mix-40;
+      background: color-mix(in oklab, $c-secondary 40%, $c-bg);
 
       strong {
         margin-inline-end: 0.5ch;
@@ -85,7 +85,7 @@
 
       &:hover {
         color: $c-font-clear;
-        background: $m-secondary_bg--mix-50;
+        background: color-mix(in oklab, $c-secondary 50%, $c-bg);
       }
     }
   }
@@ -106,7 +106,7 @@
     }
 
     &:hover {
-      background: $m-secondary_bg--mix-20;
+      background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     }
   }
 
@@ -122,7 +122,7 @@
 
       font-size: 0.8rem;
       line-height: 1.8em;
-      background: $m-secondary_bg--mix-40;
+      background: color-mix(in oklab, $c-secondary 40%, $c-bg);
       padding-inline-start: 7px;
     }
 
@@ -146,7 +146,7 @@
 
     tbody tr.sum {
       /* sum row */
-      background: $m-primary_bg--mix-25;
+      background: color-mix(in oklab, $c-primary 25%, $c-bg);
       font-weight: bold;
 
       @include mq-at-least-col2 {
@@ -170,7 +170,7 @@
     background-clip: padding-box;
     border-width: 1px 0;
     border-style: solid;
-    border-color: $m-font--fade-83;
+    border-color: rgb(from $c-font r g b / calc(alpha * 0.17));
     height: 16px;
     line-height: 14px;
     font-size: 0.9em;
@@ -195,11 +195,11 @@
 
   .white {
     background: #ccc;
-    box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: 0 -5px 7px rgb(0 0 0 / 0.25) inset;
 
     @include if-light {
       background: #fff;
-      box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.1) inset;
+      box-shadow: 0 -5px 7px rgb(0 0 0 / 0.1) inset;
     }
 
     @include if-not-light {
@@ -210,11 +210,11 @@
   .draws,
   .black {
     color: #ddd;
-    box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1) inset;
+    box-shadow: 0 5px 7px rgb(255 255 255 / 0.1) inset;
 
     @include if-light {
       color: #fff;
-      box-shadow: 0 5px 7px rgba(255, 255, 255, 0.2) inset;
+      box-shadow: 0 5px 7px rgb(255 255 255 / 0.2) inset;
     }
   }
 
@@ -286,7 +286,7 @@
       }
 
       a:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgb(255 255 255 / 0.2);
       }
     }
   }

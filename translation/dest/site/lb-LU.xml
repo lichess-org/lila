@@ -423,6 +423,8 @@
   <string name="leaderboard">Ranglëscht</string>
   <string name="screenshotCurrentPosition">Aktuell Positioun screenshotten</string>
   <string name="gameAsGIF">Partie als GIF</string>
+  <string name="playerNames">Spillernimm</string>
+  <string name="moveAnnotations">Zuchannotatiounen</string>
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
   <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
@@ -777,6 +779,10 @@
   <string name="quickPairing">Schnellpaarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Däi Score: %s</string>
   <string name="language">Sprooch</string>
   <string name="allLanguages">All Sproochen</string>
@@ -909,6 +915,7 @@
   <string name="tryTheContactPage">probéier eis Kontaktsäit</string>
   <string name="makeSureToRead">Lies wgl. %1$s</string>
   <string name="theForumEtiquette">d\'Forumsetikett</string>
+  <string name="pleaseBeNiceInTheForum">Sief wgl. fein am Forum.</string>
   <string name="thisTopicIsArchived">Dëst Theema gouf archivéiert an et kann een net méi drop äntweren.</string>
   <string name="joinTheTeamXToPost">Triet %1$s bäi, fir an dësem Forum ze posten</string>
   <string name="teamNamedX">%1$s Ekipp</string>
@@ -976,7 +983,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="gameInProgress">Du hues eng Partie amgaang géint %s.</string>
   <string name="abortTheGame">Partie ofbriechen</string>
   <string name="resignTheGame">Partie opginn</string>
-  <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
   <string name="since">Säit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
@@ -998,4 +1004,5 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="clearSearch">Nei Sich</string>
   <string name="thereAreNoResultsForX">Kee Resultat fir „%s“</string>
   <string name="tags">Etiketten</string>
+  <string name="settings">Astellungen</string>
 </resources>

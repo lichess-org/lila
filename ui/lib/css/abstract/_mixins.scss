@@ -8,9 +8,9 @@
 
 @mixin box-shadow {
   box-shadow:
-    0 2px 2px 0 rgba(0, 0, 0, 0.08),
-    0 3px 1px -2px rgba(0, 0, 0, 0.18),
-    0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    0 2px 2px 0 rgb(0 0 0 / 0.08),
+    0 3px 1px -2px rgb(0 0 0 / 0.18),
+    0 1px 5px 0 rgb(0 0 0 / 0.1);
 }
 
 @mixin box-neat {
@@ -148,10 +148,10 @@
 }
 
 @mixin gradient-border($c, $ltr-dir, $rtl-dir) {
-  background: linear-gradient($ltr-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient($ltr-dir, $c 0, $c 5px, rgb(0 0 0 / 0) 5px, rgb(0 0 0 / 0) 100%);
 
   @include if-rtl {
-    background: linear-gradient($rtl-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient($rtl-dir, $c 0, $c 5px, rgb(0 0 0 / 0) 5px, rgb(0 0 0 / 0) 100%);
   }
 }
 
@@ -170,13 +170,13 @@
 @mixin with-metal-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
   box-shadow:
     inset 0 1px 3px -2px hsl(0, 0%, if($soft == true, 30%, 45%)),
-    inset 0 -4px 6px -3px $m-body-gradient--lighten-3,
+    inset 0 -4px 6px -3px hsl(from $c-body-gradient h s calc(l + 3)),
     if($defaultShadow != (), 0 1px 3px 0 $defaultShadow, ());
 
   @include if-light {
     box-shadow:
       inset 0 if($soft == true, 2px, 3px) 3px -2px #fff,
-      inset 0 -4px 6px -3px $m-body-gradient--lighten-5,
+      inset 0 -4px 6px -3px hsl(from $c-body-gradient h s calc(l + 5)),
       if($defaultShadow != (), 0 1px 3px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
   }
 
@@ -188,13 +188,13 @@
 @mixin with-metal-hover-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
   box-shadow:
     inset 0 1px 3px -2px $c-border-light,
-    inset 0 -5px 8px -3px $m-body-gradient--lighten-5,
+    inset 0 -5px 8px -3px hsl(from $c-body-gradient h s calc(l + 5)),
     if($defaultShadow != (), 0 2px 4px 0 $defaultShadow, ());
 
   @include if-light {
     box-shadow:
       inset 0 if($soft == true, 3px, 4px) 3px -2px #fff,
-      inset 0 -5px 8px -3px $m-body-gradient--lighten-7,
+      inset 0 -5px 8px -3px hsl(from $c-body-gradient h s calc(l + 7)),
       if($defaultShadow != (), 0 2px 4px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
   }
 
@@ -207,26 +207,26 @@
   box-shadow:
     inset 0 1px 3px -2px $topShadow,
     inset 0 -4px 6pt -3pt $bottomShadow,
-    0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+    0 1px 3px 0 hsl(0 0% 0% / 0.2);
 
   @include if-light {
     box-shadow:
       inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
       inset 0 -4px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
-      0 1px 3px 0 hsla(0, 0, 0%, 0.18);
+      0 1px 3px 0 hsl(0 0% 0% / 0.18);
   }
 
   &:not(.disabled, :disabled, [disabled]):hover {
     box-shadow:
       inset 0 1px 3px -2px $topShadow,
       inset 0 -5px 6pt -3pt $bottomShadow,
-      0 2px 4px 0 hsla(0, 0, 0%, 0.24);
+      0 2px 4px 0 hsl(0 0% 0% / 0.24);
 
     @include if-light {
       box-shadow:
         inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
         inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
-        0 2px 4px 0 hsla(0, 0, 0%, 0.21);
+        0 2px 4px 0 hsl(0 0% 0% / 0.21);
     }
 
     @include if-transp {

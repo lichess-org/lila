@@ -128,6 +128,7 @@
     padding: $block-gap 2vmin;
     background: $c-bg-zebra;
     font-size: 0.9em;
+    margin-bottom: calc($block-gap * -1);
   }
 }
 
@@ -136,7 +137,7 @@
 
   gap: 1em;
   margin-top: 1em;
-  background: $m-accent_bg--mix-10;
+  background: color-mix(in oklab, $c-accent 10%, $c-bg);
   padding: 1em;
 
   h2 {

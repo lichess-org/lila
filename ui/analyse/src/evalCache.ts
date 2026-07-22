@@ -92,7 +92,9 @@ export default class EvalCache {
       ev &&
       !ev.cloud &&
       this.fetchedByFen.has(node.fen) &&
-      (!fetched || fetched.depth < ev.depth) &&
+      fetched !== undefined &&
+      (fetched === awaitingEval || fetched.depth < ev.depth) &&
+      ev.fen === node.fen &&
       qualityCheck(ev) &&
       this.opts.canPut()
     ) {

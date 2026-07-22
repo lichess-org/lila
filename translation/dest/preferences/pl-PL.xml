@@ -88,4 +88,5 @@
   <string name="boardSettings">Szachownica</string>
   <string name="analysisSettings">Ustawienia analizy</string>
   <string name="maneuverArrowsHelp">Sekwencja ruchów silnika jednej bierki</string>
+  <string name="hoverOverSettingLabelsForHelp">Dymki pomocy nad ustawieniami</string>
 </resources>

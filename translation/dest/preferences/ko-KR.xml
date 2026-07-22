@@ -88,4 +88,5 @@
   <string name="boardSettings">보드</string>
   <string name="analysisSettings">분석 설정</string>
   <string name="maneuverArrowsHelp">하나의 기물에 대한 일련의 엔진수</string>
+  <string name="hoverOverSettingLabelsForHelp">설정 라벨에 커서를 올려서 도움말을 볼 수 있습니다</string>
 </resources>

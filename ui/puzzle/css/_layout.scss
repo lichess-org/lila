@@ -75,6 +75,10 @@ $puzzle-block-gap: $block-gap;
       'kb-move .     controls'
       'side    side  side';
 
+    &__tools {
+      height: var(---cg-height, 100%);
+    }
+
     &__moves {
       display: block;
     }

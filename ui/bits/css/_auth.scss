@@ -24,7 +24,7 @@
 }
 
 $auth-input-radius: 16px;
-$auth-input-bg: rgba(26, 22, 16, 1);
+$auth-input-bg: rgb(26 22 16 / 1);
 
 .auth {
   width: 100%;
@@ -40,7 +40,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     gap: 0.5rem;
     margin: -0.5em 0 2em 0;
 
-    @media (width >= $large) {
+    @media (min-width: $large) {
       display: none;
     }
 
@@ -78,7 +78,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: $m-accent--fade-70;
+        border-bottom-color: rgb(from $c-accent r g b / calc(alpha * 0.3));
       }
 
       &:focus-visible {
@@ -93,7 +93,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     }
   }
 
-  @media (width >= $x-small) {
+  @media (min-width: $x-small) {
     width: 40em;
   }
 
@@ -121,7 +121,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       padding: 0.5em 1em;
 
       &:hover {
-        background: $m-accent--fade-70;
+        background: rgb(from $c-accent r g b / calc(alpha * 0.3));
       }
     }
   }
@@ -134,7 +134,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     background: $auth-input-bg;
 
     @include if-light {
-      background: rgba(245, 242, 237, 1);
+      background: rgb(245 242 237 / 1);
     }
 
     &:focus-visible {

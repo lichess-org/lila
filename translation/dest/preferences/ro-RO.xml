@@ -89,4 +89,5 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="boardSettings">Tablă</string>
   <string name="analysisSettings">Setări analiză</string>
   <string name="maneuverArrowsHelp">Secvența de mutări a motorului pentru o piesă</string>
+  <string name="hoverOverSettingLabelsForHelp">Plasați cursorul peste etichete pentru ajutor</string>
 </resources>

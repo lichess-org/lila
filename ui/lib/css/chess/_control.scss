@@ -14,6 +14,15 @@
     text-align: center;
   }
 
+  [data-act='opening-explorer'],
+  [data-act='engine-mode'] {
+    order: 1;
+  }
+
+  [data-act='menu'] {
+    order: 3;
+  }
+
   .hidden {
     visibility: hidden;
   }
@@ -22,6 +31,7 @@
     font-size: 1.3rem;
     display: flex;
     padding: 4px;
+    order: 2;
 
     .fbt {
       border-radius: 8px;
@@ -29,7 +39,7 @@
 
       &[data-act='first'],
       &[data-act='last'] {
-        font-size: 0.7em;
+        font-size: 0.75em;
       }
 
       &[data-act='line'] {
@@ -48,7 +58,7 @@
 
   @media (hover: hover) {
     .jumps .fbt:hover:not(.disabled, :disabled) {
-      background-color: $m-primary_bg--mix-30;
+      background-color: color-mix(in oklab, $c-primary 30%, $c-bg);
     }
   }
 }

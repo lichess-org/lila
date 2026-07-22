@@ -71,4 +71,22 @@
   <string name="bellNotificationSound">Son de notification</string>
   <string name="blindfold" comment="As in Blindfold chess">Partie à l\'aveugle</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Afficher à gauche sur les appareils mobiles</string>
+  <string name="inlineNotation">Notation en ligne</string>
+  <string name="showServerAnalysis">Afficher l\'analyse du serveur</string>
+  <string name="showBestMoveArrows">Afficher les flèches montrant les meilleurs coups</string>
+  <string name="showManeuverArrows">Afficher les flèches montrant les manœuvres</string>
+  <string name="showGauge">Afficher la barre d\'évaluation</string>
+  <string name="showMoveAnnotationsOnBoard">Afficher les annotations</string>
+  <string name="showVariationArrows">Afficher les flèches de variantes</string>
+  <string name="showLiveGlyphs">Annotations du moteur en direct</string>
+  <string name="showUndefendedPieces">Afficher les pièces non défendues</string>
+  <string name="showPinnedPieces">Afficher les pièces clouées</string>
+  <string name="showCheckableKing">Afficher les échecs possibles</string>
+  <string name="disclosureMode">Activer le masquage des variantes</string>
+  <string name="generalSettings">Paramètres généraux</string>
+  <string name="moveListSettings">Liste des coups</string>
+  <string name="boardSettings">Échiquier</string>
+  <string name="analysisSettings">Paramètres d\'analyse</string>
+  <string name="maneuverArrowsHelp">Séquence de coups du moteur pour une pièce</string>
+  <string name="hoverOverSettingLabelsForHelp">Placer la souris sur les étiquettes pour de l\'aide</string>
 </resources>

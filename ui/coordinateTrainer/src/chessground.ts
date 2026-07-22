@@ -5,20 +5,20 @@ import { h, type VNode } from 'snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
+import { onInsert } from 'lib/view';
 
 import type CoordinateTrainerCtrl from './ctrl';
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         pubsub.on('board.change', (is3d: boolean) => {
           ctrl.chessground!.state.addPieceZIndex = is3d;
           ctrl.chessground!.redrawAll();
         });
-      },
+      }),
       destroy: () => ctrl.chessground!.destroy(),
     },
   });

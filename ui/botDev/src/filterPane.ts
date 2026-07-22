@@ -159,9 +159,9 @@ export class FilterPane extends Pane {
         datasets: [
           {
             data: asData(f, this.viewing),
-            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            backgroundColor: 'rgb(75 192 192 / 0.6)',
             pointRadius: 4,
-            pointHoverBackgroundColor: 'rgba(220, 105, 105, 0.6)',
+            pointHoverBackgroundColor: 'rgb(220 105 105 / 0.6)',
           },
         ],
       },

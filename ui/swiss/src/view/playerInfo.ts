@@ -63,7 +63,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             {
               key: round,
               attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
               hl('th', round),

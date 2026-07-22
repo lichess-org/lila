@@ -3,6 +3,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { isSafari } from 'lib/device';
 import { Coords } from 'lib/prefs';
+import { onInsert } from 'lib/view';
 
 import type { RunCtrl } from './run/runCtrl';
 
@@ -20,11 +21,10 @@ export type CgMove = {
 export default function (ctrl: RunCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         el.addEventListener('contextmenu', e => e.preventDefault());
         ctrl.setChessground(makeChessground(el, makeConfig(ctrl)));
-      },
+      }),
       destroy: () => ctrl.chessground?.destroy(),
     },
   });

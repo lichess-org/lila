@@ -927,7 +927,6 @@
   <string name="gameInProgress">Դուք խաղի մեջ եք %s-ի հետ։</string>
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
-  <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
   <string name="since">Սկսած</string>
   <string name="until">Մինչև</string>
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>

@@ -4,11 +4,14 @@ import { embedChessground } from './asset';
 
 // https://lichess.org/training/frame
 window.onload = async () => {
-  const el = document.querySelector('#daily-puzzle') as HTMLElement,
-    board = el.querySelector('.mini-board') as HTMLAnchorElement,
-    [fen, orientation, lm] = board.getAttribute('data-state')!.split(',');
+  const el = document.querySelector<HTMLElement>('#daily-puzzle');
+  const board = el?.querySelector<HTMLAnchorElement>('.mini-board');
 
-  (await embedChessground()).Chessground(board.firstChild as HTMLElement, {
+  if (!el || !board) return;
+
+  const [fen, orientation, lm] = board.getAttribute('data-state')?.split(',') ?? [];
+
+  (await embedChessground()).Chessground(board.firstChild, {
     coordinates: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,
@@ -18,9 +21,11 @@ window.onload = async () => {
   });
 
   const resize = () => {
-    if (el.offsetHeight > window.innerHeight)
-      el.style.maxWidth =
-        window.innerHeight - (el.querySelector('span.text') as HTMLElement).offsetHeight + 'px';
+    const windowHeight = window.innerHeight;
+    if (el.offsetHeight > windowHeight) {
+      const textHeightOffset = el.querySelector<HTMLElement>('span.text')?.offsetHeight ?? 0;
+      el.style.maxWidth = windowHeight - textHeightOffset + 'px';
+    }
   };
   resize();
   window.addEventListener('resize', resize);

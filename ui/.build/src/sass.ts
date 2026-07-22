@@ -3,9 +3,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
-import clr from 'tinycolor2';
 
-import { clamp, isEquivalent } from './algo.ts';
 import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
@@ -13,8 +11,6 @@ import { glob, readable } from './parse.ts';
 import { makeTask, runTask } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
-const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
-const themeColorMap = new Map<string, Map<string, clr.Instance>>();
 
 let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
 
@@ -23,8 +19,6 @@ export function stopSass(): void {
   sassPs?.kill();
   sassPs = undefined;
   importMap.clear();
-  colorMixMap.clear();
-  themeColorMap.clear();
 }
 
 export async function sass(): Promise<string | undefined> {
@@ -68,14 +62,10 @@ export async function sass(): Promise<string | undefined> {
       remaining = remaining
         ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
         : concreteAll;
-      if (themesTouched) await parseThemeColorDefs();
-
-      const oldMixes = Object.fromEntries(colorMixMap); // no clone needed, we don't modify color objects
       const processed = new Set<string>();
       await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
 
-      if (themesTouched || !isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
-        await buildColorMixes();
+      if (themesTouched) {
         await buildColorWrap();
         for (const src of await glob('lib.theme.*.scss', { cwd: 'ui/lib/css/build' }))
           remaining.add(relative(env.rootDir, src));
@@ -139,14 +129,6 @@ async function parseScss(src: string, processed: Set<string>) {
 
   const text = await fs.promises.readFile(src, 'utf8');
 
-  for (const [, mixName] of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
-    try {
-      colorMixMap.set(mixName, parseColor(mixName));
-    } catch (e) {
-      throw `${e} in '${c.cyan(src)}'`;
-    }
-  }
-
   for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
     const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
 
@@ -173,78 +155,16 @@ async function parseScss(src: string, processed: Set<string>) {
   }
 }
 
-// collect mixable scss color definitions from theme files
-async function parseThemeColorDefs() {
-  async function loadThemeColors(themeFile: string) {
-    const text = await fs.promises.readFile(themeFile, 'utf8');
-    const colorMap = new Map<string, clr.Instance>();
-    for (const [, color, colorVal] of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-      colorMap.set(color, clr(colorVal.trim()));
-    }
-    return colorMap;
-  }
-
-  const defaultThemeColors = await loadThemeColors(join(env.themeDir, '_theme.default.scss'));
-  themeColorMap.set('default', defaultThemeColors);
-
-  const themeFiles = await glob(join(env.themeDir, '_*.scss'), { absolute: false });
-  for (const themeFile of themeFiles ?? []) {
-    const theme = /_theme\.([^/]+)\.scss/.exec(themeFile)?.[1];
-    if (!theme || theme === 'default') continue;
-
-    const colorDefMap = await loadThemeColors(themeFile);
-
-    for (const [color, colorVal] of defaultThemeColors) {
-      if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
-    }
-    themeColorMap.set(theme, colorDefMap);
-  }
-}
-
-// given color definitions and mix instructions, build mixed color css variables in themed scss mixins
-async function buildColorMixes() {
-  const out = fs.createWriteStream(join(env.themeGenDir, '_mix.scss'));
-  for (const theme of themeColorMap.keys()) {
-    const colorMap = themeColorMap.get(theme)!;
-    out.write(`@mixin ${theme}-mix {\n`);
-    const colors: string[] = [];
-    for (const [colorMix, mix] of colorMixMap) {
-      const c1 = colorMap.get(mix.c1)?.clone() ?? new clr(mix.c1);
-      const c2 = (mix.c2 ? colorMap.get(mix.c2) : undefined) ?? new clr(mix.c2);
-      const mixed = (() => {
-        switch (mix.op) {
-          case 'mix':
-            return clr.mix(c2, c1, clamp(mix.val, { min: 0, max: 100 }));
-          case 'lighten':
-            return c1.lighten(clamp(mix.val, { min: 0, max: 100 }));
-          case 'darken':
-            return c1.darken(clamp(mix.val, { min: 0, max: 100 }));
-          case 'alpha':
-            return c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }));
-          case 'fade':
-            return c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })));
-        }
-      })();
-      if (mixed) colors.push(`  --m-${colorMix}: ${mixed.toHslString()};`);
-      else env.log(`${errorMark} Invalid mix op: '${c.magenta(colorMix)}'`, 'sass');
-    }
-    out.write(colors.sort().join('\n') + '\n}\n\n');
-  }
-  out.end();
-}
-
 // create scss variables for all css color variables as $c-color: var(--c-color) in _wrap.scss
 async function buildColorWrap() {
   const cssVars = new Set<string>();
-  for (const color of colorMixMap.keys()) cssVars.add(`m-${color}`);
 
   for (const file of await glob(join(env.themeDir, '_*.scss'))) {
     if (!file.includes('theme.')) continue;
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (!line.includes('--')) continue;
+      if (!line.includes('--c-')) continue;
       const commentIndex = line.indexOf('//');
       if (commentIndex !== -1 && commentIndex < line.indexOf(':')) continue;
-      if (!/--[cm]/.test(line)) continue;
       cssVars.add(line.split(':')[0].trim().replace('--', ''));
     }
   }
@@ -260,23 +180,6 @@ async function buildColorWrap() {
     if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // dont touch wrap if same
   }
   return fs.promises.writeFile(wrapFile, scssWrap);
-}
-
-function isValidColor(color: string) {
-  return themeColorMap.get('default')?.has(color) || clr(color).isValid();
-}
-
-function parseColor(colorMix: string) {
-  const [clrs, opval] = colorMix.split('--');
-  const [c1, c2] = clrs.split('_');
-  const [op, valstr] = opval.split('-');
-  const val = parseInt(valstr);
-  if (!isValidColor(c1) || (op === 'mix' && !isValidColor(c2)))
-    throw `Invalid color value: '${c.magenta(colorMix)}'`;
-  if (!['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op))
-    throw `Invalid color operation: '${c.magenta(op)}'`;
-  if (val < 0 || val > 100) throw `Invalid op parameter: '${c.magenta(String(val))}'`;
-  return { c1, c2, op, val };
 }
 
 async function hashCss(src: string, replacements: Record<string, string> | undefined) {

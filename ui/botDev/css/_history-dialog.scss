@@ -46,11 +46,11 @@
     }
 
     &:hover {
-      background-color: $m-primary--alpha-30;
+      background-color: rgb(from $c-primary r g b / 0.3);
     }
 
     &.selected {
-      background-color: $m-clas--alpha-30;
+      background-color: rgb(from $c-clas r g b / 0.3);
     }
   }
 
@@ -75,11 +75,11 @@
     }
 
     .selected {
-      background-color: $m-clas--alpha-30;
+      background-color: rgb(from $c-clas r g b / 0.3);
     }
 
     .hovered {
-      background-color: $m-primary--alpha-30;
+      background-color: rgb(from $c-primary r g b / 0.3);
     }
 
     .selected + .hovered,

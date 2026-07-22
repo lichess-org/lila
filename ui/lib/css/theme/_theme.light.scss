@@ -1,65 +1,63 @@
 @import 'theme.default';
 
-@function clear($color, $weight: 17%) {
-  @return mix(#000, $color, $weight);
-}
-
-@function dim($color, $weight: 17%) {
-  @return mix(#fff, $color, $weight);
-}
-
-$c-bg: hsl(0, 0%, 100%); // $c-bg-high
-$c-bg-page: hsl(37, 10%, 92%);
-$c-bg-low: hsl(0, 0%, 89%);
-$c-bg-mid: hsl(37, 7%, 97%);
-$c-bg-zebra: hsl(37, 12%, 96.5%);
-$c-bg-zebra2: hsl(37, 12%, 92%);
-$c-bg-popup: hsl(0, 0%, 100%);
-$c-bg-opaque: hsl(0, 0%, 100%);
-$c-body-gradient: hsl(37, 12%, 84%);
-$c-font: hsl(0, 0%, 30%);
-$c-font-dim: hsl(0, 0%, 47%);
-$c-primary: hsl(209, 77%, 46%);
-$c-brag: hsl(37, 74%, 48%);
-$c-shade: hsl(0, 0%, 84%);
-$c-inaccuracy: hsl(202, 78%, 40%);
-$c-mistake: hsl(41, 100%, 35%);
-$c-blunder: hsl(0, 68%, 50%);
-$c-brilliant: hsl(129, 71%, 30%);
-$c-interesting: hsl(307, 80%, 59%);
-$c-future: hsl(274, 65%, 70%);
-$c-paper: hsl(60, 56%, 86%);
-$c-border: hsl(0, 0%, 85%);
-$c-dimmer: #fff;
-$c-clearer: #000;
-$patron-colors: $patron-colors-light;
-
 html.light {
   @include shared-color-defs;
 
-  --c-bg-input: #{change-color($c-bg-page, $lightness: 98%)};
-  --c-bg-variation: #{$c-bg-zebra2};
-  --c-bg-header-dropdown: #{$c-bg};
-  --c-header-dropdown: #{$c-font};
-  --c-page-input: #{$c-bg-low};
-  --c-metal-top: hsl(0, 0%, 96%);
-  --c-metal-bottom: hsl(0, 0%, 93%);
-  --c-metal-top-hover: hsl(0, 0%, 98%);
-  --c-metal-bottom-hover: hsl(0, 0%, 95%);
-  --c-font-dim: #{$c-font-dim};
-  --c-font-dimmer: #{change-color($c-font, $lightness: 70%)};
-  --c-font-clear: #{change-color($c-font, $lightness: 12%)};
-  --c-font-clearer: #{change-color($c-font, $lightness: 0%)};
-  --c-font-page: #{change-color($c-font, $lightness: 37%)};
-  --c-font-shadow: #fff;
-  --c-primary-dim: #{dim($c-primary)};
-  --c-link-hover: #{clear(saturate($c-primary, 100%), 35%)};
-  --c-chat-host-bg: rgba(125, 170, 73, 0.4);
-  --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
-  --c-fancy: hsl(294, 61%, 62%);
-  --c-border-page: hsl(0, 0%, 80%);
-  --c-border-tour: #{mix(hsl(0, 0%, 80%), $c-bg-page, 50)};
-  --c-border-light: hsl(0, 0%, 80%);
-
-  @include light-mix;
+  --c-bg: hsl(0 0% 100%);
+  --c-bg-page: hsl(var(---site-hue) 10% 92%);
+  --c-bg-low: hsl(0 0% 89%);
+  --c-bg-mid: hsl(var(---site-hue) 7% 97%);
+  --c-bg-zebra: hsl(var(---site-hue) 12% 96.5%);
+  --c-bg-zebra2: hsl(var(---site-hue) 12% 92%);
+  --c-bg-popup: hsl(0 0% 100%);
+  --c-bg-opaque: hsl(0 0% 100%);
+  --c-body-gradient: hsl(var(---site-hue) 12% 84%);
+  --c-font: hsl(0 0% 30%);
+  --c-font-dim: hsl(0 0% 47%);
+  --c-primary: hsl(209 77% 46%);
+  --c-brag: hsl(var(---site-hue) 74% 48%);
+  --c-brag-hover: hsl(from var(--c-brag) h 100 30);
+  --c-shade: hsl(0 0% 84%);
+  --c-inaccuracy: hsl(202 78% 40%);
+  --c-mistake: hsl(41 100% 35%);
+  --c-blunder: hsl(0 68% 50%);
+  --c-brilliant: hsl(129 71% 30%);
+  --c-interesting: hsl(307 80% 59%);
+  --c-future: hsl(274 65% 70%);
+  --c-paper: hsl(60 56% 86%);
+  --c-border: hsl(0 0% 85%);
+  --c-dimmer: white;
+  --c-clearer: black;
+  --c-bg-input: hsl(from var(--c-bg-page) h s 98);
+  --c-bg-variation: var(--c-bg-zebra2);
+  --c-bg-header-dropdown: var(--c-bg);
+  --c-header-dropdown: var(--c-font);
+  --c-page-input: var(--c-bg-low);
+  --c-metal-top: hsl(0 0% 96%);
+  --c-metal-bottom: hsl(0 0% 93%);
+  --c-metal-top-hover: hsl(0 0% 98%);
+  --c-metal-bottom-hover: hsl(0 0% 95%);
+  --c-font-dimmer: hsl(from var(--c-font) h s 70);
+  --c-font-clear: hsl(from var(--c-font) h s 12);
+  --c-font-clearer: black;
+  --c-font-page: hsl(from var(--c-font) h s 37);
+  --c-font-shadow: white;
+  --c-primary-dim: color-mix(in oklab, var(--c-dimmer) 17%, var(--c-primary));
+  --c-link-hover: color-mix(in oklab, var(--c-clearer) 35%, hsl(from var(--c-primary) h 100 l));
+  --c-chat-host-bg: rgb(125 170 73 / 0.4);
+  --c-chat-mention-bg: rgb(161 194 124 / 0.4);
+  --c-fancy: hsl(294 61% 62%);
+  --c-border-page: hsl(0 0% 80%);
+  --c-border-tour: color-mix(in oklab, hsl(0 0% 80%) 50%, var(--c-bg-page));
+  --c-border-light: hsl(0 0% 80%);
+  --c-patron-1: hsl(90 60% 43%);
+  --c-patron-2: hsl(120 52% 52%);
+  --c-patron-3: hsl(162.9 65% 44%);
+  --c-patron-4: hsl(190 57% 48%);
+  --c-patron-5: hsl(207 78% 49%);
+  --c-patron-6: hsl(220 60% 57%);
+  --c-patron-7: hsl(270 62% 67%);
+  --c-patron-8: hsl(310 56% 57%);
+  --c-patron-9: hsl(0 52% 60%);
+  --c-patron-10: hsl(37 74% 43%);
 }

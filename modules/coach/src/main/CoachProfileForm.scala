@@ -2,9 +2,8 @@ package lila.coach
 
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.libs.json.{ JsSuccess, Json, Reads }
 
-import lila.common.Form.given
+import lila.common.Form.{ tagifyValues, given }
 import lila.core.data.RichText
 import scalalib.model.LangTag
 
@@ -15,7 +14,8 @@ object CoachProfileForm:
       mapping(
         "listed" -> boolean,
         "available" -> boolean,
-        "languages" -> nonEmptyText,
+        "languages" -> tagifyValues.field[String, List[LangTag]]("code"): codes =>
+          LangTag.from(codes.take(10)).flatMap(_.toLang).map(_.toTag),
         "profile" -> mapping(
           "headline" -> optional(text(minLength = 5, maxLength = 170)),
           "hourlyRate" -> optional(text(minLength = 3, maxLength = 140)),
@@ -30,22 +30,18 @@ object CoachProfileForm:
           "publicStudies" -> optional(nonEmptyText)
         )(CoachProfile.apply)(unapply)
       )(Data.apply)(unapply)
-    ).fill(
+    ).fill:
       Data(
         listed = coach.listed.value,
         available = coach.available.value,
-        languages = "",
+        languages = Nil,
         profile = coach.profile
       )
-    )
-
-  private case class TagifyLang(code: String)
-  private given Reads[TagifyLang] = Json.reads
 
   case class Data(
       listed: Boolean,
       available: Boolean,
-      languages: String,
+      languages: List[LangTag],
       profile: CoachProfile
   ):
 
@@ -54,10 +50,6 @@ object CoachProfileForm:
         listed = Coach.Listed(listed),
         available = Coach.Available(available),
         profile = profile,
-        languages = Json.parse(languages).validate[List[TagifyLang]] match
-          case JsSuccess(langs, _) =>
-            LangTag.from(langs.take(10).map(_.code)).flatMap(_.toLang).map(_.toTag).distinct
-          case _ => Nil
-        ,
+        languages = languages,
         updatedAt = nowInstant
       )

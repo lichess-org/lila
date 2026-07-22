@@ -88,4 +88,5 @@
   <string name="boardSettings">الرقعة</string>
   <string name="analysisSettings">إعدادات التحليل</string>
   <string name="maneuverArrowsHelp">إظهار سلسلة النقلات التي يقترحها المحرك لقطعة واحدة</string>
+  <string name="hoverOverSettingLabelsForHelp">مرّر المؤشر فوق تسميات الإعدادات لعرض تلميحات المساعدة</string>
 </resources>

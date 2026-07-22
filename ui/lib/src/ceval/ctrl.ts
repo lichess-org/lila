@@ -62,7 +62,7 @@ export class CevalCtrl {
 
   constructor(public opts: CevalOpts) {
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp('ceval.engine', this.engines.defaultId);
+    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, this.engines.defaultId);
     this.init();
 
     // another tab has started ceval, we should stop:
@@ -86,12 +86,12 @@ export class CevalCtrl {
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
     this.reset();
+    this.analysable = Boolean(this.engines.getEngine({ variant: this.opts.variant.key }));
     this.rules = lichessRules(this.opts.variant.key);
-    this.analysable =
-      !this.opts.initialFen ||
-      parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup)).isOk;
+    if (this.analysable && this.opts.initialFen)
+      this.analysable = parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x)).isOk;
     this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
-    if (this.worker?.getInfo().id !== this.engines.active().id) this.unload();
+    if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
   }
 
   available(): boolean {
@@ -120,19 +120,21 @@ export class CevalCtrl {
 
   setThreads = (threads: number): void => storage.set('ceval.threads', threads.toString());
 
-  info(custom?: CustomSearch): SearchInfo {
+  info(custom?: CustomSearch): SearchInfo | undefined {
     const maybeSearch = custom?.search?.();
-    const maxTime = Number(maybeSearch) || this.engines.active().maxMovetime;
+    const active = this.engines.active();
+    if (!active) return undefined;
+    const maxTime = Number(maybeSearch) || active.maxMovetime;
     return {
       threads: clamp(
         custom?.engine?.threads ?? (Number(storage.get('ceval.threads')) || this.recommendedThreads),
-        { min: this.engines.active().minThreads, max: this.maxThreads },
+        { min: active.minThreads, max: this.maxThreads },
       ),
       hashSize: clamp(custom?.engine?.hashSize ?? Number(storage.get('ceval.hash-size')), {
         min: 16,
-        max: this.engines.active().maxHash,
+        max: active.maxHash,
       }),
-      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || this.engines.active(),
+      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || active,
       search:
         typeof maybeSearch === 'object'
           ? maybeSearch
@@ -144,14 +146,14 @@ export class CevalCtrl {
   }
 
   get search(): Search {
-    return this.info(this.opts.custom).search;
+    return this.info(this.opts.custom)?.search ?? { by: { movetime: 0 }, multiPv: 0 };
   }
 
   get recommendedThreads(): number {
     return (
       this.engines.external?.maxThreads ??
       clamp(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
-        min: this.engines.active().minThreads ?? 1,
+        min: this.engines.active()?.minThreads ?? 1,
         max: this.maxThreads,
       })
     );
@@ -161,15 +163,15 @@ export class CevalCtrl {
     return (
       this.engines.external?.maxThreads ??
       (fewerCores()
-        ? Math.min(this.engines.active().maxThreads ?? 32, navigator.hardwareConcurrency)
-        : (this.engines.active().maxThreads ?? 32))
+        ? Math.min(this.engines.active()?.maxThreads ?? 32, navigator.hardwareConcurrency)
+        : (this.engines.active()?.maxThreads ?? 32))
     );
   }
 
   get isInfinite(): boolean {
     return (
       this.storedMovetime() === Number.POSITIVE_INFINITY &&
-      !Number.isFinite(this.engines.active().maxMovetime)
+      !Number.isFinite(this.engines.active()?.maxMovetime)
     );
   }
 
@@ -186,17 +188,17 @@ export class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return !!this.engines.active().capabilities?.includes('cloudEval');
+    return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
   }
 
   get wasUnloaded(): boolean {
-    return !this.worker && !!this.lastStarted; // another tab started ceval
+    return !this.worker && Boolean(this.lastStarted); // another tab started ceval
   }
 
   get showingCloud(): boolean {
     if (!this.lastStarted) return false;
     const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
-    return !!curr.ceval?.cloud;
+    return Boolean(curr.ceval?.cloud);
   }
 
   setHashSize = (hash: number): void => storage.set('ceval.hash-size', hash.toString());
@@ -214,7 +216,7 @@ export class CevalCtrl {
 
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
-    showEngineError(this.engines.active().name, msg);
+    showEngineError(String(this.engines.active()?.name), msg);
     this.reset();
     this.unload();
   }
@@ -222,7 +224,7 @@ export class CevalCtrl {
   private readonly doStart = (s: Started) => {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
-    const { search, threads, hashSize } = this.info(this.opts.custom);
+    const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
     const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
     if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
       return;
@@ -260,8 +262,8 @@ export class CevalCtrl {
       }
     }
 
-    if (this.worker?.getInfo().id !== this.engines.active().id) this.unload();
-    this.worker ??= this.engines.makeEngine({ id: this.engines.active().id, variant: this.opts.variant.key });
+    if (this.worker?.getInfo().id !== engine.id) this.unload();
+    this.worker ??= this.engines.makeEngine({ id: engine.id, variant: this.opts.variant.key });
     this.worker.start(work);
   };
 

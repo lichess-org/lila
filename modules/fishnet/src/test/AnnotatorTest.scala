@@ -2,6 +2,7 @@ package lila.fishnet
 import chess.format.FullFen
 import chess.format.pgn.{ Parser, PgnStr, SanStr, Tags }
 import chess.variant.{ Standard, Variant }
+import chess.opening.OpeningDb
 import chess.{ ByColor, Ply }
 import play.api.libs.json.Json
 
@@ -53,7 +54,8 @@ object AnnotatorTest:
       val (game, moves) = AnnotatorTest.gameWithMoves(sans, fen, variant)
       val analysis = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
       val p1 = annotator.addEvals(dumped, analysis)
-      val p2 = annotator(p1, makeGame(game), analysis.some).copy(tags = Tags.empty)
+      val opening = OpeningDb.search(sans)
+      val p2 = annotator(p1, makeGame(game), analysis.some, opening).copy(tags = Tags.empty)
       val output = annotator.toPgnString(p2)
       (output, expected)
 
