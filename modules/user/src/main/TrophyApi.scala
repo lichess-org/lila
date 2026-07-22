@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import lila.core.perm.Granter
+import lila.core.perm.{ Granter, Permission }
 
 final class TrophyApi(
     coll: Coll,
@@ -40,61 +40,15 @@ final class TrophyApi(
       coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User): List[Trophy] =
+    def grant(perm: Permission.Selector, kind: String): Option[Trophy] =
+      Granter.ofUser(perm)(user).option:
+        Trophy(_id = "", user = user.id, kind = kindCache.sync(kind), date = nowInstant, url = none)
     List(
-      Granter
-        .ofUser(_.PublicMod)(user)
-        .option:
-          Trophy(
-            _id = "",
-            user = user.id,
-            kind = kindCache.sync(TrophyKind.moderator),
-            date = nowInstant,
-            url = none
-          )
-      ,
-      Granter
-        .ofUser(_.Tech)(user)
-        .option:
-          Trophy(
-            _id = "",
-            user = user.id,
-            kind = kindCache.sync(TrophyKind.developer),
-            date = nowInstant,
-            url = none
-          )
-      ,
-      Granter
-        .ofUser(_.Verified)(user)
-        .option:
-          Trophy(
-            _id = "",
-            user = user.id,
-            kind = kindCache.sync(TrophyKind.verified),
-            date = nowInstant,
-            url = none
-          )
-      ,
-      Granter
-        .ofUser(_.ContentTeam)(user)
-        .option:
-          Trophy(
-            _id = "",
-            user = user.id,
-            kind = kindCache.sync(TrophyKind.contentTeam),
-            date = nowInstant,
-            url = none
-          )
-      ,
-      Granter
-        .ofUser(_.BroadcastTeam)(user)
-        .option:
-          Trophy(
-            _id = "",
-            user = user.id,
-            kind = kindCache.sync(TrophyKind.broadcastTeam),
-            date = nowInstant,
-            url = none
-          )
+      grant(_.PublicMod, TrophyKind.moderator),
+      grant(_.Tech, TrophyKind.developer),
+      grant(_.Verified, TrophyKind.verified),
+      grant(_.ContentTeam, TrophyKind.contentTeam),
+      grant(_.BroadcastTeam, TrophyKind.broadcastTeam)
     ).flatten
 
   def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =

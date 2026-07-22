@@ -308,8 +308,10 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   font-family: lichess;
   text-align: center;
+  line-height: 60px;
 }
 
 .shield-trophy {
@@ -319,7 +321,6 @@
   line-height: 60px;
   color: #333 !important;
   text-shadow: 0 0 6px #fff;
-  margin-top: -20px;
   filter: drop-shadow(0 0 6px $c-brag);
 }
 
@@ -329,5 +330,4 @@
   line-height: 68px;
   color: #fff !important;
   text-shadow: 0 0 4px #444;
-  margin-top: -18px;
 }
