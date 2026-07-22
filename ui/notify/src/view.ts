@@ -1,6 +1,6 @@
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon } from 'lib/view';
+import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon, onInsert } from 'lib/view';
 
 import type { Ctrl, NotifyData, Notification } from './interfaces';
 import makeRenderers from './renderers';
@@ -63,11 +63,9 @@ function asHtml(n: Notification): VNode | undefined {
 }
 
 function clickHook(f: () => void) {
-  return {
-    insert: (vnode: VNode) => {
-      (vnode.elm as HTMLElement).addEventListener('click', f);
-    },
-  };
+  return onInsert(el => {
+    el.addEventListener('click', f);
+  });
 }
 
 const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm as HTMLElement);
@@ -79,7 +77,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
       class: { notifications: true, scrolling },
       hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
-    d.pager.currentPageResults.map(n => asHtml(n)) as VNode[],
+    d.pager.currentPageResults.map(asHtml),
   );
 }
 

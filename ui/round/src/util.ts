@@ -1,13 +1,13 @@
 import type { EncodedDests, RoundData, Step } from './interfaces';
 
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
-  const dec = new Map();
+  const dec: Dests = new Map();
   if (!dests) return dec;
   if (typeof dests === 'string')
     for (const ds of dests.split(' ')) {
-      dec.set(ds.slice(0, 2), ds.slice(2).match(/.{2}/g) as Key[]);
+      dec.set(ds.slice(0, 2) as Key, (ds.slice(2).match(/.{2}/g) || []) as Key[]);
     }
-  else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Key[]);
+  else for (const k in dests) dec.set(k as Key, (dests[k].match(/.{2}/g) || []) as Key[]);
   return dec;
 }
 

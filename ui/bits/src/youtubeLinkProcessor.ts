@@ -134,7 +134,7 @@ function parseVideoPath(path: string): {
 } {
   const [type, id] = getPathSegments(path);
 
-  const videoType = supportedVideoTypes.includes(type as VideoType) ? (type as VideoType) : undefined;
+  const videoType = supportedVideoTypes.includes(type) ? (type as VideoType) : undefined;
 
   const videoId = isVideoIdValid(id) ? id : undefined;
 

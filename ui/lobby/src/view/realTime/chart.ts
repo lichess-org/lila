@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { bind } from 'lib/view';
+import { bind, onInsert } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import type { Hook } from '@/interfaces';
@@ -45,8 +45,8 @@ function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, numbe
     key: hook.id,
     attrs: { 'data-icon': perfIcons[hook.perf], style: `bottom:${percents(bottom)};left:${percents(left)}` },
     hook: {
-      insert(vnode) {
-        $(vnode.elm as HTMLElement).powerTip({
+      ...onInsert(el => {
+        $(el).powerTip({
           placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
           closeDelay: 200,
           defaultSize: [120, 80],
@@ -58,11 +58,11 @@ function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, numbe
               .on('click', () => ctrl.clickHook(hook.id));
           },
         });
-        setTimeout(function () {
-          (vnode.elm as HTMLElement).classList.remove('new');
+        setTimeout(() => {
+          el.classList.remove('new');
         }, 20);
-      },
-      destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
+      }),
+      destroy: vnode => $.powerTip.destroy(vnode.elm),
     },
   });
 }
