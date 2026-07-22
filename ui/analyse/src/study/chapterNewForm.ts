@@ -59,7 +59,7 @@ export class StudyChapterNewForm {
   isDefaultName = toggle(true);
   orientation: Color | 'automatic';
   chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
-  selectedVariant: Prop<VariantKey> = prop('standard' as VariantKey);
+  selectedVariant: Prop<VariantKey> = prop('standard');
 
   constructor(
     private readonly send: StudySocketSend,

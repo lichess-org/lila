@@ -61,6 +61,8 @@ case class Appeal(
 
   def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
 
+  def participated(modId: UserId) = msgs.exists(_.by.is(modId))
+
   def isLast(msg: AppealMsg) = msgs.lastOption.contains(msg)
 
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"

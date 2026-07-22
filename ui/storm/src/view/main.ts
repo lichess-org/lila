@@ -62,7 +62,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => {
 };
 
 const renderSolved = ({ countWins }: StormCtrl): VNode =>
-  hl('div.puz-side__top.puz-side__solved', [hl('div.puz-side__solved__text', `${countWins()}`)]);
+  hl('div.puz-side__top.puz-side__solved', [hl('div.puz-side__solved__text', countWins())]);
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   hl('div.puz-side__control', [

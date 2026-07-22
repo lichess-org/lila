@@ -163,6 +163,7 @@ final class UserAnalysis(
     import lila.round.Forecast
     Found(env.round.proxyRepo.pov(fullId)): pov =>
       if isTheft(pov) then theftResponse
+      else if !Forecast.isValid(ctx.body.body) then BadRequest
       else
         ctx.body.body
           .validate[Forecast.Steps]
@@ -189,6 +190,7 @@ final class UserAnalysis(
       import lila.round.Forecast
       Found(env.round.proxyRepo.pov(fullId)): pov =>
         if isTheft(pov) then theftResponse
+        else if !Forecast.isValid(ctx.body.body) then BadRequest
         else
           ctx.body.body
             .validate[Forecast.Steps]
