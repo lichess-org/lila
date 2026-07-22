@@ -10,6 +10,7 @@ type VNodeDataExtended = VNodeData & {
 type Selector = `.${string}` | `#${string}` | `[${string}`;
 type TagData = VNodeDataExtended | null;
 type TagFunction = {
+  (): VNode;
   (selector: Selector): VNode;
   (data: TagData): VNode;
   (children: VNodeChildren): VNode;
@@ -75,6 +76,7 @@ function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData
 }
 
 function makeTag(tag: keyof HTMLElementTagNameMap, defaultData?: VNodeDataExtended): TagFunction {
+  function tagFn(): VNode;
   function tagFn(selector: Selector): VNode;
   function tagFn(data: TagData): VNode;
   function tagFn(children: VNodeChildren): VNode;
@@ -99,9 +101,11 @@ function makeTag(tag: keyof HTMLElementTagNameMap, defaultData?: VNodeDataExtend
 
 export const div: TagFunction = makeTag('div');
 export const p: TagFunction = makeTag('p');
-export const a: TagFunction = makeTag('a');
+export const a: (href: string) => TagFunction = (href: string) => makeTag('a', { attrs: { href } });
+export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
-export const img: TagFunction = makeTag('img', { alt: '' });
+export const img: (src: string, alt: string) => TagFunction = (src: string, alt: string) =>
+  makeTag('img', { alt, src });
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');

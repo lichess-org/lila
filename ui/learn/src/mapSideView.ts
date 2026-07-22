@@ -1,4 +1,4 @@
-import { a, bind, confirm, div, h1, h2, img, span } from 'lib/view';
+import { a, bind, button, confirm, div, h1, h2, img, span } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
@@ -11,13 +11,12 @@ export function mapSideView(ctrl: LearnCtrl) {
   else return renderHome(ctrl.sideCtrl);
 }
 
+const helmImg = img(assetUrl + 'images/learn/brutal-helm.svg', '');
+
 function renderInStage(ctrl: SideCtrl) {
   return div('.learn__side-map', [
     div('.stages', [
-      a('.back', { href: BASE_LEARN_PATH }, [
-        img({ src: assetUrl + 'images/learn/brutal-helm.svg' }),
-        i18n.site.menu,
-      ]),
+      a(BASE_LEARN_PATH)('.back', [helmImg(), i18n.site.menu]),
       ...categs.map((categ, categId) =>
         div('.categ', { class: { active: categId === ctrl.categId() } }, [
           h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
@@ -26,7 +25,7 @@ function renderInStage(ctrl: SideCtrl) {
             categ.stages.map(s => {
               const result = ctrl.data.stages[s.key];
               const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-              return a(`.stage.${status}`, { href: hashHref(s.id) }, [img({ src: s.image }), span(s.title)]);
+              return a(hashHref(s.id))(`.stage.${status}`, [img(s.image, '')(), span(s.title)]);
             }),
           ),
         ]),
@@ -39,7 +38,7 @@ function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return div('.learn__side-home', [
     div('.learn__side-home__header', [
-      img('.decoration', { src: assetUrl + 'images/learn/brutal-helm.svg' }),
+      helmImg('.decoration'),
       div('.learn__side-home__title', [h1(i18n.learn.learnChess), h2(i18n.learn.byPlaying)]),
     ]),
     div('.progress', [
@@ -49,7 +48,7 @@ function renderHome(ctrl: SideCtrl) {
     progress > 0
       ? div(
           '.actions',
-          a(
+          button(
             '.confirm',
             {
               hook: bind('click', async () => {
