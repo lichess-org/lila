@@ -501,7 +501,7 @@ object Pref:
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
-    removeOutdatedLocalMoves = true,
+    removeOutdatedLocalMoves = false,
     tags = Map.empty
   )
 
