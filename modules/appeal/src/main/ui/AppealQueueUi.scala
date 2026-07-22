@@ -13,7 +13,7 @@ final class AppealQueueUi(helpers: Helpers):
       inquiries: Map[UserId, ModId],
       topic: Option[AppealTopic],
       markedByMe: Set[UserId]
-  )(using Context, Me) =
+  )(using Context)(using me: Me) =
     table(cls := "slist slist-pad see appeal-queue")(
       thead(
         tr(
@@ -24,11 +24,15 @@ final class AppealQueueUi(helpers: Helpers):
       ),
       tbody(
         appeals.map { appeal =>
-          tr(cls := List("new" -> appeal.isUnread))(
+          val mine = appeal.modIds.contains(me.userId)
+          tr(cls := List("new" -> appeal.isUnread, "mine" -> mine))(
             td(
               userIdLink(appeal.user.some, params = "?mod"),
               br,
               span(cls := "appeal-topic")(appeal.topic.key),
+              mine.option(
+                span(dataIcon := Icon.BubbleSpeech, cls := "participated text")("Participated")
+              ),
               markedByMe
                 .contains(appeal.user)
                 .option(
