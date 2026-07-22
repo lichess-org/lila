@@ -24,7 +24,7 @@ final class AppealQueueUi(helpers: Helpers):
       ),
       tbody(
         appeals.map { appeal =>
-          val mine = appeal.modIds.contains(me.userId)
+          val mine = appeal.participated(me.userId)
           tr(cls := List("new" -> appeal.isUnread, "mine" -> mine))(
             td(
               userIdLink(appeal.user.some, params = "?mod"),
