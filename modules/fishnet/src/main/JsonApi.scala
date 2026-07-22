@@ -19,6 +19,8 @@ object JsonApi:
 
   object Request:
 
+    def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= 300)
+
     case class Fishnet(
         version: Client.Version,
         apikey: Client.Key

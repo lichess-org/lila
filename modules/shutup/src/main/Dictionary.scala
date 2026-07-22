@@ -316,7 +316,7 @@ batard
 connard
 cr[eé]tin
 encul[eé]r?
-fdp
+f[2d]p
 pd
 pute
 p[eé]d[eé]raste
@@ -330,6 +330,7 @@ angsthase
 arschloch
 bl(ö|oe|o)dmann?
 drecksa(u|ck)
+feigling
 fick(|er)
 fotze
 hurensohn
@@ -381,9 +382,8 @@ gas the
 g?kys
 gets? (bombed|shot)
 k y s
-ky5
 (l|1|ı|\|)<ys
-n[1i]g+er
+nig+er
 rap(ed?|e?ing)
 rope
 subhuman

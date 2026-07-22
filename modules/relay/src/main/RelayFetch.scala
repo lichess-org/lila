@@ -203,7 +203,6 @@ final private class RelayFetch(
     moves = true,
     tags = true,
     evals = false,
-    opening = none,
     literate = false,
     pgnInJson = false,
     delayMoves = true
@@ -254,7 +253,7 @@ final private class RelayFetch(
     upgraded <- gameProxy.upgradeIfPresent(dbGames)
     withFen <- gameRepo.withInitialFens(upgraded)
     pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
+    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, none, pgnFlags).map(_.render))
     games <- multiPgnToGames.future(MultiPgn(pgn))
   yield games
 

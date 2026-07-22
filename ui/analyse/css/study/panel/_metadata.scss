@@ -82,10 +82,13 @@
   }
 
   select {
-    cursor: pointer;
     border: none;
-    background: none;
-    padding: 0;
+    padding-block: 4px;
+    min-width: 120px;
+
+    @supports (appearance: base-select) {
+      padding-inline-end: 24px;
+    }
   }
 }
 

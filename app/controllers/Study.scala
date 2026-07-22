@@ -215,6 +215,7 @@ final class Study(
           chapter.root.fen.some,
           chapter.setup.orientation,
           owner = false,
+          opening = none,
           division = division
         )
       )

@@ -56,7 +56,10 @@ class AnalyserTest extends munit.FunSuite:
 
   test("find variants"):
     assertEquals(find("cunt kunt cunting kawa kunting"), List("cunt", "kunt", "cunting", "kunting"))
-    assertEquals(find("ass as ashole"), List("ass", "ashole"))
+    assertEquals(
+      find("@$$ as 4sh0l3 ky5 l0s3r n1g3r 53x"),
+      List("ass", "ashole", "kys", "loser", "niger", "sex")
+    )
 
   test("find plurals"):
     assertEquals(
@@ -93,6 +96,12 @@ class AnalyserTest extends munit.FunSuite:
 
   test("rat false positives"):
     assertEquals(find("test rat is rate some rates what rated"), List("rat"))
+
+  test("french inflection"):
+    assertEquals(find("f2p fdp"), List("f2p", "fdp"))
+
+  test("german inflection"):
+    assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
 
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))

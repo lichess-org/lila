@@ -73,11 +73,7 @@
 
   .column {
     justify-content: space-between;
-    flex: 40%;
-
-    @media (max-width: at-most(600px)) {
-      flex: 1;
-    }
+    flex: 1;
   }
 
   .setting {
@@ -111,7 +107,6 @@
     font-size: 1.2em;
     color: $c-font-dim;
     outline: none;
-    display: none;
   }
 
   .help-button::before {
@@ -135,21 +130,11 @@
         display: block;
       }
     }
-
-    @media (max-width: at-most(600px)) {
-      .help-button {
-        display: block;
-      }
-    }
   }
 
   @include mq-no-hover {
     legend {
       display: none;
-    }
-
-    .help-button {
-      display: block;
     }
   }
 }

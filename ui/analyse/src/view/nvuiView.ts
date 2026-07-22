@@ -146,13 +146,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl(
         'form#move-form',
         {
-          hook: {
-            insert(vnode) {
-              const $form = $(vnode.elm as HTMLFormElement),
-                $input = $form.find('.move').val('');
-              $form.on('submit', onSubmit(ctx, $input));
-            },
-          },
+          hook: onInsert<HTMLFormElement>(el => {
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
+            $form.on('submit', onSubmit(ctx, $input));
+          }),
         },
         [
           hl('label', [

@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { makeFen } from 'chessops/fen';
 import type { PgnError } from 'chessops/pgn';
@@ -348,7 +347,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
+      if (this.node.shapes) cg.setShapes(this.node.shapes.slice());
       cg.playPremove();
     });
     this.pluginUpdate(this.node.fen);
@@ -401,7 +400,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     this.setAutoShapes();
-    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice() as DrawShape[]);
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice());
     this.cgVersion.dom = this.cgVersion.js;
   };
 

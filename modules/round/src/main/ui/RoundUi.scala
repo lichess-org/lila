@@ -2,10 +2,10 @@ package lila.round
 package ui
 
 import chess.variant.{ Crazyhouse, Variant }
+import chess.Square
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
   import helpers.{ *, given }
@@ -98,16 +98,32 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
     s"$p1 $plays $p2 in a $rated $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 
   def povChessground(pov: Pov)(using ctx: Context): Frag =
-    chessground(
-      board = pov.game.position,
-      orient = pov.color,
-      lastMove = pov.game.history.lastMove
-        .map(_.origDest)
-        .so: (orig, dest) =>
-          List(orig, dest),
-      blindfold = pov.player.blindfold,
-      pref = ctx.pref
-    )
+    val orient = pov.color
+    val lastMove = pov.game.history.lastMove
+      .map(_.origDest)
+      .so: (orig, dest) =>
+        List(orig, dest)
+    chessgroundWrap:
+      cgBoard:
+        raw:
+          if ctx.pref.is3d then ""
+          else
+            def top(p: Square) = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
+            def left(p: Square) = orient.fold(p.file.value, 7 - p.file.value) * 12.5
+            val highlights = ctx.pref.highlight
+              .so(lastMove.distinct.map { pos =>
+                s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
+              })
+              .mkString("")
+            val pieces =
+              if pov.player.blindfold then ""
+              else
+                pov.game.position.pieces
+                  .map: (pos, piece) =>
+                    val klass = s"${piece.color.name} ${piece.role.name}"
+                    s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+                  .mkString("")
+            s"$highlights$pieces"
 
   def roundAppPreload(pov: Pov)(using Context): Tag =
     div(cls := "round__app")(

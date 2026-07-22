@@ -19,7 +19,7 @@
     "@types/node": "24.13.3",
     "esbuild": "0.28.1",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.9.3",
+    "fast-xml-parser": "5.10.1",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "typescript": "6.0.3"

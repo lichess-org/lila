@@ -491,7 +491,7 @@
         display: inline-block;
         width: auto;
 
-        #{ $self }--mix & {
+        #{$self}--mix & {
           display: inline-block;
         }
       }

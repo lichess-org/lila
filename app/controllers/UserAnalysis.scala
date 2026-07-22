@@ -140,9 +140,10 @@ final class UserAnalysis(
     data <- env.api.roundApi.review(
       pov,
       users,
-      tv = none,
       analysis,
+      env.game.gameOpening.of(pov.game, ctx.isAuth),
       initialFen = initialFen,
+      tv = none,
       withFlags = ExportOptions(
         division = true,
         clocks = true,
@@ -162,6 +163,7 @@ final class UserAnalysis(
     import lila.round.Forecast
     Found(env.round.proxyRepo.pov(fullId)): pov =>
       if isTheft(pov) then theftResponse
+      else if !Forecast.isValid(ctx.body.body) then BadRequest
       else
         ctx.body.body
           .validate[Forecast.Steps]
@@ -188,6 +190,7 @@ final class UserAnalysis(
       import lila.round.Forecast
       Found(env.round.proxyRepo.pov(fullId)): pov =>
         if isTheft(pov) then theftResponse
+        else if !Forecast.isValid(ctx.body.body) then BadRequest
         else
           ctx.body.body
             .validate[Forecast.Steps]

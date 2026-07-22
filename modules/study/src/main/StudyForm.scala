@@ -163,7 +163,7 @@ object StudyForm:
   def topicsForm = Form:
     single:
       "topics" -> tagifyValues.field[String, StudyTopics]("value"): strs =>
-        StudyTopics.fromStrs(strs, StudyTopics.studyMax)
+        StudyTopics.fromStrs(strs, StudyTopics.userMax)
 
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)).fill(topics.value.mkString(","))

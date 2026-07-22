@@ -91,4 +91,10 @@ object JsonQuestion:
       }.toMap
     )
 
+  def isValid(js: JsValue): Boolean =
+    js.obj("filters")
+      .forall: filters =>
+        filters.values.sizeIs < 10 && filters.values.forall:
+          _.asOpt[JsArray].forall(_.value.sizeIs < 20)
+
   given Format[JsonQuestion] = Json.format
