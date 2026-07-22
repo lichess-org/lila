@@ -216,7 +216,7 @@ function renderStageComplete(runCtrl: RunCtrl): VNode[] {
 }
 
 function describeHintsText(levelCtrl: LevelCtrl, style: nv.MoveStyle): string {
-  const shapes = levelCtrl.blueprint.shapes as DrawShape[] | undefined;
+  const shapes = levelCtrl.blueprint.shapes;
   if (!shapes?.length) return '';
   return shapes
     .map(shape => {
