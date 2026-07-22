@@ -4,9 +4,9 @@
   <string name="standardTitle">Стандардна правила шаха (ФИДЕ)</string>
   <string name="chess960">Шах960</string>
   <string name="chess960Title">Почетна позиција фигура основног реда је одређена насумично.</string>
-  <string name="kingOfTheHillTitle">Доведите краља на центар како бисте добили партију.</string>
+  <string name="kingOfTheHillTitle">Доведи свог Краља до центра да победиш партију.</string>
   <string name="threeCheck">Три-Шах</string>
-  <string name="threeCheckTitle">Дајте противнику шах 3 пута како бисте добили партију.</string>
+  <string name="threeCheckTitle">Дај противнику шах 3 пута да победиш партију.</string>
   <string name="antichess">Антишах</string>
   <string name="antichessTitle">Изгуби све фигуре (или буди патиран/а) да добијеш партију.</string>
   <string name="atomic">Атомски</string>
@@ -17,5 +17,5 @@
   <string name="racingKingsTitle">Доведи свог краља на другу страну табле да победиш.</string>
   <string name="crazyhouseTitle">Узете фигуре могу бити враћене на таблу уместо померања фигуре.</string>
   <string name="fromPosition">Из Позиције</string>
-  <string name="fromPositionTitle">Стандардан шах из произвољне позиције</string>
+  <string name="fromPositionTitle">Стандардан шах из жењене позиције</string>
 </resources>
