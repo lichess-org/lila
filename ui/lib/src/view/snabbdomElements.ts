@@ -2,8 +2,13 @@ import { type Attrs, h, type VNode, type VNodeChildren, type VNodeData } from 's
 
 const MOVABLE_ATTRS = ['alt', 'href', 'src'] as const;
 
+type RemoveIndexSignature<T> = {
+  [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
+};
+type StrictVNodeData = RemoveIndexSignature<VNodeData>;
+
 type MovableAttrs = (typeof MOVABLE_ATTRS)[number];
-type VNodeDataExtended = VNodeData & {
+type VNodeDataExtended = StrictVNodeData & {
   [K in MovableAttrs]?: Attrs[K];
 };
 
@@ -19,6 +24,7 @@ type TagFunction = {
   (selector: Selector, data: TagData, children: VNodeChildren): VNode;
   (data: TagData, children: VNodeChildren): VNode;
 };
+type TagFactory<Args extends unknown[]> = (...args: Args) => TagFunction;
 
 function movePropsToAttrs(data: TagData): VNodeData | null {
   if (data == null) return null;
@@ -101,11 +107,10 @@ function makeTag(tag: keyof HTMLElementTagNameMap, defaultData?: VNodeDataExtend
 
 export const div: TagFunction = makeTag('div');
 export const p: TagFunction = makeTag('p');
-export const a: (href: string) => TagFunction = (href: string) => makeTag('a', { attrs: { href } });
+export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
-export const img: (src: string, alt: string) => TagFunction = (src: string, alt: string) =>
-  makeTag('img', { alt, src });
+export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
