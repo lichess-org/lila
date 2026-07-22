@@ -7,46 +7,33 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.chess.Depth
-import lila.core.net.IpAddress
 import lila.fishnet.Work as W
 
 object JsonApi:
 
-  sealed trait Request:
-    val fishnet: Request.Fishnet
-
-    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, nowInstant)
+  sealed trait Request
 
   object Request:
 
     def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= 300)
-
-    case class Fishnet(
-        version: Client.Version,
-        apikey: Client.Key
-    )
 
     case class Stockfish(
         flavor: Option[String]
     ):
       def isNnue = flavor.has("nnue")
 
-    case class Acquire(
-        fishnet: Fishnet
-    ) extends Request
+    case class Acquire() extends Request
 
     case class PostAnalysis(
-        fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Option[Evaluation.EvalOrSkip]]
     ) extends Request:
 
       def completeOrPartial =
-        if analysis.headOption.so(_.isDefined) then CompleteAnalysis(fishnet, stockfish, analysis.flatten)
-        else PartialAnalysis(fishnet, stockfish, analysis)
+        if analysis.headOption.so(_.isDefined) then CompleteAnalysis(stockfish, analysis.flatten)
+        else PartialAnalysis(stockfish, analysis)
 
     case class CompleteAnalysis(
-        fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Evaluation.EvalOrSkip]
     ):
@@ -60,7 +47,6 @@ object JsonApi:
           .flatMap(_.nodes)
 
     case class PartialAnalysis(
-        fishnet: Fishnet,
         stockfish: Stockfish,
         analysis: List[Option[Evaluation.EvalOrSkip]]
     )
@@ -131,7 +117,6 @@ object JsonApi:
     import play.api.libs.functional.syntax.*
     import Request.Evaluation.EvalOrSkip
     given Reads[Request.Stockfish] = Json.reads
-    given Reads[Request.Fishnet] = Json.reads
     given Reads[Request.Acquire] = Json.reads
     given Reads[Request.Evaluation.Score] = Json.reads
     given Reads[List[Uci]] = Reads.of[String].map(Uci.readList(_).getOrElse(Nil))
