@@ -63,28 +63,23 @@ final class Fishnet(env: Env) extends LilaController(env):
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]
   )(using Reads[A]) =
     AnonBodyOf(parse.tolerantJson): body =>
-      HTTPRequest
-        .bearer(req)
-        .fold(fuccess(Unauthorized(jsonError("Missing bearer")))): bearer =>
-          val version = Client.Version(
-            ~HTTPRequest.userAgent(req).value.split("/", 2).lift(1) // fishnet-<os>-<arch>/<version>
-          )
-          api.authenticateClient(Client.Key(bearer.value), version, req.ipAddress).flatMap {
-            case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
-            case Success(client) =>
-              if !JsonApi.Request.isValid(body) then BadRequest
-              else
-                body
-                  .validate[A]
-                  .fold(
-                    err =>
-                      lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
-                      BadRequest(jsonError(JsError.toJson(err)))
-                    ,
-                    data =>
-                      allow:
-                        f(client)(data).map:
-                          _.map(Json.toJson).fold(NoContent)(Accepted(_))
-                      .rescue(identity)
-                  )
-          }
+      (HTTPRequest.bearer(req), Client.Version.readFromUA).tupled.so: (bearer, version) =>
+        api.authenticateClient(Client.Key(bearer.value), version, req.ipAddress).flatMap {
+          case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
+          case Success(client) =>
+            if !JsonApi.Request.isValid(body) then BadRequest
+            else
+              body
+                .validate[A]
+                .fold(
+                  err =>
+                    lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
+                    BadRequest(jsonError(JsError.toJson(err)))
+                  ,
+                  data =>
+                    allow:
+                      f(client)(data).map:
+                        _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                    .rescue(identity)
+                )
+        }

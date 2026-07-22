@@ -49,7 +49,9 @@ object Client:
   opaque type Key = String
   object Key extends OpaqueString[Key]
   opaque type Version = String
-  object Version extends OpaqueString[Version]
+  object Version extends OpaqueString[Version]:
+    def readFromUA(using ua: scalalib.net.UserAgent): Option[Client.Version] =
+      ua.value.split("/", 2).lift(1) // fishnet-<os>-<arch>/<version>
 
   case class Instance(version: Version, ip: IpAddress, seenAt: Instant):
 
@@ -88,4 +90,4 @@ object Client:
           )
         case Failure(error) => Failure(error)
 
-  def makeKey = Key(SecureRandom.nextString(8))
+  private[fishnet] def makeKey = Key(SecureRandom.nextString(8))
