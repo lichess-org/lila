@@ -70,12 +70,8 @@ final class Env(
 
   private val payoutsUrl = appConfig.get[Url]("payouts.portal")
 
-  Bus.sub[lila.core.msg.PayoutMessage]:
-    case lila.core.msg.PayoutMessage(userId, tournamentName, tournamentUrl, finishedAt) =>
-      api.postPreset(
-        userId,
-        MsgPreset.payoutEligible(payoutsUrl, tournamentName, tournamentUrl, finishedAt)
-      )
+  Bus.sub[lila.core.msg.PayoutMessage]: p =>
+    api.postPreset(p.userId, MsgPreset.payoutEligible(payoutsUrl, p))
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>

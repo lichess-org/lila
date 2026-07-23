@@ -50,12 +50,8 @@ $forumPost
 Your new permissions are: ${perms.mkString(", ")}.
 ${teamUrl}"""
 
-  def payoutEligible(
-      payoutsUrl: Url,
-      tournamentName: String,
-      tournamentUrl: Url,
-      finishedAt: Instant
-  ) =
+  def payoutEligible(payoutsUrl: Url, msg: lila.core.msg.PayoutMessage) =
+    import msg.*
     val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusMonths(6)
     Msg(
       name = "Prize payout",
