@@ -66,6 +66,7 @@ Add the scores of every opponent the player beats and half of the score of every
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
   <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="restrictedToTeamsQ2" comment="Replaces restrictedToTeamsQ">Why are Swiss tournaments restricted to teams?</string>
   <string name="restrictedToTeamsA">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.
 We think these conditions are more likely to be met within a team than in global tournaments.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
@@ -87,6 +88,7 @@ Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">Will Swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They're complementary features.</string>
   <string name="roundRobinQ">What about Round Robin?</string>
+  <string name="roundRobinQ2" comment="Replaces roundRobinQ">Can I play round-robin tournaments on Lichess?</string>
   <string name="roundRobinA">We'd like to add it, but unfortunately Round Robin doesn't work online.
 The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won't happen, and as a result most Round Robin tournaments would be flawed and unfair, which defeats their very reason to exist.
 The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
