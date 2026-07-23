@@ -47,7 +47,9 @@ function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A
   return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;
 }
 
-export const boardCommands = (): VNode[] => [
+export const ARROW_KEYS_MULTIJUMP = 6; // 3 moves per side
+
+export const boardCommands = (isCrazyHouse = false): VNode[] => [
   h('h2', i18n.nvui.boardCommandList),
   h('p', [
     `i: ${i18n.nvui.goToInputForm}`,
@@ -57,6 +59,7 @@ export const boardCommands = (): VNode[] => [
       `l: ${i18n.nvui.announceLastMove}`,
       `t: ${i18n.keyboardMove.readOutClocks}`,
       `m: ${i18n.nvui.announcePossibleMoves}`,
+      'f: flip the board',
       `arrow keys: ${i18n.nvui.moveWithArrows}`,
       `k-q-r-b-n-p: ${i18n.nvui.moveToPieceByType}`,
       `1 to 8: ${i18n.nvui.moveToRank}`,
@@ -65,9 +68,13 @@ export const boardCommands = (): VNode[] => [
       'x: announce pieces around this square (try shift and alt)',
       `shift+m: ${i18n.nvui.announcePossibleCaptures}`,
       'v: announce computer evaluation',
+      `ctrl+arrow down/up: go to first or last move`,
+      'ctrl+left/right arrow: go back or forward ' + ARROW_KEYS_MULTIJUMP / 2 + ' turns',
       'g: announce computer best move',
       'shift+g: play computer best move',
       `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
+      ...(isCrazyHouse ? ['9: announce white pocket pieces', '0: announce black pocket pieces'] : []),
+      `shift+h: ${i18n.nvui.boardCommandList}`,
     ].reduce(addBreaks, []),
   ]),
 ];
