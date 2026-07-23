@@ -29,7 +29,8 @@ final class Env(
     socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder,
     ircApi: lila.core.irc.IrcApi,
-    routeUrl: RouteUrl
+    routeUrl: RouteUrl,
+    teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
     ActorSystem,

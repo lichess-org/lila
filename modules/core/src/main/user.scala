@@ -16,6 +16,7 @@ import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 import lila.core.rating.UserRankMap
+import lila.core.data.Url
 
 object user:
 
@@ -372,7 +373,7 @@ object user:
     val marathonTopFivehundred = "marathonTopFivehundred"
 
   trait TrophyApi:
-    def award(trophyUrl: String, userId: UserId, kindKey: String): Funit
+    def award(trophyUrl: Url, userId: UserId, kindKey: String): Funit
 
   trait CachedApi:
     def getTop50Online: Fu[List[UserWithPerfs]]

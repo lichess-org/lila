@@ -100,6 +100,7 @@ object Swiss:
       nbRounds: Int,
       rated: Rated,
       description: Option[String] = None,
+      payouts: Option[Payouts] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
@@ -126,6 +127,8 @@ object Swiss:
 
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
+
+  def swissUrl(swissId: SwissId) = Url(s"https://lichess.org/swiss/$swissId")
 
   def makeId = SwissId(ThreadLocalRandom.nextString(8))
 

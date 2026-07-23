@@ -21,7 +21,7 @@ final class IrcApi(
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
-    def link(url: String, name: String) = s"[$name]($url)"
+    def link(url: Url, name: String) = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](${net.baseUrl}$path)"
     def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String = userLink(user.name)
@@ -156,6 +156,12 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
+  def payoutNotify(p: lila.core.msg.PayoutMessages): Funit =
+    zulip(_.adminPrizes, p.tourName):
+      val link = markdown.link(p.tourUrl, p.tourName)
+      val playerList = p.userIds.map(id => s"1. ${markdown.userLink(lightUser(id))}").mkString("\n")
+      s"$link\n\nPlayers notified:\n$playerList".pp
+
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
       s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
@@ -242,7 +248,7 @@ final class IrcApi(
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
       markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
-        markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
+        markdown.link(Url(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif"), ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 

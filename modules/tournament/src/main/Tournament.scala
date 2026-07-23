@@ -35,6 +35,7 @@ case class Tournament(
     featured: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
+    payouts: Option[Payouts] = None,
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
@@ -199,6 +200,7 @@ object Tournament:
       startsAt =
         setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
       description = setup.description,
+      payouts = setup.payouts,
       hasChat = setup.hasChat | true
     )
 
@@ -220,7 +222,7 @@ object Tournament:
       startsAt = startsAt
     )
 
-  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId) = Url(s"https://lichess.org/tournament/$tourId")
 
   def makeId = TourId(ThreadLocalRandom.nextString(8))
 

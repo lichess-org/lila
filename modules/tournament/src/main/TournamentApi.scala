@@ -44,7 +44,8 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
-    ircApi: lila.core.irc.IrcApi
+    ircApi: lila.core.irc.IrcApi,
+    teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
     akka.actor.ActorSystem,
@@ -241,6 +242,7 @@ final class TournamentApi(
               callbacks.clearWinnersCache(tour)
               callbacks.clearTrophyCache(tour)
               duelStore.remove(tour)
+              notifyPayoutWinners(tour).logFailure(logger, _ => s"${tour.id} notifyPayoutWinners")
     }
 
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
@@ -267,6 +269,21 @@ final class TournamentApi(
             case rp if rp.rank <= 100 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
+
+  private def notifyPayoutWinners(tour: Tournament): Funit =
+    import lila.tournament.Tournament.tournamentUrl
+    import lila.core.msg.PayoutMessages
+    tour.payouts.so: payouts =>
+      for userIds <-
+          if tour.isTeamBattle then
+            for
+              rankedTeams <- cached.battle.teamStanding.get(tour.id)
+              owners <- rankedTeams.take(payouts.nbWinners).traverse(rt => teamApi.creatorOf(rt.teamId))
+            yield owners.flatten
+          else
+            for players <- playerRepo.bestByTour(tour.id, payouts.nbWinners)
+            yield players.map(_.userId)
+      yield Bus.pub(PayoutMessages(userIds, tour.name, tournamentUrl(tour.id)))
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds
