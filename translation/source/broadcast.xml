@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
   <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
+  <string name="definitivelyDeleteTournament2" comment="Replaces definitivelyDeleteTournament">Permanently delete this tournament, including all rounds and games?</string>
   <string name="showScores">Show player scores based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="fideFederations">FIDE federations</string>
