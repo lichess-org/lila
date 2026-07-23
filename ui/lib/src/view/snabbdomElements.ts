@@ -1,16 +1,10 @@
 import { type Attrs, h, type VNode, type VNodeChildren, type VNodeData } from 'snabbdom';
 
-const MOVABLE_ATTRS = ['alt', 'href', 'src'] as const;
-
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
 };
 type StrictVNodeData = RemoveIndexSignature<VNodeData>;
-
-type MovableAttrs = (typeof MOVABLE_ATTRS)[number];
-type VNodeDataExtended = StrictVNodeData & {
-  [K in MovableAttrs]?: Attrs[K];
-};
+type VNodeDataExtended = StrictVNodeData & Record<string, unknown>;
 
 type Selector = `.${string}` | `#${string}` | `[${string}`;
 type TagData = VNodeDataExtended | null;
@@ -26,26 +20,47 @@ type TagFunction = {
 };
 type TagFactory<Args extends unknown[]> = (...args: Args) => TagFunction;
 
+const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
+  'props',
+  'attrs',
+  'class',
+  'style',
+  'dataset',
+  'on',
+  'attachData',
+  'hook',
+  'key',
+  'ns',
+  'fn',
+  'args',
+]);
+
 function movePropsToAttrs(data: TagData): VNodeData | null {
   if (data == null) return null;
 
   let next: TagData = null;
   let attrs: Attrs | null = null;
 
-  for (const key of MOVABLE_ATTRS) {
-    const value = data[key];
-    if (value == null) continue;
+  for (const key of Object.keys(data)) {
+    if (VNODE_DATA_KEYS.has(key as keyof StrictVNodeData)) continue;
 
-    if (next == null) {
+    const value = data[key];
+    if (!isAttrValue(value)) continue;
+
+    if (next === null || attrs === null) {
       attrs = { ...data.attrs };
       next = { ...data, attrs };
     }
 
-    attrs![key] = value;
+    attrs[key] = value;
     delete next[key];
   }
 
   return next ?? data;
+}
+
+function isAttrValue(value: unknown): value is Attrs[keyof Attrs] {
+  return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
 }
 
 function isVNode(value: unknown): value is VNode {
