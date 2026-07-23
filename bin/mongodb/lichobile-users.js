@@ -56,6 +56,6 @@ function addLang() {
   });
 }
 
-// gatherRecentUsers();
-// filterLichobileUsers();
+gatherRecentUsers();
+filterLichobileUsers();
 addLang();

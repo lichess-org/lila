@@ -41,21 +41,21 @@ const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
     hl('div.storm--end__stats.box.box-pad', [
       hl('table.slist', [
         hl('tbody', [
-          hl('tr', [hl('th', i18n.storm.moves), hl('td', hl('number', run.moves))]),
+          hl('tr', [hl('th', i18n.storm.moves), hl('td', hl('number', `${run.moves}`))]),
           hl('tr', [
             hl('th', i18n.storm.accuracy),
             hl('td', [hl('number', accuracy ? accuracy.toFixed(1) : '-'), '%']),
           ]),
-          hl('tr', [hl('th', i18n.storm.combo), hl('td', hl('number', ctrl.run.combo.best))]),
+          hl('tr', [hl('th', i18n.storm.combo), hl('td', hl('number', `${ctrl.run.combo.best}`))]),
           hl('tr', [
             hl('th', i18n.storm.time),
-            hl('td', [hl('number', run.time ? Math.round(run.time) : 0), 's']),
+            hl('td', [hl('number', run.time ? `${Math.round(run.time)}` : 0), 's']),
           ]),
           hl('tr', [
             hl('th', i18n.storm.timePerMove),
             hl('td', [hl('number', run.time ? (run.time / run.moves).toFixed(2) : 0), 's']),
           ]),
-          hl('tr', [hl('th', i18n.storm.highestSolved), hl('td', hl('number', run.highest))]),
+          hl('tr', [hl('th', i18n.storm.highestSolved), hl('td', hl('number', `${run.highest}`))]),
         ]),
       ]),
     ]),

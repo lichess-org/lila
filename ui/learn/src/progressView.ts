@@ -1,7 +1,5 @@
-import { h } from 'snabbdom';
-
 import { licon } from 'lib/licon';
-import { iconTag } from 'lib/view';
+import { a, div, iconTag, span } from 'lib/view';
 
 import { hashHref } from './hashRouting';
 import type { RunCtrl } from './run/runCtrl';
@@ -12,17 +10,17 @@ export function makeStars(level: Level, score: number) {
   const rank = getLevelRank(level, score);
   const stars = [];
   for (let i = 3; i >= rank; i--) stars.push(iconTag(licon.Star));
-  return h('span.stars.st' + stars.length, stars);
+  return span(`.stars.st${stars.length}`, stars);
 }
 
 export function progressView(ctrl: RunCtrl) {
-  return h(
-    'div.progress',
+  return div(
+    '.progress',
     ctrl.stage.levels.map(function (level: Level) {
       const score = ctrl.score(level);
       const status = level.id === ctrl.levelCtrl.blueprint.id ? 'active' : score ? 'done' : 'future';
-      const label = score ? makeStars(level, score) : h('span.id', level.id);
-      return h(`a.${status}`, { attrs: { href: hashHref(ctrl.stage.id, level.id) } }, label);
+      const label = score ? makeStars(level, score) : span('.id', level.id);
+      return a(hashHref(ctrl.stage.id, level.id))(`.${status}`, label);
     }),
   );
 }

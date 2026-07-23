@@ -131,9 +131,10 @@ final class User(
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
                   pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                  _ <- env.tournament.cached.nameCache.preloadMany {
-                    pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
-                  }
+                  _ <- env.tournament.cached.nameCache.preloadMany:
+                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                  _ <- env.swiss.cache.name.preloadMany:
+                    pag.currentPageResults.flatMap(_.swissId)
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for

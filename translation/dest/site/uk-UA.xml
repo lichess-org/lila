@@ -574,7 +574,7 @@
   <string name="emptyTournamentName">Залиште пустим, щоб назвати турнір на честь випадкового гросмейстера.</string>
   <string name="makePrivateTournament">Зробити турнір приватним та обмежити доступ паролем</string>
   <string name="join">Приєднатись</string>
-  <string name="withdraw">Відступити</string>
+  <string name="withdraw">Вийти</string>
   <string name="points">Очки</string>
   <string name="wins">Перемоги</string>
   <string name="losses">Поразки</string>

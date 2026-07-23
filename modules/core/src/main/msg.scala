@@ -2,6 +2,7 @@ package lila.core
 package msg
 
 import lila.core.userId.UserId
+import lila.core.data.Url
 
 enum PostResult:
   case Success, Invalid, Limited, Bounced
@@ -9,6 +10,13 @@ enum PostResult:
 case class MsgPreset(name: String, text: String)
 
 case class SystemMsg(userId: UserId, text: String)
+
+case class PayoutMessages(
+    userIds: List[UserId],
+    tourName: String,
+    tourUrl: Url,
+    finishedAt: Instant = nowInstant
+)
 
 type ID = String
 

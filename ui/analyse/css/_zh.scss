@@ -44,6 +44,10 @@ $pocket-height: 60px;
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
+
+    .analyse__tools {
+      height: auto;
+    }
   }
 
   @include mq-at-least-col3 {

@@ -3,12 +3,14 @@ package lila.msg
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
+import lila.common.autoconfig.given
 import lila.common.Json.given
 import lila.core.config.*
 import lila.core.socket.remote.TellUserIn
 
 @Module
 final class Env(
+    appConfig: play.api.Configuration,
     baseUrl: BaseUrl,
     db: lila.db.Db,
     lightUserApi: lila.core.user.LightUserApi,
@@ -65,6 +67,12 @@ final class Env(
   Bus.sub[lila.core.msg.SystemMsg]:
     case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
+
+  private val payoutsUrl = appConfig.get[Url]("payouts.portal")
+
+  Bus.sub[lila.core.msg.PayoutMessages]: p =>
+    p.userIds.foreach: userId =>
+      api.postPreset(userId, MsgPreset.payoutEligible(payoutsUrl, p))
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>
