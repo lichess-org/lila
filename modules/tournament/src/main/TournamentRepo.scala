@@ -316,7 +316,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           tour.password.isEmpty.option("password"),
           tour.conditions.list.isEmpty.option("conditions"),
           tour.position.isEmpty.option("fen"),
-          tour.variant.standard.option("variant")
+          tour.variant.standard.option("variant"),
+          tour.payouts.isEmpty.option("payouts")
         ).flatten
       )
     )
