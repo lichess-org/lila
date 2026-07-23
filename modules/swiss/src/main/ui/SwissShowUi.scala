@@ -145,7 +145,14 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
         s.settings.payouts.map: payouts =>
-          st.section(cls := "description")(p(strong("Prizes: "), payouts)),
+          st.section(cls := "description")(
+            p(
+              strong(
+                a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: ")
+              ),
+              payouts
+            )
+          ),
         s.looksLikePrize.option(gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.gathering.Thematic.byFen(p.opening))
