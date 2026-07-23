@@ -117,15 +117,16 @@ final class AppealApi(
     findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v, 0)))
 
   // just one muted appeal makes all user appeals muted
-  def toggleMute(appeal: Appeal, v: Boolean): Funit =
+  def toggleMute(user: UserId, v: Boolean): Funit =
     if v then
       coll.update
         .one(
-          $doc("_id" -> appeal.id),
-          $set("muted" -> true, "status" -> Appeal.Status.read)
+          $doc("user" -> user),
+          $set("muted" -> true, "status" -> Appeal.Status.read),
+          multi = true
         )
         .void
-    else coll.update.one($doc("user" -> appeal.user), $unset("muted"), multi = true).void
+    else coll.update.one($doc("user" -> user), $unset("muted"), multi = true).void
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)

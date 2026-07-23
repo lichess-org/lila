@@ -153,7 +153,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def toggleMute(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
     asMod(username, topic): (appeal, _) =>
-      for _ <- env.appeal.api.toggleMute(appeal, v)
+      for _ <- env.appeal.api.toggleMute(appeal.user, v)
       yield Redirect(appeal.modShowUrl)
   }
 
