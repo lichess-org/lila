@@ -14,6 +14,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.PerfType
 import lila.user.BSONHandlers.userHandler
+import lila.core.user.WithLightPerf
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor
@@ -63,6 +64,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     dubiousPuzzle,
     glicko,
     withPerf,
+    withLightPerf,
     usingPerfOf,
     perfOptionOf,
     addPuzRun,
@@ -81,7 +83,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         ids: ByColor[UserId],
         perf: PerfKey,
         useCache: Boolean = true
-    ): Fu[Option[ByColor[WithPerf]]] =
+    ): Fu[Option[ByColor[WithLightPerf]]] =
       val users =
         if useCache then apply(ids.map(some), perf)
         else fetch(_.pri)(ids.map(some).toPair, perf)
@@ -98,7 +100,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         readPref: ReadPref
     )(userIds: PairOf[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
       val (x, y) = userIds
-      listWithPerf(List(x, y).flatten, perf, readPref).map: users =>
+      pairWithLightPerfs(List(x, y).flatten, perf, readPref).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
   def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType): Funit =
@@ -149,21 +151,27 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pk).dmap(some))
 
+  def byIdWithLightPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithLightPerf]] =
+    pairWithLightPerfs(List(id), pk, _.pri).map(_.headOption)
+
   def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[UserWithPerfs]]] =
     listWithPerfs(userIds.flatten, includeClosed = true, fromPri = true).map: users =>
       userIds.map(_.flatMap(id => users.find(_.id == id)))
 
-  def listWithPerf[U: UserIdOf](
+  private def pairWithLightPerfs[U: UserIdOf](
       us: List[U],
       pk: PerfKey,
-      readPref: ReadPref = _.sec
-  ): Fu[List[WithPerf]] = us.nonEmpty.so:
+      readPref: ReadPref
+  ): Fu[List[WithLightPerf]] = us.nonEmpty.so:
     val ids = us.map(_.id)
     userRepo.coll
-      .aggregateList(Int.MaxValue, readPref): framework =>
+      .aggregateList(2, readPref): framework =>
         import framework.*
-        Match($inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
+        val sel = ids match
+          case List(id) => $id(id)
+          case _ => $inIds(ids)
+        Match(sel) -> List(
+          PipelineOperator(perfsRepo.aggregate.lookupLight(pk)),
           AddFields($sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
@@ -171,12 +179,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc <- docs
           user <- doc.asOpt[User]
-          perf = perfsRepo.aggregate.readFirst(doc, pk)
-        yield WithPerf(user, perf)
-
-  def pairWithPerf(userIds: ByColor[Option[UserId]], pt: PerfType): Fu[ByColor[Option[WithPerf]]] =
-    listWithPerf(userIds.flatten, pt).map: users =>
-      userIds.map(_.flatMap(id => users.find(_.id == id)))
+          perf = perfsRepo.aggregate.readFirstLight(doc, pk)
+        yield WithLightPerf(user, perf)
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | WithPerf]] =
     userRepo

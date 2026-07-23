@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
-import lila.core.user.LightPerf
+import lila.core.user.LightUserPerf
 import lila.core.userId.UserSearch
 import lila.core.rating.UserRankMap
 import lila.db.dsl.*
@@ -28,7 +28,7 @@ final class Cached(
     _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
       rankingApi.fetchLeaderboard(10).monSuccess(lila.mon.user.leaderboardCompute)
 
-  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
+  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightUserPerf]](
     PerfType.leaderboardable.size,
     "user:top:perf:firstPage",
     10.minutes,
@@ -40,7 +40,7 @@ final class Cached(
 
   export topPerfFirstPage.get as firstPageOf
 
-  def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
+  def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightUserPerf]] =
     if page == 1 then
       for users <- firstPageOf(perf)
       yield Paginator.fromResults(

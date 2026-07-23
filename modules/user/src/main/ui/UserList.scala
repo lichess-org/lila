@@ -2,7 +2,7 @@ package lila.user
 package ui
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.LightPerf
+import lila.core.user.LightUserPerf
 import lila.rating.PerfType
 import lila.ui.*
 
@@ -67,7 +67,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           )
         )
 
-  private def userTopPerf(users: List[LightPerf], pk: PerfKey)(using ctx: Context) =
+  private def userTopPerf(users: List[LightUserPerf], pk: PerfKey)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := pk.perfIcon)(
         a(href := routes.User.top(pk))(pk.perfTrans)
@@ -89,7 +89,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
         ))
     )
 
-  def top(perf: PerfKey, pager: Paginator[LightPerf])(using ctx: Context) =
+  def top(perf: PerfKey, pager: Paginator[LightUserPerf])(using ctx: Context) =
     import PerfType.given
     val from = (pager.currentPage - 1) * pager.maxPerPage.value + 1
     val title = s"${perf.trans} top"

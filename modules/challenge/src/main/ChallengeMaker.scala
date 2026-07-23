@@ -1,7 +1,7 @@
 package lila.challenge
 
 import lila.core.game.Player
-import lila.core.user.{ GameUser, WithPerf }
+import lila.core.user.{ GameUser, WithLightPerf }
 import lila.game.{ GameRepo, Rematches, rematchAlternatesColor }
 
 import Challenge.TimeControl
@@ -20,7 +20,7 @@ final class ChallengeMaker(
     collectDataFor(gameId, dest).flatMapz: data =>
       toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId).dmap(some)
 
-  private case class Data(game: Game, challenger: Player, orig: GameUser, dest: WithPerf)
+  private case class Data(game: Game, challenger: Player, orig: GameUser, dest: WithLightPerf)
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
     gameRepo
@@ -30,21 +30,21 @@ final class ChallengeMaker(
           .opponentOf(dest)
           .so: challenger =>
             for
-              orig <- challenger.userId.so(userApi.byIdWithPerf(_, game.perfKey))
-              dest <- userApi.withPerf(dest, game.perfKey)
+              orig <- challenger.userId.so(userApi.byIdWithLightPerf(_, game.perfKey))
+              dest <- userApi.withLightPerf(dest, game.perfKey)
             yield Data(game, challenger, orig, dest).some
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov(game, challenger.id).so: pov =>
-      pov.opponent.userId.so(userApi.byIdWithPerf(_, game.perfKey)).flatMapz { dest =>
+      pov.opponent.userId.so(userApi.byIdWithLightPerf(_, game.perfKey)).flatMapz { dest =>
         for
-          challenger <- userApi.withPerf(challenger, game.perfKey)
+          challenger <- userApi.withLightPerf(challenger, game.perfKey)
           rematch <- makeRematch(pov, challenger.some, dest)
         yield rematch.some
       }
 
   // pov of the challenger
-  private def makeRematch(pov: Pov, challenger: GameUser, dest: WithPerf): Fu[Challenge] =
+  private def makeRematch(pov: Pov, challenger: GameUser, dest: WithLightPerf): Fu[Challenge] =
     for
       nextGameId <- rematches.offer(pov.ref)
       challenge <- toChallenge(pov, challenger, dest, nextGameId)
@@ -53,7 +53,7 @@ final class ChallengeMaker(
   private def toChallenge(
       pov: Pov,
       challenger: GameUser,
-      dest: WithPerf,
+      dest: WithLightPerf,
       nextId: GameId
   ): Fu[Challenge] =
     gameRepo

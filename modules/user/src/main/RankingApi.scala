@@ -7,7 +7,7 @@ import chess.rating.IntRatingDiff
 import scalalib.paginator.Paginator
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
-import lila.core.user.LightPerf
+import lila.core.user.LightUserPerf
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.GlickoExt.rankable
@@ -54,17 +54,17 @@ final class RankingApi(
   private[user] object topPerf:
     val maxPerPage = MaxPerPage(100)
 
-    def pager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
+    def pager(perf: PerfKey, page: Int): Fu[Paginator[LightUserPerf]] =
       Paginator(
         adapter = new:
           def nbResults = fuccess(500_000)
-          def slice(offset: Int, length: Int): Fu[List[LightPerf]] = fetchLightPerfs(perf, length, offset)
+          def slice(offset: Int, length: Int): Fu[List[LightUserPerf]] = fetchLightPerfs(perf, length, offset)
         ,
         currentPage = page,
         maxPerPage = maxPerPage
       )
 
-    private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
+    private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightUserPerf]] =
       lila.rating.PerfType
         .isLeaderboardable(perf)
         .so:
@@ -77,7 +77,7 @@ final class RankingApi(
               .flatMap:
                 _.parallel: r =>
                   lightUser(r.user).map2:
-                    LightPerf(_, perf, r.rating, ~r.prog)
+                    LightUserPerf(_, perf, r.rating, ~r.prog)
                 .dmap(_.flatten)
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =

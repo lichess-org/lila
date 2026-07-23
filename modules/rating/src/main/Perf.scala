@@ -4,7 +4,8 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import chess.IntRating
 import chess.rating.glicko.Glicko
-import lila.core.perf.{ Perf, PuzPerf }
+import chess.rating.IntRatingDiff
+import lila.core.perf.{ Perf, PuzPerf, LightPerf }
 import lila.db.BSON
 import lila.db.dsl.given
 import lila.rating.GlickoExt.*
@@ -54,6 +55,7 @@ object PerfExt:
 object Perf:
 
   val default = new Perf(lila.rating.Glicko.default, 0, Nil, None)
+  val defaultLight = LightPerf(default.intRating, 0, default.progress, default.provisional)
 
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
   val defaultManaged = new Perf(lila.rating.Glicko.defaultManaged, 0, Nil, nowInstant.some)
@@ -84,3 +86,4 @@ object Perf:
       )
 
   given BSONDocumentHandler[PuzPerf] = Macros.handler[PuzPerf]
+  given lightPerfHandler: BSONDocumentHandler[LightPerf] = Macros.handler

@@ -10,7 +10,7 @@ import scalalib.paginator.Paginator
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.user.LightPerf
+import lila.core.user.LightUserPerf
 import lila.core.userId.UserSearch
 import lila.core.security.IsProxy
 import lila.game.GameFilter
@@ -256,7 +256,7 @@ final class User(
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
         json =
-          given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+          given OWrites[LightUserPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
           JsonOk(leaderboards)
       )
@@ -288,8 +288,8 @@ final class User(
       }
     else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
 
-  private def topNbJson(users: Seq[LightPerf]) =
-    given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+  private def topNbJson(users: Seq[LightUserPerf]) =
+    given OWrites[LightUserPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>

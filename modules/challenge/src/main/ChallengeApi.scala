@@ -130,7 +130,7 @@ final class ChallengeApi(
       requestedColor: Option[Color] = None
   )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
     acceptQueue:
-      def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
+      def withPerf = me.map(_.value).traverse(userApi.withLightPerf(_, c.perfType))
       if c.canceled
       then "The challenge has been canceled.".raise
       else if c.declined
@@ -174,7 +174,7 @@ final class ChallengeApi(
     }
 
   def setDestUser(c: Challenge, u: User): Funit = for
-    user <- userApi.withPerf(u, c.perfType)
+    user <- userApi.withLightPerf(u, c.perfType)
     challenge = c.setDestUser(user)
     _ <- repo.update(challenge)
   yield

@@ -5,7 +5,7 @@ import chess.rating.IntRatingDiff
 import scalalib.HeapSort.*
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
-import lila.core.user.LightPerf
+import lila.core.user.LightUserPerf
 import lila.rating.PerfExt.*
 
 object UserPerfsExt:
@@ -264,19 +264,19 @@ object UserPerfs:
       )
 
   case class Leaderboards(
-      ultraBullet: List[LightPerf],
-      bullet: List[LightPerf],
-      blitz: List[LightPerf],
-      rapid: List[LightPerf],
-      classical: List[LightPerf],
-      crazyhouse: List[LightPerf],
-      chess960: List[LightPerf],
-      kingOfTheHill: List[LightPerf],
-      threeCheck: List[LightPerf],
-      antichess: List[LightPerf],
-      atomic: List[LightPerf],
-      horde: List[LightPerf],
-      racingKings: List[LightPerf]
+      ultraBullet: List[LightUserPerf],
+      bullet: List[LightUserPerf],
+      blitz: List[LightUserPerf],
+      rapid: List[LightUserPerf],
+      classical: List[LightUserPerf],
+      crazyhouse: List[LightUserPerf],
+      chess960: List[LightUserPerf],
+      kingOfTheHill: List[LightUserPerf],
+      threeCheck: List[LightUserPerf],
+      antichess: List[LightUserPerf],
+      atomic: List[LightUserPerf],
+      horde: List[LightUserPerf],
+      racingKings: List[LightUserPerf]
   )
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)

@@ -3,7 +3,7 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame }
 
 import lila.core.socket.Sri
-import lila.core.user.{ GameUsers, WithPerf }
+import lila.core.user.{ GameUsers, WithLightPerf }
 
 final private class Biter(
     userApi: lila.core.user.UserApi,
@@ -52,8 +52,8 @@ final private class Biter(
     yield JoinSeek(joiner.id, seek, game, ownerColor)
 
   private def assignCreatorColor(
-      creator: Option[WithPerf],
-      joiner: Option[WithPerf],
+      creator: Option[WithLightPerf],
+      joiner: Option[WithLightPerf],
       color: TriColor
   ): Fu[Color] =
     color match

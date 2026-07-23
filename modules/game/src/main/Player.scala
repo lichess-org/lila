@@ -4,7 +4,8 @@ import chess.{ ByColor, Color, IntRating, PlayerName, Ply }
 import chess.rating.RatingProvisional
 
 import lila.core.game.{ Blurs, LightGame, Player }
-import lila.core.user.WithPerf
+import lila.core.user.WithLightPerf
+import lila.core.perf.LightPerf
 import lila.game.Blurs.{ nonEmpty, given }
 
 object Player:
@@ -25,11 +26,11 @@ object Player:
     aiLevel = aiLevel
   )
 
-  def make(color: Color, userPerf: (UserId, Perf)): Player = make(
+  def make(color: Color, userPerf: (UserId, LightPerf)): Player = make(
     color = color,
     userId = userPerf._1,
-    rating = userPerf._2.intRating,
-    provisional = userPerf._2.glicko.provisional
+    rating = userPerf._2.rating,
+    provisional = userPerf._2.provisional
   )
 
   def make(
@@ -47,7 +48,7 @@ object Player:
       provisional = provisional
     )
 
-  def make(color: Color, user: Option[WithPerf]): Player =
+  def make(color: Color, user: Option[WithLightPerf]): Player =
     user.fold(makeAnon(color))(u => make(color, u.user.id -> u.perf))
 
   def makeImported(

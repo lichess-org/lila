@@ -1,7 +1,7 @@
 package lila.rating
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.{ LightPerf, WithPerf }
+import lila.core.user.{ LightUserPerf, WithPerf }
 import lila.rating.UserPerfsExt.bestRating
 
 object UserWithPerfs:
@@ -14,7 +14,7 @@ object UserWithPerfs:
         s"$t ${p.usernameWithBestRating}"
     def lightPerf(key: PerfKey) =
       val perf = p.perfs(key)
-      LightPerf(p.light, key, perf.intRating, perf.progress)
+      LightUserPerf(p.light, key, perf.intRating, perf.progress)
     def only(pk: PerfKey) = WithPerf(p.user, p.perfs(pk))
 
   def apply(user: User, perfs: Option[UserPerfs]): UserWithPerfs =

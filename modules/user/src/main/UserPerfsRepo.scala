@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import chess.IntRating
 import chess.rating.glicko.Glicko
 
-import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.core.perf.{ UserPerfs, UserWithPerfs, LightPerf }
 import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
@@ -13,7 +13,7 @@ import lila.rating.{ Perf, PerfType, UserPerfs }
 final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsRepo(c):
 
   import lila.rating.UserPerfs.userPerfsHandler
-  import lila.rating.Perf.perfHandler
+  import lila.rating.Perf.{ perfHandler, lightPerfHandler }
   import lila.rating.Glicko.glickoHandler
 
   def glickoField(perf: PerfKey) = s"$perf.gl"
@@ -141,6 +141,9 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def withPerf(user: User, perfKey: PerfKey): Fu[WithPerf] =
     perfOf(user.id, perfKey).dmap(user.withPerf)
 
+  def withLightPerf(user: User, perfKey: PerfKey): Fu[WithLightPerf] =
+    lightPerfOf(user.id, perfKey).dmap(WithLightPerf(user, _)
+
   def withPerf(us: PairOf[User], perfKey: PerfKey, readPref: ReadPref): Fu[PairOf[WithPerf]] =
     perfOf(us, perfKey, readPref).dmap: (x, y) =>
       WithPerf(us._1, x) -> WithPerf(us._2, y)
@@ -168,9 +171,32 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   object aggregate:
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
 
-    def lookup(pk: PerfKey): Bdoc =
-      val pipe = List($doc("$project" -> $doc(pk.value -> true)))
-      $lookup.simple(coll, "perfs", "_id", "_id", pipe)
+    def lookup(pk: PerfKey, pipe: List[Bdoc] = Nil): Bdoc =
+      val fullPipe = $doc("$project" -> $doc(pk.value -> true, "_id" -> false)) :: pipe
+      $lookup.simple(coll, "perfs", "_id", "_id", fullPipe)
+
+    def lookupLight(pk: PerfKey): Bdoc =
+      lookup(pk, List($doc("$replaceWith" -> s"$$$pk"), lightPerfProject))
+
+    private val lightPerfProject = $doc(
+      "$project" -> $doc(
+        "r" -> $doc("$toInt" -> "$gl.r"),
+        "nb" -> true,
+        "v" -> $doc("$gt" -> $arr("$gl.d", chess.rating.glicko.provisionalDeviation)),
+        "p" -> $doc(
+          "$cond" -> $arr(
+            $doc("$gt" -> $arr($doc("$size" -> "$re"), 0)),
+            $doc(
+              "$subtract" -> $arr(
+                $doc("$arrayElemAt" -> $arr("$re", -1)),
+                $doc("$arrayElemAt" -> $arr("$re", 0))
+              )
+            ),
+            0
+          )
+        )
+      )
+    )
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root
@@ -178,11 +204,10 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         .flatMap(_.headOption)
         .getOrElse(lila.rating.UserPerfs.default(u.id))
 
-    def readFirst(root: Bdoc, pk: PerfKey): Perf = (for
-      perfs <- root.getAsOpt[List[Bdoc]]("perfs")
-      perfs <- perfs.headOption
-      perf <- perfs.getAsOpt[Perf](pk.value)
-    yield perf).getOrElse(Perf.default)
+    def readFirstLight(root: Bdoc, pk: PerfKey): LightPerf = (for
+      perfs <- root.getAsOpt[List[LightPerf]]("perfs")
+      obj <- perfs.headOption
+    yield obj).getOrElse(Perf.defaultLight)
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
       doc.asOpt[UserPerfs].getOrElse(lila.rating.UserPerfs.default(u.id))

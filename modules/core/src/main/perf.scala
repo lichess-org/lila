@@ -4,6 +4,7 @@ import _root_.chess.variant.Variant
 import _root_.chess.{ Speed, IntRating, variant as ChessVariant }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
+import _root_.chess.rating.RatingProvisional
 import monocle.syntax.all.*
 import monocle.syntax.AppliedPLens
 
@@ -110,6 +111,7 @@ object perf:
     export glicko.{ intRating, intDeviation, provisional }
     export latest.{ isEmpty, nonEmpty }
 
+    // def light = LightPerf(nb, intRating.value, progress.value, provisional.yes)
     def keyed(key: PerfKey) = KeyedPerf(key, this)
 
     def progress: IntRatingDiff = {
@@ -124,6 +126,8 @@ object perf:
   case class PuzPerf(score: Int, runs: Int):
     def nonEmpty = runs > 0
     def option = nonEmpty.option(this)
+
+  case class LightPerf(rating: IntRating, games: Int, prog: IntRatingDiff, provisional: RatingProvisional)
 
   case class UserPerfs(
       id: UserId,

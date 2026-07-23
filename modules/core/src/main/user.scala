@@ -12,7 +12,7 @@ import scalalib.model.{ Days, LangTag }
 
 import lila.core.email.*
 import lila.core.id.Flair
-import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
+import lila.core.perf.{ KeyedPerf, Perf, PerfKey, LightPerf, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 import lila.core.rating.UserRankMap
@@ -171,7 +171,10 @@ object user:
   case class WithPerf(user: User, perf: Perf):
     export user.{ id, createdAt, hasTitle, light }
 
-  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
+  case class WithLightPerf(user: User, perf: LightPerf):
+    export user.{ id, createdAt, hasTitle, light }
+
+  case class LightUserPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
@@ -208,9 +211,11 @@ object user:
     def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]]
     def getTitle(id: UserId): Fu[Option[PlayerTitle]]
     def withPerf(id: User, pk: PerfKey): Fu[WithPerf]
+    def withLightPerf(u: User, pk: PerfKey): Fu[WithLightPerf]
     def withPerfs(u: User): Fu[UserWithPerfs]
     def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
     def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]]
+    def byIdWithLightPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithLightPerf]]
     def listWithPerfs[U: UserIdOf](
         us: List[U],
         includeClosed: Boolean,
@@ -233,7 +238,7 @@ object user:
         ids: ByColor[UserId],
         perf: PerfKey,
         useCache: Boolean = true
-    ): Fu[Option[ByColor[WithPerf]]]
+    ): Fu[Option[ByColor[WithLightPerf]]]
     def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]]
     def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean]
     def containsEngine(userIds: List[UserId]): Fu[Boolean]
@@ -360,7 +365,7 @@ object user:
     val nonCountries: List[FlagCode]
     def name(flag: Flag): FlagName
 
-  type GameUser = Option[WithPerf]
+  type GameUser = Option[WithLightPerf]
   type GameUsers = ByColor[GameUser]
 
   type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]

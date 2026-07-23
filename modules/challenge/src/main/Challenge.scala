@@ -12,7 +12,7 @@ import lila.core.challenge as hub
 import lila.core.game.GameRule
 import lila.core.i18n.I18nKey
 import lila.core.id.GameFullId
-import lila.core.user.{ GameUser, WithPerf }
+import lila.core.user.{ GameUser, WithLightPerf }
 import lila.rating.PerfType
 
 case class Challenge(
@@ -64,7 +64,7 @@ case class Challenge(
       challenger =
         u.map(toRegistered).orElse(secret.map(Challenger.Anonymous.apply)).getOrElse(Challenger.Open)
     )
-  def setDestUser(u: WithPerf) = copy(destUser = toRegistered(u).some)
+  def setDestUser(u: WithLightPerf) = copy(destUser = toRegistered(u).some)
 
   def speed = speedOf(timeControl)
 
@@ -161,8 +161,8 @@ object Challenge:
   private val idSize = 8
   private def randomId = ChallengeId(ThreadLocalRandom.nextString(idSize))
 
-  def toRegistered(u: WithPerf): Challenger.Registered =
-    Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
+  def toRegistered(u: WithLightPerf): Challenger.Registered =
+    Challenger.Registered(u.id, Rating(u.perf.rating, u.perf.provisional))
 
   def randomColor = Color.fromWhite(ThreadLocalRandom.nextBoolean())
 

@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
-import lila.core.user.{ LightPerf, PlayTime, Profile }
+import lila.core.user.{ LightUserPerf, PlayTime, Profile }
 import lila.core.rating.UserRankMap
 import lila.rating.UserPerfsExt.perfsList
 
@@ -52,10 +52,10 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       .add("patronColor" -> u.patronAndColor.map(_.color))
       .add("verified" -> u.isVerified)
 
-  def lightPerfIsOnline(lp: LightPerf) =
+  def lightPerfIsOnline(lp: LightUserPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline.exec(lp.user.id))
 
-  given lightPerfIsOnlineWrites: OWrites[LightPerf] = OWrites(lightPerfIsOnline)
+  given lightPerfIsOnlineWrites: OWrites[LightUserPerf] = OWrites(lightPerfIsOnline)
 
   def disabled(u: LightUser) = Json.obj(
     "id" -> u.id,
@@ -69,7 +69,7 @@ object JsonView:
   given OWrites[Profile] = Json.writes
   given OWrites[PlayTime] = Json.writes
 
-  given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
+  given lightPerfWrites: OWrites[LightUserPerf] = OWrites[LightUserPerf]: l =>
     Json
       .obj(
         "id" -> l.user.id,
@@ -132,7 +132,7 @@ object JsonView:
             .add("mod", note.mod)
             .add("dox", note.dox))
 
-  given leaderboardsWrites(using OWrites[LightPerf]): OWrites[lila.rating.UserPerfs.Leaderboards] =
+  given leaderboardsWrites(using OWrites[LightUserPerf]): OWrites[lila.rating.UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
         "bullet" -> leaderboards.bullet,
@@ -151,7 +151,7 @@ object JsonView:
       )
 
   given leaderboardStandardTopOneWrites(using
-      OWrites[LightPerf]
+      OWrites[LightUserPerf]
   ): OWrites[lila.rating.UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
