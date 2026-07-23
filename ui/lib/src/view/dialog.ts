@@ -1,5 +1,3 @@
-// no side effects allowed due to re-export by index.ts
-
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { frag } from '@/index';
@@ -25,7 +23,7 @@ export interface DialogOpts {
   htmlText?: string; // content, htmlText is inserted as fragment into DOM
   cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
   htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default is 'child'
+  insert?: { node: Node; where?: string; at?: 'after' | 'before' | 'child' }[]; // default is 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action | Action[]; // add listeners to controls, call updateActions() to reattach
@@ -43,13 +41,12 @@ export interface DomDialogOpts extends DialogOpts {
   show?: boolean; // show dialog immediately after construction
 }
 
-// for snabDialog, show is inferred from !onInsert
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides all other content properties
   onInsert?: (dialog: Dialog) => void; // if provided you must call show
 }
 
-export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
+export type ActionListener<T extends Event = Event> = (e: T, dialog: Dialog, action: Action) => void;
 
 // Actions are listeners / results for controls
 // if no event is specified, then 'click' is assumed
@@ -61,11 +58,11 @@ export type Action =
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
-  const [html] = await loadAssets(o);
+  const html = await loadAssets(o);
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
+  if (isTouchDevice()) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -91,12 +88,12 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 }
 
 export function snabDialog(o: SnabDialogOpts): VNode {
-  const assets = loadAssets(o);
   let dialog: HTMLDialogElement;
-
+  const classes = o.class?.split(/[. ]/).filter(x => x) ?? [];
   const dialogVNode = hl(
-    `dialog${isTouchDevice() ? '.touch-scroll' : ''}`,
+    'dialog',
     {
+      class: { 'touch-scroll': isTouchDevice() },
       key: o.class ?? 'dialog',
       attrs: o.attrs?.dialog,
       hook: onInsert(el => (dialog = el as HTMLDialogElement)),
@@ -108,20 +105,15 @@ export function snabDialog(o: SnabDialogOpts): VNode {
           hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
         ),
       hl(
-        `div.${o.noScrollable ? 'not-' : ''}scrollable`,
+        'div',
+        { class: { scrollable: !o.noScrollable } },
         hl(
-          'div.dialog-content' +
-            (o.class
-              ? '.' +
-                o.class
-                  .split(/[. ]/)
-                  .filter(x => x)
-                  .join('.')
-              : ''),
+          'div.dialog-content',
           {
+            class: Object.fromEntries(classes.map(c => [c, true])),
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
-              const [html] = await assets;
+              const html = await loadAssets(o);
               if (!o.vnodes && html) view.innerHTML = html;
               const dlg = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(dlg);
@@ -134,7 +126,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
     ],
   );
   if (!o.modal) return dialogVNode;
-  return hl('div.snab-modal-mask' + (o.onInsert ? '.none' : ''), dialogVNode);
+  return hl('div.snab-modal-mask', { class: { none: Boolean(o.onInsert) } }, dialogVNode);
 }
 
 const easyCloseHandler = new (class {
@@ -161,11 +153,17 @@ const easyCloseHandler = new (class {
       const bounds = this.top.dialog.getBoundingClientRect();
       if (x >= bounds.left && x <= bounds.right && y >= bounds.top && y <= bounds.bottom) return;
     }
+    if (e.pointerType === 'touch' || !this.top.o.modal)
+      window.addEventListener(
+        'click',
+        e => {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        },
+        { once: true, capture: true },
+      );
     this.top.close('cancel');
-
     e.stopPropagation();
-    if (!this.top.o.modal)
-      document.addEventListener('click', e => e.stopPropagation(), { once: true, capture: true });
   };
 
   private get top(): DialogWrapper | undefined {
@@ -187,10 +185,8 @@ class DialogWrapper implements Dialog {
           }
         }
   });
-  private readonly focusQuery = ['button', 'input', 'select', 'textarea']
-    .map(sel => `${sel}:not(:disabled)`)
-    .concat(['[href]', '[tabindex]', '[role="tab"]'])
-    .join(',');
+  private readonly focusQuery =
+    'button, input, select, textarea, [href], [tabindex], [role="tab"], [role="button"], [role="link"]';
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -211,11 +207,11 @@ class DialogWrapper implements Dialog {
         'click',
         () => this.close('cancel'),
       );
-    for (const app of o.append ?? []) {
+    for (const app of o.insert ?? []) {
       if (app.node === view) break;
       const where = (app.where ? view.querySelector(app.where) : view)!;
-      if (app.how === 'before') where.before(app.node);
-      else if (app.how === 'after') where.after(app.node);
+      if (app.at === 'before') where.before(app.node);
+      else if (app.at === 'after') where.after(app.node);
       else where.appendChild(app.node);
     }
     this.updateActions();
@@ -249,6 +245,7 @@ class DialogWrapper implements Dialog {
 
   updateActions = (actions = this.o.actions) => {
     this.actionEvents.cleanup();
+    this.o.actions = actions;
     if (!actions) return;
     for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
@@ -267,25 +264,30 @@ class DialogWrapper implements Dialog {
       e.preventDefault();
     } else if (e.key === 'Tab') {
       const focii = [...this.dialog.querySelectorAll<HTMLElement>(this.focusQuery)].filter(
-        el => el.getAttribute('tabindex') !== '-1',
+        el =>
+          el.tabIndex >= 0 &&
+          el.checkVisibility({ visibilityProperty: true }) &&
+          !el.matches(':disabled') &&
+          !el.closest('[inert]'),
       );
       focii.sort((a, b) => {
         const ati = Number(a.getAttribute('tabindex') ?? '0');
         const bti = Number(b.getAttribute('tabindex') ?? '0');
         if (ati > 0 && (bti === 0 || ati < bti)) return -1;
         else if (bti > 0 && ati !== bti) return 1;
-        else return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+        else return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
       });
       const first = focii[0],
         last = focii[focii.length - 1],
         focus = document.activeElement as HTMLElement;
-
+      console.log(focii.map(el => el.classList.toString()));
       if (focus === last && !e.shiftKey) first?.focus();
       else if (focus === first && e.shiftKey) last?.focus();
       else return;
       e.preventDefault();
     }
-    if (['Escape', 'Enter', 'Tab'].includes(e.key)) e.stopPropagation();
+
+    if (['Escape', 'Tab'].includes(e.key)) e.stopPropagation();
   };
 
   private autoFocus() {
@@ -314,8 +316,8 @@ class DialogWrapper implements Dialog {
   };
 }
 
-async function loadAssets(o: DialogOpts) {
-  return Promise.all([
+async function loadAssets(o: DialogOpts): Promise<string> {
+  const assets = await Promise.allSettled([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
@@ -324,4 +326,5 @@ async function loadAssets(o: DialogOpts) {
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),
   ]);
+  return (assets[0]?.status === 'fulfilled' && assets[0].value) || '';
 }

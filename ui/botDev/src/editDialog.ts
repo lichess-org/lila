@@ -60,7 +60,7 @@ export class EditDialog {
 
   async show(): Promise<Dialog> {
     this.dlg = await domDialog({
-      append: [{ node: this.view }],
+      insert: [{ node: this.view }],
       actions: this.actions,
       onClose: () => this.janitor.cleanup(),
       onShow: () => this.deck.resize(),
@@ -228,7 +228,7 @@ export class EditDialog {
     domDialog({
       class: 'dev-view',
       htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
-      append: [
+      insert: [
         { node: input, where: 'span' },
         { node: ok, where: 'span' },
       ],
@@ -289,7 +289,7 @@ export class EditDialog {
           </div>
       </div>`);
     const dlg = await domDialog({
-      append: [{ node: view }],
+      insert: [{ node: view }],
       easyClose: 'clickOutside',
       show: true,
       actions: [
@@ -315,7 +315,7 @@ export class EditDialog {
           </div>
       </div>`);
     const dlg = await domDialog({
-      append: [{ node: view }],
+      insert: [{ node: view }],
       easyClose: 'clickOutside',
       show: true,
       actions: [

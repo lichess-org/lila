@@ -50,6 +50,8 @@ html.light {
   --c-border-page: hsl(0 0% 80%);
   --c-border-tour: color-mix(in oklab, hsl(0 0% 80%) 50%, var(--c-bg-page));
   --c-border-light: hsl(0 0% 80%);
+  --c-pool-button: hsl(from var(--c-bg) h s l / calc(alpha * 0.5));
+  --c-logo: #dadada;
   --c-patron-1: hsl(90 60% 43%);
   --c-patron-2: hsl(120 52% 52%);
   --c-patron-3: hsl(162.9 65% 44%);

@@ -1,3 +1,4 @@
+import type { LobbyShortcut } from 'lib/types';
 import { spinnerHtml } from 'lib/view';
 import { text } from 'lib/xhr';
 
@@ -43,6 +44,8 @@ export function initModule(args: { fn: string } & any): void {
       return emailErrorCheck();
     case 'appealTopicSelect':
       return appealTopicSelect();
+    case 'addToShortcuts':
+      return addToShortcuts(args);
     default:
       console.error('Unknown bits function', args.fn);
   }
@@ -256,8 +259,15 @@ function emailErrorCheck() {
   };
   fetchError(3000);
 }
+
 function appealTopicSelect() {
   $('.appeal-filters').on('change', function (this: HTMLSelectElement) {
     location.href = `/appeal/queue?topic=${this.value}`;
+  });
+}
+
+function addToShortcuts(init: { contextual: LobbyShortcut[]; selector: string }) {
+  document.querySelector<HTMLElement>(init.selector)?.addEventListener('click', () => {
+    site.asset.loadEsm('lobby.shortcutsDialog', { init });
   });
 }

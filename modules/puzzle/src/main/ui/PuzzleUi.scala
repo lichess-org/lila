@@ -76,11 +76,36 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
   def themes(all: PuzzleAngle.All)(using ctx: Context) =
     Page(trans.puzzle.puzzleThemes.txt())
       .css("puzzle.page")
+      .js(
+        esmInitBit(
+          "addToShortcuts",
+          "selector" -> ".puzzle-theme-shortcuts",
+          "contextual" -> JsArray(
+            all.themes.flatMap: (category, themes) =>
+              themes.map: pt =>
+                val url =
+                  if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
+                  else routes.Puzzle.show(pt.theme.key.value)
+                Json.obj(
+                  "name" -> s"${category().render} • ${pt.theme.name().render}",
+                  "url" -> url.url,
+                  "iconMaskUrl" -> assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")
+                )
+          )
+        )
+      )
       .hrefLangs(lila.ui.LangPath(routes.Puzzle.themes)):
         main(cls := "page-menu")(
           bits.pageMenu("themes", ctx.me),
           div(cls := "page-menu__content box")(
-            h1(cls := "box__top")(trans.puzzle.puzzleThemes()),
+            h1(cls := "box__top")(
+              trans.puzzle.puzzleThemes(),
+              button(
+                cls := "button button-empty puzzle-theme-shortcuts",
+                dataIcon := Icon.StarOutline,
+                title := "Add to lobby shortcuts"
+              )
+            ),
             standardFlash.map(div(cls := "box__pad")(_)),
             div(cls := "puzzle-themes")(
               all.themes.take(2).map(themeCategory),

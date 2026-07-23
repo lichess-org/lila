@@ -14,7 +14,6 @@ import type {
   Mode,
   Sort,
   Hook,
-  Pool,
   PoolMember,
   GameType,
   ForceSetupOptions,
@@ -22,6 +21,7 @@ import type {
 } from './interfaces';
 import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
+import { ShortcutsCtrl, pools } from './shortcutsCtrl';
 import LobbySocket from './socket';
 import { make as makeStores, type Stores } from './store';
 import variantConfirm from './variant';
@@ -40,9 +40,9 @@ export default class LobbyController {
   stepping = false;
   redirecting = false;
   poolMember?: PoolMember;
-  pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  shortcutCtrl: ShortcutsCtrl;
 
   private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -58,7 +58,7 @@ export default class LobbyController {
       seeks: [],
     };
     this.me = opts.data.me;
-    this.pools = opts.pools;
+    this.shortcutCtrl = new ShortcutsCtrl(this);
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
@@ -70,7 +70,7 @@ export default class LobbyController {
     if (this.me?.isBot) this.tab = 'now_playing';
     else {
       if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
-        this.stores.tab.set('pools');
+        this.stores.tab.set('shortcuts');
       else if (this.hasOngoingRealTimeGame(false)) this.stores.tab.set('now_playing');
       this.tab = this.stores.tab.get();
     }
@@ -160,7 +160,7 @@ export default class LobbyController {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
-      } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      } else if (this.tab === 'shortcuts' && this.poolMember) this.poolIn();
       else if (this.tab === 'seeks') this.fetchSeeks();
     });
 
@@ -258,7 +258,7 @@ export default class LobbyController {
 
   clickPool = (id: string) => {
     if (!this.me) {
-      xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
+      xhr.anonPoolSeek(pools.find(p => p.id === id)!);
       this.setTab('real_time');
     } else if (this.poolMember?.id === id) this.leavePool();
     else this.enterPool({ id });
@@ -267,7 +267,7 @@ export default class LobbyController {
 
   enterPool = (member: PoolMember) => {
     poolRangeStorage.set(this.me?.username, member.id, member.range);
-    this.setTab('pools');
+    this.setTab('shortcuts');
     this.poolMember = member;
     this.poolIn();
   };
@@ -341,7 +341,7 @@ export default class LobbyController {
         range = poolRangeStorage.get(this.me?.username, member.id);
       if (range) member.range = range;
       if (match) {
-        this.setTab('pools');
+        this.setTab('shortcuts');
         if (this.me) this.enterPool(member);
         else setTimeout(() => this.clickPool(member.id), 1500);
         history.replaceState(null, '', '/');
