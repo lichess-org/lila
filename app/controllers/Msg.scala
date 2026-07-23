@@ -4,6 +4,7 @@ import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
+import lila.core.net.School
 
 final class Msg(env: Env) extends LilaController(env):
 
@@ -75,7 +76,7 @@ final class Msg(env: Env) extends LilaController(env):
         )
   }
 
-  private def inboxJson(withConvo: Option[UserId])(using me: Me) =
+  private def inboxJson(withConvo: Option[UserId])(using me: Me)(using Option[School]) =
     import lila.common.Json.lightUserWrites
     for
       threads <- env.msg.api.myThreads

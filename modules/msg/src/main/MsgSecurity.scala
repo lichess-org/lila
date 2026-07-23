@@ -1,10 +1,11 @@
 package lila.msg
 
 import lila.common.Bus
-import lila.core.misc.clas.ClasBus
+import lila.core.clas.{ ClasBus, MyTeacherIds, MyStudentIds }
 import lila.core.report.SuspectId
 import lila.core.shutup.TextAnalyser
 import lila.core.team.IsLeaderOf
+import lila.core.net.School
 import lila.db.dsl.{ *, given }
 import lila.memo.RateLimit
 
@@ -17,7 +18,9 @@ final private class MsgSecurity(
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,
     spam: lila.core.security.SpamApi,
-    textAnalyser: TextAnalyser
+    textAnalyser: TextAnalyser,
+    myTeacherIds: () => Me => Fu[MyTeacherIds],
+    myStudentIds: () => Me => Fu[MyStudentIds]
 )(using Executor, Scheduler, lila.core.config.RateLimit):
 
   import MsgSecurity.*
@@ -137,6 +140,16 @@ final private class MsgSecurity(
       relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
 
   object may:
+
+    def open(userId: UserId)(using me: Me, school: Option[School]): Fu[Boolean] =
+      userId
+        .isnt(me)
+        .so:
+          school.fold(fuccess(true)):
+            case _ if userId.is(UserId.lichess) => fuccess(true)
+            case School.teacher => myStudentIds()(me).map(_.value(userId))
+            case School.student => myTeacherIds()(me).map(_.value(userId))
+            case _ => fuccess(false)
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
       contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }

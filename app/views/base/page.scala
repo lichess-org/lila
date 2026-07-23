@@ -36,6 +36,8 @@ object page:
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
+  private val dataSchoolMode = attr("data-school-mode")
+
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
     val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
@@ -116,6 +118,7 @@ object page:
             .option(env.push.vapidPublicKey),
           dataUser := ctx.userId,
           dataUsername := ctx.username,
+          ctx.school.map(dataSchoolMode := _.key),
           dataSoundSet := pref.currentSoundSet.toString,
           attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
                                           else netConfig.socketDomains).mkString(","),

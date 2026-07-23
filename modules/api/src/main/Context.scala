@@ -9,6 +9,7 @@ import lila.core.i18n.Translate
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
 import lila.core.user.KidMode
+import lila.core.net.School
 import lila.oauth.TokenScopes
 import lila.pref.Pref
 import lila.ui.Nonce
@@ -18,7 +19,8 @@ final class LoginContext(
     val me: Option[Me],
     val needsFp: Boolean,
     val impersonatedBy: Option[lila.core.userId.ModId],
-    val oauth: Option[TokenScopes]
+    val oauth: Option[TokenScopes],
+    val school: Option[School]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
   def user: Option[User] = Me.raw(me)
@@ -32,9 +34,14 @@ final class LoginContext(
   def isTakex3 = oauth.exists(_.has(_.Web.Takex3))
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
+  def kid = KidMode:
+    school.contains(School.student)
+    school.contains(School.other) ||
+    school.contains(School.anon) ||
+    user.exists(_.kid.yes);
 
 object LoginContext:
-  val anon = LoginContext(none, false, none, none)
+  def anon(school: Option[School]) = LoginContext(none, false, none, none, school)
 
 /* Data available in every HTTP request */
 class Context(
@@ -45,10 +52,9 @@ class Context(
 ) extends lila.ui.Context:
   export loginContext.*
   def ip: IpAddress = HTTPRequest.ipAddress(req)
-  lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   lazy val blind = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
+  def mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   def isMobileApi = mobileApiVersion.isDefined
-  def kid = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
   def canVoiceChat = kid.no && me.exists(!_.marks.troll)
@@ -66,9 +72,9 @@ object Context:
   import lila.i18n.LangPicker
   import lila.pref.RequestPref
   def minimal(req: RequestHeader) =
-    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    Context(req, LangPicker(req), LoginContext.anon(none), RequestPref.fromRequest(req))
   def minimalBody[A](req: Request[A]) =
-    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    BodyContext(req, LangPicker(req), LoginContext.anon(none), RequestPref.fromRequest(req))
 
 final class BodyContext[A](
     val body: Request[A],

@@ -1,7 +1,7 @@
 package lila.team
 
 import lila.common.Bus
-import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
+import lila.core.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
 import lila.core.team.Access
 

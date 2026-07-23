@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 import scalalib.model.Language
 
 import lila.core.i18n.{ toLanguage, Translate, defaultLanguage }
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, School }
 import lila.core.notify.UnreadCount
 import lila.core.pref.Pref
 import lila.core.user.KidMode
@@ -25,6 +25,7 @@ trait Context:
   def blind: Boolean
   def isBot: Boolean
   def kid: KidMode
+  def school: Option[School]
 
   def is[U: UserIdOf](u: U): Boolean = me.exists(_.is(u))
   def isnt[U: UserIdOf](u: U): Boolean = !is(u)

@@ -80,3 +80,7 @@ object net:
     extension (a: ValidReferrer)
       def propagate(url: Url): Url = url.map(addQueryParam(_, "referrer", a.value))
       def propagate(call: play.api.mvc.Call): Url = propagate(Url(call.url))
+
+  enum School:
+    case teacher, student, other, anon
+    val key = toString
