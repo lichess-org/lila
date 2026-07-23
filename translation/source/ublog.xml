@@ -53,7 +53,7 @@
   <string name="imageCredit">Image credit</string>
   <string name="deleteBlog">Delete this blog post permanently</string>
   <string name="safeToUseImages">It is safe to use images from the following websites: </string>
-  <string name="safeToUseImages2" comment="Replaces safeToUseImages">The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use.</string>
+  <string name="freeImagesComplyWithLicensing" comment="Replaces safeToUseImages">The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use.</string>
   <string name="selectPostTopics">Select the topics your post is about</string>
   <string name="useImagesYouMadeYourself">You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else.</string>
   <string name="safeAndRespectfulContent">Please only post safe and respectful content. Do not copy someone else's content.</string>

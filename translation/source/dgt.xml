@@ -21,7 +21,7 @@
   <string name="asALastResort">As a last resort: Set up the board identically to Lichess, then %s</string>
   <string name="reloadThisPage">reload this page</string>
   <string name="dgtConfigure">DGT - Configure</string>
-  <string name="dgtConfigure2" comment="Replaces dgtConfigure">Configure your DGT board</string>
+  <string name="configureYourDgtBoard" comment="Replaces dgtConfigure">Configure your DGT board</string>
   <string name="lichessConnectivity">Lichess connectivity</string>
   <string name="validDgtOauthToken">You have an OAuth token suitable for DGT play.</string>
   <string name="dgtPlayMenuEntryAdded">A %s entry was added to your PLAY menu at the top.</string>

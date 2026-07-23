@@ -66,7 +66,7 @@
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed</string>
-  <string name="youCanPasteThisInTheForumToEmbed2" comment="Replaces youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed the chapter.</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="Replaces youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed the chapter.</string>
   <string name="startAtInitialPosition">Start at initial position</string>
   <string name="startAtX">Start at %s</string>
   <string name="embedInYourWebsite">Embed in your website</string>
@@ -189,9 +189,9 @@
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Set up the board your way.&lt;br&gt;Suited to explore endgames.</string>
   <string name="loadExistingLichessGameTitle">Load an existing lichess game</string>
-  <string name="loadExistingLichessGameTitle2" comment="Replaces loadExistingLichessGameTitle">Load a game from the web</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces loadExistingLichessGameTitle">Load a game from the web</string>
   <string name="loadExistingLichessGameText">Paste a lichess game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load the game moves in the chapter.</string>
-  <string name="loadExistingLichessGameText2" comment="Replaces loadExistingLichessGameText">Paste a game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load game moves in the chapter.</string>
+  <string name="loadGameFromTheWebText" comment="Replaces loadExistingLichessGameText">Paste a game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load game moves in the chapter.</string>
   <string name="fromFenStringTitle">From a FEN string</string>
   <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
   <string name="fromPgnGameTitle">From a PGN game</string>

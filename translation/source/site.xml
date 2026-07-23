@@ -295,9 +295,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="whiteTimeOut">White time out</string>
-  <string name="whiteTimeOut2" comment="Replaces whiteTimeOut">White ran out of time</string>
+  <string name="whiteRanOutOfTime" comment="Replaces whiteTimeOut">White ran out of time</string>
   <string name="blackTimeOut">Black time out</string>
-  <string name="blackTimeOut2" comment="Replaces blackTimeOut">Black ran out of time</string>
+  <string name="blackRanOutOfTime" comment="Replaces blackTimeOut">Black ran out of time</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
   <string name="whiteOffersDraw">White offers draw</string>
@@ -419,7 +419,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating filters are locked because your rating is not stable. Playing rated games will increase stability.</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional2" comment="Replaces ratingRangeIsDisabledBecauseYourRatingIsProvisional">It is not possible to filter by rating because your rating is not stable.
+  <string name="cannotFilterByUnstableRating" comment="Replaces ratingRangeIsDisabledBecauseYourRatingIsProvisional">It is not possible to filter by rating because your rating is not stable.
 Playing rated games will increase stability.</string>
   <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
@@ -442,7 +442,7 @@ Playing rated games will increase stability.</string>
   <string name="save">Save</string>
   <string name="leaderboard">Leaderboard</string>
   <string name="screenshotCurrentPosition">Screenshot current position</string>
-  <string name="screenshotCurrentPosition2" comment="Replaces screenshotCurrentPosition">Position as image</string>
+  <string name="positionAsImage" comment="Replaces screenshotCurrentPosition">Position as image</string>
   <string name="gameAsGIF">Game as GIF</string>
   <string name="playerNames">Player names</string>
   <string name="moveAnnotations">Move annotations</string>
@@ -725,7 +725,7 @@ Playing rated games will increase stability.</string>
   <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
-  <string name="simulHostExtraTime2" comment="Replaces simulHostExtraTime">Extra clock time for the host:</string>
+  <string name="extraClockTimeForHost" comment="Replaces simulHostExtraTime">Extra clock time for the host:</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
   <string name="simulHostExtraTimePerPlayer">Host extra clock time per player</string>
   <string name="lichessTournaments">Lichess tournaments</string>
@@ -856,7 +856,7 @@ Playing rated games will increase stability.</string>
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="perfRatingX2" comment="Replaces perfRatingX">Rating: %s.</string>
+  <string name="ratingX" comment="Replaces perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Your rating is %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>
@@ -916,7 +916,7 @@ Playing rated games will increase stability.</string>
   </plurals>
   <string name="showUnreadLichessMessage">You have received a private message from Lichess.</string>
   <string name="clickHereToReadIt">Click here to read it</string>
-  <string name="clickHereToReadIt2" comment="Replaces clickHereToReadIt">Read the message</string>
+  <string name="readTheMessage" comment="Replaces clickHereToReadIt">Read the message</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
   <string name="why">Why?</string>

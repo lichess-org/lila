@@ -65,7 +65,7 @@ Play quickly to play more games and score more points.</string>
   <string name="editTournament">Edit tournament</string>
   <string name="editTeamBattle">Edit team battle</string>
   <string name="defender">Defender</string>
-  <string name="defender2" comment="Replaces defender">Defender:</string>
+  <string name="defenderLabel" comment="Replaces defender">Defender:</string>
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">You must join one of these teams to participate!</string>

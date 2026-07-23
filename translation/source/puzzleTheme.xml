@@ -30,7 +30,7 @@
   <string name="collinearMoveDescription">Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.</string>
   <string name="cornerMate">Corner mate</string>
   <string name="cornerMateDescription">Confine the king to the corner using a rook or queen and a knight to engage the checkmate.</string>
-  <string name="cornerMateDescription2" comment="Replaces cornerMateDescription">Confine the king to the corner using a rook or queen, and use a knight to deliver the checkmate.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Replaces cornerMateDescription">Confine the king to the corner using a rook or queen, and use a knight to deliver the checkmate.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Discovered check</string>
@@ -116,7 +116,7 @@
   <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
   <string name="promotion">Promotion</string>
   <string name="promotionDescription">Promote one of your pawn to a queen or minor piece.</string>
-  <string name="promotionDescription2" comment="Replaces promotionDescription">Promote one of your pawns to a queen, rook or minor piece.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces promotionDescription">Promote one of your pawns to a queen, rook or minor piece.</string>
   <string name="queenEndgame">Queen endgame</string>
   <string name="queenEndgameDescription">An endgame with only queens and pawns.</string>
   <string name="queenRookEndgame">Queen and Rook</string>
