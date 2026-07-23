@@ -547,6 +547,21 @@ final class Study(
       )
     }
 
+  def apiChapterPgnContinuationPaste(studyId: StudyId, chapterId: StudyChapterId) =
+    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+      bindForm(StudyForm.pgnContinuationPaste)(
+        jsonFormError,
+        data =>
+          env.study.api
+            .pasteChapterPgnContinuation(studyId, chapterId, data.path, data.pgn)
+            .map:
+              if _ then NoContent
+              else JsonBadRequest(s"Invalid or forbidden chapter $studyId/$chapterId")
+            .recover:
+              case lila.study.StudyValidationException(error) => JsonBadRequest(error)
+      )
+    }
+
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")
