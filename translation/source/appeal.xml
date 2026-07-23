@@ -15,7 +15,7 @@
   <string name="hiddenBlog">Your blogs have been hidden by moderators.</string>
   <string name="hiddenBlogInfo">Make sure to read again our %s.</string>
   <string name="playTimeout">You have a play timeout.</string>
-  <string name="playTimeout2" comment="Replaces playTimeout">Your account is temporarily restricted from playing.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="Replaces playTimeout">Your account is temporarily restricted from playing.</string>
   <string name="communicationGuidelines">communication guidelines</string>
   <string name="blogRules">blog rules</string>
   <string name="fairPlay">Fair Play</string>
