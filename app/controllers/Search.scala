@@ -45,7 +45,7 @@ final class Search(env: Env) extends LilaController(env):
                         negotiate(
                           Ok.page(views.gameSearch.index(searchForm.fill(data), pager, nbGames)),
                           pager.fold(BadRequest(jsonError("Could not process search query")).toFuccess):
-                            pager => env.game.userGameApi.jsPaginator(pager).dmap(Ok(_))
+                            pager => env.game.userGameApi.jsPaginator(pager.toPaginator).dmap(Ok(_))
                         )
                       .recoverWith: _ =>
                         serverError("Sorry, we can't process that query at the moment")

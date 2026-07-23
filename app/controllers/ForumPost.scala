@@ -8,20 +8,20 @@ import lila.msg.MsgPreset
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   def search(text: String, page: Int) = AuthBody: _ ?=>
-    _ ?=>
+    me ?=>
       NotForKids:
         if text.trim.isEmpty
         then Redirect(routes.ForumCateg.index)
         else
           for
-            ids <- env.forumSearch(text, page)
+            ids <- env.forum.searchApi(text, page, me.marks.troll)
             posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
               access
                 .isGrantedRead(post.topic.categId)
                 .map:
                   lila.forum.PostView.WithReadPerm(post, _)
-            page <- renderPage(views.forum.post.search(text, pager))
+            page <- renderPage(views.forum.post.search(text, pager.toPaginator))
           yield Ok(page)
 
   def create(categId: ForumCategId, slug: ForumTopicSlug, page: Int) = AuthBody { ctx ?=> me ?=>

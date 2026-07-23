@@ -109,7 +109,9 @@ final class Env(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
+      studyIds <- studyRepo.studyIdsForMember(del.id)
       _ <- api.deletePrivateByOwner(del.id)
       _ <- studyRepo.anonymizeAllOf(del.id)
+      _ = studyIds.foreach(id => lila.common.Bus.pub(lila.core.study.IndexStudySearch(id)))
       _ <- topicApi.userTopicsDelete(del.id)
     yield ()

@@ -11,6 +11,7 @@ import lila.core.timeline as tl
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.search.SearchClient.Index
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -19,13 +20,14 @@ final class TeamApi(
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
     notifier: Notifier,
-    chatApi: lila.core.chat.ChatApi
+    chatApi: lila.core.chat.ChatApi,
+    elastic: lila.search.SearchClient
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -70,6 +72,7 @@ final class TeamApi(
         .copy(chat = setup.chat, forum = setup.forum)
       _ <- teamRepo.coll.insert.one(team)
       _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
+      _ <- elastic.upsert(Index.Team, team.id)
     yield
       cached.invalidateTeamIds(me.userId)
       Bus.pub(TeamCreate(team.data))
@@ -79,6 +82,7 @@ final class TeamApi(
   private[team] def createQuietly(team: Team)(using me: Me): Fu[Team] = for
     _ <- teamRepo.coll.insert.one(team)
     _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
+    _ <- elastic.upsert(Index.Team, team.id)
   yield
     cached.invalidateTeamIds(me.userId)
     team
@@ -101,6 +105,9 @@ final class TeamApi(
     for
       blocklist <- blocklist.get(team)
       _ <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
+      _ <-
+        if team.enabled then elastic.upsert(Index.Team, team.id)
+        else elastic.delete(Index.Team, team.id)
       isLeader <- hasPerm(team.id, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
@@ -232,6 +239,7 @@ final class TeamApi(
       for
         done <- memberRepo.add(team.id, userId)
         _ <- done.so(teamRepo.incMembers(team.id, 1))
+        _ <- done.so(elastic.upsert(Index.Team, team.id))
       yield
         cached.invalidateTeamIds(userId)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(userId, team.id)).toFollowersOf(userId))
@@ -248,7 +256,8 @@ final class TeamApi(
               .addEffect: done =>
                 if done then cached.invalidateTeamIds(user.id)
       .flatMap: inserts =>
-        teamRepo.incMembers(team.id, inserts.count(identity))
+        val nbInserted = inserts.count(identity)
+        teamRepo.incMembers(team.id, nbInserted) >> (nbInserted > 0).so(elastic.upsert(Index.Team, team.id))
 
   def teamsOf(username: UserStr) =
     cached.teamIdsList(username.id).flatMap(teamsByIds)
@@ -264,6 +273,7 @@ final class TeamApi(
       res <- memberRepo.remove(team.id, userId)
       _ <- (res.n == 1).so:
         teamRepo.incMembers(team.id, -1)
+      _ <- (res.n == 1).so(elastic.upsert(Index.Team, team.id))
     yield
       Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
       cached.invalidateTeamIds(userId)
@@ -272,7 +282,8 @@ final class TeamApi(
     teamIds <- cached.teamIdsList(userId)
     _ <- memberRepo.removeByUser(userId)
     _ <- requestRepo.removeByUser(userId)
-    _ <- teamIds.sequentially(teamRepo.incMembers(_, -1))
+    _ <- teamIds.sequentiallyVoid: teamId =>
+      teamRepo.incMembers(teamId, -1) >> elastic.upsert(Index.Team, teamId)
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
@@ -330,9 +341,12 @@ final class TeamApi(
             _ <- teamRepo.disable(team)
             _ <- invalidateTeamIdsOfMembers(team.id)
             _ <- requestRepo.removeByTeam(team.id)
+            _ <- elastic.delete(Index.Team, team.id)
           yield ()
         else
-          for _ <- teamRepo.enable(team)
+          for
+            _ <- teamRepo.enable(team)
+            _ <- elastic.upsert(Index.Team, team.id)
           yield Bus.pub(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
@@ -359,7 +373,14 @@ final class TeamApi(
   def delete(team: Team, by: User, explain: String): Funit = for
     _ <- teamRepo.coll.delete.one($id(team.id))
     _ <- memberRepo.removeByTeam(team.id)
+    _ <- elastic.delete(Index.Team, team.id)
   yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+
+  def deleteNewlyCreatedBy(userId: UserId): Funit = for
+    id <- teamRepo.newlyCreatedById(userId)
+    _ <- id.so: teamId =>
+      teamRepo.coll.delete.one($id(teamId)).void >> elastic.delete(Index.Team, teamId)
+  yield ()
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)

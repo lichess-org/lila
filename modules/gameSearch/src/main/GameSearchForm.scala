@@ -3,13 +3,11 @@ package lila.gameSearch
 import chess.Rated
 import play.api.data.*
 import play.api.data.Forms.*
-import smithy4s.time.Timestamp
 
-import java.time.LocalDate
+import java.time.{ LocalDate, ZoneOffset }
 
 import lila.common.Form.*
 import lila.core.i18n.Translate
-import lila.search.spec.{ DateRange, IntRange, Query, GameSorting as SpecSorting }
 
 final private[gameSearch] class GameSearchForm:
 
@@ -80,7 +78,7 @@ case class SearchData(
 
   def sortOrDefault = sort | SearchSort()
 
-  def query: Query.Game = Query.game(
+  def query: Query = Query(
     user1 = players.cleanA.map(_.value),
     user2 = players.cleanB.map(_.value),
     winner = players.cleanWinner.map(_.value),
@@ -101,14 +99,14 @@ case class SearchData(
     analysed = analysed,
     whiteUser = players.cleanWhite.map(_.value),
     blackUser = players.cleanBlack.map(_.value),
-    sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order),
+    sorting = sortOrDefault,
     clockInit = clockInit,
     clockInc = clockInc
   )
 
-  def transform(l: LocalDate): Timestamp = Timestamp(l.getYear, l.getMonthValue, l.getDayOfMonth)
+  def transform(l: LocalDate) = l.atStartOfDay(ZoneOffset.UTC).toInstant
 
-  def nonEmptyQuery: Option[Query.Game] = query.some.filter(_.nonEmpty)
+  def nonEmptyQuery: Option[Query] = query.some.filter(_.nonEmpty)
 
 case class SearchPlayer(
     a: Option[UserStr] = None,

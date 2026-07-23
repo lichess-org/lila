@@ -10,7 +10,8 @@ final class ForumDelete(
     postApi: ForumPostApi,
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    searchApi: lila.search.SearchClient
 )(using Executor, akka.stream.Materializer):
 
   def allByUser(user: User)(using Me): Funit =
@@ -27,6 +28,7 @@ final class ForumDelete(
       ids <- postRepo.idsByTopicId(view.topic.id)
       _ <- ids.traverse(id => picfitApi.pullRef(picRef(id)))
       _ <- postRepo.removeByTopic(view.topic.id)
+      _ <- ids.traverse(searchApi.delete(lila.search.SearchClient.Index.Forum, _))
       _ <- topicRepo.remove(view.topic)
       _ <- categApi.denormalize(view.categ)
     yield publishDelete(view.post)
@@ -40,6 +42,7 @@ final class ForumDelete(
           for
             _ <- picfitApi.pullRef(picRef(view.post.id))
             _ <- postRepo.remove(view.post)
+            _ <- searchApi.delete(lila.search.SearchClient.Index.Forum, view.post.id)
             _ <- topicApi.denormalize(view.topic)
             _ <- categApi.denormalize(view.categ)
           yield publishDelete(view.post)

@@ -120,13 +120,15 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def insert(s: Study): Funit =
     coll:
-      _.insert.one:
-        studyHandler.writeTry(s).get ++ $doc(
-          F.uids -> s.members.ids,
-          F.likers -> List(s.ownerId),
-          F.rank -> Study.Rank.compute(s.likes, s.createdAt)
-        )
-    .void
+      _.insert
+        .one:
+          studyHandler.writeTry(s).get ++ $doc(
+            F.uids -> s.members.ids,
+            F.likers -> List(s.ownerId),
+            F.rank -> Study.Rank.compute(s.likes, s.createdAt)
+          )
+        .addEffect(_ => updateElasticIndex(s.id))
+        .void
 
   def updateSomeFields(s: Study): Funit =
     import toBSONValueOption.given
@@ -144,7 +146,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             "updatedAt" -> nowInstant.some
           )
         )
-    .void
+        .addEffect(_ => updateElasticIndex(s.id))
+        .void
 
   def updateTopics(s: Study): Funit =
     coll:
@@ -153,7 +156,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           $id(s.id),
           $set("topics" -> s.topics, "updatedAt" -> nowInstant)
         )
-    .void
+        .addEffect(_ => updateElasticIndex(s.id))
+        .void
 
   def delete(s: Study): Funit = coll(_.delete.one($id(s.id))).void
 
@@ -181,27 +185,33 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def addMember(study: StudyId, member: StudyMember): Funit =
     coll:
-      _.update.one(
-        $id(study),
-        $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
-      )
-    .void
+      _.update
+        .one(
+          $id(study),
+          $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
+        )
+        .addEffect(_ => updateElasticIndex(study))
+        .void
 
   def removeMember(study: StudyId, userId: UserId): Funit =
     coll:
-      _.update.one(
-        $id(study),
-        $unset(s"members.$userId") ++ $pull(F.uids -> userId)
-      )
-    .void
+      _.update
+        .one(
+          $id(study),
+          $unset(s"members.$userId") ++ $pull(F.uids -> userId)
+        )
+        .addEffect(_ => updateElasticIndex(study))
+        .void
 
   def setRole(study: Study, userId: UserId, role: StudyMember.Role): Funit =
     coll:
-      _.update.one(
-        $id(study.id),
-        $set(s"members.$userId.role" -> role)
-      )
-    .void
+      _.update
+        .one(
+          $id(study.id),
+          $set(s"members.$userId.role" -> role)
+        )
+        .addEffect(_ => updateElasticIndex(study.id))
+        .void
 
   def setOwner(study: StudyId, userId: UserId): Funit = for
     _ <- addMember(study, StudyMember(userId, StudyMember.Role.Write))
@@ -212,16 +222,18 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll(_.primitiveOne[Bdoc]($id(id), "members"))
 
   def setMembersDoc(ids: Seq[StudyId], members: Bdoc): Funit =
-    coll(
-      _.update.one(
-        $inIds(ids),
-        $set(
-          "members" -> members,
-          "uids" -> members.toMap.keys
-        ),
-        multi = true
-      )
-    ).void
+    coll:
+      _.update
+        .one(
+          $inIds(ids),
+          $set(
+            "members" -> members,
+            "uids" -> members.toMap.keys
+          ),
+          multi = true
+        )
+        .addEffect(_ => ids.foreach(updateElasticIndex(_)))
+        .void
 
   private val idNameProjection = $doc("name" -> true)
 
@@ -288,7 +300,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
           )
           .inject(likes)
-  yield updated
+  yield
+    updateElasticIndex(studyId)
+    updated
 
   def liked(study: Study, user: User): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ selectLiker(user.id)))
@@ -322,6 +336,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
               .void
           ).orZero.inject(Cursor.Cont(count + 1))
 
+  def updateElasticIndex(studyId: StudyId, now: Boolean = false) =
+    lila.common.Bus.pub(hub.IndexStudySearch(studyId, now))
+
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
 
@@ -331,6 +348,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     ids <- c.distinctEasy[StudyId, List]("_id", privateSelector)
     _ <- c.delete.one(privateSelector)
   yield ids
+
+  private[study] def studyIdsForMember(u: UserId): Fu[List[StudyId]] =
+    coll(_.distinctEasy[StudyId, List]("_id", $or(selectOwnerId(u), selectMemberId(u))))
 
   private[study] def anonymizeAllOf(u: UserId): Funit = for
     c <- coll.get

@@ -57,10 +57,10 @@ final class Team(env: Env) extends LilaController(env):
         then paginator.popularTeams(page).map { views.team.list.all(_) }
         else
           for
-            ids <- env.teamSearch(text, page)
+            ids <- env.team.searchApi(text, page)
             teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
             forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
-          yield views.team.list.search(text, forMe)
+          yield views.team.list.search(text, forMe.toPaginator)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team <- api.withLeaders(team)
