@@ -93,7 +93,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
         form3.split(fields.description),
-        fields.payouts
+        gatheringFormUi.payouts(form.prefix("payouts"))
       ),
       form3.fieldset("Games", toggle = true.some, disabled = fields.frozen)(
         fields.clock,
@@ -112,7 +112,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
         form3.split(fields.description),
-        fields.payouts
+        gatheringFormUi.payouts(form.prefix("payouts"))
       ),
       form3.fieldset("Games", toggle = false.some, disabled = fields.frozen)(
         fields.clock,
@@ -415,20 +415,6 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
       help = trans.site.tournDescriptionHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
-  def payouts =
-    Granter
-      .opt(_.ManageTournament)
-      .option:
-        form3.group(
-          form.prefix("payouts"),
-          frag("Prize payouts"),
-          help = frag(
-            "Only if Lichess is responsible for the payout",
-            br,
-            "Amounts in USD: e.g. $500/$250/$100/$50/$25"
-          ).some,
-          half = true
-        )(form3.input(_))
   def entryCode =
     form3.group(
       form.prefix("password"),

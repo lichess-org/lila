@@ -123,3 +123,18 @@ final class GatheringFormUi(helpers: Helpers):
       ).some,
       disabled = disabledAfterStart
     )
+
+  def payouts(field: Field)(using Option[Me], Translate) =
+    Granter
+      .opt(_.ManageTournament)
+      .option:
+        form3.group(
+          field,
+          frag("Prize payouts"),
+          help = frag(
+            "Only if Lichess is responsible for the payout",
+            br,
+            "Amounts in USD: e.g. $500/$250/$100/$50/$25"
+          ).some,
+          half = true
+        )(form3.input(_))

@@ -14,7 +14,7 @@ final class SwissForm(using mode: play.api.Mode):
 
   import SwissForm.*
 
-  def form(using me: Me)(minRounds: Int = 3) =
+  def form(minRounds: Int = 3)(using me: Me) =
     val manager = Granter(_.ManageTournament)
     Form(
       mapping(

@@ -22,7 +22,7 @@ final class SwissFormUi(helpers: Helpers)(
     Page(trans.swiss.newSwiss.txt())
       .css("swiss.form")
       .js(Esm("bits.tourForm")):
-        val fields = new SwissFields(form, none)
+        val fields = SwissFields(form, none)
         main(cls := "page-small")(
           div(cls := "swiss__form tour__form box box-pad")(
             h1(cls := "box__top")(trans.swiss.newSwiss()),
@@ -32,9 +32,7 @@ final class SwissFormUi(helpers: Helpers)(
                   dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
-                )(
-                  trans.site.ourEventTips()
-                )
+                )(trans.site.ourEventTips())
               ),
               fields.tournamentFields,
               fields.gameFields,
@@ -56,7 +54,7 @@ final class SwissFormUi(helpers: Helpers)(
     Page(swiss.name)
       .css("swiss.form")
       .js(Esm("bits.tourForm")):
-        val fields = new SwissFields(form, swiss.some)
+        val fields = SwissFields(form, swiss.some)
         main(cls := "page-small")(
           div(cls := "swiss__form box box-pad")(
             h1(cls := "box__top")("Edit ", swiss.name),
@@ -88,7 +86,7 @@ final class SwissFormUi(helpers: Helpers)(
       form3.fieldset("Tournament", toggle = true.some)(
         form3.split(name, nbRounds),
         form3.split(startsAt, description),
-        payouts
+        gatheringFormUi.payouts(form("payouts"))
       )
 
     def gameFields =
@@ -143,20 +141,6 @@ final class SwissFormUi(helpers: Helpers)(
         help = trans.site.tournDescriptionHelp().some,
         half = true
       )(form3.textarea(_)(rows := 4))
-    def payouts =
-      Granter
-        .opt(_.ManageTournament)
-        .option:
-          form3.group(
-            form("payouts"),
-            frag("Prize payouts"),
-            help = frag(
-              "Only if Lichess is responsible for the payout",
-              br,
-              "Amounts in USD: e.g. $500/$250/$100/$50/$25"
-            ).some,
-            half = true
-          )(form3.input(_))
     def position =
       form3.group(
         form("position"),
