@@ -177,6 +177,8 @@ interface I18n {
     howDoesItEndAnswer: string;
     /** How does the pairing work? */
     howDoesPairingWork: string;
+    /** How are players paired? */
+    howDoesPairingWork2: string;
     /** At the start of the tournament, players are paired based on their rating. */
     howDoesPairingWorkAnswer: string;
     /** How is the winner decided? */
@@ -2825,6 +2827,8 @@ interface I18n {
     morphysMate: string;
     /** Use the bishop to check the king, while your rook helps to confine it. */
     morphysMateDescription: string;
+    /** A bishop delivers checkmate to the king, while a rook helps to confine it. */
+    morphysMateDescription2: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
@@ -2845,6 +2849,8 @@ interface I18n {
     pillsburysMate: string;
     /** The rook delivers checkmate, while the bishop helps to confine it. */
     pillsburysMateDescription: string;
+    /** A rook delivers checkmate to the king, while a bishop helps to confine it. */
+    pillsburysMateDescription2: string;
     /** Pin */
     pin: string;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
