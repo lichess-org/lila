@@ -64,6 +64,13 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
                       case _ => condition.name(pk)
           )
 
+  def payouts(txt: String) =
+    st.section(cls := "description"):
+      p(
+        a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: "),
+        txt
+      )
+
 final class GatheringFormUi(helpers: Helpers):
   import helpers.*
   import play.api.data.Field

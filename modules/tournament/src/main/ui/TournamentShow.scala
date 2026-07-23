@@ -156,15 +156,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               ),
             tour.description.map: d =>
               st.section(cls := "description")(markdownLinksOrRichText(d)),
-            tour.payouts.map: payouts =>
-              st.section(cls := "description")(
-                p(
-                  strong(
-                    a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: ")
-                  ),
-                  payouts
-                )
-              ),
+            tour.payouts.map(gathering.payouts),
             List(
               tour.noBerserk.option(
                 div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
