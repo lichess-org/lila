@@ -38,7 +38,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     appeals <- env.appeal.api.byTopic(me)
     status <- makeStatus(me)
     topic = AppealTopicApi.select(status, appeals)
-    allAppeals = appeals.values.toList
+    allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
@@ -57,7 +57,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
           bindForm(userForm)(
             err => BadRequest.async(renderAppealOrTree(err.some)),
-            text => env.appeal.api.post(topic, text).inject(Redirect(routes.Appeal.home).flashSuccess)
+            text =>
+              for _ <- env.appeal.api.post(topic, text, muted = appeals.muted)
+              yield Redirect(routes.Appeal.home).flashSuccess
           )
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))
     yield res
@@ -111,7 +113,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
         (text, close, dismiss) =>
           for
-            replied <- env.appeal.api.reply(text, appeal)
+            replied <- env.appeal.api.modReply(text, appeal)
             _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
             _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
@@ -147,6 +149,12 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         _ <- env.appeal.api.toggleClosed(appeal, v, sleepMonths = sleepMonths)
         _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
       yield Redirect(if v then routes.Appeal.modQueue.url else appeal.modShowUrl)
+  }
+
+  def toggleMute(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
+      for _ <- env.appeal.api.toggleMute(appeal, v)
+      yield Redirect(appeal.modShowUrl)
   }
 
   def toggleRead(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>

@@ -9,5 +9,6 @@ POST  /appeal/:username/:topic/handle         controllers.appeal.Appeal.modHandl
 POST  /appeal/:username/:topic/reply          controllers.appeal.Appeal.modReply(username: UserStr, topic: AppealTopic)
 POST  /appeal/:username/:topic/close          controllers.appeal.Appeal.toggleClosed(username: UserStr, topic: AppealTopic, v: Boolean)
 POST  /appeal/:username/:topic/read           controllers.appeal.Appeal.toggleRead(username: UserStr, topic: AppealTopic, v: Boolean)
+POST  /appeal/:username/:topic/mute           controllers.appeal.Appeal.toggleMute(username: UserStr, topic: AppealTopic, v: Boolean)
 POST  /appeal/:username/:topic/snooze/:dur    controllers.appeal.Appeal.snooze(username: UserStr, topic: AppealTopic, dur: String)
 POST  /appeal/:username/:topic/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: UserStr, topic: AppealTopic)
