@@ -44,7 +44,7 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
-    ircApi: lila.irc.IrcApi,
+    ircApi: lila.core.irc.IrcApi,
     teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
