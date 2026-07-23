@@ -11,7 +11,12 @@ case class MsgPreset(name: String, text: String)
 
 case class SystemMsg(userId: UserId, text: String)
 
-case class PayoutMessage(userId: UserId, tournamentName: String, tournamentUrl: Url, finishedAt: Instant)
+case class PayoutMessages(
+    userIds: List[UserId],
+    tourName: String,
+    tourUrl: Url,
+    finishedAt: Instant = nowInstant
+)
 
 type ID = String
 

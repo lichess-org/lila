@@ -24,7 +24,6 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     roundApi: lila.core.round.RoundApi,
     mongoCache: lila.memo.MongoCache.Api,
-    ircApi: lila.core.irc.IrcApi,
     baseUrl: BaseUrl
 )(using
     Executor,

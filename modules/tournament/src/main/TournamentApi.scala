@@ -272,26 +272,18 @@ final class TournamentApi(
 
   private def notifyPayoutWinners(tour: Tournament): Funit =
     import lila.tournament.Tournament.tournamentUrl
+    import lila.core.msg.PayoutMessages
     tour.payouts.so: payouts =>
-      if tour.isTeamBattle then
-        cached.battle.teamStanding
-          .get(tour.id)
-          .flatMap: rankedTeams =>
-            rankedTeams
-              .take(payouts.nbWinners)
-              .traverse(rt => teamApi.creatorOf(rt.teamId))
-              .map: owners =>
-                val creatorIds = owners.flatten
-                creatorIds.foreach: ownerId =>
-                  Bus.pub(lila.core.msg.PayoutMessage(ownerId, tour.name, tournamentUrl(tour.id), nowInstant))
-                ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), creatorIds)
-      else
-        playerRepo
-          .bestByTour(tour.id, payouts.nbWinners)
-          .map: players =>
-            players.foreach: p =>
-              Bus.pub(lila.core.msg.PayoutMessage(p.userId, tour.name, tournamentUrl(tour.id), nowInstant))
-            ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), players.map(_.userId))
+      for userIds <-
+          if tour.isTeamBattle then
+            for
+              rankedTeams <- cached.battle.teamStanding.get(tour.id)
+              owners <- rankedTeams.take(payouts.nbWinners).traverse(rt => teamApi.creatorOf(rt.teamId))
+            yield owners.flatten
+          else
+            for players <- playerRepo.bestByTour(tour.id, payouts.nbWinners)
+            yield players.map(_.userId)
+      yield Bus.pub(PayoutMessages(userIds, tour.name, tournamentUrl(tour.id)))
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds

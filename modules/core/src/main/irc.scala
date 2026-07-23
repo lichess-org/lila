@@ -6,7 +6,6 @@ import play.api.mvc.Call
 import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
 import lila.core.userId.{ UserId, MyId, ModId, UserName }
 import lila.core.study.data.StudyChapterName
-import lila.core.data.Url
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other
@@ -42,7 +41,6 @@ trait IrcApi:
       tier: Option[String],
       note: Option[String]
   ): Funit
-  def payoutNotify(tourName: String, tourUrl: Url, players: List[UserId]): Funit
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit
   def broadcastTourUpdate(
       tourName: String,

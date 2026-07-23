@@ -33,8 +33,7 @@ final class SwissApi(
     chatApi: lila.core.chat.ChatApi,
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
-    roundApi: lila.core.round.RoundApi,
-    ircApi: lila.core.irc.IrcApi
+    roundApi: lila.core.round.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
     extends lila.core.swiss.SwissApi:
 
@@ -532,9 +531,8 @@ final class SwissApi(
           .cursor[SwissPlayer](ReadPref.sec)
           .list(payouts.nbWinners)
           .map: players =>
-            players.foreach: p =>
-              Bus.pub(lila.core.msg.PayoutMessage(p.userId, swiss.name, Swiss.swissUrl(swiss.id), nowInstant))
-            ircApi.payoutNotify(swiss.name, Swiss.swissUrl(swiss.id), players.map(_.userId))
+            val userIds = players.map(_.userId)
+            Bus.pub(lila.core.msg.PayoutMessages(userIds, swiss.name, Swiss.swissUrl(swiss.id)))
 
   def kill(swiss: Swiss): Funit = for _ <-
       if swiss.isStarted then
