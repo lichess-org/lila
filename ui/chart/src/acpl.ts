@@ -29,6 +29,9 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  glyphProperties,
+  nodesWithGlyphByColor,
+  analysisIsPartial,
 } from './index';
 import type { AcplChart, AnalyseData, Player } from './interface';
 
@@ -45,7 +48,6 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(data.game.division);
   const firstPly = mainline[0].ply;
-  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
@@ -182,22 +184,14 @@ export default async function (
     adviceHoverColors = dataset.adviceHoverColors;
     const acpl = dataset.acpl;
     acplChart.data.datasets[0].data = acpl.data;
-    if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
+    if (!analysisIsPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update('none');
   };
   pubsub.on('ply', acplChart.selectPly);
   pubsub.emit('ply.trigger');
-  if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
+  if (!analysisIsPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }
-
-type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: TreeNodeBase): { advice?: Advice; color?: string } => {
-  if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
-  else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
-  else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
-  else return { advice: undefined, color: undefined };
-};
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
@@ -206,16 +200,15 @@ function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: 
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
       if (!chart.canvas.isConnected) return;
       const symbol = this.getAttribute('data-symbol');
-      const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
+      const color = this.getAttribute('data-color') === 'white' ? 'white' : 'black';
       const acplDataset = chart.data.datasets[0];
       if (symbol === '??' || symbol === '?!' || symbol === '?') {
         acplDataset.pointHoverBackgroundColor = hoverColors;
         acplDataset.pointBorderColor = hoverColors;
-        const points = mainline
-          .filter(
-            node => node.glyphs?.some(glyph => glyph.symbol === symbol) && (node.ply & 1) === playerColorBit,
-          )
-          .map(node => ({ datasetIndex: 0, index: node.ply - mainline[0].ply - 1 }));
+        const points = nodesWithGlyphByColor(mainline, symbol, color).map(node => ({
+          datasetIndex: 0,
+          index: node.ply - mainline[0].ply - 1,
+        }));
         chart.setActiveElements(points);
         chart.update('none');
       }
