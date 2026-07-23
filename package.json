@@ -1,7 +1,7 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.15.0",
   "engines": {
     "node": ">=24",
     "pnpm": "11"

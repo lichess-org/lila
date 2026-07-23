@@ -19,13 +19,13 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 - **Java 21** (JDK, not JRE - needs jdk.compiler module)
 - **Node.js 24.14.0+** (specified in `.node-version`)
-- **PNPM 11.5.1+** (specified in `package.json`)
+- **PNPM 11.15.0+** (specified in `package.json`)
 
 **Installation:**
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@11.5.1
+npm install -g pnpm@11.15.0
 
 # Install dependencies (always run this first)
 pnpm install
