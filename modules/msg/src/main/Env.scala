@@ -67,7 +67,7 @@ final class Env(
     case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
 
-  private val payoutsUrl = appConfig.get[String]("payouts.url")
+  private val payoutsUrl = appConfig.get[String]("payouts.portal")
 
   Bus.sub[lila.core.msg.PayoutMessage]:
     case lila.core.msg.PayoutMessage(userId, tournamentName, tournamentUrl, finishedAt) =>
