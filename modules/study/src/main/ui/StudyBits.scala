@@ -32,10 +32,7 @@ final class StudyBits(helpers: Helpers):
       )
     )
 
-  def authLinks(
-      activeCls: StudyGroup => AttrPair,
-      order: StudyGroup => StudyOrder
-  )(using Context) =
+  def authLinks(activeCls: StudyGroup => AttrPair, order: StudyGroup => StudyOrder)(using Context) =
     frag(
       a(activeCls(StudyGroup.mine), href := routes.Study.mine(order(StudyGroup.mine)))(
         trans.study.myStudies()

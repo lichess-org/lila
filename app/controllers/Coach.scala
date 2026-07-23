@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm, allFlags }
+import lila.study.ui.StudyFormat
 import lila.user.Flags
 import lila.core.user.FlagCode
 
@@ -39,7 +40,9 @@ final class Coach(env: Env) extends LilaController(env):
       WithVisibleCoach(c):
         for
           stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
-          studies <- env.study.pager.withChaptersAndLiking(4)(stu)
+          studies <-
+            given StudyFormat = StudyFormat.card
+            env.study.pager.withChaptersAndLiking(4)(stu)
           posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
           page <- renderPage(views.coach.show(c, studies, posts))
         yield Ok(page)

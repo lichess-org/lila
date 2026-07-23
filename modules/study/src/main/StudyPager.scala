@@ -7,6 +7,7 @@ import lila.core.study.StudyOrder
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.memo.SettingStore
+import lila.study.ui.StudyFormat
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -15,6 +16,7 @@ final class StudyPager(
 )(using Executor):
 
   val maxPerPage = MaxPerPage(16)
+  val maxPerPageCompact = MaxPerPage(55)
   val defaultNbChaptersPerStudy = 4
 
   object featured:
@@ -49,7 +51,7 @@ final class StudyPager(
     selectTopic
   }
 
-  def all(order: StudyOrder, page: Int)(using Option[Me]) =
+  def all(order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
     paginator(
       accessSelect(),
       order,
@@ -64,49 +66,49 @@ final class StudyPager(
           extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
       else fuccess(pager)
 
-  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
+  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
     paginator(
       selectOwnerId(owner.id) ++ accessSelect(trash = true),
       order,
       page
     )
 
-  def mine(order: StudyOrder, page: Int)(using me: Me) =
+  def mine(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me),
       order,
       page
     )
 
-  def minePublic(order: StudyOrder, page: Int)(using me: Me) =
+  def minePublic(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me) ++ selectPublic,
       order,
       page
     )
 
-  def minePrivate(order: StudyOrder, page: Int)(using me: Me) =
+  def minePrivate(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectOwnerId(me) ++ selectPrivateOrUnlisted,
       order,
       page
     )
 
-  def mineMember(order: StudyOrder, page: Int)(using me: Me) =
+  def mineMember(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectMemberId(me) ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
 
-  def mineLikes(order: StudyOrder, page: Int)(using me: Me) =
+  def mineLikes(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
       selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
 
-  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me])(using StudyFormat) =
     val onlyMine = me.ifTrue(order == StudyOrder.mine)
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
@@ -129,36 +131,41 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
-    val adapter = Adapter[Study](
-      collection = coll,
-      selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
-      projection = studyRepo.projection.some,
-      sort = order match
-        case StudyOrder.hot => $sort.desc("rank")
-        case StudyOrder.newest => $sort.desc("createdAt")
-        case StudyOrder.oldest => $sort.asc("createdAt")
-        case StudyOrder.updated => $sort.desc("updatedAt")
-        case StudyOrder.popular => $sort.desc("likes")
-        case StudyOrder.alphabetical => $sort.asc("name")
-        // mine filter for topic view
-        case StudyOrder.mine => $sort.desc("rank")
-        // relevant not used here
-        case StudyOrder.relevant => $sort.desc("rank")
-      ,
-      hint = hint
-    ).mapFutureList(withChaptersAndLiking())
-    Paginator(
-      adapter = nbResults.fold(adapter): nb =>
-        CachedAdapter(adapter, nb),
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
+  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll:
+    coll =>
+      val adapter = Adapter[Study](
+        collection = coll,
+        selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
+        projection = studyRepo.projection.some,
+        sort = order match
+          case StudyOrder.hot => $sort.desc("rank")
+          case StudyOrder.newest => $sort.desc("createdAt")
+          case StudyOrder.oldest => $sort.asc("createdAt")
+          case StudyOrder.updated => $sort.desc("updatedAt")
+          case StudyOrder.popular => $sort.desc("likes")
+          case StudyOrder.alphabetical => $sort.asc("name")
+          // mine filter for topic view
+          case StudyOrder.mine => $sort.desc("rank")
+          // relevant not used here
+          case StudyOrder.relevant => $sort.desc("rank")
+        ,
+        hint = hint
+      ).mapFutureList(withChaptersAndLiking())
+      Paginator(
+        adapter = nbResults.fold(adapter): nb =>
+          CachedAdapter(adapter, nb),
+        currentPage = page,
+        maxPerPage = if format == StudyFormat.compact then maxPerPageCompact else maxPerPage
+      )
 
   def withChaptersAndLiking(
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
-  )(studies: Seq[Study])(using me: Option[Me]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
+  )(
+      studies: Seq[Study]
+  )(using me: Option[Me])(using format: StudyFormat): Fu[Seq[Study.WithChaptersAndLiked]] =
+    if format == StudyFormat.compact then
+      fuccess(studies.map(study => Study.WithChaptersAndLiked(study, Seq.empty, false)))
+    else withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(
       studies: Seq[Study],
