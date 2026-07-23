@@ -106,12 +106,12 @@
   <string name="skewer">Ражањ</string>
   <string name="skewerDescription">Тактички мотив у којем напад на вредну фигуру приморава њено померање, откривајући мање вредну фигуру иза ње, која потом може бити узета или нападнута, супротност везивању.</string>
   <string name="smotheredMate">Угушени мат</string>
-  <string name="smotheredMateDescription">Мат скакачем, при чему матирани краљ није у стању да се помери зато што је окружен (или угушен) својим фигурама.</string>
+  <string name="smotheredMateDescription">Мат достављен скакачем у ком матиран краљ није у могућности да се помери јер је окружен (или угушен) својим фигурама.</string>
   <string name="superGM">Проблеми из партија које су одиграли најбољи светски велемајстори</string>
   <string name="superGMDescription">Проблем из партија које су одиграли најбољи играчи на свету.</string>
   <string name="trappedPiece">Заробљена фигура</string>
-  <string name="trappedPieceDescription">Фигура не може да избегне да буде узета, зато што јој је ограничено кретање.</string>
-  <string name="underPromotion">Слаба промоција</string>
+  <string name="trappedPieceDescription">Фигура не може избећи да буде узета јер су јој потези ограничени.</string>
+  <string name="underPromotion">Потпромоција</string>
   <string name="underPromotionDescription">Промоција на коња, ловца или топа.</string>
   <string name="veryLong">Врло дугачак проблем</string>
   <string name="veryLongDescription">Четири или више потеза за победу.</string>

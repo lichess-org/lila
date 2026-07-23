@@ -74,6 +74,9 @@
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="showServerAnalysis">Sunucu analizini göster</string>
   <string name="showBestMoveArrows">En iyi hamle oklarını göster</string>
+  <string name="showGauge">Değerlendirme çubuğunu göster</string>
+  <string name="showVariationArrows">Varyasyon oklarını göster</string>
+  <string name="showUndefendedPieces">Savunulmayan taşları göster</string>
   <string name="generalSettings">Genel</string>
   <string name="moveListSettings">Hamle listesi</string>
   <string name="boardSettings">Tahta</string>
