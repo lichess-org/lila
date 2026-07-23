@@ -1,6 +1,6 @@
 package lila.simul
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import monocle.syntax.all.*

@@ -10,7 +10,7 @@ final private class StartedOrganizer(
     pairingRepo: PairingRepo,
     waitingUsersApi: WaitingUsersApi,
     socket: TournamentSocket
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   var runCounter = 0
 

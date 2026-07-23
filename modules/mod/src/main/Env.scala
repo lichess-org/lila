@@ -1,6 +1,6 @@
 package lila.mod
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import chess.ByColor
 import com.softwaremill.macwire.*
 import play.api.Configuration
@@ -39,7 +39,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
-)(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
+)(using Executor, Scheduler, lila.core.i18n.Translator, org.apache.pekko.stream.Materializer):
 
   val mailerEventsUrl = appConfig.get[Url]("mailer.events.url")
 

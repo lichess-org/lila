@@ -245,7 +245,7 @@ final class RelayRound(
     Found(env.relay.api.groupById(id)): group =>
       pgnStream(env.relay.pgnStream.streamGroupGames(group))
 
-  private def pgnStream(source: akka.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+  private def pgnStream(source: org.apache.pekko.stream.scaladsl.Source[PgnStr, ?])(using Context) =
     apiC.GlobalConcurrencyLimitPerIP.events(req.ipAddress)(source): limited =>
       Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 

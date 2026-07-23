@@ -1,6 +1,6 @@
 package lila.relay
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import java.time.YearMonth
 
 import lila.db.dsl.{ *, given }

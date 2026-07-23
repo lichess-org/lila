@@ -14,7 +14,7 @@ object BuildSettings:
     // legacy layout places compile/package outputs outside the cache root, so sbt 2.0 floods the
     // log with "Cannot cache task because its output files are outside the output directory".
     Seq(
-      resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots),
+      resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots, Resolver.mavenLocal),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       javacOptions ++= Seq("--release", "21"),
@@ -26,7 +26,7 @@ object BuildSettings:
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
+    pekko.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
       cats,
       alleycats,
       play.api,

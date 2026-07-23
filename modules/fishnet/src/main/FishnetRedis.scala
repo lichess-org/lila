@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import akka.actor.CoordinatedShutdown
+import org.apache.pekko.actor.CoordinatedShutdown
 import chess.format.Uci
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.*

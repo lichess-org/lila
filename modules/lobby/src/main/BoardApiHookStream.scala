@@ -1,11 +1,11 @@
 package lila.lobby
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.core.socket.Sri
-import akka.actor.Cancellable
+import org.apache.pekko.actor.Cancellable
 import lila.core.pool.PoolFrom
 
 final class BoardApiHookStream(
@@ -15,7 +15,7 @@ final class BoardApiHookStream(
 )(using scheduler: Scheduler)(using Executor):
 
   private val blueprint =
-    Source.queue[Option[JsObject]](4, akka.stream.OverflowStrategy.dropHead)
+    Source.queue[Option[JsObject]](4, org.apache.pekko.stream.OverflowStrategy.dropHead)
 
   def apply(hook: Hook): Source[Option[JsObject], ?] = asPool(hook) | asHook(hook)
 

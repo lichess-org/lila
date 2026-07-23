@@ -20,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
     routeUrl: RouteUrl
-)(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
+)(using Executor, org.apache.pekko.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
 ):
 

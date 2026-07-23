@@ -17,7 +17,7 @@ final class ChallengeApi(
     rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
+)(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 

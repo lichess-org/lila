@@ -3,7 +3,7 @@ package lila.security
 import scala.concurrent.blocking
 
 import play.api.mvc.RequestHeader
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
 import scalalib.net.UserAgent
 
@@ -142,7 +142,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .cursor[UserSession](ReadPref.sec)
       .list(nb)
 
-  def allSessions(userId: UserId): AkkaStreamCursor[UserSession] =
+  def allSessions(userId: UserId): PekkoStreamCursor[UserSession] =
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))

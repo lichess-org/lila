@@ -12,11 +12,11 @@ final class Env(
     val config: Configuration,
     val controllerComponents: ControllerComponents,
     environment: Environment,
-    shutdown: akka.actor.CoordinatedShutdown,
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown,
     cookieBaker: SessionCookieBaker
-)(using val system: akka.actor.ActorSystem, val executor: Executor)(using
+)(using val system: org.apache.pekko.actor.ActorSystem, val executor: Executor)(using
     StandaloneWSClient,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
   val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.baseUrl

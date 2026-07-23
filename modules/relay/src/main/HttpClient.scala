@@ -110,7 +110,7 @@ private final class HttpClient(
       case (Some(_), None) => "fail" // we sent an etag but the endpoint doesn't support it?
 
 private object charsetGuess:
-  import akka.util.ByteString
+  import org.apache.pekko.util.ByteString
   import com.ibm.icu.text.CharsetDetector
 
   def andDecode(str: ByteString): String =

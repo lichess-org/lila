@@ -12,7 +12,7 @@ trait CoreExports:
 
   export scala.concurrent.{ ExecutionContextExecutor as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
-  export akka.actor.Scheduler
+  export org.apache.pekko.actor.Scheduler
   export java.time.{ Instant, LocalDateTime }
 
   export scalalib.newtypes.{ given, * }

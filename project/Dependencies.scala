@@ -25,7 +25,7 @@ object Dependencies:
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.15.Final").classifier(s"$os-$arch")
-  val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.4.6"
+  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0-SNAPSHOT")
   val munit = "org.scalameta" %% "munit" % "1.3.3" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
@@ -78,11 +78,12 @@ object Dependencies:
 
   object reactivemongo:
     val rmVersion = "1.1.0-RC20"
-    val driver = "org.reactivemongo" %% "reactivemongo" % rmVersion
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % rmVersion
+    // Use the Pekko actor backend instead of the default Akka one, so the whole app is Akka-free.
+    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC20")
+    val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
+    val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
     val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % rmVersion
-    // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
-    def bundle = Seq(driver, stream)
+    def bundle = Seq(driver, actorsPekko, stream)
 
   object play:
     import lichess.play.sbt.BuildInfo.version as playVersion
@@ -95,9 +96,9 @@ object Dependencies:
     val mailer = "org.playframework" %% "play-mailer" % "10.1.0"
 
   object playWs:
-    val version = "2.2.16"
-    val ahc = "com.typesafe.play" %% "play-ahc-ws-standalone" % version
-    val json = "com.typesafe.play" %% "play-ws-standalone-json" % version
+    val version = "3.0.13"
+    val ahc = "org.playframework" %% "play-ahc-ws-standalone" % version
+    val json = "org.playframework" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)
 
   object kamon:
@@ -106,11 +107,10 @@ object Dependencies:
     val influxdb = "io.kamon" %% "kamon-influxdb" % version
     val metrics = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus" % version
-  object akka:
-    val version = "2.6.21"
-    val actor = "com.typesafe.akka" %% "akka-actor" % version
-    val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
-    val akkaStream = "com.typesafe.akka" %% "akka-stream" % version
-    val akkaSlf4j = "com.typesafe.akka" %% "akka-slf4j" % version
-    val testkit = "com.typesafe.akka" %% "akka-testkit" % version % Test
-    def bundle = List(actor, actorTyped, akkaStream, akkaSlf4j)
+  object pekko:
+    val version = "1.6.0"
+    val actor = "org.apache.pekko" %% "pekko-actor" % version
+    val pekkoStream = "org.apache.pekko" %% "pekko-stream" % version
+    val pekkoSlf4j = "org.apache.pekko" %% "pekko-slf4j" % version
+    val pekkoTyped = "org.apache.pekko" %% "pekko-actor-typed" % version
+    def bundle = List(actor, pekkoStream, pekkoSlf4j, pekkoTyped)

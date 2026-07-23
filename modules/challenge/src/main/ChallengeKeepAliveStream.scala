@@ -1,7 +1,7 @@
 package lila.challenge
 
 import lila.core.challenge.PositiveEvent
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -15,7 +15,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
   ): Source[JsValue, ?] =
     Source(List(initialJson)).concat:
       Source
-        .queue[JsObject](1, akka.stream.OverflowStrategy.dropHead)
+        .queue[JsObject](1, org.apache.pekko.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue: queue =>
           val keepAliveInterval = scheduler.scheduleWithFixedDelay(15.seconds, 15.seconds): () =>
             api.ping(challenge.id)

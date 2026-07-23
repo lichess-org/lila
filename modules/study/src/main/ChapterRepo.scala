@@ -1,11 +1,11 @@
 package lila.study
 
 import scala.collection.immutable.SeqMap
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.Tags
 import chess.FideId
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
@@ -14,7 +14,7 @@ import lila.tree.{ Branch, Branches, Clock }
 
 import Node.BsonFields as F
 
-final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
+final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BSONHandlers.{ writeBranch, given }
 

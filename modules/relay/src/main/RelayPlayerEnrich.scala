@@ -162,7 +162,7 @@ private final class RelayPlayerEnrich(
     fidePlayerApi: RelayFidePlayerApi,
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
-)(using Federation.Guess, Executor, akka.stream.Materializer):
+)(using Federation.Guess, Executor, org.apache.pekko.stream.Materializer):
 
   private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1.hour)
 

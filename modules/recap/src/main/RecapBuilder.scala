@@ -1,6 +1,6 @@
 package lila.recap
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import chess.ByColor
 import chess.opening.OpeningDb
@@ -16,7 +16,7 @@ private final class RecapBuilder(
     repo: RecapRepo,
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   def compute(userId: UserId): Funit = for
     recap <- (

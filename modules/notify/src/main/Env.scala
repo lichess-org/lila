@@ -14,7 +14,7 @@ final class Env(
     getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
     subsRepo: lila.core.relation.SubscriptionRepo
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 

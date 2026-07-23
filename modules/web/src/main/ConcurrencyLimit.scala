@@ -1,6 +1,6 @@
 package lila.web
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import play.api.mvc.Results.TooManyRequests

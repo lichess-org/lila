@@ -1,7 +1,7 @@
 package lila.mod
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 import play.api.libs.json.*
 
 import lila.common.Json.given
@@ -11,7 +11,7 @@ import lila.core.team.TeamCreate
 import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
 
-final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream.Materializer):
+final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using org.apache.pekko.stream.Materializer):
 
   def markedSince(since: Instant): Source[UserId, ?] =
     logRepo.coll
@@ -32,7 +32,7 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
   object events:
 
     private val blueprint = Source
-      .queue[UserSignup | TeamCreate](32, akka.stream.OverflowStrategy.dropHead)
+      .queue[UserSignup | TeamCreate](32, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .map:
         case UserSignup(user, email, req, fp, suspIp) =>
           Json
