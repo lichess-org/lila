@@ -351,6 +351,9 @@ final class TeamApi(
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 
+  def creatorOf(teamId: TeamId): Fu[Option[UserId]] =
+    teamRepo.byId(teamId).map(_.map(_.createdBy))
+
   export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
   export cached.isMember
