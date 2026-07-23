@@ -9,6 +9,7 @@ import lila.core.socket.remote.TellUserIn
 
 @Module
 final class Env(
+    appConfig: play.api.Configuration,
     baseUrl: BaseUrl,
     db: lila.db.Db,
     lightUserApi: lila.core.user.LightUserApi,
@@ -65,6 +66,15 @@ final class Env(
   Bus.sub[lila.core.msg.SystemMsg]:
     case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
+
+  private val payoutsUrl = appConfig.get[String]("payouts.url")
+
+  Bus.sub[lila.core.msg.PayoutMessage]:
+    case lila.core.msg.PayoutMessage(userId, tournamentName, tournamentUrl, finishedAt) =>
+      api.postPreset(
+        userId,
+        MsgPreset.payoutEligible(payoutsUrl, tournamentName, tournamentUrl, finishedAt)
+      )
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>

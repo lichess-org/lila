@@ -10,6 +10,8 @@ case class MsgPreset(name: String, text: String)
 
 case class SystemMsg(userId: UserId, text: String)
 
+case class PayoutMessage(userId: UserId, tournamentName: String, tournamentUrl: String, finishedAt: Instant)
+
 type ID = String
 
 case class IdText(id: String, text: String)

@@ -68,6 +68,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi, routeUrl: Rou
       .add("teamMember", tour.singleTeamId)
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(position))
+      .add("payouts", tour.payouts)
       .add("schedule", tour.scheduleData.map(scheduleJson))
       .add(
         "teamBattle",

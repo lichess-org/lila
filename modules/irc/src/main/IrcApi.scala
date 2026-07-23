@@ -156,6 +156,14 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
+  def payoutNotify(tourName: String, tourUrl: String, players: List[UserId]): Funit =
+    zulip(_.adminPrizes, tourName):
+      val link = markdown.link(tourUrl, tourName)
+      val playerList = players
+        .map(id => s"1. ${markdown.userLink(lightUser(id))}")
+        .mkString("\n")
+      s"$link\n\nPlayers notified:\n$playerList"
+
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
       s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"

@@ -8,15 +8,17 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
+import lila.core.perm.Granter
 
 final class SwissForm(using mode: play.api.Mode):
 
   import SwissForm.*
 
-  def form(user: User, minRounds: Int = 3) =
+  def form(using me: Me)(minRounds: Int = 3) =
+    val manager = Granter(_.ManageTournament)
     Form(
       mapping(
-        "name" -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
+        "name" -> optional(eventName(2, 30, me.isVerifiedOrAdmin)),
         "clock" -> mapping(
           "limit" -> number.into[LimitSeconds].verifying(clockLimits.contains),
           "increment" -> number(min = 0, max = 120).into[IncrementSeconds]
@@ -27,6 +29,7 @@ final class SwissForm(using mode: play.api.Mode):
         "rated" -> optional(boolean.into[Rated]),
         "nbRounds" -> number(min = minRounds, max = 100),
         "description" -> optional(cleanNonEmptyText),
+        "payouts" -> (if manager then optional(cleanNonEmptyText) else ignored(none)),
         "position" -> optional(lila.common.Form.fen.playableStrict),
         "chatFor" -> optional(numberIn(chatForChoices._1F)),
         "roundInterval" -> optional(numberIn(roundIntervals)),
@@ -53,8 +56,8 @@ final class SwissForm(using mode: play.api.Mode):
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 
-  def create(user: User) =
-    form(user).fill(
+  def create(using Me) =
+    form().fill(
       SwissData(
         name = none,
         clock = ClockConfig(LimitSeconds(180), IncrementSeconds(0)),
@@ -65,6 +68,7 @@ final class SwissForm(using mode: play.api.Mode):
         rated = Rated.Yes.some,
         nbRounds = 7,
         description = none,
+        payouts = none,
         position = none,
         chatFor = Swiss.ChatFor.default.some,
         roundInterval = Swiss.RoundInterval.auto.some,
@@ -75,8 +79,8 @@ final class SwissForm(using mode: play.api.Mode):
       )
     )
 
-  def edit(user: User, s: Swiss) =
-    form(user, s.round.value).fill(
+  def edit(using Me)(s: Swiss) =
+    form(s.round.value).fill(
       SwissData(
         name = s.name.some,
         clock = s.clock,
@@ -85,6 +89,7 @@ final class SwissForm(using mode: play.api.Mode):
         rated = s.settings.rated.some,
         nbRounds = s.settings.nbRounds,
         description = s.settings.description,
+        payouts = s.settings.payouts,
         position = s.settings.position,
         chatFor = s.settings.chatFor.some,
         roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
@@ -163,6 +168,7 @@ object SwissForm:
       rated: Option[Rated],
       nbRounds: Int,
       description: Option[String],
+      payouts: Option[String],
       position: Option[Fen.Full],
       chatFor: Option[Int],
       roundInterval: Option[Int],
