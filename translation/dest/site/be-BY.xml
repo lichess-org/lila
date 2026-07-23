@@ -59,6 +59,8 @@
   <string name="blackLeftTheGame">Гулец з боку чорных пакінуў гульню</string>
   <string name="whiteDidntMove">Белыя не зрабілі ход</string>
   <string name="blackDidntMove">Чорныя не зрабілі ход</string>
+  <string name="whiteAborted">Белыя скасавалі гульню</string>
+  <string name="blackAborted">Чорныя скасавалі гульню</string>
   <string name="requestAComputerAnalysis">Запытаць кампутарны аналіз</string>
   <string name="computerAnalysis">Кампутарны аналіз</string>
   <string name="computerAnalysisAvailable">Даступны кампутарны аналіз</string>
@@ -389,7 +391,11 @@
   <string name="openingExplorerAndTablebase">База дэбютаў і эндшпіляў</string>
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
+  <string name="whiteProposesTakeback">Белыя прапануюць скасаваць ход</string>
+  <string name="blackProposesTakeback">Чорныя прапануюць скасаваць ход</string>
   <string name="takebackPropositionSent">Прапанова скасаваць ход даслана</string>
+  <string name="whiteDeclinesTakeback">Белыя адхіляюць скасаванне хода</string>
+  <string name="blackDeclinesTakeback">Чорныя адхіляюць скасаванне хода</string>
   <string name="yourOpponentProposesATakeback">Супернік прапануе скасаваць ход</string>
   <string name="bookmarkThisGame">Дадаць гэтую гульню ў закладкі</string>
   <string name="tournament">Турнір</string>
