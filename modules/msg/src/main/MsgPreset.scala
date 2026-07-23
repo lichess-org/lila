@@ -56,7 +56,7 @@ ${teamUrl}"""
       tournamentUrl: String,
       finishedAt: Instant
   ) =
-    val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusDays(30)
+    val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusMonths(6)
     Msg(
       name = "Prize payout",
       text = s"""Congratulations on your finish in $tournamentName! $tournamentUrl
