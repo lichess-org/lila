@@ -4173,6 +4173,8 @@ interface I18n {
     pawnMove: string;
     /** Performance */
     performance: string;
+    /** Rating: %s. */
+    perfRatingLabel: I18nFormat;
     /** Rating: %s */
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
@@ -4287,8 +4289,6 @@ interface I18n {
     ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
     ratingStats: string;
-    /** Rating: %s. */
-    ratingX: I18nFormat;
     /** %1$s rating over %2$s games */
     ratingXOverYGames: I18nPlural;
     /** Read about our %s. */

@@ -856,7 +856,7 @@ Playing rated games will increase stability.</string>
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
-  <string name="ratingX" comment="Replaces perfRatingX">Rating: %s.</string>
+  <string name="perfRatingLabel" comment="Replaces perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Your rating is %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>

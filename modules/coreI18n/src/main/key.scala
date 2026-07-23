@@ -2293,7 +2293,7 @@ object I18nKey:
     val `notifications`: I18nKey = "notifications"
     val `notificationsX`: I18nKey = "notificationsX"
     val `perfRatingX`: I18nKey = "perfRatingX"
-    val `ratingX`: I18nKey = "ratingX"
+    val `perfRatingLabel`: I18nKey = "perfRatingLabel"
     val `yourRatingIsX`: I18nKey = "yourRatingIsX"
     val `practiceWithComputer`: I18nKey = "practiceWithComputer"
     val `anotherWasX`: I18nKey = "anotherWasX"
