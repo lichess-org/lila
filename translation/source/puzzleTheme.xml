@@ -73,10 +73,10 @@
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
   <string name="pillsburysMate">Pillsbury's mate</string>
   <string name="pillsburysMateDescription">The rook delivers checkmate, while the bishop helps to confine it.</string>
-  <string name="pillsburysMateDescription2" comment="Replaces pillsburysMateDescription">A rook delivers checkmate to the king, while a bishop helps to confine it.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces pillsburysMateDescription">A rook delivers checkmate to the king, while a bishop helps to confine it.</string>
   <string name="morphysMate">Morphy's mate</string>
   <string name="morphysMateDescription">Use the bishop to check the king, while your rook helps to confine it.</string>
-  <string name="morphysMateDescription2" comment="Replaces morphysMateDescription">A bishop delivers checkmate to the king, while a rook helps to confine it.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces morphysMateDescription">A bishop delivers checkmate to the king, while a rook helps to confine it.</string>
   <string name="swallowstailMate">Swallow's tail mate</string>
   <string name="swallowstailMateDescription">A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.</string>
   <string name="triangleMate">Triangle mate</string>
