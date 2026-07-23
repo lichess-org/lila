@@ -6,7 +6,7 @@ html.clouds {
   ---primary-hue: 199deg;
   ---secondary-hue: 82deg;
   ---brag-hue: 300deg;
-  ---accent-hue: 259deg;
+  ---accent-hue: 210deg;
   --c-bg: hsl(var(---site-hue) calc(var(---site-sat) * 0.8) var(---site-lum));
   --c-bg-high: hsl(from var(--c-bg) h s calc(l * 1.06));
   --c-bg-box: hsl(var(---box-hue) calc(var(---site-sat) * 0.6) calc(var(---site-lum) * 1.08));
@@ -30,10 +30,11 @@ html.clouds {
   --c-inbox-link: hsl(var(---primary-hue) 80% 70%);
   --c-primary: hsl(var(---primary-hue) 37% 42%);
   --c-secondary: hsl(var(---secondary-hue) 52% 30%);
-  --c-brag: hsl(var(---brag-hue) 25 40);
+  --c-brag: hsl(var(---brag-hue) 25% 40%);
   --c-brag-hover: hsl(from var(--c-brag) h s calc(l * 0.5));
-  --c-accent: hsl(var(---accent-hue) 20 42);
+  --c-accent: hsl(var(---accent-hue) 60% 52%);
   --c-shade: color-mix(in oklab, var(--c-accent) 20%, var(--c-bg-cloud));
+  --c-future: hsl(45 38% 57%);
   --c-paper: hsl(60 56% 86%);
   --c-border: hsl(var(---site-hue) 20% var(---site-lum));
   --c-header-dropdown: var(--c-font);
@@ -42,9 +43,9 @@ html.clouds {
   --c-metal-bottom: hsl(from var(--c-bg-box) h s calc(l * 0.92));
   --c-metal-top-hover: color-mix(in oklab, var(--c-metal-top) 90%, var(--c-accent));
   --c-metal-bottom-hover: color-mix(in oklab, var(--c-metal-bottom) 80%, var(--c-accent));
-  --c-font: hsl(var(---site-hue) 10 20);
-  --c-font-dim: hsl(var(---box-hue) 10% 30);
-  --c-font-dimmer: hsl(var(---box-hue) 10% 40);
+  --c-font: hsl(var(---site-hue) 10% 20%);
+  --c-font-dim: hsl(var(---box-hue) 10% 30%);
+  --c-font-dimmer: hsl(var(---box-hue) 10% 40%);
   --c-font-clear: hsl(var(---box-hue) 10% 7%);
   --c-font-clearer: hsl(var(---box-hue) 10% 5%);
   --c-font-page: hsl(var(---box-hue) 10% 14%);
