@@ -27,6 +27,7 @@ Berserk only grants an extra point if you play at least 7 moves in the game.</st
 
 If two or more players are tied for points, tournament performance is the tie-break.</string>
   <string name="howDoesPairingWork">How does the pairing work?</string>
+  <string name="howArePlayersPaired" comment="Replaces howDoesPairingWork">How are players paired?</string>
   <string name="howDoesPairingWorkAnswer">At the start of the tournament, players are paired based on their rating.
 As soon as you finish a game and return to the tournament lobby, you will be paired with a new opponent close to your rank in the tournament. This keeps waiting times short. Note that you may not face every other player in the tournament.
 Play quickly to play more games and score more points.</string>
