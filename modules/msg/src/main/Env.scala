@@ -3,6 +3,7 @@ package lila.msg
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
+import lila.common.autoconfig.given
 import lila.common.Json.given
 import lila.core.config.*
 import lila.core.socket.remote.TellUserIn
@@ -67,7 +68,7 @@ final class Env(
     case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
 
-  private val payoutsUrl = appConfig.get[String]("payouts.portal")
+  private val payoutsUrl = appConfig.get[Url]("payouts.portal")
 
   Bus.sub[lila.core.msg.PayoutMessage]:
     case lila.core.msg.PayoutMessage(userId, tournamentName, tournamentUrl, finishedAt) =>

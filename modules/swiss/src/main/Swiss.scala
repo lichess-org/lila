@@ -128,7 +128,7 @@ object Swiss:
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
-  def swissUrl(swissId: SwissId): String = s"https://lichess.org/swiss/$swissId"
+  def swissUrl(swissId: SwissId) = Url(s"https://lichess.org/swiss/$swissId")
 
   def makeId = SwissId(ThreadLocalRandom.nextString(8))
 

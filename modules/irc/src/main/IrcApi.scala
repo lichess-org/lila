@@ -21,7 +21,7 @@ final class IrcApi(
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
-    def link(url: String, name: String) = s"[$name]($url)"
+    def link(url: Url, name: String) = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](${net.baseUrl}$path)"
     def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String = userLink(user.name)
@@ -156,7 +156,7 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
-  def payoutNotify(tourName: String, tourUrl: String, players: List[UserId]): Funit =
+  def payoutNotify(tourName: String, tourUrl: Url, players: List[UserId]): Funit =
     zulip(_.adminPrizes, tourName):
       val link = markdown.link(tourUrl, tourName)
       val playerList = players
@@ -250,7 +250,7 @@ final class IrcApi(
   def dailyPuzzle(id: PuzzleId): Funit =
     zulip(_.general, "daily puzzle"):
       markdown.lichessLink(s"/training/$id", "Solve the daily puzzle") +
-        markdown.link(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif", ":")
+        markdown.link(Url(s"${net.assetBaseUrl}/training/export/gif/thumbnail/$id.gif"), ":")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 

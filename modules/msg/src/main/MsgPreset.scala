@@ -51,9 +51,9 @@ Your new permissions are: ${perms.mkString(", ")}.
 ${teamUrl}"""
 
   def payoutEligible(
-      payoutsUrl: String,
+      payoutsUrl: Url,
       tournamentName: String,
-      tournamentUrl: String,
+      tournamentUrl: Url,
       finishedAt: Instant
   ) =
     val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusMonths(6)
