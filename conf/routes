@@ -967,6 +967,7 @@ GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key: Cm
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Cms.source
+GET   /survey                          controllers.Main.survey
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
 GET   /page/:key                       controllers.Cms.lonePage(key: CmsPageKey)
 
