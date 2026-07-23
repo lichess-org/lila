@@ -100,7 +100,7 @@ object Swiss:
       nbRounds: Int,
       rated: Rated,
       description: Option[String] = None,
-      payouts: Option[String] = None,
+      payouts: Option[Payouts] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,

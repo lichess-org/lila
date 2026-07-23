@@ -3,6 +3,7 @@ package lila.tournament
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.id.TourPlayerId
+export lila.gathering.Payouts
 
 import lila.core.chess.Rank
 

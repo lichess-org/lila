@@ -525,13 +525,12 @@ final class SwissApi(
 
   private def notifyPayoutWinners(swiss: Swiss): Funit =
     swiss.settings.payouts.so: payouts =>
-      val nbWinners = payouts.split('/').length
       SwissPlayer.fields: f =>
         mongo.player
           .find($doc(f.swissId -> swiss.id))
           .sort($sort.desc(f.score))
           .cursor[SwissPlayer](ReadPref.sec)
-          .list(nbWinners)
+          .list(payouts.nbWinners)
           .map: players =>
             players.foreach: p =>
               Bus.pub(lila.core.msg.PayoutMessage(p.userId, swiss.name, Swiss.swissUrl(swiss.id), nowInstant))

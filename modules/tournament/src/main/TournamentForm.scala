@@ -117,7 +117,7 @@ final class TournamentForm:
       "berserkable" -> optional(boolean),
       "streakable" -> optional(boolean),
       "description" -> optional(cleanNonEmptyText),
-      "payouts" -> (if manager then optional(cleanNonEmptyText) else ignored(none)),
+      "payouts" -> (if manager then optional(cleanNonEmptyText.into[Payouts]) else ignored(none)),
       "hasChat" -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock(prev))
@@ -181,7 +181,7 @@ private[tournament] case class TournamentSetup(
     berserkable: Option[Boolean],
     streakable: Option[Boolean],
     description: Option[String],
-    payouts: Option[String],
+    payouts: Option[Payouts],
     hasChat: Option[Boolean]
 ):
   def validClock(prev: Option[Tournament]) =

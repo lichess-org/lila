@@ -35,7 +35,7 @@ case class Tournament(
     featured: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
-    payouts: Option[String] = None,
+    payouts: Option[Payouts] = None,
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 

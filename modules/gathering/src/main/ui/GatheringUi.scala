@@ -64,7 +64,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
                       case _ => condition.name(pk)
           )
 
-  def payouts(txt: String) =
+  def payouts(txt: Payouts) =
     st.section(cls := "description"):
       p(
         a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: "),

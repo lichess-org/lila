@@ -273,24 +273,21 @@ final class TournamentApi(
   private def notifyPayoutWinners(tour: Tournament): Funit =
     import lila.tournament.Tournament.tournamentUrl
     tour.payouts.so: payouts =>
-      val nbWinners = payouts.split('/').length
       if tour.isTeamBattle then
         cached.battle.teamStanding
           .get(tour.id)
           .flatMap: rankedTeams =>
             rankedTeams
-              .take(nbWinners)
+              .take(payouts.nbWinners)
               .traverse(rt => teamApi.creatorOf(rt.teamId))
               .map: owners =>
                 val creatorIds = owners.flatten
                 creatorIds.foreach: ownerId =>
-                  Bus.pub(
-                    lila.core.msg.PayoutMessage(ownerId, tour.name, tournamentUrl(tour.id), nowInstant)
-                  )
+                  Bus.pub(lila.core.msg.PayoutMessage(ownerId, tour.name, tournamentUrl(tour.id), nowInstant))
                 ircApi.payoutNotify(tour.name, tournamentUrl(tour.id), creatorIds)
       else
         playerRepo
-          .bestByTour(tour.id, nbWinners)
+          .bestByTour(tour.id, payouts.nbWinners)
           .map: players =>
             players.foreach: p =>
               Bus.pub(lila.core.msg.PayoutMessage(p.userId, tour.name, tournamentUrl(tour.id), nowInstant))

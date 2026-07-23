@@ -94,7 +94,7 @@ object BsonHandlers:
         nbRounds = r.get[Int]("n"),
         rated = chess.Rated(r.boolO("r") | true),
         description = r.strO("d"),
-        payouts = r.strO("py"),
+        payouts = r.getO[Payouts]("py"),
         position = r.getO[Fen.Full]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
