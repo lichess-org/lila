@@ -156,14 +156,18 @@ function dedup(items: TrophyItem[]): TrophyItem[] {
 
 function trophyHtml(t: TrophyItem): string {
   const tag = t.href ? 'a' : 'span';
-  const inner = t.icon ?? `<img src="${t.imgSrc}"${t.imgW ? ` width="${t.imgW}"` : ''}${t.imgH ? ` height="${t.imgH}"` : ''}>`;
+  const inner =
+    t.icon ??
+    `<img src="${t.imgSrc}"${t.imgW ? ` width="${t.imgW}"` : ''}${t.imgH ? ` height="${t.imgH}"` : ''}>`;
   return `<${tag} class="${t.cls}" title="${t.title}" aria-label="${t.title}"${t.href ? ` href="${t.href}"` : ''}>${inner}</${tag}>`;
 }
 
 const makeTrophy = (t: TrophyItem) => frag<HTMLElement>(trophyHtml(t));
 
 function makeMoreBtn(hidden: number, allCups: TrophyItem[], username?: string): HTMLElement {
-  const btn = frag<HTMLButtonElement>(`<button type="button" class="more-trophies" title="${i18n.site.more}" aria-label="${i18n.site.more}">+${hidden}</button>`);
+  const btn = frag<HTMLButtonElement>(
+    `<button type="button" class="more-trophies" title="${i18n.site.more}" aria-label="${i18n.site.more}">+${hidden}</button>`,
+  );
   btn.addEventListener('click', () => openAllTrophies(allCups, username));
   return btn;
 }
@@ -171,12 +175,16 @@ function makeMoreBtn(hidden: number, allCups: TrophyItem[], username?: string): 
 function openAllTrophies(cups: TrophyItem[], username?: string) {
   if (trophiesDialogOpen) return;
   trophiesDialogOpen = true;
-  const grid = frag(`<div class="all-trophies"><h2 class="all-trophies__title">${username ?? ''}</h2>${cups.map(t => `<div class="all-trophies__item">${trophyHtml(t)}<span class="all-trophies__name">${t.title}</span></div>`).join('')}</div>`);
+  const grid = frag(
+    `<div class="all-trophies"><h2 class="all-trophies__title">${username ?? ''}</h2>${cups.map(t => `<div class="all-trophies__item">${trophyHtml(t)}<span class="all-trophies__name">${t.title}</span></div>`).join('')}</div>`,
+  );
   domDialog({
     class: 'all-trophies-dialog',
     cash: $(grid),
     modal: true,
     show: true,
-    onClose: () => { trophiesDialogOpen = false; },
+    onClose: () => {
+      trophiesDialogOpen = false;
+    },
   });
 }
