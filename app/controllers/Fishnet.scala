@@ -7,7 +7,7 @@ import play.api.mvc.*
 
 import scala.util.{ Failure, Success }
 
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
