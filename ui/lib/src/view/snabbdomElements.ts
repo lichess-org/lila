@@ -97,6 +97,10 @@ function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData
 }
 
 export function makeTag(tag: keyof HTMLElementTagNameMap, defaultData?: VNodeDataExtended): TagFunction {
+  return makeExoticTag(tag, defaultData);
+}
+
+export function makeExoticTag(tag: string, defaultData?: VNodeDataExtended): TagFunction {
   function tagFn(): VNode;
   function tagFn(selector: Selector): VNode;
   function tagFn(data: TagData): VNode;
