@@ -113,7 +113,7 @@ interface I18n {
     hiddenBlog: string;
     /** Make sure to read again our %s. */
     hiddenBlogInfo: I18nFormat;
-    /** You have a play timeout. */
+    /** Your account is temporarily restricted from playing. */
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
     prizeBanned: string;
@@ -215,7 +215,7 @@ interface I18n {
     pointsSum: string;
     /** Rank average */
     rankAvg: string;
-    /** The rank average is a percentage of your ranking. Lower is better. */
+    /** Your rank average represents your typical finishing position, relative to total number of players in each tournament. */
     rankAvgHelp: string;
     /** Last played */
     recentlyPlayed: string;
@@ -283,7 +283,7 @@ interface I18n {
     defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
-    /** Definitively delete the entire tournament, all its rounds and all its games. */
+    /** Permanently delete this tournament, including all rounds and games? */
     definitivelyDeleteTournament: string;
     /** Delete all games of this round. The source will need to be active in order to re-create them. */
     deleteAllGamesOfThisRound: string;
@@ -1071,7 +1071,7 @@ interface I18n {
     common_contact: I18nFormat;
     /** This is a service email related to your use of %s. */
     common_note: I18nFormat;
-    /** (Clicking not working? Try pasting it into your browser!) */
+    /** (Link not working? Try pasting it into your browser!) */
     common_orPaste: string;
     /** To confirm you have access to this email, please click the link below: */
     emailChange_click: string;
@@ -1139,7 +1139,7 @@ interface I18n {
     durationFormula: string;
     /** 8 chess variants */
     eightVariants: string;
-    /** Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads. */
+    /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
     enableAutoplayForSoundsA: string;
     /** 1. Go to lichess.org */
     enableAutoplayForSoundsChrome: string;
@@ -1457,7 +1457,7 @@ interface I18n {
     lagCompensationExplanation: string;
     /** Lichess server latency */
     lichessServerLatency: string;
-    /** The time it takes to process a move on the server. It's the same for everybody, and only depends on the servers load. The more players, the higher it gets, but Lichess developers do their best to keep it low. It rarely exceeds 10ms. */
+    /** The time it takes to process a move on the server. It's the same for everybody, and only depends on the server's load. The more players there are, the higher the load becomes, but we do our best to keep it low. It rarely exceeds 10ms. */
     lichessServerLatencyExplanation: string;
     /** Measurements in progress... */
     measurementInProgressThreeDot: string;
@@ -2393,13 +2393,13 @@ interface I18n {
     notifyChallenge: string;
     /** Device */
     notifyDevice: string;
-    /** Forum comment mentions you */
+    /** Forum mentions */
     notifyForumMention: string;
     /** Correspondence game updates */
     notifyGameEvent: string;
-    /** New inbox message */
+    /** New direct message */
     notifyInboxMsg: string;
-    /** Study invite */
+    /** Study invites */
     notifyInvitedStudy: string;
     /** Device notification when you're not on Lichess */
     notifyPush: string;
@@ -2407,7 +2407,7 @@ interface I18n {
     notifyStreamStart: string;
     /** Correspondence time running out */
     notifyTimeAlarm: string;
-    /** Tournament starting soon */
+    /** Tournaments start reminders */
     notifyTournamentSoon: string;
     /** Browser */
     notifyWeb: string;
@@ -2731,7 +2731,7 @@ interface I18n {
     endgame: string;
     /** A tactic during the last phase of the game. */
     endgameDescription: string;
-    /** A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move. */
+    /** A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move. */
     enPassantDescription: string;
     /** Epaulette mate */
     epauletteMate: string;
@@ -2747,7 +2747,7 @@ interface I18n {
     exposedKingDescription: string;
     /** Fork */
     fork: string;
-    /** A move where the moved piece attacks two opponent pieces at once. */
+    /** A move where a piece attacks two or more opposing pieces simultaneously. */
     forkDescription: string;
     /** Hanging piece */
     hangingPiece: string;
@@ -2755,7 +2755,7 @@ interface I18n {
     hangingPieceDescription: string;
     /** Hook mate */
     hookMate: string;
-    /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
+    /** Checkmate using a rook, knight, and pawn, where an opposing pawn blocks the king's escape. */
     hookMateDescription: string;
     /** Interference */
     interference: string;
@@ -3341,7 +3341,7 @@ interface I18n {
     checkAllEmailFolders: string;
     /** Checkmate */
     checkmate: string;
-    /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
+    /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
     checkSpamFolder: string;
     /** Check your Email */
     checkYourEmail: string;
@@ -3877,7 +3877,7 @@ interface I18n {
     makePrivateTournament: string;
     /** Make sure to read %1$s */
     makeSureToRead: I18nFormat;
-    /** %s is available for formatting. */
+    /** You can format text using %s. */
     markdownIsAvailable: I18nFormat;
     /** OTB games of %1$s+ FIDE-rated players from %2$s to %3$s */
     masterDbExplanation: I18nFormat;
@@ -3947,7 +3947,7 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
-    /** Navigate the move tree */
+    /** Move list navigation */
     navigateMoveTree: string;
     /** Anonymous (%s) */
     nbAnonymous: I18nPlural;
@@ -4321,7 +4321,7 @@ interface I18n {
     reportAUser: string;
     /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
     reportCheatBoostHelp: string;
-    /** Your report will be processed faster if written in English. */
+    /** We can process your report faster if you write in English. */
     reportProcessedFasterInEnglish: string;
     /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
     reportUsernameHelp: string;
@@ -4753,7 +4753,7 @@ interface I18n {
     whatIsIheMatter: string;
     /** What username did you register with? */
     whatSignupUsername: string;
-    /** When you create a simul, you get to play several players at once. */
+    /** Creating a simul lets you play against multiple opponents at the same time. */
     whenCreateSimul: string;
     /** White */
     white: string;
@@ -5511,7 +5511,7 @@ interface I18n {
     earlyDrawsQ: string;
     /** FIDE handbook */
     FIDEHandbook: string;
-    /** If this list is non-empty, then users absent from this list will be forbidden to join. One username per line. */
+    /** Enter one username per line. Only these players will be allowed to join. */
     forbiddedUsers: string;
     /** Forbidden pairings */
     forbiddenPairings: string;

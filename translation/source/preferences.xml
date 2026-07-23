@@ -57,12 +57,12 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
   <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
   <string name="notifyStreamStart">Streamer goes live</string>
-  <string name="notifyInboxMsg">New inbox message</string>
-  <string name="notifyForumMention">Forum comment mentions you</string>
-  <string name="notifyInvitedStudy">Study invite</string>
+  <string name="notifyInboxMsg">New direct message</string>
+  <string name="notifyForumMention">Forum mentions</string>
+  <string name="notifyInvitedStudy">Study invites</string>
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
-  <string name="notifyTournamentSoon">Tournament starting soon</string>
+  <string name="notifyTournamentSoon">Tournaments start reminders</string>
   <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
   <string name="notifyBell">Notification within Lichess</string>

@@ -270,7 +270,7 @@
   <string name="emailSent">We have sent an email to %s.</string>
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
-  <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
+  <string name="checkSpamFolder">If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications.</string>
   <string name="sendEmailForAccountVerification">If you can't find your confirmation email, send an email to %s and we'll confirm your account for you.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
@@ -591,7 +591,7 @@
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
-  <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
+  <string name="reportProcessedFasterInEnglish">We can process your report faster if you write in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
@@ -715,7 +715,7 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul">Creating a simul lets you play against multiple opponents at the same time.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
@@ -994,14 +994,14 @@ Leave empty to start games from the normal initial position.</string>
   <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
   <string name="simulDescription">Simul description</string>
   <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
-  <string name="markdownIsAvailable">%s is available for formatting.</string>
+  <string name="markdownIsAvailable">You can format text using %s.</string>
   <string name="embedsAvailable">Paste a game URL or a study chapter URL to embed it.</string>
   <string name="inYourLocalTimezone">In your own local timezone</string>
   <string name="tournChat">Tournament chat</string>
   <string name="noChat">No chat</string>
   <string name="onlyTeamLeaders">Only team leaders</string>
   <string name="onlyTeamMembers">Only team members</string>
-  <string name="navigateMoveTree">Navigate the move tree</string>
+  <string name="navigateMoveTree">Move list navigation</string>
   <string name="mouseTricks">Mouse tricks</string>
   <string name="toggleLocalAnalysis">Toggle local computer analysis</string>
   <string name="toggleAllAnalysis">Toggle all computer analysis</string>

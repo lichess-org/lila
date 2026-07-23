@@ -72,9 +72,10 @@ Play quickly to play more games and score more points.</string>
   <string name="recentlyPlayed">Last played</string>
   <string name="bestResults">Best results</string>
   <string name="tournamentStats">Tournament stats</string>
-  <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
+  <string name="rankAvgHelp">Your rank average represents your typical finishing position, relative to total number of players in each tournament.
+This is a measure of your tournament placement, not your general rating.
 
-For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 10 in a tournament of 1000 players = 1%.</string>
+For example, a rank average of 3% means you typically finish in the top 3% (such as 30th place out of 1,000 players).</string>
   <string name="medians">medians</string>
   <string name="allAveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>
