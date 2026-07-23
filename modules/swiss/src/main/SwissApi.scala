@@ -103,7 +103,7 @@ final class SwissApi(
             nbRounds = data.nbRounds,
             rated = data.rated.getOrElse(old.settings.rated).map(_ && position.isEmpty),
             description = data.description.orElse(old.settings.description),
-            payouts = data.payouts.orElse(old.settings.payouts),
+            payouts = data.payouts,
             position = position,
             chatFor = data.chatFor | old.settings.chatFor,
             roundInterval =
