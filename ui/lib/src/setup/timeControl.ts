@@ -8,14 +8,14 @@ export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export class TimeControl {
   constructor(
     readonly mode: Prop<TimeMode>,
-    readonly modes: TimeMode[],
+    readonly modes: readonly TimeMode[],
     // The following three quantities are suffixed with 'V' to draw attention to the
     // fact that they are not the true quantities. They represent the value of the
     // input element. Use time(), increment(), and days() below for the true quantities.
     readonly timeV: Prop<InputValue>,
     readonly incrementV: Prop<InputValue>,
     readonly daysV: Prop<InputValue>,
-    readonly presets: ClockConfig[],
+    readonly presets: readonly ClockConfig[],
   ) {}
 
   time: () => RealValue = () => timeVToTime(this.timeV());
@@ -46,12 +46,12 @@ export class TimeControl {
 
 export const timeControlFromStoredValues = (
   mode: Prop<TimeMode>,
-  modes: TimeMode[],
+  modes: readonly TimeMode[],
   time: RealValue,
   inc: RealValue,
   days: RealValue,
   onChange: () => void,
-  presets: ClockConfig[],
+  presets: readonly ClockConfig[],
 ): TimeControl =>
   new TimeControl(
     mode,

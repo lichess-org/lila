@@ -32,7 +32,7 @@ export const fideFedSrc = (fideFed: FideFed) =>
   url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     href = href.startsWith('https:') ? href : url(href);
     if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
 
@@ -41,6 +41,7 @@ export const loadCss = (href: string, key?: string): Promise<void> => {
     el.rel = 'stylesheet';
     el.href = href;
     el.onload = () => resolve();
+    el.onerror = () => reject(new Error(`failed to load: ${href}`));
     document.head.append(el);
   });
 };

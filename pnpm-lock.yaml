@@ -369,6 +369,9 @@ importers:
       '@badrap/result':
         specifier: ^0.3.1
         version: 0.3.1
+      '@dragdroptouch/drag-drop-touch':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@lichess-org/stockfish-web':
         specifier: 0.4.2
         version: 0.4.2
@@ -693,6 +696,9 @@ packages:
     engines: {node: '>=20.19.0'}
     peerDependencies:
       postcss-selector-parser: ^7.1.1
+
+  '@dragdroptouch/drag-drop-touch@2.0.3':
+    resolution: {integrity: sha512-4Yv1+S2Yxs/5iYLZyZYobAlCvIJPN6TYBjvJDyI9kH30GfBxA+ffHgKK2l00EyyBlUpB10j8BWAbRsgXRtBbPw==}
 
   '@esbuild/aix-ppc64@0.28.0':
     resolution: {integrity: sha512-lhRUCeuOyJQURhTxl4WkpFTjIsbDayJHih5kZC1giwE+MhIzAb7mEsQMqMf18rHLsrb5qI1tafG20mLxEWcWlA==}
@@ -2395,6 +2401,8 @@ snapshots:
   '@csstools/selector-specificity@6.0.0(postcss-selector-parser@7.1.2)':
     dependencies:
       postcss-selector-parser: 7.1.2
+
+  '@dragdroptouch/drag-drop-touch@2.0.3': {}
 
   '@esbuild/aix-ppc64@0.28.0':
     optional: true

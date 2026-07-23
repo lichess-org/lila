@@ -16,6 +16,7 @@ import * as xhr from 'lib/xhr';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
+import { pools } from './shortcutsCtrl';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -86,7 +87,7 @@ export default class SetupController {
       forceOptions?.increment ?? storeProps.increment,
       forceOptions?.days ?? storeProps.days,
       this.onPropChange,
-      this.root.pools,
+      pools,
     );
     this.gameMode = this.propWithApply(forceOptions?.mode ?? storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
@@ -239,7 +240,7 @@ export default class SetupController {
       this.gameMode() === 'rated' &&
       this.timeControl.isRealTime();
     const id = this.timeControl.clockStr();
-    return valid && this.root.pools.some(p => p.id === id)
+    return valid && pools.some(p => p.id === id)
       ? {
           id,
           range: this.ratingRange(),
