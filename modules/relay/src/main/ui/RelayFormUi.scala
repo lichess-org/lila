@@ -812,42 +812,43 @@ Team Dogs ; Scooby Doo"""),
                     )
                   )
                 )
-            ),
-            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
-              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.url"),
-                    "Stream URL",
-                    help = frag(
-                      p("Embed a live stream in the broadcast. Examples:"),
-                      ul(
-                        li("https://www.youtube.com/live/Lg0askmGqvo"),
-                        li("https://www.twitch.tv/tcec_chess_tv")
-                      )
-                    ).some,
-                    half = true
-                  )(form3.input(_)),
-                  form3.group(
-                    form("pinnedStream.name"),
-                    "Stream name",
-                    half = true
-                  )(form3.input(_))
-                ),
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.text"),
-                    "Stream link label",
-                    help = frag(
-                      "Optional. Show a label on the image link to your live stream.",
-                      br,
-                      "Example: 'Watch us live on YouTube!'"
-                    ).some
-                  )(form3.input(_))
-                )
-              )
+            )
           )
         else form3.hidden(form("tier")),
+        (tg.isDefined && Granter.opt(_.RelayStream)).option(
+          form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+            form3.split(
+              form3.group(
+                form("pinnedStream.url"),
+                "Stream URL",
+                help = frag(
+                  p("Embed a live stream in the broadcast. Examples:"),
+                  ul(
+                    li("https://www.youtube.com/live/Lg0askmGqvo"),
+                    li("https://www.twitch.tv/tcec_chess_tv")
+                  )
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("pinnedStream.name"),
+                "Stream name",
+                half = true
+              )(form3.input(_))
+            ),
+            form3.split(
+              form3.group(
+                form("pinnedStream.text"),
+                "Stream link label",
+                help = frag(
+                  "Optional. Show a label on the image link to your live stream.",
+                  br,
+                  "Example: 'Watch us live on YouTube!'"
+                ).some
+              )(form3.input(_))
+            )
+          )
+        ),
         form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
           form3.group(
             form("note"),
