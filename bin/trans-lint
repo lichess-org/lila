@@ -59,6 +59,7 @@ class Report:
     def __init__(self):
         self.errors = 0
         self.warnings = 0
+        self.error_lines = []
 
 
 def short_lang(lang):
@@ -105,7 +106,10 @@ class ReportContext:
             self.report.warnings += 1
         lang = short_lang(self.lang())
         url = f"https://crowdin.com/translate/lichess/all/en-{lang}?search_scope=key&search_strict=1#q={crowdin_q(self.name)}"
-        print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
+        line = f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}"
+        if level == "error":
+            self.report.error_lines.append(line)
+        print(line)
 
     def error(self, message):
         self.log("error", message)
@@ -322,6 +326,9 @@ if __name__ == "__main__":
             lint(report, pathlib.Path(arg))
         print(f"{report.errors} error(s), {report.warnings} warning(s)")
         if report.errors:
+            print("\nErrors:")
+            for line in report.error_lines:
+                print(line)
             sys.exit(1)
     else:
         print(f"Usage: {sys.argv[0]} translation/dest/*/*.xml")
