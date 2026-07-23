@@ -25,7 +25,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -350,9 +350,6 @@ final class TeamApi(
     ids <- memberRepo.teamsLedBy(leader, None)
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
-
-  def creatorOf(teamId: TeamId): Fu[Option[UserId]] =
-    teamRepo.byId(teamId).map(_.map(_.createdBy))
 
   export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
