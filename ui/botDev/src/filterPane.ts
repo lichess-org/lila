@@ -102,7 +102,7 @@ export class FilterPane extends Pane {
         e.target.closest('.facet')?.classList.add('active');
         this.paneValue[facet] ??= [];
       }
-      super.update(e);
+      super.update();
     });
     el.prepend(input);
     return { input, el };

@@ -57,10 +57,7 @@ export function botScore(r: Result, uid: string): number {
   return r.winner === undefined ? 0.5 : r[r.winner] === uid ? 1 : 0;
 }
 
-export function resultsObject(
-  results: Result[],
-  uid: string | undefined,
-): { w: number; d: number; l: number } {
+export function resultsObject(results: Result[], uid?: string): { w: number; d: number; l: number } {
   return results.reduce(
     (a, r) => ({
       w: a.w + (r.winner !== undefined && r[r.winner] === uid ? 1 : 0),

@@ -94,7 +94,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     return enabled;
   }
 
-  update(_?: Event): void {
+  update(): void {
     this.setProperty(this.paneValue);
     this.setEnabled(this.isDefined);
     this.host.update();
@@ -343,7 +343,7 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
   }
 }
 
-function getRequirementIds(r: Requirement | undefined): string[] {
+function getRequirementIds(r?: Requirement): string[] {
   if (typeof r === 'string') {
     const req = r.trim();
     if (req.startsWith('!')) return [req.slice(1).trim()];

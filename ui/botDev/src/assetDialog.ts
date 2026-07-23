@@ -17,7 +17,7 @@ const mimeTypes: Record<AssetType, string[]> = {
 
 export class AssetDialog {
   private dlg: Dialog;
-  private resolve?: (key: string | undefined) => void;
+  private resolve?: (key?: string) => void;
   private type: AssetType;
   private readonly isChooser: boolean;
   constructor(type?: AssetType) {

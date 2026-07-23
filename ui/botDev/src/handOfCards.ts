@@ -369,7 +369,7 @@ class HandOfCardsImpl {
 
   touchUpCard = (e: PointerEvent) => {
     if (!this.drag?.shape) return;
-    const outcome = this.drag.shape.outcome(e) || this.dropTarget(e);
+    const outcome = this.drag.shape.outcome() || this.dropTarget(e);
     if (outcome === 'next-group') {
       const groups = [...this.groups];
       const index = groups.indexOf(this.group);
@@ -391,7 +391,7 @@ class HandOfCardsImpl {
   }
   dragStart = (e: DragEvent) => e.preventDefault();
 
-  select(drop: HTMLElement | undefined, domId?: DomId) {
+  select(drop?: HTMLElement, domId?: DomId) {
     if (this.opts.transient) this.remove();
     return this.opts.select(drop, domId);
   }
@@ -511,7 +511,7 @@ class TouchDragShape {
     return { speed, dir };
   }
 
-  outcome(_: PointerEvent): HTMLElement | 'next-group' | undefined {
+  outcome(): HTMLElement | 'next-group' | undefined {
     const momentum = this.momentum;
     if (momentum.speed < 0.15) return undefined;
     if (momentum.dir === 'towards-drop') return this.drops[0].el;
