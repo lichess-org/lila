@@ -14,7 +14,7 @@ object BuildSettings:
     // legacy layout places compile/package outputs outside the cache root, so sbt 2.0 floods the
     // log with "Cannot cache task because its output files are outside the output directory".
     Seq(
-      resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots, Resolver.mavenLocal),
+      resolvers ++= Seq(jitpack, lilaMaven, sonashots, Resolver.sonatypeCentralSnapshots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       javacOptions ++= Seq("--release", "21"),
