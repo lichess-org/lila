@@ -43,5 +43,6 @@ def toJson(p: Pref, lichobileCompat: Boolean) = Json.obj(
   "moveEvent" -> p.moveEvent,
   "rookCastle" -> p.rookCastle,
   "flairs" -> p.flairs,
+  "removeOutdatedLocalMoves" -> p.removeOutdatedLocalMoves,
   "sayGG" -> p.sayGG
 )

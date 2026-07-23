@@ -191,6 +191,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices),
               "scrollOnTheBoardToReplayMoves"
+            ),
+            setting(
+              "Remove outdated local moves in correspondence",
+              radios(form("behavior.removeOutdatedLocalMoves"), booleanChoices),
+              "removeOutdatedLocalMoves"
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

@@ -262,7 +262,8 @@ final class JsonView(
             "coords" -> pref.coords,
             "moveEvent" -> pref.moveEvent,
             "showCaptured" -> pref.captured,
-            "keyboardMove" -> pref.hasKeyboardMove
+            "keyboardMove" -> pref.hasKeyboardMove,
+            "removeOutdatedLocalMoves" -> pref.removeOutdatedLocalMoves
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)

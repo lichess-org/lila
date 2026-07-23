@@ -73,6 +73,7 @@ export interface AnalysePref {
   animationDuration?: number;
   keyboardMove: boolean;
   moveEvent: MoveEvent;
+  removeOutdatedLocalMoves: boolean;
 }
 
 export interface ServerEvalData {

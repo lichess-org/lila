@@ -90,7 +90,8 @@ object PrefForm:
         fields.keyboardMove.map2(optional),
         fields.voice.map2(optional),
         "rookCastle" -> optional(booleanNumber),
-        fields.sayGG.map2(optional)
+        fields.sayGG.map2(optional),
+        "removeOutdatedLocalMoves" -> booleanNumber
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
         "tenths" -> checkedNumber(Pref.ClockTenths.choices),
@@ -131,7 +132,8 @@ object PrefForm:
       keyboardMove: Option[Int],
       voice: Option[Int],
       rookCastle: Option[Int],
-      sayGG: Option[Int]
+      sayGG: Option[Int],
+      removeOutdatedLocalMoves: Int
   )
 
   case class ClockData(
@@ -186,7 +188,8 @@ object PrefForm:
         rookCastle = behavior.rookCastle | pref.rookCastle,
         sayGG = behavior.sayGG | pref.sayGG,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent
+        moveEvent = behavior.moveEvent | pref.moveEvent,
+        removeOutdatedLocalMoves = behavior.removeOutdatedLocalMoves == 1
       )
 
   object PrefData:
@@ -214,7 +217,8 @@ object PrefForm:
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some,
-          sayGG = pref.sayGG.some
+          sayGG = pref.sayGG.some,
+          removeOutdatedLocalMoves = if pref.removeOutdatedLocalMoves then 1 else 0
         ),
         clock = ClockData(
           tenths = pref.clockTenths,

@@ -76,6 +76,7 @@ private object PrefHandlers:
         blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
+        removeOutdatedLocalMoves = r.getD("removeOutdatedLocalMoves", d.removeOutdatedLocalMoves),
         tags = r.getD("tags", d.tags)
       )
 
@@ -125,5 +126,6 @@ private object PrefHandlers:
         "board" -> o.board,
         "blogFilter" -> o.blogFilter.ordinal,
         "sayGG" -> o.sayGG,
+        "removeOutdatedLocalMoves" -> o.removeOutdatedLocalMoves,
         "tags" -> o.tags
       )
