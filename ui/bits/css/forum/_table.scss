@@ -32,6 +32,10 @@
         time {
           color: $c-link;
           font-size: 1em;
+
+          &:hover {
+            color: $c-link-hover;
+          }
         }
       }
     }

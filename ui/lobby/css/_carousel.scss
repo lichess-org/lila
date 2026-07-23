@@ -35,6 +35,7 @@
       font-size: 3em;
       pointer-events: auto;
       height: 100%;
+      color: hsl(from $c-primary h s l / 0.5);
 
       &:hover {
         color: $c-primary;

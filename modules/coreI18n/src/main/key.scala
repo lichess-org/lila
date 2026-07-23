@@ -2255,6 +2255,7 @@ object I18nKey:
     val `allLanguages`: I18nKey = "allLanguages"
     val `background`: I18nKey = "background"
     val `light`: I18nKey = "light"
+    val `clouds`: I18nKey = "clouds"
     val `dark`: I18nKey = "dark"
     val `transparent`: I18nKey = "transparent"
     val `deviceTheme`: I18nKey = "deviceTheme"

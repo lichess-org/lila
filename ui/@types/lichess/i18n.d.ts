@@ -3381,6 +3381,8 @@ interface I18n {
     closingAccountWithdrawAppeal: string;
     /** Cloud analysis */
     cloudAnalysis: string;
+    /** Clouds */
+    clouds: string;
     /** Coaches */
     coaches: string;
     /** Coach manager */

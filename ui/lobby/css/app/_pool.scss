@@ -59,7 +59,7 @@
   background: $c-pool-button;
 
   @include if-light {
-    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
+    background: $c-bg-cloud;
   }
 
   &:hover {
