@@ -556,7 +556,7 @@
   <string name="reportCheatBoostHelp">대국 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
   <string name="reportProcessedFasterInEnglish">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
-  <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 대국의 링크를 제공해주세요.</string>
+  <string name="error.provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 주제는 닫혔습니다.</string>
@@ -973,7 +973,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="gameInProgress">%s와(과) 진행중인 대국이 있습니다.</string>
   <string name="abortTheGame">대국 중단</string>
   <string name="resignTheGame">대국 기권</string>
-  <string name="youCantStartNewGame">당신 턴에는 새로운 대국을 시작할 수 없습니다.</string>
+  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">당신 턴에는 새로운 대국을 시작할 수 없습니다.</string>
   <string name="since">부터</string>
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 Lichess 플레이어의 레이팅 대국 샘플</string>

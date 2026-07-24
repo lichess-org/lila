@@ -112,11 +112,11 @@
   <string name="trappedPiece">Заробљена фигура</string>
   <string name="trappedPieceDescription">Фигура не може избећи да буде узета јер су јој потези ограничени.</string>
   <string name="underPromotion">Потпромоција</string>
-  <string name="underPromotionDescription">Промоција на коња, ловца или топа.</string>
-  <string name="veryLong">Врло дугачак проблем</string>
-  <string name="veryLongDescription">Четири или више потеза за победу.</string>
-  <string name="xRayAttack">Икс Реј напад</string>
-  <string name="xRayAttackDescription">Фигура напада или брани поље, захваљујући противничкој фигури.</string>
+  <string name="underPromotionDescription">Промоција у скакача, ловца или топа.</string>
+  <string name="veryLong">Веома дугачак проблем</string>
+  <string name="veryLongDescription">Четири потеза или више за победу.</string>
+  <string name="xRayAttack">Рендгенски напад</string>
+  <string name="xRayAttackDescription">Фигура напада или брани поље, кроз противничку фигуру.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник има ограничен избор потеза и сваким потезом погоршава своју позицију.</string>
   <string name="mix">Здрава мешавина</string>
