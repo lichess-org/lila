@@ -3,12 +3,9 @@ package lila.relay
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.util.matching.Regex
 
 import lila.core.config.*
 import lila.common.Bus
-import lila.memo.SettingStore
-import lila.memo.SettingStore.Formable.given
 import lila.core.id.RelayRoundId
 import lila.core.fide.{ Federation, Tokenize }
 
@@ -31,7 +28,7 @@ final class Env(
     getPlayerFollowers: lila.core.fide.GetPlayerFollowers,
     getPhotosJson: lila.core.fide.PhotosJson.Get,
     cacheApi: lila.memo.CacheApi,
-    settingStore: SettingStore.Builder,
+    settingStore: lila.memo.SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
     routeUrl: RouteUrl,
     notifyApi: lila.core.notify.NotifyApi,
@@ -106,7 +103,7 @@ final class Env(
 
   private lazy val sync = wire[RelaySync]
 
-  private lazy val proxy = wire[RelayProxy]
+  lazy val proxy = wire[RelayProxy]
   private def selectProxy: ProxySelector = proxy.select
 
   private lazy val httpClient = wire[HttpClient]
@@ -119,29 +116,6 @@ final class Env(
 
   // eager init to start the scheduler
   val stats = wire[RelayStatsApi]
-
-  import SettingStore.CredentialsOption.given
-  val proxyCredentials = settingStore[Option[Credentials]](
-    "relayProxyCredentials",
-    default = none,
-    text =
-      "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no auth (?!). Format: username:password".some
-  ).taggedWith[ProxyCredentials]
-
-  import SettingStore.HostPortOption.given
-  val proxyHostPort = settingStore[Option[HostPort]](
-    "relayProxyHostPort",
-    default = none,
-    text =
-      "Broadcast: proxy host and port to fetch from external sources. Leave empty to use no proxy. Format: host:port".some
-  ).taggedWith[ProxyHostPort]
-
-  import SettingStore.Regex.given
-  val proxyDomainRegex = settingStore[Regex](
-    "relayProxyDomainRegex",
-    default = "-".r,
-    text = "Broadcast: source domains that use a proxy, as a regex".some
-  ).taggedWith[ProxyDomainRegex]
 
   private val relayFidePlayerApi = wire[RelayFidePlayerApi]
 

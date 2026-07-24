@@ -106,9 +106,9 @@ final class Dev(env: Env) extends LilaController(env):
       env.fishnet.openingBookDepth
     ),
     "Broadcast" -> List(
-      env.relay.proxyDomainRegex,
-      env.relay.proxyHostPort,
-      env.relay.proxyCredentials
+      env.relay.proxy.domainRegex,
+      env.relay.proxy.hostPort,
+      env.relay.proxy.credentials
     ),
     "Tutor" -> List(
       env.tutor.nbAnalysisSetting,
