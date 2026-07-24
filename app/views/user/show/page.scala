@@ -2,6 +2,7 @@ package views.user
 package show
 
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
 import lila.app.mashup.UserInfo
@@ -33,7 +34,7 @@ object page:
         )
       )
       .js(pageModule(info))
-      .js(esModules())
+      .js(esModules(info))
       .js(isGranted(_.AccountInfo).option(esmInit("mod.autolink")))
       .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
@@ -58,7 +59,7 @@ object page:
     val pageName = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
-      .js(esModules(filters.current.name == "search"))
+      .js(esModules(info, filters.current.name == "search"))
       .css("user.show")
       .css((filters.current.name == "search").option("user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
@@ -72,9 +73,10 @@ object page:
           )
         )
 
-  private def esModules(withSearch: Boolean = false)(using Context): EsmList =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using Context): EsmList =
+    val trophies = trophyData.jsonList(info.user, info)
     infiniteScrollEsmInit
-      ++ esmInit("user")
+      ++ esmInit("user", Json.obj("trophies" -> trophies, "username" -> info.user.username.value))
       ++ Esm("bits.dropdownOverflow")
       ++ withSearch.so(Esm("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(Esm("mod.user"))

@@ -1,17 +1,147 @@
 .trophies {
-  @include inline-end(1.5em);
-
-  position: absolute;
-  top: 35px;
-  height: 40px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 80px;
   display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
+  flex-flow: row nowrap;
+  align-items: center;
   justify-content: flex-end;
+  gap: 0.35em;
   margin-top: 0 !important;
+
+  > * {
+    flex-shrink: 0;
+  }
 
   @media (max-width: at-most($small)) {
     display: none;
+  }
+}
+
+.more-trophies {
+  flex: 0 0 auto;
+  align-self: center;
+  height: 30px;
+  min-width: 32px;
+  padding: 0 0.6em;
+  margin-inline-end: 0.5em;
+  border: none;
+  border-radius: 1em;
+  background: $c-primary;
+  color: $c-over;
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: opacity 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $c-primary;
+    outline-offset: 2px;
+  }
+}
+
+.dialog-content.all-trophies-dialog {
+  width: 42em;
+  max-width: 100%;
+  padding: 2em 2em 2.5em;
+  text-align: start;
+}
+
+.all-trophies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6em, 1fr));
+  gap: 1em 0.5em;
+
+  @media (max-width: at-most($small)) {
+    grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
+  }
+
+  &__title {
+    grid-column: 1 / -1;
+    margin: 0 0 0.5em;
+    padding-bottom: 0.6em;
+    border-bottom: $border;
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.8em 0.4em;
+    border-radius: $box-radius-size;
+    text-align: center;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $c-bg-zebra;
+    }
+  }
+
+  &__item .trophy,
+  &__item .shield-trophy,
+  &__item .revol_trophy {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 65px;
+    margin: 0 !important;
+    padding: 0;
+    font-size: 52px;
+    transform: none;
+    line-height: 1;
+
+    img {
+      height: 60px;
+      width: auto;
+    }
+  }
+
+  &__item .fire-trophy {
+    margin: 0 !important;
+    padding: 0;
+    height: 65px !important;
+    width: 100% !important;
+    font-size: 48px !important;
+    position: static !important;
+    align-items: flex-end !important;
+    line-height: 1 !important;
+  }
+
+  &__item .stacked {
+    height: 65px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    .trophy {
+      width: 52px;
+      height: 52px;
+      font-size: 48px;
+      margin: 0;
+      padding: 0;
+      position: static;
+    }
+  }
+
+  &__name {
+    color: $c-font-dim;
+    font-size: 0.85em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    margin-top: 1em;
   }
 }
 
@@ -23,7 +153,7 @@
 
 .trophy {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   height: 40px;
   user-select: none;
 
@@ -48,7 +178,8 @@
 .stacked {
   height: 40px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  gap: 0.35em;
 }
 
 .stacked .trophy {
@@ -112,24 +243,33 @@
   }
 }
 
-.packed .trophy {
-  margin-inline-end: -8px;
-}
-
-.packed .stacked {
-  margin-inline-end: 30px;
-}
-
-.packed .stacked .trophy {
-  margin-inline-end: -30px;
-}
-
 .trophy.icon3d {
   width: 40px;
   height: 40px;
   font-size: 39px;
   color: $c-font-dimmer;
   text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
+}
+
+.trophy.zugMiracle {
+  align-items: flex-end;
+  margin: 0 8px;
+  transition: 2s;
+
+  img {
+    height: 60px;
+  }
+
+  &:hover {
+    transform: translateY(-9px);
+    animation: psyche 0.3s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes psyche {
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .trophy.streaming {
@@ -144,6 +284,10 @@
   font-size: 60px;
   margin: 0 -10px 0 30px;
   transform: scaleX(-1);
+
+  .trophies &:last-child {
+    margin-inline-end: 0;
+  }
 
   @include if-rtl {
     transform: none;
@@ -164,8 +308,10 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   font-family: lichess;
   text-align: center;
+  line-height: 60px;
 }
 
 .shield-trophy {
@@ -175,7 +321,6 @@
   line-height: 60px;
   color: #333 !important;
   text-shadow: 0 0 6px #fff;
-  margin-top: -20px;
   filter: drop-shadow(0 0 6px $c-brag);
 }
 
@@ -185,5 +330,4 @@
   line-height: 68px;
   color: #fff !important;
   text-shadow: 0 0 4px #444;
-  margin-top: -18px;
 }
