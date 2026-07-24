@@ -96,7 +96,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case Relay extends Permission("RELAY", "Broadcast official")
   case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
   case Cli extends Permission("CLI", "Command line")
-  case Settings extends Permission("SETTINGS", "Lila settings")
+  case Settings
+      extends Permission("SETTINGS", "Lila settings base permission") // tho most settings require SUPER_ADMIN
   case Streamers extends Permission("STREAMERS", "Manage streamers")
   case Verified extends Permission("VERIFIED", "Verified badge")
   case Pages extends Permission("PAGES", "Lichess pages")
@@ -242,7 +243,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          Feed
+          Feed,
+          Settings
         ),
         "Admin"
       )
@@ -256,7 +258,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FullCommsExport,
           PayPal,
           Cli,
-          Settings,
           TitleRequest
         ),
         "Super Admin"

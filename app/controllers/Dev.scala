@@ -6,13 +6,13 @@ final class Dev(env: Env) extends LilaController(env):
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
     Ok.page:
-      views.dev.settings(settingsList)
+      views.dev.settings(settingsListForMe)
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
+    settingsListForMe.flatMap(_._2).find(_.id == id).so { setting =>
       bindForm(setting.form)(
-        _ => BadRequest.page(views.dev.settings(settingsList)),
+        _ => BadRequest.page(views.dev.settings(settingsListForMe)),
         v =>
           lila.log.system.info(s"setting ${me.username} changes $id from ${setting.get()} to ${v.toString}")
           setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
@@ -67,6 +67,11 @@ final class Dev(env: Env) extends LilaController(env):
       _ <- env.mod.logApi.cli(command)
       res <- env.api.cli.run(command.split(" ").toList)
     yield res
+
+  private def settingsListForMe(using me: Me) =
+    settingsList.flatMap: (categ, settings) =>
+      val sets = settings.filter(s => isGranted(s.perm))
+      sets.nonEmpty.option(categ -> sets)
 
   private lazy val settingsList = List[(String, List[lila.memo.SettingStore[?]])](
     "Moderation" -> List(

@@ -1,23 +1,22 @@
 package lila.memo
 
+import scala.util.Try
+import scala.util.matching.Regex
 import play.api.data.*
+import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONHandler
 import scalalib.Iso
 
-import scala.util.Try
-import scala.util.matching.Regex
-
-import lila.core.data.{ Ints, Strings, UserIds }
+import lila.core.data.{ Ints, Strings, UserIds, Text }
+import lila.core.perm.Permission
 import lila.db.dsl.*
-
-import Forms.*
-import lila.core.data.Text
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
     val id: String,
     val default: A,
     val text: Option[String],
+    val perm: Permission,
     init: SettingStore.Init[A]
 )(using Executor):
 
@@ -53,9 +52,10 @@ object SettingStore:
     def apply[A: BSONHandler: StringReader: Formable](
         id: String,
         default: A,
-        text: Option[String] = None,
+        text: Option[String],
+        perm: Permission.Selector = _.SuperAdmin,
         init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
-    ) = SettingStore[A](coll, id, default, text, init = init)
+    ) = SettingStore[A](coll, id, default, text, perm(Permission), init = init)
 
   final class StringReader[A](val read: String => Option[A])
 
