@@ -48,12 +48,14 @@ object trophyData:
           val ptype = lila.rating.PerfType(perf)
           bits
             .trophyMeta(ptype, rank)
-            .foreach: (cssClass, title, imgPath) =>
+            .foreach: (cssClass, title, imgPath, imgW, imgH) =>
               items += item(
                 cssClass = cssClass,
                 title = title,
                 href = routes.User.top(ptype.key).url.some,
-                imgSrc = assetUrl(imgPath).value.some
+                imgSrc = assetUrl(imgPath).value.some,
+                imgW = imgW.some,
+                imgH = imgH.some
               )
 
     val trophies = info.trophies.trophies
@@ -107,7 +109,9 @@ object trophyData:
         cssClass = trophyClass(t),
         title = t.kind.name,
         href = t.anyUrl,
-        imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some
+        imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some,
+        imgW = 34.some,
+        imgH = 60.some
       )
 
     customB

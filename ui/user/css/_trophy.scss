@@ -8,9 +8,15 @@
   justify-content: flex-end;
   gap: 0.35em;
   margin-top: 0 !important;
+  overflow: hidden;
+  visibility: hidden;
 
   > * {
     flex-shrink: 0;
+  }
+
+  &.trophies-ready {
+    visibility: visible;
   }
 
   @media (max-width: at-most($small)) {
@@ -89,9 +95,7 @@
     }
   }
 
-  &__item .trophy,
-  &__item .shield-trophy,
-  &__item .revol_trophy {
+  &__item .trophy {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -109,6 +113,14 @@
     }
   }
 
+  &__item .shield-trophy,
+  &__item .revol_trophy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
   &__item .fire-trophy {
     margin: 0 !important;
     padding: 0;
@@ -118,22 +130,6 @@
     position: static !important;
     align-items: flex-end !important;
     line-height: 1 !important;
-  }
-
-  &__item .stacked {
-    height: 65px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-
-    .trophy {
-      width: 52px;
-      height: 52px;
-      font-size: 48px;
-      margin: 0;
-      padding: 0;
-      position: static;
-    }
   }
 
   &__name {
@@ -182,10 +178,11 @@
   gap: 0.35em;
 }
 
-.stacked .trophy {
+.trophy.stacked {
   width: 65px;
   height: 65px;
   font-size: 65px;
+  gap: 0;
 }
 
 .fire-trophy {
