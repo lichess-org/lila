@@ -6,15 +6,19 @@ import path from 'node:path';
 
 async function letsGo() {
   const oauthToken = process.env.OAUTH_TOKEN;
-  const client = new MongoClient('mongodb://127.0.0.1:27917/lichess');
+  console.log(`Using OAuth token: ${oauthToken}`);
+  const client = new MongoClient('mongodb://127.0.0.1:27917/lichess', {
+    directConnection: true,
+  });
   // const client = new MongoClient('mongodb://127.0.0.1:27017/lichess');
   const lichessUrl = 'https://lichess.org';
-  const dryRun = true;
+  const dryRun = false;
 
   const coll = client.db().collection('lm_user_recent_nomobile');
 
   const unsent = { sent: { $ne: true } };
 
+  console.log('Counting users to send messages to...');
   const count = await coll.countDocuments(unsent);
   console.log(`Sending messages to ${count} users...`);
 
@@ -44,7 +48,7 @@ async function letsGo() {
     if (users.length === 0) return;
     const ids = users.map(u => u._id);
     const message = makeMessage(lang);
-    const command = `msg multi lichess ${ids.join(',')},thibault ${message}`;
+    const command = `msg multi lichess ${ids.join(',')} ${message}`;
     console.log(`Sending message to ${users.length} users in ${lang}`);
     if (dryRun) {
     } else {
@@ -56,11 +60,12 @@ async function letsGo() {
         body: command,
       });
 
-      if (!res.ok) console.error(`Failed to send message to ${username}: ${res.status} ${res.statusText}`);
+      if (!res.ok)
+        console.error(`Failed to send message to ${ids.join(',')}: ${res.status} ${res.statusText}`);
       else await coll.updateMany({ _id: { $in: ids } }, { $set: { sent: true } });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 500)); // Avoid hitting rate limits
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Avoid hitting rate limits
   }
 
   for await (const lang of langs) {
