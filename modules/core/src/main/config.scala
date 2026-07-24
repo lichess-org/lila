@@ -32,20 +32,6 @@ object config:
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
-  case class Credentials(user: String, password: Secret):
-    def show = s"$user:${password.value}"
-  object Credentials:
-    def read(str: String): Option[Credentials] = str.split(":") match
-      case Array(user, password) => Credentials(user, Secret(password)).some
-      case _ => none
-
-  case class HostPort(host: String, port: Int):
-    def show = s"$host:$port"
-  object HostPort:
-    def read(str: String): Option[HostPort] = str.split(":") match
-      case Array(host, port) => port.toIntOption.map(HostPort(host, _))
-      case _ => none
-
   type RouteUrl = play.api.mvc.Call => data.Url
 
   case class NetConfig(
