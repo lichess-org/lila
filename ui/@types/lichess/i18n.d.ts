@@ -117,6 +117,8 @@ interface I18n {
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
     prizeBanned: string;
+    /** Your account is temporarily restricted from playing. */
+    temporarilyRestrictedFromPlaying: string;
   };
   arena: {
     /** All averages on this page are %s. */
@@ -213,6 +215,8 @@ interface I18n {
     pointsAvg: string;
     /** Points sum */
     pointsSum: string;
+    /** Your rank average represents your typical finishing position, relative to total number of players in each tournament. */
+    rankAverageHelp: string;
     /** Rank average */
     rankAvg: string;
     /** The rank average is a percentage of your ranking. Lower is better. */
@@ -373,6 +377,8 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
+    /** Permanently delete this tournament, including all rounds and games? */
+    permanentlyDeleteTournament: string;
     /** Quarterfinals */
     quarterfinals: string;
     /** Rating diff */
@@ -1069,6 +1075,8 @@ interface I18n {
   emails: {
     /** To contact us, please use %s. */
     common_contact: I18nFormat;
+    /** (Link not working? Try pasting it into your browser!) */
+    common_linkNotWorking: string;
     /** This is a service email related to your use of %s. */
     common_note: I18nFormat;
     /** (Clicking not working? Try pasting it into your browser!) */
@@ -1143,6 +1151,8 @@ interface I18n {
     enableAutoplayForSoundsA: string;
     /** 1. Go to lichess.org */
     enableAutoplayForSoundsChrome: string;
+    /** 1. Go to lichess.org */
+    enableAutoplayForSoundsChromeSiteInformation: string;
     /** 1. Go to lichess.org */
     enableAutoplayForSoundsFirefox: string;
     /** 1. Click the three dots in the top right corner */
@@ -1237,6 +1247,8 @@ interface I18n {
     lMtitleComesToYouDoNotRequestIt: string;
     /** stand-alone mental health condition */
     mentalHealthCondition: string;
+    /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
+    mostBrowsersPreventSoundAutoplay: string;
     /** The player has not yet finished enough rated games against %1$s in the rating category. */
     notPlayedEnoughRatedGamesAgainstX: I18nFormat;
     /** The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again. */
@@ -1469,6 +1481,8 @@ interface I18n {
     noAndYourNetworkIsBad: string;
     /** No. And your network is good. */
     noAndYourNetworkIsGood: string;
+    /** The time it takes to process a move on the server. It's the same for everybody, and only depends on the server's load. The more players there are, the higher the load becomes, but we do our best to keep it low. It rarely exceeds 10ms. */
+    serverLatencyAndLoadExplanation: string;
     /** Yes. It will be fixed soon! */
     yesItWillBeFixedSoon: string;
     /** You can find both these values at any time, by clicking your username in the top bar. */
@@ -2393,8 +2407,12 @@ interface I18n {
     notifyChallenge: string;
     /** Device */
     notifyDevice: string;
+    /** New direct message */
+    notifyDirectMessage: string;
     /** Forum comment mentions you */
     notifyForumMention: string;
+    /** Forum mentions */
+    notifyForumMentions: string;
     /** Correspondence game updates */
     notifyGameEvent: string;
     /** New inbox message */
@@ -2405,10 +2423,14 @@ interface I18n {
     notifyPush: string;
     /** Streamer goes live */
     notifyStreamStart: string;
+    /** Study invites */
+    notifyStudyInvites: string;
     /** Correspondence time running out */
     notifyTimeAlarm: string;
     /** Tournament starting soon */
     notifyTournamentSoon: string;
+    /** Tournaments start reminders */
+    notifyTournamentStartReminders: string;
     /** Browser */
     notifyWeb: string;
     /** Only on initial position */
@@ -2731,6 +2753,8 @@ interface I18n {
     endgame: string;
     /** A tactic during the last phase of the game. */
     endgameDescription: string;
+    /** A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move. */
+    enPassantAdjacentCaptureDescription: string;
     /** A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move. */
     enPassantDescription: string;
     /** Epaulette mate */
@@ -2749,6 +2773,8 @@ interface I18n {
     fork: string;
     /** A move where the moved piece attacks two opponent pieces at once. */
     forkDescription: string;
+    /** A move where a piece attacks two or more opposing pieces simultaneously. */
+    forkOpposingPiecesDescription: string;
     /** Hanging piece */
     hangingPiece: string;
     /** A tactic involving an opponent piece being undefended or insufficiently defended and free to capture. */
@@ -2757,6 +2783,8 @@ interface I18n {
     hookMate: string;
     /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
     hookMateDescription: string;
+    /** Checkmate using a rook, knight, and pawn, where an opposing pawn blocks the king's escape. */
+    hookMateOpposingPawnDescription: string;
     /** Interference */
     interference: string;
     /** Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks. */
@@ -3343,6 +3371,8 @@ interface I18n {
     checkmate: string;
     /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
     checkSpamFolder: string;
+    /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
+    checkSpamOrJunkFolder: string;
     /** Check your Email */
     checkYourEmail: string;
     /** Chess960 start position: %s */
@@ -3447,6 +3477,8 @@ interface I18n {
     createTheGame: string;
     /** Create the topic */
     createTheTopic: string;
+    /** Creating a simul lets you play against multiple opponents at the same time. */
+    creatingASimul: string;
     /** Crosstable */
     crosstable: string;
     /** Cumulative */
@@ -3935,6 +3967,8 @@ interface I18n {
     move: string;
     /** Move annotations */
     moveAnnotations: string;
+    /** Move list navigation */
+    moveListNavigation: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4219,6 +4253,8 @@ interface I18n {
     privacyPolicy: string;
     /** Proceed to %s */
     proceedToX: I18nFormat;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
     /** Profile */
     profile: string;
     /** Profile completion: %s */
@@ -4869,6 +4905,8 @@ interface I18n {
     youCanAlsoScrollOverTheBoardToMoveInTheGame: string;
     /** You can do better */
     youCanDoBetter: string;
+    /** You can format text using %s. */
+    youCanFormatTextUsing: I18nFormat;
     /** There is a setting to hide all user flairs across the entire site. */
     youCanHideFlair: string;
     /** You can't post in the forums yet. Play some games! */
@@ -5605,6 +5643,8 @@ interface I18n {
     predefinedDuration: string;
     /** Only allow specific players to join */
     predefinedUsers: string;
+    /** Enter one username per line. Only these players will be allowed to join. */
+    predefinedUsersHelp: string;
     /** Players who sign up for Swiss events but don't play their games can be problematic. */
     protectionAgainstNoShowA: string;
     /** What is done regarding no-shows? */

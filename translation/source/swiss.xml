@@ -123,6 +123,8 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="unlimitedAndFree">Unlimited and free</string>
   <string name="predefinedUsers">Only allow specific players to join</string>
   <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
+  <string name="predefinedUsersHelp" comment="Replaces forbiddedUsers">Enter one username per line. Only these players will be allowed to join.
+Leave blank to allow all eligible players.</string>
   <string name="playYourGames">Play your games</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>
