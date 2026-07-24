@@ -26,6 +26,7 @@
   <string name="orCloseAccount">However, you can close your current account, and create a new one.</string>
   <string name="wantClearHistory">I want to clear my history or rating</string>
   <string name="cantClearHistory">It's not possible to clear your game history, puzzle history, or ratings.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces cantClearHistory">It's not possible to clear your game history, puzzle history, or reset your ratings.</string>
   <string name="wantReport">I want to report a player</string>
   <string name="toReportAPlayerUseForm">To report a player, use the report form</string>
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
