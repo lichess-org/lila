@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
-import { describe } from 'node:test';
+import test, { describe } from 'node:test';
 
 import { each } from '../../.test/helpers.mts';
 import { enhance, imgurRegex } from '../src/view/enhance';
 
-describe('test imgur matching', () => {
+describe('imgur matching', () => {
   each<[string, string]>([
     ['https://i.imgur.com/HFn4lkh.jpeg', 'https://i.imgur.com/HFn4lkh.jpg'],
     ['http://imgur.com/HFn4lkh.png', 'https://i.imgur.com/HFn4lkh.jpg'],
@@ -31,24 +31,17 @@ describe('test imgur matching', () => {
   });
 });
 
-describe('test bulk message ids should have a text class', () => {
-  each<[string]>([['Your game with @somebody is ready: #gameIdXX.']])('should have a text class', input => {
-    assert.strictEqual(
-      enhance(input),
-      'Your game with <a target="_blank" rel="nofollow noreferrer" href="/@/somebody">@somebody</a> is ready: ' +
-        '<a class="text" target="_blank" rel="nofollow noreferrer" href="/gameIdXX">#gameIdXX</a>.',
-    );
-  });
+test('bulk message ids should have a text class', () => {
+  assert.strictEqual(
+    enhance('Your game with @somebody is ready: #gameIdXX.'),
+    'Your game with <a target="_blank" rel="nofollow noreferrer" href="/@/somebody">@somebody</a> is ready: ' +
+      '<a class="text" target="_blank" rel="nofollow noreferrer" href="/gameIdXX">#gameIdXX</a>.',
+  );
 });
 
-describe('test regular game links should not have a text class', () => {
-  each<[string]>([['I played a game: https://lichess.org/GameIdXX']])(
-    'should not have a text class',
-    input => {
-      assert.strictEqual(
-        enhance(input),
-        'I played a game: <a target="_blank" rel="nofollow noreferrer" href="https://lichess.org/GameIdXX">lichess.org/GameIdXX</a>',
-      );
-    },
+test('regular game links should not have a text class', () => {
+  assert.strictEqual(
+    enhance('I played a game: https://lichess.org/GameIdXX'),
+    'I played a game: <a target="_blank" rel="nofollow noreferrer" href="https://lichess.org/GameIdXX">lichess.org/GameIdXX</a>',
   );
 });
