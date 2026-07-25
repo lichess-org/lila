@@ -12,6 +12,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "isolatedDeclarations": true,
@@ -21,7 +23,8 @@
     "module": "ESNext",
     "target": "ES2021",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "types": ["lichess"],
+    "types": [],
+    "typeRoots": ["${configDir}/@types", "${configDir}/node_modules/@types"],
     "paths": {
       "@/*": ["${configDir}/src/*"]
     },
