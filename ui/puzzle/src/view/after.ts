@@ -1,5 +1,5 @@
 import { licon } from 'lib/licon';
-import { type VNode, type MaybeVNodes, bind, hl, iconTag } from 'lib/view';
+import { type VNode, type MaybeVNodes, bind, hl, icon } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
 
@@ -31,7 +31,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
     hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', `${ctrl.streak?.data.index ?? 0}`))),
   ]),
   hl('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
-    iconTag(licon.PlayTriangle),
+    icon(licon.PlayTriangle)(),
     i18n.puzzle.newStreak,
   ]),
 ];
@@ -47,7 +47,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       : [
           hl('div.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           hl('button.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
-            iconTag(licon.PlayTriangle),
+            icon(licon.PlayTriangle)(),
             i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
           ]),
           hl('div.puzzle__more', [

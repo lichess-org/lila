@@ -17,7 +17,7 @@ import {
   spinnerVdom,
   type Dialog,
   type VNode,
-  iconCls,
+  icon,
 } from 'lib/view';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 
@@ -299,7 +299,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [iconCls(licon.Eye, 'text'), i18n.study.editor],
+                [icon(licon.Eye)('.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&

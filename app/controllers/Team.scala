@@ -437,7 +437,7 @@ final class Team(env: Env) extends LilaController(env):
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.team.limiter.pmAll.status(team.id)
+    limiter <- env.team.pm.status(team.id)
     page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
@@ -446,19 +446,13 @@ final class Team(env: Env) extends LilaController(env):
       import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
-        msg =>
-          val normalized = msg.replaceAll("\r\n?", "\n")
-          env.team.limiter.pmAll
-            .dedupAndLimit(team.id, normalized): () =>
-              val url = routeUrl(routes.Team.show(team.id))
-              val full = s"""$normalized
-  ---
-  You received this because you are subscribed to messages of the team $url."""
+        text =>
+          val msg = env.team.pm.decorateMsg(team, text)
+          env.team.pm
+            .dedupAndLimit(team.id, msg): () =>
+              val targets = env.team.memberStream.subscribedIds(team, MaxPerSecond(50))
               env.msg.api
-                .multiPost(
-                  env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                  full
-                )
+                .multiPost(targets, msg)
                 .addEffect(lila.mon.msg.teamBulk.record(_))
                 .void
             .left

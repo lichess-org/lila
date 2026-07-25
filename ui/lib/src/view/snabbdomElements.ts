@@ -1,5 +1,7 @@
 import { type Attrs, h, type VNode, type VNodeChildren, type VNodeData } from 'snabbdom';
 
+import type { LiconValue } from '@/licon';
+
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
 };
@@ -133,3 +135,5 @@ export const strong: TagFunction = makeTag('strong');
 export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
+
+export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });

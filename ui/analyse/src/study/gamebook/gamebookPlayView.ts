@@ -43,7 +43,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       { attrs: { type: 'button' }, hook: bind('click', ctrl.retry) },
-      [iconTag(licon.Reload), hl('span', i18n.site.retry)],
+      [icon(licon.Reload)(), hl('span', i18n.site.retry)],
     );
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [

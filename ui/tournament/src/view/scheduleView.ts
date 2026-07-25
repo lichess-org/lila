@@ -174,7 +174,7 @@ function renderTournament(tour: Tournament) {
       },
     },
     [
-      iconTag(iconOf(tour)),
+      icon(iconOf(tour))(),
       h('span.body', [
         h('span.name', i18nName(tour)),
         h('span.infos', [

@@ -47,12 +47,12 @@ function image(d: TournamentData): VNode | undefined {
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
   if (s?.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
-  return iconCls(s?.iconFont || licon.Trophy, 'img');
+  return icon(s?.iconFont || licon.Trophy)('.img');
 }
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (hasFreq('marathon', d)) return h('h1', [iconTag(licon.Globe, { cls: 'fire-trophy' }), d.fullName]);
+  if (hasFreq('marathon', d)) return h('h1', [icon(licon.Globe)('.fire-trophy'), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
       h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),

@@ -18,6 +18,7 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
     db: lila.db.Db,
+    routeUrl: lila.core.config.RouteUrl,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler, akka.stream.Materializer):
 
@@ -45,7 +46,7 @@ final class Env(
 
   def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
-  lazy val limiter = wire[TeamLimiter]
+  lazy val pm = wire[TeamPm]
 
   lazy val security = wire[TeamSecurity]
 

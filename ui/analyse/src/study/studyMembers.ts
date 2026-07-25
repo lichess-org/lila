@@ -2,7 +2,7 @@ import { prop, type Prop, scrollTo } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
@@ -149,7 +149,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      [iconTag(contrib ? licon.User : licon.Eye)],
+      icon(contrib ? licon.User : licon.Eye)(),
     );
   }
 
@@ -218,7 +218,7 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner &&
       ordered.length < members.max &&
       hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        iconTag(licon.PlusButton),
+        icon(licon.PlusButton)(),
         hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&

@@ -174,7 +174,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', iconCls(licon.CautionCircle, 'is-red'));
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
