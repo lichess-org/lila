@@ -116,7 +116,7 @@ object Chapter:
 
   type Order = Int
 
-  // This limit is usually reached is when someone looks for it,
+  // This limit is usually reached when someone looks for it,
   // by making a chapter as big as possible.
   // Increasing it would not improve the experience on legit use cases.
   val maxNodes = 3_000

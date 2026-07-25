@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.Fen
+import chess.format.{ Fen, UciPath }
 import chess.format.pgn.PgnStr
 import chess.variant.Variant
 import play.api.data.*
@@ -169,6 +169,15 @@ object StudyForm:
     Form(single("topics" -> text)).fill(topics.value.mkString(","))
 
   val replaceChapterPgnMoves = Form(single("pgn" -> nonEmptyText.into[PgnStr]))
+
+  case class PgnContinuationPaste(path: UciPath, pgn: PgnStr)
+
+  val pgnContinuationPaste = Form(
+    mapping(
+      "path" -> text.transform[UciPath](UciPath.apply, _.toString),
+      "pgn" -> nonEmptyText.into[PgnStr]
+    )(PgnContinuationPaste.apply)(unapply)
+  )
 
   def chapterTagsForm = Form:
     import chess.format.pgn.{ Tags, Parser }

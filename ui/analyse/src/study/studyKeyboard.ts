@@ -1,6 +1,7 @@
 import { keyToMouseEvent } from '@/keyboard';
 
 import type StudyCtrl from './studyCtrl';
+import { bindPgnPaste } from './studyPgnPaste';
 
 export default function studyKeyboard(ctrl: StudyCtrl) {
   const kbd = window.site.mousetrap;
@@ -40,4 +41,6 @@ export default function studyKeyboard(ctrl: StudyCtrl) {
     ctrl.chapters.toggleNewForm();
     ctrl.redraw();
   });
+
+  bindPgnPaste(ctrl);
 }
