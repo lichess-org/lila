@@ -45,3 +45,10 @@ test('regular game links should not have a text class', () => {
     'I played a game: <a target="_blank" rel="nofollow noreferrer" href="https://lichess.org/GameIdXX">lichess.org/GameIdXX</a>',
   );
 });
+
+test('urls in parentheses should be enhanced', () => {
+  assert.strictEqual(
+    enhance('(https://zombo.com)'),
+    '(<a target="_blank" rel="nofollow noreferrer" href="https://zombo.com">zombo.com</a>)',
+  );
+});
