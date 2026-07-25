@@ -1,6 +1,6 @@
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
-import { type VNode, bind, dataIcon, hl, requiresI18n, iconTag, onInsert } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
 
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 

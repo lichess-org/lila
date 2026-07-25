@@ -4,7 +4,7 @@ import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
 import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
-import { bind, type MaybeVNodes, iconTag, onInsert } from 'lib/view';
+import { bind, type MaybeVNodes, onInsert, icon } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 

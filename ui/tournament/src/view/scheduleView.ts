@@ -3,7 +3,7 @@ import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { dataIcon, iconTag, onInsert } from 'lib/view';
+import { dataIcon, icon, onInsert } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';

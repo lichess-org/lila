@@ -14,7 +14,7 @@ import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, iconCls, onInsert } from '@/view';
+import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, onInsert, icon } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
