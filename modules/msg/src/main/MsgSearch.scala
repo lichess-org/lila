@@ -4,10 +4,11 @@ import reactivemongo.api.bson.*
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.core.misc.clas.ClasBus
+import lila.core.clas.ClasBus
 import lila.core.user.KidMode
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
+import lila.core.net.School
 
 final class MsgSearch(
     colls: MsgColls,
@@ -18,21 +19,23 @@ final class MsgSearch(
 
   import BsonHandlers.{ *, given }
 
-  def apply(q: String)(using me: Me, kid: KidMode): Fu[MsgSearch.Result] =
-    if kid.yes then forKid(q)
-    else
-      val search = UserSearch.read(q)
-      searchThreads(q)
-        .zip(search.so(searchFriends))
-        .zip(search.so(searchUsers))
-        .map:
-          case ((threads, friends), users) =>
-            MsgSearch
-              .Result(
-                threads,
-                friends.filterNot(f => threads.exists(_.other.is(f))).take(10),
-                users.filterNot(u => u.is(me) || friends.exists(_.is(u))).take(10)
-              )
+  def apply(q: String)(using me: Me, kid: KidMode, school: Option[School]): Fu[MsgSearch.Result] =
+    school match
+      case Some(School.student | School.other) => fuccess(empty)
+      case _ if kid.yes => forKid(q)
+      case _ =>
+        val search = UserSearch.read(q)
+        searchThreads(q)
+          .zip(search.so(searchFriends))
+          .zip(search.so(searchUsers))
+          .map:
+            case ((threads, friends), users) =>
+              MsgSearch
+                .Result(
+                  threads,
+                  friends.filterNot(f => threads.exists(_.other.is(f))).take(10),
+                  users.filterNot(u => u.is(me) || friends.exists(_.is(u))).take(10)
+                )
 
   private def forKid(q: String)(using me: Me): Fu[MsgSearch.Result] = for
     threads <- searchThreads(q)

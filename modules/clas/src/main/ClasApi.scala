@@ -190,7 +190,9 @@ final class ClasApi(
           )
 
     def archive(from: Clas, v: Boolean)(using me: Me): Funit =
-      for clas <- doArchiveOnly(from, v)
+      for
+        clas <- doArchiveOnly(from, v)
+        _ = filters.teacher.add(me.userId)
       yield teamSync(clas)
 
     private def doArchiveOnly(from: Clas, v: Boolean)(using me: MyId): Fu[Clas] =
@@ -531,7 +533,7 @@ $url""",
   end invite
 
   private def teamSync(clas: Clas)(using Option[Me]): Unit =
-    import lila.core.misc.clas.*
+    import lila.core.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
       val students = LazyFu(() => student.activeUserIdsOf(clas.id))
       ClasTeamConfig(clas.name, clas.teachers, students)

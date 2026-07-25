@@ -129,9 +129,12 @@ export function scopedQuery(scope: Element): <T extends Element = HTMLElement>(s
 }
 
 // The username with all characters lowercase
-export const myUserId = (): string | undefined => document.body.dataset.user;
+export const myUserId = (): UserId | undefined => document.body.dataset.user;
 
 export const myUsername = (): string | undefined => document.body.dataset.username;
+
+export const schoolMode = (): SchoolMode | undefined =>
+  document.body.dataset.schoolMode as SchoolMode | undefined;
 
 export function repeater(f: () => void, additionalStopCond?: () => boolean): void {
   let timeout: number | undefined = undefined;

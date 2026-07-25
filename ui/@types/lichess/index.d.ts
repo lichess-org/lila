@@ -254,6 +254,8 @@ interface EvalScore {
   mate?: number;
 }
 
+type SchoolMode = 'student' | 'teacher' | 'other' | 'anon';
+
 interface CashStatic {
   powerTip: any;
 }

@@ -100,7 +100,7 @@ final class RelationUi(helpers: Helpers):
                 Some("relation")
               )
             ),
-            (!blocked && !blocks && !user.isPatron).option:
+            (ctx.kid.no && !blocked && !blocks && !user.isPatron).option:
               val url = if me.isPatron then routes.Plan.list else routes.Plan.index()
               MenuItem(
                 trans.patron.giftPatronWingsShort.txt(),
