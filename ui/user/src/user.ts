@@ -118,8 +118,8 @@ function tmpRandomTutorLink() {
 let trophiesDialogOpen = false;
 
 function initTrophies(items: TrophyItem[], username?: string) {
-  const el = document.querySelector<HTMLElement>('.trophies');
-  if (!el || !items.length) return;
+  const container = document.querySelector<HTMLElement>('.trophies');
+  if (!container || !items.length) return;
 
   const seen = new Set<string>();
   const allCups: TrophyItem[] = [];
@@ -134,42 +134,48 @@ function initTrophies(items: TrophyItem[], username?: string) {
 
   const createEl = (t: TrophyItem): HTMLElement => {
     const tag = t.href ? 'a' : 'span';
-    const el = document.createElement(tag);
-    el.className = t.cls + (t.stacked ? ' stacked' : '');
-    el.setAttribute('aria-label', t.title);
-    if (t.href) (el as HTMLAnchorElement).href = t.href;
-    if (t.icon) el.textContent = t.icon;
-    else {
+    const node = document.createElement(tag);
+    node.className = t.cls + (t.stacked ? ' stacked' : '');
+    node.title = t.title;
+    node.setAttribute('aria-label', t.title);
+    if (t.href) (node as HTMLAnchorElement).href = t.href;
+    if (t.icon) {
+      node.textContent = t.icon;
+    } else {
       const img = document.createElement('img');
       img.src = t.imgSrc!;
       if (t.imgW) img.width = t.imgW;
       if (t.imgH) img.height = t.imgH;
-      el.appendChild(img);
+      node.appendChild(img);
     }
-    return el;
+    return node;
   };
 
   const contentFits = () => {
-    const children = Array.from(el.children);
+    const children = Array.from(container.children);
     if (children.length < 2) return true;
     const first = children[0].getBoundingClientRect();
     const last = children[children.length - 1].getBoundingClientRect();
-    return last.right - first.left <= el.clientWidth + 1;
+    return last.right - first.left <= container.clientWidth + 1;
   };
 
   const openDialog = () => {
     if (trophiesDialogOpen) return;
     trophiesDialogOpen = true;
+
     const grid = document.createElement('div');
     grid.className = 'all-trophies';
+
     const title = document.createElement('h2');
     title.className = 'all-trophies__title';
     title.textContent = username ?? '';
     grid.appendChild(title);
+
     allCups.forEach(t => {
       const item = document.createElement('div');
       item.className = 'all-trophies__item';
       item.appendChild(createEl(t));
+
       const name = document.createElement('span');
       name.className = 'all-trophies__name';
       name.textContent = t.title;
@@ -188,39 +194,37 @@ function initTrophies(items: TrophyItem[], username?: string) {
   };
 
   const render = () => {
-    el.innerHTML = '';
-    badges.forEach(t => el.appendChild(createEl(t)));
-    cups.forEach(t => el.insertBefore(createEl(t), el.firstChild));
+    container.innerHTML = '';
+    badges.forEach(t => container.appendChild(createEl(t)));
+    cups.forEach(t => container.insertBefore(createEl(t), container.firstChild));
 
-    if (!site.blindMode && cups.length > 0) {
-      let hidden = 0;
-      let moreBtn: HTMLElement | undefined;
+    if (site.blindMode || cups.length === 0) return;
 
-      while (hidden < cups.length && !contentFits()) {
-        const cupIdx = moreBtn ? 1 : 0;
-        const cup = el.children[cupIdx];
-        if (!cup || cup === moreBtn) break;
+    let hidden = 0;
+    let moreBtn: HTMLButtonElement | undefined;
 
-        el.removeChild(cup);
-        hidden++;
+    while (hidden < cups.length && !contentFits()) {
+      const cupIdx = moreBtn ? 1 : 0;
+      const cup = container.children[cupIdx];
+      if (!cup || cup === moreBtn) break;
 
-        if (!moreBtn) {
-          moreBtn = document.createElement('button');
-          (moreBtn as HTMLButtonElement).type = 'button';
-          moreBtn.className = 'more-trophies';
-          moreBtn.setAttribute('aria-label', i18n.site.more);
-          moreBtn.textContent = `+${hidden}`;
-          moreBtn.addEventListener('click', openDialog);
-          el.insertBefore(moreBtn, el.firstChild);
-        } else {
-          moreBtn.textContent = `+${hidden}`;
-        }
+      container.removeChild(cup);
+      hidden++;
+
+      if (!moreBtn) {
+        moreBtn = document.createElement('button');
+        moreBtn.type = 'button';
+        moreBtn.className = 'more-trophies';
+        moreBtn.title = i18n.site.more;
+        moreBtn.setAttribute('aria-label', i18n.site.more);
+        moreBtn.addEventListener('click', openDialog);
+        container.insertBefore(moreBtn, container.firstChild);
       }
+      moreBtn.textContent = `+${hidden}`;
     }
   };
 
   render();
-  el.classList.add('trophies-ready');
-  window.addEventListener('resize', render);
-  new ResizeObserver(render).observe(el);
+  container.classList.add('trophies-ready');
+  new ResizeObserver(render).observe(container);
 }

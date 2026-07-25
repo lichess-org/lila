@@ -171,13 +171,6 @@
   }
 }
 
-.stacked {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  gap: 0.35em;
-}
-
 .trophy.stacked {
   width: 65px;
   height: 65px;
@@ -230,13 +223,13 @@
       0 0 7.5px #cd4606;
   }
 
-  &.marathonTopHundred {
-    text-shadow: none;
-    color: #066ccd;
-  }
-
+  &.marathonTopHundred,
   &.marathonTopFivehundred {
     text-shadow: none;
+  }
+
+  &.marathonTopHundred {
+    color: #066ccd;
   }
 }
 

@@ -73,7 +73,7 @@ final class UserBits(helpers: Helpers):
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
-  type TrophyMeta = (String, String, String, Int, Int) // cssClass, title, imgPath, imgW, imgH
+  type TrophyMeta = (String, String, String, Int, Int)
   def trophyMeta(perf: PerfType, rank: Int)(using Translate): Option[TrophyMeta] =
     rank match
       case 1 =>
