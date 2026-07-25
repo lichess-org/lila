@@ -173,6 +173,7 @@ db.team.createIndex({ enabled: 1, nbMembers: -1 });
 db.team.createIndex({ createdAt: -1 });
 db.team.createIndex({ createdBy: 1 });
 db.team.createIndex({ leaders: 1 });
+db.team_msg.createIndex({ team: 1, date: -1 });
 db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
