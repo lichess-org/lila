@@ -268,9 +268,7 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     'div.relay-tour__players',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.players },
-      hook: {
-        insert: () => ctrl.loadFromXhr(true),
-      },
+      hook: onInsert(() => ctrl.loadFromXhr(true)),
     },
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );

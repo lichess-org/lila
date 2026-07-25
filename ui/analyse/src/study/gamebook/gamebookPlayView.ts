@@ -1,12 +1,12 @@
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
-import { type VNode, bind, dataIcon, hl, requiresI18n, icon } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
 
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
-  return hl('div.gamebook', { hook: { insert: _ => site.asset.loadCssPath('analyse.gamebook.play') } }, [
+  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.play')) }, [
     (state.comment || state.feedback === 'play' || state.feedback === 'end') &&
       hl('div.comment', { class: { hinted: state.showHint } }, [
         state.comment

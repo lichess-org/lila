@@ -849,7 +849,7 @@
   </plurals>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
-  <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="xLikesY">%1$s a plăcut %2$s</string>
   <string name="like">Apreciază</string>
   <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>

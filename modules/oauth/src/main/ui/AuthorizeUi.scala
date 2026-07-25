@@ -16,10 +16,7 @@ final class AuthorizeUi(helpers: Helpers)(
       prompt: AuthorizationRequest.Prompt,
       signedClient: Option[OAuthSignedClient],
       switchLoginRoute: play.api.mvc.Call
-  )(using
-      ctx: Context,
-      me: Me
-  ) =
+  )(using ctx: Context, me: Me) =
     given customUi: Option[AuthCustomUi] = signedClient.flatMap(_.design)
     given Translate = oauthClientLanguage
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)

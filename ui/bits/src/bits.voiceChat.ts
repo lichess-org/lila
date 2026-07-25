@@ -3,7 +3,7 @@ import Peer, { MediaConnection } from 'peerjs';
 import type { VoiceChat } from 'lib/chat/interfaces';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { hl, alert } from 'lib/view';
+import { hl, alert, onInsert } from 'lib/view';
 
 type State =
   | 'off'
@@ -227,21 +227,15 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
                 title: `Voice chat: ${state}`,
                 'data-count': state === 'on' ? connections.length + 1 : 0,
               },
-              hook: {
-                insert(vnode) {
-                  (vnode.elm as HTMLElement).addEventListener('click', () => (peer ? stop() : start()));
-                },
-              },
+              hook: onInsert(el => el.addEventListener('click', () => (peer ? stop() : start()))),
             },
             state === 'on'
               ? connections.map(c =>
                   hl('audio.voicechat__audio.' + c.peer, {
                     attrs: { autoplay: true },
-                    hook: {
-                      insert(vnode) {
-                        (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream;
-                      },
-                    },
+                    hook: onInsert<HTMLAudioElement>(el => {
+                      el.srcObject = c.remoteStream;
+                    }),
                   }),
                 )
               : [],

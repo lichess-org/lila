@@ -55,6 +55,7 @@
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
   <string name="epauletteMate">Mat naramiennikowy</string>
+  <string name="epauletteMateDescription">Oba pola ucieczki w bok są zajęte przez inne bierki.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="exposedKingDescription">Taktyka z udziałem króla z kilkoma jego obrońcami, często prowadząca do mata.</string>
   <string name="fork">Widełki</string>

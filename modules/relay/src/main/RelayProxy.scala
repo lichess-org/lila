@@ -36,17 +36,14 @@ final class RelayProxy(settingStore: SettingStore.Builder):
   private type CredOption = Option[Credentials]
   private type HostOption = Option[HostPort]
 
-  private object CredentialsOption:
-    val credentialsIso = Iso.string[CredOption](Credentials.read, _.so(_.show))
-    given BSONHandler[CredOption] = lila.db.dsl.isoHandler(using credentialsIso)
-    given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
-  private object HostPortOption:
-    val hostPortIso = Iso.string[HostOption](HostPort.read, _.so(_.show))
-    given BSONHandler[HostOption] = lila.db.dsl.isoHandler(using hostPortIso)
-    given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
-
-  private given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)
-  private given Formable[HostOption] = stringPair(using HostPortOption.hostPortIso)
+  private val credentialsIso = Iso.string[CredOption](Credentials.read, _.so(_.show))
+  private given BSONHandler[CredOption] = lila.db.dsl.isoHandler(using credentialsIso)
+  private given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
+  private val hostPortIso = Iso.string[HostOption](HostPort.read, _.so(_.show))
+  private given BSONHandler[HostOption] = lila.db.dsl.isoHandler(using hostPortIso)
+  private given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
+  private given Formable[CredOption] = stringPair(using credentialsIso)
+  private given Formable[HostOption] = stringPair(using hostPortIso)
   private def stringPair[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
     import play.api.data.Form
     import play.api.data.Forms.*
@@ -54,7 +51,6 @@ final class RelayProxy(settingStore: SettingStore.Builder):
       single("v" -> text.verifying(t => t.isEmpty || t.count(_ == ':') == 1))
     ).fill(iso.to(v))
 
-  import CredentialsOption.given
   val credentials = settingStore[Option[Credentials]](
     "relayProxyCredentials",
     default = none,
@@ -62,7 +58,6 @@ final class RelayProxy(settingStore: SettingStore.Builder):
       "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no auth (?!). Format: username:password".some
   ).taggedWith[ProxyCredentials]
 
-  import HostPortOption.given
   val hostPort = settingStore[Option[HostPort]](
     "relayProxyHostPort",
     default = none,

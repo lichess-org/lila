@@ -973,7 +973,7 @@
   <string name="gameInProgress">您正在与 %s 进行对局。</string>
   <string name="abortTheGame">终止此对局</string>
   <string name="resignTheGame">认输</string>
-  <string name="youCantStartNewGame">轮到您行棋时，您无法开始新的对局！</string>
+  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">轮到您行棋时，您无法开始新的对局！</string>
   <string name="since">自</string>
   <string name="until">至</string>
   <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>
