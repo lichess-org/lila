@@ -1,6 +1,6 @@
 package lila.team
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -65,7 +65,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def creatorOf(id: TeamId): Fu[Option[UserId]] =
     coll.secondary.primitiveOne[UserId]($id(id), "createdBy")
 
-  private[team] def cursor: AkkaStreamCursor[TeamData] =
+  private[team] def cursor: PekkoStreamCursor[TeamData] =
     coll.find(enabledSelect).cursor[TeamData]()
 
   private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =

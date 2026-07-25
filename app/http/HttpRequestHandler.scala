@@ -2,7 +2,7 @@ package lila.app
 package http
 
 import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler }
-import play.api.mvc.{ ControllerComponents, EssentialFilter, Handler, RequestHeader, Results }
+import play.api.mvc.{ ControllerComponents, EssentialAction, EssentialFilter, RequestHeader, Results }
 import play.api.routing.Router
 
 final class HttpRequestHandler(
@@ -14,7 +14,7 @@ final class HttpRequestHandler(
 ) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters)
     with lila.web.ResponseHeaders:
 
-  override def routeRequest(request: RequestHeader): Option[Handler] =
+  override def routeRequest(request: RequestHeader): Option[EssentialAction] =
     if request.method == "OPTIONS"
     then optionsHandler.some
     else router.handlerFor(request)

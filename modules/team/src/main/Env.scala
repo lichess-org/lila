@@ -20,7 +20,7 @@ final class Env(
     db: lila.db.Db,
     routeUrl: lila.core.config.RouteUrl,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
   lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))

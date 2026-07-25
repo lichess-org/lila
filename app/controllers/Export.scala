@@ -1,7 +1,7 @@
 package controllers
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result

@@ -1,6 +1,6 @@
 package lila.forum
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.core.forum.ForumPostMini
 import lila.db.dsl.{ *, given }
@@ -64,7 +64,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
         _.flatMap:
           _.getAsOpt("_id")
 
-  def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
+  def allByUserCursor(user: User): PekkoStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
       .cursor[ForumPost](ReadPref.sec)

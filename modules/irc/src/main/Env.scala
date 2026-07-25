@@ -13,7 +13,7 @@ final class Env(
     appConfig: Configuration,
     noteApi: lila.core.user.NoteApi,
     ws: StandaloneWSClient,
-    shutdown: akka.actor.CoordinatedShutdown,
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown,
     mode: Mode,
     lightUser: lila.core.LightUser.GetterSyncFallback,
     net: lila.core.config.NetConfig

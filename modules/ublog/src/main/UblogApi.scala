@@ -1,6 +1,6 @@
 package lila.ublog
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
@@ -251,7 +251,7 @@ final class UblogApi(
     _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
   yield ()
 
-  def postCursor(user: User): AkkaStreamCursor[UblogPost] =
+  def postCursor(user: User): PekkoStreamCursor[UblogPost] =
     colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
 
   def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")

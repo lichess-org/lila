@@ -1,6 +1,6 @@
 package lila.round
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.{ Uci, UciDump, Fen }
 import chess.{ ByColor, Centis, Ply, Position }
 import play.api.libs.json.*
@@ -40,7 +40,7 @@ final class ApiMoveStream(
           Source
             .queue[JsObject](
               (game.ply.value + delayMovesBy).atLeast(16),
-              akka.stream.OverflowStrategy.dropHead
+              org.apache.pekko.stream.OverflowStrategy.dropHead
             )
             .mapMaterializedValue: queue =>
               val clocks =

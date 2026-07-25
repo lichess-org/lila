@@ -1,13 +1,13 @@
 package lila.api
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import chess.opening.Opening
 import play.api.libs.json.*
 import play.api.i18n.Lang
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
@@ -41,7 +41,7 @@ final class GameApiV2(
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
-)(using Executor, akka.actor.ActorSystem):
+)(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import GameApiV2.*
 

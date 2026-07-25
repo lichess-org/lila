@@ -1,9 +1,9 @@
 package lila.relay
 
-import akka.stream.scaladsl.*
-import akka.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.stream.Materializer
 import play.api.mvc.RequestHeader
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import chess.format.pgn.{ Tag, PgnStr }
 
 import lila.common.Bus
@@ -148,7 +148,7 @@ final class RelayPgnStream(
         .map: rt =>
           initialSource(rt, flags).concat:
             Source
-              .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
+              .queue[Set[StudyChapterId]](8, org.apache.pekko.stream.OverflowStrategy.dropHead)
               .mapMaterializedValue:
                 setupQueue(_, SyncResult.roundBusChannel(rt.relay.id))
               .flatMapConcat(studyChapterRepo.byIdsSource)
@@ -177,7 +177,7 @@ final class RelayPgnStream(
         .flatMapConcat(initialSource(_, flags))
         .concat:
           Source
-            .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
+            .queue[Set[StudyChapterId]](8, org.apache.pekko.stream.OverflowStrategy.dropHead)
             .mapMaterializedValue:
               setupQueue(_, SyncResult.groupBusChannel(group.id))
             .flatMapConcat(studyChapterRepo.byIdsSource)
