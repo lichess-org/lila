@@ -1,6 +1,6 @@
 resolvers += "jitpack".at("https://jitpack.io")
 
-addSbtPlugin("com.github.lichess-org.liplay" % "sbt-plugin" % "3.2.0-RC2")
+addSbtPlugin("com.github.lichess-org.liplay" % "sbt-plugin" % "3.2.0-RC3")
 
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.11.4")
 
