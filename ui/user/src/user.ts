@@ -4,9 +4,6 @@ import { pubsub } from 'lib/pubsub';
 import { alert, domDialog, makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
-const gamesAngle = document.querySelector<HTMLElement>('.games');
-if (gamesAngle) gamesAngle.style.visibility = 'hidden';
-
 export interface TrophyItem {
   cls: string;
   title: string;
@@ -19,6 +16,9 @@ export interface TrophyItem {
   badge?: boolean;
   primary?: boolean;
 }
+
+const gamesAngle = document.querySelector<HTMLElement>('.games');
+if (gamesAngle) gamesAngle.style.visibility = 'hidden';
 
 export async function initModule(data: { trophies?: TrophyItem[]; username?: string }): Promise<void> {
   makeLinkPopups($('.social_links'));
@@ -122,13 +122,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
   if (!container || !items.length) return;
 
   const seen = new Set<string>();
-  const allCups: TrophyItem[] = [];
-  items.forEach(t => {
-    if (t.badge) return;
-    if (seen.has(t.title)) return;
-    seen.add(t.title);
-    allCups.push(t);
-  });
+  const allCups = items.filter(t => !t.badge && !seen.has(t.title) && seen.add(t.title));
   const cups = allCups.filter(t => t.primary !== false);
   const badges = items.filter(t => t.badge);
 
@@ -139,9 +133,8 @@ function initTrophies(items: TrophyItem[], username?: string) {
     node.title = t.title;
     node.setAttribute('aria-label', t.title);
     if (t.href) (node as HTMLAnchorElement).href = t.href;
-    if (t.icon) {
-      node.textContent = t.icon;
-    } else {
+    if (t.icon) node.textContent = t.icon;
+    else {
       const img = document.createElement('img');
       img.src = t.imgSrc!;
       if (t.imgW) img.width = t.imgW;
@@ -165,17 +158,13 @@ function initTrophies(items: TrophyItem[], username?: string) {
 
     const grid = document.createElement('div');
     grid.className = 'all-trophies';
-
-    const title = document.createElement('h2');
-    title.className = 'all-trophies__title';
-    title.textContent = username ?? '';
-    grid.appendChild(title);
+    grid.innerHTML = `<h2 class="all-trophies__title"></h2>`;
+    grid.querySelector('h2')!.textContent = username ?? '';
 
     allCups.forEach(t => {
       const item = document.createElement('div');
       item.className = 'all-trophies__item';
       item.appendChild(createEl(t));
-
       const name = document.createElement('span');
       name.className = 'all-trophies__name';
       name.textContent = t.title;
@@ -187,9 +176,7 @@ function initTrophies(items: TrophyItem[], username?: string) {
       cash: $(grid),
       modal: true,
       show: true,
-      onClose: () => {
-        trophiesDialogOpen = false;
-      },
+      onClose: () => (trophiesDialogOpen = false),
     });
   };
 
@@ -202,21 +189,16 @@ function initTrophies(items: TrophyItem[], username?: string) {
 
     let hidden = 0;
     let moreBtn: HTMLButtonElement | undefined;
-
     while (hidden < cups.length && !contentFits()) {
-      const cupIdx = moreBtn ? 1 : 0;
-      const cup = container.children[cupIdx];
+      const cup = container.children[moreBtn ? 1 : 0];
       if (!cup || cup === moreBtn) break;
-
       container.removeChild(cup);
       hidden++;
-
       if (!moreBtn) {
         moreBtn = document.createElement('button');
         moreBtn.type = 'button';
         moreBtn.className = 'more-trophies';
-        moreBtn.title = i18n.site.more;
-        moreBtn.setAttribute('aria-label', i18n.site.more);
+        moreBtn.title = moreBtn.ariaLabel = i18n.site.more;
         moreBtn.addEventListener('click', openDialog);
         container.insertBefore(moreBtn, container.firstChild);
       }

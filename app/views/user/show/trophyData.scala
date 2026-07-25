@@ -22,129 +22,109 @@ object trophyData:
       badge: Boolean = false,
       primary: Boolean = true
   ): JsObject =
-    Json.obj(
-      "cls" -> cssClass,
-      "title" -> title
-    ) ++ JsObject(
-      List(
-        href.map("href" -> Json.toJson(_)),
-        icon.map("icon" -> Json.toJson(_)),
-        imgSrc.map("imgSrc" -> Json.toJson(_)),
-        imgW.map("imgW" -> Json.toJson(_)),
-        imgH.map("imgH" -> Json.toJson(_)),
-        stacked.option("stacked" -> Json.toJson(true)),
-        badge.option("badge" -> Json.toJson(true)),
-        (!primary).option("primary" -> Json.toJson(false))
-      ).flatten
-    )
+    Json
+      .obj("cls" -> cssClass, "title" -> title)
+      .add("href", href)
+      .add("icon", icon)
+      .add("imgSrc", imgSrc)
+      .add("imgW", imgW)
+      .add("imgH", imgH)
+      .add("stacked", stacked.option(true))
+      .add("badge", badge.option(true))
+      .add("primary", (!primary).option(false))
 
   def jsonList(u: User, info: UserInfo)(using ctx: Context): JsArray =
     val items = List.newBuilder[JsObject]
+    val t = info.trophies
 
     if !u.lame then
-      info.ranks.toList
+      t.ranks.toList
         .sortBy(_._2)
         .foreach: (perf, rank) =>
           val ptype = lila.rating.PerfType(perf)
           bits
             .trophyMeta(ptype, rank)
-            .foreach: (cssClass, title, imgPath, imgW, imgH) =>
+            .foreach: (c, title, img, w, h) =>
               items += item(
-                cssClass = cssClass,
-                title = title,
+                c,
+                title,
                 href = routes.User.top(ptype.key).url.some,
-                imgSrc = assetUrl(imgPath).value.some,
-                imgW = imgW.some,
-                imgH = imgH.some
+                imgSrc = assetUrl(img).value.some,
+                imgW = w.some,
+                imgH = h.some
               )
 
-    val trophies = info.trophies.trophies
+    val trophies = t.trophies
 
-    var zugOpt = Option.empty[Trophy]
-    val fireB = List.newBuilder[Trophy]
-    val customB = List.newBuilder[Trophy]
-    val icon3dB = List.newBuilder[Trophy]
-
-    trophies.foreach: t =>
-      val k = t.kind
-      if k._id == TrophyKind.zugMiracle then zugOpt = Some(t)
-      if k.klass.has("fire-trophy") then fireB += t
-      if k.withCustomImage then customB += t
-      if k.klass.has("icon3d") then icon3dB += t
-
-    fireB
-      .result()
+    trophies
+      .filter(_.kind.klass.has("fire-trophy"))
       .distinctBy(_.kind._id)
       .sorted
       .zipWithIndex
-      .foreach: (trophy, idx) =>
-        trophy.kind.icon.foreach: iconChar =>
+      .foreach: (tr, idx) =>
+        tr.kind.icon.foreach: c =>
           items += item(
-            cssClass = trophyClass(trophy),
-            title = trophy.kind.name,
-            href = trophy.anyUrl,
-            icon = iconChar.some,
+            trophyClass(tr),
+            tr.kind.name,
+            href = tr.anyUrl,
+            icon = c.some,
             stacked = true,
             primary = idx == 0
           )
 
-    info.trophies.shields.foreach: shield =>
+    t.shields.foreach: s =>
       items += item(
-        cssClass = "shield-trophy combo-trophy",
-        title = s"${shield.categ.name} Shield",
+        "shield-trophy combo-trophy",
+        s"${s.categ.name} Shield",
         href = routes.Tournament.shields.url.some,
-        icon = shield.categ.icon.value.some
+        icon = s.categ.icon.value.some
       )
 
-    info.trophies.revolutions.foreach: revol =>
+    t.revolutions.foreach: r =>
       items += item(
-        cssClass = "revol_trophy combo-trophy",
-        title = s"${revol.variant.name} Revolution",
-        href = routes.Tournament.show(revol.tourId).url.some,
-        icon = revol.iconChar.value.some
+        "revol_trophy combo-trophy",
+        s"${r.variant.name} Revolution",
+        href = routes.Tournament.show(r.tourId).url.some,
+        icon = r.iconChar.value.some
       )
 
-    zugOpt.foreach: t =>
-      items += item(
-        cssClass = trophyClass(t),
-        title = t.kind.name,
-        href = t.anyUrl,
-        imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some,
-        imgW = 34.some,
-        imgH = 60.some
-      )
-
-    customB
-      .result()
-      .distinctBy(_.kind._id)
-      .foreach: t =>
+    trophies
+      .findLast(_.kind._id == TrophyKind.zugMiracle)
+      .foreach: tr =>
         items += item(
-          cssClass = trophyClass(t),
-          title = t.kind.name,
-          href = t.anyUrl,
-          imgSrc = assetUrl(s"images/trophy/${t.kind._id}.png").value.some,
+          trophyClass(tr),
+          tr.kind.name,
+          href = tr.anyUrl,
+          imgSrc = assetUrl("images/trophy/zug-trophy.png").value.some,
+          imgW = 34.some,
+          imgH = 60.some
+        )
+
+    trophies
+      .filter(_.kind.withCustomImage)
+      .distinctBy(_.kind._id)
+      .foreach: tr =>
+        items += item(
+          trophyClass(tr),
+          tr.kind.name,
+          href = tr.anyUrl,
+          imgSrc = assetUrl(s"images/trophy/${tr.kind._id}.png").value.some,
           imgW = 65.some,
           imgH = 80.some
         )
 
-    icon3dB
-      .result()
+    trophies
+      .filter(_.kind.klass.has("icon3d"))
       .distinctBy(_.kind._id)
       .sorted
-      .foreach: trophy =>
-        trophy.kind.icon.foreach: iconChar =>
-          items += item(
-            cssClass = trophyClass(trophy),
-            title = trophy.kind.name,
-            href = trophy.anyUrl,
-            icon = iconChar.some,
-            badge = true
-          )
+      .foreach: tr =>
+        tr.kind.icon.foreach: c =>
+          items += item(trophyClass(tr), tr.kind.name, href = tr.anyUrl, icon = c.some, badge = true)
 
     if info.isCoach then
       items += item(
-        cssClass = "trophy award icon3d coach",
-        title = trans.coach.lichessCoach.txt(),
+        "trophy award icon3d coach",
+        trans.coach.lichessCoach.txt(),
         href = routes.Coach.show(info.user.username).url.some,
         icon = lila.ui.Icon.GraduateCap.value.some,
         badge = true
@@ -153,8 +133,8 @@ object trophyData:
     if info.isStreamer && ctx.kid.no then
       val streaming = isStreaming(info.user.id)
       items += item(
-        cssClass = s"trophy award icon3d streamer${if streaming then " streaming" else ""}",
-        title = if streaming then "Live now!" else "Lichess Streamer",
+        s"trophy award icon3d streamer${if streaming then " streaming" else ""}",
+        if streaming then "Live now!" else "Lichess Streamer",
         href = routes.Streamer.show(info.user.username, redirect = streaming).url.some,
         icon = lila.ui.Icon.Mic.value.some,
         badge = true
@@ -162,8 +142,8 @@ object trophyData:
 
     if u.plan.active then
       items += item(
-        cssClass = "trophy award patron icon3d",
-        title = trans.patron.patronSince.txt(showDate(u.plan.sinceDate)),
+        "trophy award patron icon3d",
+        trans.patron.patronSince.txt(showDate(u.plan.sinceDate)),
         href = routes.Plan.index().url.some,
         icon = patronIconChar.value.some,
         badge = true
