@@ -59,17 +59,16 @@ final class Challenge(env: Env) extends LilaController(env):
     json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
     res <- negotiate(
       html =
-        val color = get("color").flatMap(Color.fromName)
         if mine then
           targetSuggestions.flatMap: targets =>
-            val page = views.challenge.mine(c, json, targets, error, color)
+            val page = views.challenge.mine(c, json, targets, error, getColor())
             if error.isDefined then BadRequest.page(page) else Ok.page(page)
         else
           Ok.async:
             for
               challenger <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
               relation <- (ctx.userId, c.challengerUserId).tupled.so(env.relation.api.fetchRelation.tupled)
-            yield views.challenge.theirs(c, json, challenger, color, relation)
+            yield views.challenge.theirs(c, json, challenger, getColor(), relation)
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))

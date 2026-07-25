@@ -72,7 +72,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                   max = getIntAs[Max]("max").map(_.atLeast(1)),
                   rated = getBoolOpt("rated"),
                   perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
-                  color = get("color").flatMap(Color.fromName),
+                  color = getColor(),
                   analysed = getBoolOpt("analysed"),
                   flags = requestPgnFlags(extended = false),
                   sort =
