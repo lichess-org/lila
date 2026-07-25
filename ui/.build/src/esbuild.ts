@@ -141,7 +141,7 @@ function esbuildLog(msgs: es.Message[], error = false): void {
 }
 
 function splitPath(path: string) {
-  const match = path.match(/\/?public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
+  const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
