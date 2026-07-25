@@ -32,6 +32,9 @@ final class Team(env: Env) extends LilaController(env):
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
       WithTeamOrClas(id): team =>
+        ctx.me.soUse:
+          env.team.msg.allRecent.thenPp >>
+            env.team.msg.byTeam.thenPp
         if !team.notable && ctx.req.client.isCrawler
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
@@ -437,7 +440,7 @@ final class Team(env: Env) extends LilaController(env):
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.team.pm.status(team.id)
+    limiter <- env.team.msg.limiter.status(team.id)
     page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
@@ -446,17 +449,7 @@ final class Team(env: Env) extends LilaController(env):
       import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
-        text =>
-          val msg = env.team.pm.decorateMsg(team, text)
-          env.team.pm
-            .dedupAndLimit(team.id, msg): () =>
-              val targets = env.team.memberStream.subscribedIds(team, MaxPerSecond(50))
-              env.msg.api
-                .multiPost(targets, msg)
-                .addEffect(lila.mon.msg.teamBulk.record(_))
-                .void
-            .left
-            .map(forms.pmAll.withError("duplicate", _))
+        text => env.team.msg.send(team, text).left.map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),

@@ -32,6 +32,10 @@ final class TeamCached(
     def sync = TeamCached.this.sync
     export lightCache.preloadSet as preload
 
+  def lightMapById(ids: List[TeamId]): Fu[Map[TeamId, LightTeam]] =
+    for teams <- lightCache.asyncMany(ids)
+    yield teams.flatten.map(t => t.id -> t).toMap
+
   def isMember(teamId: TeamId)(using myId: MyId): Fu[Boolean] =
     teamIdsCache.async(myId).dmap(_.contains(teamId))
 
