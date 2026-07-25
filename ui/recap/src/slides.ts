@@ -14,15 +14,14 @@ import { formatDuration, perfIsSpeed, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
-    hook: {
-      insert: _ =>
-        site.asset.loadEsm('bits.confetti', {
-          init: {
-            cannons: false,
-            fireworks: true,
-          },
-        }),
-    },
+    hook: onInsert(() => {
+      site.asset.loadEsm('bits.confetti', {
+        init: {
+          cannons: false,
+          fireworks: true,
+        },
+      });
+    }),
   });
 
 const hi = (user: LightUser): VNode => hl('h2', i18n.recap.hiUser.asArray(fullName(user)));

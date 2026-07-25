@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { defined } from '@/index';
+import { onInsert } from '@/view';
 
 import type { Run, TimeMod } from '../interfaces';
 import { getNow } from '../util';
@@ -13,11 +14,10 @@ let lastText: string;
 export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean): VNode {
   return h('div.puz-clock__time', {
     hook: {
-      insert(node) {
-        const el = node.elm as HTMLDivElement;
+      ...onInsert(el => {
         el.innerText = formatMs(run.clock.millis());
         refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
-      },
+      }),
       destroy() {
         if (refreshInterval) clearInterval(refreshInterval);
       },

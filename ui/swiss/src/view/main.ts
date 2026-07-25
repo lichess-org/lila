@@ -193,9 +193,7 @@ function confetti(data: SwissData) {
     data.isRecentlyFinished &&
     once('tournament.end.canvas.' + data.id) &&
     hl('canvas#confetti', {
-      hook: {
-        insert: _ => site.asset.loadEsm('bits.confetti'),
-      },
+      hook: onInsert(() => site.asset.loadEsm('bits.confetti')),
     })
   );
 }
