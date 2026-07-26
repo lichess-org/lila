@@ -182,4 +182,4 @@ final private class Takebacker(
 private object Takebacker:
   def acceptedPlies(currentPly: Ply, proposedAt: Ply, accepter: Color, playedPlies: Ply): Int =
     val proposedPlies = if accepter == proposedAt.turn then 1 else 2
-    (currentPly.value - proposedAt.value + proposedPlies).atLeast(1).atMost(playedPlies.value)
+    (currentPly - proposedAt + proposedPlies).atLeast(1).atMost(playedPlies).value
