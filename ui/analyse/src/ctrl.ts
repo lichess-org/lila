@@ -555,7 +555,6 @@ export default class AnalyseCtrl implements CevalHandler {
         role: piece.role,
         pos,
         variant: this.data.game.variant.key,
-        fen: this.node.fen,
         path: this.path,
       };
       if (this.study) this.socket.sendAnaDrop(drop);
@@ -582,7 +581,6 @@ export default class AnalyseCtrl implements CevalHandler {
       orig,
       dest,
       variant: this.data.game.variant.key,
-      fen: this.node.fen,
       path: this.path,
     };
     if (prom) move.promotion = prom;
