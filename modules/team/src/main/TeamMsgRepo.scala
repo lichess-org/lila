@@ -8,10 +8,12 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
+  // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
 
   def send(msg: TeamMsg[TeamId]): Funit =
-    coll.insert.one(msg).void
+    val bson = toBdoc(msg).get ++ $doc("seenBy" -> $arr())
+    coll.insert.one(bson).void
 
   def countUnread(teams: Team.IdsStr)(using me: Me): Fu[Int] =
     coll.secondary.countSel:
@@ -50,9 +52,10 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
         ) ->
           List(
             GroupField("team")(
-              "unread" -> Sum($doc("$cond" -> $arr($doc("$eq" -> $arr("$seenBy", me.userId)), 0, 1))),
+              "unread" -> Sum($doc("$cond" -> $arr($doc("$in" -> $arr(me.userId, "$seenBy")), 0, 1))),
               "last" -> MaxField("date")
-            )
+            ),
+            Sort(Descending("last"))
           )
       .map: docs =>
         for

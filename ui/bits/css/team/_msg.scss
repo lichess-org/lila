@@ -1,0 +1,196 @@
+$msg-top-height: 4em;
+
+body {
+  ---app-height: 100vh;
+
+  overflow: hidden;
+}
+
+.team-msg {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  height: calc(var(---app-height) - $site-header-height);
+
+  @media (min-width: at-least($small)) {
+    height: calc(var(---app-height) * 0.98 - $site-header-height);
+  }
+}
+
+.team-msg__side {
+  @extend %flex-column;
+  @include prevent-select;
+
+  flex: 0 0 50ch;
+
+  @media (max-width: at-most($medium)) {
+    flex: 0 0 40ch;
+  }
+
+  @media (max-width: at-most($small)) {
+    flex: 1 0 100%;
+    display: none;
+
+    .pane-side & {
+      display: flex;
+    }
+  }
+
+  background: $c-bg-zebra;
+  overflow: hidden;
+  border-inline-end: $border;
+
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-corner {
+    background: $c-bg-zebra;
+  }
+
+  &__team {
+    @extend %flex-center-nowrap;
+    @extend %nowrap-ellipsis;
+
+    padding: 0.8em 1.2em;
+    cursor: pointer;
+
+    &:hover {
+      background: color-mix(in oklab, $c-secondary 15%, $c-bg);
+    }
+
+    &:active,
+    &.active {
+      background: color-mix(in oklab, $c-secondary 30%, $c-bg);
+    }
+
+    &__icon {
+      flex: 0 0 5em;
+
+      .uflair {
+        margin: 0;
+        font-size: 2.8em;
+      }
+
+      icon {
+        color: $c-font-dim;
+        font-size: 2.5em;
+      }
+    }
+
+    &__content {
+      @extend %nowrap-hidden;
+
+      flex: 1 1 auto;
+    }
+
+    &__name {
+      @extend %nowrap-ellipsis;
+
+      flex: 1 1 auto;
+      color: $c-font-clear;
+      font-size: 1.2em;
+    }
+
+    &__meta {
+      @extend %flex-between-nowrap;
+    }
+
+    .unread-count {
+      @extend %active, %box-radius;
+
+      padding: 1px 5px 1px 4px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    &__date {
+      flex: 0 0 auto;
+
+      time {
+        opacity: 1;
+        color: $c-font-dim;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    &__body {
+      @extend %flex-between-nowrap;
+
+      height: 1.4em;
+    }
+
+    &__msg {
+      @extend %roboto, %nowrap-ellipsis;
+
+      color: $c-font-dim;
+
+      &--new {
+        font-weight: bold;
+        color: $c-primary;
+      }
+    }
+
+    &__new {
+      color: $c-primary;
+      margin-inline-start: 0.3em;
+    }
+  }
+}
+
+.team-msg__convo {
+  @extend %flex-column;
+
+  flex: 1 1 100%;
+
+  @media (max-width: at-most($small)) {
+    flex: 1 0 100%;
+    display: none;
+
+    .pane-convo & {
+      display: flex;
+    }
+  }
+
+  &__head {
+    @extend %flex-between-nowrap;
+
+    flex: 0 0 $msg-top-height;
+    background: $c-bg-zebra2;
+    border-bottom: $border;
+
+    &__left {
+      @extend %flex-center-nowrap;
+
+      height: 100%;
+      align-items: stretch;
+    }
+
+    &__back {
+      @extend %flex-center;
+
+      color: $c-font-dim;
+      padding: 0 1em;
+      font-size: 1.5em;
+
+      @media (min-width: at-least($small)) {
+        display: none;
+      }
+    }
+
+    .team-link {
+      @extend %flex-center-nowrap;
+
+      flex: 0 0 auto;
+      color: $c-font-clear;
+      font-size: 1.4em;
+    }
+  }
+
+  @media (max-width: at-most($xx-small)) {
+    &__head__back {
+      padding: 0 0.5em;
+    }
+
+    .team-link {
+      font-size: 1.2em;
+    }
+  }
+}

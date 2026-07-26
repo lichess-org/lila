@@ -130,7 +130,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
           adminTop(t, trt.messageAllMembers()),
           p(trt.messageAllMembersLongDescription()),
           tours,
-          postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
+          postForm(cls := "form3", action := routes.Team.msgSend(t.id))(
             form3.group(
               form("message"),
               trans.site.message(),

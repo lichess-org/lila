@@ -18,18 +18,21 @@ case class TeamMsgs[T](team: T, unread: Int, last: Instant)
 
 case class TeamMsgSeen[T](msg: TeamMsg[T], seen: Boolean)
 
+object TeamMsg:
+  type Recent = List[TeamMsgSeen[LightTeam]]
+  type ByTeam = List[TeamMsgs[LightTeam]]
+
 final class TeamMsgApi(
     msgRepo: TeamMsgRepo,
     cached: TeamCached,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi,
-    routeUrl: lila.core.config.RouteUrl
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler):
 
   import TeamMsgApi.*
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
-  def allRecent(using me: Me): Fu[List[TeamMsgSeen[LightTeam]]] = for
+  def allRecent(using me: Me): Fu[TeamMsg.Recent] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- msgRepo.allRecent(teamIds)
     teams <- cached.lightMapById(msgs.map(_.msg.team))
@@ -39,7 +42,7 @@ final class TeamMsgApi(
       team <- teams.get(msg.msg.team)
     yield TeamMsgSeen(msg.msg.copy(team = team), msg.seen)
 
-  def byTeam(using me: Me): Fu[List[TeamMsgs[LightTeam]]] = for
+  def byTeam(using me: Me): Fu[TeamMsg.ByTeam] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- msgRepo.byTeam(teamIds)
     teams <- cached.lightMapById(msgs.map(_.team))
