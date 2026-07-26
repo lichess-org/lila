@@ -1019,7 +1019,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="gameInProgress">Estás jugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">No puedes empezar una partida nueva mientras sea tu turno.</string>
+  <string name="youCantStartNewGame">No puedes empezar una partida nueva mientras sea tu turno.</string>
   <string name="since">Desde</string>
   <string name="until">Hasta</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>

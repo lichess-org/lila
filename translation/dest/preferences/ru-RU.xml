@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Обновления, касающиеся игры по переписке</string>
   <string name="notifyChallenge">Вызовы на игру</string>
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
-  <string name="notifyBroadcasts">Трансляции, на которые вы подписаны</string>
+  <string name="notifyBroadcasts">Трансляции</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
   <string name="notifyPush">Оповещение на устройстве, когда вы не находитесь на сайте Lichess</string>

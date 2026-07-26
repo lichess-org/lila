@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Aktualisierig vum Korreschpondänzschpiel</string>
   <string name="notifyChallenge">Useforderige</string>
   <string name="notifyTournamentSoon">Turnier schtarted bald</string>
-  <string name="notifyBroadcasts">Vu dir abonnierti Überträgige</string>
   <string name="notifyTimeAlarm">Korreschpondänzzit lauft ab</string>
   <string name="notifyBell">Akustischi Mäldig, innerhalb Lichess</string>
   <string name="notifyPush">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>

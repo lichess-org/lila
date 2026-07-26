@@ -63,7 +63,7 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
   <string name="notifyChallenge">Provocări</string>
   <string name="notifyTournamentSoon">Turneul începe în curând</string>
-  <string name="notifyBroadcasts">Transmisiuni la care te-ai abonat</string>
+  <string name="notifyBroadcasts">Transmisiuni</string>
   <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondență e scurt</string>
   <string name="notifyBell">Notificare în Lichess</string>
   <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>

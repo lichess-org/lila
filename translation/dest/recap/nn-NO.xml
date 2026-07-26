@@ -37,8 +37,8 @@
 		<item quantity="other">Din mest brukte opning når du spelte med svarte brikker med %s parti</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
-		<item quantity="one">Takk for at du stemde på %s oppgåve.</item>
-		<item quantity="other">Takk for at du stemde på %s oppgåver.</item>
+		<item quantity="one">Takk for at du røysta på %s oppgåve.</item>
+		<item quantity="other">Takk for at du røysta på %s oppgåver.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du hjelpte også til med å merka %s av dei.</string>
 	<string name="puzzlesNone">Du løyste ikkje nokre oppgåver i år.</string>
