@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">อัพเดตใหม่ๆของเกมยาวนาน</string>
   <string name="notifyChallenge">การประลอง</string>
   <string name="notifyTournamentSoon">ทัวร์นาเมนต์จะเริ่มเร็วๆนี้</string>
-  <string name="notifyBroadcasts">รายการออกอากาศที่ติดตามไว้</string>
   <string name="notifyTimeAlarm">นาฬิกาเกมยาวนานหมดเวลา</string>
   <string name="notifyBell">กระดิ่งแจ้งเตือนภายใน Lichess</string>
   <string name="notifyPush">การแจ้งเตือนบนอุปกรณ์เมื่อคุณไม่อยู่ใน Lichess</string>

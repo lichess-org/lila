@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Напредан пешак</string>
-  <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
+  <string name="advancedPawnDescription">Један од твојих пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
   <string name="advantageDescription">Искористи шансу да стекнеш одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
   <string name="anastasiaMate">Анастазијин мат</string>
@@ -65,7 +65,7 @@
   <string name="masterDescription">Проблеми из партија играних између два играча са титулама.</string>
   <string name="masterVsMaster">Партије Мајстор против Мајстора</string>
   <string name="masterVsMasterDescription">Проблеми из партија између два играча са титулама.</string>
-  <string name="mate">Мат</string>
+  <string name="mate">Шах-мат</string>
   <string name="mateDescription">Победи партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
   <string name="mateIn1Description">Матирај у једном потезу.</string>
@@ -88,7 +88,7 @@
   <string name="pin">Везивање</string>
   <string name="pinDescription">Тактика која укључује везивања, где фигура не може да се помери без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
-  <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
+  <string name="promotionDescription">Промовиши једног свог пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
   <string name="queenEndgameDescription">Завршница са само дамама и пешацима.</string>
   <string name="queenRookEndgame">Краљица и Топ</string>

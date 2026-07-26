@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
   <string name="notifyChallenge">Herausforderungen</string>
   <string name="notifyTournamentSoon">Turnier beginnt bald</string>
-  <string name="notifyBroadcasts">Übertragungen, die du abonniert hast</string>
+  <string name="notifyBroadcasts">Übertragungen</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
   <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>
   <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>

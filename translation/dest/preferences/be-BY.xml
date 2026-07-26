@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Абнаўленне ў гульні па перапісцы</string>
   <string name="notifyChallenge">Выклікі</string>
   <string name="notifyTournamentSoon">У хуткім часе пачынаецца турнір</string>
-  <string name="notifyBroadcasts">Трансляцыі, на якія вы падпісаны</string>
   <string name="notifyTimeAlarm">Час зыходзіць у гульні па перепісцы</string>
   <string name="notifyBell">Гукавое паведамленне ад Lichess</string>
   <string name="notifyPush">Паведамленне на прыладу, калі Вы не на Lichess</string>

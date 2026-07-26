@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">تحديثات مباراة المراسلة</string>
   <string name="notifyChallenge">تحديات</string>
   <string name="notifyTournamentSoon">البطولة ستبدأ قريباً</string>
-  <string name="notifyBroadcasts">البرامج التي اشتركت فيها</string>
+  <string name="notifyBroadcasts">البثوث</string>
   <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
   <string name="notifyBell">إشعار الجرس داخل Lichess</string>
   <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>
