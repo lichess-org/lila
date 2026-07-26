@@ -114,7 +114,7 @@
       'board .'
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
-    grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
+    grid-template-rows: min-content auto;
     column-gap: $block-gap;
 
     &__table {
