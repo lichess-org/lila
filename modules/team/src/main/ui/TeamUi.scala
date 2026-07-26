@@ -222,17 +222,6 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           else (ctx.isAuth && !asMod).option(joinButton(team))
         )
       ),
-      (team.enabled && team.doesTeamMessages && member.isDefined).option(
-        postForm(
-          cls := "team-show__subscribe form3",
-          action := routes.Team.subscribe(team.id)
-        )(
-          form3.cmnToggleWrap(
-            form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed),
-            trt.subToTeamMessages()
-          )
-        )
-      ),
       (member.isDefined && !team.isClas && !hasPerm(_.Admin)).option(
         postForm(cls := "quit", action := routes.Team.quit(team.id))(
           submitButton(cls := "button button-empty button-red yes-no-confirm")(trt.quitTeam.txt())

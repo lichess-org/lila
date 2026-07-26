@@ -171,7 +171,7 @@ body {
     flex: 0 0 $msg-top-height;
     background: $c-bg-zebra2;
     border-bottom: $border;
-    padding-inline: 1em 0;
+    padding-inline: 1em 2em;
 
     h1 {
       font-size: 1.5em;
@@ -229,7 +229,7 @@ body {
     &__body {
       @extend %box-radius-top;
 
-      padding: 1em 2em;
+      padding: 1.5em 2em;
       background: $c-bg-zebra;
     }
 

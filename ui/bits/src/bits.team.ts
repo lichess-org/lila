@@ -15,14 +15,6 @@ export function initModule(opts: TeamOpts): void {
   wsConnect('/team/' + opts.id, opts.socketVersion);
 
   if (opts.chat) standaloneChat(opts.chat);
-
-  $('#team-subscribe').on('change', function (this: HTMLInputElement) {
-    $(this)
-      .parents('form')
-      .each(function (this: HTMLFormElement) {
-        void xhr.formToXhr(this);
-      });
-  });
 }
 
 $('button.explain').on('click', async e => {
