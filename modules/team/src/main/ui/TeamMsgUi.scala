@@ -43,8 +43,14 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
             selected match
               case Some(team) =>
                 frag(
-                  button(cls := "team-msg__convo__head__back", dataIcon := Icon.LessThan),
-                  teamLink(team.light, withIcon = false)
+                  div(cls := "team-msg__convo__head__title")(
+                    a(href := routes.Team.messages)(
+                      cls := "team-msg__convo__head__back",
+                      dataIcon := Icon.LessThan
+                    ),
+                    teamLink(team.light, withIcon = false)(cls := "team-link")
+                  ),
+                  div
                 )
               case None => h1("Team messages")
           ),

@@ -171,13 +171,13 @@ body {
     flex: 0 0 $msg-top-height;
     background: $c-bg-zebra2;
     border-bottom: $border;
-    padding-inline: 2em 0;
+    padding-inline: 1em 0;
 
     h1 {
       font-size: 1.5em;
     }
 
-    &__left {
+    &__title {
       @extend %flex-center-nowrap;
 
       height: 100%;
@@ -188,12 +188,8 @@ body {
       @extend %flex-center;
 
       color: $c-font-dim;
-      padding: 0 1em;
+      padding-inline: 1rem;
       font-size: 1.5em;
-
-      @media (min-width: at-least($small)) {
-        display: none;
-      }
     }
 
     .team-link {
@@ -207,7 +203,7 @@ body {
 
   @media (max-width: at-most($xx-small)) {
     &__head__back {
-      padding: 0 0.5em;
+      padding-inline: 0.5rem;
     }
 
     .team-link {
@@ -219,7 +215,7 @@ body {
     @extend %flex-column;
 
     gap: 2em;
-    padding: 1em 2em;
+    padding: 2em;
     overflow-y: auto;
   }
 
