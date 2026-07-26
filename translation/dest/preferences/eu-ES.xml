@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Posta bidezko partidetan eguneraketa</string>
   <string name="notifyChallenge">Erronkak</string>
   <string name="notifyTournamentSoon">Txapelketa laster hasiko da</string>
-  <string name="notifyBroadcasts">Harpidetu zaren zuzenekoak</string>
+  <string name="notifyBroadcasts">Zuzenekoak</string>
   <string name="notifyTimeAlarm">Posta bidezko partidaren denbora amaitzen ari da</string>
   <string name="notifyBell">Kanpai bidezko jakinarazpena Lichess barruan</string>
   <string name="notifyPush">Gailuko jakinarazpena Lichessen ez zaudenean</string>

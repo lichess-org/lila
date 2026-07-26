@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
   <string name="notifyTournamentSoon">Turnering starter snart</string>
-  <string name="notifyBroadcasts">Overføringer du abonnerer på</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
   <string name="notifyBell">Bjellevarsel innenfor Lichess</string>
   <string name="notifyPush">Enhetsvarsel utenfor Lichess</string>

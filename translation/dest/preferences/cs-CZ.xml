@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Aktualizace korespondenční hry</string>
   <string name="notifyChallenge">Výzvy</string>
   <string name="notifyTournamentSoon">Turnaj brzy začne</string>
-  <string name="notifyBroadcasts">Vysílání, ke kterým jste se přihlásili</string>
   <string name="notifyTimeAlarm">Dochází čas na korespondenčních hodinách</string>
   <string name="notifyBell">Zvuková upozornění na Lichess</string>
   <string name="notifyPush">Oznámení zařízení, když nejste na Lichess</string>

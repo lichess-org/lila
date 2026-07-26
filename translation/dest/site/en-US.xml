@@ -1018,7 +1018,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="gameInProgress">You have a game in progress with %s.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
-  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">You can\'t start a new game while it\'s your turn.</string>
+  <string name="youCantStartNewGame">You can\'t start a new game while it\'s your turn.</string>
   <string name="since">Since</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>

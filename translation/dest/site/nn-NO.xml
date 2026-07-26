@@ -284,8 +284,8 @@
     <item quantity="other">Rating blir oppdatert kvart %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s sjakkproblem</item>
-    <item quantity="other">%s sjakkproblem</item>
+    <item quantity="one">%s sjakknøtter</item>
+    <item quantity="other">%s sjakknøtt</item>
   </plurals>
   <string name="gamesPlayed">Spelte parti</string>
   <plurals name="nbGamesWithYou">

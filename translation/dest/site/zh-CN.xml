@@ -729,8 +729,8 @@
   <string name="checkAllEmailFolders">请检查所有垃圾邮件和其他文件夹</string>
   <string name="verifyYourAddress">验证 %s 是您的邮箱地址</string>
   <string name="weHaveSentYouAnEmailTo">我们已向 %s 发送了一封邮件。请点击邮件中的链接以重置您的密码。</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">注册即表示您同意 %s。</string>
-  <string name="readAboutOur">请阅读我们的 %s。</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">注册即表示您同意%s。</string>
+  <string name="readAboutOur">请阅读我们的%s。</string>
   <string name="networkLagBetweenYouAndLichess">您与 Lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">在 Lichess 服务器上处理一步棋的时间</string>
   <string name="downloadAnnotated">下载有评注的 PGN</string>
@@ -881,7 +881,7 @@
   <string name="currentMatchScore">当前对局成绩</string>
   <string name="agreementAssistance">我同意在对局中任何时刻都不会接受帮助（来自电脑引擎、书籍、数据库或其他人）。</string>
   <string name="agreementNice">我同意我将始终尊重其他棋手。</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于 %s 中所述的原因）。</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于%s中所述的原因）。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">超子弹棋</string>
@@ -973,7 +973,7 @@
   <string name="gameInProgress">您正在与 %s 进行对局。</string>
   <string name="abortTheGame">终止此对局</string>
   <string name="resignTheGame">认输</string>
-  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">轮到您行棋时，您无法开始新的对局！</string>
+  <string name="youCantStartNewGame">轮到您行棋时，您无法开始新的对局！</string>
   <string name="since">自</string>
   <string name="until">至</string>
   <string name="lichessDbExplanation">来自 Lichess 的排位对局</string>
