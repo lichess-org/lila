@@ -102,6 +102,7 @@ object trophyData:
 
     trophies
       .filter(_.kind.withCustomImage)
+      .sorted
       .distinctBy(_.kind._id)
       .foreach: tr =>
         items += item(
