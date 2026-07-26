@@ -151,6 +151,13 @@ export const strong: TagFunction = makeTag('strong');
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
 
+export const table: TagFunction = makeTag('table');
+export const thead: TagFunction = makeTag('thead');
+export const tbody: TagFunction = makeTag('tbody');
+export const tr: TagFunction = makeTag('tr');
+export const th: TagFunction = makeTag('th');
+export const td: TagFunction = makeTag('td');
+
 export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
 export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
