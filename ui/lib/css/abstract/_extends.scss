@@ -133,6 +133,7 @@
 
   &:not(.disabled):hover {
     @extend %active-inset-shadow;
+
     @media (hover: hover) {
       background: hsl(from $c-accent h s calc(l + 5));
     }
