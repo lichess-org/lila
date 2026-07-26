@@ -32,10 +32,7 @@ final class Team(env: Env) extends LilaController(env):
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
       WithTeamOrClas(id): team =>
-        ctx.me.soUse:
-          env.team.msg.allRecent.thenPp >>
-            env.team.msg.byTeam.thenPp
-        if !team.notable && ctx.req.client.isCrawler
+        if !team.notable && req.client.isCrawler
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
@@ -393,6 +390,28 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
+  def messages = Auth { ctx ?=> me ?=>
+    for
+      byTeam <- env.team.msg.byTeams
+      recent <- env.team.msg.allRecent
+      res <- Ok.page(views.team.msg.recent(recent, byTeam, none))
+    yield res
+  }
+
+  def messagesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
+    WithEnabledTeamOrClas(id): team =>
+      api
+        .isMember(id)
+        .flatMap:
+          if _ then
+            for
+              byTeam <- env.team.msg.byTeams
+              recent <- env.team.msg.teamRecentAndMarkRead(team)
+              res <- Ok.page(views.team.msg.recent(recent, byTeam, team.some))
+            yield res
+          else notFound
+  }
+
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
       team.isClas.not.so:
@@ -431,7 +450,7 @@ final class Team(env: Env) extends LilaController(env):
               "members" -> team.nbMembers
             ))
 
-  def pmAll(id: TeamId) = Auth { ctx ?=> _ ?=>
+  def msg(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       renderPmAll(team, forms.pmAll)
   }
@@ -444,7 +463,7 @@ final class Team(env: Env) extends LilaController(env):
     page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
-  def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
+  def msgSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(

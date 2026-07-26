@@ -9,6 +9,7 @@ private lazy val bits = lila.team.ui.TeamUi(helpers, env.memo.markdown)
 export bits.{ list, membersPage }
 lazy val form = lila.team.ui.FormUi(helpers, bits)(views.captcha.apply)
 lazy val request = lila.team.ui.RequestUi(helpers, bits)
+lazy val msg = lila.team.ui.TeamMsgUi(helpers)
 
 object admin:
   private lazy val adminUi = lila.team.ui.AdminUi(helpers, bits)

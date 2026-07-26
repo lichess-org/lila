@@ -4,8 +4,7 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   import helpers.{ *, given }
@@ -279,7 +278,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       (team.enabled && hasPerm(_.PmAll)).option(
         frag(
           a(
-            href := routes.Team.pmAll(team.id),
+            href := routes.Team.msg(team.id),
             cls := "button button-empty text",
             dataIcon := Icon.Envelope
           ):
