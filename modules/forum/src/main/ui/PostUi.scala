@@ -74,7 +74,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       submitButton(
                         cls := "forum-post__button delete button button-empty yes-no-confirm",
                         dataIcon := Icon.Trash,
-                        title := trans.site.delete().render
+                        title := trans.site.delete.txt()
                       )
                     ),
                     quoteButton
@@ -95,7 +95,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
                           dataIcon := Icon.Trash,
-                          title := trans.site.delete().render
+                          title := trans.site.delete.txt()
                         ),
                         quoteButton
                       )
