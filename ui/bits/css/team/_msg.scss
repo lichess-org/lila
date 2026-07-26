@@ -97,8 +97,12 @@ body {
       @extend %nowrap-ellipsis;
 
       flex: 1 1 auto;
-      color: $c-font-clear;
       font-size: 1.2em;
+
+      .team-msg__side__team--active &,
+      .team-msg__side__team--unread & {
+        color: $c-font-clear;
+      }
     }
 
     &__meta {
@@ -167,6 +171,11 @@ body {
     flex: 0 0 $msg-top-height;
     background: $c-bg-zebra2;
     border-bottom: $border;
+    padding-inline: 2em 0;
+
+    h1 {
+      font-size: 1.5em;
+    }
 
     &__left {
       @extend %flex-center-nowrap;
@@ -216,6 +225,10 @@ body {
 
   &__msg {
     @extend %box-bordered;
+
+    &.team-msg__convo__msg--unread {
+      border-color: $c-accent;
+    }
 
     &__body {
       @extend %box-radius-top;

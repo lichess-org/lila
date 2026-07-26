@@ -23,6 +23,15 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
         "seenBy".$ne(me.userId)
       )
 
+  def markSeen(team: TeamId)(using me: Me): Funit =
+    coll.update
+      .one(
+        $doc("team" -> team, "seenBy".$ne(me.userId)),
+        $doc("$addToSet" -> $doc("seenBy" -> me.userId)),
+        multi = true
+      )
+      .void
+
   def teamRecent(team: TeamId)(using me: Me): Fu[List[TeamMsgSeen[TeamId]]] =
     allRecent(Team.IdsStr(List(team)))
 
@@ -34,7 +43,7 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
           List(
             Sort(Descending("date")),
             Limit(100),
-            AddFields($doc("seenBy" -> $doc("$eq" -> $arr("seenBy", me.userId))))
+            AddFields($doc("seenBy" -> $doc("$in" -> $arr(me.userId, "$seenBy"))))
           )
       .map: docs =>
         for

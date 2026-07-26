@@ -406,7 +406,7 @@ final class Team(env: Env) extends LilaController(env):
           if _ then
             for
               byTeam <- env.team.msg.byTeams
-              recent <- env.team.msg.teamRecent(team)
+              recent <- env.team.msg.teamRecentAndMarkRead(team)
               res <- Ok.page(views.team.msg.recent(recent, byTeam, team.some))
             yield res
           else notFound

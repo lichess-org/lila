@@ -30,10 +30,15 @@ final class TeamMsgApi(
 
   import TeamMsgApi.*
 
+  export msgRepo.markSeen
+
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
-  def teamRecent(team: Team)(using me: Me): Fu[TeamMsg.Recent] = for msgs <- msgRepo.teamRecent(team.id)
-  yield msgs.map(msg => TeamMsgSeen(msg.msg.copy(team = team.light), msg.seen))
+  def teamRecentAndMarkRead(team: Team)(using me: Me): Fu[TeamMsg.Recent] =
+    for
+      msgs <- msgRepo.teamRecent(team.id)
+      _ <- msgs.exists(!_.seen).so(msgRepo.markSeen(team.id))
+    yield msgs.map(msg => TeamMsgSeen(msg.msg.copy(team = team.light), msg.seen))
 
   def allRecent(using me: Me): Fu[TeamMsg.Recent] = for
     teamIds <- cached.teamIds(me.userId)
