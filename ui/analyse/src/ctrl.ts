@@ -749,6 +749,7 @@ export default class AnalyseCtrl implements CevalHandler {
         this.initCeval();
         this.redraw();
       },
+      hideErrors: this.isEmbed,
       ...mergeOpts,
     };
     if (this.ceval) this.ceval.init(opts);
