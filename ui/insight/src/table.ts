@@ -16,7 +16,7 @@ const formatSerieName = (dt: string, n: number) =>
 
 export function vert(ctrl: Ctrl, attrs: VNodeData | null = null) {
   const answer = ctrl.vm.answer;
-  if (!answer) return null;
+  if (!answer || answer.series.length === 0) return null;
   return h(
     'div.hscroll',
     attrs,
