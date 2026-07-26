@@ -23,6 +23,9 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
         "seenBy".$ne(me.userId)
       )
 
+  def teamRecent(team: TeamId)(using me: Me): Fu[List[TeamMsgSeen[TeamId]]] =
+    allRecent(Team.IdsStr(List(team)))
+
   def allRecent(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgSeen[TeamId]]] =
     coll
       .aggregateList(100, _.sec): framework =>
@@ -40,7 +43,7 @@ final class TeamMsgRepo(val coll: Coll)(using Executor):
           seen <- doc.getAsOpt[Boolean]("seenBy")
         yield TeamMsgSeen(msg, seen)
 
-  def byTeam(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgs[TeamId]]] =
+  def byTeams(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgs[TeamId]]] =
     coll
       .aggregateList(100, _.sec): framework =>
         import framework.*

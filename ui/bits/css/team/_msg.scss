@@ -45,20 +45,32 @@ body {
     background: $c-bg-zebra;
   }
 
+  &__top {
+    @extend %flex-center;
+
+    flex: 0 0 $msg-top-height;
+    background: $c-bg-zebra2;
+    border-bottom: $border;
+  }
+
   &__team {
     @extend %flex-center-nowrap;
     @extend %nowrap-ellipsis;
 
     padding: 0.8em 1.2em;
-    cursor: pointer;
+    color: $c-font;
+
+    &--unread {
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
+    }
 
     &:hover {
-      background: color-mix(in oklab, $c-secondary 15%, $c-bg);
+      background: color-mix(in oklab, $c-link 15%, $c-bg);
     }
 
     &:active,
-    &.active {
-      background: color-mix(in oklab, $c-secondary 30%, $c-bg);
+    &--active {
+      background: color-mix(in oklab, $c-link 30%, $c-bg);
     }
 
     &__icon {
@@ -191,6 +203,37 @@ body {
 
     .team-link {
       font-size: 1.2em;
+    }
+  }
+
+  &__msgs {
+    @extend %flex-column;
+
+    gap: 2em;
+    padding: 1em 2em;
+    overflow-y: auto;
+  }
+
+  &__msg {
+    @extend %box-bordered;
+
+    &__body {
+      @extend %box-radius-top;
+
+      padding: 1em 2em;
+      background: $c-bg-zebra;
+    }
+
+    &__info {
+      @extend %flex-between-nowrap;
+
+      padding: 1em 2em;
+    }
+
+    &__meta {
+      @extend %flex-center-nowrap;
+
+      gap: 2em;
     }
   }
 }

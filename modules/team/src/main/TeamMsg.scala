@@ -20,7 +20,7 @@ case class TeamMsgSeen[T](msg: TeamMsg[T], seen: Boolean)
 
 object TeamMsg:
   type Recent = List[TeamMsgSeen[LightTeam]]
-  type ByTeam = List[TeamMsgs[LightTeam]]
+  type ByTeams = List[TeamMsgs[LightTeam]]
 
 final class TeamMsgApi(
     msgRepo: TeamMsgRepo,
@@ -32,6 +32,9 @@ final class TeamMsgApi(
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
+  def teamRecent(team: Team)(using me: Me): Fu[TeamMsg.Recent] = for msgs <- msgRepo.teamRecent(team.id)
+  yield msgs.map(msg => TeamMsgSeen(msg.msg.copy(team = team.light), msg.seen))
+
   def allRecent(using me: Me): Fu[TeamMsg.Recent] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- msgRepo.allRecent(teamIds)
@@ -42,9 +45,9 @@ final class TeamMsgApi(
       team <- teams.get(msg.msg.team)
     yield TeamMsgSeen(msg.msg.copy(team = team), msg.seen)
 
-  def byTeam(using me: Me): Fu[TeamMsg.ByTeam] = for
+  def byTeams(using me: Me): Fu[TeamMsg.ByTeams] = for
     teamIds <- cached.teamIds(me.userId)
-    msgs <- msgRepo.byTeam(teamIds)
+    msgs <- msgRepo.byTeams(teamIds)
     teams <- cached.lightMapById(msgs.map(_.team))
   yield
     for
