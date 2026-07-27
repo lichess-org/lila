@@ -1,7 +1,6 @@
 import standaloneChat from 'lib/chat/standalone';
 import { wsConnect } from 'lib/socket';
 import { prompt } from 'lib/view';
-import * as xhr from 'lib/xhr';
 
 import flairPickerLoader from './flairPicker';
 
