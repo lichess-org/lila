@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Spelupdates voor correspondentiepartijen</string>
   <string name="notifyChallenge">Uitdagingen</string>
   <string name="notifyTournamentSoon">Toernooi begint binnenkort</string>
-  <string name="notifyBroadcasts">Uitzending</string>
+  <string name="notifyBroadcasts">Uitzendingen</string>
   <string name="notifyTimeAlarm">Klok met correspondentie bijna leeg</string>
   <string name="notifyBell">Bel melding binnen Lichess</string>
   <string name="notifyPush">Apparaatmelding wanneer je niet op Lichess bent</string>
