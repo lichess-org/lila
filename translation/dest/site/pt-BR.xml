@@ -580,6 +580,9 @@
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
   <string name="reply">Responder</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Reabrir</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citação</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editado</string>
   <string name="message">Mensagem</string>
   <string name="createTheTopic">Criar tópico</string>
   <string name="reportAUser">Reportar um usuário</string>

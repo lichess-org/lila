@@ -150,18 +150,23 @@ final private class RelaySync(
                 relay = makeRelayFor(game, gameMainlinePath).some
               )
 
-  private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainlinePath: UciPath)(using
+  /* oldChapter doesn't yet contain the new nodes from the game,
+   * but we can get a newChapter from the DB which does. */
+  private def maybePromoteToMainline(study: Study, oldChapter: Chapter, gameMainline: UciPath)(using
       Who
   ): Funit =
-    for
-      _ = logger.info(s"Change mainline ${showSC(study, chapter)} $gameMainlinePath")
-      _ <- studyApi.promote(
-        studyId = study.id,
-        position = Position(chapter, gameMainlinePath).ref,
-        toMainline = true
-      )
-      _ <- chapterRepo.setRelayPath(chapter.id, gameMainlinePath)
-    yield ()
+    // First we check if we need to load
+    (!gameMainline.isMainline(oldChapter.root)).so:
+      // then we check again with the new chapter.
+      chapterRepo
+        .byId(oldChapter.id)
+        .flatMapz: newChapter =>
+          (!gameMainline.isMainline(newChapter.root)).so:
+            logger.info(s"Change mainline ${showSC(study, newChapter)} $gameMainline")
+            for
+              _ <- studyApi.promote(study.id, Position(newChapter, gameMainline).ref, toMainline = true)
+              _ <- chapterRepo.setRelayPath(newChapter.id, gameMainline)
+            yield ()
 
   private def addNode(study: Study, chapter: Chapter, game: RelayGame, path: UciPath, node: Branch)(using
       Who,
@@ -217,8 +222,7 @@ final private class RelaySync(
       _ <- forceBranchesAsVariations(chapter, game)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
-      _ <- (chapter.root.children.nonEmpty && !gameMainlinePath.isMainline(chapter.root)).so:
-        promoteGameToMainline(study, chapter, gameMainlinePath)
+      _ <- maybePromoteToMainline(study, chapter, gameMainlinePath)
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
