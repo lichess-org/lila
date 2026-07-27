@@ -281,7 +281,10 @@ object contact:
               frag(
                 p(ifYouWantToBroadcastClause1()),
                 p(
-                  ifYouWantToBroadcastClause2(contactEmailLink("broadcast@lichess.org"), a(href := "https://discord.gg/Syx9CbN8Jv")(ourDiscordServer()))
+                  ifYouWantToBroadcastClause2(
+                    contactEmailLink("broadcast@lichess.org"),
+                    a(href := "https://discord.gg/Syx9CbN8Jv")(ourDiscordServer())
+                  )
                 )
               )
             ),
