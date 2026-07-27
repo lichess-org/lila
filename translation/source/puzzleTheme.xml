@@ -30,7 +30,7 @@
   <string name="collinearMoveDescription">Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.</string>
   <string name="cornerMate">Corner mate</string>
   <string name="cornerMateDescription">Confine the king to the corner using a rook or queen and a knight to engage the checkmate.</string>
-  <string name="cornerMateKnightDeliversDescription" comment="Replaces cornerMateDescription">Confine the king to the corner using a rook or queen, and use a knight to deliver the checkmate.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces cornerMateDescription">Confine the king to the corner using a rook or queen, and use a knight to deliver the checkmate.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Discovered check</string>
