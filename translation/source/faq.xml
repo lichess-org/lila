@@ -162,7 +162,7 @@ We show the red mute icon to alert you when this happens. You can explicitly all
 2. Click the lock icon in the address bar
 3. Click Site Settings
 4. Allow Sound</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Replaces enableAutoplayForSoundsChrome">1. Go to lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces enableAutoplayForSoundsChrome">1. Go to lichess.org
 2. Click the site information icon in the address bar
 3. Click Site Settings
 4. Allow Sound</string>
