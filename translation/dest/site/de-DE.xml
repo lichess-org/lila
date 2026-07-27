@@ -580,6 +580,8 @@
   <string name="replies">Antworten</string>
   <string name="replyToThisTopic">Auf dieses Thema antworten</string>
   <string name="reply">Antworten</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Wiedereröffnen</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">bearbeitet</string>
   <string name="message">Nachricht</string>
   <string name="createTheTopic">Thema erstellen</string>
   <string name="reportAUser">Benutzer melden</string>

@@ -604,7 +604,7 @@
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважећи аутентификациони код</string>
   <string name="orSeparator">Или</string>
-  <string name="logInByEmail">Пријави се путем имејл адресе</string>
+  <string name="logInByEmail">Пријави се имејлом</string>
   <string name="emailMeALink">Пошаљи ми имејл са линком</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
@@ -828,7 +828,7 @@
   <string name="backgroundImageUrl">Линк позадиснке слике:</string>
   <string name="board">Табла</string>
   <string name="size">Величина</string>
-  <string name="opacity">Провидност</string>
+  <string name="opacity">Непрозирност</string>
   <string name="brightness">Осветљеност</string>
   <string name="contrast">Контраст</string>
   <string name="hue">Нијанса</string>
@@ -910,7 +910,7 @@
     <item quantity="other">и сачувај %s предпотезних линија</item>
   </plurals>
   <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
-  <string name="clickHereToReadIt">Кликни овде да прочиташ</string>
+  <string name="clickHereToReadIt">Кликни овде да је прочиташ</string>
   <string name="sorry">Извини :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо ти дати тајм-аут на неко време.</string>
   <string name="why">Зашто?</string>
@@ -961,7 +961,7 @@
   <string name="xInvitedYouToY">%1$s те позвао/ла у \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сада си део тима.</string>
   <string name="youHaveJoinedTeamX">Придружио/ла си се \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Неко кога сте пријавили је добио забрану приступа</string>
+  <string name="someoneYouReportedWasBanned">Неко кога си пријавио/ла је добио забрану приступа</string>
   <string name="congratsYouWon">Честитамо на победи!</string>
   <string name="gameVsX">Партија против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
@@ -974,7 +974,7 @@
   <string name="tournDescription">Опис турнира</string>
   <string name="onlyMembersOfTeam">Само чланови тима</string>
   <string name="noRestriction">Без ограничења</string>
-  <string name="minimumRatedGames">Минималан број оцењених игри</string>
+  <string name="minimumRatedGames">Минимално рангираних партија</string>
   <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
