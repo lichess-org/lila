@@ -215,7 +215,7 @@ interface I18n {
     pointsAvg: string;
     /** Points sum */
     pointsSum: string;
-    /** Your rank average represents your typical finishing position, relative to total number of players in each tournament. */
+    /** Your rank average represents your typical finishing position, relative to the total number of players in each tournament. */
     rankAverageHelp: string;
     /** Rank average */
     rankAvg: string;
