@@ -13,7 +13,7 @@ object tournaments:
         url = routeUrl(routes.Team.tournaments(t.id)),
         description = shorten(t.description.unlink, 152)
       )
-      .css("bits.team")
+      .css("team")
       .flag(_.fullScreen):
         main(
           div(cls := "box")(

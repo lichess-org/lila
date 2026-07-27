@@ -33,7 +33,7 @@ object show:
       )
       .js(
         PageModule(
-          "bits.team",
+          "team",
           Json
             .obj("id" -> t.id)
             .add("socketVersion" -> socketVersion)

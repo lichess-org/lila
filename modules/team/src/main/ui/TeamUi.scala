@@ -10,7 +10,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   import helpers.{ *, given }
   import trans.team as trt
 
-  def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
+  def TeamPage(title: String) = Page(title).css("team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val options = lila.memo.MarkdownOptions(

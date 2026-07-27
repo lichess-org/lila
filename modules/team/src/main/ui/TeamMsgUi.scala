@@ -13,8 +13,8 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
       Context
   ) =
     Page(team.name + " messages")
-      .css("bits.team.msg")
-      .js(Esm("bits.teamMsg")):
+      .css("team.msg")
+      .js(Esm("team.msg")):
         main(cls := "box team-msg")(
           side(byTeam, team.id.some),
           div(cls := "team-msg__convo")(
@@ -43,7 +43,7 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
         )
 
   def allRecent(msgs: TeamMsg.Recent, byTeam: TeamMsg.ByTeams)(using Context) =
-    Page("Team messages").css("bits.team.msg"):
+    Page("Team messages").css("team.msg"):
       main(cls := "box team-msg")(
         side(byTeam, selected = none),
         div(cls := "team-msg__convo")(

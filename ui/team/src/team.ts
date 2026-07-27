@@ -1,8 +1,8 @@
+import flairPickerLoader from 'bits/flairPicker';
+
 import standaloneChat from 'lib/chat/standalone';
 import { wsConnect } from 'lib/socket';
 import { prompt } from 'lib/view';
-
-import flairPickerLoader from './flairPicker';
 
 interface TeamOpts {
   id: string;
