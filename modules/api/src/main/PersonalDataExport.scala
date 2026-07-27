@@ -1,8 +1,8 @@
 package lila.api
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.coach.Coach
 import lila.db.dsl.{ *, given }

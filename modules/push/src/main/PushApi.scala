@@ -1,6 +1,6 @@
 package lila.push
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import play.api.libs.json.*
 import scalalib.data.LazyFu
 
@@ -364,7 +364,7 @@ final private class PushApi(
         key = Key.broadcastRound,
         urgency = Urgency.Normal,
         payload = payload("url" -> url),
-        mobileCompatible = None
+        mobileCompatible = LichessMobileVersion(0, 26).some
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
 

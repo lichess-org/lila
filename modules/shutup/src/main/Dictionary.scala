@@ -263,7 +263,7 @@ chupame
 cobarde
 est[úu]pid[ao]
 gilipollas
-hdp
+hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
 idiota
@@ -383,6 +383,7 @@ g?kys
 gets? (bombed|shot)
 k y s
 (l|1|ı|\|)<ys
+(ne|)groid
 nig+er
 rap(ed?|e?ing)
 rope

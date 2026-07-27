@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Mise à jour des parties par correspondance</string>
   <string name="notifyChallenge">Défis</string>
   <string name="notifyTournamentSoon">Le tournoi va bientôt commencer</string>
-  <string name="notifyBroadcasts">Diffusions auxquelles vous vous êtes abonnées</string>
+  <string name="notifyBroadcasts">Diffusions</string>
   <string name="notifyTimeAlarm">Le temps de la partie par correspondance est presque épuisé</string>
   <string name="notifyBell">Notification sonore sur Lichess</string>
   <string name="notifyPush">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>

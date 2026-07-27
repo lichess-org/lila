@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">通信戦の進行状況</string>
   <string name="notifyChallenge">挑戦が来た時</string>
   <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
-  <string name="notifyBroadcasts">あなたがフォローしている配信</string>
   <string name="notifyTimeAlarm">通信戦の時間切迫</string>
   <string name="notifyBell">Lichess にいる時にベル音</string>
   <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>

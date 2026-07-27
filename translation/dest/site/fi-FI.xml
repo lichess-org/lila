@@ -222,7 +222,7 @@
   <string name="variants">Variantit</string>
   <string name="variantsDescription">Lisää pelitapoja</string>
   <string name="timeControl">Aikajärjestelmä</string>
-  <string name="realTime">Pikapeli</string>
+  <string name="realTime">Reaaliaikainen</string>
   <string name="correspondence">Kirjeshakki</string>
   <string name="daysPerTurn">Päivää per vuoro</string>
   <string name="oneDay">Yksi päivä</string>

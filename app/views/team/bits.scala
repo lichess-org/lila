@@ -43,4 +43,4 @@ object admin:
         ,
         br
       )
-    adminUi.pmAll(t, form, toursFrag, unsubs, limiter, lila.team.TeamLimiter.pmAllCredits)
+    adminUi.pmAll(t, form, toursFrag, unsubs, limiter, lila.team.TeamPm.pmAllCredits)

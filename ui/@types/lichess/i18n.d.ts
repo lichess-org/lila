@@ -2401,7 +2401,7 @@ interface I18n {
     notifications: string;
     /** Notification within Lichess */
     notifyBell: string;
-    /** Broadcasts you have subscribed to */
+    /** Broadcasts */
     notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;
@@ -4235,6 +4235,8 @@ interface I18n {
     popularOpenings: string;
     /** Paste a valid FEN to start every game from a given position. */
     positionInputHelp: I18nFormat;
+    /** edited */
+    postEdited: string;
     /** Posts */
     posts: string;
     /** When a potential problem is detected, we display this message. */
@@ -4269,6 +4271,8 @@ interface I18n {
     puzzles: string;
     /** Quick pairing */
     quickPairing: string;
+    /** Quote */
+    quote: string;
     /** Race finished */
     raceFinished: string;
     /** Random Chess960 position */
@@ -4341,6 +4345,8 @@ interface I18n {
     rememberMe: string;
     /** Removes the depth limit, and keeps your computer warm */
     removesTheDepthLimit: string;
+    /** Reopen */
+    reopen: string;
     /** Reopen your account */
     reopenYourAccount: string;
     /** If you closed your account, but have since changed your mind, you get a chance of getting your account back. */

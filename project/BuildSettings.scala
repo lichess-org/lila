@@ -26,7 +26,7 @@ object BuildSettings:
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
+    pekko.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
       cats,
       alleycats,
       play.api,

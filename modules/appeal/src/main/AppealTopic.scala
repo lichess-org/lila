@@ -25,7 +25,7 @@ object AppealTopicApi:
       u.ublogHidden.option(blog)
     ).flatten
 
-  def select(u: UserStatus, appeals: Appeal.ByTopic): Option[AppealTopic] =
+  def select(u: UserStatus, appeals: UserAppeals): Option[AppealTopic] =
     candidatesFor(u)
       .find: topic =>
         appeals.get(topic).forall(_.isOpen)

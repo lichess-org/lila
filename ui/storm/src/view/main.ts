@@ -8,7 +8,7 @@ import { getNow } from 'lib/puz/util';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
 import renderClock from 'lib/puz/view/clock';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
-import { onInsert, hl, iconTag } from 'lib/view';
+import { onInsert, hl, icon } from 'lib/view';
 
 import config from '../config';
 import type StormCtrl from '../ctrl';
@@ -87,7 +87,7 @@ const renderStart = () =>
 
 const renderReload = (text: string) =>
   hl('div.storm.storm--reload.box.box-pad', [
-    iconTag(licon.Storm),
+    icon(licon.Storm)(),
     hl('p', text),
     hl('a.storm--dup__reload.button', { attrs: { href: '/storm' } }, i18n.storm.clickToReload),
   ]);

@@ -1,6 +1,6 @@
 package lila.tv
 
-import akka.actor.{ ActorRef, ActorSystem, Props }
+import org.apache.pekko.actor.{ ActorRef, ActorSystem, Props }
 import com.softwaremill.macwire.*
 
 import lila.tv.Tv.Channel
@@ -26,8 +26,8 @@ final class Env(
   }.toMap
 
   def channelSource(channel: Channel, bc: Boolean): Option[Fu[TvBroadcast.SourceType]] =
-    given timeout: akka.util.Timeout = akka.util.Timeout(1.second)
-    import akka.pattern.ask
+    given timeout: org.apache.pekko.util.Timeout = org.apache.pekko.util.Timeout(1.second)
+    import org.apache.pekko.pattern.ask
     val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
     channelBroadcasts
       .get(channel)

@@ -1,7 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 
 import java.io.File
 import scala.concurrent.blocking
@@ -9,7 +9,7 @@ import scala.sys.process.*
 
 final private class PairingSystem(trf: SwissTrf, executable: String)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =

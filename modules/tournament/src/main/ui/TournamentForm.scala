@@ -92,7 +92,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.globalError(form),
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
-        form3.split(fields.description)
+        form3.split(fields.description),
+        gatheringFormUi.payouts(form.prefix("payouts"))
       ),
       form3.fieldset("Games", toggle = true.some, disabled = fields.frozen)(
         fields.clock,
@@ -110,7 +111,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.globalError(form),
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
-        form3.split(fields.description)
+        form3.split(fields.description),
+        gatheringFormUi.payouts(form.prefix("payouts"))
       ),
       form3.fieldset("Games", toggle = false.some, disabled = fields.frozen)(
         fields.clock,

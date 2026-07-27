@@ -25,7 +25,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),

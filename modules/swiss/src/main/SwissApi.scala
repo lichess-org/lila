@@ -1,7 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -34,8 +34,11 @@ final class SwissApi(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.core.round.RoundApi
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
-    extends lila.core.swiss.SwissApi:
+)(using scheduler: Scheduler)(using
+    Executor,
+    org.apache.pekko.stream.Materializer,
+    lila.core.config.RateLimit
+) extends lila.core.swiss.SwissApi:
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
@@ -69,6 +72,7 @@ final class SwissApi(
         nbRounds = data.nbRounds,
         rated = chess.Rated(data.isRated && data.realPosition.isEmpty),
         description = data.description,
+        payouts = data.payouts,
         position = data.realPosition,
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
@@ -102,6 +106,7 @@ final class SwissApi(
             nbRounds = data.nbRounds,
             rated = data.rated.getOrElse(old.settings.rated).map(_ && position.isEmpty),
             description = data.description.orElse(old.settings.description),
+            payouts = data.payouts,
             position = position,
             chatFor = data.chatFor | old.settings.chatFor,
             roundInterval =
@@ -512,12 +517,25 @@ final class SwissApi(
     systemChat(swiss.id, s"Tournament completed!")
     cache.swissCache.clear(swiss.id)
     socket.reload(swiss.id)
+    notifyPayoutWinners(swiss).logFailure(logger, _ => s"${swiss.id} notifyPayoutWinners")
     scheduler
       .scheduleOnce(10.seconds):
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
           Bus.pub(SwissFinish(swiss.id, ranking))
+
+  private def notifyPayoutWinners(swiss: Swiss): Funit =
+    swiss.settings.payouts.so: payouts =>
+      SwissPlayer.fields: f =>
+        mongo.player
+          .find($doc(f.swissId -> swiss.id))
+          .sort($sort.desc(f.score))
+          .cursor[SwissPlayer](ReadPref.sec)
+          .list(payouts.nbWinners)
+          .map: players =>
+            val userIds = players.map(_.userId)
+            Bus.pub(lila.core.msg.PayoutMessages(userIds, swiss.name, Swiss.swissUrl(swiss.id)))
 
   def kill(swiss: Swiss): Funit = for _ <-
       if swiss.isStarted then

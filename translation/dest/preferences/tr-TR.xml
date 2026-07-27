@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Yazışmalı oyun güncellemeleri</string>
   <string name="notifyChallenge">Meydan okumalar</string>
   <string name="notifyTournamentSoon">Yakında başlayan turnuva</string>
-  <string name="notifyBroadcasts">Abone olduğunuz canlı turnuvalar</string>
   <string name="notifyTimeAlarm">Yazışmalı oyununuzda süreniz azalıyor</string>
   <string name="notifyBell">Lichess içinde çan bildirimi</string>
   <string name="notifyPush">Lichess\'te değilken cihaz bildirimleri</string>

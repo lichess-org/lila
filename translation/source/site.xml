@@ -581,6 +581,9 @@
   <string name="replies">Replies</string>
   <string name="replyToThisTopic">Reply to this topic</string>
   <string name="reply">Reply</string>
+  <string name="reopen">Reopen</string>
+  <string name="quote">Quote</string>
+  <string name="postEdited">edited</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Create the topic</string>
   <string name="reportAUser">Report a user</string>

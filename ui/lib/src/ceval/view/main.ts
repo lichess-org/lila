@@ -14,7 +14,7 @@ import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
+import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, onInsert, icon } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
@@ -174,7 +174,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', iconCls(licon.CautionCircle, 'is-red'));
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
@@ -348,8 +348,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
     {
       attrs: { 'data-fen': node.fen },
       hook: {
-        insert: vnode => {
-          const el = vnode.elm as HTMLElement;
+        ...onInsert(el => {
           el.addEventListener('pointerdown', (e: PointerEvent) => {
             const uciList = getElUciList(e);
             if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
@@ -394,7 +393,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
           el.addEventListener('mouseout', () => setHovering(ceval, null));
           el.addEventListener('mouseleave', resetPvIndexAndBoard);
           checkHover(el, ceval);
-        },
+        }),
         postpatch: (_, vnode) => !isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
       },
     },
@@ -422,18 +421,15 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
 
 function renderPvWrapToggle(): VNode {
   return hl('span.pv-wrap-toggle', {
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        for (const event of ['touchstart', 'mousedown']) {
-          el.addEventListener(event, (e: Event) => {
-            e.stopPropagation();
-            e.preventDefault();
-            $(el).closest('.pv').toggleClass('pv--nowrap');
-          });
-        }
-      },
-    },
+    hook: onInsert(el => {
+      for (const event of ['touchstart', 'mousedown']) {
+        el.addEventListener(event, (e: Event) => {
+          e.stopPropagation();
+          e.preventDefault();
+          $(el).closest('.pv').toggleClass('pv--nowrap');
+        });
+      }
+    }),
   });
 }
 

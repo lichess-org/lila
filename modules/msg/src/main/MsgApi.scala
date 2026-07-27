@@ -1,7 +1,7 @@
 package lila.msg
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.{ Bus, LilaStream }
 import lila.core.msg.{ PostResult, IdText }
@@ -23,7 +23,7 @@ final class MsgApi(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     ircApi: lila.core.irc.IrcApi
-)(using Executor, akka.stream.Materializer)
+)(using Executor, org.apache.pekko.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
   val msgsPerPage = MaxPerPage(100)

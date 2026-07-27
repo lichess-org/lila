@@ -1,7 +1,7 @@
 package lila.team
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
@@ -11,7 +11,7 @@ final class TeamMemberStream(
     memberRepo: TeamMemberRepo,
     userApi: lila.core.user.UserApi,
     lightApi: lila.core.user.LightUserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   def apply(team: Team, fullUser: Boolean): Source[(UserWithPerfs | LightUser, Instant), ?] =
     idsBatches(team, MaxPerSecond(if fullUser then 20 else 50))

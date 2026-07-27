@@ -8,7 +8,7 @@
   <string name="boosterMarked">您的账户因操纵等级分而被标记。</string>
   <string name="boosterMarkedInfo">我们将其定义为：通过故意输棋或与故意输棋的另一个账户对弈，来蓄意操纵等级分。</string>
   <string name="accountMuted">您的账户已被禁言。</string>
-  <string name="accountMutedInfo">请阅读我们的 %s。未能遵守沟通准则可能导致账户被禁言。</string>
+  <string name="accountMutedInfo">请阅读我们的%s。未能遵守沟通准则可能导致账户被禁言。</string>
   <string name="excludedFromLeaderboards">您的账户已被排除在排行榜之外。</string>
   <string name="excludedFromLeaderboardsInfo">我们将其定义为：使用任何不公平手段进入排行榜。</string>
   <string name="closedByModerators">您的账户已被管理员关闭。</string>
