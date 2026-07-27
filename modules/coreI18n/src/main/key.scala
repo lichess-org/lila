@@ -492,6 +492,11 @@ object I18nKey:
     val `noneOfTheAbove`: I18nKey = "contact:noneOfTheAbove"
     val `sendEmailAt`: I18nKey = "contact:sendEmailAt"
     val `explainYourRequest`: I18nKey = "contact:explainYourRequest"
+    val `monetiseNotInterested`: I18nKey = "contact:monetiseNotInterested"
+    val `monetiseNoAdsTrackingOrTraffic`: I18nKey = "contact:monetiseNoAdsTrackingOrTraffic"
+    val `monetiseNoMarketingEmail`: I18nKey = "contact:monetiseNoMarketingEmail"
+    val `monetiseEncourageEveryoneTo`: I18nKey = "contact:monetiseEncourageEveryoneTo"
+    val `monetiseBlockAllAdsAndTrackers`: I18nKey = "contact:monetiseBlockAllAdsAndTrackers"
 
   object coordinates:
     val `coordinates`: I18nKey = "coordinates:coordinates"

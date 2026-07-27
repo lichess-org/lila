@@ -869,6 +869,16 @@ interface I18n {
     learnHowToMakeBroadcasts: string;
     /** I lost access to my two-factor authentication codes */
     lost2FA: string;
+    /** block all ads and trackers */
+    monetiseBlockAllAdsAndTrackers: string;
+    /** We encourage everyone to %s. */
+    monetiseEncourageEveryoneTo: I18nFormat;
+    /** We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users. */
+    monetiseNoAdsTrackingOrTraffic: string;
+    /** Please do not email us about marketing, tracking, or advertising. */
+    monetiseNoMarketingEmail: string;
+    /** We are not interested in any way of monetising Lichess. */
+    monetiseNotInterested: string;
     /** Monetising Lichess */
     monetizing: string;
     /** I didn't receive my confirmation email */

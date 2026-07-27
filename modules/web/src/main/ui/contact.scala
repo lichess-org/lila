@@ -305,15 +305,14 @@ object contact:
               "monetize",
               monetizing(),
               frag(
-                p("We are not interested in any way of monetising Lichess."),
+                p(monetiseNotInterested()),
                 p(
-                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
+                  monetiseNoAdsTrackingOrTraffic()
                 ),
-                p("Please do not email us about marketing, tracking, or advertising."),
+                p(monetiseNoMarketingEmail()),
                 br,
                 p(
-                  "We encourage everyone to ",
-                  a(href := "/ads")("block all ads and trackers.")
+                  monetiseEncourageEveryoneTo(a(href := "/ads")(monetiseBlockAllAdsAndTrackers()))
                 )
               )
             ),
