@@ -160,6 +160,7 @@ body {
     &__title {
       @extend %flex-center-nowrap, %ellipsis;
 
+      gap: 1em;
       height: 100%;
       align-items: stretch;
     }
@@ -173,7 +174,7 @@ body {
     }
 
     &__actions {
-      label {
+      .toggle-text {
         font-size: 0.8em;
 
         @media (max-width: at-most($small)) {
@@ -192,10 +193,6 @@ body {
   }
 
   @media (max-width: at-most($xx-small)) {
-    &__head__back {
-      padding-inline: 0.5rem;
-    }
-
     .team-link {
       font-size: 1.2em;
     }
@@ -217,7 +214,7 @@ body {
     }
 
     &__body {
-      @extend %box-radius-top;
+      @extend %box-radius-bottom;
 
       padding: 1.5em 2em;
       background: $c-bg-zebra;

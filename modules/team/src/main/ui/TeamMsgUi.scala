@@ -35,7 +35,7 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
                     form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed)(
                       title := trans.team.subToTeamMessages.txt()
                     ),
-                    trans.team.subToTeamMessages()
+                    span(cls := "toggle-text")(trans.team.subToTeamMessages())
                   )
                 )
               )
@@ -61,14 +61,14 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
       msgs.map: m =>
         import m.*
         div(cls := List("team-msg__convo__msg" -> true, "team-msg__convo__msg--unread" -> !seen))(
-          div(cls := "team-msg__convo__msg__body")(richText(msg.text)),
           div(cls := "team-msg__convo__msg__info")(
             teamLink(msg.team, withIcon = false),
             div(cls := "team-msg__convo__msg__meta")(
               momentFromNowOnce(msg.date),
               span(trans.site.by(userIdLink(msg.senderId.some)))
             )
-          )
+          ),
+          div(cls := "team-msg__convo__msg__body")(richText(msg.text))
         )
     )
 
