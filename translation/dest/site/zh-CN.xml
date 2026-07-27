@@ -544,6 +544,9 @@
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复此话题</string>
   <string name="reply">回复</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">重新打开</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">引用</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">已编辑</string>
   <string name="message">信息</string>
   <string name="createTheTopic">创建话题</string>
   <string name="reportAUser">举报用户</string>

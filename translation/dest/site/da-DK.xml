@@ -580,6 +580,9 @@
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emne</string>
   <string name="reply">Svar</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Genåbn</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citér</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">redigeret</string>
   <string name="message">Meddelelse</string>
   <string name="createTheTopic">Opret emnet</string>
   <string name="reportAUser">Anmeld en bruger</string>
