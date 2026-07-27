@@ -277,18 +277,11 @@ object contact:
             ),
             Leaf(
               "contact-broadcast",
-              "Broadcast a tournament on Lichess",
+              broadcastTournamentOnLichess(),
               frag(
+                p(ifYouWantToBroadcastClause1()),
                 p(
-                  "If you want to officially broadcast a tournament on Lichess, ",
-                  "or have any questions about our broadcasts:"
-                ),
-                p(
-                  "Please contact our Broadcast Team at ",
-                  contactEmailLink("broadcast@lichess.org"),
-                  " or on ",
-                  a(href := "https://discord.gg/Syx9CbN8Jv")("our discord"),
-                  "."
+                  ifYouWantToBroadcastClause2(contactEmailLink("broadcast@lichess.org"), a(href := "https://discord.gg/Syx9CbN8Jv")(ourDiscordServer()))
                 )
               )
             ),

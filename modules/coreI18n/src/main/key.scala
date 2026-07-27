@@ -497,6 +497,10 @@ object I18nKey:
     val `monetiseNoMarketingEmail`: I18nKey = "contact:monetiseNoMarketingEmail"
     val `monetiseEncourageEveryoneTo`: I18nKey = "contact:monetiseEncourageEveryoneTo"
     val `monetiseBlockAllAdsAndTrackers`: I18nKey = "contact:monetiseBlockAllAdsAndTrackers"
+    val `broadcastTournamentOnLichess`: I18nKey = "contact:broadcastTournamentOnLichess"
+    val `ifYouWantToBroadcastClause1`: I18nKey = "contact:ifYouWantToBroadcastClause1"
+    val `ifYouWantToBroadcastClause2`: I18nKey = "contact:ifYouWantToBroadcastClause2"
+    val `ourDiscordServer`: I18nKey = "contact:ourDiscordServer"
 
   object coordinates:
     val `coordinates`: I18nKey = "coordinates:coordinates"
