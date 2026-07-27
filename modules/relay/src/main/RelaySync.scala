@@ -150,18 +150,13 @@ final private class RelaySync(
                 relay = makeRelayFor(game, gameMainlinePath).some
               )
 
-  private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainlinePath: UciPath)(using
-      Who
-  ): Funit =
-    for
-      _ = logger.info(s"Change mainline ${showSC(study, chapter)} $gameMainlinePath")
-      _ <- studyApi.promote(
-        studyId = study.id,
-        position = Position(chapter, gameMainlinePath).ref,
-        toMainline = true
-      )
-      _ <- chapterRepo.setRelayPath(chapter.id, gameMainlinePath)
-    yield ()
+  private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainline: UciPath)(using Who): Funit =
+    (!gameMainline.isMainline(chapter.root)).so:
+      logger.info(s"Change mainline ${showSC(study, chapter)} $gameMainline")
+      for
+        _ <- studyApi.promote(study.id, Position(chapter, gameMainline).ref, toMainline = true)
+        _ <- chapterRepo.setRelayPath(chapter.id, gameMainline)
+      yield ()
 
   private def addNode(study: Study, chapter: Chapter, game: RelayGame, path: UciPath, node: Branch)(using
       Who,
@@ -217,8 +212,8 @@ final private class RelaySync(
       _ <- forceBranchesAsVariations(chapter, game)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
-      _ <- (chapter.root.children.nonEmpty && !gameMainlinePath.isMainline(chapter.root)).so:
-        promoteGameToMainline(study, chapter, gameMainlinePath)
+      _ <- (!gameMainlinePath.isMainline(chapter.root)).so:
+        chapterRepo.byId(chapter.id).flatMapz(promoteGameToMainline(study, _, gameMainlinePath))
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
