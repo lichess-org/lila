@@ -297,7 +297,7 @@
   <string name="whiteTimeOut">White time out</string>
   <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces whiteTimeOut">White ran out of time</string>
   <string name="blackTimeOut">Black time out</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw' Replaces blackTimeOut">Black ran out of time</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces blackTimeOut">Black ran out of time</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
   <string name="whiteOffersDraw">White offers draw</string>
