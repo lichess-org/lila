@@ -15,7 +15,7 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
     Page(team.name + " messages")
       .css("team.msg")
       .js(Esm("team.msg")):
-        main(cls := "box team-msg")(
+        main(cls := "box team-msg team-msg--team")(
           side(byTeam, team.id.some),
           div(cls := "team-msg__convo")(
             div(cls := "team-msg__convo__head")(
@@ -26,13 +26,15 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
                 ),
                 teamLink(team.light, withIcon = false)(cls := "team-link")
               ),
-              div(
+              div(cls := "team-msg__convo__head__actions")(
                 postForm(
                   cls := "team-msg__convo__subscribe form3",
                   action := routes.Team.subscribe(team.id)
                 )(
                   form3.cmnToggleWrap(
-                    form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed),
+                    form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed)(
+                      title := trans.team.subToTeamMessages.txt()
+                    ),
                     trans.team.subToTeamMessages()
                   )
                 )
@@ -44,7 +46,7 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
 
   def allRecent(msgs: TeamMsg.Recent, byTeam: TeamMsg.ByTeams)(using Context) =
     Page("Team messages").css("team.msg"):
-      main(cls := "box team-msg")(
+      main(cls := "box team-msg team-msg--all")(
         side(byTeam, selected = none),
         div(cls := "team-msg__convo")(
           div(cls := "team-msg__convo__head")(
