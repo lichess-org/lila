@@ -145,7 +145,7 @@ final private class RelaySync(
               AddNode(
                 studyId = study.id,
                 positionRef = Position(chapter, gameMainlinePath.parent).ref,
-                node = _ => Right(lastMainlineNode),
+                node = (_, _) => Right(lastMainlineNode),
                 opts = moveOpts,
                 relay = makeRelayFor(game, gameMainlinePath).some
               )
@@ -173,7 +173,7 @@ final private class RelaySync(
         val node = AddNode(
           studyId = study.id,
           positionRef = position,
-          node = _ => Right(n),
+          node = (_, _) => Right(n),
           opts = moveOpts,
           relay = makeRelayFor(game, position.path + n.id).some
         )

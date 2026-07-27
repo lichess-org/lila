@@ -18,7 +18,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
 
   val repo =

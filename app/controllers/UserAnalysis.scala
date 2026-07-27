@@ -37,7 +37,7 @@ final class UserAnalysis(
         Chess960.positionNumber(inputFen | variant.initialFen)
     val decodedFen: Option[Fen.Full] = inputFen.orElse(chess960PositionNum.flatMap(Chess960.positionToFen))
     val pov = makePov(decodedFen, variant)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val orientation = getColor() | pov.color
     for
       data <- env.api.roundApi.userAnalysisJson(
         pov,
@@ -53,7 +53,7 @@ final class UserAnalysis(
 
   def pgn(pgn: String) = Open:
     val pov = makePov(none, Standard)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val orientation = getColor() | pov.color
     val decodedPgn =
       lila.common.String
         .decodeUriPath(pgn.take(5000))
@@ -69,7 +69,7 @@ final class UserAnalysis(
   def embed = Anon:
     InEmbedContext:
       val pov = makePov(none, Standard)
-      val orientation = get("color").flatMap(Color.fromName) | pov.color
+      val orientation = getColor() | pov.color
       val fen = get("fen").flatMap(readFen)
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, fen, orientation, owner = false)

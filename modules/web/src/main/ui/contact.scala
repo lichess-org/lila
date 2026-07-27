@@ -305,7 +305,7 @@ object contact:
               "monetize",
               monetizing(),
               frag(
-                p("We are not interested in any way of monetizing Lichess."),
+                p("We are not interested in any way of monetising Lichess."),
                 p(
                   "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
                 ),

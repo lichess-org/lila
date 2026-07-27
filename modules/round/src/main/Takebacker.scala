@@ -1,7 +1,6 @@
 package lila.round
 
-import chess.ByColor
-import chess.Ply
+import chess.{ ByColor, Color, Ply }
 import alleycats.Zero
 import scalalib.data.Preload
 
@@ -47,21 +46,25 @@ final private class Takebacker(
       pov match
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
           for
-            events <-
-              if pov.opponent.proposeTakebackAt == pov.game.ply &&
-                color == pov.opponent.proposeTakebackAt.turn
-              then single(pov)
-              else double(pov)
+            events <- rewind(
+              pov,
+              Takebacker.acceptedPlies(
+                currentPly = game.ply,
+                proposedAt = pov.opponent.proposeTakebackAt,
+                accepter = color,
+                playedPlies = game.playedPlies
+              )
+            )
             _ = publishTakeback(pov)
           yield events -> takebackBoardZero.zero
         case Pov(game, _) if pov.game.playableByAi =>
           for
-            events <- single(pov)
+            events <- rewind(pov, 1)
             _ = publishTakeback(pov)
           yield events -> board
         case Pov(game, _) if pov.opponent.isAi =>
           for
-            events <- double(pov)
+            events <- rewind(pov, 2)
             _ = publishTakeback(pov)
           yield events -> board
         case pov if canProposeTakeback(pov) && board(pov.color).offerable =>
@@ -137,21 +140,14 @@ final private class Takebacker(
         if _ then f
         else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
 
-  private def single(pov: Pov)(using GameProxy): Fu[Events] =
+  private def rewind(pov: Pov, plies: Int)(using GameProxy): Fu[Events] =
     for
       fen <- gameRepo.initialFen(pov.game)
-      progress <- Rewind(pov.game, fen).toFuture
-      _ <- fuccess(uciMemo.drop(pov.game, 1))
+      progress <- (1 to plies).foldLeft(fuccess(Progress(pov.game))): (prev, _) =>
+        prev.flatMap: prog =>
+          Rewind(prog.game, fen).toFuture.dmap(rewinded => prog.withGame(rewinded.game))
+      _ <- fuccess(uciMemo.drop(pov.game, plies))
       events <- saveAndNotify(progress, pov)
-    yield events
-
-  private def double(pov: Pov)(using GameProxy): Fu[Events] =
-    for
-      fen <- gameRepo.initialFen(pov.game)
-      prog1 <- Rewind(pov.game, fen).toFuture
-      prog2 <- Rewind(prog1.game, fen).toFuture.dmap(progress => prog1.withGame(progress.game))
-      _ <- fuccess(uciMemo.drop(pov.game, 2))
-      events <- saveAndNotify(prog2, pov)
     yield events
 
   private def saveAndNotify(p1: Progress, pov: Pov)(using proxy: GameProxy): Fu[Events] =
@@ -182,3 +178,8 @@ final private class Takebacker(
             lila.game.actorApi.BoardTakeback(p.game),
             lila.game.actorApi.BoardTakeback.makeChan(prevPov.gameId)
           )
+
+private object Takebacker:
+  def acceptedPlies(currentPly: Ply, proposedAt: Ply, accepter: Color, playedPlies: Ply): Int =
+    val proposedPlies = if accepter == proposedAt.turn then 1 else 2
+    (currentPly - proposedAt + proposedPlies).atLeast(1).atMost(playedPlies).value

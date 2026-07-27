@@ -1,6 +1,12 @@
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-corner {
-  width: 0.5rem;
+  @supports not (-moz-appearance: none) {
+    // Firefox 153 adds fake -webkit-scrollbar support and width causes an innerWidth vs outerWidth mismatch
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/153
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=2057587
+    width: 0.5rem;
+  }
+
   background: $c-bg-box;
 }
 

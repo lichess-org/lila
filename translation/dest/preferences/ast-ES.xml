@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Actualizaciones de partida per correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
   <string name="notifyTournamentSoon">El tornéu entama d\'arréu</string>
-  <string name="notifyBroadcasts">Tresmisiones a les que te suscribiste</string>
   <string name="notifyTimeAlarm">Pocu tiempu restante na partida per correspondencia</string>
   <string name="notifyBell">Notificación de campana dientro de Lichess</string>
   <string name="notifyPush">Notificación de dispositivu cuando nun teas en Lichess</string>

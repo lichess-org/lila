@@ -3,7 +3,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { dataIcon, icon } from 'lib/view';
+import { dataIcon, icon, onInsert } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
@@ -29,14 +29,9 @@ function clock(ctrl: TournamentController): VNode | undefined {
             title: new Date(d.startsAt).toLocaleString(),
             datetime: Date.now() + d.secondsToStart * 1000,
           },
-          hook: {
-            insert(vnode) {
-              (vnode.elm as HTMLElement).setAttribute(
-                'datetime',
-                String(Date.now() + d.secondsToStart! * 1000),
-              );
-            },
-          },
+          hook: onInsert(el => {
+            el.setAttribute('datetime', String(Date.now() + d.secondsToStart! * 1000));
+          }),
         }),
       ]);
     return h('div.clock.clock-created', [

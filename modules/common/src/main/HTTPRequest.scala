@@ -100,8 +100,6 @@ object HTTPRequest:
   def printClient(req: RequestHeader) =
     s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
-  def printReqAndClient(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
-
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
     prefix = "Bearer "

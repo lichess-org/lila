@@ -1,5 +1,6 @@
 import type { Classes } from 'snabbdom';
 
+import { escapeHtml } from 'lib';
 import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
 import { enrichText, innerHTML } from 'lib/richText';
@@ -78,7 +79,7 @@ export class InlineView {
               },
               hook: innerHTML(comment.text, text =>
                 node.comments?.[1]
-                  ? `<span class="by">${authorText(comment.by)}</span> ` + enrichText(text)
+                  ? `<span class="by">${escapeHtml(authorText(comment.by))}</span> ` + enrichText(text)
                   : enrichText(text),
               ),
             }),

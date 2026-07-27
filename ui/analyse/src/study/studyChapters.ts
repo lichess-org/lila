@@ -139,8 +139,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
   href: `${roundPath}/${game.id}`,
 });
-export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
+export const gameLinksListener = (select: ChapterSelect) => (elm: HTMLElement) =>
+  elm.addEventListener(
     'click',
     async e => {
       let target = e.target as HTMLLinkElement;

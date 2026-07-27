@@ -168,7 +168,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
                 postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
                   button(cls := "button button-empty button-red")(
-                    if topic.closed then "Reopen" else "Close"
+                    if topic.closed then trans.site.reopen() else trans.site.close()
                   )
                 )
               ),

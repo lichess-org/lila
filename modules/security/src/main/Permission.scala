@@ -58,6 +58,7 @@ object Permission:
     ),
     "Broadcast" -> List(
       Relay,
+      RelayStream,
       BroadcastTimeout,
       FidePlayer,
       StudyAdmin

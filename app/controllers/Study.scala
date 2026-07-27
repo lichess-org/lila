@@ -201,7 +201,8 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (studyFromDb, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      (studyFromDb, chapterPre) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      chapter = getColor("pov").foldLeft(chapterPre)(_.withOrientation(_))
       study <- env.relay.api.reconfigureStudy(studyFromDb, chapter)
       previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
@@ -427,7 +428,7 @@ final class Study(
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
     def makeStudySource = pgnDump.chaptersOf(study, _ => flags(pgnDump.requestPgnFlags()))
-    val pgnSource = akka.stream.scaladsl.Source.futureSource:
+    val pgnSource = org.apache.pekko.stream.scaladsl.Source.futureSource:
       if study.isRelay
       then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
       else fuccess(makeStudySource)

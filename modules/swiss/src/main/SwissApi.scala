@@ -1,7 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -34,8 +34,11 @@ final class SwissApi(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.core.round.RoundApi
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
-    extends lila.core.swiss.SwissApi:
+)(using scheduler: Scheduler)(using
+    Executor,
+    org.apache.pekko.stream.Materializer,
+    lila.core.config.RateLimit
+) extends lila.core.swiss.SwissApi:
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events

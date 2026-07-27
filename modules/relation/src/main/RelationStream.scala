@@ -1,7 +1,7 @@
 package lila.relation
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
@@ -12,7 +12,7 @@ import play.api.libs.json.JsObject
 
 final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   private val coll = colls.relation

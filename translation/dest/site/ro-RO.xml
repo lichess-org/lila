@@ -849,7 +849,7 @@
   </plurals>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
-  <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="xLikesY">%1$s a plăcut %2$s</string>
   <string name="like">Apreciază</string>
   <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>
@@ -1064,7 +1064,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="gameInProgress">Ai un joc în desfășurare cu %s.</string>
   <string name="abortTheGame">Abandonează jocul</string>
   <string name="resignTheGame">Cedează jocul</string>
-  <string name="youCantStartNewGame" comment="Appears when trying to start a new game and it is your turn in an active game.&#10;This logic does not apply to correspondence games.&#10;Note that it is possible to start a new game while it is your opponent's turn.">Nu poți începe un joc nou în timp ce este rândul tău.</string>
+  <string name="youCantStartNewGame">Nu poți începe un joc nou în timp ce este rândul tău.</string>
   <string name="since">De la</string>
   <string name="until">Până la</string>
   <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>

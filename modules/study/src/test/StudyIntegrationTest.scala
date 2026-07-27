@@ -123,11 +123,11 @@ object StudyAction:
       case _ => throw Exception(s"cannot parse $str")
 
   // combined of StudySocket.moveOrDrop & StudyApi.addNode
-  def moveOrDrop(chapter: Chapter, move: AnaAny): Option[Chapter] =
-    move
-      .branch(chapter.setup.variant)
-      .toOption
-      .flatMap(b => chapter.addNode(b.withoutChildren, move.path, None))
+  def moveOrDrop(chapter: Chapter, move: AnaAny): Option[Chapter] = for
+    fromNode <- chapter.root.nodeAt(move.path)
+    branch <- move.branch(chapter.setup.variant, fromNode.fen).toOption
+    c <- chapter.addNode(branch.withoutChildren, move.path, None)
+  yield c
 
   def deleteNodeAt(chapter: Chapter, position: Position.Ref) =
     chapter.updateRoot: root =>

@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Yozishmali oʻyinlardagi yangilanishlar</string>
   <string name="notifyChallenge">Chorlovlar</string>
   <string name="notifyTournamentSoon">Turnir boshlanishiga vaqt oz qolganda</string>
-  <string name="notifyBroadcasts">Siz obuna boʻlgan translyatsiyalar</string>
   <string name="notifyTimeAlarm">Yozishmali oʻyin vaqti oz qolganda</string>
   <string name="notifyBell">Lichess ichida qoʻngʻiroq tovushli bildirishnoma</string>
   <string name="notifyPush">Lichessʼdan tashqarida boʻlganingizda qurilma bildirishnomalari</string>

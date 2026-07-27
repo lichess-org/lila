@@ -2,13 +2,13 @@ package lila.security
 
 import play.api.libs.ws.StandaloneWSClient
 import bloomfilter.mutable.BloomFilter
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import scalalib.net.Domain
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import DisposableEmailDomain.*
 

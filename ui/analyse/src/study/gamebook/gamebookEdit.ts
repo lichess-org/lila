@@ -4,7 +4,7 @@ import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
 import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
-import { bind, type MaybeVNodes, icon } from 'lib/view';
+import { bind, type MaybeVNodes, onInsert, icon } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 
@@ -95,7 +95,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
   return h(
     'div.gamebook-edit',
-    { hook: { insert: () => site.asset.loadCssPath('analyse.gamebook.edit') } },
+    { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.edit')) },
     content,
   );
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Напредан пешак</string>
-  <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
+  <string name="advancedPawnDescription">Један од твојих пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
-  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
+  <string name="advantageDescription">Искористи шансу да стекнеш одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
   <string name="anastasiaMate">Анастазијин мат</string>
   <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују како би заробили противничког краља између ивице табле и пријатељске фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Узми браниоца</string>
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
   <string name="crushing">Уништавајуће</string>
-  <string name="crushingDescription">Уочите противничку грубу грешку како бисте стекли огромну предност. (евалуација ≥ 600cp)</string>
+  <string name="crushingDescription">Уочи противнички превид да стекнеш огромну предност. (евалуација ≥ 600cp)</string>
   <string name="doubleBishopMate">Мат ловачким паром</string>
   <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
   <string name="dovetailMate">Коциов мат</string>
   <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
   <string name="equality">Изједначење</string>
-  <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
+  <string name="equalityDescription">Врати се из губитне позиције и осигурај реми или изједначену позицију. (евалуација ≤ 200cp)</string>
   <string name="kingsideAttack">Напад на краљевом крилу</string>
   <string name="kingsideAttackDescription">Напад на противничког краља, након што се рокадирао на краљевој страни.</string>
   <string name="clearance">Рашчишћавање</string>
@@ -65,7 +65,7 @@
   <string name="masterDescription">Проблеми из партија играних између два играча са титулама.</string>
   <string name="masterVsMaster">Партије Мајстор против Мајстора</string>
   <string name="masterVsMasterDescription">Проблеми из партија између два играча са титулама.</string>
-  <string name="mate">Мат</string>
+  <string name="mate">Шах-мат</string>
   <string name="mateDescription">Победи партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
   <string name="mateIn1Description">Матирај у једном потезу.</string>
@@ -88,7 +88,7 @@
   <string name="pin">Везивање</string>
   <string name="pinDescription">Тактика која укључује везивања, где фигура не може да се помери без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
-  <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
+  <string name="promotionDescription">Промовиши једног свог пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
   <string name="queenEndgameDescription">Завршница са само дамама и пешацима.</string>
   <string name="queenRookEndgame">Краљица и Топ</string>
@@ -117,8 +117,8 @@
   <string name="veryLongDescription">Четири потеза или више за победу.</string>
   <string name="xRayAttack">Рендгенски напад</string>
   <string name="xRayAttackDescription">Фигура напада или брани поље, кроз противничку фигуру.</string>
-  <string name="zugzwang">Цугцванг</string>
-  <string name="zugzwangDescription">Противник има ограничен избор потеза и сваким потезом погоршава своју позицију.</string>
+  <string name="zugzwang">Изнудица</string>
+  <string name="zugzwangDescription">Противник је ограничен у потезима које може направити и сви потези погоршавају његову позицију.</string>
   <string name="mix">Здрава мешавина</string>
   <string name="mixDescription">Свега по мало. Не знаш шта да очекујеш, па остајеш спреман за све! Баш као у правим партијама.</string>
   <string name="playerGames">Играчеве партије</string>

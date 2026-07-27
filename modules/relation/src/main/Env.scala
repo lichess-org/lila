@@ -24,7 +24,7 @@ final class Env(
     prefApi: lila.core.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   private val config = appConfig.get[RelationConfig]("relation")(using AutoConfig.loader)
 
