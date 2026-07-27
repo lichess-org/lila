@@ -168,6 +168,21 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     )
   }
 
+  def createForMobile = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    bindForm(env.report.forms.create)(
+      err => BadRequest(jsonFormError(err)),
+      data =>
+        if me.is(data.user.id) then BadRequest(jsonError("You cannot report youtself"))
+        else {
+          reportRateLimit(rateLimited);
+          for
+            _ <- api.create(data, Reporter(me), Nil)
+            _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+          yield jsonOkResult
+        }
+    )
+  }
+
   private def inboxFormPage(user: lila.core.user.User, form: Form[?])(using Context, Me) = for
     msgs <- env.msg.api.msgsToReport(user.id)
     page <- renderPage(views.report.ui.inbox(form, user, msgs))
