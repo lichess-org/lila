@@ -2823,7 +2823,7 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so be ready for anything! Just like in real games. */
     mixDescription: string;
-    /** A bishop delivers checkmate to the king, while a rook helps to confine it. */
+    /** A bishop delivers checkmate to the king, while a rook helps confine it. */
     morphyMateBishopAndRookDescription: string;
     /** Morphy's mate */
     morphysMate: string;
@@ -2845,7 +2845,7 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
-    /** A rook delivers checkmate to the king, while a bishop helps to confine it. */
+    /** A rook delivers checkmate to the king, while a bishop helps confine it. */
     pillsburyMateRookAndBishopDescription: string;
     /** Pillsbury's mate */
     pillsburysMate: string;
