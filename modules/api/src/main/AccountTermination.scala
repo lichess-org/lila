@@ -26,7 +26,7 @@ import lila.db.dsl.{ *, given }
 | forum posts               | intact                           | deleted               |
 | teams/classes joined      | quit                             | quit                  |
 | team/classes created      | intact[^2]                       | intact[^2]            |
-| classes joiated           | intact[^2]                       | intact[^2]            |
+| classes created           | intact[^2]                       | intact[^2]            |
 | puzzle history            | hidden                           | deleted               |
 | follows and blocks        | deleted                          | deleted               |
 
