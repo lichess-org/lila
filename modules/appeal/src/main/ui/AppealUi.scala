@@ -16,6 +16,7 @@ final class AppealUi(helpers: Helpers):
 
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
+    else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
     else
       span(
         userIdLink(UserId.lichess.some),
