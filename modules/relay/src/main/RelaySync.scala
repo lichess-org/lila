@@ -101,27 +101,20 @@ final private class RelaySync(
 
   private type NbMoves = Int
 
-  private def forceBranchesAsVariations(chapter: Chapter, game: RelayGame)(using by: Who): Fu[Unit] =
-    // moves that are not in the source but are in the study chapter,
+  private def forceTailMovesAsVariations(chapter: Chapter, gameMainline: UciPath)(using
+      by: Who
+  ): Fu[Unit] =
+    // tail moves that are not in the source but are in the study chapter,
     // should become forced variations in the study chapter
-    game.root.mainline
-      .foldLeft(List.empty[UciPath] -> UciPath.root):
-        case ((acc, parentPath), gameNode) =>
-          val nodePath = parentPath + gameNode.id
-          val localPaths = chapter.root
-            .nodeAt(parentPath)
-            .so: parentNode =>
-              parentNode.children.toList.collect:
-                case child if child.id != gameNode.id && !child.forceVariation =>
-                  parentPath + child.id
-          (acc ::: localPaths, nodePath)
-      ._1
-      .sequentiallyVoid: childPath =>
+    chapter.root
+      .nodeAt(gameMainline)
+      .map(_.children.toList.map(gameMainline + _.id))
+      .foldMap(_.sequentiallyVoid: childPath =>
         studyApi.forceVariation(
           studyId = chapter.studyId,
           position = Position(chapter, childPath).ref,
           force = true
-        )(by)
+        )(by))
 
   private def sendLastNode(study: Study, chapter: Chapter, game: RelayGame, gameMainlinePath: UciPath)(using
       Who,
@@ -201,7 +194,7 @@ final private class RelaySync(
     for
       gameMainlinePath = game.root.mainlinePath
       (path, newNodeOpt) = getNewNodeOrSetClockOfExisting(chapter, study, game)
-      _ <- forceBranchesAsVariations(chapter, game)
+      _ <- forceTailMovesAsVariations(chapter, gameMainlinePath)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
     yield newNodeOpt.so(_.mainline.size)
