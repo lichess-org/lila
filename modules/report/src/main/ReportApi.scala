@@ -654,18 +654,6 @@ final class ReportApi(
         "inquiry"
       )
 
-    def cancelAppeal(suspectId: UserId, topic: AppealTopic): Funit =
-      workQueue:
-        coll.delete
-          .one(
-            $doc(
-              "user" -> suspectId,
-              "room" -> Room.Other.key,
-              "atoms.0.text" -> Report.appealText(topic)
-            )
-          )
-          .void
-
     /*
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.

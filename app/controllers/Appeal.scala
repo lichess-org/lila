@@ -69,9 +69,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     Found(env.appeal.api.find(me, topic)): appeal =>
       if !appeal.isOpen then Redirect(routes.Appeal.home)
       else
-        for
-          _ <- env.appeal.api.withdraw(appeal)
-          _ <- env.report.api.inquiries.cancelAppeal(appeal.user, appeal.topic)
+        for _ <- env.appeal.api.withdraw(appeal)
         yield Redirect(routes.Appeal.home).flashSuccess
   }
 
