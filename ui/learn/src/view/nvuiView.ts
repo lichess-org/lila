@@ -1,6 +1,5 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, type SquareName } from 'chessops';
 
 import { throttle } from 'lib/async';
