@@ -13,7 +13,7 @@ import lila.mon.extensions.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
-final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
+final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient, proxy: lila.memo.HttpProxy)(using
     Executor,
     org.apache.pekko.stream.Materializer
 ):
@@ -102,7 +102,9 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
 
   private object playersFromHttpFile:
     def apply(): Funit = for
-      httpStream <- ws.url(listUrl).stream()
+      req = ws.url(listUrl)
+      proxied = proxy.select().foldLeft(req)(_ withProxyServer _)
+      httpStream <- proxied.stream()
       _ <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")

@@ -112,8 +112,8 @@ final class Dev(env: Env) extends LilaController(env):
     ),
     "Broadcast" -> List(
       env.relay.proxy.domainRegex,
-      env.relay.proxy.hostPort,
-      env.relay.proxy.credentials
+      env.memo.proxy.hostPort,
+      env.memo.proxy.credentials
     ),
     "Tutor" -> List(
       env.tutor.nbAnalysisSetting,
