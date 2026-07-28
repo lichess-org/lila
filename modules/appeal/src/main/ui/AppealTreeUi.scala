@@ -221,6 +221,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
+    val chooseAccount = "I want to choose which account appears on leaderboards"
     Branch(
       "root",
       tap.excludedFromLeaderboards(),
@@ -239,6 +240,14 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           frag(
             sendUsAnAppeal,
             newAppeal(AppealTopic.rank)(deny)
+          )
+        ),
+        Leaf(
+          "rankban-choose",
+          chooseAccount,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.rank)(chooseAccount)
           )
         )
       ),
