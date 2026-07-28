@@ -150,24 +150,6 @@ final private class RelaySync(
                 relay = makeRelayFor(game, gameMainlinePath).some
               )
 
-  /* oldChapter doesn't yet contain the new nodes from the game,
-   * but we can get a newChapter from the DB which does. */
-  private def maybePromoteToMainline(study: Study, oldChapter: Chapter, gameMainline: UciPath)(using
-      Who
-  ): Funit =
-    // First we check if we need to load
-    (!gameMainline.isMainline(oldChapter.root)).so:
-      // then we check again with the new chapter.
-      chapterRepo
-        .byId(oldChapter.id)
-        .flatMapz: newChapter =>
-          (!gameMainline.isMainline(newChapter.root)).so:
-            logger.info(s"Change mainline ${showSC(study, newChapter)} $gameMainline")
-            for
-              _ <- studyApi.promote(study.id, Position(newChapter, gameMainline).ref, toMainline = true)
-              _ <- chapterRepo.setRelayPath(newChapter.id, gameMainline)
-            yield ()
-
   private def addNode(study: Study, chapter: Chapter, game: RelayGame, path: UciPath, node: Branch)(using
       Who,
       RelayTour
@@ -222,7 +204,6 @@ final private class RelaySync(
       _ <- forceBranchesAsVariations(chapter, game)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
-      _ <- maybePromoteToMainline(study, chapter, gameMainlinePath)
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
