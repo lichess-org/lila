@@ -181,7 +181,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
     val deny =
-      "I have followed the communication guidelines"
+      "I have followed the community guidelines and don’t understand why I was muted"
     Branch(
       "root",
       tap.accountMuted(),
@@ -277,7 +277,14 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             newAppeal(AppealTopic.arena)(deny)
           )
         )
-      )
+      ),
+      content = frag(
+        p("We do not allow:"),
+        ul(
+          li("Joining multiple arenas at the same time and then not playing in them"),
+          li("Joining an arena and repeatedly losing games by not making a move (for any reason)")
+        )
+      ).some
     )
 
   private def hiddenBlogMenu(using Context): Branch =
