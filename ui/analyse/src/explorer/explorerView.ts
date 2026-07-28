@@ -1,16 +1,7 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import {
-  bind,
-  dataIcon,
-  type MaybeVNode,
-  type LooseVNodes,
-  type VNode,
-  hl,
-  iconTag,
-  onInsert,
-} from 'lib/view';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
@@ -148,7 +139,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl('td', showResult(game.winner)),
               hl('td', game.month || game.year),
               !isMasters &&
-                hl('td', game.speed && iconTag(perfIcons[game.speed], { title: ucfirst(game.speed) })),
+                hl('td', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
             ]),
       ),
     ),
@@ -228,7 +219,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [iconTag(licon.InfoCircle), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [icon(licon.InfoCircle)(), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {

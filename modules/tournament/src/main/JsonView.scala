@@ -134,6 +134,7 @@ final class JsonView(
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted)))
           .add("description" -> withDescription.so(tour.description))
+          .add("payouts" -> tour.payouts)
           .add("myUsername" -> me.map(_.username))
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
           .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)

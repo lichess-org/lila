@@ -89,9 +89,9 @@ export default class RelayTeamLeaderboard {
                   hl(
                     'td',
                     { attrs: { 'data-sort': entry.mp * 1000 + entry.gp, title: i18n.broadcast.matchPoints } },
-                    entry.mp,
+                    `${entry.mp}`,
                   ),
-                  hl('td', { attrs: { title: i18n.broadcast.gamePoints } }, entry.gp),
+                  hl('td', { attrs: { title: i18n.broadcast.gamePoints } }, `${entry.gp}`),
                 ]),
               ),
             ),
@@ -115,11 +115,14 @@ export default class RelayTeamLeaderboard {
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
-            hl('tr', [hl('th', i18n.broadcast.matches), hl('td', finishedTeamMatchCount(foundTeam.matches))]),
-            hl('tr', [hl('th', i18n.broadcast.matchPoints), hl('td', foundTeam.mp)]),
-            hl('tr', [hl('th', i18n.broadcast.gamePoints), hl('td', foundTeam.gp)]),
+            hl('tr', [
+              hl('th', i18n.broadcast.matches),
+              hl('td', `${finishedTeamMatchCount(foundTeam.matches)}`),
+            ]),
+            hl('tr', [hl('th', i18n.broadcast.matchPoints), hl('td', `${foundTeam.mp}`)]),
+            hl('tr', [hl('th', i18n.broadcast.gamePoints), hl('td', `${foundTeam.gp}`)]),
             foundTeam.averageRating &&
-              hl('tr', [hl('th', i18n.site.averageElo), hl('td', foundTeam.averageRating)]),
+              hl('tr', [hl('th', i18n.site.averageElo), hl('td', `${foundTeam.averageRating}`)]),
           ]),
         ),
       ]),
@@ -148,7 +151,7 @@ export default class RelayTeamLeaderboard {
                     {
                       attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` },
                     },
-                    i + 1,
+                    `${i + 1}`,
                   ),
                 ),
                 hl(

@@ -263,7 +263,7 @@ chupame
 cobarde
 est[úu]pid[ao]
 gilipollas
-hdp
+hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
 idiota
@@ -313,7 +313,8 @@ gaa?ndu?
 
   def fr = dict("""
 batard
-connard
+blaireau
+con+ard?
 cr[eé]tin
 encul[eé]r?
 f[2d]p
@@ -322,7 +323,6 @@ pute
 p[eé]d[eé]raste
 salope
 triche(ur|)
-conn?ard?
 """)
 
   def de = dict("""
@@ -383,6 +383,7 @@ g?kys
 gets? (bombed|shot)
 k y s
 (l|1|ı|\|)<ys
+(ne|)groid
 nig+er
 rap(ed?|e?ing)
 rope

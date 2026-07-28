@@ -12,7 +12,7 @@ final class Env(
     puzzleColls: lila.puzzle.PuzzleColls,
     lightUserApi: lila.core.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer, play.api.Mode):
 
   lazy val parallelismSetting = settingStore[Int](
     "recapParallelism",

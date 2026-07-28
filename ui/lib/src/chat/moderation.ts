@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
-import { bind, confirm, dataIcon } from '@/view';
+import { bind, confirm, dataIcon, onInsert } from '@/view';
 import { userLink } from '@/view/userLink';
 
 import { licon } from '../licon';
@@ -161,11 +161,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h(
             'tbody.slist',
             {
-              hook: {
-                insert() {
-                  pubsub.emit('content-loaded');
-                },
-              },
+              hook: onInsert(() => pubsub.emit('content-loaded')),
             },
             data.history.map(function (e) {
               return h('tr', [

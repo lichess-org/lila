@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.variant.Variant
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.model.Minutes
 
 import lila.core.config.CollName
@@ -316,7 +316,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           tour.password.isEmpty.option("password"),
           tour.conditions.list.isEmpty.option("conditions"),
           tour.position.isEmpty.option("fen"),
-          tour.variant.standard.option("variant")
+          tour.variant.standard.option("variant"),
+          tour.payouts.isEmpty.option("payouts")
         ).flatten
       )
     )
@@ -351,7 +352,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       status: List[Status],
       batchSize: Int,
       readPref: ReadPref = _.sec
-  ): AkkaStreamCursor[Tournament] =
+  ): PekkoStreamCursor[Tournament] =
     coll
       .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty.so($doc("status".$in(status)))))
       .sort($sort.desc("startsAt"))

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { bind } from 'lib/view';
+import { bind, onInsert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from '@/ctrl';
@@ -84,15 +84,12 @@ export interface FilterNode extends HTMLElement {
 
 export const render = (ctrl: LobbyController) =>
   h('div.hook__filters.cache-buster-' + ctrl.filter.uiCacheBuster, {
-    hook: {
-      insert(vnode) {
-        const el = vnode.elm as FilterNode;
-        if (el.filterLoaded) return;
-        xhr.text('/setup/filter').then(html => {
-          el.innerHTML = html;
-          el.filterLoaded = true;
-          initialize(ctrl, el);
-        });
-      },
-    },
+    hook: onInsert<FilterNode>(el => {
+      if (el.filterLoaded) return;
+      xhr.text('/setup/filter').then(html => {
+        el.innerHTML = html;
+        el.filterLoaded = true;
+        initialize(ctrl, el);
+      });
+    }),
   });

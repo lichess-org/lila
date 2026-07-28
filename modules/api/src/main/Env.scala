@@ -1,6 +1,6 @@
 package lila.api
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import play.api.Mode
 
@@ -62,7 +62,7 @@ final class Env(
     Mode,
     Executor,
     ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator
 ):
 

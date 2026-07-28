@@ -280,7 +280,7 @@ final class Round(
         redirection
       else
         env.round.resign(pov)
-        akka.pattern.after(500.millis, env.system.scheduler)(redirection)
+        org.apache.pekko.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: Color) = Open:
     FoundSnip(

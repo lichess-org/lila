@@ -616,6 +616,9 @@
   <string name="replies">Răspunsuri</string>
   <string name="replyToThisTopic">Răspunde la acest topic</string>
   <string name="reply">Răspunde</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Redeschide</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citează</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editat</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Creează un topic</string>
   <string name="reportAUser">Raportează un utilizator</string>
@@ -849,7 +852,7 @@
   </plurals>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
-  <string name="xLikesY">%1$s îi place %2$s</string>
+  <string name="xLikesY">%1$s a plăcut %2$s</string>
   <string name="like">Apreciază</string>
   <string name="liked">Apreciat</string>
   <string name="quickPairing">Potrivire rapidă</string>

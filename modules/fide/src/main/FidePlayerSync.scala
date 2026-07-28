@@ -1,7 +1,7 @@
 package lila.fide
 
-import akka.stream.contrib.ZipInputStreamSource
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.contrib.ZipInputStreamSource
+import org.apache.pekko.stream.scaladsl.*
 import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
@@ -15,7 +15,7 @@ import lila.db.dsl.{ *, given }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   private val listUrl = "http://ratings.fide.com/download/players_list.zip"
@@ -112,7 +112,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               ZipInputStreamSource: () =>
                 ZipInputStream(httpStream.bodyAsSource.runWith(StreamConverters.asInputStream()))
               .map(_._2)
-                .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
+                .via(Framing.delimiter(org.apache.pekko.util.ByteString("\r\n"), maximumFrameLength = 200))
                 .map(_.utf8String)
                 .drop(1) // first line is a header
                 .map(parseLine)

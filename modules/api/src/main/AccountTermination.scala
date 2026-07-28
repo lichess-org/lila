@@ -59,7 +59,7 @@ final class AccountTermination(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     _ <- isEssential(u.id).so:

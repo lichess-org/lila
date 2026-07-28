@@ -1,16 +1,15 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
-import { h, type VNode } from 'snabbdom';
 
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts } from 'lib/puz/run';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
-import { onInsert } from 'lib/view';
+import { div, makeExoticTag, onInsert, type VNode } from 'lib/view';
 
 import type RacerCtrl from '@/ctrl';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
-  return h('div.puz-board.main-board', [
+  return div('.puz-board.main-board', [
     renderGround(ctrl),
     ctrl.promotion.view(),
     renderCountdown(ctrl.countdownSeconds()),
@@ -18,7 +17,7 @@ export const renderBoard = (ctrl: RacerCtrl) => {
 };
 
 const renderGround = (ctrl: RacerCtrl): VNode =>
-  h('div.cg-wrap', {
+  div('.cg-wrap', {
     hook: onInsert(el => {
       ctrl.ground(
         makeChessground(
@@ -41,14 +40,16 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
     }),
   });
 
+const light = makeExoticTag('light');
+
 const renderCountdown = (seconds?: number) => {
   if (!seconds) return undefined;
-  return h('div.racer__countdown', [
-    h('div.racer__countdown__lights', [
-      h('light.red', { class: { active: seconds > 4 } }),
-      h('light.orange', { class: { active: seconds === 3 || seconds === 4 } }),
-      h('light.green', { class: { active: seconds <= 2 } }),
+  return div('.racer__countdown', [
+    div('.racer__countdown__lights', [
+      light('.red', { class: { active: seconds > 4 } }),
+      light('.orange', { class: { active: seconds === 3 || seconds === 4 } }),
+      light('.green', { class: { active: seconds <= 2 } }),
     ]),
-    h('div.racer__countdown__seconds', seconds),
+    div('.racer__countdown__seconds', seconds),
   ]);
 };

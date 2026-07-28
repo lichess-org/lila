@@ -268,9 +268,7 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     'div.relay-tour__players',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.players },
-      hook: {
-        insert: () => ctrl.loadFromXhr(true),
-      },
+      hook: onInsert(() => ctrl.loadFromXhr(true)),
     },
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
@@ -364,9 +362,9 @@ export const renderPlayers = (
                         : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
                     },
                   },
-                  player.score ?? 0,
+                  `${player.score ?? 0}`,
                 ),
-              hl('td', sortByBoth(player.played, player.rating), player.played ?? 0),
+              hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
               player.tiebreaks?.map(tb =>
                 hl(
                   'td.tiebreak',
@@ -377,7 +375,7 @@ export const renderPlayers = (
                       'aria-label': tb.description,
                     },
                   },
-                  tb.points,
+                  `${tb.points}`,
                 ),
               ),
             ]);
@@ -481,7 +479,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           hl(
             'a.game-link.is.color-icon.text.' + game.color,
             { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } },
-            i + 1,
+            `${i + 1}`,
           ),
         ),
         playerTd(game.opponent, ctrl, withTips),

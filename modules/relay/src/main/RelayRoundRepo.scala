@@ -1,6 +1,6 @@
 package lila.relay
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

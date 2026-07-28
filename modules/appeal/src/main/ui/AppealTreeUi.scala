@@ -17,7 +17,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def noTopicMenu(status: UserStatus, appeals: Appeal.ByTopic)(using Context): Branch =
+  private def noTopicMenu(status: UserStatus, appeals: UserAppeals)(using Context): Branch =
     Branch(
       "root",
       if status.isClean then tap.cleanAllGood() else "No active appeals",
@@ -375,7 +375,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic], status: UserStatus, appeals: Appeal.ByTopic)(using Context, Me) =
+  def page(topic: Option[AppealTopic], status: UserStatus, appeals: UserAppeals)(using Context, Me) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small appeal force-ltr")(
         div(cls := "box box-pad")(
@@ -408,7 +408,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        inactiveAppeals(appeals.values.toList)
+        inactiveAppeals(appeals.value.values.toList)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(

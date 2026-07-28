@@ -5,7 +5,7 @@ import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 import { licon } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
-import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
+import { icon, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
@@ -82,8 +82,10 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
       : opts.centis >= 6000
         ? [baseStr]
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
-  const pauseNodes = opts.pause ? [iconTag(licon.Pause)] : [];
-  return [...pauseNodes, ...timeNodes];
+  if (opts.pause) {
+    return [icon(licon.Pause)(), ...timeNodes];
+  }
+  return timeNodes;
 }
 
 const clockContentNvui = (opts: ClockOpts): MaybeVNode =>

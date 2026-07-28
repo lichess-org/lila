@@ -2,7 +2,7 @@ import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { spinnerVdom, initMiniBoard, dataIcon, iconCls, onInsert } from 'lib/view';
+import { spinnerVdom, initMiniBoard, dataIcon, onInsert, icon } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
 import type ChallengeCtrl from './ctrl';
@@ -57,7 +57,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
               ),
             ]),
           ]),
-          iconCls(c.perf.icon, 'perf'),
+          icon(c.perf.icon)('.perf'),
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {

@@ -97,6 +97,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
+  <string name="minRatingX">Minimum rating of %s</string>
+  <string name="maxRatingX">Maximum rating of %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
   <string name="masterDbExplanation">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
@@ -590,7 +592,7 @@
   <string name="reportCheatBoostHelp">Paste a link to the game(s) and explain what is wrong with this user\'s behavior. Don\'t just say \"they cheat,\" but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don\'t just say \"it\'s offensive/inappropriate,\" but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
   <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
-  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game with suspected cheating.</string>
+  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -1016,6 +1018,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="gameInProgress">You have a game in progress with %s.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
+  <string name="youCantStartNewGame">You can\'t start a new game while it\'s your turn.</string>
   <string name="since">Since</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
@@ -1039,4 +1042,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="thereAreNoResultsForX">No results for \"%s\"</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
+  <string name="settings">Settings</string>
 </resources>

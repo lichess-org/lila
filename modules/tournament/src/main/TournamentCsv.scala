@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.stream.scaladsl.Source
+import org.apache.pekko.stream.scaladsl.Source
 
 object TournamentCsv:
 

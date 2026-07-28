@@ -27,7 +27,7 @@
 
   <logger name="boot"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="play"><appender-ref ref="STDOUT_INFO" /></logger>
-  <logger name="akka"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="org.apache.pekko"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="reactivemongo"><appender-ref ref="STDOUT_INFO" /></logger>
 
 </configuration>

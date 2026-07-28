@@ -67,6 +67,7 @@
   <string name="notYetStarted">Prenos v živo se še ni začel.</string>
   <string name="officialWebsite">Uradna spletna stran</string>
   <string name="officialStandings">Uradna lestvica</string>
+  <string name="regulations">Regulative</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Več nastavitev s %s</string>
   <string name="webmastersPage">Stran administratorja turnirja</string>
   <string name="embedThisBroadcast">Vgradite prenos v živo v svojo spletno stran.</string>

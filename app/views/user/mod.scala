@@ -169,6 +169,8 @@ object mod:
                 case Nil => td(dataSort := 0)
                 case appeals =>
                   val nbMsgs = appeals.map(_.msgs.size).sum
+                  val closed = appeals.forall(_.isClosed)
+                  val muted = appeals.exists(_.muted)
                   td(dataSort := nbMsgs)(
                     a(
                       href := Granter.opt(_.Appeals).option(routes.Appeal.modShowAll(o.id)),
@@ -176,10 +178,13 @@ object mod:
                         "text" -> true,
                         "appeal-recent" -> appeals.exists(_.isRecent),
                         "appeal-old" -> appeals.forall(_.isOld),
-                        "appeal-closed" -> appeals.forall(_.isClosed)
+                        "appeal-closed" -> closed,
+                        "appeal-muted" -> muted
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", nbMsgs)}${appeals.forall(_.isClosed).so(" [CLOSED]")}\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
+                      title := s"${pluralize("appeal message", nbMsgs)}${
+                          if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
+                        }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
                     )(nbMsgs)
                   )
               ,

@@ -13,6 +13,7 @@ case class Appeal(
     // date of first player message without a mod reply
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: Instant,
+    muted: Boolean = false, // new appeal posts of the user are ignored
     closedUntil: Option[Instant] = None // user must wait a certain duration
 ):
   def isRead = status == Appeal.Status.read
@@ -31,14 +32,14 @@ case class Appeal(
 
   def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
-  def post(text: String, by: UserId) =
+  def post(text: String, by: UserId, muted: Boolean) =
     val msg = AppealMsg(by, text, nowInstant)
     copy(
       msgs = msgs :+ msg,
       updatedAt = nowInstant,
       status =
         if isByMod(msg) && isUnread then Appeal.Status.read
-        else if !isByMod(msg) && isRead then Appeal.Status.unread
+        else if !isByMod(msg) && isRead && !muted then Appeal.Status.unread
         else status,
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
@@ -67,12 +68,16 @@ case class Appeal(
 
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
 
+opaque type UserAppeals = Map[AppealTopic, Appeal]
+object UserAppeals extends TotalWrapper[UserAppeals, Map[AppealTopic, Appeal]]:
+  extension (appeals: UserAppeals)
+    def muted = appeals.values.exists(_.muted)
+    def get = appeals.get
+
 object Appeal:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
-
-  type ByTopic = Map[AppealTopic, Appeal]
 
   given UserIdOf[Appeal] = _.user
 

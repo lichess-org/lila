@@ -544,6 +544,9 @@
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复此话题</string>
   <string name="reply">回复</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">重新打开</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">引用</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">已编辑</string>
   <string name="message">信息</string>
   <string name="createTheTopic">创建话题</string>
   <string name="reportAUser">举报用户</string>
@@ -729,8 +732,8 @@
   <string name="checkAllEmailFolders">请检查所有垃圾邮件和其他文件夹</string>
   <string name="verifyYourAddress">验证 %s 是您的邮箱地址</string>
   <string name="weHaveSentYouAnEmailTo">我们已向 %s 发送了一封邮件。请点击邮件中的链接以重置您的密码。</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">注册即表示您同意 %s。</string>
-  <string name="readAboutOur">请阅读我们的 %s。</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">注册即表示您同意%s。</string>
+  <string name="readAboutOur">请阅读我们的%s。</string>
   <string name="networkLagBetweenYouAndLichess">您与 Lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">在 Lichess 服务器上处理一步棋的时间</string>
   <string name="downloadAnnotated">下载有评注的 PGN</string>
@@ -881,7 +884,7 @@
   <string name="currentMatchScore">当前对局成绩</string>
   <string name="agreementAssistance">我同意在对局中任何时刻都不会接受帮助（来自电脑引擎、书籍、数据库或其他人）。</string>
   <string name="agreementNice">我同意我将始终尊重其他棋手。</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于 %s 中所述的原因）。</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于%s中所述的原因）。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">超子弹棋</string>
