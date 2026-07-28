@@ -313,7 +313,8 @@ gaa?ndu?
 
   def fr = dict("""
 batard
-connard
+blaireau
+con+ard?
 cr[eé]tin
 encul[eé]r?
 f[2d]p
@@ -322,7 +323,6 @@ pute
 p[eé]d[eé]raste
 salope
 triche(ur|)
-conn?ard?
 """)
 
   def de = dict("""
