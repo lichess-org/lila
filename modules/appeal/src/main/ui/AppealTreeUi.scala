@@ -326,7 +326,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     )
 
   private def prizebanMenu(using Context): Branch =
-    val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
+    val prizebanExpired = "My ban duration has expired and I want it to be lifted"
     val deny = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
@@ -348,7 +348,18 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             newAppeal(AppealTopic.prize)(deny)
           )
         )
-      )
+      ),
+      content = frag(
+        p(
+          "This is due to a fair play restriction in your previous account and your status of titled player."
+        ),
+        p(
+          "You were informed of this during the appeal of the previous account and/or via private message by a public moderator."
+        ),
+        p(
+          "If you disagree with the restriction or believe its term has expired and want it to be removed, send an appeal."
+        )
+      ).some
     )
 
   private def playbanMenu(using Context): Branch =
