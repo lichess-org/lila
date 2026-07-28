@@ -797,6 +797,8 @@ interface I18n {
     banAppeal: string;
     /** In certain circumstances when playing against a bot account, a rated game may not award points if we determine that the player is abusing the bot for rating points. */
     botRatingAbuse: string;
+    /** Broadcast a tournament on Lichess */
+    broadcastTournamentOnLichess: string;
     /** Buying Lichess */
     buyingLichess: string;
     /** It is called "en passant" and is one of the rules of chess. */
@@ -857,6 +859,10 @@ interface I18n {
     iCantLogIn: string;
     /** If your appeal is legitimate, we will lift the ban ASAP. */
     ifLegit: string;
+    /** If you want to officially broadcast a tournament on Lichess, or have any questions about our broadcasts: */
+    ifYouWantToBroadcastClause1: string;
+    /** Please contact our Broadcast Team at %1$s or on %2$s. */
+    ifYouWantToBroadcastClause2: I18nFormat;
     /** Illegal or impossible castling */
     illegalCastling: string;
     /** Illegal pawn capture */
@@ -869,6 +875,16 @@ interface I18n {
     learnHowToMakeBroadcasts: string;
     /** I lost access to my two-factor authentication codes */
     lost2FA: string;
+    /** block all ads and trackers */
+    monetiseBlockAllAdsAndTrackers: string;
+    /** We encourage everyone to %s. */
+    monetiseEncourageEveryoneTo: I18nFormat;
+    /** We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users. */
+    monetiseNoAdsTrackingOrTraffic: string;
+    /** Please do not email us about marketing, tracking, or advertising. */
+    monetiseNoMarketingEmail: string;
+    /** We are not interested in any way of monetising Lichess. */
+    monetiseNotInterested: string;
     /** Monetising Lichess */
     monetizing: string;
     /** I didn't receive my confirmation email */
@@ -883,6 +899,8 @@ interface I18n {
     orCloseAccount: string;
     /** Other restriction */
     otherRestriction: string;
+    /** our Discord server */
+    ourDiscordServer: string;
     /** Make sure you have played a rated game. Casual games do not affect your rating. */
     ratedGame: string;
     /** You can reopen your account on this page. */
@@ -4201,6 +4219,8 @@ interface I18n {
     popularOpenings: string;
     /** Paste a valid FEN to start every game from a given position. */
     positionInputHelp: I18nFormat;
+    /** edited */
+    postEdited: string;
     /** Posts */
     posts: string;
     /** When a potential problem is detected, we display this message. */
@@ -4233,6 +4253,8 @@ interface I18n {
     puzzles: string;
     /** Quick pairing */
     quickPairing: string;
+    /** Quote */
+    quote: string;
     /** Race finished */
     raceFinished: string;
     /** Random Chess960 position */
@@ -4305,6 +4327,8 @@ interface I18n {
     rememberMe: string;
     /** Removes the depth limit, and keeps your computer warm */
     removesTheDepthLimit: string;
+    /** Reopen */
+    reopen: string;
     /** Reopen your account */
     reopenYourAccount: string;
     /** If you closed your account, but have since changed your mind, you get a chance of getting your account back. */

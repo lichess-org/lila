@@ -616,6 +616,9 @@
   <string name="replies">Răspunsuri</string>
   <string name="replyToThisTopic">Răspunde la acest topic</string>
   <string name="reply">Răspunde</string>
+  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Redeschide</string>
+  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citează</string>
+  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editat</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Creează un topic</string>
   <string name="reportAUser">Raportează un utilizator</string>
