@@ -65,7 +65,6 @@ object I18nKey:
     val `arenaBanned`: I18nKey = "appeal:arenaBanned"
     val `prizeBanned`: I18nKey = "appeal:prizeBanned"
     val `boosterMarked`: I18nKey = "appeal:boosterMarked"
-    val `boosterMarkedInfo`: I18nKey = "appeal:boosterMarkedInfo"
     val `accountMuted`: I18nKey = "appeal:accountMuted"
     val `accountMutedInfo`: I18nKey = "appeal:accountMutedInfo"
     val `excludedFromLeaderboards`: I18nKey = "appeal:excludedFromLeaderboards"

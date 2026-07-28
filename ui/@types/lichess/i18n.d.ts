@@ -89,17 +89,15 @@ interface I18n {
     arenaBanned: string;
     /** blog rules */
     blogRules: string;
-    /** Your account is marked for rating manipulation. */
+    /** Your account was restricted for rating manipulation/account sharing */
     boosterMarked: string;
-    /** We define this as deliberately manipulating a rating by losing games on purpose or by playing against another account that is deliberately losing games. */
-    boosterMarkedInfo: string;
     /** Your account is not marked or restricted. You're all good! */
     cleanAllGood: string;
     /** Your account was closed by moderators. */
     closedByModerators: string;
     /** communication guidelines */
     communicationGuidelines: string;
-    /** Your account has been restricted for using external assistance in games. */
+    /** Your account was restricted for use of engine/computer assistance in games. */
     engineMarked: string;
     /** We define this as using any external help to reinforce your knowledge and/or calculation skills to gain an unfair advantage over your opponent. See the %s page for more details. */
     engineMarkedInfo: I18nFormat;

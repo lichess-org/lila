@@ -152,7 +152,28 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         )
       ),
-      content = tap.boosterMarkedInfo().some
+      content = frag(
+        p(strong("Rating manipulation")),
+        p("This includes, but isn’t limited to:"),
+        ul(
+          li(strong("Sandbagging:"), " deliberately losing rated games"),
+          li(
+            strong("Boosting:"),
+            " playing an excessive number of rated games against someone who was deliberately losing."
+          )
+        ),
+        p(strong("Account sharing:")),
+        p("Your account can only be used by you. If someone else:"),
+        ul(
+          li("played games using your account, with or without your permission, or"),
+          li("if you asked another person’s advice during rated games,")
+        ),
+        p(
+          "Then you have violated our ",
+          a(href := routes.Cms.tos)(trans.site.termsOfService()),
+          ". You are responsible for all activities in your account."
+        )
+      ).some
     )
 
   private def muteMenu(using Context): Branch =
