@@ -291,6 +291,20 @@ function onSubmit(
       $input.val('');
       return;
     }
+    if (input.split(' ')[0].toLowerCase() === 'b') {
+      const result = commands().board.apply(input, ground.state.pieces, moveStyle());
+      if (result) notify(result);
+      $input.val('');
+      return;
+    }
+    const commandResult =
+      commands().piece.apply(input, ground.state.pieces, moveStyle()) ??
+      commands().scan.apply(input, ground.state.pieces, moveStyle());
+    if (commandResult !== undefined) {
+      notify(commandResult);
+      $input.val('');
+      return;
+    }
     const uci = nv.inputToMove(input, runCtrl.levelCtrl.chess.fen(), ground);
     if (typeof uci === 'string' && uci.length >= 4) {
       const orig = uci.slice(0, 2) as Key;
@@ -306,6 +320,8 @@ function onSubmit(
     } else {
       notify(`Invalid move: ${raw}`);
       errorSound();
+      $input.val('');
+      return;
     }
     $input.val('');
     selectSound();
