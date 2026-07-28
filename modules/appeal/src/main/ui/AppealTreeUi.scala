@@ -362,6 +362,35 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       ).some
     )
 
+  private def reportbanMenu(using Context): Branch =
+    val accept =
+      "I regret my mistakes and will behave better in future, please give me a second chance"
+    val deny =
+      "I reject any allegations of wrongdoing that may have prompted a reportban"
+    Branch(
+      "root",
+      tap.reportBanned(),
+      List(
+        Leaf(
+          "reportban-accept",
+          accept,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.report)(accept)
+          )
+        ),
+        Leaf(
+          "reportban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.report)(deny)
+          )
+        )
+      ),
+      content = tap.reportBannedInfo().some
+    )
+
   private def playbanMenu(using Context): Branch =
     Branch(
       "root",
@@ -467,6 +496,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     AppealTopic.rank -> rankBanMenu,
     AppealTopic.arena -> arenaBanMenu,
     AppealTopic.prize -> prizebanMenu,
+    AppealTopic.report -> reportbanMenu,
     AppealTopic.blog -> hiddenBlogMenu
   )
 

@@ -186,6 +186,7 @@ final class ModApi(
 
   def setReportban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.reportban != v).so:
+      Bus.pub(lila.core.mod.ReportBan(sus.user.id, v))
       userRepo.setReportban(sus.user.id, v) >> logApi.reportban(sus, v)
 
   def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =

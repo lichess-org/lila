@@ -103,7 +103,7 @@ interface I18n {
     engineMarkedInfo: I18nFormat;
     /** Your account has been excluded from leaderboards. */
     excludedFromLeaderboards: string;
-    /** We define this as using any unfair way to get on the leaderboard. */
+    /** Only one account per person can appear on leaderboards. */
     excludedFromLeaderboardsInfo: string;
     /** Fair Play */
     fairPlay: string;
@@ -115,6 +115,10 @@ interface I18n {
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
     prizeBanned: string;
+    /** You can’t send reports to moderators */
+    reportBanned: string;
+    /** We noticed a pattern of abusing our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate or offensive language, reporting an excessive number of games and not demonstrating why you think the opponent violated the rules. */
+    reportBannedInfo: string;
   };
   arena: {
     /** All averages on this page are %s. */

@@ -20,6 +20,7 @@ object AppealTopicApi:
       u.marks.rankban.option(rank),
       u.marks.arenaBan.option(arena),
       u.marks.prizeban.option(prize),
+      u.marks.reportban.option(report),
       u.playban.option(play),
       u.chatTimeout.option(chat),
       u.ublogHidden.option(blog)
@@ -45,6 +46,7 @@ object AppealTopicApi:
           case AppealTopic.rank => ("Unban from leaderboards", routes.Mod.rankban(user.id, false)).some
           case AppealTopic.arena => ("Unban from arena", routes.Mod.arenaBan(user.id, false)).some
           case AppealTopic.prize => ("Unban from prize", routes.Mod.prizeban(user.id, false)).some
+          case AppealTopic.report => ("Unban from reporting", routes.Mod.reportban(user.id, false)).some
           case _ => none
 
   def markMsg(status: UserStatus, topic: AppealTopic): Option[I18nKey] =
@@ -59,6 +61,7 @@ object AppealTopicApi:
           case AppealTopic.rank => trans.excludedFromLeaderboards.some
           case AppealTopic.arena => trans.arenaBanned.some
           case AppealTopic.prize => trans.prizeBanned.some
+          case AppealTopic.report => trans.reportBanned.some
           case AppealTopic.chat => I18nKey("15 minutes chat timeout").some
           case _ => none
 

@@ -14,6 +14,8 @@
   <string name="hiddenBlog">Your blogs have been hidden by moderators.</string>
   <string name="hiddenBlogInfo">Make sure to read again our %s.</string>
   <string name="playTimeout">You have a play timeout.</string>
+  <string name="reportBanned">You can’t send reports to moderators</string>
+  <string name="reportBannedInfo">We noticed a pattern of abusing our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate or offensive language, reporting an excessive number of games and not demonstrating why you think the opponent violated the rules.</string>
   <string name="communicationGuidelines">communication guidelines</string>
   <string name="blogRules">blog rules</string>
   <string name="fairPlay">Fair Play</string>

@@ -73,6 +73,8 @@ object I18nKey:
     val `hiddenBlog`: I18nKey = "appeal:hiddenBlog"
     val `hiddenBlogInfo`: I18nKey = "appeal:hiddenBlogInfo"
     val `playTimeout`: I18nKey = "appeal:playTimeout"
+    val `reportBanned`: I18nKey = "appeal:reportBanned"
+    val `reportBannedInfo`: I18nKey = "appeal:reportBannedInfo"
     val `communicationGuidelines`: I18nKey = "appeal:communicationGuidelines"
     val `blogRules`: I18nKey = "appeal:blogRules"
     val `fairPlay`: I18nKey = "appeal:fairPlay"
