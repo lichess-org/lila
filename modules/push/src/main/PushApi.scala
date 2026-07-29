@@ -368,7 +368,7 @@ final private class PushApi(
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
 
-  private def recap(userId: UserId, year: Int): Funit =
+  private[push] def recap(userId: UserId, year: Int): Funit =
     val data = LazyFu.sync:
       Data(
         title = "",
