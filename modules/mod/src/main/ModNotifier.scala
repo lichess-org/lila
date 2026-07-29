@@ -33,8 +33,8 @@ final private class ModNotifier(
       case None => msgApi.systemPost(mod.userId, "No kid mode preset found, couldn't send a PM.").void
       case Some(preset) => msgApi.systemPost(user.id, preset.text).void
 
-  private val actionTakenMessage = """Hello!
+  private val actionTakenMessage = """Hello,
 
-We reviewed and took action based on your recent report. While we can’t share details about the actions taken, please know we really appreciate your report.
+We have reviewed your recent report and taken action. While we cannot share details about the actions taken, we appreciate your report.
 
-Thanks for helping to keep Lichess safe!"""
+Thank you for your help in keeping Lichess a good place for everyone."""
