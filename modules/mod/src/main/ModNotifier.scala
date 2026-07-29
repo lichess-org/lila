@@ -1,8 +1,9 @@
 package lila.mod
 
 import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.report.SuspectId
 import lila.rating.PerfType
-import lila.report.Suspect
+import lila.report.{ Room, Suspect }
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
@@ -11,13 +12,17 @@ final private class ModNotifier(
     msgApi: lila.core.msg.MsgApi
 )(using Executor, lila.core.i18n.Translator):
 
-  def reporters(mod: ModId, sus: Suspect): Funit =
+  private val actionTakenOnceEvery = scalalib.cache.OnceEvery[(SuspectId, UserId)](1.hour)
+
+  def actionTaken(mod: ModId, sus: Suspect, room: Room): Funit =
     reportApi
-      .recentReportersOf(sus)
+      .recentReportersOf(sus, room)
+      .thenPp(room.toString)
       .flatMap:
         _.filterNot(_.is(mod))
-          .parallelVoid: reporterId =>
-            notifyApi.notifyOne(reporterId, NotificationContent.ReportedBanned)
+          .sequentiallyVoid: reporterId =>
+            actionTakenOnceEvery(sus.id -> reporterId.id).so:
+              msgApi.systemPost(reporterId.userId, actionTakenMessage).void
 
   def refund(user: User, pt: PerfType, points: Int): Funit =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
@@ -27,3 +32,9 @@ final private class ModNotifier(
     pmPresets.setKidModePreset match
       case None => msgApi.systemPost(mod.userId, "No kid mode preset found, couldn't send a PM.").void
       case Some(preset) => msgApi.systemPost(user.id, preset.text).void
+
+  private val actionTakenMessage = """Hello!
+
+We reviewed and took action based on your recent report. While we can’t share details about the actions taken, please know we really appreciate your report.
+
+Thanks for helping to keep Lichess safe!"""

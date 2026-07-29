@@ -515,17 +515,18 @@ final class ReportApi(
         "open" -> true
       )
 
-  def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
+  def recentReportersOf(sus: Suspect, room: Room): Fu[List[ReporterId]] =
     coll
       .distinctEasy[ReporterId, List](
         "atoms.by",
         $doc(
           "user" -> sus.user.id,
-          "atoms.0.at".$gt(nowInstant.minusDays(7))
+          "atoms.0.at".$gt(nowInstant.minusDays(7)),
+          "room" -> room.key
         ),
         _.sec
       )
-      .dmap(_.filterNot(ReporterId.lichess.==))
+      .map(_.filterNot(ReporterId.lichess.==))
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room])(using mod: Me): Fu[List[Report.WithSuspect]] =
     for

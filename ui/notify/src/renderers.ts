@@ -75,7 +75,7 @@ export default function makeRenderers(): Renderers {
     reportedBanned: {
       html: n =>
         generic(n, undefined, licon.InfoCircle, [
-          h('span', [h('strong', i18n.site.someoneYouReportedWasBanned)]),
+          h('span', [h('strong', 'Someone you reported was banned')]),
           h('span', i18n.site.thankYou),
         ]),
       text: _ => i18n.site.someoneYouReportedWasBanned,

@@ -92,6 +92,7 @@ final class AccountTermination(
     _ <- appealApi.onAccountClose(u)
     _ <- ublogApi.onAccountClose(u)
     _ <- (u.marks.troll || u.marks.alt).so(activityWrite.unfollowAll(u, followedIds))
+    _ = selfClose.not.so(modApi.afterModClose(u))
   yield Bus.pub(lila.core.security.CloseAccount(u.id))
 
   def scheduleDelete(u: User)(using Me): Funit = for

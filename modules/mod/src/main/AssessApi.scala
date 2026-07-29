@@ -150,7 +150,7 @@ final class AssessApi(
             .getTitle(userId)
             .flatMap:
               case None =>
-                modApi.autoMark(
+                modApi.autoEngine(
                   SuspectId(userId),
                   playerAggregateAssessment.reportText(3)
                 )(using UserId.lichessAsMe)
