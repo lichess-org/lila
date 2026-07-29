@@ -652,6 +652,9 @@
   <string name="replies">Ответы</string>
   <string name="replyToThisTopic">Ответить в этой теме</string>
   <string name="reply">Ответить</string>
+  <string name="reopen">Открыть заново</string>
+  <string name="quote">Цитировать</string>
+  <string name="postEdited">изменено</string>
   <string name="message">Сообщение</string>
   <string name="createTheTopic">Создать тему</string>
   <string name="reportAUser">Сообщить о пользователе</string>

@@ -580,9 +580,9 @@
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
   <string name="reply">Responder</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Reabrir</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citar</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editado</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citar</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensaxe</string>
   <string name="createTheTopic">Crear o tema</string>
   <string name="reportAUser">Denunciar a un usuario</string>

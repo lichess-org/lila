@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
+  <string name="checkSpamOrJunkFolder" comment="It = The confirmation email&#10;&#10;Replaces old string checkSpamFolder">Si vous n\'avez pas reçu de courriel de confirmation, vérifiez votre boîte de pourriels. Assurez-vous de mettre les messages de Lichess sur votre liste blanche pour recevoir les communications importantes.</string>
   <string name="sendEmailForAccountVerification">Vous ne trouvez pas votre courriel de confirmation? Envoyez un courriel à %s et nous confirmerons votre compte pour vous.</string>
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
@@ -580,9 +581,9 @@
   <string name="replies">Réponses</string>
   <string name="replyToThisTopic">Répondre à ce sujet</string>
   <string name="reply">Répondre</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Rouvrir</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citer</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">Modifié</string>
+  <string name="reopen">Rouvrir</string>
+  <string name="quote">Citer</string>
+  <string name="postEdited">Modifié</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Créer un sujet</string>
   <string name="reportAUser">Signaler un utilisateur</string>
@@ -595,6 +596,7 @@
   <string name="reportCheatBoostHelp">Collez le lien vers la ou les parties et expliquez pourquoi le comportement de l\'utilisateur est inapproprié. Ne dites pas juste « il triche »; expliquez comment vous êtes arrivé à cette conclusion.</string>
   <string name="reportUsernameHelp">Expliquez pourquoi ce nom d\'utilisateur est offensant. Ne dites pas simplement qu\'il est choquant ou inapproprié; expliquez comment vous êtes arrivé à cette conclusion, surtout si l\'insulte n\'est pas claire, n\'est pas en anglais, est en argot ou a une connotation historique ou culturelle.</string>
   <string name="reportProcessedFasterInEnglish">Votre rapport sera traité plus rapidement s\'il est rédigé en anglais.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.&#10;&#10;Replaces old string reportProcessedFasterInEnglish">Nous pouvons traiter votre rapport plus rapidement si vous l\'écrivez en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
   <string name="importedByX">Importée par %s</string>
@@ -719,6 +721,7 @@
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new&#10;&#10;Replaces old string whenCreateSimul">Créer un simultanée vous permet de jouer contre plusieurs adversaires en même temps.</string>
   <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
@@ -999,6 +1002,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
   <string name="markdownIsAvailable">%s est disponible pour aider au formatage.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.&#10;&#10;Replaces old string markdownIsAvailable">Vous pouvez utiliser %s pour formater du texte.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
@@ -1006,6 +1010,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
   <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
   <string name="navigateMoveTree">Naviguer dans l\'arborescence</string>
+  <string name="moveListNavigation" comment="Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.&#10;&#10;Replaces old string navigateMoveTree">Navigation dans la liste de coups</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
   <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>

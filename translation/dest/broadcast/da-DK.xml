@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
+  <string name="permanentlyDeleteTournament" comment="Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast&#10;&#10;Replaces old string definitivelyDeleteTournament">Slet denne turnering permanent, herunder alle runder og partier?</string>
   <string name="showScores">Vis spilleres point baseret på resultater fra partier</string>
   <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="fideFederations">FIDE-føderationer</string>

@@ -147,6 +147,13 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 当您的浏览器阻止 lichess.org 播放声音时，会出现红色的静音图标。通常，在您点击某处后，此限制就会被解除。在某些移动浏览器上，触摸拖动棋子不算作点击。在这种情况下，您必须在每局对局开始时点击棋盘以允许播放声音。
 
 当这种情况发生时，我们会显示红色图标来提醒您。通常，您可以明确允许 lichess.org 播放声音。以下是在一些流行浏览器的最新版本上进行设置的指南。</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">大多数浏览器会阻止在新访问的页面上播放声音，以保护用户。
+
+当您的浏览器阻止 lichess.org 播放声音时，会显示静音图标。一旦您点击页面上的任何元素，此限制通常会解除。
+
+在某些移动端浏览器上，触摸拖拽棋子不算作点击操作。这种情况下，您需要在每场对局开始时点击棋盘以允许播放声音。
+
+我们显示红色静音图标是为了在发生这种情况时提醒您。您可以在大多数浏览器中显式允许 lichess.org 播放声音。以下是在一些主流浏览器的最新版本中允许网站播放音频的操作说明：</string>
   <string name="desktop">桌面端</string>
   <string name="enableAutoplayForSoundsFirefox">1. 访问 lichess.org
 2. 在 Linux/Windows 上按 Ctrl + i，或在 MacOS 上按 cmd + i
@@ -154,6 +161,10 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 4. 在 lichess.org 上允许“音频和视频”</string>
   <string name="enableAutoplayForSoundsChrome">1. 访问 lichess.org
 2. 点击地址栏中的锁形图标
+3. 点击“网站设置”
+4. 允许“播放声音”</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. 访问 lichess.org
+2. 点击地址栏中的网站信息图标
 3. 点击“网站设置”
 4. 允许“播放声音”</string>
   <string name="enableAutoplayForSoundsSafari">1. 访问 lichess.org

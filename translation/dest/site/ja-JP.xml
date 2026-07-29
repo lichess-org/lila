@@ -545,6 +545,9 @@
   <string name="replies">返信数</string>
   <string name="replyToThisTopic">このトピックに返信</string>
   <string name="reply">返信</string>
+  <string name="reopen">もう一度開く</string>
+  <string name="quote">引用する</string>
+  <string name="postEdited">編集済</string>
   <string name="message">メッセージ</string>
   <string name="createTheTopic">トピックを作成</string>
   <string name="reportAUser">プレイヤーの報告</string>

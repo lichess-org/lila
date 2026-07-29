@@ -652,6 +652,9 @@
   <string name="replies">Відповідей</string>
   <string name="replyToThisTopic">Відповісти на цю тему</string>
   <string name="reply">Відповісти</string>
+  <string name="reopen">Відкрити ще раз</string>
+  <string name="quote">Цитувати</string>
+  <string name="postEdited">змінено</string>
   <string name="message">Повідомлення</string>
   <string name="createTheTopic">Створити тему</string>
   <string name="reportAUser">Поскаржитись на користувача</string>

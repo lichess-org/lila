@@ -74,9 +74,11 @@
   <string name="topPlayers">ผู้เล่นท็อป:</string>
   <string name="timezone">เขตเวลา</string>
   <string name="fideRatingCategory">หมวดหมู่คะแนน FIDE</string>
-  <string name="optionalDetails">รายละเอียดเพิ่มเติม</string>
+  <string name="optionalDetails">รายละเอียดเพิ่มเติม
+</string>
   <string name="pastBroadcasts">การออกอากาศที่ผ่านมา</string>
-  <string name="allBroadcastsByMonth">ดูการออกอากาศทั้งหมดตามเดือน</string>
+  <string name="allBroadcastsByMonth">ดูการออกอากาศทั้งหมดตามเดือน
+</string>
   <string name="backToLiveMove">กลับไปตาเดินล่าสุด</string>
   <string name="sinceHideResults">เนื่องจากคุณเลือกที่จะซ่อนผลของเกม กระดานแสดงตัวอย่างทั้งหมดจึงว่างเปล่าเพื่อป้องกันการเปิดเผยข้อมูล</string>
   <string name="liveboard">กระดานสด</string>

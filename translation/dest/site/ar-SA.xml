@@ -724,6 +724,9 @@
   <string name="replies">الردود</string>
   <string name="replyToThisTopic">الرد على هذا الموضوع</string>
   <string name="reply">الرد</string>
+  <string name="reopen">إعادة فتح</string>
+  <string name="quote">اقتباس</string>
+  <string name="postEdited">تم التعديل</string>
   <string name="message">رسالة</string>
   <string name="createTheTopic">إنشاء الموضوع</string>
   <string name="reportAUser">الإبلاغ عن مستخدم</string>
