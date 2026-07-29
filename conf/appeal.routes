@@ -1,5 +1,6 @@
 GET   /appeal                          controllers.appeal.Appeal.home
 POST  /appeal/:topic                   controllers.appeal.Appeal.post(topic: AppealTopic)
+POST  /appeal/:topic/withdraw          controllers.appeal.Appeal.withdraw(topic: AppealTopic)
 GET   /appeal/landing                  controllers.appeal.Appeal.landing
 GET   /appeal/closed-by-teacher        controllers.appeal.Appeal.closedByTeacher
 GET   /appeal/queue                    controllers.appeal.Appeal.modQueue

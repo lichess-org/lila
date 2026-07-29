@@ -15,7 +15,8 @@ final class Env(
     cacheApi: CacheApi,
     picfitApi: PicfitApi,
     picfitUrl: PicfitUrl,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    httpProxy: lila.memo.HttpProxy
 )(using
     Executor,
     org.apache.pekko.stream.Materializer
