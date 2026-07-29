@@ -17,7 +17,7 @@ final private class FidePlayerSync(
     repo: FideRepo,
     ws: StandaloneWSClient,
     proxy: lila.memo.HttpProxy,
-    listUrl: String
+    listUrl: Url
 )(using
     Executor,
     org.apache.pekko.stream.Materializer
@@ -105,7 +105,7 @@ final private class FidePlayerSync(
 
   private object playersFromHttpFile:
     def apply(): Funit = for
-      req = ws.url(listUrl)
+      req = ws.url(listUrl.value)
       proxied = proxy.select().foldLeft(req)(_ withProxyServer _)
       httpStream <- proxied.stream()
       _ <-
