@@ -1,16 +1,19 @@
 package lila.fide
 
 import com.softwaremill.macwire.*
+import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import chess.FideId
 
 import lila.core.config.CollName
 import lila.core.fide.*
+import lila.common.autoconfig.given
 import lila.memo.{ CacheApi, PicfitApi, PicfitUrl }
 import scalalib.paginator.Paginator
 
 @Module
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Db,
     cacheApi: CacheApi,
     picfitApi: PicfitApi,
@@ -62,7 +65,8 @@ final class Env(
 
   given Federation.Guess = lila.fide.Federation.find
 
-  private lazy val fideSync = wire[FidePlayerSync]
+  private lazy val fideSync =
+    FidePlayerSync(repo, ws, httpProxy, appConfig.get[Url]("fide.players.url"))
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
