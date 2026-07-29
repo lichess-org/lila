@@ -87,7 +87,7 @@ interface I18n {
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arena tournaments. */
     arenaBanned: string;
-    /** blog rules */
+    /** blog etiquette */
     blogRules: string;
     /** Your account was restricted for rating manipulation/account sharing */
     boosterMarked: string;
@@ -107,9 +107,9 @@ interface I18n {
     excludedFromLeaderboardsInfo: string;
     /** Fair Play */
     fairPlay: string;
-    /** Your blogs have been hidden by moderators. */
+    /** You have a blog restriction. */
     hiddenBlog: string;
-    /** Make sure to read again our %s. */
+    /** Read our %s, violating these rules may result in different actions. */
     hiddenBlogInfo: I18nFormat;
     /** You have a play timeout. */
     playTimeout: string;

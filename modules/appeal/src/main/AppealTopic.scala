@@ -62,6 +62,7 @@ object AppealTopicApi:
           case AppealTopic.arena => trans.arenaBanned.some
           case AppealTopic.prize => trans.prizeBanned.some
           case AppealTopic.report => trans.reportBanned.some
+          case AppealTopic.blog => trans.hiddenBlog.some
           case AppealTopic.chat => I18nKey("15 minutes chat timeout").some
           case _ => none
 

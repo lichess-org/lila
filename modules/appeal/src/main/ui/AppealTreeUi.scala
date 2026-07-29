@@ -298,9 +298,9 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def hiddenBlogMenu(using Context): Branch =
     val accept =
-      "I accept that I have broken the blog rules"
+      "I regret my actions and would like to appeal"
     val deny =
-      "I deny having broken the blog rules."
+      "I don’t understand what I did wrong and would like to appeal"
     Branch(
       "root",
       tap.hiddenBlog(),
