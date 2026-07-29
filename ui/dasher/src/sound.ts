@@ -78,9 +78,9 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private readonly voiceSelectionDialog = () => {
-    if (!this.showVoiceSelection) return;
+    if (!this.showVoiceSelection) return undefined;
     const content = this.renderVoiceSelection();
-    if (!content) return;
+    if (!content) return undefined;
     return snabDialog({
       onClose: () => {
         if (!i18n.nvui) return site.reload();

@@ -101,7 +101,7 @@ export const renderCustomStatus = ({ ceval }: AnalyseCtrl, hardMode: Prop<boolea
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   const comment: Comment | null = ctrl.comment();
   const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
   const running: boolean = ctrl.running();

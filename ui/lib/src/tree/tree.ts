@@ -97,9 +97,9 @@ export function makeTree(root: TreeNode): TreeWrapper {
   }
 
   const getNodeList = (path: TreePath): TreeNode[] =>
-    ops.collect(root, function (node: TreeNode) {
+    ops.collect(root, (node: TreeNode) => {
       const id = treePath.head(path);
-      if (id === '') return;
+      if (id === '') return undefined;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });

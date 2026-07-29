@@ -60,7 +60,7 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
 
 export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const group = ctrl.group();
-  if (!group) return;
+  if (!group) return undefined;
   const sets = groups[group];
   const said = ctrl.said();
   return sets && said.length < 2

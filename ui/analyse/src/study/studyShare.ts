@@ -12,7 +12,7 @@ import type RelayCtrl from './relay/relayCtrl';
 import { relayIframe } from './relay/relayTourView';
 
 function fromPly(ctrl: StudyShare): MaybeVNode {
-  if (!ctrl.onMainline()) return;
+  if (!ctrl.onMainline()) return undefined;
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
   return hl('label.url-start-at-ply', [
     cmnToggleProp({ id: 'study-share-start-position', prop: ctrl.withPly, redraw: ctrl.redraw }),

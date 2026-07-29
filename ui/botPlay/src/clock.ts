@@ -5,7 +5,7 @@ import type { DateMillis } from './interfaces';
 
 export const computeClockState = (g: Game): ClockState | undefined => {
   const config = g.clockConfig;
-  if (!config) return;
+  if (!config) return undefined;
   const initial = config.initial || 5;
   const state = {
     white: initial,

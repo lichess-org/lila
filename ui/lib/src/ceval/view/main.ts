@@ -125,7 +125,7 @@ let gaugeLast = 0;
 let gaugeTicks: VNode[];
 
 export function renderGauge(ctrl: CevalHandler): VNode | undefined {
-  if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
+  if (ctrl.ongoing || !ctrl.showEvalGauge()) return undefined;
   gaugeTicks ??= [...Array(8).keys()].map(i =>
     hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
@@ -318,7 +318,7 @@ function setHovering(ceval: CevalCtrl, fen: FEN | null, uci?: Uci): void {
 }
 
 export function renderPvs(ctrl: CevalHandler): VNode | undefined {
-  if (!ctrl.cevalEnabled()) return;
+  if (!ctrl.cevalEnabled()) return undefined;
   const ceval = ctrl.ceval;
   const multiPv = ceval.search.multiPv,
     node = ctrl.getNode(),
@@ -456,7 +456,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
 function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
   const ceval = ctrl.ceval;
   const pvBoard = ceval.pvBoard();
-  if (!pvBoard) return;
+  if (!pvBoard) return undefined;
   const { fen, uci } = pvBoard;
   const orientation = ctrl.getOrientation();
   const cgConfig = {

@@ -12,9 +12,9 @@ import type { ForecastStep } from './interfaces';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
-  if (!firstNode) return;
+  if (!firstNode) return undefined;
   const fcs = fctrl.findStartingWithNode(firstNode);
-  if (!fcs.length) return;
+  if (!fcs.length) return undefined;
   const lines = fcs.filter(fc => fc.length > 1);
   return h(
     'button.on-my-turn.button.text',
