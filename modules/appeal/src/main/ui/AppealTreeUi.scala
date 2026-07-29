@@ -440,14 +440,13 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
   private def altScreen(using Context) = div(cls := "leaf")(
     h2(tap.closedByModerators()),
     div(cls := "content")(
-      p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
-        "If you violated the terms of service on a previous account, then you are not allowed to make a new one, ",
-        "unless it was explicitly allowed by the moderation team during an appeal."
+        "On the sign-up page you agreed not to create an excessive number of accounts, generally not more than 3. Violating this term is considered abuse of infrastructure."
       ),
       p(
-        "If you never violated the terms of service, and didn't make several accounts, then you can appeal this account closure:"
-      )
+        "If you violated our terms of service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
+      ),
+      p("If you have done nothing wrong and believe this is a mistake, send an appeal.")
     ),
     newAppeal(AppealTopic.close)("")
   )
