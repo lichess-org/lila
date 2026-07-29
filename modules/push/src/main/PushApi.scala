@@ -375,7 +375,7 @@ final private class PushApi(
         body = "",
         key = Key.recap,
         urgency = Urgency.Normal,
-        payload = payload("type" -> "recap", year" -> year.toString()),
+        payload = payload("type" -> "recap", "year" -> year.toString()),
         mobileCompatible = LichessMobileVersion(0, 26)
       )
     alwaysPushFirebaseData(userId, _.recap, data)
