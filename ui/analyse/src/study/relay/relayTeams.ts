@@ -147,7 +147,7 @@ const renderTeams = (
         row.games.map(game => {
           const chap = chapters.get(game.id);
           const players = chap?.players;
-          if (!players) return;
+          if (!players) return undefined;
           const sortedPlayers =
             game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (

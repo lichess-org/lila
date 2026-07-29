@@ -93,7 +93,7 @@ export class IdbTree {
   };
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
-    if (this.noop || this.ctrl.study || !(this.cache.movesDirty || force)) return;
+    if (this.noop || this.ctrl.study || !(this.cache.movesDirty || force)) return undefined;
     return this.moveDb().then(db =>
       db.put(this.id, { root: treeOps.structuredCloneLite(this.ctrl.tree.root) }),
     );

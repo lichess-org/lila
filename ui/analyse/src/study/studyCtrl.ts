@@ -443,7 +443,7 @@ export default class StudyCtrl {
       n.gamebook = n.gamebook || {};
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
-    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
+    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return undefined;
     this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.redraw);
     this.vm.mode.sticky = false;
     return undefined;

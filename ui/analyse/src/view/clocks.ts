@@ -26,7 +26,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
       isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
     ).map(c => (defined(c) && c < 0 ? undefined : c));
 
-  if (!centis.some(notNull)) return;
+  if (!centis.some(notNull)) return undefined;
 
   const study = ctrl.study;
 

@@ -16,20 +16,19 @@ interface Candidate {
 
 function toYoutubeEmbedUrl(url: string): string | undefined {
   const result = parseYoutubeUrl(url);
-  if (result) {
-    return embedYoutubeUrl(result);
-  }
+  if (!result) return undefined;
+  return embedYoutubeUrl(result);
 }
 
 site.load.then(() => {
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
-    if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
+    if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return undefined;
     const yt = toYoutubeEmbedUrl(a.href);
-    if (yt)
-      return {
-        type: 'youtube',
-        src: yt,
-      };
+    if (!yt) return undefined;
+    return {
+      type: 'youtube',
+      src: yt,
+    };
   }
 
   function expandYoutube(a: Candidate) {
