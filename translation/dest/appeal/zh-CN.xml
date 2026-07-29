@@ -15,6 +15,7 @@
   <string name="hiddenBlog">您的博客已被版主隐藏。</string>
   <string name="hiddenBlogInfo">请务必重新阅读我们的 %s。</string>
   <string name="playTimeout">您处于禁赛期。</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games&#10;&#10;Replaces old string playTimeout">您的账户暂时被限制对弈！</string>
   <string name="communicationGuidelines">沟通准则</string>
   <string name="blogRules">博客规则</string>
   <string name="fairPlay">公平竞赛</string>

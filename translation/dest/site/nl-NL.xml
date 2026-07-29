@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="It = The confirmation email&#10;&#10;Replaces old string checkSpamFolder">Als je geen bevestigingsmail ontvangt, controleer dan de map Spam of Junk. Zorg ervoor dat je berichten van lichess.org markeert als veilig en \"geen spam\", zodat je op de hoogte kunt blijven van belangrijke communicatie.</string>
   <string name="sendEmailForAccountVerification">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
@@ -580,6 +581,9 @@
   <string name="replies">Reacties</string>
   <string name="replyToThisTopic">Reageer op dit onderwerp</string>
   <string name="reply">Reageer</string>
+  <string name="reopen">Opnieuw openen</string>
+  <string name="quote">Citeren</string>
+  <string name="postEdited">bewerkt</string>
   <string name="message">Bericht</string>
   <string name="createTheTopic">Maak een nieuw onderwerp</string>
   <string name="reportAUser">Gebruiker melden</string>

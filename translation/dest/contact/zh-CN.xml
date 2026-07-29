@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">以上都不是</string>
   <string name="sendEmailAt">请发送邮件至 %s。</string>
   <string name="explainYourRequest">请清晰、详尽地说明您的请求。提供您的 Lichess 用户名，以及任何能帮助我们为您提供协助的信息。</string>
+  <string name="monetiseNotInterested">我们对任何将 Lichess 商业化的方式都不感兴趣。</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">我们永远不会展示任何形式的广告，不会跟踪我们的棋手，也不会出售或购买流量或用户。</string>
+  <string name="monetiseNoMarketingEmail">请不要就营销、跟踪或广告事宜给我们发送邮件。</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">我们鼓励所有人%s。</string>
+  <string name="monetiseBlockAllAdsAndTrackers">屏蔽所有广告和跟踪器</string>
+  <string name="broadcastTournamentOnLichess">在 Lichess 上转播锦标赛</string>
+  <string name="ifYouWantToBroadcastClause1">如果您希望在 Lichess 上正式转播锦标赛，或者对我们的转播有任何疑问：</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">请通过 %1$s 或%2$s联系我们的转播团队。</string>
+  <string name="ourDiscordServer">我们的 Discord 服务器</string>
 </resources>

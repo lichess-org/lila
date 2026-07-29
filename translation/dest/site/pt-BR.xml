@@ -580,9 +580,9 @@
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
   <string name="reply">Responder</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Reabrir</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citação</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editado</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citação</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensagem</string>
   <string name="createTheTopic">Criar tópico</string>
   <string name="reportAUser">Reportar um usuário</string>
@@ -1006,6 +1006,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
   <string name="onlyTeamMembers">Apenas membros da equipe</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
+  <string name="moveListNavigation" comment="Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.&#10;&#10;Replaces old string navigateMoveTree">Navegação na lista de lances</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
   <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>

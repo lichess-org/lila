@@ -580,6 +580,9 @@
   <string name="replies">Vastaukset</string>
   <string name="replyToThisTopic">Vastaa tähän aiheeseen</string>
   <string name="reply">Vastaa</string>
+  <string name="reopen">Avaa uudelleen</string>
+  <string name="quote">Siteeraa</string>
+  <string name="postEdited">muokattu</string>
   <string name="message">Viesti</string>
   <string name="createTheTopic">Luo aihe</string>
   <string name="reportAUser">Raportoi käyttäjä</string>

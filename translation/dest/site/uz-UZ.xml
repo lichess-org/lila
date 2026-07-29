@@ -580,6 +580,9 @@
   <string name="replies">Javoblar soni</string>
   <string name="replyToThisTopic">Ushbu mavzuda javob qoldirish</string>
   <string name="reply">Javob yozish</string>
+  <string name="reopen">Qayta ochish</string>
+  <string name="quote">Iqtibos qilish</string>
+  <string name="postEdited">tahrirlangan</string>
   <string name="message">Xabar</string>
   <string name="createTheTopic">Mavzuni yaratish</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>

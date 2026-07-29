@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Puede que tome algo de tiempo en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
   <string name="checkSpamFolder">También comprueba tu carpeta de spam, por si ha ido ahí. En ese caso, márcalo como no spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="It = The confirmation email&#10;&#10;Replaces old string checkSpamFolder">Si no recibes un correo electrónico de confirmación, comprueba tu carpeta de correo no deseado o Spam. Asegúrate de indicar los mensajes de Lichess como seguros y \"no spam\", para que puedas mantenerte informado de las comunicaciones importantes.</string>
   <string name="sendEmailForAccountVerification">Si no puedes encontrar tu correo electrónico de confirmación, escribe a %s y confirmaremos tu cuenta.</string>
   <string name="accountConfirmed">Se ha completado la verificación del usuario %s sin problemas.</string>
   <string name="accountCanLogin">Ya puedes iniciar sesión como %s.</string>
@@ -580,9 +581,9 @@
   <string name="replies">Respuestas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
   <string name="reply">Responder</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Reabrir</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citar</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">editado</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citar</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensaje</string>
   <string name="createTheTopic">Crear tema</string>
   <string name="reportAUser">Denunciar a un usuario</string>
@@ -595,6 +596,7 @@
   <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica por qué es ofensivo este nombre de usuario. No te limites a decir \"es ofensivo\" o \"inapropiado\" y argumenta tu conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
   <string name="reportProcessedFasterInEnglish">Tu denuncia se procesará más rápido si la escribes en inglés.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.&#10;&#10;Replaces old string reportProcessedFasterInEnglish">Podremos procesar tu informe más rápido si lo escribes en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -719,6 +721,7 @@
   <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new&#10;&#10;Replaces old string whenCreateSimul">Crear una simultánea te permite jugar contra varios oponentes al mismo tiempo.</string>
   <string name="simulVariantsHint">Si seleccionas diferentes variantes, cada jugador escoge cuál jugar.</string>
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
@@ -999,6 +1002,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownIsAvailable">El formato de %s está disponible.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.&#10;&#10;Replaces old string markdownIsAvailable">Puedes formatear texto mediante %s.</string>
   <string name="embedsAvailable">Pega el enlace de una partida o de un capítulo de estudio para insertarlo.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
@@ -1006,6 +1010,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="onlyTeamLeaders">Sólo líderes del equipo</string>
   <string name="onlyTeamMembers">Sólo miembros del equipo</string>
   <string name="navigateMoveTree">Desplazarse por el árbol de movimientos</string>
+  <string name="moveListNavigation" comment="Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.&#10;&#10;Replaces old string navigateMoveTree">Navegación de la lista de movimientos</string>
   <string name="mouseTricks">Trucos de ratón</string>
   <string name="toggleLocalAnalysis">Activar y desactivar análisis por ordenador local</string>
   <string name="toggleAllAnalysis">Activar y desactivar todos los análisis por ordenador</string>

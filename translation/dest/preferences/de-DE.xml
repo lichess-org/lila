@@ -57,11 +57,15 @@
   <string name="correspondenceEmailNotification">Tägliche E-Mail-Benachrichtigung, die deine Fernschachpartien auflistet</string>
   <string name="notifyStreamStart">Streamer ist live</string>
   <string name="notifyInboxMsg">Neue Nachricht im Posteingang</string>
+  <string name="notifyDirectMessage" comment="A notification setting - notifies players when they receive a new message in their Lichess inbox&#10;&#10;Replaces old string notifyInboxMsg">Neue Direktnachricht</string>
   <string name="notifyForumMention">Forenkommentar erwähnt dich</string>
+  <string name="notifyForumMentions" comment="A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)&#10;&#10;Replaces old string notifyForumMention">Forumserwähnungen</string>
   <string name="notifyInvitedStudy">Einladung zu Studie</string>
+  <string name="notifyStudyInvites" comment="A notification setting - notifies players about invites to studies (https://lichess.org/study/)&#10;&#10;Replaces old string notifyInvitedStudy">Einladungen zu Studien</string>
   <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
   <string name="notifyChallenge">Herausforderungen</string>
   <string name="notifyTournamentSoon">Turnier beginnt bald</string>
+  <string name="notifyTournamentStartReminders" comment="A notification setting - notifies players if a tournament is starting soon.&#10;&#10;Replaces old string notifyTournamentSoon">Turnierstart-Erinnerungen</string>
   <string name="notifyBroadcasts">Übertragungen</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
   <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>

@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Spelupdates voor correspondentiepartijen</string>
   <string name="notifyChallenge">Uitdagingen</string>
   <string name="notifyTournamentSoon">Toernooi begint binnenkort</string>
+  <string name="notifyTournamentStartReminders" comment="A notification setting - notifies players if a tournament is starting soon.&#10;&#10;Replaces old string notifyTournamentSoon">Toernooien sturen een herinnering</string>
   <string name="notifyBroadcasts">Uitzendingen</string>
   <string name="notifyTimeAlarm">Klok met correspondentie bijna leeg</string>
   <string name="notifyBell">Bel melding binnen Lichess</string>

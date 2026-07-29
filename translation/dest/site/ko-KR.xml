@@ -256,6 +256,7 @@
   <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
   <string name="checkSpamFolder">또한 스팸 메일함에 들어가 있을 수 있습니다. 만약 그런 경우, 스팸이 아님으로 표시해 두세요.</string>
+  <string name="checkSpamOrJunkFolder" comment="It = The confirmation email&#10;&#10;Replaces old string checkSpamFolder">만약 확인 이메일을 받지 못하셨다면, 스팸함이나 휴지통을 확인하세요. 중요한 연락을 계속 통보받기 위해서는 lichess.org에서 발송된 메시지를 안전함 및 \"스팸이 아님\"으로 설정하세요.</string>
   <string name="sendEmailForAccountVerification">확인 이메일을 찾을 수 없는 경우 %s에 이메일을 보내주시면 계정을 확인해 드리겠습니다.</string>
   <string name="accountConfirmed">유저 %s(이)가 성공적으로 확인되었습니다.</string>
   <string name="accountCanLogin">이제 %s(으)로 로그인할 수 있습니다.</string>
@@ -544,6 +545,9 @@
   <string name="replies">답글</string>
   <string name="replyToThisTopic">답글 달기</string>
   <string name="reply">전송</string>
+  <string name="reopen">다시 열기</string>
+  <string name="quote">인용하기</string>
+  <string name="postEdited">수정됨</string>
   <string name="message">내용</string>
   <string name="createTheTopic">새 주제 생성</string>
   <string name="reportAUser">사용자 신고</string>
@@ -556,6 +560,7 @@
   <string name="reportCheatBoostHelp">대국 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
   <string name="reportProcessedFasterInEnglish">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.&#10;&#10;Replaces old string reportProcessedFasterInEnglish">신고를 영어로 작성하시면 더 빠르게 처리해 드릴 수 있습니다.</string>
   <string name="error.provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
@@ -677,6 +682,7 @@
   <string name="aboutSimulSettings">다면기는 항상 캐주얼전입니다. 재대결, 무르기, 시간추가를 할 수 없습니다.</string>
   <string name="create">생성</string>
   <string name="whenCreateSimul">다면기를 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new&#10;&#10;Replaces old string whenCreateSimul">다면기를 생성하여 여러 명의 상대와 동시에 대국할 수 있습니다.</string>
   <string name="simulVariantsHint">게임 방식을 한 개 이상 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">다면기를 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
@@ -950,6 +956,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulDescription">다면기 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
   <string name="markdownIsAvailable">%s 서식을 사용할 수 있습니다.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.&#10;&#10;Replaces old string markdownIsAvailable">%s으로 텍스트 서식을 설정할 수 있습니다.</string>
   <string name="embedsAvailable">포함할 대국 URL 또는 연구 챕터 URL을 붙여넣으세요.</string>
   <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
   <string name="tournChat">토너먼트 채팅</string>
@@ -957,6 +964,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
   <string name="navigateMoveTree">수순 트리 탐색</string>
+  <string name="moveListNavigation" comment="Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.&#10;&#10;Replaces old string navigateMoveTree">수순 리스트 탐색</string>
   <string name="mouseTricks">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
