@@ -190,7 +190,6 @@ final private class FidePlayerSync(
               .forall(i => !i.isSame(fromFide))
               .option:
                 fromFide.copy(photo = inDb.flatMap(_.photo))
-          logger.info(s"FidePlayerSync.saveIfChanged: ${changed.size} changes out of ${players.size} players")
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)
             for
