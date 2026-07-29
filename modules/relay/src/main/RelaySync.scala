@@ -106,15 +106,16 @@ final private class RelaySync(
   ): Fu[Unit] =
     // tail moves that are not in the source but are in the study chapter,
     // should become forced variations in the study chapter
-    chapter.root
-      .nodeAt(gameMainline)
-      .map(_.children.toList.map(gameMainline + _.id))
-      .foldMap(_.sequentiallyVoid: childPath =>
-        studyApi.forceVariation(
-          studyId = chapter.studyId,
-          position = Position(chapter, childPath).ref,
-          force = true
-        )(by))
+    gameMainline.nonEmpty.so:
+      chapter.root
+        .nodeAt(gameMainline)
+        .map(_.children.toList.map(gameMainline + _.id))
+        .foldMap(_.sequentiallyVoid: childPath =>
+          studyApi.forceVariation(
+            studyId = chapter.studyId,
+            position = Position(chapter, childPath).ref,
+            force = true
+          )(by))
 
   private def sendLastNode(study: Study, chapter: Chapter, game: RelayGame, gameMainlinePath: UciPath)(using
       Who,
