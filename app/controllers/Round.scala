@@ -85,8 +85,11 @@ final class Round(
           pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
 
   private def getNext(currentGame: GameModel)(urgent: UrgentGames) =
-    urgent.value.find: pov =>
-      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    def canSwitchTo(pov: Pov) = pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    // only switch to an AI game if no human game is waiting for a move
+    urgent.value
+      .find(pov => canSwitchTo(pov) && pov.game.nonAi)
+      .orElse(urgent.value.find(canSwitchTo))
 
   def whatsNext(fullId: GameFullId) = Open:
     Found(env.round.proxyRepo.pov(fullId)): currentPov =>
