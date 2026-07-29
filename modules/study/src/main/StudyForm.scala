@@ -38,7 +38,7 @@ object StudyForm:
       description: Option[Boolean]
   ):
     def studyName = StudyName(lila.common.String.fullCleanUp(name).take(100))
-    def settings = Settings(computer, explorer, cloneable, shareable, chat, ~sticky, ~description)
+    def settings = Settings(computer, explorer, cloneable, shareable, chat, sticky | true, ~description)
 
   val form: Form[FormData] = Form:
     val userSelectionField = typeIn(Settings.UserSelection.values.toSet)
