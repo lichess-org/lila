@@ -100,8 +100,10 @@ $c-slider: $c-setup;
   group.radio input:checked + label {
     background: $c-setup;
 
-    &:hover {
-      background: hsl(from $c-secondary h s calc(l + 5));
+    @media (hover: hover) {
+      &:hover {
+        background: hsl(from $c-secondary h s calc(l + 5));
+      }
     }
   }
 
