@@ -78,7 +78,7 @@ export default function makeRenderers(): Renderers {
           h('span', [h('strong', 'Someone you reported was banned')]),
           h('span', i18n.site.thankYou),
         ]),
-      text: _ => i18n.site.someoneYouReportedWasBanned,
+      text: _ => 'Someone you reported was banned',
     },
     gameEnd: {
       html: n => {
