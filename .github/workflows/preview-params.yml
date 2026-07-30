@@ -63,12 +63,13 @@ jobs:
             }
 
             if (run.event === 'pull_request') {
-              const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              const { data: prs } = await github.rest.pulls.list({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                commit_sha: run.head_sha,
+                state: 'open',
+                head: `${run.head_repository.owner.login}:${run.head_branch}`,
               });
-              const pr = prs.find(p => p.state === 'open');
+              const pr = prs.find(p => p.head.sha === run.head_sha);
               const hasPreviewLabel = !!pr && pr.labels.some(label => label.name === 'preview');
               if (!hasPreviewLabel) {
                 setNone();
