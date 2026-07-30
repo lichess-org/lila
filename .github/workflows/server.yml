@@ -16,6 +16,7 @@ on:
     branches-ignore:
       - 'l10n_master'
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/server.yml'
       - 'app/**'
@@ -60,7 +61,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch || github.event_name == 'workflow_dispatch'
+    if: >-
+      github.event_name == 'push' && github.ref_name == github.event.repository.default_branch ||
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.labels.*.name, 'preview')
     concurrency:
       group: docker-build-publish
       cancel-in-progress: true
@@ -99,6 +103,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}-server
           tags: |
             type=ref,event=branch
+            type=ref,event=pr
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
