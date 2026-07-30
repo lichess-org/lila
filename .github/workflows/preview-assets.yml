@@ -31,6 +31,7 @@ jobs:
           ref: ${{ needs.check.outputs.checkout_ref }}
           sparse-checkout: public
           path: head-checkout
+          allow-unsafe-pr-checkout: true
 
       - name: Use that commit's public/ instead of the default branch's
         run: |
