@@ -46,13 +46,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
     coll.exists(selectId(team.id, user) ++ $doc("unsub" -> true)).not
 
   def subscribe(teamId: TeamId, userId: UserId, v: Boolean): Funit =
-    coll.update
-      .one(
-        selectId(teamId, userId),
-        if v then $unset("unsub")
-        else $set("unsub" -> true)
-      )
-      .void
+    coll.updateOrUnsetField(selectId(teamId, userId), "unsub", v.not.option(true)).void
 
   def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: Permission.Selector): Fu[Boolean] =
     coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm(Permission)))

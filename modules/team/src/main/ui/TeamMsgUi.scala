@@ -14,7 +14,7 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
   ) =
     Page(team.name + " messages")
       .css("team.msg")
-      .js(Esm("team.msg")):
+      .js(esmInit("team.msg")):
         main(cls := "box team-msg team-msg--team")(
           side(byTeam, team.id.some),
           div(cls := "team-msg__convo")(

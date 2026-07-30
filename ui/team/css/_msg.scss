@@ -181,6 +181,10 @@ body {
           display: none;
         }
       }
+
+      form {
+        @extend %flex-center;
+      }
     }
 
     .team-link {
