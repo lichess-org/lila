@@ -1,0 +1,128 @@
+name: Publish assets image
+
+on:
+  workflow_run:
+    workflows: ['Build assets']
+    types: [completed]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    permissions:
+      pull-requests: read
+    outputs:
+      publish: ${{ steps.params.outputs.publish }}
+      deploy: ${{ steps.params.outputs.deploy }}
+      tags: ${{ steps.params.outputs.tags }}
+      pr_number: ${{ steps.params.outputs.pr_number }}
+    steps:
+      - name: Work out whether/how to publish and deploy
+        id: params
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const defaultBranch = context.payload.repository.default_branch;
+
+            const setNone = () => {
+              core.setOutput('publish', 'false');
+              core.setOutput('deploy', 'false');
+              core.setOutput('tags', '');
+              core.setOutput('pr_number', '');
+            };
+
+            if (run.event === 'push' || run.event === 'workflow_dispatch') {
+              const isDefaultBranch = run.head_branch === defaultBranch;
+              if (run.event === 'push' && !isDefaultBranch) {
+                setNone();
+                return;
+              }
+              const tags = [`type=raw,value=${run.head_branch}`];
+              if (isDefaultBranch) tags.push('type=raw,value=latest');
+              core.setOutput('publish', 'true');
+              core.setOutput('deploy', isDefaultBranch ? 'true' : 'false');
+              core.setOutput('tags', tags.join('\n'));
+              core.setOutput('pr_number', '');
+              return;
+            }
+
+            if (run.event === 'pull_request') {
+              const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: run.head_sha,
+              });
+              const pr = prs.find(p => p.state === 'open');
+              const hasPreviewLabel = !!pr && pr.labels.some(label => label.name === 'preview');
+              if (!hasPreviewLabel) {
+                setNone();
+                return;
+              }
+              core.setOutput('publish', 'true');
+              core.setOutput('deploy', 'false');
+              core.setOutput('tags', `type=raw,value=pr-${pr.number}`);
+              core.setOutput('pr_number', String(pr.number));
+              return;
+            }
+
+            setNone();
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: check
+    if: needs.check.outputs.publish == 'true'
+    concurrency:
+      group: docker-publish-assets-${{ needs.check.outputs.pr_number || 'main' }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: lila-assets
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract assets
+        run: |
+          mkdir -p assets
+          tar --zstd -xvf assets.tar.zst -C assets
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ghcr.io/${{ github.repository }}-assets
+          tags: ${{ needs.check.outputs.tags }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: .github/workflows/docker/assets.Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    name: deploy preview
+    if: github.repository_owner == 'lichess-org' && needs.check.outputs.deploy == 'true'
+    needs: [check, docker]
+    uses: lichess-org/.github/.github/workflows/deploy.yml@main
+    secrets:
+      deploy_webhook_url: ${{ secrets.DEPLOY_PREVIEW_ASSETS_URL }}
