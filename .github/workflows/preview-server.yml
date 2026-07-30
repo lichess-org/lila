@@ -49,7 +49,7 @@ jobs:
           mkdir -p lila
           tar --zstd -xvf *.tar.zst -C lila
 
-      - name: Copy default conf
+      - name: Copy conf
         run: |
           cp -r conf lila
 
