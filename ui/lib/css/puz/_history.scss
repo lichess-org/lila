@@ -68,8 +68,6 @@
   bad {
     @extend %flex-center, %box-radius-bottom;
 
-    text-transform: uppercase;
-
     &::before {
       @extend %data-icon;
 
