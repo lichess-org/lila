@@ -3,10 +3,14 @@ package lila.team
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import scalalib.paginator.AdapterLike
 
 private final class TeamMsgRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
+
+  private val history = 90.days
+  private def historyAgo = nowInstant.minus(history)
 
   // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
@@ -19,7 +23,7 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
     coll.secondary.countSel:
       $doc(
         "team".$in(teams.toArray),
-        "date".$gt(nowInstant.minusMonths(1)),
+        "date".$gt(historyAgo),
         "seenBy".$ne(me.userId)
       )
 
@@ -32,25 +36,31 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def teamRecent(team: TeamId)(using me: Me): Fu[List[TeamMsgSeen[TeamId]]] =
+  def teamRecent(team: TeamId)(using Me): AdapterLike[TeamMsgSeen[TeamId]] =
     allRecent(Team.IdsStr(List(team)))
 
-  def allRecent(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgSeen[TeamId]]] =
-    coll
-      .aggregateList(100, _.sec): framework =>
-        import framework.*
-        Match($doc("team".$in(teams.toArray))) ->
-          List(
-            Sort(Descending("date")),
-            Limit(100),
-            AddFields($doc("seenBy" -> $doc("$in" -> $arr(me.userId, "$seenBy"))))
-          )
-      .map: docs =>
-        for
-          doc <- docs
-          msg <- doc.asOpt[TeamMsg[TeamId]]
-          seen <- doc.getAsOpt[Boolean]("seenBy")
-        yield TeamMsgSeen(msg, seen)
+  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[TeamMsgSeen[TeamId]] = new:
+    private val teamSelect = teams.toArray match
+      case Array(single) => $doc("team" -> single)
+      case many => $doc("team".$in(many))
+    def nbResults: Fu[Int] = coll.secondary.countSel(teamSelect ++ $doc("date".$gt(historyAgo)))
+    def slice(offset: Int, length: Int): Fu[List[TeamMsgSeen[TeamId]]] =
+      coll
+        .aggregateList(length, _.sec): framework =>
+          import framework.*
+          Match(teamSelect) ->
+            List(
+              Sort(Descending("date")),
+              Skip(offset),
+              Limit(length),
+              AddFields($doc("seenBy" -> $doc("$in" -> $arr(me.userId, "$seenBy"))))
+            )
+        .map: docs =>
+          for
+            doc <- docs
+            msg <- doc.asOpt[TeamMsg[TeamId]]
+            seen <- doc.getAsOpt[Boolean]("seenBy")
+          yield TeamMsgSeen(msg, seen)
 
   def byTeams(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgs[TeamId]]] =
     coll

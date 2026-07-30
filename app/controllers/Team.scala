@@ -390,10 +390,10 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
-  def messages = Auth { ctx ?=> me ?=>
+  def messages(page: Int) = Auth { ctx ?=> me ?=>
     for
       byTeam <- env.team.msg.byTeams
-      recent <- env.team.msg.allRecent
+      recent <- env.team.msg.allRecent(page)
       res <- Ok.page(views.team.msg.allRecent(recent, byTeam))
     yield res
   }
@@ -406,7 +406,7 @@ final class Team(env: Env) extends LilaController(env):
           if _ then
             for
               byTeam <- env.team.msg.byTeams
-              recent <- env.team.msg.teamRecentAndMarkRead(team)
+              recent <- env.team.msg.teamRecentAndMarkRead(team, page)
               subscribed <- api.isSubscribed(team, me)
               res <- Ok.page(views.team.msg.teamRecent(recent, byTeam, team, subscribed))
             yield res

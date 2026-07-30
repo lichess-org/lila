@@ -14,13 +14,14 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
   ) =
     Page(team.name + " messages")
       .css("team.msg")
-      .js(esmInit("team.msg")):
+      .js(esmInit("team.msg"))
+      .js(infiniteScrollEsmInit):
         main(cls := "box team-msg team-msg--team")(
           side(byTeam, team.id.some),
           div(cls := "team-msg__convo")(
             div(cls := "team-msg__convo__head")(
               div(cls := "team-msg__convo__head__title")(
-                a(href := routes.Team.messages)(
+                a(href := routes.Team.messages())(
                   cls := "team-msg__convo__head__back",
                   dataIcon := Icon.LessThan
                 ),
@@ -40,27 +41,29 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
                 )
               )
             ),
-            msgList(msgs)
+            msgList(msgs)(routes.Team.messagesOf(team.id, _))
           )
         )
 
   def allRecent(msgs: TeamMsg.Recent, byTeam: TeamMsg.ByTeams)(using Context) =
-    Page("Team messages").css("team.msg"):
-      main(cls := "box team-msg team-msg--all")(
-        side(byTeam, selected = none),
-        div(cls := "team-msg__convo")(
-          div(cls := "team-msg__convo__head")(
-            h1("Team messages")
-          ),
-          msgList(msgs)
+    Page("Team messages")
+      .css("team.msg")
+      .js(infiniteScrollEsmInit):
+        main(cls := "box team-msg team-msg--all")(
+          side(byTeam, selected = none),
+          div(cls := "team-msg__convo")(
+            div(cls := "team-msg__convo__head")(
+              h1("Team messages")
+            ),
+            msgList(msgs)(routes.Team.messages(_))
+          )
         )
-      )
 
-  private def msgList(msgs: TeamMsg.Recent)(using Context) =
-    div(cls := "team-msg__convo__msgs")(
-      msgs.map: m =>
+  private def msgList(msgs: TeamMsg.Recent)(nextUrl: Int => Call)(using Context) =
+    div(cls := "team-msg__convo__msgs infinite-scroll", data("scroll-selector") := ".infinite-scroll")(
+      msgs.currentPageResults.map: m =>
         import m.*
-        div(cls := List("team-msg__convo__msg" -> true, "team-msg__convo__msg--unread" -> !seen))(
+        div(cls := List("team-msg__convo__msg paginated" -> true, "team-msg__convo__msg--unread" -> !seen))(
           div(cls := "team-msg__convo__msg__info")(
             teamLink(msg.team, withIcon = false),
             div(cls := "team-msg__convo__msg__meta")(
@@ -70,6 +73,8 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
           ),
           div(cls := "team-msg__convo__msg__body")(richText(msg.text))
         )
+      ,
+      pagerNext(msgs, np => nextUrl(np).url)
     )
 
   private def side(byTeam: TeamMsg.ByTeams, selected: Option[TeamId]) =

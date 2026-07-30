@@ -4,6 +4,7 @@ import lila.memo.RateLimit.LimitResult
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.team.LightTeam
+import scalalib.paginator.Paginator
 
 case class TeamMsg[T](
     @Key("_id") id: String,
@@ -19,7 +20,7 @@ case class TeamMsgs[T](team: T, unread: Int, last: Instant)
 case class TeamMsgSeen[T](msg: TeamMsg[T], seen: Boolean)
 
 object TeamMsg:
-  type Recent = List[TeamMsgSeen[LightTeam]]
+  type Recent = Paginator[TeamMsgSeen[LightTeam]]
   type ByTeams = List[TeamMsgs[LightTeam]]
 
 final class TeamMsgApi(
@@ -33,21 +34,22 @@ final class TeamMsgApi(
 
   export msgRepo.markSeen
 
+  private val maxPerPage = MaxPerPage(6)
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
-  def teamRecentAndMarkRead(team: Team)(using me: Me): Fu[TeamMsg.Recent] =
+  def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamMsg.Recent] =
     for
-      msgs <- msgRepo.teamRecent(team.id)
-      _ <- msgs.exists(!_.seen).so(msgRepo.markSeen(team.id))
+      msgs <- Paginator(msgRepo.teamRecent(team.id), page, maxPerPage)
+      _ <- msgs.currentPageResults.exists(!_.seen).so(msgRepo.markSeen(team.id))
     yield msgs.map(msg => TeamMsgSeen(msg.msg.copy(team = team.light), msg.seen))
 
-  def allRecent(using me: Me): Fu[TeamMsg.Recent] = for
+  def allRecent(page: Int)(using me: Me): Fu[TeamMsg.Recent] = for
     teamIds <- cached.teamIds(me.userId)
-    msgs <- msgRepo.allRecent(teamIds)
-    teams <- cached.lightMapById(msgs.map(_.msg.team))
-  yield
+    msgs <- Paginator(msgRepo.allRecent(teamIds), page, maxPerPage)
+    teams <- cached.lightMapById(msgs.currentPageResults.view.map(_.msg.team).toList)
+  yield msgs.mapList: results =>
     for
-      msg <- msgs
+      msg <- results
       team <- teams.get(msg.msg.team)
     yield TeamMsgSeen(msg.msg.copy(team = team), msg.seen)
 
