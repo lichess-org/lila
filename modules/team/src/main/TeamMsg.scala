@@ -24,6 +24,7 @@ object TeamMsg:
 
 final class TeamMsgApi(
     msgRepo: TeamMsgRepo,
+    memberRepo: TeamMemberRepo,
     cached: TeamCached,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler):
@@ -75,7 +76,10 @@ final class TeamMsgApi(
       senderId = me.userId,
       date = nowInstant
     )
-    msgRepo.send(msg).void
+    for
+      unsubed <- memberRepo.listOfUnsubscribed(id)
+      _ <- msgRepo.send(msg, unsubed)
+    yield ()
 
   object limiter:
 

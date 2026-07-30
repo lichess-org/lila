@@ -43,10 +43,13 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       coll.distinctEasy[UserId, Set]("user", $inIds(users.map { TeamMember.makeId(teamId, _) }))
 
   def isSubscribed[U: UserIdOf](team: Team, user: U): Fu[Boolean] =
-    coll.exists(selectId(team.id, user) ++ $doc("unsub" -> true)).not
+    coll.secondary.exists(selectId(team.id, user) ++ $doc("unsub".$ne(true)))
 
   def subscribe(teamId: TeamId, userId: UserId, v: Boolean): Funit =
     coll.updateOrUnsetField(selectId(teamId, userId), "unsub", v.not.option(true)).void
+
+  def listOfUnsubscribed(teamId: TeamId): Fu[List[UserId]] =
+    coll.secondary.primitive[UserId](teamQuery(teamId) ++ $doc("unsub" -> true), "user")
 
   def hasPerm[A: UserIdOf](teamId: TeamId, user: A, perm: Permission.Selector): Fu[Boolean] =
     coll.exists(selectId(teamId, user) ++ $doc("perms" -> perm(Permission)))

@@ -4,15 +4,15 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-final class TeamMsgRepo(val coll: Coll)(using Executor):
+private final class TeamMsgRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
   // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
 
-  def send(msg: TeamMsg[TeamId]): Funit =
-    val bson = toBdoc(msg).get ++ $doc("seenBy" -> $arr())
+  def send(msg: TeamMsg[TeamId], unsubed: List[UserId]): Funit =
+    val bson = toBdoc(msg).get ++ $doc("seenBy" -> unsubed)
     coll.insert.one(bson).void
 
   def countUnread(teams: Team.IdsStr)(using me: Me): Fu[Int] =
