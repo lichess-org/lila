@@ -163,7 +163,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 2. 주소창에서 잠금 아이콘 클릭
 3. 사이트 설정 클릭
 4. 소리 허용</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. lichess.org 이동
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. lichess.org 이동
 2. 주소창에서 사이트 주 아이콘 클릭
 3. 사이트 설정 클릭
 4. 소리 허용</string>

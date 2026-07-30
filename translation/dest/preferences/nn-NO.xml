@@ -57,11 +57,15 @@
   <string name="correspondenceEmailNotification">Dagleg e-postmelding med ei liste av fjernsjakkpartia dine</string>
   <string name="notifyStreamStart">Strøyminga er i gang</string>
   <string name="notifyInboxMsg">Ny melding i innboksen</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Ny direktemelding</string>
   <string name="notifyForumMention">Du er nemnd i ein forumkommentar</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Omtaler på forumet</string>
   <string name="notifyInvitedStudy">Invitasjon til studie</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitasjonar til studie</string>
   <string name="notifyGameEvent">Oppdateringar for fjernsjakkparti</string>
   <string name="notifyChallenge">Utfordringar</string>
   <string name="notifyTournamentSoon">Turneringa startar snart</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Påminningar om turneringsstart</string>
   <string name="notifyBroadcasts">Sendingar</string>
   <string name="notifyTimeAlarm">Fjernsjakkuret er i ferd med å løpa ut</string>
   <string name="notifyBell">Klokkemelding i Lichess</string>

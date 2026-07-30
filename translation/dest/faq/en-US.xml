@@ -147,6 +147,12 @@ Then select whether to allow or block notifications from Lichess.</string>
 The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something. On some mobile browsers, touch dragging a piece does not count as a click. In that case you must tap the board to allow sound at the start of each game.
 
 We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">To protect users, most browsers block audio from newly-visited webpages.
+
+The mute icon appears when your browser prevents lichess.org from playing sound. This restriction is typically lifted once you click something.
+On some mobile browsers, touch-dragging a piece does not register as a click. In that case, tap the board at the beginning of each game to enable sound.
+
+The red mute icon alerts you when your browser is blocking sound. Most browsers allow you to grant audio permissions to specific websites. Here are some browser instructions for enabling sound on lichess.com:</string>
   <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
 2. Press Ctrl+i on Linux/Windows or ⌘+i on macOS
@@ -154,6 +160,10 @@ We show the red icon to alert you when this happens. Often you can explicitly al
 4. Allow Audio and Video on lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Go to lichess.org
 2. Click the lock icon in the address bar
+3. Click Site Settings
+4. Allow Sound</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Go to lichess.org
+2. Click the site information icon in the address bar
 3. Click Site Settings
 4. Allow Sound</string>
   <string name="enableAutoplayForSoundsSafari">1. Go to lichess.org

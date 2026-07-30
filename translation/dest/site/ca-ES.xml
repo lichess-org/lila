@@ -966,7 +966,6 @@
   <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ara formes part de l\'equip.</string>
   <string name="youHaveJoinedTeamX">T\'has unit a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Algú que vas denunciar ha estat expulsat</string>
   <string name="congratsYouWon">Felicitats, has guanyat!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>

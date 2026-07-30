@@ -331,6 +331,9 @@
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">إذا لم تصلك رسالة تأكيد، فتحقق من مجلد الرسائل غير المرغوب فيها أو مجلد البريد المهمل.
+
+تأكد من اعتبار الرسائل القادمة من lichess.org آمنة ووضع علامة \"ليست رسائل مزعجة\" حتى تتمكن من البقاء على اطلاع على الاتصالات المهمة.</string>
   <string name="sendEmailForAccountVerification">إذا لم تتمكن من العثور على رسالة تأكيد البريد الإلكتروني الخاصة بك، قم بإرسال بريد إلكتروني إلى %s وسنؤكد حسابك لك.</string>
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
@@ -742,6 +745,7 @@
 https://lichess. org/report.</string>
   <string name="reportUsernameHelp">اشرح ما المسيء في اسم المستخدم هذا. لا تقل فقط \"إنه مسيء/غير مناسب\"، بل أخبرنا كيف توصلت إلى هذا الاستنتاج، خاصة إذا كانت الإهانة غير واضحة، أو ليست باللغة الإنجليزية، أو كانت باللغة العامية، أو كانت إشارة تاريخية/ثقافية.</string>
   <string name="reportProcessedFasterInEnglish">سيتم معالجة بلاغك بشكل أسرع إذا تمت كتابته باللغة الإنجليزية.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">سنتمكن من معالجة تقريرك بسرعة أكبر إذا أرسلته باللغة الإنجليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
   <string name="importedByX">استيراد \'%s\'</string>
@@ -878,6 +882,7 @@ https://lichess. org/report.</string>
   <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
   <string name="whenCreateSimul">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">إنشاء مباراة محاكاة يسمح لك بمواجهة عدة لاعبين في آنٍ واحد.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
@@ -1149,7 +1154,6 @@ https://lichess. org/report.</string>
   <string name="xInvitedYouToY">%1$s قد دعاك إلى \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">أنت الآن عضو في الفريق.</string>
   <string name="youHaveJoinedTeamX">لقد انضممت إلى \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">شخص قد أبلغت عنه تم حظره</string>
   <string name="congratsYouWon">تهانينا، لقد فزت!</string>
   <string name="gameVsX">مباراة ضد %1$s</string>
   <string name="resVsX">%1$s ضد %2$s</string>
@@ -1182,6 +1186,7 @@ https://lichess. org/report.</string>
   <string name="simulDescription">وصف المباراة الجماعية</string>
   <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
   <string name="markdownIsAvailable">%s متوفر للتنسيق.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">يمكنك تنسيق النص باستخدام ‎%s‎.</string>
   <string name="embedsAvailable">أضف رابط المباراة أو رابط الدراسة لإضافتها هنا.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
@@ -1189,6 +1194,7 @@ https://lichess. org/report.</string>
   <string name="onlyTeamLeaders">فقط قائدي الفريق</string>
   <string name="onlyTeamMembers">فقط لاعبي الفريق</string>
   <string name="navigateMoveTree">التنقل في لائحة النقلات</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">التنقل بين نقلات المباراة</string>
   <string name="mouseTricks">حيل بالفأرة</string>
   <string name="toggleLocalAnalysis">تبديل تحليل الكمبيوتر المحلي</string>
   <string name="toggleAllAnalysis">تبديل كل تحليل الكمبيوتر</string>

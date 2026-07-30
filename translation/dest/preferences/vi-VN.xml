@@ -57,11 +57,16 @@
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả các ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Tin nhắn mới</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Tin nhắn trực tiếp mới</string>
   <string name="notifyForumMention">Có bình luận diễn đàn đề cập đến bạn</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Bình luận của diễn đàn đề cập đến bạn</string>
   <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Lời mời tham gia nghiên cứu</string>
   <string name="notifyGameEvent">Những cập nhật liên quan đến ván cờ qua thư</string>
   <string name="notifyChallenge">Các lời thách đấu</string>
   <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Thông báo giải đấu bắt đầu</string>
+  <string name="notifyBroadcasts">Các phát sóng</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>
   <string name="notifyBell">Chuông thông báo khi đang truy cập Lichess</string>
   <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
@@ -73,13 +78,19 @@
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="showServerAnalysis">Hiện phân tích từ máy chủ</string>
   <string name="showBestMoveArrows">Hiện mũi tên cho nước đi tốt nhất</string>
+  <string name="showManeuverArrows">Hiện mũi tên chỉ dẫn quân cờ</string>
   <string name="showGauge">Hiện thanh lợi thế</string>
   <string name="showMoveAnnotationsOnBoard">Hiện chú thích nước đi</string>
   <string name="showVariationArrows">Hiện mũi tên cho các biến</string>
+  <string name="showLiveGlyphs">Máy tính chú thích trực tiếp</string>
   <string name="showUndefendedPieces">Hiện quân không được phòng thủ</string>
   <string name="showPinnedPieces">Hiện quân bị ghim</string>
+  <string name="showCheckableKing">Hiển thị vua có thể bị chiếu</string>
+  <string name="disclosureMode">Cho phép ẩn biến</string>
   <string name="generalSettings">Cài đặt chung</string>
   <string name="moveListSettings">Biên bản ván đấu</string>
   <string name="boardSettings">Bàn cờ</string>
   <string name="analysisSettings">Cài đặt phân tích</string>
+  <string name="maneuverArrowsHelp">Trình tự các nước đi của máy tính đánh giá cho một quân cờ</string>
+  <string name="hoverOverSettingLabelsForHelp">Di chuột qua các cài đặt để xem giải thích</string>
 </resources>

@@ -163,7 +163,7 @@ Vi viser det røde lydløs-ikon for at gøre dig opmærksom på det, når dette 
 2. Klik på låseikonet i adresselinjen
 3. Klik på Webstedsindstillinger
 4. Tillad lyd</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gå til lichess.org
 2. Klik på ikonet for webstedsoplysninger i adresselinjen
 3. Klik på Webstedsindstillinger
 4. Tillad lyd</string>

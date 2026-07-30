@@ -776,7 +776,7 @@
   <string name="verifyYourAddress">Потврди да је %s твоја имејл адреса</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо имејл на %s. Кликните линк у имејлу да промените своју лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом, слажеш се са %s.</string>
-  <string name="readAboutOur">Прочитајте о нашем %s.</string>
+  <string name="readAboutOur">Прочитајте шта је наша %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између тебе и Lichess-а</string>
   <string name="timeToProcessAMoveOnLichessServer">Време обраде потеза на Lichess-овом серверу</string>
   <string name="downloadAnnotated">Преузими са белешкама</string>
@@ -938,7 +938,7 @@
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Убрзани</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
@@ -969,7 +969,6 @@
   <string name="xInvitedYouToY">%1$s те позвао/ла у \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сада си део тима.</string>
   <string name="youHaveJoinedTeamX">Придружио/ла си се \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Неко кога си пријавио/ла је добио забрану приступа</string>
   <string name="congratsYouWon">Честитамо на победи!</string>
   <string name="gameVsX">Партија против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
@@ -984,7 +983,7 @@
   <string name="noRestriction">Без ограничења</string>
   <string name="minimumRatedGames">Минимално рангираних партија</string>
   <string name="minimumRating">Минимални рејтинг</string>
-  <string name="maximumWeeklyRating">Максимални недељни рејтинг</string>
+  <string name="maximumWeeklyRating">Максимални седмични рејтинг</string>
   <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
@@ -1014,7 +1013,7 @@
   <string name="gameInProgress">Твоја партија са %s је у току.</string>
   <string name="abortTheGame">Прекину партију</string>
   <string name="resignTheGame">Предај партију</string>
-  <string name="youCantStartNewGame">Не можете започети нову партију док је ваш потез.</string>
+  <string name="youCantStartNewGame">Не можеш започети нову партију док је твој потез.</string>
   <string name="since">Од</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Бодоване партије одигране на Lichess</string>
@@ -1023,11 +1022,11 @@
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
-  <string name="nothingToSeeHere">Немате шта видети овде тренутно.</string>
+  <string name="nothingToSeeHere">Тренутно нема ништа за видети овде.</string>
   <string name="stats">Статистике</string>
   <string name="accessibility">Приступачност</string>
-  <string name="enableBlindMode">Укључити режим за слепе</string>
-  <string name="disableBlindMode">Искључити режим за слепе</string>
+  <string name="enableBlindMode">Укључи режим за слепе</string>
+  <string name="disableBlindMode">Искључи режим за слепе</string>
   <string name="online" comment="status of a user">на мрежи</string>
   <string name="offline" comment="status of a user">ван мреже</string>
   <string name="search">Тражи</string>

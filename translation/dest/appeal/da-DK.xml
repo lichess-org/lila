@@ -15,7 +15,7 @@
   <string name="hiddenBlog">Dine blogs er blevet skjult af moderatorer.</string>
   <string name="hiddenBlogInfo">Sørg for igen at læse vores %s.</string>
   <string name="playTimeout">Du har en spille-timeout.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games&#10;&#10;Replaces old string playTimeout">Din konto er midlertidigt spærret for spil.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Din konto er midlertidigt spærret for spil.</string>
   <string name="communicationGuidelines">retningslinjer for kommunikation</string>
   <string name="blogRules">blogregler</string>
   <string name="fairPlay">Fairplay</string>

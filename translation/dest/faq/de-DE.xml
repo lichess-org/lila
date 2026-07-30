@@ -161,7 +161,7 @@ Wir zeigen das rote Stummschaltungssymbol an, um darauf aufmerksam zu machen, we
 2. Klicke auf das Schloss-Symbol in der Adressleiste
 3. Klicke auf die Seiten-Einstellungen
 4. Ton zulassen</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. Gehe auf lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gehe auf lichess.org
 2. Klicke auf das Seiteninformationssymbol in der Adressleiste
 3. Klicke auf Seiten-Einstellungen
 4. Ton zulassen</string>

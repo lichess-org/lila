@@ -3,7 +3,7 @@ package lila.mod
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.core.report.SuspectId
 import lila.rating.PerfType
-import lila.report.{ Room, Suspect }
+import lila.report.{ Room, Suspect, ReporterId }
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
@@ -12,17 +12,19 @@ final private class ModNotifier(
     msgApi: lila.core.msg.MsgApi
 )(using Executor, lila.core.i18n.Translator):
 
-  private val actionTakenOnceEvery = scalalib.cache.OnceEvery[(SuspectId, UserId)](1.hour)
+  object actionTaken:
+    private val onceEvery = scalalib.cache.OnceEvery[(SuspectId, UserId)](1.hour)
+    private val ignore = Set(ReporterId.lichess, ReporterId.irwin, ReporterId.kaladin)
 
-  def actionTaken(mod: ModId, sus: Suspect, room: Room): Funit =
-    reportApi
-      .recentReportersOf(sus, room)
-      .thenPp(room.toString)
-      .flatMap:
-        _.filterNot(_.is(mod))
-          .sequentiallyVoid: reporterId =>
-            actionTakenOnceEvery(sus.id -> reporterId.id).so:
-              msgApi.systemPost(reporterId.userId, actionTakenMessage).void
+    def apply(mod: ModId, sus: Suspect, room: Room): Funit =
+      reportApi
+        .recentReportersOf(sus, room)
+        .flatMap:
+          _.filterNot(ignore)
+            .filterNot(_.is(mod))
+            .sequentiallyVoid: reporterId =>
+              onceEvery(sus.id -> reporterId.id).so:
+                msgApi.systemPost(reporterId.userId, actionTakenMessage).void
 
   def refund(user: User, pt: PerfType, points: Int): Funit =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang

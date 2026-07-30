@@ -57,15 +57,15 @@
   <string name="correspondenceEmailNotification">Notificación diaria por correo listando tus partidas por correspondencia</string>
   <string name="notifyStreamStart">El presentador está en vivo</string>
   <string name="notifyInboxMsg">Nuevo mensaje en la bandeja de entrada</string>
-  <string name="notifyDirectMessage" comment="A notification setting - notifies players when they receive a new message in their Lichess inbox&#10;&#10;Replaces old string notifyInboxMsg">Nuevo mensaje directo</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nuevo mensaje directo</string>
   <string name="notifyForumMention">Comentario del foro que te menciona</string>
-  <string name="notifyForumMentions" comment="A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)&#10;&#10;Replaces old string notifyForumMention">Menciones en el foro</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Menciones en el foro</string>
   <string name="notifyInvitedStudy">Invitación a un estudio</string>
-  <string name="notifyStudyInvites" comment="A notification setting - notifies players about invites to studies (https://lichess.org/study/)&#10;&#10;Replaces old string notifyInvitedStudy">Invitaciones a estudios</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitaciones a estudios</string>
   <string name="notifyGameEvent">Actualizaciones de partida por correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
   <string name="notifyTournamentSoon">El torneo empieza pronto</string>
-  <string name="notifyTournamentStartReminders" comment="A notification setting - notifies players if a tournament is starting soon.&#10;&#10;Replaces old string notifyTournamentSoon">Recordatorios de inicio de torneos</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Recordatorios de inicio de torneos</string>
   <string name="notifyBroadcasts">Emisiones</string>
   <string name="notifyTimeAlarm">Poco tiempo restante en la partida por correspondencia</string>
   <string name="notifyBell">Notificación de campana dentro del Lichess</string>

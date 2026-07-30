@@ -57,11 +57,15 @@
   <string name="correspondenceEmailNotification">Email diario listando as túas partidas por correspondencia</string>
   <string name="notifyStreamStart">Un presentador comeza unha transmisión en directo</string>
   <string name="notifyInboxMsg">Novo correo</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nova mensaxe directa</string>
   <string name="notifyForumMention">Un comentario do foro menciónate</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Mencións no Foro</string>
   <string name="notifyInvitedStudy">Invitación a estudo</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitacións a estudos</string>
   <string name="notifyGameEvent">Actualizacións de partida por correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
   <string name="notifyTournamentSoon">O torneo comeza pronto</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Recordatorios de comezo de torneo</string>
   <string name="notifyBroadcasts">Emisións</string>
   <string name="notifyTimeAlarm">Pouco tempo restante na partida por correspondencia</string>
   <string name="notifyBell">Notificación dentro de Lichess</string>

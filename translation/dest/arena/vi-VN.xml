@@ -72,6 +72,9 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="rankAvgHelp">Thứ hạng trung bình là phần trăm thứ hạng của bạn. Thấp hơn là tốt hơn.
 
 Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. Hạng 10 trong giải đấu 1000 kỳ thủ = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Thứ hạng trung bình của bạn thể hiện thứ hạng đạt được của bạn so với tổng số người chơi trong mỗi giải đấu. Đây là thước đo thành tích của bạn trong giải đấu, chứ không phải xếp hạng chung của bạn.
+
+Ví dụ, xếp hạng trung bình 3% có nghĩa là bạn nằm trong top 3% (chẳng hạn như vị trí thứ 30 trong số 1.000 người chơi).</string>
   <string name="medians">trung vị</string>
   <string name="allAveragesAreX">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
   <string name="total">Tổng</string>

@@ -78,7 +78,7 @@
   <string name="monetiseNoAdsTrackingOrTraffic">いかなる広告も表示しないし、プレイヤーの行動も追跡しないし、トラフィックやユーザーを売買することもありません。</string>
   <string name="monetiseNoMarketingEmail">マーケティング、トラッキング、広告についてメールを送らないでください。</string>
   <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">またすべての人に %s を奨励しています。</string>
-  <string name="monetiseBlockAllAdsAndTrackers">あらゆる広告とトラッカーをブロックするよう</string>
+  <string name="monetiseBlockAllAdsAndTrackers">あらゆる広告とトラッカーをブロックすること</string>
   <string name="broadcastTournamentOnLichess">Lichess でトーナメントを配信する</string>
   <string name="ifYouWantToBroadcastClause1">Lichess でトーナメントを公式に配信したい場合、または配信について質問がある場合、</string>
   <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">%1$s か %2$s で Broadcast Team までお問い合わせください。</string>

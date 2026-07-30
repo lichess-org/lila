@@ -1,4 +1,3 @@
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { MoveMetadata } from '@lichess-org/chessground/types';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
@@ -131,9 +130,9 @@ export class PromotionCtrl {
       g.setAutoShapes([
         {
           orig: dest,
-          piece: { color: opposite(g.state.turnColor), role, opacity: 0.8 },
+          piece: { color: opposite(g.state.turnColor), role },
           brush: '',
-        } as DrawShape,
+        },
       ]),
     );
   }

@@ -526,7 +526,6 @@ final class ReportApi(
         ),
         _.sec
       )
-      .map(_.filterNot(ReporterId.lichess.==))
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room])(using mod: Me): Fu[List[Report.WithSuspect]] =
     for

@@ -903,7 +903,6 @@
   <string name="xInvitedYouToY">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
   <string name="youAreNowPartOfTeam">আপনি এখন দলের একটি অংশ।</string>
   <string name="youHaveJoinedTeamX">আপনি \"%1$s\" এ যোগদান করেছেন।</string>
-  <string name="someoneYouReportedWasBanned">আপনি অভিযুক্ত একজনকে ব্যান করা হয়েছে</string>
   <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
   <string name="gameVsX">খেলা বনাম %1$s</string>
   <string name="resVsX">%1$s বনাম %2$s</string>

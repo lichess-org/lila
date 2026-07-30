@@ -161,7 +161,8 @@ export default function () {
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
-    let booted = false;
+    let booted = false,
+      clicked = false;
     const boot = () => {
       if (booted) return;
       booted = true;
@@ -169,7 +170,11 @@ export default function () {
     };
     $input.on({
       keydown: blurIfEscape,
+      click: () => {
+        clicked = true;
+      },
       blur() {
+        clicked = false;
         $input.val('');
         $('body').removeClass('clinput');
       },
@@ -188,7 +193,7 @@ export default function () {
       if ($input[0] !== document.activeElement) $input[0]!.focus();
     });
     $wrap.on('mouseleave', () => {
-      if (!$input.val()) $input[0]!.blur();
+      if (!clicked && !$input.val()) $input[0]!.blur();
     });
     site.mousetrap
       .bind('/', () => {
