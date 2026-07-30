@@ -48,7 +48,7 @@ final class Fide(env: Env) extends LilaController(env):
       limit.enumeration.fidePlayer(rateLimited):
         Found(env.fide.playerApi.withFollow(id))(JsonOk)
 
-  def apiRatings(id: chess.FideId) = AnonOrScoped(): ctx ?=>
+  def apiRatings(id: chess.FideId) = AnonOrScoped():
     def proceed = JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))
     if isGrantedOpt(_.ApiHog) then proceed
     else WithProxy(limit.enumeration.fidePlayer(rateLimited)(proceed))
