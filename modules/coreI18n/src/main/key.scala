@@ -2412,7 +2412,6 @@ object I18nKey:
     val `xInvitedYouToY`: I18nKey = "xInvitedYouToY"
     val `youAreNowPartOfTeam`: I18nKey = "youAreNowPartOfTeam"
     val `youHaveJoinedTeamX`: I18nKey = "youHaveJoinedTeamX"
-    val `someoneYouReportedWasBanned`: I18nKey = "someoneYouReportedWasBanned"
     val `congratsYouWon`: I18nKey = "congratsYouWon"
     val `gameVsX`: I18nKey = "gameVsX"
     val `resVsX`: I18nKey = "resVsX"

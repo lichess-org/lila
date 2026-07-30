@@ -7,12 +7,14 @@ on:
       - 'translation/**'
       - 'bin/trans-lint'
       - 'ui/.build/src/i18n.ts'
+      - 'modules/coreI18n/src/main/key.scala'
   pull_request:
     paths:
       - '.github/workflows/translations.yml'
       - 'translation/**'
       - 'bin/trans-lint'
       - 'ui/.build/src/i18n.ts'
+      - 'modules/coreI18n/src/main/key.scala'
 
 jobs:
   xmllint:

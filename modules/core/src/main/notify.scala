@@ -33,7 +33,7 @@ enum NotificationContent(val key: String):
       text: Option[String],
       icon: String // should be lila.ui.Icon
   ) extends NotificationContent("genericLink")
-  case ReportedBanned extends NotificationContent("reportedBanned")
+  case ReportedBanned extends NotificationContent("reportedBanned") // BC
   case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
   case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Boolean])
       extends NotificationContent("gameEnd")

@@ -97,6 +97,7 @@ final class Mod(
           _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
           _ <- env.mod.logApi.modMessage(suspect.user.id, preset.name)
           _ <- preset.isNameClose.so(env.irc.api.nameClosePreset(suspect.user.username))
+          _ <- env.mod.api.afterWarning(suspect)
         yield suspect.some
     }
   }(reportC.onModAction)
