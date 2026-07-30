@@ -7,73 +7,16 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/preview-params.yml
     permissions:
       pull-requests: read
-    outputs:
-      publish: ${{ steps.params.outputs.publish }}
-      deploy: ${{ steps.params.outputs.deploy }}
-      tags: ${{ steps.params.outputs.tags }}
-      pr_number: ${{ steps.params.outputs.pr_number }}
-    steps:
-      - name: Work out whether/how to publish and deploy
-        id: params
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          script: |
-            const run = context.payload.workflow_run;
-            const defaultBranch = context.payload.repository.default_branch;
-
-            const setNone = () => {
-              core.setOutput('publish', 'false');
-              core.setOutput('deploy', 'false');
-              core.setOutput('tags', '');
-              core.setOutput('pr_number', '');
-            };
-
-            if (run.event === 'push' || run.event === 'workflow_dispatch') {
-              const isDefaultBranch = run.head_branch === defaultBranch;
-              if (run.event === 'push' && !isDefaultBranch) {
-                setNone();
-                return;
-              }
-              const tags = [`type=raw,value=${run.head_branch}`];
-              if (isDefaultBranch) tags.push('type=raw,value=latest');
-              core.setOutput('publish', 'true');
-              core.setOutput('deploy', isDefaultBranch ? 'true' : 'false');
-              core.setOutput('tags', tags.join('\n'));
-              core.setOutput('pr_number', '');
-              return;
-            }
-
-            if (run.event === 'pull_request') {
-              const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                commit_sha: run.head_sha,
-              });
-              const pr = prs.find(p => p.state === 'open');
-              const hasPreviewLabel = !!pr && pr.labels.some(label => label.name === 'preview');
-              if (!hasPreviewLabel) {
-                setNone();
-                return;
-              }
-              core.setOutput('publish', 'true');
-              core.setOutput('deploy', 'false');
-              core.setOutput('tags', `type=raw,value=pr-${pr.number}`);
-              core.setOutput('pr_number', String(pr.number));
-              return;
-            }
-
-            setNone();
 
   docker:
     runs-on: ubuntu-latest
     needs: check
     if: needs.check.outputs.publish == 'true'
     concurrency:
-      group: docker-publish-assets-${{ needs.check.outputs.pr_number || 'main' }}
+      group: docker-publish-assets-${{ needs.check.outputs.pr_number || github.event.workflow_run.head_branch }}
       cancel-in-progress: true
     permissions:
       contents: read
@@ -81,6 +24,19 @@ jobs:
       actions: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check out public/ from the commit being published
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.check.outputs.checkout_ref }}
+          sparse-checkout: public
+          path: head-checkout
+
+      - name: Use that commit's public/ instead of the default branch's
+        run: |
+          rm -rf public
+          mv head-checkout/public public
+          rm -rf head-checkout
 
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
