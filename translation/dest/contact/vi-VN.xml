@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Không phải các phương án trên</string>
   <string name="sendEmailAt">Hãy gửi email cho chúng tôi tại %s.</string>
   <string name="explainYourRequest">Xin vui lòng giải thích yêu cầu của bạn một cách rõ ràng và thấu đáo. Đưa ra tên đang nhập Lichess của bạn, và bất cứ thông tin nào hữu ích có thể giúp chúng tôi giúp bạn.</string>
+  <string name="monetiseNotInterested">Chúng tôi không có ý định kiếm tiền từ Lichess bằng bất kỳ hình thức nào.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Chúng tôi sẽ không bao giờ hiển thị bất kỳ loại quảng cáo nào, không theo dõi người chơi và không bán hoặc mua lưu lượng truy cập hoặc người dùng.</string>
+  <string name="monetiseNoMarketingEmail">Vui lòng không gửi email cho chúng tôi về vấn đề tiếp thị, trình theo dõi hoặc quảng cáo.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Chúng tôi khuyến khích mọi người %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">chặn tất cả quảng cáo và trình theo dõi</string>
+  <string name="broadcastTournamentOnLichess">Phát sóng một giải đấu trên Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Nếu bạn muốn phát sóng chính thức một giải đấu trên Lichess, hoặc có bất kỳ câu hỏi nào về việc phát sóng của chúng tôi:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Vui lòng liên hệ với Nhóm Phát sóng của chúng tôi trong %2$s hoặc qua %1$s.</string>
+  <string name="ourDiscordServer">máy chủ Discord của chúng tôi</string>
 </resources>

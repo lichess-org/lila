@@ -1011,7 +1011,6 @@
   <string name="xInvitedYouToY">קיבלת הזמנה אל \"%2$s\" מ־%1$s.</string>
   <string name="youAreNowPartOfTeam">הינך חלק מהקבוצה כעת.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">מישהו שדיווחת עליו נחסם</string>
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">המשחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>

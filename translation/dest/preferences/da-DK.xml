@@ -57,15 +57,15 @@
   <string name="correspondenceEmailNotification">Daglig e-mailnotifikation med dine korrespondance-spil</string>
   <string name="notifyStreamStart">Streamer går live</string>
   <string name="notifyInboxMsg">Ny besked i indbakke</string>
-  <string name="notifyDirectMessage" comment="A notification setting - notifies players when they receive a new message in their Lichess inbox&#10;&#10;Replaces old string notifyInboxMsg">Ny direkte besked</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Ny direkte besked</string>
   <string name="notifyForumMention">Kommentar i forum nævner dig</string>
-  <string name="notifyForumMentions" comment="A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)&#10;&#10;Replaces old string notifyForumMention">Omtaler på forummet</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Omtaler på forummet</string>
   <string name="notifyInvitedStudy">Invitation til studie</string>
-  <string name="notifyStudyInvites" comment="A notification setting - notifies players about invites to studies (https://lichess.org/study/)&#10;&#10;Replaces old string notifyInvitedStudy">Invitationer til studie</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitationer til studie</string>
   <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
   <string name="notifyChallenge">Udfordringer</string>
   <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
-  <string name="notifyTournamentStartReminders" comment="A notification setting - notifies players if a tournament is starting soon.&#10;&#10;Replaces old string notifyTournamentSoon">Påmindelser om turneringsstart</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Påmindelser om turneringsstart</string>
   <string name="notifyBroadcasts">Transmissioner</string>
   <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
   <string name="notifyBell">Klokkenotifikation i Lichess</string>

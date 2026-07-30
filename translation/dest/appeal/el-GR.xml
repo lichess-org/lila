@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Έχει γίνει απόκρυψη των ιστολογίων σας από τους διαχειριστές.</string>
   <string name="hiddenBlogInfo">Προτείνουμε να διαβάσετε ξανά τους %s.</string>
   <string name="playTimeout">Δεν μπορείτε να παίξετε αυτή τη στιγμή λόγω timeout.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Η δυνατότητά σας να συμμετέχετε σε παρτίδες έχει προσωρινά ανασταλεί.</string>
   <string name="communicationGuidelines">οδηγίες επικοινωνίας με άλλους χρήστες</string>
   <string name="blogRules">κανόνες που διέπουν τη λειτουργία των ιστολογίων</string>
   <string name="fairPlay">ευγενής άμιλλα</string>

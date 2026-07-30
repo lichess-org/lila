@@ -163,7 +163,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 2. 点击地址栏中的锁形图标
 3. 点击“网站设置”
 4. 允许“播放声音”</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. 访问 lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. 访问 lichess.org
 2. 点击地址栏中的网站信息图标
 3. 点击“网站设置”
 4. 允许“播放声音”</string>

@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Κανένα απο τα παραπάνω</string>
   <string name="sendEmailAt">Στείλτε μας email στη διεύθυνση %s.</string>
   <string name="explainYourRequest">Εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Γράψτε το όνομα χρήστη σας στο Lichess και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
+  <string name="monetiseNotInterested">Δεν έχουμε καμία πρόθεση να βγάλουμε χρήματα από το Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ποτέ δεν προβάλλουμε οποιουδήποτε είδους διαφημίσεις, δεν παρακολουθούμε τους παίκτες μας και δεν εμπορευόμαστε την επισκεψιμότητα ή τους χρήστες μας.</string>
+  <string name="monetiseNoMarketingEmail">Παρακαλούμε μη μας στέλνετε email για μάρκετινγκ, παρακολούθηση χρηστών ή διαφημίσεις.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Σας ενθαρρύνουμε να %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">μπλοκάρετε όλες τις διαφημίσεις και τους ιχνηλάτες</string>
+  <string name="broadcastTournamentOnLichess">Μετάδοση τουρνουά στο Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Αν θέλετε να μεταδώσετε επίσημα ένα τουρνουά στο Lichess ή έχετε οποιαδήποτε απορία σχετικά με τις μεταδόσεις μας:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Παρακαλούμε επικοινωνήστε με την ομάδα μεταδόσεων στο %1$s ή μέσω %2$s.</string>
+  <string name="ourDiscordServer">του διακομιστή μας στο Discord</string>
 </resources>

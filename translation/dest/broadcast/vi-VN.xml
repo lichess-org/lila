@@ -37,6 +37,7 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Xóa vĩnh viễn giải đấu này, bao gồm tất cả các vòng đấu và ván đấu?</string>
   <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="fideFederations">Các liên đoàn FIDE</string>

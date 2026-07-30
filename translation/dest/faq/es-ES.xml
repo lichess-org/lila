@@ -162,7 +162,7 @@ Mostramos el icono de silencio para avisarte cuando esto suceda. A menudo, puede
 2. Haz clic en el icono de bloqueo de la barra de direcciones
 3. Haz clic en Configuración del sitio
 4. Habilitar sonido</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.&#10;&#10;Replaces old string enableAutoplayForSoundsChrome">1. Ve a lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Ve a lichess.org
 2. Haz clic en el icono de información del sitio en la barra de direcciones
 3. Haz clic en Configuración del sitio
 4. Permitir sonido</string>

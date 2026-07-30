@@ -65,6 +65,10 @@
   <string name="rankAvgHelp">平均順位はあなたの順位の百分位です。低いほど優秀です。
 
 たとえば 100 人参加のトーナメントで 3 位なら 3 %、 1000 人参加のトーナメントで 10 位なら 1 %となります。</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">平均順位は各トーナメントで参加者全体の上位何％に入ったかの平均を示します。
+これはトーナメントでの順位の指標で、レーティングとは無関係です。
+
+たとえば平均順位が 3 ％であれば、平均して上位 3 ％以内（たとえば 1000 人中 30 位以内）に入っているということです。</string>
   <string name="medians">中央値</string>
   <string name="allAveragesAreX">このページで言う「平均」はすべて %s です。</string>
   <string name="total">合計</string>
