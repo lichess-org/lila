@@ -1,11 +1,13 @@
 package lila.app
 package mashup
+
+import alleycats.Zero
+
 import lila.core.forum.ForumPostMiniView
 import lila.swiss.{ Swiss, SwissApi }
 import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRepo, TeamRequestRepo }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.clas.Clas
-import alleycats.Zero
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
@@ -13,6 +15,7 @@ case class TeamInfo(
     myRequest: Option[TeamRequest],
     subscribed: Boolean,
     requests: List[RequestWithUser],
+    message: Option[lila.team.TeamMsg[?]],
     forum: Option[List[ForumPostMiniView]],
     tours: TeamInfo.PastAndNext
 ):
@@ -42,6 +45,7 @@ object TeamInfo:
 
 final class TeamInfoApi(
     api: TeamApi,
+    msgApi: lila.team.TeamMsgApi,
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
@@ -59,6 +63,7 @@ final class TeamInfoApi(
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
     myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
+    msg <- member.isDefined.so(msgApi.teamLatest(team.id))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
   yield TeamInfo(
@@ -67,6 +72,7 @@ final class TeamInfoApi(
     myRequest = myRequest,
     subscribed = subscribed,
     requests = requests,
+    message = msg,
     forum = forumPosts,
     tours = tours
   )

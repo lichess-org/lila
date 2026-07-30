@@ -11,6 +11,8 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
 
   private val history = 90.days
   private def historyAgo = nowInstant.minus(history)
+  private def dateSelect = "date".$gt(historyAgo)
+  private def teamSelect(team: TeamId) = $doc("team" -> team)
 
   // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
@@ -23,32 +25,38 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
     coll.secondary.countSel:
       $doc(
         "team".$in(teams.toArray),
-        "date".$gt(historyAgo),
+        dateSelect,
         "seenBy".$ne(me.userId)
       )
 
   def markSeen(team: TeamId)(using me: Me): Funit =
     coll.update
       .one(
-        $doc("team" -> team, "seenBy".$ne(me.userId)),
+        teamSelect(team) ++ $doc("seenBy".$ne(me.userId)),
         $doc("$addToSet" -> $doc("seenBy" -> me.userId)),
         multi = true
       )
       .void
 
+  def teamLatest(team: TeamId): Fu[Option[TeamMsg[TeamId]]] =
+    coll.secondary
+      .find(teamSelect(team) ++ dateSelect)
+      .sort($sort.desc("date"))
+      .one[TeamMsg[TeamId]]
+
   def teamRecent(team: TeamId)(using Me): AdapterLike[TeamMsgSeen[TeamId]] =
     allRecent(Team.IdsStr(List(team)))
 
   def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[TeamMsgSeen[TeamId]] = new:
-    private val teamSelect = teams.toArray match
-      case Array(single) => $doc("team" -> single)
+    private val teamSelector = teams.toArray match
+      case Array(single) => teamSelect(single)
       case many => $doc("team".$in(many))
-    def nbResults: Fu[Int] = coll.secondary.countSel(teamSelect ++ $doc("date".$gt(historyAgo)))
+    def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
     def slice(offset: Int, length: Int): Fu[List[TeamMsgSeen[TeamId]]] =
       coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
-          Match(teamSelect) ->
+          Match(teamSelector) ->
             List(
               Sort(Descending("date")),
               Skip(offset),

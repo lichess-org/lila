@@ -115,22 +115,28 @@ object show:
                   request.list(info.requests, t.team.some)
                 )
               ),
-              div(
+              div(cls := "team-show__events")(
+                t.enabled.so(info.message).map(views.team.msg.teamLatest(t.team, _)),
                 (t.enabled && canSeeMembers && info.tours.nonEmpty).option(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(a(href := routes.Team.tournaments(t.id))(trans.site.tournaments())),
-                    div(cls := "team-show__list-wrapper")(
-                      table(cls := "slist slist-resp")(
-                        tournaments.renderList(
-                          info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
-                        )
+                    h2(
+                      a(dataIcon := Icon.Trophy, cls := "text", href := routes.Team.tournaments(t.id))(
+                        trans.site.tournaments()
                       )
-                    )
+                    ),
+                    div(cls := "team-show__list-wrapper"):
+                      table(cls := "slist slist-resp"):
+                        tournaments.renderList:
+                          info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
                   )
                 ),
                 info.forum.map: forumPosts =>
                   st.section(cls := "team-show__forum")(
-                    h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
+                    h2(
+                      a(dataIcon := Icon.BubbleConvo, cls := "text", href := teamForumUrl(t.id))(
+                        trans.site.forum()
+                      )
+                    ),
                     div(cls := "team-show__list-wrapper")(
                       forumPosts.take(10).map { post =>
                         a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(

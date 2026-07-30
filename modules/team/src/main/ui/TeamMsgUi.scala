@@ -59,6 +59,20 @@ final class TeamMsgUi(helpers: Helpers)(using NetDomain):
           )
         )
 
+  def teamLatest(team: Team, msg: TeamMsg[?])(using Context) =
+    st.section(cls := "team-show__msg")(
+      h2(
+        a(dataIcon := Icon.Envelope, cls := "text", href := routes.Team.messagesOf(team.id))("Team messages")
+      ),
+      div(cls := "team-show__msg__last")(
+        div(cls := "team-show__msg__meta")(
+          momentFromNowOnce(msg.date),
+          span(trans.site.by(userIdLink(msg.senderId.some)))
+        ),
+        div(cls := "team-show__msg__body")(richText(msg.text, expandImg = false))
+      )
+    )
+
   private def msgList(msgs: TeamMsg.Recent)(nextUrl: Int => Call)(using Context) =
     div(cls := "team-msg__convo__msgs infinite-scroll", data("scroll-selector") := ".infinite-scroll")(
       msgs.currentPageResults.map: m =>

@@ -32,7 +32,7 @@ final class TeamMsgApi(
 
   import TeamMsgApi.*
 
-  export msgRepo.markSeen
+  export msgRepo.{ markSeen, teamLatest }
 
   private val maxPerPage = MaxPerPage(6)
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
