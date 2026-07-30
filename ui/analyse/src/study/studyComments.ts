@@ -26,18 +26,18 @@ export const authorText = (author?: Author): string =>
   !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
-  if (!ctrl.node.comments) return;
+  if (!ctrl.node.comments) return undefined;
   const node = ctrl.node,
     study: StudyCtrl = ctrl.study!,
     chapter = study.currentChapter(),
     comments = node.comments!;
-  if (!comments.length) return;
+  if (!comments.length) return undefined;
   return h(
     'div',
     comments.map(comment => {
       const by: Author = comment.by;
       const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
-      if (!includingMine && isMine) return;
+      if (!includingMine && isMine) return undefined;
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {

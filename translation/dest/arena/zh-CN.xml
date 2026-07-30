@@ -73,6 +73,10 @@
   <string name="rankAvgHelp">排名平均值是您排名的百分比。数值越低越好。
 
 例如，在 100 名棋手的锦标赛中排名第 3 = 3%。在 1000 名棋手的锦标赛中排名第 10 = 1%。</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">您的排名平均值代表您在每场锦标赛中相对于总参赛人数的典型最终名次。
+这是衡量您在锦标赛中的排名表现，而非您的通用等级分。
+
+例如，排名平均值 3% 意味着您通常处于前 3% 的位置（例如在 1,000 名选手中排名第 30）。</string>
   <string name="medians">中位数</string>
   <string name="allAveragesAreX">本页所有平均值均为 %s。</string>
   <string name="total">总计</string>

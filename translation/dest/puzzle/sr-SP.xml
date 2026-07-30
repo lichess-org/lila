@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Проблеми</string>
-  <string name="puzzleThemes">Теме проблема</string>
+  <string name="puzzleThemes">Теме Проблема</string>
   <string name="recommended">Препоручене</string>
   <string name="phases">Фазе</string>
   <string name="motifs">Мотиви</string>
@@ -42,9 +42,11 @@
   <string name="hardest">Најтежи</string>
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Додај још једну тему</string>
-  <string name="jumpToNextPuzzleImmediately">Пређи на следећи проблем одмах</string>
-  <string name="puzzleDashboard">Табла проблема</string>
-  <string name="strengths">Снага</string>
+  <string name="jumpToNextPuzzleImmediately">Скочи до следећег проблема одмах</string>
+  <string name="puzzleDashboard">Преглед Проблема</string>
+  <string name="improvementAreas">Подручја за побољшање</string>
+  <string name="strengths">Јаке стране</string>
+  <string name="history">Историја проблема</string>
   <string name="solved">решено</string>
   <string name="failed">неуспело</string>
 </resources>

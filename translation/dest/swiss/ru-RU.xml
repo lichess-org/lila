@@ -134,6 +134,8 @@ PlayerE 1
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
   <string name="predefinedUsers">Разрешить участие только перечисленным игрокам</string>
   <string name="forbiddedUsers">Если список не пустой, тогда только игроки из списка смогут участвовать. По одному игроку в строке.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Вводите по одному имени пользователя в каждой строке. Только эти игроки смогут присоединиться.
+Оставьте пустым, чтобы разрешить участвовать всем игрокам, допущенным по другим критериям.</string>
   <string name="playYourGames">Играйте ваши партии</string>
   <string name="byes">Автопобеды</string>
   <string name="absences">Отсутствие</string>

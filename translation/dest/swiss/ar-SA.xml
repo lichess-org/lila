@@ -150,6 +150,8 @@
   <string name="unlimitedAndFree">غير محدود و مجاني</string>
   <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
   <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيمنع اللاعبون غير الواردة أسماءهم في هذه القائمة من الانضمام إلى البطولة. اسم مستخدم واحد لكل سطر.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">أدخل اسم مستخدم لكل لاعب في سطر منفصل. لن يُسمح بالانضمام إلا لهؤلاء اللاعبين.
+اتركه فارغًا للسماح لجميع اللاعبين الذين تنطبق عليهم الشروط بالمشاركة.</string>
   <string name="playYourGames">ألعب مبارياتك</string>
   <string name="byes">أقاصٍ</string>
   <string name="absences">الغيابات</string>

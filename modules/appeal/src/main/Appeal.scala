@@ -27,6 +27,14 @@ case class Appeal(
     if v then copy(status = Appeal.Status.closed)
     else copy(status = Appeal.Status.read).sleep(none)
 
+  def withdraw =
+    copy(
+      msgs = msgs :+ AppealMsg(UserId.lichess, "This appeal was withdrawn by the user.", nowInstant),
+      updatedAt = nowInstant,
+      status = Appeal.Status.closed,
+      closedUntil = none
+    )
+
   def toggleRead(v: Boolean) =
     copy(status = if v then Appeal.Status.read else Appeal.Status.unread)
 
@@ -60,7 +68,8 @@ case class Appeal(
 
   def isByMod(msg: AppealMsg) = msg.by != user
 
-  def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
+  def modIds =
+    msgs.collect { case msg if isByMod(msg) && msg.by.isnt(UserId.lichess) => msg.by }.distinct.toList
 
   def participated(modId: UserId) = msgs.exists(_.by.is(modId))
 

@@ -648,9 +648,9 @@
   <string name="replies">Odgovori</string>
   <string name="replyToThisTopic">Objavi odgovor v tej temi</string>
   <string name="reply">Odgovori</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Ponovno odpri</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Citat</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">urejeno</string>
+  <string name="reopen">Ponovno odpri</string>
+  <string name="quote">Citat</string>
+  <string name="postEdited">urejeno</string>
   <string name="message">Sporočilo</string>
   <string name="createTheTopic">Ustvari temo</string>
   <string name="reportAUser">Prijavi uporabnika</string>
@@ -1043,7 +1043,6 @@
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nekdo, za katerega ste poročali, je bil prepovedan</string>
   <string name="congratsYouWon">Čestitke, zmagali ste!</string>
   <string name="gameVsX">Igra proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>

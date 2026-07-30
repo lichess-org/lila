@@ -39,9 +39,9 @@ export class LearnCtrl {
       levelId ||
       // otherwise find a level id based on the last completed level
       (() => {
-        if (!stageId) return;
+        if (!stageId) return null;
         const stage = stageById[stageId];
-        if (!stage) return;
+        if (!stage) return null;
         const result = this.data.stages[stage.key];
         let it = 0;
         if (result) while (result.scores[it]) it++;

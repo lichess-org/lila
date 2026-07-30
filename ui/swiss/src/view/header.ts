@@ -14,7 +14,7 @@ const oneDayInSeconds = 60 * 60 * 24;
 
 function clock(ctrl: SwissCtrl): VNode | undefined {
   const next = ctrl.data.nextRound;
-  if (!next) return;
+  if (!next) return undefined;
   if (next.in > oneDayInSeconds)
     return h('div.clock', [
       h('time.timeago.shy', {

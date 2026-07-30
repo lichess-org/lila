@@ -13,12 +13,15 @@ import lila.mon.extensions.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
-final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
+final private class FidePlayerSync(
+    repo: FideRepo,
+    ws: StandaloneWSClient,
+    proxy: lila.memo.HttpProxy,
+    listUrl: Url
+)(using
     Executor,
     org.apache.pekko.stream.Materializer
 ):
-
-  private val listUrl = "http://ratings.fide.com/download/players_list.zip"
 
   // the file is big. We want to stream the http response into the zip reader,
   // and stream the zip output into the database as it's being extracted.
@@ -102,7 +105,9 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
 
   private object playersFromHttpFile:
     def apply(): Funit = for
-      httpStream <- ws.url(listUrl).stream()
+      req = ws.url(listUrl.value)
+      proxied = proxy.select().foldLeft(req)(_ withProxyServer _)
+      httpStream <- proxied.stream()
       _ <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
@@ -185,7 +190,6 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               .forall(i => !i.isSame(fromFide))
               .option:
                 fromFide.copy(photo = inDb.flatMap(_.photo))
-          logger.info(s"FidePlayerSync.saveIfChanged: ${changed.size} changes out of ${players.size} players")
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)
             for

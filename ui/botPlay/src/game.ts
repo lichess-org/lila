@@ -85,7 +85,7 @@ export class Game {
     this.data.end = endOnTheBoard(chess);
     if (this.end) return this.end;
     const clock = this.clockState();
-    if (!clock) return;
+    if (!clock) return undefined;
     const flag = (color: Color): GameEnd => ({
       winner: opposite(color),
       status: 'outoftime',
@@ -122,7 +122,7 @@ export class Game {
 }
 
 const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
-  if (!chess.isEnd()) return;
+  if (!chess.isEnd()) return undefined;
   return {
     winner: chess.outcome()?.winner,
     status: chess.isCheckmate() ? 'mate' : chess.isStalemate() ? 'stalemate' : 'draw',

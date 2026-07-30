@@ -10,15 +10,15 @@ import type RelayCtrl from './relay/relayCtrl';
 
 export interface FormData {
   name: string;
-  flair?: string;
+  flair?: Flair;
   visibility: string;
   computer: string;
   explorer: string;
   cloneable: string;
   shareable: string;
   chat: string;
-  sticky: 'true' | 'false';
-  description: 'true' | 'false';
+  sticky: boolean;
+  description: boolean;
 }
 
 interface Select {
@@ -292,8 +292,8 @@ export function view(ctrl: StudyForm): VNode {
                 cloneable: getVal('cloneable'),
                 shareable: getVal('shareable'),
                 chat: getVal('chat'),
-                sticky: getVal('sticky') as 'true' | 'false',
-                description: getVal('description') as 'true' | 'false',
+                sticky: getVal('sticky') === 'true',
+                description: getVal('description') === 'true',
               },
               isNew,
             );

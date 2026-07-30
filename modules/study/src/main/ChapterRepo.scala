@@ -297,7 +297,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
     .void
 
   def completeServerEval(chapter: Chapter) =
-    coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
+    coll(_.updateField($id(chapter.id) ++ "serverEval".$exists(true), "serverEval.done", true)).void
 
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))

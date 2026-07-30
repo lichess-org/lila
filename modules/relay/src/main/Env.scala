@@ -38,7 +38,8 @@ final class Env(
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie,
     markdownCache: lila.memo.MarkdownCache,
-    viewerCount: lila.memo.ViewerCountApi
+    viewerCount: lila.memo.ViewerCountApi,
+    httpProxy: lila.memo.HttpProxy
 )(using Federation.Guess, Tokenize, Executor, org.apache.pekko.stream.Materializer, play.api.Mode)(using
     scheduler: Scheduler
 ):
@@ -174,6 +175,4 @@ private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ li
   val delay = yoloDb(CollName("relay_delay"))
   val stats = mainDb(CollName("relay_stats"))
 
-private trait ProxyCredentials
-private trait ProxyHostPort
 private trait ProxyDomainRegex

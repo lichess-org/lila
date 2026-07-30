@@ -652,6 +652,9 @@
   <string name="replies">Відповідей</string>
   <string name="replyToThisTopic">Відповісти на цю тему</string>
   <string name="reply">Відповісти</string>
+  <string name="reopen">Відкрити ще раз</string>
+  <string name="quote">Цитувати</string>
+  <string name="postEdited">змінено</string>
   <string name="message">Повідомлення</string>
   <string name="createTheTopic">Створити тему</string>
   <string name="reportAUser">Поскаржитись на користувача</string>
@@ -1053,7 +1056,6 @@
   <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
   <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Хтось на кого ви поскаржились був забанений</string>
   <string name="congratsYouWon">Вітання, ви виграли!</string>
   <string name="gameVsX">Гра проти %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>

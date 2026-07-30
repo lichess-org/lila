@@ -206,7 +206,7 @@ site.load.then(() => {
   });
 
   $('form.reply').on('submit', () => {
-    if (submittingReply) return false;
+    if (submittingReply) return;
     replyStorage.remove();
     submittingReply = true;
   });

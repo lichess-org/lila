@@ -21,7 +21,7 @@ export async function startConsole() {
     let body = '';
 
     req.on('data', chunk => (body += chunk.toString()));
-    req.on('end', () => {
+    return req.on('end', () => {
       try {
         const [levelAndVal] = Object.entries<string>(JSON.parse(body));
         const level = levelAndVal[0];
@@ -35,11 +35,11 @@ export async function startConsole() {
         if (typeof val !== 'string') val = stringify(val, { indent: 2, maxLength: 80 });
 
         env.log(`${mark}${c.grey(val)}`, ip);
-        res
+        return res
           .writeHead(200, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST' })
           .end();
       } catch (_) {
-        res.writeHead(400).end();
+        return res.writeHead(400).end();
       }
     });
   }).listen(8666);

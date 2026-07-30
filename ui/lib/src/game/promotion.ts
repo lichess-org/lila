@@ -94,7 +94,7 @@ export class PromotionCtrl {
 
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
-    if (!promoting) return;
+    if (!promoting) return undefined;
     promoting.hooks.show?.(this, antichess ? [...PROMOTABLE_ROLES, 'king'] : PROMOTABLE_ROLES);
 
     return (
