@@ -4517,8 +4517,6 @@ interface I18n {
     socialMediaLinks: string;
     /** Solution */
     solution: string;
-    /** Someone you reported was banned */
-    someoneYouReportedWasBanned: string;
     /** Sorry :( */
     sorry: string;
     /** Sound */
