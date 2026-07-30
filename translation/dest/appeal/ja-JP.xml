@@ -15,6 +15,7 @@
   <string name="hiddenBlog">あなたのブログはモデレータが非表示にしました。</string>
   <string name="hiddenBlogInfo">%s をもう一度お読みください。</string>
   <string name="playTimeout">プレイ一時禁止中です。</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">あなたのアカウントは対局が一時的に制限されています。</string>
   <string name="communicationGuidelines">コミュニケーション ガイドライン</string>
   <string name="blogRules">ブログのルール</string>
   <string name="fairPlay">フェアプレイ</string>

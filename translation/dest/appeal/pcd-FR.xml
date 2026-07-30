@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Votre blogue a été masqué par les modérateurs.</string>
   <string name="hiddenBlogInfo">Relisez nos %s.</string>
   <string name="playTimeout">Vous ne pouvez plus jouer de partie temporairement.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Vous ne pouvez pas jouer, car votre compte est temporairement suspendu.</string>
   <string name="communicationGuidelines">Lignes directrices de communication</string>
   <string name="blogRules">Règles relatives aux blogues</string>
   <string name="fairPlay">Esprit sportif</string>

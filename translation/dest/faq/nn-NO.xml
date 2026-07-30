@@ -148,12 +148,21 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
 Det røde mute-ikonet blir vist når weblesaren hindrar lichess.org i å spele av lyd. Til vanleg vert denne avgrensinga oppheva når du klikkar på noko. På nokre mobile weblesarar gjeld ikkje dette om du klikkar på ei brikke. I så fall skal du klikke på brettet for å tillata lyd i starten av kvart parti.
 
 Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du uttrykkjeleg tillata lichess.org å spele av lydar. Her er instrukjsjonar om korleis du gjer det i nyare versjonar av nokre mykje brukte weblesarar.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Dei fleste weblesarar hindrar ofte lydavspeling på nyinnleste websider. Sjå for deg at websider kunne bombardera deg med lydreklame.
+
+Det raude mute-ikonet blir vist når weblesaren hindrar lichess.org i å spele av lyd. Til vanleg vert denne avgrensinga oppheva når du klikkar på noko, men på nokre mobile weblesarar gjeld ikkje dette om du klikkar på ei sjakkbrikke. I så fall må du klikka på brettet for å tillata lyd i starten av kvart parti.
+
+Vi syner det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du uttrykkjeleg tillata lichess.org å spele av lydar. Her er instrukjsjonar om korleis du gjer det i nyare versjonar av nokre mykje brukte weblesarar:</string>
   <string name="desktop">skrivebord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
 2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klikk på fanen Løyver
 4. Gje løyve til å spele av lyd og video på lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Gå til lichess.org
+2. Klikk på låseikonet i adresselina
+3. Klikk nettstadinnstillingar
+4. Tillat lyd</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gå til lichess.org
 2. Klikk på låseikonet i adresselina
 3. Klikk nettstadinnstillingar
 4. Tillat lyd</string>

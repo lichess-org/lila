@@ -966,7 +966,6 @@
   <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
   <string name="youHaveJoinedTeamX">Você ingressou em \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Alguém que você denunciou foi banido</string>
   <string name="congratsYouWon">Parabéns, você venceu!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -1006,7 +1005,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
   <string name="onlyTeamMembers">Apenas membros da equipe</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
-  <string name="moveListNavigation" comment="Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.&#10;&#10;Replaces old string navigateMoveTree">Navegação na lista de lances</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navegação na lista de lances</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
   <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>
