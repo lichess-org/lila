@@ -1,5 +1,6 @@
-@import 'link';
+@import 'background';
 @import 'board';
+@import 'link';
 @import 'piece';
 
 #dasher_app {
@@ -195,7 +196,7 @@
       }
     }
 
-    input {
+    input:not([type='range']) {
       padding: 5px;
       border: 1px solid #444;
       width: 100%;

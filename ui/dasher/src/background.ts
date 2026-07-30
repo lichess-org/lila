@@ -4,12 +4,12 @@ import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, onInsert } from 'lib/view';
+import { bind, button, dataIcon, label, div, onInsert, span } from 'lib/view';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
 
-import { PaneCtrl } from './interfaces';
+import { PaneCtrl, type Range } from './interfaces';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 
 export interface BackgroundData {
@@ -29,6 +29,7 @@ interface Background {
 }
 
 export class BackgroundCtrl extends PaneCtrl {
+  sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
   private readonly list: Background[];
   constructor(root: DasherCtrl) {
     super(root);
@@ -36,29 +37,32 @@ export class BackgroundCtrl extends PaneCtrl {
       { key: 'system', name: i18n.site.deviceTheme },
       { key: 'light', name: i18n.site.light },
       { key: 'dark', name: i18n.site.dark },
-      { key: 'transp', name: 'Picture' },
+      { key: 'transp', name: i18n.site.picture },
     ];
   }
 
   render(): VNode {
     const cur = this.get();
 
-    return h('div.sub.background', [
-      header(i18n.site.background, this.close),
-      h(
-        'div.selector.large',
+    return div('.sub.background', [
+      header(i18n.site.theme, this.close),
+      label(i18n.site.background),
+      div('.selector.large', [
         this.list.map(bg => {
-          return h(
-            'button.text',
+          return button(
+            '.text',
             {
               class: { active: cur === bg.key },
-              attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
+              ...dataIcon(licon.Checkmark),
+              title: bg.title || '',
+              type: 'button',
               hook: bind('click', () => this.set(bg.key)),
             },
             bg.name,
           );
         }),
-      ),
+        this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 12, step: 1 }),
+      ]),
       cur !== 'transp' ? null : this.data.gallery ? this.galleryInput() : this.imageInput(),
     ]);
   }
@@ -167,4 +171,36 @@ export class BackgroundCtrl extends PaneCtrl {
       this.imageInput(),
     ]);
   };
+
+  private readonly setVar = (prop: string, v: number) => {
+    document.body.style.setProperty(`---${prop}`, `${v.toString()}px`);
+  };
+
+  private readonly propSlider = (
+    prop: string,
+    inputLabel: string,
+    range: Range,
+    title?: (v: number) => string,
+  ) =>
+    div(`.${prop}`, { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` }, [
+      div('.slider-label', [label(inputLabel), span([this.getVar(prop), 'px'])]),
+      h('input.range', {
+        key: this.sliderKey + prop,
+        attrs: { ...range, type: 'range', value: this.getVar(prop) },
+        hook: onInsert<HTMLInputElement>(input => {
+          const setAndSave = (v: number) => {
+            if (v < range.min || v > range.max) return;
+            this.setVar(prop, v);
+            this.redraw();
+            this.postPref(prop);
+          };
+          $(input)
+            .on('input', () => setAndSave(parseInt(input.value)))
+            .on('wheel', e => {
+              e.preventDefault();
+              setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
+            });
+        }),
+      }),
+    ]);
 }
