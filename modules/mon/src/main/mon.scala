@@ -627,6 +627,7 @@ object push:
     val invitedStudy = send("invitedStudy")
     val streamStart = send("streamStart")
     val broadcastRound = send("broadcastRound")
+    val recap = send("recap")
 
     object challenge:
       val create = send("challengeCreate")

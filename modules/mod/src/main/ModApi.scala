@@ -41,8 +41,9 @@ final class ModApi(
   def afterWarning(sus: Suspect)(using me: Me) =
     reportApi.inquiries
       .ofModId(me)
-      .mapz: inquiry =>
-        notifier.actionTaken(me.modId, sus, inquiry.room)
+      .map: inquiry =>
+        val room = inquiry.fold(Room.Comm)(_.room)
+        notifier.actionTaken(me.modId, sus, room)
 
   def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     (prev.user.marks.engine != v).so:

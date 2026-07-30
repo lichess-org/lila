@@ -44,7 +44,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
             draws: data.draws,
             uci: '',
             san: 'Σ',
-          } as OpeningMoveStats,
+          },
         ]
       : data.moves;
 

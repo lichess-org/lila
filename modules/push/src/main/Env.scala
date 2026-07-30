@@ -52,6 +52,10 @@ final class Env(
   private lazy val firebasePush = wire[FirebasePush]
   private lazy val pushApi = wire[PushApi]
 
+  lila.common.Cli.handle:
+    case "push" :: "recap" :: userId :: year :: Nil =>
+      pushApi.recap(UserId(userId), year.toInt).inject("sent")
+
   Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
     unifiedSub.unsubscribeBySession(token.id)
 

@@ -114,19 +114,19 @@ function splitOverlapping(lanes: Lane[]): Lane[] {
 }
 
 function tournamentClass(tour: Tournament): Classes {
-  const finished = tour.status === 30,
-    userCreated = tour.createdBy !== 'lichess',
-    classes = {
-      'tsht-rated': tour.rated,
-      'tsht-casual': !tour.rated,
-      'tsht-finished': finished,
-      'tsht-joinable': !finished,
-      'tsht-user-created': userCreated,
-      'tsht-thematic': !!tour.position,
-      'tsht-short': tour.minutes <= 30,
-      'tsht-max-rating': !userCreated && tour.hasMaxRating,
-      'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
-    } as Classes;
+  const finished = tour.status === 30;
+  const userCreated = tour.createdBy !== 'lichess';
+  const classes: Classes = {
+    'tsht-rated': tour.rated,
+    'tsht-casual': !tour.rated,
+    'tsht-finished': finished,
+    'tsht-joinable': !finished,
+    'tsht-user-created': userCreated,
+    'tsht-thematic': !!tour.position,
+    'tsht-short': tour.minutes <= 30,
+    'tsht-max-rating': !userCreated && tour.hasMaxRating,
+    'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
+  };
   if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
 }
