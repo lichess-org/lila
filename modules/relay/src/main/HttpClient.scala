@@ -5,7 +5,7 @@ import io.mola.galimatias.URL
 import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
 
-import lila.core.lilaism.LilaException
+import lila.core.lilaism.LilaExceptionNoStack
 import lila.mon.extensions.*
 
 /* Extra generic features for play WS client,
@@ -126,8 +126,8 @@ private object charsetGuess:
 private object HttpClient:
   type Etag = String
   type Body = String
-  case class Status(code: Int, url: URL) extends LilaException:
+  case class Status(code: Int, url: URL) extends LilaExceptionNoStack:
     override val message = s"$code: $url"
 
-  case class SourceTimeout(host: String) extends Exception with util.control.NoStackTrace:
-    override def getMessage = s"$host is not responding"
+  case class SourceTimeout(host: String) extends LilaExceptionNoStack:
+    override val message = s"$host is not responding"
