@@ -352,7 +352,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           "This is due to a fair play restriction in your previous account and your status of titled player."
         ),
         p(
-          "You were informed of this during the appeal of the previous account and/or via private message by a public moderator."
+          "You were informed of this during the appeal of the previous account and/or via direct message by a public moderator."
         ),
         p(
           "If you disagree with the restriction or believe its term has expired and want it to be removed, send an appeal."
