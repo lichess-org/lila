@@ -43,6 +43,7 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Навсегда удалить этот турнир, включая все раунды и партии?</string>
   <string name="showScores">Показать очки игроков по результатам партий</string>
   <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
   <string name="fideFederations">Федерации FIDE</string>

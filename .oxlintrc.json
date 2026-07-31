@@ -6,6 +6,7 @@
   },
   "ignorePatterns": ["**/dist/", "**/public"],
   "rules": {
+    "consistent-return": "error",
     "default-param-last": "error",
     "eqeqeq": [
       "error",
@@ -47,6 +48,7 @@
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
     "promise/no-return-wrap": "error",
+    "typescript/consistent-type-assertions": "error",
     "typescript/consistent-indexed-object-style": "error",
     "typescript/no-empty-interface": "error",
     "typescript/no-empty-object-type": "error",
@@ -264,6 +266,7 @@
       "files": ["bin/**", "cron/**"],
       "rules": {
         "await-thenable": "off",
+        "consistent-return": "off",
         "no-unused-vars": "off",
         "prefer-const": "off",
         "unicorn/prefer-set-has": "off"

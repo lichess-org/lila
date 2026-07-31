@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Blog của bạn đã bị người điều hành ẩn.</string>
   <string name="hiddenBlogInfo">Hãy nhớ đọc lại %s của chúng tôi.</string>
   <string name="playTimeout">Bạn có thời gian chờ chơi.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Tài khoản của bạn tạm thời bị cấm chơi.</string>
   <string name="communicationGuidelines">hướng dẫn giao tiếp</string>
   <string name="blogRules">quy tắc blog</string>
   <string name="fairPlay">Chơi Công Bằng</string>

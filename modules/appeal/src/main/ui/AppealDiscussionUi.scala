@@ -63,7 +63,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
                 userForm(appeal.topic, form, isNew = false)
               )
-          )
+          ),
+          appeal.isOpen.option:
+            postForm(cls := "appeal__withdraw", action := routes.Appeal.withdraw(appeal.topic))(
+              submitButton(
+                cls := "button button-red button-empty yes-no-confirm",
+                title := "Withdraw this appeal? This cannot be undone."
+              )("Withdraw appeal")
+            )
         ),
         userInactiveAppeals(appeals.filter(_ != appeal))
       )

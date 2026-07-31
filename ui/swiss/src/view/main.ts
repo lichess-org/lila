@@ -95,7 +95,7 @@ function controls(ctrl: SwissCtrl): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return undefined;
   return hl(
     'form.schedule-next-round',
     {
@@ -141,7 +141,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       i18n.team.joinTeam,
     );
 
-  if (!d.canJoin && (d.me?.absent || !d.me)) return;
+  if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
 
   if (ctrl.joinSpinner) return spinnerVdom();
 

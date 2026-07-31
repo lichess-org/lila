@@ -55,7 +55,7 @@ export function stopBuild(): Promise<any> {
 }
 
 function monitor(pkgs: string[]) {
-  if (!env.watch) return;
+  if (!env.watch) return undefined;
   return makeTask({
     key: 'monitor',
     includes: [

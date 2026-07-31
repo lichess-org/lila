@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Ваши блоги были скрыты модераторами.</string>
   <string name="hiddenBlogInfo">Обязательно перечитайте наши %s.</string>
   <string name="playTimeout">У вас есть таймаут.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Ваша учётная запись временно ограничена для участия в играх.</string>
   <string name="communicationGuidelines">правила общения</string>
   <string name="blogRules">правила ведения блогов</string>
   <string name="fairPlay">Честная игра</string>

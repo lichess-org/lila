@@ -49,7 +49,7 @@ export class InlineView {
   constructor(readonly ctrl: AnalyseCtrl) {}
 
   renderNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const { isMainline, parentDisclose } = args;
     return child.forceVariation && isMainline
       ? hl('interrupt', this.lines([child, ...siblings], args))
@@ -93,7 +93,7 @@ export class InlineView {
 
   protected lines(lines: TreeNode[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
-    if (!lines.length || parentDisclose === 'collapsed') return;
+    if (!lines.length || parentDisclose === 'collapsed') return undefined;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
@@ -108,7 +108,7 @@ export class InlineView {
   }
 
   private sidelineNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const childArgs = this.childArgs(child, args, false);
     const sideline = [
       this.moveNode(child, args),

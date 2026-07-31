@@ -91,7 +91,7 @@
   <string name="promotionDescription">Промовиши једног свог пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
   <string name="queenEndgameDescription">Завршница са само дамама и пешацима.</string>
-  <string name="queenRookEndgame">Краљица и Топ</string>
+  <string name="queenRookEndgame">Дама и Топ</string>
   <string name="queenRookEndgameDescription">Завршница са само дамама, топовима и пешацима.</string>
   <string name="queensideAttack">Напад на дамином крилу</string>
   <string name="queensideAttackDescription">Напад на противничког краља, након што се рокадирао на даминој страни.</string>

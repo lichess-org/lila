@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Modifier l\'étude de la ronde</string>
   <string name="deleteTournament">Supprimer ce tournoi</string>
   <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Supprimer définitivement ce tournoi, y compris les rondes et les parties?</string>
   <string name="showScores">Afficher les résultats des joueurs en fonction des résultats des parties</string>
   <string name="replacePlayerTags">Facultatif : remplacer les noms des joueurs, les classements et les titres</string>
   <string name="fideFederations">Fédérations FIDE</string>

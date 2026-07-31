@@ -86,7 +86,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 }
 
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
-  if (!ctrl.vm.writeable) return;
+  if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
       attrs: { placeholder: i18n.site.loginToChat, disabled: true },

@@ -77,6 +77,9 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="rankAvgHelp">Media rangului este un procent din clasamentul tău. Mai mic e mai bine.
 
 De exemplu, fiind clasat locul 3 într-un turneu de 100 de jucători = 3%. Find clasat locul 10 într-un turneu de 1000 de jucători = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Media în clasament reprezintă poziția tipică de final, relativ la numărul total de jucători din fiecare turneu. Aceasta este o măsură a plasamentului dumneavoastră în turneu, nu a ratingului general. 
+
+De exemplu, o medie de clasament de 3% înseamnă că terminați de obicei în top 3% (cum ar fi locul 30 din 1000 de jucători).</string>
   <string name="medians">mediane</string>
   <string name="allAveragesAreX">Toate mediile de pe această pagină sunt %s.</string>
   <string name="total">Total</string>

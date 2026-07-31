@@ -44,7 +44,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
             draws: data.draws,
             uci: '',
             san: 'Σ',
-          } as OpeningMoveStats,
+          },
         ]
       : data.moves;
 
@@ -396,7 +396,7 @@ let lastFen: FEN = '';
 export default function (ctrl: AnalyseCtrl): MaybeVNode {
   const { explorer } = ctrl;
 
-  if (!explorer.enabled()) return;
+  if (!explorer.enabled()) return undefined;
 
   const data = explorer.current();
   const configOpened = explorer.config.data.open();

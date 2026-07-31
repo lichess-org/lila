@@ -888,7 +888,6 @@
   <string name="xInvitedYouToY">%1$s 邀請您至「%2$s」。</string>
   <string name="youAreNowPartOfTeam">您現在是團隊的成員了。</string>
   <string name="youHaveJoinedTeamX">您已加入「%1$s」。</string>
-  <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="gameVsX">與%1$s對局</string>
   <string name="resVsX">%1$s vs %2$s</string>

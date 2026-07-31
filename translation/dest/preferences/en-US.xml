@@ -58,8 +58,11 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
   <string name="notifyStreamStart">Streamer goes live</string>
   <string name="notifyInboxMsg">New inbox message</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">New direct message</string>
   <string name="notifyForumMention">Forum comment mentions you</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forum mentions</string>
   <string name="notifyInvitedStudy">Study invite</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Study invites</string>
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>

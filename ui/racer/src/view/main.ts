@@ -80,6 +80,8 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
         ? [playerScore(ctrl), div('.racer__post', [raceComplete, yourRank(ctrl), nextRace]), combo]
         : [spectating, div('.racer__post', [raceComplete, nextRace]), combo];
     }
+    default:
+      return [];
   }
 };
 

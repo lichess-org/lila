@@ -12,7 +12,7 @@ import type { RetroCtrl } from '@/retrospect/retroCtrl';
 export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
   const ctx = makeContext(nvuiCtx);
   const { ctrl } = ctx;
-  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
+  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return undefined;
   const current = ctrl.retro?.current();
   const mistakes = ctrl.retro?.completion();
 

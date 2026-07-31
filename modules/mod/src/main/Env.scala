@@ -87,7 +87,7 @@ final class Env(
           logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
             (count >= 3).so:
               if game.hasClock then
-                api.autoMark(
+                api.autoEngine(
                   SuspectId(userId),
                   s"Cheat detected during game, ${count} times"
                 )(using UserId.lichessAsMe)
@@ -106,7 +106,7 @@ final class Env(
   Bus.sub[lila.core.mod.SelfReportMark]:
     case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>
       val msg = s"Self report: ${name} on https://lichess.org/${gameId}"
-      api.autoMark(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
+      api.autoEngine(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
 
   Bus.sub[lila.core.mod.ChatTimeout]:
     case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
@@ -130,4 +130,4 @@ final class Env(
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
 
   Bus.sub[BoardApiMark]: m =>
-    api.autoMark(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)
+    api.autoEngine(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)

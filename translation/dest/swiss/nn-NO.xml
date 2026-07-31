@@ -119,6 +119,8 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Skriv inn eiyt brukarnamn per line. Berre desse spelarana kan bli med.
+Lata stå tomt for å tillata alle kvalifiserte spelarar.</string>
   <string name="playYourGames">Spel partia dine</string>
   <string name="byes">Walkover</string>
   <string name="absences">Fråverande</string>

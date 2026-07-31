@@ -83,7 +83,7 @@ export default class PuzzleCtrl implements CevalHandler {
   autoScrollNow: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
-  cgVersion = 1;
+  cgVersion = 0;
 
   private report: Report;
 
@@ -276,12 +276,7 @@ export default class PuzzleCtrl implements CevalHandler {
       this.rated() ? 4000 : 2000,
     );
 
-    this.withGround(g => {
-      g.selectSquare(null);
-      g.setAutoShapes([]);
-      g.setShapes([]);
-      this.showGround(g);
-    });
+    this.cgVersion++;
   };
 
   position = (): Chess => {

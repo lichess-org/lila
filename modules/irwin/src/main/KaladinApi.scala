@@ -130,7 +130,7 @@ final class KaladinApi(
         .flatMap:
           if _ then sendReport
           else
-            for _ <- modApi.autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
+            for _ <- modApi.autoEngine(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
             yield lila.mon.mod.kaladin.mark.increment()
     else if pred.percent >= thresholds.get().report then sendReport
     else funit

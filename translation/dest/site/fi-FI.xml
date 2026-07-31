@@ -580,6 +580,9 @@
   <string name="replies">Vastaukset</string>
   <string name="replyToThisTopic">Vastaa tähän aiheeseen</string>
   <string name="reply">Vastaa</string>
+  <string name="reopen">Avaa uudelleen</string>
+  <string name="quote">Siteeraa</string>
+  <string name="postEdited">muokattu</string>
   <string name="message">Viesti</string>
   <string name="createTheTopic">Luo aihe</string>
   <string name="reportAUser">Raportoi käyttäjä</string>
@@ -963,7 +966,6 @@
   <string name="xInvitedYouToY">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
   <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
   <string name="gameVsX">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>

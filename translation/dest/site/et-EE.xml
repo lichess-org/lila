@@ -964,7 +964,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xInvitedYouToY">%1$s kutsus sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
   <string name="youHaveJoinedTeamX">Oled liitunud meeskonnaga \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Keegi, kellest sa teatasid, sai mängukeelu</string>
   <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
   <string name="gameVsX">Mängus %1$s vastu</string>
   <string name="resVsX">%1$s vs %2$s</string>

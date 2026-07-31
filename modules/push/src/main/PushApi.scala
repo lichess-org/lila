@@ -363,10 +363,22 @@ final private class PushApi(
         body = body,
         key = Key.broadcastRound,
         urgency = Urgency.Normal,
-        payload = payload("url" -> url),
+        payload = payload("type" -> "broadcast", "url" -> url),
         mobileCompatible = LichessMobileVersion(0, 26).some
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
+
+  private[push] def recap(userId: UserId, year: Int): Funit =
+    val data = LazyFu.sync:
+      Data(
+        title = "",
+        body = "",
+        key = Key.recap,
+        urgency = Urgency.Normal,
+        payload = payload("type" -> "recap", "year" -> year.toString),
+        mobileCompatible = LichessMobileVersion(0, 26).some
+      )
+    alwaysPushFirebaseData(userId, _.recap, data)
 
   private def maybePushNotif(
       userId: UserId,

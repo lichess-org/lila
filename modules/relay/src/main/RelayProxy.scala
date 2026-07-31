@@ -4,66 +4,17 @@ import scala.util.matching.Regex
 import io.mola.galimatias.URL
 import play.api.libs.ws.*
 import com.softwaremill.tagging.*
-import scalalib.Iso
-import reactivemongo.api.bson.BSONHandler
 
+import lila.memo.HttpProxy
 import lila.memo.SettingStore
-import lila.memo.SettingStore.{ StringReader, Formable }
 import lila.memo.SettingStore.Formable.given
-import lila.core.config.Secret
 
 private opaque type CanProxy = Boolean
 private object CanProxy extends YesNo[CanProxy]
 
 private type ProxySelector = URL => CanProxy ?=> Option[DefaultWSProxyServer]
 
-final class RelayProxy(settingStore: SettingStore.Builder):
-
-  case class Credentials(user: String, password: Secret):
-    def show = s"$user:${password.value}"
-  private object Credentials:
-    def read(str: String): Option[Credentials] = str.split(":") match
-      case Array(user, password) => Credentials(user, Secret(password)).some
-      case _ => none
-
-  case class HostPort(host: String, port: Int):
-    def show = s"$host:$port"
-  private object HostPort:
-    def read(str: String): Option[HostPort] = str.split(":") match
-      case Array(host, port) => port.toIntOption.map(HostPort(host, _))
-      case _ => none
-
-  private type CredOption = Option[Credentials]
-  private type HostOption = Option[HostPort]
-
-  private val credentialsIso = Iso.string[CredOption](Credentials.read, _.so(_.show))
-  private given BSONHandler[CredOption] = lila.db.dsl.isoHandler(using credentialsIso)
-  private given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
-  private val hostPortIso = Iso.string[HostOption](HostPort.read, _.so(_.show))
-  private given BSONHandler[HostOption] = lila.db.dsl.isoHandler(using hostPortIso)
-  private given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
-  private given Formable[CredOption] = stringPair(using credentialsIso)
-  private given Formable[HostOption] = stringPair(using hostPortIso)
-  private def stringPair[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
-    import play.api.data.Form
-    import play.api.data.Forms.*
-    Form(
-      single("v" -> text.verifying(t => t.isEmpty || t.count(_ == ':') == 1))
-    ).fill(iso.to(v))
-
-  val credentials = settingStore[Option[Credentials]](
-    "relayProxyCredentials",
-    default = none,
-    text =
-      "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no auth (?!). Format: username:password".some
-  ).taggedWith[ProxyCredentials]
-
-  val hostPort = settingStore[Option[HostPort]](
-    "relayProxyHostPort",
-    default = none,
-    text =
-      "Broadcast: proxy host and port to fetch from external sources. Leave empty to use no proxy. Format: host:port".some
-  ).taggedWith[ProxyHostPort]
+final class RelayProxy(proxy: HttpProxy, settingStore: SettingStore.Builder):
 
   import SettingStore.Regex.given
   val domainRegex = settingStore[Regex](
@@ -74,16 +25,10 @@ final class RelayProxy(settingStore: SettingStore.Builder):
 
   private[relay] val select: ProxySelector = url =>
     allowed ?=>
-      for
-        hostPort <- hostPort.get()
-        if allowed.yes
-        proxyRegex = domainRegex.get()
-        if proxyRegex.toString.nonEmpty
-        if proxyRegex.unanchored.matches(url.host.toString)
-        creds = credentials.get()
-      yield DefaultWSProxyServer(
-        host = hostPort.host,
-        port = hostPort.port,
-        principal = creds.map(_.user),
-        password = creds.map(_.password.value)
-      )
+      allowed.yes.so:
+        for
+          proxy <- proxy.select()
+          proxyRegex = domainRegex.get()
+          if proxyRegex.toString.nonEmpty
+          if proxyRegex.unanchored.matches(url.host.toString)
+        yield proxy

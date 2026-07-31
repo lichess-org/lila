@@ -1,0 +1,86 @@
+name: Determine publish parameters
+
+on:
+  workflow_call:
+    outputs:
+      publish:
+        value: ${{ jobs.check.outputs.publish }}
+      deploy:
+        value: ${{ jobs.check.outputs.deploy }}
+      tags:
+        value: ${{ jobs.check.outputs.tags }}
+      pr_number:
+        value: ${{ jobs.check.outputs.pr_number }}
+      checkout_ref:
+        value: ${{ jobs.check.outputs.checkout_ref }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    permissions:
+      pull-requests: read
+    outputs:
+      publish: ${{ steps.params.outputs.publish }}
+      deploy: ${{ steps.params.outputs.deploy }}
+      tags: ${{ steps.params.outputs.tags }}
+      pr_number: ${{ steps.params.outputs.pr_number }}
+      checkout_ref: ${{ steps.params.outputs.checkout_ref }}
+    steps:
+      - name: Work out whether/how to publish and deploy
+        id: params
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const defaultBranch = context.payload.repository.default_branch;
+
+            // Docker tags may only contain [a-zA-Z0-9_.-]
+            const sanitizeTag = (value) => value.replace(/[^a-zA-Z0-9_.-]/g, '-');
+
+            const setNone = () => {
+              core.setOutput('publish', 'false');
+              core.setOutput('deploy', 'false');
+              core.setOutput('tags', '');
+              core.setOutput('pr_number', '');
+              core.setOutput('checkout_ref', '');
+            };
+
+            if (run.event === 'push' || run.event === 'workflow_dispatch') {
+              const isDefaultBranch = run.head_branch === defaultBranch;
+              if (run.event === 'push' && !isDefaultBranch) {
+                setNone();
+                return;
+              }
+              const tags = [`type=raw,value=${sanitizeTag(run.head_branch)}`];
+              if (isDefaultBranch) tags.push('type=raw,value=latest');
+              core.setOutput('publish', 'true');
+              core.setOutput('deploy', isDefaultBranch ? 'true' : 'false');
+              core.setOutput('tags', tags.join('\n'));
+              core.setOutput('pr_number', '');
+              core.setOutput('checkout_ref', run.head_sha);
+              return;
+            }
+
+            if (run.event === 'pull_request') {
+              const { data: prs } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                head: `${run.head_repository.owner.login}:${run.head_branch}`,
+              });
+              const pr = prs.find(p => p.head.sha === run.head_sha);
+              const hasPreviewLabel = !!pr && pr.labels.some(label => label.name === 'preview');
+              if (!hasPreviewLabel) {
+                setNone();
+                return;
+              }
+              core.setOutput('publish', 'true');
+              core.setOutput('deploy', 'false');
+              core.setOutput('tags', `type=raw,value=pr-${pr.number}`);
+              core.setOutput('pr_number', String(pr.number));
+              core.setOutput('checkout_ref', `refs/pull/${pr.number}/head`);
+              return;
+            }
+
+            setNone();

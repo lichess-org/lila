@@ -963,7 +963,6 @@
   <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
   <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
-  <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>
   <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>

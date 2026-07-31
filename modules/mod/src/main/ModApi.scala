@@ -32,8 +32,18 @@ final class ModApi(
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.alt, v)))
       _ <- logApi.alt(sus, v)
-      _ = if v then notifier.reporters(me.modId, sus)
+      _ = if v then notifier.actionTaken(me.modId, sus, Room.Other)
     yield sus
+
+  def afterModClose(u: User)(using me: Me) =
+    notifier.actionTaken(me.modId, Suspect(u), Room.Other)
+
+  def afterWarning(sus: Suspect)(using me: Me) =
+    reportApi.inquiries
+      .ofModId(me)
+      .map: inquiry =>
+        val room = inquiry.fold(Room.Comm)(_.room)
+        notifier.actionTaken(me.modId, sus, room)
 
   def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     (prev.user.marks.engine != v).so:
@@ -44,19 +54,22 @@ final class ModApi(
       yield
         Bus.pub(lila.core.mod.MarkCheater(sus.user.id, v))
         if v then
-          notifier.reporters(me.modId, sus)
+          notifier.actionTaken(me.modId, sus, Room.Cheat)
           refunder.schedule(sus)
 
-  def autoMark(suspectId: SuspectId, note: String)(using MyId): Funit =
+  def autoEngine(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
       sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
       closedReports <- reportApi.countClosedAutoCheatReport(sus.user.id)
       _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined && closedReports < 2).so:
-        lila.mon.cheat.autoMark.increment()
-        setEngine(sus, v = true) >>
-          noteApi.lichessWrite(sus.user, note) >>
-          reportApi.autoProcess(sus, Set(Room.Cheat, Room.Print))
+        for
+          _ <- setEngine(sus, v = true)
+          _ <- noteApi.lichessWrite(sus.user, note)
+          _ <- reportApi.autoProcess(sus, Set(Room.Cheat, Room.Print))
+          _ = lila.mon.cheat.autoMark.increment()
+          _ = notifier.actionTaken(ModId.lichess, sus, Room.Cheat)
+        yield ()
     yield ()
 
   def setBoost(prev: Suspect, v: Boolean)(using me: Me): Fu[Suspect] =
@@ -68,7 +81,7 @@ final class ModApi(
         _ <- logApi.booster(sus, v)
       yield
         Bus.pub(lila.core.mod.MarkBooster(sus.user.id, v))
-        if v then notifier.reporters(me.modId, sus)
+        if v then notifier.actionTaken(me.modId, sus, Room.Boost)
         sus
 
   def setTroll(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
@@ -83,14 +96,17 @@ final class ModApi(
           yield
             logApi.troll(sus)
             Bus.pub(lila.core.mod.Shadowban(sus.user.id, value))
-        _ = if value then notifier.reporters(me.modId, sus)
+        _ = if value then notifier.actionTaken(me.modId, sus, Room.Comm)
       yield sus
 
   def autoTroll(sus: Suspect, note: String): Funit =
-    given MyId = UserId.lichessAsMe
-    setTroll(sus, true) >>
-      noteApi.lichessWrite(sus.user, note)
-      >> reportApi.autoProcess(sus, Set(Room.Comm))
+    given me: MyId = UserId.lichessAsMe
+    for
+      _ <- setTroll(sus, true)
+      _ <- noteApi.lichessWrite(sus.user, note)
+      _ <- reportApi.autoProcess(sus, Set(Room.Comm))
+      _ = notifier.actionTaken(ModId.lichess, sus, Room.Comm)
+    yield ()
 
   def setIsolate(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
     if value && !prev.user.marks.troll
@@ -98,14 +114,14 @@ final class ModApi(
     else
       val changed = value != prev.user.marks.isolate
       val sus = prev.set(_.withMarks(_.set(_.isolate, value)))
-      for
-        _ <- changed.so:
+      changed
+        .so:
           for
             _ <- userRepo.setIsolate(sus.user.id, value)
             _ <- prefApi.isolate(sus.user)
-          yield logApi.isolate(sus)
-        _ = if value then notifier.reporters(me.modId, sus)
-      yield sus
+            _ = logApi.isolate(sus)
+          yield ()
+        .inject(sus)
 
   def garbageCollect(userId: UserId): Funit =
     given MyId = UserId.lichessAsMe

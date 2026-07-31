@@ -37,6 +37,7 @@
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
   <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">このトーナメント（全ラウンド、全対局を含む）を完全に削除しますか？</string>
   <string name="showScores">ゲーム結果に応じてプレイヤーのスコアを表示</string>
   <string name="replacePlayerTags">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
   <string name="fideFederations">FIDE 加盟協会</string>

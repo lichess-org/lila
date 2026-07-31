@@ -33,7 +33,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
     contrib = study.members.canContribute() && !study.gamebookPlay;
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
-  if (!desc.text || (isEmpty && !contrib)) return;
+  if (!desc.text || (isEmpty && !contrib)) return undefined;
   return hl(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib &&
       !isEmpty &&

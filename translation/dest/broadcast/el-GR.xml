@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή τουρνουά</string>
   <string name="definitivelyDeleteTournament">Οριστική διαγραφή αυτού του τουρνουά, όλων των γύρων του και όλων των παρτίδων του.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Θέλετε να διαγράψετε οριστικά αυτό το τουρνουά, συμπεριλαμβανομένων όλων των γύρων και των παρτίδων;</string>
   <string name="showScores">Εμφάνιση βαθμών των παικτών βάσει των παρτίδων τους</string>
   <string name="replacePlayerTags">Προαιρετικό: αντικατάσταση ονομάτων, βαθμολογιών και τίτλων παικτών</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>

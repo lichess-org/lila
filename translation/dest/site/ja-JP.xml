@@ -256,6 +256,7 @@
   <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">確認メールが届かない場合は迷惑メールフォルダを確認してください。重要な連絡を見逃さないように、Lichess からのメッセージを必ず「安全」「非スパム」などと指定しておいてください。</string>
   <string name="sendEmailForAccountVerification">確認メールが見つからない場合は %s にメールを送信してください。当方でアカウントを確認します。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
@@ -545,6 +546,9 @@
   <string name="replies">返信数</string>
   <string name="replyToThisTopic">このトピックに返信</string>
   <string name="reply">返信</string>
+  <string name="reopen">もう一度開く</string>
+  <string name="quote">引用する</string>
+  <string name="postEdited">編集済</string>
   <string name="message">メッセージ</string>
   <string name="createTheTopic">トピックを作成</string>
   <string name="reportAUser">プレイヤーの報告</string>
@@ -557,6 +561,7 @@
   <string name="reportCheatBoostHelp">ゲームへのリンクを張って、このユーザーの行動のどこが問題かを説明してください。ただ「チート」と言うのではなく、あなたがなぜそう思ったのか教えてください。</string>
   <string name="reportUsernameHelp">このユーザー名のどこが攻撃的かを説明してください。ただ「攻撃的」「不適切」と言うのではなく、あなたがなぜそう思ったのか教えてください。中でも綴りの変更、英語以外の言語、俗語、歴史・文化的要因に関係した場合は特に説明が必要です。</string>
   <string name="reportProcessedFasterInEnglish">英語で書いていただくと通報への対応が早くなります。</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">英語で書くと通報への対応が速くなります。</string>
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="importedByX">%s がインポート</string>
@@ -678,6 +683,7 @@
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
   <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">同時対局では同時に複数の相手と対戦することができます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
@@ -919,7 +925,6 @@
   <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
-  <string name="someoneYouReportedWasBanned">あなたが通報した人が追放されました</string>
   <string name="congratsYouWon">おめでとう、あなたの勝ちです！</string>
   <string name="gameVsX">%1$s との対局</string>
   <string name="resVsX">%1$s 対 %2$s</string>
@@ -952,6 +957,7 @@
   <string name="simulDescription">同時対局の説明</string>
   <string name="simulDescriptionHelp">参加者に伝えたいことがあればどうぞ</string>
   <string name="markdownIsAvailable">フォーマット方法として %s が使えます。</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">テキストのフォーマット用に %s が使えます。</string>
   <string name="embedsAvailable">棋譜の URL、研究の章の URL をペーストすると埋め込みできます。</string>
   <string name="inYourLocalTimezone">自分のタイムゾーンで</string>
   <string name="tournChat">トーナメント チャット</string>
@@ -959,6 +965,7 @@
   <string name="onlyTeamLeaders">チームリーダー限定</string>
   <string name="onlyTeamMembers">チームメンバー限定</string>
   <string name="navigateMoveTree">分岐ツリー内の移動</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">指し手リストのナビゲーション</string>
   <string name="mouseTricks">マウスでの操作</string>
   <string name="toggleLocalAnalysis">ローカルコンピュータ解析の切り替え</string>
   <string name="toggleAllAnalysis">全コンピュータ解析の切り替え</string>

@@ -34,7 +34,7 @@ const onTheSide = (round: RoundController) => (color: Color, position: TopOrBott
 
 function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   const d = ctrl.data;
-  if (finished(d) || aborted(d)) return;
+  if (finished(d) || aborted(d)) return undefined;
   return hl(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&

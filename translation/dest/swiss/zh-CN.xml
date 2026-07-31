@@ -116,6 +116,8 @@
   <string name="unlimitedAndFree">无限制且免费</string>
   <string name="predefinedUsers">仅允许预定义用户加入</string>
   <string name="forbiddedUsers">如果此列表非空，则未在列表中的用户将被禁止加入。每行一个用户名。</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">每行输入一个用户名，只有这些棋手将被允许加入。
+留空则允许所有符合条件的棋手加入。</string>
   <string name="playYourGames">进行您的对局</string>
   <string name="byes">轮空</string>
   <string name="absences">缺席</string>
