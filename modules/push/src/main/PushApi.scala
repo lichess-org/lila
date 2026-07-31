@@ -1,6 +1,7 @@
 package lila.push
 
 import org.apache.pekko.actor.*
+import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.data.LazyFu
 
@@ -13,6 +14,7 @@ import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
 import lila.core.net.LichessMobileVersion
+import lila.core.i18n.{ Translate, Translator, I18nKey }
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -24,7 +26,7 @@ final private class PushApi(
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi,
     lightUser: lila.core.LightUser.GetterFallback
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, Translator):
 
   import PushApi.*
   import PushApi.Data.payload
@@ -369,16 +371,17 @@ final private class PushApi(
     filterPushNotif(recips, _.broadcastRound, pushData)
 
   private[push] def recap(userId: UserId, year: Int): Funit =
+    given Translate = summon[Translator].to(Lang("en", "GB"))
     val data = LazyFu.sync:
       Data(
-        title = "",
-        body = "",
+        title = I18nKey.recap.recapReady.txt(year.toString),
+        body = I18nKey.recap.awaitQuestion.txt(),
         key = Key.recap,
         urgency = Urgency.Normal,
         payload = payload("type" -> "recap", "year" -> year.toString),
         mobileCompatible = LichessMobileVersion(0, 26).some
       )
-    alwaysPushFirebaseData(userId, _.recap, data)
+    pushFirebase(userId, _.recap, data)
 
   private def maybePushNotif(
       userId: UserId,
@@ -406,6 +409,10 @@ final private class PushApi(
         firebasePush(_, data).addEffects: res =>
           monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
     yield ()
+
+  private def pushFirebase(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =
+    firebasePush(userId, data).addEffects: res =>
+      monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   // ignores notification preferences
   private def alwaysPushFirebaseData(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =

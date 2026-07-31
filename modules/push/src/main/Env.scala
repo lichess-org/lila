@@ -9,6 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
+import lila.core.i18n.Translator
 
 @Module
 final private class PushConfig(
@@ -34,7 +35,7 @@ final class Env(
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi,
     getLightUser: lila.core.LightUser.GetterFallback
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, Translator):
 
   private val config = appConfig.get[PushConfig]("push")(using AutoConfig.loader)
 
