@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class RequestUi(helpers: Helpers, bits: TeamUi):
+final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.team as trt
   import bits.{ TeamPage, menu }

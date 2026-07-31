@@ -63,16 +63,14 @@ final class Team(env: Env) extends LilaController(env):
           yield views.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
-    team <- api.withLeaders(team)
-    info <- env.teamInfo(team, withForum = canHaveForum(team.team, asMod))
-    members <- paginator.teamMembers(team.team, page)
+    show <- api.show(team)
+    info <- env.teamInfo(show, withForum = canHaveForum(show.team, asMod))
+    members <- paginator.teamMembers(show.team, page)
     log <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat.optionFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
-    _ <- env.user.lightUserApi.preloadMany:
-      info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.optionFu(env.team.version(team.id))
-    page <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
+    page <- renderPage(views.team.show(info, members, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canEnterModView(using Context) =
@@ -81,10 +79,10 @@ final class Team(env: Env) extends LilaController(env):
   private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
   ): Boolean =
-    import info.*
-    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && ctx.req.client.isHuman && {
-      (team.isChatFor(_.Leaders) && info.ledByMe) ||
-      (team.isChatFor(_.Members) && info.mine) ||
+    import info.show.team.isChatFor
+    info.show.team.enabled && !isChatFor(_.None) && ctx.kid.no && ctx.req.client.isHuman && {
+      (isChatFor(_.Leaders) && info.show.ledByMe) ||
+      (isChatFor(_.Members) && info.show.mine) ||
       (canEnterModView && requestModView)
     }
 
@@ -102,7 +100,7 @@ final class Team(env: Env) extends LilaController(env):
     WithEnabledTeamOrClas(teamId): team =>
       CanSeeMembers(team):
         env.teamInfo
-          .tournaments(team, 30, 30)
+          .tournamentsOf(team, 30, 30)
           .map(views.team.tournaments.page(team, _))
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for

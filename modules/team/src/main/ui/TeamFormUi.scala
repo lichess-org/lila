@@ -9,7 +9,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class FormUi(helpers: Helpers, bits: TeamUi)(
+final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag
 ):
   import helpers.{ *, given }

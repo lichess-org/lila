@@ -16,6 +16,7 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
+    updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
     notifier: Notifier,
@@ -50,6 +51,14 @@ final class TeamApi(
   def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
+
+  def show(team: Team)(using me: Option[Me]): Fu[Team.TeamShow] = for
+    leaders <- memberRepo.leaders(team.id)
+    member <- me.soUse(memberOf(team.id))
+    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(requestsWithUsers(team))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
+    update <- member.isDefined.so(updateApi.teamLatest(team.id))
+  yield Team.TeamShow(team, leaders, member, myRequest, requests, update)
 
   def create(setup: TeamSetup)(using me: Me): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
