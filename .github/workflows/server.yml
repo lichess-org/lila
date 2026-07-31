@@ -29,6 +29,7 @@ on:
       - 'conf/application.conf.default'
       - '.sbtopts.default'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:

@@ -22,6 +22,7 @@ on:
       - 'pnpm-lock.yaml'
       - '.node-version'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   assets:
