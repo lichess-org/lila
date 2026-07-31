@@ -127,7 +127,7 @@ final class NotifyApi(
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
     NotificationPref.events.get(content.key) match
-      case None => bellMany(userIds, content)
+      case None => bellMany(userIds.map(NotifyAllows(_, lila.notify.Allows.all)), content)
       case Some(event) =>
         prefs
           .getAllows(userIds, event)
