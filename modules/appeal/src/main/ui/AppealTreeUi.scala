@@ -162,17 +162,15 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             " playing an excessive number of rated games against someone who was deliberately losing."
           )
         ),
-        p(strong("Account sharing:")),
-        p("Your account can only be used by you. If someone else:"),
-        ul(
-          li("played games using your account, with or without your permission, or"),
-          li("if you asked another person’s advice during rated games,")
-        ),
+        p(strong("Account sharing")),
         p(
-          "Then you have violated our ",
-          a(href := routes.Cms.tos)(trans.site.termsOfService()),
-          ". You are responsible for all activities in your account."
-        )
+          "Your account can only be used by you. We consider your account to have violated the rules if any of the following occur:"
+        ),
+        ul(
+          li("someone else plays games using your account, with or without your permission"),
+          li("you asked another person’s advice during rated games.")
+        ),
+        p("You are responsible for all activity in your account.")
       ).some
     )
 
