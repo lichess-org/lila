@@ -1,3 +1,4 @@
+import { myUsername } from 'lib';
 import { deepFreeze, randomToken, clamp } from 'lib/algo';
 import { log } from 'lib/permalog';
 import type { LobbyShortcut } from 'lib/types';
@@ -23,6 +24,7 @@ export const pools = deepFreeze([
 ] as const satisfies readonly Pool[]);
 
 export const siteShortcuts = deepFreeze([
+  { id: 'myGames', iconKey: 'Multiboard', name: 'My games', url: `/@/${myUsername()}/all#angles` },
   { id: 'gameSearch', iconKey: 'Search', name: 'Game search', url: '/games/search' },
   { id: 'openings', iconKey: 'Book', name: 'Openings', url: '/opening' },
   { id: 'communityBlogs', iconKey: 'InkQuill', name: 'Community blogs', url: '/blog/community' },
