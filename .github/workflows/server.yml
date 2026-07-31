@@ -55,6 +55,7 @@ jobs:
           compression-level: 0 # already compressed
 
   format:
+    if: github.event_name != 'workflow_call'
     runs-on: ubuntu-latest
     env:
       SBT_OPTS: -Dsbt.banner=false
