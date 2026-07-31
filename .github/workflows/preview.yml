@@ -23,7 +23,9 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'preview')
       )
     steps:
-      - run: echo "Building preview"
+      - run: |
+          echo "Building preview"
+          echo "Triggered by: ${{ github.event_name }}"
 
   build-server:
     needs: [gate]
@@ -78,6 +80,7 @@ jobs:
   publish-server:
     needs: [gate, build-server, params]
     if: |
+      always() &&
       needs.gate.result == 'success' &&
       (
         (github.event_name == 'workflow_run' && github.event.workflow_run.name == 'Build server') ||
@@ -139,6 +142,7 @@ jobs:
   publish-assets:
     needs: [gate, build-assets, params]
     if: |
+      always() &&
       needs.gate.result == 'success' &&
       (
         (github.event_name == 'workflow_run' && github.event.workflow_run.name == 'Build assets') ||
