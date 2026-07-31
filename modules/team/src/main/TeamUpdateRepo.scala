@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import scalalib.paginator.AdapterLike
 
-private final class TeamMsgRepo(val coll: Coll)(using Executor):
+private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
@@ -17,7 +17,7 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
   // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
 
-  def send(msg: TeamMsg[TeamId], unsubed: List[UserId]): Funit =
+  def send(msg: TeamUpdate[TeamId], unsubed: List[UserId]): Funit =
     val bson = toBdoc(msg).get ++ $doc("seenBy" -> unsubed)
     coll.insert.one(bson).void
 
@@ -38,21 +38,21 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def teamLatest(team: TeamId): Fu[Option[TeamMsg[TeamId]]] =
+  def teamLatest(team: TeamId): Fu[Option[TeamUpdate[TeamId]]] =
     coll.secondary
       .find(teamSelect(team) ++ dateSelect)
       .sort($sort.desc("date"))
-      .one[TeamMsg[TeamId]]
+      .one[TeamUpdate[TeamId]]
 
-  def teamRecent(team: TeamId)(using Me): AdapterLike[TeamMsgSeen[TeamId]] =
+  def teamRecent(team: TeamId)(using Me): AdapterLike[TeamUpdateSeen[TeamId]] =
     allRecent(Team.IdsStr(List(team)))
 
-  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[TeamMsgSeen[TeamId]] = new:
+  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[TeamUpdateSeen[TeamId]] = new:
     private val teamSelector = teams.toArray match
       case Array(single) => teamSelect(single)
       case many => $doc("team".$in(many))
     def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
-    def slice(offset: Int, length: Int): Fu[List[TeamMsgSeen[TeamId]]] =
+    def slice(offset: Int, length: Int): Fu[List[TeamUpdateSeen[TeamId]]] =
       coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
@@ -66,11 +66,11 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
         .map: docs =>
           for
             doc <- docs
-            msg <- doc.asOpt[TeamMsg[TeamId]]
+            msg <- doc.asOpt[TeamUpdate[TeamId]]
             seen <- doc.getAsOpt[Boolean]("seenBy")
-          yield TeamMsgSeen(msg, seen)
+          yield TeamUpdateSeen(msg, seen)
 
-  def byTeams(teams: Team.IdsStr)(using me: Me): Fu[List[TeamMsgs[TeamId]]] =
+  def byTeams(teams: Team.IdsStr)(using me: Me): Fu[List[TeamUpdates[TeamId]]] =
     coll
       .aggregateList(100, _.sec): framework =>
         import framework.*
@@ -93,4 +93,4 @@ private final class TeamMsgRepo(val coll: Coll)(using Executor):
           teamId <- doc.getAsOpt[TeamId]("_id")
           unread <- doc.int("unread")
           last <- doc.getAsOpt[Instant]("last")
-        yield TeamMsgs(teamId, unread, last)
+        yield TeamUpdates(teamId, unread, last)

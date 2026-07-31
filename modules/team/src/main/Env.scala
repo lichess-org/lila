@@ -24,7 +24,7 @@ final class Env(
   lazy val teamRepo = TeamRepo(db(CollName("team")))
   lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))
   lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
-  private lazy val msgRepo = TeamMsgRepo(db(CollName("team_msg")))
+  private lazy val updateRepo = TeamUpdateRepo(db(CollName("team_update")))
 
   lazy val forms = wire[TeamForm]
 
@@ -46,7 +46,7 @@ final class Env(
 
   def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
-  lazy val msg = wire[TeamMsgApi]
+  lazy val update = wire[TeamUpdateApi]
 
   lazy val security = wire[TeamSecurity]
 

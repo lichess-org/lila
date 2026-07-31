@@ -1,4 +1,4 @@
-$msg-top-height: 4em;
+$update-top-height: 4em;
 
 body {
   ---app-height: 100vh;
@@ -6,14 +6,14 @@ body {
   overflow: hidden;
 }
 
-.team-msg {
+.team-update {
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
   height: calc(var(---app-height) * 0.98 - $site-header-height);
 }
 
-.team-msg__side {
+.team-update__side {
   @extend %flex-column;
   @include prevent-select;
 
@@ -35,7 +35,7 @@ body {
   &__top {
     @extend %flex-center;
 
-    flex: 0 0 $msg-top-height;
+    flex: 0 0 $update-top-height;
     background: $c-bg-zebra2;
     border-bottom: $border;
   }
@@ -87,8 +87,8 @@ body {
       flex: 1 1 auto;
       font-size: 1.2em;
 
-      .team-msg__side__team--active &,
-      .team-msg__side__team--unread & {
+      .team-update__side__team--active &,
+      .team-update__side__team--unread & {
         color: $c-font-clear;
       }
     }
@@ -121,7 +121,7 @@ body {
       height: 1.4em;
     }
 
-    &__msg {
+    &__update {
       @extend %roboto, %nowrap-ellipsis;
 
       color: $c-font-dim;
@@ -139,7 +139,7 @@ body {
   }
 }
 
-.team-msg__convo {
+.team-update__convo {
   @extend %flex-column;
 
   flex: 1 1 100%;
@@ -148,7 +148,7 @@ body {
     @extend %flex-between-nowrap;
 
     gap: 1em;
-    flex: 0 0 $msg-top-height;
+    flex: 0 0 $update-top-height;
     background: $c-bg-zebra2;
     border-bottom: $border;
     padding-inline: 1em 2em;
@@ -202,7 +202,7 @@ body {
     }
   }
 
-  &__msgs {
+  &__updates {
     @extend %flex-column;
 
     gap: 2em;
@@ -210,10 +210,10 @@ body {
     overflow-y: auto;
   }
 
-  &__msg {
+  &__update {
     @extend %box-bordered;
 
-    &.team-msg__convo__msg--unread {
+    &.team-update__convo__update--unread {
       border-color: $c-accent;
     }
 
@@ -240,17 +240,17 @@ body {
 }
 
 @media (max-width: at-most($small)) {
-  .team-msg {
+  .team-update {
     height: calc(var(---app-height) - $site-header-height);
   }
 
-  .team-msg--all .team-msg__convo,
-  .team-msg--team .team-msg__side {
+  .team-update--all .team-update__convo,
+  .team-update--team .team-update__side {
     display: none;
   }
 
-  .team-msg--team .team-msg__convo,
-  .team-msg--all .team-msg__side {
+  .team-update--team .team-update__convo,
+  .team-update--all .team-update__side {
     flex: 1 0 100%;
   }
 }

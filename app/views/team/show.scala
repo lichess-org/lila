@@ -92,7 +92,7 @@ object show:
                   views.chat.spectatorsFrag
                 )
               ),
-              bits.actions(t.team, info.member, info.myRequest, info.subscribed, asMod),
+              bits.actions(t.team, info.member, info.myRequest, asMod),
               (canSeeMembers && !t.team.isClas).option(bits.members(t.team, members))
             ),
             div(cls := "team-show__content__col2")(
@@ -116,7 +116,7 @@ object show:
                 )
               ),
               div(cls := "team-show__events")(
-                t.enabled.so(info.message).map(views.team.msg.teamLatest(t.team, _)),
+                t.enabled.so(info.update).map(views.team.update.teamLatest(t.team, _)),
                 (t.enabled && canSeeMembers && info.tours.nonEmpty).option(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
                     h2(

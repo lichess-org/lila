@@ -390,25 +390,25 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
-  def messages(page: Int) = Auth { ctx ?=> me ?=>
+  def updates(page: Int) = Auth { _ ?=> _ ?=>
     for
-      byTeam <- env.team.msg.byTeams
-      recent <- env.team.msg.allRecent(page)
-      res <- Ok.page(views.team.msg.allRecent(recent, byTeam))
+      byTeam <- env.team.update.byTeams
+      recent <- env.team.update.allRecent(page)
+      res <- Ok.page(views.team.update.allRecent(recent, byTeam))
     yield res
   }
 
-  def messagesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
+  def updatesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
       api
         .isMember(id)
         .flatMap:
           if _ then
             for
-              byTeam <- env.team.msg.byTeams
-              recent <- env.team.msg.teamRecentAndMarkRead(team, page)
+              byTeam <- env.team.update.byTeams
+              recent <- env.team.update.teamRecentAndMarkRead(team, page)
               subscribed <- api.isSubscribed(team, me)
-              res <- Ok.page(views.team.msg.teamRecent(recent, byTeam, team, subscribed))
+              res <- Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed))
             yield res
           else notFound
   }
@@ -451,28 +451,28 @@ final class Team(env: Env) extends LilaController(env):
               "members" -> team.nbMembers
             ))
 
-  def msg(id: TeamId) = Auth { ctx ?=> _ ?=>
+  def updateNew(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      renderPmAll(team, forms.pmAll)
+      renderUpdateForm(team, forms.pmAll)
   }
 
-  private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
+  private def renderUpdateForm(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.team.msg.limiter.status(team.id)
-    page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
+    limiter <- env.team.update.limiter.status(team.id)
+    page <- renderPage(views.team.admin.updateForm(team, form, tours, swiss, unsubs, limiter))
   yield Ok(page)
 
-  def msgSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
+  def updateSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
-        text => env.team.msg.send(team, text).left.map(forms.pmAll.withError("duplicate", _))
+        text => env.team.update.send(team, text).left.map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
-          err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
+          err => negotiate(renderUpdateForm(team, err), BadRequest(errorsAsJson(err))),
           _.flatMap: res =>
             negotiate(
               Redirect(routes.Team.show(team.id)).flashing:

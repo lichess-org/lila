@@ -13,9 +13,8 @@ case class TeamInfo(
     withLeaders: Team.WithLeaders,
     member: Option[TeamMember],
     myRequest: Option[TeamRequest],
-    subscribed: Boolean,
     requests: List[RequestWithUser],
-    message: Option[lila.team.TeamMsg[?]],
+    update: Option[lila.team.TeamUpdate[?]],
     forum: Option[List[ForumPostMiniView]],
     tours: TeamInfo.PastAndNext
 ):
@@ -45,7 +44,7 @@ object TeamInfo:
 
 final class TeamInfoApi(
     api: TeamApi,
-    msgApi: lila.team.TeamMsgApi,
+    updateApi: lila.team.TeamUpdateApi,
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
@@ -62,17 +61,15 @@ final class TeamInfoApi(
     member <- me.soUse(api.memberOf(team.id))
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
     myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
-    subscribed <- member.so(api.isSubscribed(team.team, _))
-    msg <- member.isDefined.so(msgApi.teamLatest(team.id))
+    update <- member.isDefined.so(updateApi.teamLatest(team.id))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
   yield TeamInfo(
     withLeaders = team,
     member = member,
     myRequest = myRequest,
-    subscribed = subscribed,
     requests = requests,
-    message = msg,
+    update = update,
     forum = forumPosts,
     tours = tours
   )

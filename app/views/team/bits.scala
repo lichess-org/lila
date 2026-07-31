@@ -9,13 +9,13 @@ private lazy val bits = lila.team.ui.TeamUi(helpers, env.memo.markdown)
 export bits.{ list, membersPage }
 lazy val form = lila.team.ui.FormUi(helpers, bits)(views.captcha.apply)
 lazy val request = lila.team.ui.RequestUi(helpers, bits)
-lazy val msg = lila.team.ui.TeamMsgUi(helpers)
+lazy val update = lila.team.ui.TeamUpdateUi(helpers)
 
 object admin:
   private lazy val adminUi = lila.team.ui.AdminUi(helpers, bits)
   export adminUi.{ leaders, kick }
 
-  def pmAll(
+  def updateForm(
       t: lila.team.Team,
       form: Form[?],
       tours: List[lila.tournament.Tournament],
@@ -44,4 +44,4 @@ object admin:
         ,
         br
       )
-    adminUi.pmAll(t, form, toursFrag, unsubs, limiter, lila.team.TeamMsgApi.pmAllCredits)
+    adminUi.updateForm(t, form, toursFrag, unsubs, limiter, lila.team.TeamUpdateApi.credits)

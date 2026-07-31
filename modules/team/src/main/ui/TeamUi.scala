@@ -200,7 +200,6 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       team: Team,
       member: Option[TeamMember],
       myRequest: Option[TeamRequest],
-      subscribed: Boolean,
       asMod: Boolean
   )(using ctx: Context) =
     def hasPerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
@@ -267,14 +266,10 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       (team.enabled && hasPerm(_.PmAll)).option(
         frag(
           a(
-            href := routes.Team.msg(team.id),
+            href := routes.Team.updateNew(team.id),
             cls := "button button-empty text",
-            dataIcon := Icon.Envelope
-          ):
-            span(
-              strong(trt.messageAllMembers()),
-              em(trt.messageAllMembersOverview())
-            )
+            dataIcon := Icon.InkQuill
+          )(trt.newTeamUpdate())
         )
       ),
       ((team.enabled && hasPerm(_.Settings)) || canManage).option(
@@ -282,9 +277,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           href := routes.Team.edit(team.id),
           cls := "button button-empty text",
           dataIcon := Icon.Gear
-        )(
-          trans.settings.settings()
-        )
+        )(trans.settings.settings())
       ),
       ((team.enabled && hasPerm(_.Admin)) || canManage).option(
         a(
@@ -311,8 +304,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         a(
           href := routes.Team.show(team.id, 1, mod = true),
           cls := "button button-red"
-        ):
-          "View team as Mod"
+        )("View team as Mod")
       )
     )
 

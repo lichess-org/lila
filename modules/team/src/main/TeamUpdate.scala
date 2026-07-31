@@ -6,7 +6,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.team.LightTeam
 import scalalib.paginator.Paginator
 
-case class TeamMsg[T](
+case class TeamUpdate[T](
     @Key("_id") id: String,
     team: T,
     text: String,
@@ -15,35 +15,35 @@ case class TeamMsg[T](
     // seenBy: List[UserId] // in DB only, for querying
 )
 
-case class TeamMsgs[T](team: T, unread: Int, last: Instant)
+case class TeamUpdates[T](team: T, unread: Int, last: Instant)
 
-case class TeamMsgSeen[T](msg: TeamMsg[T], seen: Boolean)
+case class TeamUpdateSeen[T](msg: TeamUpdate[T], seen: Boolean)
 
-object TeamMsg:
-  type Recent = Paginator[TeamMsgSeen[LightTeam]]
-  type ByTeams = List[TeamMsgs[LightTeam]]
+object TeamUpdate:
+  type Recent = Paginator[TeamUpdateSeen[LightTeam]]
+  type ByTeams = List[TeamUpdates[LightTeam]]
 
-final class TeamMsgApi(
-    msgRepo: TeamMsgRepo,
+final class TeamUpdateApi(
+    msgRepo: TeamUpdateRepo,
     memberRepo: TeamMemberRepo,
     cached: TeamCached,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler):
 
-  import TeamMsgApi.*
+  import TeamUpdateApi.*
 
   export msgRepo.{ markSeen, teamLatest }
 
   private val maxPerPage = MaxPerPage(6)
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
-  def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamMsg.Recent] =
+  def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamUpdate.Recent] =
     for
       msgs <- Paginator(msgRepo.teamRecent(team.id), page, maxPerPage)
       _ <- msgs.currentPageResults.exists(!_.seen).so(msgRepo.markSeen(team.id))
-    yield msgs.map(msg => TeamMsgSeen(msg.msg.copy(team = team.light), msg.seen))
+    yield msgs.map(msg => TeamUpdateSeen(msg.msg.copy(team = team.light), msg.seen))
 
-  def allRecent(page: Int)(using me: Me): Fu[TeamMsg.Recent] = for
+  def allRecent(page: Int)(using me: Me): Fu[TeamUpdate.Recent] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- Paginator(msgRepo.allRecent(teamIds), page, maxPerPage)
     teams <- cached.lightMapById(msgs.currentPageResults.view.map(_.msg.team).toList)
@@ -51,9 +51,9 @@ final class TeamMsgApi(
     for
       msg <- results
       team <- teams.get(msg.msg.team)
-    yield TeamMsgSeen(msg.msg.copy(team = team), msg.seen)
+    yield TeamUpdateSeen(msg.msg.copy(team = team), msg.seen)
 
-  def byTeams(using me: Me): Fu[TeamMsg.ByTeams] = for
+  def byTeams(using me: Me): Fu[TeamUpdate.ByTeams] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- msgRepo.byTeams(teamIds)
     teams <- cached.lightMapById(msgs.map(_.team))
@@ -61,7 +61,7 @@ final class TeamMsgApi(
     for
       msg <- msgs
       team <- teams.get(msg.team)
-    yield TeamMsgs(team, msg.unread, msg.last)
+    yield TeamUpdates(team, msg.unread, msg.last)
 
   def send(team: Team, raw: String)(using me: Me): Either[String, Fu[LimitResult]] =
     val text = raw.replaceAll("\r\n?", "\n")
@@ -71,7 +71,7 @@ final class TeamMsgApi(
     else Left("You already sent this message recently")
 
   private def doSend(id: TeamId, text: String)(using me: Me): Funit =
-    val msg = TeamMsg[TeamId](
+    val msg = TeamUpdate[TeamId](
       id = scalalib.ThreadLocalRandom.nextString(8),
       team = id,
       text = text,
@@ -87,20 +87,20 @@ final class TeamMsgApi(
 
     private val limiter = mongoRateLimitApi[TeamId](
       "team.pm.all",
-      credits = pmAllCredits * pmAllCost,
-      duration = pmAllDays.days
+      credits = credits * cost,
+      duration = days.days
     )
 
     def limit(id: TeamId)(using me: Me) =
-      limiter[LimitResult](id, if me.isVerifiedOrAdmin then 1 else pmAllCost)
+      limiter[LimitResult](id, if me.isVerifiedOrAdmin then 1 else cost)
 
     def status(id: TeamId): Fu[(Int, Instant)] =
       limiter
         .getSpent(id)
         .map: entry =>
-          (pmAllCredits - entry.v / pmAllCost, entry.until)
+          (credits - entry.v / cost, entry.until)
 
-object TeamMsgApi:
-  val pmAllCredits = 8
-  val pmAllDays = 7
-  private val pmAllCost = 5
+object TeamUpdateApi:
+  val credits = 15
+  val days = 7
+  private val cost = 5

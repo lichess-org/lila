@@ -115,7 +115,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
           )
         )
 
-  def pmAll(
+  def updateForm(
       t: Team,
       form: Form[?],
       tours: Option[Frag],
@@ -123,14 +123,13 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
       limiter: (Int, Instant),
       credits: Int
   )(using ctx: Context) =
-    TeamPage(s"${t.name} • ${trans.team.messageAllMembers.txt()}").js(esmInitBit("pmAll")):
+    TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}").js(esmInitBit("pmAll")):
       main(cls := "page-menu page-small")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(
-          adminTop(t, trt.messageAllMembers()),
-          p(trt.messageAllMembersLongDescription()),
+          adminTop(t, trt.newTeamUpdate()),
           tours,
-          postForm(cls := "form3", action := routes.Team.msgSend(t.id))(
+          postForm(cls := "form3", action := routes.Team.updateSend(t.id))(
             form3.group(
               form("message"),
               trans.site.message(),
@@ -150,9 +149,9 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
                   p(cls := (remaining <= 0).option("error"))(
                     "You can send up to ",
                     credits,
-                    " team messages per week. ",
+                    " team updates per week. ",
                     strong(remaining),
-                    " messages remaining until ",
+                    " updates remaining until ",
                     momentFromNowOnce(until),
                     "."
                   ),
