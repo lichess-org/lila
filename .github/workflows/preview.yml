@@ -25,9 +25,6 @@ jobs:
     steps:
       - run: echo "Building preview"
 
-  # Only needed for pull_request/workflow_dispatch: a push to master already
-  # builds via server.yml/assets.yml's own triggers, and this workflow picks
-  # up that existing run via the workflow_run trigger above instead.
   build-server:
     needs: [gate]
     if: needs.gate.result == 'success' && github.event_name != 'workflow_run'
@@ -64,25 +61,19 @@ jobs:
               return;
             }
 
-            if (context.eventName === 'workflow_run') {
-              const branch = sanitizeTag(context.payload.workflow_run.head_branch);
-              const isDefaultBranch = context.payload.workflow_run.head_branch === context.payload.repository.default_branch;
-              const tags = [`type=raw,value=${branch}`];
-              if (isDefaultBranch) tags.push('type=raw,value=latest');
-              core.setOutput('tags', tags.join('\n'));
-              core.setOutput('deploy', 'true');
-              core.setOutput('ref', context.payload.workflow_run.head_sha);
-              return;
-            }
+            // push (via workflow_run) or workflow_dispatch
+            const isWorkflowRun = context.eventName === 'workflow_run';
+            const branch = isWorkflowRun
+              ? context.payload.workflow_run.head_branch
+              : context.ref.replace('refs/heads/', '');
+            const sha = isWorkflowRun ? context.payload.workflow_run.head_sha : context.sha;
 
-            // workflow_dispatch
-            const branch = sanitizeTag(context.ref.replace('refs/heads/', ''));
-            const isDefaultBranch = context.ref === `refs/heads/${context.payload.repository.default_branch}`;
-            const tags = [`type=raw,value=${branch}`];
-            if (isDefaultBranch) tags.push('type=raw,value=latest');
+            const tags = [`type=raw,value=${sanitizeTag(branch)}`];
+            if (branch === context.payload.repository.default_branch) tags.push('type=raw,value=latest');
+
             core.setOutput('tags', tags.join('\n'));
-            core.setOutput('deploy', 'false');
-            core.setOutput('ref', context.sha);
+            core.setOutput('deploy', isWorkflowRun ? 'true' : 'false');
+            core.setOutput('ref', sha);
 
   publish-server:
     needs: [gate, build-server, params]
