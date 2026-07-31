@@ -117,7 +117,7 @@ interface I18n {
     prizeBanned: string;
     /** You can’t send reports to moderators */
     reportBanned: string;
-    /** We noticed a pattern of abusing our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate or offensive language, reporting an excessive number of games and not demonstrating why you think the opponent violated the rules. */
+    /** We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules. */
     reportBannedInfo: string;
     /** Your account is temporarily restricted from playing. */
     temporarilyRestrictedFromPlaying: string;

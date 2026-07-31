@@ -15,7 +15,7 @@
   <string name="hiddenBlogInfo">Read our %s, violating these rules may result in different actions.</string>
   <string name="playTimeout">You have a play timeout.</string>
   <string name="reportBanned">You can’t send reports to moderators</string>
-  <string name="reportBannedInfo">We noticed a pattern of abusing our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate or offensive language, reporting an excessive number of games and not demonstrating why you think the opponent violated the rules.</string>
+  <string name="reportBannedInfo">We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules.</string>
   <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Your account is temporarily restricted from playing.</string>
   <string name="communicationGuidelines">communication guidelines</string>
   <string name="blogRules">blog etiquette</string>
