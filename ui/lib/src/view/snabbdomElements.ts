@@ -148,6 +148,7 @@ export const p: TagFunction = makeTag('p');
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
+export const time: TagFunction = makeTag('time');
 export const main: TagFunction = makeTag('main');
 export const form: TagFunction = makeTag('form');
 export const h1: TagFunction = makeTag('h1');
