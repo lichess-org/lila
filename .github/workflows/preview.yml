@@ -70,11 +70,12 @@ jobs:
               : context.ref.replace('refs/heads/', '');
             const sha = isWorkflowRun ? context.payload.workflow_run.head_sha : context.sha;
 
+            const isDefaultBranch = branch === context.payload.repository.default_branch;
             const tags = [`type=raw,value=${sanitizeTag(branch)}`];
-            if (branch === context.payload.repository.default_branch) tags.push('type=raw,value=latest');
+            if (isDefaultBranch) tags.push('type=raw,value=latest');
 
             core.setOutput('tags', tags.join('\n'));
-            core.setOutput('deploy', isWorkflowRun ? 'true' : 'false');
+            core.setOutput('deploy', isDefaultBranch ? 'true' : 'false');
             core.setOutput('ref', sha);
 
   publish-server:
