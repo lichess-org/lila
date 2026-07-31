@@ -9,15 +9,15 @@
   <string name="accountMuted">Your account is muted.</string>
   <string name="accountMutedInfo">Read our %s. Failure to comply with the communication guidelines may result in your account being muted.</string>
   <string name="excludedFromLeaderboards">Your account has been excluded from leaderboards.</string>
-  <string name="excludedFromLeaderboardsInfo">Only one account per person can appear on leaderboards.</string>
+  <string name="onlyOneAccountOnLeaderboards">Only one account per person can appear on leaderboards.</string>
   <string name="closedByModerators">Your account was closed by moderators.</string>
-  <string name="hiddenBlog">You have a blog restriction.</string>
-  <string name="hiddenBlogInfo">Read our %s, violating these rules may result in different actions.</string>
+  <string name="blogRestriction">You have a blog restriction.</string>
+  <string name="blogRestrictionInfo">Read our %s, violating these rules may result in different actions.</string>
   <string name="playTimeout">You have a play timeout.</string>
   <string name="reportBanned">You can’t send reports to moderators</string>
   <string name="reportBannedInfo">We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules.</string>
   <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Your account is temporarily restricted from playing.</string>
   <string name="communicationGuidelines">communication guidelines</string>
-  <string name="blogRules">blog etiquette</string>
+  <string name="blogEtiquette">blog etiquette</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

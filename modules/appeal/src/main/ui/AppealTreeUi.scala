@@ -249,7 +249,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         )
       ),
-      content = tap.excludedFromLeaderboardsInfo().some
+      content = tap.onlyOneAccountOnLeaderboards().some
     )
 
   private def arenaBanMenu(using Context): Branch =
@@ -301,7 +301,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "I don’t understand what I did wrong and would like to appeal"
     Branch(
       "root",
-      tap.hiddenBlog(),
+      tap.blogRestriction(),
       List(
         Leaf(
           "hidden-blog-accept",
@@ -320,7 +320,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         )
       ),
-      content = tap.hiddenBlogInfo(a(href := cmsPageUrl("blog-etiquette"))(tap.blogRules())).some
+      content = tap.blogRestrictionInfo(a(href := cmsPageUrl("blog-etiquette"))(tap.blogEtiquette())).some
     )
 
   private def prizebanMenu(using Context): Branch =

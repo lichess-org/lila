@@ -88,7 +88,11 @@ interface I18n {
     /** Your account is banned from joining arena tournaments. */
     arenaBanned: string;
     /** blog etiquette */
-    blogRules: string;
+    blogEtiquette: string;
+    /** You have a blog restriction. */
+    blogRestriction: string;
+    /** Read our %s, violating these rules may result in different actions. */
+    blogRestrictionInfo: I18nFormat;
     /** Your account was restricted for rating manipulation/account sharing */
     boosterMarked: string;
     /** Your account is not marked or restricted. You're all good! */
@@ -103,14 +107,10 @@ interface I18n {
     engineMarkedInfo: I18nFormat;
     /** Your account has been excluded from leaderboards. */
     excludedFromLeaderboards: string;
-    /** Only one account per person can appear on leaderboards. */
-    excludedFromLeaderboardsInfo: string;
     /** Fair Play */
     fairPlay: string;
-    /** You have a blog restriction. */
-    hiddenBlog: string;
-    /** Read our %s, violating these rules may result in different actions. */
-    hiddenBlogInfo: I18nFormat;
+    /** Only one account per person can appear on leaderboards. */
+    onlyOneAccountOnLeaderboards: string;
     /** You have a play timeout. */
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
