@@ -9,6 +9,7 @@ import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -19,7 +20,7 @@ final class TeamApi(
     updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifier: Notifier,
+    notifyApi: NotifyApi,
     chatApi: lila.core.chat.ChatApi
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
@@ -218,8 +219,8 @@ final class TeamApi(
     then
       for
         _ <- requestRepo.remove(request.id)
-        userOption <- userApi.byId(request.user)
-        _ <- userOption.so(user => doJoin(team, user.id) >> notifier.acceptRequest(team, request))
+        _ <- doJoin(team, request.user)
+        _ <- notifyApi.notifyOne(request.user, NotificationContent.TeamJoined(team.id, team.name))
       yield ()
     else funit
   }.addEffect: _ =>

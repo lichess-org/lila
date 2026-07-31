@@ -40,8 +40,6 @@ final class Env(
 
   def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId.into(RoomId))(GetVersion.apply)
 
-  private lazy val notifier = wire[Notifier]
-
   export cached.{ lightApi as lightTeamApi, async as lightTeam, sync as lightTeamSync }
 
   def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
