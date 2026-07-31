@@ -29,6 +29,12 @@ on:
       - '.sbtopts.default'
   workflow_dispatch:
   workflow_call:
+    inputs:
+      skip_format:
+        description: Skip the format-check job
+        type: boolean
+        default: true
+        required: false
 
 jobs:
   build:
@@ -55,7 +61,7 @@ jobs:
           compression-level: 0 # already compressed
 
   format:
-    if: github.event_name != 'workflow_call'
+    if: inputs.skip_format != true
     runs-on: ubuntu-latest
     env:
       SBT_OPTS: -Dsbt.banner=false
