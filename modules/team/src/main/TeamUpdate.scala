@@ -1,10 +1,14 @@
 package lila.team
 
-import lila.memo.RateLimit.LimitResult
-
+import org.apache.pekko.stream.Materializer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.team.LightTeam
 import scalalib.paginator.Paginator
+
+import lila.memo.RateLimit.LimitResult
+import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.team.LightTeam
+import lila.db.dsl.{ *, given }
 
 case class TeamUpdate[T](
     @Key("_id") id: String,
@@ -26,9 +30,11 @@ object TeamUpdate:
 final class TeamUpdateApi(
     msgRepo: TeamUpdateRepo,
     memberRepo: TeamMemberRepo,
+    userRepo: lila.core.user.UserRepo,
     cached: TeamCached,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler):
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi,
+    notifyApi: NotifyApi
+)(using Executor, Scheduler, Materializer):
 
   import TeamUpdateApi.*
 
@@ -81,7 +87,38 @@ final class TeamUpdateApi(
     for
       unsubed <- memberRepo.listOfUnsubscribed(id)
       _ <- msgRepo.send(msg, unsubed)
+      _ <- notifySubscribers(id)
     yield ()
+
+  private def notifySubscribers(teamId: TeamId): Funit =
+    memberRepo.coll
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match($doc("team" -> teamId, "unsub".$ne(true))),
+          Project($doc("user" -> true, "_id" -> false)),
+          PipelineOperator:
+            $lookup.simple(
+              from = userRepo.coll,
+              local = "user",
+              foreign = "_id",
+              as = "recent",
+              pipe = List(
+                $doc("$match" -> $doc("seenAt".$gt(nowInstant.minusMonths(1)))),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          Match("recent".$ne($arr())),
+          Project($doc("user" -> true))
+        )
+      .documentSource()
+      .grouped(100)
+      .map(_.flatMap(_.getAsOpt[UserId]("user")).pp)
+      .throttle(1, 1.second)
+      .mapAsync(1)(notifyApi.notifyMany(_, NotificationContent.TeamUpdate))
+      .run()
+      .void
 
   object limiter:
 

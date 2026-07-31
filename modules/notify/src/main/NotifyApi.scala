@@ -126,9 +126,9 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.events
-      .get(content.key)
-      .so: event =>
+    NotificationPref.events.get(content.key) match
+      case None => bellMany(userIds, content)
+      case Some(event) =>
         prefs
           .getAllows(userIds, event)
           .flatMap: recips =>
@@ -162,9 +162,7 @@ final class NotifyApi(
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells.foreach(unreadCountCache.invalidate) // or maybe update only if getIfPresent?
     for _ <- repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
-    yield Bus.pub(
-      SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true))
-    )
+    yield Bus.pub(SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)))
 
   private def pushOne(to: NotifyAllows, content: NotificationContent) =
     pushMany(Seq(to), content)

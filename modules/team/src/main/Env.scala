@@ -17,6 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
+    userRepo: lila.core.user.UserRepo,
     db: lila.db.Db,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler, org.apache.pekko.stream.Materializer):

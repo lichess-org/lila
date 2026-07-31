@@ -5,7 +5,7 @@ import alleycats.Zero
 
 import lila.core.forum.ForumPostMiniView
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{  Team, TeamMember, TeamRepo }
+import lila.team.{ Team, TeamMember, TeamRepo }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.clas.Clas
 
@@ -43,7 +43,7 @@ final class TeamInfoApi(
 
   import TeamInfo.*
 
-  def apply( t: Team.TeamShow, withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] = for
+  def apply(t: Team.TeamShow, withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] = for
     forumPosts <- withForum(t.member).optionFu(forumRecent(t.team.id))
     tours <- t.team.enabled.so(tournamentsOf(t.team, 5, 5))
     _ <- lightUserApi.preloadMany:
