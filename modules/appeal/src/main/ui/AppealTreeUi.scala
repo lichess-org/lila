@@ -288,8 +288,8 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       content = frag(
         p("We do not allow:"),
         ul(
-          li("Joining multiple arenas at the same time and then not playing in them"),
-          li("Joining an arena and repeatedly losing games by not making a move (for any reason)")
+          li("joining multiple arenas at the same time and then not playing in them"),
+          li("joining an arena and repeatedly losing games by not making a move (for any reason)")
         )
       ).some
     )
@@ -442,7 +442,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         "On the sign-up page you agreed not to create an excessive number of accounts, generally not more than 3. Violating this term is considered abuse of infrastructure."
       ),
       p(
-        "If you violated our terms of service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
+        "If you violated our Terms of Service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
       ),
       p("If you have done nothing wrong and believe this is a mistake, send an appeal.")
     ),
