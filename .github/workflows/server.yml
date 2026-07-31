@@ -16,7 +16,6 @@ on:
     branches-ignore:
       - 'l10n_master'
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/server.yml'
       - 'app/**'
@@ -29,6 +28,7 @@ on:
       - 'conf/application.conf.default'
       - '.sbtopts.default'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
