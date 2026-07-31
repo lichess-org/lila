@@ -1,11 +1,3 @@
-import { h } from 'snabbdom';
-
-import type { MaybeVNodes } from 'lib/view';
-
-export function tds(bits: MaybeVNodes): MaybeVNodes {
-  return bits.map(bit => h('td', [bit]));
-}
-
 export const perfNames = {
   ultraBullet: i18n.site.ultraBullet,
   bullet: i18n.site.bullet,
