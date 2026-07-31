@@ -7,7 +7,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class AdminUi(helpers: Helpers, bits: TeamUi):
+final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.team as trt
   import bits.{ TeamPage, menu }
@@ -118,17 +118,38 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
   def updateForm(
       t: Team,
       form: Form[?],
-      tours: Option[Frag],
+      links: List[(Tag, Instant, Call)],
       unsubs: Int,
-      limiter: (Int, Instant),
-      credits: Int
-  )(using ctx: Context) =
+      limiter: (Int, Instant)
+  )(using
+      ctx: Context
+  ) =
     TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}").js(esmInitBit("pmAll")):
       main(cls := "page-menu page-small")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(
           adminTop(t, trt.newTeamUpdate()),
-          tours,
+          links.nonEmpty.option:
+            div(cls := "tournaments")(
+              p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
+              p:
+                ul:
+                  links.map: (link, startsAt, call) =>
+                    li(
+                      link,
+                      " ",
+                      momentFromNow(startsAt),
+                      " ",
+                      a(
+                        dataIcon := Icon.Forward,
+                        cls := "text copy-url-button",
+                        data.copyurl := routeUrl(call)
+                      )
+                    )
+              ,
+              br
+            )
+          ,
           postForm(cls := "form3", action := routes.Team.updateSend(t.id))(
             form3.group(
               form("message"),
@@ -148,7 +169,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
                 frag(
                   p(cls := (remaining <= 0).option("error"))(
                     "You can send up to ",
-                    credits,
+                    TeamUpdateApi.credits,
                     " team updates per week. ",
                     strong(remaining),
                     " updates remaining until ",
