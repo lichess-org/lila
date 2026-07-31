@@ -202,6 +202,7 @@ jobs:
   deploy-server:
     name: deploy preview (server)
     if: |
+      always() &&
       github.repository_owner == 'lichess-org' &&
       needs.params.outputs.deploy == 'true' &&
       needs.publish-server.result == 'success'
@@ -213,6 +214,7 @@ jobs:
   deploy-assets:
     name: deploy preview (assets)
     if: |
+      always() &&
       github.repository_owner == 'lichess-org' &&
       needs.params.outputs.deploy == 'true' &&
       needs.publish-assets.result == 'success'
