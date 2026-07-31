@@ -13,7 +13,6 @@ on:
       - 'pnpm-lock.yaml'
       - '.node-version'
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/assets.yml'
       - 'public/**'

@@ -16,7 +16,6 @@ on:
     branches-ignore:
       - 'l10n_master'
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/server.yml'
       - 'app/**'
