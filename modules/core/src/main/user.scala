@@ -194,7 +194,7 @@ object user:
     def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
-    def langOf(id: UserId): Fu[Option[String]]
+    def langOf(id: UserId): Fu[Option[LangTag]]
     def isKid[U: UserIdOf](id: U): Fu[KidMode]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
