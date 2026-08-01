@@ -8,15 +8,22 @@ import { ShortcutsCtrl, fitShortcut } from './shortcutsCtrl';
 
 const shortcutIdMimeType = 'application/x-lichess-shortcut-id';
 
-export async function initModule(init: ShortcutsCtrl | { contextual: LobbyShortcut[] }) {
-  const ctrl = init instanceof ShortcutsCtrl ? init : new ShortcutsCtrl(undefined, init.contextual);
+export async function initModule({
+  ctrl,
+  contextual,
+}: {
+  ctrl?: ShortcutsCtrl;
+  contextual?: LobbyShortcut[];
+}) {
+  if (ctrl) ctrl.setup(contextual);
+  else ctrl = new ShortcutsCtrl(undefined, contextual);
   const [touchDragPolyfill] = await Promise.all([
     isTouchDevice()
       ? import(site.asset.url('npm/drag-drop-touch.esm.min.js')).then(m => m.enableDragDropTouch)
       : undefined,
     ctrl.loaded,
   ]);
-  return domDialog({
+  const dlg = await domDialog({
     class: 'shortcuts-dialog',
     css: [{ hashed: 'lobby.shortcuts-dialog' }],
     show: true,
@@ -49,8 +56,8 @@ export async function initModule(init: ShortcutsCtrl | { contextual: LobbyShortc
       touchDragPolyfill?.(dragFrom, dropIn, { dragImageOpacity: 0.9 });
     },
     actions: [
-      { selector: '.save', listener: (_, dlg) => (dlg.close(), ctrl.save()) },
-      { selector: '.cancel', listener: (_, dlg) => dlg.close() },
+      { selector: '.save', result: 'save' },
+      { selector: '.cancel', result: 'cancel' },
       { selector: '.reset', listener: (_, dlg) => reset(dlg, ctrl) },
       { selector: '.shortcuts .shortcut', listener: (e, dlg) => removeShortcut(e, dlg, ctrl) },
       { selector: '.scratch .shortcut', listener: placeShortcutHandler(ctrl) },
@@ -63,6 +70,7 @@ export async function initModule(init: ShortcutsCtrl | { contextual: LobbyShortc
       },
     ],
   });
+  if (dlg.returnValue === 'save') await ctrl.save();
 }
 
 async function reset(dlg: Dialog, ctrl: ShortcutsCtrl) {

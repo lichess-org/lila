@@ -1,6 +1,8 @@
 import { myUsername } from 'lib';
 import { deepFreeze, randomToken, clamp } from 'lib/algo';
+import { displayColumns } from 'lib/device';
 import { log } from 'lib/permalog';
+import type { ClockConfig } from 'lib/setup/interfaces';
 import type { LobbyShortcut } from 'lib/types';
 import { alert } from 'lib/view';
 import { jsonSimple } from 'lib/xhr';
@@ -85,7 +87,7 @@ export class ShortcutsCtrl {
 
   constructor(
     private readonly ctrl?: LobbyController,
-    private readonly contextual?: Partial<LobbyShortcut>[],
+    private contextual?: Partial<LobbyShortcut>[],
   ) {
     if (ctrl) {
       this.init(ctrl.opts.lobbyShortcuts);
@@ -164,7 +166,8 @@ export class ShortcutsCtrl {
     const shortcut = this.all.get(id);
     if (!shortcut) return;
     if (pools.some(p => p.id === shortcut.id)) this.ctrl?.clickPool(shortcut.id);
-    else if (shortcut.id === 'customize') site.asset.loadEsm('lobby.shortcutsDialog', { init: this });
+    else if (shortcut.id === 'customize')
+      site.asset.loadEsm('lobby.shortcutsDialog', { init: { ctrl: this } });
     else if (shortcut.url) site.redirect(shortcut.url);
     else alert('What do? ' + JSON.stringify(shortcut));
   }
@@ -181,6 +184,12 @@ export class ShortcutsCtrl {
     return maybeNegative < 0 ? NaN : maybeNegative;
   }
 
+  setup(contextual?: LobbyShortcut[]): void {
+    this.contextual?.forEach(s => this.all.delete(s.id!));
+    this.contextual = contextual;
+    this.init(this.configured);
+  }
+
   private init(userSlots?: ConfiguredShortcuts) {
     const isHidden = (id: string) => Boolean(this.contextual) && !userSlots?.some(s => s?.id === id);
     siteShortcuts.forEach(s => this.all.set(s.id, { ...s, static: true, hidden: isHidden(s.id) }));
@@ -192,7 +201,6 @@ export class ShortcutsCtrl {
     this.contextual?.forEach(shortcut => {
       const s = structuredClone(shortcut);
       s.id ??= [...this.all.values()].find(v => s.name === v.name && s.url === v.url)?.id ?? randomToken();
-      deepFreeze(s);
       this.add(s as Shortcut);
     });
   }
@@ -212,11 +220,11 @@ export class ShortcutsCtrl {
 
   private readonly comparator = (a: Shortcut, b: Shortcut) => {
     if (!a || !b) return !a && !b ? 0 : !a ? -1 : 1;
-    const aPool = 'lim' in a && 'inc' in a && (a as Pool);
-    const bPool = 'lim' in b && 'inc' in b && (b as Pool);
-    if (aPool && bPool) return aPool.lim - bPool.lim || aPool.inc - bPool.inc;
-    if (aPool) return 1;
-    if (bPool) return -1;
+    const aClock = 'lim' in a && 'inc' in a && (a as ClockConfig);
+    const bClock = 'lim' in b && 'inc' in b && (b as ClockConfig);
+    if (aClock && bClock) return aClock.lim - bClock.lim || aClock.inc - bClock.inc;
+    if (aClock) return 1;
+    if (bClock) return -1;
     return (a.name ?? a.id).localeCompare(b.name ?? b.id);
   };
 }
@@ -237,7 +245,7 @@ export function fitShortcut(
   if (text.length > truncateAt) {
     text = text.slice(0, truncateAt / 2 - 2) + ' ... ' + text.slice(text.length - truncateAt / 2 - 3);
   }
-  let scale = text.split(' ').length < 2 ? 1 : scaleBy;
+  let scale = (displayColumns() === 1 && text.length > 8) || text.split(' ').length > 1 ? scaleBy : 1;
   let effectiveLength = text.length;
   while (scale > minEm && effectiveLength > effectiveLengthTarget) {
     scale *= scaleBy;
