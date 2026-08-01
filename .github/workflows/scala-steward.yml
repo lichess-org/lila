@@ -19,4 +19,4 @@ jobs:
           distribution: temurin
           java-version: 21
       - name: Scala Steward
-        uses: scala-steward-org/scala-steward-action@v2
+        uses: scala-steward-org/scala-steward-action@v2.92.0
