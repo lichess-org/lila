@@ -184,7 +184,7 @@ export class ThemeCtrl extends PaneCtrl {
     range: Range,
     title?: (v: number) => string,
   ) =>
-    div(`.${prop}`, { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` }, [
+    div(`.${prop}`, { title: title ? title(this.getVar(prop)) : `${this.getVar(prop)}px` }, [
       div('.slider-label', [label(inputLabel), span([this.getVar(prop), 'px'])]),
       h('input.range', {
         key: this.sliderKey + prop,
