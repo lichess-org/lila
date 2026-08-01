@@ -180,7 +180,6 @@ db.swiss.createIndex(
   { featurable: 1 },
   { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
 );
-db.coach_review.createIndex({ coachId: 1 });
 db.analysis_requester.createIndex({ total: -1 });
 db.plan_patron.createIndex(
   { 'stripe.customerId': 1 },

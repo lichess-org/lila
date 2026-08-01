@@ -41,7 +41,6 @@ private object BSONHandlers:
         case x: PlanExpire => summon[BSONHandler[PlanExpire]].writeTry(x).get
         case x: RatingRefund => summon[BSONHandler[RatingRefund]].writeTry(x).get
         case ReportedBanned => $empty
-        case CoachReview => $empty
         case x: CorresAlarm => summon[BSONHandler[CorresAlarm]].writeTry(x).get
         case x: IrwinDone => summon[BSONHandler[IrwinDone]].writeTry(x).get
         case x: KaladinDone => summon[BSONHandler[KaladinDone]].writeTry(x).get
@@ -63,7 +62,6 @@ private object BSONHandlers:
         case "planExpire" => reader.as[PlanExpire]
         case "ratingRefund" => reader.as[RatingRefund]
         case "reportedBanned" => ReportedBanned
-        case "coachReview" => CoachReview
         case "corresAlarm" => reader.as[CorresAlarm]
         case "irwinDone" => reader.as[IrwinDone]
         case "kaladinDone" => reader.as[KaladinDone]
