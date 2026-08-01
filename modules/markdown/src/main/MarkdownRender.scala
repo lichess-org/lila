@@ -62,6 +62,7 @@ final class MarkdownRender(
     timestamp: Boolean = false,
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
+    cmsTags: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -80,6 +81,7 @@ final class MarkdownRender(
   )
   if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
+  if cmsTags then extensions.add(MarkdownRender.CmsTagsExtension)
 
   private val options =
     val o = MutableDataSet()
@@ -110,7 +112,8 @@ final class MarkdownRender(
     try
       val saferText = MarkdownRender.preventStackOverflow(text)
       val noEntity = if removeHtmlEntities then MarkdownRender.removeHtmlEntities(saferText) else saferText
-      val withMentions = if sourceMap then noEntity else mentionsToLinks(noEntity)
+      val cmsTagText = if cmsTags then MarkdownRender.unescapeCmsTags(noEntity) else noEntity
+      val withMentions = if sourceMap then cmsTagText else mentionsToLinks(cmsTagText)
       renderer.render(parser.parse(withMentions.value))
     catch
       case _: StackOverflowError =>
@@ -344,6 +347,35 @@ object MarkdownRender:
         attributes.replaceValue("target", "_blank")
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
+
+  private object CmsTagsExtension extends HtmlRenderer.HtmlRendererExtension:
+    private val tags = Set("kbd", "video", "center", "details", "summary")
+    private val tagNames = tags.mkString("|")
+    private val tagRegex = s"(?i)</?($tagNames)>".r
+    private val escapedMarkdownTagRegex = s"\\\\(</?(?:$tagNames)>)".r
+
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new NodeRendererFactory:
+          override def apply(options: DataHolder) = new NodeRenderer:
+            override def getNodeRenderingHandlers() =
+              Set(NodeRenderingHandler(classOf[HtmlInline], render(_, _, _))).asJava
+
+            private def render(
+                node: HtmlInline,
+                @scala.annotation.unused context: NodeRendererContext,
+                html: HtmlWriter
+            ): Unit =
+              node.getChars().toString match
+                case tagRegex(tag) if tags(tag.toLowerCase) => html.raw(node.getChars())
+                case _ => html.text(node.getChars())
+
+    def unescape(markdown: Markdown): Markdown = markdown.map: text =>
+      val unescapedMarkdown = escapedMarkdownTagRegex.replaceAllIn(text, _.group(1))
+      unescapedMarkdown
+
+  private def unescapeCmsTags(markdown: Markdown): Markdown = CmsTagsExtension.unescape(markdown)
 
   private class TimestampNode(val timestamp: Long, val format: String) extends Node():
     override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY

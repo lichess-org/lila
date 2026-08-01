@@ -124,6 +124,29 @@ class MarkdownTest extends munit.FunSuite:
 """)
     )
 
+  test("cms render whitelisted tags"):
+    val renderCms = MarkdownRender(cmsTags = true)("test")
+    assertEquals(
+      renderCms(Markdown(raw"""Use \<kbd>Ctrl\</kbd> and &lt;strong&gt;save&lt;/strong&gt;.""")),
+      Html("""<p>Use <kbd>Ctrl</kbd> and <strong>save</strong>.</p>
+""")
+    )
+
+  test("cms disallow unwhitelisted tags"):
+    val renderCms = MarkdownRender(cmsTags = true)("test")
+    assertEquals(
+      renderCms(Markdown("<script>alert(1)</script> <kbd class=\"key\">Ctrl</kbd>")),
+      Html("""<p>&lt;script&gt;alert(1)&lt;/script&gt; &lt;kbd class=&quot;key&quot;&gt;Ctrl</kbd></p>
+""")
+    )
+
+  test("cms moar test"):
+    assertEquals(
+      MarkdownRender()("test")(Markdown("<kbd>Ctrl</kbd>")),
+      Html("""<p>&lt;kbd&gt;Ctrl&lt;/kbd&gt;</p>
+""")
+    )
+
   test("prod forum exception"):
     val text = """@Betcomcpiey @QuieroAprender"""
     val render = MarkdownRender(sourceMap = true)("test")
