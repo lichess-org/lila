@@ -127,8 +127,8 @@ class MarkdownTest extends munit.FunSuite:
   test("cms render whitelisted tags"):
     val renderCms = MarkdownRender(cmsTags = true)("test")
     assertEquals(
-      renderCms(Markdown(raw"""Use \<kbd>Ctrl\</kbd> and &lt;strong&gt;save&lt;/strong&gt;.""")),
-      Html("""<p>Use <kbd>Ctrl</kbd> and <strong>save</strong>.</p>
+      renderCms(Markdown(raw"""Use \<kbd>Ctrl\</kbd> and \<center>save\</center>.""")),
+      Html("""<p>Use <kbd>Ctrl</kbd> and <center>save</center>.</p>
 """)
     )
 
