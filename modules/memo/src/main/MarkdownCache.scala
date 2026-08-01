@@ -21,7 +21,7 @@ case class MarkdownOptions(
     toastUi: Boolean = false,
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
-    cmsTags: Boolean = false
+    allowedTags: Set[String] = Set.empty
 )
 
 final class MarkdownCache(
@@ -93,7 +93,7 @@ final class MarkdownCache(
         table = opts.table,
         sourceMap = opts.sourceMap,
         removeHtmlEntities = opts.removeHtmlEntities,
-        cmsTags = opts.cmsTags,
+        allowedTags = opts.allowedTags,
         pgnExpand = pgnCache.expand.some,
         assetDomain = assetDomain.some
       )

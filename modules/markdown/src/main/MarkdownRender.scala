@@ -1,5 +1,6 @@
 package lila.markdown
 
+import scala.util.chaining.*
 import chess.format.pgn.PgnStr
 import com.vladsch.flexmark.ast.*
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension
@@ -62,7 +63,7 @@ final class MarkdownRender(
     timestamp: Boolean = false,
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
-    cmsTags: Boolean = false,
+    allowedTags: Set[String] = Set.empty,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -81,7 +82,8 @@ final class MarkdownRender(
   )
   if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
-  if cmsTags then extensions.add(MarkdownRender.CmsTagsExtension)
+  private val allowedTagsExtension = Option.when(allowedTags.nonEmpty):
+    MarkdownRender.AllowedTagsExtension(allowedTags).tap(extensions.add)
 
   private val options =
     val o = MutableDataSet()
@@ -110,11 +112,13 @@ final class MarkdownRender(
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     try
-      val saferText = MarkdownRender.preventStackOverflow(text)
-      val noEntity = if removeHtmlEntities then MarkdownRender.removeHtmlEntities(saferText) else saferText
-      val cmsTagText = if cmsTags then MarkdownRender.unescapeCmsTags(noEntity) else noEntity
-      val withMentions = if sourceMap then cmsTagText else mentionsToLinks(cmsTagText)
-      renderer.render(parser.parse(withMentions.value))
+      text
+        .pipe(MarkdownRender.preventStackOverflow.apply)
+        .pipe(t => if removeHtmlEntities then MarkdownRender.removeHtmlEntities(t) else t)
+        .pipe(t => allowedTagsExtension.fold(t)(_.unescape(t)))
+        .pipe(t => if sourceMap then t else mentionsToLinks(t))
+        .pipe(t => parser.parse(t.value))
+        .pipe(renderer.render)
     catch
       case _: StackOverflowError =>
         println(s"markdown StackOverflowError $key")
@@ -348,8 +352,7 @@ object MarkdownRender:
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
 
-  private object CmsTagsExtension extends HtmlRenderer.HtmlRendererExtension:
-    private val tags = Set("kbd", "video", "center", "details", "summary")
+  private final class AllowedTagsExtension(tags: Set[String]) extends HtmlRenderer.HtmlRendererExtension:
     private val tagNames = tags.mkString("|")
     private val tagRegex = s"(?i)</?($tagNames)>".r
     private val escapedMarkdownTagRegex = s"\\\\(</?(?:$tagNames)>)".r
@@ -359,7 +362,7 @@ object MarkdownRender:
       htmlRendererBuilder.nodeRendererFactory:
         new NodeRendererFactory:
           override def apply(options: DataHolder) = new NodeRenderer:
-            override def getNodeRenderingHandlers() =
+            def getNodeRenderingHandlers() =
               Set(NodeRenderingHandler(classOf[HtmlInline], render(_, _, _))).asJava
 
             private def render(
@@ -372,10 +375,7 @@ object MarkdownRender:
                 case _ => html.text(node.getChars())
 
     def unescape(markdown: Markdown): Markdown = markdown.map: text =>
-      val unescapedMarkdown = escapedMarkdownTagRegex.replaceAllIn(text, _.group(1))
-      unescapedMarkdown
-
-  private def unescapeCmsTags(markdown: Markdown): Markdown = CmsTagsExtension.unescape(markdown)
+      escapedMarkdownTagRegex.replaceAllIn(text, _.group(1))
 
   private class TimestampNode(val timestamp: Long, val format: String) extends Node():
     override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
