@@ -20,8 +20,9 @@ final class TeamApi(
     updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifyApi: NotifyApi,
-    chatApi: lila.core.chat.ChatApi
+    notifier: Notifier,
+    chatApi: lila.core.chat.ChatApi,
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
@@ -97,8 +98,8 @@ final class TeamApi(
     old.copy(
       password = edit.password,
       intro = edit.intro,
-      description = edit.description,
-      descPrivate = edit.descPrivate,
+      description = edit.description.map(spam.replace),
+      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
       open = edit.isOpen,
       chat = edit.chat,
       forum = edit.forum,
