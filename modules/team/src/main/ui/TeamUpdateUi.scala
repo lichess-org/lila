@@ -70,7 +70,8 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
           momentFromNowOnce(msg.date),
           span(trans.site.by(userIdLink(msg.senderId.some)))
         ),
-        div(cls := "team-show__update__body")(richText(msg.text, expandImg = false))
+        div(cls := "team-show__update__body")(richText(msg.text, expandImg = false)),
+        a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(trans.site.more(), " »")
       )
     )
 

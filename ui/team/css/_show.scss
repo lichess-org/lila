@@ -159,13 +159,15 @@ $section-margin-more: 4vh;
 
   &__update {
     &__last {
-      @extend %box-bordered;
+      @extend %flex-column, %box-bordered;
+      gap: 1em;
 
       background: $c-bg-zebra;
       padding: 1em 2em;
     }
 
-    &__meta {
+    &__meta,
+    &__more {
       @extend %flex-center;
 
       gap: 1em;
