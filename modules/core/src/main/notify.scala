@@ -89,5 +89,6 @@ abstract class NotifyApi(val prefColl: reactivemongo.api.bson.collection.BSONCol
   import reactivemongo.api.bson.BSONDocument
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit
+  def notifyManyUnlessUnread(userIds: Iterable[UserId], content: NotificationContent): Funit
   def markRead(to: UserId, selector: BSONDocument): Funit
   def remove(to: UserId, selector: BSONDocument): Funit

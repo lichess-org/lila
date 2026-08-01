@@ -25,6 +25,7 @@ case class NotificationPref(
     gameEvent: Allows,
     invitedStudy: Allows,
     broadcastRound: Allows = NotificationPref.default.broadcastRound,
+    teamUpdate: Allows = NotificationPref.default.teamUpdate,
     correspondenceEmail: Boolean
 ):
   def allows(event: PrefEvent): Allows = event match
@@ -51,6 +52,7 @@ object NotificationPref:
     gameEvent = core.Allows(PUSH),
     invitedStudy = core.Allows(BELL | PUSH),
     broadcastRound = core.Allows(BELL | PUSH),
+    teamUpdate = core.Allows(BELL | PUSH),
     correspondenceEmail = false
   )
 
@@ -71,6 +73,7 @@ object NotificationPref:
         "gameEvent" -> allowsMapping,
         "invitedStudy" -> allowsMapping,
         "broadcastRound" -> allowsMapping,
+        "teamUpdate" -> allowsMapping,
         "correspondenceEmail" -> boolean
       )(NotificationPref.apply)(lila.notify.unapply)
     )

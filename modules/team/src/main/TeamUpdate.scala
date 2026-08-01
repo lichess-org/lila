@@ -114,9 +114,9 @@ final class TeamUpdateApi(
         )
       .documentSource()
       .grouped(100)
-      .map(_.flatMap(_.getAsOpt[UserId]("user")).pp)
+      .map(_.flatMap(_.getAsOpt[UserId]("user")))
       .throttle(1, 1.second)
-      .mapAsync(1)(notifyApi.notifyMany(_, NotificationContent.TeamUpdate))
+      .mapAsync(1)(notifyApi.notifyManyUnlessUnread(_, NotificationContent.TeamUpdate))
       .run()
       .void
 

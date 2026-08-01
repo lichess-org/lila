@@ -125,15 +125,20 @@ final class NotifyApi(
 
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
-  def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.events.get(content.key) match
-      case None => bellMany(userIds, content)
-      case Some(event) =>
+  def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit = userIds.nonEmpty.so:
+    NotificationPref.events
+      .get(content.key)
+      .so: event =>
         prefs
           .getAllows(userIds, event)
           .flatMap: recips =>
             pushMany(recips.filter(_.allows.push), content)
             bellMany(recips, content)
+
+  def notifyManyUnlessUnread(userIds: Iterable[UserId], content: NotificationContent): Funit = for
+    unreadUsers <- repo.usersWithRecentUnread(content, 3.days)
+    _ <- notifyMany(userIds.filterNot(unreadUsers), content)
+  yield ()
 
   private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
     val recips = userIds.map(NotifyAllows(_, lila.notify.Allows.all))
