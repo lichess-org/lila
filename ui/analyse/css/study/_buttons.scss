@@ -23,7 +23,7 @@ $c-study-button: $c-accent;
     background: $c-bad;
     color: $c-over;
     padding: 0 5px;
-    border-radius: 9px;
+    border-radius: $box-radius-size;
     margin-inline-end: 4px;
   }
 
