@@ -45,7 +45,7 @@ final class NotifyApi(
       colls.pref.update.one($id(me.id), pref, upsert = true).void
 
     def allows(userId: UserId, event: PrefEvent): Fu[Allows] =
-      colls.pref
+      colls.pref.secondary
         .primitiveOne[Allows]($id(userId), event.key)
         .dmap(_ | default.allows(event))
 

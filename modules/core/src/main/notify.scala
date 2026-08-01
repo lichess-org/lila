@@ -62,6 +62,7 @@ enum PrefEvent:
   case gameEvent
   case invitedStudy
   case broadcastRound
+  case teamUpdate
   def key = toString
 
 opaque type Allows = Int

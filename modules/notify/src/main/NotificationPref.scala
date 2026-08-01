@@ -37,6 +37,7 @@ case class NotificationPref(
     case PrefEvent.gameEvent => gameEvent
     case PrefEvent.invitedStudy => invitedStudy
     case PrefEvent.broadcastRound => broadcastRound
+    case PrefEvent.teamUpdate => teamUpdate
 
 object NotificationPref:
   export lila.core.notify.NotificationPref.*
