@@ -32,8 +32,10 @@ export class RunCtrl {
     // Helpful for debugging:
     // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
     pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground!.state.addPieceZIndex = is3d;
-      this.chessground!.redrawAll();
+      this.withGround(g => {
+        g.state.addPieceZIndex = is3d;
+        g.redrawAll();
+      });
     });
   }
 
