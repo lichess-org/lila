@@ -22,7 +22,7 @@
   width: 40px;
   height: 24px;
   border: $border;
-  border-radius: 24px;
+  border-radius: $box-radius-size;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
 
@@ -48,14 +48,14 @@
     line-height: 22px;
     content: $licon-X;
     color: $c-font-dimmer;
-    border-radius: 100%;
+    border-radius: $box-radius-size;
   }
 
   &::after {
     @extend %metal;
     @include transition(margin box-shadow);
 
-    border-radius: 100%;
+    border-radius: calc($box-radius-size - 1px);
 
     @include if-transp {
       background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 22%), hsl(var(---site-hue) 5% 19%) 100%);

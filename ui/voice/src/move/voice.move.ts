@@ -370,7 +370,6 @@ export function initModule({
     const role = promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
-    fetch(`/statlog?voice`);
     root.pluginMove(src(uci), dest(uci), role, preConfirmed);
     return true;
   }

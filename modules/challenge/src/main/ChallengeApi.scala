@@ -216,7 +216,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all <- allFor(userId)
-        lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
+        lang <- userApi.langOf(userId).map(langPicker.byLangTagOrDefault)
         _ <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

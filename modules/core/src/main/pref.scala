@@ -16,6 +16,7 @@ trait Pref:
   val highlight: Boolean
   val is3d: Boolean
   val resizeHandle: Int
+  val uiRoundness: Int
   val theme: String
   val pieceSet: String
   val usingAltSocket: Option[Boolean]
