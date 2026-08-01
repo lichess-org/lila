@@ -2,9 +2,9 @@ import { debounce, hyphenToCamel } from 'lib';
 import type { VNode } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
-import type { BackgroundData } from '@/background';
 import type { DasherCtrl } from '@/ctrl';
 import type { LangsData } from '@/langs';
+import type { BackgroundData } from '@/theme';
 
 export type Dimension = 'd2' | 'd3';
 
@@ -52,7 +52,7 @@ export interface DasherData {
   streamer: boolean;
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'piece';
+export type Mode = 'links' | 'langs' | 'sound' | 'theme' | 'board' | 'piece';
 
 export interface DasherOpts {
   playing: boolean;
