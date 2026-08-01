@@ -81,7 +81,11 @@
           border-radius: 0 $menu-radius 0 0;
         }
 
-        &:last-child {
+        &:last-child:not(.mobile-only) {
+          border-radius: 0 0 $menu-radius $menu-radius;
+        }
+
+        &:has(+ .mobile-only:last-child) {
           border-radius: 0 0 $menu-radius $menu-radius;
         }
 
