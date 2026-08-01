@@ -1,7 +1,6 @@
 package lila.push
 
 import org.apache.pekko.actor.*
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.data.LazyFu
 
@@ -14,9 +13,8 @@ import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
 import lila.core.net.LichessMobileVersion
-import lila.core.i18n.{ Translate, Translator, I18nKey }
 
-final private class PushApi(
+final class PushApi(
     firebasePush: FirebasePush,
     webPush: BrowserWebPush,
     gameProxy: lila.core.game.GameProxy,
@@ -26,7 +24,7 @@ final private class PushApi(
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi,
     lightUser: lila.core.LightUser.GetterFallback
-)(using Executor, Scheduler, Translator):
+)(using Executor, Scheduler):
 
   import PushApi.*
   import PushApi.Data.payload
@@ -370,12 +368,11 @@ final private class PushApi(
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
 
-  private[push] def recap(userId: UserId, year: Int): Funit =
-    given Translate = summon[Translator].to(Lang("en", "GB"))
+  def recap(userId: UserId, year: Int, title: String, body: String): Funit =
     val data = LazyFu.sync:
       Data(
-        title = I18nKey.recap.recapReady.txt(year.toString),
-        body = I18nKey.recap.awaitQuestion.txt(),
+        title = title,
+        body = body,
         key = Key.recap,
         urgency = Urgency.Normal,
         payload = payload("type" -> "recap", "year" -> year.toString),

@@ -420,7 +420,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(db, mon, coreI18n),
+  Seq(db, mon),
   playWs.bundle ++ Seq(googleOAuth)
 )
 
