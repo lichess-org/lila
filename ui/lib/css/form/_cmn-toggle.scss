@@ -13,6 +13,7 @@
 .cmn-toggle label {
   @include prevent-select;
   @include transition(background box-shadow);
+  @extend %box-radius;
 
   display: block;
   position: relative;
@@ -22,7 +23,6 @@
   width: 40px;
   height: 24px;
   border: $border;
-  border-radius: $box-radius-size;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
 
@@ -31,24 +31,23 @@
     display: block;
     position: absolute;
     content: '';
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    height: 23px;
     bottom: 0;
 
     @include inline-start(0);
   }
 
   &::before {
-    @extend %data-icon;
+    @extend %data-icon, %box-radius;
     @include transition(margin color);
 
     font-size: 1em;
     z-index: 1;
     text-align: center;
-    line-height: 22px;
+    line-height: 23px;
     content: $licon-X;
     color: $c-font-dimmer;
-    border-radius: $box-radius-size;
   }
 
   &::after {
