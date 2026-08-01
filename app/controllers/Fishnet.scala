@@ -80,7 +80,7 @@ final class Fishnet(env: Env) extends LilaController(env):
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>
-        if !req.secure && HTTPRequest.bearer(req).isEmpty then handle(Client.offline)
+        if env.mode.notProd && HTTPRequest.bearer(req).isEmpty then handle(Client.offline)
         else
           HTTPRequest
             .bearer(req)
