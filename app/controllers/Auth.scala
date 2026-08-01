@@ -100,7 +100,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val allowed =
       if requireSimpleSignup then simpleSignup.exists(_.client == takex3Client)
       else signedClient.contains(takex3Client)
-    if allowed then run else Redirect(fallback).toFuccess
+    if allowed then run else Redirect(fallback)
 
   private def authCustomUi(variant: AuthVariant)(using
       Option[ValidReferrer]
@@ -639,13 +639,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             .fold(
               err => BadRequest.async(renderMagicLink(err.some, fail = true)),
               data =>
-                env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
-                  case Some(user, storedEmail) =>
-                    env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                      for _ <- env.security.loginToken.send(user, storedEmail)
-                      yield Redirect(routes.Auth.magicLinkSent)
-                  case _ => Redirect(routes.Auth.magicLinkSent)
-                }
+                for
+                  accept <- env.security.loginToken.magicLink.send(data.email)
+                  res <- if accept then Redirect(routes.Auth.magicLinkSent).toFuccess else rateLimited
+                yield res
             )
         else BadRequest.async(renderMagicLink(none, fail = true))
       }
@@ -653,9 +650,9 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def makeLoginToken = Auth { ctx ?=> me ?=>
+  def makeLoginTokenLichobile = Auth { ctx ?=> me ?=>
     JsonOk:
-      env.security.loginToken
+      env.security.loginToken.magicLink
         .generate(me)
         .map: token =>
           Json.obj(
@@ -670,7 +667,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       Firewall:
         consumingToken(token): user =>
           Ok.async:
-            env.security.loginToken
+            env.security.loginToken.magicLink
               .generate(user)
               .map(views.auth.tokenLoginConfirmation(user, _))
 
@@ -682,6 +679,13 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           consumingToken(token): user =>
             if user.enabled.yes then authenticateUser(user, remember = true, pwned = IsPwned.No)
             else authenticateAppealUser(user, Redirect(_))
+
+  def mobileCodeEmail = Anon:
+    Firewall:
+      for
+        access <- env.security.loginToken.storedCode.createAndSend()
+        res <- if access then NoContent.toFuccess else rateLimited
+      yield res
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match
@@ -703,7 +707,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
-    env.security.loginToken
+    env.security.loginToken.magicLink
       .consume(token)
       .flatMap:
         case None =>
