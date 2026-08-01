@@ -19,7 +19,7 @@ const createHandler = (ctrl: LobbyController) => (e: Event) => {
   const id =
     (e.target as HTMLElement).dataset['id'] ||
     ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
-  if (id) ctrl.shortcutCtrl.onclick(id);
+  if (id) ctrl.shortcutsCtrl.onclick(id);
 
   ctrl.redraw();
 };
@@ -32,9 +32,9 @@ export const hooks = (ctrl: LobbyController): Hooks =>
   });
 
 export function render(ctrl: LobbyController) {
-  const { shortcutCtrl, poolMember, opts } = ctrl;
+  const { shortcutsCtrl, poolMember, opts } = ctrl;
   return [
-    ...shortcutCtrl.configured.map((shortcut: LobbyShortcut | null) => {
+    ...shortcutsCtrl.configured.map((shortcut: LobbyShortcut | null) => {
       if (!shortcut) return div({ 'aria-hidden': true });
 
       const active = poolMember?.id === shortcut.id;
@@ -58,7 +58,7 @@ export function render(ctrl: LobbyController) {
       );
     }),
     myUserId()
-      ? renderShortcut(shortcutCtrl.get('customize')!, Boolean(poolMember))
+      ? renderShortcut(shortcutsCtrl.get('customize')!, Boolean(poolMember))
       : div(
           '.shortcut',
           { role: 'button', tabindex: 0, on: { click: () => ctrl.setupCtrl.openModal('hook') } },

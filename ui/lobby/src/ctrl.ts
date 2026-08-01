@@ -1,29 +1,18 @@
 import { numberFormat } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
-import { colors, type ColorChoice } from 'lib/setup/color';
 import { wsPingInterval } from 'lib/socket';
 import { storage, type LichessStorage } from 'lib/storage';
 
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
-import type {
-  LobbyOpts,
-  LobbyData,
-  Tab,
-  Mode,
-  Sort,
-  Hook,
-  PoolMember,
-  GameType,
-  ForceSetupOptions,
-  LobbyMe,
-} from './interfaces';
+import type { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, PoolMember, LobbyMe } from './interfaces';
 import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
 import { ShortcutsCtrl, pools } from './shortcutsCtrl';
 import LobbySocket from './socket';
 import { make as makeStores, type Stores } from './store';
+import { parseUrlParams } from './urlParams';
 import variantConfirm from './variant';
 import * as xhr from './xhr';
 
@@ -42,7 +31,7 @@ export default class LobbyController {
   poolMember?: PoolMember;
   filter: Filter;
   setupCtrl: SetupController;
-  shortcutCtrl: ShortcutsCtrl;
+  shortcutsCtrl: ShortcutsCtrl;
 
   private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -58,7 +47,7 @@ export default class LobbyController {
       seeks: [],
     };
     this.me = opts.data.me;
-    this.shortcutCtrl = new ShortcutsCtrl(this);
+    this.shortcutsCtrl = new ShortcutsCtrl(this);
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
@@ -77,59 +66,16 @@ export default class LobbyController {
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
 
-    const locationHash = location.hash.replace('#', '');
-    if (['ai', 'friend', 'hook'].includes(locationHash)) {
-      const forceOptions: ForceSetupOptions = {};
-      const urlParams = new URLSearchParams(location.search);
-      const friendUser = urlParams.get('user') ?? undefined;
-      const variant = urlParams.get('variant');
-
-      if (variant) forceOptions.variant = variant as VariantKey;
-
-      if (locationHash !== 'hook' && urlParams.get('fen')) {
-        forceOptions.fen = urlParams.get('fen')!;
-        forceOptions.variant = 'fromPosition';
-      }
-
-      let timeMode = urlParams.get('time');
-      const days = urlParams.get('days');
-      const minutesPerSide = urlParams.get('minutesPerSide');
-      const increment = urlParams.get('increment');
-
-      if (!timeMode) {
-        if (days) timeMode = 'correspondence';
-        else if (minutesPerSide || increment) timeMode = 'realTime';
-      }
-
-      if (timeMode === 'correspondence') {
-        forceOptions.timeMode = 'correspondence';
-        if (days) forceOptions.days = parseInt(days);
-        if (locationHash === 'hook') this.tab = 'seeks';
-      } else if (timeMode === 'realTime') {
-        forceOptions.timeMode = 'realTime';
-        if (minutesPerSide) forceOptions.time = parseFloat(minutesPerSide);
-        if (increment) forceOptions.increment = parseInt(increment);
-        if (locationHash === 'hook') this.tab = 'real_time';
-      } else if (timeMode === 'unlimited') {
-        if (locationHash === 'hook') this.tab = 'seeks';
-        forceOptions.timeMode = 'unlimited';
-        forceOptions.mode = 'casual';
-      }
-
-      if (locationHash === 'hook' || locationHash === 'friend') {
-        const gameMode = urlParams.get('gameMode');
-        if (gameMode === 'casual' || gameMode === 'rated') {
-          forceOptions.mode = gameMode;
-        }
-      }
-
-      const color = urlParams.get('color');
-      if (color && colors.some(c => c.key === color)) {
-        forceOptions.color = color as ColorChoice;
+    const urlParams = parseUrlParams(location);
+    if (urlParams) {
+      const { gameType, forceOptions, friendUser } = urlParams;
+      if (gameType === 'hook') {
+        if (forceOptions.timeMode === 'realTime') this.tab = 'real_time';
+        else if (forceOptions.timeMode) this.tab = 'seeks';
       }
 
       pubsub.after('polyfill.dialog').then(() => {
-        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
+        this.setupCtrl.openModal(gameType, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');

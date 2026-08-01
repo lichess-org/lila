@@ -1,5 +1,6 @@
+import { licon } from 'lib/licon';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
-import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
+import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom, dataIcon } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 
@@ -32,8 +33,14 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
       },
       modal: true,
       easyClose: 'clickOutside',
+      focus: '.lobby__start__button',
       vnodes: [
         hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
+        setupCtrl.canAddShortcut() &&
+          hl('button.button.button-empty.game-shortcut', {
+            attrs: dataIcon(licon.StarOutline),
+            on: { click: setupCtrl.addToShortcuts },
+          }),
         hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
         hl('div.footer', [
           hl(
