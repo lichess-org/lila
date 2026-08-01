@@ -1,0 +1,31 @@
+#dasher_app .theme {
+  label {
+    padding-inline: 14px;
+    padding-top: 6px;
+    color: $c-font-dim;
+    display: block;
+  }
+
+  .ui-roundness .slider-label {
+    @extend %flex-between;
+
+    color: $c-font-dim;
+    border-top: $border;
+    padding: 6px 14px;
+
+    label {
+      padding: 0;
+    }
+
+    span {
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
+  }
+
+  .range {
+    font-size: 1.5em;
+    padding: 0 14px;
+    width: 100%;
+  }
+}

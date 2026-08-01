@@ -1,5 +1,6 @@
-@import 'link';
+@import 'theme';
 @import 'board';
+@import 'link';
 @import 'piece';
 
 #dasher_app {
@@ -195,7 +196,7 @@
       }
     }
 
-    input {
+    input:not([type='range']) {
       padding: 5px;
       border: 1px solid #444;
       width: 100%;
@@ -209,7 +210,7 @@
   }
 
   .button.more {
-    @extend %box-radius-bottom;
+    @extend %box-radius-bottom-left;
 
     width: 100%;
     color: $c-over;

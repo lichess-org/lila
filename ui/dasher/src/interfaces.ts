@@ -1,8 +1,10 @@
+import { debounce, hyphenToCamel } from 'lib';
 import type { VNode } from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
 
-import type { BackgroundData } from '@/background';
 import type { DasherCtrl } from '@/ctrl';
 import type { LangsData } from '@/langs';
+import type { BackgroundData } from '@/theme';
 
 export type Dimension = 'd2' | 'd3';
 
@@ -20,6 +22,16 @@ export abstract class PaneCtrl {
   get is3d(): boolean {
     return this.root.data.board.is3d;
   }
+
+  protected readonly getVar = (prop: string): number =>
+    parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
+
+  protected readonly postPref: (prop: string) => void = debounce((prop: string) => {
+    const body = new FormData();
+    body.set(hyphenToCamel(prop), this.getVar(prop).toString());
+    const path = `/pref/${hyphenToCamel(prop)}`;
+    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+  }, 1000);
 
   abstract render(): VNode;
 }
@@ -40,9 +52,11 @@ export interface DasherData {
   streamer: boolean;
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'piece';
+export type Mode = 'links' | 'langs' | 'sound' | 'theme' | 'board' | 'piece';
 
 export interface DasherOpts {
   playing: boolean;
   zenable: boolean;
 }
+
+export type Range = { min: number; max: number; step: number };

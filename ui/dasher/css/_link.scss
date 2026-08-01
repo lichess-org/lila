@@ -1,4 +1,10 @@
 #dasher_app {
+  .links {
+    @extend %box-radius-top-left;
+
+    overflow: hidden;
+  }
+
   .links,
   .subs {
     padding: 5px 0;

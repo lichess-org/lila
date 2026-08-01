@@ -16,7 +16,6 @@ on:
     branches-ignore:
       - 'l10n_master'
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/server.yml'
       - 'app/**'
@@ -29,19 +28,23 @@ on:
       - 'conf/application.conf.default'
       - '.sbtopts.default'
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      skip_format:
+        description: Skip the format-check job
+        type: boolean
+        default: true
+        required: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java-version: [21]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
           distribution: temurin
-          java-version: ${{ matrix.java-version }}
+          java-version: 21
           cache: sbt
       - name: Setup sbt
         uses: sbt/setup-sbt@3afe9cf056c5d139bfc46579af1192d77a2f0821 # v1.4.0
@@ -52,13 +55,13 @@ jobs:
         env:
           ZSTD_LEVEL: 1 # most files are already zipped
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: ${{ matrix.java-version == 21 }}
         with:
           name: lila-server
           path: lila-3.0.tar.zst
           compression-level: 0 # already compressed
 
   format:
+    if: inputs.skip_format != true
     runs-on: ubuntu-latest
     env:
       SBT_OPTS: -Dsbt.banner=false
