@@ -19,7 +19,8 @@ final class Env(
     userJson: lila.core.user.JsonView,
     userRepo: lila.core.user.UserRepo,
     db: lila.db.Db,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi,
+    spamApi: lila.core.security.SpamApi
 )(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))

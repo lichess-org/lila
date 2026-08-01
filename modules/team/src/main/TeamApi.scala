@@ -20,7 +20,7 @@ final class TeamApi(
     updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifier: Notifier,
+    notifyApi: NotifyApi,
     chatApi: lila.core.chat.ChatApi,
     spam: lila.core.security.SpamApi
 )(using Executor, Scheduler)
