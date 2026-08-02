@@ -829,10 +829,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
+  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomskinleg</string>
+  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Bilete</string>
   <string name="deviceTheme">Einingstema</string>
+  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Avrunda hjørne</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
   <string name="board">Brett</string>
   <string name="size">Storleik</string>

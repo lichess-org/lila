@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Txapelketa hau ete bere txanda eta partida guztiak betirako ezabatu?</string>
   <string name="showScores">Erakutsi jokalarien puntuazioak partiden emaitzen arabera</string>
   <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="fideFederations">FIDE federazioak</string>

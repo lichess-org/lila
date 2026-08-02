@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Sellega võib minna mõni hetk aega.</string>
   <string name="refreshInboxAfterFiveMinutes">Oodake 5 minutit ja värskendage postkasti.</string>
   <string name="checkSpamFolder">Kiri võib sattuda ka rämpsposti kausta. Sel juhul palun märkige see mitte rämpspostina.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Kui sa ei saa kinnituskirja, kontrolli oma rämpsposti või prügikasti kausta. Märgi kindlasti lichess.org sõnumid turvaliseks ja \"mitte rämpspostiks\", et olla olulise teabega kursis.</string>
   <string name="sendEmailForAccountVerification">Kui sa ei leia oma kinnituskirja, saada e-kiri aadressile %s ja me kinnitame su konto sinu eest.</string>
   <string name="accountConfirmed">Kasutaja %s on edukalt kinnitatud.</string>
   <string name="accountCanLogin">Saate praegu sisse logida kui %s.</string>
@@ -581,6 +582,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="replies">Vastused</string>
   <string name="replyToThisTopic">Vasta sellele teemale</string>
   <string name="reply">Vasta</string>
+  <string name="reopen">Ava uuesti</string>
+  <string name="quote">Tsiteering</string>
+  <string name="postEdited">muudetud</string>
   <string name="message">Sõnum</string>
   <string name="createTheTopic">Loo teema</string>
   <string name="reportAUser">Teata kasutajast</string>
@@ -593,6 +597,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="reportCheatBoostHelp">Kleebi mängu(de) link ja selgita, mis on selle kasutaja käitumises valesti. Ära ütle lihtsalt \"ta teeb sohki\", vaid selgita, kuidas sellele järeldusele jõudsid.</string>
   <string name="reportUsernameHelp">Selgita, miks see kasutajanimi on solvav. Ära ütle lihtsalt \"see on solvav/sobimatu\", vaid selgita, kuidas sellele järeldusele jõudsid, eriti kui solvavus on raskesti mõistetav, ei ole inglise keeles, on slängis või viitab ajaloolisele või kultuurilisele kontekstile.</string>
   <string name="reportProcessedFasterInEnglish">Sõnumit käsitletakse kiiremini, kui see on kirjutatud inglise keeles.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vaatame sinu teate kiiremini läbi, kui kirjutad inglise keeles.</string>
   <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Importis %s</string>
@@ -717,6 +722,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="aboutSimulSettings">Simultaanid on alati ilma reitinguta. Kordusmäng, käikude tagasivõtmised ning aja lisamine on keelatud.</string>
   <string name="create">Loo</string>
   <string name="whenCreateSimul">Kui lood simultaani, saad mängida samaaegselt mitme vastasega.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Simultaani loomine võimaldab sul mängida korraga mitme vastase vastu.</string>
   <string name="simulVariantsHint">Kui valid mitu varianti, saab iga mängija valida ise millist mängida.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>
@@ -996,6 +1002,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="simulDescription">Simultaani kirjeldus</string>
   <string name="simulDescriptionHelp">Tahad osalejatele midagi öelda?</string>
   <string name="markdownIsAvailable">%s on vormindamiseks saadaval.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Teksti saab vormindada %s abil.</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
   <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
   <string name="tournChat">Turniiri vestlus</string>
@@ -1003,6 +1010,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="onlyTeamLeaders">Ainult võistkonnajuhid</string>
   <string name="onlyTeamMembers">Ainult võistkonnaliikmed</string>
   <string name="navigateMoveTree">Navigeeri käiguloendis</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Käikute loendi juhtimine</string>
   <string name="mouseTricks">Hiiretrikid</string>
   <string name="toggleLocalAnalysis">Lülita kohalik arvuti analüüs sisse/välja</string>
   <string name="toggleAllAnalysis">Lülita täielik arvuti analüüs sisse/välja</string>
@@ -1019,6 +1027,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="gameInProgress">Mäng kasutajaga %s on veel pooleli.</string>
   <string name="abortTheGame">Katkesta mäng</string>
   <string name="resignTheGame">Alistu</string>
+  <string name="youCantStartNewGame">Sa ei saa alustada uut mängu, kui on sinu kord.</string>
   <string name="since">Alates</string>
   <string name="until">Kuni</string>
   <string name="lichessDbExplanation">Reitinguga mängud kõikidelt Lichessi mängijatelt</string>

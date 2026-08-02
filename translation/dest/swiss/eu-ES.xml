@@ -120,6 +120,8 @@ Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitza
   <string name="unlimitedAndFree">Mugagabea eta doan</string>
   <string name="predefinedUsers">Aurrez definitutako erabiltzaileei bakarrik utzi sartzen</string>
   <string name="forbiddedUsers">Zerrenda hau hutsik ez badago, zerrendan ez dauden jokalariak ezingo dira txapelketara sartu. Erabiltzaile-izen bat lerro bakoitzean.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Idatzi erabiltzaile-izen bat lerro bakoitzean. Jokalari hauek bakarrik sartu ahal izango dira.
+Utzi hutsik edozein jokalariri sartzen uzteko.</string>
   <string name="playYourGames">Zure partidak jokatu</string>
   <string name="byes">Byeak</string>
   <string name="absences">Jokatuko ez dutenak</string>

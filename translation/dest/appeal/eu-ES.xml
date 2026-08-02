@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Moderatzaileek zure blogak ezkutatu egin dituzte.</string>
   <string name="hiddenBlogInfo">Irakurri ezazu berriz gure %s.</string>
   <string name="playTimeout">Denbora-tarte batez ezin duzu jokatu.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Zure kontuak ezin du aldi batez partidarik jokatu.</string>
   <string name="communicationGuidelines">komunikazio-gidalerroak</string>
   <string name="blogRules">blogen arauak</string>
   <string name="fairPlay">Joko garbia</string>

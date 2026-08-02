@@ -9,6 +9,8 @@
   <string name="gameOver">Оюн бутту</string>
   <string name="waitingForOpponent">Өнөктөш менен ойноо</string>
   <string name="orLetYourOpponentScanQrCode">Же атаандашыңызга ушул QR-кодду сканерлөө үчүн көрсөтүңүз</string>
+  <string name="reusableChallengeUrl">Көп колдонула турган оюнга чакыруучу шилтеме</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Жөндөөлөрү белгиленген оюндун туруктуу шилтемеси.</string>
   <string name="waiting">Күтүүдө</string>
   <string name="yourTurn">Сиздин кезегиңиз</string>
   <string name="aiNameLevelAiLevel">%1$s басамак %2$s</string>
