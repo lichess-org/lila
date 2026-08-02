@@ -32,6 +32,10 @@ final class TeamCached(
     def sync = TeamCached.this.sync
     export lightCache.preloadSet as preload
 
+  def lightMapById(ids: List[TeamId]): Fu[Map[TeamId, LightTeam]] =
+    for teams <- lightCache.asyncMany(ids)
+    yield teams.flatten.map(t => t.id -> t).toMap
+
   def isMember(teamId: TeamId)(using myId: MyId): Fu[Boolean] =
     teamIdsCache.async(myId).dmap(_.contains(teamId))
 
@@ -70,7 +74,7 @@ final class TeamCached(
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
   def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]] = teamIds(user.id).dmap(_.toList)
 
-  val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
+  val nbRequests = cacheApi[UserId, Int](65_536, "team.nbRequests"):
     _.expireAfterAccess(40.minutes)
       .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>

@@ -567,6 +567,18 @@ importers:
         specifier: workspace:*
         version: link:../lib
 
+  ui/team:
+    dependencies:
+      bits:
+        specifier: workspace:*
+        version: link:../bits
+      flatpickr:
+        specifier: ^4.6.13
+        version: 4.6.13
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
   ui/tournament:
     dependencies:
       '@types/dragscroll':

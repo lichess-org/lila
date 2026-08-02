@@ -173,13 +173,13 @@ db.team.createIndex({ enabled: 1, nbMembers: -1 });
 db.team.createIndex({ createdAt: -1 });
 db.team.createIndex({ createdBy: 1 });
 db.team.createIndex({ leaders: 1 });
+db.team_update.createIndex({ team: 1, date: -1 });
 db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
   { featurable: 1 },
   { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
 );
-db.coach_review.createIndex({ coachId: 1 });
 db.analysis_requester.createIndex({ total: -1 });
 db.plan_patron.createIndex(
   { 'stripe.customerId': 1 },
