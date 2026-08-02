@@ -57,11 +57,15 @@
   <string name="correspondenceEmailNotification">فهرست رایانامهٔ روزانه از بازی‌های مکاتبه‌ای‌تان</string>
   <string name="notifyStreamStart">بَرخَط-محتواساز روی پخش است</string>
   <string name="notifyInboxMsg">پیام جدید</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">پیامِ مستقیمِ جدید</string>
   <string name="notifyForumMention">در انجمن از شما نام‌بُرده‌اند</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">نام‌بریِ انجمن</string>
   <string name="notifyInvitedStudy">دعوت به مطالعه</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">دعوت به مطالعه</string>
   <string name="notifyGameEvent">به‌روزرسانی‌های بازی مکاتبه‌ای</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>
   <string name="notifyTournamentSoon">مسابقات به‌زودی می‌آغازد</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">یادآورِ آغازِ مسابقات</string>
   <string name="notifyBroadcasts">پخش همگانی</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
   <string name="notifyBell">اعلان زنگی در Lichess</string>

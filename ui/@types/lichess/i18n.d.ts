@@ -87,36 +87,38 @@ interface I18n {
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arena tournaments. */
     arenaBanned: string;
-    /** blog rules */
-    blogRules: string;
-    /** Your account is marked for rating manipulation. */
+    /** blog etiquette */
+    blogEtiquette: string;
+    /** You have a blog restriction. */
+    blogRestriction: string;
+    /** Read our %s, violating these rules may result in different actions. */
+    blogRestrictionInfo: I18nFormat;
+    /** Your account was restricted for rating manipulation/account sharing. */
     boosterMarked: string;
-    /** We define this as deliberately manipulating a rating by losing games on purpose or by playing against another account that is deliberately losing games. */
-    boosterMarkedInfo: string;
     /** Your account is not marked or restricted. You're all good! */
     cleanAllGood: string;
     /** Your account was closed by moderators. */
     closedByModerators: string;
     /** communication guidelines */
     communicationGuidelines: string;
-    /** Your account has been restricted for using external assistance in games. */
+    /** Your account was restricted for use of engine/computer assistance in games. */
     engineMarked: string;
     /** We define this as using any external help to reinforce your knowledge and/or calculation skills to gain an unfair advantage over your opponent. See the %s page for more details. */
     engineMarkedInfo: I18nFormat;
     /** Your account has been excluded from leaderboards. */
     excludedFromLeaderboards: string;
-    /** We define this as using any unfair way to get on the leaderboard. */
-    excludedFromLeaderboardsInfo: string;
     /** Fair Play */
     fairPlay: string;
-    /** Your blogs have been hidden by moderators. */
-    hiddenBlog: string;
-    /** Make sure to read again our %s. */
-    hiddenBlogInfo: I18nFormat;
+    /** Only one account per person can appear on leaderboards. */
+    onlyOneAccountOnLeaderboards: string;
     /** You have a play timeout. */
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
     prizeBanned: string;
+    /** You can’t send reports to moderators */
+    reportBanned: string;
+    /** We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules. */
+    reportBannedInfo: string;
     /** Your account is temporarily restricted from playing. */
     temporarilyRestrictedFromPlaying: string;
   };
@@ -357,6 +359,8 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
+    /** No players yet. They will appear once games are uploaded. */
+    noPlayersYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
     /** Official standings */
@@ -3867,6 +3871,8 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
+    /** Less */
+    less: string;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */
@@ -4211,6 +4217,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
     permanentLinkForAnyoneToChallengeYou: string;
+    /** Picture */
+    picture: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4421,6 +4429,8 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** Roundness */
+    roundness: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
     /** Save */
@@ -4585,6 +4595,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** Theme */
+    theme: string;
     /** No results for "%s" */
     thereAreNoResultsForX: I18nFormat;
     /** The Lichess Terms of Service were violated on this account */
@@ -5773,12 +5785,6 @@ interface I18n {
     manuallyReviewAdmissionRequests: string;
     /** If checked, players will need to request to join the team, which you can accept or decline. */
     manuallyReviewAdmissionRequestsHelp: string;
-    /** Message all members */
-    messageAllMembers: string;
-    /** Send a private message to ALL members of the team. */
-    messageAllMembersLongDescription: string;
-    /** Send a private message to every member of the team */
-    messageAllMembersOverview: string;
     /** My teams */
     myTeams: string;
     /** %s leaders per team */
@@ -5787,6 +5793,8 @@ interface I18n {
     nbMembers: I18nPlural;
     /** New team */
     newTeam: string;
+    /** New team update */
+    newTeamUpdate: string;
     /** No team found */
     noTeamFound: string;
     /** Number of leaders per team. The sum of their score is the score of the team. */
@@ -5803,8 +5811,8 @@ interface I18n {
     quitTeam: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
-    /** Subscribe to team messages */
-    subToTeamMessages: string;
+    /** Subscribe to team updates */
+    subToTeamUpdates: string;
     /** A Swiss tournament that only members of your team can join */
     swissTournamentOverview: string;
     /** Team */
@@ -5831,6 +5839,8 @@ interface I18n {
     teamTournament: string;
     /** An Arena tournament that only members of your team can join */
     teamTournamentOverview: string;
+    /** Team updates */
+    teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
     /** Upcoming tournaments */

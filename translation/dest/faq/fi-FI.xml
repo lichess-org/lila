@@ -148,6 +148,11 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
 Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen mykistyskuvake. Tavallisesti rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
 
 Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Useimmat selaimet estävät äänentoiston juuri ladatulla sivulla suojellakseen käyttäjiä.
+
+Kun selaimesi estää lichess.org-sivun äänentoiston, näet mykistyskuvakkeen. Yleensä rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
+
+Jos näin tapahtuu, huomautamme sinulle siitä näyttämällä punaisen mykistyskuvakkeen. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat eräiden suosituimpien selainten viimeaikaisin versioihin pohjautuvat ohjeet siihen, miten sallit sivuston toistaa ääntä:</string>
   <string name="desktop">tietokone</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
 2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
@@ -155,6 +160,10 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 4. Salli ääni ja video lichess.org:issa</string>
   <string name="enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
 2. Klikkaa lukituskuvaketta osoitepalkissa
+3. Valitse Sivuston asetukset
+4. Salli ääni</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
+2. Klikkaa sivustotietokuvaketta osoitepalkissa
 3. Valitse Sivuston asetukset
 4. Salli ääni</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. Napsauta kolmea pistettä oikessa yläkulmassa

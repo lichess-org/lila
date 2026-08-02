@@ -146,6 +146,7 @@ $serviceNote"""
 
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
     val pDesc = p(itemprop := "description")
+    val loginCode = div(itemprop := "identifier", itemscope, itemtype := "http://schema.org/ViewAction")
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)

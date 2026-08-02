@@ -31,13 +31,11 @@ jobs:
     needs: [gate]
     if: needs.gate.result == 'success' && github.event_name != 'workflow_run'
     uses: ./.github/workflows/server.yml
-    secrets: inherit
 
   build-assets:
     needs: [gate]
     if: needs.gate.result == 'success' && github.event_name != 'workflow_run'
     uses: ./.github/workflows/assets.yml
-    secrets: inherit
 
   params:
     needs: [gate]

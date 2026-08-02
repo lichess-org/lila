@@ -157,6 +157,10 @@ Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun
 2. Klik op het vergrendelingspictogram in de adresbalk
 3. Klik op Site-instellingen
 4. Sta geluid toe</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Ga naar lichess.org
+2. Klik op het vergrendelingspictogram in de adresbalk
+3. Klik op Site-instellingen
+4. Sta geluid toe</string>
   <string name="enableAutoplayForSoundsSafari">1. Ga naar lichess.org
 2. Klik op Safari in de menubalk
 3. Klik op Instellingen voor lichess.org ...

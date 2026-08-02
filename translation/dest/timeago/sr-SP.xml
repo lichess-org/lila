@@ -2,37 +2,37 @@
 <resources>
   <string name="justNow">управо сада</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">за %s секунди</item>
-    <item quantity="few">за %s сати</item>
+    <item quantity="one">за %s секунд</item>
+    <item quantity="few">за %s секунде</item>
     <item quantity="other">за %s секунди</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">за %s минута</item>
+    <item quantity="one">за %s минут</item>
     <item quantity="few">за %s минута</item>
     <item quantity="other">за %s минута</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">за %s сати</item>
-    <item quantity="few">за %s сати</item>
+    <item quantity="one">за %s сат</item>
+    <item quantity="few">за %s сата</item>
     <item quantity="other">за %s сати</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">за %s дана</item>
+    <item quantity="one">за %s дан</item>
     <item quantity="few">за %s дана</item>
     <item quantity="other">за %s дана</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">за %s недеља</item>
+    <item quantity="one">за %s недељу</item>
     <item quantity="few">за %s недеље</item>
     <item quantity="other">за %s недеља</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">за %s месеци</item>
+    <item quantity="one">за %s месец</item>
     <item quantity="few">за %s месеца</item>
     <item quantity="other">за %s месеци</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">за %s година</item>
+    <item quantity="one">за %s годину</item>
     <item quantity="few">за %s године</item>
     <item quantity="other">за %s година</item>
   </plurals>
@@ -69,7 +69,7 @@
   </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="one">преостао још %s минут</item>
-    <item quantity="few">преостало још %s минута</item>
+    <item quantity="few">преостала још %s минута</item>
     <item quantity="other">преостало још %s минута</item>
   </plurals>
   <plurals name="nbHoursRemaining">

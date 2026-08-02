@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Moderaattorit ovat piilottaneet blogisi.</string>
   <string name="hiddenBlogInfo">Ole hyvä ja lue uudelleen %s.</string>
   <string name="playTimeout">Sinulle on asetettu pelitauko.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Käyttäjätunnuksesi on tilapäisesti estetty pelaamasta.</string>
   <string name="communicationGuidelines">viestintäsääntömme</string>
   <string name="blogRules">blogisäännöt</string>
   <string name="fairPlay">Reilu peli</string>

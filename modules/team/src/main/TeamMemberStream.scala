@@ -24,11 +24,6 @@ final class TeamMemberStream(
         users.map(_.zip(members._2F))
       .mapConcat(identity)
 
-  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
-    idsBatches(team, perSecond, $doc("unsub".$ne(true)))
-      .map(_._1F)
-      .mapConcat(identity)
-
   private def idsBatches(
       team: Team,
       perSecond: MaxPerSecond,

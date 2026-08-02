@@ -786,10 +786,13 @@
   <string name="language">언어</string>
   <string name="allLanguages">모든 언어</string>
   <string name="background">배경</string>
+  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">테마</string>
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
   <string name="transparent">투명하게</string>
+  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">사진</string>
   <string name="deviceTheme">기기 테마</string>
+  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">둥글기</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
   <string name="board">보드</string>
   <string name="size">크기</string>

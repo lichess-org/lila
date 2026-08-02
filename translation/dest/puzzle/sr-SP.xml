@@ -48,5 +48,5 @@
   <string name="strengths">Јаке стране</string>
   <string name="history">Историја проблема</string>
   <string name="solved">решено</string>
-  <string name="failed">неуспело</string>
+  <string name="failed">нетачно</string>
 </resources>

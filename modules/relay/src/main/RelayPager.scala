@@ -12,7 +12,8 @@ import lila.memo.CacheApi.buildAsyncTimeout
 final class RelayPager(
     tourRepo: RelayTourRepo,
     colls: RelayColls,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    listing: RelayListing
 )(using Executor, Scheduler):
 
   import BSONHandlers.given
@@ -125,7 +126,7 @@ final class RelayPager(
 
     def firstPageResults(): Fu[List[WithLastRound]] = firstPageCache.get({})
 
-  def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+  def search(query: String, page: Int): Fu[Paginator[WithLastRound | RelayCard]] =
 
     val day = 1000L * 3600 * 24
 
@@ -138,21 +139,26 @@ final class RelayPager(
     // We add quotes to the query to perform an exact match even when the query contains whitespaces
     val textSelector = $text(s"\"$textSearch\"") ++ nameFilter ++ selectors.officialPublic
 
-    forSelector(
-      selector = textSelector,
-      page = page,
-      onlyKeepGroupFirst = false,
-      addFields = $doc(
-        "searchDate" -> $doc(
-          "$add" -> $arr(
-            $doc("$ifNull" -> $arr("$syncedAt", "$createdAt")),
-            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
-            $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+    for
+      pager <- forSelector(
+        selector = textSelector,
+        page = page,
+        onlyKeepGroupFirst = false,
+        addFields = $doc(
+          "searchDate" -> $doc(
+            "$add" -> $arr(
+              $doc("$ifNull" -> $arr("$syncedAt", "$createdAt")),
+              $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
+              $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+            )
           )
-        )
-      ).some,
-      sortFields = List("searchDate")
-    )
+        ).some,
+        sortFields = List("searchDate")
+      )
+      ongoing <- listing.active
+      ongoingById = ongoing.mapBy(_.tour.id)
+    yield pager.map: tour =>
+      ongoingById.get(tour.tour.id) | tour
 
   def byIds(ids: List[RelayTourId], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(

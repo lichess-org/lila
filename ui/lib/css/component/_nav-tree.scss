@@ -30,6 +30,22 @@
     }
   }
 
+  .content {
+    p,
+    ul {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      padding-inline-start: 1.5em;
+    }
+
+    li {
+      list-style: disc;
+      margin-bottom: 0.4em;
+    }
+  }
+
   .branch {
     .content {
       @extend %box-radius;
@@ -63,15 +79,6 @@
     .content {
       padding: 1em 0;
       font-size: 1.1em;
-
-      p,
-      ul {
-        margin-bottom: 1em;
-      }
-
-      li {
-        list-style: disc inside;
-      }
     }
   }
 }
