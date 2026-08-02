@@ -79,6 +79,12 @@ final class StudyApi(
   def byIdWithChapterOrFallback(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     byIdWithChapter(id, chapterId).orElse(byIdWithChapter(id))
 
+  def byIdWithChapterForUser(id: StudyId, userId: Option[UserId]): Fu[Option[Study.WithChapter]] =
+    byId(id).flatMapz: study =>
+      val resumeChapterId =
+        (!study.settings.sticky).so(userId.flatMap(study.members.get).flatMap(_.lastChapterId))
+      resumeChapterId.fold(byIdWithChapter(id))(byIdWithChapterOrFallback(id, _))
+
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo.firstByStudy(id))
 
@@ -224,6 +230,11 @@ final class StudyApi(
           publicSource = study.isPublic.option(lila.core.chat.PublicSource.Study(studyId)),
           busChan = _.study
         )
+
+  // private per-member bookmark, not broadcast to other clients
+  def setMemberLastChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who): Funit =
+    byId(studyId).flatMapz: study =>
+      study.isMember(who.u).so(studyRepo.setMemberLastChapter(study, who.u, chapterId))
 
   def setPath(studyId: StudyId, position: Position.Ref)(who: Who): Funit =
     sequenceStudy(studyId): study =>

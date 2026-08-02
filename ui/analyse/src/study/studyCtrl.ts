@@ -513,6 +513,7 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
+      if (this.members.myMember()) this.send('setViewedChapter', id);
       this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
       await this.xhrReload(false, () => componentCallbacks(id));
     }

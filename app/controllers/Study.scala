@@ -237,7 +237,7 @@ final class Study(
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
-      env.study.api.byIdWithChapter(id).flatMap(showQuery)
+      env.study.api.byIdWithChapterForUser(id, ctx.me.map(_.userId)).flatMap(showQuery)
 
   def chapter(id: StudyId, chapterId: StudyChapterId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id, chapterId.some):

@@ -143,6 +143,11 @@ final private class StudySocket(
             .foreach: chapterId =>
               applyWho(api.setChapter(studyId, chapterId))
 
+        case "setViewedChapter" =>
+          o.get[StudyChapterId]("d")
+            .foreach: chapterId =>
+              applyWho(api.setMemberLastChapter(studyId, chapterId))
+
         case "editChapter" =>
           reading[ChapterMaker.EditData](o): data =>
             applyWho(api.editChapter(studyId, data))
