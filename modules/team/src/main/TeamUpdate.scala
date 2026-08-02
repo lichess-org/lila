@@ -33,7 +33,8 @@ final class TeamUpdateApi(
     userRepo: lila.core.user.UserRepo,
     cached: TeamCached,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi,
-    notifyApi: NotifyApi
+    notifyApi: NotifyApi,
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler, Materializer):
 
   import TeamUpdateApi.*
@@ -80,7 +81,7 @@ final class TeamUpdateApi(
     val msg = TeamUpdate[TeamId](
       id = scalalib.ThreadLocalRandom.nextString(8),
       team = id,
-      text = text,
+      text = spam.replace(text),
       senderId = me.userId,
       date = nowInstant
     )
