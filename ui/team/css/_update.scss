@@ -45,6 +45,10 @@ body {
     padding-inline: 1.2em;
   }
 
+  &__content {
+    overflow-y: auto;
+  }
+
   &__team {
     @extend %flex-center-nowrap;
     @extend %nowrap-ellipsis;
