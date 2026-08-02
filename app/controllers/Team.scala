@@ -388,15 +388,19 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
-  def updates(page: Int) = Auth { _ ?=> _ ?=>
+  def updates(page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { _ ?=> _ ?=>
     for
       byTeam <- env.team.update.byTeams
       recent <- env.team.update.allRecent(page)
-      res <- Ok.page(views.team.update.allRecent(recent, byTeam))
+      res <- negotiate(
+        html = Ok.page(views.team.update.allRecent(recent, byTeam)),
+        json = JsonOk(env.team.update.json.allRecent(recent, byTeam))
+      )
     yield res
   }
 
-  def updatesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
+  def updatesOf(id: TeamId, page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { ctx ?=> me ?=>
+    def orElse = Redirect(routes.Team.updates())
     def showUpdates(team: TeamModel) =
       api
         .isMember(id)
@@ -406,10 +410,13 @@ final class Team(env: Env) extends LilaController(env):
               byTeam <- env.team.update.byTeams
               recent <- env.team.update.teamRecentAndMarkRead(team, page)
               subscribed <- api.isSubscribed(team, me)
-              res <- Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed))
+              res <- negotiate(
+                html = Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed)),
+                json = JsonOk(env.team.update.json.teamRecent(recent, byTeam, team.light, subscribed))
+              )
             yield res
-          else notFound
-    WithEnabledTeamOrClas(id)(showUpdates, Redirect(routes.Team.updates()))
+          else orElse
+    WithEnabledTeamOrClas(id)(showUpdates, orElse)
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>

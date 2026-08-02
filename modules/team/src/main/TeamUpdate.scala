@@ -121,6 +121,33 @@ final class TeamUpdateApi(
       .run()
       .void
 
+  object json:
+    import play.api.libs.json.*
+    import scalalib.Json.given
+    private given OWrites[LightTeam] = Json.writes
+    private given OWrites[TeamUpdate[LightTeam]] = Json.writes
+    private given OWrites[TeamUpdateSeen[LightTeam]] = Json.writes
+    private given OWrites[TeamUpdates[LightTeam]] = Json.writes
+    def teamRecent(
+        updates: TeamUpdate.Recent,
+        byTeam: TeamUpdate.ByTeams,
+        team: LightTeam,
+        subscribed: Boolean
+    ): JsObject =
+      Json.obj(
+        "team" -> team,
+        "subscribed" -> subscribed,
+        "updates" -> updates,
+        "byTeam" -> fakePaginator(byTeam)
+      )
+    def allRecent(msgs: TeamUpdate.Recent, byTeam: TeamUpdate.ByTeams): JsObject =
+      Json.obj(
+        "updates" -> msgs,
+        "byTeam" -> fakePaginator(byTeam)
+      )
+    private def fakePaginator[T](results: List[T]): Paginator[T] =
+      Paginator.fromResults(results, results.size, 1, MaxPerPage(100))
+
   object limiter:
 
     private val limiter = mongoRateLimitApi[TeamId](
