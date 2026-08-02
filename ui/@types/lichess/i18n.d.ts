@@ -93,7 +93,7 @@ interface I18n {
     blogRestriction: string;
     /** Read our %s, violating these rules may result in different actions. */
     blogRestrictionInfo: I18nFormat;
-    /** Your account was restricted for rating manipulation/account sharing */
+    /** Your account was restricted for rating manipulation/account sharing. */
     boosterMarked: string;
     /** Your account is not marked or restricted. You're all good! */
     cleanAllGood: string;
