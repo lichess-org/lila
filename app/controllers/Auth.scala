@@ -640,8 +640,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
               err => BadRequest.async(renderMagicLink(err.some, fail = true)),
               data =>
                 for
-                  accept <- env.security.loginToken.magicLink.send(data.email)
-                  res <- if accept then Redirect(routes.Auth.magicLinkSent).toFuccess else rateLimited
+                  limit <- env.security.loginToken.magicLink.send(data.email)
+                  res <- if limit.ok then Redirect(routes.Auth.magicLinkSent).toFuccess else rateLimited
                 yield res
             )
         else BadRequest.async(renderMagicLink(none, fail = true))
@@ -683,9 +683,12 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def mobileCodeEmail = Anon:
     Firewall:
       for
-        access <- env.security.loginToken.storedCode.createAndSend()
-        res <- if access then NoContent.toFuccess else rateLimited
+        limit <- env.security.loginToken.storedCode.createAndSend()
+        res <- if limit.ok then NoContent.toFuccess else rateLimited
       yield res
+
+  def mobileCodeBearer = Anon:
+    ???
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match

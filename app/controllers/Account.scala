@@ -380,7 +380,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)
