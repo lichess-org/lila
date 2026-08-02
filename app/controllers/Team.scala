@@ -397,7 +397,7 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def updatesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
-    WithEnabledTeamOrClas(id): team =>
+    def showUpdates(team: TeamModel) =
       api
         .isMember(id)
         .flatMap:
@@ -409,6 +409,7 @@ final class Team(env: Env) extends LilaController(env):
               res <- Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed))
             yield res
           else notFound
+    WithEnabledTeamOrClas(id)(showUpdates, Redirect(routes.Team.updates()))
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
@@ -486,22 +487,34 @@ final class Team(env: Env) extends LilaController(env):
         )
   }
 
-  private def WithTeamOrClas(teamId: TeamId)(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    Found(api.team(teamId)): team =>
-      env.api.clas
-        .teamClas(team)
-        .flatMap:
-          case None => f(team)
-          case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
-          case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
-          case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
+  private def WithTeamOrClas(
+      teamId: TeamId
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    api
+      .team(teamId)
+      .flatMap:
+        _.fold(orElse): team =>
+          env.api.clas
+            .teamClas(team)
+            .flatMap:
+              case None => f(team)
+              case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
+              case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
+              case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
 
   private def WithEnabledTeamOrClas(
       teamId: TeamId
-  )(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    WithTeamOrClas(teamId): team =>
-      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
-      else notFound
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    WithTeamOrClas(teamId)(
+      team =>
+        if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
+        else orElse,
+      orElse
+    )
 
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: (TeamModel, AsMod) => Fu[Result]
