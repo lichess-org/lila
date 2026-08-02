@@ -23,23 +23,23 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
 
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
-    form3.fieldset(if isNew then "Create an appeal" else "Add something to the appeal", toggle = false.some)(
-      cls := "form-toggle"
-    ):
-      postForm(st.action := routes.Appeal.post(topic))(
-        form3.globalError(form),
-        form3.group(
-          form("text"),
-          "",
-          help = frag("Please be concise. Maximum 1000 chars.").some
-        )(f =>
-          form3.textarea(f)(
-            rows := 6,
-            maxlength := Appeal.maxLength * 1.1
-          )
-        )(cls := "appeal-textarea"),
-        form3.action(form3.submit(trans.site.send()))
-      )
+    val formContent = postForm(st.action := routes.Appeal.post(topic))(
+      form3.globalError(form),
+      form3.group(
+        form("text"),
+        "",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(f =>
+        form3.textarea(f)(
+          rows := 6,
+          maxlength := Appeal.maxLength * 1.1
+        )
+      )(cls := "appeal-textarea"),
+      form3.action(form3.submit(trans.site.send()))
+    )
+    if isNew then formContent
+    else
+      form3.fieldset("Add something to the appeal", toggle = false.some)(cls := "form-toggle")(formContent)
 
   def userShow(status: UserStatus, appeal: Appeal, form: Form[?], appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
