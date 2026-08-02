@@ -15,6 +15,7 @@
   <string name="hiddenBlog">ناظران وبنوشت‌تان را پنهانیده‌اند.</string>
   <string name="hiddenBlogInfo">حتما دوباره %s ما را بخوانید.</string>
   <string name="playTimeout">یک وقت فنی دارید.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">حساب‌تان موقتا از بازی کردن محروم شده است.</string>
   <string name="communicationGuidelines">راهنمای ارتباطات</string>
   <string name="blogRules">قاعده‌های وبنوشت</string>
   <string name="fairPlay">پاکبازی</string>

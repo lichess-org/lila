@@ -786,10 +786,13 @@
   <string name="language">语言</string>
   <string name="allLanguages">所有语言</string>
   <string name="background">背景</string>
+  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">主题</string>
   <string name="light">浅色</string>
   <string name="dark">深色</string>
   <string name="transparent">透明</string>
+  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">图像</string>
   <string name="deviceTheme">跟随系统</string>
+  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">圆度</string>
   <string name="backgroundImageUrl">背景图片链接：</string>
   <string name="board">棋盘</string>
   <string name="size">尺寸</string>

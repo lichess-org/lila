@@ -73,6 +73,10 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="rankAvgHelp">Sailkapenaren bataz bestekoa zure puntuazioaren ehuneko bat da. Baxuagoa hobe da.
 
 Adibidez, 100 jokalariko txapelketa baten 3. sailkatzea = %3. 1000 jokalariko txapelketa baten 10. sailkatzea = %1.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Zure batez besteko mailak zure amaiera posizio tipikoa adierazten du, txapelketa bakoitzeko jokalari kopuru osoarekin alderatuta.
+Hau zure txapelketaren neurria da, ez zure sailkapen orokorrarena.
+
+Adibidez, %3ko batez besteko mailak esan nahi du normalean lehen %3an bukatzen duzula (adibidez, 1.000 jokalariko 30. postua).</string>
   <string name="medians">medianak</string>
   <string name="allAveragesAreX">Orrialde honetako batazbesteko guztiak %s dira.</string>
   <string name="total">Guztira</string>

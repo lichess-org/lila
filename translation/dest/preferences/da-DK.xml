@@ -66,7 +66,6 @@
   <string name="notifyChallenge">Udfordringer</string>
   <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
   <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Påmindelser om turneringsstart</string>
-  <string name="notifyBroadcasts">Transmissioner</string>
   <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
   <string name="notifyBell">Klokkenotifikation i Lichess</string>
   <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>

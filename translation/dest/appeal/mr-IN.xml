@@ -15,6 +15,7 @@
   <string name="hiddenBlog">तुमची अनुदिनी नियंत्रकांने लपवली आहे.</string>
   <string name="hiddenBlogInfo">आमचे %s परत वाचण्याची खात्री करा</string>
   <string name="playTimeout">तुमच्यावर खेळाची कालबाह्यता आहे.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">तुमच्या खात्यावरून खेळण्यास तात्पुरती बंदी घालण्यात आली आहे.</string>
   <string name="communicationGuidelines">संप्रेषण मार्गदर्शक तत्त्वे</string>
   <string name="blogRules">अनुदिनीचे नियम</string>
   <string name="fairPlay">वाजवी खेळ</string>
