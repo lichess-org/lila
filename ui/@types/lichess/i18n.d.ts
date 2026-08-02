@@ -359,7 +359,7 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
-    /** No players yet. They will appear once first games are uploaded. */
+    /** No players yet. They will appear once games are uploaded. */
     noPlayersYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
@@ -3871,6 +3871,8 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
+    /** Less */
+    less: string;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */
