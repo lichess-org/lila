@@ -66,7 +66,6 @@
   <string name="notifyChallenge">Вызовы на игру</string>
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
   <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Напоминания о начале турниров</string>
-  <string name="notifyBroadcasts">Трансляции</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
   <string name="notifyPush">Оповещение на устройстве, когда вы не находитесь на сайте Lichess</string>

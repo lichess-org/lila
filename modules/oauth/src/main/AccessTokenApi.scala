@@ -60,16 +60,19 @@ final class AccessTokenApi(
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
+    create(granted.userId, granted.scopes, granted.redirectUri.origin)
+
+  def create(userId: UserId, scopes: TokenScopes, origin: Origin)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
         id = AccessToken.idFrom(plain),
         plain = plain,
-        userId = granted.userId,
+        userId = userId,
         description = None,
         created = nowInstant.some,
-        scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.origin.some,
+        scopes = scopes,
+        clientOrigin = origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )

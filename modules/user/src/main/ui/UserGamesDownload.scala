@@ -9,6 +9,7 @@ final class UserGamesDownload(helpers: Helpers):
   import helpers.{ *, given }
 
   def apply(user: User)(using ctx: Context) =
+    val importedGamesUrl = routes.Game.apiExportByUserImportedGames()
     Page(s"${user.username} • ${trans.site.exportGames.txt()}")
       .css("bits.search")
       .js(Esm("user.gamesDownload")):
@@ -53,13 +54,13 @@ final class UserGamesDownload(helpers: Helpers):
             br,
             ctx
               .is(user)
-              .option(
+              .option:
                 p(style := "text-align: right")(
-                  a(href := routes.Game.apiExportByUserImportedGames())(
-                    "Or download imported games as PGN"
-                  )
+                  "Or download imported games as PGN: ",
+                  a(href := importedGamesUrl)("original"),
+                  " / ",
+                  a(href := addQueryParam(importedGamesUrl.url, "annotated", "1"))("annotated")
                 )
-              )
           )
         )
 

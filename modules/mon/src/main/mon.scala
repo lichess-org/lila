@@ -343,6 +343,7 @@ object email:
     private val c = counter("email.send")
     val resetPassword = c.withTag("type", "resetPassword")
     val magicLink = c.withTag("type", "magicLink")
+    val storedCode = c.withTag("type", "storedCode")
     val reopen = c.withTag("type", "reopen")
     val fix = c.withTag("type", "fix")
     val change = c.withTag("type", "change")

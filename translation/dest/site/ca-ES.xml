@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minuts i refresca la bústia d\'entrada del teu correu.</string>
   <string name="checkSpamFolder">Comprova també la carpeta de correu brossa, pot acabar allà. Si hi és, marca\'l com no brossa.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Si no heu rebut el vostre email de confirmació, reviseu la vostra carpeta de correu brossa. Assegureu-vos d\'indicar que els missatges de lichess són segurs i no són correu brossa així podreu estar informats de les comunicacions importants.</string>
   <string name="sendEmailForAccountVerification">Si no pots trobar el teu correu electrònic de confirmació, envia\'ns un correu a %s i confirmarem el compte per tu.</string>
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
@@ -595,6 +596,7 @@
   <string name="reportCheatBoostHelp">Enganxa l\'enllaç de la partida (o partides) i explica quin és el problema amb el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", explica\'ns com has arribat a aquesta conclusió.</string>
   <string name="reportUsernameHelp">Explica quin és el comportament ofensiu d\'aquest usuari. No et limitis a dir simplement \"és ofensiu/inapropiat\", explica\'ns com has arribat a aquesta conclusió, especialment si l\'insult està ofuscat, en un idioma diferent de l\'anglès, és un barbarisme o és una referència històrica o cultural.</string>
   <string name="reportProcessedFasterInEnglish">El teu informe serà tractat més ràpidament si està escrit en anglès.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Podrem processar els teus comentaris més ràpid si ho escrius en anglès.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importat per %s</string>
@@ -719,6 +721,7 @@
   <string name="aboutSimulSettings">Les simultànies són sempre amistoses. Les opcions de revenja, desfer la jugada i donar més temps estan desactivades.</string>
   <string name="create">Crea</string>
   <string name="whenCreateSimul">Quan crees una exhibició de simultànies, has de jugar amb diversos jugadors alhora.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Creant una simultània podràs jugar contra múltiples oponents a la vegada.</string>
   <string name="simulVariantsHint">Si selecciones diverses variants, cada jugador podrà escollir quina es jugarà.</string>
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
@@ -998,6 +1001,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulDescription">Descripció de la simultània</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
   <string name="markdownIsAvailable">Es pot utilitzar %s per descriure el format.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Pots formatar el text utilitzant %s.</string>
   <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
   <string name="inYourLocalTimezone">El la teva zona horària</string>
   <string name="tournChat">Xat del tornament</string>
@@ -1005,6 +1009,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="onlyTeamLeaders">Només per líders de l\'equip</string>
   <string name="onlyTeamMembers">Només per a membres de l\'equip</string>
   <string name="navigateMoveTree">Navega la llista de moviments</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navegació per la llista de moviments</string>
   <string name="mouseTricks">Trucs amb el ratolí</string>
   <string name="toggleLocalAnalysis">Activa/desactiva l\'anàlisi d\'ordinador al navegador</string>
   <string name="toggleAllAnalysis">Activa/desactiva tot l\'anàlisi d\'ordinador</string>

@@ -13,8 +13,8 @@
   <string name="noTeamFound">Ниједан тим није пронађен</string>
   <string name="joinTeam">Придружи се тиму</string>
   <string name="quitTeam">Изађи из тима</string>
-  <string name="manuallyReviewAdmissionRequests">Ручно прегледавај захтеве за пријем</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Ако је означено, играчи ће морати написати захтев да се придруже тиму, који можете одбити или прихватити.</string>
+  <string name="manuallyReviewAdmissionRequests">Ручно прегледај захтеве за пријем</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ако је означено, играчи ће морати затражити да се придруже тиму, што ти можеш прихватити или одбити.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Вођа тима</item>
     <item quantity="few">Вође тима</item>
