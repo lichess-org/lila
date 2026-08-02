@@ -156,8 +156,9 @@ final class RelayPager(
         sortFields = List("searchDate")
       )
       ongoing <- listing.active
+      ongoingById = ongoing.mapBy(_.tour.id)
     yield pager.map: tour =>
-      ongoing.find(_.tour.id == tour.tour.id) | tour
+      ongoingById.get(tour.tour.id) | tour
 
   def byIds(ids: List[RelayTourId], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
