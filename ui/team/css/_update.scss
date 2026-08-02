@@ -40,6 +40,11 @@ body {
     border-bottom: $border;
   }
 
+  &__back {
+    color: $c-font;
+    padding-inline: 1.2em;
+  }
+
   &__team {
     @extend %flex-center-nowrap;
     @extend %nowrap-ellipsis;
@@ -155,12 +160,12 @@ body {
 
     h1 {
       font-size: 1.5em;
+      padding-inline: 1em 0;
     }
 
     &__title {
       @extend %flex-center-nowrap, %ellipsis;
 
-      gap: 1em;
       height: 100%;
       align-items: stretch;
     }

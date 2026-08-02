@@ -98,9 +98,13 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
       pagerNext(msgs, np => nextUrl(np).url)
     )
 
-  private def side(byTeam: TeamUpdate.ByTeams, selected: Option[TeamId]) =
+  private def side(byTeam: TeamUpdate.ByTeams, selected: Option[TeamId])(using Context) =
     div(cls := "team-update__side")(
-      div(cls := "team-update__side__top"),
+      div(cls := "team-update__side__top")(
+        a(href := routes.Team.mine, dataIcon := Icon.LessThan, cls := "team-update__side__back text")(
+          trt.myTeams()
+        )
+      ),
       div(cls := "team-update__side__content"):
         byTeam.map: b =>
           import b.*
