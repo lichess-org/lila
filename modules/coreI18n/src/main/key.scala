@@ -198,6 +198,7 @@ object I18nKey:
     val `subscribeTitle`: I18nKey = "broadcast:subscribeTitle"
     val `uploadImage`: I18nKey = "broadcast:uploadImage"
     val `noBoardsYet`: I18nKey = "broadcast:noBoardsYet"
+    val `noPlayersYet`: I18nKey = "broadcast:noPlayersYet"
     val `boardsCanBeLoaded`: I18nKey = "broadcast:boardsCanBeLoaded"
     val `startsAfter`: I18nKey = "broadcast:startsAfter"
     val `startVerySoon`: I18nKey = "broadcast:startVerySoon"
