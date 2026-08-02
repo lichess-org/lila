@@ -14,6 +14,9 @@ final class StreamerApi(
     twitchApi: TwitchApi
 )(using Executor):
 
+  def allLanguages: Fu[Set[String]] = 
+    repo.withColl(_.secondary.distinctEasy[String, Set]("lastStreamLang", $empty))
+
   def forSubscriber(streamerName: UserStr)(using me: Option[MyId]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
       streamerFu.flatMapz: s =>

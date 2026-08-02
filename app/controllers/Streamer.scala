@@ -4,22 +4,25 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.perm.Granter
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
+import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform, LiveStreams }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   import env.streamer.api
   import env.mod.logApi
 
-  def index(page: Int) = Open: ctx ?=>
+  def index(page: Int, lang: Option[String]) = Open: ctx ?=>
     NoBot:
       ctx.kid.no.so:
         val requests = getBool("requests") && isGrantedOpt(_.Streamers)
+        val language = lang.map(lila.core.i18n.Language.apply)
         for
           liveStreams <- env.streamer.liveApi.all
-          live <- api.withUsers(liveStreams)
-          pager <- env.streamer.pager.get(page, liveStreams, requests)
-          page <- renderPage(views.streamer.index(live, pager, requests))
+          filteredLive = language.fold(liveStreams)(l => LiveStreams(liveStreams.streams.filter(_.language == l)))
+          live <- api.withUsers(filteredLive)
+          pager <- env.streamer.pager.get(page, liveStreams, requests, language)
+          langCodes <- env.streamer.api.allLanguages
+          page <- renderPage(views.streamer.index(live, pager, requests, language, langCodes))
         yield Ok(page)
 
   def live = apiC.ApiRequest:

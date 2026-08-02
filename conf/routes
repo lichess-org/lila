@@ -354,7 +354,7 @@ GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.s
 POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: StudyChapterId, moves: Int)
 
 # Streamer
-GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
+GET   /streamer                        controllers.Streamer.index(page: Int ?= 1, lang: Option[String] ?= None)
 GET   /api/streamer/live               controllers.Streamer.live
 POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYoutubeVideo
 GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youtubePubSubChallenge

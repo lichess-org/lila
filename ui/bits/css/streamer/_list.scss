@@ -7,6 +7,19 @@
 }
 
 .streamer-list {
+
+  overflow: visible;
+
+
+  .mselect {
+    font-size: 1.2em;
+  }
+
+  .mselect__list {
+    @include inline-start(auto);
+    @include inline-end(0);
+  }
+
   h1 {
     &::before {
       display: none;
