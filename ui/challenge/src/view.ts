@@ -131,6 +131,8 @@ function timeControl(c: TimeControl): string {
       return c.daysPerTurn + ' days';
     case 'clock':
       return c.show || '-';
+    default:
+      return '-';
   }
 }
 

@@ -66,6 +66,8 @@ object PrefSingleChange:
       _.focus(_.board.opacity).replace(v),
     changing(_.board.hue): v =>
       _.focus(_.board.hue).replace(v),
+    changing(_.uiRoundness): v =>
+      _.focus(_.uiRoundness).replace(v),
     changing(_.sayGG): v =>
       _.copy(sayGG = v)
   ).map: change =>

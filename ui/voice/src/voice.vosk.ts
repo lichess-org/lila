@@ -38,7 +38,7 @@ export function initModule(): VoskModule {
   function initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
     if (!opts.words?.length || !voskClient) {
       recs.remove(opts.recId);
-      return;
+      return undefined;
     }
     const kaldi = new voskClient.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
 

@@ -19,14 +19,14 @@ object Dependencies:
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.4" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.48.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.50.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.15.Final").classifier(s"$os-$arch")
-  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0-RC1")
-  val munit = "org.scalameta" %% "munit" % "1.3.3" % Test
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.16.Final").classifier(s"$os-$arch")
+  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
+  val munit = "org.scalameta" %% "munit" % "1.3.4" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
@@ -82,7 +82,6 @@ object Dependencies:
     val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC20")
     val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
     val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
-    val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % rmVersion
     def bundle = Seq(driver, actorsPekko, stream)
 
   object play:

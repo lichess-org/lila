@@ -75,10 +75,10 @@ async function reportUserText(resourceId: string, username: string, text: string
 export const lineAction = (): VNode => h('action.mod', { attrs: dataIcon(licon.Agent) });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   if (ctrl.loading()) return [h('div.loading')];
   const data = ctrl.data();
-  if (!data) return;
+  if (!data) return undefined;
   const perms = ctrl.opts.permissions;
 
   const infos = data.history

@@ -67,6 +67,10 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="rankAvgHelp">Plasseringssnittet er eit prosentverde av plasseringa di. Jo lågare, dess betre.
 
 Til dømes vil ein tredjeplass i ei turnering med 100 deltakarar gje plasseringssnittet 3%. Tiandeplass i ei turnering med 1000 deltakarar = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Ditt ranggjennemsnitt representerar din vanlege sluttplassering i forhold til det samla antal spelarar i kvar turnering.
+Dette er eit mål for di plassering i turneringa, og er ikkje din generelle rating.
+
+Eit ranggjennemsnitt på 3 % tyder til dømes at du til vanleg endar mellom dei øvste 3 % (t. d. på 30. plass av 1000 spelarar).</string>
   <string name="medians">medianar</string>
   <string name="allAveragesAreX">Alle snittverdiar på denne sida er %s.</string>
   <string name="total">Totalt</string>

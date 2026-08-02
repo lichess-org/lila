@@ -47,6 +47,7 @@
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه البطولة</string>
   <string name="definitivelyDeleteTournament">قم بحذف البطولة كلها, وكل جولاتها, وكل ألعابها.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">حذف هذه البطولة بشكل دائم، بما في ذلك جميع الجولات والألعاب؟</string>
   <string name="showScores">إظهار نتيجة اللاعبين بناءً على نتائج اللعبة</string>
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="fideFederations">الاتحاد الدولي للشطرنج</string>

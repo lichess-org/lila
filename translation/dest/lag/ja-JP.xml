@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの数値で決まります（小さいほどよい）：</string>
   <string name="lichessServerLatency">Lichess サーバの処理時間</string>
   <string name="lichessServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10ms を超えることはまれです。</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように努めています。10ms を超えることはまれです。</string>
   <string name="networkBetweenLichessAndYou">Lichess とあなたとの通信時間</string>
   <string name="networkBetweenLichessAndYouExplanation">あなたの機器から Lichess のサーバまで手の情報が往復するのに要する時間です。これは Lichess のサーバ（フランス国内）までの距離と、あなたの接続の質で決まります。あなたの Wi-Fi や光回線の問題は、Lichess の開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>

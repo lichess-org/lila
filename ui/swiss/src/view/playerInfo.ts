@@ -11,7 +11,7 @@ import { isOutcome } from '../util';
 import { player as renderPlayer } from './util';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.playerInfoId) return;
+  if (!ctrl.playerInfoId) return undefined;
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)

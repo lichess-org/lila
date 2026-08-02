@@ -4213,6 +4213,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
     permanentLinkForAnyoneToChallengeYou: string;
+    /** Picture */
+    picture: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4423,6 +4425,8 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** Roundness */
+    roundness: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
     /** Save */
@@ -4519,8 +4523,6 @@ interface I18n {
     socialMediaLinks: string;
     /** Solution */
     solution: string;
-    /** Someone you reported was banned */
-    someoneYouReportedWasBanned: string;
     /** Sorry :( */
     sorry: string;
     /** Sound */
@@ -4589,6 +4591,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** Theme */
+    theme: string;
     /** No results for "%s" */
     thereAreNoResultsForX: I18nFormat;
     /** The Lichess Terms of Service were violated on this account */

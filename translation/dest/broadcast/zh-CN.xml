@@ -37,6 +37,7 @@
   <string name="editRoundStudy">编辑轮次研习</string>
   <string name="deleteTournament">删除此锦标赛</string>
   <string name="definitivelyDeleteTournament">永久删除整个锦标赛、其所有轮次及所有对局。</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">永久删除该锦标赛，包括所有轮次和对局？</string>
   <string name="showScores">根据对局结果显示棋手得分</string>
   <string name="replacePlayerTags">可选：替换棋手姓名、等级分和头衔</string>
   <string name="fideFederations">FIDE 成员国/地区</string>

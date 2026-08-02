@@ -35,7 +35,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const devices = navigator.mediaDevices;
   if (!devices) {
     alert('Voice chat requires navigator.mediaDevices');
-    return;
+    return undefined;
   }
 
   let state: State = 'off';
@@ -218,29 +218,29 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   return {
     render: () => {
       const connections = allOpenConnections();
-      return devices
-        ? hl(
-            'button.mchat__tab.voicechat.data-count.voicechat-' + state,
-            {
-              attrs: {
-                'data-icon': licon.Handset,
-                title: `Voice chat: ${state}`,
-                'data-count': state === 'on' ? connections.length + 1 : 0,
-              },
-              hook: onInsert(el => el.addEventListener('click', () => (peer ? stop() : start()))),
-            },
-            state === 'on'
-              ? connections.map(c =>
-                  hl('audio.voicechat__audio.' + c.peer, {
-                    attrs: { autoplay: true },
-                    hook: onInsert<HTMLAudioElement>(el => {
-                      el.srcObject = c.remoteStream;
-                    }),
-                  }),
-                )
-              : [],
-          )
-        : undefined;
+      if (!devices) return undefined;
+
+      return hl(
+        'button.mchat__tab.voicechat.data-count.voicechat-' + state,
+        {
+          attrs: {
+            'data-icon': licon.Handset,
+            title: `Voice chat: ${state}`,
+            'data-count': state === 'on' ? connections.length + 1 : 0,
+          },
+          hook: onInsert(el => el.addEventListener('click', () => (peer ? stop() : start()))),
+        },
+        state === 'on'
+          ? connections.map(c =>
+              hl('audio.voicechat__audio.' + c.peer, {
+                attrs: { autoplay: true },
+                hook: onInsert<HTMLAudioElement>(el => {
+                  el.srcObject = c.remoteStream;
+                }),
+              }),
+            )
+          : [],
+      );
     },
   };
 }

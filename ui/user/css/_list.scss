@@ -56,6 +56,7 @@ $user-list-width: 30ch;
     .leaderboards {
       @extend %box-radius;
 
+      overflow: hidden;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
 

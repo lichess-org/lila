@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Twoje blogi zostały ukryte przez moderatorów.</string>
   <string name="hiddenBlogInfo">Upewnij się, że przeczytałeś nasze %s.</string>
   <string name="playTimeout">Zostałeś czasowo zbanowany.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Twoje konto jest tymczasowo zablokowane.</string>
   <string name="communicationGuidelines">wytyczne dotyczące komunikacji</string>
   <string name="blogRules">reguły blogowania</string>
   <string name="fairPlay">Fair Play</string>

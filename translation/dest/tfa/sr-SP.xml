@@ -9,5 +9,5 @@
   <string name="enableTwoFactor">Омогући двофакторску аутентификацију</string>
   <string name="disableTwoFactor">Онемогући двофакторску аутентификацију</string>
   <string name="twoFactorEnabled">Двофакторска аутентификација омогућена</string>
-  <string name="openTwoFactorApp">Отворите апликацију за аутентификацију на Вашем уређају како бисте видели Ваш аутентификациони код и потврдите Ваш идентитет.</string>
+  <string name="openTwoFactorApp">Отвори апликацију за двофакторску аутентификацију на твом уређају да видиш свој аутентификациони код и потврдиш свој идентитет.</string>
 </resources>

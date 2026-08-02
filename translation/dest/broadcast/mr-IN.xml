@@ -39,6 +39,7 @@
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
   <string name="definitivelyDeleteTournament">संपूर्ण स्पर्धा, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व खेळ निश्चितपणे हटवा.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">सर्व फेऱ्या आणि सामन्यांसह ही स्पर्धा कायमची काढून टाकायची का?</string>
   <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
   <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
   <string name="fideFederations">FIDE संघराज्ये </string>

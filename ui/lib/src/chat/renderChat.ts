@@ -20,7 +20,7 @@ export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
 
 function renderVoiceChat(ctrl: ChatCtrl) {
   const p = ctrl.voiceChat;
-  if (!p.enabled()) return;
+  if (!p.enabled()) return undefined;
   return p.instance
     ? p.instance.render()
     : hl('button.mchat__tab.voicechat.voicechat-slot', {

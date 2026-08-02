@@ -14,12 +14,12 @@ import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
-  const classes = {
+  const classes: Classes = {
     rated: tour.rated,
     casual: !tour.rated,
     'max-rating': tour.hasMaxRating,
     yesterday: tour.bounds.start < day,
-  } as Classes;
+  };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
 }

@@ -58,7 +58,7 @@
   fieldset {
     flex: initial;
     border: 1px solid $c-border;
-    border-radius: 6px;
+    border-radius: $box-radius-size;
     background: $c-bg-mid;
     padding: 1em;
 

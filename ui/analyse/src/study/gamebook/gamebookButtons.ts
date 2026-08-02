@@ -8,7 +8,7 @@ import type StudyCtrl from '../studyCtrl';
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
     ctrl = study.gamebookPlay;
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   const state = ctrl.state,
     fb = state.feedback,
     myTurn = fb === 'play';

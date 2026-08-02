@@ -11,9 +11,9 @@
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">Không tìm thấy đội nào</string>
   <string name="joinTeam">Tham gia đội</string>
-  <string name="onlyLeaderLeavesTeam">Vui lòng thêm một chỉ huy mới trước khi rời đi hoặc giải tán đội.</string>
+  <string name="onlyLeaderLeavesTeam">Vui lòng thêm một chỉ huy mới trước khi rời đi, hoặc giải tán đội.</string>
   <string name="quitTeam">Rời đội</string>
-  <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt</string>
+  <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt thủ công</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Nếu chọn, kỳ thủ sẽ cần viết một yêu cầu gia nhập đội, bạn có thể từ chối hoặc chấp nhận.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Chỉ huy</item>
@@ -40,7 +40,7 @@ Bạn có thể dùng chức năng này để gọi các kỳ thủ đến tham 
 Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ rời khỏi đội.</string>
   <string name="teamsIlead">Những đội tôi đang chỉ huy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
-  <string name="leadersChat">Chỉ huy trò chuyện</string>
+  <string name="leadersChat">Trò chuyện giữa các chỉ huy</string>
   <string name="introduction">Giới thiệu</string>
   <string name="teamIntroductionHelp">Mô tả ngắn gọn có thể nhìn thấy trong danh sách đội. Tối đa 200 ký tự.</string>
   <string name="teamDescriptionHelp">Mô tả đầy đủ có thể nhìn thấy trên trang đội.</string>
@@ -52,8 +52,8 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
   <string name="upcomingTournaments">Các giải đấu sắp tới</string>
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>
-  <string name="declinedRequests">Yêu cầu bị từ chối</string>
-  <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
+  <string name="declinedRequests">Các yêu cầu bị từ chối</string>
+  <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật các tin tức và sự kiện.</string>
   <string name="thisTeamBattleIsOver">Giải đấu này đã kết thúc và không thể được cập nhật các đội nữa.</string>
   <string name="listTheTeamsThatWillCompete">Liệt kê các đội sẽ thi đấu trong trận chiến này.</string>
   <string name="oneTeamPerLine">Một đội mỗi dòng. Sử dụng tính năng tự động hoàn thành.</string>

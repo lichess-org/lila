@@ -46,7 +46,7 @@ export default (ctrl: PuzCtrl): VNode => {
         )
         .map(round =>
           h('div.puz-history__round', { key: round.puzzle.id }, [
-            h('a.puz-history__round__puzzle.mini-board.cg-wrap.is2d', {
+            h(`a.puz-history__round__puzzle.mini-board.cg-wrap.is2d.${round.win ? 'good' : 'bad'}`, {
               attrs: {
                 href: `/training/${round.puzzle.id}`,
                 target: '_blank',

@@ -163,7 +163,7 @@
   <string name="perPage">%s mỗi trang</string>
   <string name="getTheTour">Cần giúp đỡ? Khám phá nào!</string>
   <string name="welcomeToLichessStudyTitle">Chào mừng đến với Lichess Study!</string>
-  <string name="welcomeToLichessStudyText">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các trò chơi,&lt;br&gt;thảo luận về các vị trí với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đó là một công cụ mạnh mẽ, hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
+  <string name="welcomeToLichessStudyText">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các ván đấu,&lt;br&gt;thảo luận về các thế cờ với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đây là một công cụ mạnh mẽ. Hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Đã lưu và chia sẻ</string>
   <string name="sharedAndSavedText">Các thành viên khác có thể thấy các nước đi của bạn trong thời gian thực!&lt;br&gt;Ngoài ra, mọi thứ được lưu mãi mãi.</string>
   <string name="studyMembersTitle">Thành viên nghiên cứu</string>

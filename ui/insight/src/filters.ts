@@ -6,7 +6,7 @@ import type Ctrl from './ctrl';
 import type { Dimension } from './interfaces';
 
 const select = (ctrl: Ctrl) => (dimension: Dimension) => {
-  if (dimension.key === 'date') return;
+  if (dimension.key === 'date') return undefined;
   const single = dimension.key === 'period';
   return h(
     'select',

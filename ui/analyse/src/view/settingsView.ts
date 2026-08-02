@@ -175,7 +175,7 @@ function setupTouchHelp(view: HTMLElement) {
 
 function setupHoverHelp(view: HTMLElement) {
   const helpEl = () => view.querySelector<HTMLElement>('.help-container')!.firstElementChild!;
-  const helpPanes = { keyboardHelp: helpEl() } as Record<string, Element>;
+  const helpPanes: Record<string, Element> = { keyboardHelp: helpEl() };
 
   let hoverTimeout: number;
   view.querySelectorAll<HTMLElement>('.hover-help').forEach(el => {
