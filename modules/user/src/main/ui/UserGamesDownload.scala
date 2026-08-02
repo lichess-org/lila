@@ -59,7 +59,7 @@ final class UserGamesDownload(helpers: Helpers):
                   "Or download imported games as PGN: ",
                   a(href := importedGamesUrl)("original"),
                   " · ",
-                  a(href := s"$importedGamesUrl?annotated=1")("annotated")
+                  a(href := addQueryParam(importedGamesUrl.url, "annotated", "1"))("annotated")
                 )
               )
           )
