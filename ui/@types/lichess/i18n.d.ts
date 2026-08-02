@@ -3871,6 +3871,8 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
+    /** Less */
+    less: string;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */

@@ -485,6 +485,7 @@
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
   </plurals>
+  <string name="less">Less</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>

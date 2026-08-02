@@ -1970,6 +1970,7 @@ object I18nKey:
     val `blocked`: I18nKey = "blocked"
     val `unblock`: I18nKey = "unblock"
     val `xStartedFollowingY`: I18nKey = "xStartedFollowingY"
+    val `less`: I18nKey = "less"
     val `more`: I18nKey = "more"
     val `memberSince`: I18nKey = "memberSince"
     val `lastSeenActive`: I18nKey = "lastSeenActive"
