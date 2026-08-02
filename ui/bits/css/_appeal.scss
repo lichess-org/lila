@@ -111,6 +111,33 @@
     padding-bottom: 2em;
   }
 
+  .appeal-info {
+    &__terms {
+      margin: 0 0 1.5em;
+
+      p {
+        margin-bottom: 0.8em;
+      }
+    }
+
+    &__agree {
+      @extend %flex-center;
+
+      gap: 0.6em;
+      margin-bottom: 0.5em;
+
+      input {
+        margin: 0;
+      }
+    }
+
+    .form-actions {
+      border-top: none;
+      padding-top: 1em;
+      justify-content: flex-end;
+    }
+  }
+
   .appeal-closed {
     margin-top: 3em;
   }
