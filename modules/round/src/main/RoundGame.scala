@@ -24,7 +24,7 @@ object RoundGame:
       }
     def forceDrawable = g.playable && g.nonAi && !g.abortable && !g.isSwiss && !g.hasRule(_.noClaimWin)
 
-    def isSwitchable = g.nonAi && (g.isCorrespondence || g.isSimul)
+    def isSwitchable = g.isCorrespondence || g.isSimul
 
     def secondsSinceCreation = (nowSeconds - g.createdAt.toSeconds).toInt
 

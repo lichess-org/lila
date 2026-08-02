@@ -959,7 +959,6 @@
   <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
-  <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
   <string name="gameVsX">%1$s ile oyun</string>
   <string name="resVsX">%1$s ile %2$s karşı karşıya</string>

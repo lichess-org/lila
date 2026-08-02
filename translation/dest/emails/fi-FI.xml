@@ -18,6 +18,7 @@ Tässä on profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
 Pidä hauskaa. Löytäköön nappulasi aina tien vastustajan kuninkaan luo!</string>
   <string name="logInToLichess">Kirjaudu lichess.orgiin, %s</string>
   <string name="common_orPaste">(Eikö klikkaaminen onnistunut? Kokeile liittää osoite selaimeesi!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Eikö linkki toimi? Kokeile liittää sen osoite selaimeesi!)</string>
   <string name="common_note">Tämä sähköposti liittyy sivuston %s käyttöön.</string>
   <string name="common_contact">Meihin saa yhteyden täältä: %s.</string>
 </resources>

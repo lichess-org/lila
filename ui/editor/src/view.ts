@@ -8,7 +8,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { fenToEpd } from 'lib/game/chess';
 import { licon, type LiconValue } from 'lib/licon';
-import { copyMeInput, dataIcon, domDialog, enter } from 'lib/view';
+import { copyMeInput, dataIcon, domDialog, enter, optgroup } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
 import { fenToChess960Id, isValidPositionId } from './chess960';
@@ -31,10 +31,6 @@ function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, rev
     },
   });
   return h('label', reversed ? [input, label] : [label, input]);
-}
-
-function optgroup(name: string, opts: VNode[]): VNode {
-  return h('optgroup', { attrs: { label: name } }, opts);
 }
 
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
@@ -249,8 +245,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
               [
                 h('option', { attrs: { value: '' } }, i18n.site.setTheBoard),
-                optgroup(i18n.site.popularOpenings, ctrl.cfg.positions.map(positionOption)),
-                optgroup(i18n.site.endgamePositions, ctrl.cfg.endgamePositions.map(endgamePosition2option)),
+                optgroup(i18n.site.popularOpenings)(ctrl.cfg.positions.map(positionOption)),
+                optgroup(i18n.site.endgamePositions)(ctrl.cfg.endgamePositions.map(endgamePosition2option)),
               ],
             );
           })(),
@@ -350,7 +346,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 }
 
 function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
-  if (ctrl.cfg.embed) return;
+  if (ctrl.cfg.embed) return undefined;
 
   return h('div.copyables', [
     h('p', [

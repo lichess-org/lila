@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { spinnerVdom, bind, dataIcon } from 'lib/view';
+import { spinnerVdom, bind, dataIcon, onInsert } from 'lib/view';
 
 import type TournamentController from '../ctrl';
 
@@ -40,18 +40,15 @@ export function join(ctrl: TournamentController): VNode {
           h(
             'div.delay',
             {
-              hook: {
-                insert(vnode) {
-                  const el = vnode.elm as HTMLElement;
-                  el.style.animation = `tour-delay ${delay}s linear`;
-                  setTimeout(() => {
-                    if (delay === ctrl.data.me!.pauseDelay) {
-                      ctrl.data.me!.pauseDelay = 0;
-                      ctrl.redraw();
-                    }
-                  }, delay * 1000);
-                },
-              },
+              hook: onInsert(el => {
+                el.style.animation = `tour-delay ${delay}s linear`;
+                setTimeout(() => {
+                  if (delay === ctrl.data.me!.pauseDelay) {
+                    ctrl.data.me!.pauseDelay = 0;
+                    ctrl.redraw();
+                  }
+                }, delay * 1000);
+              }),
             },
             button,
           ),

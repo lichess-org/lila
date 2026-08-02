@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Ei mitään näistä</string>
   <string name="sendEmailAt">Lähetä sähköpostia osoitteeseen %s.</string>
   <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro Lichess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>
+  <string name="monetiseNotInterested">Emme ole kiinnostuneita minkäänlaisista keinoista Lichessin kaupallistamiseksi.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Emme koskaan näytä minkäänlaisia mainoksia, emme seuraa pelaajiamme emmekä osta tai myy liikennettä tai käyttäjiä.</string>
+  <string name="monetiseNoMarketingEmail">Älä lähetä meille markkinointia, seurantaa tai mainontaa koskevaa sähköpostia.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Kannustamme kaikkia %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">estämään kaikenlaiset mainokset ja seurantaohjelmat</string>
+  <string name="broadcastTournamentOnLichess">Lähetä turnaus Lichessissä</string>
+  <string name="ifYouWantToBroadcastClause1">Jos haluat turnauksesi virallisen lähetyksen Lichessiin tai jos sinulla on kysymyksiä lähetyksistämme:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Ota yhteyttä lähetystiimiimme osoitteessa %1$s tai %2$s.</string>
+  <string name="ourDiscordServer">Discord-palvelimellamme</string>
 </resources>

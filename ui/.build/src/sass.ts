@@ -22,7 +22,7 @@ export function stopSass(): void {
 }
 
 export async function sass(): Promise<string | undefined> {
-  if (!env.begin('sass')) return;
+  if (!env.begin('sass')) return undefined;
 
   await Promise.allSettled([
     fs.promises.mkdir(env.cssOutDir),

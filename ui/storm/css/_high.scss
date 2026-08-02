@@ -10,7 +10,7 @@
   }
 
   &__period {
-    @extend %flex-column, %box-neat, %roboto;
+    @extend %flex-column, %box-bordered, %roboto;
 
     align-items: center;
     justify-content: center;

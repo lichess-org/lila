@@ -822,10 +822,13 @@
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
+  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">विषय</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">चित्र</string>
   <string name="deviceTheme">उपकरणानुसार</string>
+  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">वर्तुळाकारता</string>
   <string name="backgroundImageUrl">पार्श्वभूमी चित्रासाठी URL:</string>
   <string name="board">पट</string>
   <string name="size">आकार</string>
@@ -963,7 +966,6 @@
   <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
   <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
-  <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>
   <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>

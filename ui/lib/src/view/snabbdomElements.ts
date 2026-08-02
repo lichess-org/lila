@@ -1,10 +1,20 @@
-import { type Attrs, h, type VNode, type VNodeChildren, type VNodeData } from 'snabbdom';
+import {
+  type Attrs,
+  h,
+  type VNode,
+  type VNodeChildElement,
+  type VNodeChildren,
+  type VNodeData,
+} from 'snabbdom';
+
+import type { LiconValue } from '@/licon';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
 };
 type StrictVNodeData = RemoveIndexSignature<VNodeData>;
 type VNodeDataExtended = StrictVNodeData & Record<string, unknown>;
+type NestedVNodeChildren = VNodeChildElement | NestedVNodeChildren[];
 
 type Selector = `.${string}` | `#${string}` | `[${string}`;
 type TagData = VNodeDataExtended | null;
@@ -12,11 +22,11 @@ type TagFunction = {
   (): VNode;
   (selector: Selector): VNode;
   (data: TagData): VNode;
-  (children: VNodeChildren): VNode;
+  (children: NestedVNodeChildren): VNode;
   (selector: Selector, data: TagData): VNode;
-  (selector: Selector, children: VNodeChildren): VNode;
-  (selector: Selector, data: TagData, children: VNodeChildren): VNode;
-  (data: TagData, children: VNodeChildren): VNode;
+  (selector: Selector, children: NestedVNodeChildren): VNode;
+  (selector: Selector, data: TagData, children: NestedVNodeChildren): VNode;
+  (data: TagData, children: NestedVNodeChildren): VNode;
 };
 type TagFactory<Args extends unknown[]> = (...args: Args) => TagFunction;
 
@@ -34,6 +44,8 @@ const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
   'fn',
   'args',
 ]);
+
+const MAX_CHILDREN_NEST_LEVEL = 5;
 
 function movePropsToAttrs(data: TagData): VNodeData | null {
   if (data == null) return null;
@@ -79,7 +91,10 @@ function isSelector(value: unknown): value is Selector {
   );
 }
 
-function normalizeArgs(a?: TagData | VNodeChildren, b?: VNodeChildren): [TagData, VNodeChildren] {
+function normalizeArgs(
+  a?: TagData | NestedVNodeChildren,
+  b?: NestedVNodeChildren,
+): [TagData, NestedVNodeChildren] {
   if (b !== undefined) {
     if (!isVNodeData(a) && a !== null) {
       throw new TypeError(
@@ -104,21 +119,25 @@ export function makeExoticTag(tag: string, defaultData?: VNodeDataExtended): Tag
   function tagFn(): VNode;
   function tagFn(selector: Selector): VNode;
   function tagFn(data: TagData): VNode;
-  function tagFn(children: VNodeChildren): VNode;
+  function tagFn(children: NestedVNodeChildren): VNode;
   function tagFn(selector: Selector, data: TagData): VNode;
-  function tagFn(selector: Selector, children: VNodeChildren): VNode;
-  function tagFn(selector: Selector, data: TagData, children: VNodeChildren): VNode;
-  function tagFn(data: TagData, children: VNodeChildren): VNode;
+  function tagFn(selector: Selector, children: NestedVNodeChildren): VNode;
+  function tagFn(selector: Selector, data: TagData, children: NestedVNodeChildren): VNode;
+  function tagFn(data: TagData, children: NestedVNodeChildren): VNode;
   function tagFn(
-    a?: Selector | TagData | VNodeChildren,
-    b?: TagData | VNodeChildren,
-    c?: VNodeChildren,
+    a?: Selector | TagData | NestedVNodeChildren,
+    b?: TagData | NestedVNodeChildren,
+    c?: NestedVNodeChildren,
   ): VNode {
     const [sel, data, children] = isSelector(a)
       ? [`${tag}${a}`, ...normalizeArgs(b, c)]
-      : [tag, ...normalizeArgs(a, b as VNodeChildren)];
+      : [tag, ...normalizeArgs(a, b as NestedVNodeChildren)];
 
-    return h(sel, movePropsToAttrs({ ...defaultData, ...data }), children);
+    return h(
+      sel,
+      movePropsToAttrs({ ...defaultData, ...data }),
+      Array.isArray(children) ? (children.flat(MAX_CHILDREN_NEST_LEVEL) as VNodeChildren) : children,
+    );
   }
 
   return tagFn;
@@ -126,10 +145,25 @@ export function makeExoticTag(tag: string, defaultData?: VNodeDataExtended): Tag
 
 export const div: TagFunction = makeTag('div');
 export const p: TagFunction = makeTag('p');
-export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
-export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
+export const time: TagFunction = makeTag('time');
+export const label: TagFunction = makeTag('label');
+export const main: TagFunction = makeTag('main');
+export const form: TagFunction = makeTag('form');
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
+
+export const table: TagFunction = makeTag('table');
+export const thead: TagFunction = makeTag('thead');
+export const tbody: TagFunction = makeTag('tbody');
+export const tr: TagFunction = makeTag('tr');
+export const th: TagFunction = makeTag('th');
+export const td: TagFunction = makeTag('td');
+
+export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
+export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
+export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
+
+export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });

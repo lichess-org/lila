@@ -17,7 +17,7 @@ final class ChallengeApi(
     rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
+)(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 
@@ -216,7 +216,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all <- allFor(userId)
-        lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
+        lang <- userApi.langOf(userId).map(langPicker.byLangTagOrDefault)
         _ <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

@@ -18,8 +18,10 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
     db: lila.db.Db,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+    routeUrl: lila.core.config.RouteUrl,
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi,
+    spamApi: lila.core.security.SpamApi
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
   lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))
@@ -45,7 +47,7 @@ final class Env(
 
   def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
-  lazy val limiter = wire[TeamLimiter]
+  lazy val pm = wire[TeamPm]
 
   lazy val security = wire[TeamSecurity]
 

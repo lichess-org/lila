@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Det kan ta litt tid før den kjem.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutt før du oppdaterer innboksen.</string>
   <string name="checkSpamFolder">Kontroller at e-posten ikkje har hamna i mappa for søplepost. Om det har skjedd må du markere e-posten som ikkje-spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Sjå i søppelpostmappa dersom du ikkje mottek stadfesting på e-post. Sørg for å merke meldingar frå lichess som sikre og \"ikkje spam\", slik at du held deg oppdatert om viktig informasjon.</string>
   <string name="sendEmailForAccountVerification">Send ein e-post til %s om du ikkje finn stadfesting i e-posten din, så stadfestar vi kontoen din for deg.</string>
   <string name="accountConfirmed">Brukar %s vart stadfesta.</string>
   <string name="accountCanLogin">Du kan no logga inn som %s.</string>
@@ -284,8 +285,8 @@
     <item quantity="other">Rating blir oppdatert kvart %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s sjakkproblem</item>
-    <item quantity="other">%s sjakkproblem</item>
+    <item quantity="one">%s sjakknøtter</item>
+    <item quantity="other">%s sjakknøtt</item>
   </plurals>
   <string name="gamesPlayed">Spelte parti</string>
   <plurals name="nbGamesWithYou">
@@ -581,6 +582,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emnet</string>
   <string name="reply">Svar</string>
+  <string name="reopen">Opne på nytt</string>
+  <string name="quote">Siter</string>
+  <string name="postEdited">redigert</string>
   <string name="message">Melding</string>
   <string name="createTheTopic">Opprett emnet</string>
   <string name="reportAUser">Rapportér ein brukar</string>
@@ -593,6 +597,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportCheatBoostHelp">Legg ved lenke til partiet/partia og forklar kva som er gale med åtferda til denne brukaren. Å berre påstå at brukaren juksar er ikkje nok, men gje ei nærare forklaring på korleis du kom til denne konklusjonen.</string>
   <string name="reportUsernameHelp">Forklår kva som gjer brukarnamnet er støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortell oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
   <string name="reportProcessedFasterInEnglish">Rapporten din blir raskare behandla om du skriv på engelsk.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan handsama rapporten din raskare om du skriv på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
@@ -717,6 +722,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
   <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Ved å oppretta ein simultan kan du spela mot fleire motspelarar samstundes.</string>
   <string name="simulVariantsHint">Om du vel fleire variantar, får kvar spelar velje kva variant dei ønskjer.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
@@ -823,10 +829,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
+  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomskinleg</string>
+  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Bilete</string>
   <string name="deviceTheme">Einingstema</string>
+  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Avrunda hjørne</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
   <string name="board">Brett</string>
   <string name="size">Storleik</string>
@@ -964,7 +973,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xInvitedYouToY">%1$s inviterte deg til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er no med i laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nokon du rapporterte vart stengt ute</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
   <string name="gameVsX">Spel mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
@@ -997,6 +1005,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulDescription">Beskriving av simultantilskipinga</string>
   <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
   <string name="markdownIsAvailable">%s er tilgjengeleg for formatering.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formattera tekst ved hjelp av %s.</string>
   <string name="embedsAvailable">Sett inn URLen til eit spel eller studiekapittel for å bygge det inn.</string>
   <string name="inYourLocalTimezone">I di tidssone</string>
   <string name="tournChat">Turneringschat</string>
@@ -1004,6 +1013,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="onlyTeamLeaders">Berre lagleiarar</string>
   <string name="onlyTeamMembers">Berre lagsmedlemer</string>
   <string name="navigateMoveTree">Naviger i trekk-treet</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Trekkliste-navigasjon</string>
   <string name="mouseTricks">Musekunstar</string>
   <string name="toggleLocalAnalysis">Aktiver/deaktiver lokal maskinanalyse</string>
   <string name="toggleAllAnalysis">Aktiver/deaktiver all maskinanalyse</string>

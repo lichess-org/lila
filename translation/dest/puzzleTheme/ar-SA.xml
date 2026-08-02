@@ -55,16 +55,19 @@
   <string name="endgame">مرحلة نهاية المباراة</string>
   <string name="endgameDescription">تكتيك خلال مرحلة نهاية المباراة.</string>
   <string name="enPassantDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، وهي إمكانية البيدق أن يأخذ بيدق الخَصْم الذي تجاوزه إذا تحرك حركة مربعين الأولية.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، التي تسمح للبيدق بأسر بيدق الخَصْم الذي تحرك للتو مربعين في حركته الأولى وأصبح ملاصقًا له، كما لو أنه تحرك مربعًا واحدًا فقط.</string>
   <string name="epauletteMate">كش الإيبوليت</string>
   <string name="epauletteMateDescription">تشغل قطعتان أخريان مربعان متلاصقين للهروب من الملك الذي تم الكش به.</string>
   <string name="exposedKing">ملك غير محمي</string>
   <string name="exposedKingDescription">تكتيك يتضمن القليل من المدافعين حول ملك الخَصْم فيكون غير محمي مما يؤدي غالباً إلى كش مات.</string>
   <string name="fork">شوكة</string>
   <string name="forkDescription">نقلة تهاجم قطعتين للخصم في آن واحد.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">نقلة تُهاجم فيها قطعةٌ واحدة قطعتين أو أكثر من قطع الخَصْم في آنٍ واحد.</string>
   <string name="hangingPiece">قطعة معلقة</string>
   <string name="hangingPieceDescription">تكتيك حيث تكون قطعة للخصم غير مدافع عنها أو دفاع غير كافي بالتالي يمكن التقاطها بدون خسارة أي قطع من طرفك.</string>
   <string name="hookMate">كش مات بالخطاف</string>
   <string name="hookMateDescription">نمط الكش مات باستخدام قلعة و حصان و جندي بالإضافة إلى جندي الخصم ليحد من حركات الملك للهروب.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">كش مات يتحقق بالقلعة والحصان والبيدق، ويكون بيدق الخَصْم نفسه هو الذي يسدّ على ملكه مربعات الهروب.</string>
   <string name="interference">التشوش</string>
   <string name="interferenceDescription">نقلة تحجب خط التفاعل بين قطع الخصم بعيدة المدى، ونتيجة لذلك تصبح إحدى القطعتين أو كلاهما بلا حماية. على سبيل المثال، يقف الحصان في مربع بين قلعتين.</string>
   <string name="intermezzo">النقلة البينيّة</string>

@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Жодне з перерахованих</string>
   <string name="sendEmailAt">Надішліть нам електронного листа за адресою %s.</string>
   <string name="explainYourRequest">Будь ласка, поясніть ваш запит чітко і ретельно. Вкажіть ваше ім\'я користувача Lichess та будь-яку інформацію, що допоможе вам допомогти.</string>
+  <string name="monetiseNotInterested">Ми не зацікавлені монетизацією Lichess будь-яким способом.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ми ніколи не показуватимемо рекламу, не стежитимемо за нашими гравцями та не торгуватимемо даними трафіку чи користувачів.</string>
+  <string name="monetiseNoMarketingEmail">Будь ласка, не зв\'язуйтеся з нами щодо маркетингу, відстеженням чи рекламуванням.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Ми заохочуємо всіх %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">блокувати рекламу та трекерів</string>
+  <string name="broadcastTournamentOnLichess">Трансляція турніру на Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Якщо ви бажаєте офіційно транслювати турнір на Lichess або маєте запитання щодо трансляцій:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Зв\'яжіться з нашою командою трансляцій на %1$s чи %2$s.</string>
+  <string name="ourDiscordServer">нашому Discord-сервері</string>
 </resources>

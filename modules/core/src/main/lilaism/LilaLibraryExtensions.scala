@@ -28,7 +28,9 @@ trait LilaLibraryExtensions extends CoreExports:
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
-    [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
+    [A] =>
+      (duration: FiniteDuration) =>
+        (fua: () => Future[A]) => org.apache.pekko.pattern.after(duration, sched)(fua())
 
   extension [A](self: Option[A])
 

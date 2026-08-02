@@ -163,6 +163,10 @@ Pokazujemy czerwoną ikonę, aby Cię ostrzec, kiedy to się wydarzy. W wielu pr
 2. Kliknij ikonę blokady na pasku adresu
 3. Kliknij Ustawienia Strony
 4. Zezwól na dźwięk</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Przejdź do lichess.org
+2. Kliknij ikonę informacji o witrynie na pasku adresu
+3. Kliknij Ustawienia witryny
+4. Zezwól na dźwięk</string>
   <string name="enableAutoplayForSoundsSafari">1. Przejdź do lichess.org
 2. Kliknij Safari na pasku menu
 3. Kliknij Ustawienia dla lichess.org ...

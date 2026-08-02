@@ -31,7 +31,7 @@ final class Env(
 )(using
     Executor,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 ):

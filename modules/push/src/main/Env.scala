@@ -1,6 +1,6 @@
 package lila.push
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -50,7 +50,8 @@ final class Env(
   private lazy val browserPush = wire[BrowserWebPush]
   private lazy val unifiedPush = wire[UnifiedWebPush]
   private lazy val firebasePush = wire[FirebasePush]
-  private lazy val pushApi = wire[PushApi]
+
+  lazy val pushApi = wire[PushApi]
 
   Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
     unifiedSub.unsubscribeBySession(token.id)

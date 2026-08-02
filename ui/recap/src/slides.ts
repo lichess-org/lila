@@ -4,7 +4,7 @@ import { shuffle } from 'lib/algo';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
-import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, iconCls } from 'lib/view';
+import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, icon } from 'lib/view';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 
 import { pieceGrams, totalGames } from './constants';
@@ -14,15 +14,14 @@ import { formatDuration, perfIsSpeed, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
-    hook: {
-      insert: _ =>
-        site.asset.loadEsm('bits.confetti', {
-          init: {
-            cannons: false,
-            fireworks: true,
-          },
-        }),
-    },
+    hook: onInsert(() => {
+      site.asset.loadEsm('bits.confetti', {
+        init: {
+          cannons: false,
+          fireworks: true,
+        },
+      });
+    }),
   });
 
 const hi = (user: LightUser): VNode => hl('h2', i18n.recap.hiUser.asArray(fullName(user)));
@@ -145,7 +144,7 @@ export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
 
 export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode | undefined => {
   const o = os[color];
-  if (!o.count) return;
+  if (!o.count) return undefined;
   return slideTag('openings')([
     hl('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
@@ -317,7 +316,7 @@ export const patron = (opts: Opts): VNode =>
       ),
     ),
     hl('p', i18n.recap.patronCharity),
-    iconCls(licon.Wings, 'text'),
+    icon(licon.Wings)('.text'),
 
     opts.user.patron
       ? hl('p', i18n.patron.thankYou)
@@ -331,7 +330,7 @@ export const patron = (opts: Opts): VNode =>
 
 const renderPerf = (perf: RecapPerf): VNode => {
   return hl('span', [
-    iconCls(perfIcons[perf.key], 'text'),
+    icon(perfIcons[perf.key])('.text'),
     !perfIsSpeed(perf.key)
       ? i18n.variant[perf.key]
       : perf.key !== 'ultraBullet'

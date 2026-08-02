@@ -3,7 +3,7 @@ import Peer, { MediaConnection } from 'peerjs';
 import type { VoiceChat } from 'lib/chat/interfaces';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { hl, alert } from 'lib/view';
+import { hl, alert, onInsert } from 'lib/view';
 
 type State =
   | 'off'
@@ -35,7 +35,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const devices = navigator.mediaDevices;
   if (!devices) {
     alert('Voice chat requires navigator.mediaDevices');
-    return;
+    return undefined;
   }
 
   let state: State = 'off';
@@ -218,35 +218,29 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   return {
     render: () => {
       const connections = allOpenConnections();
-      return devices
-        ? hl(
-            'button.mchat__tab.voicechat.data-count.voicechat-' + state,
-            {
-              attrs: {
-                'data-icon': licon.Handset,
-                title: `Voice chat: ${state}`,
-                'data-count': state === 'on' ? connections.length + 1 : 0,
-              },
-              hook: {
-                insert(vnode) {
-                  (vnode.elm as HTMLElement).addEventListener('click', () => (peer ? stop() : start()));
-                },
-              },
-            },
-            state === 'on'
-              ? connections.map(c =>
-                  hl('audio.voicechat__audio.' + c.peer, {
-                    attrs: { autoplay: true },
-                    hook: {
-                      insert(vnode) {
-                        (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream;
-                      },
-                    },
-                  }),
-                )
-              : [],
-          )
-        : undefined;
+      if (!devices) return undefined;
+
+      return hl(
+        'button.mchat__tab.voicechat.data-count.voicechat-' + state,
+        {
+          attrs: {
+            'data-icon': licon.Handset,
+            title: `Voice chat: ${state}`,
+            'data-count': state === 'on' ? connections.length + 1 : 0,
+          },
+          hook: onInsert(el => el.addEventListener('click', () => (peer ? stop() : start()))),
+        },
+        state === 'on'
+          ? connections.map(c =>
+              hl('audio.voicechat__audio.' + c.peer, {
+                attrs: { autoplay: true },
+                hook: onInsert<HTMLAudioElement>(el => {
+                  el.srcObject = c.remoteStream;
+                }),
+              }),
+            )
+          : [],
+      );
     },
   };
 }

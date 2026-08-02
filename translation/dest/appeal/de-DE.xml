@@ -15,6 +15,7 @@
   <string name="hiddenBlog">Deine Blog-Einträge wurden von Moderatoren versteckt.</string>
   <string name="hiddenBlogInfo">Versichere dich, dass du unsere %s erneut liest.</string>
   <string name="playTimeout">Du hast ein Partie-Timeout.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Dein Account ist vorübergehend vom Spielen ausgeschlossen.</string>
   <string name="communicationGuidelines">Kommunikationsrichtlinien</string>
   <string name="blogRules">Blog-Regeln</string>
   <string name="fairPlay">Fair Play</string>

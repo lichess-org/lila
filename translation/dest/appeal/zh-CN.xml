@@ -8,13 +8,14 @@
   <string name="boosterMarked">您的账户因操纵等级分而被标记。</string>
   <string name="boosterMarkedInfo">我们将其定义为：通过故意输棋或与故意输棋的另一个账户对弈，来蓄意操纵等级分。</string>
   <string name="accountMuted">您的账户已被禁言。</string>
-  <string name="accountMutedInfo">请阅读我们的 %s。未能遵守沟通准则可能导致账户被禁言。</string>
+  <string name="accountMutedInfo">请阅读我们的%s。未能遵守沟通准则可能导致账户被禁言。</string>
   <string name="excludedFromLeaderboards">您的账户已被排除在排行榜之外。</string>
   <string name="excludedFromLeaderboardsInfo">我们将其定义为：使用任何不公平手段进入排行榜。</string>
   <string name="closedByModerators">您的账户已被管理员关闭。</string>
   <string name="hiddenBlog">您的博客已被版主隐藏。</string>
   <string name="hiddenBlogInfo">请务必重新阅读我们的 %s。</string>
   <string name="playTimeout">您处于禁赛期。</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">您的账户暂时被限制对弈！</string>
   <string name="communicationGuidelines">沟通准则</string>
   <string name="blogRules">博客规则</string>
   <string name="fairPlay">公平竞赛</string>

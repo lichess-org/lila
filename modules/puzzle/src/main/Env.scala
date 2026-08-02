@@ -29,8 +29,8 @@ final class Env(
     mongo: lila.db.Env
 )(using
     Executor,
-    akka.actor.ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.actor.ActorSystem,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 )(using

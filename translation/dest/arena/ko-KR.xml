@@ -73,6 +73,10 @@
   <string name="rankAvgHelp">백분위 순위는 말 그대로 순위의 백분율입니다. 즉, 백분위 순위는 낮을수록 더 높은 순위를 의미합니다. 
 
 예를 들어, 100명의 참가자가 참여하는 토너먼트에서 3위를 차지하면 3%가 되고, 1000명의 참가자가 참여하는 토너먼트에서 10위를 차지하면 1%가 됩니다.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">백분위 순위는 각 토너먼트에서 전체 플레이어 수에 비례한 당신의 평균적인 최종 순위를 나타냅니다.
+이는 당신의 일반적인 레이팅이 아닌, 토너먼트 순위에 대한 수치입니다.
+
+예를 들어, 백분위 순위 3%는 토너먼트가 끝났을 때 당신의 최종 순위가 일반적으로 상위 3%(예시: 1,000명의 플레이어 중 30등)임을 의미합니다.</string>
   <string name="medians">중앙값</string>
   <string name="allAveragesAreX">이 페이지의 모든 평균값은 %s 입니다.</string>
   <string name="total">합계</string>

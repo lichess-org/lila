@@ -2,8 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
-import akka.stream.scaladsl.Source
+import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
@@ -15,7 +15,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
@@ -60,16 +60,19 @@ final class AccessTokenApi(
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
+    create(granted.userId, granted.scopes, granted.redirectUri.origin)
+
+  def create(userId: UserId, scopes: TokenScopes, origin: Origin)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
         id = AccessToken.idFrom(plain),
         plain = plain,
-        userId = granted.userId,
+        userId = userId,
         description = None,
         created = nowInstant.some,
-        scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.origin.some,
+        scopes = scopes,
+        clientOrigin = origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )

@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Dagelijkse e-mailmeldingen met de lijst van jouw correspondentiepartijen</string>
   <string name="notifyStreamStart">Streamer gaat live</string>
   <string name="notifyInboxMsg">Nieuw bericht inbox</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nieuw privébericht</string>
   <string name="notifyForumMention">Opmerking op het forum noemt u</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forumvermeldingen</string>
   <string name="notifyInvitedStudy">Studie uitnodiging</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Studie-uitnodigingen</string>
   <string name="notifyGameEvent">Spelupdates voor correspondentiepartijen</string>
   <string name="notifyChallenge">Uitdagingen</string>
   <string name="notifyTournamentSoon">Toernooi begint binnenkort</string>
-  <string name="notifyBroadcasts">Uitzendingen waarop je bent geabonneerd</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Toernooien sturen een herinnering</string>
+  <string name="notifyBroadcasts">Uitzendingen</string>
   <string name="notifyTimeAlarm">Klok met correspondentie bijna leeg</string>
   <string name="notifyBell">Bel melding binnen Lichess</string>
   <string name="notifyPush">Apparaatmelding wanneer je niet op Lichess bent</string>

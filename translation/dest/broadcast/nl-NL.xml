@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
   <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Dit toernooi permanent verwijderen, inclusief alle rondes en partijen?</string>
   <string name="showScores">Toon scores van spelers op basis van partij-uitslagen</string>
   <string name="replacePlayerTags">Optioneel: vervang spelersnamen, beoordelingen en titels</string>
   <string name="fideFederations">FIDE-federaties</string>

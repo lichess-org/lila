@@ -84,24 +84,20 @@ final class Round(
         _.filter: pov =>
           pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
 
-  private def getNext(currentGame: GameModel)(urgent: UrgentGames) =
-    urgent.value.find: pov =>
-      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
-
   def whatsNext(fullId: GameFullId) = Open:
     Found(env.round.proxyRepo.pov(fullId)): currentPov =>
       if currentPov.isMyTurn
       then Ok(Json.obj("nope" -> true))
       else
         otherPovs(currentPov.game)
-          .map(getNext(currentPov.game))
+          .map(_.selectNext(currentPov.game))
           .map: next =>
             Ok(Json.obj("next" -> next.map(_.fullId)))
 
   def next(gameId: GameId) = Auth { ctx ?=> me ?=>
     Found(env.round.proxyRepo.game(gameId)): currentGame =>
       otherPovs(currentGame)
-        .map(getNext(currentGame))
+        .map(_.selectNext(currentGame))
         .map(_.orElse(Pov(currentGame, me)))
         .flatMap:
           case Some(next) => renderPlayer(next)
@@ -280,7 +276,7 @@ final class Round(
         redirection
       else
         env.round.resign(pov)
-        akka.pattern.after(500.millis, env.system.scheduler)(redirection)
+        org.apache.pekko.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: Color) = Open:
     FoundSnip(

@@ -3,7 +3,7 @@ import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { dataIcon, iconTag } from 'lib/view';
+import { dataIcon, icon, onInsert } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
@@ -114,19 +114,19 @@ function splitOverlapping(lanes: Lane[]): Lane[] {
 }
 
 function tournamentClass(tour: Tournament): Classes {
-  const finished = tour.status === 30,
-    userCreated = tour.createdBy !== 'lichess',
-    classes = {
-      'tsht-rated': tour.rated,
-      'tsht-casual': !tour.rated,
-      'tsht-finished': finished,
-      'tsht-joinable': !finished,
-      'tsht-user-created': userCreated,
-      'tsht-thematic': !!tour.position,
-      'tsht-short': tour.minutes <= 30,
-      'tsht-max-rating': !userCreated && tour.hasMaxRating,
-      'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
-    } as Classes;
+  const finished = tour.status === 30;
+  const userCreated = tour.createdBy !== 'lichess';
+  const classes: Classes = {
+    'tsht-rated': tour.rated,
+    'tsht-casual': !tour.rated,
+    'tsht-finished': finished,
+    'tsht-joinable': !finished,
+    'tsht-user-created': userCreated,
+    'tsht-thematic': !!tour.position,
+    'tsht-short': tour.minutes <= 30,
+    'tsht-max-rating': !userCreated && tour.hasMaxRating,
+    'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
+  };
   if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
 }
@@ -174,7 +174,7 @@ function renderTournament(tour: Tournament) {
       },
     },
     [
-      iconTag(iconOf(tour)),
+      icon(iconOf(tour))(),
       h('span.body', [
         h('span.name', i18nName(tour)),
         h('span.infos', [
@@ -255,30 +255,27 @@ export default function (ctrl: Ctrl) {
     h(
       'div.tour-chart__inner.dragscroll.',
       {
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLElement;
-            const bitLater = now + 15 * 60 * 1000;
-            const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
-            el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
+        hook: onInsert(el => {
+          const bitLater = now + 15 * 60 * 1000;
+          const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
+          el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
 
-            dragscroll.reset();
+          dragscroll.reset();
 
-            el.addEventListener('mousedown', e => {
-              mousedownAt = [e.clientX, e.clientY];
-            });
-            el.addEventListener('click', e => {
-              const dist = mousedownAt
-                ? Math.abs(e.clientX - mousedownAt[0]) + Math.abs(e.clientY - mousedownAt[1])
-                : 0;
-              if (dist > 20) {
-                e.preventDefault();
-                return false;
-              }
-              return true;
-            });
-          },
-        },
+          el.addEventListener('mousedown', e => {
+            mousedownAt = [e.clientX, e.clientY];
+          });
+          el.addEventListener('click', e => {
+            const dist = mousedownAt
+              ? Math.abs(e.clientX - mousedownAt[0]) + Math.abs(e.clientY - mousedownAt[1])
+              : 0;
+            if (dist > 20) {
+              e.preventDefault();
+              return false;
+            }
+            return true;
+          });
+        }),
       },
       [
         renderTimeline(),

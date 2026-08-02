@@ -84,12 +84,10 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
     'div.relay-tour__team-table',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
-      hook: {
-        insert: vnode => {
-          gameLinksListener(ctrl.chapterSelect)(vnode);
-          ctrl.loadFromXhr(true);
-        },
-      },
+      hook: onInsert(elm => {
+        gameLinksListener(ctrl.chapterSelect)(elm);
+        ctrl.loadFromXhr(true);
+      }),
     },
     ctrl.teams
       ? renderTeams(
@@ -149,7 +147,7 @@ const renderTeams = (
         row.games.map(game => {
           const chap = chapters.get(game.id);
           const players = chap?.players;
-          if (!players) return;
+          if (!players) return undefined;
           const sortedPlayers =
             game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (

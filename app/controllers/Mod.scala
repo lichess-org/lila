@@ -21,7 +21,7 @@ final class Mod(
     env: Env,
     reportC: => report.Report,
     userC: => User
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   import env.mod.{ api, assessApi }
@@ -38,7 +38,7 @@ final class Mod(
   }(reportC.onModAction)
 
   def altMany = SecureBody(parse.tolerantText)(_.CloseAccount) { ctx ?=> me ?=>
-    import akka.stream.scaladsl.*
+    import org.apache.pekko.stream.scaladsl.*
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): prev =>
@@ -97,6 +97,7 @@ final class Mod(
           _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
           _ <- env.mod.logApi.modMessage(suspect.user.id, preset.name)
           _ <- preset.isNameClose.so(env.irc.api.nameClosePreset(suspect.user.username))
+          _ <- env.mod.api.afterWarning(suspect)
         yield suspect.some
     }
   }(reportC.onModAction)

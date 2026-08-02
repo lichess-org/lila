@@ -1,6 +1,6 @@
 package lila.web
 
-import akka.stream.Materializer
+import org.apache.pekko.stream.Materializer
 import play.api.mvc.*
 import play.api.http.Status.*
 
@@ -43,7 +43,7 @@ final class HttpFilter(
 
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs

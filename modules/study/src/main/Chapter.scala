@@ -112,6 +112,8 @@ case class Chapter(
 
   def withTags(t: Tags) = copy(tags = t)
 
+  def withOrientation(color: Color) = copy(setup = setup.copy(orientation = color))
+
 object Chapter:
 
   type Order = Int

@@ -590,12 +590,14 @@ POST  /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfir
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token)
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)
-POST  /auth/token                      controllers.Auth.makeLoginToken
+POST  /auth/token                      controllers.Auth.makeLoginTokenLichobile
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token)
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
+POST  /auth/mobile-code/email          controllers.Auth.mobileCodeEmail
+POST  /auth/mobile-code/bearer         controllers.Auth.mobileCodeBearer
 GET   /auth/check                      controllers.Auth.check
 POST  /auth/validate-new-email         controllers.Auth.apiEmailValidate
 

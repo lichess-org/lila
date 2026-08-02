@@ -10,7 +10,7 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)

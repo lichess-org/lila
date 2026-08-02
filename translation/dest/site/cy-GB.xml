@@ -749,7 +749,6 @@
   <string name="xInvitedYouToY">Wnaeth %1$s gwahodd chi i \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Rydych nawr yn rhan o\'r tîm.</string>
   <string name="youHaveJoinedTeamX">Rwyt ti wedi ymuno \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Mae rhywun roeddech chi wedi reportio rwan wedi ei gwahardd</string>
   <string name="congratsYouWon">Llongyfarchiadau, gwnaethoch chi ennill!</string>
   <string name="gameVsX">Gêm yn erbyn %1$s</string>
   <string name="resVsX">%1$s yn erbyn %2$s</string>
