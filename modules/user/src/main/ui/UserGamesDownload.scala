@@ -54,14 +54,13 @@ final class UserGamesDownload(helpers: Helpers):
             br,
             ctx
               .is(user)
-              .option(
+              .option:
                 p(style := "text-align: right")(
                   "Or download imported games as PGN: ",
                   a(href := importedGamesUrl)("original"),
-                  " · ",
+                  " / ",
                   a(href := addQueryParam(importedGamesUrl.url, "annotated", "1"))("annotated")
                 )
-              )
           )
         )
 
