@@ -1,7 +1,9 @@
 package controllers
+
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.net.Bearer
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -96,7 +98,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def withTakex3Referrer(fallback: Call, requireSimpleSignup: Boolean = false)(run: => Fu[Result])(
       using Option[ValidReferrer]
-  ) =
+  ): Fu[Result] =
     val allowed =
       if requireSimpleSignup then simpleSignup.exists(_.client == takex3Client)
       else signedClient.contains(takex3Client)
@@ -682,13 +684,20 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   def mobileCodeEmail = Anon:
     Firewall:
-      for
-        limit <- env.security.loginToken.storedCode.createAndSend()
-        res <- if limit.ok then NoContent.toFuccess else rateLimited
-      yield res
+      NoTor:
+        for
+          limit <- env.security.loginToken.storedCode.createAndSend()
+          res <- if limit.ok then NoContent.toFuccess else rateLimited
+        yield res
 
   def mobileCodeBearer = Anon:
-    ???
+    Firewall:
+      NoTor:
+        env.security.loginToken.storedCode
+          .consume()
+          .flatMap:
+            case limit: RateLimit.LimitResult => if limit.ok then notFound else rateLimited
+            case token: lila.oauth.AccessToken => Ok(token.plain).toFuccess
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match

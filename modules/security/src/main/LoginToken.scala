@@ -2,7 +2,7 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
-import scalalib.net.{ Bearer, UserAgent }
+import scalalib.net.UserAgent
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -10,7 +10,7 @@ import lila.core.net.{ Origin, ValidReferrer }
 import lila.core.email.NormalizedEmailAddress
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
-import lila.oauth.{ AccessTokenApi, OAuthScope, TokenScopes }
+import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
 import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
 
@@ -38,14 +38,14 @@ final class LoginToken(
     private def reqEmail(using RequestHeader): Option[NormalizedEmailAddress] =
       HTTPRequest.queryStringGet("email").flatMap(EmailAddress.from).map(_.normalize)
 
-    def consume()(using RequestHeader, UserAgent): Fu[LimitResult | Bearer] =
+    def consume()(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
       (reqEmail, HTTPRequest.queryStringGet("code")).tupled.fold(notRateLimited): pair =>
         limitAndFind(pair._1, cost = 1): (user, _) =>
           if store.getIfPresent(pair).exists(_.is(user))
           then
             store.invalidate(pair)
             val scopes = TokenScopes(List(OAuthScope.Web.Mobile))
-            accessTokenApi.create(user.id, scopes, Origin("org.lichess.mobile://")).map(_.plain)
+            accessTokenApi.create(user.id, scopes, Origin("org.lichess.mobile://"))
           else notRateLimited
 
     def createAndSend()(using RequestHeader): Fu[LimitResult] =
