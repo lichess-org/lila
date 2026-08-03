@@ -106,12 +106,17 @@ final private class FidePlayerSync(
   private object playersFromHttpFile:
     def apply(): Funit = for
       req = ws.url(listUrl.value)
-      proxied = proxy.select().foldLeft(req)(_ withProxyServer _)
+      proxyServer = proxy.select()
+      _ = logger.info(s"RelayFidePlayerApi.update connecting to $listUrl through ${proxyServer.map(_.host)}")
+      proxied = proxyServer.foldLeft(req)(_ withProxyServer _)
+      info <- proxy.select().foldLeft(ws.url("https://ifconfig.info"))(_ withProxyServer _).get()
+      _ = println(info.body)
       httpStream <- proxied.stream()
       _ <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
         else
+          logger.info(s"RelayFidePlayerApi.update connected to stream")
           for
             nbUpdated <-
               ZipInputStreamSource: () =>
