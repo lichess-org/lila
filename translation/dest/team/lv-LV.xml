@@ -33,17 +33,11 @@
   <string name="willBeReviewed">Jūsu pieprasījumu pievienoties izskatīs komandas vadītājs.</string>
   <string name="beingReviewed">Jūsu pieprasījumu pievienoties izskata komandas vadītājs.</string>
   <string name="requestDeclined">Kāds no komandas vadītājiem noraidīja jūsu pieprasījumu pievienoties.</string>
-  <string name="subToTeamMessages">Abonēt komandas ziņas</string>
   <string name="teamBattle">Komandu cīņa</string>
   <string name="teamBattleOverview">Cīņa starp vairākām komandām — katrs spēlētājs pelna punktus savai komandai</string>
   <string name="teamTournament">Komandas turnīrs</string>
   <string name="teamTournamentOverview">Arēnas turnīrs, kurā var piedalīties vienīgi komandas dalībnieki</string>
   <string name="swissTournamentOverview">Šveices turnīrs, kam var pievienoties tikai jūsu komandas dalībnieki</string>
-  <string name="messageAllMembers">Rakstīt ziņu visiem dalībniekiem</string>
-  <string name="messageAllMembersOverview">Sūtīt privātu ziņu katram komandas dalībniekam</string>
-  <string name="messageAllMembersLongDescription">Sūtīt ziņu visiem komandas dalībniekiem.
-Varat izmantot šo funkciju, lai sauktu spēlētājus pievienoties turnīram vai komandu cīņai.
-Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</string>
   <string name="teamsIlead">Komandas, kuras vadu</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Vai vēlaties pievienot saiti uz kādu no šiem turnīriem?</string>
   <string name="leadersChat">Vadītāju sarakste</string>

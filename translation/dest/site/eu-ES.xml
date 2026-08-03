@@ -485,6 +485,7 @@
     <item quantity="one">%s Jarraituak</item>
     <item quantity="other">%s Jarraituak</item>
   </plurals>
+  <string name="less">Gutxiago</string>
   <string name="more">Gehiago</string>
   <string name="memberSince">Noiztik kidea:</string>
   <string name="lastSeenActive">Azken aldiz online: %s</string>
@@ -828,13 +829,13 @@
   <string name="language">Hizkuntza</string>
   <string name="allLanguages">Hizkuntza guztiak</string>
   <string name="background">Atzeko planoa</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Itxura</string>
+  <string name="theme">Itxura</string>
   <string name="light">Argia</string>
   <string name="dark">Iluna</string>
   <string name="transparent">Gardena</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Irudia</string>
+  <string name="picture">Irudia</string>
   <string name="deviceTheme">Gailuaren gaia</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Borobiltasuna</string>
+  <string name="roundness">Borobiltasuna</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
   <string name="board">Taula</string>
   <string name="size">Tamaina</string>

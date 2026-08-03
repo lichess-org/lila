@@ -123,6 +123,8 @@
   <string name="unlimitedAndFree">Απεριόριστο και δωρεάν</string>
   <string name="predefinedUsers">Να επιτρέπεται η συμμετοχή μόνο στους ακόλουθους χρήστες</string>
   <string name="forbiddedUsers">Αν η παραπάνω λίστα δεν είναι κενή, τότε οι χρήστες που δε βρ΄σκονται σε αυτήν δε θα έχουν δικαίωμα να συμμετάσχουν στο τουρνουά. Ένα όνομα χρήστη ανά γραμμή.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Εισάγετε ένα όνομα χρήστη ανά γραμμή. Μόνο αυτοί οι παίκτες μπορούν να συμμετάσχουν.
+Αφήστε το πεδίο κενό, ώστε να συμμετάσχει οποιοσδήποτε παίκτης πληροί τις προϋποθέσεις.</string>
   <string name="playYourGames">Παίξτε τις παρτίδες σας</string>
   <string name="byes">Byes</string>
   <string name="absences">Απόντες</string>

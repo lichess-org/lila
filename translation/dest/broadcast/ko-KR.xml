@@ -56,6 +56,7 @@
   <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 끄거나 켤 수 있습니다.</string>
   <string name="uploadImage">토너먼트 사진 업로드</string>
   <string name="noBoardsYet">아직 보드가 없습니다. 게임이 업로드되면 표시됩니다.</string>
+  <string name="noPlayersYet">아직 플레이어가 없습니다. 게임이 업로드되면 표시됩니다.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
   <string name="startsAfter">%s 후 시작</string>
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
@@ -106,6 +107,6 @@
   <string name="tiebreaks">타이브레이커</string>
   <string name="gameX">게임 %s</string>
   <string name="knockouts">녹아웃</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
 </resources>

@@ -60,6 +60,7 @@
   <string name="subscribeTitle">Abonează-te pentru a fi notificat când începe fiecare rundă. Poți gestiona notificările sonore sau push pentru transmisiuni din setările contului tău.</string>
   <string name="uploadImage">Încărcați imaginea turneului</string>
   <string name="noBoardsYet">Încă nu sunt table. Acestea vor apărea după ce partidele vor fi încărcate.</string>
+  <string name="noPlayersYet">Încă nici un jucător. Aceștia vor apărea odată ce vor fi încărcate jocuri.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tablele pot fi încărcate dintr-o sursă sau prin intermediul %s</string>
   <string name="startsAfter">Începe după %s</string>
   <string name="startVerySoon">Transmisiunea va începe foarte curând.</string>
@@ -110,6 +111,6 @@
   <string name="tiebreaks">Departajări</string>
   <string name="gameX">Joc %s</string>
   <string name="knockouts">Eliminatorii</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>
