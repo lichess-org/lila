@@ -38,8 +38,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       form3.action(form3.submit(trans.site.send()))
     )
     if isNew then formContent
-    else
-      form3.fieldset("Add something to the appeal", toggle = false.some)(cls := "form-toggle")(formContent)
+    else form3.fieldset("Add something to the appeal", toggle = false.some)(cls := "form-toggle")(formContent)
 
   def userShow(status: UserStatus, appeal: Appeal, form: Form[?], appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
