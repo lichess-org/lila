@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">کۆمپیتەر</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>

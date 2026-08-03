@@ -40,7 +40,7 @@
 
         width: 100%;
         margin: auto 2em;
-        border-radius: 99px;
+        border-radius: calc($box-radius-size * 2);
         background: $c-bg-box;
         padding: 0.6em 1.2em;
       }

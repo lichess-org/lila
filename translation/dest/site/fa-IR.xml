@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">اگر رایانامهٔ تایید دریافت نکردید، پوشه هرزنامه یا بُنجُل خود را بررسید. حتماً پیام‌های lichess.org را ایمن و \"نا-هرزنامه\" مشخص کنید تا بتوانید از ارتباطاتِ مهم آگاه شوید.</string>
   <string name="sendEmailForAccountVerification">اگر نمی‌توانید رایانامهٔ تاییدتان را بیابید، رایانامه‌ای به %s ارسال کنید تا حساب‌تان را تایید کنیم.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
@@ -392,8 +393,8 @@
     <item quantity="other">%s مطالعه</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s همزمان</item>
-    <item quantity="other">%s همزمان</item>
+    <item quantity="one">%s هَمگاه</item>
+    <item quantity="other">%s هَمگاه</item>
   </plurals>
   <string name="viewTournament">دیدن مسابقات</string>
   <string name="backToTournament">بازگشت به مسابقات</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s دنبالیده</item>
     <item quantity="other">%s دنبال‌شده</item>
   </plurals>
+  <string name="less">کمتر</string>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
@@ -580,6 +582,9 @@
   <string name="replies">پاسخ ها</string>
   <string name="replyToThisTopic">پاسخ به این موضوع</string>
   <string name="reply">پاسخ</string>
+  <string name="reopen">بازگشایی</string>
+  <string name="quote">نقل‌قول</string>
+  <string name="postEdited">ویراسته</string>
   <string name="message">پیام</string>
   <string name="createTheTopic">ایجاد موضوع</string>
   <string name="reportAUser">گزارش یک کاربر</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
   <string name="reportUsernameHelp">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
   <string name="reportProcessedFasterInEnglish">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">اگر به انگلیسی بنویسید، می‌توانیم سریع‌تر به گزارش‌تان رسیدگی کنیم.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">به‌دستِ %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -699,28 +705,29 @@
   <string name="termsOfService">شرایطِ استفاده</string>
   <string name="titleVerification">تائید عنوان</string>
   <string name="sourceCode">کد منبع</string>
-  <string name="simultaneousExhibitions">نمایش هم زمان</string>
+  <string name="simultaneousExhibitions">بازیِ هَمگاه</string>
   <string name="host">میزبان</string>
   <string name="hostColorX">رنگ میزبان: %s</string>
-  <string name="yourPendingSimuls">بازی های سیمولتانه در جریان شما</string>
-  <string name="createdSimuls">نمایش هم زمان  به تازگی ایجاد شده</string>
-  <string name="hostANewSimul">میزبانی نمایش همزمان جدید</string>
-  <string name="signUpToHostOrJoinASimul">ثبت‌نام کنید تا در بازی های سیمولتانه شرکت، یا برگزار کنید</string>
-  <string name="noSimulFound">نمایش هم زمان پیدا نشد</string>
-  <string name="noSimulExplanation">نمایش همزمان برای نمایش وجود ندارد</string>
-  <string name="returnToSimulHomepage">برگشت به صحفه اصلی نمایش های همزمان</string>
-  <string name="aboutSimul">نمایش هم زمان، بازی هم زمان یک نفر با چندین حریف است.</string>
+  <string name="yourPendingSimuls">هَمگاه‌های درانتظار</string>
+  <string name="createdSimuls">هَمگاه‌های تازه‌ساخته</string>
+  <string name="hostANewSimul">میزبانیِ بازیِ هَمگاهِ جدید</string>
+  <string name="signUpToHostOrJoinASimul">ثبت‌نام برای پیوستن یا میزبانیِ هَمگاه</string>
+  <string name="noSimulFound">هَمگاه پیدا نشد</string>
+  <string name="noSimulExplanation">این بازیِ هَمگاه وجود ندارد.</string>
+  <string name="returnToSimulHomepage">بازگشت به صفحهٔ آغازِ هَمگاه</string>
+  <string name="aboutSimul">هَمگاه‌ها شامل رویاروییِ یک بازیکن با چندین بازیکن، توأم است.</string>
   <string name="aboutSimulImage">از ۵۰ بازی فیشر موفق به کسب ۴۷ برد و ۲ تساوی و یک باخت شد.</string>
-  <string name="aboutSimulRealLife">این مفهوم از رویدادهای واقعی الهام گرفته شده است. در آن جا میزبان میز به میز برای انجام حرکت خود، حرکت می کند.</string>
-  <string name="aboutSimulRules">وقتی نمایش همزمان شروع شود، هر بازیکن یک بازی را با میزبان که با مهره سفید بازی میکند آغاز میکند. نمایش وقتی تمام می شود که تمام بازی ها تمام شده باشند.</string>
-  <string name="aboutSimulSettings">نمایشگاه همزمان همیشه نارسمی است. بازرویارویی، برگرداندن و زمان افزاینده نافعال شده‌اند.</string>
+  <string name="aboutSimulRealLife">این مفهوم برگرفته از رویدادهای واقعی است. در آنجا میزبانِ هَمگاه، میزبه‌میز می‌رود و تک‌حرکتی را بازی می‌کند.</string>
+  <string name="aboutSimulRules">وقتی هَمگاه می‌آغازد، هر بازیکن بازی‌ای را با میزبان شروع می‌کند. هَمگاه وقتی پایان می‌یابد که همهٔ بازی‌ها تمام شوند.</string>
+  <string name="aboutSimulSettings">هَمگاه همیشه نارَسمی است. بازرویارویی، برگرداندن و زمانِ افزاینده نافعال شده‌اند.</string>
   <string name="create">ساختن</string>
-  <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
+  <string name="whenCreateSimul">وقتی هَمگاه-ی را ایجاد می‌کنید، می‌توانید توأم با چندین بازیکن بازی کنید.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">ایجادِ هَمگاه به شما امکان می‌دهد همزمان مقابلِ چندین حریف بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
-  <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
+  <string name="simulAddExtraTime">برای کمک در چالشِ هَمگاه، می‌توانید زمانِ اضافیِ اولیه به خودتان بیفزایید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
-  <string name="simulAddExtraTimePerPlayer">به ازای پیوستن هر بازیکن، به زمان اولیه خود اضافه کنید.</string>
+  <string name="simulAddExtraTimePerPlayer">به ازای پیوستنِ هر بازیکن به هَمگاه، به زمان اولیه‌تان بیفزایید.</string>
   <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
   <string name="lichessTournaments">مسابقات Lichess</string>
   <string name="tournamentFAQ">پرسش‌های پربسامد مسابقات راوان</string>
@@ -823,10 +830,13 @@
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>
   <string name="background">زمینه</string>
+  <string name="theme">پوسته</string>
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
+  <string name="picture">تصویر</string>
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
+  <string name="roundness">گِردی</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="board">میز</string>
   <string name="size">اندازه</string>
@@ -989,14 +999,15 @@
 تنها برای شطرنج معیار کار می‌کند، نه با وَرتاها.
 می‌توانید از %s برای آزانیدن وضعیت FEN بَهرید، سپس آن را اینجا جای‌گذارید.
 برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
-  <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
+  <string name="cancelSimul">لغوِ هَمگاه</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
   <string name="simulFeatured">آرنگیدن در %s</string>
-  <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
-  <string name="simulDescription">توصیف بازی هم‌زمان</string>
+  <string name="simulFeaturedHelp">نمایشِ هَمگاه‌تان در %s به همه. نافعال برای هَمگاه‌های خصوصی.</string>
+  <string name="simulDescription">وصفِ هَمگاه</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">می‌توانید متن را با استفاده از %s قالب‌بندی کنید.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">گپِ مسابقات</string>
@@ -1004,6 +1015,7 @@
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
   <string name="navigateMoveTree">ناویدن فهرست حرکت‌ها</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">ناوِشِ فهرستِ حرکت</string>
   <string name="mouseTricks">ترفندهای موشواره</string>
   <string name="toggleLocalAnalysis">کلیدِ تحلیلِ رایانه‌ای محلی</string>
   <string name="toggleAllAnalysis">کلیدِ هرگونه تحلیل رایانه‌ای</string>

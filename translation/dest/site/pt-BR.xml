@@ -825,10 +825,13 @@
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Cor tema</string>
+  <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
+  <string name="roundness">Arredondamento das bordas</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="board">Tabuleiro</string>
   <string name="size">Tamanho</string>

@@ -497,7 +497,7 @@ GET   /api/team/:id/users                     controllers.TeamApi.users(id: Team
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: TeamId)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: TeamId)
 GET   /api/team/:id/requests                  controllers.TeamApi.requests(id: TeamId)
-POST  /api/team/:id/update/:name			  controllers.TeamApi.update(id: TeamId, name: String)
+POST  /api/team/:id/update/:name	            controllers.TeamApi.update(id: TeamId, name: String)
 POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id: TeamId, userId: UserStr, decision)
 POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: TeamId, user: UserStr)
 
@@ -590,12 +590,14 @@ POST  /password/reset/takex3/confirm/:token controllers.Auth.passwordResetConfir
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token)
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)
-POST  /auth/token                      controllers.Auth.makeLoginToken
+POST  /auth/token                      controllers.Auth.makeLoginTokenLichobile
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token)
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
+POST  /auth/mobile-code/email          controllers.Auth.mobileCodeEmail
+POST  /auth/mobile-code/bearer         controllers.Auth.mobileCodeBearer
 GET   /auth/check                      controllers.Auth.check
 POST  /auth/validate-new-email         controllers.Auth.apiEmailValidate
 

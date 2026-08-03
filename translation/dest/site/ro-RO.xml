@@ -520,6 +520,7 @@
     <item quantity="few">%s urmăriți</item>
     <item quantity="other">%s urmăriți</item>
   </plurals>
+  <string name="less">Mai puține</string>
   <string name="more">Mai mult</string>
   <string name="memberSince">Membru din</string>
   <string name="lastSeenActive">Ultima autentificare %s</string>
@@ -870,10 +871,13 @@
   <string name="language">Limbă</string>
   <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
+  <string name="theme">Tema</string>
   <string name="light">Luminos</string>
   <string name="dark">Întunecat</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Imagine</string>
   <string name="deviceTheme">Tema dispozitivului</string>
+  <string name="roundness">Rotunjire colțuri</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>
   <string name="board">Tablă</string>
   <string name="size">Dimensiune</string>

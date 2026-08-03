@@ -30,6 +30,7 @@ object RequestPref:
         soundSet = paramOrSession("soundSet") | default.soundSet,
         bgImg = paramOrSession("bgImg"),
         is3d = paramOrSession("is3d").has("true"),
+        uiRoundness = paramOrSession("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
         board = default.board.copy(
           opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
           brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,

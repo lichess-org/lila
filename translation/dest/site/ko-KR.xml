@@ -450,6 +450,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">팔로잉 %s명</item>
   </plurals>
+  <string name="less">간단히</string>
   <string name="more">더보기</string>
   <string name="memberSince">가입 시기:</string>
   <string name="lastSeenActive">최근 로그인: %s</string>
@@ -786,10 +787,13 @@
   <string name="language">언어</string>
   <string name="allLanguages">모든 언어</string>
   <string name="background">배경</string>
+  <string name="theme">테마</string>
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
   <string name="transparent">투명하게</string>
+  <string name="picture">사진</string>
   <string name="deviceTheme">기기 테마</string>
+  <string name="roundness">둥글기</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
   <string name="board">보드</string>
   <string name="size">크기</string>

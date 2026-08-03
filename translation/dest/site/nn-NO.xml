@@ -486,6 +486,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">%s følgjer</item>
     <item quantity="other">%s fylgjer</item>
   </plurals>
+  <string name="less">Mindre</string>
   <string name="more">Meir</string>
   <string name="memberSince">Medlem sidan</string>
   <string name="lastSeenActive">Siste innlogging %s</string>
@@ -829,10 +830,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
+  <string name="theme">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomskinleg</string>
+  <string name="picture">Bilete</string>
   <string name="deviceTheme">Einingstema</string>
+  <string name="roundness">Avrunda hjørne</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
   <string name="board">Brett</string>
   <string name="size">Storleik</string>

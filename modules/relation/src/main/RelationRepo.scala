@@ -27,7 +27,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
               local = "u1",
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(10))))),
+                $doc("$match" -> $doc("seenAt".$gt(nowInstant.minusDays(10)))),
                 $doc("$project" -> $id(true))
               )
             )

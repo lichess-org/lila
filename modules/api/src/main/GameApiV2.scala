@@ -236,12 +236,15 @@ final class GameApiV2(
       .mapConcat(identity)
       .via(preparationFlow(config))
 
-  def exportUserImportedGames(user: User): Source[PgnStr, ?] =
-    gameRepo
-      .sortedCursor(Query.imported(user.id), Query.importedSort, batchSize = 20)
+  def exportUserImportedGames(config: ImportedConfig)(using Lang): Source[String, ?] =
+    val games = gameRepo
+      .sortedCursor(Query.imported(config.user), Query.importedSort, batchSize = config.perSecond.value)
       .documentSource()
-      .throttle(20, 1.second)
-      .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
+    if config.annotated then games.via(preparationFlow(config))
+    else
+      games
+        .throttle(config.perSecond.value, 1.second)
+        .mapConcat(_.pgnImport.map(_.pgn.value + "\n\n\n").toList)
 
   def exportUserBookmarks(config: BookmarkConfig)(using Lang): Source[String, ?] =
     import lila.game.BSONHandlers.gameHandler
@@ -479,6 +482,15 @@ object GameApiV2:
       perSecond: MaxPerSecond
   )(using val by: Option[Me])
       extends Config
+
+  case class ImportedConfig(
+      user: UserId,
+      annotated: Boolean,
+      flags: WithFlags
+  )(using val by: Option[Me])
+      extends Config:
+    val format = Format.PGN
+    val perSecond = MaxPerSecond(20)
 
   case class MobileRecentConfig(user: User)(using val by: Option[Me]) extends Config:
     val format = GameApiV2.Format.JSON

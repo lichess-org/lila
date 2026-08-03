@@ -667,7 +667,7 @@
   <string name="reportCheatBoostHelp">Wklej link do partii i wytłumacz, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko \"on oszukiwał\", lecz napisz jak doszedłeś/aś do tego wniosku.</string>
   <string name="reportUsernameHelp">Wytłumacz, co w nazwie użytkownika jest obraźliwe. Nie pisz tylko \"nazwa jest obraźliwa\", lecz napisz jak doszedłeś/aś do tego wniosku, zwłaszcza jeśli jest mało znany, nie po angielsku, slangowy lub odniesieniem do kultury/historii.</string>
   <string name="reportProcessedFasterInEnglish">Twoje zgłoszenie będzie sprawdzone szybciej, jeśli zostanie napisane po angielsku.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Możemy przetwarzać Twoje zgłoszenie szybciej, jeśli napiszesz je po angielsku.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Szybciej przetwarzymy Twoje zgłoszenie, jeśli napiszesz do nas po angielsku.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Zaimportowane przez %s</string>
@@ -911,10 +911,13 @@
   <string name="language">Język</string>
   <string name="allLanguages">Wszystkie języki</string>
   <string name="background">Tło</string>
+  <string name="theme">Motyw</string>
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>
   <string name="transparent">Przezroczyste</string>
+  <string name="picture">Zdjęcie</string>
   <string name="deviceTheme">Motyw urządzenia</string>
+  <string name="roundness">Zaokrąglone</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
   <string name="board">Szachownica</string>
   <string name="size">Rozmiar</string>

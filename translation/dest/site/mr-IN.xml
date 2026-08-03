@@ -822,10 +822,13 @@
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
+  <string name="theme">विषय</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="picture">चित्र</string>
   <string name="deviceTheme">उपकरणानुसार</string>
+  <string name="roundness">वर्तुळाकारता</string>
   <string name="backgroundImageUrl">पार्श्वभूमी चित्रासाठी URL:</string>
   <string name="board">पट</string>
   <string name="size">आकार</string>

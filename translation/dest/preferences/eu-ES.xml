@@ -57,11 +57,15 @@
   <string name="correspondenceEmailNotification">Jaso emailez zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
   <string name="notifyStreamStart">Esataria zuzenean dago</string>
   <string name="notifyInboxMsg">Mezu berria postontzian</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Mezu berri zuzena</string>
   <string name="notifyForumMention">Foroko erantzunean aipatu zaituzte</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Foroko aipamenak</string>
   <string name="notifyInvitedStudy">Azterlanreko gonbidapena</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Azterlanerako gonbidapenak</string>
   <string name="notifyGameEvent">Posta bidezko partidetan eguneraketa</string>
   <string name="notifyChallenge">Erronkak</string>
   <string name="notifyTournamentSoon">Txapelketa laster hasiko da</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Txapelketa hasieren gogorarazpenak</string>
   <string name="notifyBroadcasts">Zuzenekoak</string>
   <string name="notifyTimeAlarm">Posta bidezko partidaren denbora amaitzen ari da</string>
   <string name="notifyBell">Kanpai bidezko jakinarazpena Lichess barruan</string>

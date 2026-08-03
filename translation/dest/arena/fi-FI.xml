@@ -73,6 +73,10 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="rankAvgHelp">Sijoitusten keskiarvo on sijoituksesi prosenttiarvo. Matalampi luku on parempi.
 
 Esimerkiksi sijoittuminen 3. sijalle 100 pelaajan turnauksessa = 3%. Sijoittuminen 10. sijalle 1 000 pelaajan turnauksessa = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sijoituskeskiarvosi kuvaa tyypillistä sijoitustasi turnauksen lopussa suhteessa kunkin turnauksen pelaajien kokonaismäärään.
+Tällä mitataan sijoituksiasi turnauksissa, ei yleistä vahvuuslukua.
+
+Esimerkiksi 3%:n sijoituskeskiarvo merkitsee sitä, että sijoitut tavallisesti turnauksen parhaan 3%:n joukkoon (kuten 30. sijalle 1 000 pelaajan turnauksessa).</string>
   <string name="medians">mediaaneja</string>
   <string name="allAveragesAreX">Kaikki keskiarvot tällä sivulla ovat %s.</string>
   <string name="total">Yhteensä</string>

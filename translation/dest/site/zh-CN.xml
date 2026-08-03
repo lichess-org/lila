@@ -450,6 +450,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">%s 正在关注</item>
   </plurals>
+  <string name="less">收起</string>
   <string name="more">更多</string>
   <string name="memberSince">加入日期</string>
   <string name="lastSeenActive">最近登录 %s</string>
@@ -786,10 +787,13 @@
   <string name="language">语言</string>
   <string name="allLanguages">所有语言</string>
   <string name="background">背景</string>
+  <string name="theme">主题</string>
   <string name="light">浅色</string>
   <string name="dark">深色</string>
   <string name="transparent">透明</string>
+  <string name="picture">图像</string>
   <string name="deviceTheme">跟随系统</string>
+  <string name="roundness">圆度</string>
   <string name="backgroundImageUrl">背景图片链接：</string>
   <string name="board">棋盘</string>
   <string name="size">尺寸</string>

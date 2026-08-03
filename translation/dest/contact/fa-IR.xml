@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">هیچ یک از موارد فوق</string>
   <string name="sendEmailAt">رایانامه‌ای به %s برای ما بفرستید.</string>
   <string name="explainYourRequest">لطفاً درخواست خود را به صورت کامل و واضح توضیح دهید. نام کاربریِ Lichess خود و هر گونه اطلاعاتی که می‌تواند به ما در کمک به شما یاری برساند را ذکر کنید.</string>
+  <string name="monetiseNotInterested">ما اصلا به درآمدزایی از Lichess علاقه‌مند نیستیم.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">ما هرگز هیچ نوع آگهی‌ای نمایش نخواهیم داد، بازیکنان‌مان را نخواهیم رَدیابید، و شُدآمد یا کاربران را نخواهیم خرید یا فروخت.</string>
+  <string name="monetiseNoMarketingEmail">لطفا دربارهٔ بازاریابی، ردیابی یا تبلیغ به ما رایانامه نفرستید.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">ما همه را به %s تشویق می‌کنیم.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">انسدادِ آگهی‌ها و ردیاب‌ها</string>
+  <string name="broadcastTournamentOnLichess">پخش مسابقه در Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">اگر می‌خواهید مسابقات را رسما در Lichess بپخشید، یا دربارهٔ پخش‌های ما سؤالی دارید:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">لطفا با تیمِ پخش ما از طریق %1$s یا %2$s تماس بگیرید.</string>
+  <string name="ourDiscordServer">کارسازِ دیسکورد‌مان</string>
 </resources>

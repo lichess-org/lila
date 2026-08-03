@@ -178,9 +178,7 @@
 }
 
 %popup-shadow {
-  @include if-transp {
-    @include back-blur;
-  }
+  @include backdrop-blur-if-transparent;
 
   box-shadow:
     0 14px 28px rgb(0 0 0 / 0.15),

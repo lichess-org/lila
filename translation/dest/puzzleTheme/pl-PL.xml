@@ -60,10 +60,12 @@
   <string name="exposedKingDescription">Taktyka z udziałem króla z kilkoma jego obrońcami, często prowadząca do mata.</string>
   <string name="fork">Widełki</string>
   <string name="forkDescription">Ruch, w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Posunięcie, którym bierka atakuje równocześnie dwie lub więcej bierek przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
   <string name="hangingPieceDescription">Taktyka wykorzystująca możliwość zbicia niebronionej lub niedostatecznie bronionej bierki przeciwnika.</string>
   <string name="hookMate">Mat haka</string>
   <string name="hookMateDescription">Mat wieżą, skoczkiem i pionkiem z wrogim pionem blokującym ucieczkę króla.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Mat za pomocą wieży, skoczka i piona, gdzie pion przeciwnika blokuje ucieczkę króla.</string>
   <string name="interference">Przesłona</string>
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>

@@ -485,6 +485,7 @@
     <item quantity="one">%s ακολουθείται</item>
     <item quantity="other">%s ακολουθούνται</item>
   </plurals>
+  <string name="less">Λιγότερα</string>
   <string name="more">Περισσότερα</string>
   <string name="memberSince">Μέλος από τις</string>
   <string name="lastSeenActive">Τελευταία είσοδος %s</string>
@@ -828,10 +829,13 @@
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
+  <string name="theme">Εμφάνιση</string>
   <string name="light">Ανοιχτόχρωμο</string>
   <string name="dark">Σκουρόχρωμο</string>
   <string name="transparent">Διάφανο</string>
+  <string name="picture">Εικόνα</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
+  <string name="roundness">Καμπυλότητα</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
   <string name="board">Σκακιέρα</string>
   <string name="size">Μέγεθος</string>
@@ -1008,6 +1012,7 @@
   <string name="onlyTeamLeaders">Μόνο οι αρχηγοί ομάδων</string>
   <string name="onlyTeamMembers">Μόνο τα μέλη της ομάδας</string>
   <string name="navigateMoveTree">Πλοηγηθείτε στο δέντρο κινήσεων</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Πλοήγηση στη λίστα κινήσεων</string>
   <string name="mouseTricks">«Κόλπα» με το ποντίκι</string>
   <string name="toggleLocalAnalysis">Εναλλαγή ανάλυσης τοπικού υπολογιστή</string>
   <string name="toggleAllAnalysis">Εναλλαγή όλων των αναλύσεων υπολογιστή</string>
