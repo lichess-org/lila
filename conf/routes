@@ -311,6 +311,7 @@ GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(r
 GET   /broadcast/:pager                       controllers.RelayTour.pager(pager: String, page: Int ?= 1)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: RelayRoundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.streamRound(roundId: RelayRoundId)
+GET   /api/stream/broadcast/tour/$tourId<\w{8}>.pgn controllers.RelayRound.streamTour(tourId: RelayTourId)
 GET   /api/stream/broadcast/group/$groupId<\w{8}>.pgn controllers.RelayRound.streamGroup(groupId: RelayGroupId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)

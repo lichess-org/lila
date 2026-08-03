@@ -241,6 +241,10 @@ final class RelayRound(
         pgnStream(env.relay.pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
 
+  def streamTour(id: RelayTourId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.tourById(id)): tour =>
+      pgnStream(env.relay.pgnStream.streamTourGames(tour))
+
   def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.groupById(id)): group =>
       pgnStream(env.relay.pgnStream.streamGroupGames(group))
