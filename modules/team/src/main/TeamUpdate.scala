@@ -88,7 +88,7 @@ final class TeamUpdateApi(
     for
       unsubed <- memberRepo.listOfUnsubscribed(id)
       _ <- msgRepo.send(msg, unsubed)
-      _ <- notifySubscribers(id)
+      _ = notifySubscribers(id) // don't await that!
     yield ()
 
   private def notifySubscribers(teamId: TeamId): Funit =
