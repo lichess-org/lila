@@ -13,6 +13,7 @@
     outline: 3px solid color-mix(in oklab, $c-font 30%, $c-bg);
     cursor: pointer;
     color: $c-font;
+    overflow: hidden;
 
     &:hover {
       outline: 3px solid color-mix(in oklab, $c-primary 60%, $c-bg);
@@ -79,11 +80,10 @@
       flex-flow: row nowrap;
 
       span {
-        @extend %box-radius-bottom-right;
-
+        border-radius: 0 0 $small-box-radius-size 0;
         background: $c-primary;
         color: $c-over;
-        padding-right: 0.5em;
+        padding-inline: 0.5em;
         font-size: 0.8em;
         text-align: right;
       }
