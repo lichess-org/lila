@@ -388,16 +388,20 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
-  def updates(page: Int) = Auth { _ ?=> _ ?=>
+  def updates(page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { _ ?=> _ ?=>
     for
       byTeam <- env.team.update.byTeams
       recent <- env.team.update.allRecent(page)
-      res <- Ok.page(views.team.update.allRecent(recent, byTeam))
+      res <- negotiate(
+        html = Ok.page(views.team.update.allRecent(recent, byTeam)),
+        json = JsonOk(env.team.update.json.allRecent(recent, byTeam))
+      )
     yield res
   }
 
-  def updatesOf(id: TeamId, page: Int) = Auth { ctx ?=> me ?=>
-    WithEnabledTeamOrClas(id): team =>
+  def updatesOf(id: TeamId, page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { ctx ?=> me ?=>
+    def orElse = Redirect(routes.Team.updates())
+    def showUpdates(team: TeamModel) =
       api
         .isMember(id)
         .flatMap:
@@ -406,9 +410,13 @@ final class Team(env: Env) extends LilaController(env):
               byTeam <- env.team.update.byTeams
               recent <- env.team.update.teamRecentAndMarkRead(team, page)
               subscribed <- api.isSubscribed(team, me)
-              res <- Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed))
+              res <- negotiate(
+                html = Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed)),
+                json = JsonOk(env.team.update.json.teamRecent(recent, byTeam, team.light, subscribed))
+              )
             yield res
-          else notFound
+          else orElse
+    WithEnabledTeamOrClas(id)(showUpdates, orElse)
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
@@ -486,22 +494,34 @@ final class Team(env: Env) extends LilaController(env):
         )
   }
 
-  private def WithTeamOrClas(teamId: TeamId)(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    Found(api.team(teamId)): team =>
-      env.api.clas
-        .teamClas(team)
-        .flatMap:
-          case None => f(team)
-          case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
-          case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
-          case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
+  private def WithTeamOrClas(
+      teamId: TeamId
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    api
+      .team(teamId)
+      .flatMap:
+        _.fold(orElse): team =>
+          env.api.clas
+            .teamClas(team)
+            .flatMap:
+              case None => f(team)
+              case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
+              case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
+              case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
 
   private def WithEnabledTeamOrClas(
       teamId: TeamId
-  )(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    WithTeamOrClas(teamId): team =>
-      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
-      else notFound
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    WithTeamOrClas(teamId)(
+      team =>
+        if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
+        else orElse,
+      orElse
+    )
 
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: (TeamModel, AsMod) => Fu[Result]
