@@ -26,7 +26,7 @@ export function initModule(): void {
 
 function initAppealInfo(): void {
   document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
-    const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree-check');
+    const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
     const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-info__continue');
     if (!checkbox || !continueButton) return;
 
