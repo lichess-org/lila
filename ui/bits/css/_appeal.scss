@@ -121,14 +121,7 @@
     }
 
     &__agree {
-      @extend %flex-center;
-
-      gap: 0.6em;
       margin-bottom: 0.5em;
-
-      input {
-        margin: 0;
-      }
     }
 
     .form-actions {
