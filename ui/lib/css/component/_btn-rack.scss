@@ -23,6 +23,7 @@
     border-inline-end: $border;
     color: $c-font;
     white-space: nowrap;
+    overflow: hidden;
 
     &:hover {
       color: $c-font;
@@ -38,11 +39,21 @@
       border: 0;
     }
 
+    &:first-child:last-child {
+      @extend %box-radius;
+    }
+
     icon {
       @extend %roboto;
 
       letter-spacing: -1px;
     }
+  }
+
+  > form .btn-rack__btn {
+    border-radius: 0 !important;
+    border: 0;
+    box-shadow: none;
   }
 
   &__btn {
