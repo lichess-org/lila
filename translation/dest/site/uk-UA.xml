@@ -555,6 +555,7 @@
     <item quantity="many">%s спостерігають</item>
     <item quantity="other">%s спостерігають</item>
   </plurals>
+  <string name="less">Менше</string>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований з</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -912,13 +913,13 @@
   <string name="language">Мова</string>
   <string name="allLanguages">Усі мови</string>
   <string name="background">Фон</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Тема</string>
+  <string name="theme">Тема</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Зображення</string>
+  <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Округлість</string>
+  <string name="roundness">Округлість</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="board">Дошка</string>
   <string name="size">Розмір</string>

@@ -911,13 +911,13 @@
   <string name="language">Język</string>
   <string name="allLanguages">Wszystkie języki</string>
   <string name="background">Tło</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Motyw</string>
+  <string name="theme">Motyw</string>
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>
   <string name="transparent">Przezroczyste</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Zdjęcie</string>
+  <string name="picture">Zdjęcie</string>
   <string name="deviceTheme">Motyw urządzenia</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Zaokrąglone</string>
+  <string name="roundness">Zaokrąglone</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
   <string name="board">Szachownica</string>
   <string name="size">Rozmiar</string>

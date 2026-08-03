@@ -627,6 +627,7 @@
     <item quantity="many">%s يتابعهم</item>
     <item quantity="other">%s يتابعهم</item>
   </plurals>
+  <string name="less">أقل</string>
   <string name="more">المزيد</string>
   <string name="memberSince">مسجل منذ</string>
   <string name="lastSeenActive">آخر دخول %s</string>
@@ -1001,13 +1002,13 @@ https://lichess. org/report.</string>
   <string name="language">اللغة</string>
   <string name="allLanguages">كل اللغات</string>
   <string name="background">الخلفية</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">المظهر</string>
+  <string name="theme">المظهر</string>
   <string name="light">فاتح</string>
   <string name="dark">داكن</string>
   <string name="transparent">شفّاف</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">صورة</string>
+  <string name="picture">صورة</string>
   <string name="deviceTheme">مظهر الجهاز</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">استدارة الزوايا</string>
+  <string name="roundness">استدارة الزوايا</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="board">اللوحة</string>
   <string name="size">الحجم</string>
