@@ -154,15 +154,13 @@ final class TeamUpdateApi(
         "team" -> team,
         "subscribed" -> subscribed,
         "updates" -> updates,
-        "byTeam" -> fakePaginator(byTeam)
+        "byTeam" -> byTeam
       )
     def allRecent(msgs: TeamUpdate.Recent, byTeam: TeamUpdate.ByTeams): JsObject =
       Json.obj(
         "updates" -> msgs,
-        "byTeam" -> fakePaginator(byTeam)
+        "byTeam" -> byTeam
       )
-    private def fakePaginator[T](results: List[T]): Paginator[T] =
-      Paginator.fromResults(results, results.size, 1, MaxPerPage(100))
 
   object limiter:
 
