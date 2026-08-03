@@ -51,7 +51,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       ),
       label(cls := "appeal-info__agree")(
         input(tpe := "checkbox", cls := "appeal-info__agree-check"),
-        "I have read and agree to the terms stated above."
+        "I have read and agree to the terms stated above"
       ),
       div(cls := "form-actions")(
         a(href := s"#help-$id", cls := "button appeal-info__continue disabled")("Continue")
