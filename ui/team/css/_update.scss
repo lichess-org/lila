@@ -228,6 +228,7 @@ body {
 
     &__body {
       @extend %box-radius-bottom, %zalgoverflow;
+
       overflow-wrap: anywhere;
       white-space-collapse: preserve;
       padding: 1.5em 2em;
@@ -235,8 +236,8 @@ body {
 
       img {
         @extend %box-neat;
-        display: block;
 
+        display: block;
         max-width: 100%;
         max-height: 40vh;
       }
