@@ -7,7 +7,7 @@
   <string name="anastasiaMate">Анастазијин мат</string>
   <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују да заробе противничког краља између ивице табле и његове фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
-  <string name="arabianMateDescription">Скакач и топ се удружују како би заробили противничког краља на ћошку табле.</string>
+  <string name="arabianMateDescription">Скакач и топ се удруже како би заробили противничког краља на ћошку табле.</string>
   <string name="attackingF2F7">Нападање f2 или f7</string>
   <string name="attackingF2F7Description">Напад фокусиран на f2 или f7 пешака, као у фегатело отварању.</string>
   <string name="attraction">Привлачење</string>
@@ -52,7 +52,7 @@
   <string name="hangingPiece">Небрањена фигура</string>
   <string name="hangingPieceDescription">Тактика у којој је противничка фигура небрањена или недовољно брањена и слободна за узимање.</string>
   <string name="hookMate">Кукасти мат</string>
-  <string name="hookMateDescription">Мат топом, коњем и пешаком, при чему један противнички пешак онемогућава бег противничком краљу.</string>
+  <string name="hookMateDescription">Шах-мат топом, скакачем и пешаком заједно са једним противничким пешаком да ограничи бег противничком краљу.</string>
   <string name="interference">Пресецање</string>
   <string name="interferenceDescription">Померање своје између две противничке фигуре да оставиш једну или обе противничке фигуре небрањене, као скакач на одбрањеном пољу између два топа.</string>
   <string name="intermezzo">Међупотез</string>

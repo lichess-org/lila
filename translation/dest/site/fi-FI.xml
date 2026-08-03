@@ -828,13 +828,13 @@
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>
   <string name="background">Tausta</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Teema</string>
+  <string name="theme">Teema</string>
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
   <string name="transparent">Läpinäkyvä</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Kuva</string>
+  <string name="picture">Kuva</string>
   <string name="deviceTheme">Laitteen teema</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Pyöreys</string>
+  <string name="roundness">Pyöreys</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
   <string name="board">Lauta</string>
   <string name="size">Koko</string>
