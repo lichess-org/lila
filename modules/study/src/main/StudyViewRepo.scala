@@ -3,7 +3,6 @@ package lila.study
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 
-
 final private[study] class StudyViewRepo(private val coll: AsyncColl)(using Executor):
 
   private def makeId(studyId: StudyId, userId: UserId) = s"$studyId/$userId"
