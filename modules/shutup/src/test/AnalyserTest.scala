@@ -110,7 +110,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("sеx"), List("sex"))
 
   test("russian"):
-    assertEquals(find("сука пизда пиздюк"), List("сука", "пизда", "пиздюк"))
+    assertEquals(find("сука пидор пидорас пизда пиздюк"), List("сука", "пидор", "пидорас", "пизда", "пиздюк"))
 
   test("russian with punctuation"):
     assertEquals(find("сука! ?пизда"), List("сука", "пизда"))
