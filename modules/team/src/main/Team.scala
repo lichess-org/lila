@@ -74,7 +74,7 @@ object Team:
       member: Option[TeamMember],
       myRequest: Option[TeamRequest],
       requests: List[RequestWithUser],
-      update: Option[TeamUpdate[?]]
+      update: Option[TeamUpdate[?, UserId]]
   ):
     val mine = member.isDefined
     val ledByMe = member.exists(_.perms.nonEmpty)

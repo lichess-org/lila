@@ -8,6 +8,7 @@ import scalalib.paginator.AdapterLike
 private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
+  import TeamUpdate.*
 
   private val history = 90.days
   private def historyAgo = nowInstant.minus(history)
@@ -17,7 +18,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   // never load the seenBy field in memory! it could be huge
   // private val project = $doc("seenBy" -> false)
 
-  def send(msg: TeamUpdate[TeamId], unsubed: List[UserId]): Funit =
+  def send(msg: DbTeamUpdate, unsubed: List[UserId]): Funit =
     val bson = toBdoc(msg).get ++ $doc("seenBy" -> unsubed)
     coll.insert.one(bson).void
 
@@ -38,21 +39,21 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def teamLatest(team: TeamId): Fu[Option[TeamUpdate[TeamId]]] =
+  def teamLatest(team: TeamId): Fu[Option[DbTeamUpdate]] =
     coll.secondary
       .find(teamSelect(team) ++ dateSelect)
       .sort($sort.desc("date"))
-      .one[TeamUpdate[TeamId]]
+      .one[DbTeamUpdate]
 
-  def teamRecent(team: TeamId)(using Me): AdapterLike[TeamUpdateSeen[TeamId]] =
+  def teamRecent(team: TeamId)(using Me): AdapterLike[DbTeamUpdateSeen] =
     allRecent(Team.IdsStr(List(team)))
 
-  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[TeamUpdateSeen[TeamId]] = new:
+  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[DbTeamUpdateSeen] = new:
     private val teamSelector = teams.toArray match
       case Array(single) => teamSelect(single)
       case many => $doc("team".$in(many))
     def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
-    def slice(offset: Int, length: Int): Fu[List[TeamUpdateSeen[TeamId]]] =
+    def slice(offset: Int, length: Int): Fu[List[DbTeamUpdateSeen]] =
       coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
@@ -66,7 +67,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
         .map: docs =>
           for
             doc <- docs
-            msg <- doc.asOpt[TeamUpdate[TeamId]]
+            msg <- doc.asOpt[DbTeamUpdate]
             seen <- doc.getAsOpt[Boolean]("seenBy")
           yield TeamUpdateSeen(msg, seen)
 
