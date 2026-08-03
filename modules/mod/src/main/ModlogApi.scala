@@ -248,9 +248,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def modMessage(user: UserId, subject: String)(using MyId) = add:
     Modlog(user.some, Modlog.modMessage, details = subject.some)
 
-  def coachReview(coach: UserId, author: UserId)(using MyId) = add:
-    Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
-
   private def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
