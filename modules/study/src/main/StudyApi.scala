@@ -19,6 +19,7 @@ import cats.mtl.Handle.*
 final class StudyApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
+    viewRepo: StudyViewRepo,
     sequencer: StudySequencer,
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
@@ -81,9 +82,14 @@ final class StudyApi(
 
   def byIdWithChapterForUser(id: StudyId, userId: Option[UserId]): Fu[Option[Study.WithChapter]] =
     byId(id).flatMapz: study =>
-      val resumeChapterId =
-        (!study.settings.sticky).so(userId.flatMap(study.members.get).flatMap(_.lastChapterId))
-      resumeChapterId.fold(byIdWithChapter(id))(byIdWithChapterOrFallback(id, _))
+      val resumeChapterId: Fu[Option[StudyChapterId]] =
+        if study.settings.sticky then fuccess(none)
+        else
+          userId.so: u =>
+            study.members.get(u) match
+              case Some(member) => fuccess(member.lastChapterId)
+              case None => viewRepo.lastChapter(id, u)
+      resumeChapterId.flatMap(_.fold(byIdWithChapter(id))(byIdWithChapterOrFallback(id, _)))
 
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo.firstByStudy(id))
@@ -231,10 +237,11 @@ final class StudyApi(
           busChan = _.study
         )
 
-  // private per-member bookmark, not broadcast to other clients
-  def setMemberLastChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who): Funit =
+  // private per-user bookmark, not broadcast to other clients
+  def setViewedChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who): Funit =
     byId(studyId).flatMapz: study =>
-      study.isMember(who.u).so(studyRepo.setMemberLastChapter(study, who.u, chapterId))
+      if study.isMember(who.u) then studyRepo.setMemberLastChapter(study, who.u, chapterId)
+      else viewRepo.setLastChapter(studyId, who.u, chapterId)
 
   def setPath(studyId: StudyId, position: Position.Ref)(who: Who): Funit =
     sequenceStudy(studyId): study =>
@@ -431,7 +438,13 @@ final class StudyApi(
             (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who.is(userId)))
           }
           allowed.so:
-            for _ <- studyRepo.removeMember(study.id, userId)
+            for
+              // preserve the bookmark across the member -> viewer transition
+              _ <- study.members
+                .get(userId)
+                .flatMap(_.lastChapterId)
+                .so(viewRepo.setLastChapter(study.id, userId, _))
+              _ <- studyRepo.removeMember(study.id, userId)
             yield onMembersChange(study, (study.members - userId), study.members.ids)
 
   export studyRepo.{ isMember, isContributor }
