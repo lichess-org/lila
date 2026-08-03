@@ -227,10 +227,19 @@ body {
     }
 
     &__body {
-      @extend %box-radius-bottom;
-
+      @extend %box-radius-bottom, %zalgoverflow;
+      overflow-wrap: anywhere;
+      white-space-collapse: preserve;
       padding: 1.5em 2em;
       background: $c-bg-zebra;
+
+      img {
+        @extend %box-neat;
+        display: block;
+
+        max-width: 100%;
+        max-height: 40vh;
+      }
     }
 
     &__info {
