@@ -29,7 +29,7 @@
     align-items: center;
     min-width: 112px;
     height: 40px;
-    border-radius: 6px 6px 0 0;
+    border-radius: $box-radius-size $box-radius-size 0 0;
     border: 1px solid transparent;
     border-bottom: none;
     background: transparent;
@@ -100,7 +100,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.8em 1em 0;
-    border-radius: 6px 6px 24px 6px;
+    border-radius: $box-radius-size;
     background: $c-bg-preview;
   }
 

@@ -6,26 +6,29 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.paginator.Paginator
 
 import lila.memo.RateLimit.LimitResult
+import lila.core.LightUser
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.core.team.LightTeam
 import lila.db.dsl.{ *, given }
 
-case class TeamUpdate[T](
+case class TeamUpdate[T, U](
     @Key("_id") id: String,
     team: T,
     text: String,
-    senderId: UserId,
+    sender: U,
     date: Instant
     // seenBy: List[UserId] // in DB only, for querying
 )
 
 case class TeamUpdates[T](team: T, unread: Int, last: Instant)
 
-case class TeamUpdateSeen[T](msg: TeamUpdate[T], seen: Boolean)
+case class TeamUpdateSeen[T, U](msg: TeamUpdate[T, U], seen: Boolean)
 
 object TeamUpdate:
-  type Recent = Paginator[TeamUpdateSeen[LightTeam]]
+  type Recent = Paginator[TeamUpdateSeen[LightTeam, LightUser]]
   type ByTeams = List[TeamUpdates[LightTeam]]
+  type DbTeamUpdate = TeamUpdate[TeamId, UserId]
+  type DbTeamUpdateSeen = TeamUpdateSeen[TeamId, UserId]
 
 final class TeamUpdateApi(
     msgRepo: TeamUpdateRepo,
@@ -33,10 +36,12 @@ final class TeamUpdateApi(
     userRepo: lila.core.user.UserRepo,
     cached: TeamCached,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi,
+    lightUserApi: lila.core.user.LightUserApi,
     notifyApi: NotifyApi,
     spam: lila.core.security.SpamApi
 )(using Executor, Scheduler, Materializer):
 
+  import TeamUpdate.*
   import TeamUpdateApi.*
 
   export msgRepo.{ markSeen, teamLatest }
@@ -48,17 +53,27 @@ final class TeamUpdateApi(
     for
       msgs <- Paginator(msgRepo.teamRecent(team.id), page, maxPerPage)
       _ <- msgs.currentPageResults.exists(!_.seen).so(msgRepo.markSeen(team.id))
-    yield msgs.map(msg => TeamUpdateSeen(msg.msg.copy(team = team.light), msg.seen))
+      senders <- pageSenders(msgs)
+    yield msgs.mapList: results =>
+      for
+        msg <- results
+        sender <- senders.get(msg.msg.sender)
+      yield TeamUpdateSeen(msg.msg.copy(team = team.light, sender = sender), msg.seen)
 
   def allRecent(page: Int)(using me: Me): Fu[TeamUpdate.Recent] = for
     teamIds <- cached.teamIds(me.userId)
     msgs <- Paginator(msgRepo.allRecent(teamIds), page, maxPerPage)
     teams <- cached.lightMapById(msgs.currentPageResults.view.map(_.msg.team).toList)
+    senders <- lightUserApi.asyncIdMapFallback(msgs.currentPageResults.view.map(_.msg.sender).toSet)
   yield msgs.mapList: results =>
     for
       msg <- results
       team <- teams.get(msg.msg.team)
-    yield TeamUpdateSeen(msg.msg.copy(team = team), msg.seen)
+      sender <- senders.get(msg.msg.sender)
+    yield TeamUpdateSeen(msg.msg.copy(team = team, sender = sender), msg.seen)
+
+  private def pageSenders(pager: Paginator[DbTeamUpdateSeen]): Fu[LightUser.IdMap] =
+    lightUserApi.asyncIdMapFallback(pager.currentPageResults.view.map(_.msg.sender).toSet)
 
   def byTeams(using me: Me): Fu[TeamUpdate.ByTeams] = for
     teamIds <- cached.teamIds(me.userId)
@@ -78,11 +93,11 @@ final class TeamUpdateApi(
     else Left("You already sent this message recently")
 
   private def doSend(id: TeamId, text: String)(using me: Me): Funit =
-    val msg = TeamUpdate[TeamId](
+    val msg = TeamUpdate[TeamId, UserId](
       id = scalalib.ThreadLocalRandom.nextString(8),
       team = id,
       text = spam.replace(text),
-      senderId = me.userId,
+      sender = me.userId,
       date = nowInstant
     )
     for
@@ -124,9 +139,10 @@ final class TeamUpdateApi(
   object json:
     import play.api.libs.json.*
     import scalalib.Json.given
+    import lila.common.Json.given
     private given OWrites[LightTeam] = Json.writes
-    private given OWrites[TeamUpdate[LightTeam]] = Json.writes
-    private given OWrites[TeamUpdateSeen[LightTeam]] = Json.writes
+    private given OWrites[TeamUpdate[LightTeam, LightUser]] = Json.writes
+    private given OWrites[TeamUpdateSeen[LightTeam, LightUser]] = Json.writes
     private given OWrites[TeamUpdates[LightTeam]] = Json.writes
     def teamRecent(
         updates: TeamUpdate.Recent,
@@ -138,15 +154,13 @@ final class TeamUpdateApi(
         "team" -> team,
         "subscribed" -> subscribed,
         "updates" -> updates,
-        "byTeam" -> fakePaginator(byTeam)
+        "byTeam" -> byTeam
       )
     def allRecent(msgs: TeamUpdate.Recent, byTeam: TeamUpdate.ByTeams): JsObject =
       Json.obj(
         "updates" -> msgs,
-        "byTeam" -> fakePaginator(byTeam)
+        "byTeam" -> byTeam
       )
-    private def fakePaginator[T](results: List[T]): Paginator[T] =
-      Paginator.fromResults(results, results.size, 1, MaxPerPage(100))
 
   object limiter:
 

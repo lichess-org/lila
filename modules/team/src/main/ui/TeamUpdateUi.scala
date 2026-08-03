@@ -60,7 +60,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
           )
         )
 
-  def teamLatest(team: Team, msg: TeamUpdate[?])(using Context) =
+  def teamLatest(team: Team, msg: TeamUpdate[?, UserId])(using Context) =
     st.section(cls := "team-show__update")(
       h2(
         a(dataIcon := Icon.InkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(trt.teamUpdates())
@@ -68,7 +68,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
       div(cls := "team-show__update__last")(
         div(cls := "team-show__update__meta")(
           momentFromNowOnce(msg.date),
-          span(trans.site.by(userIdLink(msg.senderId.some)))
+          span(trans.site.by(userIdLink(msg.sender.some)))
         ),
         div(cls := "team-show__update__body")(richText(msg.text, expandImg = false)),
         a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(trans.site.more(), " »")
@@ -89,7 +89,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
             teamLink(msg.team, withIcon = false),
             div(cls := "team-update__convo__update__meta")(
               momentFromNowOnce(msg.date),
-              span(trans.site.by(userIdLink(msg.senderId.some)))
+              span(trans.site.by(lightUserLink(msg.sender)))
             )
           ),
           div(cls := "team-update__convo__update__body")(richText(msg.text))
