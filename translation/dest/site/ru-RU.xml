@@ -555,6 +555,7 @@
     <item quantity="many">подписан на %s игроков</item>
     <item quantity="other">подписан на %s игроков</item>
   </plurals>
+  <string name="less">Меньше</string>
   <string name="more">Ещё</string>
   <string name="memberSince">Дата регистрации</string>
   <string name="lastSeenActive">Был онлайн %s</string>
@@ -912,13 +913,13 @@
   <string name="language">Язык (Language)</string>
   <string name="allLanguages">Все языки</string>
   <string name="background">Тема</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Тема</string>
+  <string name="theme">Тема</string>
   <string name="light">Светлая</string>
   <string name="dark">Тёмная</string>
   <string name="transparent">Прозрачная</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Изображение</string>
+  <string name="picture">Изображение</string>
   <string name="deviceTheme">Системная</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Скругление</string>
+  <string name="roundness">Скругление</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
   <string name="board">Доска</string>
   <string name="size">Размер</string>

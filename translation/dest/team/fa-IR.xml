@@ -30,17 +30,11 @@
   <string name="willBeReviewed">درخواست عضویت شما توسط مسئول گروه بررسی خواهد شد.</string>
   <string name="beingReviewed">درخواست عضویت شما توسط مسئول گروه در حال بررسی می باشد.</string>
   <string name="requestDeclined">درخواست عضویت شما توسط رهبر تیم رد شد.</string>
-  <string name="subToTeamMessages">برای دریافت پیامهای تیم، نام‌نویسی کنید</string>
   <string name="teamBattle">مبارزه تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
   <string name="teamTournament">مسابقه تیمی</string>
   <string name="teamTournamentOverview">مسابقهٔ راوانی که فقط عضوهای تیم‌تان می‌توانند به آن بپیوندند</string>
   <string name="swissTournamentOverview">یک میدان مسابقه سوئیسی که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
-  <string name="messageAllMembers">پیام به همه ی اعضا</string>
-  <string name="messageAllMembersOverview">یک پیام خصوصی به هر یک از اعضای تیم ارسال نمایید</string>
-  <string name="messageAllMembersLongDescription">یک پیام خصوصی به تمام اعضای تیم بفرستید.
-شما می‌توانید از این امکان برای فراخوانی بازیکنان برای پیوستن به یک مسابقه یا یک مبارزه تیمی استفاده کنید.
-بازیکنانی که علاقه ندارند پیامهای شما را دریافت کنند ممکن است تیم را ترک کنند.</string>
   <string name="teamsIlead">تیم هایی که رهبری می کنم</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">شما می‌خواهید آدرس اینترنتی یکی از مسابقات آتی را قرار دهید؟</string>
   <string name="leadersChat">گپِ سرگروهان</string>

@@ -485,6 +485,7 @@
     <item quantity="one">%s følger</item>
     <item quantity="other">%s følger</item>
   </plurals>
+  <string name="less">Færre</string>
   <string name="more">Mere</string>
   <string name="memberSince">Medlem siden</string>
   <string name="lastSeenActive">Sidst logget ind %s</string>

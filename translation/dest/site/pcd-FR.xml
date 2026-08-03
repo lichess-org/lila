@@ -485,6 +485,7 @@
     <item quantity="one">%s suivi</item>
     <item quantity="other">%s suivis</item>
   </plurals>
+  <string name="less">Moins de choix</string>
   <string name="more">Plus</string>
   <string name="memberSince">Membre depuis</string>
   <string name="lastSeenActive">Actif %s</string>
@@ -828,13 +829,13 @@
   <string name="language">Langue</string>
   <string name="allLanguages">Toutes les langues</string>
   <string name="background">Arrière-plan</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">Thème</string>
+  <string name="theme">Thème</string>
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">Photo</string>
+  <string name="picture">Photo</string>
   <string name="deviceTheme">Thème de l\'appareil</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">Coins arrondis</string>
+  <string name="roundness">Coins arrondis</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="board">Échiquier</string>
   <string name="size">Taille</string>

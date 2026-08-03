@@ -79,4 +79,8 @@
   <string name="monetiseNoMarketingEmail">마케팅이나 트래킹, 광고 등에 관해서 이메일로 문의하지 말아 주십시오.</string>
   <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">저희는 모든 분이 %s하기를 권장합니다.</string>
   <string name="monetiseBlockAllAdsAndTrackers">모든 광고와 트래커를 차단</string>
+  <string name="broadcastTournamentOnLichess">Lichess에서 토너먼트 방송하기</string>
+  <string name="ifYouWantToBroadcastClause1">만약 Lichess에서 토너먼트를 공식적으로 방송하고 싶거나, 방송에 대해 질문이 있으시다면:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">%1$s 혹은 %2$s에서 방송 팀에게 문의하세요.</string>
+  <string name="ourDiscordServer">저희 디스코드 서버</string>
 </resources>
