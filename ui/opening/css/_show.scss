@@ -54,7 +54,7 @@
     }
 
     &__result {
-      @extend %box-radius-left;
+      @extend %box-radius-left, %box-shadow;
 
       overflow: hidden;
     }
