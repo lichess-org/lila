@@ -1,6 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import { licon } from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
@@ -298,11 +298,11 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       },
       name,
     );
-  const active = (nodes: LooseVNodes, title: string) =>
+  const active = (nodes: LooseVNodes, title: string, icon: LiconValue) =>
     hl(
       'span.active.text.' + db,
       {
-        attrs: { title, ...dataIcon(licon.Book) },
+        attrs: { title, ...dataIcon(icon) },
         hook: db === 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
       },
       nodes,
@@ -314,10 +314,10 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   const queuePosition = data && isOpening(data) && data.queuePosition;
   return hl('div.explorer-title', [
     db === 'masters'
-      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation)
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, licon.Book)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], lichessDbExplanation)
+      ? active([hl('strong', 'Lichess'), ' database'], lichessDbExplanation, licon.Logo)
       : otherLink('Lichess', lichessDbExplanation),
     db === 'player'
       ? playerName
@@ -336,8 +336,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                 }),
             ],
             i18n.site.switchSides,
+            licon.User,
           )
-        : active([hl('strong', 'Player'), ' database'], '')
+        : active([hl('strong', 'Player'), ' database'], '', licon.User)
       : hl(
           'button.button-link.player',
           {

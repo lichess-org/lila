@@ -51,6 +51,9 @@
     line-height: 1.9em;
     padding: 0;
     background: color-mix(in oklab, $c-secondary 30%, $c-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 
     .ddloader {
       padding-inline-start: 7px;
