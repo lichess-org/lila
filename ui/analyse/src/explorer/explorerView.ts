@@ -128,7 +128,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
           : hl('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
               ctrl.explorer.opts.showRatings &&
                 hl(
-                  'td',
+                  'td.game-rating',
                   [game.white, game.black].map(p => hl('span', p.rating)),
                 ),
               hl(
@@ -136,9 +136,9 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
                 [game.white, game.black].map(p => hl('span', p.name)),
               ),
               hl('td', showResult(game.winner)),
-              hl('td', game.month || game.year),
+              hl('td.game-date', game.month || game.year),
               !isMasters &&
-                hl('td', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
+                hl('td.game-type', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
             ]),
       ),
     ),

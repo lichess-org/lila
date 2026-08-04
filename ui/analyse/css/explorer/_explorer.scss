@@ -245,16 +245,22 @@
     td {
       @include padding-direction(5px, 0, 5px, 7px);
 
-      max-width: 110px;
-
-      &:nth-child(2) {
-        max-width: none;
-      }
-
       span {
         @extend %ellipsis;
 
         display: block;
+      }
+
+      &.game-rating {
+        width: 40px;
+      }
+
+      &.game-type {
+        width: 28px;
+      }
+
+      &.game-date {
+        width: 60px;
       }
     }
 
