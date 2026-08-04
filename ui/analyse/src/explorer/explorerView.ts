@@ -287,15 +287,21 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 
 const explorerTitle = (ctrl: AnalyseCtrl) => {
   const explorer = ctrl.explorer;
-  const configOpened = explorer.config.data.open();
+  const config = explorer.config;
+  const configOpened = config.data.open();
+  const playerName = config.data.playerName.value();
+  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01');
   const db = explorer.db();
+  const data = explorer.current();
+  const queuePosition = data && isOpening(data) && data.queuePosition;
+
   const otherLink = (name: string, title: string) =>
     hl(
       'button.button-link',
       {
         key: name,
         attrs: { title },
-        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), ctrl.redraw),
+        hook: bind('click', () => config.data.db(name.toLowerCase() as ExplorerDb), ctrl.redraw),
       },
       name,
     );
@@ -304,30 +310,26 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
       'span.active.text.' + db,
       {
         attrs: { title, ...dataIcon(icon) },
-        hook: db === 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
+        hook: db === 'player' ? bind('click', config.toggleColor, explorer.reload) : undefined,
       },
       nodes,
     );
-  const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01'),
-    lichessDbExplanation = i18n.site.lichessDbExplanation;
-  const data = explorer.current();
-  const queuePosition = data && isOpening(data) && data.queuePosition;
+
   return hl('div.explorer-title', [
     db === 'masters'
       ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, licon.Book)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], lichessDbExplanation, licon.Logo)
-      : otherLink('Lichess', lichessDbExplanation),
+      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, licon.Logo)
+      : otherLink('Lichess', i18n.site.lichessDbExplanation),
     db === 'player'
       ? playerName
         ? active(
             [
               hl(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+              ` ${i18n.site[config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
-                !explorer.config.data.open() &&
+                !configOpened &&
                 hl('icon.ddloader', {
                   attrs: {
                     title: queuePosition
@@ -347,10 +349,10 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
             hook: bind(
               'click',
               () => {
-                explorer.config.selectPlayer(playerName || 'me');
+                config.selectPlayer(playerName || 'me');
                 if (explorer.db() !== 'player') {
-                  explorer.config.data.db('player');
-                  explorer.config.data.open(true);
+                  config.data.db('player');
+                  config.data.open(true);
                 }
               },
               explorer.reload,
@@ -363,7 +365,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
         'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
         ...dataIcon(configOpened ? licon.X : licon.Gear),
       },
-      hook: bind('click', () => explorer.config.toggleOpen(), ctrl.redraw),
+      hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
     }),
   ]);
 };
