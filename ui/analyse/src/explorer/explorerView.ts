@@ -301,7 +301,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
       {
         key: name,
         attrs: { title },
-        hook: bind('click', () => config.data.db(name.toLowerCase() as ExplorerDb), ctrl.redraw),
+        hook: bind('click', () => config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
       },
       name,
     );
