@@ -98,11 +98,11 @@ object NewTree:
     ChessNode(value, child, variations)
 
   def apply(root: Root): Option[NewTree] =
-    root.children.first.map: first =>
+    root.children.mainlineFirst.map: first =>
       NewTree(
         value = fromBranch(first),
         child = first.children.first.map(fromBranch(_, first.children.variations)),
-        variations = root.children.variations.map(toVariation)
+        variations = (root.children.variations ::: root.children.forceVariations).map(toVariation)
       )
 
   def toVariation(branch: Branch): Variation[NewBranch] =
