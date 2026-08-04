@@ -301,7 +301,16 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
       {
         key: name,
         attrs: { title },
-        hook: bind('click', () => config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
+        hook: bind(
+          'click',
+          () => {
+            config.data.db(name.toLowerCase() as ExplorerDb);
+            document.querySelector('.explorer-box')?.scrollTo({
+              top: 0,
+            });
+          },
+          explorer.reload,
+        ),
       },
       name,
     );
