@@ -10,13 +10,13 @@
 
     background: $c-bg-zebra;
     position: relative;
-    outline: 3px solid color-mix(in oklab, $c-font 30%, $c-bg);
+    outline: 1px solid color-mix(in oklab, $c-font 30%, $c-bg);
     cursor: pointer;
     color: $c-font;
     overflow: hidden;
 
     &:hover {
-      outline: 3px solid color-mix(in oklab, $c-primary 60%, $c-bg);
+      outline-color: color-mix(in oklab, $c-primary 60%, $c-bg);
       background: color-mix(in oklab, $c-primary 10%, $c-bg-zebra);
       box-shadow: 0 0 30px color-mix(in oklab, $c-primary 50%, $c-bg);
 
