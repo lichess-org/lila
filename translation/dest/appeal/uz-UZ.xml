@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Akkauntingizda hech qanday cheklov yoki belgi yoʻq. Hammasi joyida!</string>
-  <string name="engineMarked">Akkauntingiz tashqi yordamdan foydalanganlikda gumon qilinmoqda.</string>
+  <string name="engineMarked">Akkauntingiz oʻyinlarda dvijok/kompyuter yordamidan foydalanganlik uchun cheklandi.</string>
   <string name="engineMarkedInfo">Raqibingizdan ustun kelish maqsadida har qanday tashqi yordamdan foydalanib, bilimingiz yoki hisoblash qobiliyatingizni sunʼiy oshirishni biz gʻirromlik deb hisoblaymiz. Batafsil maʼlumot %s sahifasida.</string>
   <string name="arenaBanned">Akkauntingiz arenalarga qoʻshilishdan bloklangan.</string>
   <string name="prizeBanned">Akkauntingiz qimmatbaho sovrinli turnirlarda qatnashish huquqidan mahrum qilingan.</string>
-  <string name="boosterMarked">Akkauntingiz reytingni sunʼiy oʻzgartirganlik uchun belgilangan.</string>
-  <string name="boosterMarkedInfo">Oʻyinlarda ataylab yutqazish yoki ataylab yutqazib berayotganlar bilan oʻynash orqali reytingni soxtalashtirish gʻirromlik hisoblanadi.</string>
+  <string name="boosterMarked">Akkauntingiz reytingni manipulyatsiya qilish/akkauntni boshqalar bilan boʻlishilgani uchun cheklandi.</string>
   <string name="accountMuted">Chatdan foydalana olmaysiz.</string>
   <string name="accountMutedInfo">%s bilan tanishib chiqing. Muloqot qoidalariga amal qilmaslik chat imkoniyatining cheklanishiga olib kelishi mumkin.</string>
   <string name="excludedFromLeaderboards">Akkauntingiz peshqadamlar jadvalidan chiqarilgan.</string>
-  <string name="excludedFromLeaderboardsInfo">Biz buni peshqadamlar jadvaliga kirish uchun har qanday gʻirrom yoʻllardan foydalanish deb hisoblaymiz.</string>
+  <string name="onlyOneAccountOnLeaderboards">Peshqadamlar jadvalida har bir kishi uchun faqat bitta hisob koʻrinishi mumkin.</string>
   <string name="closedByModerators">Akkauntingiz moderatorlar tomonidan yopildi.</string>
-  <string name="hiddenBlog">Bloglaringiz moderatorlar tomonidan yashirib qoʻyildi.</string>
-  <string name="hiddenBlogInfo">%s bilan qayta tanishib chiqishingizni soʻraymiz.</string>
+  <string name="blogRestriction">Sizda blog cheklovi bor.</string>
+  <string name="blogRestrictionInfo">%s bilan tanishib chiqing, ushbu qoidalarni buzish turli choralar koʻrilishiga olib kelishi mumkin.</string>
   <string name="playTimeout">Oʻyinlardan vaqtinchalik chetlatildingiz.</string>
+  <string name="reportBanned">Moderatorlarga shikoyat yubora olmaysiz</string>
+  <string name="reportBannedInfo">Biz shikoyat tizimimizdan suiisteʼmol qilish holatlarini payqadik. Bu har xil sabablarga koʻra boʻlishi mumkin, masalan, notoʻgʻri kategoriyalarni qayta va qayta tanlash, behayo, nomunosib yoki haqoratli tildan foydalanish, haddan tashqari o\'yinlarni shikoyat qilish yoki nima uchun raqib qoidalarni buzdi deb oʻylashingizni koʻrsatmaslik.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Akkauntingiz oʻynashdan vaqtinchalik cheklangan.</string>
   <string name="communicationGuidelines">Muloqot qoidalari</string>
-  <string name="blogRules">Blog yuritish qoidalari</string>
+  <string name="blogEtiquette">Blog odobi</string>
   <string name="fairPlay">Halol oʻyin</string>
 </resources>

@@ -485,6 +485,7 @@
     <item quantity="one">%s دنبالیده</item>
     <item quantity="other">%s دنبال‌شده</item>
   </plurals>
+  <string name="less">کمتر</string>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
@@ -829,13 +830,13 @@
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>
   <string name="background">زمینه</string>
-  <string name="theme" comment="A menu option which lets you select the background colour and other theme-related options.">پوسته</string>
+  <string name="theme">پوسته</string>
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
-  <string name="picture" comment="An option to set the background on lichess.org to a custom image.">تصویر</string>
+  <string name="picture">تصویر</string>
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
-  <string name="roundness" comment="A menu option which lets you select how round or square the corners are in different elements of the user interface.">گِردی</string>
+  <string name="roundness">گِردی</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="board">میز</string>
   <string name="size">اندازه</string>

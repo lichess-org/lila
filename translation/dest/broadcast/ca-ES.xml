@@ -58,6 +58,7 @@
   <string name="subscribeTitle">Subscriviu-vos per ser notificats quan comença cada ronda. Podeu activar/desactivara la campana o modificar les notificacions push a les preferències del vostre compte.</string>
   <string name="uploadImage">Puja una imatge del torneig</string>
   <string name="noBoardsYet">Encara no hi ha taulers. Apareixeran en el moment que es carreguin les partides.</string>
+  <string name="noPlayersYet">Encara no hi ha jugadors. Apareixeran en el moment que es carreguin les partides.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Els taulers es poden carregar per codi o a través de %s</string>
   <string name="startsAfter">Començar a les %s</string>
   <string name="startVerySoon">La retransmissió començarà aviat.</string>
@@ -108,6 +109,6 @@
   <string name="tiebreaks">Desempats</string>
   <string name="gameX">Partida %s</string>
   <string name="knockouts">Eliminatòria</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">S%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">S%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">S%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">S%s</string>
 </resources>

@@ -149,6 +149,12 @@ Soʻngra, Lichessʼdan keladigan bildirishnomalarga ruxsat berish yoki ularni bl
 Brauzeringiz lichess.org saytiga ovoz chiqarishga ruxsat bermasa, ekranda qizil rangli ovozsiz (mute) belgisi paydo boʻladi. Odatda, biror tugmani bosishingiz bilan bu cheklov olib tashlanadi. Ayrim mobil brauzerlarida donani surish \"bosish\" hisobiga oʻtmaydi. Bunday holda, har bir oʻyin boshida ovozlar ishlashi uchun shunchaki taxta ustiga bir marta tegib qoʻyish kifoya.
 
 Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini koʻrsatamiz. Brauzer sozlamalarida lichess.org saytiga ovoz chiqarishga ruxsat berib qoʻyishingiz mumkin. Quyida eng ommabop brauzerlarning soʻnggi versiyalarida buni amalga oshirish boʻyicha koʻrsatmalar berilgan.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Brauzerlar foydalanuvchilarni himoya qilish uchun yangi tashrif buyurilgan sahifalarda ovozni avtomatik ijro etilishini taqiqlaydi.
+
+Brauzeringiz lichess.org saytiga ovoz chiqarishga ruxsat bermasa, ovozsiz belgisi paydo boʻladi. Bu cheklov odatda biror narsani bosganingizdan soʻng olib tashlanadi.
+Baʼzi mobil brauzerlarda donani surish bosish deb hisoblanmaydi. Bunday holda, har bir oʻyin boshida ovozga ruxsat berish uchun taxtaga tegishingiz kerak.
+
+Bu sodir boʻlganda sizni ogohlantirish uchun qizil ovozsiz belgisini koʻrsatamiz. Aksariyat brauzerlarda lichess.org uchun ovozlarni aniq belgilab ruxsat berishingiz mumkin. Baʼzi ommabop brauzerlarning soʻnggi versiyalarida veb‑saytga audio ijro etishga ruxsat berish boʻyicha koʻrsatmalar:</string>
   <string name="desktop">kompyuter versiyasi</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org saytiga kiring.
 2. Linux/Windowsʼda Ctrl‑i yoki MacOSʼda cmd‑i tugmalarini bosing.
@@ -158,6 +164,10 @@ Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini ko�
 2. Manzillar satridagi qulf belgisini bosing
 3. Sayt sozlamalari (Site Settings) boʻlimiga kiring
 4. Ovoz chiqarishga ruxsat bering</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. lichess.org saytiga oʻting
+2. Manzil satridagi sayt maʼlumotlari belgisini bosing
+3. Sayt sozlamalarini bosing
+4. Tovushga ruxsat bering</string>
   <string name="enableAutoplayForSoundsSafari">1. lichess.org saytiga kiring
 2. Menyular satridagi Safari tugmasini bosing
 3. lichess.org uchun sozlamalar... (Settings for lichess.org) boʻlimini tanlang

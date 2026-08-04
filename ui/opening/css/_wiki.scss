@@ -3,6 +3,7 @@
 
   background: $c-bg-zebra;
   flex: 2 1 auto;
+  overflow: hidden;
 
   &__markup {
     max-height: 220px;
@@ -16,11 +17,15 @@
 
     @include rendered-markdown(1em);
 
+    &::-webkit-scrollbar-track {
+      background: $c-bg-zebra;
+    }
+
     ul {
       padding: 0;
     }
 
-    h2:not(first-child) {
+    h2:not(:first-child) {
       line-height: 1.3em;
       padding-bottom: 0.4em;
     }

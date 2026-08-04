@@ -30,17 +30,11 @@
   <string name="willBeReviewed">La tua richiesta di adesione verrà esaminata dal leader del team.</string>
   <string name="beingReviewed">La tua richiesta di adesione è in fase di revisione da parte del leader del team.</string>
   <string name="requestDeclined">La tua richiesta d\'adesione è stata rifiutata da un capo del team.</string>
-  <string name="subToTeamMessages">Iscriviti ai messaggi del team</string>
   <string name="teamBattle">Battaglia di squadra</string>
   <string name="teamBattleOverview">Battaglia fra più squadre, ogni giocatore segna punti per la propria squadra</string>
   <string name="teamTournament">Torneo nel team</string>
   <string name="teamTournamentOverview">Un torneo Arena a cui solo i membri della tua squadra possono partecipare</string>
   <string name="swissTournamentOverview">Un torneo svizzero a cui posso unirsi solo i membri del tuo team</string>
-  <string name="messageAllMembers">Invia un messaggio a tutti i membri</string>
-  <string name="messageAllMembersOverview">Invia un messaggio privato ad ogni membro del team</string>
-  <string name="messageAllMembersLongDescription">Invia un messaggio privato a TUTTI i membri del team.
-Puoi usarlo per chiamare i giocatori a partecipare a un torneo o una battaglia di squadra.
-I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squadra.</string>
   <string name="teamsIlead">Squadre che conduco</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
   <string name="leadersChat">Chat dei leader</string>

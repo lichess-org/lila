@@ -18,14 +18,14 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 **CRITICAL**: These exact versions are required - the build will fail without them:
 
 - **Java 21** (JDK, not JRE - needs jdk.compiler module)
-- **Node.js 24.14.0+** (specified in `.node-version`)
-- **PNPM 11.15.0+** (specified in `package.json`)
+- **Node.js 24.15.0+** (specified in `.node-version`)
+- **PNPM 11.18.0+** (specified in `package.json`)
 
 **Installation:**
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@11.15.0
+npm install -g pnpm@11.18.0
 
 # Install dependencies (always run this first)
 pnpm install
@@ -125,9 +125,9 @@ pnpm lint:fix
 
 ## Common Issues & Solutions
 
-**Node Version Error:** `Nodejs v24.14.0 or later is required`
+**Node Version Error:** `Nodejs v24.15.0 or later is required`
 
-- Install Node 24.14+ using nvm or package manager
+- Install Node 24.15+ using nvm or package manager
 - Check with: `node -v`
 
 **Java Version Issues:**
