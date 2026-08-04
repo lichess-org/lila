@@ -301,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Jeśli nie otrzymasz wiadomości e-mail z potwierdzeniem, sprawdź folder Spam lub Śmieci. Upewnij się, że oznaczyłeś wiadomości z lichess.org jako bezpieczne i \"to nie spam\", dzięki czemu będziesz mógł otrzymywać ważne komunikaty.</string>
   <string name="sendEmailForAccountVerification">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
@@ -554,6 +555,7 @@
     <item quantity="many">%s obserwowanych</item>
     <item quantity="other">%s obserwowanych</item>
   </plurals>
+  <string name="less">Mniej</string>
   <string name="more">Więcej</string>
   <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>

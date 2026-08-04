@@ -35,6 +35,9 @@
   <string name="teamTournament">Torneig d\'equip</string>
   <string name="teamTournamentOverview">Torneig Arena on només membres del teu equip poden inscriure\'s</string>
   <string name="swissTournamentOverview">Torneig Suís on només membres del teu equip es poden inscriure</string>
+  <string name="teamUpdates">Actualitzacions de l’equip</string>
+  <string name="subToTeamUpdates">Subscriu-te les actualitzacions de l\'equip</string>
+  <string name="newTeamUpdate">Nova actualització de l\'equip</string>
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="leadersChat">Xat de capitans</string>
