@@ -35,6 +35,9 @@
   <string name="teamTournament">Jamoa turniri</string>
   <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Arena turniri</string>
   <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan shveysarcha turnir</string>
+  <string name="teamUpdates">Jamoa yangiliklari</string>
+  <string name="subToTeamUpdates">Jamoa yangiliklariga obuna boʻlish</string>
+  <string name="newTeamUpdate">Jamoada yangilik</string>
   <string name="teamsIlead">Men boshqaradigan jamoalar</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qoʻshasizmi?</string>
   <string name="leadersChat">Sardorlar chati</string>
