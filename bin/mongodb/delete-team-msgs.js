@@ -1,5 +1,9 @@
 // only delete team messages when the entire conversations is made of team messages
 
+// TODO move mongosh log
+// https://www.mongodb.com/docs/mongodb-shell/logs/location/#std-label-mongosh-log-location
+// config.set("logLocation", "/dev/null") ? requires mongosh restart and is global
+
 const until = new Date(Date.now() - 1000 * 3600 * 24 * 30); // 30 days ago
 const teamTextRegex =
   /You received this (because you are subscribed to messages of the team|message because you are part of the team)/;
