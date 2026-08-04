@@ -38,7 +38,7 @@ Some issues that need artwork and documentation to be resolved are tagged [`nont
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
 3. It is not a trivial problem or demands unrealistic dev time to fix. Such issues may be closed.
 
-Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/lichobile).
+Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/mobile).
 
 ## I want to suggest a feature for Lichess
 
