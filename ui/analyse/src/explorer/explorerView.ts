@@ -389,7 +389,7 @@ const showConfig = (ctrl: AnalyseCtrl): VNode =>
 
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
-    hl('div.title', showTitle(ctrl.data.game.variant)),
+    explorerTitle(ctrl),
     hl('div.message', [
       hl('h3', 'Oops, sorry!'),
       hl('p.explanation', ctrl.explorer.failing()?.toString()),
