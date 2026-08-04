@@ -49,12 +49,13 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    design = AuthCustomUi(
-      name = "Take Take Take",
-      imagePath = "images/t3-logo.svg",
-      cssClass = "takex3",
-      lang = lila.core.i18n.enUsLang
-    ).some
+    design = Some:
+      AuthCustomUi(
+        name = "Take Take Take",
+        imagePath = "images/t3-logo.svg",
+        cssClass = "takex3",
+        lang = lila.core.i18n.enUsLang
+      )
   )
 
   def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using

@@ -38,6 +38,9 @@
   <string name="teamTournament">Turneu de echipă</string>
   <string name="teamTournamentOverview">Un turneu de arenă în care doar membri echipei tale pot intra</string>
   <string name="swissTournamentOverview">Un turneu elvețian în care doar membrii echipei tale se pot alătura</string>
+  <string name="teamUpdates">Anunțuri în echipă</string>
+  <string name="subToTeamUpdates">Abonează-te la anunțurile din echipă</string>
+  <string name="newTeamUpdate">Nou anunț în echipă</string>
   <string name="teamsIlead">Echipe pe care le-am condus</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Ai vrea să legi unul dintre aceste turnee viitoare?</string>
   <string name="leadersChat">Chat-ul liderilor</string>
