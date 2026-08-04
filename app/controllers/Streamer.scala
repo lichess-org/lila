@@ -18,7 +18,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         val language = lang.map(lila.core.i18n.Language.apply)
         for
           liveStreams <- env.streamer.liveApi.all
-          filteredLive = language.fold(liveStreams)(l => LiveStreams(liveStreams.streams.filter(_.language == l)))
+          filteredLive = language.fold(liveStreams)(l =>
+            LiveStreams(liveStreams.streams.filter(_.language == l))
+          )
           live <- api.withUsers(filteredLive)
           pager <- env.streamer.pager.get(page, liveStreams, requests, language)
           langCodes <- env.streamer.api.allLanguages

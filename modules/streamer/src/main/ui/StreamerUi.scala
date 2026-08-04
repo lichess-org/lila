@@ -103,10 +103,8 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                 np =>
                   addQueryParams(
                     routes.Streamer.index().url,
-                    Map(
-                      "page" -> np.toString,
-                      "requests" -> (if requests then 1 else 0).toString ) ++ lang.map(l => "lang" -> l.value
-                    )
+                    Map("page" -> np.toString, "requests" -> (if requests then 1 else 0).toString) ++ lang
+                      .map(l => "lang" -> l.value)
                   )
               )
             )

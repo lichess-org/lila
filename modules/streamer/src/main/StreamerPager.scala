@@ -32,7 +32,9 @@ final class StreamerPager(
     "_id"
   )
 
-  private def notLive(live: LiveStreams, lang: Option[Language])(using me: Option[MyId]): AdapterLike[Streamer.WithContext] = new:
+  private def notLive(live: LiveStreams, lang: Option[Language])(using
+      me: Option[MyId]
+  ): AdapterLike[Streamer.WithContext] = new:
 
     def nbResults: Fu[Int] = fuccess(1000)
 
@@ -49,8 +51,10 @@ final class StreamerPager(
           ) -> List(
             Sort(Descending("liveAt")),
             Skip(offset),
-            Limit(length), /*  was hardcoded to 3, causing Skip's offset (based on maxPerPage) to overshoot and silently drop streamers between pages, like 20
-            */
+            Limit(
+              length
+            ), /*  was hardcoded to 3, causing Skip's offset (based on maxPerPage) to overshoot and silently drop streamers between pages, like 20
+             */
             PipelineOperator(userLookup),
             UnwindField("user")
           )
