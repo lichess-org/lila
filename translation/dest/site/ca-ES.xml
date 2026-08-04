@@ -485,6 +485,7 @@
     <item quantity="one">Seguint %s jugadors</item>
     <item quantity="other">Seguint %s jugadors</item>
   </plurals>
+  <string name="less">Menys</string>
   <string name="more">Més</string>
   <string name="memberSince">Membre des del</string>
   <string name="lastSeenActive">Darrer accés %s</string>
