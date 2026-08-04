@@ -5,7 +5,6 @@ import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, onIn
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
-import type ExplorerCtrl from './explorerCtrl';
 import { MAX_ANALYSE_DEPTH, moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
@@ -204,7 +203,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
   const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
   return hl('div.data.empty', [
-    explorerTitle(ctrl.explorer),
+    explorerTitle(ctrl),
     openingTitle(ctrl, data),
     hl('div.message', [
       hl('strong', isTooDeep ? i18n.site.maxDepthReached : i18n.site.noGameFound),
@@ -249,7 +248,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     const topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = hl('div.data', [
-        explorerTitle(ctrl.explorer),
+        explorerTitle(ctrl),
         data?.opening && openingTitle(ctrl, data),
         moveTable,
         topTable,
@@ -286,7 +285,9 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   return lastShow;
 }
 
-const explorerTitle = (explorer: ExplorerCtrl) => {
+const explorerTitle = (ctrl: AnalyseCtrl) => {
+  const explorer = ctrl.explorer;
+  const configOpened = explorer.config.data.open();
   const db = explorer.db();
   const otherLink = (name: string, title: string) =>
     hl(
@@ -294,7 +295,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       {
         key: name,
         attrs: { title },
-        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
+        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), ctrl.redraw),
       },
       name,
     );
@@ -357,6 +358,13 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           },
           i18n.site.player,
         ),
+    hl('button.fbt.toconf', {
+      attrs: {
+        'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+        ...dataIcon(configOpened ? licon.X : licon.Gear),
+      },
+      hook: bind('click', () => explorer.config.toggleOpen(), ctrl.redraw),
+    }),
   ]);
 };
 
@@ -366,7 +374,7 @@ const showTitle = (variant: Variant) =>
     : i18n.site.xOpeningExplorer(variant.name);
 
 const showConfig = (ctrl: AnalyseCtrl): VNode =>
-  hl('div.config', [explorerTitle(ctrl.explorer), renderConfig(ctrl.explorer.config)]);
+  hl('div.config', [explorerTitle(ctrl), renderConfig(ctrl.explorer.config)]);
 
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
@@ -419,16 +427,6 @@ export default function (ctrl: AnalyseCtrl): MaybeVNode {
         },
       },
     },
-    [
-      hl('div.overlay'),
-      content,
-      hl('button.fbt.toconf', {
-        attrs: {
-          'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-          ...dataIcon(configOpened ? licon.X : licon.Gear),
-        },
-        hook: bind('click', () => explorer.config.toggleOpen(), ctrl.redraw),
-      }),
-    ],
+    [hl('div.overlay'), content],
   );
 }
