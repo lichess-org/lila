@@ -19,7 +19,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def screeningStepsThenLeaf(id: String, name: Frag, content: Frag): Branch =
     Branch(
-      "important-info",
+      s"important-info-$id",
       name,
       List(Leaf(id, name, content)),
       content = importantInfo(id).some,
