@@ -3,7 +3,7 @@ package lila.study
 import lila.core.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl.Bdoc
+import lila.db.dsl.*
 import lila.study.Helpers.*
 import lila.tree.{ NewRoot, Node, Root }
 
