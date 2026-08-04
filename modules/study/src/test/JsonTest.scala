@@ -100,14 +100,14 @@ class JsonTest extends munit.FunSuite:
             "uci" -> "e7e5",
             "san" -> "e5",
             "forceVariation" -> true
+          ),
+          Json.obj(
+            "ply" -> 2,
+            "fen" -> "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+            "uci" -> "d7d5",
+            "san" -> "d5"
           )
         )
-      ),
-      Json.obj(
-        "ply" -> 2,
-        "fen" -> "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
-        "uci" -> "d7d5",
-        "san" -> "d5"
       )
     )
     assertEquals(json, expectedJson)
