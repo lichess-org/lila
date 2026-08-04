@@ -47,6 +47,9 @@
   <string name="teamTournament">بطولات الفريق</string>
   <string name="teamTournamentOverview">بطولة ألأرينا التي يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="swissTournamentOverview">بطولة سويسرية يمكن فقط لأعضاء فريقك الانضمام إليها</string>
+  <string name="teamUpdates">تحديثات الفريق</string>
+  <string name="subToTeamUpdates">إشعارات أو تحديثات الفريق</string>
+  <string name="newTeamUpdate">تحديث جديد للفريق</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>

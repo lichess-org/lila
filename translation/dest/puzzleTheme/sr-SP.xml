@@ -24,10 +24,10 @@
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
   <string name="crushing">Уништавајуће</string>
   <string name="crushingDescription">Уочи противнички превид да стекнеш огромну предност. (евалуација ≥ 600cp)</string>
-  <string name="doubleBishopMate">Мат ловачким паром</string>
+  <string name="doubleBishopMate">Мат са два ловца</string>
   <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
-  <string name="dovetailMate">Коциов мат</string>
-  <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
+  <string name="dovetailMate">Коцијев мат</string>
+  <string name="dovetailMateDescription">Дама даје мат суседном краљу, чија су једина два излазна поља препречена његовим фигурама.</string>
   <string name="equality">Изједначење</string>
   <string name="equalityDescription">Врати се из губитне позиције и осигурај реми или изједначену позицију. (евалуација ≤ 200cp)</string>
   <string name="kingsideAttack">Напад на краљевом крилу</string>
