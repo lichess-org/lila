@@ -61,9 +61,14 @@
 
     .lpv {
       flex: 0 0 calc(100% - #{$result-width});
+      border-radius: 0 $box-radius-size $box-radius-size 0;
 
       @include mq-col-many {
         flex: 0 0 300px;
+      }
+
+      cg-board {
+        @extend %box-radius-top-right;
       }
     }
 
