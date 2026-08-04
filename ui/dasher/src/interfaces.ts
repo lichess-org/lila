@@ -27,10 +27,14 @@ export abstract class PaneCtrl {
     parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
 
   protected readonly postPref: (prop: string) => void = debounce((prop: string) => {
+    const failed = () => site.announce({ msg: `Failed to save ${prop}` });
+    if (prop === 'zoom')
+      return xhrText(`/pref/zoom?v=${this.getVar('zoom')}`, { method: 'post' }).catch(failed);
+
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     const path = `/pref/${hyphenToCamel(prop)}`;
-    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    return xhrText(path, { body, method: 'post' }).catch(failed);
   }, 1000);
 
   abstract render(): VNode;

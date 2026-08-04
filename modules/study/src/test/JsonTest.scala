@@ -3,7 +3,7 @@ package lila.study
 import lila.core.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
-import lila.db.dsl.*
+import lila.db.dsl.Bdoc
 import lila.study.Helpers.*
 import lila.tree.{ NewRoot, Node, Root }
 
@@ -23,7 +23,7 @@ class JsonTest extends munit.FunSuite:
         val json = writeTree(imported)
         assertEquals(json, expected)
 
-  test("NewTree Json writes".ignore): // BROKEN
+  test("NewTree Json writes".ignore):
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>

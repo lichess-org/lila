@@ -180,6 +180,6 @@ final class TeamUpdateApi(
           (credits - entry.v / cost, entry.until)
 
 object TeamUpdateApi:
-  val credits = 15
+  val credits = 10
   val days = 7
   private val cost = 5
