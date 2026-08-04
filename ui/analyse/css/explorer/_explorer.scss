@@ -265,10 +265,11 @@
     }
 
     result {
+      @extend %box-radius;
+
       display: block;
       text-align: center;
       padding: 3px 5px;
-      border-radius: 3px;
       font-size: 0.9em;
     }
   }
