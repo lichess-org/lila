@@ -189,6 +189,38 @@ final private class RelaySync(
             path -> none
       case (found, _) => found
 
+  /* If the first child of a mainline node is a forced variation,
+  then all younger siblings of that node are also treated as forced variations
+  even if they don't have the field set to true.  We need to explicitly go through the tree and identify
+  any such nodes that intersect the game mainline and promote them.
+   */
+  private def promoteMainlineForcedVariations(chapterId: StudyChapterId, gameMainline: UciPath)(using
+      by: Who
+  ): Funit =
+    /* oldChapter doesn't yet contain the new nodes from the game,
+     * but we can get a newChapter from the DB which does. */
+    chapterRepo
+      .byId(chapterId)
+      .flatMapz: freshChapter =>
+        for
+          mainLineNodes = freshChapter.root.children.nodesOn(gameMainline)
+          toPromote = mainLineNodes.flatMap:
+            case (node, path) =>
+              node.children.first
+                .exists(_.forceVariation)
+                .so:
+                  node.children.variations
+                    .map(_.id)
+                    .filter(mainLineNodes.map(_._1.id).contains)
+                    .map(path + _)
+          _ <- toPromote.toList.sequentiallyVoid: path =>
+            studyApi.promote(
+              studyId = freshChapter.studyId,
+              position = Position(freshChapter, path).ref,
+              toMainline = true
+            )
+        yield ()
+
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using
       RelayTour
   ): Fu[NbMoves] =
@@ -199,6 +231,7 @@ final private class RelaySync(
       _ <- forceTailMovesAsVariations(chapter, gameMainlinePath)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
+      _ <- promoteMainlineForcedVariations(chapter.id, gameMainlinePath)
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
