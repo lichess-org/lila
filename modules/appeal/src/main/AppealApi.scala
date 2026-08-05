@@ -28,10 +28,15 @@ final class AppealApi(
 
   def exists(user: User) = coll.exists($id(user.id))
 
-  def post(topic: AppealTopic, text: String, muted: Boolean)(using me: Me) =
+  def post(
+      topic: AppealTopic,
+      text: String,
+      muted: Boolean,
+      accounts: Option[AccountsDisclosure] = None
+  )(using me: Me) =
     find(me, topic).flatMap:
       case None =>
-        val appeal = Appeal.make(topic, text)
+        val appeal = Appeal.make(topic, text, accounts)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
         val appeal = prev.post(text, me, muted)

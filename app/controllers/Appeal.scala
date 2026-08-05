@@ -33,7 +33,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   private def renderAppealOrTree(
-      err: Option[Form[String]] = None
+      err: Option[Form[lila.appeal.AppealForm.Data]] = None
   )(using Context)(using me: Me) = for
     appeals <- env.appeal.api.byTopic(me)
     status <- makeStatus(me)
@@ -57,8 +57,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
           bindForm(userForm)(
             err => BadRequest.async(renderAppealOrTree(err.some)),
-            text =>
-              for _ <- env.appeal.api.post(topic, text, muted = appeals.muted)
+            data =>
+              val isNew = appeals.get(topic).isEmpty
+              val accounts =
+                Option
+                  .when(isNew && AppealTopicApi.requiresAccounts(topic))(data.accounts)
+                  .flatten
+              for _ <- env.appeal.api.post(topic, data.text, muted = appeals.muted, accounts)
               yield Redirect(routes.Appeal.home).flashSuccess
           )
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))

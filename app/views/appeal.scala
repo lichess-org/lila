@@ -11,7 +11,9 @@ lazy val ui = lila.appeal.ui.AppealUi(helpers)
 lazy val discussion = lila.appeal.ui.AppealDiscussionUi(helpers, ui)
 
 lazy val tree = lila.appeal.ui.AppealTreeUi(helpers, ui)(
-  newAppeal = topic => preset => _ ?=> discussion.userForm(topic, AppealForm.form.fill(preset), isNew = true),
+  newAppeal = topic =>
+    preset =>
+      _ ?=> discussion.userForm(topic, AppealForm.form.fill(AppealForm.Data(preset)), isNew = true),
   inactiveAppeals = discussion.userInactiveAppeals
 )
 
