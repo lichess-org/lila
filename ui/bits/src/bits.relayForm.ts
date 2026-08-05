@@ -47,9 +47,7 @@ site.load.then(() => {
       const delayText = ` (${minutes}m${remainingSeconds}s)`;
       const $span = $label.find('span');
       if ($span.length === 0) {
-        const span = document.createElement('span');
-        span.textContent = delayText;
-        $label.append(span);
+        $label.append($('<span>').text(delayText));
       } else {
         $span.text(delayText);
       }
