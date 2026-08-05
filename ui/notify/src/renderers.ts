@@ -67,8 +67,8 @@ export default function makeRenderers(): Renderers {
     teamUpdate: {
       html: n =>
         generic(n, '/team/updates', licon.Group, [
-          h('span', [h('strong', 'New team update')]),
-          h('span', 'See what your team leader has to say!'),
+          h('span', [h('strong', n.content.name)]),
+          h('span', n.content.text),
         ]),
       text: _ => 'New team update',
     },

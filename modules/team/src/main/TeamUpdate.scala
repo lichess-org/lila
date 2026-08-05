@@ -7,9 +7,11 @@ import scalalib.paginator.Paginator
 
 import lila.memo.RateLimit.LimitResult
 import lila.core.LightUser
-import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.notify.NotifyApi
+import lila.core.notify.NotificationContent.TeamUpdate as Notification
 import lila.core.team.LightTeam
 import lila.db.dsl.{ *, given }
+import lila.common.String.shorten
 
 case class TeamUpdate[T, U](
     @Key("_id") id: String,
@@ -90,24 +92,25 @@ final class TeamUpdateApi(
     val text = raw.replaceAll("\r\n?", "\n")
     if dedup(team.id, text) then
       Right:
-        limiter.limit(team.id)(doSend(team.id, text).inject(LimitResult.Through))(LimitResult.Limited)
+        limiter.limit(team.id)(doSend(team, text).inject(LimitResult.Through))(LimitResult.Limited)
     else Left("You already sent this message recently")
 
-  private def doSend(id: TeamId, text: String)(using me: Me): Funit =
+  private def doSend(team: Team, text: String)(using me: Me): Funit =
     val msg = TeamUpdate[TeamId, UserId](
       id = scalalib.ThreadLocalRandom.nextString(8),
-      team = id,
+      team = team.id,
       text = spam.replace(text),
       sender = me.userId,
       date = nowInstant
     )
     for
-      unsubed <- memberRepo.listOfUnsubscribed(id)
+      unsubed <- memberRepo.listOfUnsubscribed(team.id)
       _ <- updateRepo.send(msg, unsubed)
-      _ = notifySubscribers(id) // don't await that!
+      notification: Notification = Notification(team.name, shorten(msg.text, 40))
+      _ = notifySubscribers(team.id, notification) // don't await that!
     yield ()
 
-  private def notifySubscribers(teamId: TeamId): Funit =
+  private def notifySubscribers(teamId: TeamId, notification: Notification): Funit =
     memberRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -133,7 +136,7 @@ final class TeamUpdateApi(
       .grouped(100)
       .map(_.flatMap(_.getAsOpt[UserId]("user")))
       .throttle(1, 1.second)
-      .mapAsync(1)(notifyApi.notifyManyUnlessUnread(_, NotificationContent.TeamUpdate))
+      .mapAsync(1)(notifyApi.notifyManyUnlessUnread(_, notification))
       .run()
       .void
 

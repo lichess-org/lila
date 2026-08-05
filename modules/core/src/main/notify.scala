@@ -6,6 +6,7 @@ import alleycats.Zero
 import lila.core.id.*
 import lila.core.study.data.StudyName
 import lila.core.userId.*
+import lila.core.team.LightTeam.TeamName
 
 opaque type UnreadCount = Int
 object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:
@@ -19,7 +20,7 @@ enum NotificationContent(val key: String):
   case InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)
       extends NotificationContent("invitedStudy")
   case TeamJoined(id: TeamId, name: String) extends NotificationContent("teamJoined")
-  case TeamUpdate extends NotificationContent("teamUpdate")
+  case TeamUpdate(name: TeamName, text: String) extends NotificationContent("teamUpdate")
   case MentionedInThread(
       mentionedBy: UserId,
       topicName: String,

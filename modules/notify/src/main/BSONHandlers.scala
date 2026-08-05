@@ -23,6 +23,7 @@ private object BSONHandlers:
   private given BSONDocumentHandler[GenericLink] = Macros.handler
   private given BSONDocumentHandler[BroadcastRound] = Macros.handler
   private given BSONDocumentHandler[Recap] = Macros.handler
+  private given BSONDocumentHandler[TeamUpdate] = Macros.handler
   private given mentionHandler: BSONDocumentHandler[MentionedInThread] = Macros.handler
   private given inviteHandler: BSONDocumentHandler[InvitedToStudy] = Macros.handler
 
@@ -34,7 +35,7 @@ private object BSONHandlers:
         case x: PrivateMessage => summon[BSONHandler[PrivateMessage]].writeTry(x).get
         case x: StreamStart => summon[BSONHandler[StreamStart]].writeTry(x).get
         case x: TeamJoined => summon[BSONHandler[TeamJoined]].writeTry(x).get
-        case TeamUpdate => $empty
+        case x: TeamUpdate => summon[BSONHandler[TeamUpdate]].writeTry(x).get
         case x: TitledTournamentInvitation => summon[BSONHandler[TitledTournamentInvitation]].writeTry(x).get
         case x: GameEnd => summon[BSONHandler[GameEnd]].writeTry(x).get
         case x: PlanStart => summon[BSONHandler[PlanStart]].writeTry(x).get
@@ -55,7 +56,7 @@ private object BSONHandlers:
         case "invitedStudy" => reader.as[InvitedToStudy]
         case "privateMessage" => reader.as[PrivateMessage]
         case "teamJoined" => reader.as[TeamJoined]
-        case "teamUpdate" => TeamUpdate
+        case "teamUpdate" => reader.as[TeamUpdate]
         case "titledTourney" => reader.as[TitledTournamentInvitation]
         case "gameEnd" => reader.as[GameEnd]
         case "planStart" => reader.as[PlanStart]

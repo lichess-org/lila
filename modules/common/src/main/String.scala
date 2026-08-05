@@ -22,7 +22,7 @@ object String:
     try play.utils.UriEncoding.decodePathSegment(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
-  def isShouting(text: String) =
+  private[common] def isShouting(text: String) =
     text.lengthIs >= 5 && {
       import java.lang.Character.*
       import chess.format.Fen
