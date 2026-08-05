@@ -62,10 +62,21 @@
     }
   }
 
-  .user-tv {
-    @extend %nowrap-ellipsis;
+  .game__tv {
+    @extend %flex-center-nowrap;
 
-    font-size: 1.2em;
+    gap: 8px;
+
+    icon {
+      font-size: 1.2em;
+      margin-top: -4px;
+    }
+
+    .user-tv {
+      @extend %nowrap-ellipsis;
+
+      font-size: 1.2em;
+    }
   }
 }
 
