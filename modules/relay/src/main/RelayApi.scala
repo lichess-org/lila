@@ -506,7 +506,7 @@ final class RelayApi(
       until: Option[Instant]
   ): Source[RelayRound.WithTour, ?] =
     Source.futureSource:
-      listing.active.map: all =>
+      listing.activeTours.map: all =>
         Source(all.map(_.tour).filter(_.spotlight.exists(_.enabled)))
           .mapAsync(1): tour =>
             roundRepo.byTourOrdered(tour.id).map(tour -> _)
