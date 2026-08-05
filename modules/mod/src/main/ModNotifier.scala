@@ -1,17 +1,22 @@
 package lila.mod
 
+import play.api.i18n.Lang
+
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.core.report.SuspectId
 import lila.rating.PerfType
 import lila.report.{ Room, Suspect, ReporterId }
 import lila.core.msg.SystemMsg
+import lila.core.i18n.{ I18nKey, Translate, Translator, LangPicker }
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
     reportApi: lila.report.ReportApi,
     pmPresets: ModPresetsApi,
-    msgApi: lila.core.msg.MsgApi
-)(using Executor, lila.core.i18n.Translator):
+    msgApi: lila.core.msg.MsgApi,
+    userApi: lila.core.user.UserApi,
+    langPicker: LangPicker
+)(using Executor, Translator):
 
   object actionTaken:
     private val onceEvery = scalalib.cache.OnceEvery[(SuspectId, UserId)](1.hour)
@@ -23,9 +28,13 @@ final private class ModNotifier(
         .flatMap:
           _.filterNot(ignore)
             .filterNot(_.is(mod))
-            .sequentiallyVoid: reporterId =>
-              onceEvery(sus.id -> reporterId.id).so:
-                msgApi.systemPost(SystemMsg.standard(reporterId.userId, actionTakenMessage)).void
+            .sequentiallyVoid: reporter =>
+              onceEvery(sus.id -> reporter.id).so:
+                for
+                  lang <- userApi.langOf(reporter.id).map(langPicker.byLangTagOrDefault)
+                  msg = actionTakenMessage(using lang)
+                  _ <- msgApi.systemPost(SystemMsg.standard(reporter.id, msg))
+                yield ()
 
   def refund(user: User, pt: PerfType, points: Int): Funit =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
@@ -40,8 +49,4 @@ final private class ModNotifier(
           .void
       case Some(preset) => msgApi.systemPost(SystemMsg.mustRead(user.id, preset.text)).void
 
-  private val actionTakenMessage = """Hello,
-
-We have reviewed your recent report and taken action. While we cannot share details about the actions taken, we appreciate your report.
-
-Thank you for your help in keeping Lichess a good place for everyone."""
+  private def actionTakenMessage(using Lang) = I18nKey.site.modActionFeedback.txt()
