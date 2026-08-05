@@ -31,7 +31,7 @@ object TeamUpdate:
   type DbTeamUpdateSeen = TeamUpdateSeen[TeamId, UserId]
 
 final class TeamUpdateApi(
-    msgRepo: TeamUpdateRepo,
+    updateRepo: TeamUpdateRepo,
     memberRepo: TeamMemberRepo,
     userRepo: lila.core.user.UserRepo,
     cached: TeamCached,
@@ -44,15 +44,15 @@ final class TeamUpdateApi(
   import TeamUpdate.*
   import TeamUpdateApi.*
 
-  export msgRepo.{ markSeen, teamLatest }
+  export updateRepo.{ markSeen, teamLatest }
 
   private val maxPerPage = MaxPerPage(6)
   private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
 
   def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamUpdate.Recent] =
     for
-      msgs <- Paginator(msgRepo.teamRecent(team.id), page, maxPerPage)
-      _ <- msgs.currentPageResults.exists(!_.seen).so(msgRepo.markSeen(team.id))
+      msgs <- Paginator(updateRepo.teamRecent(team.id), page, maxPerPage)
+      _ <- msgs.currentPageResults.exists(!_.seen).so(updateRepo.markSeen(team.id))
       senders <- pageSenders(msgs)
     yield msgs.mapList: results =>
       for
@@ -62,7 +62,7 @@ final class TeamUpdateApi(
 
   def allRecent(page: Int)(using me: Me): Fu[TeamUpdate.Recent] = for
     teamIds <- cached.teamIds(me.userId)
-    msgs <- Paginator(msgRepo.allRecent(teamIds), page, maxPerPage)
+    msgs <- Paginator(updateRepo.allRecent(teamIds), page, maxPerPage)
     teams <- cached.lightMapById(msgs.currentPageResults.view.map(_.msg.team).toList)
     senders <- lightUserApi.asyncIdMapFallback(msgs.currentPageResults.view.map(_.msg.sender).toSet)
   yield msgs.mapList: results =>
@@ -77,7 +77,7 @@ final class TeamUpdateApi(
 
   def byTeams(using me: Me): Fu[TeamUpdate.ByTeams] = for
     teamIds <- cached.teamIds(me.userId)
-    msgs <- msgRepo.byTeams(teamIds)
+    msgs <- updateRepo.byTeams(teamIds)
     teams <- cached.lightMapById(msgs.map(_.team))
   yield
     for
@@ -102,7 +102,7 @@ final class TeamUpdateApi(
     )
     for
       unsubed <- memberRepo.listOfUnsubscribed(id)
-      _ <- msgRepo.send(msg, unsubed)
+      _ <- updateRepo.send(msg, unsubed)
       _ = notifySubscribers(id) // don't await that!
     yield ()
 

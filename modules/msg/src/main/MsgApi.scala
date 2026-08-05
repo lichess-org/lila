@@ -186,7 +186,7 @@ final class MsgApi(
       yield res
     }
 
-  def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
+  private def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
     colls.thread
       .one[MsgThread]($id(threadId))
       .mapz: doc =>
