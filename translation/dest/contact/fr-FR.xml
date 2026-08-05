@@ -52,7 +52,7 @@
   <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire possède d\'autres pièces que son roi.</string>
   <string name="noRatingPoints">Aucun point de cote attribué</string>
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Dans certains cas, si vous jouez contre un bot, une partie classée ne vous donnera pas de points s\'il est déterminé que vous avez abusé du bot pour obtenir des points.</string>
+  <string name="botRatingAbuse">Dans certains cas, si vous jouez contre un bot, une partie classée ne vous donnera pas de points s\'il est déterminé que vous avez abusé du bot pour obtenir des points.</string>
   <string name="errorPage">Page d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
   <string name="learnHowToMakeBroadcasts">Apprenez comment réaliser vos propres diffusions sur Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Aucun des choix ci-dessus</string>
   <string name="sendEmailAt">Envoyez-nous un courriel à %s.</string>
   <string name="explainYourRequest">Veuillez expliquer votre demande de façon claire et complète. Indiquez votre nom d\'utilisateur et toute information pouvant nous aider à vous répondre.</string>
+  <string name="monetiseNotInterested">Nous n\'avons aucune intention de monétiser Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nous n\'afficherons jamais de publicité, nous ne suivrons pas les joueurs par traçage et nous ne vendrons pas de données liées au traffic ou aux utilisateurs.</string>
+  <string name="monetiseNoMarketingEmail">Veuillez ne pas nous envoyer de courriel où il est question de marketing, de traçage ou de publicité.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Nous encourageons chaque personne à %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquer les publicités et les traceurs</string>
+  <string name="broadcastTournamentOnLichess">Diffuser un tournoi sur Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Si vous voulez diffuser un tournoi sur Lichess ou si vous avez des questions sur nos diffusions :</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Veuillez contacter notre équipe de diffusion à %1$s ou sur %2$s.</string>
+  <string name="ourDiscordServer">notre serveur Discord</string>
 </resources>

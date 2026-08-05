@@ -2,11 +2,11 @@ import { debounce } from 'lib/async';
 import { commonDateFormat, toDate } from 'lib/i18n';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import { spinnerHtml, confirm } from 'lib/view';
+import { extendTablesortNumber, sortTable } from 'lib/tablesort';
+import { confirm, spinnerHtml } from 'lib/view';
 import { formToXhr, text as xhrText } from 'lib/xhr';
 
-import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
+import { expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
 import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
@@ -30,9 +30,13 @@ site.load.then(() => {
     source.onerror = () => source.close();
   }
 
+  function updateMainWrap(zoned: boolean) {
+    $('#main-wrap').toggleClass('has-mod-zone full-screen-force', zoned);
+  }
+
   function loadZone() {
     $zone.html(spinnerHtml).removeClass('none');
-    $('#main-wrap').addClass('full-screen-force');
+    updateMainWrap(true);
     $zone.html('');
     streamLoad();
     window.addEventListener('scroll', onScroll);
@@ -40,7 +44,7 @@ site.load.then(() => {
   }
   function unloadZone() {
     $zone.addClass('none');
-    $('#main-wrap').removeClass('full-screen-force');
+    updateMainWrap(false);
     window.removeEventListener('scroll', onScroll);
     scrollTo('#top');
   }
@@ -88,8 +92,8 @@ site.load.then(() => {
       $(el)
         .find('a')
         .each(function (this: HTMLAnchorElement, i: number) {
-          const id = getLocationHash(this),
-            n = '' + (i + 1);
+          const id = getLocationHash(this);
+          const n = String(i + 1);
           $(this).prepend(`<icon>${n}</icon>`);
           site.mousetrap.bind(n, () => scrollTo(id));
         });
@@ -211,9 +215,7 @@ site.load.then(() => {
           let diffBeforeCursor = 0;
           const newVal = val.replace(regex, (match, num, unit, offset) => {
             const n = parseInt(num, 10);
-            const nowTs = Date.now();
-
-            let targetTs = nowTs;
+            let targetTs = Date.now();
 
             const u = unit.toLowerCase();
 

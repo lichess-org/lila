@@ -2,7 +2,7 @@ package lila.user
 
 import chess.{ ByColor, PlayerTitle }
 import chess.IntRating
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.core.LightUser
@@ -230,14 +230,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         perfsRepo.setBotInitialPerfs(user.id)
 
   def setKid(user: User, v: KidMode): Fu[Option[KidMode]] =
-    (user.kid != v)
-      .option:
-        for
-          _ <- userRepo.setKid(user, v)
-          _ <- v.yes.so(userRepo.unsetBio(user.id))
-          _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
-        yield v
-      .sequence
+    (user.kid != v).so:
+      for
+        _ <- userRepo.setKid(user, v)
+        _ <- v.yes.so(userRepo.unsetBio(user.id))
+        _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
+      yield v.some
 
   def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
     val max = 512

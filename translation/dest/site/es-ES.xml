@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Puede que tome algo de tiempo en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
   <string name="checkSpamFolder">También comprueba tu carpeta de spam, por si ha ido ahí. En ese caso, márcalo como no spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Si no recibes un correo electrónico de confirmación, comprueba tu carpeta de correo no deseado o Spam. Asegúrate de indicar los mensajes de Lichess como seguros y \"no spam\", para que puedas mantenerte informado de las comunicaciones importantes.</string>
   <string name="sendEmailForAccountVerification">Si no puedes encontrar tu correo electrónico de confirmación, escribe a %s y confirmaremos tu cuenta.</string>
   <string name="accountConfirmed">Se ha completado la verificación del usuario %s sin problemas.</string>
   <string name="accountCanLogin">Ya puedes iniciar sesión como %s.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s siguiendo</item>
     <item quantity="other">%s siguiendo</item>
   </plurals>
+  <string name="less">Menos</string>
   <string name="more">Más</string>
   <string name="memberSince">Miembro desde</string>
   <string name="lastSeenActive">Última visita %s</string>
@@ -580,6 +582,9 @@
   <string name="replies">Respuestas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
   <string name="reply">Responder</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citar</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensaje</string>
   <string name="createTheTopic">Crear tema</string>
   <string name="reportAUser">Denunciar a un usuario</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica por qué es ofensivo este nombre de usuario. No te limites a decir \"es ofensivo\" o \"inapropiado\" y argumenta tu conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
   <string name="reportProcessedFasterInEnglish">Tu denuncia se procesará más rápido si la escribes en inglés.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Podremos procesar tu informe más rápido si lo escribes en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -716,6 +722,7 @@
   <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Crear una simultánea te permite jugar contra varios oponentes al mismo tiempo.</string>
   <string name="simulVariantsHint">Si seleccionas diferentes variantes, cada jugador escoge cuál jugar.</string>
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
@@ -814,14 +821,21 @@
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anónimo</item>
+    <item quantity="other">Anónimos (%s)</item>
+  </plurals>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Cualquier idioma</string>
   <string name="background">Fondo</string>
+  <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
   <string name="transparent">Transparente</string>
+  <string name="picture">Imagen</string>
   <string name="deviceTheme">Tema del dispositivo</string>
+  <string name="roundness">Redondez</string>
   <string name="backgroundImageUrl">URL de imagen de fondo:</string>
   <string name="board">Tablero</string>
   <string name="size">Tamaño</string>
@@ -959,7 +973,6 @@
   <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ahora eres miembro del equipo.</string>
   <string name="youHaveJoinedTeamX">Te has unido a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Un usuario que denunciaste fue expulsado</string>
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
   <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
@@ -992,6 +1005,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownIsAvailable">El formato de %s está disponible.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Puedes formatear texto mediante %s.</string>
   <string name="embedsAvailable">Pega el enlace de una partida o de un capítulo de estudio para insertarlo.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
@@ -999,6 +1013,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="onlyTeamLeaders">Sólo líderes del equipo</string>
   <string name="onlyTeamMembers">Sólo miembros del equipo</string>
   <string name="navigateMoveTree">Desplazarse por el árbol de movimientos</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navegación de la lista de movimientos</string>
   <string name="mouseTricks">Trucos de ratón</string>
   <string name="toggleLocalAnalysis">Activar y desactivar análisis por ordenador local</string>
   <string name="toggleAllAnalysis">Activar y desactivar todos los análisis por ordenador</string>
@@ -1015,7 +1030,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="gameInProgress">Estás jugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines ésta.</string>
+  <string name="youCantStartNewGame">No puedes empezar una partida nueva mientras sea tu turno.</string>
   <string name="since">Desde</string>
   <string name="until">Hasta</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
@@ -1039,4 +1054,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="thereAreNoResultsForX">Sin resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Al paso</string>
+  <string name="settings">Preferencias</string>
 </resources>

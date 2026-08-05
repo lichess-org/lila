@@ -17,4 +17,4 @@ if ! yes | pnpm install >/dev/null 2>&1; then
   exit $?
 fi
 
-node --experimental-strip-types --no-warnings src/main.ts "$@"
+node --no-warnings src/main.ts "$@"

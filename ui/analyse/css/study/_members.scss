@@ -83,12 +83,9 @@
   }
 
   .add {
-    @extend %roboto;
-
-    &:hover icon {
-      color: $c-link;
+    icon {
+      font-size: 1em;
       opacity: 1;
-      transition: none;
     }
   }
 
@@ -102,7 +99,7 @@
 
   m-config,
   .editing {
-    background: $m-accent_bg--mix-10 !important;
+    background: color-mix(in oklab, $c-accent 10%, $c-bg) !important;
   }
 
   m-config {

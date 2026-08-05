@@ -22,7 +22,8 @@ object replay:
     replayUi.forCrawler(
       pov,
       pgn,
-      graph = views.round.ui.povOpenGraph(pov),
+      views.round.ui.povOpenGraph(pov),
+      chessground = views.round.ui.povChessground(pov),
       gameSide = views.game.side(pov, initialFen, none, simul = simul, bookmarked = false),
       crosstable = cross.map: c =>
         views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
@@ -79,7 +80,7 @@ object embed:
         .analyseModule("userAnalysis", Json.obj("data" -> data, "embed" -> true) ++ ui.explorerAndCevalConfig)
         .some,
       csp = _.withExternalAnalysisApis.withWebAssembly,
-      i18nModules = List(_.site, _.timeago, _.study)
+      i18nModules = List(_.site, _.timeago, _.study, _.preferences)
     )(
       ui.bits.embedUserAnalysisBody,
       views.base.page.ui.inlineJs(ctx.nonce, Nil)

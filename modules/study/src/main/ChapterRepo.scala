@@ -1,11 +1,11 @@
 package lila.study
 
 import scala.collection.immutable.SeqMap
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.Tags
 import chess.FideId
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
@@ -14,7 +14,7 @@ import lila.tree.{ Branch, Branches, Clock }
 
 import Node.BsonFields as F
 
-final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
+final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BSONHandlers.{ writeBranch, given }
 
@@ -71,6 +71,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .sort($sortOrder)
         .cursor[Chapter]()
         .list(256)
+
+  def idsByStudyWithServerEval(studyId: StudyId, withEval: Boolean): Fu[List[StudyChapterId]] =
+    val selector = $doc("studyId" -> studyId, "serverEval" -> $exists(withEval))
+    coll:
+      _.distinctEasy[StudyChapterId, List]("_id", selector)
 
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
@@ -292,7 +297,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     .void
 
   def completeServerEval(chapter: Chapter) =
-    coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
+    coll(_.updateField($id(chapter.id) ++ "serverEval".$exists(true), "serverEval.done", true)).void
 
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))

@@ -1,7 +1,6 @@
 package lila.insight
 
 import chess.format.pgn.SanStr
-import chess.opening.OpeningDb
 import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
 
@@ -24,6 +23,7 @@ case class RichPov(
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     gameApi: lila.core.game.GameApi,
+    gameOpening: lila.core.game.GameOpening,
     analysisRepo: lila.analyse.AnalysisRepo
 )(using Executor):
 
@@ -208,8 +208,4 @@ final private class PovToEntry(
     )
 
   private def findOpening(from: RichPov): Option[SimpleOpening] =
-    from.pov.game.variant.standard.so:
-      OpeningDb
-        .searchInPositions(from.boards)
-        .map(_.opening)
-        .flatMap(SimpleOpening.apply)
+    gameOpening(from.pov.game, true).flatMap(SimpleOpening.apply)

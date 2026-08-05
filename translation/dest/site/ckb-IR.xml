@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">کۆمپیتەر</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
@@ -910,7 +911,6 @@
   <string name="xInvitedYouToY">%1$s تۆی بانگهێشتکرد بۆ \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">ئێستا تۆ بەشێکی لەو یانەیە.</string>
   <string name="youHaveJoinedTeamX">تۆ باشداریتکرد لە \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">کەسێک کە تۆ راپۆرتتلێدا ئێستا قەدەغەکراوە</string>
   <string name="congratsYouWon">پیرۆزە، تۆ بوویت بە براوە!</string>
   <string name="gameVsX">یاری لە دژی %1$s</string>
   <string name="resVsX">%1$s دژی %2$s</string>
@@ -965,7 +965,6 @@
   <string name="gameInProgress">یارییەکت لە پێشە لەگەڵ %s.</string>
   <string name="abortTheGame">یاریەکە هەڵوەشێنەوە</string>
   <string name="resignTheGame">دەست لە یاریەکە بکێشە</string>
-  <string name="youCantStartNewGame">تا ئەم یارییە تەواو نەبێت ناتوانیت دەست بە یارییەکی نوێ بکەیت.</string>
   <string name="since">لەوەتەی</string>
   <string name="until">تاوەکو</string>
   <string name="lichessDbExplanation">نمونەیەک لە یارییە هەڵسەنگێنراوەکان، لە هەموو یاریزانەکانی لیچێس</string>

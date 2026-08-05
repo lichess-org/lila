@@ -814,6 +814,10 @@
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
@@ -959,7 +963,6 @@
   <string name="xInvitedYouToY">%1$s inviterte deg til «%2$s».</string>
   <string name="youAreNowPartOfTeam">Du er nå med på laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i «%1$s».</string>
-  <string name="someoneYouReportedWasBanned">Noen du rapporterte, ble utestengt</string>
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
@@ -1015,7 +1018,6 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="gameInProgress">Du har et parti på gang med %s.</string>
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gi opp partiet</string>
-  <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
   <string name="since">Fra</string>
   <string name="until">Til</string>
   <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>

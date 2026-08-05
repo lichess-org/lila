@@ -9,7 +9,7 @@
 .relay-board-player {
   @extend %flex-between-nowrap;
   @include inline-end(0);
-  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+  @include with-metal-shadow(hsl(0 0% 0% / 0.2), hsl(0 0% 0% / 0.18));
 
   background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
   overflow: hidden;

@@ -3,7 +3,7 @@ import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { dataIcon, iconTag } from 'lib/view';
+import { dataIcon, icon, onInsert } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
@@ -45,15 +45,15 @@ function leftPos(time: number) {
 }
 
 function laneGrouper(t: Tournament): number {
-  if (t.schedule && t.schedule.freq === 'unique') {
+  if (t.schedule?.freq === 'unique') {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
   } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1, 5)) / 10000;
-  } else if (t.schedule && t.schedule.speed === 'superBlitz') {
+  } else if (t.schedule?.speed === 'superBlitz') {
     return t.perf.position - 0.5;
-  } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
+  } else if (t.schedule?.speed === 'hyperBullet') {
     return 4;
   } else if (t.schedule && t.perf.key === 'ultraBullet') {
     return 4;
@@ -92,7 +92,7 @@ function fitLane(lane: Lane, tour2: Tournament) {
 
 // splits lanes that have collisions, but keeps
 // groups separate by not compacting existing lanes
-function splitOverlaping(lanes: Lane[]): Lane[] {
+function splitOverlapping(lanes: Lane[]): Lane[] {
   let ret: Lane[] = [],
     i: number;
   lanes.forEach(lane => {
@@ -114,19 +114,19 @@ function splitOverlaping(lanes: Lane[]): Lane[] {
 }
 
 function tournamentClass(tour: Tournament): Classes {
-  const finished = tour.status === 30,
-    userCreated = tour.createdBy !== 'lichess',
-    classes = {
-      'tsht-rated': tour.rated,
-      'tsht-casual': !tour.rated,
-      'tsht-finished': finished,
-      'tsht-joinable': !finished,
-      'tsht-user-created': userCreated,
-      'tsht-thematic': !!tour.position,
-      'tsht-short': tour.minutes <= 30,
-      'tsht-max-rating': !userCreated && tour.hasMaxRating,
-      'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
-    } as Classes;
+  const finished = tour.status === 30;
+  const userCreated = tour.createdBy !== 'lichess';
+  const classes: Classes = {
+    'tsht-rated': tour.rated,
+    'tsht-casual': !tour.rated,
+    'tsht-finished': finished,
+    'tsht-joinable': !finished,
+    'tsht-user-created': userCreated,
+    'tsht-thematic': !!tour.position,
+    'tsht-short': tour.minutes <= 30,
+    'tsht-max-rating': !userCreated && tour.hasMaxRating,
+    'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
+  };
   if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
 }
@@ -174,7 +174,7 @@ function renderTournament(tour: Tournament) {
       },
     },
     [
-      iconTag(iconOf(tour)),
+      icon(iconOf(tour))(),
       h('span.body', [
         h('span.name', i18nName(tour)),
         h('span.infos', [
@@ -247,7 +247,7 @@ export default function (ctrl: Ctrl) {
     });
 
   // group system tournaments into dedicated lanes for PerfType
-  const tourLanes = splitOverlaping(group(systemTours, laneGrouper).concat([userTours])).filter(
+  const tourLanes = splitOverlapping(group(systemTours, laneGrouper).concat([userTours])).filter(
     lane => lane.length > 0,
   );
 
@@ -255,30 +255,27 @@ export default function (ctrl: Ctrl) {
     h(
       'div.tour-chart__inner.dragscroll.',
       {
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLElement;
-            const bitLater = now + 15 * 60 * 1000;
-            const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
-            el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
+        hook: onInsert(el => {
+          const bitLater = now + 15 * 60 * 1000;
+          const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
+          el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
 
-            dragscroll.reset();
+          dragscroll.reset();
 
-            el.addEventListener('mousedown', e => {
-              mousedownAt = [e.clientX, e.clientY];
-            });
-            el.addEventListener('click', e => {
-              const dist = mousedownAt
-                ? Math.abs(e.clientX - mousedownAt[0]) + Math.abs(e.clientY - mousedownAt[1])
-                : 0;
-              if (dist > 20) {
-                e.preventDefault();
-                return false;
-              }
-              return true;
-            });
-          },
-        },
+          el.addEventListener('mousedown', e => {
+            mousedownAt = [e.clientX, e.clientY];
+          });
+          el.addEventListener('click', e => {
+            const dist = mousedownAt
+              ? Math.abs(e.clientX - mousedownAt[0]) + Math.abs(e.clientY - mousedownAt[1])
+              : 0;
+            if (dist > 20) {
+              e.preventDefault();
+              return false;
+            }
+            return true;
+          });
+        }),
       },
       [
         renderTimeline(),

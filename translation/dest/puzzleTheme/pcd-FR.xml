@@ -55,16 +55,19 @@
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
   <string name="enPassantDescription">Une tactique impliquant la règle de la prise en passant, où un pion peut capturer un pion adverse qui l\'a croisé lors de son déplacement initial de deux cases.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Tactique utilisant la « prise en passant », où un pion peut capturer un pion adverse qui vient de se placer à côté de lui en se déplaçant de deux cases au premier coup.</string>
   <string name="epauletteMate">Mat des épaulettes</string>
   <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>
   <string name="exposedKing">Roi exposé</string>
   <string name="exposedKingDescription">Une tactique impliquant un Roi avec peu de défenseurs autour de lui, menant souvent à l\'échec et mat.</string>
   <string name="fork">Fourchette</string>
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Un coup où une pièce attaque simultanément deux pièces ou plus.</string>
   <string name="hangingPiece">Pièce en prise</string>
   <string name="hangingPieceDescription">Une tactique impliquant une pièce adverse non protégée ou insuffisamment défendue et libre d\'être capturée.</string>
   <string name="hookMate">Mat du hameçon</string>
   <string name="hookMateDescription">Mat avec une Tour, un Cavalier et un pion, avec un pion adverse qui empêche la fuite du roi ennemi.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Faire mat en utilisant une tour, un cavalier et un pion lorsque le roi adverse est bloqué par un de ses pions.</string>
   <string name="interference">Interception</string>
   <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un Cavalier sur une case défendue entre deux Tours.</string>
   <string name="intermezzo">Coup intermédiaire</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>
   <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat de Vukovic</string>
+  <string name="vukovicMate">Mat de Vukovic</string>
   <string name="vukovicMateDescription">Une tour et un cavalier collaborent pour mater le roi adverse. Protégée par une troisième pièce, la tour fait mat, car le cavalier bloque la case de fuite du roi.</string>
   <string name="knightEndgame">Finale de Cavaliers</string>
   <string name="knightEndgameDescription">Une finale avec seulement des Cavaliers et des pions.</string>

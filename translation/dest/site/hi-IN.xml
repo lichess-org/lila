@@ -858,7 +858,6 @@
   <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
   <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
   <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
-  <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
   <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
   <string name="gameVsX">खेल बनाम %1$s</string>
   <string name="resVsX">%1$s बनाम %2$s</string>
@@ -911,7 +910,6 @@
   <string name="gameInProgress">%s के साथ आपका खेल समाप्त नही हुआ है।</string>
   <string name="abortTheGame">खेल रद्द करें</string>
   <string name="resignTheGame">हार मान ले</string>
-  <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
   <string name="since">दिनांक से</string>
   <string name="until">दिनांक तक​</string>
   <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>

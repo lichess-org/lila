@@ -928,7 +928,6 @@
   <string name="xInvitedYouToY">%1$s bauð þér í „%2$s“.</string>
   <string name="youAreNowPartOfTeam">Þú ert nú hluti af hliðinu.</string>
   <string name="youHaveJoinedTeamX">Þú gekkst til liðs við „%1$s“.</string>
-  <string name="someoneYouReportedWasBanned">Einhver sem þú tilkynntir var bannaður</string>
   <string name="congratsYouWon">Til hamingju, þú vannst!</string>
   <string name="gameVsX">Skák á móti %1$s</string>
   <string name="resVsX">%1$s á móti %2$s</string>
@@ -983,7 +982,6 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="gameInProgress">Þú ert nú þegar með skák á móti %s.</string>
   <string name="abortTheGame">Hætta við skák</string>
   <string name="resignTheGame">Gefa upp skák</string>
-  <string name="youCantStartNewGame">Þú getur ekki hafið nýja skák fyrr en þessari er lokið.</string>
   <string name="since">Síðan</string>
   <string name="until">Uns</string>
   <string name="lichessDbExplanation">Skákir sem gilda til stiga sem leiknar eru á Lichess</string>

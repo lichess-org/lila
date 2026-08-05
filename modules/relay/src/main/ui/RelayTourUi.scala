@@ -14,7 +14,17 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
   import helpers.{ *, given }
   import trans.broadcast as trc
 
-  def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
+  // stupid conversions that scala should handle by itself
+  def playerPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound | RelayCard] =
+    p.mapResults(identity)
+  private def tourPager(
+      p: Paginator[RelayTour | WithLastRound]
+  ): Paginator[RelayTour | WithLastRound | RelayCard] =
+    p.mapResults(identity)
+  private def searchPager(
+      p: Paginator[RelayCard | WithLastRound]
+  ): Paginator[RelayTour | WithLastRound | RelayCard] =
+    p.mapResults(identity)
 
   def index(
       data: RelayHome | Paginator[WithLastRound],
@@ -30,7 +40,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
         selected.map: sel =>
           val (crowd, alt, live) = sel match
             case card: RelayCard => (card.crowd, card.alts.headOption, card.display.hasStarted)
-            case _ => (Crowd(0), None, false)
+            case _ => (Crowd.zero, None, false)
           card.render(sel, live = live, crowd, alt))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -56,7 +66,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards"):
               past.currentPageResults.map: t =>
-                card.render(t, live = false, crowd = Crowd(0))
+                card.render(t, live = false, crowd = Crowd.zero)
             ,
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
@@ -99,13 +109,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       .js(infiniteScrollEsmInit):
         main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))
 
-  def search(pager: Paginator[WithLastRound], query: String)(using Context) =
+  def search(pager: Paginator[RelayCard | WithLastRound], query: String)(using Context) =
     listLayout(trc.liveBroadcasts.txt(), pageMenu("index"))(
       boxTop(
         h1(trc.liveBroadcasts()),
         searchForm(query)
       ),
-      renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
+      renderPager(searchPager(pager), query)(cls := "relay-cards--search")
     )
 
   def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using ctx: Context) =
@@ -123,26 +133,26 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
         )
       ),
       standardFlash,
-      renderPager(pager, owner = owner.some)
+      renderPager(tourPager(pager), owner = owner.some)
     )
 
   def subscribed(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout(trc.subscribedBroadcasts.txt(), pageMenu("subscribed"))(
       boxTop(h1(trc.subscribedBroadcasts())),
       standardFlash,
-      renderPager(pager)(routes.RelayTour.pager("subscribed", _))
+      renderPager(tourPager(pager))(routes.RelayTour.pager("subscribed", _))
     )
 
   def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Private Broadcasts", pageMenu("allPrivate"))(
       boxTop(h1("Private Broadcasts")),
-      renderPager(pager)(routes.RelayTour.pager("all-private", _))
+      renderPager(tourPager(pager))(routes.RelayTour.pager("all-private", _))
     )
 
   def nonOfficial(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Non-Official Broadcasts", pageMenu("nonOfficial"))(
       boxTop(h1("Non-Official Broadcasts")),
-      renderPager(pager)(routes.RelayTour.pager("non-official", _))
+      renderPager(tourPager(pager))(routes.RelayTour.pager("non-official", _))
     )
 
   def calendar(at: YearMonth, tours: List[WithFirstRound], announcement: Option[Html])(using ctx: Context) =
@@ -206,7 +216,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
 
   def renderPager(
-      pager: Paginator[RelayTour | WithLastRound],
+      pager: Paginator[RelayTour | WithLastRound | RelayCard],
       query: String = "",
       owner: Option[LightUser] = None
   )(using Context): Tag = renderPager(pager): page =>
@@ -214,11 +224,14 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       case None => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)
 
-  def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
+  def renderPager(pager: Paginator[RelayTour | WithLastRound | RelayCard])(next: Int => Call)(using
+      Context
+  ): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
-        case w: WithLastRound => card.render(w, live = false, crowd = Crowd(0))(cls := "paginated")
+        case w: WithLastRound => card.render(w, live = false, crowd = Crowd.zero)(cls := "paginated")
         case t: RelayTour => card.empty(t)(cls := "paginated")
+        case c: RelayCard => card.render(c, live = false, crowd = Crowd.zero)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)
     )

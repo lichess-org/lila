@@ -4,7 +4,6 @@
 
 :root {
   @include shared-color-defs;
-  @include default-mix;
 }
 
 @import '../theme/theme.light';

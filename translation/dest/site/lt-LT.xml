@@ -1028,7 +1028,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xInvitedYouToY">%1$s pakvietė jus į \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jūs jau esate komandos dalis.</string>
   <string name="youHaveJoinedTeamX">Jūs prisijungėte prie \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Kažkas, apie ką pranešėte, buvo užblokuotas</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>
@@ -1084,7 +1083,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="gameInProgress">Jūs jau turite vykstančią partiją su %s.</string>
   <string name="abortTheGame">Atšaukti partiją</string>
   <string name="resignTheGame">Pasiduoti</string>
-  <string name="youCantStartNewGame">Jūs negalite pradėti naujos partijos kol nepabaigta ši.</string>
   <string name="since">Nuo</string>
   <string name="until">Iki</string>
   <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>

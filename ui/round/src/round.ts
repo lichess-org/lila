@@ -60,13 +60,13 @@ async function boot(
 
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
     options: { reloadOnResume: true },
-    params: { userTv: data.userTv && data.userTv.id },
+    params: { userTv: data.userTv?.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
     },
     events: {
       tvSelect({ channel, player }: TVOptions) {
-        if (data.tv && data.tv.channel === channel) site.reload();
+        if (data.tv?.channel === channel) site.reload();
         else
           $(`.tv-channels .${channel} .champion`).html(
             player

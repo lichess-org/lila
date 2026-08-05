@@ -10,7 +10,6 @@ file | stockfish-web | mobile
 --- | --- | ---
 nn-4ca89e4b3abf.nnue | sf_18_smallnet
 nn-71d6d32cb962.nnue | sf_dev (dev-20260609-415ff793)
-nn-7e1657811c6d.nnue | *remove soon* (dev-20260213-77d46ff6)
 nn-c288c895ea92.nnue | sf_18 | >=0.21.2
 nn-1c0000000000.nnue | sf_17.1 | >=0.15.10, <0.21.2
 nn-1111cefa1111.nnue | sf_17 | >=0.15.8, <0.15.10

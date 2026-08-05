@@ -62,7 +62,7 @@ final class PerfsUpdater(
       .withCalculator(game.variant)
       .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
       .onError: err =>
-        scala.util.Success(lila.log("rating").warn(s"Error computing Glicko2 for game $gameId", err))
+        scala.util.Success(logger.warn(s"Error computing Glicko2 for game $gameId", err))
       .toOption
 
   private def saveRatings(gameId: GameId, prevUsers: ByColor[UserWithPerfs])(

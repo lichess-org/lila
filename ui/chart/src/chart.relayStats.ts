@@ -46,8 +46,8 @@ export default function initModule(data: RoundStats): void {
 const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDataset<'line'>[] => {
   const blue = 'hsl(209, 76%, 56%)';
   const gradient = el.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
-  gradient?.addColorStop(0, 'rgba(119, 152, 191, 0.4)');
-  gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.05)');
+  gradient?.addColorStop(0, 'rgb(119 152 191 / 0.4)');
+  gradient?.addColorStop(1, 'rgb(119 152 191 / 0.05)');
   const plot: chart.ChartDataset<'line'>[] = [
     {
       indexAxis: 'x',

@@ -41,7 +41,7 @@ export const jsonSimple = (url: string, init: RequestInit = {}): Promise<any> =>
   }).then(res => ensureOk(res).then(r => r.json()));
 
 /* fetch a JSON value */
-export const json = (url: string, init: RequestInit = {}): Promise<any> =>
+export const json = <A = any>(url: string, init: RequestInit = {}): Promise<A> =>
   jsonAnyResponse(url, init).then(res => ensureOk(res).then(r => r.json()));
 
 export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>
@@ -68,10 +68,10 @@ export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> 
 /* load & inject a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
-    const nonce = document.body.getAttribute('data-nonce'),
-      el = document.createElement('script');
+    const nonce = document.body.getAttribute('data-nonce');
+    const el = document.createElement('script');
     if (nonce) el.setAttribute('nonce', nonce);
-    el.onload = resolve as () => void;
+    el.onload = () => resolve();
     el.onerror = reject;
     el.src = src;
     document.head.append(el);

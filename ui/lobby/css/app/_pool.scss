@@ -59,12 +59,12 @@
   background: $c-pool-button;
 
   @include if-light {
-    background: $m-bg--fade-50;
+    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
   }
 
   &:hover {
     color: $c-font;
-    background: $m-accent--fade-80 !important;
+    background: $c-accent-glass !important;
     opacity: 1;
   }
 

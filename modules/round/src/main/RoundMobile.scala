@@ -174,8 +174,6 @@ final class RoundMobile(
         lines <- chatJson.asyncLines(filtered)
       yield Chat.RestrictedLines(lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some
 
-  given lila.chat.AllMessages = lila.chat.AllMessages.No
-
   private def getWatcherChat(game: Game)(using myId: Option[MyId]): Fu[Option[Chat.RestrictedLines]] =
     game.hasChat.so:
       for

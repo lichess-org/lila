@@ -1,6 +1,6 @@
 package lila.api
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
 import bloomfilter.mutable.BloomFilter
@@ -15,7 +15,7 @@ final class GameStreamByOauthOrigin(
     gameRepo: lila.game.GameRepo,
     tokenApi: lila.oauth.AccessTokenApi,
     lightUserGet: lila.core.LightUser.GetterSync
-)(using akka.stream.Materializer, Executor):
+)(using org.apache.pekko.stream.Materializer, Executor):
 
   private val streamUserId = UserId.t3
   private val origin = Origin("https://auth.taketaketake.com")
@@ -81,10 +81,10 @@ final class GameStreamByOauthOrigin(
     var nbGames = 0
     val startedAt = nowInstant
     val startStream = Source
-      .queue[Game](300, akka.stream.OverflowStrategy.dropHead)
+      .queue[Game](300, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         streams.open(ua)
-        logger.branch("gameStream").info(s"OPEN  $logMsg")
+        lila.log.system.info(s"gameStream OPEN  $logMsg")
         mon.users("recentlySeen").update(recentlySeenUsers.size)
 
         def matches(game: Game) = game.nonAi &&
@@ -103,7 +103,7 @@ final class GameStreamByOauthOrigin(
             Bus.unsub[FinishGame](subFinish)
             streams.close(ua)
             val seconds = nowSeconds - startedAt.toSeconds
-            logger.branch("gameStream").info(s"CLOSE $logMsg ($seconds seconds, $nbGames games)")
+            lila.log.system.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
 
     pastGamesSource(recentlySeenUsers, since)
       .concat(currentGamesSource(recentlySeenUsers))

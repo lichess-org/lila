@@ -121,6 +121,8 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
   <string name="unlimitedAndFree">Onbeperkt en gratis</string>
   <string name="predefinedUsers">Sta enkel vooraf gedefinieerde gebruikers toe om mee te doen</string>
   <string name="forbiddedUsers">Als deze lijst niet leeg is, worden gebruikers die niet op deze lijst staan niet toegelaten. Eén gebruikersnaam per regel.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Voer één gebruikersnaam per regel in. Alleen deze spelers mogen lid worden.
+Laat leeg om alle geschikte spelers toe te staan.</string>
   <string name="playYourGames">Speel jouw partijen</string>
   <string name="byes">Oneven</string>
   <string name="absences">Afwezigheden</string>

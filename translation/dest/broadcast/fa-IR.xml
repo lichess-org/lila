@@ -39,6 +39,7 @@
   <string name="editRoundStudy">ویرایش مطالعه دور</string>
   <string name="deleteTournament">حذف این مسابقات</string>
   <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">آیا این مسابقه، شاملِ همهٔ دورها و بازی‌ها، برای همیشه حذف می‌شود؟</string>
   <string name="showScores">نمایش امتیاز بازیکنان بر پایه نتیجه بازی‌ها</string>
   <string name="replacePlayerTags">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
   <string name="fideFederations">کشورگان‌های فیده</string>
@@ -51,12 +52,13 @@
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
-  <string name="teams">یَران‌ها</string>
+  <string name="teams">تیم‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
   <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای پخش‌های زنده را در تنظیمات حساب‌تان تغییر دهید.</string>
   <string name="uploadImage">بارگذاری تصویر مسابقات</string>
   <string name="noBoardsYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، میزها پدیدار خواهند شد.</string>
+  <string name="noPlayersYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، بازیکنان پدیدار خواهند شد.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">میزها را می‌توان از یک منبع یا از راه %s بارگذاری کرد</string>
   <string name="startsAfter">شروع کنید بعد %s</string>
   <string name="startVerySoon">پخش زنده به زودی خواهد آغازید.</string>
@@ -71,7 +73,7 @@
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
   <string name="standingsDisclaimer">رده‌بندی با استفاده از بازی‌های پخش‌شده محاسبه می‌شود و ممکن است با نتایج رسمی متفاوت باشد.</string>
-  <string name="allTeams">همهٔ یَران‌ها</string>
+  <string name="allTeams">همهٔ تیم‌ها</string>
   <string name="tournamentFormat">ساختار مسابقات</string>
   <string name="tournamentLocation">مکان مسابقات</string>
   <string name="topPlayers">بازیکنان برتر</string>
@@ -107,6 +109,6 @@
   <string name="tiebreaks">یِرشکن</string>
   <string name="gameX">بازی %s</string>
   <string name="knockouts">حذفی</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">زیر-%s</string>
 </resources>

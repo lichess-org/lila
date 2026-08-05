@@ -57,7 +57,7 @@ final class Env(
   val jsonView = wire[UblogJsonView]
 
   Bus.sub[lila.core.mod.Shadowban]: s =>
-    api.setShadowban(s.user, s.value)
+    api.setShadowban(s.userId, s.value)
 
   Bus.sub[lila.core.security.ReopenAccount]: r =>
     api.resetDefaultTier(r.user)

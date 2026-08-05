@@ -577,7 +577,8 @@
   <string name="slow">සෙමින්</string>
   <string name="insideTheBoard">පුවරුව ඇතුළත</string>
   <string name="outsideTheBoard">පුවරුවෙන් පිටත</string>
-  <string name="allSquaresOfTheBoard">පියසලයේ සියලුම කොටස්</string>
+  <string name="allSquaresOfTheBoard">පියසලයේ සියලුම කොටස්
+</string>
   <string name="onSlowGames">මන්දගාමී ක්‍රීඩා මත​​</string>
   <string name="always">සැමවිටම</string>
   <string name="never">කවදාවත් නැහැ</string>
@@ -643,7 +644,8 @@
   <string name="lichessTournaments">Lichess තරඟාවලි</string>
   <string name="tournamentFAQ">තරඟාවලිය FAQ</string>
   <string name="timeBeforeTournamentStarts">තරඟාවලිය</string>
-  <string name="averageCentipawnLoss">සාමාන්‍ය සෙන්ටිපාන් හානි</string>
+  <string name="averageCentipawnLoss">සාමාන්‍ය සෙන්ටිපාන් හානි
+</string>
   <string name="accuracy">නිවරදිතවය</string>
   <string name="keyboardShortcuts">යතුරු පුවරු කෙටි පිවිසුම්</string>
   <string name="keyMoveBackwardOrForward">ඉස්සරහට/පිටුපසට අදින්න</string>

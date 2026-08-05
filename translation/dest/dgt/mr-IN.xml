@@ -11,7 +11,7 @@
   <string name="openingThisLink">ह्या लिंक ला उघडून</string>
   <string name="configurationSection">मांडणी विभाग</string>
   <string name="ifMoveNotDetected">जर एक डाव ओळखला गेला नाही</string>
-  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">ह्या पृष्ठाला पुनः आयात करा</string>
+  <string name="reloadThisPage">ह्या पृष्ठाला पुनः आयात करा</string>
   <string name="dgtConfigure">DGT - मांडणी</string>
   <string name="lichessConnectivity">Lichess विद्युतसंबंधता</string>
   <string name="validDgtOauthToken">DGT खेळासाठी योग्य तुमच्याकडे एक OAuth प्रवेशचिन्ह आहे.</string>
@@ -23,7 +23,7 @@
   <string name="moveFormatDescription">Lichess वर SAN हे मानक आहे, उदाहरणार्थ \"Nf6\". यंत्रांसाठी UCI सामान्य आहे, उदाहरणार्थ \"g8f6\".</string>
   <string name="debug">सुक्ष्मध्वनियंत्र</string>
   <string name="verboseLogging">शब्दशः नोंदणीसाठी आज्ञावली</string>
-  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">निबंधकातले संदेश पाहण्यासाठी, Ctrl + Shift + C दाबा (Windows, Linux, Chrome OS) किंवा ⌘ + ⌥ + C (Mac). </string>
+  <string name="toSeeConsoleMessage">निबंधकातले संदेश पाहण्यासाठी, Ctrl + Shift + C दाबा (Windows, Linux, Chrome OS) किंवा ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">DGT पटाबरोबर खेळा</string>
   <string name="configure">मांडणी करा</string>
 </resources>

@@ -884,7 +884,6 @@
   <string name="xInvitedYouToY">%1$s ໄດ້ເຊີນທ່ານເຂົ້າຮ່ວມ \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">ຕອນນີ້ທ່ານໄດ້ເປັນສ່ວນໜຶ່ງຂອງທີມແລ້ວ.</string>
   <string name="youHaveJoinedTeamX">ທ່ານໄດ້ເຂົ້າຮ່ວມ \"%1$s\" ແລ້ວ.</string>
-  <string name="someoneYouReportedWasBanned">ຄົນທີ່ທ່ານລາຍງານຖືກແແບນແລ້ວ</string>
   <string name="congratsYouWon">ຍິນດີດ້ວຍ, ທ່ານຊະນະແລ້ວ!</string>
   <string name="gameVsX">ເກມພົບກັບ %1$s</string>
   <string name="resVsX">%1$s ພົບກັບ %2$s</string>
@@ -936,7 +935,6 @@
   <string name="gameInProgress">ທ່ານມີເກມທີ່ກຳລັງຫຼິ້ນຄ້າງຢູ່ກັບ %s.</string>
   <string name="abortTheGame">ຍົກເລີກເກມ</string>
   <string name="resignTheGame">ຍອມແພ້</string>
-  <string name="youCantStartNewGame">ທ່ານບໍ່ສາມາດເລີ່ມເກມໃໝ່ໄດ້ຈົນກວ່າເກມນີ້ຈະສິ້ນສຸດ.</string>
   <string name="since">ຕັ້ງແຕ່</string>
   <string name="until">ຈົນເຖິງ</string>
   <string name="lichessDbExplanation">ເກມທີ່ມີການຄິດໄລ່ຄະແນນທີ່ຫຼິ້ນໃນ Lichess</string>

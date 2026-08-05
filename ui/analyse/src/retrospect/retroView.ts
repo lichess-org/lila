@@ -1,6 +1,6 @@
 import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, hl, type VNode, spinnerVdom as spinner, iconTag } from 'lib/view';
+import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../view/components';
@@ -14,7 +14,7 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
-    iconTag(licon.PlayTriangle),
+    icon(licon.PlayTriangle)(),
     i18n.site.next,
   ]);
 
@@ -110,12 +110,13 @@ const feedback = {
     return [
       hl(
         'div.half.top',
-        hl('div.player.center', [
+        hl(
+          'div.player.center',
           hl('div.instruction', [
             hl('strong', i18n.site.evaluatingYourMove),
             renderEvalProgress(ctrl.node()),
           ]),
-        ]),
+        ),
       ),
     ];
   },
@@ -179,7 +180,7 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [

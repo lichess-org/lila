@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Lichessʻning mavjudligiga hissa qoʻshayotgan olijanob homiylarimiz</string>
   <string name="whereMoneyGoes">Mablagʻlar qayerga sarflanadi?</string>
   <string name="serversAndDeveloper">Birinchi navbatda — kuchli serverlarga.
-Mablagʻlar, shuningdek, Lichess asoschisi va asosiy dasturchisi %sning faoliyati uchun sarflanadi.</string>
+Mablagʻlar, shuningdek, Lichess asoschisi va asosiy dasturchisi %sning faoliyati uchun sarflanadi.
+</string>
   <string name="costBreakdown">Xarajatlarning batafsil hisoboti bilan tanishing</string>
   <string name="officialNonProfit">Lichess rasmiy notijorat tashkilotmi?</string>
   <string name="actOfCreation">Ha, mana bizning tashkil etilganligimiz haqidagi hujjat (fransuz tilida)</string>
   <string name="changeMonthlySupport">Har oylik yordamimni oʻzgartirishim yoki bekor qilishim mumkinmi?</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">Agar toʻlovlaringiz PayPal orqali amalga oshirilgan boʻlsa, qoʻllab‑quvvatlashni bekor qilish yoki oʻzgartirish uchun oʻz PayPal hisobingiz orqali amalga oshirishingiz mumkin. Yoki %1$s, buni siz uchun oʻzimiz bajarib beramiz. Agar PayPalʼdan foydalanmagan boʻlsangiz, demak toʻlovlaringiz Stripe orqali amalga oshirilgan boʻladi — bunday holatda donat miqdorini oʻzgartirish yoki uni bekor qilishni %2$s bajarishingiz mumkin.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">homiylar (patron) sahifada</string>
+  <string name="changeSupport">Agar toʻlovlaringiz PayPal orqali amalga oshirilgan boʻlsa, qoʻllab‑quvvatlashni bekor qilish yoki oʻzgartirish uchun oʻz PayPal hisobingiz orqali amalga oshirishingiz mumkin. Yoki %1$s, buni siz uchun oʻzimiz bajarib beramiz. Agar PayPalʼdan foydalanmagan boʻlsangiz, demak toʻlovlaringiz Stripe orqali amalga oshirilgan boʻladi — bunday holatda donat miqdorini oʻzgartirish yoki uni bekor qilishni %2$s bajarishingiz mumkin.</string>
+  <string name="patronPage">homiylar (patron) sahifada</string>
   <string name="contactSupport">Lichess yordam xizmati bilan bogʻlanishingiz mumkin</string>
   <string name="otherMethods">Donat qilishning boshqa usullari bormi?</string>
   <string name="lichessIsRegisteredWith">Lichess %s platformasida roʻyxatdan oʻtgan.</string>

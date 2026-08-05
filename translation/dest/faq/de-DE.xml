@@ -147,6 +147,11 @@ Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden
 Das rote Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lichess.org einen Ton abspielt. Normalerweise wird diese Einschränkung aufgehoben, sobald du etwas anklickst. Bei einigen mobilen Browsern gilt das Ziehen einer Figur durch Berührung nicht als Klick. In diesem Fall musst du zu Beginn einer Partie auf das Brett tippen, um den Ton zu aktivieren.
 
 Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschieht. Oft kann man lichess.org ausdrücklich erlauben, Töne abzuspielen. Hier findest du eine Anleitung, wie dies in den neuesten Versionen einiger gängiger Browser funktioniert.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Die meisten Browser unterbinden die Tonwiedergabe auf einer neu geladenen Seite, um die Nutzer nicht zu belästigen. 
+
+Das Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lichess.org Ton abspielt. Normalerweise wird diese Einschränkung aufgehoben, sobald du etwas anklickst. Bei einigen mobilen Browsern gilt das Ziehen einer Figur durch Berührung nicht als Klick. In diesem Fall musst du zu Beginn einer Partie auf das Brett tippen, um den Ton zu aktivieren.
+
+Wir zeigen das rote Stummschaltungssymbol an, um darauf aufmerksam zu machen, wenn dies geschieht. Du kannst lichess.org ausdrücklich erlauben, Ton abzuspielen. Hier findest du eine Anleitung, wie dies in den neuesten Versionen einiger gängiger Browser funktioniert:</string>
   <string name="desktop">Desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gehe zu lichess.org
 2. Drücke Strg-i unter Linux/Windows oder cmd-i auf MacOS
@@ -155,6 +160,10 @@ Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschie
   <string name="enableAutoplayForSoundsChrome">1. Gehe zu lichess.org
 2. Klicke auf das Schloss-Symbol in der Adressleiste
 3. Klicke auf die Seiten-Einstellungen
+4. Ton zulassen</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gehe auf lichess.org
+2. Klicke auf das Seiteninformationssymbol in der Adressleiste
+3. Klicke auf Seiten-Einstellungen
 4. Ton zulassen</string>
   <string name="enableAutoplayForSoundsSafari">1. Gehe zu lichess.org
 2. Klicke auf Safari in der Menüleiste

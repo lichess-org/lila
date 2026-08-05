@@ -93,7 +93,6 @@ final class ActivityWriteApi(
         .flatMap: extra =>
           val all = following ++ extra
           all.nonEmpty.so:
-            logger.info(s"${from.id} unfollow ${all.size} users")
             all.toList.sequentiallyVoid: userId =>
               coll.update.one(
                 regexId(userId) ++ $doc("f.i.ids" -> from.id),

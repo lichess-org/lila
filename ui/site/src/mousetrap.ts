@@ -173,9 +173,7 @@ export default class Mousetrap {
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination === 'esc' ||
-        (el.tagName !== 'INPUT' &&
-          el.tagName !== 'SELECT' &&
-          el.tagName !== 'TEXTAREA' &&
+        (!['INPUT', 'SELECT', 'OPTION', 'TEXTAREA'].includes(el.tagName) &&
           !el.isContentEditable &&
           !el.hasAttribute('trap-bypass'))
       ) {

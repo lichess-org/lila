@@ -11,7 +11,7 @@ export const log: PermaLog = makeLog(
     db: 'log--db',
     store: 'log',
     version: 3,
-    upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
+    upgrade: (_, store) => store?.clear(), // blow it all away when we rev version
   },
   parseInt(localStorage.getItem('log.window') || '100'),
 );

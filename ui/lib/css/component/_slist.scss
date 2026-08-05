@@ -122,7 +122,6 @@
 
   .stack-row td {
     width: 100%;
-    padding-inline-start: $box-padding;
-    padding-inline-end: $box-padding;
+    padding-inline: $box-padding;
   }
 }

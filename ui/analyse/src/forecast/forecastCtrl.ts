@@ -4,7 +4,8 @@ import type { TreeWrapper } from 'lib/tree/tree';
 import type { TreePath } from 'lib/tree/types';
 import { json as xhrJson } from 'lib/xhr';
 
-import type { AnalyseData } from '../interfaces';
+import type { AnalyseData } from '@/interfaces';
+
 import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 
 export default class ForecastCtrl {
@@ -67,9 +68,9 @@ export default class ForecastCtrl {
   };
 
   isCandidate = (fc: ForecastStep[]): boolean => {
-    fc = this.truncate(fc);
-    if (!this.isLongEnough(fc)) return false;
-    return !this.forecasts().some(f => this.contains(f, fc));
+    const truncatedStep = this.truncate(fc);
+    if (!this.isLongEnough(truncatedStep)) return false;
+    return !this.forecasts().some(f => this.contains(f, truncatedStep));
   };
 
   save = () => {
@@ -113,13 +114,8 @@ export default class ForecastCtrl {
   };
 
   showForecast = (variant: VariantKey, path: TreePath, tree: TreeWrapper, steps: ForecastStep[]) => {
-    steps.forEach(s => {
-      const node = completeNode(variant)({
-        ply: s.ply,
-        fen: s.fen,
-        uci: s.uci,
-        san: s.san,
-      });
+    steps.forEach(({ ply, fen, uci, san }) => {
+      const node = completeNode(variant)({ ply, fen, uci, san });
       // this handles the case where the move isn't in the tree yet
       // if it is, it just returns
       tree.addNode(node, path); // the path before this is its parent;
@@ -129,15 +125,17 @@ export default class ForecastCtrl {
   };
 
   addNodes = (fc: ForecastStep[]): void => {
-    fc = this.truncate(fc);
-    if (!this.isCandidate(fc)) return;
-    this.update(fcs => [...fcs, fc]);
+    const truncatedStep = this.truncate(fc);
+    if (!this.isCandidate(truncatedStep)) return;
+    this.update(fcs => [...fcs, truncatedStep]);
     this.fixAll();
     this.save();
   };
+
   removeIndex = (index: number) => {
     this.update(fcs => fcs.filter((_, i) => i !== index));
     this.save();
   };
+
   onMyTurn = () => !!this.cfg.onMyTurn;
 }

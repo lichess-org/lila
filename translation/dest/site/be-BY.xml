@@ -59,6 +59,8 @@
   <string name="blackLeftTheGame">Гулец з боку чорных пакінуў гульню</string>
   <string name="whiteDidntMove">Белыя не зрабілі ход</string>
   <string name="blackDidntMove">Чорныя не зрабілі ход</string>
+  <string name="whiteAborted">Белыя скасавалі гульню</string>
+  <string name="blackAborted">Чорныя скасавалі гульню</string>
   <string name="requestAComputerAnalysis">Запытаць кампутарны аналіз</string>
   <string name="computerAnalysis">Кампутарны аналіз</string>
   <string name="computerAnalysisAvailable">Даступны кампутарны аналіз</string>
@@ -216,7 +218,7 @@
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
   <string name="otherPlayers">другія гульцы</string>
-  <string name="discussions" comment="Heading when you search in your user Inbox [ https://lichess.org/inbox ] and you have message history with that user.&#10;&#10;This string used to be &quot;Discussions&quot;.">Размовы</string>
+  <string name="discussions">Размовы</string>
   <string name="today">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
@@ -389,7 +391,11 @@
   <string name="openingExplorerAndTablebase">База дэбютаў і эндшпіляў</string>
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
+  <string name="whiteProposesTakeback">Белыя прапануюць скасаваць ход</string>
+  <string name="blackProposesTakeback">Чорныя прапануюць скасаваць ход</string>
   <string name="takebackPropositionSent">Прапанова скасаваць ход даслана</string>
+  <string name="whiteDeclinesTakeback">Белыя адхіляюць скасаванне хода</string>
+  <string name="blackDeclinesTakeback">Чорныя адхіляюць скасаванне хода</string>
   <string name="yourOpponentProposesATakeback">Супернік прапануе скасаваць ход</string>
   <string name="bookmarkThisGame">Дадаць гэтую гульню ў закладкі</string>
   <string name="tournament">Турнір</string>
@@ -971,7 +977,6 @@
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>
   <string name="youAreNowPartOfTeam">Цяпер вы з\'яўляецеся часткай каманды.</string>
   <string name="youHaveJoinedTeamX">Вы далучыліся да %1$s.</string>
-  <string name="someoneYouReportedWasBanned">Хтосьці заблакаваны па вашаму звароту</string>
   <string name="congratsYouWon">Віншуем, вы перамаглі!</string>
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
@@ -1025,7 +1030,6 @@
   <string name="gameInProgress">Вы зараз гуляеце з %s.</string>
   <string name="abortTheGame">Скасаваць гульню</string>
   <string name="resignTheGame">Здацца</string>
-  <string name="youCantStartNewGame">Вы не можаце пачаць новую гульню, пакуль гэта няскончана.</string>
   <string name="since">З</string>
   <string name="until">Да</string>
   <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>

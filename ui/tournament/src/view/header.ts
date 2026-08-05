@@ -3,7 +3,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
-import { dataIcon, iconCls, iconTag } from 'lib/view';
+import { dataIcon, icon, onInsert } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
@@ -19,7 +19,7 @@ const hasFreq = (freq: 'shield' | 'marathon', d: TournamentData) => d.schedule?.
 
 function clock(ctrl: TournamentController): VNode | undefined {
   const d = ctrl.data;
-  if (d.isFinished) return;
+  if (d.isFinished) return undefined;
   if (d.secondsToFinish) return h('div.clock', [h('div.time', { hook: startClock(d.secondsToFinish) })]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds)
@@ -29,14 +29,9 @@ function clock(ctrl: TournamentController): VNode | undefined {
             title: new Date(d.startsAt).toLocaleString(),
             datetime: Date.now() + d.secondsToStart * 1000,
           },
-          hook: {
-            insert(vnode) {
-              (vnode.elm as HTMLElement).setAttribute(
-                'datetime',
-                '' + (Date.now() + d.secondsToStart! * 1000),
-              );
-            },
-          },
+          hook: onInsert(el => {
+            el.setAttribute('datetime', String(Date.now() + d.secondsToStart! * 1000));
+          }),
         }),
       ]);
     return h('div.clock.clock-created', [
@@ -48,16 +43,16 @@ function clock(ctrl: TournamentController): VNode | undefined {
 }
 
 function image(d: TournamentData): VNode | undefined {
-  if (d.isFinished) return;
-  if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
+  if (d.isFinished) return undefined;
+  if (hasFreq('shield', d) || hasFreq('marathon', d)) return undefined;
   const s = d.spotlight;
-  if (s && s.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
-  return iconCls(s?.iconFont || licon.Trophy, 'img');
+  if (s?.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
+  return icon(s?.iconFont || licon.Trophy)('.img');
 }
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (hasFreq('marathon', d)) return h('h1', [iconTag(licon.Globe, { cls: 'fire-trophy' }), d.fullName]);
+  if (hasFreq('marathon', d)) return h('h1', [icon(licon.Globe)('.fire-trophy'), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
       h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),

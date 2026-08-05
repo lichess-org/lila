@@ -906,7 +906,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
   <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. mi mute li weka wawa e ona</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
   <string name="resVsX">jan %1$s en jan %2$s</string>
@@ -960,7 +959,6 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="gameInProgress">tenpo ni la, sina en jan %s li musi.</string>
   <string name="abortTheGame">o pini e musi ni</string>
   <string name="resignTheGame">o pini e musi ni (pini ike)</string>
-  <string name="youCantStartNewGame">sina wile pali e musi sin la, sina wile pini e musi ni.</string>
   <string name="since">poki open tenpo</string>
   <string name="until">poki pini tenpo</string>
   <string name="lichessDbExplanation">musi ale pi nanpa wawa tan jan musi ale pi ilo \"Lichess\"</string>

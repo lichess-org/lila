@@ -3,6 +3,7 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import * as ab from 'ab/round';
+import { roleToChar } from 'chessops/util';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
@@ -162,7 +163,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private readonly onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
-    if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
+    if (!this.keyboardMove?.usedSan && !this.opts.noab) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
@@ -233,6 +234,7 @@ export default class RoundController implements MoveRootCtrl {
 
   userJump = (ply: Ply): void => {
     this.toSubmit = undefined;
+    this.promotion.dismiss();
     this.chessground.selectSquare(null);
     if (ply !== this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
@@ -255,13 +257,14 @@ export default class RoundController implements MoveRootCtrl {
         check: !!s.check,
         turnColor: plyColor(this.ply),
       };
+    this.promotion.dismiss();
     if (this.replaying()) this.chessground.stop();
     else
       config.movable = {
         color: this.isPlaying() ? this.data.player.color : undefined,
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
-    this.chessground.cancelPremove();
+    this.chessground.cancelMove();
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
@@ -891,6 +894,18 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
+
+  pendingStep = (): Step | undefined => {
+    const submit = this.toSubmit;
+    if (!submit) return undefined;
+    const uci = 'u' in submit ? submit.u : `${roleToChar(submit.role).toUpperCase()}@${submit.pos}`;
+    return {
+      ply: this.ply + 1,
+      fen: this.chessground.getFen(),
+      san: almostSanOf(readFen(this.stepAt(this.ply).fen), uci),
+      uci,
+    };
+  };
 
   speakClock = (): void => {
     this.clock?.speak();

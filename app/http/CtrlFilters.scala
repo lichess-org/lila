@@ -40,6 +40,10 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def WithProxy[A](res: IsProxy ?=> Fu[A])(using req: RequestHeader): Fu[A] =
     env.security.ip2proxy.ofReq(req).flatMap(res(using _))
 
+  def couldBeEnum(using ctx: Context): Fu[Boolean] =
+    if ctx.isAuth then fuFalse
+    else env.security.ip2proxy.ofReq(ctx.req).dmap(_.couldBeEnum)
+
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
       .isPubOrTor(ctx.req)
@@ -113,16 +117,18 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
 
-  def NoCrawlers(result: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
+  def NoCrawlersRes(result: Fu[Result])(using ctx: Context): Fu[Result] =
+    if ctx.req.client.isCrawler then notFound else result
 
   def NoCrawlersUnlessPreview(result: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if HTTPRequest.isCrawler(ctx.req).yes && HTTPRequest.isImagePreviewCrawler(ctx.req).no
+    if ctx.req.client.isCrawler && !HTTPRequest.isImagePreviewCrawler(ctx.req)
     then notFound
     else result
 
-  def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
-    if HTTPRequest.isCrawler(ctx.req).yes then default.zero else computation
+  def NoCrawlers[A](computation: A)(using ctx: Context, default: Zero[A]): A =
+    if ctx.req.client.isCrawler && !ctx.isOAuth
+    then default.zero
+    else computation
 
   def NotManaged(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me

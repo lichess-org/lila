@@ -26,7 +26,8 @@
   <string name="celebratedPatrons">Слављени Покровитељи који праве Lichess могићим</string>
   <string name="whereMoneyGoes">Где иде новац?</string>
   <string name="serversAndDeveloper">Пре свега, снажне сервере.
-Након тога плаћамо програмера са пуним радним временом: %s, оснивача Lichess-а.</string>
+Након тога плаћамо програмера са пуним радним временом: %s, оснивача Lichess-а.
+</string>
   <string name="costBreakdown">Види детаљано образложење трошкова</string>
   <string name="officialNonProfit">Да ли је Lichess званична непрофитна организација?</string>
   <string name="actOfCreation">Да, овде је чин стварања (на француском)</string>

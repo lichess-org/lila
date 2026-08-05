@@ -52,7 +52,7 @@
   <string name="knightMate">Det er muligt at sætte skakmat med blot en springer eller løber, hvis modstanderen har mere end en konge på brættet.</string>
   <string name="noRatingPoints">Ingen ratingpoint blev givet</string>
   <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
+  <string name="botRatingAbuse">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
   <string name="errorPage">Fejlside</string>
   <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
   <string name="learnHowToMakeBroadcasts">Lær hvordan du laver dine egne udsendelser på Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Intet af det ovenstående</string>
   <string name="sendEmailAt">Send os en e-mail på %s.</string>
   <string name="explainYourRequest">Beskriv venligst din anmodning klart og grundigt. Oplys dit Lichess-brugernavn og enhver anden information, som kan hjælpe os med at hjælpe dig.</string>
+  <string name="monetiseNotInterested">Vi er ikke interesseret i at tjene penge på Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Vi vil aldrig vise nogen form for annoncer, vi vil ikke spore vores spillere, og vi vil ikke sælge eller købe trafik eller brugere.</string>
+  <string name="monetiseNoMarketingEmail">Kontakt os venligst ikke os om markedsføring, tracking eller annoncering.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Vi opfordrer alle til at %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blokere alle annoncer og trackere</string>
+  <string name="broadcastTournamentOnLichess">Transmitter en turnering på Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Hvis du ønsker at transmittere en turnering officielt på Lichess, eller hvis du har spørgsmål vedrørende vores transmissioner:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Kontakt vores Broadcast Team på %1$s eller på %2$s.</string>
+  <string name="ourDiscordServer">vores Discord-server</string>
 </resources>

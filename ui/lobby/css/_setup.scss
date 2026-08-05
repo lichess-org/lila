@@ -100,8 +100,10 @@ $c-slider: $c-setup;
   group.radio input:checked + label {
     background: $c-setup;
 
-    &:hover {
-      background: $m-secondary--lighten-5;
+    @media (hover: hover) {
+      &:hover {
+        background: hsl(from $c-secondary h s calc(l + 5));
+      }
     }
   }
 
@@ -134,8 +136,8 @@ $c-slider: $c-setup;
   .failure {
     @extend %box-radius;
 
-    background: $m-bad_bg--mix-20;
-    box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
+    background: color-mix(in oklab, $c-bad 20%, $c-bg);
+    box-shadow: 0 0 13px 6px color-mix(in oklab, $c-bad 20%, $c-bg);
   }
 
   .footer {
@@ -263,7 +265,7 @@ $c-slider: $c-setup;
           .val-box {
             background: $c-font-dim;
             padding: 0.1rem 0.5rem;
-            border-radius: $box-radius-size / 2;
+            border-radius: $small-box-radius-size;
             font-weight: bold;
             color: $c-bg;
           }

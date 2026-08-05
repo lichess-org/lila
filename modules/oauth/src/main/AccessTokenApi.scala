@@ -2,8 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
-import akka.stream.scaladsl.Source
+import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
@@ -15,7 +15,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
@@ -60,16 +60,19 @@ final class AccessTokenApi(
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
+    create(granted.userId, granted.scopes, granted.redirectUri.origin)
+
+  def create(userId: UserId, scopes: TokenScopes, origin: Origin)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
         id = AccessToken.idFrom(plain),
         plain = plain,
-        userId = granted.userId,
+        userId = userId,
         description = None,
         created = nowInstant.some,
-        scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.origin.some,
+        scopes = scopes,
+        clientOrigin = origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
@@ -271,15 +274,15 @@ final class AccessTokenApi(
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match
         case Some(token) =>
-          logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+          logger.info(s"github revoking token ${token.plain} for user ${token.userId}")
           revoke(token.plain).inject((token, scan.url).some)
         case None =>
-          logger.branch("github").info(s"ignoring token ${scan.token}")
+          logger.info(s"github ignoring token ${scan.token}")
           fuccess(none)
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](8_192, "oauth.access_token"):
+    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](16_384, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =

@@ -1,4 +1,3 @@
-activity.2025
 activity.chess
 activity.googly-eye
 activity.lichess
@@ -55,6 +54,7 @@ symbols.esperanto-flag
 symbols.extinction
 symbols.fridays-for-future
 symbols.gnu-logo
+symbols.helix-logo
 symbols.lichess-4545-flag
 symbols.linux-tux-penguin
 symbols.move-blunder
@@ -68,6 +68,7 @@ symbols.pirate-flag
 symbols.puzzle-racer
 symbols.puzzle-storm
 symbols.puzzle-streak
+symbols.python-logo
 symbols.rainbow-flag
 symbols.transgender-flag
 symbols.triangular-flag

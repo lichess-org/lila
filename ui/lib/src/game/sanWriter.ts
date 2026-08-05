@@ -90,7 +90,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci> | undefined): AlmostSan {
+export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci>): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -181,8 +181,8 @@ export const sanToWords = (san: string): string =>
     .replace('O - O - O', i18n.nvui.sanLongCastling)
     .replace('O - O', i18n.nvui.sanShortCastling);
 
-const transRole = (role: Role): string =>
-  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
+export const transRole = (role: Role): string =>
+  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || role;
 
 export function speakable(san?: San): string {
   return !san

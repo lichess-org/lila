@@ -31,15 +31,15 @@
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
   <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Blog post chop etdi</item>
-    <item quantity="other">%s ta blog post chop etdi</item>
+    <item quantity="one">Blog post joyladi</item>
+    <item quantity="other">%s ta blog post joylandi</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Bir marta koʻrilgan</item>
     <item quantity="other">%s marta koʻrilgan</item>
   </plurals>
-  <string name="xPublishedY">%1$s %2$sʼni chop etdi</string>
-  <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
+  <string name="xPublishedY">%1$s post joyladi: %2$s</string>
+  <string name="thisPostIsPublished">Ushbu post joylandi</string>
   <string name="thisIsADraft">Bu qoralama</string>
   <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
   <string name="noDrafts">Qoralamalar yoʻq.</string>

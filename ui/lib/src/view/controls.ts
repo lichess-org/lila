@@ -1,9 +1,10 @@
 // no side effects allowed due to re-export by index.ts
 
-import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
+import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
 import { licon } from '@/licon';
+import { onInsert } from '@/view/snabbdom';
 import * as xhr from '@/xhr';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {
@@ -21,12 +22,11 @@ export function toggleBoxInit(): void {
 
 export function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
   return {
-    insert: (v: VNode) => {
-      const el = v.elm as HTMLInputElement;
-      el.value = '' + read();
+    ...onInsert<HTMLInputElement>(el => {
+      el.value = String(read());
       el.addEventListener('input', () => write(parseInt(el.value)));
       el.addEventListener('mouseout', () => el.blur());
-    },
+    }),
     update: (_, v: VNode) => {
       (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
     },
@@ -39,10 +39,12 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     effect();
   });
 
-export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
+export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On } = {}): VNode {
   return h('div.copy-me', [
     h('input.copy-me__target', {
-      attrs: { readonly: true, spellcheck: false, value: content, ...inputAttrs },
+      attrs: { spellcheck: 'false', ...opts.inputAttrs },
+      props: { value: content },
+      on: opts.on,
     }),
     h('button.copy-me__button.button.button-metal', {
       attrs: { 'data-icon': licon.Clipboard, title: i18n.site.copyToClipboard },

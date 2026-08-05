@@ -133,10 +133,13 @@ export interface Division {
 
 export interface Analysis {
   id: string;
+  nodesPerMove: number;
   white: AnalysisSide;
   black: AnalysisSide;
   partial?: boolean;
 }
+
+export type GamePhase = 'opening' | 'middlegame' | 'endgame';
 
 export interface AnalysisSide {
   acpl: number;
@@ -144,6 +147,7 @@ export interface AnalysisSide {
   mistake: number;
   blunder: number;
   accuracy: number;
+  phases?: Partial<Record<GamePhase, number>>;
 }
 
 export interface AnalyseOpts {

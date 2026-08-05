@@ -2,8 +2,15 @@
 <resources>
   <string name="broadcasts">Преноси</string>
   <string name="myBroadcasts">Моји преноси</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s пренос</item>
+    <item quantity="few">%s преноса</item>
+    <item quantity="other">%s преноса</item>
+  </plurals>
   <string name="liveBroadcasts">Преноси турнира уживо</string>
+  <string name="broadcastCalendar">Календар преноса</string>
   <string name="newBroadcast">Нови пренос уживо</string>
+  <string name="aboutBroadcasts">О преносима</string>
   <string name="ongoing">У току</string>
   <string name="upcoming">Предстојећи</string>
   <string name="fullDescription">Потпуни опис турнира</string>

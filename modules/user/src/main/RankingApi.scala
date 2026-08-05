@@ -115,6 +115,8 @@ final class RankingApi(
 
     private type Rank = Int
 
+    private lazy val logger = lila.log("user.ranking")
+
     def of(userId: UserId): Map[PerfKey, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
@@ -122,18 +124,18 @@ final class RankingApi(
             ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
+    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]("user.weeklyStableRanking"):
       _.refreshAfterWrite(10.minutes).buildAsyncTimeout(2.minutes): _ =>
         lila.rating.PerfType.leaderboardable
           .sequentially: perf =>
             computeAggregate(perf).chronometer
-              .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
+              .logIfSlow(3000, logger)(_ => s"slow weeklyStableRanking for $perf")
               .result
               .monSuccess(lila.mon.user.weeklyStableRanking(perf))
               .dmap(perf -> _)
           .map(_.toMap)
           .chronometer
-          .logIfSlow(5000, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+          .logIfSlow(10_000, logger)(_ => "slow weeklyStableRanking")
           .result
 
     private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:

@@ -8,8 +8,6 @@ export { isMoreThanText } from 'lib/richText';
 export const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(?!gallery\b)(\w{7})(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex =
   /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
-const teamMessageRegex =
-  /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
 const img = (src: string) => `<img src="${src}" alt="${src}"/>`;
 
@@ -42,17 +40,8 @@ const expandGameIds = (html: string) =>
       ' ' + linkReplace('/' + id, '#' + id, !bulkStart) + suffix,
   );
 
-const expandTeamMessage = (html: string) =>
-  html.replace(
-    teamMessageRegex,
-    (_: string, url: string) =>
-      `${expandLink(
-        url,
-      )} <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`,
-  );
-
 export const enhance = (str: string) =>
-  expandTeamMessage(expandGameIds(expandMentions(expandUrls(escapeHtml(str))))).replace(newLineRegex, '<br>');
+  expandGameIds(expandMentions(expandUrls(escapeHtml(str)))).replace(newLineRegex, '<br>');
 
 type Expandable = {
   element: HTMLElement;
@@ -69,7 +58,7 @@ const domain = window.location.host;
 const gameRegex = new RegExp(
   `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`,
 );
-const notGames = [
+const notGames = new Set([
   'training',
   'analysis',
   'insights',
@@ -78,7 +67,7 @@ const notGames = [
   'password',
   'streamer',
   'timeline',
-];
+]);
 
 export function expandLpvs(el: HTMLElement) {
   const expandables: Expandable[] = [];
@@ -130,7 +119,7 @@ const expandGame = async (exp: Expandable) => {
 
 function parseLink(a: HTMLAnchorElement): Link | undefined {
   const [id, orientation, initialPly] = Array.from(a.href.match(gameRegex) || []).slice(1);
-  if (id && !notGames.includes(id))
+  if (id && !notGames.has(id))
     return {
       type: 'game',
       src: `/embed/game/${id}`,

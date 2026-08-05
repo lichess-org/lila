@@ -119,14 +119,15 @@ final class Account(
   def apiNowPlaying = Scoped()(doNowPlaying)
 
   private def doNowPlaying(using ctx: Context)(using me: Me) =
-    env.round.proxyRepo
-      .urgentGames(me)
-      .map:
-        _.value.take((getInt("nb") | 9).atMost(50))
-      .map:
-        _.map(env.api.lobbyApi.nowPlaying)
-      .map: povs =>
-        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
+    for
+      all <- env.round.proxyRepo.urgentGames(me)
+      selected = all.value.take((getInt("nb") | 9).atMost(50))
+      povs = selected.map(env.api.lobbyApi.nowPlaying)
+    yield Ok:
+      Json.obj(
+        "nowPlaying" -> JsArray(povs),
+        "nbMyTurn" -> all.value.count(_.isMyTurn)
+      )
 
   def dasher = Auth { _ ?=> me ?=>
     negotiateJson:
@@ -379,7 +380,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)

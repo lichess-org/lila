@@ -934,7 +934,6 @@
   <string name="xInvitedYouToY">%1$s jūs uzaicināja uz \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tagad esat komandas dalībnieks.</string>
   <string name="youHaveJoinedTeamX">Pievienojāties \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Lietotājam, ko nosūdzējāt, tika slēgts konts</string>
   <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
   <string name="gameVsX">Spēle pret %1$s</string>
   <string name="resVsX">%1$s pret %2$s</string>
@@ -987,7 +986,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="gameInProgress">Jums ir nepageigta spēle ar %s.</string>
   <string name="abortTheGame">Atcelt spēli</string>
   <string name="resignTheGame">Padoties</string>
-  <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
   <string name="since">Kopš</string>
   <string name="until">Līdz</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>

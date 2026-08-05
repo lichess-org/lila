@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Disponeblas nova apo de Lichess por poŝaparatoj!</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Bonvolu elŝuti vian novan oficialan apon de Lichess ĉe %s.</string>
+  <string name="lichobileNewAppAvailable">Disponeblas nova apo de Lichess por poŝaparatoj!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Bonvolu elŝuti vian novan oficialan apon de Lichess ĉe %s.</string>
 </resources>

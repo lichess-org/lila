@@ -134,6 +134,7 @@ final class JsonView(
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted)))
           .add("description" -> withDescription.so(tour.description))
+          .add("payouts" -> tour.payouts)
           .add("myUsername" -> me.map(_.username))
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
           .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
@@ -175,6 +176,7 @@ final class JsonView(
     ranking <- cached.ranking(tour)
     sheet <- cached.sheet(tour, info.userId)
     user <- lightUserApi.asyncFallback(info.userId)
+    _ <- lightUserApi.preloadMany(info.recentPovs.flatMap(_.opponent.userId))
   yield
     import info.*
     val isPlaying = recentPovs.headOption.so(_.game.playable)
@@ -214,7 +216,7 @@ final class JsonView(
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
-    tour.featuredId
+    tour.featured
       .ifTrue(tour.isStarted)
       .so(pairingRepo.byId)
       .flatMapz: pairing =>

@@ -5,9 +5,10 @@ import _root_.chess.format.Fen
 import _root_.chess.format.pgn.{ Pgn, SanStr, Tags }
 import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
+import _root_.chess.opening.Opening
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.pekkostream.PekkoStreamCursor
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler }
 
@@ -124,7 +125,7 @@ abstract class GameRepo(val coll: BSONCollection):
   ): Funit
   def remove(id: GameId): Funit
   def countWhereUserTurn(userId: UserId): Fu[Int]
-  def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
+  def sortedCursor(user: UserId, pk: PerfKey): PekkoStreamCursor[Game]
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Update[Game]): Funit
@@ -142,6 +143,7 @@ trait PgnDump:
   def apply(
       game: Game,
       initialFen: Option[Fen.Full],
+      opening: Option[Opening.AtPly],
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
@@ -149,7 +151,7 @@ trait PgnDump:
       game: Game,
       initialFen: Option[Fen.Full],
       importedTags: Option[Tags],
-      withOpening: Boolean,
+      opening: Option[Opening],
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags]
@@ -170,13 +172,15 @@ trait Explorer:
 trait Divider:
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
 
+type GameOpening = (Game, Boolean) => Option[Opening]
+
 object PgnDump:
   case class WithFlags(
       clocks: Boolean = true,
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
-      opening: Boolean = true,
+      opening: Option[Boolean] = None, // no / quick / full
       rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,

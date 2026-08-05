@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">A Lichess streamer oldala a streamer platformod nyelvi beállításait használja, ezért a közvetítésed alapértelmezett nyelvét ott tudod beállítani.</string>
   <string name="pleaseAllow">Kérlek vedd figyelembe hogy akár 72 órát is igénybe vehet a közvetítői jelvényed és adatlapod jóváhagyása.</string>
   <string name="chooseYoutubeChannel">Válaszd ki a YouTube csatornát amit a Lichess-en fogsz használni.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kapcsolódás</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kapcsolat bontása</string>
+  <string name="connect">Kapcsolódás</string>
+  <string name="disconnect">Kapcsolat bontása</string>
   <string name="streamerName">A közvetítői neved a Lichess-en</string>
   <plurals name="keepItShort">
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
     <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Megjelenik a közvetítők oldalán</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Ha a moderátorok jóvá hagyták</string>
+  <string name="visibility">Megjelenik a közvetítők oldalán</string>
+  <string name="whenApproved">Ha a moderátorok jóvá hagyták</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>

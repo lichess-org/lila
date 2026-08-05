@@ -52,7 +52,7 @@
   <string name="knightMate">Có thể xẩy ra trường hợp chiếu hết chỉ với một quân mã hoặc một quân tượng, nếu đối thủ có nhiều hơn chỉ có vua trên bàn cờ.</string>
   <string name="noRatingPoints">Không có hệ số nào được tăng</string>
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ xếp hạng. Các ván đấu thường sẽ không ảnh hưởng đến hệ số của người chơi.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Trong một số trường hợp nhất định khi chơi với tài khoản Bot, ván cờ có xếp hạng có thể không trao điểm nếu xác định được rằng người chơi đang lạm dụng Bot để lấy điểm xếp hạng.</string>
+  <string name="botRatingAbuse">Trong một số trường hợp nhất định khi chơi với tài khoản Bot, ván cờ có xếp hạng có thể không trao điểm nếu xác định được rằng người chơi đang lạm dụng Bot để lấy điểm xếp hạng.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thể báo cáo nó:</string>
   <string name="learnHowToMakeBroadcasts">Tìm hiểu cách thức phát sóng trên Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Không phải các phương án trên</string>
   <string name="sendEmailAt">Hãy gửi email cho chúng tôi tại %s.</string>
   <string name="explainYourRequest">Xin vui lòng giải thích yêu cầu của bạn một cách rõ ràng và thấu đáo. Đưa ra tên đang nhập Lichess của bạn, và bất cứ thông tin nào hữu ích có thể giúp chúng tôi giúp bạn.</string>
+  <string name="monetiseNotInterested">Chúng tôi không có ý định kiếm tiền từ Lichess bằng bất kỳ hình thức nào.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Chúng tôi sẽ không bao giờ hiển thị bất kỳ loại quảng cáo nào, không theo dõi người chơi và không bán hoặc mua lưu lượng truy cập hoặc người dùng.</string>
+  <string name="monetiseNoMarketingEmail">Vui lòng không gửi email cho chúng tôi về vấn đề tiếp thị, trình theo dõi hoặc quảng cáo.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Chúng tôi khuyến khích mọi người %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">chặn tất cả quảng cáo và trình theo dõi</string>
+  <string name="broadcastTournamentOnLichess">Phát sóng một giải đấu trên Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Nếu bạn muốn phát sóng chính thức một giải đấu trên Lichess, hoặc có bất kỳ câu hỏi nào về việc phát sóng của chúng tôi:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Vui lòng liên hệ với Nhóm Phát sóng của chúng tôi trong %2$s hoặc qua %1$s.</string>
+  <string name="ourDiscordServer">máy chủ Discord của chúng tôi</string>
 </resources>

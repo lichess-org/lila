@@ -55,16 +55,19 @@
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="enPassantDescription">Tactiek met betrekking tot de en passant-regel, waarbij een pion een vijandelijke pion die vanuit zijn beginpositie twee velden tegelijk wordt opgespeeld, kan slaan.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Tactiek met betrekking tot de en passant-regel, waarbij een pion een vijandelijke pion kan slaan die vanuit zijn beginpositie twee velden naar voren wordt gezet.</string>
   <string name="epauletteMate">Epaulettenmat</string>
   <string name="epauletteMateDescription">Twee aangrenzende ontsnappingsvakjes voor een koning in schaak worden bezet door andere stukken.</string>
   <string name="exposedKing">Onveilige koning</string>
   <string name="exposedKingDescription">Een stelling met een koning met weinig verdedigers, vaak leidend tot schaakmat.</string>
   <string name="fork">Vork</string>
   <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Een zet waar één stuk twee of meer stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Ongedekt stuk</string>
   <string name="hangingPieceDescription">Een situatie waarin een vijandelijk stuk niet of onvoldoende verdedigd wordt en daarom ongestraft geslagen kan worden.</string>
   <string name="hookMate">Haakmat</string>
   <string name="hookMateDescription">Mat met een toren, paard en pion tezamen met een vijandelijke pion om de vluchtvelden van de koning in te perken.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Mat met een toren, paard en pion, en een vijandelijke pion om de vluchtvelden van de koning in te perken.</string>
   <string name="interference">Tussenplaatsing</string>
   <string name="interferenceDescription">Een stuk plaatsen tussen twee vijandelijke stukken om één of beide stukken onverdedigd te laten, zoals een paard op een verdedigd veld tussen twee torens.</string>
   <string name="intermezzo">Tussenzet</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Een matpatroon dat visueel lijkt op de staart van een zwaluw, zoals de vorm van een V.</string>
   <string name="triangleMate">Driehoeksmat</string>
   <string name="triangleMateDescription">De toren en koningin, een vakje verwijderd van de vijandelijke koning, staan op dezelfde rij of kolom, gescheiden door een vakje, en vormen samen een driehoek.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic-mat</string>
+  <string name="vukovicMate">Vukovic-mat</string>
   <string name="vukovicMateDescription">Een toren en een paard werken samen om de koning mat te zetten. De toren zet mat terwijl hij door een ander stuk wordt ondersteund; het paard wordt gebruikt om ontsnappingsvelden van de koning te blokkeren.</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>

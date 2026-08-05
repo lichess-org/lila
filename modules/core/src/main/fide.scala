@@ -39,7 +39,8 @@ opaque type PhotosJson = JsObject
 object PhotosJson extends TotalWrapper[PhotosJson, JsObject]:
   type Get = Set[FideId] => Fu[PhotosJson]
 
-type Tokenize = String => PlayerToken
+opaque type Tokenize = String => PlayerToken
+object Tokenize extends FunctionWrapper[Tokenize, String => PlayerToken]
 
 enum FidePlayerOrder:
   case name, standard, rapid, blitz, year, follow

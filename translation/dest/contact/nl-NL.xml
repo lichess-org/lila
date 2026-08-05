@@ -52,7 +52,7 @@
   <string name="knightMate">Schaakmat is mogelijk met enkel een paard of een loper, als de tegenstander meer stukken dan enkel een koning op het bord heeft.</string>
   <string name="noRatingPoints">Geen ratingpunten toegekend</string>
   <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende partijen hebben geen invloed op de rating van de spelers.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
+  <string name="botRatingAbuse">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
   <string name="learnHowToMakeBroadcasts">Lees hoe je je eigen uitzendingen op Lichess maakt</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
   <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess-gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
+  <string name="monetiseNotInterested">Wij zijn op geen enkele manier geïnteresseerd om winst te maken met Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">We zullen nooit advertenties tonen, we zullen onze spelers niet volgen, en we zullen geen verkeer of gebruikers kopen of verkopen.</string>
+  <string name="monetiseNoMarketingEmail">Gelieve ons geen e-mail te sturen over verkoop, tracking of reclame.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Wij moedigen iedereen aan %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">advertenties en trackers te blokkeren</string>
+  <string name="broadcastTournamentOnLichess">Zend een toernooi uit op Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Als je officieel een tornooi wilt uitzenden op Lichess, of vragen hebt over onze uitzendingen:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Neem contact op met ons Broadcast-team via %1$s of %2$s.</string>
+  <string name="ourDiscordServer">onze Discord-server</string>
 </resources>

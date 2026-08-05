@@ -957,7 +957,6 @@
   <string name="xInvitedYouToY">Pedet oc’h bet gant %1$s da \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ezel eus ar skipailh oc’h bremañ.</string>
   <string name="youHaveJoinedTeamX">Ezel oc\'h eus \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Skarzhet eo bet kuit unan bennak ho peus savet klemm outañ</string>
   <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="gameVsX">Krogad a-enep %1$s</string>
   <string name="resVsX">%1$s a-enep %2$s</string>
@@ -992,7 +991,6 @@
   <string name="gameInProgress">O c\'hoari emaoc\'h a-enep %s.</string>
   <string name="abortTheGame">Nullañ ar c\'hrogad</string>
   <string name="resignTheGame">Dilezel ar c\'hrogad</string>
-  <string name="youCantStartNewGame">Ne c\'haller ket kregiñ gant ur c\'hrogad all keit ha ma ne vo ket echu gant ar c\'hrogad-mañ.</string>
   <string name="since">Adalek</string>
   <string name="until">Betek</string>
   <string name="lichessDbExplanation">Krogadoù renket c\'hoariet war Lichess</string>

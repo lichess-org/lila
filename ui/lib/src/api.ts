@@ -1,11 +1,13 @@
 import type { Api as CgApi } from '@lichess-org/chessground/api';
 
+import type { Search } from '@/ceval/types';
+import type { ClientEval } from '@/tree/types';
 import { domDialog, alert, confirm, prompt } from '@/view';
 
 import { type PubsubEventKey, type PubsubEvents, pubsub } from './pubsub';
 
 // #TODO document these somewhere
-const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'] as const;
+const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll', 'analysis.eval'] as const;
 type PublicEventKey = (typeof publicEvents)[number] & keyof PubsubEvents;
 const socketEvents = ['lag', 'close'] as const;
 type SocketEventKey = (typeof socketEvents)[number];
@@ -51,10 +53,29 @@ export interface Api {
     prompt: typeof prompt;
     domDialog: typeof domDialog;
   };
-  overrides: Record<string, (...args: any[]) => unknown>;
+  overrides: Overrides;
   analysis?: any;
   puzzle?: any;
   chessground?: () => CgApi;
+}
+
+export interface Overrides {
+  // file://./../../bits/src/bits.tvGames.ts
+  tvGamesOnFinish: (id: string) => void;
+
+  // file://./../../analyse/src/retrospect/retroCtrl.ts
+  learnFromMistakesEvalReady?: (ev: ClientEval) => boolean;
+
+  // file://./../../analyse/src/practice/practiceView.ts
+  practiceStrengthLabel?: () => string; // default '600 kNodes'
+
+  // file://./../../analyse/src/practice/practiceCtrl.ts
+  practiceCommentReady?: (ev: ClientEval) => boolean;
+  practiceEvalReady?: (ev: ClientEval) => boolean;
+  practiceSearch?: () => Search; // default { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }
+
+  // file://./../../analyse/src/study/practice/studyPracticeCtrl.ts
+  studyPracticeSearch?: () => Search; // default { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }
 }
 
 // this object is available to extensions as window.lichess
@@ -112,5 +133,5 @@ export const api: Api = {
   },
   // some functions will be exposed here
   // to be overriden by browser extensions
-  overrides: {},
+  overrides: {} as Overrides,
 };

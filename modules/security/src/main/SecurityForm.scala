@@ -6,7 +6,8 @@ import play.api.data.validation.Constraints
 import play.api.mvc.Request
 
 import lila.common.Form.*
-import lila.common.{ Form as LilaForm, LameName }
+import lila.common.Form as LilaForm
+import lila.user.LameName
 import lila.core.security.ClearPassword
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
@@ -85,7 +86,7 @@ final class SecurityForm(
 
     val uniqueUsername: Mapping[UserName] = anyUsername.verifying(
       "usernameAlreadyUsed",
-      u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
+      u => u.id.noGhost && !userRepo.exists(u).await(2.seconds, "signupUsername")
     )
 
     def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =

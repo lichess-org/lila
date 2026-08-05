@@ -51,7 +51,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       aggregateMultipleSets:
         if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
 
-  private val current = cacheApi.unit[PuzzleSet]:
+  private val current = cacheApi.unit[PuzzleSet]("stormSelector.current"):
     _.refreshAfterWrite(7.seconds).buildAsyncFuture(_ => batchProvider.one)
 
   private var aggregationColor = chess.Color.White

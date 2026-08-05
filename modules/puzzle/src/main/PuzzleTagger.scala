@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import chess.{ Divider, Division }
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
@@ -9,7 +9,7 @@ import lila.mon.extensions.*
 
 final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
     ec: Executor,
-    mat: akka.stream.Materializer
+    mat: org.apache.pekko.stream.Materializer
 ):
   import BsonHandlers.given
 

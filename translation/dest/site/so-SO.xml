@@ -408,7 +408,6 @@
   <string name="gameInProgress">Waxaad la ciyaaraysaa hadda %s.</string>
   <string name="abortTheGame">Tuur ciyaarta</string>
   <string name="resignTheGame">Is dhiib ciyaartan</string>
-  <string name="youCantStartNewGame">Ciyaar kale ma bilaabi kartid inta aanay tani fhamaan.</string>
   <string name="since">Ka dib</string>
   <string name="until">Ka hor</string>
   <string name="lichessDbExplanation">Ciyaaraha qiimaysan ee ka dhacay Lichess</string>

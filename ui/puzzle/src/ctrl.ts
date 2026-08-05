@@ -78,12 +78,12 @@ export default class PuzzleCtrl implements CevalHandler {
   canViewSolution = toggle(false);
   showHint = toggle(false);
   hintHasBeenShown = toggle(false);
-  voted: boolean | undefined;
+  voted?: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
-  cgVersion = 1;
+  cgVersion = 0;
 
   private report: Report;
 
@@ -252,7 +252,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.initialPath = initialPath;
     this.initialNode = this.tree.nodeAtPath(initialPath);
     this.pov = plyColor(this.initialNode.ply);
-    this.isDaily = location.href.endsWith('/daily');
+    this.isDaily = !!this.data.isDaily;
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
     this.report = new Report();
@@ -276,12 +276,7 @@ export default class PuzzleCtrl implements CevalHandler {
       this.rated() ? 4000 : 2000,
     );
 
-    this.withGround(g => {
-      g.selectSquare(null);
-      g.setAutoShapes([]);
-      g.setShapes([]);
-      this.showGround(g);
-    });
+    this.cgVersion++;
   };
 
   position = (): Chess => {
@@ -313,7 +308,7 @@ export default class PuzzleCtrl implements CevalHandler {
       premovable: {
         enabled: false,
       },
-      check: !!node.check(),
+      check: node.check(),
       lastMove: uciToMove(node.uci),
     };
     if (node.ply >= this.initialNode.ply) {
@@ -639,7 +634,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
     // try to play the solution next move
     const next = this.node.children[0];
-    if (next && next.puzzle === 'good') this.userJump(this.path + next.id);
+    if (next?.puzzle === 'good') this.userJump(this.path + next.id);
     else {
       const firstGoodPath = treeOps.takePathWhile(this.mainline, node => node.puzzle !== 'good');
       if (firstGoodPath) this.userJump(firstGoodPath + this.tree.nodeAtPath(firstGoodPath).children[0].id);
@@ -695,7 +690,7 @@ export default class PuzzleCtrl implements CevalHandler {
     return this.blindfolded();
   };
   playBestMove = (): void => {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const uci = this.nextNodeBest() || this.node.ceval?.pvs[0].moves[0];
     if (uci) this.playUci(uci);
   };
   autoNexting = () => this.lastFeedback === 'win' && this.autoNext();

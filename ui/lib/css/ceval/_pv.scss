@@ -76,7 +76,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .pv_box .pv[data-uci]:hover {
-    background: $m-secondary_bg--mix-20;
+    background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     cursor: pointer;
   }
 
@@ -92,7 +92,7 @@
 
 @include mq-is-col1 {
   .pv_box {
-    background: $m-secondary_bg--mix-20;
+    background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     padding-inline: 8px;
   }
 

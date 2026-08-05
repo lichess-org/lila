@@ -24,7 +24,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   readonly info: Info;
   readonly host: EditDialog;
   readonly el: HTMLElement;
-  readonly parent: Pane | undefined;
+  readonly parent?: Pane;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);
@@ -167,7 +167,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isDisabled(): boolean {
-    return this.host.editing().disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+    return this.host.editing().disabled.has(this.id) ?? this.parent?.isDisabled ?? false;
   }
 
   protected get children(): Pane[] {
@@ -203,7 +203,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       const op = req.match(requiresOpRe)?.[0] as string;
       const [left, right] = req.split(op).map(x => x.trim());
 
-      if ([left, right].some(x => this.host.panes.byId[x]?.enabled === false)) return false;
+      if ([left, right].some(x => !this.host.panes.byId[x]?.enabled)) return false;
 
       const maybeLeftPane = this.host.panes.byId[left];
       const maybeRightPane = this.host.panes.byId[right];

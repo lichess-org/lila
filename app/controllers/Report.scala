@@ -2,7 +2,7 @@ package controllers
 package report
 
 import play.api.data.*
-import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
+import play.api.mvc.{ AnyContentAsFormUrlEncoded, RequestHeader, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -46,24 +46,15 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
-    api.inquiries
-      .toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
-      .flatMap: (prev, next) =>
-        prev
-          .filter(_.isAppeal)
-          .map(_.user)
-          .so(env.appeal.api.setUnreadById)
-          .inject(
-            next.fold(
-              Redirect:
-                if prev.exists(_.isAppeal)
-                then routes.Appeal.queue()
-                else routes.Report.list
-            )(onInquiryStart)
-          )
+    for
+      (prev, next) <- api.inquiries.toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
+      appeal = prev.flatMap(p => p.appealTopic.map(p.user -> _))
+    yield next.fold(
+      Redirect(if appeal.isDefined then routes.Appeal.modQueue else routes.Report.list)
+    )(onInquiryStart)
   }
 
-  private def onInquiryStart(inquiry: ReportModel): Result =
+  private def onInquiryStart(inquiry: ReportModel)(using RequestHeader): Result =
     if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
     else if inquiry.is(_.Comm) then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
@@ -82,18 +73,19 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _ => none
-    def thenGoTo =
+    def thenGoTo: Option[String] =
       dataOpt
         .flatMap(_.get("then"))
         .flatMap(_.headOption)
         .flatMap:
           case "profile" => modC.userUrl(inquiry.user, mod = true).some
           case url => url.some
+        .orElse(env.web.referrerRedirect.fromReq.map(_.value))
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
-        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.modQueue)
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
@@ -113,9 +105,11 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .byId(id)
       .flatMap:
         _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
-          inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
-            api.process(inquiry) >>
-            onInquiryAction(inquiry, processed = true)
+          for
+            _ <- inquiry.appealTopic.so(env.appeal.api.setReadIfUnread(inquiry.user.id, _))
+            _ <- api.process(inquiry)
+            result <- onInquiryAction(inquiry, processed = true)
+          yield result
   }
 
   def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>

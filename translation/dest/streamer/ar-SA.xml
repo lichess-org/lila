@@ -33,8 +33,8 @@
   <string name="streamerLanguageSettings">صفحة البث Lichess تستهدف جمهورك مع اللغة التي توفرها منصة البث الخاصة بك. قم بتعيين اللغة الافتراضية الصحيحة لبث الشطرنج الخاص بك في التطبيق أو الخدمة التي تستخدمها للبث.</string>
   <string name="pleaseAllow">يرجى السماح بما يصل إلى 72 ساعة قبل الموافقة على شارة البث وإعلانك.</string>
   <string name="chooseYoutubeChannel">اختر قناة Youtube التي ستستخدمها على Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">الاتصال </string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">قطع الاتصال</string>
+  <string name="connect">الاتصال </string>
+  <string name="disconnect">قطع الاتصال</string>
   <string name="streamerName">اسم البث الخاص بك على Lichess</string>
   <plurals name="keepItShort">
     <item quantity="zero">ابقه قصيرًا: %s حرف أقصى</item>
@@ -44,8 +44,8 @@
     <item quantity="many">ابقه قصيرًا: %s حرف أقصى</item>
     <item quantity="other">ابقه قصيرًا: %s حرف كحد أقصى</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">إظهار على قائمة بثوث اللاعبين</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">بعد الموافقة من قبل المشرفين</string>
+  <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
+  <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
   <string name="headline">العنوان</string>
   <string name="tellUsAboutTheStream">أخبرنا عن البث الخاص بك في جملة واحدة</string>
   <string name="longDescription">وصف مطول</string>

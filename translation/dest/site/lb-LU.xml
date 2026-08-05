@@ -130,6 +130,9 @@
   <string name="undefendedPieces">Net gedeckte Figuren</string>
   <string name="pinnedPieces">Gefesselt Figuren</string>
   <string name="multipleLines">Méi Varianten</string>
+  <string name="searchTime">Sichzäit</string>
+  <string name="searchTimeDescription">Zäit fir Bewäertung vun neie Positiounen</string>
+  <string name="threads">Threads</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Aarbechtsspäicher</string>
   <string name="infiniteAnalysis">Endlos Analys</string>
@@ -208,6 +211,7 @@
   <string name="minutesPerSide">Minutten pro Säit</string>
   <string name="variant">Variant</string>
   <string name="variants">Schachvarianten</string>
+  <string name="variantsDescription">Weider Spillaarten</string>
   <string name="timeControl">Kadenz</string>
   <string name="realTime">Echtzäit</string>
   <string name="correspondence">Fernschach</string>
@@ -423,6 +427,8 @@
   <string name="leaderboard">Ranglëscht</string>
   <string name="screenshotCurrentPosition">Aktuell Positioun screenshotten</string>
   <string name="gameAsGIF">Partie als GIF</string>
+  <string name="playerNames">Spillernimm</string>
+  <string name="moveAnnotations">Zuchannotatiounen</string>
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
   <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
@@ -466,6 +472,7 @@
     <item quantity="one">%s Folgend</item>
     <item quantity="other">%s Folgend</item>
   </plurals>
+  <string name="less">Manner</string>
   <string name="more">Méi</string>
   <string name="memberSince">Member säit</string>
   <string name="lastSeenActive">Aktiv %s</string>
@@ -509,6 +516,7 @@
   <string name="popularOpenings">Beléift Erëffnungen</string>
   <string name="endgamePositions">Endspill Positiounen</string>
   <string name="chess960StartPosition">Chess960 Start Positioun: %s</string>
+  <string name="randomChess960Position">Zoufälleg Chess960-Stellung</string>
   <string name="startPosition">Ausgangsstellung</string>
   <string name="clearBoard">Briet opraumen</string>
   <string name="loadPosition">Stellung lueden</string>
@@ -561,6 +569,9 @@
   <string name="replies">Äntwerten</string>
   <string name="replyToThisTopic">Op dëst Theema äntweren</string>
   <string name="reply">Äntwert</string>
+  <string name="reopen">Nei opmaachen</string>
+  <string name="quote">Zitat</string>
+  <string name="postEdited">beaarbecht</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Theema erstellen</string>
   <string name="reportAUser">Benotzer mellen</string>
@@ -583,7 +594,9 @@
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
   <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>
+  <string name="clearField">Feld eidel maachen</string>
   <string name="orSeparator">Oder</string>
+  <string name="logInByEmail">Mat E-Mail umellen</string>
   <string name="emailMeALink">Schéck mir e Link per E-Mail</string>
   <string name="currentPassword">Aktuellt Passwuert</string>
   <string name="newPassword">Neit Passwuert</string>
@@ -777,6 +790,10 @@
   <string name="quickPairing">Schnellpaarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Däi Score: %s</string>
   <string name="language">Sprooch</string>
   <string name="allLanguages">All Sproochen</string>
@@ -784,6 +801,7 @@
   <string name="light">Hell</string>
   <string name="dark">Däischter</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Bild</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
   <string name="board">Briet</string>
@@ -909,6 +927,7 @@
   <string name="tryTheContactPage">probéier eis Kontaktsäit</string>
   <string name="makeSureToRead">Lies wgl. %1$s</string>
   <string name="theForumEtiquette">d\'Forumsetikett</string>
+  <string name="pleaseBeNiceInTheForum">Sief wgl. fein am Forum.</string>
   <string name="thisTopicIsArchived">Dëst Theema gouf archivéiert an et kann een net méi drop äntweren.</string>
   <string name="joinTheTeamXToPost">Triet %1$s bäi, fir an dësem Forum ze posten</string>
   <string name="teamNamedX">%1$s Ekipp</string>
@@ -921,7 +940,6 @@
   <string name="xInvitedYouToY">%1$s huet dech zu \"%2$s\" invitéiert.</string>
   <string name="youAreNowPartOfTeam">Du bass elo Member vun der Ekipp.</string>
   <string name="youHaveJoinedTeamX">Du bass \"%1$s\" bäigetrueden.</string>
-  <string name="someoneYouReportedWasBanned">Een vun dir gemellten Benotzer gouf gebannt</string>
   <string name="congratsYouWon">Felicitatioun, du hues gewonn!</string>
   <string name="gameVsX">Partie géint %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -976,7 +994,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="gameInProgress">Du hues eng Partie amgaang géint %s.</string>
   <string name="abortTheGame">Partie ofbriechen</string>
   <string name="resignTheGame">Partie opginn</string>
-  <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
   <string name="since">Säit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
@@ -989,6 +1006,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="nothingToSeeHere">Fir de Moment gëtt et hei näischt ze gesinn.</string>
   <string name="stats">Statistiken</string>
+  <string name="accessibility">Accessibilitéit</string>
   <string name="enableBlindMode">Blannemodus aktivéieren</string>
   <string name="disableBlindMode">Blannemodus desaktivéieren</string>
   <string name="copyToClipboard">An den Tëschespäicher kopéieren</string>
@@ -998,4 +1016,5 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="clearSearch">Nei Sich</string>
   <string name="thereAreNoResultsForX">Kee Resultat fir „%s“</string>
   <string name="tags">Etiketten</string>
+  <string name="settings">Astellungen</string>
 </resources>

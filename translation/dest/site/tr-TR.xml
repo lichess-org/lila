@@ -959,7 +959,6 @@
   <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
-  <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
   <string name="gameVsX">%1$s ile oyun</string>
   <string name="resVsX">%1$s ile %2$s karşı karşıya</string>
@@ -1014,7 +1013,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="gameInProgress">Şu anda %s ile olan maçınız devam ediyor.</string>
   <string name="abortTheGame">Maçı iptal et</string>
   <string name="resignTheGame">Maçı terk et</string>
-  <string name="youCantStartNewGame">Mevcut oyun bitene kadar yeni bir oyuna başlayamazsın.</string>
   <string name="since">Seçili tarihten beri</string>
   <string name="until">Seçili tarihe kadar</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
@@ -1037,4 +1035,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
+  <string name="settings">Ayarlar</string>
 </resources>

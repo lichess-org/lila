@@ -24,8 +24,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
 
   previewTab.addEventListener('click', async () => {
-    const html = await marked.parse(textarea.value ?? '');
-    preview.innerHTML = html;
+    preview.innerHTML = await marked.parse(textarea.value ?? '');
     preview.classList.remove('none');
     uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');

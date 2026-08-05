@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
   <string name="whiteDidntMove">Il bianco non si è mosso</string>
   <string name="blackDidntMove">Il nero non ha mosso</string>
+  <string name="whiteAborted">Il bianco ha annullato la partita</string>
+  <string name="blackAborted">Il nero ha annullato la partita</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
@@ -136,7 +138,7 @@
   <string name="multipleLinesDescription">Numero impostato di linee di valutazione e frecce di movimento pezzi sulla scacchiera</string>
   <string name="searchTime">Tempo di ricerca</string>
   <string name="searchTimeDescription">Tempo impostato per valutare posizioni nuove</string>
-  <string name="threads">Discussioni</string>
+  <string name="threads">Threads</string>
   <string name="threadsDescription">Impostare questo sotto il numero di thread della CPU, le spunte indicano una scelta sicura</string>
   <string name="threadsDescriptionMobile">Più thread utilizzeranno più batteria per una analisi migliore</string>
   <string name="cpus">Processori</string>
@@ -808,9 +810,15 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="like">Mi piace</string>
+  <string name="liked">Ti è piaciuto</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonimo</item>
+    <item quantity="other">Anonimi (%s)</item>
+  </plurals>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="allLanguages">Tutte le lingue</string>
@@ -956,7 +964,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="xInvitedYouToY">%1$s ti ha invitato a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ora fai parte del team.</string>
   <string name="youHaveJoinedTeamX">Ti sei unito a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Qualcuno che hai segnalato è stato bannato</string>
   <string name="congratsYouWon">Complimenti, hai vinto!</string>
   <string name="gameVsX">Partita contro %1$s</string>
   <string name="resVsX">%1$s contro %2$s</string>
@@ -1012,7 +1019,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="gameInProgress">Hai una partita in corso con %s.</string>
   <string name="abortTheGame">Annulla la partita</string>
   <string name="resignTheGame">Rinuncia alla partita</string>
-  <string name="youCantStartNewGame">Non puoi avviare una nuova partita finché questa non è terminata.</string>
   <string name="since">Da</string>
   <string name="until">Fino al</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>

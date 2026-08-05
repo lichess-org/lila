@@ -929,7 +929,6 @@
   <string name="xInvitedYouToY">%1$s te convidó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Agora yes miembru del equipu.</string>
   <string name="youHaveJoinedTeamX">Te xunisti a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Un usuariu que denunciasti foi espulsáu</string>
   <string name="congratsYouWon">¡Felicidaes, ganasti!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -985,7 +984,6 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="gameInProgress">Tas xugando una partida con %s.</string>
   <string name="abortTheGame">Albortar partida</string>
   <string name="resignTheGame">Abandonar partida</string>
-  <string name="youCantStartNewGame">Nun puedes empezar una partida teniendo otra en xuegu.</string>
   <string name="since">Dende</string>
   <string name="until">Hasta</string>
   <string name="lichessDbExplanation">Partíes por puntos de tolos xugadores de Lichess</string>

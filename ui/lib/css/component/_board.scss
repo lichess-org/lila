@@ -20,7 +20,7 @@ cg-board {
 
 .mini-board cg-board,
 .mini-game cg-board {
-  border-radius: $miniboard-radius-size;
+  border-radius: $small-box-radius-size;
 }
 
 .mini-board:not(.manipulable) cg-board,

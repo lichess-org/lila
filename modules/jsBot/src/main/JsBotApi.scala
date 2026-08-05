@@ -21,7 +21,7 @@ final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor
         for beta <- me.soUse(isInBetaTeam)
         yield publicBotKeys ::: beta.so(betaBotKeys)
 
-    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]:
+    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]("jsbot.all"):
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         repo.getLatestBots()
 

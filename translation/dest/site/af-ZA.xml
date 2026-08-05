@@ -894,7 +894,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="xInvitedYouToY">%1$s het jou genooi na \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jy is nou deel van die span.</string>
   <string name="youHaveJoinedTeamX">Jy het by \"%1$s\" aangesluit.</string>
-  <string name="someoneYouReportedWasBanned">Iemand wat jy aangemeld het, is verban</string>
   <string name="congratsYouWon">Baie geluk, jy het gewen!</string>
   <string name="gameVsX">Spel teen %1$s</string>
   <string name="resVsX">%1$s teen %2$s</string>
@@ -949,7 +948,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="gameInProgress">Jou het \'n spel met %s aan die gang.</string>
   <string name="abortTheGame">Staak die spel</string>
   <string name="resignTheGame">Bedank die spel</string>
-  <string name="youCantStartNewGame">Jy kan nie \'n nuwe spel begin nie, tot hierdie spel klaar is.</string>
   <string name="since">Sedert</string>
   <string name="until">Tot</string>
   <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>

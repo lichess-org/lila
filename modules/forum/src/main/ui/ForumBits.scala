@@ -40,5 +40,6 @@ final class ForumBits(helpers: Helpers):
     bits.markdownTextarea("forumPostBody".some):
       form3.textarea(field, "post-text-area")(
         rows := 10,
+        autocomplete := "off",
         placeholder := trans.site.pleaseBeNiceInTheForum.txt()
       )(modifiers)

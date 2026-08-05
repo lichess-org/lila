@@ -5,7 +5,7 @@ import { myUsername, type Prop, prop } from 'lib';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
+import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -210,7 +210,7 @@ const radioButton =
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst(String(v)) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
       render ? render(v) : i18n(v as string),
@@ -229,7 +229,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
@@ -254,8 +254,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
       value: prop() > max ? max : prop(),
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -266,7 +265,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
@@ -286,8 +285,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
       value: prop().split('-')[0],
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -298,33 +296,33 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
 };
 
-const monthSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.date', [
-    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', [
-      i18n.site.until,
-      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
-    ]),
+const monthSection = (ctrl: ExplorerConfigCtrl) => {
+  const db = ctrl.data.byDb();
+  return h('section.date', [
+    h('label', [i18n.site.since, monthInput(db.since, () => '', ctrl.root.redraw)]),
+    h('label', [i18n.site.until, monthInput(db.until, db.since, ctrl.root.redraw)]),
   ]);
+};
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   let dlg: Dialog;
-  const onSelect = (name: string | undefined) => {
+  const onSelect = (name?: string) => {
     ctrl.selectPlayer(name);
     dlg.close();
   };
-  const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) return;
+  const nameToOptionalColor = (name?: string) => {
+    if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
+
   return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -333,6 +331,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     },
     onInsert: dialog => (dlg = dialog).show(),
     modal: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

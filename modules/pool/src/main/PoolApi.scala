@@ -1,6 +1,6 @@
 package lila.pool
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 import lila.core.pool.{ PoolMember, PoolConfigId }
 import lila.core.socket.Sris

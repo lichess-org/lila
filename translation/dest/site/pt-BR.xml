@@ -580,6 +580,9 @@
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
   <string name="reply">Responder</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citação</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensagem</string>
   <string name="createTheTopic">Criar tópico</string>
   <string name="reportAUser">Reportar um usuário</string>
@@ -814,14 +817,21 @@
   <string name="quickPairing">Pareamento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anônimo</item>
+    <item quantity="other">Anônimo (%s)</item>
+  </plurals>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Cor tema</string>
+  <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
+  <string name="roundness">Arredondamento das bordas</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="board">Tabuleiro</string>
   <string name="size">Tamanho</string>
@@ -959,7 +969,6 @@
   <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
   <string name="youHaveJoinedTeamX">Você ingressou em \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Alguém que você denunciou foi banido</string>
   <string name="congratsYouWon">Parabéns, você venceu!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -999,6 +1008,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
   <string name="onlyTeamMembers">Apenas membros da equipe</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navegação na lista de lances</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
   <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>
@@ -1015,7 +1025,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="gameInProgress">Você tem uma partida em andamento com %s.</string>
   <string name="abortTheGame">Cancelar a partida</string>
   <string name="resignTheGame">Abandonar a partida</string>
-  <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
+  <string name="youCantStartNewGame">Você não pode começar uma nova partida enquanto for a sua vez.</string>
   <string name="since">Desde</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
@@ -1038,4 +1048,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="thereAreNoResultsForX">Nenhum resultado para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Configurações</string>
 </resources>

@@ -2,13 +2,13 @@ package lila.security
 
 import play.api.libs.ws.StandaloneWSClient
 import bloomfilter.mutable.BloomFilter
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import scalalib.net.Domain
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import DisposableEmailDomain.*
 
@@ -54,10 +54,6 @@ final class DisposableEmailDomain(
 
   def asMxRecord(domain: Domain): Boolean =
     isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
-
-  def mightBeTypo(domain: Domain): Boolean =
-    // gmail.com is very often misspelled
-    domain.value.startsWith("g") && scalalib.Levenshtein.isDistanceLessThan(domain.value, "gmail.com", 2)
 
 private object DisposableEmailDomain:
 
@@ -227,6 +223,7 @@ private object DisposableEmailDomain:
       "yahoo.de",
       /* Russian ISP domains */
       "mail.ru",
+      "internet.ru",
       "rambler.ru",
       "yandex.ru",
       "ya.ru",

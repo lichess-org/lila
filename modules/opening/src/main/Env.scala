@@ -19,7 +19,7 @@ final class Env(
     ws: StandaloneWSClient
 )(using Executor, lila.core.config.RateLimit):
 
-  private val explorerEndpoint = Url(appConfig.get[String]("explorer.endpoint"))
+  private val explorerEndpoint = Url(appConfig.get[String]("explorer.internal_endpoint"))
   private val oauthToken = appConfig.get[Secret]("explorer.oauth_token")
 
   private lazy val wikiColl = db(CollName("opening_wiki"))

@@ -29,3 +29,5 @@ def show(
       writeable = !c.locked
     ) -> views.chat.frag
   showUi(s, team, verdicts, data, chatData, streamersFrag)
+
+export showUi.restricted

@@ -188,8 +188,8 @@ private final class RelayPlayerApi(
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(jsonCache.get)
 
-  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
-    _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](256, "relay.players.photos.json"):
+    _.expireAfterWrite(20.seconds).buildAsyncFuture: tourId =>
       for
         sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
@@ -252,7 +252,7 @@ private final class RelayPlayerApi(
       rounds <-
         if RelayGroup.sgIsParallel(tours)
         then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-        else tourIds.flatTraverse(roundRepo.byTourOrdered)
+        else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct

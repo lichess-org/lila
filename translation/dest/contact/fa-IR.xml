@@ -52,10 +52,10 @@
   <string name="knightMate">این ممکن است که با فقط یک اسب یا یک فیل، اگر که حریف بیشتر از شاه مهره‌ای روی صفحه داشته باشد، بازی را مات نمود.</string>
   <string name="noRatingPoints">هیچ امتیازی داده نشد</string>
   <string name="ratedGame">مطمئن شوید که یک بازی *رسمی* کرده‌اید. بازی‌های *نارسمی* بر درجه‌بندی بازیکنان اثر نمی‌گذارد.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">در مواقع مشخص و در بازی مقابل یک حساب کاربری ربات، اگر مشخص شود که بازیکن در حال سوءِ استفاده از ربات برای دریافت امتیاز است ممکن است به بازی امتیازی تعلق نگیرد.</string>
+  <string name="botRatingAbuse">در مواقع مشخص و در بازی مقابل یک حساب کاربری ربات، اگر مشخص شود که بازیکن در حال سوءِ استفاده از ربات برای دریافت امتیاز است ممکن است به بازی امتیازی تعلق نگیرد.</string>
   <string name="errorPage">صفحه خطا</string>
   <string name="reportErrorPage">اگر با صفحه خطا مواجه شدید، می‌توانید آن را گزارش کنید:</string>
-  <string name="learnHowToMakeBroadcasts">یادگیری چگونگی انجام پخش‌زندهٔ خودتان در لیچس</string>
+  <string name="learnHowToMakeBroadcasts">یادگیری چگونگی انجام پخش‌زندهٔ خودتان در Lichess</string>
   <string name="banAppeal">درخواست بازنگری برای یک ممنوعیت یا محدودیتِ IP</string>
   <string name="engineAppeal">علامتِ موتور یا تقلب</string>
   <string name="sendAppealTo">شما می‌توانید یک درخواست بررسی مجدد به %s ارسال کنید.</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">هیچ یک از موارد فوق</string>
   <string name="sendEmailAt">رایانامه‌ای به %s برای ما بفرستید.</string>
   <string name="explainYourRequest">لطفاً درخواست خود را به صورت کامل و واضح توضیح دهید. نام کاربریِ Lichess خود و هر گونه اطلاعاتی که می‌تواند به ما در کمک به شما یاری برساند را ذکر کنید.</string>
+  <string name="monetiseNotInterested">ما اصلا به درآمدزایی از Lichess علاقه‌مند نیستیم.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">ما هرگز هیچ نوع آگهی‌ای نمایش نخواهیم داد، بازیکنان‌مان را نخواهیم رَدیابید، و شُدآمد یا کاربران را نخواهیم خرید یا فروخت.</string>
+  <string name="monetiseNoMarketingEmail">لطفا دربارهٔ بازاریابی، ردیابی یا تبلیغ به ما رایانامه نفرستید.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">ما همه را به %s تشویق می‌کنیم.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">انسدادِ آگهی‌ها و ردیاب‌ها</string>
+  <string name="broadcastTournamentOnLichess">پخش مسابقه در Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">اگر می‌خواهید مسابقات را رسما در Lichess بپخشید، یا دربارهٔ پخش‌های ما سؤالی دارید:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">لطفا با تیمِ پخش ما از طریق %1$s یا %2$s تماس بگیرید.</string>
+  <string name="ourDiscordServer">کارسازِ دیسکورد‌مان</string>
 </resources>

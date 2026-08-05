@@ -189,7 +189,7 @@ export class Engines {
             wasm: 'stockfish.wasm',
           },
         },
-        make: (e: BrowserEngineInfo) => new ThreadedEngine(e),
+        make: (e: BrowserEngineInfo) => new ThreadedEngine(e, undefined),
       },
       {
         info: {
@@ -265,9 +265,9 @@ export class Engines {
     );
   }
 
-  active(): EngineInfo {
+  active(): EngineInfo | undefined {
     this.activeEngine ??= this.getEngine({ variant: this.ctrl.opts.variant.key });
-    return this.activeEngine!;
+    return this.activeEngine;
   }
 
   setActive(id: string): EngineInfo | undefined {

@@ -12,11 +12,11 @@ final class Env(
     val config: Configuration,
     val controllerComponents: ControllerComponents,
     environment: Environment,
-    shutdown: akka.actor.CoordinatedShutdown,
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown,
     cookieBaker: SessionCookieBaker
-)(using val system: akka.actor.ActorSystem, val executor: Executor)(using
+)(using val system: org.apache.pekko.actor.ActorSystem, val executor: Executor)(using
     StandaloneWSClient,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
   val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.baseUrl
@@ -59,10 +59,10 @@ final class Env(
   val search: lila.search.Env = wire[lila.search.Env]
   val gameSearch: lila.gameSearch.Env = wire[lila.gameSearch.Env]
   val perfStat: lila.perfStat.Env = wire[lila.perfStat.Env]
+  val team: lila.team.Env = wire[lila.team.Env]
   val tournament: lila.tournament.Env = wire[lila.tournament.Env]
   val swiss: lila.swiss.Env = wire[lila.swiss.Env]
   val mod: lila.mod.Env = wire[lila.mod.Env]
-  val team: lila.team.Env = wire[lila.team.Env]
   val teamSearch: lila.teamSearch.Env = wire[lila.teamSearch.Env]
   val forum: lila.forum.Env = wire[lila.forum.Env]
   val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]

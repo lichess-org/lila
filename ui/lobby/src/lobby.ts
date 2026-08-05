@@ -38,7 +38,10 @@ export function initModule(opts: LobbyOpts) {
         });
       },
       featured(o: { html: string }) {
-        $('.lobby__tv').html(o.html);
+        const $tv = $('.lobby__tv'),
+          $game = $tv.find('.mini-game');
+        if ($game.length) $game.replaceWith(o.html);
+        else $tv.append(o.html);
         pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {

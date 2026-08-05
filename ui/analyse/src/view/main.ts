@@ -58,7 +58,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
       'aside.analyse__side',
       {
         hook: onInsert(elm => {
-          if (ctrl.opts.$side && ctrl.opts.$side.length) {
+          if (ctrl.opts.$side?.length) {
             $(elm).replaceWith(ctrl.opts.$side);
             wikiToggleBox();
           }

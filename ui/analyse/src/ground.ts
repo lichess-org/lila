@@ -6,14 +6,13 @@ import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
 
 import type AnalyseCtrl from './ctrl';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
-    hook: {
-      insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-    },
+    hook: onInsert(elem => ctrl.setChessground(makeChessground(elem, makeConfig(ctrl)))),
   });
 
 export function promote(ground: CgApi, key: Key, role: Role) {

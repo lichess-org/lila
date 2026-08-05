@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">If a move is not detected</string>
   <string name="checkYouHaveMadeOpponentsMove">Check that you have made your opponent\'s move on the DGT board first. Revert your move. Play again.</string>
   <string name="asALastResort">As a last resort: Set up the board identically to Lichess, then %s</string>
-  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Reload this page</string>
+  <string name="reloadThisPage">Reload this page</string>
   <string name="dgtConfigure">DGT - Configure</string>
   <string name="lichessConnectivity">Lichess connectivity</string>
   <string name="validDgtOauthToken">You have an OAuth token suitable for DGT play.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it.</string>
   <string name="debug">Debug</string>
   <string name="verboseLogging">Verbose logging</string>
-  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">To see console messages, press Ctrl + Shift + C (Windows, Linux, Chrome OS) or ⌘ + ⌥ + C (Mac).</string>
+  <string name="toSeeConsoleMessage">To see console messages, press Ctrl + Shift + C (Windows, Linux, Chrome OS) or ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">Play with a DGT board</string>
   <string name="configure">Configure</string>
 </resources>

@@ -1,7 +1,7 @@
 package lila.round
 
-import akka.actor.*
-import akka.stream.scaladsl.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.common.LilaStream
 import lila.core.round.{ Abandon, RoundBus }
@@ -18,7 +18,7 @@ final private class Titivate(
     roundApi: lila.core.round.RoundApi,
     gameRepo: GameRepo,
     chatApi: lila.chat.ChatApi
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends Actor:
 
   private type GameOrFail = Either[(GameId, Throwable), Game]
@@ -36,7 +36,7 @@ final private class Titivate(
   def receive =
     case ReceiveTimeout =>
       val msg = "Titivate timed out!"
-      logBranch.error(msg)
+      logger.error(msg)
       throw new RuntimeException(msg)
 
     case Run =>
@@ -55,10 +55,10 @@ final private class Titivate(
 
       run
         .monSuccess(lila.mon.round.titivate.time)
-        .logFailure(logBranch)
+        .logFailure(logger)
         .addEffectAnyway(scheduleNext())
 
-  private val logBranch = logger.branch("titivate")
+  private lazy val logger = lila.log("round.titivate")
 
   private val gameRead = Flow[Bdoc].map: doc =>
     gameRepo.gameHandler
@@ -76,7 +76,7 @@ final private class Titivate(
 
     case Left((id, err)) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
-      logBranch.warn(s"Can't read game $id", err)
+      logger.warn(s"Can't read game $id", err)
       gameRepo.unsetCheckAt(id)
 
     case Right(game) =>

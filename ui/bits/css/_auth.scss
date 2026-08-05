@@ -23,14 +23,11 @@
   }
 }
 
-$auth-input-radius: 16px;
-$auth-input-bg: rgba(26, 22, 16, 1);
-
 .auth {
   width: 100%;
   margin: 0 auto;
   height: min-content;
-  border-radius: $auth-input-radius;
+  border-radius: $box-radius-size;
   border: $border;
 
   &__brand {
@@ -40,7 +37,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     gap: 0.5rem;
     margin: -0.5em 0 2em 0;
 
-    @media (width >= $large) {
+    @media (min-width: $large) {
       display: none;
     }
 
@@ -78,7 +75,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: $m-accent--fade-70;
+        border-bottom-color: rgb(from $c-accent r g b / calc(alpha * 0.3));
       }
 
       &:focus-visible {
@@ -93,7 +90,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     }
   }
 
-  @media (width >= $x-small) {
+  @media (min-width: $x-small) {
     width: 40em;
   }
 
@@ -121,7 +118,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       padding: 0.5em 1em;
 
       &:hover {
-        background: $m-accent--fade-70;
+        background: rgb(from $c-accent r g b / calc(alpha * 0.3));
       }
     }
   }
@@ -129,13 +126,9 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   .form-group input {
     height: 50px;
     font-size: 16px;
-    border: none;
-    border-radius: $auth-input-radius;
-    background: $auth-input-bg;
-
-    @include if-light {
-      background: rgba(245, 242, 237, 1);
-    }
+    border: $border;
+    border-radius: $box-radius-size;
+    background: $c-bg-input;
 
     &:focus-visible {
       outline: $outline;
@@ -208,7 +201,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   .button {
     width: 100%;
     padding: 1.3rem;
-    border-radius: $auth-input-radius;
+    border-radius: $box-radius-size;
   }
 
   .submit.button {

@@ -33,16 +33,16 @@
   <string name="streamerLanguageSettings">Stranica strimera na Lichessu cilja na Vašu publiku jezikom koji pruža Vaša platforma za striming. Postavite ispravan glavni jezik za Vaše šahovske striminge u aplikaciji ili usluzi koju koristite za emitiranje.</string>
   <string name="pleaseAllow">Molimo vas da pričekate do 72 sata prije nego što vaša značka i oglas za streamera budu odobreni.</string>
   <string name="chooseYoutubeChannel">Odaberite YouTube kanal koji ćete koristiti na Lichess-u.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Spoji se</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Odspojite se</string>
+  <string name="connect">Spoji se</string>
+  <string name="disconnect">Odspojite se</string>
   <string name="streamerName">Ime Vašeg Lichess emiter kanala</string>
   <plurals name="keepItShort">
     <item quantity="one">Neka bude kratko: %s slovo maksimalno</item>
     <item quantity="few">Neka bude kratko: %s slova maksimalno</item>
     <item quantity="other">Neka bude kratko: %s slova maksimalno</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Vidljivo na stranici kanala za emitovanje</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Nakon odobrenja moderatora</string>
+  <string name="visibility">Vidljivo na stranici kanala za emitovanje</string>
+  <string name="whenApproved">Nakon odobrenja moderatora</string>
   <string name="headline">Naslov</string>
   <string name="tellUsAboutTheStream">Opišite Vaš kanal za emitovanje u jednoj rečenici</string>
   <string name="longDescription">Dugi opis</string>

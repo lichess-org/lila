@@ -15,15 +15,15 @@ import type StudyPracticeCtrl from './studyPracticeCtrl';
 const selector = (data: StudyPracticeData) =>
   h(
     'select.selector',
-    { hook: bind('change', e => (location.href = '/practice/' + (e.target as HTMLInputElement).value)) },
+    { hook: bind('change', e => (location.href = (e.target as HTMLSelectElement).value)) },
     [
-      h('option', { attrs: { disabled: true, selected: true } }, 'Practice list'),
+      h('option', { attrs: { disabled: true } }, 'Practice list'),
       ...data.structure.map(section =>
         h(
           'optgroup',
           { attrs: { label: section.name } },
           section.studies.map(study =>
-            option(section.id + '/' + study.slug + '/' + study.id, '', study.name),
+            option(`/practice/${section.id}/${study.slug}/${study.id}`, data.url, study.name),
           ),
         ),
       ),
@@ -117,7 +117,7 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       ctrl.chapters.list.all().flatMap(({ id, name }) => {
         const loading = ctrl.vm.loading && id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && current.id === id,
+          active = !ctrl.vm.loading && current?.id === id,
           completion = data.completion[id] >= 0 ? 'done' : 'ongoing';
         return [
           h(

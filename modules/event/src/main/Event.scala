@@ -43,5 +43,4 @@ case class Event(
 
 object Event:
 
-  import scalalib.ThreadLocalRandom
-  def makeId = ThreadLocalRandom.nextString(8)
+  def makeId = scalalib.ThreadLocalRandom.nextString(8)

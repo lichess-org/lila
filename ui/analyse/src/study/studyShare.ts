@@ -12,7 +12,7 @@ import type RelayCtrl from './relay/relayCtrl';
 import { relayIframe } from './relay/relayTourView';
 
 function fromPly(ctrl: StudyShare): MaybeVNode {
-  if (!ctrl.onMainline()) return;
+  if (!ctrl.onMainline()) return undefined;
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
   return hl('label.url-start-at-ply', [
     cmnToggleProp({ id: 'study-share-start-position', prop: ctrl.withPly, redraw: ctrl.redraw }),
@@ -183,7 +183,7 @@ export function view(ctrl: StudyShare): VNode {
             ).map(([text, path, pastable]: [string, string, boolean]) =>
               hl('div.form-group', [
                 hl('label.form-label', text),
-                copyMeInput(`${baseUrl()}${path}`),
+                copyMeInput(`${baseUrl()}${path}`, { inputAttrs: { readonly: true } }),
                 pastable && fromPly(ctrl),
                 pastable && isPrivate && youCanPasteThis(),
               ]),
@@ -191,7 +191,9 @@ export function view(ctrl: StudyShare): VNode {
             ctrl.relay
               ? hl('div.form-group', [
                   hl('label.form-label', 'Embed this particular game'),
-                  copyMeInput(relayIframe(`${ctrl.relay.roundPath()}/${chapter.id}`)),
+                  copyMeInput(relayIframe(`${ctrl.relay.roundPath()}/${chapter.id}`), {
+                    inputAttrs: { readonly: true },
+                  }),
                   hl(
                     'a.form-help.text',
                     { attrs: { ...dataIcon(licon.InfoCircle), href: `${ctrl.relay.roundPath()}#overview` } },
@@ -209,7 +211,7 @@ export function view(ctrl: StudyShare): VNode {
                           `/study/embed/${studyId}/${chapter.id}`,
                         )}" frameborder=0></iframe>`
                       : i18n.study.onlyPublicStudiesCanBeEmbedded,
-                    { disabled: isPrivate },
+                    { inputAttrs: { readonly: true, disabled: isPrivate } },
                   ),
                   fromPly(ctrl),
                   hl(
@@ -225,7 +227,10 @@ export function view(ctrl: StudyShare): VNode {
                   ),
                 ]),
           ]),
-          hl('div.form-group', [hl('label.form-label', 'FEN'), copyMeInput(ctrl.currentNode().fen)]),
+          hl('div.form-group', [
+            hl('label.form-label', 'FEN'),
+            copyMeInput(ctrl.currentNode().fen, { inputAttrs: { readonly: true } }),
+          ]),
         ]
       : hl('div', 'Sharing and exporting were disabled by the study owner.'),
   );

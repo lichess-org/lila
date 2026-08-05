@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessMobileApp">Lichessi mobiilirakendus</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Lichessi rakenduse juurde naasmine</string>
+  <string name="ifAppDoesNotOpenAutomatically">Kui rakendus ei avane automaatselt, puuduta nuppu \"%s\".</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Ava Lichessi rakendus</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Kuva %s GitHubis</string>
+  <string name="allReleases">kõik väljalasked</string>
+  <string name="downloadOnAppleAppStore">Laadi alla Apple App Store’ist</string>
+  <string name="downloadOnGooglePlay">Lae alla Google Playst</string>
+  <string name="downloadOnFdroid">Lae alla F-Droidist</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichessi mobiiliekraan</string>
+</resources>

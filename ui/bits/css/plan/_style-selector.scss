@@ -66,7 +66,7 @@
   &--active {
     border-width: 5px 5px 1px 5px;
     border-radius: 10px 10px 6px 6px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgb(255 255 255 / 0.5);
 
     .patron-icon--shiny {
       margin-top: calc(0.7rem - 4px);
@@ -84,17 +84,19 @@
 
     .pss__color--selectable & {
       color: $c-over;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+      text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
     }
   }
 
-  @each $id, $color in $patron-colors-dark {
+  @for $id from 1 through $patron-levels {
     &--#{$id}.pss__color--selectable {
-      border-color: var(--c-paco#{$id});
-      box-shadow: 0 0 9px transparentize($color, 0.7);
+      $color: var(--c-patron-#{$id});
+
+      border-color: $color;
+      box-shadow: 0 0 9px rgb(from $color r g b / calc(alpha - 0.7));
 
       &:hover {
-        box-shadow: 0 0 14px transparentize($color, 0.3);
+        box-shadow: 0 0 14px rgb(from $color r g b / calc(alpha - 0.3));
       }
 
       &.pss__color--active {
@@ -103,7 +105,7 @@
 
       .pss__color__tier-name {
         width: 100%;
-        background-color: var(--c-paco#{$id});
+        background-color: $color;
       }
     }
   }

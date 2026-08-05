@@ -14,7 +14,7 @@ object mod:
       scores: lila.report.Room.Scores,
       pending: lila.report.ui.PendingCounts
   )(using Context, Me) =
-    views.report.ui.list.layout("title", scores, pending)(views.mod.ui.reportMenu):
+    views.report.ui.list.layout("Titles", "title", scores, pending)(views.mod.ui.reportMenu):
       modUi.queue(reqs)
 
   def show(req: TitleRequest, similar: List[TitleRequest], data: ModData)(using Context) =

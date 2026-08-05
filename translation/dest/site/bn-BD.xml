@@ -903,7 +903,6 @@
   <string name="xInvitedYouToY">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
   <string name="youAreNowPartOfTeam">আপনি এখন দলের একটি অংশ।</string>
   <string name="youHaveJoinedTeamX">আপনি \"%1$s\" এ যোগদান করেছেন।</string>
-  <string name="someoneYouReportedWasBanned">আপনি অভিযুক্ত একজনকে ব্যান করা হয়েছে</string>
   <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
   <string name="gameVsX">খেলা বনাম %1$s</string>
   <string name="resVsX">%1$s বনাম %2$s</string>
@@ -954,7 +953,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="gameInProgress">%s এর সাথে এখনো আপনার খেলা চলছে।</string>
   <string name="abortTheGame">খেলা ত্যাগ(abort) করুন</string>
   <string name="resignTheGame">খেলা সমর্পণ(resign) করুন</string>
-  <string name="youCantStartNewGame">আপনি এই খেলা শেষ না করে নতুন খেলা শুরু করতে পারবেন না।</string>
   <string name="since">Since/শুরু</string>
   <string name="until">Until/পর্যন্ত</string>
   <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>

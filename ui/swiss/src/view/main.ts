@@ -95,7 +95,7 @@ function controls(ctrl: SwissCtrl): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return undefined;
   return hl(
     'form.schedule-next-round',
     {
@@ -141,45 +141,38 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       i18n.team.joinTeam,
     );
 
-  if (d.canJoin)
-    return ctrl.joinSpinner
-      ? spinnerVdom()
-      : hl(
-          'button.fbt.text.highlight',
-          {
-            attrs: dataIcon(licon.PlayTriangle),
-            hook: bind(
-              'click',
-              async () => {
-                if (d.password) {
-                  const p = await prompt(i18n.site.tournamentEntryCode);
-                  if (p !== null) ctrl.join(p);
-                } else ctrl.join();
-              },
-              ctrl.redraw,
-            ),
-          },
-          i18n.site.join,
-        );
+  if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
+
+  if (ctrl.joinSpinner) return spinnerVdom();
+
+  const promptEntryCodeOrJoin = async () => {
+    if (d.password) {
+      const p = await prompt(i18n.site.tournamentEntryCode);
+      if (p !== null) ctrl.join(p);
+    } else ctrl.join();
+  };
 
   if (d.me && d.status !== 'finished')
     return d.me.absent
-      ? ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text.highlight',
-            { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            i18n.site.join,
-          )
-      : ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text',
-            { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            i18n.site.withdraw,
-          );
+      ? hl(
+          'button.fbt.text.highlight',
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
+          i18n.site.join,
+        )
+      : hl(
+          'button.fbt.text',
+          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+          i18n.site.withdraw,
+        );
 
-  return undefined;
+  return hl(
+    'button.fbt.text.highlight',
+    {
+      attrs: dataIcon(licon.PlayTriangle),
+      hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
+    },
+    i18n.site.join,
+  );
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
@@ -200,9 +193,7 @@ function confetti(data: SwissData) {
     data.isRecentlyFinished &&
     once('tournament.end.canvas.' + data.id) &&
     hl('canvas#confetti', {
-      hook: {
-        insert: _ => site.asset.loadEsm('bits.confetti'),
-      },
+      hook: onInsert(() => site.asset.loadEsm('bits.confetti')),
     })
   );
 }

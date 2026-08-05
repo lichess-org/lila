@@ -14,34 +14,42 @@ final private class ChapterMaker(
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.core.game.GameRepo,
     pgnDump: lila.core.game.PgnDump,
-    namer: lila.core.game.Namer
+    namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening
 )(using Executor):
 
   import ChapterMaker.*
 
-  def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
+  def apply(
+      study: Study,
+      data: Data,
+      order: Int,
+      userId: UserId,
+      withRatings: Boolean,
+      nameOrder: Option[Int] = None
+  ): Fu[Chapter] =
     data.game
       .so(parseGame)
       .flatMap:
         case None => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
       .map: c =>
-        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
+        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(nameOrder | order)) else c
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.value.trim.nonEmpty) match
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
 
-  def toStudyPgn(study: Study, pgn: PgnStr): Fu[StudyPgnImport.Result] = for
+  def toStudyPgn(study: Study, pgn: PgnStr, strict: Boolean): Fu[StudyPgnImport.Result] = for
     contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-    parsed <- StudyPgnImport.result(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
-      fufail(StudyValidationException(e.getMessage))
+    parsed <- StudyPgnImport.result(pgn, contributors.flatten, strict = strict).toFuture.recoverWith {
+      case e: Exception => fufail(StudyValidationException(e.getMessage))
     }
   yield parsed
 
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
-    for parsed <- toStudyPgn(study, pgn)
+    for parsed <- toStudyPgn(study, pgn, strict = false)
     yield Chapter.make(
       studyId = study.id,
       name = getChapterNameFromPgn(data, parsed),
@@ -131,7 +139,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for
       root <- makeRoot(game, data.pgn, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
+      tags <- pgnDump.tags(game, initialFen, none, gameOpening(game, true), withRatings)
       name <-
         if data.isDefaultName then
           StudyChapterName.from(namer.gameVsText(game, withRatings)(using lightUser.async))

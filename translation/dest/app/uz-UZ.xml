@@ -2,12 +2,12 @@
 <resources>
   <string name="lichessMobileApp">Lichess mobil ilovasi</string>
   <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Lichess ilovasiga o\'tilmoqda</string>
-  <string name="ifAppDoesNotOpenAutomatically" comment="ifAppDoesNotOpenAutomatically&#10;&#10;%s is &quot;Open the Lichess App&quot;, which is translatable separately.">Agar ilova avtomatik ravishda ochilmasa, \"%s\" tugmasini bosing.</string>
+  <string name="ifAppDoesNotOpenAutomatically">Agar ilova avtomatik ravishda ochilmasa, \"%s\" tugmasini bosing.</string>
   <string name="openTheApp" comment="Button text to open the Lichess app on the device">Lichess ilovasini ochish</string>
-  <string name="viewAllReleases" comment="%s is &quot;all releases&quot;">%s GitHubʼda koʻrish</string>
-  <string name="allReleases" comment="Part of longer text &quot;View [all releases] on GitHub&quot;&#10;&#10;Links to https://github.com/lichess-org/mobile/releases - a list of all mobile app releases">Barcha relizlarni</string>
-  <string name="downloadOnAppleAppStore" comment="Alt text for Apple App Store download link/image on https://lichess.org/app">Apple App Storeʼdan yuklab olish</string>
-  <string name="downloadOnGooglePlay" comment="Alt text for Google Play download link/image on https://lichess.org/app">Google Playʼdan yuklab olish</string>
-  <string name="downloadOnFdroid" comment="Alt text for F-Droid download link/image on https://lichess.org/app">F‑Droid`dan yuklab olish</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">%s GitHubʼda koʻrish</string>
+  <string name="allReleases">Barcha relizlarni</string>
+  <string name="downloadOnAppleAppStore">Apple App Storeʼdan yuklab olish</string>
+  <string name="downloadOnGooglePlay">Google Playʼdan yuklab olish</string>
+  <string name="downloadOnFdroid">F‑Droid`dan yuklab olish</string>
   <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobil ilovasining ekrani</string>
 </resources>

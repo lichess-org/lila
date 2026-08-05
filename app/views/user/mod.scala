@@ -111,7 +111,7 @@ object mod:
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
-            val userAppeal = appeals.find(_.isAbout(o.id))
+            val userAppeals = appeals.filter(_.user.is(o.id))
             val closedInfo = log.closed
             tr(
               dataUsername := o.username,
@@ -165,21 +165,27 @@ object mod:
                     )
                   )
                 .getOrElse(td(dataSort := 0)),
-              userAppeal match
-                case None => td(dataSort := 0)
-                case Some(appeal) =>
-                  td(dataSort := 1)(
+              userAppeals match
+                case Nil => td(dataSort := 0)
+                case appeals =>
+                  val nbMsgs = appeals.map(_.msgs.size).sum
+                  val closed = appeals.forall(_.isClosed)
+                  val muted = appeals.exists(_.muted)
+                  td(dataSort := nbMsgs)(
                     a(
-                      href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := Granter.opt(_.Appeals).option(routes.Appeal.modShowAll(o.id)),
                       cls := List(
                         "text" -> true,
-                        "appeal-recent" -> appeal.isRecent,
-                        "appeal-old" -> appeal.isOld,
-                        "appeal-muted" -> appeal.isMuted
+                        "appeal-recent" -> appeals.exists(_.isRecent),
+                        "appeal-old" -> appeals.forall(_.isOld),
+                        "appeal-closed" -> closed,
+                        "appeal-muted" -> muted
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
-                    )(appeal.msgs.size)
+                      title := s"${pluralize("appeal message", nbMsgs)}${
+                          if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
+                        }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
+                    )(nbMsgs)
                   )
               ,
               td(dataSort := o.createdAt.toMillis)(pastMomentServer(o.createdAt)),
@@ -201,14 +207,14 @@ object mod:
         case email => frag(email)
 
   def identification(logins: UserLogins, othersPartiallyLoaded: Boolean)(using
-      ctx: Context,
       renderIp: RenderIp
-  ): Frag =
-    val canIpBan = Granter.opt(_.IpBan)
-    val canFpBan = Granter.opt(_.PrintBan)
-    val canLocate = Granter.opt(_.Admin)
-    val canViewUA = Granter.opt(_.AccountInfo)
-    val canViewPrint = Granter.opt(_.ViewPrintNoIP)
+  )(using Context, Me): Frag =
+    val canIpBan = Granter(_.IpBan)
+    val canFpBan = Granter(_.PrintBan)
+    val canLocate = Granter(_.Admin)
+    val canViewUA = Granter(_.AccountInfo)
+    val canViewPrint = Granter(_.ViewPrintNoIP)
+    val canViewIp = Granter(_.ViewIP)
     mzSection("identification")(
       canLocate.option:
         div(cls := "spy_locs")(
@@ -269,7 +275,7 @@ object mod:
           )
         )
       ),
-      canViewPrint.option:
+      (canViewPrint || canViewIp).option:
         div(id := "identification_screen", cls := "spy_ips")(
           table(cls := "slist spy_filter slist--sort")(
             thead(

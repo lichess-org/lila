@@ -550,6 +550,7 @@
     <item quantity="few">%s sledijo</item>
     <item quantity="other">%s sledijo</item>
   </plurals>
+  <string name="less">Manj</string>
   <string name="more">Več</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja prijava %s</string>
@@ -648,6 +649,9 @@
   <string name="replies">Odgovori</string>
   <string name="replyToThisTopic">Objavi odgovor v tej temi</string>
   <string name="reply">Odgovori</string>
+  <string name="reopen">Ponovno odpri</string>
+  <string name="quote">Citat</string>
+  <string name="postEdited">urejeno</string>
   <string name="message">Sporočilo</string>
   <string name="createTheTopic">Ustvari temo</string>
   <string name="reportAUser">Prijavi uporabnika</string>
@@ -894,10 +898,13 @@
   <string name="language">Jezik</string>
   <string name="allLanguages">Vsi jeziki</string>
   <string name="background">Ozadje</string>
+  <string name="theme">Tema</string>
   <string name="light">Svetla</string>
   <string name="dark">Temna</string>
   <string name="transparent">Prosojna</string>
+  <string name="picture">Slika</string>
   <string name="deviceTheme">Tema naprave</string>
+  <string name="roundness">Okroglost</string>
   <string name="backgroundImageUrl">URL slike ozadja:</string>
   <string name="board">Šahovnica</string>
   <string name="size">Velikost</string>
@@ -1040,7 +1047,6 @@
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nekdo, za katerega ste poročali, je bil prepovedan</string>
   <string name="congratsYouWon">Čestitke, zmagali ste!</string>
   <string name="gameVsX">Igra proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
@@ -1096,7 +1102,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="gameInProgress">V teku je igra z %s.</string>
   <string name="abortTheGame">Prekinite igro</string>
   <string name="resignTheGame">Predaj igro</string>
-  <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>

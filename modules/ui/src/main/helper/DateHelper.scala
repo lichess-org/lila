@@ -65,8 +65,8 @@ trait DateHelper:
       title := s"${showInstant(instant)} UTC"
     )(showDate(instant))
 
-  def showMinutes(minutes: Int)(using Translate): String =
-    lila.core.i18n.translateDuration(Duration.ofMinutes(minutes))
+  def showMinutes(minutes: Int)(using t: Translate): String =
+    t.translator.duration(Duration.ofMinutes(minutes))(using t.lang)
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 

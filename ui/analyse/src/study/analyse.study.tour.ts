@@ -12,7 +12,7 @@ export function initModule(): StudyTour {
     chapter,
   };
 
-  function iconTag(i: string) {
+  function iconI18nTag(i: string) {
     return `<icon data-icon='${i}'></icon>`;
   }
 
@@ -49,7 +49,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.studyMembersTitle,
-        text: i18n.study.studyMembersText(iconTag(licon.Eye), iconTag(licon.User)),
+        text: i18n.study.studyMembersText(iconI18nTag(licon.Eye), iconI18nTag(licon.User)),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -58,7 +58,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: i18n.study.addMembers,
-        text: i18n.study.addMembersText(iconTag(licon.PlusButton)),
+        text: i18n.study.addMembersText(iconI18nTag(licon.PlusButton)),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -74,7 +74,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.canContribute()) {
       steps.push({
         title: i18n.study.commentPositionTitle,
-        text: i18n.study.commentPositionText(iconTag(licon.BubbleSpeech)),
+        text: i18n.study.commentPositionText(iconI18nTag(licon.BubbleSpeech)),
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
       });
       steps.push({
@@ -90,7 +90,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: iconTag(licon.Checkmark),
+          text: iconI18nTag(licon.Checkmark),
           action: tourCtrl.tour.next,
         },
       ],
@@ -155,7 +155,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: iconTag(licon.Checkmark),
+            text: iconI18nTag(licon.Checkmark),
             action: tourCtrl.tour.next,
           },
         ],

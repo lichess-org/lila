@@ -22,7 +22,7 @@ th[aria-sort='descending']:not([data-sort-method='none'])::after {
 }
 
 th[aria-sort]:not([data-sort-method='none']) {
-  background: $m-accent--fade-85;
+  background: rgb(from $c-accent r g b / calc(alpha * 0.15));
   color: $c-font-clear;
 
   &::after {

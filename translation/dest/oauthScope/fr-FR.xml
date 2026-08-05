@@ -32,13 +32,13 @@
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
   <string name="personalAccessTokens">Jetons d\'accès personnel API</string>
   <string name="canMakeOauthRequests">Vous pouvez faire des demandes OAuth sans passer par le %s.</string>
-  <string name="authorizationCodeFlow">processus de code d\'autorisation.</string>
+  <string name="authorizationCodeFlow">processus de code d\'autorisation</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Au lieu de cela, %s que vous pouvez utiliser directement dans les requêtes API.</string>
   <string name="generatePersonalToken">créez un jeton d\'accès personnel</string>
   <string name="guardTokensCarefully">Protégez vos jetons ! Ils sont comme des mots de passe. L\'avantage d\'utiliser un jeton plutôt qu\'un mot de passe dans un script, c\'est qu\'un jeton peut être révoqué et que vous pouvez en générer beaucoup.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Voici un %1$s et la %2$s.</string>
   <string name="personalTokenAppExample">exemple d\'application de jeton personnel</string>
-  <string name="apiDocumentation">documentation API.</string>
+  <string name="apiDocumentation">documentation API</string>
   <string name="newToken">Nouveau jeton d\'accès</string>
   <string name="apiAccessTokens">Jeton d\'accès API</string>
   <string name="created">Création : %s</string>

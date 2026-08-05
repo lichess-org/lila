@@ -1,9 +1,9 @@
 import {
   attributesModule,
   classModule,
-  propsModule,
   eventListenersModule,
   init,
+  propsModule,
   type VNodeData,
 } from 'snabbdom';
 

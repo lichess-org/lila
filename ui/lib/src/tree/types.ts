@@ -39,7 +39,7 @@ export interface PvData extends EvalScore {
 }
 
 export interface TablebaseHit {
-  winner: Color | undefined;
+  winner?: Color;
   best?: Uci;
 }
 

@@ -238,7 +238,7 @@ final class Signup(
     then authLog(UserStr(username), email, "Signup with unacceptable email")
 
   private def authLog(user: UserStr, email: String, msg: String) =
-    lila.log("auth").info(s"$user $email $msg")
+    loggerAuth.info(s"$user $email $msg")
 
 object Signup:
 

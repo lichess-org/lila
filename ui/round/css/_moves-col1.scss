@@ -61,7 +61,7 @@
       background: $c-bg-zebra;
 
       @include if-light {
-        background: hsl($site-hue, 20%, 85%);
+        background: hsl(var(---site-hue) 20% 85%);
       }
     }
 

@@ -76,7 +76,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
 
   object stripePricesAsJson:
     private val placeholder = "{{myCurrency}}"
-    private val cache = cacheApi.unit[JsonStr]:
+    private val cache = cacheApi.unit[JsonStr]("plan.stripePricesAsJson"):
       _.refreshAfterWrite(1.hour).buildAsyncTimeout(20.seconds): _ =>
         import PlanPricingApi.pricingWrites
         CurrencyApi.stripeCurrencyList

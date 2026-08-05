@@ -8,6 +8,8 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
+
 export type Prop<T> = {
   (): T;
   (v: T): T;
@@ -54,16 +56,6 @@ export const toggle = (initialValue: boolean, effect: (value: boolean) => void =
   const prop = propWithEffect(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
   return prop;
-};
-
-export const toggleWithConstraint = (value: boolean, constraint: () => boolean): Toggle => {
-  return Object.assign(
-    (v?: boolean): boolean => {
-      if (defined(v)) value = v && constraint();
-      return value;
-    },
-    { toggle: () => (value = !value && constraint()), effect: () => {} },
-  );
 };
 
 // Only computes a value once. The computed value must not be undefined.
@@ -145,7 +137,7 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
-    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+    for (let d = 350; ;) yield Math.max(100, (d *= 14 / 15));
   })();
   const repeat = () => {
     f();

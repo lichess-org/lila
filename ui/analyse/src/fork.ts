@@ -11,8 +11,8 @@ import { renderIndexAndMove } from './view/components';
 export class ForkCtrl {
   selectedIndex = 0;
 
-  private hoveringIndex: number | undefined;
-  private mostRecent: TreeNode | undefined;
+  private hoveringIndex?: number;
+  private mostRecent?: TreeNode;
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
 
@@ -81,9 +81,9 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
 };
 
 export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
-  if (ctrl.retro?.isSolving()) return;
+  if (ctrl.retro?.isSolving() || ctrl.study?.hideMoves()) return undefined;
   ctrl.fork.update();
-  if (!ctrl.fork.isVisible) return;
+  if (!ctrl.fork.isVisible) return undefined;
   const isMainline = concealOf && ctrl.onMainline;
   return hl(
     'div.analyse__fork',
@@ -101,19 +101,21 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
       }),
     },
     ctrl.visibleChildren().map((node, it) => {
-      const classes = {
-        selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
-        correct: ctrl.isGamebook() && it === 0,
-        wrong: ctrl.isGamebook() && it > 0,
-      };
       const conceal = isMainline && concealOf(true)(ctrl.path + node.id, node);
-      if (!conceal)
-        return hl(
-          'move',
-          { class: classes, attrs: { 'data-it': it } },
-          renderIndexAndMove(node, ctrl.showStaticAnalysis(), ctrl.showStaticAnalysis()),
-        );
-      return undefined;
+      if (conceal) return undefined;
+
+      return hl(
+        'move',
+        {
+          class: {
+            selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
+            correct: ctrl.isGamebook() && it === 0,
+            wrong: ctrl.isGamebook() && it > 0,
+          },
+          attrs: { 'data-it': it },
+        },
+        renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
+      );
     }),
   );
 }

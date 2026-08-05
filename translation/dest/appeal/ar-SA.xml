@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="cleanAllGood">حسابك غير مميز أو مقيد. أنت بخير!</string>
-  <string name="engineMarked">حسابك مشار إليه كمساعدة الخارجية في الألعاب.</string>
+  <string name="cleanAllGood">حسابك غير مُشار إليه بأي علامة ولا توجد عليه قيود. أنت بخير!</string>
+  <string name="engineMarked">تم تقييد حسابك لاستخدامك محرك شطرنج أو وسائل مساعدة حاسوبية في المباريات.</string>
   <string name="engineMarkedInfo">نحن نعرف هذا بأنه استخدام أي مساعدة خارجية لتعزيز معرفتك و/أو مهاراتك في الحساب من أجل اكتساب أفضلية غير عادلة على خصمك. راجع صفحة %s لمزيد من التفاصيل.</string>
   <string name="arenaBanned">حسابك محظور من الانضمام إلى الساحات.</string>
   <string name="prizeBanned">تم حظر حسابك من البطولات ذو جوائز حقيقية.</string>
-  <string name="boosterMarked">تم تحديد حسابك للتلاعب بالتقييم.</string>
-  <string name="boosterMarkedInfo">نحن نعرف هذا بأنه التلاعب المتعمد بالتصنيف عن طريق فقدان الأدوار عن قصد أو اللعب ضد حساب آخر يفقد الأدوار عمدا.</string>
+  <string name="boosterMarked">تم تقييد حسابك بسبب التلاعب بالتصنيف أو مشاركة حسابك مع شخص آخر.</string>
   <string name="accountMuted">تم كتم صوت حسابك.</string>
   <string name="accountMutedInfo">اقرأ %s الخاص بنا. الفشل في اتباع القواعد الإرشادية للتواصل يمكن أن يؤدي إلى كتم الحسابات.</string>
   <string name="excludedFromLeaderboards">تم استبعاد حسابك من لوحات المتصدرين.</string>
-  <string name="excludedFromLeaderboardsInfo">نحن نعرّف هذا على أنه استخدام أي طريقة غير عادلة للدخول إلى لوحة المتصدرين.</string>
+  <string name="onlyOneAccountOnLeaderboards">يُسمح لكل شخص بظهور حساب واحد فقط في لوحات الصدارة.</string>
   <string name="closedByModerators">تم إغلاق حسابك من قبل المشرفين.</string>
-  <string name="hiddenBlog">تم إخفاء مدوناتك من قبل المشرفين.</string>
-  <string name="hiddenBlogInfo">تأكد من قراءة %s مرة أخرى.</string>
+  <string name="blogRestriction">تم تقييد إمكانية استخدامك للمدونة.</string>
+  <string name="blogRestrictionInfo">اطّلع على %s، إذ قد يؤدي انتهاك هذه القواعد إلى اتخاذ إجراءات مختلفة.</string>
   <string name="playTimeout">تم إيقافك عن اللعب.</string>
+  <string name="reportBanned">لا يُسمح لك بإرسال بلاغات إلى المشرفين</string>
+  <string name="reportBannedInfo">لقد لاحظنا وجود نمط من إساءة استخدام نظام الإبلاغ لدينا. وقد يرجع ذلك إلى عدة أسباب، مثل اختيار فئات غير صحيحة بشكل متكرر، أو استخدام لغة بذيئة أو غير لائقة أو مسيئة، أو الإبلاغ عن عدد مفرط من المباريات، أو عدم توضيح سبب اعتقادك أن الخصم قد خالف القواعد.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">تم تقييد حسابك مؤقتًا من اللعب.</string>
   <string name="communicationGuidelines">قواعد التواصل</string>
-  <string name="blogRules">قواعد المدونة</string>
+  <string name="blogEtiquette">آداب استخدام المدونة</string>
   <string name="fairPlay">اللعب العادل</string>
 </resources>

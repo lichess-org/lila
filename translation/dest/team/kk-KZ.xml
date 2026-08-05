@@ -20,7 +20,7 @@
     <item quantity="one">Топ жетекшісі</item>
     <item quantity="other">Топ жетекшілері</item>
   </plurals>
-  <string name="teamRecentMembers">Соңғы мүшелер</string>
+  <string name="teamRecentMembers">Кейінгі мүшелер</string>
   <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
   <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
   <plurals name="xJoinRequests">
@@ -30,17 +30,11 @@
   <string name="willBeReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарайды.</string>
   <string name="beingReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарап жатыр.</string>
   <string name="requestDeclined">Топ жетекшісі сіздің қосылуыңызға қарсы.</string>
-  <string name="subToTeamMessages">Топ хабарларына жазылу</string>
   <string name="teamBattle">Топтар Күресі</string>
   <string name="teamBattleOverview">Бірнеше топтың күресі, әр ойыншы өз тобына ұпай жинайды</string>
   <string name="teamTournament">Топтық жарыс</string>
   <string name="teamTournamentOverview">Алаң жарысы, тек сіздің тобыңыздың мүшелері қосыла алады</string>
   <string name="swissTournamentOverview">Тек тобыңыздың мүшелері ғана қатысатын Швейцарлық жарыс</string>
-  <string name="messageAllMembers">Барлық топ мүшелеріне хабарлау</string>
-  <string name="messageAllMembersOverview">Әр топ мүшесіне жеке хабар жіберу</string>
-  <string name="messageAllMembersLongDescription">Барлық топ мүшелеріне жеке хабар жіберу.
-Бұны сіз ойыншыларды жарысқа не топтар күресіне шақыру үшін қолдана аласыз.
-Сізден хабар алғысы келмейтін ойыншылар топтан шықса болады.</string>
   <string name="teamsIlead">Қоласты топтарым</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Сіз келе жатқан жарыстардың біріне қосыларсыз.</string>
   <string name="leadersChat">Жетекшілер чаты</string>

@@ -348,12 +348,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .void
 
   def reopen(id: UserId) =
-    coll.updateField($id(id), F.enabled, true) >>
+    coll.update.one(
+      $id(id),
+      $set(F.enabled -> true) ++ $unset(F.delete) ++ $pull(F.marks, UserMark.alt)
+    ) >>
       coll.update
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
-            $doc("$unset" -> $doc(F.delete -> true))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -521,7 +523,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
 
-  def langOf(id: UserId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
+  def langOf(id: UserId): Fu[Option[LangTag]] = coll.primitiveOne[LangTag]($id(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
