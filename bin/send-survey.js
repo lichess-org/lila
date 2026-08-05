@@ -5,11 +5,12 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const oauthToken = process.env.OAUTH_TOKEN;
 const lichessUrl = process.env.LICHESS_URL ?? 'https://lichess.org';
+const surveyId = '511794';
 
-const { surveyId, file, dryRun, writeParticipants, help } = parseArgs(process.argv.slice(2));
+const { file, dryRun, writeParticipants, help } = parseArgs(process.argv.slice(2));
 
-if (help || !surveyId || !file) {
-  console.error(`Usage: OAUTH_TOKEN=... node send-survey.js <surveyId> <participants.csv> [options]
+if (help || !file) {
+  console.error(`Usage: OAUTH_TOKEN=... node send-survey.js <participants.csv> [options]
 
 Options:
   --dry-run                 Print messages without sending PMs
@@ -26,12 +27,12 @@ Header labels may include a parenthetical description, e.g. "attribute_1 (userna
 only the attribute_N / token name is used.
 
 Survey links look like:
-  https://lichess.org/survey?id=<surveyId>&token=<token>&lang=<lang>
+  https://lichess.org/survey?id=${surveyId}&token=<token>&lang=<lang>
 
 Example:
-  node send-survey.js 828769 participants.csv --dry-run
-  node send-survey.js 828769 participants.csv --write-participants=participants_and_tokens.csv --dry-run
-  OAUTH_TOKEN=... node send-survey.js 828769 participants_and_tokens.csv
+  node send-survey.js participants.csv --dry-run
+  node send-survey.js participants.csv --write-participants=participants_and_tokens.csv --dry-run
+  OAUTH_TOKEN=... node send-survey.js participants_and_tokens.csv
 `);
   process.exit(help ? 0 : 1);
 }
@@ -192,7 +193,7 @@ function parseArgs(argv) {
     else positional.push(arg);
   }
 
-  return { surveyId: positional[0], file: positional[1], dryRun, writeParticipants, help };
+  return { file: positional[0], dryRun, writeParticipants, help };
 }
 
 function parseCsv(text) {
