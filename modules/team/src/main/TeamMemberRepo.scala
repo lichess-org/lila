@@ -39,9 +39,9 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   def countByTeam(teamId: TeamId): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  private[team] def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]] =
+  private[team] def filterUserIdsInTeam(teamId: TeamId, users: Iterable[UserId]): Fu[List[UserId]] =
     users.nonEmpty.so:
-      coll.distinctEasy[UserId, Set]("user", $inIds(users.map { TeamMember.makeId(teamId, _) }))
+      coll.distinctEasy[UserId, List]("user", $inIds(users.map { TeamMember.makeId(teamId, _) }), _.sec)
 
   def isSubscribed[U: UserIdOf](team: Team, user: U): Fu[Boolean] =
     coll.secondary.exists(selectId(team.id, user) ++ $doc("unsub".$ne(true)))
