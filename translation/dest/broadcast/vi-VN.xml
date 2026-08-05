@@ -56,6 +56,7 @@
   <string name="subscribeTitle">Đăng ký để được thông báo khi mỗi vòng bắt đầu. Bạn có thể chuyển đổi chuông hoặc thông báo đẩy cho các chương trình phát sóng trong tùy chọn tài khoản của mình.</string>
   <string name="uploadImage">Tải hình ảnh giải đấu lên</string>
   <string name="noBoardsYet">Chưa có bàn nào. Chúng sẽ xuất hiện khi ván đấu được tải lên.</string>
+  <string name="noPlayersYet">Hiện chưa có kỳ thủ nào. Họ sẽ xuất hiện khi các trận đấu được tải lên.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Bàn đấu có thể được tải bằng nguồn hoặc thông qua %s</string>
   <string name="startsAfter">Bắt đầu sau %s</string>
   <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>

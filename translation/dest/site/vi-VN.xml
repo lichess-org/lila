@@ -451,6 +451,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="nbFollowing">
     <item quantity="other">Đang theo dõi %s người</item>
   </plurals>
+  <string name="less">Ẩn bớt</string>
   <string name="more">Xem thêm</string>
   <string name="memberSince">Thành viên từ</string>
   <string name="lastSeenActive">Hoạt động %s</string>
@@ -787,10 +788,13 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="language">Ngôn ngữ</string>
   <string name="allLanguages">Tất cả ngôn ngữ</string>
   <string name="background">Nền</string>
+  <string name="theme">Giao diện</string>
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
+  <string name="picture">Hình ảnh</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
+  <string name="roundness">Bo tròn</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="board">Bàn cờ</string>
   <string name="size">Kích cỡ</string>

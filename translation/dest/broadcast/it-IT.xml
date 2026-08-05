@@ -56,7 +56,7 @@
   <string name="overview">Panoramica</string>
   <string name="subscribeTitle">Iscriviti per ricevere notifiche sull\'inizio di ogni round. Puoi attivare o disattivare la campanella o le notifiche push per le dirette nelle preferenze del tuo account.</string>
   <string name="uploadImage">Carica immagine del torneo</string>
-  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Esse compariranno non appena i giochi saranno stati caricati.</string>
+  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Compariranno non appena le partite saranno state caricate.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Le scacchiere possono essere caricate con una sorgente o tramite %s</string>
   <string name="startsAfter">Inizia tra %s</string>
   <string name="startVerySoon">Questa trasmissione inizierà a breve.</string>

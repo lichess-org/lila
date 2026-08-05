@@ -58,6 +58,7 @@
   <string name="subscribeTitle">Krijg een melding wanneer elke ronde start. Je kunt bel- of pushmeldingen voor uitzendingen in je accountvoorkeuren in-/uitschakelen.</string>
   <string name="uploadImage">Toernooifoto uploaden</string>
   <string name="noBoardsYet">Nog geen borden. Deze zullen verschijnen van zodra er partijen worden geüpload.</string>
+  <string name="noPlayersYet">Nog geen spelers. Ze verschijnen zodra partijen zijn geüpload.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Borden kunnen geladen worden met een bron of via de %s</string>
   <string name="startsAfter">Start na %s</string>
   <string name="startVerySoon">De uitzending begint binnenkort.</string>
