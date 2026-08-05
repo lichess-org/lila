@@ -5,13 +5,13 @@
   <string name="challengeAccepted">Изазов прихваћен!</string>
   <string name="challengeCanceled">Изазов отказан.</string>
   <string name="registerToSendChallenges">Молимо Вас да се региструјете како би послали изазове.</string>
-  <string name="youCannotChallengeX">Не можете изазвати %s.</string>
+  <string name="youCannotChallengeX">Не можеш изазвати %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш %1$s рејтинг је предалек од %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Немогуће изазвати због привременог %s рејтинга.</string>
+  <string name="yourXRatingIsTooFarFromY">Твој %1$s рејтинг је предалек од %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не може се изазвати због пробног %s рејтинга.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
   <string name="declineGeneric">Тренутно не прихватам изазове.</string>
-  <string name="declineLater">Изазов ми тренутно не одговара, молим Вас питајте опет касније.</string>
+  <string name="declineLater">Изазов ми тренутно не одговара, молим те изазови касније.</string>
   <string name="declineTooFast">Ова временска контрола је пребрза за мене, молим Вас изазовите опет на спорију партију.</string>
   <string name="declineTooSlow">Ова временска контрола је преспора за мене, молим Вас изазовите опет на бржу партију.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
