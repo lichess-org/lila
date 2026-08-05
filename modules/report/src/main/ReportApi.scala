@@ -524,7 +524,7 @@ final class ReportApi(
           "atoms.0.at".$gt(nowInstant.minusDays(7)),
           "room" -> room.key
         ) ++ (room == Room.Other).so:
-          $doc("text".$ne("Spontaneous inquiry"))
+          $doc("inquiry".$exists(false))
         ,
         _.sec
       )
