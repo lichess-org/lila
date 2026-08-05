@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { randomBytes } from 'node:crypto';
+import { randomInt } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const oauthToken = process.env.OAUTH_TOKEN;
@@ -272,9 +272,8 @@ function validateToken(token) {
 function generateToken(usedTokens) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   for (let attempt = 0; attempt < 100; attempt++) {
-    const bytes = randomBytes(15);
     let token = '';
-    for (let i = 0; i < 15; i++) token += chars[bytes[i] % chars.length];
+    for (let i = 0; i < 15; i++) token += chars[randomInt(chars.length)];
     if (!usedTokens.has(token)) return token;
   }
   console.error('Failed to generate a unique token.');
