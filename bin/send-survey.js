@@ -20,7 +20,10 @@ The input CSV must have a header row. Required columns:
   token                     Access code (generated if missing)
 
 Optional columns:
-  attribute_4               Lichess language code (omitted from survey URL if empty)
+  attribute_45              Lichess language/locale (omitted from survey URL if empty)
+
+Header labels may include a parenthetical description, e.g. "attribute_1 (username)";
+only the attribute_N / token name is used.
 
 Survey links look like:
   https://lichess.org/survey?id=<surveyId>&token=<token>&lang=<lang>
@@ -120,7 +123,7 @@ for (const row of rows) {
   const username = row.attribute_1?.trim();
   if (!username) continue;
 
-  const lang = normalizeLang(row.attribute_4);
+  const lang = normalizeLang(row.attribute_45 ?? row.attribute_4);
   let token = row.token?.trim();
   if (!token) token = generateToken(usedTokens);
   else validateToken(token);
@@ -247,6 +250,7 @@ function normalizeHeader(header) {
   return header
     .trim()
     .replace(/\s*<.*>$/, '')
+    .replace(/\s*\(.*\)$/, '')
     .trim()
     .toLowerCase();
 }
@@ -285,7 +289,7 @@ function surveyLink(id, token, lang) {
 }
 
 function formatParticipantsCsv(participants) {
-  const header = 'token,attribute_1,attribute_4';
+  const header = 'token,attribute_1,attribute_45';
   const lines = participants.map(({ token, username, lang }) =>
     [csvCell(token), csvCell(username), csvCell(lang ?? '')].join(','),
   );
