@@ -882,21 +882,24 @@ Team Dogs ; Scooby Doo"""),
 
   private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
     val tour = twg.tour
-    val disabledCheck = tour.tier.isDefined && !Granter.opt(_.Relay)
-    val disabledGroup = disabledCheck.option(disabled)
-    val disabledMsg = disabledCheck.option(div(cls := "form-group")(ui.disableDueOfficialTier))
+    val isDisabled = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disable = isDisabled.option(disabled)
     def scoreGroupInput(sgIndex: Int) =
       form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
-        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disabledGroup)
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disable)
       )
     div(cls := "relay-form__grouping")(
-      disabledMsg,
+      isDisabled.option:
+        div(cls := "form-group"):
+          span(dataIcon := Icon.CautionTriangle, cls := "text"):
+            "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
+      ,
       form3.group(
         form("grouping.info.name"),
         "Optional: Group name",
         help = frag("Name of the overall group. Example: Dutch Championships 2025").some
       )(
-        form3.input(_)(disabledGroup)
+        form3.input(_)(disable)
       ),
       form3.group(
         form("grouping.info.tours"),
@@ -915,7 +918,7 @@ Team Dogs ; Scooby Doo"""),
           rows := 5,
           spellcheck := "false",
           cls := "monospace",
-          disabledGroup
+          disable
         )
       ),
       form3.group(

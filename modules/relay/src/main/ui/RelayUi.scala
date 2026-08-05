@@ -130,8 +130,3 @@ final class RelayUi(helpers: Helpers)(
     a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
-
-  def disableDueOfficialTier =
-    span(dataIcon := Icon.CautionTriangle, cls := "text")(
-      "Input was read-only due broadcast was turned Official Broadcast. Please contact Broadcast Team to request changes."
-    )
