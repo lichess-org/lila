@@ -37,8 +37,9 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
             "id" -> id,
             "name" -> name
           )
-        case TeamUpdate(name, text) =>
+        case TeamUpdate(id, name, text) =>
           Json.obj(
+            "id" -> id,
             "name" -> name,
             "text" -> text
           )

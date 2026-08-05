@@ -66,7 +66,7 @@ export default function makeRenderers(): Renderers {
     },
     teamUpdate: {
       html: n =>
-        generic(n, '/team/updates', licon.Group, [
+        generic(n, '/team/updates/' + n.content.id, licon.Group, [
           h('span', [h('strong', n.content.name)]),
           h('span', n.content.text),
         ]),

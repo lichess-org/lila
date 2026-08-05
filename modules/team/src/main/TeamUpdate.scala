@@ -106,7 +106,7 @@ final class TeamUpdateApi(
     for
       unsubed <- memberRepo.listOfUnsubscribed(team.id)
       _ <- updateRepo.send(msg, unsubed)
-      notification: Notification = Notification(team.name, shorten(msg.text, 40))
+      notification: Notification = Notification(team.id, team.name, shorten(msg.text, 40))
       _ = notifySubscribers(team.id, notification) // don't await that!
     yield ()
 

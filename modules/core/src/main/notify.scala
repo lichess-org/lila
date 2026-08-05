@@ -20,7 +20,7 @@ enum NotificationContent(val key: String):
   case InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)
       extends NotificationContent("invitedStudy")
   case TeamJoined(id: TeamId, name: String) extends NotificationContent("teamJoined")
-  case TeamUpdate(name: TeamName, text: String) extends NotificationContent("teamUpdate")
+  case TeamUpdate(id: TeamId, name: TeamName, text: String) extends NotificationContent("teamUpdate")
   case MentionedInThread(
       mentionedBy: UserId,
       topicName: String,
