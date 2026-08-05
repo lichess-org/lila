@@ -8,6 +8,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.msg.SystemMsg
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 
 final class Team(env: Env) extends LilaController(env):
@@ -175,15 +176,13 @@ final class Team(env: Env) extends LilaController(env):
                 .flatMap:
                   _.filter(_.user.isnt(me))
                     .sequentially: change =>
-                      env.msg.api.systemPost(
-                        change.user,
-                        lila.msg.MsgPreset.newPermissions(
-                          if asMod then LightUser.fallback(UserName.lichess) else me.light,
-                          team.team.light,
-                          change.perms.map(_.name),
-                          routeUrl(routes.Team.show(team.id))
-                        )
+                      val text = lila.msg.MsgPreset.newPermissions(
+                        if asMod then LightUser.fallback(UserName.lichess) else me.light,
+                        team.team.light,
+                        change.perms.map(_.name),
+                        routeUrl(routes.Team.show(team.id))
                       )
+                      env.msg.api.systemPost(SystemMsg.mustRead(change.user, text))
                     .inject:
                       Redirect(routes.Team.leaders(team.id)).flashSuccess
           )

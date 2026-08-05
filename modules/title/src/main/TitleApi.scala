@@ -139,7 +139,7 @@ $feedback
 
 $baseUrl/verify-title
 """
-    lila.common.Bus.pub(SystemMsg(to, pm))
+    lila.common.Bus.pub(SystemMsg.mustRead(to, pm))
 
   object image:
     def ref(req: TitleRequest, tag: String) =

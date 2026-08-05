@@ -64,9 +64,7 @@ final class Env(
         words.mkString(" ")
       )
 
-  Bus.sub[lila.core.msg.SystemMsg]:
-    case lila.core.msg.SystemMsg(userId, text) =>
-      api.systemPost(userId, text)
+  Bus.sub[lila.core.msg.SystemMsg](api.systemPost(_))
 
   private val payoutsUrl = appConfig.get[Url]("payouts.portal")
 
@@ -76,7 +74,7 @@ final class Env(
 
   Bus.sub[TellUserIn]:
     case TellUserIn.Read(userId, msg) =>
-      msg.get[UserId]("d").foreach { api.setRead(userId, _) }
+      msg.get[UserId]("d").foreach { api.setRead(userId.into(MyId), _) }
     case TellUserIn.Send(userId, msg) =>
       for
         obj <- msg.obj("d")

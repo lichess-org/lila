@@ -4,6 +4,7 @@ import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.core.report.SuspectId
 import lila.rating.PerfType
 import lila.report.{ Room, Suspect, ReporterId }
+import lila.core.msg.SystemMsg
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
@@ -24,7 +25,7 @@ final private class ModNotifier(
             .filterNot(_.is(mod))
             .sequentiallyVoid: reporterId =>
               onceEvery(sus.id -> reporterId.id).so:
-                msgApi.systemPost(reporterId.userId, actionTakenMessage).void
+                msgApi.systemPost(SystemMsg.standard(reporterId.userId, actionTakenMessage)).void
 
   def refund(user: User, pt: PerfType, points: Int): Funit =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
@@ -32,8 +33,12 @@ final private class ModNotifier(
 
   def notifyKidMode(mod: ModId, user: User): Funit =
     pmPresets.setKidModePreset match
-      case None => msgApi.systemPost(mod.userId, "No kid mode preset found, couldn't send a PM.").void
-      case Some(preset) => msgApi.systemPost(user.id, preset.text).void
+      case None =>
+        msgApi
+          .systemPost:
+            SystemMsg.standard(mod.userId, "No kid mode preset found, couldn't send a PM.")
+          .void
+      case Some(preset) => msgApi.systemPost(SystemMsg.mustRead(user.id, preset.text)).void
 
   private val actionTakenMessage = """Hello,
 

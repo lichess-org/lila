@@ -16,7 +16,8 @@ object MsgPreset:
       text = s"""Sorry, you can't follow more than $max players on Lichess.
 To follow new players, you must first unfollow some on $baseUrl/@/$username/following.
 
-Thank you for your understanding."""
+Thank you for your understanding.""",
+      mustRead = false
     )
 
   def forumRelocation(title: String, newUrl: String) =
@@ -59,7 +60,8 @@ ${teamUrl}"""
 
 Lichess is offering prizes to top finishers in this tournament, and your performance means you may be eligible for a prize.
 
-Please visit $payoutsUrl to provide the necessary information for payout. The deadline for claiming prizes is $deadline."""
+Please visit $payoutsUrl to provide the necessary information for payout. The deadline for claiming prizes is $deadline.""",
+      mustRead = true
     )
 
   def apiTokenRevoked(url: String) =
