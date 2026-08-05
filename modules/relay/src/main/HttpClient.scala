@@ -128,15 +128,15 @@ private object HttpClient:
   type Body = String
   case class Status(code: Int, host: String) extends LilaExceptionNoStack:
     override val message = code match
-      case 204 | 404  => s"${host} games not found"
-      case 301 | 302  => s"${host} trying redirect, please fix the URL"
-      case 429        => s"${host} rate limited"
-      case 400        => s"${host} bad request, please fix the URL"
-      case 500        => s"${host} internal server error"
-      case 502        => s"${host} bad gateway"
-      case 503        => s"${host} service unavailable or rate limited" // some sites return 503 instead of 429
-      case 407        => s"${host} connection problem - call a sysadmin" // proxy auth required
-      case _          => s"$code: $host"
+      case 204 | 404 => s"${host} games not found"
+      case 301 | 302 => s"${host} trying redirect, please fix the URL"
+      case 429 => s"${host} rate limited"
+      case 400 => s"${host} bad request, please fix the URL"
+      case 500 => s"${host} internal server error"
+      case 502 => s"${host} bad gateway"
+      case 503 => s"${host} service unavailable or rate limited" // some sites return 503 instead of 429
+      case 407 => s"${host} connection problem - call a sysadmin" // proxy auth required
+      case _ => s"$code: $host"
 
   case class SourceTimeout(host: String) extends LilaExceptionNoStack:
     override val message = s"$host is not responding"
