@@ -46,11 +46,11 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
       .one[DbTeamUpdate]
 
   def teamRecent(team: TeamId)(using Me): AdapterLike[DbTeamUpdateSeen] =
-    allRecent(Team.IdsStr(List(team)))
+    allRecent(List(team))
 
-  def allRecent(teams: Team.IdsStr)(using me: Me): AdapterLike[DbTeamUpdateSeen] = new:
-    private val teamSelector = teams.toArray match
-      case Array(single) => teamSelect(single)
+  def allRecent(teams: Seq[TeamId])(using me: Me): AdapterLike[DbTeamUpdateSeen] = new:
+    private val teamSelector = teams match
+      case Seq(single) => teamSelect(single)
       case many => $doc("team".$in(many))
     def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
     def slice(offset: Int, length: Int): Fu[List[DbTeamUpdateSeen]] =

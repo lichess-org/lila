@@ -61,7 +61,8 @@ final class TeamUpdateApi(
       yield TeamUpdateSeen(msg.msg.copy(team = team.light, sender = sender), msg.seen)
 
   def allRecent(page: Int)(using me: Me): Fu[TeamUpdate.Recent] = for
-    teamIds <- cached.teamIds(me.userId)
+    allTeamIds <- cached.teamIds(me.userId)
+    teamIds <- memberRepo.filterSubscribed(allTeamIds, me.userId)
     msgs <- Paginator(updateRepo.allRecent(teamIds), page, maxPerPage)
     teams <- cached.lightMapById(msgs.currentPageResults.view.map(_.msg.team).toList)
     senders <- lightUserApi.asyncIdMapFallback(msgs.currentPageResults.view.map(_.msg.sender).toSet)
