@@ -882,12 +882,15 @@ Team Dogs ; Scooby Doo"""),
 
   private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
     val tour = twg.tour
-    val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+    val disabledCheck = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disabledGroup = disabledCheck.option(disabled)
+    val disabledMsg = disabledCheck.option(div(cls := "form-group")(ui.disableDueOfficialTier))
     def scoreGroupInput(sgIndex: Int) =
       form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
         form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disabledGroup)
       )
     div(cls := "relay-form__grouping")(
+      disabledMsg,
       form3.group(
         form("grouping.info.name"),
         "Optional: Group name",
