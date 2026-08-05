@@ -45,7 +45,7 @@ site.load.then(() => {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
       const delayText = ` (${minutes}m${remainingSeconds}s)`;
-      let $span = $label.find('span');
+      const $span = $label.find('span');
       if ($span.length === 0) {
         const span = document.createElement('span');
         span.textContent = delayText;
