@@ -10,9 +10,11 @@ const teamTextRegex =
 
 let total = 0;
 let deleted = 0;
+let deletedInBatch = 0;
 
 db.msg_thread.find({ 'lastMsg.date': { $lt: until } }, { _id: 1 }).forEach(thread => {
   total++;
+  deletedInBatch = 0;
   const selector = {
     tid: thread._id,
     text: {
@@ -23,10 +25,12 @@ db.msg_thread.find({ 'lastMsg.date': { $lt: until } }, { _id: 1 }).forEach(threa
   // console.log(`Thread ${thread._id} has ${pms} non-team messages`);
   if (pms === 0) {
     deleted++;
+    deletedInBatch++;
     db.msg_thread.deleteOne({ _id: thread._id });
     db.msg_msg.deleteMany({ tid: thread._id });
   }
   if (total % 1000 === 0) {
-    print(`Processed ${total} threads, deleted ${deleted} threads`);
+    print(`${total} / ${deletedInBatch} / ${deleted}`);
+    sleep(deletedInBatch);
   }
 });
