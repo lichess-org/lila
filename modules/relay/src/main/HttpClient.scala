@@ -129,13 +129,14 @@ private object HttpClient:
   case class Status(code: Int, host: Host) extends LilaExceptionNoStack:
     override val message =
       val error = code match
-        case 204 | 404 => "games not found"
-        case 301 | 302 => "trying redirect, please fix the URL"
+        case 204 => "empty response"
+        case 404 => "games not found"
+        case 301 | 302 => "redirect, please fix the URL"
         case 429 => "rate limited"
         case 400 => "bad request, please fix the URL"
         case 500 => "internal server error"
         case 502 => "bad gateway"
-        case 503 => "service unavailable or rate limited" // some sites return 503 instead of 429
+        case 503 => "unavailable or rate limited" // some sites return 503 instead of 429
         case 407 => "connection problem - call a sysadmin" // proxy auth required
         case _ => s"code $code"
       s"$host: $error"
