@@ -40,6 +40,76 @@ const translations = {
 Please share your thoughts here: {URL}
 
 Thanks!`,
+  ar: `شارك في استطلاعنا الذي يستغرق ٥ دقائق! "بمناسبة مرور 16 عام على وجود Lichess، نود أن نتعرف أكثر على تجربتك لمساعدتنا في جعل Lichess أفضل."
+
+يُرجى مشاركة آرائك هنا: {URL}
+
+شكرًا!`,
+  cs: `Vyplň náš pětiminutový průzkum! Lichess slaví 16 let a rádi bychom se dozvěděli více o vašich zkušenostech, abychom ho mohli dále vylepšovat.
+
+Poděl se o svůj názor zde: {URL}
+
+Díky!`,
+  de: `Beantworte unsere 5-Minuten Umfrage! Da Lichess 16 Jahre alt wird, möchten wir mehr über deine Erfahrung mit uns wissen, damit wir Lichess noch besser machen können.
+
+Bitte teile deine Gedanken hier: {URL}
+
+Danke!`,
+  el: `Βοηθήστε μας αφιερώνοντας 5 λεπτά στην έρευνά μας! Καθώς το Lichess γίνεται 16 χρονών, θα θέλαμε να μάθουμε περισσότερα για την εμπειρία σας, ώστε να το κάνουμε ακόμα καλύτερο.
+
+Παρακαλούμε δώστε τις απόψεις σας εδώ: {URL}
+
+Ευχαριστούμε!`,
+  es: `¡Esta encuesta solo te llevará 5 min.! Por los 16 años de Lichess, queremos conocer mejor tu experiencia para poder mejorar.
+
+Por favor, comparte tus ideas aquí: {URL}
+
+¡Gracias!`,
+  fr: `Participez à notre sondage! Ça ne prend que 5 minutes! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
+
+Donnez-nous votre opinion ici : {URL}
+
+Merci !`,
+  it: `Partecipa al nostro sondaggio da 5 minuti! Mentre Lichess compie 16 anni, vogliamo sapere di più sulla tua esperienza per aiutarci a migliorare Lichess.
+
+Per favore condividi i tuoi pensieri qui: {URL}
+
+Grazie!`,
+  nl: `Neem deel aan onze enquête van 5 minuten! Nu Lichess 16 wordt, willen we meer weten over jouw ervaring om Lichess beter te maken.
+
+Geef uw mening hier: {URL}
+
+Bedankt!`,
+  'pt-BR': `Responda nossa pesquisa em 5 minutos! Enquanto o Lichess faz 16 anos, queremos aprender mais sobre a sua experiência para nos ajudar a melhorar.
+
+Por favor, compartilhe suas ideias aqui: {URL}
+
+Obrigado!`,
+  'pt-PT': `Responde ao nosso inquérito de 5 minutos! No momento em que o Lichess faz 16 anos, queremos saber mais sobre a tua experiência para nos ajudares a melhorar o Lichess.
+
+Por favor, partilha os teus pensamentos aqui: {URL}
+
+Obrigado!`,
+  ru: `Пройдите наш 5-минутный опрос! В честь 16-летия Linchess мы хотим узнать больше о вашем опыте, чтобы сделать Linchess лучше.
+
+Пожалуйста, поделитесь своими мыслями здесь: {URL}
+
+Спасибо!`,
+  tr: `5 dakikalık anketimize katılın! Lichess 16 yaşına girerken, Lichess'i daha iyi hale getirmemize yardımcı olmak için deneyimleriniz hakkında daha fazla bilgi edinmek istiyoruz.
+
+Lütfen düşüncelerinizi burada paylaşın: {URL}
+
+Teşekkürler!`,
+  vi: `Tham gia khảo sát của chúng tôi trong 5 phút! Nhân dịp Lichess tròn 16 tuổi, chúng tôi muốn tìm hiểu thêm về trải nghiệm của bạn để giúp chúng tôi cải thiện Lichess hơn nữa.
+
+Vui lòng chia sẻ suy nghĩ của bạn tại đây: {URL}
+
+Xin cảm ơn!`,
+  'zh-CN': `参与我们 5 分钟的调查！ Lichess 迎来 16 周年之际，我们希望能更深入了解您的使用体验，从而让 Lichess 变得更好。
+
+请在此分享您的想法: {URL}
+
+谢谢！`,
 };
 
 const rows = parseCsv(readFileSync(file, 'utf-8'));
@@ -228,7 +298,15 @@ function csvCell(value) {
 }
 
 function makeMessage(langCode, url) {
-  const lang = langCode?.slice(0, 2) ?? 'en';
-  const translated = translations[lang] || translations.en;
-  return translated.replace('{URL}', url);
+  return pickTranslation(langCode).replace('{URL}', url);
+}
+
+function pickTranslation(langCode) {
+  if (!langCode) return translations.en;
+  const c = langCode.replaceAll('_', '-');
+  if (translations[c]) return translations[c];
+  if (c.startsWith('pt-PT')) return translations['pt-PT'];
+  if (c.startsWith('pt')) return translations['pt-BR'];
+  if (c.startsWith('zh')) return translations['zh-CN'];
+  return translations[c.slice(0, 2)] || translations.en;
 }
