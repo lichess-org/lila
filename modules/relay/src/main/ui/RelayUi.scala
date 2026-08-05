@@ -132,7 +132,6 @@ final class RelayUi(helpers: Helpers)(
     )
 
   def disableDueOfficialTier =
-  
     span(dataIcon := Icon.CautionTriangle, cls := "text")(
       "Input was read-only due broadcast was turned Official Broadcast. Please contact Broadcast Team to request changes."
     )
