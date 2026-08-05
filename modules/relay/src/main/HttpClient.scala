@@ -1,7 +1,7 @@
 package lila.relay
 
 import java.nio.charset.{ Charset, StandardCharsets }
-import io.mola.galimatias.URL
+import io.mola.galimatias.{ URL, Host }
 import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
 
@@ -82,10 +82,10 @@ private final class HttpClient(
             )
           .flatMap: res =>
             if res.status == 200 || res.status == 304 then fuccess(res)
-            else fufail(Status(res.status, url.host.toString))
+            else fufail(Status(res.status, url.host))
           .recoverWith:
             case _: java.util.concurrent.TimeoutException =>
-              fufail(SourceTimeout(url.host.toString))
+              fufail(SourceTimeout(url.host))
 
   private def decodeResponseBody(res: StandaloneWSResponse): Body =
     val charset = Option(extractContentTypeCharsetAttribute(res.contentType))
@@ -126,7 +126,7 @@ private object charsetGuess:
 private object HttpClient:
   type Etag = String
   type Body = String
-  case class Status(code: Int, host: String) extends LilaExceptionNoStack:
+  case class Status(code: Int, host: Host) extends LilaExceptionNoStack:
     override val message = code match
       case 204 | 404 => s"${host} games not found"
       case 301 | 302 => s"${host} trying redirect, please fix the URL"
@@ -138,5 +138,5 @@ private object HttpClient:
       case 407 => s"${host} connection problem - call a sysadmin" // proxy auth required
       case _ => s"$code: $host"
 
-  case class SourceTimeout(host: String) extends LilaExceptionNoStack:
+  case class SourceTimeout(host: Host) extends LilaExceptionNoStack:
     override val message = s"$host is not responding"
