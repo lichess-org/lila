@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengeToPlay">Изазови на партију</string>
+  <string name="challengeToPlay">Изазови</string>
   <string name="challengeDeclined">Изазов одбијен</string>
   <string name="challengeAccepted">Изазов прихваћен!</string>
   <string name="challengeCanceled">Изазов отказан.</string>
-  <string name="registerToSendChallenges">Молимо Вас да се региструјете како би послали изазове.</string>
+  <string name="registerToSendChallenges">Молимо да се региструјеш како би слао/ла изазове овом кориснику.</string>
   <string name="youCannotChallengeX">Не можеш изазвати %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
   <string name="yourXRatingIsTooFarFromY">Твој %1$s рејтинг је предалек од %2$s.</string>
@@ -12,7 +12,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
   <string name="declineGeneric">Тренутно не прихватам изазове.</string>
   <string name="declineLater">Изазов ми тренутно не одговара, молим те изазови касније.</string>
-  <string name="declineTooFast">Ова временска контрола је пребрза за мене, молим Вас изазовите опет на спорију партију.</string>
+  <string name="declineTooFast">Ова временска контрола је пребрза за мене, молим те изазови опет са споријом партијом.</string>
   <string name="declineTooSlow">Ова временска контрола је преспора за мене, молим Вас изазовите опет на бржу партију.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
   <string name="declineRated">Уместо овог, молим Вас да ми пошаљете рангиран изазов.</string>

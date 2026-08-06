@@ -1861,6 +1861,8 @@ interface I18n {
     lichobileNewAppAvailable: string;
     /** Please download the new official Lichess app at %s. */
     lichobileNewAppDownload: I18nFormat;
+    /** Hello, */
+    modActionFeedback: string;
   };
   nvui: {
     /** Actions */
@@ -3977,8 +3979,6 @@ interface I18n {
     mobile: string;
     /** Mobile App */
     mobileApp: string;
-    /** Hello, */
-    modActionFeedback: string;
     /** Mode */
     mode: string;
     /** More */

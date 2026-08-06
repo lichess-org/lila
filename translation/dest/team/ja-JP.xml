@@ -32,6 +32,9 @@
   <string name="teamTournament">チーム内トーナメント</string>
   <string name="teamTournamentOverview">チーム所属メンバーだけが参加できるアリーナトーナメント</string>
   <string name="swissTournamentOverview">チーム所属メンバーだけが参加できるスイス式トーナメント</string>
+  <string name="teamUpdates">チームからのお知らせ</string>
+  <string name="subToTeamUpdates">チームからのお知らせを受信する</string>
+  <string name="newTeamUpdate">チームからの新しいお知らせ</string>
   <string name="teamsIlead">リーダーを務めるチーム</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
   <string name="leadersChat">リーダー・チャット</string>

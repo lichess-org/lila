@@ -41,6 +41,9 @@
   <string name="teamTournament">Turniej klubowy</string>
   <string name="teamTournamentOverview">Turniej Arena do którego mogą dołączyć tylko członkowie twojego klubu</string>
   <string name="swissTournamentOverview">Turniej szwajcarski, do którego mogą dołączyć tylko gracze twojego klubu</string>
+  <string name="teamUpdates">Wiadomości klubowe</string>
+  <string name="subToTeamUpdates">Subskrybuj wiadomości klubowe</string>
+  <string name="newTeamUpdate">Nowa wiadomość klubowa</string>
   <string name="teamsIlead">Kluby, w których jestem liderem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="leadersChat">Czat liderów</string>
