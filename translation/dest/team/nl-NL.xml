@@ -35,6 +35,9 @@
   <string name="teamTournament">Teamtoernooi</string>
   <string name="teamTournamentOverview">Een Arenatoernooi waaraan alleen leden van je team mee kunnen doen</string>
   <string name="swissTournamentOverview">Een Zwitsers toernooi waar enkel leden van je team aan kunnen deelnemen</string>
+  <string name="teamUpdates">Team-updates</string>
+  <string name="subToTeamUpdates">Abonneer op team-updates</string>
+  <string name="newTeamUpdate">Nieuwe team-update</string>
   <string name="teamsIlead">Teams die ik leid</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Misschien wil je de link van een van deze komende toernooien delen?</string>
   <string name="leadersChat">Teamleiderschat</string>

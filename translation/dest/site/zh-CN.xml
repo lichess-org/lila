@@ -512,6 +512,11 @@
   <string name="biography">个人简介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或地区</string>
   <string name="thankYou">致谢！</string>
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">您好，
+
+我们已经审核了您最近的举报并已采取相应措施。虽然我们无法透露具体处理细节，但感谢您的举报。
+
+           感谢您帮助维护 Lichess，让它成为对每个人都友好的地方。</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="oneUrlPerLine">每行一个链接。</string>
   <string name="inlineNotation">紧凑棋谱</string>
