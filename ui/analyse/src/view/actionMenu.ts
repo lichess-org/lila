@@ -2,11 +2,13 @@ import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
 import { licon } from 'lib/licon';
+import { structuredCloneLite } from 'lib/tree/ops';
 import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
+import { pruneStaticAnalysis } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -64,7 +66,9 @@ function studyButton(ctrl: AnalyseCtrl) {
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
-          pgnInput.value = pgnExport.renderFullTxt(ctrl);
+          const root = structuredCloneLite(ctrl.tree.root);
+          pruneStaticAnalysis(root);
+          pgnInput.value = pgnExport.renderFullTxt(ctrl, root);
         }
       }),
     },

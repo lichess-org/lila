@@ -1,13 +1,13 @@
 package lila.study
 
-import chess.format.pgn.Glyphs
+import chess.format.pgn.Glyphs as BaseGlyphs
 import chess.format.{ Fen, Uci, UciPath }
 import play.api.libs.json.*
 
 import lila.core.perm.Granter
 import lila.core.relay.GetCrowd
 import lila.db.dsl.bsonWriteOpt
-import lila.tree.Node.Comment
+import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
 
 object ServerEval:
@@ -62,13 +62,16 @@ object ServerEval:
           case Study.WithChapter(_, chapter) =>
             for
               _ <- complete.so(chapterRepo.completeServerEval(chapter))
-              _ <- chapter.root.mainline
-                .zip(analysis.infoAdvices)
-                .foldM(UciPath.root):
-                  case (path, (node, (info, advOpt))) =>
-                    saveAnalysis(chapter, node, path, info, advOpt)
-                .andDo(sendProgress(studyId, chapterId, analysis))
-                .logFailure(logger)
+              _ <-
+                if chapter.serverEval.exists(_.version.exists(_ >= 1)) then funit
+                else // this else block is legacy support for analyses that are in flight at the moment
+                  chapter.root.mainline // Chapter.ServerEval.version >= 1 goes live. both this else block
+                    .zip(analysis.infoAdvices) // and saveAnalysis below could be removed next deploy
+                    .foldM(UciPath.root):
+                      case (path, (node, (info, advOpt))) =>
+                        saveAnalysis(chapter, node, path, info, advOpt)
+                    .void
+              _ <- sendProgress(studyId, chapterId, analysis).logFailure(logger)
             yield ()
       case _ => funit
 
@@ -116,7 +119,8 @@ object ServerEval:
                       )
                     .flatMap(bsonWriteOpt),
                   F.glyphs -> advOpt
-                    .map(adv => node.glyphs.merge(Glyphs.fromList(List(adv.judgment.glyph))))
+                    .map: adv =>
+                      node.glyphs.merge(NodeGlyphs.fromBase(BaseGlyphs.fromList(List(adv.judgment.glyph))))
                     .flatMap(bsonWriteOpt)
                 )
               )
@@ -127,27 +131,7 @@ object ServerEval:
 
     end saveAnalysis
 
-    private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val setup = chess.Position.AndFullMoveNumber(variant, root.fen)
-      val (result, error) = setup.position
-        .foldRight(info.variation.take(20), setup.ply)(
-          none[Branch],
-          (step, acc) =>
-            inline def branch = makeBranch(step.move, step.ply)
-            acc.fold(branch)(acc => branch.addChild(acc)).some
-        )
-      error.foreach(e => logger.info(e.value))
-      result
-
-    private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
-      Branch(
-        ply = ply,
-        move = Uci.WithSan(m.toUci, m.toSanStr),
-        fen = Fen.write(m.after, ply.fullMoveNumber),
-        crazyData = m.after.position.crazyData,
-        clock = none,
-        forceVariation = false
-      )
+    def merge(chapter: Chapter, analysis: Analysis): Root = withAnalysis(chapter, analysis)
 
     private def sendProgress(
         studyId: StudyId,
@@ -158,11 +142,14 @@ object ServerEval:
         .byId(chapterId)
         .flatMapz: chapter =>
           reallySendToChapter(studyId, chapter).mapz:
+            val tree =
+              if chapter.serverEval.exists(_.version.exists(_ >= 1)) then merge(chapter, analysis)
+              else chapter.root // compatibility for fishnet jobs spanning restart can be removed next deploy
             socket.onServerEval(
               studyId,
               ServerEval.Progress(
                 chapterId = chapter.id,
-                tree = chapter.root,
+                tree = tree,
                 analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
@@ -185,3 +172,67 @@ object ServerEval:
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
+
+  def withAnalysis(chapter: Chapter, analysis: Analysis): Root =
+    chapter.root.mainline
+      .zip(analysis.infoAdvices)
+      .foldLeft(chapter.root -> UciPath.root):
+        case ((root, path), (node, (info, advOpt))) =>
+          val nextPath = path + node.id
+          val withLine = root
+            .nodeAt(path)
+            .flatMap(parent => analysisLine(parent, chapter.setup.variant, info))
+            .map(line => line.copy(children = line.children.updateAllWith(_.setComp)).setComp)
+            .fold(root): line =>
+              if path.isEmpty then root.addChild(line)
+              else root.updateChildrenAt(path, _.addChild(line)) | root
+          val annotated = withLine.updateChildrenAt(nextPath, annotate(_, info, advOpt)) | withLine
+          annotated -> nextPath
+      ._1
+
+  def bake(root: Root): Root =
+    root.copy(
+      comments = root.comments.bake,
+      glyphs = root.glyphs.bake,
+      children = root.children.updateAllWith: node =>
+        node.copy(comments = node.comments.bake, glyphs = node.glyphs.bake, comp = false)
+    )
+
+  private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
+    val setup = chess.Position.AndFullMoveNumber(variant, root.fen)
+    val (result, error) = setup.position
+      .foldRight(info.variation.take(20), setup.ply)(
+        none[Branch],
+        (step, acc) =>
+          inline def branch = makeBranch(step.move, step.ply)
+          acc.fold(branch)(acc => branch.addChild(acc)).some
+      )
+    error.foreach(e => logger.info(e.value))
+    result
+
+  private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
+    Branch(
+      ply = ply,
+      move = Uci.WithSan(m.toUci, m.toSanStr),
+      fen = Fen.write(m.after, ply.fullMoveNumber),
+      crazyData = m.after.position.crazyData,
+      clock = none,
+      forceVariation = false
+    )
+
+  private def annotate(node: Branch, info: Info, advOpt: Option[Advice]): Branch =
+    val withEval =
+      if info.eval.score.isDefined && node.eval.isEmpty then node.copy(eval = info.eval.some)
+      else node
+    advOpt.fold(withEval): adv =>
+      val comments =
+        if withEval.comments.hasComp then withEval.comments
+        else
+          withEval.comments
+            + Comment(Comment.Id.make, adv.makeComment(false), Comment.Author.Lichess, comp = true)
+      withEval.copy(
+        comments = comments,
+        glyphs = withEval.glyphs.merge(
+          NodeGlyphs.fromBase(BaseGlyphs.fromList(List(adv.judgment.glyph)), comp = true)
+        )
+      )

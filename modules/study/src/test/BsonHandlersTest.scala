@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, PgnStr }
 
 import scala.language.implicitConversions
 
@@ -8,6 +8,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
 import lila.study.BSONHandlers.given
+import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.{ NewRoot, Root }
 
 // in lila.study to have access to PgnImport
@@ -28,6 +29,101 @@ class BsonHandlersTest extends munit.FunSuite:
       val x = StudyPgnImport.result(pgn, Nil).toOption.get.root
       val y = treeBson.reads(treeBson.writes(w, x))
       assertEquals(y, x.withoutClockTrust)
+
+  test("comp hints survive tree BSON round trip"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val withComp = root.updateChildrenAt(path, _.setComp).get
+    val roundTripped = treeBson.reads(treeBson.writes(w, withComp))
+    assert(roundTripped.nodeAt(path).exists(_.comp))
+
+  test("annotation provenance survives tree BSON round trip"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val withServerAnnotations = root
+      .updateChildrenAt(
+        path,
+        _.copy(
+          glyphs = NodeGlyphs.fromBase(BaseGlyphs.fromList(BaseGlyph.find(4).toList), comp = true),
+          comments = lila.tree.Node.Comments.empty + Comment(
+            Comment.Id.make,
+            chess.format.pgn.Comment("Computer comment"),
+            Comment.Author.Lichess,
+            comp = true
+          )
+        )
+      )
+      .get
+    val roundTripped = treeBson.reads(treeBson.writes(w, withServerAnnotations))
+    val node = roundTripped.nodeAt(path).get
+    assert(node.glyphs.value.toList.exists(_.comp))
+    assert(node.comments.value.exists(_.comp))
+
+  test("old annotations without provenance default to non-comp"):
+    val old = Reader:
+      $doc(
+        "g" -> $arr(4),
+        "c" -> $doc(
+          "id" -> "abcd",
+          "text" -> "Old comment",
+          "by" -> "l"
+        )
+      )
+    assert(old.get[NodeGlyphs]("g").value.toList.forall(!_.comp))
+    assert(!old.get[Comment]("c").comp)
+
+  test("baking server evaluation materializes nodes and glyphs"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val withServerEval = root.copy(
+      children = root.children.updateAllWith: node =>
+        node.copy(
+          comp = true,
+          glyphs = NodeGlyphs
+            .fromBase(BaseGlyphs.fromList(BaseGlyph.find(1).toList))
+            .merge(NodeGlyphs.fromBase(BaseGlyphs.fromList(BaseGlyph.find(4).toList), comp = true))
+        )
+    )
+    val baked = ServerEval.bake(withServerEval)
+    val node = baked.nodeAt(path).get
+    assert(baked.children.hasNonComp)
+    assert(!node.comp)
+    assertEquals(node.glyphs.toBase, BaseGlyphs.fromList(BaseGlyph.find(4).toList))
+    assert(node.glyphs.value.toList.forall(!_.comp))
+
+  test("deleting a node prunes comp ancestors and their server eval continuation"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val alternative = StudyPgnImport.result("1. d4 d5 2. e4 e6", Nil).toOption.get.root
+    val continuation = alternative.nodeAt(path.parent).flatMap(_.children.first).get.setComp
+    val withCompAncestors = root.copy(children = root.children.updateAllWith(_.setComp))
+    val withUserLeaf = withCompAncestors
+      .updateChildrenAt(path.parent, _.addChild(continuation))
+      .flatMap(_.updateChildrenAt(path, _.copy(comp = false)))
+      .get
+    val pruned = withUserLeaf.withChildren(_.deleteNodeAtAndPruneComp(path)).get
+    assert(pruned.children.isEmpty)
+
+  test("deleting a node preserves comp ancestors containing another user node"):
+    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
+    val path = root.mainlinePath
+    val alternative = StudyPgnImport.result("1. d4 d5 2. e4 e6 3. Nc3", Nil).toOption.get.root
+    val continuation = alternative.nodeAt(path.parent).flatMap(_.children.first).get
+    val withCompAncestors = root.copy(children = root.children.updateAllWith(_.setComp))
+    val withUserNodes = withCompAncestors
+      .updateChildrenAt(
+        path.parent,
+        _.addChild(
+          continuation.copy(
+            comp = true,
+            children = continuation.children.updateAllWith(_.copy(comp = false))
+          )
+        )
+      )
+      .flatMap(_.updateChildrenAt(path, _.copy(comp = false)))
+      .get
+    val pruned = withUserNodes.withChildren(_.deleteNodeAtAndPruneComp(path)).get
+    assert(pruned.pathExists(alternative.mainlinePath))
 
   test("NewTree writes.reads == identity".ignore):
     PgnFixtures.all.foreach: pgn =>

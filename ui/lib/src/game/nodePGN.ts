@@ -1,11 +1,11 @@
-import type { TreeNode } from '@/tree/types';
+import type { TreeNodeLite } from '@/tree/types';
 
 import { fixCrazySan } from './chess';
 
-export const plyPrefix = (node: TreeNode): string =>
+export const plyPrefix = (node: TreeNodeLite): string =>
   `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
 
-export function renderNodesTxt(node: TreeNode, forcePly: boolean): string {
+export function renderNodesTxt(node: TreeNodeLite, forcePly: boolean): string {
   if (node.children.length === 0) return '';
 
   let s = '';

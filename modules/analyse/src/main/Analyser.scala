@@ -31,6 +31,16 @@ final class Analyser(
   def foundSameHash(forId: Analysis.Id, same: Analysis, workHash: Array[Byte]): Funit =
     save(same.copy(id = forId), workHash)
 
+  def copyToChapter(gameId: GameId, studyId: StudyId, chapterId: StudyChapterId): Fu[Boolean] =
+    analysisRepo
+      .byId(Analysis.Id(gameId))
+      .flatMap:
+        case Some(analysis) =>
+          analysisRepo
+            .save(analysis.copy(id = Analysis.Id(studyId, chapterId)), none)
+            .inject(true)
+        case None => fuFalse
+
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.id match
       case Analysis.Id.Game(id) =>
