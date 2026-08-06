@@ -151,7 +151,13 @@ export default class PuzzleCtrl implements CevalHandler {
     document.addEventListener('visibilitychange', () =>
       requestIdleCallbackSafe(() => this.jump(this.path), 500),
     );
-
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.withGround(g => {
+        g.state.addPieceZIndex = is3d;
+        g.redrawAll();
+      });
+      this.setAutoShapes();
+    });
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
     $('#zentog').on('click', () => pubsub.emit('zen'));
@@ -204,13 +210,6 @@ export default class PuzzleCtrl implements CevalHandler {
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.withGround(g => {
-        g.state.addPieceZIndex = is3d;
-        g.redrawAll();
-      });
-      this.setAutoShapes();
-    });
 
     this.googlyEyesAuto();
   };
