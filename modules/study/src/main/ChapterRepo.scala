@@ -126,7 +126,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(F.gamebook, gamebook.nonEmpty.option(gamebook))
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
+  def setGlyphs(glyphs: lila.tree.Node.Glyphs) = setNodeValue(F.glyphs, glyphs.value.nonEmpty.option(glyphs))
 
   def setClockAndDenorm(
       chapter: Chapter,
@@ -301,6 +301,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
 
   def countByStudyId(id: StudyId): Fu[Int] =
     coll(_.countSel(studyId(id)))
+
+  def removeAnalysisGameId(chapterId: StudyChapterId): Funit =
+    coll(_.unsetField(bid(chapterId) ++ "analysisGameId".exists(true), "analysisGameId")).void
 
   def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
 
