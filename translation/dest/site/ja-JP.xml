@@ -451,6 +451,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
   </plurals>
+  <string name="less">少なく表示</string>
   <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
@@ -512,6 +513,11 @@
   <string name="biography">自己紹介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域</string>
   <string name="thankYou">ありがとう！</string>
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">こんにちは、
+
+先日のあなたの通報内容を検討して対応しました。対応の内容は明かせませんが通報に感謝します。
+
+           Lichess を誰もが気持ちよく遊べる場所にするため力を貸してくださってありがとう。</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>

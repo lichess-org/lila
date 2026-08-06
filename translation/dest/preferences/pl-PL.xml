@@ -59,6 +59,7 @@
   <string name="notifyInboxMsg">Nowa wiadomość</string>
   <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nowa wiadomość</string>
   <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Wzmianki o Tobie na forum</string>
   <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
   <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Zaproszenia do opracowania</string>
   <string name="notifyGameEvent">Zdarzenie w partii korespondencyjnej</string>
