@@ -494,7 +494,9 @@ const analysisGlyphs = new Set(['?!', '?', '??']);
 function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysis = ctrl.data.analysis;
   if (!analysis || ctrl.retro) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.has(g.symbol)));
+  const analysisNodes = ctrl.mainline.filter(n =>
+    n.glyphs?.find(g => g.comp && analysisGlyphs.has(g.symbol)),
+  );
   const res: Array<VNode> = [];
   COLORS.forEach(color => {
     res.push(

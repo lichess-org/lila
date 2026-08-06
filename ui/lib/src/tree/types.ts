@@ -110,6 +110,7 @@ export interface TreeComment {
         name: string;
       };
   text: string;
+  comp?: boolean;
 }
 
 export interface Gamebook {
@@ -122,6 +123,7 @@ export type GlyphId = number;
 
 export interface Glyph {
   id: GlyphId;
+  comp?: boolean;
   name: string;
   symbol: string;
 }

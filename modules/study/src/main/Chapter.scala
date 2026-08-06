@@ -146,7 +146,11 @@ object Chapter:
 
   def relayInit = Relay(UciPath.root, none, none)
 
-  case class ServerEval(path: UciPath, done: Boolean)
+  case class ServerEval(
+      path: UciPath,
+      done: Boolean,
+      version: Option[Int] = 1.some // 1+ means chapter tree has "comp" hints to allow analysis pruning
+  )
 
   type BothClocks = ByColor[Option[Centis]]
 

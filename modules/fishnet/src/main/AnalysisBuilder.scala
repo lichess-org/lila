@@ -4,19 +4,25 @@ import chess.{ Position, Ply }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 
-import lila.tree.{ Analysis, Eval, Info }
+import lila.tree.{ Analysis, Engine, Eval, Info }
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
 
 final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
-  def apply(client: Client, work: Work.Analysis, evals: List[EvalOrSkip]): Fu[Analysis] =
-    partial(client, work, evals.map(some), isPartial = false)
+  def apply(
+      client: Client,
+      work: Work.Analysis,
+      engineVersion: Option[String],
+      evals: List[EvalOrSkip]
+  ): Fu[Analysis] =
+    partial(client, work, engineVersion, evals.map(some), isPartial = false)
 
   def partial(
       client: Client,
       work: Work.Analysis,
+      engineVersion: Option[String],
       evals: List[Option[EvalOrSkip]],
       isPartial: Boolean = true
   ): Fu[Analysis] =
@@ -41,9 +47,16 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                fk = (!client.lichess).option(client.key.value),
                 date = nowInstant,
-                nodesPerMove = work.origin.map(_.nodesPerMove)
+                engine = Engine(
+                  work.origin.fold(1_000_000)(_.nodesPerMove),
+                  client.instance.fold(Analysis.EngineId.fishnet)(instance =>
+                    Analysis.EngineId.fishnet(instance.version.value)
+                  ),
+                  client.userId,
+                  engineVersion.getOrElse(Engine.unknownVersion),
+                  fishnetKey = (!client.lichess).option(client.key.value)
+                )
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))

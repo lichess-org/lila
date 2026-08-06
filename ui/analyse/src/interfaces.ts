@@ -52,6 +52,7 @@ export interface AnalyseData {
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
   treeParts: TreeNodeBase[];
+  evalTree?: TreeNodeLite;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -134,9 +135,17 @@ export interface Division {
 export interface Analysis {
   id: string;
   nodesPerMove: number;
+  engine?: AnalysisEngineInfo;
   white: AnalysisSide;
   black: AnalysisSide;
   partial?: boolean;
+}
+
+export interface AnalysisEngineInfo {
+  nodesPerMove: number;
+  id: string;
+  userId: string;
+  engineVersion: string;
 }
 
 export type GamePhase = 'opening' | 'middlegame' | 'endgame';

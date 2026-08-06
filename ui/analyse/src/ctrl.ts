@@ -31,7 +31,7 @@ import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, Glyph, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -57,7 +57,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData } from './util';
+import { treeReconstruct, addCrazyData, hasUserContent, mergeMainlineAnalysis } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -246,6 +246,8 @@ export default class AnalyseCtrl implements CevalHandler {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
+    if (this.data.evalTree)
+      mergeMainlineAnalysis(this.tree.root, completeNode(this.variantKey)(this.data.evalTree));
     treeOps.updateAll(this.tree.root, this.ensureServerEvalNodes);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
@@ -694,8 +696,13 @@ export default class AnalyseCtrl implements CevalHandler {
       kid =>
         !kid.comp ||
         (this.settings.showStaticAnalysis && !this.retro?.hideComputerLine(kid)) ||
-        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
+        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()) ||
+        hasUserContent(kid),
     );
+  }
+
+  visibleGlyphs(node: TreeNode = this.node): Glyph[] {
+    return (node.glyphs ?? []).filter(glyph => !glyph.comp || this.settings.showStaticAnalysis);
   }
 
   reset(): void {
@@ -950,7 +957,7 @@ export default class AnalyseCtrl implements CevalHandler {
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     const tree = completeNode(this.variantKey)(data.tree);
-    this.tree.merge(tree);
+    mergeMainlineAnalysis(this.tree.root, tree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
     this.data.treeParts.forEach(this.ensureServerEvalNodes);
     this.data.analysis = data.analysis;

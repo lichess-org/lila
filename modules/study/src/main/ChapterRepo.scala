@@ -126,7 +126,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(F.gamebook, gamebook.nonEmpty.option(gamebook))
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
+  def setGlyphs(glyphs: lila.tree.Node.Glyphs) = setNodeValue(F.glyphs, glyphs.value.nonEmpty.option(glyphs))
 
   def setClockAndDenorm(
       chapter: Chapter,
@@ -291,7 +291,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
         "serverEval",
         Chapter.ServerEval(
           path = chapter.root.mainlinePath,
-          done = false
+          done = false,
+          version = chapter.serverEval.so(_.version)
         )
       )
     .void
