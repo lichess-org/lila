@@ -965,6 +965,7 @@ object I18nKey:
   object msg:
     val `lichobileNewAppAvailable`: I18nKey = "msg:lichobileNewAppAvailable"
     val `lichobileNewAppDownload`: I18nKey = "msg:lichobileNewAppDownload"
+    val `modActionFeedback`: I18nKey = "msg:modActionFeedback"
 
   object nvui:
     val `featuredEvents`: I18nKey = "nvui:featuredEvents"
@@ -2032,7 +2033,6 @@ object I18nKey:
     val `biography`: I18nKey = "biography"
     val `countryRegion`: I18nKey = "countryRegion"
     val `thankYou`: I18nKey = "thankYou"
-    val `modActionFeedback`: I18nKey = "modActionFeedback"
     val `socialMediaLinks`: I18nKey = "socialMediaLinks"
     val `oneUrlPerLine`: I18nKey = "oneUrlPerLine"
     val `inlineNotation`: I18nKey = "inlineNotation"
