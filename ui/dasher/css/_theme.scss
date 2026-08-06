@@ -32,10 +32,23 @@
   .image {
     padding: 12px;
 
-    label {
+    label,
+    span {
       display: block;
       font-size: 0.9em;
       padding: 0 5px 5px 5px;
+    }
+
+    .bg-opacity {
+      margin-top: 8px;
+
+      .slider-label {
+        @extend %flex-between;
+      }
+
+      input {
+        padding: 0;
+      }
     }
   }
 

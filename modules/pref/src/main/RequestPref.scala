@@ -30,6 +30,7 @@ object RequestPref:
         bgImg = paramOrSession("bgImg"),
         is3d = paramOrSession("is3d").has("true"),
         uiRoundness = paramOrSession("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
+        bgOpacity = paramOrSession("bgOpacity").flatMap(_.toIntOption) | default.bgOpacity,
         board = default.board.copy(
           opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
           brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,

@@ -63,7 +63,7 @@ export class ThemeCtrl extends PaneCtrl {
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
       ]),
-      cur !== 'transp' ? null : this.backgroundData.gallery ? this.galleryInput() : this.imageInput(),
+      cur === 'transp' ? (this.backgroundData.gallery ? this.galleryInput() : this.imageInput()) : null,
     ]);
   }
 
@@ -110,13 +110,12 @@ export class ThemeCtrl extends PaneCtrl {
 
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
-      bgData
-        ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.backgroundData.image + ');}')
-        : $('head').append(
-            '<style id="bg-data">html.transp::before{background-image:url(' +
-              this.backgroundData.image +
-              ');}</style>',
-          );
+      const styleValue = `html.transp::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity, 100)/100);}`;
+      if (bgData) {
+        bgData.innerHTML = styleValue;
+      } else {
+        $('head').append(`<style id="bg-data">${styleValue}</style>`);
+      }
     }
     pubsub.emit('theme', key);
   };
@@ -141,6 +140,13 @@ export class ThemeCtrl extends PaneCtrl {
           );
         }),
       }),
+      this.propSlider(
+        'bg-opacity',
+        'Background opacity:',
+        { min: 5, max: 100, step: 1 },
+        val => `${val}%`,
+        '',
+      ),
     ]);
 
   private readonly galleryInput = () => {
@@ -174,25 +180,28 @@ export class ThemeCtrl extends PaneCtrl {
     ]);
   };
 
-  private readonly setVar = (prop: string, v: number) => {
-    document.body.style.setProperty(`---${prop}`, `${v.toString()}px`);
+  private readonly setVar = (prop: string, v: number, unit = 'px') => {
+    document.documentElement.style.setProperty(`---${prop}`, `${v.toString()}${unit}`);
   };
 
   private readonly propSlider = (
     prop: string,
     inputLabel: string,
     range: Range,
-    title?: (v: number) => string,
-  ) =>
-    div(`.${prop}`, { title: title ? title(this.getVar(prop)) : `${this.getVar(prop)}px` }, [
-      div('.slider-label', [label(inputLabel), span([this.getVar(prop), 'px'])]),
+    formatter?: (v: number) => string,
+    unit = 'px',
+  ) => {
+    const value = this.getVar(prop);
+    const printValue = formatter ? formatter(value) : `${value}${unit}`;
+    return div(`.${prop}`, { title: printValue }, [
+      div('.slider-label', [label(inputLabel), span(printValue)]),
       h('input.range', {
         key: this.sliderKey + prop,
-        attrs: { ...range, type: 'range', value: this.getVar(prop) },
+        attrs: { ...range, type: 'range', value },
         hook: onInsert<HTMLInputElement>(input => {
           const setAndSave = (v: number) => {
             if (v < range.min || v > range.max) return;
-            this.setVar(prop, v);
+            this.setVar(prop, v, unit);
             this.redraw();
             this.postPref(prop);
           };
@@ -205,4 +214,5 @@ export class ThemeCtrl extends PaneCtrl {
         }),
       }),
     ]);
+  };
 }
