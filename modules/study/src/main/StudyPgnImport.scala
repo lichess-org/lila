@@ -1,11 +1,11 @@
 package lila.study
 
-import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags }
+import chess.format.pgn.{ Comment as CommentStr, ParsedPgn, PgnNodeData, PgnStr, Tags }
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
 import lila.core.LightUser
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.Node.{ Comment, Comments, Shapes, Glyphs }
 import lila.tree.{ Branch, Branches, ImportResult, ParseImport, Root, Clock }
 
 object StudyPgnImport:
@@ -178,7 +178,7 @@ object StudyPgnImport:
               fen = Fen.write(position, currentPly.fullMoveNumber),
               shapes = shapes,
               comments = comments,
-              glyphs = node.value.metas.glyphs,
+              glyphs = Glyphs.fromBase(node.value.metas.glyphs),
               clock = computedClock,
               crazyData = position.crazyData,
               children = node.child.fold(Branches.empty):
