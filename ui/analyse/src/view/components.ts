@@ -290,9 +290,9 @@ export function renderMoveNodes(
         : '';
   const attrs = !withEval && ev ? { title: `${evalText} · ${evalInfo(ev)}` } : undefined;
   const nodes = [h('san', { attrs }, fixCrazySan(node.san!))];
-  const relevantGlyphs = glyphs ?? node.glyphs;
-  if (withGlyphs && relevantGlyphs)
-    relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
+  const dedupedGlyphs = new Map<number, Glyph>();
+  (glyphs ?? node.glyphs)?.forEach(g => dedupedGlyphs.set(g.id, g));
+  if (withGlyphs) dedupedGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));
   if (withEval && evalText && ev)
     nodes.push(h('eval', { attrs: { title: evalInfo(ev) } }, evalText.replace('-', '−')));

@@ -93,7 +93,7 @@ final class FishnetApi(
       Error.NotAcquired
     res <- data.completeOrPartial match
       case complete: CompleteAnalysis =>
-        analysisBuilder(client, work, complete.analysis)
+        analysisBuilder(client, work, complete.stockfish.version, complete.analysis)
           .flatMap: analysis =>
             monitor.analysis(work, client, complete)
             repo.deleteAnalysis(work).inject(PostAnalysisResult.Complete(analysis))
@@ -104,8 +104,9 @@ final class FishnetApi(
       case partial: PartialAnalysis =>
         (fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))).flatMap:
           if _ then
-            analysisBuilder.partial(client, work, partial.analysis).map { analysis =>
-              PostAnalysisResult.Partial(analysis)
+            analysisBuilder.partial(client, work, partial.stockfish.version, partial.analysis).map {
+              analysis =>
+                PostAnalysisResult.Partial(analysis)
             }
           else fuccess(PostAnalysisResult.UnusedPartial)
     res <- res match

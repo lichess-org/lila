@@ -24,6 +24,7 @@ export type ClientEval = CloudEval | LocalEval;
 
 export interface ServerEval extends EvalScore {
   best?: Uci | '(none)';
+  static?: boolean;
   fen: FEN;
   knodes: number;
   depth: number;
@@ -110,6 +111,7 @@ export interface TreeComment {
         name: string;
       };
   text: string;
+  comp?: boolean;
 }
 
 export interface Gamebook {
@@ -122,6 +124,7 @@ export type GlyphId = number;
 
 export interface Glyph {
   id: GlyphId;
+  comp?: boolean;
   name: string;
   symbol: string;
 }
