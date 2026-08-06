@@ -54,6 +54,7 @@
   <string name="endgame">Końcówka</string>
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
   <string name="epauletteMate">Mat naramiennikowy</string>
   <string name="epauletteMateDescription">Oba pola ucieczki w bok są zajęte przez inne bierki.</string>
   <string name="exposedKing">Odsłonięty król</string>
