@@ -67,7 +67,6 @@ export class PieceCtrl extends PaneCtrl {
     if (!this.is3d) {
       pieceVarRules(t);
     }
-    pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {
