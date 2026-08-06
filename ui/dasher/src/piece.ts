@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import { type Toggle, toggle } from 'lib';
-import { pubsub } from 'lib/pubsub';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
