@@ -54,6 +54,14 @@ final class TournamentApi(
     lila.core.config.RateLimit
 ):
 
+  private val pairingSequencer = scalalib.actor.AsyncActorSequencers[TourId](
+    maxSize = Max(256),
+    expiration = 1.minute,
+    timeout = 20.seconds,
+    name = "tournament.pairing",
+    lila.mon.asyncActorMonitor.full
+  )
+
   export tournamentRepo.byId as get
 
   def createTournament(
@@ -147,37 +155,42 @@ final class TournamentApi(
       !hadPairings.get(forTour.id) ||
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
-    )).so(Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
-      cached
-        .ranking(tour)
-        .mon(lila.mon.tournament.pairing.createRanking)
-        .flatMap: ranking =>
-          pairingSystem
-            .createPairings(tour, users, ranking, smallTourNbActivePlayers)
-            .mon(lila.mon.tournament.pairing.createPairings)
-            .flatMap:
-              case Nil => funit
-              case pairings =>
-                pairingRepo.insert(pairings.map(_.pairing)) >>
-                  pairings
-                    .parallelVoid: pairing =>
-                      autoPairing(tour, pairing, ranking.ranking)
-                        .mon(lila.mon.tournament.pairing.createAutoPairing)
-                        .map { socket.startGame(tour.id, _) }
-                    .mon(lila.mon.tournament.pairing.createInserts)
-                    .andDo:
-                      lila.mon.tournament.pairing.batchSize.record(pairings.size)
-                      waitingUsers.registerPairedUsers(
-                        tour.id,
-                        pairings.view.flatMap(_.pairing.users).toSet
-                      )
-                      socket.reload(tour.id)
-                      hadPairings.put(tour.id)
-                      featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
-        .monSuccess(lila.mon.tournament.pairing.create)
-        .chronometer
-        .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
-        .result)
+    )).so(pairingSequencer(forTour.id):
+      Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
+        // snapshot is taken outside the sequencer; exclude anyone who started playing since then
+        pairingRepo.playingUserIds(tour.id).flatMap: playing =>
+          val idle = users.removePairedUsers(playing)
+          (idle.size > 1).so:
+            cached
+              .ranking(tour)
+              .mon(lila.mon.tournament.pairing.createRanking)
+              .flatMap: ranking =>
+                pairingSystem
+                  .createPairings(tour, idle, ranking, smallTourNbActivePlayers)
+                  .mon(lila.mon.tournament.pairing.createPairings)
+                  .flatMap:
+                    case Nil => funit
+                    case pairings =>
+                      pairingRepo.insert(pairings.map(_.pairing)) >>
+                        pairings
+                          .parallelVoid: pairing =>
+                            autoPairing(tour, pairing, ranking.ranking)
+                              .mon(lila.mon.tournament.pairing.createAutoPairing)
+                              .map { socket.startGame(tour.id, _) }
+                          .mon(lila.mon.tournament.pairing.createInserts)
+                          .andDo:
+                            lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                            waitingUsers.registerPairedUsers(
+                              tour.id,
+                              pairings.view.flatMap(_.pairing.users).toSet
+                            )
+                            socket.reload(tour.id)
+                            hadPairings.put(tour.id)
+                            featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
+              .monSuccess(lila.mon.tournament.pairing.create)
+              .chronometer
+              .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
+              .result)
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
     tour.featured
