@@ -9,6 +9,7 @@
   <string name="accountMuted">Vous ne pouvez plus clavarder avec votre adversaire ni envoyer des messages.</string>
   <string name="accountMutedInfo">Lisez nos %s. Ne pas les suivre peut entraîner la mise en sourdine de votre compte.</string>
   <string name="excludedFromLeaderboards">Vous avez été exclu(e) du classement.</string>
+  <string name="onlyOneAccountOnLeaderboards">Un seul compte par personne peut apparaître dans le tableau des meilleurs joueurs.</string>
   <string name="closedByModerators">Votre compte a été fermé par les modérateurs.</string>
   <string name="blogRestriction">Votre utilisation du blogue a été restreinte.</string>
   <string name="blogRestrictionInfo">Lisez notre %s – le non-respect de ces règles peut avoir différentes conséquences.</string>

@@ -10,5 +10,6 @@
   <string name="closedByModerators">Sua conta foi fechada pelos moderadores.</string>
   <string name="playTimeout">Você está temporariamente suspenso de jogar.</string>
   <string name="communicationGuidelines">diretrizes de comunicação</string>
+  <string name="blogEtiquette">etiqueta no blog</string>
   <string name="fairPlay">Jogo Limpo</string>
 </resources>
