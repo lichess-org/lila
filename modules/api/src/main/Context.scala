@@ -65,10 +65,10 @@ object Context:
 
   import lila.i18n.LangPicker
   import lila.pref.RequestPref
-  def minimal(req: RequestHeader) =
-    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
-  def minimalBody[A](req: Request[A]) =
-    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+  def minimal(using req: RequestHeader) =
+    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
+  def minimalBody[A](using req: Request[A]) =
+    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
 
 final class BodyContext[A](
     val body: Request[A],

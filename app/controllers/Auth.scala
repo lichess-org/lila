@@ -276,7 +276,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     garbageCollect(user)(email)
     if sendWelcomeEmail then env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
-    env.pref.api.saveNewUserPrefs(user, ctx.req)
+    env.pref.api.saveNewUserPrefs(user)
 
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
     env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.web.AnnounceApi.get.isDefined)
