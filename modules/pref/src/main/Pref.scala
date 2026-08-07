@@ -44,7 +44,6 @@ case class Pref(
     pieceNotation: Int,
     resizeHandle: Int,
     uiRoundness: Int,
-    bgOpacity: Int,
     agreement: Int,
     blogFilter: QualityFilter,
     usingAltSocket: Option[Boolean],
@@ -89,8 +88,11 @@ case class Pref(
       case Animation.SLOW => 120
       case _ => 70
 
-  def bgImgOrDefault =
-    bgImg | Pref.defaultBgImg
+  def bgImgUrlOpt = bgImg.map(_.takeWhile(_ != ' ')).filter(_.nonEmpty)
+  def bgImgUrl = bgImgUrlOpt | Pref.defaultBgImgUrl
+  def setBgImgUrl(url: String) = copy(bgImg = s"${~url.some.filterNot(_.isBlank)} $bgOpacity".some)
+  def bgOpacity = bgImg.flatMap(_.split(" ").lift(1)).flatMap(_.toIntOption).getOrElse(100)
+  def setBgOpacity(opacity: Int) = copy(bgImg = s"${~bgImgUrlOpt} $opacity".some)
 
   def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
@@ -137,7 +139,7 @@ case class Pref(
 
 object Pref:
 
-  val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultBgImgUrl = "//lichess1.org/assets/images/background/landscape.jpg"
 
   case class BoardPref(
       brightness: Int,
@@ -498,7 +500,6 @@ object Pref:
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
     uiRoundness = 7,
-    bgOpacity = 100,
     agreement = Agreement.current,
     usingAltSocket = none,
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
