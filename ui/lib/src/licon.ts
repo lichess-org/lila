@@ -138,3 +138,4 @@ export const licon = {
 
 export type Licon = typeof licon;
 export type LiconKey = keyof Licon;
+export type LiconValue = Licon[LiconKey];
