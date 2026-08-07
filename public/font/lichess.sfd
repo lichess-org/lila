@@ -21,7 +21,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1554434404
-ModificationTime: 315532800
+ModificationTime: 1786095100
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -87,8 +87,8 @@ NameList: AGL For New Fonts
 DisplaySize: -128
 AntiAlias: 1
 FitToEm: 0
-WinInfo: 57360 16 8
-BeginChars: 65539 127
+WinInfo: 57414 14 4
+BeginChars: 65539 126
 
 StartChar: .notdef
 Encoding: 65536 -1 0
@@ -6995,37 +6995,8 @@ EndSplineSet
 Validated: 1
 EndChar
 
-StartChar: handset
-Encoding: 57454 57454 111
-Width: 512
-GlyphClass: 2
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-493 455 m 2,0,1
- 512 451 512 451 512 432 c 0,2,3
- 512 240 512 240 376 104 c 128,-1,4
- 240 -32 240 -32 48 -32 c 0,5,6
- 29 -32 29 -32 25 -13 c 2,7,-1
- 1 91 l 2,8,9
- -4 110 -4 110 15 118 c 2,10,-1
- 127 166 l 2,11,12
- 143 173 143 173 155 159 c 2,13,-1
- 204 99 l 1,14,15
- 263 126 263 126 308.5 172 c 128,-1,16
- 354 218 354 218 381 276 c 1,17,-1
- 321 326 l 2,18,19
- 307 337 307 337 314 354 c 2,20,-1
- 362 466 l 2,21,22
- 370 484 370 484 389 479 c 2,23,-1
- 493 455 l 2,0,1
-EndSplineSet
-Validated: 33
-EndChar
-
 StartChar: arrow-thru-apple
-Encoding: 57455 57455 112
+Encoding: 57455 57455 111
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7102,7 +7073,7 @@ Validated: 37
 EndChar
 
 StartChar: clipboard
-Encoding: 57456 57456 113
+Encoding: 57456 57456 112
 Width: 512
 VWidth: 544
 LayerCount: 2
@@ -7163,7 +7134,7 @@ Validated: 1
 EndChar
 
 StartChar: move
-Encoding: 57457 57457 114
+Encoding: 57457 57457 113
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7235,7 +7206,7 @@ EndSplineSet
 EndChar
 
 StartChar: ibeam
-Encoding: 57458 57458 115
+Encoding: 57458 57458 114
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7269,7 +7240,7 @@ EndSplineSet
 EndChar
 
 StartChar: cancel
-Encoding: 57459 57459 116
+Encoding: 57459 57459 115
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7321,7 +7292,7 @@ EndSplineSet
 EndChar
 
 StartChar: voice
-Encoding: 57460 57460 117
+Encoding: 57460 57460 116
 Width: 768
 Flags: W
 LayerCount: 2
@@ -7385,7 +7356,7 @@ EndSplineSet
 EndChar
 
 StartChar: one-half
-Encoding: 57462 57462 118
+Encoding: 57462 57462 117
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7433,7 +7404,7 @@ EndSplineSet
 EndChar
 
 StartChar: mute
-Encoding: 57463 57463 119
+Encoding: 57463 57463 118
 Width: 512
 LayerCount: 2
 Fore
@@ -7475,7 +7446,7 @@ EndSplineSet
 EndChar
 
 StartChar: reload
-Encoding: 57464 57464 120
+Encoding: 57464 57464 119
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7525,7 +7496,7 @@ EndSplineSet
 EndChar
 
 StartChar: account-circle
-Encoding: 57465 57465 121
+Encoding: 57465 57465 120
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7593,7 +7564,7 @@ EndSplineSet
 EndChar
 
 StartChar: logo
-Encoding: 57466 57466 122
+Encoding: 57466 57466 121
 Width: 512
 Flags: W
 LayerCount: 2
@@ -7637,7 +7608,7 @@ EndSplineSet
 EndChar
 
 StartChar: switch
-Encoding: 57467 57467 123
+Encoding: 57467 57467 122
 Width: 512
 LayerCount: 2
 Fore
@@ -7698,7 +7669,7 @@ EndSplineSet
 EndChar
 
 StartChar: caution-triangle
-Encoding: 57344 57344 124
+Encoding: 57344 57344 123
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7750,7 +7721,7 @@ Validated: 545
 EndChar
 
 StartChar: link
-Encoding: 57345 57345 125
+Encoding: 57345 57345 124
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -7807,7 +7778,7 @@ Validated: 33
 EndChar
 
 StartChar: cpu
-Encoding: 57470 57470 126
+Encoding: 57470 57470 125
 Width: 512
 LayerCount: 2
 Fore
