@@ -95,9 +95,16 @@
   }
 
   .calendar-mselect {
+    justify-content: center;
     flex: auto;
     padding: 0.2em;
-    gap: 0;
+    gap: 1em;
+    background: none;
+    border: none;
+
+    a {
+      font-size: 1.25em;
+    }
 
     div {
       gap: 0.5em;
