@@ -59,7 +59,8 @@ final class TeamApi(
     member <- me.soUse(memberOf(team.id))
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(requestsWithUsers(team))
     myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
-    update <- member.isDefined.so(updateApi.teamLatest(team.id))
+    update <- ((team.enabled && member.isDefined) || Granter.opt(_.ManageTeam))
+      .so(updateApi.teamLatest(team.id))
   yield Team.TeamShow(team, leaders, member, myRequest, requests, update)
 
   def create(setup: TeamSetup)(using me: Me): Fu[Team] =
