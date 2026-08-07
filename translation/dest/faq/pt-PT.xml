@@ -150,6 +150,12 @@ De seguida, seleciona se quereres permitir ou bloquear as notificações do Lich
 O ícone vermelho de silenciamento aparece quando o teu navegador impede que o lichess.org reproduza um som. Normalmente, esta restrição é levantada quando se clica em algo. Em alguns navegadores móveis, arrastar uma peça com o toque não conta como um clique. Nesse caso, tens de tocar no tabuleiro para permitir o som no início de cada jogo.
 
 Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, podes autorizar explicitamente o lichess.org a reproduzir sons. Aqui estão as instruções para o fazer em versões recentes de alguns navegadores populares.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">A maioria dos navegadores impede que o som toque em páginas recém-visitadas para proteger os utilizadores.
+
+O ícone de silêncio aparece quando o teu browser impede o lichess.org de tocar um som. Normalmente, esta restrição desaparece assim que clicas em alguma coisa.
+Nalguns navegadores de telemóvel, arrastar uma peça não conta como um clique. Nesse caso, tens de tocar no tabuleiro para permitir o som no início de cada jogo.
+
+Mostramos o ícone vermelho de silêncio para te avisar quando isso acontece. Podes permitir explicitamente que o lichess.org toque sons na maioria dos navegadores. Aqui tens as instruções para permitir que o site toque áudio nas versões recentes de alguns navegadores populares:</string>
   <string name="desktop">computador</string>
   <string name="enableAutoplayForSoundsFirefox">1. Vai no lichess.org
 2. Pressiona Ctrl-i no Linux/Windows ou cmd-i no MacOS
