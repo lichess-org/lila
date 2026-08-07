@@ -1,6 +1,6 @@
-import * as licon from '../licon';
+import { licon, type LiconValue } from '@/licon';
 
-const perfIcons: Record<Exclude<Perf, 'fromPosition'>, string> = {
+const perfIcons: Record<Exclude<Perf, 'fromPosition'>, LiconValue> = {
   ultraBullet: licon.UltraBullet,
   bullet: licon.Bullet,
   blitz: licon.FlameBlitz,

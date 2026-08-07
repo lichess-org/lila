@@ -122,6 +122,8 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="unlimitedAndFree">Rajoittamaton ja ilmainen</string>
   <string name="predefinedUsers">Vain ennalta valitut pelaajat saavat osallistua</string>
   <string name="forbiddedUsers">Jos lista ei ole tyhjä, turnaukseen ei voi osallistua kukaan muu kuin listalla luetellut pelaajat. Yksi käyttäjätunnus riviä kohden.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Kirjoita yksi käyttäjätunnus per rivi. Vain näille pelaajille annetaan liittymismahdollisuus.
+Jätä tämä tyhjäksi, jos kaikkien kriteerit täyttävien pelaajien tulee saada liittyä.</string>
   <string name="playYourGames">Pelaa enemmän pelejä</string>
   <string name="byes">Huilivuorot</string>
   <string name="absences">Poisjäännit</string>

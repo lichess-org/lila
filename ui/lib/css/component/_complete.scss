@@ -32,11 +32,11 @@
     &:focus,
     &.complete-selected {
       &,
-      & i {
+      & icon {
         color: $c-font-clearer !important;
       }
 
-      background: $m-primary_bg--mix-20;
+      background: color-mix(in oklab, $c-primary 20%, $c-bg);
     }
   }
 }

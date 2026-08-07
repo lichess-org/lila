@@ -2,6 +2,7 @@ package lila.search
 
 import lila.search.client.SearchClient
 import lila.search.spec.*
+import lila.mon.extensions.*
 
 class LilaSearchClient(client: SearchClient, cacheApi: lila.memo.CacheApi)(using Executor)
     extends SearchClient:
@@ -29,7 +30,7 @@ class LilaSearchClient(client: SearchClient, cacheApi: lila.memo.CacheApi)(using
             SearchOutput(Nil)
 
   private def monitor[A](op: "search" | "count", index: String)(f: Fu[A]) =
-    f.monTry(res => _.search.time(op, index, res.isSuccess))
+    f.monTry(res => lila.mon.search.time(op, index, res.isSuccess))
 
   extension (query: Query)
     def index: String = query match

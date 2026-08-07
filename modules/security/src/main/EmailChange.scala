@@ -23,7 +23,7 @@ final class EmailChange(
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
         val url = routeUrl(routes.Account.emailConfirm(token))
-        lila.log("auth").info(s"Change email URL ${user.username} $email $url")
+        loggerAuth.info(s"Change email URL ${user.username} $email $url")
         mailer.sendOrFail:
           Mailer.Message(
             to = email,

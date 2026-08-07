@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.clas.Student.RealName
+import lila.mon.extensions.*
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
@@ -49,7 +50,7 @@ final class ClasForm(
 
     val create: Form[CreateStudent] = Form:
       mapping(
-        "create-username" -> signupForm.username,
+        "create-username" -> signupForm.uniqueUsername,
         "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 
@@ -65,7 +66,7 @@ final class ClasForm(
       mapping(
         "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
-          .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
+          .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 

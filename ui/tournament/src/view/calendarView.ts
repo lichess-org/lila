@@ -7,18 +7,19 @@ import getMinutes from 'date-fns/getMinutes';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
+import { dataIcon } from 'lib/view';
 
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
-  const classes = {
+  const classes: Classes = {
     rated: tour.rated,
     casual: !tour.rated,
     'max-rating': tour.hasMaxRating,
     yesterday: tour.bounds.start < day,
-  } as Classes;
+  };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
 }
@@ -43,10 +44,7 @@ function renderTournament(tour: Tournament, day: Date) {
         title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`,
       },
     },
-    [
-      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour) } } : {}),
-      h('span.body', [tour.fullName]),
-    ],
+    [h('span.icon', tour.perf ? { attrs: dataIcon(iconOf(tour)) } : {}), h('span.body', [tour.fullName])],
   );
 }
 

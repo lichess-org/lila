@@ -3,8 +3,20 @@
   <string name="chessVideos">Šachová videa</string>
   <string name="allVideosAreFree">Všechna videa jsou zdarma pro všechny.</string>
   <string name="selectTagsToFilter">Vyberte štítky pro filtrování videí.</string>
+  <string name="weHaveCarefullySelectedX">Zatím jsme pečlivě vybrali %s videí!</string>
   <string name="freeChessVideos">Bezplatná šachová videa</string>
+  <string name="xFreeCarefullyCurated">%s zdarma, pečlivě vybraných šachových videí</string>
+  <string name="xCuratedChessVideos">%s vybraných šachových videí</string>
+  <string name="xWithTagsY">%1$s se štítky %2$s</string>
   <string name="freeForAll">zdarma pro všechny</string>
+  <plurals name="nbVideosFound">
+    <item quantity="one">%s video nalezeno</item>
+    <item quantity="few">%s videa nalezena</item>
+    <item quantity="many">%s videí nalezeno</item>
+    <item quantity="other">%s videí nalezeno</item>
+  </plurals>
+  <string name="noVideosForTheseTags">Žádná videa pro tyto štítky:</string>
+  <string name="thatsAllWeGotForTheseTags">Vše, co máme pod těmito štítky:</string>
   <string name="viewMoreTags">Zobrazit více štítků</string>
   <string name="videoNotFound">Video nenalezeno!</string>
 </resources>

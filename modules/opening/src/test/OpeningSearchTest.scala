@@ -49,3 +49,18 @@ class OpeningSearchTest extends munit.FunSuite:
   test("piece letter in notation"):
     assertEquals(search("1. d4 Nf6").headOption.map(_.pgn), PgnMovesStr("1. d4 Nf6").some)
     assert(search("Nc6").size == max)
+
+  List(
+    "notation prefix query" -> "1.e4 e5 2.f4",
+    "uci prefix query" -> "e2e4 e7e5 f2f4",
+    "name prefix query" -> "King's gambit"
+  ).foreach: (name, query) =>
+    test(name):
+      val results = search(query)
+      assert(results.forall(_.name.value.startsWith("King's Gambit")))
+      assertEquals(results.headOption.map(_.name), OpeningName("King's Gambit").some)
+      assert(
+        results.zip(results.drop(1)).forall { case (a, b) =>
+          a.nbMoves <= b.nbMoves
+        }
+      )

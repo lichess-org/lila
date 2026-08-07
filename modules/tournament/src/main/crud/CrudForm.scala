@@ -12,7 +12,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   def apply(tour: Option[Tournament])(using me: Me) = Form(
     mapping(
-      "id" -> id[TourId](8, tour.map(_.id))(repo.exists),
+      "id" -> idWithSyncUniqueCheck[TourId](8, tour.map(_.id))(repo.exists),
       "homepageHours" -> number(min = 0, max = maxHomepageHours),
       "image" -> stringIn(imageChoices),
       "headline" -> text(minLength = 5, maxLength = 30),

@@ -2,12 +2,12 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import scalalib.model.{ Language, LangTag }
-
+import scala.collection.immutable.SeqMap
 import lila.core.i18n.{ toLanguage, fixJavaLanguage }
 
 object LangList extends lila.core.i18n.LangList:
 
-  val all: Map[Lang, String] = Map(
+  private[i18n] val all: SeqMap[Lang, String] = SeqMap(
     Lang("af", "ZA") -> "Afrikaans",
     Lang("so", "SO") -> "Af Soomaali",
     Lang("an", "ES") -> "Aragonés",
@@ -104,7 +104,7 @@ object LangList extends lila.core.i18n.LangList:
     Lang("ko", "KR") -> "한국어"
   )
 
-  val defaultRegions = Map[String, Lang](
+  private[i18n] val defaultRegions = Map[String, Lang](
     "de" -> Lang("de", "DE"),
     "en" -> Lang("en", "US"),
     "pt" -> Lang("pt", "BR"),
@@ -127,7 +127,7 @@ object LangList extends lila.core.i18n.LangList:
   lazy val popularNoRegion: List[Lang] = popular.collect:
     case l if defaultRegions.get(l.language).forall(_ == l) => l
 
-  lazy val allLanguages: List[Language] = popularNoRegion.map(fixJavaLanguage)
+  private lazy val allLanguages: List[Language] = popularNoRegion.map(fixJavaLanguage)
   lazy val popularLanguages: List[Language] = allLanguages.take(20)
   lazy val popularAlternateLanguages: List[Language] = allLanguages.drop(1).take(20)
 
@@ -142,7 +142,6 @@ object LangList extends lila.core.i18n.LangList:
       toLanguage(l) -> name
     .toList
     .distinctBy(_._1)
-    .sortBy(_._1.value)
 
   lazy val popularLanguageChoices: List[(Language, String)] =
     popularNoRegion.flatMap: lang =>
@@ -152,7 +151,6 @@ object LangList extends lila.core.i18n.LangList:
     .map: (l, name) =>
       l.code -> name
     .toList
-    .sortBy(_._1)
 
   lazy val allLanguagesForm = new LangForm:
     val choices = languageChoices

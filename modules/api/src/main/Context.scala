@@ -25,7 +25,6 @@ final class LoginContext(
   def userId: Option[UserId] = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
   def isBot = me.exists(_.isBot)
-  def troll = user.exists(_.marks.troll)
   def isAppealUser = me.exists(_.enabled.no)
   def isWebAuth = isAuth && oauth.isEmpty
   def isOAuth = isAuth && oauth.isDefined
@@ -52,7 +51,6 @@ class Context(
   def kid = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
-  def canVoiceChat = kid.no && me.exists(!_.marks.troll)
   lazy val translate = Translate(lila.i18n.Translator, lang)
 
 object Context:
@@ -66,10 +64,10 @@ object Context:
 
   import lila.i18n.LangPicker
   import lila.pref.RequestPref
-  def minimal(req: RequestHeader) =
-    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
-  def minimalBody[A](req: Request[A]) =
-    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+  def minimal(using req: RequestHeader) =
+    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
+  def minimalBody[A](using req: Request[A]) =
+    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest)
 
 final class BodyContext[A](
     val body: Request[A],

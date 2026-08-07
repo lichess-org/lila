@@ -10,6 +10,22 @@ object home:
 
   def apply(homepage: Homepage)(using ctx: Context) =
     import homepage.*
+    val donateLink =
+      a(cls := "lobby__support-link", href := routes.Plan.index())(
+        iconTag(patronIconChar),
+        span(cls := "lobby__support-link__text")(
+          strong(trans.patron.donate()),
+          span(trans.patron.becomePatron())
+        )
+      )
+    val swagLink =
+      a(cls := "lobby__support-link", href := "/swag")(
+        iconTag(Icon.Tshirt),
+        span(cls := "lobby__support-link__text")(
+          strong("Swag Store"),
+          span(trans.site.playChessInStyle())
+        )
+      )
     Page("")
       .copy(fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some)
       .i18n(_.variant)
@@ -112,28 +128,15 @@ object home:
               )
             )
           ),
-          div(cls := "lobby__tv"):
-            featured.map: g =>
-              views.game.mini(Pov.naturalOrientation(g), tv = true)
-          ,
-          div(cls := "lobby__support")(
-            a(href := routes.Plan.index())(
-              iconTag(patronIconChar),
-              span(cls := "lobby__support__text")(
-                strong(trans.patron.donate()),
-                span(trans.patron.becomePatron())
-              )
-            ),
-            a(href := "/swag")(
-              iconTag(Icon.Tshirt),
-              span(cls := "lobby__support__text")(
-                strong("Swag Store"),
-                span(trans.site.playChessInStyle())
-              )
-            )
+          div(cls := "lobby__support")(donateLink, swagLink),
+          div(cls := "lobby__tv")(
+            donateLink,
+            featured.map(g => views.game.mini(Pov.naturalOrientation(g), tv = true))
           ),
-          puzzle.map: p =>
-            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
+          div(cls := "lobby__puzzle")(
+            swagLink,
+            puzzle.map(p => views.puzzle.bits.dailyLink(p)())
+          ),
           views.ublog.ui.homeCarousel(ublogPosts),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)

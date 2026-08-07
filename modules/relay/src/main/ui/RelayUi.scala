@@ -113,7 +113,7 @@ final class RelayUi(helpers: Helpers)(
       href := tr.path,
       cls := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      i(cls := "img", dataIcon := Icon.RadioTower),
+      iconTag(Icon.RadioTower)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(

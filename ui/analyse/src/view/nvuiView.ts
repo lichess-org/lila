@@ -11,7 +11,7 @@ import { throttle } from 'lib/async';
 import { view as cevalView, renderEval } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { isTouchDevice } from 'lib/device';
-import type { Player } from 'lib/game';
+import { type Player, plyOpponentColor } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import {
   renderSan,
@@ -40,7 +40,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, onInsert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import type { AnalyseNvuiContext } from '../analyse.nvui';
@@ -96,7 +96,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      { hook: onInsert(el => boardEventsHook(ctx, el)) },
       renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
@@ -131,7 +131,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         explorerView(ctrl),
       ],
       hl('h2', i18n.nvui.pieces),
-      renderPieces(ctrl.chessground.state.pieces, style),
+      renderPieces(ctrl.chessground.state.pieces, style, ctrl.bottomColor()),
       pockets && hl('h2', i18n.nvui.pockets),
       pockets && renderPockets(pockets),
       renderAriaResult(ctrl),
@@ -146,13 +146,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl(
         'form#move-form',
         {
-          hook: {
-            insert(vnode) {
-              const $form = $(vnode.elm as HTMLFormElement),
-                $input = $form.find('.move').val('');
-              $form.on('submit', onSubmit(ctx, $input));
-            },
-          },
+          hook: onInsert<HTMLFormElement>(el => {
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
+            $form.on('submit', onSubmit(ctx, $input));
+          }),
         },
         [
           hl('label', [
@@ -174,25 +172,23 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       ...(boardFirst ? [] : boardView),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('div.content', {
-        hook: {
-          insert: vnode => {
-            const root = $(vnode.elm as HTMLElement);
-            root.append($('.blind-content').removeClass('none'));
-            root.find('.copy-pgn').on('click', function (this: HTMLElement) {
-              navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                notify.set(i18n.nvui.copiedToClipboard('PGN'));
+        hook: onInsert(elem => {
+          const $root = $(elem);
+          $root.append($('.blind-content').removeClass('none'));
+          $root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+            navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
+              notify.set(i18n.nvui.copiedToClipboard('PGN'));
+            });
+          });
+          $root.find('.copy-fen').on('click', function (this: HTMLElement) {
+            const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
+            if (fen) {
+              navigator.clipboard.writeText(fen).then(() => {
+                notify.set(i18n.nvui.copiedToClipboard('FEN'));
               });
-            });
-            root.find('.copy-fen').on('click', function (this: HTMLElement) {
-              const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
-              if (fen) {
-                navigator.clipboard.writeText(fen).then(() => {
-                  notify.set(i18n.nvui.copiedToClipboard('FEN'));
-                });
-              }
-            });
-          },
-        },
+            }
+          });
+        }),
       }),
       hl('h2', i18n.site.advancedSettings),
       hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
@@ -274,9 +270,11 @@ function boardEventsHook(
   const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
-  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
   $buttons.on('blur', leaveSquareHandler($buttons));
-  $buttons.on('click', selectionHandler(opponentColor));
+  $buttons.on(
+    'click',
+    selectionHandler(() => plyOpponentColor(ctrl.node.ply)),
+  );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))
@@ -491,11 +489,12 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
 }
 
+const analysisGlyphs = new Set(['?!', '?', '??']);
+
 function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysis = ctrl.data.analysis;
   if (!analysis || ctrl.retro) return undefined;
-  const analysisGlyphs = ['?!', '?', '??'];
-  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.has(g.symbol)));
   const res: Array<VNode> = [];
   COLORS.forEach(color => {
     res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
@@ -529,7 +528,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
 }
 
 const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiContext) => {
-  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return;
+  if (ctrl.ongoing || ctrl.synthetic || ctrl.hasFullComputerAnalysis()) return undefined;
   return analysisInProgress()
     ? hl('p', 'Server-side analysis in progress')
     : hl(
@@ -554,7 +553,7 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = player.rating ?? perf?.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
@@ -571,8 +570,8 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
     : studyPlayers || hl('span', i18n.site.anonymous);
 }
 
-function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
-  const player = ctrl.study?.currentChapter().players?.[color];
+function renderStudyPlayer({ study }: AnalyseCtrl, color: Color): VNode | undefined {
+  const player = study?.currentChapter().players?.[color];
   const keys = [
     ['name', i18n.site.name],
     ['title', 'title'],
@@ -639,8 +638,7 @@ function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
   ];
 }
 
-function studyDetails(ctrl: AnalyseCtrl) {
-  const study = ctrl.study;
+function studyDetails({ study, redraw }: AnalyseCtrl) {
   const relayGroups = study?.relay?.data.group;
   const relayRounds = study?.relay?.data.rounds;
   const tour = study?.relay?.data.tour;
@@ -728,7 +726,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
           ? hl('div.buttons', [
               hl(
                 'button.edit-chapter',
-                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
+                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), redraw),
                 [
                   'Edit current chapter',
                   study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
@@ -736,7 +734,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
               ),
               hl(
                 'button.create-chapter',
-                clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
+                clickHook(() => study.chapters.newForm.toggle(), redraw),
                 [
                   'Add new chapter',
                   study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,

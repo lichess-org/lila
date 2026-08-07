@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class PuzzleSelector(
     colls: PuzzleColls,
@@ -43,7 +44,7 @@ final class PuzzleSelector(
         ,
         some
       )
-      .mon(_.puzzle.selector.user.time(angle.categ))
+      .mon(lila.mon.puzzle.selector.user.time(angle.categ))
 
   private def findNextPuzzleFor(angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
     sessionApi
@@ -140,4 +141,4 @@ final class PuzzleSelector(
                     PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
-        _.puzzle.selector.nextPuzzleResult(result.name)
+        lila.mon.puzzle.selector.nextPuzzleResult(result.name)

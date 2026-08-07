@@ -10,7 +10,7 @@ class AccuracyPercentTest extends munit.FunSuite:
   type AccMap = ByColor[AccuracyPercent]
 
   def compute(cps: List[Int]): Option[AccMap] =
-    gameAccuracy(Color.white, cps.map(Cp(_)))
+    gameAccuracy(Color.white, cps.map(Cp(_)).map(Some(_)))
 
   test("empty game"):
     assertEquals(compute(Nil), None)
@@ -61,7 +61,7 @@ class AccuracyPercentTest extends munit.FunSuite:
     assert(isCloseTo(a.white.value, 20d, 8d))
     assert(isCloseTo(a.black.value, 20d, 8d))
 
-  def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)))
+  def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)).map(Some(_)))
 
   test("black moves first, empty game"):
     assertEquals(computeBlack(Nil), None)

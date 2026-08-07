@@ -1,12 +1,12 @@
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 
 import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
-import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
+import { type VNode, bind, dataIcon, type LooseVNodes, onInsert, hl, icon } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 
@@ -64,7 +64,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
-              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+              if (ctrl.opts.$side?.length) {
                 $(elm).replaceWith(ctrl.opts.$side);
                 wikiToggleBox();
               }
@@ -257,7 +257,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('i.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -267,13 +267,13 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.write },
             hook: bind('click', ctrl.toggleWrite),
           },
-          [hl('i.is'), 'REC'],
+          [hl('icon.is'), 'REC'],
         ),
       toolButton({
         ctrl,
         tab: 'tags',
         hint: i18n.study.pgnTags,
-        icon: iconTag(licon.Tag),
+        icon: icon(licon.Tag)(),
         shouldBlurIfPrimaryClick: true,
       }),
       canContribute &&
@@ -281,7 +281,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'comments',
           hint: i18n.study.commentThisPosition,
-          icon: iconTag(licon.BubbleSpeech),
+          icon: icon(licon.BubbleSpeech)(),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
           },
@@ -292,7 +292,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'glyphs',
           hint: i18n.study.annotateWithGlyphs,
-          icon: hl('i.glyph-icon'),
+          icon: hl('icon.glyph-icon'),
           count: (root.node.glyphs || []).length,
           shouldBlurIfPrimaryClick: true,
         }),
@@ -301,7 +301,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'serverEval',
           hint: i18n.site.computerAnalysis,
-          icon: iconTag(licon.BarChart),
+          icon: icon(licon.BarChart)(),
           count: root.data.analysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
@@ -309,14 +309,14 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'multiBoard',
         hint: 'Multiboard',
-        icon: iconTag(licon.Multiboard),
+        icon: icon(licon.Multiboard)(),
         shouldBlurIfPrimaryClick: true,
       }),
       toolButton({
         ctrl,
         tab: 'share',
         hint: i18n.study.shareAndExport,
-        icon: iconTag(shareIcon()),
+        icon: icon(shareIcon())(),
         shouldBlurIfPrimaryClick: true,
       }),
       !ctrl.relay &&
@@ -345,11 +345,11 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
-            title: d.liked ? i18n.study.unlike : i18n.study.like,
+            title: d.liked ? i18n.site.liked : i18n.site.like,
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes,
+        d.likes,
       ),
     ]),
     topicsView(ctrl),

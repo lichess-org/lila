@@ -16,10 +16,7 @@ object header:
   private val dataTab = attr("data-tab")
 
   private def possibleSeoBot(u: User) =
-    !u.isVerified && !u.hasTitle && u.count.game < 5 && (
-      u.profile.exists(_.links.isDefined) ||
-        u.profile.flatMap(_.nonEmptyBio).exists(_.contains("https://"))
-    )
+    !u.isVerified && !u.hasTitle && u.count.game < 5 && u.profile.exists(_.hasLinks)
 
   private def userActionsMenu(u: User, social: UserInfo.Social)(using ctx: Context) =
     actionMenu(
@@ -104,10 +101,12 @@ object header:
               splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
             )
           ),
-          a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+          (info.nbStudies > 0).option(
+            a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
+              splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+            )
           ),
-          ctx.kid.no.option(
+          (ctx.kid.no && info.nbForumPosts > 0).option(
             a(
               cls := "nm-item",
               href := routes.ForumPost.search("user:" + u.username, 1).url
@@ -138,8 +137,9 @@ object header:
         case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
         case _ =>
           val profile = u.profileOrDefault
-          val hideTroll = u.marks.troll && ctx.isnt(u)
-          val showProfile = ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.AccountInfo)
+          val muted = u.marks.troll && ctx.isnt(u)
+          val showProfile =
+            ctx.kid.no && u.kid.no && !muted && (showLinks || !profile.hasLinks) || isGranted(_.AccountInfo)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.AccountInfo)) then
               views.user.perfStat.ratingHistoryContainer
@@ -154,13 +154,13 @@ object header:
                 ,
                 showProfile
                   .so(profile.nonEmptyRealName)
-                  .map(strong(cls := List("name" -> true, "muted" -> hideTroll))(_)),
+                  .map(strong(cls := List("name" -> true, "muted" -> muted))(_)),
                 info.publicFideId.map: id =>
                   p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
                 (showLinks && showProfile || isGranted(_.AccountInfo))
                   .so(profile.nonEmptyBio)
                   .map: bio =>
-                    p(cls := List("bio" -> true, "muted" -> hideTroll))(richText(bio, nl2br = true)),
+                    p(cls := List("bio" -> true, "muted" -> muted))(richText(bio, nl2br = true)),
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),
@@ -168,10 +168,10 @@ object header:
                     profile.nonEmptyLocation
                       .ifTrue(showProfile)
                       .map: l =>
-                        span(cls := List("muted" -> hideTroll))(l),
+                        span(cls := List("muted" -> muted))(l),
                     profile.flagInfo.map: c =>
                       frag(
-                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.png")),
+                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
                         c.name
                       )
                   ),
@@ -188,14 +188,18 @@ object header:
                   u.playTime.map: playTime =>
                     frag(
                       p(
+                        title := translator.duration(playTime.totalDuration, None, true)
+                      )(
                         trans.site.tpTimeSpentPlaying(
-                          lila.core.i18n.translateDuration(playTime.totalDuration)
+                          translator.duration(playTime.totalDuration)
                         )
                       ),
                       playTime.nonEmptyTvDuration.map: tvDuration =>
-                        p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
+                        p(
+                          title := translator.duration(tvDuration, None, true)
+                        )(trans.site.tpTimeSpentOnTV(translator.duration(tvDuration)))
                     ),
-                  (!hideTroll && u.kid.no).option(
+                  (!muted && u.kid.no).option(
                     div(cls := "social_links col2")(
                       showLinks
                         .option(profile.actualLinks)
@@ -234,30 +238,31 @@ object header:
           info.ublog.so(_.latests).map(views.ublog.ui.card(_))
         )
       ),
-      div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
-        a(
-          dataTab := "activity",
-          cls := List(
-            "nm-item to-activity" -> true,
-            "active" -> (angle == UserInfo.Angle.Activity)
-          ),
-          href := routes.User.show(u.username)
-        )(trans.activity.activity()),
-        a(
-          dataTab := "games",
-          cls := List(
-            "nm-item to-games" -> true,
-            "active" -> (angle.key == "games")
-          ),
-          href := routes.User.gamesAll(u.username)
-        )(
-          trans.site.nbGames.plural(info.user.count.game, info.user.count.game.localize),
-          (info.nbs.playing > 0).option(
-            span(
-              cls := "unread",
-              title := trans.site.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
-            )(info.nbs.playing)
+      (!UserId.isOfficial(u.id)).option:
+        div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
+          a(
+            dataTab := "activity",
+            cls := List(
+              "nm-item to-activity" -> true,
+              "active" -> (angle == UserInfo.Angle.Activity)
+            ),
+            href := routes.User.show(u.username)
+          )(trans.activity.activity()),
+          a(
+            dataTab := "games",
+            cls := List(
+              "nm-item to-games" -> true,
+              "active" -> (angle.key == "games")
+            ),
+            href := routes.User.gamesAll(u.username)
+          )(
+            trans.site.nbGames.plural(info.user.count.game, info.user.count.game.localize),
+            (info.nbs.playing > 0).option(
+              span(
+                cls := "unread",
+                title := trans.site.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
+              )(info.nbs.playing)
+            )
           )
         )
-      )
     )

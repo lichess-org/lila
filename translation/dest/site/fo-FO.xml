@@ -104,7 +104,6 @@
   <string name="byCPL">Við CPL</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
-  <string name="evaluationGauge">Eftirmetingarmát</string>
   <string name="multipleLines">Fleiri linjur</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
@@ -795,7 +794,6 @@
   <string name="hangOn">Bíða líka!</string>
   <string name="abortTheGame">Enda talvið</string>
   <string name="resignTheGame">Gev upp talvið</string>
-  <string name="youCantStartNewGame">Tú kanst ikki byrja eitt nýtt talv áðrenn hetta endar.</string>
   <string name="since">Síðan</string>
   <string name="until">Til</string>
 </resources>

@@ -1,5 +1,5 @@
 import { option } from 'lib/setup/option';
-import { enter, hl } from 'lib/view';
+import { dataIcon, enter, hl } from 'lib/view';
 
 import { variants, variantsForGameType } from '@/options';
 import type SetupController from '@/setupCtrl';
@@ -44,7 +44,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
         attrs: { for: inputId },
       },
       [
-        hl('span.icon', { attrs: { 'data-icon': currentVariant.icon } }),
+        hl('span.icon', { attrs: dataIcon(currentVariant.icon) }),
         hl('div.text', [hl('span.name', currentVariant.name), hl('span.desc', currentVariant.description)]),
       ],
     ),
@@ -77,7 +77,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
                   },
                 },
                 [
-                  hl('td.icon', hl('span', { attrs: { 'data-icon': v.icon } })),
+                  hl('td.icon', hl('span', { attrs: dataIcon(v.icon) })),
                   hl('td.name', v.name),
                   hl('td.desc', v.description),
                 ],

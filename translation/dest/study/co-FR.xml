@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="like">Mi piace</string>
-  <string name="unlike">Ùn mi piace</string>
   <string name="playing">In prugressu</string>
   <string name="next">Dopu</string>
   <string name="shareAndExport">Sparte &amp; espurtà</string>

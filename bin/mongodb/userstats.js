@@ -24,7 +24,7 @@ users.find().forEach(function (user) {
     draw: games.count({ us: uid, s: { $in: [34, 32] } }),
     rated: games.count({ us: uid, ra: true }),
   };
-  users.update({ _id: uid }, { $set: { count: count } });
+  users.update({ _id: uid }, { $set: { count } });
   ++it;
   if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);

@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
   <string name="serversAndDeveloper">Primeiro de tudo, servidores poderosos.
-Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.</string>
+Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.
+</string>
   <string name="costBreakdown">Veja a análise detalhada do custo</string>
   <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
   <string name="changeMonthlySupport">Posso mudar/cancelar meu suporte mensal?</string>
-  <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
-Ou você pode %s.</string>
+  <string name="changeSupport">Caso seus pagamentos sejam processados pelo PayPal, você pode cancelar/alterar o seu apoio através da sua própria conta PayPal, ou você pode %1$s e nós faremos isso por você. Caso você não tenha utilizado PayPal, os seus pagamentos são processados pela Stripe, e você pode cancelar a sua doação ou mudar a quantia em %2$s.</string>
+  <string name="patronPage">a página de patrono</string>
   <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="lichessIsRegisteredWith">Lichess está registrado em %s.</string>

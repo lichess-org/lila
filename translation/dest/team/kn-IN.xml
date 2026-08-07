@@ -30,17 +30,11 @@
   <string name="willBeReviewed">ನಿಮ್ಮ ಸೇರ್ಪಡೆ ವಿನಂತಿಯನ್ನು ತಂಡದ ನಾಯಕರೊಬ್ಬರು ಪರಿಶೀಲಿಸುತ್ತಾರೆ.</string>
   <string name="beingReviewed">ನಿಮ್ಮ ಸೇರ್ಪಡೆ ವಿನಂತಿಯನ್ನು ತಂಡದ ನಾಯಕರೊಬ್ಬರು ಪರಿಶೀಲಿಸುತ್ತಿದ್ದಾರೆ.</string>
   <string name="requestDeclined">ನಿಮ್ಮ ಸೇರ್ಪಡೆ ವಿನಂತಿಯನ್ನು ತಂಡದ ನಾಯಕರೊಬ್ಬರು ನಿರಾಕರಿಸಿದ್ದಾರೆ.</string>
-  <string name="subToTeamMessages">ತಂಡದ ಸಂದೇಶಗಳಿಗೆ ಚಂದಾದಾರರಾಗಿ</string>
   <string name="teamBattle">ತಂಡದ ಯುದ್ಧ</string>
   <string name="teamBattleOverview">ಬಹು ತಂಡಗಳ ಯುದ್ಧ, ಪ್ರತಿ ಆಟಗಾರನು ತನ್ನ ತಂಡಕ್ಕೆ ಅಂಕಗಳನ್ನು ಗಳಿಸುತ್ತಾನೆ</string>
   <string name="teamTournament">ತಂಡದ ಪಂದ್ಯಾವಳಿ</string>
   <string name="teamTournamentOverview">ನಿಮ್ಮ ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ ಸೇರಬಹುದಾದ ಅರೆನಾ ಪಂದ್ಯಾವಳಿ</string>
   <string name="swissTournamentOverview">ನಿಮ್ಮ ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ ಸೇರಬಹುದಾದ ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿ</string>
-  <string name="messageAllMembers">ಎಲ್ಲಾ ಸದಸ್ಯರಿಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ</string>
-  <string name="messageAllMembersOverview">ತಂಡದ ಪ್ರತಿಯೊಬ್ಬ ಸದಸ್ಯರಿಗೂ ಖಾಸಗಿ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಿ</string>
-  <string name="messageAllMembersLongDescription">ತಂಡದ ಎಲ್ಲಾ ಸದಸ್ಯರಿಗೆ ಖಾಸಗಿ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಿ.
-ಪಂದ್ಯಾವಳಿ ಅಥವಾ ತಂಡದ ಯುದ್ಧಕ್ಕೆ ಸೇರಲು ಆಟಗಾರರನ್ನು ಕರೆಯಲು ನೀವು ಇದನ್ನು ಬಳಸಬಹುದು.
-ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ಇಷ್ಟಪಡದ ಆಟಗಾರರು ತಂಡವನ್ನು ತೊರೆಯಬಹುದು.</string>
   <string name="teamsIlead">ನಾನು ಮುನ್ನಡೆಸುವ ತಂಡಗಳು</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">ಈ ಮುಂಬರುವ ಪಂದ್ಯಾವಳಿಗಳಲ್ಲಿ ಒಂದನ್ನು ನೀವು ಲಿಂಕ್ ಮಾಡಲು ಬಯಸಬಹುದು?</string>
   <string name="leadersChat">ನಾಯಕರು ಮಾತುಕತೆ</string>

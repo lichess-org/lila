@@ -41,7 +41,7 @@ export default class Navigate {
     else this.exitVariation();
   };
 
-  private exitVariation = (): void => {
+  private readonly exitVariation = (): void => {
     if (this.ctrl.onMainline) return;
     let found,
       path = treePath.root;

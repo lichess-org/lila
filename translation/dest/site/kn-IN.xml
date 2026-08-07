@@ -113,7 +113,6 @@
   <string name="byCPL">CPL ಇಂದ</string>
   <string name="enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="bestMoveArrow">ಅತ್ಯುತ್ತಮ ನಡೆಯ ಬಾಣ</string>
-  <string name="evaluationGauge">ಮೌಲ್ಯಮಾಪನ ಗೇಜ್</string>
   <string name="multipleLines">ಬಹು ಸಾಲುಗಳು</string>
   <string name="cpus">CPU-ಗಳು</string>
   <string name="memory">ಮೆಮೊರಿ</string>
@@ -855,7 +854,6 @@
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="youAreNowPartOfTeam">ನೀವು ಈಗ ತಂಡದ ಭಾಗವಾಗಿದ್ದೀರಿ.</string>
   <string name="youHaveJoinedTeamX">ನೀವು ತಂಡ %1$s ವನ್ನು ಸೇರಿದ್ದೀರಿ.</string>
-  <string name="someoneYouReportedWasBanned">ನೀವು ದೂರು ಸಲ್ಲಿಸಿದ ಖಾತೆಯೊಂದನ್ನು ಬಹಿಸ್ಕರಿಸಲಾಗಿದೆ</string>
   <string name="congratsYouWon">ಅಭಿನಂದನೆಗಳು, ನೀವು ಗೆದ್ದಿದ್ದೀರಿ!</string>
   <string name="gameVsX">%1$s ಅವರ ವಿರುದ್ಧ</string>
   <string name="resVsX">%1$s ವಿರುದ್ಧ %2$s</string>
@@ -908,7 +906,6 @@
   <string name="gameInProgress">ಈಗಾಗಲೇ ನಿಮ್ಮ ಒಂದು ಆಟ %s ಅವರೊಂದಿಗೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ.</string>
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
-  <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
   <string name="since">ರಿಂದ</string>
   <string name="until">ವರೆಗೆ</string>
   <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>

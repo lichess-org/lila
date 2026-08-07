@@ -7,18 +7,20 @@ import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.{ RatingProg, Score }
+import lila.core.game.{ LightPlayer, LightPov }
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class ActivityUi(helpers: Helpers)(
-    tournamentIdToName: lila.core.id.TourId => Translate ?=> String
+    tournamentIdToName: lila.core.id.TourId => Translate ?=> ClientName ?=> String
 ):
   import helpers.{ *, given }
 
   def apply(u: UserWithPerfs, as: Iterable[ActivityView])(ublogPosts: ActivityView => Option[Frag])(using
-      Context
+      Context,
+      ClientName
   ) =
     div(cls := "activity")(
       as.toSeq
@@ -165,7 +167,7 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderCorresMoves(nb: Int, povs: List[lila.core.game.LightPov])(using Context) =
+  private def renderCorresMoves(nb: Int, povs: List[LightPov])(using Context) =
     entryTag(
       iconTag(Icon.PaperAirplane),
       div(
@@ -177,20 +179,14 @@ final class ActivityUi(helpers: Helpers)(
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))("Game"),
               " vs ",
-              lightPlayerLink(
-                pov.opponent,
-                withRating = true,
-                withDiff = false,
-                withOnline = true,
-                link = true
-              ),
+              lightPlayerLink(pov.opponent),
               br
             )
         )
       )
     )
 
-  private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[lila.core.game.LightPov])])(using
+  private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[LightPov])])(using
       Context
   ) =
     corresEnds.toSeq.map { case (pk, (score, povs)) =>
@@ -220,13 +216,7 @@ final class ActivityUi(helpers: Helpers)(
                     case _ => "Draw"
                 ),
                 " vs ",
-                lightPlayerLink(
-                  pov.opponent,
-                  withRating = true,
-                  withDiff = false,
-                  withOnline = true,
-                  link = true
-                ),
+                lightPlayerLink(pov.opponent),
                 br
               )
           )
@@ -300,7 +290,7 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context) =
+  private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context, ClientName) =
     entryTag(
       iconTag(Icon.Trophy),
       div(
@@ -390,3 +380,24 @@ final class ActivityUi(helpers: Helpers)(
 
   private val wrapNumberRegex = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
+
+  private def lightPlayerLink(player: LightPlayer)(using ctx: Context): Frag =
+    player.userId.flatMap(lightUserSync) match
+      case None =>
+        span(cls := "user-link")(
+          player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
+          player.rating.ifTrue(ctx.pref.showRatings).map { rating => s" ($rating)" }
+        )
+      case Some(user) =>
+        a(
+          cls := userClass(user.id, none, true),
+          href := routes.User.show(user.name)
+        )(
+          lineIcon(user),
+          " ",
+          playerUsername(
+            player,
+            user.some,
+            withRating = ctx.pref.showRatings
+          )
+        )

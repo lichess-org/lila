@@ -6,9 +6,9 @@ import scalalib.ThreadLocalRandom
 import scalalib.data.LazyFu
 
 import lila.common.Markdown
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
-import lila.core.msg.MsgApi
+import lila.core.msg.{ MsgApi, SystemMsg }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.KidMode
@@ -24,7 +24,7 @@ final class ClasApi(
     perfsRepo: lila.user.UserPerfsRepo,
     msgApi: MsgApi,
     authenticator: lila.core.security.Authenticator,
-    baseUrl: BaseUrl
+    routeUrl: RouteUrl
 )(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
@@ -205,11 +205,20 @@ final class ClasApi(
           .cursor[Clas](ReadPref.sec)
           .list(100)
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
-          logger.info(s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}")
+          lila.log.system.info:
+            s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}"
         _ <- inactiveClasses.sequentiallyVoid: from =>
-          for clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+          for
+            clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+            _ <- clas.teachers.toList.sequentiallyVoid: userId =>
+              msgApi.systemPost(SystemMsg.standard(userId, autoArchiveMsg(clas)))
           yield teamSync(clas)(using None)
       yield ()
+
+  private def autoArchiveMsg(clas: Clas) =
+    s"""The class "${clas.name}" has been automatically archived due to inactivity.
+
+You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
 
   object student:
 
@@ -378,7 +387,9 @@ final class ClasApi(
         _ = teamSync(clas)
       yield newStudents
 
-    def resetPassword(s: Student): Fu[ClearPassword] =
+    def resetPassword(s: Student)(using me: Me): Fu[ClearPassword] =
+      lila.log.system.info:
+        s"Reset password for student ${s.userId} in class ${s.clasId} by teacher ${me.username}"
       val password = Student.password.generate()
       authenticator.setPassword(s.userId, password).inject(password)
 
@@ -412,7 +423,7 @@ final class ClasApi(
           dest = student.id,
           text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
-$baseUrl/class/${clas.id}
+${routeUrl(routes.Clas.show(clas.id))}
 
 ${clas.desc}""",
           multi = true
@@ -500,7 +511,7 @@ ${clas.desc}""",
         clas: Clas,
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
-      val url = s"$baseUrl/class/invitation/${invite.id}"
+      val url = routeUrl(routes.Clas.invitation(invite.id))
       if student.kid.yes then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.core.i18n.I18nKey.clas.*

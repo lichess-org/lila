@@ -33,7 +33,7 @@
   }
 
   .granted {
-    background: $m-secondary_bg--mix-10;
+    background: color-mix(in oklab, $c-secondary 10%, $c-bg);
     color: $c-good;
     padding: 0.5em 0;
   }

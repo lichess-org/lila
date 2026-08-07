@@ -1,5 +1,6 @@
 import { parseUci } from 'chessops/util';
 
+import { plyOpponentColor } from 'lib/game';
 import { path as pathOps } from 'lib/tree/tree';
 
 import type PuzzleCtrl from './ctrl';
@@ -20,11 +21,11 @@ function isAltCastle(str: string): str is AltCastle {
 }
 
 export default function moveTest(ctrl: PuzzleCtrl): MoveTestReturn {
-  if (ctrl.mode === 'view') return;
-  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
+  if (ctrl.mode === 'view') return undefined;
+  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return undefined;
 
-  const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
-  if (playedByColor !== ctrl.pov) return;
+  const playedByColor = plyOpponentColor(ctrl.node.ply);
+  if (playedByColor !== ctrl.pov) return undefined;
 
   const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1).map(node => ({
     uci: node.uci,

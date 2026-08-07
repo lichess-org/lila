@@ -1,7 +1,7 @@
 package lila.memo
 
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -11,6 +11,7 @@ import scala.util.matching.Regex.quote
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
+import lila.mon.extensions.*
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
 
@@ -102,13 +103,18 @@ final class PicfitApi(
       uniqueRef: Option[String],
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
+    val validTypes = List(
+      "image/webp" -> "webp",
+      "image/png" -> "png",
+      "image/jpeg" -> "jpg"
+    )
     file.contentType
-      .collect:
-        case "image/webp" => "webp"
-        case "image/png" => "png"
-        case "image/jpeg" => "jpg"
+      .flatMap(validTypes.toMap.get)
       .match
-        case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
+        case None =>
+          fufail(
+            lila.core.lilaism.LilaInvalid(s"File must be one of: ${validTypes.map(_._2).mkString(", ")}")
+          )
         case Some(extension) =>
           val image = PicfitImage(
             id = ImageId(s"$hash.$extension"),
@@ -182,16 +188,15 @@ final class PicfitApi(
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+        .monSuccess(lila.mon.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")
         .delete()
         .addEffect: res =>
           if res.status / 100 != 2 then
-            logger
-              .branch("picfit")
-              .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
+            logger.error:
+              s"picfit deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}"
         .addEffectAnyway:
           cloudflareApi.purge(image.urls)
         .void

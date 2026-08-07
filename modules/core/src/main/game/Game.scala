@@ -4,7 +4,6 @@ package game
 import _root_.chess.Color.White
 import _root_.chess.format.UciDump
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ Standard, Variant }
 import _root_.chess.{
   ByColor,
@@ -40,7 +39,8 @@ case class Game(
     bookmarks: Int = 0,
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
-    metadata: GameMetadata
+    metadata: GameMetadata,
+    abortedBy: Option[Color] = None
 ):
 
   export chess.{ position, ply, clock, sans, startedAtPly, player as turnColor, history, variant }
@@ -254,11 +254,6 @@ case class Game(
   def isPgnImport = pgnImport.isDefined
 
   def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)
-
-  lazy val opening: Option[Opening.AtPly] =
-    if !fromPosition && Variant.list.openingSensibleVariants(variant)
-    then OpeningDb.search(sans)
-    else none
 
   def pov(c: Color) = Pov(this, c)
   def povs: ByColor[Pov] = ByColor(pov)

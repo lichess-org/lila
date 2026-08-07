@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import { frag } from 'lib';
 import { alert, info, spinnerHtml } from 'lib/view';
 import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
-import { json as xhrJson } from 'lib/xhr';
+import { json as xhrJson, ValidationError } from 'lib/xhr';
 
 // also see markdownTextarea.ts
 
@@ -24,8 +24,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
 
   previewTab.addEventListener('click', async () => {
-    const html = await marked.parse(textarea.value ?? '');
-    preview.innerHTML = html;
+    preview.innerHTML = await marked.parse(textarea.value ?? '');
     preview.classList.remove('none');
     uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');
@@ -105,7 +104,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       textarea.value = `${before}${maybeNewline}![${image.name}](${imageUrl})\n${after}`;
       textarea.selectionStart = textarea.selectionEnd = textarea.value.length - after.length;
     } catch (e) {
-      alert(String(e) || 'Image upload failed.');
+      alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
     } finally {
       preview.classList.add('none');
       preview.innerHTML = '';

@@ -53,7 +53,7 @@ async function main() {
     buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
       ppCost(key, sub);
       const [from, to] = key.split(' ');
-      builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
+      builder.addSub(from, { to, cost: sub.cost ?? 1 });
     });
     const patch = `lexicon/${grammar}-patch.json`;
     if (fs.existsSync(patch))
@@ -313,7 +313,7 @@ class Builder {
               ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
                   .map(s => {
                     let c = s.cost.toFixed(2);
-                    if (c.slice(-1) === '0') c = c.slice(0, -1);
+                    if (c.endsWith('0')) c = c.slice(0, -1);
                     return `{ to: '${s.to}', cost: ${c} }`;
                   })
                   .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`

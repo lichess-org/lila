@@ -54,7 +54,6 @@
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
   <string name="pgnTags">وسم PGN</string>
   <string name="like">إعجاب</string>
-  <string name="unlike">إلغاء الإعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
   <string name="commentThisMove">التعليق على هذه النقلة</string>
@@ -74,6 +73,7 @@
   <string name="studyPgn">PGN الدراسة</string>
   <string name="chapterPgn">PGN الفصل</string>
   <string name="copyChapterPgn">نسخ PGN</string>
+  <string name="copyRawChapterPgn">نسخ PGN الخام</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>

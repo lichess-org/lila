@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">حساب‌تان محدود یا نشانه‌گذاری نشده، همه چیز خوب است.</string>
-  <string name="engineMarked">حساب‌تان به خاطر کمک‌گیری بیرونی در بازی‌ها، علامت‌گذاری شده است.</string>
+  <string name="engineMarked">حساب‌تان بخاطرِ استفاده از موتور/رایانه در بازی‌ها محدود شده بود.</string>
   <string name="engineMarkedInfo">ما این را استفاده از کمک بیرونی برای تقویت مهارت دانستگانی و/یا محاسباتی‌تان به منظور به‌دست‌آوریِ مزیتی ناعادلانه نسبت به حریف‌تان، تعریف می‌کنیم. برای جزئیات بیشتر صفحهٔ %s را ببینید.</string>
   <string name="arenaBanned">حساب‌تان برای پیوستن به راوان‌ها بسته شده است.</string>
   <string name="prizeBanned">حساب شما از مسابقات با جوایز واقعی مسدود شده است.</string>
-  <string name="boosterMarked">حساب‌تان به خاطر دستکاری درجه‌بندی، نشانه‌گذاری شده است.</string>
-  <string name="boosterMarkedInfo">ما این را به عنوان دستکاری عمدی درجه‌بندی تعریف می‌کنیم که شامل باختن بازی‌ها به طور عمدی یا بازی کردن در برابر یک حساب دیگر که به طور عمدی بازی‌ها را می‌بازد، می‌شود.</string>
+  <string name="boosterMarked">حساب‌تان بخاطرِ دستکاریِ درجه‌بندی/همرسانیِ حساب محدود شده بود.</string>
   <string name="accountMuted">حساب‌تان بی‌صداست.</string>
   <string name="accountMutedInfo">%s ما را بخوانید. پیروی نکردن از راهنمای ارتباطات، می‌تواند منجر به بی‌صدایی حساب‌ها شود.</string>
   <string name="excludedFromLeaderboards">جلوی ورودتان به جدول رده‌بندی گرفته شده است.</string>
-  <string name="excludedFromLeaderboardsInfo">ما این را استفاده از راهی ناعادلانه برای رسیدن به جدول رده‌بندی تعریف می‌کنیم.</string>
+  <string name="onlyOneAccountOnLeaderboards">فقط یک حساب کاربری از هر شخص، می‌تواند در جدول‌های رده‌بندی ظاهر شود.</string>
   <string name="closedByModerators">ناظران حساب‌تان را بسته‌اند.</string>
-  <string name="hiddenBlog">ناظران وبنوشت‌تان را پنهانیده‌اند.</string>
-  <string name="hiddenBlogInfo">حتما دوباره %s ما را بخوانید.</string>
+  <string name="blogRestriction">شما محدودیتِ وبنوشت دارید.</string>
+  <string name="blogRestrictionInfo">%s ما را بخوانید، نقضِ این قاعده‌ها ممکن است منجر به اقدام‌های مختلفی شود.</string>
   <string name="playTimeout">یک وقت فنی دارید.</string>
+  <string name="reportBanned">شما نمی‌توانید به ناظران گزارش بفرستید</string>
+  <string name="reportBannedInfo">ما متوجه الگویی از سوءاستفاده از سامانهٔ گزارش‌مان شده‌ایم. این می‌تواند به دلیل‌های مختلفی باشد، مانندِ انتخابِ مداومِ دسته‌های اشتباه، استفاده از زبانِ زَنَنده، توهین‌آمیز یا رکیک، گزارشِ تعدادِ گزافِ بازی‌ها، یا عدمِ ارائهٔ چراییِ ادعای نقضِ قاعده‌ها توسط حریف.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">حساب‌تان موقتا از بازی کردن محروم شده است.</string>
   <string name="communicationGuidelines">راهنمای ارتباطات</string>
-  <string name="blogRules">قاعده‌های وبنوشت</string>
+  <string name="blogEtiquette">آدابِ وبنوشت</string>
   <string name="fairPlay">پاکبازی</string>
 </resources>

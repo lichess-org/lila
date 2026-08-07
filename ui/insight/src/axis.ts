@@ -1,9 +1,9 @@
 import { h, type VNodeData } from 'snabbdom';
 
-import type { MaybeVNode } from 'lib/view';
+import { optgroup } from 'lib/view';
 
 import type Ctrl from './ctrl';
-import type { Categ, Dimension, Metric } from './interfaces';
+import type { Dimension, Metric } from './interfaces';
 
 const selectData = (onClick: (v: { value: string }) => void, getValue: () => string): VNodeData => ({
   hook: {
@@ -11,11 +11,6 @@ const selectData = (onClick: (v: { value: string }) => void, getValue: () => str
     update: vnode => $(vnode.elm).multipleSelect('setSelects', [getValue()]),
   },
 });
-
-const optgroup =
-  <T>(callback: (item: T) => MaybeVNode) =>
-  (categ: Categ<T>) =>
-    h('optgroup', { attrs: { label: categ.name } }, categ.items.map(callback));
 
 const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimension') =>
   h(
@@ -43,7 +38,9 @@ export default function (ctrl: Ctrl, attrs: VNodeData | null = null) {
         v => ctrl.setMetric(v.value),
         () => ctrl.vm.metric.key,
       ),
-      ctrl.ui.metricCategs.map(optgroup(y => option(ctrl, y, 'metric'))),
+      ctrl.ui.metricCategs.map(categ =>
+        optgroup(categ.name)(categ.items.map(item => option(ctrl, item, 'metric'))),
+      ),
     ),
     h('span.by', 'by'),
     h(
@@ -52,8 +49,10 @@ export default function (ctrl: Ctrl, attrs: VNodeData | null = null) {
         v => ctrl.setDimension(v.value),
         () => ctrl.vm.dimension.key,
       ),
-      ctrl.ui.dimensionCategs.map(
-        optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)),
+      ctrl.ui.dimensionCategs.map(categ =>
+        optgroup(categ.name)(
+          categ.items.map(item => (item.key !== 'period' ? option(ctrl, item, 'dimension') : undefined)),
+        ),
       ),
     ),
   ]);

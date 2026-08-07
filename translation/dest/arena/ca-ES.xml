@@ -72,6 +72,10 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="rankAvgHelp">El rànquing mitjà és un percentatge del vostre rànquing. Els valors més petits són millors.
 
 Per exemple, estar en el tercer lloc en un torneig de 100 jugadors = 3%. Ser classificat 10 en un torneig de 1000 jugadors = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">La mitjana del vostre rang representa la vostra posició final típica, relativa al nombre total de jugadors de cada torneig. 
+Això mesura els vostres resultats de torneig, no la vostra puntuació general.
+
+Per exemple, una mitjana de rang del 3% significa que normalment finalitzes al top 3% (per exemple 30th posició d\'un torneig de 1.000 jugadors).</string>
   <string name="medians">mitjanes</string>
   <string name="allAveragesAreX">Totes les mitjanes d\'aquesta pàgina són %s.</string>
   <string name="total">Total</string>

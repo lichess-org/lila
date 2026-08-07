@@ -1,0 +1,532 @@
+package lila.markdown
+
+import scala.util.chaining.*
+import chess.format.pgn.PgnStr
+import com.vladsch.flexmark.ast.*
+import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension
+import com.vladsch.flexmark.ext.autolink.AutolinkExtension
+import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
+import com.vladsch.flexmark.ext.tables.{ TableBlock, TablesExtension }
+import com.vladsch.flexmark.html.renderer.{
+  AttributablePart,
+  CoreNodeRenderer,
+  LinkResolverContext,
+  LinkType,
+  NodeRenderer,
+  NodeRendererContext,
+  NodeRendererFactory,
+  NodeRenderingHandler,
+  ResolvedLink
+}
+import com.vladsch.flexmark.html.{
+  AttributeProvider,
+  HtmlRenderer,
+  HtmlWriter,
+  IndependentAttributeProviderFactory
+}
+import com.vladsch.flexmark.parser.{
+  InlineParser,
+  InlineParserExtension,
+  InlineParserExtensionFactory,
+  LightInlineParser,
+  Parser
+}
+import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
+import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
+import com.vladsch.flexmark.util.html.MutableAttributes
+import com.vladsch.flexmark.util.misc.Extension
+import com.vladsch.flexmark.util.sequence.BasedSequence
+
+import java.time.{ Instant, ZoneOffset }
+import java.time.format.DateTimeFormatter
+import java.util.Arrays
+import java.util.regex.Pattern
+import scala.collection.Set
+import scala.jdk.CollectionConverters.*
+import scala.util.matching.Regex
+import scala.util.Try
+import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+
+import lila.core.config.{ AssetDomain, NetDomain }
+import lila.core.misc.lpv.LpvEmbed
+import lila.core.data.{ Markdown, Html, Url }
+import lila.core.userId.UserName
+
+final class MarkdownRender(
+    autoLink: Boolean = true,
+    table: Boolean = false,
+    strikeThrough: Boolean = false,
+    header: Boolean = false,
+    blockQuote: Boolean = false,
+    list: Boolean = false,
+    code: Boolean = false,
+    timestamp: Boolean = false,
+    sourceMap: Boolean = false,
+    removeHtmlEntities: Boolean = false,
+    allowedTags: Set[String] = Set.empty,
+    pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
+    assetDomain: Option[AssetDomain] = None
+):
+
+  private val extensions = java.util.ArrayList[Extension]()
+  if header then extensions.add(AnchorLinkExtension.create())
+  if table then
+    extensions.add(TablesExtension.create())
+    extensions.add(MarkdownRender.tableWrapperExtension)
+  if strikeThrough then extensions.add(StrikethroughExtension.create())
+  if autoLink then
+    extensions.add(AutolinkExtension.create())
+    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
+  extensions.add(
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension)(MarkdownRender.PgnEmbedExtension(_))
+  )
+  if timestamp then extensions.add(MarkdownRender.TimestampExtension)
+  if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
+  private val allowedTagsExtension = Option.when(allowedTags.nonEmpty):
+    MarkdownRender.AllowedTagsExtension(allowedTags).tap(extensions.add)
+
+  private val options =
+    val o = MutableDataSet()
+      .set(Parser.EXTENSIONS, extensions)
+      .set(HtmlRenderer.ESCAPE_HTML, true)
+      .set(HtmlRenderer.UNESCAPE_HTML_ENTITIES, false)
+      .set(HtmlRenderer.SOFT_BREAK, "<br/>")
+      // always disabled
+      .set(Parser.HTML_BLOCK_PARSER, false)
+      .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
+      .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+
+    // configurable
+    if table then o.set(TablesExtension.CLASS_NAME, "slist")
+    if header then o.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
+    else o.set(Parser.HEADING_PARSER, false)
+    if !blockQuote then o.set(Parser.BLOCK_QUOTE_PARSER, false)
+    if !list then o.set(Parser.LIST_BLOCK_PARSER, false)
+    o.toImmutable
+
+  private val parser = Parser.builder(options).build()
+  private val renderer = HtmlRenderer.builder(options).build()
+
+  private def mentionsToLinks(markdown: Markdown): Markdown =
+    Markdown(UserName.atRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
+
+  def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
+    try
+      text
+        .pipe(MarkdownRender.preventStackOverflow.apply)
+        .pipe(t => if removeHtmlEntities then MarkdownRender.removeHtmlEntities(t) else t)
+        .pipe(t => allowedTagsExtension.fold(t)(_.unescape(t)))
+        .pipe(t => if sourceMap then t else mentionsToLinks(t))
+        .pipe(t => parser.parse(t.value))
+        .pipe(renderer.render)
+    catch
+      case _: StackOverflowError =>
+        println(s"markdown StackOverflowError $key")
+        text.value
+
+object MarkdownRender:
+
+  type Key = String
+  type PgnSourceId = String
+
+  case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
+
+  def unlink(text: Markdown): String =
+    text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
+
+  private object removeHtmlEntities:
+    // &#128512;
+    private val entityRegex = """(?i)&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});""".r
+    def apply(md: Markdown): Markdown =
+      md.map(entityRegex.replaceAllIn(_, "$1"))
+
+  private val rel = "nofollow noreferrer"
+
+  object preventStackOverflow:
+    // https://github.com/vsch/flexmark-java/issues/496
+    private val tooManyUnderscoreRegex = """(_{6,})""".r
+    private val tooManyQuotes = """^\s*(>\s*){5,}""".r
+    def apply(text: Markdown) =
+      text.map: t =>
+        tooManyUnderscoreRegex
+          .replaceAllIn(t, "_" * 3)
+          .linesIterator
+          .map: line =>
+            if line.count(_ == '>') > 15 then line.replaceAll(">", "").trim
+            else tooManyQuotes.replaceAllIn(line, "> " * 5)
+          .mkString("\n")
+
+  private object WhitelistedImage:
+
+    private val whitelist = AssetDomain.from:
+      List(
+        "imgur.com",
+        "giphy.com",
+        "wikimedia.org",
+        "creativecommons.org",
+        "pexels.com",
+        "piqsels.com",
+        "freeimages.com",
+        "unsplash.com",
+        "pixabay.com",
+        "githubusercontent.com",
+        "googleusercontent.com",
+        "i.ibb.co",
+        "i.postimg.cc",
+        "imgs.xkcd.com",
+        "image.lichess1.org",
+        "pic.lichess.org",
+        "127.0.0.1"
+      )
+
+    private val urlParser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    def parseUrl(str: String): Try[URL] = Try(URL.parse(urlParser, str))
+
+    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
+      url <- parseUrl(src).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toHostString)
+      if (assetDomain.toList ::: whitelist).exists(h =>
+        h.value.split(":").headOption.contains(host) || host.endsWith(s".$h")
+      )
+    yield url.toString
+
+    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
+      override def rendererOptions(options: MutableDataHolder) = ()
+      override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+        htmlRendererBuilder.nodeRendererFactory:
+          new:
+            override def apply(options: DataHolder) = new NodeRenderer:
+              override def getNodeRenderingHandlers() =
+                Set(NodeRenderingHandler(classOf[Image], render(_, _, _))).asJava
+
+      private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+        // Based on implementation in CoreNodeRenderer.
+        if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
+          context.renderChildren(node)
+        else
+          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+          val url = resolvedLink.getUrl()
+          val altText = new TextCollectingVisitor().collectAndGetText(node)
+          whitelistedSrc(url, assetDomain) match
+            case Some(src) =>
+              html
+                .srcPos(node.getChars())
+                .attr("src", src)
+                .attr("alt", altText)
+                .attr(resolvedLink.getNonNullAttributes())
+                .withAttr(resolvedLink)
+                .tagVoid("img")
+            case None =>
+              html
+                .srcPos(node.getChars())
+                .attr("href", url)
+                .attr("target", "_blank")
+                .attr("rel", rel)
+                .withAttr(resolvedLink)
+                .tag("a")
+                .text(if altText.isEmpty then url else altText)
+                .tag("/a")
+
+  private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new:
+          override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
+
+  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
+    override def getNodeRenderingHandlers() = java.util.HashSet:
+      Arrays.asList(
+        NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
+        NodeRenderingHandler(classOf[AutoLink], renderAutoLink(_, _, _))
+      )
+
+    final class PgnRegexes(val game: Regex, val chapter: Regex)
+    private val pgnRegexes: PgnRegexes =
+      val quotedDomain = Pattern.quote(expander.domain.value)
+      PgnRegexes(
+        s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
+        s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8}/)?(\\w{8})(?:#(last|\\d+))?$$""".r
+      )
+
+    private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
+      renderLinkWithBase(
+        node,
+        context,
+        html,
+        context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+      )
+
+    private def renderAutoLink(node: AutoLink, context: NodeRendererContext, html: HtmlWriter): Unit =
+      renderLinkNode(node, context, html)
+
+    private def renderLinkNode(node: LinkNode, context: NodeRendererContext, html: HtmlWriter) =
+      // Based on implementation in CoreNodeRenderer.
+      if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
+        context.renderChildren(node)
+      else
+        val link = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+        def justAsLink() = renderLinkWithBase(node, context, html, link)
+        link.getUrl match
+          case pgnRegexes.game(id, color, ply) =>
+            expander
+              .getPgn(id)
+              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, Option(color), Option(ply)))
+          case pgnRegexes.chapter(id, ply) =>
+            expander
+              .getPgn(id)
+              .fold(justAsLink())(renderLpvEmbed(node, context, html, link, _, None, Option(ply)))
+          case _ => justAsLink()
+
+    private def renderLinkWithBase(
+        node: LinkNode,
+        context: NodeRendererContext,
+        html: HtmlWriter,
+        baseLink: ResolvedLink
+    ) =
+      val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
+      html.attr("href", addProtocolIfNecessary(link.getUrl))
+      html.attr(link.getNonNullAttributes())
+      html.srcPos(node.getChars()).withAttr(link).tag("a")
+      context.renderChildren(node)
+      html.tag("/a")
+
+    private def addProtocolIfNecessary(url: String): String =
+      if url.startsWith("/") || url.matches("(?i)^https?://.*") then url
+      else s"https://$url"
+
+    private def renderLpvEmbed(
+        node: LinkNode,
+        context: NodeRendererContext,
+        html: HtmlWriter,
+        link: ResolvedLink,
+        embed: LpvEmbed,
+        color: Option[String],
+        ply: Option[String]
+    ) =
+      embed match
+        case LpvEmbed.PublicPgn(pgn) =>
+          html
+            .attr("data-pgn", pgn.value)
+            .attr("class", "lpv--autostart is2d")
+          color.foreach:
+            html.attr("data-orientation", _)
+          ply.foreach:
+            html.attr("data-ply", _)
+          html
+            .srcPos(node.getChars())
+            .withAttr(link)
+            .tag("div")
+            .text(link.getUrl)
+            .tag("/div")
+        case LpvEmbed.PrivateStudy =>
+          html
+            .attr("href", link.getUrl)
+            .attr(link.getNonNullAttributes())
+            .srcPos(node.getChars())
+            .withAttr(link)
+            .tag("a")
+            .withAttr()
+            .attr("class", "private-study")
+            .attr("title", "Private")
+            .attr("aria-label", "Private")
+            .tag("i")
+            .tag("/i")
+          context.renderChildren(node)
+          html
+            .tag("/a")
+
+  private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.attributeProviderFactory:
+        new IndependentAttributeProviderFactory:
+          override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
+
+  private val lilaLinkAttributeProvider = new AttributeProvider:
+    private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
+    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
+      if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
+        attributes.replaceValue("target", "_blank")
+        attributes.replaceValue("rel", rel)
+        attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
+
+  private final class AllowedTagsExtension(tags: Set[String]) extends HtmlRenderer.HtmlRendererExtension:
+    private val tagNames = tags.mkString("|")
+    private val tagRegex = s"(?i)</?($tagNames)>".r
+    private val escapedMarkdownTagRegex = s"\\\\(</?(?:$tagNames)>)".r
+
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new NodeRendererFactory:
+          override def apply(options: DataHolder) = new NodeRenderer:
+            def getNodeRenderingHandlers() =
+              Set(NodeRenderingHandler(classOf[HtmlInline], render(_, _, _))).asJava
+
+            private def render(
+                node: HtmlInline,
+                @scala.annotation.unused context: NodeRendererContext,
+                html: HtmlWriter
+            ): Unit =
+              node.getChars().toString match
+                case tagRegex(tag) if tags(tag.toLowerCase) => html.raw(node.getChars())
+                case _ => html.text(node.getChars())
+
+    def unescape(markdown: Markdown): Markdown = markdown.map: text =>
+      escapedMarkdownTagRegex.replaceAllIn(text, _.group(1))
+
+  private class TimestampNode(val timestamp: Long, val format: String) extends Node():
+    override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
+
+  private object TimestampExtension extends Parser.ParserExtension with HtmlRenderer.HtmlRendererExtension:
+    override def parserOptions(options: MutableDataHolder) = ()
+    override def extend(parserBuilder: Parser.Builder) =
+      parserBuilder.customInlineParserExtensionFactory(new TimestampParserExtension.Factory)
+
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new NodeRendererFactory:
+          override def apply(options: DataHolder) = new NodeRenderer:
+            override def getNodeRenderingHandlers() =
+              Set(
+                NodeRenderingHandler(classOf[TimestampNode], (node, _, html) => renderTimestamp(node, html))
+              ).asJava
+
+            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit =
+              val instant = Instant.ofEpochSecond(node.timestamp)
+              val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+              val displayText = node.format match
+                case "d" | "D" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                case "t" | "T" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("HH:mm 'UTC'"))
+                case _ =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'"))
+              html
+                .attr("datetime", isoDateTime)
+                .attr("format", node.format)
+                .attr("title", displayText)
+                .withAttr()
+                .tag("time")
+                .text(displayText)
+                .tag("/time")
+
+  object TimestampParserExtension:
+    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
+
+    class Factory extends InlineParserExtensionFactory:
+      override def getCharacters(): CharSequence = "<"
+      override def getAfterDependents(): java.util.Set[Class[?]] = null
+      override def getBeforeDependents(): java.util.Set[Class[?]] = null
+      override def affectsGlobalScope() = false
+      override def apply(inlineParser: LightInlineParser): InlineParserExtension =
+        new InlineParserExtension:
+          override def finalizeDocument(inlineParser: InlineParser) = ()
+          override def finalizeBlock(inlineParser: InlineParser) = ()
+          override def parse(inlineParser: LightInlineParser): Boolean =
+            val groups = inlineParser.matchWithGroups(timestampPattern)
+            if groups == null then false
+            else
+              val epoch = groups(1).toString.toLong
+              val fmt = groups(2).toString
+              val node = TimestampNode(epoch, fmt)
+              node.setChars(groups(0))
+              inlineParser.flushTextNode()
+              inlineParser.appendNode(node)
+              true
+
+  private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
+      new NodeRendererFactory:
+        override def apply(options: DataHolder) = new NodeRenderer:
+          override def getNodeRenderingHandlers() = Set(
+            NodeRenderingHandler(
+              classOf[TableBlock],
+              (_: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
+                html.withAttr().attr("class", "slist-wrapper").tag("div")
+                context.delegateRender();
+                html.tag("/div")
+            )
+          ).asJava
+
+  // matching a rendered html selection to its source markdown is difficult due to edge cases.
+  // it's cleanest to cheat and do a source map back to original markdown in the DOM
+  object SourceMapExtension extends HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
+      new NodeRendererFactory:
+        override def apply(options: DataHolder) = new NodeRenderer:
+          private inline def span(html: HtmlWriter, mdStart: Int, mdEnd: Int)(body: => Unit): Unit =
+            html
+              .attr("data-ms", mdStart.toString())
+              .attr("data-me", mdEnd.toString())
+              .withAttr()
+              .tag("span")
+            body
+            html.tag("/span")
+
+          private inline def preCode(html: HtmlWriter)(body: => Unit): Unit =
+            html.withAttr().tag("pre").tag("code")
+            body
+            html.tag("/code").tag("/pre")
+
+          override def getNodeRenderingHandlers() = Set(
+            NodeRenderingHandler(classOf[Text], (node, _, html) => text(node, html)),
+            NodeRenderingHandler(classOf[Code], (node, _, html) => inlineCode(node, html)),
+            NodeRenderingHandler(classOf[FencedCodeBlock], (node, _, html) => blockCode(node, html)),
+            NodeRenderingHandler(classOf[IndentedCodeBlock], (node, _, html) => blockCode(node, html)),
+            NodeRenderingHandler(classOf[SoftLineBreak], (node, ctx, html) => softBreak(node, ctx, html)),
+            NodeRenderingHandler(classOf[HardLineBreak], (node, _, html) => hardBreak(node, html))
+          ).asJava
+
+          private def text(node: Text, html: HtmlWriter): Unit =
+            val base = node.getBaseSequence()
+            val slice = base.subSequence(node.getStartOffset(), node.getEndOffset()).toString()
+
+            def emitSpan(sliceStart: Int, sliceEnd: Int): Unit =
+              if sliceEnd > sliceStart then
+                val mdStart = node.getStartOffset() + sliceStart
+                val mdEnd = node.getStartOffset() + sliceEnd
+                span(html, mdStart, mdEnd)(html.text(base.subSequence(mdStart, mdEnd)))
+
+            val finalFrom =
+              UserName.atRegex
+                .findAllMatchIn(slice)
+                .toList
+                .foldLeft(0): (cursor, offsets) =>
+                  emitSpan(cursor, offsets.start)
+                  html
+                    .attr("href", s"/@/${offsets.group(1)}")
+                    .attr("rel", "nofollow noreferrer")
+                    .attr("target", "_blank")
+                  html.withAttr().tag("a")
+                  emitSpan(offsets.start, offsets.end)
+                  html.tag("/a")
+                  offsets.end
+
+            emitSpan(finalFrom, slice.length)
+
+          private def inlineCode(node: Code, html: HtmlWriter): Unit =
+            html.withAttr().tag("code")
+            span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getText()))
+            html.tag("/code")
+
+          private def blockCode(node: Block, html: HtmlWriter): Unit =
+            val content: BasedSequence =
+              node match
+                case f: FencedCodeBlock => f.getContentChars()
+                case i: IndentedCodeBlock => i.getContentChars()
+                case _ => node.getChars()
+            preCode(html)(span(html, content.getStartOffset, content.getEndOffset)(html.text(content)))
+
+          private def softBreak(node: SoftLineBreak, ctx: NodeRendererContext, html: HtmlWriter): Unit =
+            span(html, node.getStartOffset(), node.getEndOffset())(())
+            html.raw(ctx.getHtmlOptions().softBreak)
+
+          private def hardBreak(node: HardLineBreak, html: HtmlWriter): Unit =
+            span(html, node.getStartOffset(), node.getEndOffset())(())
+            html.tagVoid("br")

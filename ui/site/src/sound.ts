@@ -8,7 +8,7 @@ type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx: AudioContext | undefined;
+  ctx?: AudioContext;
   ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
@@ -43,7 +43,7 @@ export default new (class implements SoundI {
     const ctx = await this.ctxPromise;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
-    if (!path) return;
+    if (!path) return undefined;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
     const result = await fetch(path);
@@ -60,10 +60,10 @@ export default new (class implements SoundI {
   }
 
   resolvePath(name: Name): string | undefined {
-    if (!this.enabled()) return;
+    if (!this.enabled()) return undefined;
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
-      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return;
+      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return undefined;
       dir = 'standard';
     }
     return this.url(`${dir}/${name[0].toUpperCase() + name.slice(1)}.mp3`);
@@ -125,7 +125,7 @@ export default new (class implements SoundI {
     const doIt = () => {
       const store = storage.make('just-played');
       if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
-      store.set('' + Date.now());
+      store.set(String(Date.now()));
       this.play(name);
     };
     if (document.hasFocus()) doIt();
@@ -146,8 +146,7 @@ export default new (class implements SoundI {
       o = JSON.parse(this.voiceStorage.get() ?? JSON.stringify(o));
     } catch {}
     const voiceMap = this.getVoiceMap();
-    const voice = voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
-    return voice;
+    return voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
   };
 
   getVoiceMap = (): Map<string, SpeechSynthesisVoice> => {

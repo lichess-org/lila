@@ -11,8 +11,8 @@
     <item quantity="other">%2$s boʻlimida %1$s ta pozitsiyani mashq qildi</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s ta masala mashq qildi</item>
-    <item quantity="other">%s ta masala mashq qildi</item>
+    <item quantity="one">%s ta masala yechdi</item>
+    <item quantity="other">%s ta masala yechdi</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s ta %2$s oʻyin oʻynadi</item>
@@ -43,8 +43,8 @@
     <item quantity="other">%s ta oʻyinchiga obuna boʻldi</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s ta yangi obunachi qoʻshildi</item>
-    <item quantity="other">%s ta yangi obunachi qoʻshildi</item>
+    <item quantity="one">Obunachilar soni %s taga koʻpaydi</item>
+    <item quantity="other">Obunachilar soni %s taga koʻpaydi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s ta biryoʻla seans oʻtkazdi</item>

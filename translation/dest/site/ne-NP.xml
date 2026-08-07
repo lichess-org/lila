@@ -121,7 +121,6 @@
   <string name="enable">सक्षम पार्नुहोस्</string>
   <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
   <string name="showVariationArrows">भिन्नताहरूको सुचक तिर देखाउनु</string>
-  <string name="evaluationGauge">मुल्यांकन गेज</string>
   <string name="multipleLines">थप लाइनहरु</string>
   <string name="cpus">CPU संख्या</string>
   <string name="memory">स्मृति</string>

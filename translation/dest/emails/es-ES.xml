@@ -18,6 +18,7 @@ Esta es la página de tu perfil: %1$s. Puedes personalizarla en %2$s.
 ¡Que te diviertas, y que tus piezas se abran siempre paso hasta el rey enemigo!</string>
   <string name="logInToLichess">Inicia sesión en lichess.org, %s</string>
   <string name="common_orPaste">(¿No funciona el enlace? Copia la dirección y pégala en la barra del navegador)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(¿El enlace no funciona? ¡Intenta copiarlo y pegarlo en tu navegador!)</string>
   <string name="common_note">Esto es un correo automático sobre el uso de %s.</string>
   <string name="common_contact">Para contactar con nosotros, por favor usa %s.</string>
 </resources>

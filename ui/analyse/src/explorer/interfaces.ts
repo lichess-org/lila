@@ -7,10 +7,6 @@ export type ExplorerDb = 'lichess' | 'masters' | 'player';
 export type ExplorerMode = 'casual' | 'rated';
 export type ExplorerSpeed = Speed;
 
-export interface PlayerOpts {
-  name: string;
-}
-
 export interface ExplorerOpts {
   endpoint: string;
   tablebaseEndpoint: string;
@@ -117,8 +113,8 @@ export const isOpening = (m: ExplorerData): m is OpeningData => !!m.isOpening;
 
 export const isTablebase = (m: ExplorerData): m is TablebaseData => !!m.tablebase;
 
-export interface SimpleTablebaseHit {
+export type SimpleTablebaseHit = {
   fen: FEN;
   best?: Uci; // no move if checkmate/stalemate
-  winner: Color | undefined;
-}
+  winner?: Color;
+};

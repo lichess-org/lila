@@ -1,7 +1,7 @@
 package lila.pool
 
-import akka.actor.*
-import akka.pattern.pipe
+import org.apache.pekko.actor.*
+import org.apache.pekko.pattern.pipe
 import scalalib.ThreadLocalRandom
 
 import lila.core.pool.{ HookThieve, PoolMember, PoolFrom }

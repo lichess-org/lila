@@ -4,6 +4,7 @@ import chess.Status
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import lila.core.game.Source
 
 object Query:
 
@@ -41,8 +42,9 @@ object Query:
   def imported(u: UserId): Bdoc = s"${F.pgnImport}.user".$eq(u)
   def importedSort: Bdoc = $sort.desc(s"${F.pgnImport}.ca")
 
-  val friend: Bdoc = F.source.$eq(lila.core.game.Source.Friend.id)
-  val notAi: Bdoc = F.source.$ne(lila.core.game.Source.Ai.id)
+  val friend: Bdoc = F.source.$eq(Source.Friend.id)
+  val notAi: Bdoc = F.source.$ne(Source.Ai.id)
+  def sourceIn(sources: Iterable[Source]): Bdoc = F.source.$in(sources.map(_.id))
 
   def clock(c: Boolean): Bdoc = F.clock.$exists(c)
 

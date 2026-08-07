@@ -11,6 +11,8 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore.Text.given
 import lila.report.Room.Scores
+import lila.mon.extensions.*
+import lila.core.misc.AppealTopic
 
 final class ReportApi(
     val coll: Coll,
@@ -313,16 +315,16 @@ final class ReportApi(
     deletedAppeal <- deleteIfAppealInquiry(report)
     _ <- (!deletedAppeal).so:
       doProcessReport($id(report.id), unsetInquiry = true)
-  yield onReportClose()
+  yield onReportClose(report.room)
 
   def autoProcess(sus: Suspect, rooms: Set[Room])(using MyId): Funit =
-    val selector = $doc(
-      "user" -> sus.user.id,
-      "room".$in(rooms),
-      "open" -> true
-    )
-    for _ <- doProcessReport(selector, unsetInquiry = true)
-    yield onReportClose()
+    val selector = $doc("user" -> sus.user.id, "room".$in(rooms), "open" -> true)
+    for
+      reports <- coll.list[Report](selector)
+      _ <- reports.sequentiallyVoid: report =>
+        onReportClose(report.room)
+        doProcessReport($id(report.id), unsetInquiry = true)
+    yield ()
 
   def automodComms(
       userText: String,
@@ -336,7 +338,7 @@ final class ReportApi(
           systemPrompt = commsPromptSetting.get(),
           model = commsModelSetting.get()
         )
-        .monSuccess(_.mod.report.automod.request)
+        .monSuccess(lila.mon.mod.report.automod.request)
       val candidate = for
         (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
         flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
@@ -372,9 +374,9 @@ final class ReportApi(
           logger.warn(s"Comms automod failed for ${me.username} on $url: ${e.getMessage}", e)
           funit
 
-  private def onReportClose() =
+  private def onReportClose(room: Room)(using me: MyId) =
     maxScoreCache.invalidateUnit()
-    lila.mon.mod.report.close.increment()
+    lila.mon.mod.report.close(me, room.key).increment()
 
   private def deleteIfAppealInquiry(report: Report)(using me: MyId): Fu[Boolean] =
     if report.isAppealInquiryByMe
@@ -432,7 +434,7 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
-  private val maxScoreCache = cacheApi.unit[Room.Scores]:
+  private val maxScoreCache = cacheApi.unit[Room.Scores]("report.maxScore"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       Room.allButXfiles
         .parallel: room =>
@@ -513,17 +515,19 @@ final class ReportApi(
         "open" -> true
       )
 
-  def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
+  def recentReportersOf(sus: Suspect, room: Room): Fu[List[ReporterId]] =
     coll
       .distinctEasy[ReporterId, List](
         "atoms.by",
         $doc(
           "user" -> sus.user.id,
-          "atoms.0.at".$gt(nowInstant.minusDays(7))
-        ),
+          "atoms.0.at".$gt(nowInstant.minusDays(7)),
+          "room" -> room.key
+        ) ++ (room == Room.Other).so:
+          $doc("inquiry".$exists(false))
+        ,
         _.sec
       )
-      .dmap(_.filterNot(ReporterId.lichess.==))
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room])(using mod: Me): Fu[List[Report.WithSuspect]] =
     for
@@ -623,7 +627,7 @@ final class ReportApi(
       maxSize = Max(32),
       timeout = 20.seconds,
       name = "report.inquiries",
-      lila.log.asyncActorMonitor.full
+      lila.mon.asyncActorMonitor.full
     )
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =
@@ -647,7 +651,7 @@ final class ReportApi(
           "inquiry.mod".$exists(true),
           "user" -> suspectId,
           "room" -> Room.Other.key,
-          "atoms.0.text" -> Report.appealText
+          "atoms.0.text".$startsWith(Report.appealTextPrefix)
         ),
         "inquiry"
       )
@@ -683,7 +687,7 @@ final class ReportApi(
                 .updateField(
                   $id(r.id),
                   "inquiry",
-                  Report.Inquiry(mod.userId, nowInstant)
+                  Report.Inquiry(mod.modId, nowInstant)
                 )
                 .void
             )
@@ -709,8 +713,8 @@ final class ReportApi(
     def spontaneous(sus: Suspect)(using Me): Fu[Report] =
       openOther(sus, Report.spontaneousText)
 
-    def appeal(sus: Suspect)(using Me): Fu[Report] =
-      openOther(sus, Report.appealText)
+    def appeal(user: User, topic: AppealTopic)(using Me): Fu[Report] =
+      openOther(Suspect(user), Report.appealText(topic))
 
     def myUsernameReportText(using me: Me): Fu[Option[String]] =
       ofModId(me).map: report =>
@@ -732,7 +736,7 @@ final class ReportApi(
               ).scored(Report.Score(0)),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.userId, nowInstant).some)
+            .copy(inquiry = Report.Inquiry(mod.modId, nowInstant).some)
           coll.insert.one(report).inject(report)
         }
 

@@ -1,10 +1,11 @@
 package lila.security
 
 import play.api.data.validation.*
+import scalalib.net.Domain
 
-import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
 import lila.core.email.NormalizedEmailAddress
+import lila.mon.extensions.*
 
 /** Validate and normalize emails
   */
@@ -26,11 +27,11 @@ final class EmailAddressValidator(
     else Valid
 
   def uniqueAsync(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    isTakenBySomeoneElse(email, forUser).zip(wasUsedTwiceRecently(email)).dmap(!_ && !_)
+    isTakenBySomeoneElse(email, forUser).not
 
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique"): email =>
-      if uniqueAsync(email, forUser).await(2.seconds, "emailUnique")
+      if uniqueAsync(email, forUser).await(1.second, "emailUnique")
       then Valid
       else Invalid(ValidationError("error.email_unique"))
 
@@ -115,10 +116,6 @@ final class EmailAddressValidator(
      * luzkruegel.xnp17+mtcwg275w2@gmail.com */
     private val regex = """\+(\w{4,10})@(outlook|gmail|googlemail|hotmail)\.com$""".r.unanchored
     def is(e: EmailAddress): Boolean = regex.matches(e.value)
-
-  private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|
-      userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
   enum Result(val error: Option[String]):

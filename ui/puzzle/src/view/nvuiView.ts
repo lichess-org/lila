@@ -11,14 +11,13 @@ import { renderSetting } from 'lib/nvui/setting';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
+import { next as controlNext, prev } from '@/control';
+import type PuzzleCtrl from '@/ctrl';
 import { nextCorrectMove } from '@/moveTree';
-
-import { next as controlNext, prev } from '../control';
-import type PuzzleCtrl from '../ctrl';
-import type { PuzzleNvuiContext } from '../puzzle.nvui';
-import { makeConfig } from '../view/chessground';
-import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
-import theme from '../view/theme';
+import type { PuzzleNvuiContext } from '@/puzzle.nvui';
+import { makeConfig } from '@/view/chessground';
+import { puzzleBox, renderDifficultyForm, userBox } from '@/view/side';
+import theme from '@/view/theme';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -45,6 +44,8 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
     boardStyle.set('plain');
   }
 
+  const pov = ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov;
+
   const boardView = [
     hl('h2', 'Board'),
     hl(
@@ -58,7 +59,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
 
       nv.renderBoard(
         ground.state.pieces,
-        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        pov,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
@@ -85,7 +86,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         nv.renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
       ),
       hl('h2', 'Pieces'),
-      nv.renderPieces(ground.state.pieces, moveStyle.get()),
+      nv.renderPieces(ground.state.pieces, moveStyle.get(), pov),
       hl('h2', 'Puzzle status'),
       hl(
         'div.status',
@@ -162,24 +163,30 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
   );
 }
 
-function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
-  const { notify, ctrl } = ctx;
-  const btn = (cls: string, text: string, onClick: () => void): VNode =>
-    hl(`button.${cls}`, { attrs: { type: 'button' }, hook: bind('click', onClick) }, text);
+function touchDeviceButton(cls: string, text: string, onClick: () => void): VNode {
+  return hl(`button.${cls}`, { attrs: { type: 'button' }, hook: bind('click', onClick) }, text);
+}
+
+function renderTouchDeviceCommands({ notify, ctrl }: PuzzleNvuiContext): LooseVNodes {
   return hl('div.actions', [
-    ctrl.mode !== 'view' && btn('last-move', 'Last move', () => notify.set($('.lastMove').text())),
     ctrl.mode !== 'view' &&
-      btn('touch-hint', i18n.site.getAHint, () => {
+      touchDeviceButton('last-move', 'Last move', () => notify.set($('.lastMove').text())),
+    ctrl.mode !== 'view' &&
+      touchDeviceButton('touch-hint', i18n.site.getAHint, () => {
         const hint = nextCorrectMove(ctrl);
         if (hint) notify.set(makeSquare(hint.from));
       }),
-    ctrl.mode !== 'view' && btn('touch-solution', i18n.site.viewTheSolution, ctrl.viewSolution),
-    ctrl.mode === 'view' && btn('touch-continue', i18n.puzzle.continueTraining, ctrl.nextPuzzle),
+    ctrl.mode !== 'view' && touchDeviceButton('touch-solution', i18n.site.viewTheSolution, ctrl.viewSolution),
+    ctrl.mode === 'view' &&
+      touchDeviceButton('touch-continue', i18n.puzzle.continueTraining, ctrl.nextPuzzle),
   ]);
 }
 
-function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): void {
-  const { ctrl, moveStyle, pieceStyle, prefixStyle, notify } = ctx;
+function boardEventsHook(
+  { ctrl, moveStyle, pieceStyle, prefixStyle, notify }: PuzzleNvuiContext,
+  ground: Api,
+  el: HTMLElement,
+): void {
   const $board = $(el);
   // Remove old handlers before rebinding (important on re-render)
   $board.off('.nvui');
@@ -213,8 +220,7 @@ function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): 
   });
 }
 
-function lastMove(ctrl: PuzzleCtrl, style: nv.MoveStyle): string {
-  const node = ctrl.node;
+function lastMove({ node }: PuzzleCtrl, style: nv.MoveStyle): string {
   return node.ply === 0
     ? 'Initial position'
     : // make sure consecutive moves are different so that they get re-read
@@ -232,7 +238,7 @@ function onSubmit(
     ev.preventDefault();
     let input = nv.castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
+    if (input.startsWith('/')) onCommand(ctrl, notify, input.slice(1), style());
     else {
       const uci = nv.inputToMove(input, ctrl.node.fen, ground);
       if (uci && typeof uci === 'string') {
@@ -247,22 +253,22 @@ function onSubmit(
   };
 }
 
-const isYourMove = (ctrl: PuzzleCtrl): boolean =>
-  ctrl.node.children.length === 0 || ctrl.node.children[0].puzzle === 'fail';
+const isYourMove = ({ node }: PuzzleCtrl): boolean =>
+  node.children.length === 0 || node.children[0].puzzle === 'fail';
 
 const browseHint = (ctrl: PuzzleCtrl): string[] =>
   ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
-const shortCommands = ['b', 'l', 'last', 'p', 's', 'v'];
+const shortCommands = new Set(['b', 'l', 'last', 'p', 's', 'v']);
 
-const isShortCommand = (input: string): boolean => shortCommands.includes(input.split(' ')[0].toLowerCase());
+const isShortCommand = (input: string): boolean => shortCommands.has(input.split(' ')[0].toLowerCase());
 
 function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: nv.MoveStyle): void {
   const lowered = c.toLowerCase();
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
-  else if (lowered.charAt(0) === 'b') commands().board.apply(c, pieces, style);
+  else if (lowered.startsWith('b')) commands().board.apply(c, pieces, style);
   else
     notify(
       commands().piece.apply(c, pieces, style) ||
@@ -273,9 +279,9 @@ function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, s
 
 function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void): void {
   if (ctrl.mode === 'view') {
-    const node = ctrl.node,
-      next = nextNode(node),
-      nextNext = nextNode(next);
+    const node = ctrl.node;
+    const next = nextNode(node);
+    const nextNext = nextNode(next);
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
       controlNext(ctrl);
       ctrl.redraw();
@@ -290,10 +296,8 @@ const isInSolution = (node?: TreeNode): boolean =>
 const nextNode = (node?: TreeNode): TreeNode | undefined =>
   node?.children?.length ? node.children[0] : undefined;
 
-const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>
-  !ctrl.streak
-    ? []
-    : [hl('h2', 'Puzzle streak'), hl('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
+const renderStreak = ({ streak }: PuzzleCtrl): VNode[] =>
+  !streak ? [] : [hl('h2', 'Puzzle streak'), hl('p', streak.data.index || i18n.puzzle.streakDescription)];
 
 function renderStatus(ctrl: PuzzleCtrl): string {
   if (ctrl.mode !== 'view') return 'Solving';
@@ -302,18 +306,17 @@ function renderStatus(ctrl: PuzzleCtrl): string {
   else return i18n.puzzle.puzzleComplete;
 }
 
-function renderReplay(ctrl: PuzzleCtrl): string {
-  const replay = ctrl.data.replay;
+function renderReplay({ data, mode }: PuzzleCtrl): string {
+  const replay = data.replay;
   if (!replay) return '';
-  const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
-  const text = i18n.puzzleTheme[ctrl.data.angle.key];
+  const i = replay.i + (mode === 'play' ? 0 : 1);
+  const text = i18n.puzzleTheme[data.angle.key];
   return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
-const playActions = (ctx: PuzzleNvuiContext): VNode => {
-  const { ctrl, notify } = ctx;
+const playActions = ({ ctrl, notify }: PuzzleNvuiContext): VNode => {
   return ctrl.streak
-    ? requiresI18n('storm', ctx.ctrl.redraw, cat =>
+    ? requiresI18n('storm', ctrl.redraw, cat =>
         button(cat.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak?.data.skip),
       )
     : hl('div.actions-play', [

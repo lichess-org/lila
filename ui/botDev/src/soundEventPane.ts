@@ -1,6 +1,6 @@
 import { frag } from 'lib';
 import type { Sound } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 import { env } from './devEnv';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
@@ -15,7 +15,7 @@ export class SoundEventPane extends Pane {
     super(p);
     this.template = (p.parent!.info as SoundsInfo).template!;
     this.label.prepend(
-      frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
+      frag(`<icon role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
     this.label.append(frag(`<span class="hide-disabled"><hr><span class="total-chance dim"></span></span>`));
     this.value?.forEach((_, index) => this.makeSound(index));

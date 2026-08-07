@@ -46,4 +46,5 @@ export const view = (ctrl: RoundController): VNode =>
       ctrl.redraw();
     },
     modal: true,
+    easyClose: 'clickOutside',
   });

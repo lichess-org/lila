@@ -202,10 +202,10 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits, *, stage):
                 if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != workflow_url:
                     continue
 
-                if run["event"] == "pull_request" and not stage:
+                if run["event"] in ("pull_request", "workflow_dispatch") and not stage:
                     # Not accepted in production, because pull request builds
                     # do not have access to the secret store. Hence no ab.
-                    print(f"- {run['html_url']} PULL REQUEST (no ab)")
+                    print(f"- {run['html_url']} NOT PROD-ELIGIBLE ({run['event']})")
                 elif run["status"] != "completed":
                     print(f"- {run['html_url']} PENDING (waiting {backoff}s)")
                     pending = True
@@ -326,8 +326,8 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
 
     try:
         wanted_hash = hash_files(commit.tree, profile["files"])
-    except KeyError:
-        raise DeployError("Commit is missing a required file.")
+    except KeyError as e:
+        raise DeployError(f"Commit is missing a required file: {e}")
 
     wanted_commits = set(find_commits(commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")

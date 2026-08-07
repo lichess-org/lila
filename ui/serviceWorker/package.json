@@ -1,5 +1,5 @@
 {
-  "name": "serviceWorker",
+  "name": "service-worker",
   "private": true,
   "type": "module",
   "build": {

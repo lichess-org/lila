@@ -1,15 +1,16 @@
 import { h, type VNode } from 'snabbdom';
 
 import { defined, notNull } from 'lib';
+import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
-import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
+import { icon, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
 interface ClockOpts {
-  centis: number | undefined;
+  centis?: number;
   active: boolean;
   cls: string;
   showTenths: boolean;
@@ -20,12 +21,12 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
   const node = ctrl.tree.nodeAtPath(path),
     whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, path),
-    isWhiteTurn = node.ply % 2 === 0,
+    isWhiteTurn = plyColor(node.ply) === 'white',
     centis: Array<number | undefined> = (
       isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
     ).map(c => (defined(c) && c < 0 ? undefined : c));
 
-  if (!centis.some(notNull)) return;
+  if (!centis.some(notNull)) return undefined;
 
   const study = ctrl.study;
 
@@ -81,8 +82,10 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
       : opts.centis >= 6000
         ? [baseStr]
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
-  const pauseNodes = opts.pause ? [iconTag(licon.Pause)] : [];
-  return [...pauseNodes, ...timeNodes];
+  if (opts.pause) {
+    return [icon(licon.Pause)(), ...timeNodes];
+  }
+  return timeNodes;
 }
 
 const clockContentNvui = (opts: ClockOpts): MaybeVNode =>

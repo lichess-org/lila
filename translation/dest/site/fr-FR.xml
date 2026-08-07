@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">En attente de votre adversaire</string>
   <string name="orLetYourOpponentScanQrCode">Ou laissez votre adversaire scanner ce code QR</string>
   <string name="reusableChallengeUrl">URL réutilisable pour les défis</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Lien permanent qui permet à quiconque de vous défier avec ces paramètres</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Lien permanent qui permet à quiconque de vous défier avec ces paramètres.</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
   <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
   <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
+  <string name="whiteAborted">Les Blancs ont quitté la partie</string>
+  <string name="blackAborted">Les Noirs ont quitté la partie</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
@@ -95,6 +97,8 @@
   <string name="database">Base de données</string>
   <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
   <string name="averageRatingX">Classement moyen : %s</string>
+  <string name="minRatingX">Classement minimal de %s</string>
+  <string name="maxRatingX">Classement maximal de %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
   <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE >%1$s de %2$s à %3$s</string>
@@ -115,7 +119,7 @@
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
   <string name="lossOr50MovesByPriorMistake">Défaite ou 50 coups par suite d\'une erreur</string>
-  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible de valeurs DTZ faisant partie de tables de finale Syzygy.</string>
+  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondi possible de valeurs DTZ faisant partie de tables de finale Syzygy.</string>
   <string name="allSet">Tout est prêt !</string>
   <string name="importPgn">Importer le PGN</string>
   <string name="delete">Effacer</string>
@@ -126,7 +130,6 @@
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>
-  <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="visualMotifs">Motifs visuels</string>
   <string name="undefendedPieces">Pièces non défendues</string>
   <string name="pinnedPieces">Pièces clouées</string>
@@ -135,12 +138,12 @@
   <string name="multipleLinesDescription">Définir le nombre de lignes d\'analyse et de flèches sur l\'échiquier</string>
   <string name="searchTime">Temps d\'analyse</string>
   <string name="searchTimeDescription">Établir le temps d\'analyse des nouvelles positions</string>
-  <string name="threads">Coeurs</string>
-  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de coeurs de votre processeur. Les flèches indiquent le choix optimal.</string>
+  <string name="threads">Cœurs</string>
+  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de cœurs de votre processeur. Les flèches indiquent le choix optimal</string>
   <string name="threadsDescriptionMobile">Utiliser plus de coeurs consomme plus d\'énergie, mais permet une meilleure analyse.</string>
   <string name="cpus">Processeurs</string>
   <string name="memory">Mémoire</string>
-  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances.</string>
+  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
   <string name="blunder">Gaffe</string>
@@ -174,7 +177,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
-  <string name="drawClaimed">Offre de nulle</string>
+  <string name="drawClaimed">Nulle revendiquée</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -268,6 +271,7 @@
   <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Si vous n\'avez pas reçu de courriel de confirmation, vérifiez votre boîte de pourriels. Assurez-vous de mettre les messages de Lichess sur votre liste blanche pour recevoir les communications importantes.</string>
   <string name="sendEmailForAccountVerification">Vous ne trouvez pas votre courriel de confirmation? Envoyez un courriel à %s et nous confirmerons votre compte pour vous.</string>
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
@@ -481,6 +485,7 @@
     <item quantity="one">%s suivi</item>
     <item quantity="other">%s suivis</item>
   </plurals>
+  <string name="less">Moins de choix</string>
   <string name="more">Plus</string>
   <string name="memberSince">Membre depuis</string>
   <string name="lastSeenActive">Actif %s</string>
@@ -577,6 +582,9 @@
   <string name="replies">Réponses</string>
   <string name="replyToThisTopic">Répondre à ce sujet</string>
   <string name="reply">Répondre</string>
+  <string name="reopen">Rouvrir</string>
+  <string name="quote">Citer</string>
+  <string name="postEdited">Modifié</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Créer un sujet</string>
   <string name="reportAUser">Signaler un utilisateur</string>
@@ -589,6 +597,7 @@
   <string name="reportCheatBoostHelp">Collez le lien vers la ou les parties et expliquez pourquoi le comportement de l\'utilisateur est inapproprié. Ne dites pas juste « il triche »; expliquez comment vous êtes arrivé à cette conclusion.</string>
   <string name="reportUsernameHelp">Expliquez pourquoi ce nom d\'utilisateur est offensant. Ne dites pas simplement qu\'il est choquant ou inapproprié; expliquez comment vous êtes arrivé à cette conclusion, surtout si l\'insulte n\'est pas claire, n\'est pas en anglais, est en argot ou a une connotation historique ou culturelle.</string>
   <string name="reportProcessedFasterInEnglish">Votre rapport sera traité plus rapidement s\'il est rédigé en anglais.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Nous pouvons traiter votre rapport plus rapidement si vous l\'écrivez en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
   <string name="by">par %s</string>
   <string name="importedByX">Importée par %s</string>
@@ -713,6 +722,7 @@
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Créer un simultanée vous permet de jouer contre plusieurs adversaires en même temps.</string>
   <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
@@ -806,17 +816,26 @@
   <string name="xHostsY">%1$s héberge %2$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
+  <string name="like">Aime</string>
+  <string name="liked">Aimé</string>
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonyme</item>
+    <item quantity="other">Anonymes (%s)</item>
+  </plurals>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
   <string name="allLanguages">Toutes les langues</string>
   <string name="background">Arrière-plan</string>
+  <string name="theme">Thème</string>
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Photo</string>
   <string name="deviceTheme">Thème de l\'appareil</string>
+  <string name="roundness">Coins arrondis</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="board">Échiquier</string>
   <string name="size">Taille</string>
@@ -941,6 +960,7 @@
   <string name="tryTheContactPage">essayez la page de contact</string>
   <string name="makeSureToRead">Veillez à lire %1$s</string>
   <string name="theForumEtiquette">le règlement du forum</string>
+  <string name="pleaseBeNiceInTheForum">Faites preuve de courtoisie dans le forum.</string>
   <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
   <string name="joinTheTeamXToPost">Pour poster sur ce forum, rejoignez %1$s</string>
   <string name="teamNamedX">Équipe %1$s</string>
@@ -953,7 +973,6 @@
   <string name="xInvitedYouToY">%1$s vous a invité à « %2$s ».</string>
   <string name="youAreNowPartOfTeam">Vous faites maintenant partie de l’équipe.</string>
   <string name="youHaveJoinedTeamX">Vous avez joint l\'équipe \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Quelqu\'un que vous avez signalé a été banni.</string>
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
   <string name="gameVsX">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
@@ -986,6 +1005,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
   <string name="markdownIsAvailable">%s est disponible pour aider au formatage.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Vous pouvez utiliser %s pour formater du texte.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
@@ -993,6 +1013,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
   <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
   <string name="navigateMoveTree">Naviguer dans l\'arborescence</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navigation dans la liste de coups</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
   <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>
@@ -1009,7 +1030,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Abandonner la partie</string>
-  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
+  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie si c\'est à votre tour de jouer.</string>
   <string name="since">De</string>
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
@@ -1033,4 +1054,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>
+  <string name="settings">Paramètres</string>
 </resources>

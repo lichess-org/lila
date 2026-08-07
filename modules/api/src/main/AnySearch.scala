@@ -24,6 +24,7 @@ final class AnySearch(
 
         def broadcastRound = relayEnv.api.byIdWithTour(RelayRoundId(id)).map2(_.path)
         def broadcastTour = relayEnv.api.tourById(RelayTourId(id)).map2(_.call.url)
+        def broadcastGroup = relayEnv.api.groupById(RelayGroupId(id)).map2(_.call.url)
 
         def study = studyEnv.studyRepo.exists(StudyId(id)).map(_.option(routes.Study.show(StudyId(id)).url))
         def chapter =
@@ -46,6 +47,7 @@ final class AnySearch(
         game
           .orElse(broadcastRound)
           .orElse(broadcastTour)
+          .orElse(broadcastGroup)
           .orElse(study)
           .orElse(chapter)
           .orElse(puzzle)

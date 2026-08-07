@@ -10,11 +10,11 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def orderSelect(order: StudyOrder, active: String, url: StudyOrder => Call)(using Context) =
+  def orderSelect(order: StudyOrder, active: StudyGroup, url: StudyOrder => Call)(using Context) =
     val orders =
-      if active == "search" then Orders.search
-      else if active == "all" then Orders.withoutSelector
-      else if active.startsWith("topic") then Orders.list
+      if active == StudyGroup.search then Orders.search
+      else if active == StudyGroup.all then Orders.withoutSelector
+      else if active.isTopic then Orders.list
       else Orders.withoutMine
     lila.ui.bits.mselect(
       "orders",
@@ -32,23 +32,32 @@ final class StudyBits(helpers: Helpers):
       )
     )
 
-  def authLinks(active: String, order: StudyOrder)(using Context) =
-    def activeCls(c: String) = cls := (c == active).option("active")
+  def authLinks(
+      activeCls: StudyGroup => AttrPair,
+      order: StudyGroup => StudyOrder
+  )(using Context) =
     frag(
-      a(activeCls("mine"), href := routes.Study.mine(order))(trans.study.myStudies()),
-      a(activeCls("mineMember"), href := routes.Study.mineMember(order))(
+      a(activeCls(StudyGroup.mine), href := routes.Study.mine(order(StudyGroup.mine)))(
+        trans.study.myStudies()
+      ),
+      a(activeCls(StudyGroup.mineMember), href := routes.Study.mineMember(order(StudyGroup.mineMember)))(
         trans.study.studiesIContributeTo()
       ),
-      a(activeCls("minePublic"), href := routes.Study.minePublic(order))(trans.study.myPublicStudies()),
-      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order))(
+      a(activeCls(StudyGroup.minePublic), href := routes.Study.minePublic(order(StudyGroup.minePublic)))(
+        trans.study.myPublicStudies()
+      ),
+      a(activeCls(StudyGroup.minePrivate), href := routes.Study.minePrivate(order(StudyGroup.minePrivate)))(
         trans.study.myPrivateStudies()
       ),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order))(trans.study.myFavoriteStudies())
+      a(activeCls(StudyGroup.mineLikes), href := routes.Study.mineLikes(order(StudyGroup.mineLikes)))(
+        trans.study.myFavoriteStudies()
+      )
     )
 
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
+      canUnfeature.option(unfeatureForm(s)),
       div(cls := "top")(
         div(cls := "study__icon")(
           s.study.flair
@@ -93,3 +102,11 @@ final class StudyBits(helpers: Helpers):
         )
       )
     )
+
+  private def unfeatureForm(s: Study.WithChaptersAndLiked) =
+    postForm(cls := "study-unfeature", action := s"${routes.Study.admin(s.study.id)}?unfeature=1"):
+      submitButton(
+        cls := "button button-red button-empty yes-no-confirm",
+        dataIcon := Icon.Trash,
+        title := "Unfeature trash study"
+      )

@@ -5,7 +5,7 @@ import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
   text = '';
-  date: Date | undefined;
+  date?: Date;
 
   constructor(public redraw: Redraw | undefined) {}
 
@@ -22,7 +22,7 @@ export class Notify {
 export function liveText(
   text: string,
   live: 'assertive' | 'polite' = 'polite',
-  sel: string = 'p',
+  sel = 'p',
   forceKey?: Date,
 ): VNode {
   const data: VNodeData = isMac()

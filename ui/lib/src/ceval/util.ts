@@ -6,13 +6,10 @@ import { domDialog } from '@/view';
 
 import { memoize, escapeHtml } from '../index';
 
-export function isEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
-  return (
-    a.depth > b.depth ||
-    (a.depth === b.depth && a.nodes > b.nodes) ||
-    (a.pvs.length >= desiredPvs && b.pvs.length < desiredPvs)
-  );
-}
+export const isFirstEvalBetter = (a: ClientEval, b: ClientEval, desiredPvs: number): boolean =>
+  a.pvs.length >= desiredPvs !== b.pvs.length >= desiredPvs
+    ? a.pvs.length >= desiredPvs
+    : a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 
 export function renderEval(e: number): string {
   e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
@@ -48,6 +45,7 @@ export function showEngineError(engine: string, error: string): void {
   domDialog({
     class: 'engine-error',
     modal: true,
+    easyClose: 'clickOutside',
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')

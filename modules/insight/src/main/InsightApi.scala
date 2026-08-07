@@ -3,6 +3,7 @@ package lila.insight
 import scalalib.HeapSort.botN
 
 import lila.game.GameRepo
+import lila.mon.extensions.*
 
 final class InsightApi(
     storage: InsightStorage,
@@ -41,14 +42,14 @@ final class InsightApi(
             gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds).botN(4), user)
           .map { Answer(question, clusters, _) }
       }
-      .monSuccess(_.insight.user)
+      .monSuccess(lila.mon.insight.user)
 
   def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
       .aggregate(question, Right(PeersRatingRange.of(rating)), withPovs = false, nbGames = nbGames)
       .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
-      .monSuccess(_.insight.peers)
+      .monSuccess(lila.mon.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
     indexer
@@ -65,7 +66,7 @@ final class InsightApi(
               case _ => UserStatus.Fresh
 
   def indexAll(user: User, force: Boolean): Funit =
-    for _ <- indexer.all(user, force).monSuccess(_.insight.index)
+    for _ <- indexer.all(user, force).monSuccess(lila.mon.insight.index)
     yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =

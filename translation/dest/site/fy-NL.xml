@@ -111,7 +111,6 @@
   <string name="enable">Ynskeakelje</string>
   <string name="bestMoveArrow">Bêste set-pylk</string>
   <string name="showVariationArrows">Toan fariaasje pylken</string>
-  <string name="evaluationGauge">Evaluaasjemeter</string>
   <string name="multipleLines">Oantal farianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>

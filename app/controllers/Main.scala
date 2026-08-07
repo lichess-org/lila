@@ -132,14 +132,15 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
             case None => JsonBadRequest("Image content only")
             case Some(image) =>
               val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
-              for
+              (for
                 image <- env.memo.picfitApi.uploadFile(image, me, none, meta)
                 maxWidth = lila.ui.bits.imageDesignWidth(rel)
                 url = meta match
                   case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
                     maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
                   case _ => env.memo.picfitUrl.raw(image.id).some
-              yield JsonOk(Json.obj("imageUrl" -> url))
+              yield JsonOk(Json.obj("imageUrl" -> url))).recover:
+                case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
   def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>

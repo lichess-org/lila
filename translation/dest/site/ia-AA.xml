@@ -96,7 +96,6 @@
   <string name="byCPL">Per errores</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha de melior movimento</string>
-  <string name="evaluationGauge">Indicator de evalutation</string>
   <string name="multipleLines">Lineas de analyse</string>
   <string name="cpus">Processatores</string>
   <string name="memory">Memoria</string>

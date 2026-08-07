@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { ops as treeOps } from 'lib/tree/tree';
 import { bind } from 'lib/view';
 

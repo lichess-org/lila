@@ -48,8 +48,8 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
 
   def iconOf(e: Event) =
     e.icon match
-      case None => i(cls := "img", dataIcon := Icon.Mic)
-      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := Icon.RadioTower)
+      case None => iconTag(Icon.Mic)(cls := "img")
+      case Some(c) if c == EventForm.icon.broadcast => iconTag(Icon.RadioTower)(cls := "img")
       case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
 
   def show(e: Event, description: Option[Html])(using Context) =

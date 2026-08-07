@@ -8,6 +8,8 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
+
 export type Prop<T> = {
   (): T;
   (v: T): T;
@@ -56,16 +58,6 @@ export const toggle = (initialValue: boolean, effect: (value: boolean) => void =
   return prop;
 };
 
-export const toggleWithConstraint = (value: boolean, constraint: () => boolean): Toggle => {
-  return Object.assign(
-    (v?: boolean): boolean => {
-      if (defined(v)) value = v && constraint();
-      return value;
-    },
-    { toggle: () => (value = !value && constraint()), effect: () => {} },
-  );
-};
-
 // Only computes a value once. The computed value must not be undefined.
 export const memoize = <A>(compute: () => A): (() => A) => {
   let computed: A;
@@ -78,14 +70,14 @@ export const memoize = <A>(compute: () => A): (() => A) => {
 export const scrollToInnerSelector = (
   el: HTMLElement,
   selector: string,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
 export const scrollTo = (
   el: HTMLElement,
   target: HTMLElement | null,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => {
   if (!target) return;
@@ -145,7 +137,7 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
-    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+    for (let d = 350; ;) yield Math.max(100, (d *= 14 / 15));
   })();
   const repeat = () => {
     f();

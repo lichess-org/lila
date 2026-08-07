@@ -1,10 +1,11 @@
 package lila.puzzle
 
 import chess.opening.{ Opening, OpeningDb, OpeningFamily }
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.core.i18n.I18nKey
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, MongoCache }
 import lila.memo.CacheApi.buildAsyncTimeout
@@ -55,7 +56,7 @@ final class PuzzleOpeningApi(
     gameRepo: lila.core.game.GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using Executor, akka.stream.Materializer, Scheduler):
+)(using Executor, org.apache.pekko.stream.Materializer, Scheduler):
   import BsonHandlers.given
   import SimpleOpening.*
   import PuzzleOpening.*
@@ -71,7 +72,7 @@ final class PuzzleOpeningApi(
         )
 
   private val collectionCache =
-    cacheApi.unit[PuzzleOpeningCollection]:
+    cacheApi.unit[PuzzleOpeningCollection]("puzzle.opening.collection"):
       _.refreshAfterWrite(1.hour).buildAsyncTimeout(1.minute): _ =>
         countedCache
           .get(())

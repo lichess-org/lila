@@ -19,7 +19,7 @@
   <string name="highscoreX">最高分：%s</string>
   <string name="score">得分</string>
   <string name="moves">着法数</string>
-  <string name="accuracy">准确率</string>
+  <string name="accuracy">准确度</string>
   <string name="combo">连击数</string>
   <string name="time">用时</string>
   <string name="timePerMove">每步用时</string>

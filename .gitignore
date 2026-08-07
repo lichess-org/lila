@@ -41,6 +41,7 @@ ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
 dump.rdb
+.venv
 
 RUNNING_PID
 instance.lock
@@ -66,3 +67,10 @@ instance.lock
 
 # deploy bearer
 .lila-cli
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

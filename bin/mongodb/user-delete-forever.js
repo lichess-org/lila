@@ -154,7 +154,7 @@ print(
 print('Delete assessments');
 print(
   db.player_assessment.deleteMany({
-    userId: userId,
+    userId,
   }).deletedCount + ' done',
 );
 

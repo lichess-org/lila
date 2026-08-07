@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Lichessin striimaajasivu on suunnattu yleisölle striimialustasi kielellä. Aseta shakkistriimeillesi sopiva kieli niiden lähetykseen käyttämässäsi sovelluksessa tai palvelussa.</string>
   <string name="pleaseAllow">Striimaajatunnuksesi ja listautumisesi hyväksynnässä voi kestää 72 tuntia.</string>
   <string name="chooseYoutubeChannel">Valitse YouTube-kanava, jota käytät Lichessissä.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Yhdistä</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Katkaise yhteys</string>
+  <string name="connect">Yhdistä</string>
+  <string name="disconnect">Katkaise yhteys</string>
   <string name="streamerName">Striimaajanimesi Lichessissä</string>
   <plurals name="keepItShort">
     <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
     <item quantity="other">Pidä se lyhyenä: %s merkkiä enintään</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Näkyy striimaajat-sivulla</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kun moderaattori hyväksyy</string>
+  <string name="visibility">Näkyy striimaajat-sivulla</string>
+  <string name="whenApproved">Kun moderaattori hyväksyy</string>
   <string name="headline">Otsikko</string>
   <string name="tellUsAboutTheStream">Kerro striimistäsi yhdellä lauseella</string>
   <string name="longDescription">Pitkä kuvaus</string>

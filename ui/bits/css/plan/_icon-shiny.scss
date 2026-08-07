@@ -1,32 +1,26 @@
 @import '../../../lib/css/abstract/patron-colors';
 
-@mixin dynamic-text-gradient($base-color) {
-  background-image: linear-gradient(65deg, $base-color 35%, lighten($base-color, 25%) 50%, $base-color 60%);
-}
-
 .patron-icon--shiny {
-  i {
+  icon {
     @extend %data-icon;
   }
 
-  i::before {
+  icon::before {
     content: $licon-Wings !important;
     background-clip: text;
     color: transparent;
   }
 
-  @each $id, $color in $patron-colors-dark {
+  @for $id from 1 through $patron-levels {
+    $color: var(--c-patron-#{$id});
     &--#{$id} {
-      i::before {
-        @include dynamic-text-gradient($color);
-      }
-    }
-  }
-
-  @each $id, $color in $patron-colors-light {
-    html.light &--#{$id} {
-      i::before {
-        @include dynamic-text-gradient($color);
+      icon::before {
+        background-image: linear-gradient(
+          65deg,
+          $color 35%,
+          hsl(from $color h s calc(l + 25)) 50%,
+          $color 60%
+        );
       }
     }
   }

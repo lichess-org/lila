@@ -1,7 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 
 import java.io.File
 import scala.concurrent.blocking
@@ -9,7 +9,7 @@ import scala.sys.process.*
 
 final private class PairingSystem(trf: SwissTrf, executable: String)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
@@ -27,7 +27,7 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       val command = s"$executable --$flavour $file -p"
       val stdout = new collection.mutable.ListBuffer[String]
       val stderr = new StringBuilder
-      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
+      val status = lila.mon.Chronometer.syncMon(lila.mon.swiss.bbpairing):
         blocking:
           command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then

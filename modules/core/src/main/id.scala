@@ -116,9 +116,6 @@ object id:
   opaque type StudentId = String
   object StudentId extends OpaqueString[StudentId]
 
-  opaque type AppealId = String
-  object AppealId extends lila.core.userId.OpaqueUserId[AppealId]
-
   opaque type CmsPageId = String
   object CmsPageId extends OpaqueString[CmsPageId]
 

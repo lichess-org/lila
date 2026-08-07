@@ -3,7 +3,9 @@ import { hl } from 'lib/view';
 import type LobbyController from '@/ctrl';
 
 export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController) => {
-  if (!me || !data.ratingMap) return null;
+  const myRating = setupCtrl.myRating();
+
+  if (!me || !data.ratingMap || !myRating) return null;
 
   const isProvisional = setupCtrl.isProvisional();
 
@@ -12,7 +14,10 @@ export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController
     return hl(`input.range.rating-range__${type}`, {
       attrs: {
         type: 'range',
-        'aria-label': i18n.site.ratingFilter,
+        'aria-label':
+          type === 'min'
+            ? i18n.site.minRatingX(myRating + setupCtrl.ratingMin())
+            : i18n.site.maxRatingX(myRating + setupCtrl.ratingMax()),
         min: isMin ? '-500' : '0',
         max: isMin ? '0' : '500',
         step: '50',

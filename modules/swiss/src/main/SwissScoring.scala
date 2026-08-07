@@ -3,12 +3,14 @@ package lila.swiss
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   import BsonHandlers.given
 
-  def compute(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
+  def compute(id: SwissId): Fu[Option[SwissScoring.Result]] =
+    sequencer(id).monSuccess(lila.mon.swiss.scoringGet)
 
   private val sequencer = scalalib.actor.AskPipelines[SwissId, Option[SwissScoring.Result]](
     compute = recompute,
@@ -51,7 +53,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
             pairingMap
           )
           .some
-      .monSuccess(_.swiss.scoringRecompute)
+      .monSuccess(lila.mon.swiss.scoringRecompute)
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields: f =>

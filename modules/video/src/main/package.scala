@@ -7,4 +7,4 @@ type Target = Int
 type Tag = String
 type Lang = String
 
-private val logger = lila.log("video")
+private lazy val logger = lila.log("video")

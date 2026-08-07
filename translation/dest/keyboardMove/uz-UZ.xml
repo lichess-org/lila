@@ -18,5 +18,5 @@
   <string name="bothTheLetterOAndTheDigitZero">Rokirovka uchun \"o\" harfi hamda \"0\" nol raqami ishlatilishi mumkin</string>
   <string name="ifItIsLegalToCastleBothWays">Agar ikki tomonga ham rokirovka ochiq boʻlsa, qisqa rokirovka uchun enter bosing</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Katta va kichik harflar fil va b ustundagi piyodani farqlash uchun oʻrinlidir</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Oldindan yurish uchun shunchaki navbatingizdan oldin yurishingizni kiriting</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Oldindan yurish uchun shunchaki galingizdan oldin yurishingizni kiriting</string>
 </resources>

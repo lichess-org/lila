@@ -2,11 +2,9 @@ package lila.mod
 package ui
 
 import play.api.data.Form
-import play.api.libs.json.Json
 
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
-import lila.mod.ModActivity.{ Period, Who }
 import lila.ui.*
 
 import lila.report.Mod
@@ -146,7 +144,7 @@ final class ModUi(helpers: Helpers):
         )
       )
 
-  def presets(group: String, form: Form[?])(using Context) =
+  def presets(group: ModPresets.Group, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
       main(cls := "page-menu modMenu")(
         menu("presets"),
@@ -156,14 +154,14 @@ final class ModUi(helpers: Helpers):
               s"$group presets",
               small(
                 " / ",
-                ModPresets.groups.filter(group !=).map { group =>
-                  a(href := routes.Mod.presets(group))(s"$group presets")
+                ModPresets.Group.values.filter(group !=).map { group =>
+                  a(href := routes.Mod.presets(group.toString))(s"$group presets")
                 }
               )
             )
           ),
           standardFlash,
-          postForm(action := routes.Mod.presetsUpdate(group))(
+          postForm(action := routes.Mod.presetsUpdate(group.toString))(
             form3.group(
               form("v"),
               raw(""),
@@ -230,68 +228,6 @@ final class ModUi(helpers: Helpers):
           )
         )
 
-  def queueStats(p: ModQueueStats.Result)(using Context) =
-    Page("Queues stats")
-      .css("mod.activity")
-      .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
-        main(cls := "page-menu modMenu")(
-          menu("queues"),
-          div(cls := "page-menu__content index box mod-queues")(
-            boxTop(
-              h1(
-                " Queues this ",
-                lila.ui.bits.mselect(
-                  s"mod-activity__period-select box__top__actions",
-                  span(p.period.key),
-                  Period.values.toList.map: per =>
-                    a(
-                      cls := (p.period == per).option("current"),
-                      href := routes.Mod.queues(per.key)
-                    )(per.toString)
-                )
-              )
-            ),
-            div(cls := "chart-grid")
-          )
-        )
-
-  def activity(p: ModActivity.Result)(using Context) =
-    val whoSelector = lila.ui.bits.mselect(
-      s"mod-activity__who-select box__top__actions",
-      span(if p.who == Who.Team then "Team" else "My"),
-      List(
-        a(
-          cls := (p.who == Who.Team).option("current"),
-          href := routes.Mod.activityOf("team", p.period.key)
-        )("Team"),
-        a(
-          cls := (p.who != Who.Team).option("current"),
-          href := routes.Mod.activityOf("me", p.period.key)
-        )("My")
-      )
-    )
-    val periodSelector = lila.ui.bits.mselect(
-      s"mod-activity__period-select box__top__actions",
-      span(p.period.key),
-      Period.values.toList.map { per =>
-        a(
-          cls := (p.period == per).option("current"),
-          href := routes.Mod.activityOf(p.who.key, per.key)
-        )(per.toString)
-      }
-    )
-    Page("Moderation activity")
-      .css("mod.activity")
-      .js(PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> ModActivity.json(p)))):
-        main(cls := "page-menu")(
-          menu("activity"),
-          div(cls := "page-menu__content index box mod-activity")(
-            boxTop(h1(whoSelector, " activity this ", periodSelector)),
-            div(cls := "chart chart-reports"),
-            div(cls := "chart chart-actions")
-          )
-        )
-
   def reportMenu(using Context) = menu("report")
 
   def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag): me ?=>
@@ -300,10 +236,10 @@ final class ModUi(helpers: Helpers):
         .option(a(cls := itemCls(active, "report"), href := routes.Report.list)("Reports")),
       Granter(_.PublicChatView)
         .option(a(cls := itemCls(active, "public-chat"), href := routes.Mod.publicChat)("Public Chats")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "activity"), href := routes.Mod.activity)("Mod activity")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "queues"), href := routes.Mod.queues("month"))("Queues stats")),
+      Granter(_.SeeReport).option:
+        a(targetBlank, href := "https://monitor.lichess.ovh/d/ad7cldm/mod-queue-and-closed-report-charts"):
+          "Queue charts"
+      ,
       Granter(_.GamifyView)
         .option(a(cls := itemCls(active, "gamify"), href := routes.Mod.gamify)("Hall of fame")),
       Granter(_.GamifyView)

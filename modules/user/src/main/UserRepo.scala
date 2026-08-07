@@ -45,6 +45,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       recoverDeleted:
         coll.one[User](enabledSelect ++ $id(u.id))
 
+  def notForeverClosedById[U: UserIdOf](u: U): Fu[Option[User]] =
+    u.id.noGhost.so:
+      recoverDeleted:
+        coll.one[User](notForeverClosedSelect ++ $id(u.id))
+
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.sec)
@@ -195,6 +200,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
+  val notForeverClosedSelect = F.foreverClosed.$ne(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
@@ -342,12 +348,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .void
 
   def reopen(id: UserId) =
-    coll.updateField($id(id), F.enabled, true) >>
+    coll.update.one(
+      $id(id),
+      $set(F.enabled -> true) ++ $unset(F.delete) ++ $pull(F.marks, UserMark.alt)
+    ) >>
       coll.update
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
-            $doc("$unset" -> $doc(F.delete -> true))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -454,9 +462,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one[Bdoc]
       .mapz(anyEmailOrPrevious)
 
-  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+  def notClosedForeverWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
-      .find($doc(F.email -> email, F.enabled -> true))
+      .find($doc(F.email -> email, notForeverClosedSelect))
       .one[Bdoc]
       .map: maybeDoc =>
         for
@@ -515,7 +523,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
 
-  def langOf(id: UserId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
+  def langOf(id: UserId): Fu[Option[LangTag]] = coll.primitiveOne[LangTag]($id(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
@@ -560,6 +568,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def unsetFlairs(all: Set[(UserId, Flair)]): Funit = all.nonEmpty.so:
     all.toList.sequentiallyVoid: (userId, flair) =>
       coll.unsetField($id(userId) ++ $doc(BSONFields.flair -> flair), BSONFields.flair)
+
+  def unsetBio(id: UserId): Funit =
+    coll.unsetField($id(id), s"${F.profile}.bio").void
 
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)

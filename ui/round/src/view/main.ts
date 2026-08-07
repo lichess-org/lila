@@ -1,4 +1,4 @@
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 import { renderVoiceBar } from 'voice';
 
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -19,10 +19,11 @@ export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
+    pending = ctrl.pendingStep(),
     materialDiffs = renderMaterialDiffs(
       ctrl.data.pref.showCaptured,
       ctrl.flip ? ctrl.data.opponent.color : ctrl.data.player.color,
-      ctrl.stepAt(ctrl.ply).fen,
+      pending ? pending.fen : ctrl.stepAt(ctrl.ply).fen,
       !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
       ctrl.data.steps,
       ctrl.ply,

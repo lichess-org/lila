@@ -2,12 +2,12 @@
 <resources>
   <string name="arena">ساحة</string>
   <string name="arenaTournaments">مسابقات الساحة</string>
-  <string name="isItRated">هل هي مقيمة؟</string>
-  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="isItRated">هل هي مصنفة؟</string>
+  <string name="willBeNotified">سيتم إعلامك عند بَدْء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى في أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
-  <string name="isNotRated">هذه البطولة ليست مقيمة ولن تؤثر على تقييمك.</string>
-  <string name="someRated">بعض البطولات تكون مقيمة وتؤثر على تقييمك.</string>
-  <string name="howAreScoresCalculated">كيف تحتسب النقاط؟</string>
+  <string name="isNotRated">هذه البطولة ليست مصنفه ولن تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مصنفة وتؤثر على تقييمك.</string>
+  <string name="howAreScoresCalculated">كيف تحتسب النِّقَاط؟</string>
   <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
 إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
 وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
@@ -76,6 +76,12 @@
   <string name="rankAvgHelp">متوسط ​​الرتبة هو نسبة مئوية من رتبتك. الأقل أفضل.
 
 على سبيل المثال، الحصول على المركز 3 في بطولة تضم 100 لاعب = 3%. حصولك على المركز العاشر في بطولة تضم 1000 لاعب = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">مثل متوسط ترتيبك مركزك المعتاد في نهاية البطولات، مقارنةً بإجمالي عدد اللاعبين في كل بطولة.
+
+وهذا المقياس يظهر ترتيبك في البطولات، وليس تصنيفك بشكل عام.
+
+على سبيل المثال:
+إذا كان متوسط ترتيبك 3%، فهذا يعني أنك عادةً ما تُنهي البطولة ضمن أفضل 3% من المشاركين، مثل احتلال المركز 30 من أصل 1,000 لاعب.</string>
   <string name="medians">متوسط</string>
   <string name="allAveragesAreX">جميع المعدلات في هذه الصفحة هي %s.</string>
   <string name="total">الإجمالي</string>

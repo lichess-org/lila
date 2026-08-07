@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="blackPlays">Bontsho Bo a Tshameka</string>
+  <string name="whiteResigned">Bosweu Bo Ineeletse</string>
+  <string name="masterDbExplanation">Go tswa mo mamilioneng a metshameko e e tshamekilweng ke batshameki ba ba nang le maemo a kgethegileng a FIDE magareng ga %1$s le %2$s go tswa mo %3$s</string>
+</resources>

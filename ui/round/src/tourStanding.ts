@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import type { ChatPlugin } from 'lib/chat/interfaces';
 import type { Team, TourPlayer } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon, onInsert } from 'lib/view';
 
 export interface TourStandingCtrl extends ChatPlugin {
@@ -28,10 +28,10 @@ export const tourStandingCtrl = (
           players.map((p: TourPlayer, i: number) =>
             h('tr.' + p.n, [
               h('td.name', [
-                h('span.rank', '' + (i + 1)),
+                h('span.rank', i + 1),
                 h('a.user-link.ulpt', { attrs: { href: `/@/${p.n}` } }, (p.t ? p.t + ' ' : '') + p.n),
               ]),
-              h('td.total', p.f ? { class: { 'is-gold': true }, attrs: dataIcon(licon.Fire) } : {}, '' + p.s),
+              h('td.total', p.f ? { class: { 'is-gold': true }, attrs: dataIcon(licon.Fire) } : {}, p.s),
             ]),
           ),
         ),

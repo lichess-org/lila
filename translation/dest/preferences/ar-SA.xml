@@ -6,7 +6,7 @@
   <string name="notifications">إشعارات</string>
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
-  <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
+  <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة و كش)</string>
   <string name="pieceDestinations">إظهار النقلات القانونية (النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
@@ -23,7 +23,7 @@
   <string name="exceptInGame">إخفاء عند اللعب</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10 ثوانٍ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10&lt; ثوانٍ</string>
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">إصدار صوت عندما يقارب الوقت الانتهاء</string>
   <string name="giveMoreTime">منح الوقت</string>
@@ -41,13 +41,13 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
-  <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة مع قائمة اللوحة</string>
+  <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة من قائمة اللوحة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>
   <string name="confirmResignationAndDrawOffers">تأكيد الاستسلام وعرض التعادل</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">طريقة التحصين/التبييت</string>
   <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
-  <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
+  <string name="castleByMovingOntoTheRook">حرك الملك باتجاه الرخ</string>
   <string name="inputMovesWithTheKeyboard">إدخال النقلات بلوحة المفاتيح</string>
   <string name="inputMovesWithVoice">الإدخال يتحرك بصوتك</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">سحب الأسهم في اتجاهات صالحة</string>
@@ -57,11 +57,16 @@
   <string name="correspondenceEmailNotification">البريد الإلكتروني اليومي يدرج ألعاب المراسلة الخاصة بك</string>
   <string name="notifyStreamStart">البث مباشر الآن</string>
   <string name="notifyInboxMsg">رسالة جديدة في البريد الوارد</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">رسالة خاصة جديدة</string>
   <string name="notifyForumMention">تعليق في المنتدى يشير إليك</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">التنبيهات عند الإشارة إليك في المنتدى</string>
   <string name="notifyInvitedStudy">دعوة إلى الدراسة</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">دعوات إلى الدراسة</string>
   <string name="notifyGameEvent">تحديثات مباراة المراسلة</string>
   <string name="notifyChallenge">تحديات</string>
   <string name="notifyTournamentSoon">البطولة ستبدأ قريباً</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">التنبيهات قبل بدء البطولات</string>
+  <string name="notifyBroadcasts">بث</string>
   <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
   <string name="notifyBell">إشعار الجرس داخل Lichess</string>
   <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>
@@ -69,4 +74,23 @@
   <string name="notifyDevice">الجهاز</string>
   <string name="bellNotificationSound">صوت التنبيه</string>
   <string name="blindfold" comment="As in Blindfold chess">معصوب العينين</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">إظهار على اليسار على أجهزة الجوال</string>
+  <string name="inlineNotation">التدوين داخل النص</string>
+  <string name="showServerAnalysis">عرض تحليل الخادم</string>
+  <string name="showBestMoveArrows">عرض أسهم أفضل النقلات</string>
+  <string name="showManeuverArrows">عرض أسهم المناورات</string>
+  <string name="showGauge">عرض شريط التقييم</string>
+  <string name="showMoveAnnotationsOnBoard">عرض تدوين الحركة</string>
+  <string name="showVariationArrows">إظهار أسهم النقلات البديلة</string>
+  <string name="showLiveGlyphs">تقييمات المحرك المباشرة</string>
+  <string name="showUndefendedPieces">إظهار القطع غير المحمية</string>
+  <string name="showPinnedPieces">إظهار القطع المثبتة</string>
+  <string name="showCheckableKing">إظهار الملك القابل للكش</string>
+  <string name="disclosureMode">تفعيل إخفاء النقلات البديلة</string>
+  <string name="generalSettings">عام</string>
+  <string name="moveListSettings">قائمة النقلات</string>
+  <string name="boardSettings">الرقعة</string>
+  <string name="analysisSettings">إعدادات التحليل</string>
+  <string name="maneuverArrowsHelp">إظهار سلسلة النقلات التي يقترحها المحرك لقطعة واحدة</string>
+  <string name="hoverOverSettingLabelsForHelp">مرّر المؤشر فوق تسميات الإعدادات لعرض تلميحات المساعدة</string>
 </resources>

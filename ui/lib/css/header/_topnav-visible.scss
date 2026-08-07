@@ -46,6 +46,8 @@
     }
 
     div {
+      $menu-radius: calc(var(---ui-roundness, $box-radius-size) / 2);
+
       @include inline-start(0);
 
       visibility: hidden;
@@ -53,8 +55,8 @@
       position: absolute;
       background: $c-bg-header-dropdown;
       min-width: 10rem;
-      box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
-      border-radius: 0 3px 3px 3px;
+      box-shadow: 2px 5px 6px rgb(0 0 0 / 0.3);
+      border-radius: 0 $menu-radius $menu-radius $menu-radius;
       border-inline-start: 2px solid $c-primary;
 
       @include if-transp {
@@ -76,11 +78,12 @@
         }
 
         &:first-child {
-          border-radius: 0 3px 0 0;
+          border-radius: 0 $menu-radius 0 0;
         }
 
-        &:last-child {
-          border-radius: 0 0 3px 1px;
+        &:last-child:not(.mobile-only),
+        &:has(+ .mobile-only:last-child) {
+          border-radius: 0 0 $menu-radius $menu-radius;
         }
 
         &:focus-visible {
@@ -112,5 +115,12 @@
     .mobile-only {
       display: none;
     }
+  }
+
+  #notify-toggle > .data-count::after {
+    left: unset;
+    right: unset;
+
+    @include inline-start(50%);
   }
 }

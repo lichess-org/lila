@@ -18,6 +18,8 @@ final class InfluxEvent(
     ws.url(endpoint)
       .post(s"""event,program=lila,env=$env,title=$key text="$text"""")
       .addEffects(
-        err => lila.log("influxEvent").error(endpoint, err),
-        res => if res.status != 204 then lila.log("influxEvent").error(s"$endpoint ${res.status}")
+        err => logger.error(endpoint, err),
+        res => if res.status != 204 then logger.error(s"$endpoint ${res.status}")
       )
+
+  private def logger = lila.log("influxEvent")

@@ -71,7 +71,7 @@
     cursor: pointer;
     border: $border;
     padding: 0.5em 1em;
-    background: $m-brag--fade-90;
+    background: rgb(from $c-brag r g b / calc(alpha * 0.1));
 
     &:hover {
       border-color: $c-brag;

@@ -1,12 +1,12 @@
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
-import { type VNode, onInsert, hl } from 'lib/view';
+import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import { renderVariationPgn } from '../pgnExport';
-import * as studyView from '../study/studyView';
-import { patch, nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { renderVariationPgn } from '@/pgnExport';
+import * as studyView from '@/study/studyView';
+import { patch, nodeFullName } from '@/view/util';
 
 export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: TreePath): void {
   let pos = getPosition(e);
@@ -72,7 +72,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(
-  icon: string,
+  icon: LiconValue,
   text: string,
   onClick: () => void,
   onHover?: () => void,
@@ -81,25 +81,22 @@ function action(
   return hl(
     'a',
     {
-      attrs: { 'data-icon': icon },
-      hook: {
-        insert: vnode => {
-          const elm = vnode.elm as HTMLElement;
-          elm.addEventListener('click', onClick);
-          if (onHover && !isTouchDevice())
-            elm.addEventListener('mouseover', () => {
-              onHover();
-              // If there is a special action for hover, make the menu transparent so that effects
-              // on the move list can be fully seen:
-              $('#' + elementId).addClass('transparent');
-            });
-          if (onLeave)
-            elm.addEventListener('mouseout', () => {
-              onLeave();
-              $('#' + elementId).removeClass('transparent');
-            });
-        },
-      },
+      attrs: dataIcon(icon),
+      hook: onInsert(elm => {
+        elm.addEventListener('click', onClick);
+        if (onHover && !isTouchDevice())
+          elm.addEventListener('mouseover', () => {
+            onHover();
+            // If there is a special action for hover, make the menu transparent so that effects
+            // on the move list can be fully seen:
+            $('#' + elementId).addClass('transparent');
+          });
+        if (onLeave)
+          elm.addEventListener('mouseout', () => {
+            onLeave();
+            $('#' + elementId).removeClass('transparent');
+          });
+      }),
     },
     text,
   );
@@ -128,11 +125,8 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
     },
     [
       hl('p.title', nodeFullName(node)),
-
       canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
-
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       path &&
@@ -141,7 +135,6 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
 
       idbTree.someCollapsedOf(false) &&
         action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
-
       idbTree.someCollapsedOf(true) &&
         action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 

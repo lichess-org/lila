@@ -1,5 +1,5 @@
 import type { Prop } from 'lib';
-import type { TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+import type { TreeNodeBase, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from '../ctrl';
 import type { Opening } from '../explorer/interfaces';
@@ -146,14 +146,14 @@ interface StudyChapterFeatures {
 
 export type StudyMember = {
   user: {
-    id: string;
+    id: UserId;
     name: string;
     title?: string;
   };
   role: string;
 };
 
-export type StudyMemberMap = Record<string, StudyMember>;
+export type StudyMemberMap = Record<UserId, StudyMember>;
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
@@ -236,7 +236,6 @@ export interface EditChapterData {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -247,12 +246,11 @@ export interface AnaDrop {
   role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: FEN;
   path: string;
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: TreeNodeIncomplete;
+  n: TreeNodeBase;
   o: Opening;
   s: boolean;
   relayPath?: TreePath;

@@ -4,6 +4,7 @@ import lila.db.AggregationPipeline
 import lila.db.dsl.*
 import lila.insight.*
 import lila.rating.PerfType
+import lila.mon.extensions.*
 
 final private class TutorCustomInsight[A: TutorNumber](
     users: NonEmptyList[TutorPlayer],
@@ -23,7 +24,7 @@ final private class TutorCustomInsight[A: TutorNumber](
             InsightStorage.selectUserId(users.head.user.id) ++
               InsightStorage.gameMatcher(question.timeFilter(config).filters)
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
-        .monSuccess(_.tutor.askMine(monitoringKey, "all"))
+        .monSuccess(lila.mon.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
         u.peerMatch.flatMap(peerMatch).map(_.peer) match
           case Some(cached) =>
@@ -35,7 +36,7 @@ final private class TutorCustomInsight[A: TutorNumber](
             insightColl
               .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
               .map(clusterParser)
-              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key))
+              .monSuccess(lila.mon.tutor.askPeer(monitoringKey, u.perfType.key))
       }.parallel
       peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
     yield TutorBuilder.Answers(mine, peer)

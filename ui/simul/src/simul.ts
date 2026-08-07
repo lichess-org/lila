@@ -7,13 +7,14 @@ import type { SimulOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
+import type { SimulTpe } from './socket';
 import view from './view/main';
 
 export function initModule(opts: SimulOpts) {
   const element = document.querySelector('main.simul') as HTMLElement;
 
-  opts.socketSend = wsConnect(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
-    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+  opts.socketSend = wsConnect<SimulTpe>(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
+    receive: (tpe, data) => ctrl.socket.receive({ tpe, data }),
   }).send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();

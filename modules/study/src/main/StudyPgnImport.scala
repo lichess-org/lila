@@ -17,7 +17,7 @@ object StudyPgnImport:
       ply: Ply
   )
 
-  def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
+  def result(pgn: PgnStr, contributors: List[LightUser], strict: Boolean = false): Either[ErrorStr, Result] =
     if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
     else
       for
@@ -26,6 +26,7 @@ object StudyPgnImport:
         valid <-
           if full.root.children.countRecursive > Chapter.maxNodes
           then Left(ErrorStr("PGN has too many moves/nodes"))
+          else if strict then parsed.replayError.toLeft(full)
           else Right(full)
       yield valid
 
@@ -135,7 +136,7 @@ object StudyPgnImport:
   ): Branches =
     val variations =
       node.take(Node.MAX_PLIES).fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotator)))
-    removeDuplicatedChildrenFirstNode(
+    mergeDuplicateVariations(
       Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
     )
 
@@ -200,13 +201,18 @@ object StudyPgnImport:
    * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
    * where 7. c4 appears three times
    */
-  // TODO this could probably be refactored better or moved to scalachess
-  private def removeDuplicatedChildrenFirstNode(children: Branches): Branches =
-    children.first match
-      case Some(main) if children.variations.exists(_.id == main.id) =>
-        Branches:
-          main +: children.variations.flatMap { node =>
-            if node.id == main.id then node.children.toList
-            else List(node)
-          }
-      case _ => children
+
+  private def mergeDuplicateVariations(children: Branches): Branches =
+    val list = children.toList
+    if list.sizeIs < 2 then children
+    else
+      val ids = list.map(_.id).distinct
+      if ids.sizeCompare(list) == 0 then children
+      else
+        val deduplicated = ids.flatMap: id =>
+          val matching = list.filter(_.id == id)
+          matching.headOption.map: main =>
+            val mergedChildrenList = matching.flatMap(_.children.toList)
+            main.copy(children = mergeDuplicateVariations(Branches(mergedChildrenList)))
+
+        Branches(deduplicated)

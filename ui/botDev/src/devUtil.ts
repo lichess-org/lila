@@ -2,7 +2,7 @@ import * as co from 'chessops';
 
 import { frag } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 import type { Result } from './devCtrl';
 import type { NumberInfo, RangeInfo } from './devTypes';
@@ -80,7 +80,7 @@ export function playersWithResults(results: Result[]): string[] {
   return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
 }
 
-export function renderRemoveButton(cls: string = ''): Node {
+export function renderRemoveButton(cls = ''): Node {
   return frag(
     `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-action="remove">`,
   );

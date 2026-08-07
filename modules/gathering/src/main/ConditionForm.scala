@@ -8,6 +8,8 @@ import chess.IntRating
 import lila.common.Form.{ *, given }
 import lila.core.team.LightTeam
 import lila.gathering.Condition.*
+import lila.core.i18n.I18nKey as trans
+import lila.core.i18n.Translate
 
 object ConditionForm:
 
@@ -25,8 +27,10 @@ object ConditionForm:
   val maxRatings =
     List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
 
-  val maxRatingChoices = ("", "No restriction") ::
-    options(maxRatings, "Max rating of %d").toList.map { (k, v) => k.toString -> v }
+  def maxRatingChoices(using Translate) =
+    val choices = maxRatings.map: r =>
+      (r.toString, trans.site.maxRatingX.txt(r))
+    ("", "No restriction") :: choices
 
   val maxRating = optional:
     mapping("rating" -> numberIn(maxRatings).into[IntRating])(MaxRating.apply)(_.rating.some)
@@ -34,8 +38,10 @@ object ConditionForm:
   val minRatings =
     List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
 
-  val minRatingChoices = ("", "No restriction") ::
-    options(minRatings, "Min rating of %d").toList.map { (k, v) => k.toString -> v }
+  def minRatingChoices(using Translate) =
+    val choices = minRatings.map: r =>
+      (r.toString, trans.site.minRatingX.txt(r))
+    ("", "No restriction") :: choices
 
   val minRating = optional:
     mapping("rating" -> numberIn(minRatings).into[IntRating])(MinRating.apply)(_.rating.some)

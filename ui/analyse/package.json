@@ -12,7 +12,7 @@
     "chart": "workspace:*",
     "debounce-promise": "^3.1.2",
     "editor": "workspace:*",
-    "keyboardMove": "workspace:*",
+    "keyboard-move": "workspace:*",
     "lib": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "11.2.0",

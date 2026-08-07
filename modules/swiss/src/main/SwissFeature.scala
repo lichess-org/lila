@@ -16,7 +16,7 @@ final class SwissFeature(
 
   import BsonHandlers.given
 
-  val onHomepage = cacheApi.unit[Option[Swiss]]:
+  val onHomepage = cacheApi.unit[Option[Swiss]]("swiss.onHomepage"):
     _.refreshAfterWrite(30.seconds).buildAsyncTimeout(): _ =>
       mongo.swiss
         .find:
@@ -54,7 +54,7 @@ final class SwissFeature(
           started = HeapSort.topN(started, 10)(using startsAtOrdering)
         )
 
-  private val cache = cacheApi.unit[FeaturedSwisses]:
+  private val cache = cacheApi.unit[FeaturedSwisses]("swiss.featured"):
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       val now = nowInstant
       cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))

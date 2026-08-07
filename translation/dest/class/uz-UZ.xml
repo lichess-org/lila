@@ -29,7 +29,7 @@
   <string name="passwordX">Parol: %s</string>
   <string name="generateANewPassword">Oʻquvchiga yangi parol yaratish</string>
   <string name="invitedToXByY">%2$s tomonidan %1$sʼga taklif qilindi</string>
-  <string name="realName">Asl ismi</string>
+  <string name="realName">Haqiqiy ismingiz</string>
   <string name="privateWillNeverBeShown">Maxfiy. Sinfdan tashqarida hech qachon koʻrsatilmaydi. Oʻquvchi kimligini eslab qolishingizga yordam beradi.</string>
   <string name="addStudent">Oʻquvchi qoʻshish</string>
   <string name="lichessProfileXCreatedForY">%2$s uchun %1$s Lichess profili yaratildi.</string>

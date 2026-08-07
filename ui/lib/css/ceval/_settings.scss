@@ -84,7 +84,7 @@
         border-bottom: 3px solid $c-primary;
 
         &:hover {
-          border-color: $m-primary_white--mix-80;
+          border-color: color-mix(in oklab, $c-primary 80%, white);
         }
 
         &.arrow-down {
@@ -102,9 +102,34 @@
         border-color: $c-secondary;
 
         &:hover {
-          border-color: $m-secondary_white--mix-80;
+          border-color: color-mix(in oklab, $c-secondary 80%, white);
         }
       }
     }
+  }
+
+  .engine-info-button {
+    color: $c-font-dim;
+    margin-inline-start: 1em;
+
+    &:hover {
+      color: $c-primary;
+    }
+  }
+}
+
+.engine-info-popup {
+  a {
+    font-size: 0.9em;
+  }
+
+  ol {
+    text-align: start;
+  }
+
+  li {
+    @extend %flex-between-nowrap;
+
+    list-style: decimal inside;
   }
 }

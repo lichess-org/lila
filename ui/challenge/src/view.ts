@@ -1,8 +1,8 @@
 import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
-import { spinnerVdom, initMiniBoard } from 'lib/view';
+import { licon } from 'lib/licon';
+import { spinnerVdom, initMiniBoard, dataIcon, onInsert, icon } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
 import type ChallengeCtrl from './ctrl';
@@ -57,12 +57,12 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
               ),
             ]),
           ]),
-          h('i.perf', { attrs: { 'data-icon': c.perf.icon } }),
+          icon(c.perf.icon)('.perf'),
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
               attrs: { 'data-state': `${c.initialFen},${myColor}` },
-              hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+              hook: onInsert(initMiniBoard),
             })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
@@ -99,12 +99,9 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
     h(
       'select.decline-reason',
       {
-        hook: {
-          insert: (vnode: VNode) => {
-            const select = vnode.elm as HTMLSelectElement;
-            select.addEventListener('change', () => ctrl.decline(c.id, select.value));
-          },
-        },
+        hook: onInsert<HTMLSelectElement>(select => {
+          select.addEventListener('change', () => ctrl.decline(c.id, select.value));
+        }),
       },
       Object.entries(ctrl.reasons).map(([key, name]) =>
         h('option', { attrs: { value: key } }, key === 'generic' ? '' : name),
@@ -134,6 +131,8 @@ function timeControl(c: TimeControl): string {
       return c.daysPerTurn + ' days';
     case 'clock':
       return c.show || '-';
+    default:
+      return '-';
   }
 }
 
@@ -143,13 +142,12 @@ const renderUser = (u: ChallengeUser | undefined, showRating: boolean): VNode =>
     : h('span', 'Open challenge');
 
 const renderLag = (u?: ChallengeUser) =>
-  u && h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('i', { class: { off: u.lag! < i } })));
+  u &&
+  h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('icon', { class: { off: u.lag! < i } })));
 
-const empty = (): VNode =>
-  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.site.noChallenges);
+const empty = (): VNode => h('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.noChallenges);
 
-const onClick = (f: (e: Event) => void) => ({
-  insert: (vnode: VNode) => {
-    (vnode.elm as HTMLElement).addEventListener('click', f);
-  },
-});
+const onClick = (f: (e: Event) => void) =>
+  onInsert<HTMLElement>(elem => {
+    elem.addEventListener('click', f);
+  });

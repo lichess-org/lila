@@ -15,6 +15,7 @@ Disallow: /game/export/
 Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
+Disallow: /study/search
 Allow: /game/export/gif/thumbnail/
 """
 

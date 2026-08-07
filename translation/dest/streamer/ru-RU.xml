@@ -33,8 +33,8 @@
   <string name="streamerLanguageSettings">Страница стримера Lichess ориентирована на ту аудиторию, язык которой предоставлен вашей платформой. Установите для ваших шахматных стримов правильный язык по умолчанию в приложении или сервисе, который вы используете для трансляции.</string>
   <string name="pleaseAllow">Пожалуйста, подождите до 72 часов, пока ваш значок стримера и информация о нём не будет одобрена.</string>
   <string name="chooseYoutubeChannel">Выберите канал YouTube, который вы будете использовать на Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Подключиться</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Отключиться</string>
+  <string name="connect">Подключиться</string>
+  <string name="disconnect">Отключиться</string>
   <string name="streamerName">Ваше имя стримера на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сократите: максимум %s символ</item>
@@ -42,8 +42,8 @@
     <item quantity="many">Сократите: максимум %s символов</item>
     <item quantity="other">Сократите: максимум %s символов</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видимость на странице стримеров</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">После утверждения модераторами</string>
+  <string name="visibility">Видимость на странице стримеров</string>
+  <string name="whenApproved">После утверждения модераторами</string>
   <string name="headline">Заголовок</string>
   <string name="tellUsAboutTheStream">Расскажите нам о вашем стриме в одном предложении</string>
   <string name="longDescription">Подробное описание</string>

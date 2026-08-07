@@ -74,13 +74,15 @@ case class Swiss(
 
   def idName = IdName(id, name)
 
+  override def toString = s"$id/$round"
+
   lazy val looksLikePrize = lila.gathering.looksLikePrize(s"$name ${~settings.description}")
 
 object Swiss:
 
   val maxPlayers = 4000
   val maxForbiddenPairings = 1000
-  val maxManualPairings = 10_000
+  val maxManualPairings = 4000
 
   opaque type Round = Int
   object Round extends OpaqueInt[Round]
@@ -98,6 +100,7 @@ object Swiss:
       nbRounds: Int,
       rated: Rated,
       description: Option[String] = None,
+      payouts: Option[Payouts] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
@@ -124,6 +127,8 @@ object Swiss:
 
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
+
+  def swissUrl(swissId: SwissId) = Url(s"https://lichess.org/swiss/$swissId")
 
   def makeId = SwissId(ThreadLocalRandom.nextString(8))
 

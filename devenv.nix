@@ -33,22 +33,22 @@ in
 
   packages = [
     pkgs-unstable.nodejs-slim
-    pkgs.pnpm
+    pkgs-unstable.pnpm
     pkgs.svgo
     pkgs-master.oxlint
     pkgs-master.oxfmt
     pkgs-master.tsgolint
     pkgs.lint-staged
-    pkgs.stylelint
+    pkgs-unstable.stylelint
     pkgs.dart-sass
   ];
 
   tasks = {
     "lint:code" = {
-      exec = "oxlint --type-aware --tsconfig=ui/tsconfig.base.json";
+      exec = "oxlint --type-aware";
     };
     "lint:style" = {
-      exec = ''stylelint "ui/**/*.scss"'';
+      exec = ''stylelint "ui/**/*.scss" --fix'';
     };
     "format:ui" = {
       exec = "oxfmt";

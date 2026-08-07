@@ -19,29 +19,16 @@ class BigFileStorage {
 
     const fetched = await new Promise<U8>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      let settled = false;
-
-      const settle = (value: U8) => {
-        if (settled) return;
-        settled = true;
-        resolve(value);
-      };
-      const fail = (message: string) => {
-        if (settled) return;
-        settled = true;
-        reject(new Error(message));
-      };
 
       xhr.open('GET', assetUrl, true);
       xhr.responseType = 'arraybuffer';
 
       if (onProgress) xhr.onprogress = e => onProgress(e.loaded, e.total);
 
-      xhr.onerror = () => fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
-      xhr.onabort = () => fail(`fetch '${assetUrl}' aborted`);
+      xhr.onerror = () => reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
       xhr.onload = () => {
-        if (Math.floor(xhr.status / 100) === 2) settle(new Uint8Array(xhr.response));
-        else fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
+        if (Math.floor(xhr.status / 100) === 2) resolve(new Uint8Array(xhr.response));
+        else reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
       };
 
       xhr.send();
@@ -62,8 +49,7 @@ class BigFileStorage {
     if (!opfs) return this.idb().then(idb => idb.get(assetUrl));
 
     const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
-    const buffer = new ArrayBuffer(file.size);
-    const u8 = new Uint8Array(buffer);
+    const u8 = new Uint8Array(new ArrayBuffer(file.size));
     const reader = file.stream().getReader();
     let offset = 0;
 
@@ -96,10 +82,9 @@ async function directoryHandleIfAvailable(): Promise<FileSystemDirectoryHandle |
     const dirHandle = await navigator.storage?.getDirectory?.();
     const filename = `_${randomToken()}`;
     const out = await dirHandle.getFileHandle(filename, { create: true }).then(f => f.createWritable());
-    await out
-      .write(new Uint8Array(1))
-      .then(() => out.close())
-      .then(() => dirHandle.removeEntry(filename));
+    await out.write(new Uint8Array(1));
+    await out.close();
+    await dirHandle.removeEntry(filename);
     return dirHandle;
   } catch {
     return undefined;

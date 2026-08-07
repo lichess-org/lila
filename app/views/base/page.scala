@@ -5,6 +5,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.{ RenderedPage, PageFlags }
+import lila.mon.extensions.*
 
 object page:
 
@@ -33,6 +34,7 @@ object page:
       s"---board-brightness:${ctx.pref.board.brightness};" +
       s"---board-contrast:${ctx.pref.board.contrast};" +
       s"---board-hue:${ctx.pref.board.hue};" +
+      s"---ui-roundness:${ctx.pref.uiRoundness}px;" +
       zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
@@ -73,9 +75,7 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option:
-            raw("""<meta content="noindex, nofollow" name="robots">""")
-          ,
+          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,

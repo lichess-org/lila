@@ -29,7 +29,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     "timeZone" -> optional(lila.common.Form.timeZone.field),
     "players" -> optional(cleanText(maxLength = 120)),
     "website" -> optional(url.field),
-    "standings" -> optional(url.field)
+    "standings" -> optional(url.field),
+    "regulations" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(
@@ -68,7 +69,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       ),
       "showTeamScores" -> boolean,
       "spotlight" -> optional(spotlightMapping),
-      "grouping" -> optional(groupForm.mapping),
+      "grouping" -> groupForm.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping),
       "note" -> optional(nonEmptyText(maxLength = 20_000)),
       "orphanWarn" -> boolean
@@ -106,7 +107,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       teams = tour.teams,
       showTeamScores = tour.showTeamScores,
       spotlight = tour.spotlight,
-      grouping = group.map(groupForm.data),
+      grouping = groupForm.data(group),
       pinnedStream = tour.pinnedStream,
       note = tour.note,
       orphanWarn = tour.orphanWarn
@@ -132,7 +133,7 @@ object RelayTourForm:
       teams: Option[RelayTeamsTextarea] = none,
       showTeamScores: Boolean = false,
       spotlight: Option[RelayTour.Spotlight] = none,
-      grouping: Option[RelayGroupData] = none,
+      grouping: RelayGroupData = RelayGroupData.empty,
       pinnedStream: Option[RelayPinnedStream] = none,
       note: Option[String] = none,
       orphanWarn: Boolean = true
@@ -154,7 +155,7 @@ object RelayTourForm:
           teams = teams,
           showTeamScores = showTeamScores,
           spotlight = if Granter(_.StudyAdmin) then spotlight.filterNot(_.isEmpty) else tour.spotlight,
-          pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
+          pinnedStream = if Granter(_.RelayStream) then pinnedStream else tour.pinnedStream,
           note = note,
           orphanWarn = if Granter(_.StudyAdmin) then orphanWarn else tour.orphanWarn
         )
@@ -181,7 +182,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty).ifTrue(Granter(_.StudyAdmin)),
-        pinnedStream = pinnedStream.ifTrue(Granter(_.StudyAdmin)),
+        pinnedStream = pinnedStream.ifTrue(Granter(_.RelayStream)),
         note = note,
         orphanWarn = orphanWarn || !Granter(_.StudyAdmin)
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
@@ -190,5 +191,5 @@ object RelayTourForm:
 
     val empty = Data(
       RelayTour.Name(""),
-      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
+      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none, none)
     )

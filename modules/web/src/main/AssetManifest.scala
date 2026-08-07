@@ -25,7 +25,7 @@ final class AssetManifest(getFile: GetRelativeFile):
       if current.isAfter(maps.modified) then
         maps = readMaps(Json.parse(Files.newInputStream(pathname)))
         lila.common.Bus.pub(AssetManifestUpdate)
-    catch case e: Throwable => lila.log("assetManifest").warn(s"Error reading $pathname", e)
+    catch case e: Throwable => lila.log.system.warn(s"AssetManifest error reading $pathname", e)
 
   private val jsKeyRe = """^(?!lib\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 

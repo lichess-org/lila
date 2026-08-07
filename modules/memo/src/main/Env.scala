@@ -60,6 +60,8 @@ final class Env(
 
   val viewerCount = wire[ViewerCountApi]
 
+  val proxy = wire[HttpProxy]
+
   lila.common.Cli.handle:
     case "cache" :: "clear" :: name :: Nil =>
       cacheApi.clearByName(name) match

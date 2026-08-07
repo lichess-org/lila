@@ -36,7 +36,7 @@
   <string name="notTheMove">Esa non é a xogada!</string>
   <string name="trySomethingElse">Proba outra cosa.</string>
   <string name="ratingX">Puntuación: %s</string>
-  <string name="hidden">oculta</string>
+  <string name="hidden">Oculta</string>
   <plurals name="playedXTimes">
     <item quantity="one">Xogado %s vez</item>
     <item quantity="other">Xogado %s veces</item>

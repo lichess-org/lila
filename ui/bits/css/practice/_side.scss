@@ -1,11 +1,9 @@
 .practice-side {
   @import '../learn/progress';
-  @extend %box-radius, %flex-column;
-  @include backdrop-blur-if-transparent;
+  @extend %box-bordered, %flex-column;
 
   gap: 1em;
   background: $c-bg-box;
-  border: $border;
   text-align: center;
   align-self: start;
   padding: 1em 1.25em;
@@ -51,7 +49,7 @@
       font-size: 1.3em;
     }
 
-    @media (width < $small) {
+    @media (max-width: $small) {
       flex-flow: row nowrap;
       gap: $block-gap;
       text-align: left;

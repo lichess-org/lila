@@ -1,38 +1,31 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.18.0",
   "engines": {
     "node": ">=24",
-    "pnpm": "10"
+    "pnpm": "11"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ],
-    "patchedDependencies": {
-      "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
-    }
-  },
-  "dependencies": {
-    "@lichess-org/chessground": "^10.1.0",
-    "@lichess-org/pgn-viewer": "^2.6",
+  "devDependencies": {
+    "@lichess-org/chessground": "^10.1.1",
+    "@lichess-org/pgn-viewer": "^2.6.2",
+    "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.12.2",
+    "@types/node": "^24.13.3",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.15",
-    "jsdom": "^27.1.0",
-    "lint-staged": "^16.2.6",
-    "oxfmt": "0.45.0",
-    "oxlint": "1.60.0",
-    "oxlint-tsgolint": "0.21.1",
+    "chessops": "^0.15.1",
+    "jsdom": "^27.4.0",
+    "lint-staged": "^16.4.0",
+    "oxfmt": "0.59.0",
+    "oxlint": "1.75.0",
+    "oxlint-tsgolint": "7.0.2001",
     "snabbdom": "3.5.1",
-    "svgo": "^4.0.1",
-    "stylelint": "^17.6.0",
+    "stylelint": "^17.11.1",
     "stylelint-config-standard-scss": "^17.0.0",
-    "stylelint-scss": "^7.0.0",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "stylelint-scss": "^7.1.1",
+    "svgo": "^4.0.2",
+    "tsx": "^4.23.5",
+    "typescript": "^6.0.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
@@ -43,7 +36,7 @@
     "format:scala": "./lila.sh scalafmtAll",
     "check-format": "oxfmt --check",
     "lint": "pnpm lint:code && pnpm lint:style",
-    "lint:code": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
+    "lint:code": "oxlint --type-aware",
     "lint:style": "stylelint \"ui/**/*.scss\"",
     "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
     "assets:optimize": "svgo -rf ./public/ ./public/",
@@ -52,13 +45,11 @@
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
+    "icon-files-gen": "python3 bin/gen/licon.py",
     "multilog": "pnpm serverlog & ui/build -w",
+    "workspace-check": "pnpx @manypkg/cli check",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
-  },
-  "lint-staged": {
-    "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
-    "*.scss": "pnpm lint:style --fix && pnpm format"
   },
   "browserslist": [
     "defaults",

@@ -7,7 +7,6 @@ import java.io.ObjectInputStream
 import java.util.Map as JMap
 import scala.jdk.CollectionConverters.*
 
-import lila.common.Chronometer
 import lila.core.i18n.{ I18nKey, defaultLang }
 
 object Registry:
@@ -26,11 +25,8 @@ object Registry:
         .zipWithIndex
         .foreach: (langs, i) =>
           scheduler.scheduleOnce(i.seconds):
-            val lap = Chronometer.sync:
-              langs.foreach: lang =>
-                register(lang, loadSerialized(lang))
-            if i < 1 || mode.isProd
-            then logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
+            langs.foreach: lang =>
+              register(lang, loadSerialized(lang))
 
   // for tests
   private[i18n] def getAll(lang: Lang): Option[MessageMap] = all.get(lang)

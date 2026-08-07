@@ -39,7 +39,6 @@
   <string name="youAreNowASpectator">ຕອນນີ້ທ່ານເປັນຜູ້ຊົມແລ້ວ</string>
   <string name="pgnTags">ແທັກ PGN</string>
   <string name="like">ມັກ</string>
-  <string name="unlike">ຍົກເລີກການມັກ</string>
   <string name="newTag">ແທັກໃໝ່</string>
   <string name="commentThisPosition">ສະແດງຄວາມຄິດເຫັນກ່ຽວກັບຕຳແໜ່ງນີ້</string>
   <string name="commentThisMove">ສະແດງຄວາມຄິດເຫັນກ່ຽວກັບການເດີນນີ້</string>

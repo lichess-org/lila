@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferenze</string>
-  <string name="display">Mostra</string>
+  <string name="display">Impostazioni visive</string>
   <string name="privacy">Privacy</string>
   <string name="notifications">Notifiche</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Aggiornamenti in una partita per corrispondenza</string>
   <string name="notifyChallenge">Sfide</string>
   <string name="notifyTournamentSoon">Il torneo sta per iniziare</string>
-  <string name="notifyBroadcasts">Canali a cui ti sei iscritto</string>
   <string name="notifyTimeAlarm">Il tempo sta per scadere in una partita per corrispondenza</string>
   <string name="notifyBell">Notifica sonora in Lichess</string>
   <string name="notifyPush">Notifiche dispositivo (push) quando non sei collegato a Lichess</string>

@@ -1,6 +1,6 @@
 package lila.ublog
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
@@ -33,16 +33,16 @@ final class UblogApi(
   import UblogBlog.Tier
   import UblogAutomod.Assessment
 
-  lazy val carouselSizeSetting =
+  val carouselSizeSetting =
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
 
-  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]:
+  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]("ublog.carousel"):
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
-      fetchCarouselFromDb().map(_.shuffled)
+      fetchCarouselFromDb().map(_.shuffled.take(9))
 
   def myCarousel(using kid: KidMode) =
     for posts <- carouselCache.get({})
-    yield posts.filter(_.isLichess || kid.no).take(carouselSizeSetting.get())
+    yield posts.filter(_.isLichess || kid.no)
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -77,6 +77,11 @@ final class UblogApi(
 
   def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))
+
+  def isHiddenWithPosts(user: User): Fu[Boolean] =
+    getUserBlogOption(user).flatMapz: blog =>
+      blog.visible.not.so:
+        colls.post.exists($doc("blog" -> blog.id, "live" -> true))
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getUserBlogOption(user).getOrElse:
@@ -215,7 +220,7 @@ final class UblogApi(
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
-            logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
+            lila.log.system.warn(s"ublog automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
     attempt(0)
 
@@ -246,7 +251,7 @@ final class UblogApi(
     _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
   yield ()
 
-  def postCursor(user: User): AkkaStreamCursor[UblogPost] =
+  def postCursor(user: User): PekkoStreamCursor[UblogPost] =
     colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
 
   def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
@@ -345,10 +350,11 @@ final class UblogApi(
   }.flatMap: t =>
     modBlog(userId, t.some, none)
 
-  def canBlog(u: User) =
+  def canBlog(u: User) = u.isVerified || {
     !u.isBot && {
-      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
+      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isPatron
     }
+  }
 
   private[ublog] def aggregateVisiblePosts(
       select: Bdoc,

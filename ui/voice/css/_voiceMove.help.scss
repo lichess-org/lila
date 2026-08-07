@@ -6,7 +6,7 @@
     font-size: 1.1em;
     margin: 0.8em 10%;
 
-    i[data-icon]::before {
+    icon[data-icon]::before {
       vertical-align: sub;
     }
   }
@@ -29,7 +29,7 @@
       padding-inline-start: 2em;
     }
 
-    @media (width <= 600px) {
+    @media (min-width: 600px) {
       flex-direction: column;
     }
   }

@@ -6,6 +6,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
 import chess.tiebreak.Tiebreak
+import play.api.libs.json.Json
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -72,7 +73,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
-            g.withShorterTourNames.tours.map: t =>
+            g.withShorterTourNames.tours.toList.map: t =>
               if nav.tour.id == t.id then tourAndRounds(t.name.some)
               else a(href := routes.RelayTour.edit(t.id), cls := List("subnav__item" -> true))(t.name)
           )
@@ -96,8 +97,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .js(
+          List(
+            Esm("bits.flatpickr"),
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck")
+          ).map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -467,9 +473,18 @@ Hanna Marie ; Kozul, Zdenko"""),
 
     private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
-        .css("bits.relay.form")
-        .js(Esm("bits.relayForm"))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .css("bits.relay.form", "bits.tagify")
+        .js(
+          List(
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck"),
+            esmInitObj(
+              "bits.broadcastGroup",
+              Json.obj("studyAdmin" -> Granter.opt(_.StudyAdmin), "broadcaster" -> Granter.opt(_.Relay))
+            )
+          )
+            .map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -617,6 +632,14 @@ Hanna Marie ; Kozul, Zdenko"""),
               half = true
             )(form3.input(_))
           ),
+          form3.split(
+            form3.group(
+              form("info.regulations"),
+              trb.regulations(),
+              help = frag("External regulations URL").some,
+              half = true
+            )(form3.input(_))
+          ),
           form3.group(
             form("markdown"),
             trb.fullDescription(),
@@ -729,8 +752,11 @@ Team Dogs ; Scooby Doo"""),
           )
         ,
         tg.map: t =>
-          form3.fieldset("Grouping", toggle = false.some):
-            grouping(form, t.tour)
+          form3.fieldset(
+            "Grouping",
+            toggle = form.errors.exists(_.key.contains("grouping")).some
+          ):
+            grouping(form, t)
         ,
         if Granter.opt(_.Relay) then
           frag(
@@ -786,42 +812,43 @@ Team Dogs ; Scooby Doo"""),
                     )
                   )
                 )
-            ),
-            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
-              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.url"),
-                    "Stream URL",
-                    help = frag(
-                      p("Embed a live stream in the broadcast. Examples:"),
-                      ul(
-                        li("https://www.youtube.com/live/Lg0askmGqvo"),
-                        li("https://www.twitch.tv/tcec_chess_tv")
-                      )
-                    ).some,
-                    half = true
-                  )(form3.input(_)),
-                  form3.group(
-                    form("pinnedStream.name"),
-                    "Stream name",
-                    half = true
-                  )(form3.input(_))
-                ),
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.text"),
-                    "Stream link label",
-                    help = frag(
-                      "Optional. Show a label on the image link to your live stream.",
-                      br,
-                      "Example: 'Watch us live on YouTube!'"
-                    ).some
-                  )(form3.input(_))
-                )
-              )
+            )
           )
         else form3.hidden(form("tier")),
+        (tg.isDefined && Granter.opt(_.RelayStream)).option(
+          form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+            form3.split(
+              form3.group(
+                form("pinnedStream.url"),
+                "Stream URL",
+                help = frag(
+                  p("Embed a live stream in the broadcast. Examples:"),
+                  ul(
+                    li("https://www.youtube.com/live/Lg0askmGqvo"),
+                    li("https://www.twitch.tv/tcec_chess_tv")
+                  )
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("pinnedStream.name"),
+                "Stream name",
+                half = true
+              )(form3.input(_))
+            ),
+            form3.split(
+              form3.group(
+                form("pinnedStream.text"),
+                "Stream link label",
+                help = frag(
+                  "Optional. Show a label on the image link to your live stream.",
+                  br,
+                  "Example: 'Watch us live on YouTube!'"
+                ).some
+              )(form3.input(_))
+            )
+          )
+        ),
         form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
           form3.group(
             form("note"),
@@ -853,51 +880,66 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def grouping(form: Form[RelayTourForm.Data], tour: RelayTour)(using Context) =
+  private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
+    val tour = twg.tour
+    val isDisabled = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disable = isDisabled.option(disabled)
+    def scoreGroupInput(sgIndex: Int) =
+      form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disable)
+      )
     div(cls := "relay-form__grouping")(
+      isDisabled.option:
+        div(cls := "form-group"):
+          span(dataIcon := Icon.CautionTriangle, cls := "text"):
+            "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
+      ,
       form3.group(
-        form("grouping.info"),
-        "Optional: assign tournaments to a group",
+        form("grouping.info.name"),
+        "Optional: Group name",
+        help = frag("Name of the overall group. Example: Dutch Championships 2025").some
+      )(
+        form3.input(_)(disable)
+      ),
+      form3.group(
+        form("grouping.info.tours"),
+        "Optional: Broadcasts part of this group",
         help = frag( // do not translate
-          "First line is the group name.",
+          "Select tournaments from your 20 most recent broadcasts.",
           br,
-          "Subsequent lines are URLs of tournaments that will be part of the group.",
+          "You can add and remove tournaments.",
           br,
-          "You can add, remove, and re-order tournaments; and you can rename the group.",
+          "You can also re-order tournaments by dragging.",
           br,
-          "Example:",
-          pre("""Dutch Championships 2025
-https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
-https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
-https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
-""")
+          "If the tournament you want is not listed in the dropdown you can paste the link to the tournament."
         ).some
       )(
         form3.textarea(_)(
           rows := 5,
           spellcheck := "false",
           cls := "monospace",
-          (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+          disable
         )
       ),
       form3.group(
         form("grouping.scoreGroups"),
         "Optional: Divide the group into score groups",
         help = frag(
-          "Each line defines a new score group with comma-separated tournament IDs.",
+          br,
+          "A score group combines players and games between two or more broadcasts.",
+          br,
+          "Each input defines a new score group.",
           br,
           "Only tournaments that are part of this group can be used in score groups.",
           br,
-          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
+          "Score groups cannot overlap.",
           br,
-          "Example:",
-          pre("""ISdmqct3,Zi12QchK
-PGFBkEha"""),
-          "Using the same example as above, this will create 2 score groups:",
-          br,
-          "1) Combines the open sections",
-          br,
-          "2) Is the lone women's section"
+          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group."
         ).some
-      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace"))
+      )(field =>
+        frag(
+          errMsg(form("grouping")),
+          (field.indexes.toList.nonEmptyOption.fold(scoreGroupInput(0))(_.map(scoreGroupInput)))
+        )
+      )
     )

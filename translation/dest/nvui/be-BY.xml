@@ -9,4 +9,37 @@
   <string name="inputForm">Форма ўводу каманд</string>
   <string name="actions">Дзеянні</string>
   <string name="yourClock">Ваш гадзіннік</string>
+  <string name="opponentClock">Гадзіннік апанента</string>
+  <string name="gameStart">Пачатак гульні</string>
+  <string name="announceCurrentSquare">Агучыць гэтае поле.</string>
+  <string name="announceLastMove">Агучыць апошні ход.</string>
+  <string name="announceLastMoveCapture">Агучыць фігуру, якую пабілі папярэднім ходам.</string>
+  <string name="moveToRank">Перайсці на гарызанталь 1-8.</string>
+  <string name="moveToFile">Перайсці на вертыкаль a-h.</string>
+  <string name="king">кароль</string>
+  <string name="whiteKing">белы кароль</string>
+  <string name="blackKing">чорны кароль</string>
+  <string name="queen">ферзь</string>
+  <string name="whiteQueen">белы ферзь</string>
+  <string name="blackQueen">чорны ферзь</string>
+  <string name="rook">ладдзя</string>
+  <string name="whiteRook">белая ладдзя</string>
+  <string name="blackRook">чорная ладдзя</string>
+  <string name="bishop">слон</string>
+  <string name="whiteBishop">белы слон</string>
+  <string name="blackBishop">чорны слон</string>
+  <string name="knight">конь</string>
+  <string name="whiteKnight">белы конь</string>
+  <string name="blackKnight">чорны конь</string>
+  <string name="pawn">пешка</string>
+  <string name="whitePawn">белая пешка</string>
+  <string name="blackPawn">чорная пешка</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">Кр Ф Л С К х</string>
+  <string name="sanTakes" comment="x in standard notation">б\'е</string>
+  <string name="sanCheck" comment="+ in standard notation">шах</string>
+  <string name="sanCheckmate" comment="# in standard notation">мат</string>
+  <string name="pockets" comment="Crazyhouse pockets">Кішэні</string>
+  <string name="copyToClipboard">Скапіявана %s ў буфер абмену</string>
+  <string name="copiedToClipboard">%s скапіявана ў буфер абмену</string>
+  <string name="pgnAndFen">PGN і FEN</string>
 </resources>

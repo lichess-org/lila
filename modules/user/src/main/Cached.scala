@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.api.bson.*
+import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
 import lila.core.user.LightPerf
@@ -9,7 +10,7 @@ import lila.core.rating.UserRankMap
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.rating.{ PerfType, UserPerfs }
-import scalalib.paginator.Paginator
+import lila.mon.extensions.*
 
 final class Cached(
     userRepo: UserRepo,
@@ -23,9 +24,9 @@ final class Cached(
 
   import BSONHandlers.given
 
-  val top10 = cacheApi.unit[UserPerfs.Leaderboards]:
+  val top10 = cacheApi.unit[UserPerfs.Leaderboards]("user.top10"):
     _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
-      rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
+      rankingApi.fetchLeaderboard(10).monSuccess(lila.mon.user.leaderboardCompute)
 
   private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
@@ -60,7 +61,7 @@ final class Cached(
           .topNbGame(10)
           .dmap(_.map(u => LightCount(u.light, u.count.game)))
 
-  private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
+  private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]("user.top50Online"):
     _.refreshAfterWrite(2.minute).buildAsyncTimeout(): _ =>
       userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
@@ -68,7 +69,7 @@ final class Cached(
 
   def rankingsOf(userId: UserId): UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
-  private val botIds = cacheApi.unit[Set[UserId]]:
+  private val botIds = cacheApi.unit[Set[UserId]]("user.botIds"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => userRepo.botIds)
 
   def getBotIds: Fu[Set[UserId]] = botIds.getUnit

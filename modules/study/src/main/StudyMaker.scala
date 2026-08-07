@@ -9,7 +9,8 @@ final private class StudyMaker(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     chapterMaker: ChapterMaker,
-    pgnDump: lila.core.game.PgnDump
+    pgnDump: lila.core.game.PgnDump,
+    gameOpening: lila.core.game.GameOpening
 )(using Executor):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
@@ -70,10 +71,9 @@ final private class StudyMaker(
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
-    // given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
-      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
+      tags <- pgnDump.tags(pov.game, initialFen, none, gameOpening(pov.game, true), withRatings)
       name <- StudyChapterName.from(namer.gameVsText(pov.game, withRatings)(using lightUserApi.async))
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(

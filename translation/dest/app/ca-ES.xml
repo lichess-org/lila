@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Aplicació mòbil de Liches</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Tornant a l\'aplicació de Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically">Si l\'aplicació de Lichess no s\'obre automàticament, polseu el botó %s.</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Obre l\'aplicació de Lichess</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Veure %s a GitHub</string>
+  <string name="allReleases">totes les versions</string>
+  <string name="downloadOnAppleAppStore">Descarrega a l\'Apple App Store</string>
+  <string name="downloadOnGooglePlay">Descarrega a Google Play</string>
+  <string name="downloadOnFdroid">Descarrega a F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Pantalla de Lichess mòbil</string>
+</resources>

@@ -1,14 +1,15 @@
 package lila.mailer
 
-import akka.actor.ActorSystem
+import scala.concurrent.blocking
+
+import org.apache.pekko.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
 import org.apache.commons.mail.EmailException
 
-import scala.concurrent.blocking
-
+import lila.mon.extensions.*
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -71,7 +72,7 @@ final class Mailer(
         )
         blocking:
           client.mailer.send(email)
-      .monSuccess(_.email.send.time(client.toString))
+      .monSuccess(lila.mon.email.send.time(client.toString))
         .recoverWith:
           case _: EmailException if msg.to.normalize.value != msg.to.value =>
             logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
@@ -145,6 +146,7 @@ $serviceNote"""
 
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
     val pDesc = p(itemprop := "description")
+    val loginCode = div(itemprop := "identifier", itemscope, itemtype := "http://schema.org/ViewAction")
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)

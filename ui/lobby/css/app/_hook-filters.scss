@@ -1,9 +1,12 @@
 .hook__filters {
   padding: $block-gap 1.5em;
-  background: $m-bg--fade-50;
+  background: rgb(from $c-bg r g b / calc(alpha * 0.5));
   height: 100%;
-  white-space: nowrap;
   display: block;
+
+  table {
+    width: 100%;
+  }
 
   td {
     padding: 1em 0;
@@ -17,47 +20,89 @@
   }
 
   .checkable {
-    @extend %nowrap-ellipsis;
+    display: flex;
+    padding: 4px 2px 4px 0;
+    gap: 6px;
 
-    padding: 4.3px 2px 4.3px 0;
-
-    label,
-    input {
-      vertical-align: middle;
+    label {
+      display: inline-flex;
       cursor: pointer;
+      line-height: 16px;
+    }
+
+    input[type='checkbox'] {
+      @extend %checkbox;
+
+      cursor: pointer;
+      position: relative;
+      border-radius: calc($box-radius-size / 2);
+
+      &:hover {
+        border-color: $c-border-light;
+      }
+
+      &:checked {
+        &:hover {
+          border-color: $c-good;
+        }
+
+        &::after {
+          border: 1.5px solid #fff;
+          border-top: none;
+          border-right: none;
+          content: '';
+          width: 8px;
+          height: 4.5px;
+          left: 50%;
+          top: 50%;
+          position: absolute;
+          transform: translate(-50%, -62%) rotate(-45deg);
+        }
+      }
     }
   }
 
-  .regular-checkbox {
-    @extend %checkbox;
-  }
-
-  tr.variant td:last-child {
+  tr.filter-variant td:last-child {
     display: flex;
     flex-flow: row wrap;
   }
 
-  tr.variant .checkable {
+  tr.filter-variant .checkable {
     width: 33.3%;
+    white-space: nowrap;
   }
 
   tr.inline .checkable {
-    display: inline-block;
-    padding: 4.3px 20px 4.3px 2px;
-  }
-
-  input {
-    margin-inline-end: 0.3em;
+    display: inline-flex;
+    padding: 6px 20px 2px 0;
   }
 
   .range {
-    display: block;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    gap: 2px;
+    justify-content: center;
+
+    span {
+      color: $c-font-dim;
+      text-align: center;
+
+      &:first-child {
+        color: unset;
+        text-align: right;
+      }
+
+      &:last-child {
+        color: unset;
+        text-align: left;
+      }
+    }
   }
 
   .rating-range {
     @extend %flex-center-nowrap;
 
+    color: $c-font-dim;
     justify-content: center;
 
     input {
@@ -71,27 +116,21 @@
   }
 
   .actions {
+    display: flex;
+    gap: 6px;
     margin-top: 1.5em;
-    text-align: end;
-
-    button {
-      margin-inline-start: 0.3em;
-    }
+    justify-content: end;
   }
 
-  @media (max-width: at-most($xx-small)) {
+  @media (max-width: at-most($x-small)) {
     padding: $block-gap 1em;
 
-    td {
-      max-width: 50vw;
+    tr.filter-variant .checkable {
+      width: 50%;
     }
 
     td:first-child {
       margin-inline-end: 1rem;
-    }
-
-    tr.variant .checkable {
-      width: 50%;
     }
   }
 }

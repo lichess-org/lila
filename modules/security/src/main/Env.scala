@@ -1,6 +1,6 @@
 package lila.security
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -10,7 +10,7 @@ import lila.core.config.*
 import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
-import lila.oauth.OAuthServer
+import lila.oauth.{ OAuthServer, AccessTokenApi }
 import lila.common.config.GetRelativeFile
 
 @Module
@@ -25,6 +25,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
+    accessTokenApi: AccessTokenApi,
     mongoCache: lila.memo.MongoCache.Api,
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
@@ -32,9 +33,14 @@ final class Env(
     db: lila.db.Db,
     getFile: GetRelativeFile,
     routeUrl: RouteUrl
-)(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
-    scheduler: Scheduler
-):
+)(using
+    Executor,
+    play.api.Mode,
+    org.apache.pekko.stream.Materializer,
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
+)(using scheduler: Scheduler):
+
   private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
@@ -53,11 +59,12 @@ final class Env(
   lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
-    hashTimer = lila.common.Chronometer.syncMon(_.user.auth.hashTime)
+    hashTimer = lila.mon.Chronometer.syncMon(lila.mon.user.auth.hashTime)
   )
 
   lazy val authenticator = wire[Authenticator]
 
+  lazy val turnstileCookie = TurnstileCookie(lilaCookie, config.loginTokenSecret)
   val turnstilePublicConfig = config.turnstile.public
   lazy val turnstile: Turnstile =
     if config.turnstile.enabled then wire[TurnstileReal]
@@ -94,7 +101,7 @@ final class Env(
 
   lazy val printBan = PrintBan(db(config.collection.printBan))
 
-  private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
+  private val curPlaying = () => lazyCurrentlyPlaying
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
@@ -138,11 +145,8 @@ final class Env(
 
   lazy val emailAddressValidator = wire[EmailAddressValidator]
 
-  private lazy val disposableEmailDomain = DisposableEmailDomain(
-    ws = ws,
-    providerUrl = config.disposableEmail.providerUrl,
-    verifyMailBlocked = () => verifyMail.fetchAllBlocked
-  )
+  private lazy val disposableEmailDomain =
+    DisposableEmailDomain(ws, config.disposableEmail.providerUrl)
 
   lazy val spamKeywordsSetting = settingStore[Strings](
     "spamKeywords",
@@ -156,7 +160,7 @@ final class Env(
 
   if config.disposableEmail.enabled then
     scheduler.scheduleWithFixedDelay(42.seconds, 1.hour): () =>
-      disposableEmailDomain.refresh()
+      disposableEmailDomain.refresh().prefixFailure("DisposableEmailDomain.refresh").logFailure(logger)
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 

@@ -33,14 +33,14 @@
   <string name="streamerLanguageSettings">หน้าผู้ถ่ายทอดสดของ Lichess จะกำหนดเป้าหมายผู้ชมของคุณด้วยภาษาที่แพลตฟอร์มการถ่ายทอดสดของคุณรองรับ ตั้งค่าภาษาเริ่มต้นที่ถูกต้องสำหรับการถ่ายทอดสดหมากรุกของคุณในแอปหรือบริการที่คุณใช้ในการออกอากาศ</string>
   <string name="pleaseAllow">โปรดรอประมาณ 72 ชั่วโมงก่อนที่ตราสัญลักษณ์และรายชื่อสตรีมเมอร์ของคุณจะได้รับการอนุมัติ</string>
   <string name="chooseYoutubeChannel">เลือกช่อง YouTube ที่คุณจะใช้บน Lichess</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">เชื่อมต่อ</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ยกเลิกการเชื่อมต่อ</string>
+  <string name="connect">เชื่อมต่อ</string>
+  <string name="disconnect">ยกเลิกการเชื่อมต่อ</string>
   <string name="streamerName">ชื่อสตรีมเมอร์ของคุณบน Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">ตั้งชื่อให้กระชับสูงสุด %s ตัวอักษร</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">สามารถมองเห็นได้ในหน้าของสตรีมเมอร์</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">เมื่อได้รับการอนุมัติจากผู้ดูแลระบบ</string>
+  <string name="visibility">สามารถมองเห็นได้ในหน้าของสตรีมเมอร์</string>
+  <string name="whenApproved">เมื่อได้รับการอนุมัติจากผู้ดูแลระบบ</string>
   <string name="headline">หัวเรื่อง</string>
   <string name="tellUsAboutTheStream">อธิบายสตรีมของคุณในประโยคเดียว</string>
   <string name="longDescription">คำอธิบายยาว</string>

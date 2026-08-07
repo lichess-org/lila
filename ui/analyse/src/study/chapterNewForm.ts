@@ -3,7 +3,7 @@ import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
 
 import { defined, prop, type Prop, toggle } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedProp } from 'lib/storage';
 import {
@@ -17,6 +17,7 @@ import {
   spinnerVdom,
   type Dialog,
   type VNode,
+  icon,
 } from 'lib/view';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 
@@ -48,7 +49,7 @@ export const fieldValue = (e: Event, id: string) =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
-  dialog: Dialog | undefined;
+  dialog?: Dialog;
   isOpen = toggle(false, val => {
     if (!val) this.dialog?.close();
   });
@@ -59,7 +60,7 @@ export class StudyChapterNewForm {
   isDefaultName = toggle(true);
   orientation: Color | 'automatic';
   chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
-  selectedVariant: Prop<VariantKey> = prop('standard' as VariantKey);
+  selectedVariant: Prop<VariantKey> = prop('standard');
 
   constructor(
     private readonly send: StudySocketSend,
@@ -108,7 +109,7 @@ export class StudyChapterNewForm {
   submit = (d: Omit<ChapterData, 'initial'>) => {
     const study = this.root.study!;
     const showRatings = study.data.showRatings ? undefined : false; // define only if false
-    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings: showRatings, initial: this.initial() };
+    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
     else
       importPgn(study.data.id, dd).catch(e => {
@@ -172,7 +173,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
       dlg.show();
@@ -181,7 +181,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       activeTab !== 'edit' &&
         hl('h2', [
           i18n.study.newChapter,
-          hl('i.help', { attrs: { 'data-icon': licon.InfoCircle }, hook: bind('click', ctrl.startTour) }),
+          hl('icon.help', { attrs: dataIcon(licon.InfoCircle), hook: bind('click', ctrl.startTour) }),
         ]),
       hl(
         'form.form3',
@@ -302,7 +302,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [hl('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
+                [icon(licon.Eye)('.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&

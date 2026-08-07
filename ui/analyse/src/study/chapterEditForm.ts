@@ -70,7 +70,6 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
           ctrl.redraw();
         },
         modal: true,
-        noClickAway: true,
         vnodes: [
           h('h2', i18n.study.editChapter),
           h(

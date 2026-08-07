@@ -116,7 +116,6 @@
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
-  <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
   <string name="memory">RAM</string>
@@ -830,7 +829,6 @@
   <string name="xInvitedYouToY">%1$s səni \"%2$s\"-ə dəvət etdi.</string>
   <string name="youAreNowPartOfTeam">Siz artıq komandanın üzvüsünüz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"-yə qatıldın.</string>
-  <string name="someoneYouReportedWasBanned">Şikayət etdiyiniz şəxsin hesabı ban edilmişdir</string>
   <string name="congratsYouWon">Təbriklər, siz qalib gəldiniz!</string>
   <string name="gameVsX">%1$s-ya qarşı oyun</string>
   <string name="resVsX">%1$s vs %2$s</string>

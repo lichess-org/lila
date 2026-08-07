@@ -14,9 +14,10 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
+)(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 
@@ -89,9 +90,13 @@ final class ChallengeApi(
       if nb > 5 then repo.createdByPopularDestId(max)(userId)
       else repo.createdByDestId()(userId)
 
+  // drop the cached offer id (as Rematcher.no does) so a new rematch challenge gets a fresh id
+  private def dropRematchOffer(c: Challenge): Unit = c.rematchOf.foreach(rematches.drop)
+
   def cancel(c: Challenge) =
     for _ <- repo.cancel(c)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Cancel(c.cancel))
 
@@ -108,6 +113,7 @@ final class ChallengeApi(
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
@@ -115,7 +121,7 @@ final class ChallengeApi(
     maxSize = Max(64),
     timeout = 5.seconds,
     "challengeAccept",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def accept(
@@ -210,7 +216,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all <- allFor(userId)
-        lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
+        lang <- userApi.langOf(userId).map(langPicker.byLangTagOrDefault)
         _ <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

@@ -3,7 +3,7 @@ import { isSafari } from '@/device';
 import { myUserId } from '@/index';
 import { storedMap } from '@/storage';
 
-import { hl, type VNode } from './snabbdom';
+import { hl, onInsert, type VNode } from './snabbdom';
 
 interface Opts {
   selector?: string; // selector for element to resize, defaults to the previous sibling
@@ -23,12 +23,15 @@ export function verticalResize(o: Opts): VNode {
     'div.vertical-resize',
     {
       hook: {
-        insert: vn => {
-          const divider = vn.elm as ResizerElement;
-          const onDomChange = () => {
-            const el = o.selector
+        ...onInsert<ResizerElement>(divider => {
+          function getSelectorElement(o: Opts) {
+            return o.selector
               ? document.querySelector<HTMLElement>(o.selector)!
               : (divider.previousElementSibling as HTMLElement);
+          }
+
+          const onDomChange = () => {
+            const el = getSelectorElement(o);
             if (el.style.height) return;
             let height = o.id && heightStore(`${o.key}.${o.id}`);
             if (typeof height !== 'number') height = heightStore(o.key) ?? o.initialMaxHeight?.();
@@ -45,9 +48,7 @@ export function verticalResize(o: Opts): VNode {
             safariHack(true);
             divider.classList.add('is-dragging');
 
-            const el = o.selector
-              ? document.querySelector<HTMLElement>(o.selector)!
-              : (divider.previousElementSibling as HTMLElement);
+            const el = getSelectorElement(o);
             const beginFrom = el.getBoundingClientRect().height - down.clientY;
             divider.setPointerCapture(down.pointerId);
 
@@ -71,7 +72,7 @@ export function verticalResize(o: Opts): VNode {
             window.addEventListener('pointerup', up);
             window.addEventListener('pointercancel', up);
           });
-        },
+        }),
         destroy: vn => (vn.elm as ResizerElement).observer?.disconnect(),
       },
     },

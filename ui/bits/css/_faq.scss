@@ -18,10 +18,8 @@
 
 .faq {
   .question {
-    @extend %box-radius;
-    @include backdrop-blur-if-transparent;
+    @extend %box-bordered;
 
-    border: $border;
     background: $c-bg-zebra;
     padding: 1em 2em;
     margin-top: 1em;

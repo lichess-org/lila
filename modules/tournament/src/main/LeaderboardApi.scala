@@ -1,8 +1,8 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
 import chess.IntRating
@@ -16,7 +16,7 @@ final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(using Executor, akka.stream.Materializer)
+)(using Executor, org.apache.pekko.stream.Materializer)
     extends lila.core.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
@@ -36,7 +36,7 @@ final class LeaderboardApi(
           "d".$gte(range.start).$lt(range.end)
         )
       .sort($sort.desc("d"))
-      .cursor[Entry]()
+      .cursor[Entry](ReadPref.sec)
       .list(100)
 
   def chart(user: User): Fu[ChartData] =

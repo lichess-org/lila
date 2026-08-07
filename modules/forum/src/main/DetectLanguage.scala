@@ -40,7 +40,7 @@ final class DetectLanguage(
         .map { response =>
           (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match
             case None =>
-              lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
+              lila.log.system.warn(s"DetectLanguage invalid service response ${response.body[JsValue]}")
               None
             case Some(res) =>
               res
@@ -51,7 +51,7 @@ final class DetectLanguage(
                 .flatMap(Lang.get)
         }
         .recover { case e: Exception =>
-          lila.log("DetectLanguage").warn(e.getMessage, e)
+          lila.log.system.warn(s"DetectLanguage ${e.getMessage}", e)
           defaultLang.some
         }
 

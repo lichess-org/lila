@@ -49,7 +49,7 @@ export function initModule(opts: ChallengeOpts): void {
       .each(function (this: HTMLInputElement) {
         const input = this;
         userComplete({
-          input: input,
+          input,
           friend: true,
           tag: 'span',
           focus: true,

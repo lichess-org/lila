@@ -42,7 +42,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      span(cls := "post-edited")(
+                        trans.site.postEdited(),
+                        " "
+                      ),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
@@ -53,9 +56,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
                   dataIcon := Icon.Pencil
-                )(
-                  "Edit"
-                )
+                )(trans.site.edit())
               ),
               ctx.me.flatMap: me =>
                 given Me = me
@@ -64,7 +65,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
                     dataIcon := "❝"
-                  )("Quote")
+                  )(trans.site.quote())
                 )
                 if !post.erased && post.canBeEditedByMe
                 then
@@ -73,7 +74,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       submitButton(
                         cls := "forum-post__button delete button button-empty yes-no-confirm",
                         dataIcon := Icon.Trash,
-                        title := "Delete"
+                        title := trans.site.delete.txt()
                       )
                     ),
                     quoteButton
@@ -94,7 +95,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
                           dataIcon := Icon.Trash,
-                          title := "Delete"
+                          title := trans.site.delete.txt()
                         ),
                         quoteButton
                       )
@@ -135,6 +136,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
+                  autocomplete := "off",
                   cls := "form-control post-text-area edit-post-box",
                   required
                 )
@@ -157,7 +159,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     val allReactionsVisible =
       ForumPost.Reaction.list.forall(r => (~post.reactions.flatMap(_.get(r))).nonEmpty)
-    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
+    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact), tabindex := -1)(
       (canActuallyReact && !allReactionsVisible).option(
         button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
       ),

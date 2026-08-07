@@ -24,7 +24,7 @@
     border-bottom: $border;
     min-height: 3.5em;
 
-    i {
+    icon {
       @extend %flex-center-center;
 
       flex: 0 0 1.8em;
@@ -37,7 +37,7 @@
       background: $c-primary;
       color: $c-over;
 
-      i {
+      icon {
         opacity: 0.9;
       }
     }
@@ -50,12 +50,12 @@
     }
   }
 
-  .todo i {
+  .todo icon {
     background: $c-bad;
     color: $c-over;
   }
 
-  .done i {
+  .done icon {
     background: $c-good;
   }
 }

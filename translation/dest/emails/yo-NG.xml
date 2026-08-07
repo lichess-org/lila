@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Jẹrisi akọọlẹ lichess.org rẹ, %s</string>
+  <string name="emailConfirm_intro">O ṣeun fun fiforukọsilẹ pẹlu Lichess!</string>
 </resources>

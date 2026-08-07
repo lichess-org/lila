@@ -20,5 +20,5 @@ db.relay_tour
     if (tc) info.tc = tc.replace(/time control/i, '').trim();
     const players = split.shift();
     if (players) info.players = players;
-    db.relay_tour.updateOne({ _id: tour._id }, { $set: { info: info } });
+    db.relay_tour.updateOne({ _id: tour._id }, { $set: { info } });
   });

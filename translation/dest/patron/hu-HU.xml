@@ -35,13 +35,12 @@
   <string name="celebratedPatrons">Az ünnepelt Patronok, akik nélkül nincs Lichess</string>
   <string name="whereMoneyGoes">Mire megy el a pénz?</string>
   <string name="serversAndDeveloper">Először is, komoly szerverekre.
-Ezen kívül fizetünk egy főállású fejlesztőt: ő %s, a Lichess alapítója.</string>
+Ezen kívül fizetünk egy főállású fejlesztőt: ő %s, a Lichess alapítója.
+</string>
   <string name="costBreakdown">Lásd a részletes költséglebontást</string>
   <string name="officialNonProfit">A Lichess hivatalosan non-profit?</string>
   <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>
   <string name="changeMonthlySupport">Módosíthatom/törölhetem a havi finanszírozásomat?</string>
-  <string name="changeOrContact">Igen, bármikor, ezen az oldalon.
-Vagy ez ügyben %s.</string>
   <string name="contactSupport">keress fel minket</string>
   <string name="otherMethods">Más adakozási lehetőségek?</string>
   <string name="lichessIsRegisteredWith">A Lichess a %s által van bejegyezve.</string>

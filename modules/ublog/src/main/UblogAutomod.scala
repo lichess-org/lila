@@ -8,6 +8,7 @@ import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
 import lila.report.Automod
+import lila.mon.extensions.*
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
@@ -57,13 +58,15 @@ private final class UblogAutomod(
   val promptSetting = settingStore[Text](
     "ublogAutomodPrompt",
     text = "Ublog automod prompt".some,
-    default = Text("")
+    default = Text(""),
+    _.ModerateBlog
   )
 
   val modelSetting = settingStore[String](
     "ublogAutomodModel",
     text = "Ublog automod model".some,
-    default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
+    default = "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    _.ModerateBlog
   )
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
@@ -85,7 +88,7 @@ private final class UblogAutomod(
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
             res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash
-        .monSuccess(_.ublog.automod.request)
+        .monSuccess(lila.mon.ublog.automod.request)
     assessImages
       .zip(assessText)
       .map: (imgs, text) =>

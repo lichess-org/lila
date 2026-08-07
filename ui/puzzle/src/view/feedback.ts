@@ -7,7 +7,7 @@ import afterView from './after';
 
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
-    ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
+    ? h('div.view_solution.skip', { class: { show: ctrl.streak?.data.skip } }, [
         requiresI18n('storm', ctrl.redraw, cat =>
           h(
             'button.button.button-empty',

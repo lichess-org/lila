@@ -6,6 +6,7 @@ import scalalib.paginator.Paginator
 import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
+import lila.mon.extensions.*
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -20,6 +21,9 @@ final class PuzzleApi(
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
       colls.puzzle(_.byId[Puzzle](id))
+
+    def findMany(ids: List[PuzzleId]): Fu[List[Puzzle]] =
+      colls.puzzle(_.byOrderedIds[Puzzle, PuzzleId](ids)(_.id))
 
     def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
       colls.puzzle: coll =>
@@ -66,7 +70,7 @@ final class PuzzleApi(
       expiration = 1.minute,
       timeout = 3.seconds,
       name = "puzzle.vote",
-      monitor = lila.log.asyncActorMonitor.highCardinality
+      monitor = lila.mon.asyncActorMonitor.highCardinality
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =
@@ -86,7 +90,7 @@ final class PuzzleApi(
                     })
                     .void
                 }
-          .monSuccess(_.puzzle.vote.future)
+          .monSuccess(lila.mon.puzzle.vote.future)
             .recoverDefault
 
     private def updatePuzzle(puzzleId: PuzzleId, newVote: Int, prevVote: Option[Int]): Funit =

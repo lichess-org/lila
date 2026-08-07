@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
@@ -31,8 +31,14 @@ final class StudyApi(
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer)(using scheduler: Scheduler)
-    extends lila.core.study.StudyApi:
+)(using
+    Executor,
+    org.apache.pekko.stream.Materializer,
+    lila.core.fide.GetPlayer,
+    lila.core.fide.Federation.GetName
+)(using
+    scheduler: Scheduler
+) extends lila.core.study.StudyApi:
 
   import sequencer.*
 
@@ -179,8 +185,7 @@ final class StudyApi(
       .map(_.cloneFor(study1))
       .mapAsync(1): c =>
         chapterRepo.insert(c).inject(c)
-      .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
-      .run()
+      .runWith(Sink.reduce[Chapter] { (prev, _) => prev })
       .flatMap: first =>
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
@@ -249,41 +254,51 @@ final class StudyApi(
       position: Position
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
-    args
-      .node(position.chapter.setup.variant)
-      .map(_.withoutChildren)
-      .fold(
-        err => fufail(err.toString),
-        node =>
-          if node.ply >= Node.MAX_PLIES then fuccess(none)
-          else if position.chapter.isOverweight then
-            logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-            reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
-            fuccess(none)
-          else
-            position.chapter.addNode(node, position.path, relay) match
-              case None =>
-                reloadSriBecauseOf(study, who.sri, position.chapter.id)
-                fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
-              case Some(chapter) =>
-                chapter.root.nodeAt(position.path).so { parent =>
-                  parent.children.get(node.id).so { node =>
-                    val newPosition = position.ref + node
-                    for
-                      _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
-                      _ <-
-                        if opts.sticky
-                        then studyRepo.setPosition(study.id, newPosition)
-                        else fuccess(setStudyUpdated(study))
-                      _ = sendTo(study.id):
-                        _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                      isMainline = newPosition.path.isMainline(chapter.root)
-                      promoteToMainline = opts.promoteToMainline && !isMainline
-                    yield promoteToMainline.option: () =>
-                      promote(study.id, position.ref + node, toMainline = true)
-                  }
-                }
-      )
+    position.chapter.root
+      .nodeAt(position.path)
+      .so: fromNode =>
+        args
+          .node(position.chapter.setup.variant, fromNode.fen)
+          .map(_.withoutChildren)
+          .fold(
+            err => fufail(err.toString),
+            node =>
+              if node.ply >= Node.MAX_PLIES then fuccess(none)
+              else if position.chapter.isOverweight then
+                logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+                reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
+                fuccess(none)
+              else
+                position.chapter.addNode(node, position.path, relay) match
+                  case None =>
+                    reloadSriBecauseOf(study, who.sri, position.chapter.id)
+                    fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+                  case Some(chapter) =>
+                    chapter.root.nodeAt(position.path).so { parent =>
+                      parent.children.get(node.id).so { node =>
+                        val newPosition = position.ref + node
+                        for
+                          _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
+                          _ <-
+                            if opts.sticky
+                            then studyRepo.setPosition(study.id, newPosition)
+                            else fuccess(setStudyUpdated(study))
+                          _ = sendTo(study.id):
+                            _.addNode(
+                              position.ref,
+                              node,
+                              chapter.setup.variant,
+                              sticky = opts.sticky,
+                              relay,
+                              who
+                            )
+                          isMainline = newPosition.path.isMainline(chapter.root)
+                          promoteToMainline = opts.promoteToMainline && !isMainline
+                        yield promoteToMainline.option: () =>
+                          promote(study.id, position.ref + node, toMainline = true)
+                      }
+                    }
+          )
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -322,8 +337,13 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
-          for _ <- chapterRepo.update(newChapter) yield reloadStudy(study.id, who)
+          val newChapter =
+            chapter.copy(serverEval = none).updateRoot(_.clearAnnotationsRecursively.some) | chapter
+          for
+            _ <- chapterRepo.update(newChapter)
+            _ = if chapter.serverEval.isDefined then
+              Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
+          yield reloadStudy(study.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -400,7 +420,7 @@ final class StudyApi(
             (isAdmin && !study.isOwner(userId)) || (study.isOwner(who) ^ (who.is(userId)))
           }
           allowed.so:
-            for _ <- studyRepo.removeMember(study, userId)
+            for _ <- studyRepo.removeMember(study.id, userId)
             yield onMembersChange(study, (study.members - userId), study.members.ids)
 
   export studyRepo.{ isMember, isContributor }
@@ -449,12 +469,15 @@ final class StudyApi(
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
 
-  def setTag(studyId: StudyId, setTag: SetTag)(who: Who) =
+  def setTagFromUI(studyId: StudyId, setTag: SetTag)(who: Who) =
     setTag.validate.so: tag =>
       sequenceStudyWithChapter(studyId, setTag.chapterId):
         case Study.WithChapter(study, chapter) =>
           Contribute(who.u, study):
-            for _ <- doSetTags(study, chapter, StudyPgnTags(chapter.tags + tag), who)
+            for
+              filledTags <- StudyPgnTags.fillPlayer(chapter.tags, tag)
+              newTags = (filledTags | chapter.tags) + tag
+              _ <- doSetTags(study, chapter, StudyPgnTags(newTags), who)
             yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, tag))
 
   def setTagsAndRename(
@@ -603,7 +626,7 @@ final class StudyApi(
             .flatMap:
               _.filter(_.isEmptyInitial).so(chapterRepo.delete)
         order <- chapterRepo.nextOrderByStudy(study.id)
-        chapter <- chapterMaker(study, data, order, who.u, withRatings)
+        chapter <- chapterMaker(study, data, order, who.u, withRatings, nameOrder = (count + 1).some)
           .recoverWith:
             case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
@@ -729,6 +752,8 @@ final class StudyApi(
                     doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
+            if chapter.serverEval.isDefined
+            then Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterId :: Nil))
             sendChapterPreviews(study)
             setStudyUpdated(study)
         }
@@ -743,7 +768,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              parsed <- chapterMaker.toStudyPgn(study, pgn, strict = true)
               newChapter = chapter.copy(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
@@ -760,7 +785,7 @@ final class StudyApi(
               true
 
   // update provided tags, keep missing tags, delete tags with empty value
-  def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
+  def updateChapterTagsFromApi(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(me, study):
@@ -832,12 +857,23 @@ final class StudyApi(
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
       for
+        chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
-      yield Bus.pub(lila.core.study.RemoveStudy(study.id))
+      yield
+        Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+        Bus.pub(lila.core.study.RemoveStudy(study.id))
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_.so(delete))
+
+  def deletePrivateByOwner(userId: UserId): Funit = for
+    studyIds <- studyRepo.deletePrivateByOwner(userId)
+    _ <- studyIds.sequentiallyVoid: studyId =>
+      for chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, true)
+      yield Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+    _ <- chapterRepo.deleteByStudyIds(studyIds)
+  yield ()
 
   def like(studyId: StudyId, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v).map { likes =>
@@ -872,10 +908,25 @@ final class StudyApi(
         Contribute(userId, study):
           serverEvalRequester(study, chapter, userId, official)
 
+  // only for official broadcasts
+  def analysisRequestAllChapters(studyId: StudyId): Funit =
+    studyRepo
+      .byId(studyId)
+      .flatMapz: study =>
+        for
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(studyId, false)
+          _ <- chapterIds.sequentiallyVoid: chapterId =>
+            analysisRequest(studyId, chapterId, study.ownerId, official = true)
+        yield ()
+
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>
       Contribute(by.id, study):
-        for _ <- chapterRepo.deleteByStudy(study) yield preview.invalidate(study.id)
+        for
+          chapterIds <- chapterRepo.idsByStudyWithServerEval(study.id, true)
+          _ <- chapterRepo.deleteByStudy(study)
+          _ = Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
+        yield preview.invalidate(study.id)
 
   def becomeAdmin(studyId: StudyId, me: MyId): Funit =
     sequenceStudy(studyId): study =>

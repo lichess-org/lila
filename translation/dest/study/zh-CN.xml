@@ -39,7 +39,6 @@
   <string name="youAreNowASpectator">你现在是一位旁观者</string>
   <string name="pgnTags">PGN 标签</string>
   <string name="like">点赞</string>
-  <string name="unlike">取消点赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论此局面</string>
   <string name="commentThisMove">评论这步走法</string>

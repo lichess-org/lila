@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izazovi prijatelja</string>
+  <string name="playAgainstComputer">Igrajte se s računalom</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Za poziv na igru, pošalji ovaj URL</string>
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
@@ -51,6 +53,8 @@
   <string name="blackLeftTheGame">Crni je napustio partiju</string>
   <string name="whiteDidntMove">Bijeli igrač nije odigrao potez</string>
   <string name="blackDidntMove">Crni nije odigrao potez</string>
+  <string name="whiteAborted">Bijeli je prekinuo partiju</string>
+  <string name="blackAborted">Crni je prekinuo partiju</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
   <string name="computerAnalysis">Računalna analiza</string>
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
@@ -73,6 +77,7 @@
   <string name="expandVariations">Pokaži varijacije</string>
   <string name="forceVariation">Promakni varijaciju</string>
   <string name="copyVariationPgn">Kopiraj varijaciju PGN-a</string>
+  <string name="copyMainLinePgn">Kopirati PGN glavne varijante</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -87,6 +92,8 @@
   <string name="database">Baza podataka</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
   <string name="averageRatingX">Prosječni rejting: %s</string>
+  <string name="minRatingX">Minimalni rejting: %s</string>
+  <string name="maxRatingX">Maksimalni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
   <string name="topGames">Najjače partije</string>
   <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (%1$s+ FIDE rejting) igranih od %2$s. do %3$s. godine</string>
@@ -119,8 +126,11 @@
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Pokaži strelice varijacija</string>
-  <string name="evaluationGauge">Mjerilo evaluacije</string>
+  <string name="undefendedPieces">Nezaštićene figure</string>
+  <string name="pinnedPieces">Zavezane figure</string>
+  <string name="checkableKing">Kralj kojem se može dati šah</string>
   <string name="multipleLines">Višestrukih varijanti</string>
+  <string name="searchTime">Vrijeme traženja</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
@@ -162,6 +172,7 @@
   <string name="flipBoard">Okreni ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
   <string name="claimADraw">Proglasi remi</string>
+  <string name="drawClaimed">Remi reklamiran</string>
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
@@ -941,7 +952,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="xInvitedYouToY">%1$s te je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sad si član tima.</string>
   <string name="youHaveJoinedTeamX">Pridružio si se \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nekome koga si prijavio je zabranjen pristup</string>
   <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
@@ -995,7 +1005,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="gameInProgress">U tijeku je igra s %s.</string>
   <string name="abortTheGame">Prekini igru</string>
   <string name="resignTheGame">Odustani od igre</string>
-  <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>

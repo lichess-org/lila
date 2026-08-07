@@ -62,9 +62,8 @@
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
   <string name="notifyTournamentSoon">Turnering starter snart</string>
-  <string name="notifyBroadcasts">Overføringer du abonnerer på</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Bjellevarsel innenfor Lichess</string>
+  <string name="notifyBell">Bjellevarsel innenfor Lichess</string>
   <string name="notifyPush">Enhetsvarsel utenfor Lichess</string>
   <string name="notifyWeb">Nettleser</string>
   <string name="notifyDevice">Enhet</string>

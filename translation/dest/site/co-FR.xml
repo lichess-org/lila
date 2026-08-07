@@ -110,7 +110,6 @@
   <string name="byCPL">Par CPP Centi Puntu Persu</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
-  <string name="evaluationGauge">Stazza di valutazione</string>
   <string name="multipleLines">Parechje linee</string>
   <string name="cpus">Parechji CPU urdinatore d\' analisa</string>
   <string name="memory">Memoria</string>
@@ -807,7 +806,6 @@
   <string name="xInvitedYouToY">%1$s vi hà invitatu in %2$s.</string>
   <string name="youAreNowPartOfTeam">Site un membru di a squadra avà.</string>
   <string name="youHaveJoinedTeamX">Avete ghjuntu %1$s.</string>
-  <string name="someoneYouReportedWasBanned">Una persona ch\' avete denunciata hè stata messa fora</string>
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
@@ -860,7 +858,6 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="gameInProgress">Ghjuccate una partita contru à %s.</string>
   <string name="abortTheGame">Aburtì a partita</string>
   <string name="resignTheGame">Lascià corre a partita</string>
-  <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
   <string name="since">Da</string>
   <string name="until">Sin\' à</string>
   <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucadori di Lichess</string>

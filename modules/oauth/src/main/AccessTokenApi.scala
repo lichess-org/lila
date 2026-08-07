@@ -2,18 +2,20 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.Source
+import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.{ Bearer, UserAgent, Origin }
+import lila.core.net.Origin
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
@@ -58,16 +60,19 @@ final class AccessTokenApi(
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
+    create(granted.userId, granted.scopes, granted.redirectUri.origin)
+
+  def create(userId: UserId, scopes: TokenScopes, origin: Origin)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
         id = AccessToken.idFrom(plain),
         plain = plain,
-        userId = granted.userId,
+        userId = userId,
         description = None,
         created = nowInstant.some,
-        scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.origin.some,
+        scopes = scopes,
+        clientOrigin = origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
@@ -102,6 +107,21 @@ final class AccessTokenApi(
             )
         .map(user.id -> _)
   yield tokens.toMap
+
+  def clasStudentToken(clasName: String, student: UserId)(using UserAgent): Fu[AccessToken] =
+    given MyId = student.into(MyId)
+    val scopes = OAuthScopes(List(OAuthScope.Team.Read, OAuthScope.Team.Write))
+    findCompatiblePersonal(scopes).flatMap:
+      _.filter(_.description.contains(clasName)) match
+        case Some(token) => fuccess(token)
+        case None =>
+          create(
+            OAuthTokenForm.Data(
+              description = clasName,
+              scopes = scopes.value.map(_.key)
+            ),
+            isStudent = true
+          )
 
   def listPersonal(using me: MyId): Fu[List[AccessToken]] =
     coll
@@ -205,8 +225,29 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def userIdsByClientOrigin(clientOrigin: Origin): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
+  def userIdsByClientOrigin(clientOrigin: Origin): Source[UserId, ?] =
+    coll
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match($doc(F.clientOrigin -> clientOrigin)),
+          Group(BSONNull)("u" -> AddFieldToSet("userId")),
+          Project($doc("_id" -> 0)),
+          Unwind("u")
+        )
+      .documentSource()
+      .mapConcat(_.getAsOpt[UserId]("u").toList)
+
+  def recentlySeenUserIdsByClientOrigin(clientOrigin: Origin, since: Instant): Fu[List[UserId]] =
+    coll
+      .aggregateOne(readPref = _.sec): framework =>
+        import framework.*
+        Match($doc(F.clientOrigin -> clientOrigin) ++ F.usedAt.$gt(since)) -> List(
+          Group(BSONNull)("u" -> AddFieldToSet("userId")),
+          Project($doc("_id" -> 0))
+        )
+      .map:
+        _.headOption.so(_.getAsOpt[List[UserId]]("u")).orZero
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
@@ -233,15 +274,15 @@ final class AccessTokenApi(
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match
         case Some(token) =>
-          logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+          logger.info(s"github revoking token ${token.plain} for user ${token.userId}")
           revoke(token.plain).inject((token, scan.url).some)
         case None =>
-          logger.branch("github").info(s"ignoring token ${scan.token}")
+          logger.info(s"github ignoring token ${scan.token}")
           fuccess(none)
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](4096, "oauth.access_token"):
+    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](16_384, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =

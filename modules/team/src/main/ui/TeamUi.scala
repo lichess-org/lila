@@ -4,14 +4,13 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   import helpers.{ *, given }
   import trans.team as trt
 
-  def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
+  def TeamPage(title: String) = Page(title).css("team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val options = lila.memo.MarkdownOptions(
@@ -19,6 +18,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       header = true,
       list = true,
       table = true,
+      blockQuote = false,
       maxPgns = Max(0)
     )
 
@@ -35,6 +35,9 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       ,
       ctx.isAuth.option(
         a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams())
+      ),
+      ctx.isAuth.option(
+        a(cls := tab.active("updates"), href := routes.Team.updates())(trt.teamUpdates())
       ),
       ctx.isAuth.option(
         a(cls := tab.active("leader"), href := routes.Team.leader)(trt.leaderTeams())
@@ -63,14 +66,16 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         ),
         t.intro.map(span(_))
       ),
-      td(cls := "info")(
-        p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
+      td(cls := "actions")(
         isMine.option:
           st.form(action := routes.Team.quit(t.id), method := "post")(
             submitButton(cls := "button button-empty button-red button-thin yes-no-confirm team__quit")(
               trt.quitTeam.txt()
             )
           )
+      ),
+      td(cls := "info")(
+        p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize))
       )
     )
 
@@ -198,7 +203,6 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       team: Team,
       member: Option[TeamMember],
       myRequest: Option[TeamRequest],
-      subscribed: Boolean,
       asMod: Boolean
   )(using ctx: Context) =
     def hasPerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
@@ -218,17 +222,6 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
                 submitButton(cls := "button button-red button-empty yes-no-confirm")(trans.site.cancel())
             )
           else (ctx.isAuth && !asMod).option(joinButton(team))
-        )
-      ),
-      (team.enabled && team.doesTeamMessages && member.isDefined).option(
-        postForm(
-          cls := "team-show__subscribe form3",
-          action := routes.Team.subscribe(team.id)
-        )(
-          form3.cmnToggleWrap(
-            form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed),
-            trt.subToTeamMessages()
-          )
         )
       ),
       (member.isDefined && !team.isClas && !hasPerm(_.Admin)).option(
@@ -276,14 +269,10 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       (team.enabled && hasPerm(_.PmAll)).option(
         frag(
           a(
-            href := routes.Team.pmAll(team.id),
+            href := routes.Team.updateNew(team.id),
             cls := "button button-empty text",
-            dataIcon := Icon.Envelope
-          ):
-            span(
-              strong(trt.messageAllMembers()),
-              em(trt.messageAllMembersOverview())
-            )
+            dataIcon := Icon.InkQuill
+          )(trt.newTeamUpdate())
         )
       ),
       ((team.enabled && hasPerm(_.Settings)) || canManage).option(
@@ -291,9 +280,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           href := routes.Team.edit(team.id),
           cls := "button button-empty text",
           dataIcon := Icon.Gear
-        )(
-          trans.settings.settings()
-        )
+        )(trans.settings.settings())
       ),
       ((team.enabled && hasPerm(_.Admin)) || canManage).option(
         a(
@@ -320,8 +307,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         a(
           href := routes.Team.show(team.id, 1, mod = true),
           cls := "button button-red"
-        ):
-          "View team as Mod"
+        )("View team as Mod")
       )
     )
 

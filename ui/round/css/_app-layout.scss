@@ -123,6 +123,7 @@
 
     .expiration-top {
       display: flex;
+      z-index: 1;
     }
 
     #{$rmoves-tag} {

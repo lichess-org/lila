@@ -24,7 +24,6 @@ object BinaryFormat:
       format.pgn.Binary.readMoves(ba.value.toList, nb).get.toVector
 
   object clockHistory:
-    private val logger = lila.log("clockHistory")
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) =
       val timesToWrite = if flagged then times.dropRight(1) else times
@@ -43,7 +42,7 @@ object BinaryFormat:
         )
       }.fold(
         e =>
-          logger.warn(s"Exception decoding history", e); none
+          logger.warn(s"Exception decoding clock history", e); none
         ,
         some
       )

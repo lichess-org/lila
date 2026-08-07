@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 
 import { randomToken, definedUnique } from './algo.ts';
-import { type Context, env, c, errorMark } from './env.ts';
-import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
+import { type Context, type Package, env, c, errorMark } from './env.ts';
+import { glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
@@ -29,11 +29,11 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
   key: TaskKey;
   debounce: Debounce;
   fileTimes: Map<AbsPath, number>;
-  status: 'ok' | 'error' | undefined;
+  status?: 'ok' | 'error';
 };
 type TaskOpts = {
   includes: CwdPath | CwdPath[];
-  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
+  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<void>;
   excludes?: Path | Path[];
   key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
@@ -165,13 +165,12 @@ async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promis
 async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
   const fullpath = join(fsw.cwd, filename ?? '');
 
-  if (event === 'change')
-    try {
-      await cachedFileTime(fullpath, true);
-    } catch {
-      fileTimes.delete(fullpath);
-      event = 'rename';
-    }
+  try {
+    await cachedFileTime(fullpath, true);
+  } catch {
+    fileTimes.delete(fullpath);
+    event = 'rename';
+  }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
     const fullglobs = definedUnique(watch.includes.map(({ cwd, path }) => join(cwd, path)));
     if (!mm.isMatch(fullpath, fullglobs)) {

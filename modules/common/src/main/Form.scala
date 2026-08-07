@@ -34,6 +34,8 @@ object Form:
     it.map: d =>
       d -> format(d)
 
+  def pairOf(o: String): PairOf[String] = (o, o)
+
   def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices.mkString(", ")}"
 
   def numberIn(choices: Options[Int]) =
@@ -51,7 +53,7 @@ object Form:
   def stringIn[A](choices: Seq[A])(key: A => String): Mapping[A] =
     stringIn(choices.map(key).toSet).transform[A](str => choices.find(c => str == key(c)).get, key)
 
-  def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
+  def idWithSyncUniqueCheck[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
       sr: StringRuntime[Id],
       rs: SameRuntime[String, Id]
   ): Mapping[Id] =
@@ -59,9 +61,12 @@ object Form:
       .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r.matches(id))
       .into[Id]
     fixed match
-      case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
+      case Some(fixedId) => field.verifying("The ID cannot be changed now", _ == fixedId)
       case None =>
-        field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
+        field.verifying(
+          "This ID is already in use",
+          id => !scala.concurrent.Await.result(exists(id), 1.second)
+        )
 
   def empty[T]: FieldMapping[Option[T]] =
     given Formatter[Option[T]] = new:
@@ -262,7 +267,7 @@ object Form:
     val historicalConstraints = Seq(
       Constraints.minLength(2),
       Constraints.maxLength(30),
-      Constraints.pattern(regex = UserName.historicalRegex)
+      Constraints.pattern(regex = UserName.historicalRegex, error = "usernameCharsInvalid")
     )
     val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
 
@@ -290,6 +295,22 @@ object Form:
     import chess.ByColor
     def mappingOf[A](a: Mapping[A]): Mapping[ByColor[A]] =
       mapping("white" -> a, "black" -> a)(ByColor.apply)(unapply)
+
+  object tagifyValues:
+    // [{"value":"neio"},{"value":"lizen1"}]"
+    import play.api.libs.json.{ Json, JsArray, JsObject, Reads }
+    private def parse[A: Reads](key: String)(json: String): Either[String, List[A]] =
+      if json.trim.isEmpty then Right(Nil)
+      else
+        val parsed = Json.parse(json)
+        if parsed.asOpt[JsArray].exists(_.value.sizeIs > 300) then Left("Too many")
+        else
+          val found =
+            for objs <- parsed.validate[List[JsObject]].asOpt
+            yield objs.flatMap(_.get[A](key))
+          found.toRight("Invalid JSON")
+    def field[A: Reads, B](key: String)(read: List[A] => B): Mapping[B] =
+      of[List[A]](using formatter.stringTryFormatter(parse[A](key), _ => "")).transform[B](read, _ => Nil)
 
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],

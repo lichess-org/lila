@@ -1,8 +1,9 @@
 import { type Prop, prop } from 'lib';
+import { api } from 'lib/api';
+import type { Search } from 'lib/ceval/types';
 import { storedBooleanProp } from 'lib/storage';
 
 import type AnalyseCtrl from '@/ctrl';
-import { readOnlyProp } from '@/util';
 
 import type { StudyData } from '../interfaces';
 import { practiceComplete } from '../studyXhr';
@@ -28,10 +29,6 @@ export default class StudyPracticeCtrl {
   }
 
   onLoad = () => {
-    this.root.showBestMoveArrowsProp = readOnlyProp(true);
-    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
-    this.root.showGauge = readOnlyProp(true);
-    this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);
@@ -94,11 +91,9 @@ export default class StudyPracticeCtrl {
     this.onLoad();
     this.root.practice!.resume();
   };
-  // push to 20 to store AI moves in the cloud
-  // lower to 18 after task completion (or failure)
-  playableDepth = () => (this.success() === null ? 20 : 18);
-  customCeval = {
-    search: () => ({ by: { depth: this.playableDepth() }, multiPv: 1, indeterminate: true }),
+  customCeval: { search: () => Search } = {
+    search: () =>
+      api.overrides.studyPracticeSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true },
   };
   isWhite = this.root.bottomIsWhite;
   analysisUrl = () =>

@@ -1,6 +1,7 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
+import lila.mon.extensions.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
@@ -19,7 +20,7 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.core.user.LightUserApi,
     redisClient: RedisClient
-)(using akka.stream.Materializer, Scheduler, Executor):
+)(using org.apache.pekko.stream.Materializer, Scheduler, Executor):
 
   def handles(tour: Tournament) = isOnLilaHttp.get(tour.id)
   private def handledIds = isOnLilaHttp.keys
@@ -44,7 +45,7 @@ final class TournamentLilaHttp(
         lila.mon.tournament.lilaHttp.fullSize.record(str.size)
         conn.async.publish(channel, str)
       .runWith(LilaStream.sinkCount)
-      .monSuccess(_.tournament.lilaHttp.tick)
+      .monSuccess(lila.mon.tournament.lilaHttp.tick)
       .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_))
       .void
 

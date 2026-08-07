@@ -27,6 +27,7 @@
   <string name="capturingDefender">Αιχμαλώτιση αμυνόμενου κομματιού</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
   <string name="collinearMove">Συγγραμμική κίνηση</string>
+  <string name="collinearMoveDescription">Δύο αντίπαλα κομμάτια κοιτάζουν το ένα το άλλο, και το ένα κινείται κατά μήκος της γραμμής χωρίς να τρώει το εχθρικό κομμάτι.</string>
   <string name="cornerMate">Ματ στη γωνία</string>
   <string name="cornerMateDescription">Ο πύργος ή η βασίλισσα περιορίζουν τον αντίπαλο βασιλιά στη γωνία, με τον ίππο να δίνει ματ.</string>
   <string name="crushing">Σαρωτική επίθεση</string>
@@ -54,14 +55,19 @@
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Τακτικά στην τελευταία φάση της παρτίδας.</string>
   <string name="enPassantDescription">Τακτικά που αφορούν τον κανόνα en passant, σύμφωνα με τον οποίο ένα πιόνι μπορεί να αιχμαλωτίσει ένα αντίπαλο πιόνι το οποίο προσπέρασε κινούμενο από την αρχική του θέση δύο τετράγωνα μπροστά.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Τακτική με «αν πασάν», όπου ένα πιόνι αιχμαλωτίζει το αντίπαλο πιόνι το οποίο έκανε την αρχική του κίνηση δύο τετραγώνων.</string>
+  <string name="epauletteMate">Ματ των επωμίδων</string>
+  <string name="epauletteMateDescription">Ένας βασιλιάς στην άκρη της σκακιέρας δέχεται σαχ και τα δύο γειτονικά τετράγωνα διαφυγής του είναι κατειλημμένα από φιλικά κομμάτια.</string>
   <string name="exposedKing">Ευάλωτος βασιλιάς</string>
   <string name="exposedKingDescription">Τακτικά τα οποία αφορούν έναν βασιλιά με λίγα αμυντικά κομμάτια γύρω του, και τα οποία συχνά καταλήγουν σε ματ.</string>
   <string name="fork">Πιρούνι – Διπλό χτύπημα</string>
   <string name="forkDescription">Μια κίνηση κατά την οποία το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Κίνηση κατά την οποία ένα κομμάτι απειλεί ταυτόχρονα δύο ή περισσότερα αντίπαλα κομμάτια.</string>
   <string name="hangingPiece">Κομμάτι που κρέμεται</string>
   <string name="hangingPieceDescription">Τακτικά στα οποία ένα αντίπαλο κομμάτι «κρέμεται» — είναι, δηλαδή, απροστάτευτο ή δεν προστατεύεται επαρκώς και μπορεί, κατά συνέπεια, να αιχμαλωτιστεί.</string>
   <string name="hookMate">Ματ με αγκίστρι</string>
   <string name="hookMateDescription">Ματ με πύργο, ίππο, και ένα πιόνι, μαζί με ένα αντίπαλο πιόνι το οποίο εμποδίζει την διαφυγή του αντίπαλου βασιλιά.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Ματ με πύργο, ίππο και πιόνι, κατά το οποίο ένα αντίπαλο πιόνι εμποδίζει τη διαφυγή του βασιλιά.</string>
   <string name="interference">Παρεμβολή</string>
   <string name="interferenceDescription">Μετακίνηση κομματιού ανάμεσα σε δύο αντίπαλα κομμάτια, η οποία έχει σκοπό να αφήσει ένα ή και τα δύο αντίπαλα κομμάτια απροστάτευτα. Χαρακτηριστικό παράδειγμα αποτελεί η μετακίνηση ενός ίππου ανάμεσα από δύο αντίπαλους πύργους.</string>
   <string name="intermezzo">Ενδιάμεση κίνηση</string>
@@ -72,6 +78,8 @@
   <string name="pillsburysMateDescription">Ο πύργος κάνει ματ στον αντίπαλο βασιλιά, τον οποίο ένας αξιωματικός έχει περιορίσει.</string>
   <string name="morphysMate">Ματ του Μόρφυ</string>
   <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
+  <string name="swallowstailMate">Ματ χελιδονοουράς</string>
+  <string name="swallowstailMateDescription">Ένα μοτίβο ματ που οπτικά μοιάζει με την ουρά ενός χελιδονιού, παρόμοιο με το σχήμα V.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
   <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
   <string name="vukovicMate">Ματ του Vukovic</string>

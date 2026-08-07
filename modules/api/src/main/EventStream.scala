@@ -1,9 +1,10 @@
 package lila.api
 
-import akka.actor.*
-import akka.stream.scaladsl.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.net.Bearer
 
 import lila.challenge.{ Challenge, NegativeEvent }
 import lila.common.Bus
@@ -13,7 +14,6 @@ import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
 import lila.bot.OnlineApiUsers.*
-import lila.core.net.Bearer
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
@@ -27,7 +27,7 @@ final class EventStream(
 )(using system: ActorSystem, scheduler: Scheduler)(using Executor, lila.core.i18n.Translator):
 
   private val blueprint =
-    Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
+    Source.queue[Option[JsObject]](32, org.apache.pekko.stream.OverflowStrategy.dropHead)
 
   def apply(
       gamesInProgress: List[Game],

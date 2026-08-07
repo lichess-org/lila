@@ -51,7 +51,7 @@ class HandOfCardsImpl {
   animFrame = 0;
   scaleFactor = 1;
   groups: Set<string | undefined>;
-  group: string | undefined;
+  group?: string;
   drag?: {
     when: number;
     card: HTMLElement;

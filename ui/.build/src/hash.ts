@@ -64,8 +64,8 @@ export async function hash(): Promise<void> {
 }
 
 export async function symlinkTargetHashes(newLinks?: string[]) {
-  const targetHashes = {} as Record<string, string>;
-  if (newLinks && newLinks.length === 0) return targetHashes;
+  const targetHashes: Record<string, string> = {};
+  if (newLinks?.length === 0) return targetHashes;
 
   await fs.promises.readdir(env.hashOutDir).then(files =>
     Promise.all(

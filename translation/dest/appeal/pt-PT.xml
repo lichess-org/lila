@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">A tua conta não está marcada ou restrita. Está tudo bem!</string>
-  <string name="engineMarked">A tua conta está marcada por assistência externa em jogos.</string>
+  <string name="engineMarked">A tua conta foi restringida por usares assistência de motores/computadores nos jogos.</string>
   <string name="engineMarkedInfo">Definimos isto como a utilização de qualquer ajuda externa para reforçar os teus conhecimentos e/ou capacidades de cálculo, de modo a obter uma vantagem injusta sobre o teu adversário. Vê a página %s para mais pormenores.</string>
   <string name="arenaBanned">A tua conta está proibida de entrar nas arenas.</string>
-  <string name="prizeBanned">A tua conta está banida dos torneios com prémios reais.</string>
-  <string name="boosterMarked">A tua conta está marcada por manipulação de classificação.</string>
-  <string name="boosterMarkedInfo">Definimos isto como manipular deliberadamente a classificação ao perder jogos de propósito ou ao jogar contra outra conta que esteja deliberadamente a perder jogos.</string>
+  <string name="prizeBanned">A tua conta está proibida de entrar em torneios com prémios reais.</string>
+  <string name="boosterMarked">A tua conta foi restringida por manipulação de classificações/partilha de conta.</string>
   <string name="accountMuted">A tua conta foi silenciada.</string>
   <string name="accountMutedInfo">Lê as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
-  <string name="excludedFromLeaderboards">A tua conta foi excluída das tabelas de classificação.</string>
-  <string name="excludedFromLeaderboardsInfo">Definimos isto como a utilização de qualquer forma injusta para entrar na tabela de liderança.</string>
+  <string name="excludedFromLeaderboards">A tua conta foi excluída das tabelas de classificações.</string>
+  <string name="onlyOneAccountOnLeaderboards">Apenas uma conta por pessoa entra nas tabelas.</string>
   <string name="closedByModerators">A tua conta foi encerrada pelos moderadores.</string>
-  <string name="hiddenBlog">Os teus blogues foram ocultados pelos moderadores.</string>
-  <string name="hiddenBlogInfo">Certifica que leias novamente as nossas %s.</string>
+  <string name="blogRestriction">Tens uma restrição no blog.</string>
+  <string name="blogRestrictionInfo">Lê as nossas %s, violar estas regras pode resultar em diferentes ações.</string>
   <string name="playTimeout">Estás temporariamente impedido de jogar.</string>
+  <string name="reportBanned">Não podes enviar denúncias aos moderadores</string>
+  <string name="reportBannedInfo">Reparámos num padrão de abuso do nosso sistema de denúncias. Isto pode dever-se a vários motivos, como estares constantemente a escolher as categorias erradas, usares linguagem obscena, inadequada ou ofensiva, reportares um número exagerado de jogos, ou não explicares por que achas que o adversário violou as regras.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">A tua conta está temporariamente impedida de jogar.</string>
   <string name="communicationGuidelines">diretrizes de comunicação</string>
-  <string name="blogRules">regras do blogue</string>
+  <string name="blogEtiquette">etiquetas do blog</string>
   <string name="fairPlay">Jogo Justo</string>
 </resources>

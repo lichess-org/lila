@@ -120,7 +120,6 @@
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="showVariationArrows">Tampilkan variasi panah</string>
-  <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
@@ -876,7 +875,6 @@
   <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
   <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>
   <string name="congratsYouWon">Selamat, kamu menang!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -929,7 +927,6 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="gameInProgress">Permainan anda dengan %s masih sedang berlangsung.</string>
   <string name="abortTheGame">Batalkan permainan</string>
   <string name="resignTheGame">Menyerah dari permainan</string>
-  <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
   <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>

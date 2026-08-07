@@ -119,7 +119,7 @@ final class RelationApi(
       sort = $empty
     ).map(_.userId)
 
-  def follow(u1: User, u2: UserId): Funit = (u1 != u2).so:
+  def follow(u1: User, u2: UserId): Funit = (u1.id != u2).so:
     prefApi.followable(u2).flatMapz {
       userApi.isEnabled(u2).flatMapz {
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {

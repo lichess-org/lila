@@ -26,8 +26,8 @@ export const renderHistoryChart = (data: OpeningPage): void => {
       datasets: [
         {
           data: data.history.map((n, i) => ({ x: firstDate.add(i, 'M').valueOf(), y: n })),
-          borderColor: 'hsla(37,74%,43%,1)',
-          backgroundColor: 'hsla(37,74%,43%,0.5)',
+          borderColor: 'hsl(37 74% 43%)',
+          backgroundColor: 'hsl(37 74% 43% / 0.5)',
           fill: true,
         },
       ],

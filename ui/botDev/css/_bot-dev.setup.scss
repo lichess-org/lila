@@ -113,7 +113,7 @@ body:has(.base-view.setup-view) {
     }
 
     button {
-      i {
+      icon {
         display: block;
         padding: 0;
         width: 64px;
@@ -121,15 +121,15 @@ body:has(.base-view.setup-view) {
         background-size: 64px 64px;
       }
 
-      &.white i {
+      &.white icon {
         background-image: url('../images/buttons/play-as-white.svg');
       }
 
-      &.black i {
+      &.black icon {
         background-image: url('../images/buttons/play-as-black.svg');
       }
 
-      &.random i {
+      &.random icon {
         background-image: url('../images/buttons/play-as-random.svg');
       }
     }

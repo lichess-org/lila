@@ -1,7 +1,6 @@
 import { view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
-import { bind, dataIcon, hl, type VNode } from 'lib/view';
+import { type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import { view as keyboardView } from '@/keyboard';
@@ -45,25 +44,6 @@ export function relayView(
     ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx),
   );
 }
-
-export const backToLiveView = (ctrl: AnalyseCtrl) =>
-  ctrl.study?.isRelayAwayFromLive()
-    ? hl(
-        'button.fbt.relay-back-to-live.text',
-        {
-          attrs: dataIcon(licon.PlayTriangle),
-          hook: bind(
-            'click',
-            () => {
-              const p = ctrl.study?.data.chapter.relayPath;
-              if (p) ctrl.userJump(p);
-            },
-            ctrl.redraw,
-          ),
-        },
-        i18n.broadcast.backToLiveMove,
-      )
-    : undefined;
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;

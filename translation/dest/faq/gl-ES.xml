@@ -147,6 +147,12 @@ Despois selecciona se permitir ou bloquear as notificacións de Lichess.</string
 A icona vermella de silencio aparece cando o teu navegador impide a lichess.org reproducir o son. En xeral, esta restrición desaparece no momento de facer clic en algo. Nalgúns navegadores móbiles arrastrar unha peza non conta coma un clic. Nese caso, debes premer no taboleiro ó comezo de cada partida para permitir o son.
 
 Amosamos a icona vermella para avisarte cando isto ocorre. A miúdo podes permitir de xeito explícito a lichess.org a reprodución do son. Velaquí unhas instrucións para facelo nas versións recentes dos navegadores máis populares.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Buscando protexer ós usuarios, moitos navegadores impiden a reprodución de son nas páxinas que se acaban de abrir.
+
+A icona de silencio aparece cando o teu navegador impide a lichess.org reproducir o son. Esta restrición desaparece habitualmente no momento de faceres clic nalgures.
+En certos navegadores móbiles arrastrar unha peza non conta coma un clic. Nese caso, debes premer no taboleiro ó comezo de cada partida para permitir o son.
+
+Para avisarte de que isto está a suceder, amosamos a icona vermella de silencio. En moitos navegadores podes permitir de xeito explícito que lichess.org reproduza o son. Velaquí unhas instrucións para permitir que as páxinas web reproduzan o son nas versións recentes dos navegadores máis populares:</string>
   <string name="desktop">PC de escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Vai a lichess.org
 2. Pulsa Ctrl+i en Linux/Windows ou ⌘+i en macOS
@@ -154,6 +160,10 @@ Amosamos a icona vermella para avisarte cando isto ocorre. A miúdo podes permit
 4. Permite Son e Vídeo en lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Vai a lichess.org
 2. Fai clic na icona do cadeado na barra de enderezos
+3. Preme nos Axustes
+4. Permitir Son</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Vai a lichess.org
+2. Fai clic na icona de información do sitio na barra de enderezos
 3. Preme nos Axustes
 4. Permitir Son</string>
   <string name="enableAutoplayForSoundsSafari">1. Vai a lichess.org

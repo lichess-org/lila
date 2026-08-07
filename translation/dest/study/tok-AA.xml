@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">tenpo lili la ni li sin</string>
   <string name="mostPopular">o nasin tan pilin pi jan mute</string>
   <string name="alphabetical">o nasin tan sitelen nimi</string>
+  <string name="relevant">pona</string>
   <string name="addNewChapter">o pali e wan sin</string>
   <plurals name="nbChapters">
     <item quantity="one">wan %s</item>
@@ -41,7 +42,6 @@
   <string name="youAreNowASpectator">tenpo ni la, sina jan lukin pi lipu sona</string>
   <string name="pgnTags">nimi sona pi nasin \"PGN\"</string>
   <string name="like">pona tawa mi</string>
-  <string name="unlike">o weka e \"pilin pona\" mi</string>
   <string name="newTag">nomo sona sin</string>
   <string name="commentThisPosition">o pana e toki tawa nasin ma pi tenpo ni</string>
   <string name="commentThisMove">o pana e toki tawa tawa ni</string>

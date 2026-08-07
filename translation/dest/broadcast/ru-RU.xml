@@ -30,7 +30,7 @@
   <string name="fullDescription">Полное описание события</string>
   <string name="fullDescriptionHelp">Необязательное полное описание трансляции. Доступна разметка %1$s. Длина должна быть меньше %2$s символов.</string>
   <string name="sourceSingleUrl">Исходный URL PGN</string>
-  <string name="sourceUrlHelp">URL-адрес, с которого Lichess будет получать обновление PGN. Он должен быть доступен для получения из Интернета.</string>
+  <string name="sourceUrlHelp">URL адрес, с которого Lichess будет получать обновление PGN. Он должен быть доступен для получения из Интернета.</string>
   <string name="sourceGameIds">До 64 идентификаторов (ID) игр Lichess, разделённых пробелами.</string>
   <string name="startDateTimeZone">Дата начала турнира в местном часовом поясе: %s</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
@@ -43,6 +43,7 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Навсегда удалить этот турнир, включая все раунды и партии?</string>
   <string name="showScores">Показать очки игроков по результатам партий</string>
   <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
   <string name="fideFederations">Федерации FIDE</string>
@@ -61,12 +62,14 @@
   <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или пуш-уведомление для трансляций в своих настройках.</string>
   <string name="uploadImage">Загрузить изображение турнира</string>
   <string name="noBoardsYet">Пока нет досок. Они появятся после загрузки партий.</string>
+  <string name="noPlayersYet">Пока игроков нет. Они появятся сразу после загрузки партий.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Доски могут быть загружены из источника или с помощью %s</string>
   <string name="startsAfter">Начало после %s</string>
   <string name="startVerySoon">Трансляция начнётся совсем скоро.</string>
   <string name="notYetStarted">Трансляция ещё не началась.</string>
   <string name="officialWebsite">Официальный веб-сайт</string>
   <string name="officialStandings">Официальная турнирная таблица</string>
+  <string name="regulations">Регламенты</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
   <string name="webmastersPage">странице веб-мастера</string>
   <string name="embedThisBroadcast">Встройте эту трансляцию на ваш сайт</string>
@@ -110,6 +113,6 @@
   <string name="tiebreaks">Тай-брейки</string>
   <string name="gameX">%s партий</string>
   <string name="knockouts">Нокауты</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s</string>
 </resources>

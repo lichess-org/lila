@@ -47,6 +47,7 @@
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه البطولة</string>
   <string name="definitivelyDeleteTournament">قم بحذف البطولة كلها, وكل جولاتها, وكل ألعابها.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">حذف هذه البطولة بشكل دائم، بما في ذلك جميع الجولات والألعاب؟</string>
   <string name="showScores">إظهار نتيجة اللاعبين بناءً على نتائج اللعبة</string>
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="fideFederations">الاتحاد الدولي للشطرنج</string>
@@ -55,6 +56,7 @@
   <string name="fidePlayerNotFound">لم يتم العثور على لاعب الاتحاد الدولي (FIDE)</string>
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="federation">إتحاد</string>
+  <string name="age">العمر</string>
   <string name="unrated">غير مقيم</string>
   <string name="recentTournaments">البطولات الأخيرة</string>
   <string name="openLichess">افتح في ليتشيس</string>
@@ -64,18 +66,21 @@
   <string name="subscribeTitle">اشترك ليتم إعلامك عند بداية كل جولة. يمكنك تفعيل الجرس أو  الإشعارات للبث في إعدادات حسابك.</string>
   <string name="uploadImage">رفع صورة البطولة</string>
   <string name="noBoardsYet">لا توجد لوحات الآن. ستظهر بمجرد رفع المباريات.</string>
+  <string name="noPlayersYet">لا يوجد أي لاعبين حتى الآن. سيظهرون فور تحميل المباريات.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">يمكن إضافة اللوحات عبر مصدرها أو عبر %s</string>
   <string name="startsAfter">تبدأ بعد%s</string>
   <string name="startVerySoon">سيبدأ البث قريبا.</string>
   <string name="notYetStarted">البث لم يبدأ بعد.</string>
   <string name="officialWebsite">الموقع الرسمي</string>
   <string name="officialStandings">الترتيب الرسمي</string>
+  <string name="regulations">لوائح</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>
   <string name="embedThisBroadcast">ادمج هذا البث في موقع الويب الخاص بك</string>
   <string name="ratingDiff">فرق التقييم</string>
   <string name="gamesThisTournament">الألعاب</string>
   <string name="score">النتيجة</string>
+  <string name="standingsDisclaimer">يتم حساب المواصفات باستخدام الألعاب المبثوثة وقد تختلف عن النتائج الرسمية.</string>
   <string name="allTeams">كل الفرق</string>
   <string name="tournamentFormat">نظام البطولة</string>
   <string name="tournamentLocation">موقع البطولة</string>
@@ -85,9 +90,33 @@
   <string name="optionalDetails">تفاصيل اختيارية</string>
   <string name="pastBroadcasts">البثوث السابقة</string>
   <string name="allBroadcastsByMonth">اعرض البثوث حسب الشهر</string>
-  <string name="backToLiveMove">العودة إلى الحرقات المباشرة</string>
-  <string name="sinceHideResults">بما أنك اخترت إخفاء النتائج، فإن جميع لوحات المعاينة فارغة لتجنب الحرق.</string>
+  <string name="backToLiveMove">العودة إلى النقلات المباشرة</string>
+  <string name="sinceHideResults">نظرًا لاختيارك إخفاء النتائج، تظهر جميع لوحات المعاينة فارغة لتجنّب حرق النتائج.</string>
   <string name="liveboard">اللوحة الآن</string>
   <string name="communityBroadcast">بث المجتمع</string>
   <string name="createdAndManagedBy">تم إنشاؤها وإدارتها بواسطة %s.</string>
+  <string name="matchPoints">نقاط المبارة</string>
+  <string name="gamePoints">نقاط اللعبة</string>
+  <string name="matches">المباريات</string>
+  <string name="matchHistory">سجل المباراة</string>
+  <string name="teamResults">نتائج الفريق</string>
+  <string name="termsAutomaticallyTranslated">المصطلحات التالية سيتم ترجمتها تلقائياً: %s.</string>
+  <string name="roundX">الجولة %s</string>
+  <string name="defaultRoundNameHelp">الإبقاء على الاسم الافتراضي سيؤدي إلى ترجمته تلقائيًا إلى جميع اللغات الأخرى.</string>
+  <string name="openTournament">الافتتاحية</string>
+  <string name="womenTournament">النساء</string>
+  <string name="menTournament">الرجال</string>
+  <string name="girlsTournament">البنات</string>
+  <string name="boysTournament">الأولاد</string>
+  <string name="openUnderXAgeTournament">مفتوح تحت سن%s</string>
+  <string name="girlsUnderXAgeTournament">البنات تحت سن%s</string>
+  <string name="boysUnderXAgeTournament">الأولاد تحت سن%s</string>
+  <string name="quarterfinals">ربع النهائي</string>
+  <string name="semifinals">نصف النهائي</string>
+  <string name="finals">النهائي</string>
+  <string name="tiebreaks">كسر التعادل</string>
+  <string name="gameX">اللعبة %s</string>
+  <string name="knockouts">الضربات القاضية</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">تحت%s</string>
 </resources>

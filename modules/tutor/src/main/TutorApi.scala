@@ -1,6 +1,6 @@
 package lila.tutor
 
-import lila.common.{ Chronometer, LilaScheduler, Uptime }
+import lila.common.{ LilaScheduler, Uptime }
 import lila.core.perf.UserWithPerfs
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -42,7 +42,7 @@ final class TutorApi(
     yield cache.invalidate(config)
 
   private val initialDelay = if mode.isProd then 1.minute else 5.second
-  LilaScheduler("TutorQueue", _.Every(1.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
+  LilaScheduler("TutorQueue", _.Every(2.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
@@ -58,11 +58,8 @@ final class TutorApi(
   // we only wait for queue.start
   // NOT for builder
   private def buildThenRemoveFromQueue(config: TutorConfig) =
-    val chrono = Chronometer.start
-    logger.info(s"Start ${config.user}")
     for _ <- queue.start(config.user)
     yield builder(config).foreach: report =>
-      logger.info(s"${report.id} in ${chrono().seconds} seconds")
       cache.put(config, fuccess(report.some))
       queue.remove(config.user)
 

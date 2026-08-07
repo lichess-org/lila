@@ -1,5 +1,6 @@
 import { opposite } from 'chessops/util';
 
+import { defined } from 'lib';
 import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
 
 import type { GamePointsStr } from '../interfaces';
@@ -10,20 +11,22 @@ const points = (point: ServerPoint) => parseFloat(point.replace('½', '.5'));
 const colorClass = (point: ServerPoint) =>
   points(point) === 1 ? 'good' : points(point) === 0 ? 'bad' : 'status';
 
-const withCustomScore = (
+export const withCustomScore = (
   point: ServerPoint,
   color: Color,
-  customScoring?: CustomScoring,
-): VNodeChildElement => {
-  if (!customScoring) return point;
+  customScoring?: CustomScoring | number,
+): number | ServerPoint => {
+  if (!defined(customScoring)) return point;
   const base = points(point);
-  return base === 1
-    ? customScoring[color].win
-    : base === 0.5
-      ? customScoring[color].draw !== 0.5
-        ? customScoring[color].draw
-        : '½'
-      : 0;
+  const p =
+    typeof customScoring === 'number'
+      ? customScoring
+      : base === 1
+        ? customScoring[color].win
+        : base === 0.5
+          ? customScoring[color].draw
+          : 0;
+  return p === 0.5 ? '½' : p;
 };
 
 export const coloredStatusStr = (gamePoints: GamePointsStr, pov: Color, round?: RelayRound): LooseVNodes => {
@@ -42,9 +45,8 @@ export const coloredStatusStr = (gamePoints: GamePointsStr, pov: Color, round?: 
 export const playerColoredResult = (
   status: GamePointsStr,
   color: Color,
-  round?: RelayRound,
+  customScoring?: CustomScoring | number,
 ): { tag: 'good' | 'bad' | 'status'; points: VNodeChildElement } | false => {
-  const customScoring = round?.customScoring;
   const resultPart = status.split('-')[color === 'white' ? 0 : 1];
   return (
     isServerPoint(resultPart) && {
@@ -54,4 +56,4 @@ export const playerColoredResult = (
   );
 };
 
-const isServerPoint = (s: string): s is ServerPoint => s === '1' || s === '0' || s === '½';
+export const isServerPoint = (s: string): s is ServerPoint => s === '1' || s === '0' || s === '½';

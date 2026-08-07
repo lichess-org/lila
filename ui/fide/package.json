@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "bits": "workspace:*",
     "chart.js": "4.5.1",
-    "dayjs": "^1.11.19",
     "chartjs-adapter-dayjs-4": "^1.0.4",
-    "lib": "workspace:*",
-    "bits": "workspace:*"
+    "dayjs": "^1.11.19",
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": [

@@ -5,6 +5,7 @@ import play.api.libs.json.Json
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
+import lila.round.UrgentGames
 
 def player(
     pov: Pov,
@@ -12,7 +13,7 @@ def player(
     tour: Option[lila.tournament.GameView],
     simul: Option[lila.simul.Simul],
     cross: Option[lila.game.Crosstable.WithMatchup],
-    playing: List[Pov],
+    playing: UrgentGames,
     chatOption: Option[lila.chat.Chat.GameOrEvent],
     bookmarked: Boolean
 )(using ctx: Context) =
@@ -29,7 +30,6 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resource = lila.core.chat.PublicSource.Player(pov.gameId),
-          voiceChat = ctx.canVoiceChat,
           opponentId = pov.opponent.userId
         )
       case Right((c, res)) =>
@@ -44,6 +44,7 @@ def player(
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
+
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)
     .js:
@@ -55,7 +56,7 @@ def player(
             "userId" -> ctx.userId,
             "chat" -> chatJson
           )
-          .add("noab" -> ctx.me.exists(_.marks.engine))
+          .add("noab" -> (pov.game.hasAi || ctx.me.exists(_.marks.engine)))
       )
     .graph(ui.povOpenGraph(pov))
     .flag(_.zen)
@@ -68,7 +69,7 @@ def player(
         ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
           views.game.ui.crosstable.option(cross, pov.game),
-          (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
+          (playing.value.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
             div(cls := "round__now-playing")(
               ui.others(playing, simul.filter(_.isHost(ctx.me)).map(views.simul.ui.roundOtherGames))
             )

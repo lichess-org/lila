@@ -8,11 +8,12 @@ import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
 import lila.core.lilaism.LilaInvalid
-import lila.core.fide.Federation
+import lila.core.fide.{ Federation, Tokenize }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
+import lila.mon.extensions.*
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -30,7 +31,7 @@ final private class RelayFetch(
     playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
-)(using Federation.Guess, Executor, Scheduler)(using mode: play.api.Mode):
+)(using Federation.Guess, Executor, Scheduler, Tokenize)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -83,7 +84,7 @@ final private class RelayFetch(
     else
       val syncFu = for
         allGamesInSourceNoLimit <- fetchGames(rt).mon:
-          _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
+          lila.mon.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced = RelayGame.Slices.filterAndOrder(~rt.round.sync.slices)(filtered)
@@ -98,7 +99,7 @@ final private class RelayFetch(
         res <- sync
           .updateStudyChapters(rt, reordered)
           .withTimeoutError(7.seconds, SyncResult.Timeout)
-          .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
+          .mon(lila.mon.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
         nbGamesFinished = games.count(_.points.isDefined)
@@ -184,7 +185,7 @@ final private class RelayFetch(
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
-    base * {
+    val period = base * {
       if tour.tierIs(_.best) then 1
       else if tour.official then 2
       else 3
@@ -195,13 +196,13 @@ final private class RelayFetch(
       else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2
       else 3
     }
+    if upstream.hasIdChess && period < 15 then 15 else period
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,
     moves = true,
     tags = true,
     evals = false,
-    opening = false,
     literate = false,
     pgnInJson = false,
     delayMoves = true
@@ -252,7 +253,7 @@ final private class RelayFetch(
     upgraded <- gameProxy.upgradeIfPresent(dbGames)
     withFen <- gameRepo.withInitialFens(upgraded)
     pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
+    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, none, pgnFlags).map(_.render))
     games <- multiPgnToGames.future(MultiPgn(pgn))
   yield games
 
@@ -271,10 +272,10 @@ final private class RelayFetch(
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
-    // cache games with number > 12 to reduce load on big tournaments
+    // cache games with number > 30 to reduce load on big tournaments
     val tailAt = 30
     private val tailGames =
-      cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
+      cacheApi.notLoadingSync[LccGameKey, GameJson](128, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1.minutes).build()
 
     // index starts at 1
@@ -285,21 +286,21 @@ final private class RelayFetch(
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse((index > lccCache.tailAt).so(tailGames.getIfPresent(key)))
+        .orElse((index > tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index > lccCache.tailAt then tailGames.put(key, game)
+              else if index > tailAt then tailGames.put(key, game)
 
   // used to return the last successful result when a source fails
   // games are stripped of their moves, only tags are kept.
   // the point is to avoid messing up slices in multi-URL setups.
   // if a single URL fails, it should not moves the games of the following URLs.
   private val multiUrlFetchRecoverCache =
-    cacheApi.notLoadingSync[URL, RelayGames](16, "relay.fetch.recoverCache"):
+    cacheApi.notLoadingSync[URL, RelayGames](32, "relay.fetch.recoverCache"):
       _.expireAfterWrite(1.hour).build()
 
   private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using

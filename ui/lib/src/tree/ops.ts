@@ -1,22 +1,25 @@
 // no side effects allowed due to re-export by index.ts
 
-import type { TreeNode, TreePath } from './types';
+import type { TreeNodeBase, TreeNodeLite, TreePath } from './types';
 
-export function withMainlineChild<T>(node: TreeNode, f: (node: TreeNode) => T): T | undefined {
-  const next = node.children[0];
+export function withMainlineChild<U, T extends TreeNodeBase>(
+  node: T,
+  f: (node: TreeNodeBase) => U,
+): U | undefined {
+  const next = node.children?.[0];
   return next ? f(next) : undefined;
 }
 
-export function findInMainline(
-  fromNode: TreeNode,
-  predicate: (node: TreeNode) => boolean,
-): TreeNode | undefined {
-  const findFrom = (node: TreeNode) => (predicate(node) ? node : withMainlineChild<TreeNode>(node, findFrom));
+export function findInMainline<T extends TreeNodeBase>(
+  fromNode: T,
+  predicate: (node: T) => boolean,
+): T | undefined {
+  const findFrom = (node: T) => (predicate(node) ? node : withMainlineChild<T, T>(node, findFrom));
   return findFrom(fromNode);
 }
 
 // returns a list of nodes collected from the original one
-export function collect(from: TreeNode, pickChild: (node: TreeNode) => TreeNode | undefined): TreeNode[] {
+export function collect<T extends TreeNodeBase>(from: T, pickChild: (node: T) => T | undefined): T[] {
   const nodes = [from];
   let n = from,
     c;
@@ -27,15 +30,18 @@ export function collect(from: TreeNode, pickChild: (node: TreeNode) => TreeNode 
   return nodes;
 }
 
-export const childById = (node: TreeNode, id: string): TreeNode | undefined =>
-  node.children.find(child => child.id === id);
+export const childById = <T extends TreeNodeBase>(node: T, id: string): T | undefined =>
+  node.children?.find(child => child.id === id) as T | undefined;
 
-export const last = (nodeList: TreeNode[]): TreeNode | undefined => nodeList[nodeList.length - 1];
+export const last = <T extends TreeNodeBase>(nodeList: T[]): T | undefined => nodeList[nodeList.length - 1];
 
-export const nodeAtPly = (nodeList: TreeNode[], ply: number): TreeNode | undefined =>
+export const nodeAtPly = <T extends TreeNodeBase>(nodeList: T[], ply: number): T | undefined =>
   nodeList.find(node => node.ply === ply);
 
-export function takePathWhile(nodeList: TreeNode[], predicate: (node: TreeNode) => boolean): TreePath {
+export function takePathWhile<T extends TreeNodeBase>(
+  nodeList: T[],
+  predicate: (node: T) => boolean,
+): TreePath {
   let path = '';
   for (const n of nodeList) {
     if (predicate(n)) path += n.id;
@@ -44,11 +50,13 @@ export function takePathWhile(nodeList: TreeNode[], predicate: (node: TreeNode) 
   return path;
 }
 
-export function removeChild(parent: TreeNode, id: string): void {
-  parent.children = parent.children.filter(n => n.id !== id);
+export function removeChild<T extends TreeNodeBase>(parent: T, id: string): void {
+  parent.children = parent.children?.filter(n => n.id !== id);
 }
 
-export function countChildrenAndComments(node: TreeNode): {
+export function countChildrenAndComments<T extends TreeNodeBase>(
+  node: T,
+): {
   nodes: number;
   comments: number;
 } {
@@ -56,7 +64,7 @@ export function countChildrenAndComments(node: TreeNode): {
     nodes: 1,
     comments: (node.comments || []).length,
   };
-  node.children.forEach(function (child) {
+  node.children?.forEach(function (child) {
     const c = countChildrenAndComments(child);
     count.nodes += c.nodes;
     count.comments += c.comments;
@@ -65,30 +73,31 @@ export function countChildrenAndComments(node: TreeNode): {
 }
 
 // adds n2 into n1
-export function merge(n1: TreeNode, n2: TreeNode): void {
+export function merge(n1: TreeNodeLite, n2: TreeNodeLite): void {
   if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments?.forEach(c => {
     if (!n1.comments) n1.comments = [c];
     else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
   });
-  n2.children.forEach(c => {
+  n2.children?.forEach(c => {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);
   });
 }
 
-export const hasBranching = (node: TreeNode, maxDepth: number): boolean =>
+export const hasBranching = (node: TreeNodeLite, maxDepth: number): boolean =>
   maxDepth <= 0 || !!node.children[1] || (!!node.children[0] && hasBranching(node.children[0], maxDepth - 1));
 
-export const mainlineNodeList = (from: TreeNode): TreeNode[] => collect(from, node => node.children[0]);
+export const mainlineNodeList = <T extends TreeNodeBase>(from: T): T[] =>
+  collect<T>(from, node => node.children?.[0] as T);
 
-export function updateAll(root: TreeNode, f: (node: TreeNode) => void): void {
+export function updateAll<T extends TreeNodeBase>(root: T, f: (node: T) => void): void {
   // applies f recursively to all nodes
-  function update(node: TreeNode) {
+  function update(node: T) {
     f(node);
-    node.children.forEach(update);
+    node.children?.forEach(update);
   }
   update(root);
 }
@@ -99,6 +108,18 @@ export function distance(a: TreePath, b: TreePath): number {
   return (a.length + b.length) / 2 - i;
 }
 
-export function contains(container: TreeNode, descendant: TreeNode): boolean {
-  return container === descendant || container.children.some(child => contains(child, descendant));
+export function contains<T extends TreeNodeBase>(container: T, descendant: T): boolean {
+  return container === descendant || !!container.children?.some(child => contains(child, descendant));
+}
+
+// for serialization
+export function structuredCloneLite(node: TreeNodeBase): TreeNodeLite {
+  return Object.fromEntries(
+    Object.entries(node)
+      .filter(([_, v]) => typeof v !== 'function')
+      .map(([k, v]) => {
+        if (k === 'children') return [k, v.map(structuredCloneLite)];
+        return [k, structuredClone(v)];
+      }),
+  ) as TreeNodeLite;
 }

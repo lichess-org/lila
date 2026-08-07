@@ -6,7 +6,6 @@ import { join } from 'node:path';
 import { shallowSort, isContained } from './algo.ts';
 import { jsLogger } from './console.ts';
 import { env, c } from './env.ts';
-import { taskOk } from './task.ts';
 
 const manifest = {
   i18n: {} as Manifest,
@@ -50,7 +49,7 @@ export function updateManifest(update: ManifestUpdate = {}): void {
 }
 
 async function writeManifest() {
-  if (!(env.manifestOk() && taskOk())) return;
+  if (!env.buildOk()) return;
   const commitMessage = cps
     .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
     .trim()

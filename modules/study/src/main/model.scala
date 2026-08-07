@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.UciPath
+import chess.format.{ Fen, UciPath }
 import chess.variant.Variant
 import lila.tree.Branch
 
@@ -12,13 +12,22 @@ case class Who(u: UserId, sri: lila.core.socket.Sri):
   def myId = u.into(MyId)
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
 case class Kick(studyId: StudyId, userId: UserId, who: MyId)
-case class BecomeStudyAdmin(studyId: StudyId, me: Me)
 case class IsOfficialRelay(studyId: StudyId, promise: Promise[Boolean])
 
 case class AddNode(
     studyId: StudyId,
     positionRef: Position.Ref,
-    node: Variant => Either[chess.ErrorStr, Branch],
+    node: (Variant, Fen.Full) => Either[chess.ErrorStr, Branch],
     opts: MoveOpts,
     relay: Option[Chapter.Relay] = None
 )(using val who: Who)
+
+enum StudyGroup:
+  case all, mine, mineMember, minePublic, minePrivate, mineLikes, byOwner, staffPicks, search
+  case topic(name: Option[StudyTopic])
+  def isTopic: Boolean = this match
+    case StudyGroup.topic(_) => true
+    case _ => false
+  def isPersonal: Boolean = this match
+    case StudyGroup.mine | StudyGroup.mineMember | StudyGroup.minePublic | StudyGroup.minePrivate => true
+    case _ => false

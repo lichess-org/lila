@@ -43,6 +43,7 @@ case class Pref(
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
+    uiRoundness: Int,
     agreement: Int,
     blogFilter: QualityFilter,
     usingAltSocket: Option[Boolean],
@@ -107,15 +108,6 @@ case class Pref(
   def hasSpeech = soundSet == SoundSet.speech.toString
 
   def isUsingAltSocket = usingAltSocket.has(true)
-
-  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-  def botCompatible =
-    theme == "brown" &&
-      pieceSet == "cburnett" &&
-      is2d &&
-      animation == Animation.NONE &&
-      highlight &&
-      coords == Coords.OUTSIDE
 
   def isolate(value: Boolean) =
     if !value then this
@@ -504,6 +496,7 @@ object Pref:
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
+    uiRoundness = 7,
     agreement = Agreement.current,
     usingAltSocket = none,
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),

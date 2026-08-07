@@ -210,17 +210,15 @@ export const registerMultipleSelect = () => {
           .off('mouseout')
           .multipleSelectHover(that.open.bind(that), that.close.bind(that));
       this.$parent.off('keydown').on('keydown', function (e) {
-        switch (e.which) {
-          case 27:
-            that.close();
-            that.$choice[0]?.focus();
-            break;
+        if (e.key === 'Escape') {
+          that.close();
+          that.$choice[0]?.focus();
         }
       });
       this.$searchInput
         .off('keydown')
         .on('keydown', function (e) {
-          if (e.keyCode === 9 && e.shiftKey) {
+          if (e.key === 'Tab' && e.shiftKey) {
             that.close();
           }
         })
@@ -228,7 +226,7 @@ export const registerMultipleSelect = () => {
         .on('keyup', function (e) {
           if (
             that.options.filterAcceptOnEnter &&
-            (e.which === 13 || e.which === 32) &&
+            (e.key === 'Enter' || e.code === 'Space') &&
             that.$searchInput.val()
           ) {
             that.$selectAll[0]?.click();
@@ -260,7 +258,7 @@ export const registerMultipleSelect = () => {
         that.update();
         that.options.onOptgroupClick?.({
           label: $(this).parent().text(),
-          checked: checked,
+          checked,
           children: $children.get(),
           instance: that,
         });
@@ -345,8 +343,8 @@ export const registerMultipleSelect = () => {
           .removeClass('placeholder')
           .html(
             this.options.countSelected
-              .replace('#', selects.length + '')
-              .replace('%', this.$selectItems.length + this.$disableItems.length + ''),
+              .replace('#', String(selects.length))
+              .replace('%', String(this.$selectItems.length + this.$disableItems.length)),
           );
       } else {
         $span.removeClass('placeholder').text(selects.join(this.options.delimiter));
@@ -579,40 +577,40 @@ export const registerMultipleSelect = () => {
     allSelected: 'All selected',
     countSelected: '# of % selected',
     noMatchesFound: 'No matches found',
-    styler: function () {
+    styler() {
       return null;
     },
-    textTemplate: function ($elm) {
+    textTemplate($elm) {
       return $elm.text();
     },
-    labelTemplate: function ($elm) {
+    labelTemplate($elm) {
       return $elm.attr('label');
     },
-    onOpen: function () {
+    onOpen() {
       return false;
     },
-    onClose: function () {
+    onClose() {
       return false;
     },
-    onCheckAll: function () {
+    onCheckAll() {
       return false;
     },
-    onUncheckAll: function () {
+    onUncheckAll() {
       return false;
     },
-    onFocus: function () {
+    onFocus() {
       return false;
     },
-    onBlur: function () {
+    onBlur() {
       return false;
     },
-    onOptgroupClick: function () {
+    onOptgroupClick() {
       return false;
     },
-    onClick: function () {
+    onClick() {
       return false;
     },
-    onFilter: function () {
+    onFilter() {
       return false;
     },
   };

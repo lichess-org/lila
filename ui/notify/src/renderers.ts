@@ -1,7 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
 import { timeago } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
+import { icon } from 'lib/view';
 
 import type { Notification, Renderer, Renderers } from './interfaces';
 
@@ -63,6 +64,14 @@ export default function makeRenderers(): Renderers {
         ]),
       text: n => i18n.site.youHaveJoinedTeamX(n.content.name),
     },
+    teamUpdate: {
+      html: n =>
+        generic(n, '/team/updates/' + n.content.id, licon.Group, [
+          h('span', [h('strong', n.content.name)]),
+          h('span', n.content.text),
+        ]),
+      text: _ => 'New team update',
+    },
     titledTourney: {
       html: n =>
         generic(n, '/tournament/' + n.content.id, licon.Trophy, [
@@ -74,10 +83,10 @@ export default function makeRenderers(): Renderers {
     reportedBanned: {
       html: n =>
         generic(n, undefined, licon.InfoCircle, [
-          h('span', [h('strong', i18n.site.someoneYouReportedWasBanned)]),
+          h('span', [h('strong', 'Someone you reported was banned')]),
           h('span', i18n.site.thankYou),
         ]),
-      text: _ => i18n.site.someoneYouReportedWasBanned,
+      text: _ => 'Someone you reported was banned',
     },
     gameEnd: {
       html: n => {
@@ -167,14 +176,14 @@ const jobDone = (name: string): Renderer => ({
   text: n => `${n.content.user!.name}: ${name} job complete!`,
 });
 
-function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
+function generic(n: Notification, url: string | undefined, licon: LiconValue, content: VNode[]): VNode {
   return h(
     url ? 'a' : 'span',
     {
       class: { site_notification: true, [n.type]: true, new: !n.read },
       attrs: { key: n.date, ...(url ? { href: url } : {}) },
     },
-    [h('i', { attrs: { 'data-icon': icon } }), h('span.content', content)],
+    [icon(licon)(), h('span.content', content)],
   );
 }
 

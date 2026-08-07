@@ -2,8 +2,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
-import * as licon from 'lib/licon';
-import { bind, dataIcon, snabDialog } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -52,13 +52,10 @@ export class SoundCtrl extends PaneCtrl {
               orient: 'vertical',
               style: isSafari({ below: '18' }) ? 'appearance: slider-vertical' : '',
             },
-            hook: {
-              insert: vnode => {
-                const input = vnode.elm as HTMLInputElement,
-                  setVolume = throttle(150, this.volume);
-                $(input).on('input', () => setVolume(parseFloat(input.value)));
-              },
-            },
+            hook: onInsert<HTMLInputElement>(input => {
+              const setVolume = throttle(150, this.volume);
+              $(input).on('input', () => setVolume(parseFloat(input.value)));
+            }),
           }),
           h(
             'div.selector',
@@ -81,9 +78,9 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private readonly voiceSelectionDialog = () => {
-    if (!this.showVoiceSelection) return;
+    if (!this.showVoiceSelection) return undefined;
     const content = this.renderVoiceSelection();
-    if (!content) return;
+    if (!content) return undefined;
     return snabDialog({
       onClose: () => {
         if (!i18n.nvui) return site.reload();
@@ -91,6 +88,7 @@ export class SoundCtrl extends PaneCtrl {
         this.redraw();
       },
       modal: true,
+      easyClose: 'clickOutside',
       vnodes: [content],
       onInsert: dlg => {
         dlg.show();
@@ -122,7 +120,7 @@ export class SoundCtrl extends PaneCtrl {
                   }),
                   class: { active: name === selectedVoice?.name },
                   attrs: {
-                    ...dataIcon(name === selectedVoice?.name ? licon.Checkmark : ''),
+                    ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
                     type: 'button',
                   },
                 },

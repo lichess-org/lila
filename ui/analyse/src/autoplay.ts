@@ -5,17 +5,17 @@ import type AnalyseCtrl from './ctrl';
 export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
-  private timeout: Timeout | undefined;
-  private delay: AutoplayDelay | undefined;
-  private redrawInterval: Timeout | undefined;
+  private timeout?: Timeout;
+  private delay?: AutoplayDelay;
+  private redrawInterval?: Timeout;
 
-  lastMoveAt: number | undefined;
+  lastMoveAt?: number;
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
 
   private move(): boolean {
     const child = this.ctrl.node.children[0];
-    if (child) {
+    if (child && !this.ctrl.retro?.preventGoingToNextMove()) {
       const path = this.ctrl.path + child.id;
       if (this.ctrl.canJumpTo(path)) {
         this.ctrl.jump(path);

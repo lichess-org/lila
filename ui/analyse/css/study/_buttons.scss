@@ -23,7 +23,7 @@ $c-study-button: $c-accent;
     background: $c-bad;
     color: $c-over;
     padding: 0 5px;
-    border-radius: 9px;
+    border-radius: $box-radius-size;
     margin-inline-end: 4px;
   }
 
@@ -34,14 +34,14 @@ $c-study-button: $c-accent;
     padding: 0 0.4em;
     opacity: 0.8;
 
-    i::before {
+    icon::before {
       font-size: 1.4em;
       content: $licon-X;
       color: $c-bad;
       margin-inline-end: 0.2rem;
     }
 
-    &.on i::before {
+    &.on icon::before {
       content: $licon-Checkmark;
       color: $c-good;
     }

@@ -33,14 +33,20 @@ final class Analyse(
           _.error.fold(NoContent)(BadRequest(_))
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
+  private[controllers] def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
+    if ctx.req.client.isCrawler then replayForCrawler(pov)
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.game)
         users <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
+          val pgnFlags = PgnDump.WithFlags(
+            clocks = false,
+            rating = ctx.pref.showRatings,
+            opening = ctx.isAuth.option(true)
+          )
+          val opening = pgnFlags.opening.so(env.game.gameOpening.atPly(pov.game, _))
           (
             env.analyse.analyser.get(pov.game),
             (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
@@ -52,17 +58,19 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
+              opening = opening,
+              pgnFlags
             )
           ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
             env.api.roundApi
               .review(
                 pov,
                 users,
+                analysis,
+                opening.map(_.opening),
+                initialFen = initialFen,
                 tv = userTv.map: u =>
                   lila.round.OnTv.User(u.id),
-                analysis,
-                initialFen = initialFen,
                 withFlags = ExportOptions(
                   movetimes = true,
                   clocks = true,
@@ -78,7 +86,7 @@ final class Analyse(
                     pov,
                     data,
                     initialFen,
-                    env.analyse.annotator(pgn, pov.game, analysis).render,
+                    env.analyse.annotator(pgn, pov.game, analysis, opening).render,
                     analysis,
                     analysisInProgress,
                     simul,
@@ -123,10 +131,7 @@ final class Analyse(
       chess.Replay
         .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
         .fold(
-          err =>
-            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
-            Redirect(url)
-          ,
+          _ => Redirect(url),
           ply => Redirect(s"$url#$ply")
         )
 
@@ -135,12 +140,12 @@ final class Analyse(
     analysis <- env.analyse.analyser.get(pov.game)
     simul <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, none, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
       views.analyse.replay.forCrawler(
         pov,
         initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).render,
+        env.analyse.annotator(pgn, pov.game, analysis, none).render,
         simul,
         crosstable
       )

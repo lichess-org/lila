@@ -172,9 +172,10 @@ final private class StudySocket(
               applyWho(api.clearVariations(studyId, id))
 
         case "sortChapters" =>
-          o.get[List[StudyChapterId]]("d")
-            .foreach: ids =>
-              applyWho(api.sortChapters(studyId, ids))
+          if o.arr("d").forall(_.value.sizeIs <= 200) then
+            o.get[List[StudyChapterId]]("d")
+              .foreach: ids =>
+                applyWho(api.sortChapters(studyId, ids))
 
         case "editStudy" =>
           (o \ "d")
@@ -184,7 +185,7 @@ final private class StudySocket(
 
         case "setTag" =>
           reading[SetTag](o): setTag =>
-            applyWho(api.setTag(studyId, setTag))
+            applyWho(api.setTagFromUI(studyId, setTag))
 
         case "setComment" =>
           reading[AtPosition](o): position =>

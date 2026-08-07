@@ -6,6 +6,9 @@ class PrizeTest extends munit.FunSuite:
     assert(!looksLikePrize("HqVrbTcy"))
     assert(looksLikePrize("10btc"))
     assert(looksLikePrize("ten btc"))
+    assert(looksLikePrize("ten btc!"))
+    assert(!looksLikePrize("[tour](lichess.org/tournament/BTCIkJvg) "))
+    assert(!looksLikePrize("[tour](lichess.org/tournament/aaBTCIvg) "))
 
   test("richText prize regex for TA description"):
     assert:

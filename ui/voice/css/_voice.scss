@@ -2,7 +2,6 @@
   @include prevent-select;
 
   position: relative;
-  flex: 1 1 auto;
   grid-area: voice;
 }
 
@@ -91,7 +90,7 @@ button#microphone-button {
     }
   }
 
-  &.busy {
+  &.error {
     color: $c-bad;
   }
 

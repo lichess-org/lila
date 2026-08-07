@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Novo v korespondenčnih partijah</string>
   <string name="notifyChallenge">Izzivi</string>
   <string name="notifyTournamentSoon">Turnir se bo kmalu začel</string>
-  <string name="notifyBroadcasts">Oddaje, na katere ste naročeni</string>
   <string name="notifyTimeAlarm">Potekel vam bo čas</string>
   <string name="notifyBell">Zvočno obvestilo znotraj Lichess</string>
   <string name="notifyPush">Obvestilo naprave, ko niste na Lichessu</string>

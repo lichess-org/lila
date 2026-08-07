@@ -6,8 +6,8 @@ import { pubsub } from 'lib/pubsub';
 import type { DasherCtrl } from '@/ctrl';
 
 export class PingCtrl {
-  ping: number | undefined;
-  server: number | undefined;
+  ping?: number;
+  server?: number;
 
   constructor(readonly root: DasherCtrl) {}
 

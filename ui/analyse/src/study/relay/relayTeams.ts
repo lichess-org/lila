@@ -1,15 +1,18 @@
+import { COLORS } from 'chessops';
+
+import { defined } from 'lib/common';
 import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
 
 import { playerFedFlag } from '@/view/util';
 
-import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, TagArray } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { coloredStatusStr } from './customScoreStatus';
+import { coloredStatusStr, isServerPoint, withCustomScore } from './customScoreStatus';
 import { teamLinkData } from './deepLink';
-import type { RelayRound, RelayTour } from './interfaces';
+import type { CustomScoring, RelayRound, RelayTour } from './interfaces';
 import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
@@ -49,6 +52,31 @@ export default class RelayTeams {
     this.teams = await xhrJson(`/broadcast/${this.round.id}/teams`);
     this.redraw();
   };
+
+  onNewTags = (chapter: ChapterId, newTags: TagArray[], chapters: StudyChapters, cs?: CustomScoring) => {
+    const hasNewResult =
+      newTags.find(([k]) => k.toLowerCase() === 'result') !==
+      chapters.get(chapter)?.status?.replace('½', '1/2');
+    if (!hasNewResult) return;
+    // Override server fetched team points with locally calculated ones
+    //  so that the table remains accurate as results stream in
+    this.teams?.table.map(row =>
+      COLORS.forEach((c, i) => {
+        const teamPoints = row.games.reduce<number>((acc, g) => {
+          const chap = chapters.get(g.id);
+          if (!chap?.status || chap.status === '*') return acc;
+          const points = chap.status.split('-');
+          if (c !== g.pov) points.reverse();
+          if (!points.every(isServerPoint)) return acc;
+          const point = withCustomScore(points[0], c, cs);
+          if (typeof point === 'number') return acc + point;
+          const parsed = parseFloat(point.replace('½', '.5'));
+          return Number.isNaN(parsed) ? acc : acc + parsed;
+        }, 0);
+        if (defined(teamPoints)) row.teams[i].points = teamPoints;
+      }),
+    );
+  };
 }
 
 export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
@@ -56,12 +84,10 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
     'div.relay-tour__team-table',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
-      hook: {
-        insert: vnode => {
-          gameLinksListener(ctrl.chapterSelect)(vnode);
-          ctrl.loadFromXhr(true);
-        },
-      },
+      hook: onInsert(elm => {
+        gameLinksListener(ctrl.chapterSelect)(elm);
+        ctrl.loadFromXhr(true);
+      }),
     },
     ctrl.teams
       ? renderTeams(
@@ -121,7 +147,7 @@ const renderTeams = (
         row.games.map(game => {
           const chap = chapters.get(game.id);
           const players = chap?.players;
-          if (!players) return;
+          if (!players) return undefined;
           const sortedPlayers =
             game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
@@ -152,8 +178,8 @@ const statusView = (
   chapters: StudyChapters,
   cloudEval?: MultiCloudEval,
   round?: RelayRound,
-) => {
-  return hl(
+) =>
+  hl(
     'span.relay-tour__team-match__game__status',
     g.status && g.status !== '*'
       ? coloredStatusStr(g.status, pov, round)
@@ -161,7 +187,6 @@ const statusView = (
         ? evalGauge(g, pov, chapters, cloudEval)
         : '*',
   );
-};
 
 const evalGauge = (
   game: ChapterPreview,

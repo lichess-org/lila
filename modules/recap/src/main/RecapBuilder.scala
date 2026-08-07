@@ -1,6 +1,6 @@
 package lila.recap
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import chess.ByColor
 import chess.opening.OpeningDb
@@ -10,12 +10,13 @@ import lila.common.SimpleOpening
 import lila.db.dsl.{ *, given }
 import lila.game.Query
 import lila.core.game.Source
+import lila.mon.extensions.*
 
 private final class RecapBuilder(
     repo: RecapRepo,
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   def compute(userId: UserId): Funit = for
     recap <- (
@@ -51,7 +52,7 @@ private final class RecapBuilder(
           nbs = NbWin(total = nb, win = wins - fixes),
           votes = PuzzleVotes(nb = votes, themes = themes)
         )
-      .monSuccess(_.recap.puzzles)
+      .monSuccess(lila.mon.recap.puzzles)
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
@@ -85,7 +86,7 @@ private final class RecapBuilder(
       .sortedCursor(query, Query.sortChronological)
       .documentSource()
       .runFold(GameScan())(_.addGame(userId)(_))
-      .monSuccess(_.recap.games)
+      .monSuccess(lila.mon.recap.games)
 
   private case class GameScan(
       nbs: NbWin = NbWin(),
@@ -104,7 +105,7 @@ private final class RecapBuilder(
           val opponent = g.opponent(player).userId
           val winner = g.winnerUserId
           val opening = g.variant.standard.so:
-            OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
+            OpeningDb.search(g.sans.take(20)).map(_.opening).flatMap(SimpleOpening.apply)
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(
             nbs = NbWin(

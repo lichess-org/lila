@@ -4,6 +4,8 @@ import com.roundeights.hasher.Implicits.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.mon.extensions.*
+
 opaque type IsPwned = Boolean
 object IsPwned extends YesNo[IsPwned]
 
@@ -24,5 +26,5 @@ final class PwnedApi(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
             logger.warn(s"Pwnd ${url} ${res.status} ${res.body[String].take(200)}")
             IsPwned(false)
         .monValue: result =>
-          _.security.pwned.get(result.yes)
+          lila.mon.security.pwned.get(result.yes)
         .recoverDefault(IsPwned(false))

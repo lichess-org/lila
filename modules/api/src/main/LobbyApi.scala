@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.lobby.LobbySocket
 import lila.rating.UserPerfsExt.perfsList
+import lila.mon.extensions.*
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -15,9 +16,10 @@ final class LobbyApi(
 )(using Executor):
 
   def get(using me: Option[UserWithPerfs]): Fu[(JsObject, List[Pov])] =
-    me.so(gameProxyRepo.urgentGames)
-      .mon(_.lobby.segment("urgentGames"))
-      .flatMap: povs =>
+    me.traverse(gameProxyRepo.urgentGames)
+      .mon(lila.mon.lobby.segment("urgentGames"))
+      .flatMap: urgent =>
+        val povs = urgent.so(_.value)
         val displayedPovs = povs.take(9)
         for _ <- lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId))
         yield Json

@@ -5,10 +5,11 @@ import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
 import { makeUci, parseUci } from 'chessops/util';
 
+import { plyOpponentColor } from 'lib/game';
 import { completeNode } from 'lib/tree/node';
 import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 
-import type { TreeNode, TreePath } from '../../lib/src/tree/types';
 import type PuzzleCtrl from './ctrl';
 
 export function pgnToTree(pgn: San[]): TreeNode {
@@ -53,11 +54,11 @@ const makeNode = (pos: Position, move: Move, ply: number, san: San): TreeNode =>
   });
 
 export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
-  if (ctrl.mode === 'view') return;
-  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
+  if (ctrl.mode === 'view') return undefined;
+  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return undefined;
 
-  const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
-  if (playedByColor === ctrl.pov) return;
+  const playedByColor = plyOpponentColor(ctrl.node.ply);
+  if (playedByColor === ctrl.pov) return undefined;
 
   const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1);
   const nextUci = ctrl.data.puzzle.solution[nodes.length];

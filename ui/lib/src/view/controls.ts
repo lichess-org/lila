@@ -1,9 +1,10 @@
 // no side effects allowed due to re-export by index.ts
 
-import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
+import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
+import { onInsert } from '@/view/snabbdom';
 import * as xhr from '@/xhr';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {
@@ -21,12 +22,11 @@ export function toggleBoxInit(): void {
 
 export function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
   return {
-    insert: (v: VNode) => {
-      const el = v.elm as HTMLInputElement;
-      el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
-      el.addEventListener('mouseout', _ => el.blur());
-    },
+    ...onInsert<HTMLInputElement>(el => {
+      el.value = String(read());
+      el.addEventListener('input', () => write(parseInt(el.value)));
+      el.addEventListener('mouseout', () => el.blur());
+    }),
     update: (_, v: VNode) => {
       (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
     },
@@ -39,10 +39,12 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     effect();
   });
 
-export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
+export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On } = {}): VNode {
   return h('div.copy-me', [
     h('input.copy-me__target', {
-      attrs: { readonly: true, spellcheck: false, value: content, ...inputAttrs },
+      attrs: { spellcheck: 'false', ...opts.inputAttrs },
+      props: { value: content },
+      on: opts.on,
     }),
     h('button.copy-me__button.button.button-metal', {
       attrs: { 'data-icon': licon.Clipboard, title: i18n.site.copyToClipboard },
@@ -54,7 +56,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
   $('.password-wrapper').each(function (this: HTMLElement) {
     const $wrapper = $(this);
     const $button = $wrapper.find('.password-reveal');
-    $button.on('click', function (e: Event) {
+    $button.on('click', (e: PointerEvent) => {
       e.preventDefault();
       const $input = $wrapper.find('input');
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
@@ -83,7 +85,7 @@ const pathAttrs = [
 export const spinnerHtml: string = $html`
   <div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
-      <g mask="url(#mask)" fill="none">
+      <g mask="url(#spinner-mask)" fill="none">
         ${pathAttrs.map(
           (a, i) =>
             `<path id="${String.fromCharCode(97 + i)}" stroke-width="${a['stroke-width']}" d="${a.d}"/>`,
@@ -97,7 +99,7 @@ export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
     h('svg', { attrs: { viewBox: box } }, [
       h(
         'g',
-        { attrs: { mask: 'url(#mask)', fill: 'none' } },
+        { attrs: { mask: 'url(#spinner-mask)', fill: 'none' } },
         pathAttrs.map(attrs => h('path', { attrs })),
       ),
     ]),

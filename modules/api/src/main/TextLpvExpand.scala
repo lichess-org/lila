@@ -15,6 +15,7 @@ final class TextLpvExpand(
     pgnDump: PgnDump,
     studyPgnDump: lila.study.PgnDump,
     relayPgnDump: lila.relay.RelayPgnStream,
+    gameOpening: lila.game.GameOpening,
     cacheApi: CacheApi,
     net: lila.core.config.NetConfig
 )(using Executor):
@@ -25,7 +26,7 @@ final class TextLpvExpand(
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[LinkRender] =
+  private[api] def linkRenderFromText(text: String): Fu[LinkRender] =
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -52,7 +53,7 @@ final class TextLpvExpand(
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
-  def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
+  private[api] def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
     regex.markdownPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -80,15 +81,15 @@ final class TextLpvExpand(
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
 
   private val pgnFlags =
-    lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
+    lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = none, literate = true)
 
-  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](256, "textLpvExpand.pgn.game"):
+  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](512, "textLpvExpand.pgn.game"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(gameIdToPgn)
 
-  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](256, "textLpvExpand.pgn.chapter"):
+  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](512, "textLpvExpand.pgn.chapter"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(studyChapterIdToPgn)
 
-  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](64, "textLpvExpand.pgn.firstChapter"):
+  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](256, "textLpvExpand.pgn.firstChapter"):
     _.expireAfterWrite(10.minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
@@ -98,7 +99,7 @@ final class TextLpvExpand(
         analysisRepo
           .byGame(g.game)
           .flatMap: analysis =>
-            pgnDump(g.game, g.fen, analysis, pgnFlags).map: pgn =>
+            pgnDump(g.game, g.fen, analysis, gameOpening.atPly(g.game, true), pgnFlags).map: pgn =>
               val gameUrl = net.routeUrl(routes.Round.watcher(id, Color.White)).value
               val siteTag = chess.format.pgn.Tag(_.Site, gameUrl)
               val fixedSiteTag = pgn.copy(tags = pgn.tags + siteTag)

@@ -1,0 +1,114 @@
+.team-events {
+  .slist {
+    td {
+      padding: 0.5rem 1rem;
+
+      &.icon {
+        padding-right: 0;
+      }
+
+      &.duration {
+        white-space: nowrap;
+      }
+    }
+
+    .header {
+      padding: 0;
+
+      a {
+        padding: 1em;
+        display: block;
+      }
+    }
+
+    a {
+      color: $c-font;
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+
+    .name {
+      font-size: 1.2em;
+      display: block;
+    }
+
+    .setup {
+      color: $c-font-dim;
+    }
+
+    .icon {
+      text-align: center;
+
+      icon {
+        font-size: 2em;
+        opacity: 0.6;
+      }
+    }
+
+    .enterable {
+      .icon icon {
+        color: $c-brag;
+        opacity: 1;
+      }
+    }
+
+    .soon {
+      border: 1px solid $c-brag;
+    }
+
+    &.slist-resp {
+      @media (max-width: at-most($x-small)) {
+        td {
+          justify-content: flex-start;
+          border-top: 0;
+          gap: 8px;
+
+          &:first-child,
+          &:last-child {
+            display: none;
+          }
+
+          &::before {
+            content: unset;
+          }
+
+          &.header a {
+            padding-bottom: 0;
+          }
+
+          &.text {
+            padding-bottom: 1em;
+
+            &::before {
+              content: attr(data-icon);
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.team-tournaments--both {
+  @extend %flex-wrap;
+
+  margin-top: -2em;
+
+  h2 {
+    @extend %box-padding;
+
+    border-bottom: $border;
+  }
+
+  & > div {
+    flex: 1 0 50%;
+    min-width: 60ch;
+
+    &:last-child .slist {
+      border-inline-start: $border;
+    }
+  }
+}

@@ -107,7 +107,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
   });
 
-export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode => {
+export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal = 0): VNode => {
   if (site.blindMode) return hl('div.config-group', blindModeTimePickers(tc));
 
   const activeMode = tc.mode();

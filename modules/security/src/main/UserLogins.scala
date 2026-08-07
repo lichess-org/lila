@@ -1,10 +1,10 @@
 package lila.security
 
 import reactivemongo.api.bson.*
+import scalalib.net.UserAgent
 
-import lila.core.net.{ IpAddress, UserAgent }
+import lila.core.net.IpAddress
 import lila.core.security.{ FingerHash, Ip2ProxyApi, IsProxy }
-import lila.core.misc.AtInstant
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 

@@ -187,13 +187,14 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     private val scoreTag = tag("score")
 
     def layout(
+        title: String,
         filter: String,
         scores: Room.Scores,
         pending: PendingCounts,
         moreCss: Seq[String] = Nil,
         moreJs: EsmList = Nil
     )(using Context, Me) =
-      Page("Reports")
+      Page(title)
         .css("mod.report")
         .css(moreCss*)
         .js(esmInit("mod.autolink"))
@@ -203,7 +204,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             menu,
             div(id := "report_list", cls := "page-menu__content box")(
               div(cls := "header")(
-                i(cls := "icon"),
+                iconTag(cls := "icon"),
                 span(cls := "tabs")(
                   Granter(_.SeeReport).option:
                     a(
@@ -219,10 +220,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     .map { room =>
                       a(
                         href := routes.Report.listWithFilter(room.key),
-                        cls := List(
-                          "active" -> (filter == room.key),
-                          s"room-${room.key}" -> true
-                        )
+                        cls := List("active" -> (filter == room.key), s"room-${room.key}" -> true)
                       )(
                         room.name,
                         scores.get(room).filter(20 <=).map(scoreTag(_))
@@ -231,11 +229,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     .toList,
                   Granter(_.Appeals).option(
                     a(
-                      href := routes.Appeal.queue(),
-                      cls := List(
-                        "new" -> true,
-                        "active" -> (filter == "appeal")
-                      )
+                      href := routes.Appeal.modQueue,
+                      cls := List("new" -> true, "active" -> (filter == "appeal"))
                     )(
                       countTag(pending.appeals),
                       "Appeals"
@@ -250,10 +245,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                   Granter(_.TitleRequest).option(
                     a(
                       href := routes.TitleVerify.queue,
-                      cls := List(
-                        "new" -> true,
-                        "active" -> (filter == "title")
-                      )
+                      cls := List("new" -> true, "active" -> (filter == "title"))
                     )(
                       countTag(pending.titles),
                       "Titles"
@@ -316,7 +308,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                           )
                         )(shortenRight(a.text, 200))
                       ),
-                  (r.atoms.size > 3).option(i(cls := "more")("And ", r.atoms.size - 3, " more"))
+                  (r.atoms.size > 3).option(iconTag(cls := "more")("And ", r.atoms.size - 3, " more"))
                 ),
                 td(
                   r.inquiry match

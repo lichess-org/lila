@@ -1,4 +1,4 @@
-declare module 'ab' {
+declare module 'ab/round' {
   import { MoveMetadata } from '@lichess-org/chessground/types';
 
   import { Pubsub } from 'lib/pubsub';

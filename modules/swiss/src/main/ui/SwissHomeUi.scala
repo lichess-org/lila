@@ -136,7 +136,7 @@ final class SwissHomeUi(helpers: Helpers):
 
   private def faqEntry(title: Frag, content: Frag) =
     div(cls := "faq")(
-      i("?"),
+      iconTag("?"),
       p(strong(title), content)
     )
 

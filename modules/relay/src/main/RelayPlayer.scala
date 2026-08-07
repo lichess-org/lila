@@ -188,8 +188,8 @@ private final class RelayPlayerApi(
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
     relayGroupApi.scoreGroupOf(tourId).flatMap(jsonCache.get)
 
-  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
-    _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](256, "relay.players.photos.json"):
+    _.expireAfterWrite(20.seconds).buildAsyncFuture: tourId =>
       for
         sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
@@ -237,21 +237,22 @@ private final class RelayPlayerApi(
                     .map(_.lastOption)
                     .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
               yield withTiebreaks
-        yield result
-
-  private def sgIsParallel(tours: List[RelayTour]): Boolean =
-    tours.headOption
-      .flatMap(_.dates.map(_.start))
-      .exists: firstStart =>
-        tours.tailOption.exists(_.forall(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+          withRank = result.toList
+            .sortByReverse(_._2)
+            .mapWithIndex:
+              case ((id, rp), index) =>
+                id -> rp.copy(rank = Rank.from((index + 1).some))
+            .to(SeqMap)
+        yield withRank
 
   private def readGamesAndPlayers(tourIds: List[RelayTourId]): Fu[RelayPlayers] =
     for
       tours <- tourRepo.byIds(tourIds)
       toursById = tours.mapBy(_.id)
       rounds <-
-        if sgIsParallel(tours) then roundRepo.byToursOrdered(tourIds)
-        else tourIds.flatTraverse(roundRepo.byTourOrdered)
+        if RelayGroup.sgIsParallel(tours)
+        then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
+        else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
@@ -353,9 +354,4 @@ private final class RelayPlayerApi(
         id -> rp.copy(
           tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(Seq))
         )
-      .toList
-      .sortByReverse(_._2)
-      .mapWithIndex:
-        case ((id, rp), index) =>
-          id -> rp.copy(rank = Rank.from((index + 1).some))
       .to(SeqMap)

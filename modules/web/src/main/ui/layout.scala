@@ -86,18 +86,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
 
-  val manifests = raw:
-    """<link rel="manifest" href="/manifest.json">"""
+  val manifests = raw("""<link rel="manifest" href="/manifest.json">""")
+  val noRobots = raw("""<meta content="noindex,nofollow" name="robots">""")
 
   val favicons = raw:
-    List(512, 256, 192, 128, 64)
-      .map: px =>
-        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
-      .mkString(
-        "",
-        "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
-      )
+    val path = s"$assetBaseUrl/assets/logo"
+    s"""<link rel="alternate icon" type="image/png" href="$path/lichess-favicon-64.png">""" +
+      s"""<link id="favicon" rel="icon" type="image/svg+xml" href="$path/lichess-favicon.svg">"""
+
   def blindModeForm(using ctx: Context) = raw:
     val btnText =
       if ctx.blind
@@ -132,7 +128,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       div(cls := "signin-or-signup")(
-        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "button button-empty signin")(
+        a(
+          href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}",
+          cls := "button button-empty signin",
+          testId("login")
+        )(
           trans.site.signIn()
         ),
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
@@ -206,7 +206,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val dataAssetVersion = attr("data-asset-version")
 
   val spinnerMask = raw:
-    """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
+    """<svg width="0" height="0"><mask id="spinner-mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
   val networkAlert = a(id := "network-status", cls := "link text", dataIcon := Icon.ChasingArrows)
 
@@ -305,7 +305,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       header(id := "top")(
         div(cls := "site-title-nav")(
           (!isAppealUser).option(topnavToggle),
-          a(cls := "site-title", href := langHref("/"))(
+          a(cls := "site-title", href := langHref("/"), testId("site-title"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
             div(cls := "site-icon", dataIcon := Icon.Logo),
@@ -315,9 +315,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             frag(
               topnav,
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
-                a(cls := "site-title-nav__donate")(
-                  href := routes.Plan.index()
-                )(span(trans.patron.donate()))
+                a(cls := "site-title-nav__donate")(href := routes.Plan.index())(trans.patron.donate())
               )
             )
           ),

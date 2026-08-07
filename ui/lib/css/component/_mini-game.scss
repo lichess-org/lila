@@ -25,6 +25,13 @@
     overflow: hidden;
   }
 
+  .pinned-icon {
+    height: 0.9em;
+    aspect-ratio: 1;
+    transform: rotate(-45deg);
+    margin-inline-start: 0.5ch;
+  }
+
   &__flag {
     width: 1.2em;
     aspect-ratio: 1;

@@ -1,6 +1,8 @@
 import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
 
+import { elemAt } from 'lib';
+
 export class Premove {
   readonly unrestrictedPremoves: boolean;
 
@@ -47,10 +49,8 @@ export class Premove {
       util.pawnDirCapture(...util.key2pos(pawnStart), ...util.key2pos(dest), enemyPawn.color === 'white') &&
       (ctx.friendlies.has(dest) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.squareShiftedVertically(dest, enemyPawn.color === 'white' ? -1 : 1),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ))
     );
   };
@@ -61,9 +61,10 @@ export class Premove {
   private readonly isDestControlledByEnemy = (
     ctx: cg.MobilityContext,
     pieceRolesExclude?: cg.Role[],
+    specificEnemies?: cg.Pieces,
   ): boolean => {
     const square: cg.Pos = ctx.dest.pos;
-    return [...ctx.enemies].some(([key, piece]) => {
+    return [...(specificEnemies ?? ctx.enemies)].some(([key, piece]) => {
       const piecePos = util.key2pos(key);
       return (
         !pieceRolesExclude?.includes(piece.role) &&
@@ -79,33 +80,30 @@ export class Premove {
     });
   };
 
-  private readonly isFriendlyOnDestAndAttacked = (ctx: cg.MobilityContext): boolean =>
-    this.isDestOccupiedByFriendly(ctx) &&
-    (this.canBeCapturedBySomeEnemyEnPassant(ctx.dest.key, ctx.friendlies, ctx.enemies, ctx.lastMove) ||
-      this.isDestControlledByEnemy(ctx));
-
   private readonly canBeCapturedBySomeEnemyEnPassant = (
+    ctx: cg.MobilityContext,
     potentialSquareOfFriendlyPawn: cg.Key | undefined,
-    friendlies: cg.Pieces,
-    enemies: cg.Pieces,
-    lastMove?: cg.Key[],
+    specificEnemies?: cg.Pieces,
+    forbiddenEnPassantSquares?: cg.Key[],
   ): boolean => {
-    if (!potentialSquareOfFriendlyPawn || (lastMove && potentialSquareOfFriendlyPawn !== lastMove[1]))
+    if (!potentialSquareOfFriendlyPawn || (ctx.lastMove && potentialSquareOfFriendlyPawn !== ctx.lastMove[1]))
       return false;
     const pos = util.key2pos(potentialSquareOfFriendlyPawn);
-    const friendly = friendlies.get(potentialSquareOfFriendlyPawn);
     return (
-      friendly?.role === 'pawn' &&
-      pos[1] === (friendly.color === 'white' ? 3 : 4) &&
-      (!lastMove || util.diff(util.key2pos(lastMove[0])[1], pos[1]) === 2) &&
+      ctx.friendlies.get(potentialSquareOfFriendlyPawn)?.role === 'pawn' &&
+      pos[1] === (ctx.color === 'white' ? 3 : 4) &&
+      (!ctx.lastMove || util.diff(util.key2pos(ctx.lastMove[0])[1], pos[1]) === 2) &&
       [1, -1].some(delta => {
         const k = util.pos2key([pos[0] + delta, pos[1]]);
-        return !!k && enemies.get(k)?.role === 'pawn';
-      })
+        return k && (specificEnemies ?? ctx.enemies).get(k)?.role === 'pawn';
+      }) &&
+      !forbiddenEnPassantSquares?.includes(
+        util.squareShiftedVertically(potentialSquareOfFriendlyPawn, ctx.color === 'white' ? -1 : 1)!,
+      )
     );
   };
 
-  private readonly isPathClearEnoughOfFriendliesForPremove = (
+  private readonly isPathClearEnoughForPremove = (
     ctx: cg.MobilityContext,
     isPawnAdvance: boolean,
   ): boolean => {
@@ -113,58 +111,38 @@ export class Premove {
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
-    if (!squaresOfFriendliesBetween.length) return true;
-    const firstSquareOfFriendliesBetween = squaresOfFriendliesBetween[0];
-    const nextSquare = util.squareShiftedVertically(
-      firstSquareOfFriendliesBetween,
-      ctx.color === 'white' ? -1 : 1,
-    );
-    return (
-      squaresOfFriendliesBetween.length === 1 &&
-      this.canBeCapturedBySomeEnemyEnPassant(
-        firstSquareOfFriendliesBetween,
-        ctx.friendlies,
-        ctx.enemies,
-        ctx.lastMove,
-      ) &&
-      !!nextSquare &&
-      !squaresBetween.includes(nextSquare)
-    );
-  };
-
-  private readonly isPathClearEnoughOfEnemiesForPremove = (
-    ctx: cg.MobilityContext,
-    isPawnAdvance: boolean,
-  ): boolean => {
-    if (this.unrestrictedPremoves) return true;
-    const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
-    if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
-    if (squaresOfEnemiesBetween.length > 1) return false;
-    if (!squaresOfEnemiesBetween.length) return true;
-    const enemySquare = squaresOfEnemiesBetween[0];
-    const enemy = ctx.enemies.get(enemySquare);
-    if (!enemy || enemy.role !== 'pawn') return true;
-
-    const enemyStep = enemy.color === 'white' ? 1 : -1;
-    const squareAbove = util.squareShiftedVertically(enemySquare, enemyStep);
-    const enemyPawnDests: cg.Key[] = squareAbove
-      ? [
-          ...util
-            .adjacentSquares(squareAbove)
-            .filter(s => this.canEnemyPawnCaptureOnSquare(enemySquare, s, ctx)),
-          ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
-            .filter(s => !!s)
-            .filter(s => this.canEnemyPawnAdvanceToSquare(enemySquare, s, ctx)),
-        ]
-      : [];
-    const badSquares = [...squaresBetween, ctx.orig.key];
-    return enemyPawnDests.some(square => !badSquares.includes(square));
+    if (squaresOfEnemiesBetween.length > 1 || squaresOfFriendliesBetween.length > 1) return false;
+    const friendlySqBetween = elemAt(squaresOfFriendliesBetween, 0);
+    const enemySqBetween = elemAt(squaresOfEnemiesBetween, 0);
+    if (enemySqBetween) {
+      if (ctx.enemies.get(enemySqBetween)?.role === 'pawn') {
+        const enemyStep = ctx.color === 'white' ? -1 : 1;
+        const squareAbove = util.squareShiftedVertically(enemySqBetween, enemyStep);
+        const enemyPawnDests: cg.Key[] = squareAbove
+          ? [
+              ...util
+                .adjacentSquares(squareAbove)
+                .filter(s => this.canEnemyPawnCaptureOnSquare(enemySqBetween, s, ctx)),
+              ...[squareAbove, util.squareShiftedVertically(squareAbove, enemyStep)]
+                .filter(s => !!s)
+                .filter(s => this.canEnemyPawnAdvanceToSquare(enemySqBetween, s, ctx)),
+            ]
+          : [];
+        const badSquares = new Set([...squaresBetween, ctx.orig.key]);
+        if (enemyPawnDests.every(square => badSquares.has(square))) return false;
+      }
+    }
+    const enemies = enemySqBetween
+      ? new Map([...ctx.enemies].filter(([sq]) => sq === enemySqBetween))
+      : ctx.enemies;
+    return !isPawnAdvance && this.isDestOccupiedByFriendly(ctx)
+      ? !friendlySqBetween &&
+          (this.isDestControlledByEnemy(ctx, undefined, enemies) ||
+            this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key, enemies, squaresBetween))
+      : !friendlySqBetween ||
+          this.canBeCapturedBySomeEnemyEnPassant(ctx, friendlySqBetween, enemies, squaresBetween);
   };
-
-  private readonly isPathClearEnoughForPremove = (ctx: cg.MobilityContext, isPawnAdvance: boolean): boolean =>
-    this.isPathClearEnoughOfFriendliesForPremove(ctx, isPawnAdvance) &&
-    this.isPathClearEnoughOfEnemiesForPremove(ctx, isPawnAdvance);
 
   private readonly pawn: cg.Mobility = (ctx: cg.MobilityContext) => {
     const step = ctx.color === 'white' ? 1 : -1;
@@ -181,42 +159,19 @@ export class Premove {
       return (
         this.canSomeEnemyPawnAdvanceToDest(ctx) ||
         this.canBeCapturedBySomeEnemyEnPassant(
+          ctx,
           util.pos2key([ctx.dest.pos[0], ctx.dest.pos[1] + step]),
-          ctx.friendlies,
-          ctx.enemies,
-          ctx.lastMove,
         ) ||
         this.isDestControlledByEnemy(ctx, ['pawn'])
       );
   };
 
-  private readonly knight: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly bishop: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly rook: cg.Mobility = (ctx: cg.MobilityContext) =>
-    util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    this.isPathClearEnoughForPremove(ctx, false) &&
-    (this.unrestrictedPremoves ||
-      !this.isDestOccupiedByFriendly(ctx) ||
-      this.isFriendlyOnDestAndAttacked(ctx));
-
-  private readonly queen: cg.Mobility = (ctx: cg.MobilityContext) => this.bishop(ctx) || this.rook(ctx);
-
   private readonly king: cg.Mobility = (ctx: cg.MobilityContext) =>
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
       (this.unrestrictedPremoves ||
         !this.isDestOccupiedByFriendly(ctx) ||
-        this.isFriendlyOnDestAndAttacked(ctx))) ||
+        this.canBeCapturedBySomeEnemyEnPassant(ctx, ctx.dest.key) ||
+        this.isDestControlledByEnemy(ctx))) ||
     (this.variant !== 'antichess' &&
       ctx.orig.pos[1] === ctx.dest.pos[1] &&
       ctx.orig.pos[1] === (ctx.color === 'white' ? 0 : 7) &&
@@ -235,12 +190,17 @@ export class Premove {
           .map(s => ctx.allPieces.get(s))
           .every(p => !p || util.samePiece(p, { role: 'rook', color: ctx.color }))));
 
+  private readonly basicPieceMobility =
+    (dir: (x1: number, y1: number, x2: number, y2: number) => boolean): cg.Mobility =>
+    ctx =>
+      dir(...ctx.orig.pos, ...ctx.dest.pos) && this.isPathClearEnoughForPremove(ctx, false);
+
   private readonly mobilityByRole: Record<cg.Role, cg.Mobility> = {
     pawn: this.pawn,
-    knight: this.knight,
-    bishop: this.bishop,
-    rook: this.rook,
-    queen: this.queen,
+    knight: this.basicPieceMobility(util.knightDir),
+    bishop: this.basicPieceMobility(util.bishopDir),
+    rook: this.basicPieceMobility(util.rookDir),
+    queen: this.basicPieceMobility(util.queenDir),
     king: this.king,
   };
 

@@ -8,6 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.core.net.IpAddress
 import lila.core.security.{ Ip2ProxyApi, IsProxy }
 import lila.common.HTTPRequest
+import lila.mon.extensions.*
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
   def ofReq(req: RequestHeader): Fu[IsProxy] = fuccess(IsProxy.empty)
@@ -29,9 +30,13 @@ final class Ip2ProxyServer(
     else cache.get(ip.value)
 
   def ofReq(req: RequestHeader): Fu[IsProxy] =
-    ofIp(HTTPRequest.ipAddress(req)).addEffect:
-      _.name.foreach: name =>
-        lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
+    ofIp(HTTPRequest.ipAddress(req))
+      .map: proxy =>
+        if proxy.no && req.headers.get("X-HTTP-Version").exists(_.startsWith("HTTP/1.")) then IsProxy.http1
+        else proxy
+      .addEffect:
+        _.name.foreach: name =>
+          lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
 
   def getCached(ip: IpAddress): Option[Fu[IsProxy]] =
     if ipTiers.trustedIp.is(ip) then fuccess(IsProxy.empty).some
@@ -89,7 +94,7 @@ final class Ip2ProxyServer(
         .withTimeout(200.millis, "Ip2Proxy.fetch")
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
-        .monSuccess(_.security.proxy.request)
+        .monSuccess(lila.mon.security.proxy.request)
         .addEffect: result =>
           lila.mon.security.proxy.result(result.name).increment()
         .recoverDefault(IsProxy.empty)

@@ -1,9 +1,10 @@
 package lila.web
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.Json
-import play.api.mvc.Result
+import play.api.mvc.{ RequestHeader, Result }
 import play.api.mvc.Results.TooManyRequests
+import lila.common.HTTPRequest
 
 /** only allow X streams at a time per key */
 final class ConcurrencyLimit[K](
@@ -15,12 +16,11 @@ final class ConcurrencyLimit[K](
 )(using Executor):
 
   private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
-  private val logger = lila.memo.RateLimit.logger.branch("concurrency").branch(key)
   private val monitor = lila.mon.security.concurrencyLimit(key)
 
-  def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
+  def compose[T](k: K)(using RequestHeader): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
-      logger.info(s"$k $msg")
+      lila.memo.RateLimit.logger.info(s"concurrency $key $k $reqMsg")
       monitor.increment()
       none
     else
@@ -30,11 +30,13 @@ final class ConcurrencyLimit[K](
           done.onComplete: _ =>
             storage.dec(k)
 
-  def apply[T](k: K, msg: => String = "")(
+  def apply[T](k: K)(
       makeSource: => Source[T, ?]
-  )(makeResult: Source[T, ?] => Result): Result =
-    compose[T](k, msg).fold(limitedDefault(maxConcurrency)): watch =>
+  )(makeResult: Source[T, ?] => Result)(using req: RequestHeader): Result =
+    compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
       makeResult(watch(makeSource))
+
+  private def reqMsg(using req: RequestHeader) = s"${req.path} ${HTTPRequest.userAgent(req)}"
 
 object ConcurrencyLimit:
 

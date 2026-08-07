@@ -15,16 +15,16 @@
     <item quantity="other">Solvis %s taktikajn puzlojn</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Ludis %1$s %2$s ludon</item>
-    <item quantity="other">Ludis %1$s %2$s ludojn</item>
+    <item quantity="one">%1$s %2$s ludo ludita</item>
+    <item quantity="other">%1$s %2$s ludoj luditaj</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Afiŝis %1$s mesaĝo en %2$s</item>
     <item quantity="other">Afiŝis %1$s mesaĝoj en %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Ludis %1$s movon</item>
-    <item quantity="other">Ludis %1$s movojn</item>
+    <item quantity="one">%1$s movo ludita</item>
+    <item quantity="other">%1$s movoj luditaj</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">en %1$s korespondada ludo</item>

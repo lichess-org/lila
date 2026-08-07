@@ -72,7 +72,6 @@ case class Modlog(
     case Modlog.prizeban => "prizeban"
     case Modlog.unprizeban => "un-prizeban"
     case Modlog.modMessage => "send message"
-    case Modlog.coachReview => "disapprove coach review"
     case Modlog.cheatDetected => "game lost by cheat detection"
     case Modlog.cli => "run CLI command"
     case Modlog.garbageCollect => "garbage collect"
@@ -95,6 +94,7 @@ case class Modlog(
     case Modlog.setCarouselSize => "set blog carousel size"
     case Modlog.imagePass => "approve flagged image"
     case Modlog.imagePurge => "purge flagged image"
+    case Modlog.studyUnfeature => "unfeature study"
     case a => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -221,7 +221,6 @@ object Modlog:
   val prizeban = "prizeban"
   val unprizeban = "unprizeban"
   val modMessage = "modMessage"
-  val coachReview = "coachReview"
   val cheatDetected = "cheatDetected"
   val cli = "cli"
   val garbageCollect = "garbageCollect"
@@ -244,6 +243,7 @@ object Modlog:
   val setCarouselSize = "setCarouselSize"
   val imagePass = "imagePass"
   val imagePurge = "imagePurge"
+  val studyUnfeature = "studyUnfeature"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = e.index.has("team").so(~e.details) match

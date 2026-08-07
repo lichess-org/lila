@@ -15,7 +15,7 @@
   <string name="horde">Horde</string>
   <string name="hordeTitle">Un camp a un grand nombre de pions, l\'autre a un nombre de pièces normales.</string>
   <string name="racingKings">Sprint des rois</string>
-  <string name="racingKingsTitle">Amenez votre roi de l\'autre côté de l\'échiquer pour gagner la partie.</string>
+  <string name="racingKingsTitle">Amenez votre roi de l\'autre côté de l\'échiquier pour gagner la partie.</string>
   <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">Au lieu de bouger une pièce, vous pouvez replacer sur l\'échiquier une pièce capturée.</string>
   <string name="fromPosition">À partir d\'une position</string>

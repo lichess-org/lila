@@ -27,7 +27,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
-    makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets() });
+    makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets(undefined) });
     await Promise.all([env.bot.init(), env.assets.init()]);
     await env.assets.importPgn(
       opts.name,

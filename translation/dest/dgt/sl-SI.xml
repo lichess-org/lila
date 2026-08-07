@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT plošča</string>
-  <string name="lichessAndDgt">Lichess \"&amp;ąmp;\" DGT</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="dgtBoardRequirements">Zahteve plošče DGT</string>
   <string name="dgtBoardLimitations">Omejitve DGT plošče</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ta stran vam omogoča, da svojo desko DGT povežete z Lichessom in jo uporabite za igranje iger.</string>

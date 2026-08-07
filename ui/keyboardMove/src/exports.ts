@@ -8,7 +8,7 @@ import { promote } from 'lib/game/promotion';
 import type { NodeCrazy } from 'lib/tree/types';
 import { onInsert, snabDialog } from 'lib/view';
 
-import KeyboardChecker from '@/keyboardChecker';
+import KeyboardChecker from './keyboardChecker';
 
 export interface Opts {
   input: HTMLInputElement;
@@ -83,6 +83,7 @@ export function render(ctrl: KeyboardMove): VNode {
           htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),
           modal: true,
+          easyClose: 'clickOutside',
         })
       : null,
   ]);

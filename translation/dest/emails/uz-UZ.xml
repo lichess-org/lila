@@ -18,6 +18,7 @@ Sizning profil sahifangiz: %1$s. Profilingizni %2$sʼda tahrirlashingiz mumkin.
 Oʻyinlaringiz zavqli boʻlsin va shaxmat donalaringiz har doim raqib shohi tomon yo‘l topa olsin!</string>
   <string name="logInToLichess">%s, lichess.orgʼga kiring</string>
   <string name="common_orPaste">(Bosish foyda bermayapdimi? Nusxa olib brauzeringizga qoʻyib koʻring!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Havola ishlamayaptimi? Uni brauzeringizga qoʻyib koʻring!)</string>
   <string name="common_note">%s ni ishlatishingiz bilan bogʻliq boʻlgan yordamchi email manzil.</string>
   <string name="common_contact">Biz bilan bogʻlanish uchun %s sahifasiga oʻting.</string>
 </resources>

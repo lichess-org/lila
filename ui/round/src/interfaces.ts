@@ -92,6 +92,7 @@ export interface RoundData extends GameData {
   };
   expiration?: Expiration;
   local?: RoundProxy;
+  noab?: boolean;
 }
 
 export interface Expiration {
@@ -170,6 +171,7 @@ export interface ApiMove {
 export interface ApiEnd {
   winner?: Color;
   status: Status;
+  abortedBy?: Color;
   ratingDiff?: {
     white: number;
     black: number;

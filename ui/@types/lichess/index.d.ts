@@ -85,19 +85,6 @@ interface LichessPowertip {
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
-interface QuestionChoice {
-  // file://./../../round/src/ctrl.ts
-  action: () => void;
-  icon?: string;
-  text?: string;
-}
-
-interface QuestionOpts {
-  prompt: string; // TODO i18nkey, or just always pretranslate
-  yes?: QuestionChoice;
-  no?: QuestionChoice;
-}
-
 type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
   san?: string;

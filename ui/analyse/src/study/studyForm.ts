@@ -1,7 +1,7 @@
 import flairPickerLoader from 'bits/flairPicker';
 
 import { toggle } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 
 import { emptyRedButton } from '../view/util';
@@ -10,15 +10,15 @@ import type RelayCtrl from './relay/relayCtrl';
 
 export interface FormData {
   name: string;
-  flair?: string;
+  flair?: Flair;
   visibility: string;
   computer: string;
   explorer: string;
   cloneable: string;
   shareable: string;
   chat: string;
-  sticky: 'true' | 'false';
-  description: 'true' | 'false';
+  sticky: boolean;
+  description: boolean;
 }
 
 interface Select {
@@ -76,12 +76,11 @@ export function view(ctrl: StudyForm): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const isEditable = !ctrl.relay?.isOfficial();
-  const updateName = (vnode: VNode, isUpdate: boolean) => {
-    const el = vnode.elm as HTMLInputElement;
-    if (!isUpdate && !el.value) {
-      el.value = data.name;
-      if (isNew) el.select();
-      el.focus();
+  const updateName = (elem: HTMLInputElement, isUpdate: boolean) => {
+    if (!isUpdate && !elem.value) {
+      elem.value = data.name;
+      if (isNew) elem.select();
+      elem.focus();
     }
   };
   const userSelectionChoices: Choice[] = [
@@ -122,30 +121,33 @@ export function view(ctrl: StudyForm): VNode {
         hl('input#study-name.form-control', {
           attrs: { minlength: 3, maxlength: 100 },
           hook: {
-            insert: vnode => {
-              updateName(vnode, false);
-              const el = vnode.elm as HTMLInputElement;
-              el.addEventListener('focus', () => el.select());
+            ...onInsert<HTMLInputElement>(elem => {
+              updateName(elem, false);
+              elem.addEventListener('focus', () => elem.select());
               // set initial modal focus
-              setTimeout(() => el.focus());
-            },
-            postpatch: (_, vnode) => updateName(vnode, true),
+              setTimeout(() => elem.focus());
+            }),
+            postpatch: (_, vnode) => updateName(vnode.elm as HTMLInputElement, true),
           },
         }),
       ]),
     ]),
     hl('div.form-split', [
-      select({
-        key: 'visibility',
-        name: i18n.study.visibility,
-        choices: [
-          ['public', i18n.study.public],
-          ['unlisted', i18n.study.unlisted],
-          ['private', i18n.study.inviteOnly],
-        ],
-        selected: data.visibility,
-        visible: isEditable,
-      }),
+      ctrl.relay
+        ? hl('input#study-visibility', {
+            attrs: { type: 'hidden', name: 'visibility', value: data.visibility },
+          })
+        : select({
+            key: 'visibility',
+            name: i18n.study.visibility,
+            choices: [
+              ['public', i18n.study.public],
+              ['unlisted', i18n.study.unlisted],
+              ['private', i18n.study.inviteOnly],
+            ],
+            selected: data.visibility,
+            visible: isEditable,
+          }),
       select({
         key: 'chat',
         name: i18n.site.chat,
@@ -194,7 +196,7 @@ export function view(ctrl: StudyForm): VNode {
           ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
           ['false', i18n.study.noLetPeopleBrowseFreely],
         ],
-        selected: '' + data.settings.sticky,
+        selected: String(data.settings.sticky),
         visible: isEditable,
       }),
       select({
@@ -204,7 +206,7 @@ export function view(ctrl: StudyForm): VNode {
           ['false', i18n.study.noPinnedComment],
           ['true', i18n.study.rightUnderTheBoard],
         ],
-        selected: '' + data.settings.description,
+        selected: String(data.settings.description),
         visible: true,
       }),
     ]),
@@ -266,7 +268,6 @@ export function view(ctrl: StudyForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     vnodes: [
       hl(
         'h2',
@@ -291,8 +292,8 @@ export function view(ctrl: StudyForm): VNode {
                 cloneable: getVal('cloneable'),
                 shareable: getVal('shareable'),
                 chat: getVal('chat'),
-                sticky: getVal('sticky') as 'true' | 'false',
-                description: getVal('description') as 'true' | 'false',
+                sticky: getVal('sticky') === 'true',
+                description: getVal('description') === 'true',
               },
               isNew,
             );

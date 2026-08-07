@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon } from 'lib/view';
 import { fullName, userLine, userRating } from 'lib/view/userLink';
 
@@ -17,7 +17,7 @@ export const player = (
     'a.ulpt.user-link.online' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
       attrs: asLink || 'ontouchstart' in window ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
-      hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+      hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [
       h(

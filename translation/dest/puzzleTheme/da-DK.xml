@@ -55,14 +55,19 @@
   <string name="endgame">Slutspil</string>
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
   <string name="enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
+  <string name="epauletteMate">Epaulet-mat</string>
+  <string name="epauletteMateDescription">To tilstødende flugtfelter for en konge i skak er blokeret af andre brikker.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
   <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Et træk, hvor en brik angriber to eller flere modstanderbrikker på samme tid.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
   <string name="hookMate">Krog-mat</string>
   <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Skakmat ved hjælp af et tårn, en springer og en bonde, hvor en af modstanderens bønder blokerer kongens flugtvej.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
   <string name="intermezzo">Mellemtræk</string>
@@ -73,6 +78,8 @@
   <string name="pillsburysMateDescription">Tårnet sætter skakmat, mens løberen hjælper med at spærre af.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
+  <string name="swallowstailMate">Svalehale-mat</string>
+  <string name="swallowstailMateDescription">Et skakmatmønster, der visuelt minder om en svalehale, svarende til en V-form.</string>
   <string name="triangleMate">Trekantmat</string>
   <string name="triangleMateDescription">Dronningen og tårnet, der er ét felt fra fjendens konge, befinder sig på samme række eller kolonne, adskilt af ét felt, og danner en trekant.</string>
   <string name="vukovicMate">Vukovics mat</string>

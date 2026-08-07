@@ -1,6 +1,6 @@
 package lila.simul
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import monocle.syntax.all.*
@@ -37,7 +37,7 @@ final class SimulApi(
     expiration = 10.minutes,
     timeout = 10.seconds,
     name = "simulApi",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   export repo.{ find, byIds }
@@ -46,7 +46,7 @@ final class SimulApi(
 
   def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
-  private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
+  private val currentHostIdsCache = cacheApi.unit[Set[UserId]]("simul.currentHostIds"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 

@@ -19,8 +19,8 @@ final class Env(
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
-    baseUrl: BaseUrl
-)(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
+    routeUrl: RouteUrl
+)(using Executor, org.apache.pekko.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
 ):
 

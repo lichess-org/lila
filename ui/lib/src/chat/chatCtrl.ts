@@ -14,7 +14,6 @@ import type {
   ModerationCtrl,
   ChatData,
   NoteCtrl,
-  VoiceChatData,
   ChatPlugin,
 } from './interfaces';
 import { moderationCtrl } from './moderation';
@@ -31,9 +30,8 @@ export class ChatCtrl {
   private readonly allTabs: Tab[] = [];
 
   chatEnabled: Prop<boolean>;
-  voiceChat: VoiceChatData;
-  moderation: ModerationCtrl | undefined;
-  note: NoteCtrl | undefined;
+  moderation?: ModerationCtrl;
+  note?: NoteCtrl;
   preset: PresetCtrl;
   vm: ViewModel;
 
@@ -52,11 +50,6 @@ export class ChatCtrl {
       opts.plugin.redraw = redraw;
       this.allTabs.push(opts.plugin);
     }
-    this.voiceChat = {
-      instance: undefined,
-      loaded: false,
-      enabled: prop(!opts.kidMode && this.data.voiceChat),
-    };
     this.vm = {
       loading: false,
       autofocus: false,
@@ -89,7 +82,6 @@ export class ChatCtrl {
       ['socket.in.chat_reinstate', this.onReinstate],
       ['chat.writeable', this.onWriteable],
       ['chat.permissions', this.onPermissions],
-      ['voiceChat.toggle', this.voiceChat.enabled],
     ];
     subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
   }
@@ -130,7 +122,7 @@ export class ChatCtrl {
   private readonly onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
-      if (l.u && l.u.toLowerCase() === userId) {
+      if (l.u?.toLowerCase() === userId) {
         l.d = true;
         change = true;
       }

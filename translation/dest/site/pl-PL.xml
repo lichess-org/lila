@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Czarne opuściły grę</string>
   <string name="whiteDidntMove">Białe nie ruszyły się</string>
   <string name="blackDidntMove">Czarne nie ruszyły się</string>
+  <string name="whiteAborted">Białe porzuciły partię</string>
+  <string name="blackAborted">Czarne porzuciły partię</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
@@ -97,6 +99,8 @@
   <string name="database">Baza danych</string>
   <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
   <string name="averageRatingX">Średni ranking: %s</string>
+  <string name="minRatingX">Minimalny ranking %s</string>
+  <string name="maxRatingX">Minimalny ranking %s</string>
   <string name="recentGames">Ostatnie partie</string>
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Turniejowe partie graczy FIDE %1$s+ rozegranych w latach %2$s–%3$s</string>
@@ -130,7 +134,6 @@
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="showVariationArrows">Pokaż strzałki wariantów</string>
-  <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="visualMotifs">Motywy taktyczne</string>
   <string name="undefendedPieces">Wiszące bierki</string>
   <string name="pinnedPieces">Związane bierki</string>
@@ -298,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Jeśli nie otrzymasz wiadomości e-mail z potwierdzeniem, sprawdź folder Spam lub Śmieci. Upewnij się, że oznaczyłeś wiadomości z lichess.org jako bezpieczne i \"to nie spam\", dzięki czemu będziesz mógł otrzymywać ważne komunikaty.</string>
   <string name="sendEmailForAccountVerification">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
@@ -551,6 +555,7 @@
     <item quantity="many">%s obserwowanych</item>
     <item quantity="other">%s obserwowanych</item>
   </plurals>
+  <string name="less">Mniej</string>
   <string name="more">Więcej</string>
   <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>
@@ -649,6 +654,9 @@
   <string name="replies">Odpowiedzi</string>
   <string name="replyToThisTopic">Odpowiedz w tym temacie</string>
   <string name="reply">Odpowiedz</string>
+  <string name="reopen">Otwórz ponownie</string>
+  <string name="quote">Cytuj</string>
+  <string name="postEdited">edytowano</string>
   <string name="message">Wiadomość</string>
   <string name="createTheTopic">Załóż temat</string>
   <string name="reportAUser">Zgłoś użytkownika</string>
@@ -661,6 +669,7 @@
   <string name="reportCheatBoostHelp">Wklej link do partii i wytłumacz, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko \"on oszukiwał\", lecz napisz jak doszedłeś/aś do tego wniosku.</string>
   <string name="reportUsernameHelp">Wytłumacz, co w nazwie użytkownika jest obraźliwe. Nie pisz tylko \"nazwa jest obraźliwa\", lecz napisz jak doszedłeś/aś do tego wniosku, zwłaszcza jeśli jest mało znany, nie po angielsku, slangowy lub odniesieniem do kultury/historii.</string>
   <string name="reportProcessedFasterInEnglish">Twoje zgłoszenie będzie sprawdzone szybciej, jeśli zostanie napisane po angielsku.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Szybciej przetwarzymy Twoje zgłoszenie, jeśli napiszesz do nas po angielsku.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Zaimportowane przez %s</string>
@@ -791,6 +800,7 @@
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Utwórz</string>
   <string name="whenCreateSimul">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Utworzenie symultany pozwali Ci grać równocześnie przeciwko wielu przeciwnikom.</string>
   <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
@@ -888,17 +898,28 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
+  <string name="like">Lubię</string>
+  <string name="liked">Polubione</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonimowy</item>
+    <item quantity="few">Anonimowy (%s)</item>
+    <item quantity="many">Anonimowy (%s)</item>
+    <item quantity="other">Anonimowy (%s)</item>
+  </plurals>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
   <string name="allLanguages">Wszystkie języki</string>
   <string name="background">Tło</string>
+  <string name="theme">Motyw</string>
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>
   <string name="transparent">Przezroczyste</string>
+  <string name="picture">Zdjęcie</string>
   <string name="deviceTheme">Motyw urządzenia</string>
+  <string name="roundness">Zaokrąglone</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
   <string name="board">Szachownica</string>
   <string name="size">Rozmiar</string>
@@ -1029,6 +1050,7 @@
   <string name="tryTheContactPage">użyj strony kontaktowej</string>
   <string name="makeSureToRead">Koniecznie przeczytaj %1$s</string>
   <string name="theForumEtiquette">etykieta forum</string>
+  <string name="pleaseBeNiceInTheForum">Bądź miły na forum.</string>
   <string name="thisTopicIsArchived">Ten temat został zarchiwizowany i nie można już na niego odpowiedzieć.</string>
   <string name="joinTheTeamXToPost">Dołącz do %1$s, aby publikować na tym forum</string>
   <string name="teamNamedX">Klub %1$s</string>
@@ -1041,7 +1063,6 @@
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Należysz teraz do klubu.</string>
   <string name="youHaveJoinedTeamX">Dołączono do \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Konto kogoś, kogo zgłosiłeś/aś, zostało zablokowane</string>
   <string name="congratsYouWon">Gratulacje, wygrałeś/aś!</string>
   <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -1074,6 +1095,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
   <string name="markdownIsAvailable">%s jest dostępny do formatowania.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Możesz sformatować tekst za pomocą %s.</string>
   <string name="embedsAvailable">Wklej adres URL partii lub adres URL rozdziału opracowania, aby go osadzć.</string>
   <string name="inYourLocalTimezone">W Twojej lokalnej strefie czasowej</string>
   <string name="tournChat">Czat turniejowy</string>
@@ -1081,6 +1103,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
   <string name="onlyTeamMembers">Tylko członkowie klubu</string>
   <string name="navigateMoveTree">Nawiguj drzewo ruchów</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Nawigacja na liście posunięć</string>
   <string name="mouseTricks">Gesty myszy</string>
   <string name="toggleLocalAnalysis">Włącz/wyłącz analizę lokalnego komputera</string>
   <string name="toggleAllAnalysis">Włącz/wyłącz analizę komputera</string>
@@ -1097,7 +1120,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="gameInProgress">Rozgrywasz partię z %s.</string>
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Poddaj się</string>
-  <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="youCantStartNewGame">Nie możesz rozpocząć nowej gry, kiedy to Twoja kolej.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
@@ -1121,4 +1144,5 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="thereAreNoResultsForX">Brak wyników dla \"%s\"</string>
   <string name="tags">Tagi</string>
   <string name="enPassant">Bicie w przelocie</string>
+  <string name="settings">Ustawienia</string>
 </resources>

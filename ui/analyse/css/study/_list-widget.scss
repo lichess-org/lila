@@ -75,7 +75,7 @@
 
       .study__icon {
         flex: 0 0 auto;
-        color: $m-primary_bg--mix-80;
+        color: color-mix(in oklab, $c-primary 80%, $c-bg);
         font-size: 3em;
 
         img {
@@ -89,11 +89,22 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
       .top::before {
         color: $c-link;
       }
+    }
+  }
+
+  .study-unfeature {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    z-index: 3;
+
+    .button {
+      padding: 0.3em 0.5em;
     }
   }
 }

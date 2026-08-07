@@ -1,7 +1,7 @@
 import flairPickerLoader from 'bits/flairPicker';
 import { createSelectSearch } from 'bits/selectSearch';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storage } from 'lib/storage';
 import { addPasswordVisibilityToggleListener, confirm } from 'lib/view';
 import * as xhr from 'lib/xhr';

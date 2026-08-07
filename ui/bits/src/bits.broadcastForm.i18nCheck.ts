@@ -50,6 +50,7 @@ export default function initModule(): void {
           : nameInput.value
         : false;
     if (name) return name.trim();
+    return undefined;
   };
   // Initial load
   const shortName = getShortName();

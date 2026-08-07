@@ -52,28 +52,31 @@ final class ForumPostApi(
           _ <- postRepo.coll.insert.one(post)
           _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
           _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-          recentUsers <- recentUserIds(topic)
-          blockingUsers <- relationApi.filterBlocking(recentUsers, me.userId)
-          interestedUsers = recentUsers.filterNot(blockingUsers.contains)
         yield
           promotion.save(me, post.text)
           if post.isTeam
           then shutupApi.teamForumMessage(me, post.text)
           else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
+          def interestedUsers = for
+            recentUsers <- recentUserIds(topic)
+            blockingUsers <- relationApi.filterBlocking(recentUsers, me.userId)
+          yield recentUsers.filterNot(blockingUsers.contains)
           if anonMod
           then logAnonPost(post, edit = false)
           else if !post.troll && !categ.quiet then
-            lila.common.Bus.pub:
-              Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                .toFollowersOf(me)
-                .toUsers(interestedUsers)
-                .exceptUser(me)
-                .withTeam(categ.team)
+            interestedUsers.foreach: propagateTo =>
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
+                  .toUsers(propagateTo)
+                  .exceptUser(me)
+                  .withTeam(categ.team)
           else if categ.id == ForumCateg.diagnosticId then
-            lila.common.Bus.pub:
-              Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                .toUsers(interestedUsers)
-                .exceptUser(me)
+            interestedUsers.foreach: propagateTo =>
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toUsers(propagateTo)
+                  .exceptUser(me)
           lila.mon.forum.post.create.increment()
           mentionNotifier.notifyMentionedUsers(post, topic)
           Bus.pub(BusForum.CreatePost(post.mini))

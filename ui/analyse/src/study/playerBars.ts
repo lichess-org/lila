@@ -15,7 +15,8 @@ import { playerFedFlag } from '@/view/util';
 import type { StudyPlayers, StudyPlayer, StatusStr, TagMap } from './interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { RelayRound } from './relay/interfaces';
-import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
+import { playerId } from './relay/playerId';
+import RelayPlayers, { fidePageLinkAttrs, playerPhotoOrFallback } from './relay/relayPlayers';
 import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
 import { looksLikeLichessGame } from './studyChapters';
 import type { StudyCtrl } from './studyDeps';
@@ -24,7 +25,7 @@ import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
-  if (!study) return;
+  if (!study) return undefined;
   const relayPlayers = study.relay?.players;
   const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
   const relayTeamLeaderboard = study.relay?.teamLeaderboard;
@@ -94,7 +95,7 @@ function renderPlayer(
       fideId,
     },
     photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
-  const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
+  const coloredResult = status && status !== '*' && playerColoredResult(status, color, round?.customScoring);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
     : result && hl(`${resultTag(result)}.result`, result);

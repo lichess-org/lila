@@ -14,7 +14,7 @@ Keyingi oʻyinlarda gʻalaba qozonganiz sayin, sizga ikki karra ochko yoziladi.
 Yaʼni, gʻalaba 4 ochko, durang 2 ochko boʻladi, magʻlubiyat uchun esa ochko berilmaydi va “ochkolar seriyasi”ni toʻxtatadi.
 
 Masalan, ikkita gʻalaba va bitta durang jami 6 ochko beradi: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk">Berserk arena</string>
   <string name="berserkAnswer">Oʻyin boshida oʻyinchi “Berserk” tugmasini bossa, uning vaqti yarmiga qisqaradi, biroq gʻalaba uchun turnir jadvaliga qoʻshimcha bir ochko qoʻshiladi.
 
 Vaqt qoʻshilishi bor (inkrementli) oʻyinlarda “Berserk” qilsangiz vaqt ortishidan voz kechasiz (1+2 vaqt nazorati bundan mustasno va 1+0 holatiga oʻtadi).
@@ -75,6 +75,10 @@ Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va k
   <string name="rankAvgHelp">Oʻrtacha oʻrin — bu sizning turnirdagi oʻrningizning foizdagi ifodasidir. Pastroq qiymat — yaxshiroq degani.
 
 Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin beradi. 1000 kishilik turnirda 10‑oʻrinni egallash — 1% oʻrtacha oʻrin beradi.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sizning oʻrtacha oʻrningiz har bir turnirdagi umumiy oʻyinchilar soniga nisbatan odatiy yakuniy oʻrningizni koʻrsatadi.
+Bu umumiy reytingingiz emas, balki turnirdagi natijangiz koʻrsatkichidir.
+
+Masalan, 3% o\'rtacha o\'rin — siz odatda eng yaxshi 3% ichida yakunlaysiz deganidir (masalan, 1000 ta o\'yinchidan 30‑o\'rin).</string>
   <string name="medians">medianalar</string>
   <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %sdir.</string>
   <string name="total">Jami</string>
@@ -82,7 +86,7 @@ Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin berad
   <string name="pointsSum">Jami ochkolar</string>
   <string name="rankAvg">Oʻrtacha oʻrin</string>
   <string name="tournamentWinners">Turnir gʻoliblari</string>
-  <string name="tournamentShields">Turnir qalqonlari</string>
+  <string name="tournamentShields">Turnir Qalqonlari</string>
   <string name="onlyTitled">Faqat unvonli oʻyinchilar</string>
   <string name="onlyTitledHelp">Turnirga qoʻshilish uchun rasmiy unvon talab qilish</string>
   <string name="tournamentPairingsAreNowClosed">Turnir uchun qura tashlash toʻxtatildi.</string>

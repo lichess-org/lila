@@ -9,7 +9,7 @@ import lila.recap.Recap.Availability
 final class RecapApi(
     repo: RecapRepo,
     recapJson: RecapJson,
-    queue: lila.memo.ParallelMongoQueue[UserId]
+    queue: ParallelMongoQueue[UserId]
 )(using Executor, Scheduler):
 
   export repo.get

@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Sort forlod partiet</string>
   <string name="whiteDidntMove">Hvid trak ikke</string>
   <string name="blackDidntMove">Sort trak ikke</string>
+  <string name="whiteAborted">Hvid forlod partiet</string>
+  <string name="blackAborted">Sort forlod partiet</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
@@ -95,6 +97,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Hvid / Remis / Sort</string>
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
+  <string name="minRatingX">Minimum rating på %s</string>
+  <string name="maxRatingX">Maksimal rating på %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
   <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
@@ -126,7 +130,6 @@
   <string name="enable">Aktivér</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
-  <string name="evaluationGauge">Evalueringsindikator</string>
   <string name="visualMotifs">Visuelle motiver</string>
   <string name="undefendedPieces">Uforsvarede brikker</string>
   <string name="pinnedPieces">Bundne brikker</string>
@@ -268,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
   <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Modtager du ikke en bekræftelses-e-mail, skal du tjekke din spam- eller junk-mappe. Sørg for at markere beskeder fra lichess.org som sikre og \"ikke spam\", så du kan holde dig opdateret om vigtige meddelelser.</string>
   <string name="sendEmailForAccountVerification">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
   <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
   <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
@@ -481,6 +485,7 @@
     <item quantity="one">%s følger</item>
     <item quantity="other">%s følger</item>
   </plurals>
+  <string name="less">Færre</string>
   <string name="more">Mere</string>
   <string name="memberSince">Medlem siden</string>
   <string name="lastSeenActive">Sidst logget ind %s</string>
@@ -577,6 +582,9 @@
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emne</string>
   <string name="reply">Svar</string>
+  <string name="reopen">Genåbn</string>
+  <string name="quote">Citér</string>
+  <string name="postEdited">redigeret</string>
   <string name="message">Meddelelse</string>
   <string name="createTheTopic">Opret emnet</string>
   <string name="reportAUser">Anmeld en bruger</string>
@@ -589,6 +597,7 @@
   <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
   <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
   <string name="reportProcessedFasterInEnglish">Din indberetning vil blive behandlet hurtigere, hvis den er skrevet på engelsk.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan behandle din anmeldelse hurtigere, hvis du skriver på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
@@ -713,6 +722,7 @@
   <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
   <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Når du opretter en simul, kan du spille mod flere modstandere på samme tid.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
@@ -806,9 +816,15 @@
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>
+  <string name="like">Synes godt om</string>
+  <string name="liked">Syntes godt om</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonyme (%s)</item>
+  </plurals>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>
@@ -941,6 +957,7 @@
   <string name="tryTheContactPage">prøv kontakt-siden</string>
   <string name="makeSureToRead">Sørg for at læse %1$s</string>
   <string name="theForumEtiquette">forummets etikette</string>
+  <string name="pleaseBeNiceInTheForum">Hold en god tone i forummet.</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>
@@ -953,7 +970,6 @@
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
   <string name="congratsYouWon">Tillykke, du vandt!</string>
   <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
@@ -986,6 +1002,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
   <string name="markdownIsAvailable">%s er tilgængelig til formatering.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formatere tekst ved hjælp af %s.</string>
   <string name="embedsAvailable">Indsæt URL på et parti eller på et studiekaptitel for at indlejre det.</string>
   <string name="inYourLocalTimezone">I din egen lokale tidszone</string>
   <string name="tournChat">Turneringschat</string>
@@ -993,6 +1010,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
   <string name="navigateMoveTree">Navigér i træk-træet</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Trækliste-navigation</string>
   <string name="mouseTricks">Tricks med mus</string>
   <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
   <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
@@ -1009,7 +1027,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="gameInProgress">Du har et parti i gang med %s.</string>
   <string name="abortTheGame">Afbryd partiet</string>
   <string name="resignTheGame">Giv op i partiet</string>
-  <string name="youCantStartNewGame">Du kan ikke starte et nyt parti, før dette er afsluttet.</string>
+  <string name="youCantStartNewGame">Du kan ikke starte et nyt parti, mens det er din tur.</string>
   <string name="since">Siden</string>
   <string name="until">Indtil</string>
   <string name="lichessDbExplanation">Ratede partier indsamlet fra alle Lichess-spillere</string>
@@ -1033,4 +1051,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Indstillinger</string>
 </resources>

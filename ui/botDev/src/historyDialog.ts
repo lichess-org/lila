@@ -3,7 +3,7 @@ import stringify from 'json-stringify-pretty-compact';
 
 import { frag, escapeHtml, myUserId } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
 import { env } from './devEnv';
@@ -44,7 +44,7 @@ class HistoryDialog {
     await this.updateHistory();
     this.dlg = await domDialog({
       append: [{ node: this.view }],
-      onClose: () => {},
+      easyClose: 'clickOutside',
       actions: [
         { selector: '[data-action="pull"]', listener: this.pull },
         { selector: '[data-action="push"]', listener: this.push },
@@ -81,7 +81,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(frag(`<i data-icon="${licon.Checkmark}" class="live">`));
+      if (isLive) span.appendChild(frag(`<icon data-icon="${licon.Checkmark}" class="live">`));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }
@@ -109,7 +109,7 @@ class HistoryDialog {
   }
 
   version(version: string | number | undefined): BotVersionInfo | undefined {
-    if (!version) return;
+    if (!version) return undefined;
     return this.versions.find(b => String(b.version) === String(version));
   }
 

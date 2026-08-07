@@ -1,4 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">أهلاً, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">ماذا كنت حتى تفعل في هذا العام؟</string>
+	<string name="initTitle">يا لها من سنة الشطرنج التي قمتي بها!</string>
+	<string name="noGamesText">لم تلعب أي ألعاب هذا العام.</string>
+	<string name="noGamesCta">هل تريد اللعب الآن؟</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">وفزت بـ %s!</string>
+	<string name="gamesNextQuestion">ماذا تطلب الوصول إلى هنا؟</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s مقضي في اللعب!</string>
+	<string name="timeTooMuch">هذا شطرنج كثير جدا.</string>
+	<string name="timeALot">هذا الكثير من الشطرنج.</string>
+	<string name="timeReasonable">وهذا يبدو وكأنه كِمْية معقولة من الشطرنج.</string>
+	<string name="timeHowManyMoves">كم عدد التحركات التي لعبتها في كل ذلك الوقت؟</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="zero">%s حركة لُعِبَةْ</item>
+		<item quantity="one">%s حركة لُعِبَةْ</item>
+		<item quantity="two">%s حركتين لُعِبَةْ</item>
+		<item quantity="few">%s حركات لُعِبَةْ</item>
+		<item quantity="many">%s حركات لُعِبَةْ</item>
+		<item quantity="other">%s حركات لُعِبَةْ</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">هذا %s جراما من الخشب حركته!</string>
+	<string name="movesStandardPiecesWeight">وزن القطع الطبيعي حوالي 40 غرام لكل</string>
+	<plurals name="nbMoves">
+		<item quantity="zero">%s حركة</item>
+		<item quantity="one">%s حركة</item>
+		<item quantity="two">%s حركتين</item>
+		<item quantity="few">%s حركات</item>
+		<item quantity="many">%s حركات</item>
+		<item quantity="other">%s حركات</item>
+	</plurals>
+	<string name="chessFoes">أفضل أعداء الشطرنج الخاص بك</string>
+	<plurals name="nbGrams">
+		<item quantity="zero">%s جرام</item>
+		<item quantity="one">%s جرام</item>
+		<item quantity="two">%s جرام</item>
+		<item quantity="few">%s جرام</item>
+		<item quantity="many">%s جرام</item>
+		<item quantity="other">%s جرام</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="zero">%s كيلو جرام</item>
+		<item quantity="one">%s كيلو جرام</item>
+		<item quantity="two">%s كيلو جرام</item>
+		<item quantity="few">%s كيلو جرام</item>
+		<item quantity="many">%s كيلو جرام</item>
+		<item quantity="other">%s كيلو جرام</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">هي الطريقة التي بدأت بها %s من ألعابك كأبيض</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="zero">اكثر افتتاحه لعبتها كأبيض في %s لعبتين</item>
+		<item quantity="one">اكثر افتتاحه لعبتها كأبيض في %s لُعْبَة</item>
+		<item quantity="two">اكثر افتتاحه لعبتها كأبيض في %s لعبتين</item>
+		<item quantity="few">اكثر افتتاحه لعبتها كأبيض في %s ألعاب</item>
+		<item quantity="many">اكثر افتتاحه لعبتها كأبيض في %s ألعاب</item>
+		<item quantity="other">اكثر افتتاحه لعبتها كأبيض في %s ألعاب</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="zero">اكثر افتتاحه لعبتها كأسود في %s لُعْبَة</item>
+		<item quantity="one">اكثر افتتاحه لعبتها كأسود في %s لُعْبَة</item>
+		<item quantity="two">اكثر افتتاحه لعبتها كأسود في %s لعبتين</item>
+		<item quantity="few">اكثر افتتاحه لعبتها كأسود في %s ألعاب</item>
+		<item quantity="many">اكثر افتتاحه لعبتها كأسود في %s ألعاب</item>
+		<item quantity="other">اكثر افتتاحه لعبتها كأسود في %s ألعاب</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="zero">شكرا لك على التصويت على %s لغز.</item>
+		<item quantity="one">شكرا لك على التصويت على %s لغز.</item>
+		<item quantity="two">شكرا لك على التصويت على %s لغزين.</item>
+		<item quantity="few">شكرا لك على التصويت على %s الغاز.</item>
+		<item quantity="many">شكرا لك على التصويت على %s الغاز.</item>
+		<item quantity="other">شكرا لك على التصويت على %s الغاز.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">لقد ساعدت أيضًا على تعليم %s منهم.</string>
+	<string name="puzzlesNone">لم تقم بحل أي ألغاز هذا العام.</string>
+	<string name="puzzlesTryNow">هل تريد أن تجرب بعضها الآن؟</string>
+	<string name="puzzlesYouWonOnFirstTry">فزت ب%s منهم في المحاولة الأولى!</string>
+	<string name="sourcesTitle">أين وجدت الألعاب؟</string>
+	<string name="perfsTitle">ما هي تحكمات الوقت والمتغيرات التي لعبت بها؟</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">تم تحميل %s من الإعلانات و التتبع</string>
+	<string name="malwareNoSell">لم نبع بياناتك الشخصية</string>
+	<string name="malwareNoAbuse">لم نستخدم جهازك ضدك</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">لكن المواقع الأخرى تفعل ذلك، لذا يرجى %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">كن حذراً</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s لُعْبَة لعبت على Lichess في %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s منهم كانوا لك.</string>
+	<string name="thanksTitle">شكرا لك على اللعب على Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">نحن سعداء بأنك هنا. و %s رائع لكم!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess %1$s  هذا العام كانت %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">تكلفة</string>
+	<string name="patronCharity">نحن مؤسسة خيرية، ندير فقط على التبرعات.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">إذا ساعدنا في ترفيهك هذا العام، أو تؤمن بعملنا، يرجى النظر في %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">دعمنا بالتبرع</string>
+	<string name="shareableTitle" comment="%s is the current year">موجز %s الخاص بي</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">الوقت المقضي في اللعب</string>
+	<string name="shareableMostPlayedOpponent">الخَصْم الأكثر لعبا</string>
+	<string name="shareableFavouriteVariant">البديل المفضل</string>
+	<string name="shareableFavouriteTimeControl">تحكم الوقت المفضل</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="zero">%s  لغز محلول</item>
+		<item quantity="one">%s  لغز محلول</item>
+		<item quantity="two">%s لغزين محلولين</item>
+		<item quantity="few">%s الغاز محلولة</item>
+		<item quantity="many">%s الغاز محلولة</item>
+		<item quantity="other">%s الغاز محلولة</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap">موجز %s الخاص بك مُعَدّ!</string>
 </resources>

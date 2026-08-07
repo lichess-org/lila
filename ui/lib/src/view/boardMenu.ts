@@ -3,7 +3,7 @@
 import { h } from 'snabbdom';
 
 import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
 import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
@@ -38,7 +38,7 @@ export const boardMenu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = !myUserId();
+  anonymous: boolean = !myUserId(); // oxlint-disable-line no-inferrable-types The simplification collides with our TS config.
 
   constructor(readonly redraw: Redraw) {}
 

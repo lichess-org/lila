@@ -7,6 +7,7 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 import Client.Skill
@@ -30,19 +31,20 @@ final class FishnetApi(
     maxSize = Max(256),
     timeout = 5.seconds,
     name = "fishnetApi",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
+  def authenticateClient(key: Client.Key, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
     if config.offlineMode then repo.getOfflineClient.map(some)
-    else repo.getEnabledClient(req.fishnet.apikey)
+    else repo.getEnabledClient(key)
   }.map {
     case None => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
-    case Some(client) => clientVersion.accept(req.fishnet.version).map(_ => client)
+    case Some(client) => clientVersion.accept(version).map(_ => client)
   }.flatMap:
-    case Success(client) => repo.updateClientInstance(client, req.instance(ip)).map(Success.apply)
+    case Success(client) =>
+      repo.updateClientInstance(client, Client.Instance(version, ip, nowInstant)).map(Success.apply)
     case invalid => fuccess(invalid)
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
@@ -50,7 +52,7 @@ final class FishnetApi(
       .match
         case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
         case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
-      .monSuccess(_.fishnet.acquire)
+      .monSuccess(lila.mon.fishnet.acquire)
       .recover { case e: Exception =>
         logger.error("Fishnet.acquire", e)
         none
@@ -107,7 +109,7 @@ final class FishnetApi(
             }
           else fuccess(PostAnalysisResult.UnusedPartial)
     res <- res match
-      case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
+      case r @ PostAnalysisResult.Complete(res) => sink.save(res, work.game.hash).inject(r)
       case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
       case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
   yield res

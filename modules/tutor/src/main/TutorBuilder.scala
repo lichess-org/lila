@@ -13,6 +13,7 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.common.LilaFuture
+import lila.mon.extensions.*
 
 final private class TutorBuilder(
     colls: TutorColls,
@@ -30,7 +31,7 @@ final private class TutorBuilder(
 
   def apply(config: TutorConfig): Fu[TutorFullReport] = for
     user <- userApi.withPerfs(config.user).orFail(s"No such user ${config.user}")
-    chrono = lila.common.Chronometer.lapTry(produce(user)(using config))
+    chrono = lila.mon.Chronometer.lapTry(produce(user)(using config))
     _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
     lap <- chrono.lap
     report <- lap.result.toFuture
@@ -40,25 +41,25 @@ final private class TutorBuilder(
   yield report
 
   private def produce(user: UserWithPerfs)(using config: TutorConfig): Fu[TutorFullReport] = for
-    _ <- insightApi.indexAll(user, force = false).monSuccess(_.tutor.buildSegment("insight-index"))
+    _ <- insightApi.indexAll(user, force = false).monSuccess(lila.mon.tutor.buildSegment("insight-index"))
     perfStats <- perfStatsApi(
       user,
       config.period,
       eligiblePerfKeysOf(user).map(PerfType(_)),
       fishnet.maxGamesToConsider
     )
-      .monSuccess(_.tutor.buildSegment("perf-stats"))
+      .monSuccess(lila.mon.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
-      .monSuccess(_.tutor.buildSegment("peer-matches"))
+      .monSuccess(lila.mon.tutor.buildSegment("peer-matches"))
     tutorUsers = perfStats
       .map { (pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
-    _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
+    _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(lila.mon.tutor.buildSegment("fishnet-analysis"))
     _ <- LilaFuture.sleep(1.second) // ensure fishnet analyses are indexed before asking questions
     perfs <- tutorUsers.toNel
       .so(TutorPerfReport.compute)
-      .monSuccess(_.tutor.buildSegment("perf-reports"))
+      .monSuccess(lila.mon.tutor.buildSegment("perf-reports"))
   yield TutorFullReport(config, nowInstant, perfs)
 
   private[tutor] def eligiblePerfKeysOf(user: UserWithPerfs): List[PerfKey] =
@@ -126,7 +127,7 @@ private object TutorBuilder:
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
     .ask(question.timeFilter(config).filter(Filter(user.perfType)), user.user, withPovs = false)
-    .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
+    .monSuccess(lila.mon.tutor.askMine(question.monKey, user.perfType.key))
     .map(AnswerMine.apply)
 
   def answerPeer[Dim](question: Question[Dim], user: TutorPlayer, nbGames: Max = peerNbGames)(using
@@ -134,7 +135,7 @@ private object TutorBuilder:
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
     .askPeers(question.filter(Filter(user.perfType)), user.perfStats.rating, nbGames = nbGames)
-    .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
+    .monSuccess(lila.mon.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
   def answerManyPerfs[Dim](
@@ -151,7 +152,7 @@ private object TutorBuilder:
         tutorUsers.head.user,
         withPovs = false
       )
-      .monSuccess(_.tutor.askMine(question.monKey, "all"))
+      .monSuccess(lila.mon.tutor.askMine(question.monKey, "all"))
       .map(AnswerMine.apply)
     peerByPerf <- tutorUsers.toList.map(answerPeer(question, _)).parallel
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))

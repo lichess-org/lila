@@ -1,6 +1,5 @@
 package lila.study
 
-import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaFuture
@@ -65,16 +64,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
         .dmap(_.fold(StudyTopics.empty)(StudyTopics(_)))
 
-  private case class TagifyTopic(value: String)
-  private given Reads[TagifyTopic] = Json.reads
-
-  def userTopics(user: User, json: String): Funit =
-    val topics =
-      if json.trim.isEmpty then StudyTopics.empty
-      else
-        Json.parse(json).validate[List[TagifyTopic]] match
-          case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)
-          case _ => StudyTopics.empty
+  def userTopics(user: User, topics: StudyTopics): Funit =
     userTopicRepo
       .coll:
         _.update.one(
@@ -117,7 +107,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     maxSize = Max(1),
     timeout = 61.seconds,
     name = "studyTopicAggregation",
-    lila.log.asyncActorMonitor.unhandled
+    lila.mon.asyncActorMonitor.unhandled
   )
 
   private[study] def recompute(): Unit =

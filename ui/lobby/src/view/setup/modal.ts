@@ -31,6 +31,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
         setupCtrl.root.redraw();
       },
       modal: true,
+      easyClose: 'clickOutside',
       vnodes: [
         hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
         hl('div.setup-content', views[setupCtrl.gameType](ctrl)),

@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
-import { bind } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, onInsert } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import type { Hook } from '@/interfaces';
@@ -45,8 +45,8 @@ function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, numbe
     key: hook.id,
     attrs: { 'data-icon': perfIcons[hook.perf], style: `bottom:${percents(bottom)};left:${percents(left)}` },
     hook: {
-      insert(vnode) {
-        $(vnode.elm as HTMLElement).powerTip({
+      ...onInsert(el => {
+        $(el).powerTip({
           placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
           closeDelay: 200,
           defaultSize: [120, 80],
@@ -58,11 +58,11 @@ function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, numbe
               .on('click', () => ctrl.clickHook(hook.id));
           },
         });
-        setTimeout(function () {
-          (vnode.elm as HTMLElement).classList.remove('new');
+        setTimeout(() => {
+          el.classList.remove('new');
         }, 20);
-      },
-      destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
+      }),
+      destroy: vnode => $.powerTip.destroy(vnode.elm),
     },
   });
 }
@@ -79,7 +79,8 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</i>';
+  html +=
+    '<icon data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</icon>';
   html += '</div></div>';
   return html;
 }
@@ -90,7 +91,7 @@ function renderXAxis() {
   const tags: VNode[] = [];
   xMarks.forEach(v => {
     const l = clockX(v * 60);
-    tags.push(h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, '' + v));
+    tags.push(h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v));
     tags.push(h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }));
   });
   return tags;
@@ -102,7 +103,7 @@ function renderYAxis() {
   const tags: VNode[] = [];
   yMarks.forEach(function (v) {
     const b = ratingY(v);
-    tags.push(h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, '' + v));
+    tags.push(h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v));
     tags.push(h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }));
   });
   return tags;

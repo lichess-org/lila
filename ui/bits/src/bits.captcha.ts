@@ -64,7 +64,7 @@ function init() {
           setTimeout(
             () =>
               cg.set({
-                fen: fen,
+                fen,
                 turnColor: cg.state.orientation,
                 movable: { dests },
               }),

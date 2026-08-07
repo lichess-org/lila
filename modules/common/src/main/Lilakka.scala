@@ -1,10 +1,8 @@
 package lila.common
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 object Lilakka:
-
-  val shutdownLogger = lila.log("shutdown")
 
   def shutdown(cs: CoordinatedShutdown, makePhase: CoordinatedShutdown.type => String, name: String)(
       f: () => Funit
@@ -12,8 +10,7 @@ object Lilakka:
     val phase = makePhase(CoordinatedShutdown)
     val msg = s"$phase $name"
     cs.addTask(phase, name): () =>
-      shutdownLogger.info(msg)
-      Chronometer(f())
-        .log(shutdownLogger)(_ => msg)
-        .result
-        .inject(akka.Done)
+      lila.log.system.info(s"shutdown $msg")
+      f().dmap: _ =>
+        lila.log.system.info(s"shutdown $msg done")
+        org.apache.pekko.Done

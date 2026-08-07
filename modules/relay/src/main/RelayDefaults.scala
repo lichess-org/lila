@@ -18,7 +18,7 @@ final class RelayDefaults(
       groupRepo
         .byId(groupId)
         .flatMapz: group =>
-          tourRepo.byIds(group.tours).map(RelayDefaults.defaultTourOfGroup)
+          tourRepo.byIds(group.tours.toList).map(RelayDefaults.defaultTourOfGroup)
 
   private def tourWithRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
     tourRepo.coll

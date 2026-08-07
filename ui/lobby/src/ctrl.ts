@@ -67,10 +67,13 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.me?.username.toLowerCase());
-    if (!this.me?.isBot && this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0) {
-      this.stores.tab.set('pools');
+    if (this.me?.isBot) this.tab = 'now_playing';
+    else {
+      if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
+        this.stores.tab.set('pools');
+      else if (this.hasOngoingRealTimeGame(false)) this.stores.tab.set('now_playing');
+      this.tab = this.stores.tab.get();
     }
-    this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
 
@@ -257,7 +260,7 @@ export default class LobbyController {
     if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');
-    } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
+    } else if (this.poolMember?.id === id) this.leavePool();
     else this.enterPool({ id });
     this.redraw();
   };
@@ -281,13 +284,19 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  hasOngoingRealTimeGame = () =>
-    this.data.nowPlaying.some(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+  hasOngoingRealTimeGame = (requireTurn: boolean) =>
+    this.data.nowPlaying.some(
+      nowPlaying =>
+        nowPlaying.speed !== 'correspondence' &&
+        (nowPlaying.isMyTurn || !requireTurn) &&
+        !nowPlaying.opponent.ai,
+    );
 
   gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.some(p => p.gameId === gameId))
-      xhr.nowPlaying().then(povs => {
-        this.data.nowPlaying = povs;
+      xhr.nowPlaying().then(res => {
+        this.data.nowPlaying = res.nowPlaying;
+        this.data.nbMyTurn = res.nbMyTurn;
         this.startWatching();
         this.redraw();
       });

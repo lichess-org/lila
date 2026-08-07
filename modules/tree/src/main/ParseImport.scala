@@ -92,12 +92,14 @@ object ParseImport:
     tags.points
       .map(points => TagResult(status, points))
       .filter(_.status > Status.Started)
-      .orElse {
-        game.position.status.flatMap: status =>
-          Outcome
-            .guessPointsFromStatusAndPosition(status, game.position.winner)
-            .map(TagResult(status, _))
-      }
+      .orElse:
+        val pos = game.position
+        pos.status
+          .filter(s => s != Status.Draw || pos.variant.isInsufficientMaterial(pos))
+          .flatMap: status =>
+            Outcome
+              .guessPointsFromStatusAndPosition(status, pos.winner)
+              .map(TagResult(status, _))
 
   private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>

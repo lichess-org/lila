@@ -5,9 +5,8 @@ export lila.common.extensions.*
 export lila.core.userId.ModId
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.{ Granter, Permission }
-import lila.core.misc.AtInstant
 
-private val logger = lila.log("mod")
+lazy val logger = lila.log("mod")
 
 final class ModlogRepo(val coll: lila.db.dsl.Coll)
 final class AssessmentRepo(val coll: lila.db.dsl.Coll)

@@ -2,7 +2,7 @@ import { COLORS } from 'chessops';
 
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { type Simul, setOnGame, isPlayerTurn } from 'lib/game';
+import { type Simul, setOnGame, isPlayerTurn, plyColor } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
 import { wsSign, wsVersion } from 'lib/socket';
 import { domDialog } from 'lib/view';
@@ -56,7 +56,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
 
   const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
-    if (o && o.t) {
+    if (o?.t) {
       ctrl.setLoading(false);
       handlers[o.t]!(o.d);
     } else
@@ -122,7 +122,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       }
       if (by) {
         let ply = ctrl.lastPly();
-        if ((by === 'white') === (ply % 2 === 0)) ply++;
+        if (by === plyColor(ply)) ply++;
         ctrl.data.game.drawOffers = (ctrl.data.game.drawOffers || []).concat([ply]);
       }
       ctrl.redraw();
@@ -153,6 +153,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     },
     simulEnd(simul: Simul) {
       domDialog({
+        easyClose: 'clickOutside',
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,

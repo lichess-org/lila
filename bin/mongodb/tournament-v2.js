@@ -68,7 +68,6 @@ cursor.forEach(function (o) {
     const percent = Math.round((it / max) * 100);
     const dat2 = Date.now() / 1000;
     const ms = Math.round(1000 * (dat2 - dat - pause / 1000));
-    const perSec = Math.round(batchSize / ms);
     dat = dat2;
     print(it + ' ' + percent + '% ' + ms + 'ms');
     sleep(pause);

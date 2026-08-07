@@ -20,7 +20,7 @@
   <string name="announcePossibleMoves">Annoncer les coups possibles pour la pièce sélectionnée</string>
   <string name="announcePossibleCaptures">Annoncer les captures possibles pour la pièce sélectionnée</string>
   <string name="moveWithArrows">Aller à la case adjacente à gauche ou à droite ou en haut ou en bas</string>
-  <string name="moveToPieceByType">Déplacer la pièce en tapant son type. Utiliser les majuscules pour inverser l\'ordre.</string>
+  <string name="moveToPieceByType">Se déplacer sur les cases en tapant le type des pièces. Utiliser les majuscules pour inverser l\'ordre.</string>
   <string name="moveToRank">Aller à la colonne de 1 à 8</string>
   <string name="moveToFile">Aller à la rangée de A à H</string>
   <string name="announcePieceLocations">Annonce la position des pièces. Exemple : p minuscule N majuscule pour un cavalier blanc, p minuscule k minuscule pour le roi noir.</string>

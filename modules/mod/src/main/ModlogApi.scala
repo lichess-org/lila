@@ -15,6 +15,7 @@ import lila.core.user.KidMode
 import lila.core.LightUser
 import lila.core.id.ForumTopicSlug
 import lila.memo.PicfitImage
+import lila.core.study.Study
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -247,9 +248,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def modMessage(user: UserId, subject: String)(using MyId) = add:
     Modlog(user.some, Modlog.modMessage, details = subject.some)
 
-  def coachReview(coach: UserId, author: UserId)(using MyId) = add:
-    Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
-
   private def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
@@ -287,6 +285,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       context = image.context.map(url => Modlog.Context(url = url.some)),
       details = image.automod.flatMap(_.flagged)
     )
+
+  def studyUnfeature(study: Study)(using myId: MyId) = add:
+    Modlog(myId.modId, study.ownerId.some, Modlog.studyUnfeature, details = study.name.value.some)
 
   def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
     $doc(
@@ -334,8 +335,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user" -> userId,
         "action" -> Modlog.cheatDetected,
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".$gt(nowInstant.minusMonths(6))
       )
+
+  def recentActionsOf(userId: UserId): Fu[List[String]] =
+    coll.secondary.primitive[String]($doc("user" -> userId, "date".$gt(nowInstant.minusWeeks(1))), "action")
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
@@ -399,12 +403,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             case u => u
 
   private def add(m: Modlog): Funit =
-    lila.mon.mod.log.create.increment()
-    lila.log("mod").info(m.toString)
+    lila.mon.mod.log.create(m.mod.userId, m.action).increment()
     m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
-      } >> (m.notableZulip.so(zulipMonitor(m)))
+      } >> m.notableZulip.so(zulipMonitor(m))
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M

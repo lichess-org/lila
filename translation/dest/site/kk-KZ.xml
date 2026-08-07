@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Ойын пішімі</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Досты шақыру</string>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
+  <string name="createLobbyGame">Ойын құру</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -100,10 +103,10 @@
   <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
-  <string name="openingExplorer">Бастаулар қазынасы</string>
-  <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
-  <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Бастау/ойынсоңы қорынан бірінші қадам жасау</string>
+  <string name="openingExplorer">Бастама қоры</string>
+  <string name="openingEndgameExplorer">Бастама/ойынсоңы қоры</string>
+  <string name="xOpeningExplorer">%s Бастама Қоры</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Бастама/ойынсоңы қорының бірінші жүрісін жасау</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 жүріс ережесі</string>
@@ -119,7 +122,6 @@
   <string name="enable">Қосу</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
-  <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
@@ -334,12 +336,13 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды жүктеп алу</string>
+  <string name="ratingFilter">Қарсылас рейтинг ауқымы</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
   </plurals>
   <string name="thisAccountViolatedTos">Бұл тіркелгі Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="openingExplorerAndTablebase">Бастаулар мен ойынсоңдарының қоры</string>
+  <string name="openingExplorerAndTablebase">Бастама мен ойынсоңы қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
@@ -758,7 +761,7 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
-  <string name="viewTheSolution">Жауабын қарау</string>
+  <string name="viewTheSolution">Шешімін көру</string>
   <string name="noChallenges">Шақыру жоқ.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тілде нұсқасы бар!</item>
@@ -773,12 +776,12 @@
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
   <string name="allLanguages">Барлық тілдер</string>
-  <string name="background">Фон</string>
+  <string name="background">Артқы кескін</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
   <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
-  <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="backgroundImageUrl">Артқы сурет сілтемесі:</string>
   <string name="board">Тақта</string>
   <string name="size">Үлкендігі</string>
   <string name="opacity">Айқындығы</string>
@@ -801,6 +804,7 @@
   <string name="notifications">Хабарлама</string>
   <string name="notificationsX">Хабарламалар: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Сіздің рейтингіңіз %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
     <item quantity="other">Бірінші жүріске %s секунд бар</item>
@@ -910,7 +914,6 @@
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
-  <string name="someoneYouReportedWasBanned">Сіздің шағымыңыздан кейін біреу бұғауланды</string>
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
@@ -965,7 +968,6 @@
   <string name="gameInProgress">%s сізді қазір ойында күтіп тұр.</string>
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
-  <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
   <string name="since">Бастап</string>
   <string name="until">Дейін</string>
   <string name="lichessDbExplanation">Личес-тегі бағалы ойындар</string>

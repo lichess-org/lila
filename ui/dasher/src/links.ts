@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import { userLine } from 'lib/view/userLink';
@@ -13,7 +13,7 @@ export class LinksCtrl extends PaneCtrl {
       hl('div.subs', [
         hl('button.sub', modeCfg('langs'), i18n.site.language),
         hl('button.sub', modeCfg('sound'), i18n.site.sound),
-        hl('button.sub', modeCfg('background'), i18n.site.background),
+        hl('button.sub', modeCfg('theme'), i18n.site.theme),
         hl('button.sub', modeCfg('board'), i18n.site.board),
         hl('button.sub', modeCfg('piece'), i18n.site.pieceSet),
         this.root.opts.zenable &&
@@ -74,7 +74,7 @@ export class LinksCtrl extends PaneCtrl {
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });
 
-  private readonly linkCfg = (href: string, icon: string, more?: Attrs) => ({
+  private readonly linkCfg = (href: string, icon: LiconValue, more?: Attrs) => ({
     attrs: { href, 'data-icon': icon, ...more },
   });
 }

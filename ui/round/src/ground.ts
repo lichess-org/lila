@@ -4,12 +4,13 @@ import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { plyColor } from 'lib/game/chess';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
 
 import type RoundController from './ctrl';
-import type { RoundData } from './interfaces';
+import type { RoundData, Step } from './interfaces';
 import { Premove } from './premove';
 import * as util from './util';
 import { plyStep } from './util';
@@ -23,7 +24,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
-    turnColor: step.ply % 2 === 0 ? 'white' : 'black',
+    turnColor: plyColor(step.ply),
     lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Coords.Hidden,
@@ -41,8 +42,8 @@ export function makeConfig(ctrl: RoundController): CgConfig {
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
         const firstPly = util.firstPly(ctrl.data);
-        const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
-        const showUntil = firstPly + 2 + +isSecond;
+        const isSecond = plyColor(firstPly) !== data.player.color;
+        const showUntil = firstPly + 2 + Number(isSecond);
         resizeHandle(
           elements,
           playing ? ctrl.data.pref.resizeHandle : ShowResizeHandle.Always,
@@ -53,8 +54,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     },
     movable: {
       free: false,
-      color: playing ? data.player.color : undefined,
-      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
+      ...movableState(data, playing),
       showDests: data.pref.destination && !ctrl.blindfold(),
       rookCastle: data.pref.rookCastle,
       events: {
@@ -99,7 +99,21 @@ export function makeConfig(ctrl: RoundController): CgConfig {
   };
 }
 
+const movableState = (data: RoundData, playing: boolean) => ({
+  color: playing ? data.player.color : undefined,
+  dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
+});
+
 export const reload = (ctrl: RoundController): void => ctrl.chessground.set(makeConfig(ctrl));
+
+export const sync = (ctrl: RoundController, step: Step, playing: boolean): void =>
+  ctrl.chessground.set({
+    fen: step.fen,
+    lastMove: uciToMove(step.uci),
+    check: !!step.check,
+    turnColor: plyColor(step.ply),
+    movable: movableState(ctrl.data, playing),
+  });
 
 export const boardOrientation = (data: RoundData, flip: boolean): Color =>
   data.game.variant.key === 'racingKings'

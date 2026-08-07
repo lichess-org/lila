@@ -33,7 +33,7 @@
   <string name="openingsYouPlayedTheMost">Reytingli oʻyinlarda eng koʻp oʻynagan debyutlaringiz</string>
   <string name="useFindInPage">Yoqtirgan debyutlaringizni topish uchun brauzer menyusidagi \"Sahifadan izlash\" funksiyasidan foydalaning!</string>
   <string name="useCtrlF">Yoqtirgan debyutlaringizni topish uchun Ctrl+f tugmalarini bosing!</string>
-  <string name="notTheMove">Bu notoʻgʻri yurish!</string>
+  <string name="notTheMove">Bu yurish notoʻgʻri!</string>
   <string name="trySomethingElse">Boshqa yurishni sinab koʻring.</string>
   <string name="ratingX">Reyting: %s</string>
   <string name="hidden">yashirilgan</string>

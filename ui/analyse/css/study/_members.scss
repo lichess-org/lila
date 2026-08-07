@@ -28,22 +28,22 @@
     transition: 2.5s;
   }
 
-  i {
+  icon {
     font-size: 1.2em;
     opacity: 0.5;
     transition: 2.5s;
   }
 
-  .contrib i {
+  .contrib icon {
     opacity: 0.7;
   }
 
-  .online i {
+  .online icon {
     opacity: 0.8;
     color: $c-good;
   }
 
-  .online.contrib i {
+  .online.contrib icon {
     opacity: 1;
   }
 
@@ -66,7 +66,7 @@
   .status.active {
     transition: none;
 
-    i {
+    icon {
       transition: none;
       opacity: 1;
       color: #fff;
@@ -83,12 +83,9 @@
   }
 
   .add {
-    @extend %roboto;
-
-    &:hover i {
-      color: $c-link;
+    icon {
+      font-size: 1em;
       opacity: 1;
-      transition: none;
     }
   }
 
@@ -102,7 +99,7 @@
 
   m-config,
   .editing {
-    background: $m-accent_bg--mix-10 !important;
+    background: color-mix(in oklab, $c-accent 10%, $c-bg) !important;
   }
 
   m-config {

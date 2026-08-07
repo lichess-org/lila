@@ -38,7 +38,7 @@ final class ChatApi(
 
       def invalidate = cache.invalidate
 
-      def findMine(chatId: ChatId)(using Option[Me], AllMessages): Fu[UserChat.Mine] =
+      def findMine(chatId: ChatId)(using Option[Me]): Fu[UserChat.Mine] =
         cache.get(chatId).flatMap(makeMine)
 
     def findOption(chatId: ChatId): Fu[Option[UserChat]] =
@@ -50,11 +50,11 @@ final class ChatApi(
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId.raw(chatIds), _.sec)
 
-    def findMine(chatId: ChatId, cond: Boolean = true)(using Option[Me], AllMessages): Fu[UserChat.Mine] =
+    def findMine(chatId: ChatId, cond: Boolean = true)(using Option[Me]): Fu[UserChat.Mine] =
       if cond then find(chatId).flatMap(makeMine)
       else fuccess(UserChat.Mine(Chat.makeUser(chatId), JsonChatLines.empty, timeout = false))
 
-    private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
+    private def makeMine(chat: UserChat)(using me: Option[Me]): Fu[UserChat.Mine] =
       val mine = chat.forMe
       for
         lines <- jsonView.asyncLines(mine)
@@ -188,16 +188,14 @@ final class ChatApi(
             line.foreach: l =>
               publishLine(chat.id, l, busChan)
             if isMod || isRelayMod then
-              Bus.pub(
+              Bus.pub:
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
                   reason = reason,
                   text = text
                 )
-              )
-              if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
-            else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+            if isNew then Bus.pub(lila.core.security.DeletePublicChats(user.id))
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat = c.markDeleted(user)
