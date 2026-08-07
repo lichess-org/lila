@@ -147,8 +147,18 @@
   }
 
   .zen {
-    button::before {
-      opacity: 0.5;
+    margin: 0;
+
+    button {
+      padding: 0.5rem 1rem;
+
+      &::before {
+        opacity: 0.5;
+        font-size: 18px;
+        position: relative;
+        top: -1px;
+        margin-inline: 0 0.4em;
+      }
     }
 
     &:hover button::before {
