@@ -47,10 +47,10 @@ export default class RecallCtrl {
       const dest = uci.slice(2, 4) as Key;
       if (
         this.root.chessground.state.pieces.get(dest)?.role === 'king' &&
-        orig[0] === 'e' &&
+        orig.startsWith('e') &&
         ['c', 'g'].includes(dest[0])
       ) {
-        uci = orig + (dest[0] === 'g' ? 'h' : 'a') + dest[1];
+        uci = orig + (dest.startsWith('g') ? 'h' : 'a') + dest[1];
       }
     }
     return uci;
@@ -80,12 +80,12 @@ export default class RecallCtrl {
     this.redraw();
   };
 
-  private onRightMove = () => {
+  private readonly onRightMove = () => {
     this.feedback('right');
     site.sound.play('practiceSuccess');
   };
 
-  private maybePlayReply = () => {
+  private readonly maybePlayReply = () => {
     this.clearReplyTimeout();
     if (this.isPlayerTurn()) return;
 
@@ -104,7 +104,7 @@ export default class RecallCtrl {
     }, delay);
   };
 
-  private clearReplyTimeout = () => {
+  private readonly clearReplyTimeout = () => {
     if (this.replyTimeout !== undefined) {
       window.clearTimeout(this.replyTimeout);
       this.replyTimeout = undefined;
