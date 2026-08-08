@@ -49,7 +49,7 @@ export function annotationShapes(node: TreeNode): DrawShape[] {
 //   Inkscape's output includes unnecessary attributes which can be cleaned up with https://lean-svg.netlify.app.
 //   Small tweak (e.g. changing color, scaling size, etc...) can be done by directly modifying svg below.
 const composeGlyph = (fill: string, path: string) => (stackedNumber: number) =>
-  `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.4 0 0 .4 ${glyphStacktoPx(stackedNumber).x} ${glyphStacktoPx(stackedNumber).y})"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
+  `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.32 0 0 .32 ${glyphStacktoPx(stackedNumber).x} ${glyphStacktoPx(stackedNumber).y})"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
 
 // the glyphs are laid-down from right to left
 // with the first glyph being at the top right, then progressively to the left, until the top left
