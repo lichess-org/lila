@@ -7,7 +7,13 @@ object navTree:
   enum Node:
     val id: String
     val name: Frag
-    case Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None)
+    case Branch(
+        id: String,
+        name: Frag,
+        children: List[Node],
+        content: Option[Frag] = None,
+        showLinks: Boolean = true
+    )
     case Leaf(id: String, name: Frag, content: Frag)
 
   def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false): Frag =
@@ -19,16 +25,17 @@ object navTree:
             div(cls := "content")(content)
           )
         )
-      case b @ Node.Branch(id, name, children, content) =>
+      case b @ Node.Branch(id, name, children, content, showLinks) =>
         frag(
           div(makeId(id), cls := s"node branch $id")(
             h2(parent.map(goBack(_, forceLtr)), name),
             content.map { div(cls := "content")(_) },
-            div(cls := "links")(
-              children.map { child =>
-                a(makeLink(child.id))(child.name)
-              }
-            )
+            Option.when(showLinks):
+              div(cls := "links")(
+                children.map { child =>
+                  a(makeLink(child.id))(child.name)
+                }
+              )
           ),
           children.map { renderNode(_, b.some, forceLtr) }
         )

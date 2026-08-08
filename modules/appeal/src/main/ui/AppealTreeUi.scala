@@ -17,6 +17,49 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
+  private def screeningStepsThenLeaf(id: String, name: Frag, content: Frag): Branch =
+    Branch(
+      s"important-info-$id",
+      name,
+      List(Leaf(id, name, content)),
+      content = importantInfo(id).some,
+      showLinks = false
+    )
+
+  private def importantInfo(id: String) =
+    div(cls := "appeal-info")(
+      div(cls := "appeal-info__terms")(
+        p(
+          "Providing accurate details in your appeal is the best way to ensure a quick and fair review. Misleading information may result in delays or affect the outcome of your request."
+        ),
+        p(
+          "The appeal will be reviewed by a team of expert human moderators who will be different from those who originally took action against your account."
+        ),
+        p("If you close your account after making an appeal, we will consider the appeal as withdrawn."),
+        p(
+          "If you use foul, inappropriate or offensive language in your appeal, we reserve the right to not review, and deny your appeal on that basis."
+        ),
+        p(
+          "The purpose of the appeal process is to verify whether the correct action was taken based on our policies. As such, this is a final review rather than an open discussion, and we will not look to engage in debate regarding the evidence or our policies in themselves."
+        ),
+        p("You will normally receive a response to your appeal within 72 hours."),
+        p(
+          "See more at our ",
+          a(href := cmsPageUrl("appeal"))("FAQ for Appeals"),
+          "."
+        )
+      ),
+      div(cls := "appeal-info__agree form-check__container")(
+        form3.nativeCheckbox(s"appeal-info-agree-$id", "agree", checked = false),
+        label(cls := "form-label", `for` := s"appeal-info-agree-$id")(
+          "I have read and agree to the terms stated above"
+        )
+      ),
+      div(cls := "form-actions")(
+        a(href := s"#help-$id", cls := "button appeal-info__continue disabled")("Continue")
+      )
+    )
+
   private def noTopicMenu(status: UserStatus, appeals: UserAppeals)(using Context): Branch =
     Branch(
       "root",
@@ -32,7 +75,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         ).some,
         Option.when(status.modMessage && appeals.get(AppealTopic.warning).forall(_.isOpen)):
-          Leaf(
+          screeningStepsThenLeaf(
             "clean-warning",
             "I want to discuss a warning I received",
             frag(
@@ -46,7 +89,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         ,
         Option.when(status.chatTimeout && appeals.get(AppealTopic.chat).forall(_.isOpen)):
-          Leaf(
+          screeningStepsThenLeaf(
             "clean-chat-timeout",
             "I want to discuss a chat timeout I received",
             frag(
@@ -78,10 +121,20 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       ).flatten
     )
 
-  private def newAppealFieldset(form: Frag) =
-    form3.fieldset("I have read the above, and want to create an appeal", toggle = false.some)(
-      cls := "form-toggle"
-    )(form)
+  private val engineDenyContent = frag(
+    p("You may send us an appeal, and a moderator will review it as soon as possible."),
+    p(strong("What should I write in my appeal?")),
+    p("Be honest and tell us the truth."),
+    p(
+      "Include everything that you think matters for your case. Only send your appeal once, and don't send any additional messages if they don't add anything important to your appeal. Sending additional messages will not get your appeal dealt with any sooner."
+    ),
+    p(
+      "It is important to be honest from the start. If at first you deny doing anything wrong, we'll treat your appeal accordingly, and we will simply disregard any changes in your position. In other words, don't try to deny things at first only to confess to something later on."
+    ),
+    p(
+      "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
+    )
+  )
 
   private def engineMenu(using Context): Branch =
     val accept =
@@ -92,31 +145,20 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.engineMarked(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "engine-accept",
           accept,
           frag(
             sendUsAnAppeal,
-            newAppeal(AppealTopic.cheat)(s"$accept I am sorry and I would like another chance.")
+            newAppeal(AppealTopic.cheat)(accept)
           )
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "engine-deny",
           deny,
           frag(
-            p("You may send us an appeal, and a moderator will review it as soon as possible."),
-            p(strong("What should I write in my appeal?")),
-            p("Be honest and tell us the truth."),
-            p(
-              "Include everything that you think matters for your case. Only send your appeal once, and don't send any additional messages if they don't add anything important to your appeal. Sending additional messages will not get your appeal dealt with any sooner."
-            ),
-            p(
-              "It is important to be honest from the start. If at first you deny doing anything wrong, we'll treat your appeal accordingly, and we will simply disregard any changes in your position. In other words, don't try to deny things at first only to confess to something later on."
-            ),
-            p(
-              "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
-            ),
-            newAppealFieldset(newAppeal(AppealTopic.cheat)(deny))
+            engineDenyContent,
+            newAppeal(AppealTopic.cheat)(deny)
           )
         )
       ),
@@ -135,21 +177,15 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.boosterMarked(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "boost-accept",
           accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.boost)(acceptFull)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.boost)(acceptFull))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "boost-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.boost)(denyFull)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.boost)(denyFull))
         )
       ),
       content = frag(
@@ -184,7 +220,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.accountMuted(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "mute-accept",
           accept,
           frag(
@@ -199,13 +235,10 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             newAppeal(AppealTopic.comm)(acceptFull)
           )
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "mute-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.comm)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.comm)(deny))
         )
       ),
       content = tap
@@ -224,29 +257,20 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.excludedFromLeaderboards(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "rankban-accept",
           accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.rank)(accept)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(accept))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "rankban-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.rank)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(deny))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "rankban-choose",
           chooseAccount,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.rank)(chooseAccount)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(chooseAccount))
         )
       ),
       content = tap.onlyOneAccountOnLeaderboards().some
@@ -260,29 +284,20 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.arenaBanned(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "arena-ban-no-play",
           noPlay,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.arena)(noPlay)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(noPlay))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "arena-ban-not-starting",
           noStart,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.arena)(noStart)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(noStart))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "arena-ban-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.arena)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(deny))
         )
       ),
       content = frag(
@@ -303,21 +318,15 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.blogRestriction(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "hidden-blog-accept",
           accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.blog)(accept)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.blog)(accept))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "hidden-blog-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.blog)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.blog)(deny))
         )
       ),
       content = tap.blogRestrictionInfo(a(href := cmsPageUrl("blog-etiquette"))(tap.blogEtiquette())).some
@@ -330,21 +339,15 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.prizeBanned(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "prizeban-expired",
           prizebanExpired,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.prize)(prizebanExpired)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.prize)(prizebanExpired))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "prizeban-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.prize)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.prize)(deny))
         )
       ),
       content = frag(
@@ -369,21 +372,15 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       "root",
       tap.reportBanned(),
       List(
-        Leaf(
+        screeningStepsThenLeaf(
           "reportban-accept",
           accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.report)(accept)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.report)(accept))
         ),
-        Leaf(
+        screeningStepsThenLeaf(
           "reportban-deny",
           deny,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.report)(deny)
-          )
+          frag(sendUsAnAppeal, newAppeal(AppealTopic.report)(deny))
         )
       ),
       content = tap.reportBannedInfo().some
@@ -435,19 +432,27 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       )
     )
 
-  private def altScreen(using Context) = div(cls := "leaf")(
-    h2(tap.closedByModerators()),
-    div(cls := "content")(
-      p(
-        "On the sign-up page you agreed not to create an excessive number of accounts, generally not more than 3. Violating this term is considered abuse of infrastructure."
+  private def altMenu(using Context): Branch =
+    Branch(
+      "root",
+      tap.closedByModerators(),
+      List(
+        screeningStepsThenLeaf(
+          "close-appeal",
+          "I want to appeal",
+          newAppeal(AppealTopic.close)("")
+        )
       ),
-      p(
-        "If you violated our Terms of Service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
-      ),
-      p("If you have done nothing wrong and believe this is a mistake, send an appeal.")
-    ),
-    newAppeal(AppealTopic.close)("")
-  )
+      content = frag(
+        p(
+          "On the sign-up page you agreed not to create an excessive number of accounts, generally not more than 3. Violating this term is considered abuse of infrastructure."
+        ),
+        p(
+          "If you violated our Terms of Service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
+        ),
+        p("If you have done nothing wrong and believe this is a mistake, send an appeal.")
+      ).some
+    )
 
   def page(topic: Option[AppealTopic], status: UserStatus, appeals: UserAppeals)(using Context, Me) =
     ui.page("Appeal a moderation decision"):
@@ -461,11 +466,11 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
               "appeal-clean" -> status.isClean
             )
           )(
-            topic.match
-              case Some(AppealTopic.close) => altScreen
-              case t =>
-                val menu = t.flatMap(topicMenu.get) | (_ ?=> noTopicMenu(status, appeals))
-                renderNode(menu, none, forceLtr = true)
+            renderNode(
+              topic.flatMap(topicMenu.get) | (_ ?=> noTopicMenu(status, appeals)),
+              none,
+              forceLtr = true
+            )
           ),
           div(cls := "appeal__rules")(
             p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
@@ -494,7 +499,8 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     AppealTopic.arena -> arenaBanMenu,
     AppealTopic.prize -> prizebanMenu,
     AppealTopic.report -> reportbanMenu,
-    AppealTopic.blog -> hiddenBlogMenu
+    AppealTopic.blog -> hiddenBlogMenu,
+    AppealTopic.close -> altMenu
   )
 
   private val sendUsAnAppeal = frag(
