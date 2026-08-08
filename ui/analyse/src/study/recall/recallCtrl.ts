@@ -116,15 +116,11 @@ export default class RecallCtrl {
 
   private readonly maybePlayReply = () => {
     this.clearReplyTimeout();
-    if (this.isPlayerTurn()) return;
-
+    if (this.isPlayerTurn() || this.isEndOfLine()) return;
     const node = this.currentNode();
     const weighted = Array(MAINLINE_WEIGHT).fill(node.children[0]).concat(node.children.slice(1));
     const reply = weighted[Math.floor(Math.random() * weighted.length)];
-    if (!reply) return;
-
     const delay = node.shapes?.length ? REPLY_DELAY_WITH_SHAPES : REPLY_DELAY;
-
     this.replyTimeout = window.setTimeout(() => {
       this.replyTimeout = undefined;
       this.feedback(null);
