@@ -3255,6 +3255,8 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
+    /** Background image opacity: */
+    backgroundImageOpacity: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */

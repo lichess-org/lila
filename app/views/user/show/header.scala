@@ -101,10 +101,12 @@ object header:
               splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
             )
           ),
-          a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+          (info.nbStudies > 0).option(
+            a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
+              splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+            )
           ),
-          ctx.kid.no.option(
+          (ctx.kid.no && info.nbForumPosts > 0).option(
             a(
               cls := "nm-item",
               href := routes.ForumPost.search("user:" + u.username, 1).url

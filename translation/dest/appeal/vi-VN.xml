@@ -11,6 +11,7 @@
   <string name="excludedFromLeaderboards">Tài khoản của bạn đã bị loại khỏi bảng xếp hạng.</string>
   <string name="onlyOneAccountOnLeaderboards">Mỗi người chỉ được phép có một tài khoản xuất hiện trên bảng xếp hạng.</string>
   <string name="closedByModerators">Tài khoản của bạn đã bị đóng bởi điều hành viên.</string>
+  <string name="blogRestriction">Bạn bị hạn chế trên blog.</string>
   <string name="blogRestrictionInfo">Hãy đọc kỹ %s của chúng tôi, vi phạm các quy định này có thể dẫn đến các hình phạt khác nhau.</string>
   <string name="playTimeout">Bạn có thời gian chờ chơi.</string>
   <string name="reportBanned">Bạn không thể gửi báo cáo cho người kiểm duyệt</string>
