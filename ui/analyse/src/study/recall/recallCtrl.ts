@@ -102,7 +102,7 @@ export default class RecallCtrl {
     this.redraw();
   };
 
-  onWrongMove = () => {
+  private readonly onWrongMove = () => {
     this.clearReplyTimeout();
     this.feedback('wrong');
     site.sound.play('practiceFailure');
