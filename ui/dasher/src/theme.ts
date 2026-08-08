@@ -122,8 +122,8 @@ export class ThemeCtrl extends PaneCtrl {
 
   private readonly imageInput = () =>
     h('div.image', [
-      h('label', { attrs: { for: 'backgroundUrl' } }, i18n.site.backgroundImageUrl),
-      h('input#backgroundUrl', {
+      h('label', { attrs: { for: 'dasher-theme-backgroundUrl' } }, i18n.site.backgroundImageUrl),
+      h('input#dasher-theme-backgroundUrl', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: onInsert<HTMLInputElement>(el => {
           $(el).on(
@@ -153,7 +153,7 @@ export class ThemeCtrl extends PaneCtrl {
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {
-      $('#images-grid .selected').removeClass('selected');
+      $('#dasher-theme-images-grid .selected').removeClass('selected');
       $(`#${urlId(url)}`).addClass('selected');
       this.setImage(url);
     };
@@ -164,10 +164,10 @@ export class ThemeCtrl extends PaneCtrl {
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
-    return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
-      h('div#images-viewport', [
+    return h('div#dasher-theme-gallery', { attrs: { style: `width: ${width}px` } }, [
+      h('div#dasher-theme-images-viewport', [
         h(
-          'div#images-grid',
+          'div#dasher-theme-images-grid',
           { attrs: { style: `background-image: url(${montageUrl});` } },
           gallery.images.map(img => {
             const assetUrl = site.asset.url(img);
