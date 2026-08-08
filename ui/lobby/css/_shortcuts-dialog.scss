@@ -1,0 +1,207 @@
+:root.shortcuts-transition {
+  view-transition-name: none; // disable root view transition while animating shortcut transfer
+}
+
+:root.shortcuts-transition::view-transition {
+  clip-path: var(---transition-clip); // ---transition-clip is set to .shortcuts-view bounding box
+}
+
+dialog .close-button-anchor .close-button {
+  @include inline-end(12px, true);
+
+  top: 12px;
+}
+
+.shortcuts-dialog {
+  @include prevent-select;
+
+  border-radius: 8px;
+  border: $border;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: min(800px, 96vw);
+  background: $c-bg-box;
+
+  .mobile-only {
+    display: none;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-only.reset {
+    @extend %data-icon;
+    @include inline-start(12px);
+
+    top: 12px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: $border;
+    font-size: 20px;
+    color: $c-font;
+    background: $c-bg-high;
+  }
+
+  .desktop-only {
+    display: flex;
+    justify-content: end;
+    gap: 2em;
+  }
+
+  .desktop-only .reset {
+    margin-inline-end: auto;
+  }
+}
+
+.shortcuts-view {
+  --c-bg-pane: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
+
+  display: grid;
+  gap: 1em;
+  touch-action: pan;
+  grid-template: 'scratch shortcuts' minmax(0, 1fr) / minmax(72px, 0.25fr) minmax(0, 1fr);
+  height: min(70vh, 624px);
+
+  @include mq-is-col1 {
+    grid-template: 'scratch' auto 'shortcuts' minmax(0, 1fr) / minmax(0, 1fr);
+  }
+
+  ::view-transition-group(.shortcut) {
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+  }
+
+  .shortcuts,
+  .scratch {
+    background-color: var(--c-bg-pane);
+    border: $border;
+    border-radius: 6px;
+    padding: 9px;
+  }
+
+  .shortcuts {
+    @extend %logo;
+    @include fluid-size-orientation('font-size', 14px, 25px);
+
+    grid-area: shortcuts;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    min-height: 0;
+    gap: 9px;
+  }
+
+  .shortcuts::before {
+    background-color: $c-bg-box;
+  }
+
+  .scratch {
+    position: relative;
+    grid-area: scratch;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    background-color: var(--c-bg-pane);
+    overflow: auto;
+    font-size: 13px;
+    gap: 6px;
+
+    @include mq-is-col1 {
+      display: grid;
+      grid-template-rows: repeat(2, 48px);
+      grid-auto-flow: column;
+      justify-content: start;
+      font-size: 11px;
+    }
+  }
+
+  .scratch::before {
+    font-family: lichess;
+    content: $licon-Trash;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 3rem;
+    color: $c-border;
+  }
+
+  .scratch .icon,
+  .scratch :has(.clock) .name {
+    display: none;
+  }
+
+  .slot {
+    border-radius: $box-radius-size;
+    border: 1px dashed $c-border-light;
+  }
+
+  .shortcut {
+    view-transition-name: match-element;
+    view-transition-class: shortcut;
+    gap: calc(var(---scale, 1) * 6px);
+    padding: calc(var(---scale, 1) * 4px);
+    overflow: hidden;
+    min-width: 64px;
+
+    * {
+      line-height: unset;
+    }
+  }
+
+  .scratch .shortcut {
+    border: $border;
+    min-height: 32px;
+    max-height: 56px;
+    flex: 1 0 auto;
+  }
+
+  .unavailable-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    order: 1;
+  }
+
+  .unavailable-slot::before {
+    font-family: lichess;
+    font-size: 3em;
+    color: $c-border;
+  }
+}
+
+@media ((hover: none) or (pointer: coarse)) {
+  .shortcuts-dialog {
+    .mobile-only {
+      display: flex;
+    }
+
+    .desktop-only {
+      display: none;
+    }
+
+    .shortcuts .unavailable-slot::before {
+      display: none;
+    }
+
+    .scratch .shortcut {
+      min-height: 48px;
+      max-height: 48px;
+    }
+
+    @include mq-is-col1 {
+      .scratch .shortcut {
+        max-width: 80px;
+      }
+    }
+
+    @include mq-at-least-col2 {
+      padding: 4px 64px;
+
+      h2 {
+        display: none;
+      }
+    }
+  }
+}

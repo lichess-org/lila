@@ -7,7 +7,7 @@ import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
-import type { ChapterPreview, StudyData } from './interfaces';
+import type { ChapterPreview, StudyDataFromServer } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
 import { relayIframe } from './relay/relayTourView';
 
@@ -26,7 +26,7 @@ export class StudyShare {
   withPly = prop(false);
 
   constructor(
-    readonly data: StudyData,
+    readonly data: StudyDataFromServer,
     readonly currentChapter: () => ChapterPreview,
     readonly currentNode: () => TreeNode,
     readonly onMainline: () => boolean,
@@ -168,6 +168,11 @@ export function view(ctrl: StudyShare): VNode {
               },
               'GIF',
             ),
+            hl(
+              'button.button.text',
+              { attrs: dataIcon(licon.StarOutline), on: { click: () => shortcutsDialog(ctrl) } },
+              'Add to shortcuts',
+            ),
           ]),
           hl('form.form3', [
             (ctrl.relay
@@ -234,4 +239,13 @@ export function view(ctrl: StudyShare): VNode {
         ]
       : hl('div', 'Sharing and exporting were disabled by the study owner.'),
   );
+}
+
+function shortcutsDialog(ctrl: StudyShare) {
+  const shortcut = {
+    name: `${ctrl.data.name} ${i18n.site.sep} ${ctrl.chapter().name}`,
+    iconKey: 'StudyBoard',
+    url: `/study/${ctrl.studyId}/${ctrl.chapter().id}`,
+  };
+  site.asset.loadEsm('lobby.shortcutsDialog', { init: { contextual: [shortcut] } });
 }
