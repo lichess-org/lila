@@ -229,22 +229,20 @@ final class Study(
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView.full(study, chapter, previews, withMembers = withMembers)
       lichobile = HTTPRequest.isLichobile(ctx.req)
-      evalTree =
-        analysis
-          .filter(_ => chapter.serverEval.exists(_.version.exists(_ >= 1)))
-          .map(env.study.serverEvalMerger.merge(chapter, _))
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
         .add("treeParts" -> partitionTreeWriter(chapter.root, lichobile = lichobile).some)
-        .add("evalTree" -> evalTree.map(lila.tree.Node.defaultNodeJsonWriter.writes))
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
   private def chapterAnalysis(sc: WithChapter) =
     sc.chapter.serverEval
       .exists(_.done)
-      .so(env.analyse.repo.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
+      .so:
+        env.analyse.repo.byId(
+          sc.chapter.analysisGameId.fold(Analysis.Id(sc.study.id, sc.chapter.id))(Analysis.Id(_))
+        )
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
@@ -340,12 +338,6 @@ final class Study(
       .flatMapz:
         env.chat.api.userChat.clear(id.into(ChatId))
       .inject(Redirect(routes.Study.show(id)))
-  }
-
-  def mergeEvaluation(id: StudyId, chapterId: StudyChapterId) = AuthBody { _ ?=> me ?=>
-    env.study.api
-      .mergeEvaluation(id, chapterId)(Who(me.userId, Sri("api")))
-      .inject(NoContent)
   }
 
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(

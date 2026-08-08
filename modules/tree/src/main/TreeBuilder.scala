@@ -8,7 +8,8 @@ object TreeBuilder:
 
   type LogChessError = String => Unit
 
-  private[tree] def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
+  private[tree] def makeEval(info: Info) =
+    Eval(cp = info.cp, mate = info.mate, best = info.best, static = true)
 
   def apply(
       game: Game,

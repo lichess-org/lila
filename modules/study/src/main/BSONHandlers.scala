@@ -142,6 +142,26 @@ object BSONHandlers:
       )
     )
 
+  private def readEval(r: Reader): Option[lila.tree.Eval] =
+    import Node.BsonFields as F
+    r.doc
+      .getAsOpt[Score](F.score)
+      .map(lila.tree.evals.fromScore)
+      .map(_.copy(static = ~r.getO[Boolean](F.static))) // legacy static marker
+      .orElse:
+        r.doc
+          .getAsOpt[Bdoc](F.score)
+          .flatMap(_.getAsOpt[Score](F.static))
+          .map(lila.tree.evals.fromScore)
+          .map(_.copy(static = true))
+
+  private[study] def writeEval(eval: Option[lila.tree.Eval]): Option[BSONValue] =
+    eval
+      .flatMap(_.score)
+      .map: score =>
+        if eval.exists(_.static) then $doc(Node.BsonFields.static -> score)
+        else summon[BSONWriter[Score]].writeTry(score).get
+
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc): Option[Branch] =
     import Node.BsonFields as F
@@ -154,7 +174,7 @@ object BSONHandlers:
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs = doc.getAsOpt[NodeGlyphs](F.glyphs).getOrElse(NodeGlyphs.empty)
-      eval = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      eval = readEval(Reader(doc))
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -186,7 +206,7 @@ object BSONHandlers:
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs = doc.getAsOpt[BaseGlyphs](F.glyphs).getOrElse(BaseGlyphs.empty)
-      eval = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      eval = readEval(Reader(doc))
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -221,7 +241,7 @@ object BSONHandlers:
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
       F.gamebook -> n.gamebook,
       F.glyphs -> n.glyphs.value.nonEmpty.option(n.glyphs),
-      F.score -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+      F.score -> writeEval(n.eval),
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
       F.forceVariation -> w.boolO(n.forceVariation),
@@ -240,7 +260,7 @@ object BSONHandlers:
       F.comments -> n.metas.comments.value.nonEmpty.option(n.metas.comments),
       F.gamebook -> n.metas.gamebook,
       F.glyphs -> n.metas.glyphs.nonEmpty,
-      F.score -> n.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+      F.score -> writeEval(n.metas.eval),
       F.clock -> n.metas.clock,
       F.crazy -> n.metas.crazyData,
       F.forceVariation -> w.boolO(n.forceVariation),
@@ -259,7 +279,7 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[NodeGlyphs](F.glyphs) | NodeGlyphs.empty,
-        eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+        eval = readEval(r),
         clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
@@ -273,7 +293,7 @@ object BSONHandlers:
           F.comments -> r.comments.value.nonEmpty.option(r.comments),
           F.gamebook -> r.gamebook,
           F.glyphs -> r.glyphs.value.nonEmpty.option(r.glyphs),
-          F.score -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.score -> writeEval(r.eval),
           F.clock -> r.clock,
           F.crazy -> r.crazyData
         )
@@ -293,7 +313,7 @@ object BSONHandlers:
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[BaseGlyphs](F.glyphs) | BaseGlyphs.empty,
-          eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+          eval = readEval(r),
           clock = r.getO[Clock](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
@@ -308,7 +328,7 @@ object BSONHandlers:
           F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
           F.gamebook -> r.metas.gamebook,
           F.glyphs -> r.metas.glyphs.nonEmpty,
-          F.score -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.score -> writeEval(r.metas.eval),
           F.clock -> r.metas.clock,
           F.crazy -> r.metas.crazyData
         )

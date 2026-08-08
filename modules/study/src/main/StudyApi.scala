@@ -12,7 +12,7 @@ import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
 import lila.core.data.ErrorMsg
-import lila.tree.{ Branch, Branches, Clock }
+import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import cats.mtl.Handle.*
 
@@ -167,11 +167,14 @@ final class StudyApi(
   private def copyGameAnalysis(chapter: Chapter): Fu[Chapter] =
     chapter.setup.gameId.fold(fuccess(chapter)): gameId =>
       analyser
-        .copyToChapter(gameId, chapter.studyId, chapter.id)
+        .byId(lila.tree.Analysis.Id(gameId))
         .map:
-          case true =>
-            chapter.copy(serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some)
-          case false => chapter
+          _.fold(chapter): analysis =>
+            chapter.copy(
+              root = ServerEval.withAnalysis(chapter, analysis),
+              serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,
+              analysisGameId = gameId.some
+            )
 
   def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =
     for
@@ -256,41 +259,10 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, positionRef.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          maybeWithAnalysisAncestry(study, chapter, positionRef.path).flatMap: withAnalysis =>
-            doAddNode(args, study, chapter, Position(withAnalysis, positionRef.path))
+          doAddNode(args, study, Position(chapter, positionRef.path))
     .flatMapz { _() }
 
-  private def maybeWithAnalysisAncestry(study: Study, chapter: Chapter, path: UciPath): Fu[Chapter] =
-    if !chapter.root.pathExists(path) && chapter.serverEval.exists(_.version.exists(_ >= 1)) then
-      // materialize ancestor nodes from analysis with comp = true. we can prune these
-      // once there are no user nodes/comments/glyphs remaining in a subtree.
-      analyser
-        .byId(lila.tree.Analysis.Id(study.id, chapter.id))
-        .map(_.fold(chapter)(analysis => chapter.copy(root = ServerEval.withAnalysis(chapter, analysis))))
-    else fuccess(chapter)
-
-  private def materializeAnalysisAncestry(
-      storedChapter: Chapter,
-      chapter: Chapter,
-      path: UciPath,
-      relay: Option[Chapter.Relay] = none
-  ): Funit =
-    val storedPathSize = storedChapter.root.children.nodesOn(path).size
-    chapter.root.children
-      .nodesOn(path)
-      .drop(storedPathSize)
-      .foldRight(none[(Branch, UciPath)]):
-        case ((node, path), child) =>
-          (node.copy(children = Branches(child.map(_._1).toList)) -> path).some
-      .fold(funit): (subTree, path) =>
-        chapterRepo.addSubTree(chapter, subTree, path.parent, relay)
-
-  private def doAddNode(
-      args: AddNode,
-      study: Study,
-      storedChapter: Chapter,
-      position: Position
-  ): Fu[Option[() => Funit]] =
+  private def doAddNode(args: AddNode, study: Study, position: Position): Fu[Option[() => Funit]] =
     import args.{ *, given }
     position.chapter.root
       .nodeAt(position.path)
@@ -316,7 +288,7 @@ final class StudyApi(
                       parent.children.get(node.id).so { node =>
                         val newPosition = position.ref + node
                         for
-                          _ <- materializeAnalysisAncestry(storedChapter, chapter, newPosition.path, relay)
+                          _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
                           _ <-
                             if opts.sticky
                             then studyRepo.setPosition(study.id, newPosition)
@@ -342,12 +314,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          chapter.updateRoot { root =>
-            root.withChildren: children =>
-              if chapter.serverEval.exists(_.version.exists(_ >= 1))
-              then children.deleteNodeAtAndPruneComp(position.path)
-              else children.deleteNodeAt(position.path)
-          } match
+          chapter.updateRoot(_.withChildren(_.deleteNodeAtAndPruneComp(position.path))) match
             case Some(newChapter) =>
               for _ <- chapterRepo.update(newChapter)
               yield
@@ -385,24 +352,6 @@ final class StudyApi(
             _ = if chapter.serverEval.isDefined then
               Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
           yield reloadStudy(study.id, who)
-
-  def mergeEvaluation(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
-    sequenceStudyWithChapter(studyId, chapterId):
-      case Study.WithChapter(study, chapter) =>
-        Contribute(who.u, study):
-          chapter.serverEval
-            .filter(_.done)
-            .fold(funit): _ =>
-              analyser
-                .byId(lila.tree.Analysis.Id(study.id, chapter.id))
-                .flatMap:
-                  case Some(analysis) =>
-                    val root = ServerEval.bake(ServerEval.withAnalysis(chapter, analysis))
-                    for _ <- chapterRepo.update(chapter.copy(root = root, serverEval = none))
-                    yield
-                      Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
-                      reloadStudy(study.id, who)
-                  case None => funit
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -579,23 +528,14 @@ final class StudyApi(
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
-              maybeWithAnalysisAncestry(study, chapter, position.path).flatMap: chapterWithAnalysis =>
-                doSetComment(study, chapter, Position(chapterWithAnalysis, position.path), comment, who)
+              doSetComment(study, Position(chapter, position.path), comment, who)
 
-  private def doSetComment(
-      study: Study,
-      storedChapter: Chapter,
-      position: Position,
-      comment: Comment,
-      who: Who
-  ): Funit =
+  private def doSetComment(study: Study, position: Position, comment: Comment, who: Who): Funit =
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         newChapter.root.nodeAt(position.path).so { node =>
           node.comments.findBy(comment.by).so { c =>
-            for
-              _ <- materializeAnalysisAncestry(storedChapter, newChapter, position.path)
-              _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
+            for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
               setStudyUpdated(study)
@@ -623,21 +563,18 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          maybeWithAnalysisAncestry(study, chapter, position.path).flatMap: chapterWithAnalysis =>
-            chapterWithAnalysis.toggleGlyph(glyph, position.path) match
-              case Some(newChapter) =>
-                setStudyUpdated(study)
-                newChapter.root.nodeAt(position.path).so { node =>
-                  for
-                    _ <- materializeAnalysisAncestry(chapter, newChapter, position.path)
-                    _ <- chapterRepo.setGlyphs(node.glyphs)(newChapter, position.path)
-                  yield newChapter.root.nodeAt(position.path).foreach { node =>
-                    sendTo(study.id)(_.setGlyphs(position, node.glyphs, who))
-                  }
+          chapter.toggleGlyph(glyph, position.path) match
+            case Some(newChapter) =>
+              setStudyUpdated(study)
+              newChapter.root.nodeAt(position.path).so { node =>
+                for _ <- chapterRepo.setGlyphs(node.glyphs)(newChapter, position.path)
+                yield newChapter.root.nodeAt(position.path).foreach { node =>
+                  sendTo(study.id)(_.setGlyphs(position, node.glyphs, who))
                 }
-              case None =>
-                reloadSriBecauseOf(study, who.sri, chapter.id)
-                fufail(s"Invalid toggleGlyph $studyId $position $glyph")
+              }
+            case None =>
+              reloadSriBecauseOf(study, who.sri, chapter.id)
+              fufail(s"Invalid toggleGlyph $studyId $position $glyph")
 
   def setGamebook(studyId: StudyId, position: Position.Ref, gamebook: Gamebook)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -672,7 +609,7 @@ final class StudyApi(
             explorerGameHandler
               .quote(data.gameId)
               .flatMapz:
-                doSetComment(study, chapter, Position(chapter, data.position.path), _, who)
+                doSetComment(study, Position(chapter, data.position.path), _, who)
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who

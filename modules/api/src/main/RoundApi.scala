@@ -18,7 +18,7 @@ import lila.round.{ Forecast, JsonView }
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
-import lila.tree.{ ExportOptions, Node, Tree, TreeBuilder }
+import lila.tree.{ ExportOptions, Tree }
 import lila.game.GameExt.timeForFirstMove
 import lila.mon.extensions.*
 
@@ -145,8 +145,7 @@ final private[api] class RoundApi(
           .compose(withSimul(simul))
           .compose(withNote(note))
           .compose(withBookmark(bookmarked))
-          .compose(withTree(pov, if ctx.isMobileApi then analysis else none, initialFen, withFlags))
-          .compose(withEvalTree(pov, if ctx.isMobileApi then none else analysis, initialFen, withFlags))
+          .compose(withTree(pov, analysis, initialFen, withFlags))
           .compose(withAnalysis(pov.game, analysis, initialFen))
           .compose(withForecast(pov, fco))
           .compose(withPuzzleOpening(puzzleOpening))
@@ -192,18 +191,6 @@ final private[api] class RoundApi(
         withFlags,
         logChessError = lila.log.system.warn
       ))
-
-  private def withEvalTree(
-      pov: Pov,
-      analysis: Option[Analysis],
-      initialFen: Option[Fen.Full],
-      withFlags: ExportOptions
-  )(obj: JsObject) =
-    obj.add(
-      "evalTree" -> analysis.map: a =>
-        val fen = initialFen | pov.game.variant.initialFen
-        Node.defaultNodeJsonWriter.writes(TreeBuilder(pov.game, a.some, fen, withFlags, lila.log.system.warn))
-    )
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
