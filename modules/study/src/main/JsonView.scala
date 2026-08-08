@@ -95,6 +95,7 @@ final class JsonView(
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)
+      .add("recall", c.isRecall)
       .add("gamebook", c.isGamebook)
       .add("conceal", c.conceal)
 
