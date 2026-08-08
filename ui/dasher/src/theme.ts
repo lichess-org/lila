@@ -142,7 +142,7 @@ export class ThemeCtrl extends PaneCtrl {
       }),
       this.propSlider(
         'bg-opacity',
-        'Background opacity:',
+        i18n.site.backgroundImageOpacity,
         { min: 5, max: 100, step: 1 },
         val => `${val}%`,
         '',
