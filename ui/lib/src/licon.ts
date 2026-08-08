@@ -121,14 +121,12 @@ export const licon = {
   Disc: '' as const, // e06b
   Wings: '' as const, // e06c
   DiscOutline: '' as const, // e06d
-  Handset: '' as const, // e06e
   ArrowThruApple: '' as const, // e06f
   Clipboard: '' as const, // e070
   Move: '' as const, // e071
   Ibeam: '' as const, // e072
   Cancel: '' as const, // e073
   Voice: '' as const, // e074
-  Prune: '' as const, // e075
   OneHalf: '' as const, // e076
   Mute: '' as const, // e077
   Reload: '' as const, // e078
