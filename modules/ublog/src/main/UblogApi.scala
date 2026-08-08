@@ -64,7 +64,7 @@ final class UblogApi(
   yield
     triggerAutomod(post).foreach: newPost =>
       if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, newPost, blog)
+      then newPost.foreach(sendPostToZulip(author.light, _, blog))
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
