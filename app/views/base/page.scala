@@ -88,7 +88,7 @@ object page:
               if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
               else escapeHtmlRaw(loc).replace("&amp;", "&")
             raw(
-              s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity, 100)/100);}</style>"""
+              s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
             )
           },
           fontsPreload,

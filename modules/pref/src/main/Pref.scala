@@ -91,7 +91,7 @@ case class Pref(
   def bgImgUrlOpt = bgImg.map(_.takeWhile(_ != ' ')).filter(_.nonEmpty)
   def bgImgUrl = bgImgUrlOpt | Pref.defaultBgImgUrl
   def setBgImgUrl(url: String) = copy(bgImg = s"${~url.some.filterNot(_.isBlank)} $bgOpacity".some)
-  def bgOpacity = bgImg.flatMap(_.split(" ").lift(1)).flatMap(_.toIntOption).getOrElse(100)
+  def bgOpacity = bgImg.flatMap(_.split(" ").lift(1)).flatMap(_.toIntOption).getOrElse(defaultBgOpacity)
   def setBgOpacity(opacity: Int) = copy(bgImg = s"${~bgImgUrlOpt} $opacity".some)
 
   def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
@@ -140,6 +140,7 @@ case class Pref(
 object Pref:
 
   val defaultBgImgUrl = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultBgOpacity = 50
 
   case class BoardPref(
       brightness: Int,

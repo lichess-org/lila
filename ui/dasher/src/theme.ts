@@ -110,7 +110,7 @@ export class ThemeCtrl extends PaneCtrl {
 
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
-      const styleValue = `html.transp::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity, 100)/100);}`;
+      const styleValue = `html.transp::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
       if (bgData) {
         bgData.innerHTML = styleValue;
       } else {
