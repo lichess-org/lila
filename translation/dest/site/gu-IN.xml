@@ -941,7 +941,6 @@
   <string name="xInvitedYouToY">%1$s એ તમને \"%2$s\" માં આમંત્રિત કર્યા છે.</string>
   <string name="youAreNowPartOfTeam">તમે હવે ટીમનો ભાગ છો.</string>
   <string name="youHaveJoinedTeamX">તમે \"%1$s\" માં જોડાયા છો.</string>
-  <string name="someoneYouReportedWasBanned">તમે જાણ કરેલી કોઈ વ્યક્તિ પર પ્રતિબંધ મૂકવામાં આવ્યો હતો</string>
   <string name="congratsYouWon">અભિનંદન, તમે જીતી ગયા!</string>
   <string name="gameVsX">રમત વિરુદ્ધ \"%1$s\"</string>
   <string name="resVsX">\"%1$s\" ની સામે \"%2$s\"</string>

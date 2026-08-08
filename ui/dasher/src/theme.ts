@@ -4,12 +4,12 @@ import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, onInsert } from 'lib/view';
+import { bind, button, dataIcon, label, div, onInsert, span } from 'lib/view';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
 
-import { PaneCtrl } from './interfaces';
+import { PaneCtrl, type Range } from './interfaces';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 
 export interface BackgroundData {
@@ -28,7 +28,8 @@ interface Background {
   title?: string;
 }
 
-export class BackgroundCtrl extends PaneCtrl {
+export class ThemeCtrl extends PaneCtrl {
+  sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
   private readonly list: Background[];
   constructor(root: DasherCtrl) {
     super(root);
@@ -36,37 +37,40 @@ export class BackgroundCtrl extends PaneCtrl {
       { key: 'system', name: i18n.site.deviceTheme },
       { key: 'light', name: i18n.site.light },
       { key: 'dark', name: i18n.site.dark },
-      { key: 'transp', name: 'Picture' },
+      { key: 'transp', name: i18n.site.picture },
     ];
   }
 
   render(): VNode {
     const cur = this.get();
 
-    return h('div.sub.background', [
-      header(i18n.site.background, this.close),
-      h(
-        'div.selector.large',
+    return div('.sub.theme', [
+      header(i18n.site.theme, this.close),
+      label(i18n.site.background),
+      div('.selector.large', [
         this.list.map(bg => {
-          return h(
-            'button.text',
+          return button(
+            '.text',
             {
               class: { active: cur === bg.key },
-              attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
+              ...dataIcon(licon.Checkmark),
+              title: bg.title || '',
+              type: 'button',
               hook: bind('click', () => this.set(bg.key)),
             },
             bg.name,
           );
         }),
-      ),
-      cur !== 'transp' ? null : this.data.gallery ? this.galleryInput() : this.imageInput(),
+        this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
+      ]),
+      cur !== 'transp' ? null : this.backgroundData.gallery ? this.galleryInput() : this.imageInput(),
     ]);
   }
 
   set: (c: string) => Promise<void> = throttlePromiseDelay(
     () => 700,
     (c: string) => {
-      this.data.current = c;
+      this.backgroundData.current = c;
       this.apply();
       this.redraw();
       return xhrText('/pref/bg', { body: xhrForm({ bg: c }), method: 'post' }).then(
@@ -76,7 +80,7 @@ export class BackgroundCtrl extends PaneCtrl {
     },
   );
 
-  private get data() {
+  private get backgroundData() {
     return this.root.data.background;
   }
 
@@ -87,10 +91,10 @@ export class BackgroundCtrl extends PaneCtrl {
     if ($('canvas').length) site.reload();
   };
 
-  private readonly get = () => this.data.current;
-  private readonly getImage = () => this.data.image;
+  private readonly get = () => this.backgroundData.current;
+  private readonly getImage = () => this.backgroundData.image;
   private readonly setImage = (i: string) => {
-    this.data.image = i.startsWith('/assets/') ? i.slice(8) : i;
+    this.backgroundData.image = i.startsWith('/assets/') ? i.slice(8) : i;
     xhrTextRaw('/pref/bgImg', { body: xhrForm({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
@@ -99,7 +103,7 @@ export class BackgroundCtrl extends PaneCtrl {
   };
 
   private readonly apply = () => {
-    const key = this.data.current;
+    const key = this.backgroundData.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
     document.documentElement.className =
       key === 'system' ? (prefersLightThemeQuery().matches ? 'light' : 'dark') : key;
@@ -107,9 +111,11 @@ export class BackgroundCtrl extends PaneCtrl {
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
       bgData
-        ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.data.image + ');}')
+        ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.backgroundData.image + ');}')
         : $('head').append(
-            '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
+            '<style id="bg-data">html.transp::before{background-image:url(' +
+              this.backgroundData.image +
+              ');}</style>',
           );
     }
     pubsub.emit('theme', key);
@@ -146,7 +152,7 @@ export class BackgroundCtrl extends PaneCtrl {
       this.setImage(url);
     };
 
-    const gallery = this.data.gallery!;
+    const gallery = this.backgroundData.gallery!;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`]);
     const width =
@@ -159,7 +165,7 @@ export class BackgroundCtrl extends PaneCtrl {
           { attrs: { style: `background-image: url(${montageUrl});` } },
           gallery.images.map(img => {
             const assetUrl = site.asset.url(img);
-            const divClass = this.data.image.endsWith(assetUrl) ? '.selected' : '';
+            const divClass = this.backgroundData.image.endsWith(assetUrl) ? '.selected' : '';
             return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
           }),
         ),
@@ -167,4 +173,36 @@ export class BackgroundCtrl extends PaneCtrl {
       this.imageInput(),
     ]);
   };
+
+  private readonly setVar = (prop: string, v: number) => {
+    document.body.style.setProperty(`---${prop}`, `${v.toString()}px`);
+  };
+
+  private readonly propSlider = (
+    prop: string,
+    inputLabel: string,
+    range: Range,
+    title?: (v: number) => string,
+  ) =>
+    div(`.${prop}`, { title: title ? title(this.getVar(prop)) : `${this.getVar(prop)}px` }, [
+      div('.slider-label', [label(inputLabel), span([this.getVar(prop), 'px'])]),
+      h('input.range', {
+        key: this.sliderKey + prop,
+        attrs: { ...range, type: 'range', value: this.getVar(prop) },
+        hook: onInsert<HTMLInputElement>(input => {
+          const setAndSave = (v: number) => {
+            if (v < range.min || v > range.max) return;
+            this.setVar(prop, v);
+            this.redraw();
+            this.postPref(prop);
+          };
+          $(input)
+            .on('input', () => setAndSave(parseInt(input.value)))
+            .on('wheel', e => {
+              e.preventDefault();
+              setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
+            });
+        }),
+      }),
+    ]);
 }

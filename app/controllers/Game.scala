@@ -72,7 +72,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                   max = getIntAs[Max]("max").map(_.atLeast(1)),
                   rated = getBoolOpt("rated"),
                   perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
-                  color = get("color").flatMap(Color.fromName),
+                  color = getColor(),
                   analysed = getBoolOpt("analysed"),
                   flags = requestPgnFlags(extended = false),
                   sort =
@@ -99,8 +99,15 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private def fileDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").print(nowInstant)
 
   def apiExportByUserImportedGames() = AuthOrScoped() { ctx ?=> me ?=>
+    val annotated = getBool("annotated")
+    val config = GameApiV2.ImportedConfig(
+      user = me.userId,
+      annotated = annotated,
+      flags = requestPgnFlags(extended = annotated)
+        .copy(literate = getBoolOpt("literate") | annotated)
+    )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
-      env.api.gameApiV2.exportUserImportedGames(me)
+      env.api.gameApiV2.exportUserImportedGames(config)
     ): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn")

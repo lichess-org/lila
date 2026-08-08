@@ -51,6 +51,9 @@
     line-height: 1.9em;
     padding: 0;
     background: color-mix(in oklab, $c-secondary 30%, $c-bg);
+    position: sticky;
+    top: 0;
+    z-index: $z-link-overlay-2;
 
     .ddloader {
       padding-inline-start: 7px;
@@ -242,24 +245,31 @@
     td {
       @include padding-direction(5px, 0, 5px, 7px);
 
-      max-width: 110px;
-
-      &:nth-child(2) {
-        max-width: none;
-      }
-
       span {
         @extend %ellipsis;
 
         display: block;
       }
+
+      &.game-rating {
+        width: 40px;
+      }
+
+      &.game-type {
+        width: 28px;
+      }
+
+      &.game-date {
+        width: 60px;
+      }
     }
 
     result {
+      @extend %box-radius;
+
       display: block;
       text-align: center;
       padding: 3px 5px;
-      border-radius: 3px;
       font-size: 0.9em;
     }
   }
@@ -320,16 +330,28 @@
 
     position: absolute;
     top: 0;
+    right: 0;
     cursor: pointer;
     display: block;
     font-size: 1.2em;
     width: 1.5em;
-    line-height: 1.5em;
+    height: 100%;
     text-align: center;
     opacity: 0.8;
+    z-index: $z-above-link-overlay-3;
 
     &:hover {
       opacity: 1;
+    }
+
+    &::before {
+      position: relative;
+      top: -1px;
+      margin: 0 0 0 -2px;
+
+      @include if-rtl {
+        margin: 0 -2px 0 0;
+      }
     }
   }
 
@@ -380,7 +402,6 @@
 
   .explorer-box button.toconf {
     font-size: 1.5em;
-    margin-top: 2px;
     margin-inline-end: 8px;
   }
 }

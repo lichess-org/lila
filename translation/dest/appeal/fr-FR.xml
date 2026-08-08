@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Votre compte n\'est ni marqué ni restreint. C\'est parfait!</string>
-  <string name="engineMarked">Votre compte est marqué (assistance externe durant les parties).</string>
+  <string name="engineMarked">L\'accès à votre compte a été restreint suite à l\'utilisation d\'un moteur d\'échecs ou d\'un programme informatique.</string>
   <string name="engineMarkedInfo">Par assistance externe, on entend l\'utilisation d\'une aide externe pour renforcer vos connaissances ou votre capacité de calcul pour obtenir un avantage déloyal contre votre adversaire. Voir la page %s pour en savoir plus.</string>
   <string name="arenaBanned">Votre compte est banni. Vous ne pouvez plus participer aux tournois Arène.</string>
   <string name="prizeBanned">Votre compte est banni. Vous ne pouvez plus participer à des tournois offrant des prix réels.</string>
-  <string name="boosterMarked">Votre compte est marqué pour manipulation de classement (cote).</string>
-  <string name="boosterMarkedInfo">Par manipulation de classement, on entend une manipulation délibérée du classement par un joueur qui perd volontairement des parties ou qui affronte un autre joueur en sachant que ce dernier perd volontairement ses parties.</string>
+  <string name="boosterMarked">L\'utilisation de votre compte a été restreinte pour des raisons de manipulation de classement ou de partage de compte.</string>
   <string name="accountMuted">Vous ne pouvez plus clavarder avec votre adversaire ni envoyer des messages.</string>
   <string name="accountMutedInfo">Lisez nos %s. Ne pas les suivre peut entraîner la mise en sourdine de votre compte.</string>
   <string name="excludedFromLeaderboards">Vous avez été exclu(e) du classement.</string>
-  <string name="excludedFromLeaderboardsInfo">L\'exclusion du classement résulte habituellement de l\'utilisation délibérée d\'un moyen déloyal pour faire partie du classement.</string>
+  <string name="onlyOneAccountOnLeaderboards">Un seul compte par personne peut apparaître dans le tableau des meilleurs joueurs.</string>
   <string name="closedByModerators">Votre compte a été fermé par les modérateurs.</string>
-  <string name="hiddenBlog">Votre blogue a été masqué par les modérateurs.</string>
-  <string name="hiddenBlogInfo">Relisez nos %s.</string>
+  <string name="blogRestriction">Votre utilisation du blogue a été restreinte.</string>
+  <string name="blogRestrictionInfo">Lisez notre %s – le non-respect de ces règles peut avoir différentes conséquences.</string>
   <string name="playTimeout">Vous ne pouvez plus jouer de partie temporairement.</string>
+  <string name="reportBanned">Vous ne pouvez pas envoyer de rapports aux modérateurs.</string>
+  <string name="reportBannedInfo">Nous avons constaté une utilisation abusive de notre système de signalement (rapport). Par exemple : choix fréquent de mauvaises catégories, utilisation d\'un langage inappropriée ou offensant, signalement d\'un nombre excessif de cas ou omission d\'expliquer pourquoi vous pensez que l\'adversaire a violé les règles.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Vous ne pouvez pas jouer, car votre compte est temporairement suspendu.</string>
   <string name="communicationGuidelines">Lignes directrices de communication</string>
-  <string name="blogRules">Règles relatives aux blogues</string>
+  <string name="blogEtiquette">nétiquette de blogue</string>
   <string name="fairPlay">Esprit sportif</string>
 </resources>

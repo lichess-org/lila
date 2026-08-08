@@ -59,11 +59,11 @@ ThisBuild / usePipelining := false
 ivyLoggingLevel := UpdateLogging.DownloadOnly
 
 // format: off
-libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
+libraryDependencies ++= pekko.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded, catsMtl
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, catsMtl
 ) ++ tests.bundle
 
 // influences the compilation order

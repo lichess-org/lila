@@ -12,7 +12,7 @@ const eventNames = ['mousedown', 'touchstart'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: TopOrBottom): LooseVNode {
   const step = plyStep(ctrl.data, ctrl.ply);
-  if (!step.crazy) return;
+  if (!step.crazy) return undefined;
   const droppedRole = ctrl.justDropped,
     preDropRole = ctrl.preDrop,
     pocket = step.crazy.pockets[color === 'white' ? 0 : 1],

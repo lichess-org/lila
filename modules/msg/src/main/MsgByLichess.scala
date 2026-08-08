@@ -3,6 +3,7 @@ package lila.msg
 import lila.memo.MongoCache
 import lila.core.config.BaseUrl
 import lila.core.i18n.I18nKey.msg as trans
+import lila.core.msg.SystemMsg
 
 final class MsgByLichess(
     mongoCache: MongoCache.Api,
@@ -28,7 +29,10 @@ final class MsgByLichess(
                 .flatMap:
                   case Some(user) =>
                     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-                    api.systemPost(userId, lila.core.i18n.I18nKey.tfa.setupReminder.txt()).inject(false)
+                    val msg =
+                      SystemMsg.standard(userId, lila.core.i18n.I18nKey.tfa.setupReminder.txt())
+                    for _ <- api.systemPost(msg)
+                    yield false
                   case _ => fuccess(true)
 
   object emailReminder:
@@ -51,14 +55,13 @@ final class MsgByLichess(
                 .enabledById(userId)
                 .flatMap:
                   _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
-                    for _ <- api.systemPost(user.id, text) yield false
+                    for _ <- api.systemPost(SystemMsg.mustRead(user.id, text)) yield false
 
   def lichobileDeprecationMessage(user: lila.core.user.User) =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-    api.systemPost(
-      user.id,
+    val text =
       s"""${trans.lichobileNewAppAvailable.txt()}\n\n${trans.lichobileNewAppDownload.txt(s"$baseUrl/app")}"""
-    )
+    api.systemPost(SystemMsg.mustRead(user.id, text))
 
   object chatTimeout:
     def apply(userId: UserId) = cache.get(userId)
@@ -72,4 +75,4 @@ Please review the chat rules on ${lila.core.chat.etiquetteUrl}."""
             .isTroll(userId)
             .not
             .flatMapz:
-              api.systemPost(userId, text).inject(true)
+              api.systemPost(SystemMsg.mustRead(userId, text)).inject(true)

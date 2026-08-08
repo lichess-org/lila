@@ -120,6 +120,8 @@ Das, was einem online Rundenturnier am nächsten kommt, ist, ein Schweizer Turni
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
   <string name="predefinedUsers">Nur vordefinierten Benutzern erlauben beizutreten</string>
   <string name="forbiddedUsers">Falls diese Liste nicht leer ist, können nicht aufgeführte Benutzer nicht teilnehmen. Ein Benutzername pro Zeile.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Gib einen Benutzernamen pro Zeile ein. Nur diese Spieler dürfen beitreten.
+Leer lassen, um alle teilnahmeberechtigten Spieler zu erlauben.</string>
   <string name="playYourGames">Spiele deine Partien</string>
   <string name="byes">Freilose</string>
   <string name="absences">Abwesend</string>

@@ -1,5 +1,5 @@
 $section-margin: 3vh;
-$section-margin-more: 5vh;
+$section-margin-more: 4vh;
 
 .team-show {
   @extend %break-word;
@@ -114,8 +114,10 @@ $section-margin-more: 5vh;
     margin-bottom: $section-margin;
   }
 
-  &__tour {
-    margin-bottom: $section-margin-more;
+  &__events {
+    @extend %flex-column;
+
+    gap: $section-margin;
   }
 
   &__list-wrapper {
@@ -155,8 +157,30 @@ $section-margin-more: 5vh;
     }
   }
 
+  &__update {
+    &__last {
+      @extend %flex-column, %box-bordered;
+
+      gap: 1em;
+      background: $c-bg-zebra;
+      padding: 1em 2em;
+    }
+
+    &__meta,
+    &__more {
+      @extend %flex-center;
+
+      gap: 1em;
+      justify-content: flex-end;
+      color: $c-font-dim;
+      font-size: 0.9em;
+    }
+  }
+
   h2 {
     margin-bottom: 1rem;
+    font-size: 1.5em;
+    font-weight: bold;
   }
 
   img {

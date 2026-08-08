@@ -172,7 +172,7 @@
 
   &__global .puzzle-dashboard__metric {
     padding: 1em 1em 1.5em 1em;
-    border-radius: 8px;
+    border-radius: $box-radius-size;
 
     strong {
       font-size: 5em;

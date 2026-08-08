@@ -72,6 +72,10 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="rankAvgHelp">Den gennemsnitlige rangering er en procentdel af din rangering. Lavere er bedre.
 
 Eksempelvis er en rangering som nummer 3 i en turnering med 100 spillere = 3%. At være rangeret som nummer 10 i en turnering med 1000 spillere = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Dit ranggennemsnit repræsenterer din typiske slutplacering i forhold til det samlede antal spillere i hver turnering.
+Dette er et mål for din placering i turneringen, ikke din generelle rating.
+
+Et ranggennemsnit på 3 % betyder for eksempel, at du typisk ender blandt de øverste 3 % (f.eks. på 30. pladsen ud af 1.000 spillere).</string>
   <string name="medians">medianer</string>
   <string name="allAveragesAreX">Alle gennemsnit på denne side er %s.</string>
   <string name="total">I alt</string>

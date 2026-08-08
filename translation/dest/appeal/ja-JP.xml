@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">あなたのアカウントは何も制限されていません。すべて正常です！</string>
-  <string name="engineMarked">あなたのアカウントには対局中に外部の力を使ったと表示があります。</string>
+  <string name="engineMarked">あなたのアカウントは対局中のエンジン/コンピュータ使用のため制限されています。</string>
   <string name="engineMarkedInfo">つまり、対局を不正に有利にするため、知識や読みを補う外部の力を使ったということです。詳しくは %s のページをお読みください。</string>
   <string name="arenaBanned">あなたのアカウントはアリーナへの参加が禁じられています。</string>
   <string name="prizeBanned">あなたのアカウントは金品を賞とするトーナメントへの参加が禁じられています。</string>
-  <string name="boosterMarked">あなたのアカウントにはレーティング不正の表示があります。</string>
-  <string name="boosterMarkedInfo">つまり、わざと負ける、レーティングを下げた別のアカウントとプレイするなどの方法で数字を操作することです。</string>
+  <string name="boosterMarked">あなたのアカウントはレーティング不正操作/アカウント共有のため制限されています。</string>
   <string name="accountMuted">あなたのアカウントはミュートされました。</string>
   <string name="accountMutedInfo">%s をお読みください。コミュニケーション ガイドラインに従わないとアカウントがミュートされることがあります。</string>
   <string name="excludedFromLeaderboards">あなたのアカウントはランキングから除外されました。</string>
-  <string name="excludedFromLeaderboardsInfo">つまりランキングに載るために何か不正な方法を使ったということです。</string>
+  <string name="onlyOneAccountOnLeaderboards">ランキングに表示されるアカウントは 1 人につきひとつだけです。</string>
   <string name="closedByModerators">あなたのアカウントはモデレータが閉鎖しました。</string>
-  <string name="hiddenBlog">あなたのブログはモデレータが非表示にしました。</string>
-  <string name="hiddenBlogInfo">%s をもう一度お読みください。</string>
+  <string name="blogRestriction">あなたはブログが制限されています。</string>
+  <string name="blogRestrictionInfo">%s をお読みください。これらルールに違反するとさまざまな対応が取られます。</string>
   <string name="playTimeout">プレイ一時禁止中です。</string>
+  <string name="reportBanned">モデレータに直接通報を送ることはできません</string>
+  <string name="reportBannedInfo">通報システムの濫用があったようです。たとえば何度も間違ったカテゴリを選ぶ、汚い/不適切な/攻撃的な表現を使う、異常に多くのゲームを通報する、相手がルールに違反していると考える根拠を明らかにしない、などさまざまな理由があり得ます。</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">あなたのアカウントは対局が一時的に制限されています。</string>
   <string name="communicationGuidelines">コミュニケーション ガイドライン</string>
-  <string name="blogRules">ブログのルール</string>
+  <string name="blogEtiquette">ブログのエチケット</string>
   <string name="fairPlay">フェアプレイ</string>
 </resources>

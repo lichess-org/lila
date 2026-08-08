@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { debounce } from '@/async';
 import { blurOnEscape } from '@/common';
+import { onInsert } from '@/view';
 
 import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
@@ -32,14 +33,11 @@ export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   if (text === undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
   return h('textarea.mchat__note', {
     attrs: { placeholder: i18n.site.typePrivateNotesHere, spellcheck: 'false' },
-    hook: {
-      insert(vnode) {
-        const el = vnode.elm as HTMLTextAreaElement;
-        el.value = text;
-        if (autofocus) el.focus();
-        blurOnEscape(el);
-        $(el).on('change keyup paste', () => ctrl.post(el.value));
-      },
-    },
+    hook: onInsert<HTMLTextAreaElement>(el => {
+      el.value = text;
+      if (autofocus) el.focus();
+      blurOnEscape(el);
+      $(el).on('change keyup paste', () => ctrl.post(el.value));
+    }),
   });
 }

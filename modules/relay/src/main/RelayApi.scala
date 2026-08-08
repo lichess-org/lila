@@ -1,6 +1,6 @@
 package lila.relay
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
@@ -42,7 +42,7 @@ final class RelayApi(
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi,
     notifyAdmin: RelayNotifierAdmin
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import RelayJsonView.given
@@ -506,7 +506,7 @@ final class RelayApi(
       until: Option[Instant]
   ): Source[RelayRound.WithTour, ?] =
     Source.futureSource:
-      listing.active.map: all =>
+      listing.activeTours.map: all =>
         Source(all.map(_.tour).filter(_.spotlight.exists(_.enabled)))
           .mapAsync(1): tour =>
             roundRepo.byTourOrdered(tour.id).map(tour -> _)

@@ -6,6 +6,8 @@ GET   /team/leader                            controllers.team.Team.leader
 GET   /team/all                               controllers.team.Team.all(page: Int ?= 1)
 GET   /team/requests                          controllers.team.Team.requests
 GET   /team/search                            controllers.team.Team.search(text ?= "", page: Int ?= 1)
+GET   /team/updates                           controllers.team.Team.updates(page: Int ?= 1)
+GET   /team/updates/:id                       controllers.team.Team.updatesOf(id: TeamId, page: Int ?= 1)
 GET   /team/autocomplete                      controllers.team.Team.autocomplete
 GET   /team/:id                               controllers.team.Team.show(id: TeamId, page: Int ?= 1, mod: Boolean ?= false)
 POST  /team/:id/join                          controllers.team.Team.join(id: TeamId)
@@ -26,6 +28,6 @@ GET   /team/:id/members                       controllers.team.Team.members(id: 
 POST  /team/:id/close                         controllers.team.Team.close(id: TeamId)
 POST  /team/:id/disable                       controllers.team.Team.disable(id: TeamId)
 GET   /team/:id/tournaments                   controllers.team.Team.tournaments(id: TeamId)
-GET   /team/:id/pm-all                        controllers.team.Team.pmAll(id: TeamId)
-POST  /team/:id/pm-all                        controllers.team.Team.pmAllSubmit(id: TeamId)
+GET   /team/:id/updates                       controllers.team.Team.updateNew(id: TeamId)
+POST  /team/:id/pm-all                        controllers.team.Team.updateSend(id: TeamId)
 POST  /team/:id/subscribe                     controllers.team.Team.subscribe(id: TeamId)

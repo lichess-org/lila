@@ -1,7 +1,7 @@
 package lila.study
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
 import lila.core.study as hub
@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   import BSONHandlers.given
@@ -76,7 +76,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       selector: Bdoc,
       sort: Bdoc,
       readPref: ReadPref = _.pri
-  ): Fu[AkkaStreamCursor[Study]] =
+  ): Fu[PekkoStreamCursor[Study]] =
     coll.map(_.find(selector, projection.some).sort(sort).cursor[Study](readPref))
 
   def exists(id: StudyId) = coll(_.exists($id(id)))

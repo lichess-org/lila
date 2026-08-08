@@ -17,7 +17,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def noTopicMenu(status: UserStatus, appeals: Appeal.ByTopic)(using Context): Branch =
+  private def noTopicMenu(status: UserStatus, appeals: UserAppeals)(using Context): Branch =
     Branch(
       "root",
       if status.isClean then tap.cleanAllGood() else "No active appeals",
@@ -152,7 +152,26 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         )
       ),
-      content = tap.boosterMarkedInfo().some
+      content = frag(
+        p(strong("Rating manipulation")),
+        p("This includes, but isn’t limited to:"),
+        ul(
+          li(strong("Sandbagging:"), " deliberately losing rated games"),
+          li(
+            strong("Boosting:"),
+            " playing an excessive number of rated games against someone who was deliberately losing."
+          )
+        ),
+        p(strong("Account sharing")),
+        p(
+          "Your account can only be used by you. We consider your account to have violated the rules if any of the following occur:"
+        ),
+        ul(
+          li("someone else plays games using your account, with or without your permission"),
+          li("you asked another person’s advice during rated games.")
+        ),
+        p("You are responsible for all activity in your account.")
+      ).some
     )
 
   private def muteMenu(using Context): Branch =
@@ -160,7 +179,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
     val deny =
-      "I have followed the communication guidelines"
+      "I have followed the community guidelines and don’t understand why I was muted"
     Branch(
       "root",
       tap.accountMuted(),
@@ -200,6 +219,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
+    val chooseAccount = "I want to choose which account appears on leaderboards"
     Branch(
       "root",
       tap.excludedFromLeaderboards(),
@@ -219,9 +239,17 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             sendUsAnAppeal,
             newAppeal(AppealTopic.rank)(deny)
           )
+        ),
+        Leaf(
+          "rankban-choose",
+          chooseAccount,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.rank)(chooseAccount)
+          )
         )
       ),
-      content = tap.excludedFromLeaderboardsInfo().some
+      content = tap.onlyOneAccountOnLeaderboards().some
     )
 
   private def arenaBanMenu(using Context): Branch =
@@ -256,17 +284,24 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             newAppeal(AppealTopic.arena)(deny)
           )
         )
-      )
+      ),
+      content = frag(
+        p("We do not allow:"),
+        ul(
+          li("joining multiple arenas at the same time and then not playing in them"),
+          li("joining an arena and repeatedly losing games by not making a move (for any reason)")
+        )
+      ).some
     )
 
   private def hiddenBlogMenu(using Context): Branch =
     val accept =
-      "I accept that I have broken the blog rules"
+      "I regret my actions and would like to appeal"
     val deny =
-      "I deny having broken the blog rules."
+      "I don’t understand what I did wrong and would like to appeal"
     Branch(
       "root",
-      tap.hiddenBlog(),
+      tap.blogRestriction(),
       List(
         Leaf(
           "hidden-blog-accept",
@@ -285,11 +320,11 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           )
         )
       ),
-      content = tap.hiddenBlogInfo(a(href := cmsPageUrl("blog-etiquette"))(tap.blogRules())).some
+      content = tap.blogRestrictionInfo(a(href := cmsPageUrl("blog-etiquette"))(tap.blogEtiquette())).some
     )
 
   private def prizebanMenu(using Context): Branch =
-    val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
+    val prizebanExpired = "My ban duration has expired and I want it to be lifted"
     val deny = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
@@ -311,7 +346,47 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             newAppeal(AppealTopic.prize)(deny)
           )
         )
-      )
+      ),
+      content = frag(
+        p(
+          "This is due to a fair play restriction in your previous account and your status of titled player."
+        ),
+        p(
+          "You were informed of this during the appeal of the previous account and/or via direct message by a public moderator."
+        ),
+        p(
+          "If you disagree with the restriction or believe its term has expired and want it to be removed, send an appeal."
+        )
+      ).some
+    )
+
+  private def reportbanMenu(using Context): Branch =
+    val accept =
+      "I regret my mistakes and will behave better in future, please give me a second chance"
+    val deny =
+      "I reject any allegations of wrongdoing that may have prompted a reportban"
+    Branch(
+      "root",
+      tap.reportBanned(),
+      List(
+        Leaf(
+          "reportban-accept",
+          accept,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.report)(accept)
+          )
+        ),
+        Leaf(
+          "reportban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(AppealTopic.report)(deny)
+          )
+        )
+      ),
+      content = tap.reportBannedInfo().some
     )
 
   private def playbanMenu(using Context): Branch =
@@ -363,19 +438,18 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
   private def altScreen(using Context) = div(cls := "leaf")(
     h2(tap.closedByModerators()),
     div(cls := "content")(
-      p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
-        "If you violated the terms of service on a previous account, then you are not allowed to make a new one, ",
-        "unless it was explicitly allowed by the moderation team during an appeal."
+        "On the sign-up page you agreed not to create an excessive number of accounts, generally not more than 3. Violating this term is considered abuse of infrastructure."
       ),
       p(
-        "If you never violated the terms of service, and didn't make several accounts, then you can appeal this account closure:"
-      )
+        "If you violated our Terms of Service in a previous account and tried to open a new one, this is considered ban evasion. In order to keep using Lichess you must obtain explicit permission by moderators."
+      ),
+      p("If you have done nothing wrong and believe this is a mistake, send an appeal.")
     ),
     newAppeal(AppealTopic.close)("")
   )
 
-  def page(topic: Option[AppealTopic], status: UserStatus, appeals: Appeal.ByTopic)(using Context, Me) =
+  def page(topic: Option[AppealTopic], status: UserStatus, appeals: UserAppeals)(using Context, Me) =
     ui.page("Appeal a moderation decision"):
       main(cls := "page page-small appeal force-ltr")(
         div(cls := "box box-pad")(
@@ -408,7 +482,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        inactiveAppeals(appeals.values.toList)
+        inactiveAppeals(appeals.value.values.toList)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
@@ -419,6 +493,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     AppealTopic.rank -> rankBanMenu,
     AppealTopic.arena -> arenaBanMenu,
     AppealTopic.prize -> prizebanMenu,
+    AppealTopic.report -> reportbanMenu,
     AppealTopic.blog -> hiddenBlogMenu
   )
 

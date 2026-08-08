@@ -1,7 +1,7 @@
 package lila.common
 
-import akka.NotUsed
-import akka.stream.scaladsl.*
+import org.apache.pekko.NotUsed
+import org.apache.pekko.stream.scaladsl.*
 
 object LilaStream:
 

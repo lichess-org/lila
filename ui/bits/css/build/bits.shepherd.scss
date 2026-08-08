@@ -2,6 +2,19 @@
 @import '../../../lib/css/plugin';
 
 .shepherd {
+  &-content,
+  &-element {
+    @extend %box-radius;
+  }
+
+  &-header {
+    @extend %box-radius-top;
+  }
+
+  &-footer {
+    @extend %box-radius-bottom;
+  }
+
   &-element {
     border: $border;
     background-color: rgb(from $c-bg r g b / 0.92);
@@ -17,8 +30,9 @@
   }
 
   &-has-title &-content &-header {
-    @extend %metal;
+    @extend %metal-bg;
 
+    background-color: transparent;
     border-bottom: $border;
 
     h3 {
@@ -34,10 +48,11 @@
 
   &-text {
     color: $c-font;
+    padding-inline: 14px;
   }
 
   &-button {
-    @extend %roboto;
+    @extend %roboto, %box-radius;
 
     background-color: $c-primary;
     color: $c-over;

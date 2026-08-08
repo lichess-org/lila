@@ -122,6 +122,8 @@ Ce qui se rapproche le plus d\'un tournoi en rondes complètes, c\'est un tourno
   <string name="unlimitedAndFree">Illimité et gratuit</string>
   <string name="predefinedUsers">Autoriser uniquement les utilisateurs prédéfinis à s\'inscrire</string>
   <string name="forbiddedUsers">Si la liste n\'est pas vide, seuls les utilisateurs y figurant pourront s\'inscrire. Un nom d\'utilisateur par ligne.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Entrez un nom d\'utilisateur par ligne. Seuls ces joueurs pourront se joindre au tournois.
+Laissez les lignes vides pour permettre à tous les joueurs admissibles de participer.</string>
   <string name="playYourGames">Jouez vos parties</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>

@@ -8,7 +8,7 @@ import scalalib.data.LazyFu
 import lila.common.Markdown
 import lila.core.config.RouteUrl
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
-import lila.core.msg.MsgApi
+import lila.core.msg.{ MsgApi, SystemMsg }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.KidMode
@@ -210,8 +210,8 @@ final class ClasApi(
         _ <- inactiveClasses.sequentiallyVoid: from =>
           for
             clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
-            _ <- clas.teachers.toList.sequentiallyVoid:
-              msgApi.systemPost(_, autoArchiveMsg(clas))
+            _ <- clas.teachers.toList.sequentiallyVoid: userId =>
+              msgApi.systemPost(SystemMsg.standard(userId, autoArchiveMsg(clas)))
           yield teamSync(clas)(using None)
       yield ()
 

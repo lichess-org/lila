@@ -18,6 +18,7 @@ Her finn du profilsida di: %1$s. Du kan tilpasse den på %2$s.
 Ha det kjekt, og må brikkene dine alltid finne vegen til motspelarens konge!</string>
   <string name="logInToLichess">Logg inn på lichess.org, %s</string>
   <string name="common_orPaste">(Fungerar det ikkje å klikke? Prøv å lime den inn i nettlesaren!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Fungerer ikkje lenka? Prøv å lime den inn i nettlesaren!)</string>
   <string name="common_note">Dette er ein service-e-post i samband med bruken din av %s.</string>
   <string name="common_contact">Bruk %s om du vil ta kontakt med oss.</string>
 </resources>

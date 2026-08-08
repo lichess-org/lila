@@ -146,14 +146,14 @@ final class UserList(helpers: Helpers, bits: UserBits):
           div(cls := "bots page-menu__content")(
             div(cls := "box box-pad bots__categ")(
               boxTop(h1("Featured bots")),
-              h3("Try playing these innovative chess engines! These are our favourites."),
+              p("Try playing these innovative chess engines! These are our favourites."),
               div(cls := "bots__featured")(
                 botGrid(featured, bestPerfs)
               )
             ),
             div(cls := "box box-pad bots__categ")(
               boxTop(h1("Community bots"), aboutLink),
-              h3(
+              p(
                 "More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online."
               ),
               botGrid(community, bestPerfs)

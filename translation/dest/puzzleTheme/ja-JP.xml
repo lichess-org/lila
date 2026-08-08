@@ -55,16 +55,19 @@
   <string name="endgame">エンドゲーム</string>
   <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
   <string name="enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
   <string name="epauletteMate">肩章（エポレット）のメイト</string>
   <string name="epauletteMateDescription">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>
   <string name="exposedKing">危険なキング</string>
   <string name="exposedKingDescription">守り駒の少ないキングを攻める問題、多くの場合メイトにつながる。</string>
   <string name="fork">フォーク（両取り）</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">ひとつの駒が相手の複数の駒を同時に攻撃する手。</string>
   <string name="hangingPiece">浮き駒</string>
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取る問題。</string>
   <string name="hookMate">釣り針のメイト</string>
   <string name="hookMateDescription">ポーンの隣にいるキングを、ルーク、ナイト、ポーンでメイトする形。</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">ポーンの隣にいるキングを、ルーク、ナイト、ポーンでメイトする形。</string>
   <string name="interference">インターフェア（干渉）</string>
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて浮き駒を作る問題。相手の 2 個のルークの間に守られたナイトを入れる、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>

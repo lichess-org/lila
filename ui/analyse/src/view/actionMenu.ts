@@ -56,7 +56,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 const hiddenInput = (name: string, value: string) => hl('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study || ctrl.ongoing) return;
+  if (ctrl.study || ctrl.ongoing) return undefined;
   return hl(
     'form',
     {

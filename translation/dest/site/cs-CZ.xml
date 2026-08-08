@@ -1052,7 +1052,6 @@
   <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
   <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
   <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>

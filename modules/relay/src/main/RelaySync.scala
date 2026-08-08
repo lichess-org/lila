@@ -33,7 +33,7 @@ final private class RelaySync(
       chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
     appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
     groupId <- groupRepo.idByTour(rt.tour.id)
-    result = SyncResult.Ok(updates ::: appends.flatten, plan)
+    result = SyncResult.Ok(updates ::: appends.flatten, plan, rt.withStudy(study))
     _ <- tourRepo.setSyncedNow(rt.tour)
     // because studies always have a chapter,
     // broadcasts without game have an empty initial chapter.
@@ -48,6 +48,7 @@ final private class RelaySync(
       teamLeaderboard.invalidate(rt.tour.id)
   yield
     Bus.publishDyn(result, SyncResult.roundBusChannel(rt.round.id))
+    Bus.publishDyn(result, SyncResult.tourBusChannel(rt.tour.id))
     groupId.foreach(g => Bus.publishDyn(result, SyncResult.groupBusChannel(g)))
     result
 
@@ -101,27 +102,21 @@ final private class RelaySync(
 
   private type NbMoves = Int
 
-  private def forceBranchesAsVariations(chapter: Chapter, game: RelayGame)(using by: Who): Fu[Unit] =
-    // moves that are not in the source but are in the study chapter,
+  private def forceTailMovesAsVariations(chapter: Chapter, gameMainline: UciPath)(using
+      by: Who
+  ): Fu[Unit] =
+    // tail moves that are not in the source but are in the study chapter,
     // should become forced variations in the study chapter
-    game.root.mainline
-      .foldLeft(List.empty[UciPath] -> UciPath.root):
-        case ((acc, parentPath), gameNode) =>
-          val nodePath = parentPath + gameNode.id
-          val localPaths = chapter.root
-            .nodeAt(parentPath)
-            .so: parentNode =>
-              parentNode.children.toList.collect:
-                case child if child.id != gameNode.id && !child.forceVariation =>
-                  parentPath + child.id
-          (acc ::: localPaths, nodePath)
-      ._1
-      .sequentiallyVoid: childPath =>
-        studyApi.forceVariation(
-          studyId = chapter.studyId,
-          position = Position(chapter, childPath).ref,
-          force = true
-        )(by)
+    gameMainline.nonEmpty.so:
+      chapter.root
+        .nodeAt(gameMainline)
+        .map(_.children.toList.map(gameMainline + _.id))
+        .foldMap(_.sequentiallyVoid: childPath =>
+          studyApi.forceVariation(
+            studyId = chapter.studyId,
+            position = Position(chapter, childPath).ref,
+            force = true
+          )(by))
 
   private def sendLastNode(study: Study, chapter: Chapter, game: RelayGame, gameMainlinePath: UciPath)(using
       Who,
@@ -145,23 +140,10 @@ final private class RelaySync(
               AddNode(
                 studyId = study.id,
                 positionRef = Position(chapter, gameMainlinePath.parent).ref,
-                node = _ => Right(lastMainlineNode),
+                node = (_, _) => Right(lastMainlineNode),
                 opts = moveOpts,
                 relay = makeRelayFor(game, gameMainlinePath).some
               )
-
-  private def promoteGameToMainline(study: Study, chapter: Chapter, gameMainlinePath: UciPath)(using
-      Who
-  ): Funit =
-    for
-      _ = logger.info(s"Change mainline ${showSC(study, chapter)} $gameMainlinePath")
-      _ <- studyApi.promote(
-        studyId = study.id,
-        position = Position(chapter, gameMainlinePath).ref,
-        toMainline = true
-      )
-      _ <- chapterRepo.setRelayPath(chapter.id, gameMainlinePath)
-    yield ()
 
   private def addNode(study: Study, chapter: Chapter, game: RelayGame, path: UciPath, node: Branch)(using
       Who,
@@ -173,7 +155,7 @@ final private class RelaySync(
         val node = AddNode(
           studyId = study.id,
           positionRef = position,
-          node = _ => Right(n),
+          node = (_, _) => Right(n),
           opts = moveOpts,
           relay = makeRelayFor(game, position.path + n.id).some
         )
@@ -214,11 +196,9 @@ final private class RelaySync(
     for
       gameMainlinePath = game.root.mainlinePath
       (path, newNodeOpt) = getNewNodeOrSetClockOfExisting(chapter, study, game)
-      _ <- forceBranchesAsVariations(chapter, game)
+      _ <- forceTailMovesAsVariations(chapter, gameMainlinePath)
       _ <- newNodeOpt.fold(sendLastNode(study, chapter, game, gameMainlinePath)): newNode =>
         addNode(study, chapter, game, path, newNode)
-      _ <- (chapter.root.children.nonEmpty && !gameMainlinePath.isMainline(chapter.root)).so:
-        promoteGameToMainline(study, chapter, gameMainlinePath)
     yield newNodeOpt.so(_.mainline.size)
 
   private def updateChapterTags(
@@ -315,7 +295,8 @@ final private class RelaySync(
 sealed trait SyncResult:
   val reportKey: String
 object SyncResult:
-  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan) extends SyncResult:
+  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan, in: RelayRound.WithTourAndStudy)
+      extends SyncResult:
     def nbMoves = chapters.foldLeft(0)(_ + _.newMoves)
     def hasMovesOrTags = chapters.exists(c => c.newMoves > 0 || c.tagUpdate)
     val reportKey = "ok"
@@ -328,4 +309,5 @@ object SyncResult:
   case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int, newEnd: Boolean)
 
   def roundBusChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"
+  def tourBusChannel(tourId: RelayTourId) = s"relaySyncResult:$tourId"
   def groupBusChannel(groupId: RelayGroupId) = s"relaySyncResult:$groupId"

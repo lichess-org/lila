@@ -16,6 +16,7 @@ import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 import lila.core.rating.UserRankMap
+import lila.core.data.Url
 
 object user:
 
@@ -193,7 +194,7 @@ object user:
     def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
-    def langOf(id: UserId): Fu[Option[String]]
+    def langOf(id: UserId): Fu[Option[LangTag]]
     def isKid[U: UserIdOf](id: U): Fu[KidMode]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
@@ -372,7 +373,7 @@ object user:
     val marathonTopFivehundred = "marathonTopFivehundred"
 
   trait TrophyApi:
-    def award(trophyUrl: String, userId: UserId, kindKey: String): Funit
+    def award(trophyUrl: Url, userId: UserId, kindKey: String): Funit
 
   trait CachedApi:
     def getTop50Online: Fu[List[UserWithPerfs]]

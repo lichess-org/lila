@@ -213,7 +213,8 @@
   }
 
   fieldset {
-    border: $border-width $border-style $c-border;
+    border: $border;
+    border-radius: $box-radius-size;
     padding: 1rem 1.5rem 1.5rem;
   }
 

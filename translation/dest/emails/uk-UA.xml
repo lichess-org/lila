@@ -18,6 +18,7 @@
 Отримуйте задоволення, і хай ваші фігури завжди знаходять шлях до короля суперника!</string>
   <string name="logInToLichess">Увійдіть до lichess.org, %s</string>
   <string name="common_orPaste">(Клік по посиланню не працює? Спробуйте вставити його в адресний рядок!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Посилання не працює? Спробуйте вставити його в адресний рядок!)</string>
   <string name="common_note">Це службовий лист, пов\'язаний із використанням %s.</string>
   <string name="common_contact">Щоб зв\'язатися з нами, будь ласка, використовуйте %s.</string>
 </resources>

@@ -1,4 +1,3 @@
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { MoveMetadata } from '@lichess-org/chessground/types';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
@@ -94,7 +93,7 @@ export class PromotionCtrl {
 
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
-    if (!promoting) return;
+    if (!promoting) return undefined;
     promoting.hooks.show?.(this, antichess ? [...PROMOTABLE_ROLES, 'king'] : PROMOTABLE_ROLES);
 
     return (
@@ -131,9 +130,9 @@ export class PromotionCtrl {
       g.setAutoShapes([
         {
           orig: dest,
-          piece: { color: opposite(g.state.turnColor), role, opacity: 0.8 },
+          piece: { color: opposite(g.state.turnColor), role },
           brush: '',
-        } as DrawShape,
+        },
       ]),
     );
   }

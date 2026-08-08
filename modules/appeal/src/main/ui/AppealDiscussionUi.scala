@@ -63,7 +63,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
                 userForm(appeal.topic, form, isNew = false)
               )
-          )
+          ),
+          appeal.isOpen.option:
+            postForm(cls := "appeal__withdraw", action := routes.Appeal.withdraw(appeal.topic))(
+              submitButton(
+                cls := "button button-red button-empty yes-no-confirm",
+                title := "Withdraw this appeal? This cannot be undone."
+              )("Withdraw appeal")
+            )
         ),
         userInactiveAppeals(appeals.filter(_ != appeal))
       )
@@ -106,7 +113,8 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
 
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
-    val userAppeals = relatedAppeals.count(_.user.is(user))
+    val userAppeals = relatedAppeals.filter(_.user.is(user))
+    val muted = userAppeals.exists(_.muted)
     ui.page(s"Appeal by ${user.username}"):
       main(cls := "appeal")(
         div(cls := "box box-pad")(
@@ -116,9 +124,9 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               span(cls := "appeal-topic")(appeal.topic.key),
               " appeal by ",
               userIdLink(user.some),
-              (userAppeals > 1).option:
+              (userAppeals.sizeIs > 1).option:
                 a(href := routes.Appeal.modShowAll(user.username), cls := "appeal__all")(
-                  small(s" ($userAppeals appeals)")
+                  small(s" (${userAppeals.size} appeals)")
                 )
             ),
             div(cls := "actions")(
@@ -202,6 +210,17 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                   ),
                   postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, true))(
                     form3.selectLowLevel("months", AppealForm.untilMonths, default = "Pause".some)
+                  ),
+                  postForm(action := routes.Appeal.toggleMute(appeal.user, appeal.topic, !muted))(
+                    if muted then
+                      submitButton("Un-mute")(
+                        cls := "button button-green button-empty"
+                      )
+                    else
+                      submitButton("Mute")(
+                        title := "Mute all appeals of this user",
+                        cls := "button button-red button-empty"
+                      )
                   ),
                   if appeal.topic == AppealTopic.blog
                   then a(href := routes.Ublog.index(user.username), cls := "button button-empty")("View blog")

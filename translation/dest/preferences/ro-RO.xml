@@ -58,12 +58,16 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
   <string name="notifyStreamStart">Un streamer e live</string>
   <string name="notifyInboxMsg">Mesaj nou</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Mesaj direct nou</string>
   <string name="notifyForumMention">Un comentariu din forum vă menționează</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Menţiuni forum</string>
   <string name="notifyInvitedStudy">Invitație la un studiu</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitații la studii</string>
   <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
   <string name="notifyChallenge">Provocări</string>
   <string name="notifyTournamentSoon">Turneul începe în curând</string>
-  <string name="notifyBroadcasts">Transmisiuni la care te-ai abonat</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Notificări la începerea turneelor</string>
+  <string name="notifyBroadcasts">Transmisiuni</string>
   <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondență e scurt</string>
   <string name="notifyBell">Notificare în Lichess</string>
   <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>

@@ -163,7 +163,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
           ),
           form3.split(
             form3.group(form("flag"), trans.site.countryRegion(), half = true): f =>
-              form3.select(f, flagPairs, default = "".some),
+              form3.select(f, flagPairs, default = trans.site.unknown.txt().some),
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(

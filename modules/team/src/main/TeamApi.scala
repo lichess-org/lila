@@ -9,6 +9,7 @@ import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -16,16 +17,18 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
+    updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifier: Notifier,
-    chatApi: lila.core.chat.ChatApi
+    notifyApi: NotifyApi,
+    chatApi: lila.core.chat.ChatApi,
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -50,6 +53,15 @@ final class TeamApi(
   def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
+
+  def show(team: Team)(using me: Option[Me]): Fu[Team.TeamShow] = for
+    leaders <- memberRepo.leaders(team.id)
+    member <- me.soUse(memberOf(team.id))
+    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(requestsWithUsers(team))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
+    update <- ((team.enabled && member.isDefined) || Granter.opt(_.ManageTeam))
+      .so(updateApi.teamLatest(team.id))
+  yield Team.TeamShow(team, leaders, member, myRequest, requests, update)
 
   def create(setup: TeamSetup)(using me: Me): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
@@ -87,8 +99,8 @@ final class TeamApi(
     old.copy(
       password = edit.password,
       intro = edit.intro,
-      description = edit.description,
-      descPrivate = edit.descPrivate,
+      description = edit.description.map(spam.replace),
+      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
       open = edit.isOpen,
       chat = edit.chat,
       forum = edit.forum,
@@ -209,8 +221,8 @@ final class TeamApi(
     then
       for
         _ <- requestRepo.remove(request.id)
-        userOption <- userApi.byId(request.user)
-        _ <- userOption.so(user => doJoin(team, user.id) >> notifier.acceptRequest(team, request))
+        _ <- doJoin(team, request.user)
+        _ <- notifyApi.notifyOne(request.user, NotificationContent.TeamJoined(team.id, team.name))
       yield ()
     else funit
   }.addEffect: _ =>

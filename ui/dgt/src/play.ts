@@ -542,7 +542,7 @@ export default function (token: string): void {
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] !== '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          const uciMove = <NormalMove>parseUci(moves[i]);
+          const uciMove = parseUci(moves[i]) as NormalMove;
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
@@ -580,7 +580,7 @@ export default function (token: string): void {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] !== '') {
             //Make the new move
-            const uciMove = <NormalMove>parseUci(moves[i]);
+            const uciMove = parseUci(moves[i]) as NormalMove;
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
@@ -927,7 +927,7 @@ export default function (token: string): void {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = parseSan(localBoard, SANMove) as NormalMove | undefined; //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');

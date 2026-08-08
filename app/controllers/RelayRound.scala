@@ -241,11 +241,15 @@ final class RelayRound(
         pgnStream(env.relay.pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
 
+  def streamTour(id: RelayTourId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.tourById(id)): tour =>
+      pgnStream(env.relay.pgnStream.streamTourGames(tour))
+
   def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.groupById(id)): group =>
       pgnStream(env.relay.pgnStream.streamGroupGames(group))
 
-  private def pgnStream(source: akka.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+  private def pgnStream(source: org.apache.pekko.stream.scaladsl.Source[PgnStr, ?])(using Context) =
     apiC.GlobalConcurrencyLimitPerIP.events(req.ipAddress)(source): limited =>
       Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 

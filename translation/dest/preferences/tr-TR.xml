@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Günlük yazışmalı oyunlarınızı listeleyen posta bildirimi alın</string>
   <string name="notifyStreamStart">Canlı yayın başladığında</string>
   <string name="notifyInboxMsg">Gelen kutusunda yeni bir mesaj</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Yeni özel mesaj</string>
   <string name="notifyForumMention">Sizden bahseden bir forum mesajı</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forum bahsetmeleri</string>
   <string name="notifyInvitedStudy">Çalışma daveti</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Çalışma davetleri</string>
   <string name="notifyGameEvent">Yazışmalı oyun güncellemeleri</string>
   <string name="notifyChallenge">Meydan okumalar</string>
   <string name="notifyTournamentSoon">Yakında başlayan turnuva</string>
-  <string name="notifyBroadcasts">Abone olduğunuz canlı turnuvalar</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Turnuva başlangıç hatırlatıcıları</string>
+  <string name="notifyBroadcasts">Canlı Turnuvalar</string>
   <string name="notifyTimeAlarm">Yazışmalı oyununuzda süreniz azalıyor</string>
   <string name="notifyBell">Lichess içinde çan bildirimi</string>
   <string name="notifyPush">Lichess\'te değilken cihaz bildirimleri</string>
@@ -74,11 +78,19 @@
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="showServerAnalysis">Sunucu analizini göster</string>
   <string name="showBestMoveArrows">En iyi hamle oklarını göster</string>
+  <string name="showManeuverArrows">Manevra oklarını göster</string>
   <string name="showGauge">Değerlendirme çubuğunu göster</string>
+  <string name="showMoveAnnotationsOnBoard">Hamle açıklamalarını göster</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
+  <string name="showLiveGlyphs">Canlı motor açıklamaları</string>
   <string name="showUndefendedPieces">Savunulmayan taşları göster</string>
+  <string name="showPinnedPieces">Açmazdaki taşları göster</string>
+  <string name="showCheckableKing">Çekilebilir şahı göster</string>
+  <string name="disclosureMode">Varyasyon gizlemeyi etkinleştir</string>
   <string name="generalSettings">Genel</string>
   <string name="moveListSettings">Hamle listesi</string>
   <string name="boardSettings">Tahta</string>
   <string name="analysisSettings">İnceleme Ayarları</string>
+  <string name="maneuverArrowsHelp">Bir taşın motor hamleleri dizisi</string>
+  <string name="hoverOverSettingLabelsForHelp">Yardım için ayar etiketlerinin üzerine gelin</string>
 </resources>

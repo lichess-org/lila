@@ -25,7 +25,7 @@ import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
-  if (!study) return;
+  if (!study) return undefined;
   const relayPlayers = study.relay?.players;
   const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
   const relayTeamLeaderboard = study.relay?.teamLeaderboard;

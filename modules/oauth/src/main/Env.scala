@@ -16,7 +16,7 @@ final class Env(
     appConfig: Configuration,
     baseUrl: BaseUrl,
     db: lila.db.Db
-)(using Executor, akka.stream.Materializer, play.api.Mode):
+)(using Executor, org.apache.pekko.stream.Materializer, play.api.Mode):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",
