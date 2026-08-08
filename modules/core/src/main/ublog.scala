@@ -25,18 +25,18 @@ enum BlogsBy:
   def name = toString
 
 object BlogsBy:
-  def fromName(name: String): Option[BlogsBy] = values.find(_.name == name)
+  val byName = values.mapBy(_.name)
 
 enum Quality:
   case spam, weak, good, great
   def name = toString
 
 object Quality:
-  def fromName(name: String): Option[Quality] = values.find(_.name == name)
+  val byName = values.mapBy(_.name)
 
 enum QualityFilter:
   case all, best, weak, spam
   def name = toString
 
 object QualityFilter:
-  def fromName(name: String): Option[QualityFilter] = values.find(_.name == name)
+  val byName = values.mapBy(_.name)

@@ -74,7 +74,7 @@ private object PrefHandlers:
         agreement = r.getD("agreement", 0),
         uiRoundness = r.getD("uiRoundness", d.uiRoundness),
         board = r.getD("board", d.board),
-        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | d.blogFilter,
+        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.byName.get) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
         tags = r.getD("tags", d.tags)

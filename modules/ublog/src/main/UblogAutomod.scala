@@ -99,8 +99,8 @@ private final class UblogAutomod(
     rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>
-        Quality
-          .fromName(res.quality)
+        Quality.byName
+          .get(res.quality)
           .map: q =>
             import Quality.*
             Assessment(
