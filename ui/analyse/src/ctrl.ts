@@ -308,6 +308,10 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.retro && this.data.game.variant.key !== 'racingKings')
       this.retro = makeRetro(this, this.bottomColor());
     if (this.practice) this.startCeval();
+    if (this.study?.recall) {
+      this.showGround();
+      this.study.recall.onFlip();
+    }
     this.explorer.onFlip();
     this.onChange();
     this.redraw();

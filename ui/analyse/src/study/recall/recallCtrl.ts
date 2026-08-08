@@ -1,7 +1,7 @@
 import type { Move } from 'chessops';
 import { makeUci } from 'chessops/util';
 
-import { prop, type Prop } from 'lib';
+import { prop, toggle, type Prop, type Toggle } from 'lib';
 import type { TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -12,8 +12,11 @@ const REPLY_DELAY_WITH_SHAPES = 3000;
 
 type Feedback = 'right' | 'wrong';
 
+export type State = Feedback | 'empty' | 'end' | 'play' | 'wait';
+
 export default class RecallCtrl {
   feedback: Prop<Feedback | null> = prop(null);
+  showMoves: Toggle = toggle(false);
   private replyTimeout?: number;
 
   constructor(
@@ -27,6 +30,7 @@ export default class RecallCtrl {
   onLoad = () => {
     this.clearReplyTimeout();
     this.feedback(null);
+    this.showMoves(false);
     this.maybePlayReply();
   };
 
@@ -35,7 +39,31 @@ export default class RecallCtrl {
     this.maybePlayReply();
   };
 
-  movableColor = (): Color | undefined => (this.isPlayerTurn() ? this.root.bottomColor() : undefined);
+  onFlip = () => {
+    this.clearReplyTimeout();
+    this.feedback(null);
+    this.maybePlayReply();
+  };
+
+  state = (): State =>
+    !this.root.tree.root.children.length
+      ? 'empty'
+      : this.isEndOfLine()
+        ? 'end'
+        : (this.feedback() ?? (this.isPlayerTurn() ? 'play' : 'wait'));
+
+  isEndOfLine = (): boolean => !this.currentNode().children.length;
+
+  hideMoves = (): boolean => !this.showMoves();
+
+  restart = () => {
+    this.feedback(null);
+    this.root.userJump('');
+  };
+
+  movableColor = (): Color | undefined => (this.canPlay() ? this.root.bottomColor() : undefined);
+
+  canPlay = (): boolean => this.isPlayerTurn() && !this.isEndOfLine();
 
   isPlayerTurn = (): boolean => this.root.turnColor() === this.root.bottomColor();
 
@@ -57,8 +85,7 @@ export default class RecallCtrl {
   };
 
   onMove = (move: Move): void => {
-    if (!this.isPlayerTurn()) {
-      this.onWrongMove();
+    if (!this.canPlay()) {
       this.root.jump(this.root.path);
       return;
     }
