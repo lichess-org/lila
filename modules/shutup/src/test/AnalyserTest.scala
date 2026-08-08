@@ -50,7 +50,7 @@ class AnalyserTest extends munit.FunSuite:
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
-    assertEquals(find("pnis pusy quer"), List("pnis", "pusy", "quer"))
+    assertEquals(find("kil killl pnis pusy quer"), List("kil", "killl", "pnis", "pusy", "quer"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
@@ -104,7 +104,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
 
   test("spanish inflection"):
-    assertEquals(find("hdp hdtpm madre"), List("hdp", "hdtpm", "madre"))
+    assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
 
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))
@@ -121,6 +121,8 @@ class AnalyserTest extends munit.FunSuite:
   test("with slash and plural"):
     assertEquals(find("/Vigger"), List("vigger"))
     assertEquals(find("V/igger"), List("vigger"))
+    assertEquals(find("n/gger"), List("ngger"))
+    assertEquals(find("n\\gger"), List("n\\gger"))
     assertEquals(find("/vigger"), List("vigger"))
     assertEquals(find("I like /Viggers"), List("viggers"))
 
