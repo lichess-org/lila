@@ -45,6 +45,7 @@
 
   .explorer-title {
     @extend %flex-center-nowrap;
+    @include backdrop-blur-if-transparent;
 
     align-items: stretch;
     font-size: 0.9rem;
@@ -148,7 +149,6 @@
     }
 
     tbody tr.sum {
-      /* sum row */
       background: color-mix(in oklab, $c-primary 25%, $c-bg);
       font-weight: bold;
 
@@ -160,6 +160,8 @@
       }
 
       td {
+        @include backdrop-blur-if-transparent;
+
         cursor: default;
       }
     }
