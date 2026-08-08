@@ -6,6 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.security.LilaCookie
 
 @Module
 final class Env(
@@ -33,7 +34,8 @@ final class Env(
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    baker: LilaCookie
 )(using
     Executor,
     Scheduler,
@@ -86,6 +88,8 @@ final class Env(
   lazy val pgnDump = wire[PgnDump]
 
   lazy val gifExport = GifExport(ws, appConfig.get[String]("game.gifUrl"))
+
+  lazy val formatStore = wire[ui.StudyFormatStore]
 
   def findConnectedUsersIn(studyId: StudyId)(filter: Iterable[UserId] => Fu[List[UserId]]): Fu[List[UserId]] =
     studyRepo

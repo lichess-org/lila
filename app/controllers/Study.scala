@@ -16,6 +16,8 @@ import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
+import lila.study.ui.StudyFormat
+import lila.study.ui.StudyFormatStore.given
 import lila.study.{ Who, Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeWriter
 import lila.ui.Page
@@ -63,10 +65,13 @@ final class Study(
 
   def allDefault(page: Int) = all(StudyOrder.hot, page)
 
-  def all(order: StudyOrder, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    allResults(order, page)
+  def all(order: StudyOrder, page: Int) =
+    OpenOrScoped(_.Study.Read, _.Web.Mobile):
+      allResults(order, page)
 
-  private def allResults(order: StudyOrder, page: Int)(using ctx: Context) =
+  private def allResults(order: StudyOrder, page: Int)(using
+      ctx: Context
+  ) =
     Reasonable(page):
       order match
         case order if !Orders.withoutSelector.contains(order) =>
@@ -81,7 +86,8 @@ final class Study(
             )
           yield res
 
-  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
+  def byOwnerDefault(username: UserStr, page: Int) =
+    byOwner(username, Orders.default, page)
 
   def byOwner(username: UserStr, order: StudyOrder, page: Int) = Open:
     Found(meOrFetch(username)): owner =>
@@ -107,10 +113,15 @@ final class Study(
 
   def mineLikes = MyStudyPager(env.study.pager.mineLikes, views.study.list.mineLikes)
 
+  def listFormat = Open:
+    val backUrl = HTTPRequest.referer(ctx.req) | routes.Study.allDefault().url
+    val cookie = get("format").flatMap(StudyFormat.byKey.get).map(env.study.formatStore.write)
+    cookie.foldLeft(Redirect(backUrl))(_.withCookies(_))
+
   private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
 
   private def MyStudyPager(
-      makePager: (StudyOrder, Int) => Me ?=> Fu[StudyPager],
+      makePager: (StudyOrder, Int) => Me ?=> StudyFormat ?=> Fu[StudyPager],
       render: (StudyPager, StudyOrder) => Context ?=> Me ?=> Fu[Page]
   ) = (order: StudyOrder, page: Int) =>
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
