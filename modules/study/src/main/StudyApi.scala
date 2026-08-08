@@ -158,23 +158,24 @@ final class StudyApi(
       transform: Study => Study = identity
   ): Fu[Option[Study.WithChapter]] = for
     pre <- studyMaker(data, user, withRatings)
-    chapter <- copyGameAnalysis(pre.chapter)
+    chapter <- linkGameAnalysis(pre.chapter)
     sc = pre.copy(study = transform(pre.study), chapter = chapter)
     _ <- chapterRepo.insert(sc.chapter)
     _ <- studyRepo.insert(sc.study)
   yield sc.some
 
-  private def copyGameAnalysis(chapter: Chapter): Fu[Chapter] =
+  private def linkGameAnalysis(chapter: Chapter): Fu[Chapter] =
     chapter.setup.gameId.fold(fuccess(chapter)): gameId =>
       analyser
         .byId(lila.tree.Analysis.Id(gameId))
         .map:
           _.fold(chapter): analysis =>
-            chapter.copy(
-              root = ServerEval.withAnalysis(chapter, analysis),
-              serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,
-              analysisGameId = gameId.some
-            )
+            ServerEval
+              .merge(chapter, analysis)
+              .copy(
+                serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,
+                analysisGameId = gameId.some
+              )
 
   def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =
     for
@@ -639,7 +640,7 @@ final class StudyApi(
             case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
-        maybeWithAnalysis <- copyGameAnalysis(chapter)
+        maybeWithAnalysis <- linkGameAnalysis(chapter)
         _ <- doAddChapter(study, maybeWithAnalysis, sticky, who)
       yield maybeWithAnalysis.some
 
