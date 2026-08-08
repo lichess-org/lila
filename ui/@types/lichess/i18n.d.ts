@@ -171,6 +171,8 @@ interface I18n {
     editTournament: string;
     /** Arena History */
     history: string;
+    /** How are players paired? */
+    howArePlayersPaired: string;
     /** How are scores calculated? */
     howAreScoresCalculated: string;
     /** A win has a base score of 2 points, a draw 1 point, and a loss is worth no points. */
@@ -2873,6 +2875,8 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so be ready for anything! Just like in real games. */
     mixDescription: string;
+    /** A bishop delivers checkmate to the king, while a rook helps confine it. */
+    morphyMateBishopAndRookDescription: string;
     /** Morphy's mate */
     morphysMate: string;
     /** Use the bishop to check the king, while your rook helps to confine it. */
@@ -2893,6 +2897,8 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** A rook delivers checkmate to the king, while a bishop helps confine it. */
+    pillsburyMateRookAndBishopDescription: string;
     /** Pillsbury's mate */
     pillsburysMate: string;
     /** The rook delivers checkmate, while the bishop helps to confine it. */
