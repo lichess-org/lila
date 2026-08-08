@@ -225,6 +225,7 @@ export class CevalCtrl {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
+    const level = this.opts.custom?.level?.();
     const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
     if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
       return;
@@ -242,6 +243,7 @@ export class CevalCtrl {
       ply: step.ply,
       search: search.by,
       multiPv: search.multiPv,
+      level,
       threatMode: s.threatMode,
       emit: this.makeThrottledEmitter(),
     };
