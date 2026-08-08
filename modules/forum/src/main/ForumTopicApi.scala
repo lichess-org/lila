@@ -27,7 +27,8 @@ final private class ForumTopicApi(
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    feedApi: lila.feed.FeedApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -51,19 +52,27 @@ final private class ForumTopicApi(
       }
       res <- data.so: (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator
-          .topicPosts(topic, page)
-          .flatMap: paginated =>
-            val authors = paginated.currentPageResults.flatMap(_.post.userId)
-            me.so(relationApi.filterBlocked(_, authors))
-              .map: blockedAuthors =>
-                (
-                  categ,
-                  topic,
-                  paginated.mapResults: p =>
-                    p.copy(hide = p.post.userId.so(blockedAuthors(_)))
-                ).some
+        isTopicVisible(topic).flatMap:
+          case false => fuccess(none)
+          case true =>
+            paginator
+              .topicPosts(topic, page)
+              .flatMap: paginated =>
+                val authors = paginated.currentPageResults.flatMap(_.post.userId)
+                me.so(relationApi.filterBlocked(_, authors))
+                  .map: blockedAuthors =>
+                    (
+                      categ,
+                      topic,
+                      paginated.mapResults(p => p.copy(hide = p.post.userId.so(blockedAuthors(_))))
+                    ).some
     yield res
+
+  private def isTopicVisible(topic: ForumTopic)(using me: Option[Me]): Fu[Boolean] =
+    topic.feedItemId match
+      case None => fuTrue
+      case Some(_) if me.exists(MasterGranter.of(_.Feed)) => fuTrue
+      case Some(feedItemId) => feedApi.get(feedItemId).map(_.exists(_.published))
 
   object findDuplicate:
     private val cache =
@@ -149,6 +158,51 @@ final private class ForumTopicApi(
       )
     }
 
+  def makeFeedTopic(feedItem: lila.feed.Feed.Update)(using me: Me): Fu[ForumTopic] =
+    categRepo
+      .byId(ForumCateg.feedId)
+      .flatMap:
+        case None => fufail("Missing feed forum category")
+        case Some(categ) =>
+          val topic = ForumTopic
+            .make(
+              categId = categ.id,
+              slug = ForumTopicSlug(feedItem.id),
+              name = feedItem.title,
+              userId = me.userId,
+              feedItemId = feedItem.id.some
+            )
+          topicRepo.coll.insert.one(topic).void.inject(topic)
+
+  def updateFeedTopic(feedItem: lila.feed.Feed.Update, discuss: Boolean): Funit =
+    feedItem.topicId
+      .so(topicRepo.byId)
+      .flatMapz: topic =>
+        topicRepo.coll.update.one($id(topic.id), topic.copy(name = feedItem.title)).void >>
+          topicRepo.close(topic.id, value = !discuss, byMod = true)
+
+  def feedTopics(
+      feedItems: Seq[lila.feed.Feed.Update]
+  ): Fu[Map[lila.feed.Feed.ID, lila.feed.Feed.Comments]] =
+    for
+      topics <- topicRepo.coll
+        .find($doc("feedItemId".$in(feedItems.map(_.id))) ++ $doc("closed" -> false))
+        .cursor[ForumTopic]()
+        .list(feedItems.size)
+      comments <- topics.parallel: topic =>
+        postRepo
+          .lastByTopic(topic)
+          .map: lastPost =>
+            topic.feedItemId.map: feedItemId =>
+              feedItemId -> lila.feed.Feed.Comments(
+                topic.id,
+                topic.slug,
+                topic.nbPosts,
+                lastPost.map(_.createdAt),
+                lastPost.flatMap(_.userId)
+              )
+    yield comments.flatten.toMap
+
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
@@ -212,7 +266,7 @@ final private class ForumTopicApi(
           for
             _ <- postRepo.removeByTopic(topic.id)
             _ <- topicRepo.remove(topic)
-            categOpt <- categRepo.byId(categId)
+            categOpt <- if topic.isFeed then fuccess(none[ForumCateg]) else categRepo.byId(categId)
           yield categOpt.foreach: cat =>
             for
               topics <- topicRepo.byCateg(cat.id)

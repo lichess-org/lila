@@ -1,6 +1,7 @@
 package lila.forum
 
 import scalalib.paginator.*
+import scalatags.Text.all.raw
 
 import lila.core.config.NetDomain
 import lila.db.dsl.*
@@ -9,6 +10,7 @@ import lila.db.paginator.Adapter
 final class ForumPaginator(
     topicRepo: ForumTopicRepo,
     postRepo: ForumPostRepo,
+    feedApi: lila.feed.FeedApi,
     config: ForumConfig,
     textExpand: ForumTextExpand
 )(using Executor):
@@ -31,16 +33,18 @@ final class ForumPaginator(
       me: Option[Me],
       netDomain: NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
-    Paginator(
-      Adapter[ForumPost](
-        collection = postRepo.coll,
-        selector = postRepo.forUser(me).selectTopic(topic.id),
-        projection = none,
-        sort = $sort.createdAsc
-      ).mapFutureList(textExpand.manyPosts),
-      currentPage = page,
-      maxPerPage = config.postMaxPerPage
-    )
+    topic.feedItemId.fold(
+      Paginator(
+        Adapter[ForumPost](
+          collection = postRepo.coll,
+          selector = postRepo.forUser(me).selectTopic(topic.id),
+          projection = none,
+          sort = $sort.createdAsc
+        ).mapFutureList(textExpand.manyPosts),
+        currentPage = page,
+        maxPerPage = config.postMaxPerPage
+      )
+    )(feedComments(topic, _, page))
 
   def categTopics(
       categ: ForumCateg,
@@ -79,4 +83,53 @@ final class ForumPaginator(
               yield TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), me)
 
         private def selector = topicRepo.forUser(me).byCategNotStickyQuery(categ.id)
+    )
+
+  private def feedComments(
+      topic: ForumTopic,
+      feedItemId: lila.feed.Feed.ID,
+      page: Int
+  )(using
+      me: Option[Me],
+      netDomain: NetDomain
+  ): Fu[Paginator[ForumPost.WithFrag]] =
+    Paginator(
+      currentPage = page,
+      maxPerPage = config.postMaxPerPage,
+      adapter = new AdapterLike[ForumPost.WithFrag]:
+        def nbResults = postRepo.forUser(me).countByTopic(topic).map(_ + 1)
+        def slice(offset: Int, length: Int) =
+          val insertFeedItem = offset == 0
+          val postOffset = if insertFeedItem then 0 else offset - 1
+          val nbToFetch = if insertFeedItem then length - 1 else length
+          for
+            feedItem <- feedApi.get(feedItemId)
+            posts <- postRepo
+              .forUser(me)
+              .coll
+              .find(postRepo.forUser(me).selectTopic(topic.id))
+              .sort($sort.createdAsc)
+              .skip(postOffset)
+              .cursor[ForumPost]()
+              .list(nbToFetch)
+            postFrags <- textExpand.manyPosts(posts)
+          yield feedItem
+            .filter(_ => insertFeedItem)
+            .map: item =>
+              ForumPost.WithFrag(
+                ForumPost(
+                  id = ForumPostId("feeditem"),
+                  topicId = topic.id,
+                  categId = topic.categId,
+                  author = "lichess".some,
+                  userId = none,
+                  text = item.content.value,
+                  troll = false,
+                  lang = none,
+                  createdAt = item.at,
+                  modIcon = true.some
+                ),
+                raw(item.rendered.value)
+              ) :: postFrags.toList
+            .getOrElse(postFrags)
     )
