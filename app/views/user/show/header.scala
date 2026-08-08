@@ -3,7 +3,6 @@ package show
 
 import lila.app.UiEnv.{ *, given }
 import lila.app.mashup.UserInfo
-import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
 import lila.web.ui.bits.splitNumber
@@ -61,17 +60,7 @@ object header:
               userDom(u)
             )
           case None => h1(userDom(u)),
-        div(cls := "trophies")(
-          views.user.bits.perfTrophies(u, info.ranks),
-          otherTrophies(info),
-          u.plan.active.option(
-            a(
-              href := routes.Plan.index(),
-              cls := "trophy award patron icon3d",
-              ariaTitle(trans.patron.patronSince.txt(showDate(u.plan.sinceDate)))
-            )(patronIconChar)
-          )
-        ),
+        div(cls := "trophies"),
         u.enabled.no.option(span(cls := "closed")("CLOSED"))
       ),
       div(cls := "user-show__social")(
