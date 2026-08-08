@@ -85,6 +85,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     pageHit
     Ok.page(views.site.page.faq)
 
+  def survey = Open:
+    pageHit
+    Ok.page(views.site.page.survey())
+
   def temporarilyDisabled(@annotation.nowarn path: String) = Open:
     pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
