@@ -38,7 +38,6 @@ body {
 
 .lobby__side {
   @extend %flex-column;
-  @include backdrop-blur-if-transparent;
 
   gap: $block-gap;
   overflow: hidden;
@@ -75,6 +74,7 @@ body {
 
 .about-side {
   @extend %page-text-shadow !optional;
+  @include backdrop-blur-if-transparent;
 
   margin-top: $block-gap;
 }
