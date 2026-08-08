@@ -17,9 +17,7 @@ object JsonApi:
 
     def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= 300)
 
-    case class Stockfish(
-        flavor: Option[String]
-    ):
+    case class Stockfish(flavor: Option[String], version: Option[String]):
       def isNnue = flavor.has("nnue")
 
     case class Acquire() extends Request

@@ -4,7 +4,7 @@ import chess.format.pgn.{ PgnStr, Tags }
 import monocle.syntax.all.*
 import alleycats.Zero
 
-import lila.tree.Node.{ Comment, Comments }
+import lila.tree.Node.{ Comment, Comments, Glyphs }
 import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root }
 
 trait LilaTest extends munit.FunSuite with EitherAssertions:
@@ -53,7 +53,7 @@ object Helpers:
       newBranch.shapes,
       newBranch.comments,
       newBranch.gamebook,
-      newBranch.glyphs,
+      Glyphs.fromBase(newBranch.glyphs),
       children.fold(Branches.empty)(_.toBranches),
       newBranch.comp,
       newBranch.clock,
@@ -79,7 +79,7 @@ object Helpers:
         root.shapes,
         root.comments,
         root.gamebook,
-        root.glyphs,
+        Glyphs.fromBase(root.glyphs),
         root.tree.fold(Branches.empty)(_.toBranches),
         root.clock,
         root.crazyData
