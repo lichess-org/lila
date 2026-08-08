@@ -105,22 +105,5 @@
         }
       }
     }
-
-    #url {
-      padding: 0.5rem 0.5rem 0.7rem;
-      display: flex;
-      align-items: center;
-
-      label {
-        margin: 0 1rem 0 0.5rem;
-        font-size: 1rem;
-      }
-
-      input {
-        padding: 0.5rem;
-        flex: 1 1 auto;
-        background-color: #181818dd;
-      }
-    }
   }
 }
