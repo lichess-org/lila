@@ -32,9 +32,9 @@ const clockX = (dur: number) => {
   return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
 };
 
-function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, number]) {
-  const bottom = Math.max(0, ratingY(hook.rating) - translate[1]),
-    left = Math.max(0, clockX(hook.t) - translate[0]),
+function renderPlot(ctrl: LobbyController, hook: Hook) {
+  const bottom = Math.max(0, ratingY(hook.rating)),
+    left = Math.max(0, clockX(hook.t)),
     klass = [
       hook.id,
       'plot.new',
@@ -118,13 +118,6 @@ export function toggle(ctrl: LobbyController) {
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
-  let translate: [number, number] = [0, 0];
-  const chart = document.querySelector('.hooks__chart') as HTMLElement;
-  if (chart) {
-    const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
-    translate = [(fontSize / chart.clientWidth) * 95, (fontSize / chart.clientHeight) * 75];
-  }
-
   return h('div.hooks__chart', [
     h(
       'div.canvas',
@@ -138,7 +131,7 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
           ctrl.redraw,
         ),
       },
-      hooks.map(hook => renderPlot(ctrl, hook, translate)),
+      hooks.map(hook => renderPlot(ctrl, hook)),
     ),
     ...renderYAxis(),
     ...renderXAxis(),
