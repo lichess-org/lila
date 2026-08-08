@@ -266,7 +266,7 @@ final class Ublog(env: Env) extends LilaController(env):
         _ <- logModAction(post, "reassess")
       yield Ok.snip(
         views.ublog.post.modTools(
-          post.copy(automod = mod.orElse(post.automod), featured = none),
+          post.copy(automod = mod.flatMap(_.automod).orElse(post.automod), featured = none),
           isInCarousel = false
         )
       )
