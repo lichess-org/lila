@@ -10,11 +10,10 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.memo.CacheApi.buildAsyncTimeout
-import lila.core.ublog.BlogsBy
+import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
 import lila.core.user.KidMode
-import lila.core.ublog.Quality
 
 final class UblogApi(
     colls: UblogColls,
@@ -32,6 +31,7 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
   import UblogBlog.Tier
+  import UblogAutomod.Assessment
 
   val carouselSizeSetting =
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
@@ -62,9 +62,9 @@ final class UblogApi(
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
-    triggerAutomod(post).foreach: newPost =>
+    triggerAutomod(post).foreach: res =>
       if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, newPost, blog)
+      then sendPostToZulip(author.light, post, blog, res)
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
@@ -184,13 +184,14 @@ final class UblogApi(
   private def sendPostToZulip(
       user: LightUser,
       post: UblogPost,
-      blog: UblogBlog
+      blog: UblogBlog,
+      assessment: Option[UblogAutomod.Assessment]
   ): Funit =
     val source =
       if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier"
-      else post.automod.fold("unknown")(_.quality.name) + " quality"
+      else assessment.fold("unknown")(_.quality.name) + " quality"
     val emdashes = post.markdown.value.count(_ == '—')
-    val automodNotes = post.automod.map: r =>
+    val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n") +
         emdashes.match
@@ -207,18 +208,15 @@ final class UblogApi(
       automodNotes
     )
 
-  def triggerAutomod(post: UblogPost): Fu[Option[UblogPost]] =
+  def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 1 // 30s, 1m, 2m, 4m, 8m
-    def attempt(n: Int): Fu[Option[UblogPost]] =
+    def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
           val result = post.automod.foldLeft(llm): (llm, prev) =>
             prev.updateByLLM(llm)
-          for
-            trustedAuthor <- isAuthorTrusted(post.created.by)
-            newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
-            _ <- updateQualityFields(newPost)
-          yield newPost.some
+          for _ <- colls.post.updateField($id(post.id), "automod", result)
+          yield result.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
@@ -304,26 +302,27 @@ final class UblogApi(
       _ <- tier.so(onTierChange(id, _))
     yield ()
 
-  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[UblogPost] =
-    val newPost = post.moderate(d)
-    updateQualityFields(newPost).inject(newPost)
-
-  private def updateQualityFields(post: UblogPost): Funit =
-    val sets = $doc("quality" -> post.quality) ++
-      post.automod.so(a => $doc("automod" -> a)) ++
-      post.modQuality.so(mq => $doc("modQuality" -> mq))
-    colls.post.update.one($id(post.id), $set(sets)).void
-
-  private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
-    val nbPosts = 5
-    colls.post
-      .find($doc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), $doc("quality" -> true).some)
-      .sort($sort.desc("lived.at"))
-      .cursor[Bdoc](ReadPref.sec)
-      .list(nbPosts)
-      .map: docs =>
-        val qualities = docs.flatMap(_.getAsOpt[Quality]("quality"))
-        qualities.size == nbPosts && qualities.forall(_ == Quality.good)
+  def modPost(
+      post: UblogPost,
+      d: UblogForm.ModPostData
+  )(using mod: Me): Fu[Option[UblogAutomod.Assessment]] =
+    def maybeCopy(v: Option[String], base: Option[String]) =
+      v match
+        case Some("") => none // form sends empty string to unset
+        case None => base
+        case _ => v
+    if !d.hasUpdates then fuccess(post.automod)
+    else
+      val base = post.automod.getOrElse(Assessment(quality = Quality.good))
+      val assessment = Assessment(
+        quality = d.quality | base.quality,
+        evergreen = d.evergreen.orElse(base.evergreen),
+        flagged = maybeCopy(d.flagged, base.flagged),
+        commercial = maybeCopy(d.commercial, base.commercial),
+        lockedBy = mod.some
+      )
+      for _ <- colls.post.updateField($id(post.id), "automod", assessment)
+      yield assessment.some
 
   def setFeatured(post: UblogPost, data: UblogForm.ModPostData)(using
       me: Me
