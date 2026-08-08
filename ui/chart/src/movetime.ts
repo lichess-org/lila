@@ -13,6 +13,7 @@ import {
 import { COLORS } from 'chessops';
 
 import { pubsub } from 'lib/pubsub';
+import type { TreeNodeBase } from 'lib/tree/types';
 
 import division from './division';
 import {
@@ -27,6 +28,9 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  glyphProperties,
+  nodesWithGlyphByColor,
+  analysisIsPartial,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 
@@ -54,6 +58,7 @@ export default async function (
   const blueLineColor = '#3893e8';
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
+  const adviceHoverColors: { white: string[]; black: string[] } = { white: [], black: [] };
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
@@ -93,6 +98,7 @@ export default async function (
       pointStyles[colorName].push('circle');
       pointRadius[colorName].push(0);
     }
+    adviceHoverColors[colorName].push(glyphProperties(node).color ?? orangeAccent);
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
     const label = [i18n.site.nbSeconds(Number(seconds))];
@@ -219,8 +225,11 @@ export default async function (
 
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  pubsub.on('ply', movetimeChart.selectPly);
+  pubsub.on('ply', (ply: number, isMainline?: boolean) => movetimeChart.selectPly(ply, isMainline ?? false));
   pubsub.emit('ply.trigger');
+  if (!analysisIsPartial(data)) {
+    christmasTree(movetimeChart, data.treeParts, adviceHoverColors);
+  }
   return movetimeChart;
 }
 
@@ -246,3 +255,39 @@ const formatClock = (centis: number) => {
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
 };
+
+function christmasTree(
+  chart: PlyChart,
+  mainline: TreeNodeBase[],
+  hoverColors: { white: string[]; black: string[] },
+) {
+  $('div.advice-summary')
+    .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
+      const symbol = this.getAttribute('data-symbol');
+      const color = this.getAttribute('data-color') === 'white' ? 'white' : 'black';
+      if (symbol === '??' || symbol === '?!' || symbol === '?') {
+        const points = nodesWithGlyphByColor(mainline, symbol, color).map(node => ({
+          datasetIndex: COLORS.indexOf(color),
+          index: Math.floor((node.ply - mainline[0].ply - 1) / 2),
+        }));
+        const movetimeDataset = chart.data.datasets[COLORS.indexOf(color)];
+        movetimeDataset.hoverBackgroundColor = hoverColors[color];
+        movetimeDataset.pointHoverBackgroundColor = hoverColors[color];
+        movetimeDataset.pointHoverBorderColor = hoverColors[color];
+        chart.setActiveElements(points);
+        chart.update('none');
+      }
+    })
+    .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
+      chart.setActiveElements([]);
+      COLORS.forEach((_c, i) => {
+        const dataset = chart.data.datasets[i];
+        dataset.pointHoverBorderColor = orangeAccent;
+        dataset.hoverBackgroundColor = undefined;
+        dataset.pointHoverBackgroundColor = undefined;
+      });
+      chart.update('none');
+    });
+}
