@@ -660,6 +660,16 @@ export default class AnalyseCtrl implements CevalHandler {
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
 
+  async pruneToMainline(path: TreePath): Promise<void> {
+    const nodeList = this.tree.getNodeList(path);
+    for (let i = 0; i < nodeList.length - 1; i++) {
+      if (nodeList[i].forceVariation) delete nodeList[i].forceVariation;
+      nodeList[i].children = [nodeList[i + 1]];
+    }
+    this.jump(path);
+    this.redraw();
+  }
+
   promote(path: TreePath, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
