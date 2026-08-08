@@ -27,7 +27,8 @@ final private class ForumTopicApi(
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    searchApi: lila.search.SearchClient
 )(using Executor):
 
   import BSONHandlers.given
@@ -106,6 +107,7 @@ final private class ForumTopicApi(
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
             _ <- postRepo.coll.insert.one(post)
+            _ <- searchApi.upsert(lila.search.SearchClient.Index.Forum, post.id)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
@@ -153,6 +155,7 @@ final private class ForumTopicApi(
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
     _ <- postRepo.coll.insert.one(post)
+    _ <- searchApi.upsert(lila.search.SearchClient.Index.Forum, post.id)
   yield Bus.pub(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg)(using me: Option[Me]): Fu[List[TopicView]] = for
@@ -210,7 +213,9 @@ final private class ForumTopicApi(
         case None => funit
         case Some(topic) =>
           for
+            ids <- postRepo.idsByTopicId(topic.id)
             _ <- postRepo.removeByTopic(topic.id)
+            _ <- ids.traverse(searchApi.delete(lila.search.SearchClient.Index.Forum, _))
             _ <- topicRepo.remove(topic)
             categOpt <- categRepo.byId(categId)
           yield categOpt.foreach: cat =>

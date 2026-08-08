@@ -20,7 +20,8 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     db: lila.db.Db,
     mongoRateLimitApi: lila.memo.MongoRateLimitApi,
-    spamApi: lila.core.security.SpamApi
+    spamApi: lila.core.security.SpamApi,
+    elastic: lila.search.SearchClient
 )(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
@@ -51,6 +52,8 @@ final class Env(
   lazy val security = wire[TeamSecurity]
 
   lazy val api = wire[TeamApi]
+
+  lazy val searchApi = wire[TeamSearchApi]
 
   wire[TeamClasSync]
 
