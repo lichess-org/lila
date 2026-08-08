@@ -115,6 +115,8 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
   <string name="predefinedUsers">Sadece önceden belirlenen oyuncular katılabilir</string>
   <string name="forbiddedUsers">Eğer bu liste boş değilse, listede adı yer almayan kullanıcıların katılması yasaklanacaktır. Her satır için bir kullanıcı adı.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Her satıra bir kullanıcı adı girin. Yalnızca bu oyuncular katılabilir.
+Tüm uygun oyunculara izin vermek için boş bırakın.</string>
   <string name="playYourGames">Oyunlarınızı oynayın</string>
   <string name="byes">Hoşça kal</string>
   <string name="absences">Devamsızlıklar</string>
