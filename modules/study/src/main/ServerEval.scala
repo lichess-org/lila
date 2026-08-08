@@ -6,7 +6,6 @@ import play.api.libs.json.*
 
 import lila.core.perm.Granter
 import lila.core.relay.GetCrowd
-import lila.db.dsl.bsonWriteOpt
 import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
 
@@ -60,86 +59,18 @@ object ServerEval:
       case Analysis.Id.Study(studyId, chapterId) =>
         sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
+            val merged =
+              ServerEval
+                .merge(chapter, analysis)
+                .copy(
+                  analysisGameId = none,
+                  serverEval = chapter.serverEval.map(_.copy(done = complete))
+                )
             for
-              _ <- chapterRepo.removeAnalysisGameId(chapter.id)
-              _ <- complete.so(chapterRepo.completeServerEval(chapter))
-              _ <- chapter.root.mainline
-                .zip(analysis.infoAdvices)
-                .foldM(chapter.root -> UciPath.root):
-                  case ((root, path), (node, (info, advOpt))) =>
-                    saveAnalysis(chapter, root, node, path, info, advOpt)
-                .void
+              _ <- chapterRepo.update(merged)
               _ <- sendProgress(studyId, chapterId, analysis).logFailure(logger)
             yield ()
       case _ => funit
-
-    private def saveAnalysis(
-        chapter: Chapter,
-        root: Root,
-        node: Branch,
-        path: UciPath,
-        info: Info,
-        advOpt: Option[Advice]
-    ): Future[(Root, UciPath)] =
-
-      val nextPath = path + node.id
-
-      def saveAnalysisLine(): Fu[Root] =
-        val merged = root
-          .nodeAt(path)
-          .flatMap: parent =>
-            analysisLine(parent, chapter.setup.variant, info).map: line =>
-              val subTree = line
-                .copy(children = line.children.updateAllWith(_.setComp))
-                .setComp
-              val updatedRoot = mergeAnalysis(root, path, subTree)
-              updatedRoot -> updatedRoot.nodeAt(path).flatMap(_.children.get(subTree.id))
-        merged match
-          case Some((updatedRoot, Some(subTree))) =>
-            chapterRepo.addSubTree(chapter, subTree, path, none).inject(updatedRoot)
-          case Some((updatedRoot, None)) => fuccess(updatedRoot)
-          case None => fuccess(root)
-
-      def saveInfoAdvice() =
-        import BSONHandlers.given
-        import lila.db.dsl.given
-        import lila.study.Node.BsonFields as F
-        val saveScore = info.eval.score.isDefined && node.eval.isEmpty
-        val saveAdvice = advOpt.isDefined && !node.comments.hasLichessComment
-        (saveScore || saveAdvice)
-          .so(
-            chapterRepo
-              .setNodeValues(
-                chapter,
-                nextPath,
-                List(
-                  F.score -> BSONHandlers
-                    .writeEval(info.eval.copy(static = true).some)
-                    .filter(_ => saveScore),
-                  F.comments -> advOpt
-                    .map: adv =>
-                      node.comments + Comment(
-                        Comment.Id.make,
-                        adv.makeComment(false),
-                        Comment.Author.Lichess,
-                        comp = true
-                      )
-                    .flatMap(bsonWriteOpt),
-                  F.glyphs -> advOpt
-                    .map: adv =>
-                      node.glyphs.merge(
-                        NodeGlyphs.fromBase(BaseGlyphs.fromList(List(adv.judgment.glyph)), comp = true)
-                      )
-                    .flatMap(bsonWriteOpt)
-                )
-              )
-          )
-
-      saveAnalysisLine()
-        .flatMap: updatedRoot =>
-          saveInfoAdvice().inject(updatedRoot -> nextPath)
-
-    end saveAnalysis
 
     private def sendProgress(
         studyId: StudyId,
@@ -177,6 +108,9 @@ object ServerEval:
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
+
+  def merge(chapter: Chapter, analysis: Analysis): Chapter =
+    chapter.copy(root = withAnalysis(chapter, analysis))
 
   def withAnalysis(chapter: Chapter, analysis: Analysis): Root =
     chapter.root.mainline
