@@ -238,7 +238,6 @@ export default class StudyCtrl {
     );
 
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
-    this.recall = data.chapter.recall ? new RecallCtrl(ctrl, this.redraw) : undefined;
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
     else if (
@@ -254,7 +253,7 @@ export default class StudyCtrl {
     if (this.members.canContribute()) this.form.openIfNew();
 
     this.instantiateGamebookPlay();
-    this.configurePractice();
+    this.configureRecall();
 
     studyKeyboard(this);
 
@@ -345,6 +344,9 @@ export default class StudyCtrl {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
     if (this.data.chapter.practice) this.ctrl.togglePractice(true);
     this.practice?.onLoad();
+  };
+
+  configureRecall = () => {
     if (this.data.chapter.recall) {
       this.recall ??= new RecallCtrl(this.ctrl, this.redraw);
       this.recall.onLoad();
@@ -411,6 +413,7 @@ export default class StudyCtrl {
     this.vm.justSetChapterId = undefined;
 
     this.configurePractice();
+    this.configureRecall();
     this.serverEval.reset();
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
