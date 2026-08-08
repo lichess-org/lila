@@ -291,14 +291,16 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
         "serverEval",
         Chapter.ServerEval(
           path = chapter.root.mainlinePath,
-          done = false,
-          version = chapter.serverEval.so(_.version)
+          done = false
         )
       )
     .void
 
   def completeServerEval(chapter: Chapter) =
     coll(_.updateField($id(chapter.id) ++ "serverEval".$exists(true), "serverEval.done", true)).void
+
+  def removeAnalysisGameId(chapterId: StudyChapterId): Funit =
+    coll(_.unsetField($id(chapterId) ++ "analysisGameId".$exists(true), "analysisGameId")).void
 
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))

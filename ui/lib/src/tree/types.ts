@@ -24,6 +24,7 @@ export type ClientEval = CloudEval | LocalEval;
 
 export interface ServerEval extends EvalScore {
   best?: Uci | '(none)';
+  static?: boolean;
   fen: FEN;
   knodes: number;
   depth: number;

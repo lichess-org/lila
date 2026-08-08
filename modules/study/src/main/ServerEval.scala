@@ -61,77 +61,85 @@ object ServerEval:
         sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
             for
+              _ <- chapterRepo.removeAnalysisGameId(chapter.id)
               _ <- complete.so(chapterRepo.completeServerEval(chapter))
-              _ <-
-                if chapter.serverEval.exists(_.version.exists(_ >= 1)) then funit
-                else // this else block is legacy support for analyses that are in flight at the moment
-                  chapter.root.mainline // Chapter.ServerEval.version >= 1 goes live. both this else block
-                    .zip(analysis.infoAdvices) // and saveAnalysis below could be removed next deploy
-                    .foldM(UciPath.root):
-                      case (path, (node, (info, advOpt))) =>
-                        saveAnalysis(chapter, node, path, info, advOpt)
-                    .void
+              _ <- chapter.root.mainline
+                .zip(analysis.infoAdvices)
+                .foldM(chapter.root -> UciPath.root):
+                  case ((root, path), (node, (info, advOpt))) =>
+                    saveAnalysis(chapter, root, node, path, info, advOpt)
+                .void
               _ <- sendProgress(studyId, chapterId, analysis).logFailure(logger)
             yield ()
       case _ => funit
 
     private def saveAnalysis(
         chapter: Chapter,
+        root: Root,
         node: Branch,
         path: UciPath,
         info: Info,
         advOpt: Option[Advice]
-    ): Future[UciPath] =
+    ): Future[(Root, UciPath)] =
 
       val nextPath = path + node.id
 
-      def saveAnalysisLine() =
-        chapter.root
+      def saveAnalysisLine(): Fu[Root] =
+        val merged = root
           .nodeAt(path)
           .flatMap: parent =>
-            analysisLine(parent, chapter.setup.variant, info).map: subTree =>
-              parent.addChild(subTree) -> subTree
-          .so: (_, subTree) =>
-            chapterRepo.addSubTree(chapter, subTree, path, none)
+            analysisLine(parent, chapter.setup.variant, info).map: line =>
+              val subTree = line
+                .copy(children = line.children.updateAllWith(_.setComp))
+                .setComp
+              val updatedRoot = mergeAnalysis(root, path, subTree)
+              updatedRoot -> updatedRoot.nodeAt(path).flatMap(_.children.get(subTree.id))
+        merged match
+          case Some((updatedRoot, Some(subTree))) =>
+            chapterRepo.addSubTree(chapter, subTree, path, none).inject(updatedRoot)
+          case Some((updatedRoot, None)) => fuccess(updatedRoot)
+          case None => fuccess(root)
 
       def saveInfoAdvice() =
         import BSONHandlers.given
         import lila.db.dsl.given
         import lila.study.Node.BsonFields as F
-        ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment))
+        val saveScore = info.eval.score.isDefined && node.eval.isEmpty
+        val saveAdvice = advOpt.isDefined && !node.comments.hasLichessComment
+        (saveScore || saveAdvice)
           .so(
             chapterRepo
               .setNodeValues(
                 chapter,
                 nextPath,
                 List(
-                  F.score -> info.eval.score
-                    .ifTrue:
-                      node.eval.isEmpty ||
-                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                    .flatMap(bsonWriteOpt),
+                  F.score -> BSONHandlers
+                    .writeEval(info.eval.copy(static = true).some)
+                    .filter(_ => saveScore),
                   F.comments -> advOpt
                     .map: adv =>
                       node.comments + Comment(
                         Comment.Id.make,
                         adv.makeComment(false),
-                        Comment.Author.Lichess
+                        Comment.Author.Lichess,
+                        comp = true
                       )
                     .flatMap(bsonWriteOpt),
                   F.glyphs -> advOpt
                     .map: adv =>
-                      node.glyphs.merge(NodeGlyphs.fromBase(BaseGlyphs.fromList(List(adv.judgment.glyph))))
+                      node.glyphs.merge(
+                        NodeGlyphs.fromBase(BaseGlyphs.fromList(List(adv.judgment.glyph)), comp = true)
+                      )
                     .flatMap(bsonWriteOpt)
                 )
               )
           )
 
       saveAnalysisLine()
-        >> saveInfoAdvice().inject(nextPath)
+        .flatMap: updatedRoot =>
+          saveInfoAdvice().inject(updatedRoot -> nextPath)
 
     end saveAnalysis
-
-    def merge(chapter: Chapter, analysis: Analysis): Root = withAnalysis(chapter, analysis)
 
     private def sendProgress(
         studyId: StudyId,
@@ -142,14 +150,11 @@ object ServerEval:
         .byId(chapterId)
         .flatMapz: chapter =>
           reallySendToChapter(studyId, chapter).mapz:
-            val tree =
-              if chapter.serverEval.exists(_.version.exists(_ >= 1)) then merge(chapter, analysis)
-              else chapter.root // compatibility for fishnet jobs spanning restart can be removed next deploy
             socket.onServerEval(
               studyId,
               ServerEval.Progress(
                 chapterId = chapter.id,
-                tree = tree,
+                tree = chapter.root,
                 analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
@@ -182,21 +187,39 @@ object ServerEval:
           val withLine = root
             .nodeAt(path)
             .flatMap(parent => analysisLine(parent, chapter.setup.variant, info))
-            .map(line => line.copy(children = line.children.updateAllWith(_.setComp)).setComp)
-            .fold(root): line =>
-              if path.isEmpty then root.addChild(line)
-              else root.updateChildrenAt(path, _.addChild(line)) | root
+            .map: line =>
+              mergeAnalysis(root, path, line.copy(children = line.children.updateAllWith(_.setComp)).setComp)
+            .getOrElse(root)
           val annotated = withLine.updateChildrenAt(nextPath, annotate(_, info, advOpt)) | withLine
           annotated -> nextPath
       ._1
 
-  def bake(root: Root): Root =
-    root.copy(
-      comments = root.comments.bake,
-      glyphs = root.glyphs.bake,
-      children = root.children.updateAllWith: node =>
-        node.copy(comments = node.comments.bake, glyphs = node.glyphs.bake, comp = false)
-    )
+  private[study] def mergeAnalysis(root: Root, path: UciPath, line: Branch): Root =
+    root
+      .nodeAt(path)
+      .fold(root): parent =>
+        val children = mergeAnalysisChildren(parent.children, line, parent.comp)
+        if path.isEmpty then root.copy(children = children)
+        else root.updateChildrenAt(path, _.copy(children = children)) | root
+
+  private def mergeAnalysisChildren(
+      children: lila.tree.Branches,
+      line: Branch,
+      isParentComp: Boolean
+  ): lila.tree.Branches = children.get(line.id) match
+    case None =>
+      val nodes = children.toList
+      val insertAt = isParentComp.option(nodes.indexWhere(!_.comp)).getOrElse(nodes.size)
+      lila.tree.Branches:
+        if insertAt < 0 then nodes :+ line
+        else nodes.patch(insertAt, List(line), 0)
+    case Some(existing) =>
+      children.update(
+        existing.copy(
+          children = line.children.toList.foldLeft(existing.children): (merged, child) =>
+            mergeAnalysisChildren(merged, child, isParentComp || line.comp)
+        )
+      )
 
   private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
     val setup = chess.Position.AndFullMoveNumber(variant, root.fen)
@@ -222,7 +245,8 @@ object ServerEval:
 
   private def annotate(node: Branch, info: Info, advOpt: Option[Advice]): Branch =
     val withEval =
-      if info.eval.score.isDefined && node.eval.isEmpty then node.copy(eval = info.eval.some)
+      if info.eval.score.isDefined && node.eval.isEmpty then
+        node.copy(eval = info.eval.copy(static = true).some)
       else node
     advOpt.fold(withEval): adv =>
       val comments =

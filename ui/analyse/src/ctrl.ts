@@ -57,7 +57,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData, hasUserContent, mergeMainlineAnalysis } from './util';
+import { treeReconstruct, addCrazyData, hasUserContent } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -246,8 +246,6 @@ export default class AnalyseCtrl implements CevalHandler {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
-    if (this.data.evalTree)
-      mergeMainlineAnalysis(this.tree.root, completeNode(this.variantKey)(this.data.evalTree));
     treeOps.updateAll(this.tree.root, this.ensureServerEvalNodes);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
@@ -656,7 +654,10 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.settings.showStaticAnalysis && node.eval);
+    return (
+      (this.cevalEnabled() && node.ceval) ||
+      ((!node.eval?.static || this.settings.showStaticAnalysis) && node.eval)
+    );
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
@@ -940,7 +941,7 @@ export default class AnalyseCtrl implements CevalHandler {
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     const tree = completeNode(this.variantKey)(data.tree);
-    mergeMainlineAnalysis(this.tree.root, tree);
+    this.tree.merge(tree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
     this.data.treeParts.forEach(this.ensureServerEvalNodes);
     this.data.analysis = data.analysis;

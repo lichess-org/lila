@@ -9,7 +9,7 @@ import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
 import lila.study.BSONHandlers.given
 import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
-import lila.tree.{ NewRoot, Root }
+import lila.tree.{ Branch, NewRoot, Root, evals }
 
 // in lila.study to have access to PgnImport
 class BsonHandlersTest extends munit.FunSuite:
@@ -72,24 +72,44 @@ class BsonHandlersTest extends munit.FunSuite:
     assert(old.get[NodeGlyphs]("g").value.toList.forall(!_.comp))
     assert(!old.get[Comment]("c").comp)
 
-  test("baking server evaluation materializes nodes and glyphs"):
+  test("static evaluation provenance survives tree BSON round trip"):
     val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
     val path = root.mainlinePath
-    val withServerEval = root.copy(
-      children = root.children.updateAllWith: node =>
-        node.copy(
-          comp = true,
-          glyphs = NodeGlyphs
-            .fromBase(BaseGlyphs.fromList(BaseGlyph.find(1).toList))
-            .merge(NodeGlyphs.fromBase(BaseGlyphs.fromList(BaseGlyph.find(4).toList), comp = true))
-        )
+    val static = root.updateChildrenAt(path, _.copy(eval = evals.initial.copy(static = true).some)).get
+    val imported = root.updateChildrenAt(path, _.copy(eval = evals.initial.some)).get
+    assert(treeBson.reads(treeBson.writes(w, static)).nodeAt(path).flatMap(_.eval).exists(_.static))
+    assert(!treeBson.reads(treeBson.writes(w, imported)).nodeAt(path).flatMap(_.eval).exists(_.static))
+
+    val staticNode = static.nodeAt(path).collect { case branch: Branch => branch }.get
+    val importedNode = imported.nodeAt(path).collect { case branch: Branch => branch }.get
+    val staticBson = BSONHandlers.writeBranch(staticNode)
+    assertEquals(
+      staticBson.getAsOpt[Bdoc]("e").flatMap(_.getAsOpt[chess.eval.Score]("st")),
+      staticNode.eval.flatMap(_.score)
     )
-    val baked = ServerEval.bake(withServerEval)
-    val node = baked.nodeAt(path).get
-    assert(baked.children.hasNonComp)
-    assert(!node.comp)
-    assertEquals(node.glyphs.toBase, BaseGlyphs.fromList(BaseGlyph.find(4).toList))
-    assert(node.glyphs.value.toList.forall(!_.comp))
+    assertEquals(staticBson.getAsOpt[Boolean]("st"), None)
+    assertEquals(
+      BSONHandlers.writeBranch(importedNode).getAsOpt[chess.eval.Score]("e"),
+      importedNode.eval.flatMap(_.score)
+    )
+
+  test("engine continuations stay first after their shared initial branch"):
+    val userRoot = StudyPgnImport.result("1. e4 e5 2. Nf3 Nc6", Nil).toOption.get.root
+    val engineLine = StudyPgnImport
+      .result("1. e4 c5 2. Nf3 d6", Nil)
+      .toOption
+      .get
+      .root
+      .children
+      .first
+      .map: line =>
+        line.copy(children = line.children.updateAllWith(_.setComp)).setComp
+      .get
+    val merged = ServerEval.mergeAnalysis(userRoot, chess.format.UciPath.root, engineLine)
+    val sharedInitial = merged.children.first.get
+    assert(!sharedInitial.comp)
+    assertEquals(sharedInitial.children.first.map(_.move.san.value), Some("c5"))
+    assert(sharedInitial.children.first.exists(_.comp))
 
   test("deleting a node prunes comp ancestors and their server eval continuation"):
     val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root

@@ -22,7 +22,6 @@ object Engine:
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
-  def copyToChapter(gameId: GameId, studyId: StudyId, chapterId: StudyChapterId): Fu[Boolean]
 
 trait Annotator:
   def toPgnString(pgn: Pgn): PgnStr

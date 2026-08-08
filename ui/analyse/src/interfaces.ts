@@ -52,7 +52,6 @@ export interface AnalyseData {
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
   treeParts: TreeNodeBase[];
-  evalTree?: TreeNodeLite;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
