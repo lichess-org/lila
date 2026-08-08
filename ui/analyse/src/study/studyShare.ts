@@ -243,7 +243,7 @@ export function view(ctrl: StudyShare): VNode {
 
 function shortcutsDialog(ctrl: StudyShare) {
   const shortcut = {
-    name: `${ctrl.data.name} • ${ctrl.chapter().name}`,
+    name: `${ctrl.data.name} ${i18n.site.sep} ${ctrl.chapter().name}`,
     iconKey: 'StudyBoard',
     url: `/study/${ctrl.studyId}/${ctrl.chapter().id}`,
   };
