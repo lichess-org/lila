@@ -20,5 +20,5 @@
   <string name="declineStandard">Тренутно не прихватам изазове у варијантама.</string>
   <string name="declineVariant">Тренутно не желим да играм ову варијанту.</string>
   <string name="declineNoBot">Не прихватам изазове од ботова.</string>
-  <string name="declineOnlyBot">Прихватам само изазове од ботова.</string>
+  <string name="declineOnlyBot">Само прихватам изазове од ботова.</string>
 </resources>

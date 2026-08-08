@@ -585,13 +585,13 @@
   <string name="pause">Pauza</string>
   <string name="resume">Wznów</string>
   <string name="youArePlaying">Grasz!</string>
-  <string name="winRate">Współczynnik zwycięstw</string>
+  <string name="winRate">Zwycięstw</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
   <string name="movesPlayed">Wykonanych ruchów</string>
-  <string name="whiteWins">Wygranych białych</string>
-  <string name="blackWins">Wygranych czarnych</string>
-  <string name="drawRate">Częstość remisowania</string>
+  <string name="whiteWins">Wygrana białych</string>
+  <string name="blackWins">Wygrana czarnych</string>
+  <string name="drawRate">Remisów</string>
   <string name="draws">Remisów</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="boardEditor">Edytor pozycji</string>
