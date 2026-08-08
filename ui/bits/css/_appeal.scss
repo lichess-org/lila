@@ -111,6 +111,103 @@
     padding-bottom: 2em;
   }
 
+  .appeal-info,
+  .appeal-accounts {
+    .form-actions {
+      border-top: none;
+      padding-top: 1em;
+      justify-content: flex-end;
+    }
+  }
+
+  .appeal-info {
+    &__terms {
+      margin: 0 0 1.5em;
+
+      p {
+        margin-bottom: 0.8em;
+      }
+    }
+
+    &__agree {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .appeal-accounts {
+    p {
+      margin-bottom: 1em;
+    }
+
+    &__choice {
+      margin-bottom: 1em;
+    }
+
+    &__option {
+      @extend %flex-center;
+
+      gap: 0.5em;
+      margin-bottom: 0.6em;
+    }
+
+    textarea {
+      @extend %box-radius;
+
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 0.6em 0.8em;
+      border: $border;
+      background: $c-bg-box;
+      color: $c-font;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+
+    &__forgotten {
+      margin-bottom: 1em;
+    }
+  }
+
+  &__accounts {
+    margin-bottom: 1.5em;
+
+    h3 {
+      margin-bottom: 0.5em;
+    }
+
+    &__row {
+      @extend %flex-center;
+
+      align-items: flex-start;
+      gap: 1em;
+      margin-bottom: 0.35em;
+    }
+
+    &__label {
+      flex: 0 0 12em;
+      color: $c-font-dim;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    &__value {
+      flex: 1 1 auto;
+      min-width: 0;
+      line-height: 1.5;
+    }
+
+    &__text {
+      @extend %box-radius;
+
+      white-space: pre-wrap;
+      margin: 0;
+      padding: 0.35em 0.6em;
+      background: $c-bg-zebra;
+    }
+  }
+
   .appeal-closed {
     margin-top: 3em;
   }

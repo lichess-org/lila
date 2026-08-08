@@ -10,6 +10,10 @@ object AppealTopicApi:
   val irrelevant = Set(AppealTopic.play, AppealTopic.chat, AppealTopic.legacy)
   val relevant = AppealTopic.values.filterNot(irrelevant).toList
 
+  private val exemptFromAccountsQuestion =
+    Set(AppealTopic.warning, AppealTopic.blog, AppealTopic.arena, AppealTopic.report)
+  def requiresAccounts(topic: AppealTopic): Boolean = !exemptFromAccountsQuestion(topic)
+
   private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
     List(
