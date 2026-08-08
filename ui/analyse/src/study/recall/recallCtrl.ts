@@ -45,6 +45,8 @@ export default class RecallCtrl {
     this.maybePlayReply();
   };
 
+  destroy = () => this.clearReplyTimeout();
+
   state = (): State =>
     !this.root.tree.root.children.length
       ? 'empty'

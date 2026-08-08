@@ -348,7 +348,10 @@ export default class StudyCtrl {
     if (this.data.chapter.recall) {
       this.recall ??= new RecallCtrl(this.ctrl, this.redraw);
       this.recall.onLoad();
-    } else this.recall = undefined;
+    } else {
+      this.recall?.destroy();
+      this.recall = undefined;
+    }
   };
 
   onReload = (d: ReloadData) => {
