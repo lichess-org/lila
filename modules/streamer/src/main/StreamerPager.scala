@@ -2,6 +2,7 @@ package lila.streamer
 
 import reactivemongo.api.*
 import scalalib.paginator.{ AdapterLike, Paginator }
+import scalalib.model.Language
 
 import lila.db.dsl.{ *, given }
 
@@ -17,11 +18,12 @@ final class StreamerPager(
   def get(
       page: Int,
       live: LiveStreams,
-      requests: Boolean
+      requests: Boolean,
+      lang: Option[Language]
   )(using Option[MyId]): Fu[Paginator[Streamer.WithContext]] = Paginator(
     currentPage = page,
     maxPerPage = maxPerPage,
-    adapter = if requests then approval else notLive(live)
+    adapter = if requests then approval else notLive(live, lang)
   )
 
   def nextRequestId: Fu[Option[Streamer.Id]] = coll.primitiveOne[Streamer.Id](
@@ -30,7 +32,9 @@ final class StreamerPager(
     "_id"
   )
 
-  private def notLive(live: LiveStreams)(using me: Option[MyId]): AdapterLike[Streamer.WithContext] = new:
+  private def notLive(live: LiveStreams, lang: Option[Language])(using
+      me: Option[MyId]
+  ): AdapterLike[Streamer.WithContext] = new:
 
     def nbResults: Fu[Int] = fuccess(1000)
 
@@ -43,11 +47,14 @@ final class StreamerPager(
               "approval.granted" -> true,
               "listed" -> Streamer.Listed(true),
               "_id".$nin(live.streams.map(_.streamer.id))
-            )
+            ) ++ lang.fold($doc())(l => $doc("lastStreamLang" -> l))
           ) -> List(
             Sort(Descending("liveAt")),
             Skip(offset),
-            Limit(3),
+            Limit(
+              length
+            ), /*  was hardcoded to 3, causing Skip's offset (based on maxPerPage) to overshoot and silently drop streamers between pages, like 20
+             */
             PipelineOperator(userLookup),
             UnwindField("user")
           )

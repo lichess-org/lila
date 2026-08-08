@@ -6,6 +6,7 @@ import lila.core.config.NetDomain
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import scalalib.model.Language
 
 final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: NetDomain):
   import helpers.{ *, given }
@@ -26,7 +27,9 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
   def index(
       live: List[Streamer.WithUserAndStream],
       pager: Paginator[Streamer.WithContext],
-      requests: Boolean
+      requests: Boolean,
+      lang: Option[Language],
+      langCodes: Set[String]
   )(using ctx: Context) =
 
     def widget(s: Streamer.WithContext, stream: Option[Stream]) =
@@ -63,6 +66,8 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
       )
 
     val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
+    val availableLangs = langCodes.toList.sorted
+    val langSelections = ("all" -> "All languages") :: availableLangs.map(code => code -> code)
     Page(title)
       .css("bits.streamer.list")
       .js(infiniteScrollEsmInit)
@@ -70,7 +75,20 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
-            boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
+            boxTop(
+              h1(dataIcon := Icon.Mic, cls := "text")(title),
+              div(cls := "box__top__actions")(
+                lila.ui.bits.mselect(
+                  "streamer-lang",
+                  lang.fold("All languages")(_.value),
+                  langSelections.map: (code, name) =>
+                    a(
+                      href := routes.Streamer.index(lang = if code == "all" then None else Some(code)).url,
+                      cls := (code == lang.fold("all")(_.value)).option("current")
+                    )(name)
+                )
+              )
+            ),
             (!requests).option:
               div(cls := "list force-ltr live"):
                 live.map: s =>
@@ -85,10 +103,8 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                 np =>
                   addQueryParams(
                     routes.Streamer.index().url,
-                    Map(
-                      "page" -> np.toString,
-                      "requests" -> (if requests then 1 else 0).toString
-                    )
+                    Map("page" -> np.toString, "requests" -> (if requests then 1 else 0).toString) ++ lang
+                      .map(l => "lang" -> l.value)
                   )
               )
             )
