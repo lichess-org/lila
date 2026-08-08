@@ -138,6 +138,7 @@
 
 .practice-box .setting {
   @extend %flex-center-nowrap;
+
   justify-content: space-between;
   padding: 6px 10px;
   background: $c-bg-zebra;
