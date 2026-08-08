@@ -76,3 +76,15 @@
     opacity: 0;
   }
 }
+
+.pocket {
+  @include mq-is-col1 {
+    margin-inline-start: 0;
+  }
+
+  .pocket-c1 {
+    @include mq-is-col1 {
+      max-width: 12.5vmin;
+    }
+  }
+}
