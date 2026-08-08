@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">您的账户未被标记或限制。一切正常！</string>
-  <string name="engineMarked">您的账户因在对局中使用外部辅助而被标记。</string>
+  <string name="engineMarked">您的账户因在对局中使用引擎/电脑辅助工具而受到限制！</string>
   <string name="engineMarkedInfo">我们将其定义为：使用任何外部帮助来增强您的棋艺知识和/或计算能力，从而获取相对于对手的不公平优势。详情请参见 %s 页面。</string>
   <string name="arenaBanned">您的账户被禁止加入竞技场。</string>
   <string name="prizeBanned">您的账户被禁止参加有真实奖品的锦标赛。</string>
-  <string name="boosterMarked">您的账户因操纵等级分而被标记。</string>
-  <string name="boosterMarkedInfo">我们将其定义为：通过故意输棋或与故意输棋的另一个账户对弈，来蓄意操纵等级分。</string>
+  <string name="boosterMarked">您的账户因刷分/共享账户而受到限制！</string>
   <string name="accountMuted">您的账户已被禁言。</string>
-  <string name="accountMutedInfo">请阅读我们的 %s。未能遵守沟通准则可能导致账户被禁言。</string>
+  <string name="accountMutedInfo">请阅读我们的%s。未能遵守沟通准则可能导致账户被禁言。</string>
   <string name="excludedFromLeaderboards">您的账户已被排除在排行榜之外。</string>
-  <string name="excludedFromLeaderboardsInfo">我们将其定义为：使用任何不公平手段进入排行榜。</string>
+  <string name="onlyOneAccountOnLeaderboards">每位用户仅可有一个账户出现在排行榜上。</string>
   <string name="closedByModerators">您的账户已被管理员关闭。</string>
-  <string name="hiddenBlog">您的博客已被版主隐藏。</string>
-  <string name="hiddenBlogInfo">请务必重新阅读我们的 %s。</string>
+  <string name="blogRestriction">您的博客受到限制！</string>
+  <string name="blogRestrictionInfo">请阅读我们的%s，违反这些规则可能会导致不同的处理措施。</string>
   <string name="playTimeout">您处于禁赛期。</string>
+  <string name="reportBanned">您无法向版主发送举报</string>
+  <string name="reportBannedInfo">我们注意到您的举报系统使用存在滥用行为。这可能是由多种原因导致，例如持续选择错误的举报类别、使用粗俗、不当或冒犯性语言、举报对局数量过多，或未能说明您认为对手违规的理由。</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">您的账户暂时被限制对弈！</string>
   <string name="communicationGuidelines">沟通准则</string>
-  <string name="blogRules">博客规则</string>
+  <string name="blogEtiquette">博客礼仪</string>
   <string name="fairPlay">公平竞赛</string>
 </resources>

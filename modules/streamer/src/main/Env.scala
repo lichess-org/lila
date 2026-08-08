@@ -1,6 +1,6 @@
 package lila.streamer
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.core.config.NetConfig,
     langList: lila.core.i18n.LangList
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using scheduler: Scheduler)(using Executor, org.apache.pekko.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]

@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">А тепер довга відповідь! Затримка гри складається з двох непов\'язаних значень (менше - краще):</string>
   <string name="lichessServerLatency">Затримка серверу Lichess</string>
   <string name="lichessServerLatencyExplanation">Час, необхідний для обробки ходу на сервері. Він однаковий для всіх і залежить лише від завантаженості сервера. Чим більше гравців, тим він більший, але розробники Lichess роблять все можливе, щоб утримати його низьким. Він рідко перевищує 10мс.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">Час, за який сервер опрацьовує хід. Він однаковий для всіх і залежить лише від навантаження на сервер: що більше гравців грає, то більше навантаження. Ми намагаємося тримати час низьким, тому він рідко перевищує 10 мс.</string>
   <string name="networkBetweenLichessAndYou">З\'єднання між Lichess і вами</string>
   <string name="networkBetweenLichessAndYouExplanation">Час, необхідний для передачі ходу з вашого комп\'ютера до сервера Lichess та отримання відповіді. Він залежить від вашої відстані до Lichess (Франція) та якості вашого інтернет-з\'єднання. Розробники Lichess не можуть виправляти ваш Wi-Fi або прискорити швидкість світла.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Ви можете знайти обидва ці значення в будь-який час, натиснувши на своє ім\'я користувача на верхній панелі.</string>

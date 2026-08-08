@@ -196,6 +196,6 @@ Bonde = 1</string>
   <string name="next">Neste</string>
   <string name="nextX">Neste: %s</string>
   <string name="backToMenu">Attende til menyen</string>
-  <string name="puzzleFailed">Oppgava vart ikke løyst!</string>
+  <string name="puzzleFailed">Oppgåva vart ikke løyst!</string>
   <string name="retry">Prøv på nytt</string>
 </resources>

@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { blurIfEscape } from 'lib';
 import { throttle } from 'lib/async';
 import { licon } from 'lib/licon';
-import { bindSubmit, alert, testId } from 'lib/view';
+import { bindSubmit, alert, testId, onInsert } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';
 import type { User } from '../interfaces';
@@ -24,7 +24,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     [
       renderTextarea(ctrl, user),
       h('button.msg-app__convo__post__submit.button', {
-        class: { connected },
+        class: { 'button-green': connected, disabled: !connected },
         attrs: {
           type: 'submit',
           'data-icon': licon.PlayTriangle,
@@ -39,11 +39,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
 function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
   return h('textarea.msg-app__convo__post__text', {
     attrs: { rows: 1, enterkeyhint: 'send', ...testId('msg-textarea') },
-    hook: {
-      insert(vnode) {
-        setupTextarea(vnode.elm as HTMLTextAreaElement, user.id, ctrl);
-      },
-    },
+    hook: onInsert<HTMLTextAreaElement>(el => setupTextarea(el, user.id, ctrl)),
   });
 }
 

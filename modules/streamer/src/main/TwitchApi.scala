@@ -1,7 +1,7 @@
 package lila.streamer
 
 import scala.collection.concurrent.TrieMap
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -59,7 +59,7 @@ final private class TwitchApi(
     cfg: TwitchConfig,
     net: NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import Twitch.{ given, * }
 

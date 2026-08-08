@@ -90,13 +90,14 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PrizeBan extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case ModMessage extends Permission("MOD_MESSAGE", "Send mod messages")
   case Impersonate extends Permission("IMPERSONATE", "Impersonate")
-  case DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")
+  case RelayStream extends Permission("RELAY_STREAM", "Broadcast Live stream")
   case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
   case Cli extends Permission("CLI", "Command line")
-  case Settings extends Permission("SETTINGS", "Lila settings")
+  case Settings
+      extends Permission("SETTINGS", "Lila settings base permission") // tho most settings require SUPER_ADMIN
   case Streamers extends Permission("STREAMERS", "Manage streamers")
   case Verified extends Permission("VERIFIED", "Verified badge")
   case Pages extends Permission("PAGES", "Lichess pages")
@@ -104,7 +105,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MonitoredCheatMod extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
   case MonitoredBoostMod extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
   case MonitoredCommMod extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
-  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay), "Study/Broadcast admin")
+  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay, RelayStream), "Study/Broadcast admin")
   case ApiHog extends Permission("API_HOG", "API hog")
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
@@ -242,7 +243,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          Feed
+          Feed,
+          Settings
         ),
         "Admin"
       )
@@ -256,7 +258,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FullCommsExport,
           PayPal,
           Cli,
-          Settings,
           TitleRequest
         ),
         "Super Admin"

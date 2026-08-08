@@ -144,6 +144,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
         ),
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
+        s.settings.payouts.map(gathering.payouts),
         s.looksLikePrize.option(gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.gathering.Thematic.byFen(p.opening))

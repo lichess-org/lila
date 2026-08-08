@@ -1,6 +1,6 @@
 package lila.api
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
 import bloomfilter.mutable.BloomFilter
@@ -15,7 +15,7 @@ final class GameStreamByOauthOrigin(
     gameRepo: lila.game.GameRepo,
     tokenApi: lila.oauth.AccessTokenApi,
     lightUserGet: lila.core.LightUser.GetterSync
-)(using akka.stream.Materializer, Executor):
+)(using org.apache.pekko.stream.Materializer, Executor):
 
   private val streamUserId = UserId.t3
   private val origin = Origin("https://auth.taketaketake.com")
@@ -81,7 +81,7 @@ final class GameStreamByOauthOrigin(
     var nbGames = 0
     val startedAt = nowInstant
     val startStream = Source
-      .queue[Game](300, akka.stream.OverflowStrategy.dropHead)
+      .queue[Game](300, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
         streams.open(ua)
         lila.log.system.info(s"gameStream OPEN  $logMsg")

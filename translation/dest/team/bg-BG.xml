@@ -30,17 +30,11 @@
   <string name="willBeReviewed">Вашата заявка за присъединяване ще бъде прегледана от лидер на отбора.</string>
   <string name="beingReviewed">Вашата заявка за присъединяване се преглежда от лидер на отбора.</string>
   <string name="requestDeclined">Вашата заявка за присъединяване беше отказана от лидер на отбора.</string>
-  <string name="subToTeamMessages">Абонирайте се за съобщения от отбора</string>
   <string name="teamBattle">Отборна битка</string>
   <string name="teamBattleOverview">Битка между няколко отбора, всеки играч печели точки за своя отбор</string>
   <string name="teamTournament">Отборен турнир</string>
   <string name="teamTournamentOverview">Арена турнир, към който могат да се присъединят само членове на Вашия отбор</string>
   <string name="swissTournamentOverview">Турнир по щвейцарската система в който могат да участват само членове на клуба</string>
-  <string name="messageAllMembers">Съобщете на всички членове</string>
-  <string name="messageAllMembersOverview">Изпрати лично съобщение до всеки член на отбора</string>
-  <string name="messageAllMembersLongDescription">Изпратете лично съобщение до ВСИЧКИ от отбора.
-Можете да използвате това, за да извикате играчи да се присъединят към турнир или отборна битка.
-Играчите, които не обичат да получават вашите съобщения, могат да напуснат отбора.</string>
   <string name="teamsIlead">Отбори, които аз ръководя</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Може да искате да дадете линк към един от тези предстоящи турнири?</string>
   <string name="leadersChat">Чат на лидерите</string>

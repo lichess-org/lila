@@ -201,7 +201,7 @@ final class RelayJsonView(
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
-  def search(tours: Paginator[WithLastRound])(using Config, Translate) =
+  def search(tours: Paginator[WithLastRound | RelayCard])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
 object RelayJsonView:

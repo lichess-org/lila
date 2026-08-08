@@ -963,7 +963,6 @@
   <string name="xInvitedYouToY">%1$s inviterte deg til «%2$s».</string>
   <string name="youAreNowPartOfTeam">Du er nå med på laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i «%1$s».</string>
-  <string name="someoneYouReportedWasBanned">Noen du rapporterte, ble utestengt</string>
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>

@@ -122,6 +122,7 @@
       display: flex;
       align-items: center;
       gap: 1em;
+      flex-wrap: wrap;
 
       select {
         flex: 1;

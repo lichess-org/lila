@@ -74,6 +74,10 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="rankAvgHelp">El promedio de clasificación es un porcentaje de tu clasificación. Más bajo es mejor.
 
 Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el puesto 10 en un torneo de 1000 jugadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Su valoración media representa su posición final típica relativa al número total de jugadores del torneo. 
+Esta medida se refiere a su lugar en el torneo, no a su valoración general. 
+
+Por ejemplo, una valoración media del 3% significa que ha finalizado en el 3% superior, como podría ser el número 30 de 1.000 jugadores.</string>
   <string name="medians">medianas</string>
   <string name="allAveragesAreX">Todos los promedios en esta página son %s.</string>
   <string name="total">Total</string>

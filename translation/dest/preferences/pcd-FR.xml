@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Email quotidien de la liste de vos parties par correspondance</string>
   <string name="notifyStreamStart">Le diffuseur passe en direct</string>
   <string name="notifyInboxMsg">Nouveau message</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nouveau message</string>
   <string name="notifyForumMention">Un commentaire du forum vous mentionne</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Nom mentionné dans le forum</string>
   <string name="notifyInvitedStudy">Invitation à une étude</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitations à une étude</string>
   <string name="notifyGameEvent">Mise à jour des parties par correspondance</string>
   <string name="notifyChallenge">Défis</string>
   <string name="notifyTournamentSoon">Le tournoi va bientôt commencer</string>
-  <string name="notifyBroadcasts">Diffusions auxquelles vous vous êtes abonnées</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Rappel de début de tournois</string>
+  <string name="notifyBroadcasts">Diffusions</string>
   <string name="notifyTimeAlarm">Le temps de la partie par correspondance est presque épuisé</string>
   <string name="notifyBell">Notification sonore sur Lichess</string>
   <string name="notifyPush">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>

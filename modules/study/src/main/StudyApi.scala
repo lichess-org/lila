@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
@@ -31,7 +31,12 @@ final class StudyApi(
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer, lila.core.fide.GetPlayer, lila.core.fide.Federation.GetName)(using
+)(using
+    Executor,
+    org.apache.pekko.stream.Materializer,
+    lila.core.fide.GetPlayer,
+    lila.core.fide.Federation.GetName
+)(using
     scheduler: Scheduler
 ) extends lila.core.study.StudyApi:
 
@@ -249,41 +254,51 @@ final class StudyApi(
       position: Position
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
-    args
-      .node(position.chapter.setup.variant)
-      .map(_.withoutChildren)
-      .fold(
-        err => fufail(err.toString),
-        node =>
-          if node.ply >= Node.MAX_PLIES then fuccess(none)
-          else if position.chapter.isOverweight then
-            logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-            reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
-            fuccess(none)
-          else
-            position.chapter.addNode(node, position.path, relay) match
-              case None =>
-                reloadSriBecauseOf(study, who.sri, position.chapter.id)
-                fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
-              case Some(chapter) =>
-                chapter.root.nodeAt(position.path).so { parent =>
-                  parent.children.get(node.id).so { node =>
-                    val newPosition = position.ref + node
-                    for
-                      _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
-                      _ <-
-                        if opts.sticky
-                        then studyRepo.setPosition(study.id, newPosition)
-                        else fuccess(setStudyUpdated(study))
-                      _ = sendTo(study.id):
-                        _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                      isMainline = newPosition.path.isMainline(chapter.root)
-                      promoteToMainline = opts.promoteToMainline && !isMainline
-                    yield promoteToMainline.option: () =>
-                      promote(study.id, position.ref + node, toMainline = true)
-                  }
-                }
-      )
+    position.chapter.root
+      .nodeAt(position.path)
+      .so: fromNode =>
+        args
+          .node(position.chapter.setup.variant, fromNode.fen)
+          .map(_.withoutChildren)
+          .fold(
+            err => fufail(err.toString),
+            node =>
+              if node.ply >= Node.MAX_PLIES then fuccess(none)
+              else if position.chapter.isOverweight then
+                logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+                reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
+                fuccess(none)
+              else
+                position.chapter.addNode(node, position.path, relay) match
+                  case None =>
+                    reloadSriBecauseOf(study, who.sri, position.chapter.id)
+                    fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+                  case Some(chapter) =>
+                    chapter.root.nodeAt(position.path).so { parent =>
+                      parent.children.get(node.id).so { node =>
+                        val newPosition = position.ref + node
+                        for
+                          _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
+                          _ <-
+                            if opts.sticky
+                            then studyRepo.setPosition(study.id, newPosition)
+                            else fuccess(setStudyUpdated(study))
+                          _ = sendTo(study.id):
+                            _.addNode(
+                              position.ref,
+                              node,
+                              chapter.setup.variant,
+                              sticky = opts.sticky,
+                              relay,
+                              who
+                            )
+                          isMainline = newPosition.path.isMainline(chapter.root)
+                          promoteToMainline = opts.promoteToMainline && !isMainline
+                        yield promoteToMainline.option: () =>
+                          promote(study.id, position.ref + node, toMainline = true)
+                      }
+                    }
+          )
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):

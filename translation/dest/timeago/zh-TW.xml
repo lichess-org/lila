@@ -22,9 +22,9 @@
   <plurals name="inNbYears">
     <item quantity="other">%s年後</item>
   </plurals>
-  <string name="rightNow">現在</string>
+  <string name="rightNow">正在進行</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="other">%s分前</item>
+    <item quantity="other">%s分鐘前</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="other">%s小時前</item>
@@ -42,10 +42,10 @@
     <item quantity="other">%s年前</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
-    <item quantity="other">剩下 %s 分鐘</item>
+    <item quantity="other">還剩 %s 分鐘</item>
   </plurals>
   <plurals name="nbHoursRemaining">
-    <item quantity="other">剩下 %s 小時</item>
+    <item quantity="other">還剩 %s 小時</item>
   </plurals>
   <string name="completed">已結束</string>
 </resources>

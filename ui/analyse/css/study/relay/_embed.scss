@@ -29,7 +29,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     grid-template-areas:
       'board gauge side'
       'board gauge tools'
-      'board . controls';
+      'board gauge controls';
 
     .main-board {
       align-self: center;
@@ -37,6 +37,10 @@ main.analyse.is-relay:not(.has-relay-tour) {
 
     .relay-tour__side {
       margin-top: 0;
+    }
+
+    .eval-gauge {
+      align-self: center;
     }
   }
 

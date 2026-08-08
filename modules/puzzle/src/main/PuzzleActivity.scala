@@ -1,13 +1,13 @@
 package lila.puzzle
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 
-final class PuzzleActivity(colls: PuzzleColls)(using Executor, akka.actor.ActorSystem):
+final class PuzzleActivity(colls: PuzzleColls)(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import PuzzleActivity.*
   import BsonHandlers.given

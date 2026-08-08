@@ -90,9 +90,11 @@ function signupStart() {
 
   $form.on('submit', () => {
     const responseEl = $form.find('[name="cf-turnstile-response"]');
-    if (!responseEl.length || responseEl.val())
+    if (!responseEl.length || responseEl.val()) {
       $form.find('button.submit').prop('disabled', true).addClass('button-empty').html(spinnerHtml);
-    else return false;
+      return true;
+    }
+    return false;
   });
 
   $form.find('.password-generator button').on('click', () => {
@@ -106,8 +108,7 @@ function signupStart() {
   $password.on('input', showPasswordTools);
   showPasswordTools();
 
-  if ($form.find('.password-complexity-meter').length)
-    void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+  void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
 }
 
 function initTextClear(form: HTMLFormElement) {

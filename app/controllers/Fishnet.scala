@@ -7,7 +7,7 @@ import play.api.mvc.*
 
 import scala.util.{ Failure, Success }
 
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
@@ -63,23 +63,29 @@ final class Fishnet(env: Env) extends LilaController(env):
       f: lila.fishnet.Client => A => FuRaise[Result, Option[JsonApi.Work]]
   )(using Reads[A]) =
     AnonBodyOf(parse.tolerantJson): body =>
-      (HTTPRequest.bearer(req), Client.Version.readFromUA).tupled.so: (bearer, version) =>
-        api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
-          case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
-          case Success(client) =>
-            if !JsonApi.Request.isValid(body) then BadRequest
-            else
-              body
-                .validate[A]
-                .fold(
-                  err =>
-                    lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
-                    BadRequest(jsonError(JsError.toJson(err)))
-                  ,
-                  data =>
-                    allow:
-                      f(client)(data).map:
-                        _.map(Json.toJson).fold(NoContent)(Accepted(_))
-                    .rescue(identity)
-                )
-        }
+      def handle(client: Client): Fu[Result] =
+        if !JsonApi.Request.isValid(body) then BadRequest.toFuccess
+        else
+          body
+            .validate[A]
+            .fold(
+              err =>
+                lila.fishnet.logger.warn(s"Malformed request: $err\n${body}")
+                BadRequest(jsonError(JsError.toJson(err))).toFuccess
+              ,
+              data =>
+                allow:
+                  f(client)(data).map:
+                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                .rescue(identity)
+            )
+      Client.Version.readFromUA.so: version =>
+        if env.mode.notProd && HTTPRequest.bearer(req).isEmpty then handle(Client.offline)
+        else
+          HTTPRequest
+            .bearer(req)
+            .so: bearer =>
+              api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
+                case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
+                case Success(client) => handle(client)
+              }

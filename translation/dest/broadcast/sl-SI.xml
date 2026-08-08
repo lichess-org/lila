@@ -61,12 +61,14 @@
   <string name="subscribeTitle">Naročite se in bodite obveščeni ob začetku kola. Lahko si nastavite zvonec ali potisna obvestila za prenos v živo v nastavitvah vašega računa.</string>
   <string name="uploadImage">Naloži sliko turnirja</string>
   <string name="noBoardsYet">Deske niso na voljo. Prikazane bodo, ko se igre naložijo.</string>
+  <string name="noPlayersYet">Še ni igralcev. Prikazali se bodo, ko bodo igre naložene.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Deske se lahko naložijo iz vira ali z \"%s\"</string>
   <string name="startsAfter">Začne se s \"%s\"</string>
   <string name="startVerySoon">Prenos v živo se bo začel kmalu.</string>
   <string name="notYetStarted">Prenos v živo se še ni začel.</string>
   <string name="officialWebsite">Uradna spletna stran</string>
   <string name="officialStandings">Uradna lestvica</string>
+  <string name="regulations">Regulative</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Več nastavitev s %s</string>
   <string name="webmastersPage">Stran administratorja turnirja</string>
   <string name="embedThisBroadcast">Vgradite prenos v živo v svojo spletno stran.</string>
@@ -110,6 +112,6 @@
   <string name="tiebreaks">Tiebreaki</string>
   <string name="gameX">Igra %s</string>
   <string name="knockouts">Nokauti</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

@@ -1,6 +1,6 @@
 package lila.relay
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -25,18 +25,18 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
         )
       .map(_.flatMap(BSONHandlers.readRoundWithTour))
 
-  def byTourOrderedCursor(tourId: RelayTourId) =
+  def byTourOrderedCursor(tourId: RelayTourId, selector: Bdoc = $empty) =
     coll
-      .find(selectors.tour(tourId))
+      .find(selectors.tour(tourId) ++ selector)
       .sort(sort.asc)
       .cursor[RelayRound]()
 
-  def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
-    byTourOrderedCursor(tourId).list(RelayTour.maxRelays.value)
+  def byTourOrdered(tourId: RelayTourId, selector: Bdoc = $empty): Fu[List[RelayRound]] =
+    byTourOrderedCursor(tourId, selector).list(RelayTour.maxRelays.value)
 
-  def byToursOrdered(tourIds: Seq[RelayTourId]): Fu[List[RelayRound]] =
+  def byToursOrdered(tourIds: Seq[RelayTourId], selector: Bdoc = $empty): Fu[List[RelayRound]] =
     coll
-      .find($doc("tourId".$in(tourIds)))
+      .find($doc("tourId".$in(tourIds)) ++ selector)
       .sort(sort.asc)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays.value * tourIds.size)
@@ -134,3 +134,8 @@ private object RelayRoundRepo:
     def tour(id: RelayTourId) = $doc("tourId" -> id)
     def started(v: Boolean) = $doc("startedAt".$exists(v))
     def finished(v: Boolean) = $doc("finishedAt".$exists(v))
+    val notLongFinished =
+      $or(
+        $doc("finishedAt".$exists(false)),
+        $doc("finishedAt" -> $gt(nowInstant.minusHours(1)))
+      )

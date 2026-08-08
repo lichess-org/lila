@@ -1,10 +1,10 @@
 package lila.msg
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.{ Bus, LilaStream }
-import lila.core.msg.{ PostResult, IdText }
+import lila.core.msg.{ PostResult, IdText, SystemMsg }
 import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
@@ -23,7 +23,7 @@ final class MsgApi(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     ircApi: lila.core.irc.IrcApi
-)(using Executor, akka.stream.Materializer)
+)(using Executor, org.apache.pekko.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
   val msgsPerPage = MaxPerPage(100)
@@ -93,7 +93,7 @@ final class MsgApi(
       .so:
         lightUserApi.async(userId).flatMapz { contact =>
           for
-            _ <- setReadBy(threadId, me, userId)
+            _ <- setRead(me, userId)
             msgs <- threadMsgsFor(threadId, me, before)
             relations <- relationApi.fetchRelations(me, userId)
             postable <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
@@ -120,7 +120,8 @@ final class MsgApi(
       text: String,
       multi: Boolean = false,
       date: Instant = nowInstant,
-      ignoreSecurity: Boolean = false
+      ignoreSecurity: Boolean = false,
+      mustRead: Boolean = false
   ): Fu[PostResult] =
     orig.isnt(dest).so(Msg.make(text, orig, date)).fold(fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
@@ -150,18 +151,20 @@ final class MsgApi(
                 colls.thread.insert.one:
                   writeThread(
                     MsgThread.make(orig, dest, msg, maskFor, maskWith),
-                    List(multi.option(orig), send.mute.option(dest)).flatten
+                    List(multi.option(orig), send.mute.option(dest)).flatten,
+                    mustRead = mustRead
                   )
               else
+                val baseSet = $doc("lastMsg" -> msg.asLast) ++ mustRead.so($doc("mustRead" -> true))
                 colls.thread.update
                   .one(
                     $id(threadId),
                     if multi
                     then
-                      $set("lastMsg" -> msg.asLast, "maskFor" -> maskFor, "maskWith" -> maskWith)
+                      $doc("$set" -> (baseSet ++ $doc("maskFor" -> maskFor, "maskWith" -> maskWith)))
                         ++ $pull("del" -> List(orig))
                     else
-                      $set("lastMsg" -> msg.asLast, "maskWith.date" -> msg.date)
+                      $doc("$set" -> (baseSet ++ $doc("maskWith.date" -> msg.date)))
                         ++ $unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
                         ++ $pull("del".$in(orig :: (!send.mute).option(dest).toList))
                     // keep maskWith.date always valid (though sometimes redundant)
@@ -186,29 +189,31 @@ final class MsgApi(
       yield res
     }
 
-  def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
+  private def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
     colls.thread
       .one[MsgThread]($id(threadId))
       .mapz: doc =>
         if doc.maskFor.contains(maskFor) then doc.maskWith
         else Some(doc.lastMsg)
 
-  def setRead(userId: UserId, contactId: UserId): Funit =
-    val threadId = MsgThread.id(userId, contactId)
-    colls.thread
-      .updateField(
-        $id(threadId) ++ $doc("lastMsg.user" -> contactId),
-        "lastMsg.read",
-        true
+  def setRead(me: MyId, contactId: UserId): Funit =
+    val threadId = MsgThread.id(me.userId, contactId)
+    colls.thread.update
+      .one(
+        $id(threadId) ++ $doc(
+          "lastMsg.user" -> contactId,
+          "lastMsg.read" -> false
+        ),
+        $set("lastMsg.read" -> true) ++ $unset("mustRead")
       )
       .flatMap: res =>
-        (res.nModified > 0).so(notifier.onRead(threadId, userId, contactId))
+        (res.nModified > 0).so(notifier.onRead(threadId, me.userId, contactId))
 
   def postPreset(destId: UserId, preset: lila.core.msg.MsgPreset): Fu[PostResult] =
-    systemPost(destId, preset.text)
+    systemPost(SystemMsg(destId, preset.text, mustRead = preset.mustRead))
 
-  def systemPost(destId: UserId, text: String) =
-    post(UserId.lichess, destId, text, multi = true, ignoreSecurity = true)
+  def systemPost(msg: SystemMsg) =
+    post(UserId.lichess, msg.userId, msg.text, multi = true, ignoreSecurity = true, mustRead = msg.mustRead)
 
   def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
@@ -288,19 +293,6 @@ final class MsgApi(
       .map:
         _.flatMap: doc =>
           doc.getAsOpt[List[UserId]]("del").forall(!_.has(me.id)).so(doc.asOpt[Msg])
-
-  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
-    colls.thread
-      .updateField(
-        $id(threadId) ++ $doc(
-          "lastMsg.user".$ne(me.id),
-          "lastMsg.read" -> false
-        ),
-        "lastMsg.read",
-        true
-      )
-      .flatMap: res =>
-        (res.nModified > 0).so(notifier.onRead(threadId, me.id, contactId))
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread

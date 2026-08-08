@@ -19,9 +19,9 @@
   <string name="findTheBestMoveForWhite">Finn det beste trekket for kvit.</string>
   <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
   <string name="toGetPersonalizedPuzzles">For å få personleg tilpassa oppgåver:</string>
-  <string name="puzzleId">Oppgåve %s</string>
-  <string name="puzzleOfTheDay">Dagens oppgåve</string>
-  <string name="dailyPuzzle">Dagens sjakkproblem</string>
+  <string name="puzzleId">Nøtt %s</string>
+  <string name="puzzleOfTheDay">Dagens nøtt</string>
+  <string name="dailyPuzzle">Dagens nøtt</string>
   <string name="clickToSolve">Klikk for å løyse oppgåva</string>
   <string name="goodMove">Godt trekk</string>
   <string name="bestMove">Beste trekk!</string>

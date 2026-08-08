@@ -135,7 +135,7 @@ export default class ExplorerCtrl {
             .catch(onError)
             .then(_ => true),
         );
-        this.lastStream.promise.then(() => this.root.redraw());
+        if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
       }
     },
     250,

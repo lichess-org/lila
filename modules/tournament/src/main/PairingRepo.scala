@@ -1,8 +1,8 @@
 package lila.tournament
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -18,7 +18,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       "tid" -> tourId,
       "u" -> userId
     )
-  private val selectPlaying = $doc("s".$lt(chess.Status.Mate.id))
+  private val selectPlaying = $doc("s".$lt(chess.Status.Mate.id)) // hits a sparse index
   private val selectFinished = $doc("s".$gte(chess.Status.Mate.id))
   private val recentSort = $doc("d" -> -1)
   private val chronoSort = $doc("d" -> 1)
@@ -193,7 +193,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       userId: Option[UserId],
       batchSize: Int = 0,
       readPref: ReadPref = _.sec
-  ): AkkaStreamCursor[Pairing] =
+  ): PekkoStreamCursor[Pairing] =
     coll
       .find(selectTour(tournamentId) ++ userId.so(selectUser))
       .sort(recentSort)

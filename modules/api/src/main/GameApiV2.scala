@@ -1,13 +1,13 @@
 package lila.api
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import chess.opening.Opening
 import play.api.libs.json.*
 import play.api.i18n.Lang
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
@@ -41,7 +41,7 @@ final class GameApiV2(
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi
-)(using Executor, akka.actor.ActorSystem):
+)(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import GameApiV2.*
 
@@ -236,12 +236,15 @@ final class GameApiV2(
       .mapConcat(identity)
       .via(preparationFlow(config))
 
-  def exportUserImportedGames(user: User): Source[PgnStr, ?] =
-    gameRepo
-      .sortedCursor(Query.imported(user.id), Query.importedSort, batchSize = 20)
+  def exportUserImportedGames(config: ImportedConfig)(using Lang): Source[String, ?] =
+    val games = gameRepo
+      .sortedCursor(Query.imported(config.user), Query.importedSort, batchSize = config.perSecond.value)
       .documentSource()
-      .throttle(20, 1.second)
-      .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
+    if config.annotated then games.via(preparationFlow(config))
+    else
+      games
+        .throttle(config.perSecond.value, 1.second)
+        .mapConcat(_.pgnImport.map(_.pgn.value + "\n\n\n").toList)
 
   def exportUserBookmarks(config: BookmarkConfig)(using Lang): Source[String, ?] =
     import lila.game.BSONHandlers.gameHandler
@@ -479,6 +482,15 @@ object GameApiV2:
       perSecond: MaxPerSecond
   )(using val by: Option[Me])
       extends Config
+
+  case class ImportedConfig(
+      user: UserId,
+      annotated: Boolean,
+      flags: WithFlags
+  )(using val by: Option[Me])
+      extends Config:
+    val format = Format.PGN
+    val perSecond = MaxPerSecond(20)
 
   case class MobileRecentConfig(user: User)(using val by: Option[Me]) extends Config:
     val format = GameApiV2.Format.JSON

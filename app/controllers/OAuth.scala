@@ -22,14 +22,6 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       case Left(error) =>
         BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
 
-  private def authRoute(action: OAuthSignedClient.Action, signedClient: Option[OAuthSignedClient])(using
-      RequestHeader
-  ) =
-    val brandedTakex3 = signedClient.contains(env.oAuth.signedClients.takex3) && getBool("takex3_auth")
-    action match
-      case "signup" => if brandedTakex3 then routes.Auth.signupTakex3 else routes.Auth.signup
-      case "login" => if brandedTakex3 then routes.Auth.loginTakex3 else routes.Auth.login
-
   def authorize = Open:
     withPrompt: prompt =>
       val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
@@ -37,10 +29,10 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       ctx.me match
         case Some(me) =>
           given Me = me
-          Ok.page(views.oAuth.authorize(prompt, signedClient, authRoute("login", signedClient)))
+          Ok.page(views.oAuth.authorize(prompt, signedClient))
         case None =>
           Redirect(
-            authRoute(action, signedClient).url,
+            if action == "signup" then routes.Auth.signup.url else routes.Auth.login.url,
             Map("referrer" -> List(req.uri))
           ).toFuccess
 
@@ -53,8 +45,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         for
           authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
           code <- env.oAuth.authorizationApi.create(authorized)
-        yield SeeOther(authorized.redirectUrl(code))
+        yield
+          lila.mon.user.oauth.authorize("success").increment()
+          SeeOther(authorized.redirectUrl(code))
       .rescue: error =>
+        lila.oauth.logger.info:
+          s"OAuth.authorizeApply ${me.username} error: $error client: ${HTTPRequest.printClient(req)}"
+        lila.mon.user.oauth.authorize(error.error).increment()
         SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 

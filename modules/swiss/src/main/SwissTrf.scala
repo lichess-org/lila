@@ -1,6 +1,6 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

@@ -47,7 +47,7 @@ final private class FideRepo(
   object rating:
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler
     def get(id: FideId): Fu[FideRatingHistory] =
-      ratingColl.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))
+      ratingColl.secondary.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))
     def set(id: FideId, date: YearMonth, elos: Map[FideTC, Elo]): Funit = elos.nonEmpty.so:
       for
         history <- get(id)

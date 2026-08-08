@@ -122,6 +122,8 @@ Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="unlimitedAndFree">Cheklanmagan va bepulmi</string>
   <string name="predefinedUsers">Faqat belgilangan foydalanuvchilarga kirishga ruxsat berish</string>
   <string name="forbiddedUsers">Agar ushbu roʻyxat boʻsh boʻlmasa, roʻyxatda boʻlmagan foydalanuvchilarning turnirga qoʻshilishi taqiqlanadi. Har bir qatorga bittadan foydalanuvchi nomini yozing.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Har bir qatorga bittadan foydalanuvchi nomini kiriting. Faqat ushbu oʻyinchilarga qoʻshilishga ruxsat beriladi.
+Mezonlarga mos keladigan barcha oʻyinchilarga ruxsat berish uchun boʻsh qoldiring.</string>
   <string name="playYourGames">Oʻyinlaringizni oʻynang</string>
   <string name="byes">Oʻyinsiz ochkolar, “bye”</string>
   <string name="absences">Qatnashmaslik</string>

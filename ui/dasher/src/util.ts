@@ -13,7 +13,7 @@ export const moreButton = (toggle: Toggle): VNode =>
   hl(
     'button.button.more',
     {
-      attrs: { title: i18n.site.more },
+      attrs: { title: toggle() ? i18n.site.less : i18n.site.more },
       hook: bind('click', toggle.toggle),
     },
     toggle() ? '-' : '+',

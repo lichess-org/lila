@@ -49,7 +49,7 @@ final class TrophyApi(
       grant(_.BroadcastTeam, TrophyKind.broadcastTeam)
     ).flatten
 
-  def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =
+  def award(trophyUrl: Url, userId: UserId, kindKey: String): Funit =
     coll.insert
       .one(
         $doc(

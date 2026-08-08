@@ -146,6 +146,12 @@
 
 ما آیکون قرمز را برای هشدار دادن به شما در این مورد نمایش می‌دهیم. اغلب می‌توانید به‌صراحت به lichess.org اجازهٔ پخش صدا را بدهید. در اینجا دستورالعمل انجام این کار در نسخه‌های اخیر برخی از مرورگرهای محبوب آورده شده است.
 </string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">اکثر مرورگرها برای محافظت از کاربران، جلوی پخش صدا در صفحات تازه-بازدید را می‌گیرند.
+
+نقشکِ بی‌صدا زمانی ظاهر می‌شود که مرورگرتان مانع از پخش صدا در lichess.org شود. این محدودیت معمولاً پس از تِلیک روی چیزی برداشته می‌شود.
+در برخی از مرورگرهای گوشی، لمسیدن-کشیدن یک مهره تِلیک حساب نمی‌شود. در این صورت، برای پخش صدا در شروع هر بازی، باید روی صفحه ضربه زنید.
+
+ما نقشکِ بی‌صدای قرمز را نشان می‌دهیم تا هنگامِ این اتفاق به شما هشدار دهیم. شما می‌توانید صریحا به lichess.org اجازه دهید تا در اکثر مرورگرها صدا را بپخشد. اینجا دستورعمل‌هایی برای اجازه به وبگاه برای پخش صدا در نسخه‌های اخیرِ برخی از مرورگرهای محبوب آمده است:</string>
   <string name="desktop">رایانه</string>
   <string name="enableAutoplayForSoundsFirefox">1.به lichess.org بروید
 2.بر روی ویندوز و یا لینوکس خود دکمه Ctrl-i بزنید و یا بر روی مک دکمه cmd-i را بزنید
@@ -155,6 +161,10 @@
 2.بر روی آیکون قفل در تب سرچ بزنید
 3.بر روی تنظیمات سایت بزنید
 4.صدا را مجاز کنید</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">۱. رفتن به lichess.org
+۲. تِلیک روی نقشکِ اطلاعاتِ وبگاه در نوارِ نشانی
+۳. تِلیک روی تنظیماتِ وبگاه
+۴. اجازهٔ صدا</string>
   <string name="enableAutoplayForSoundsSafari">۱. به lichess.org بروید
 ۲. در نوار نام‌چین روی Safari بزنید
 ۳. در تنظیمات، lichess.org را بزنید ...

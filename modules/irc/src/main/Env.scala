@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
-import lila.common.Lilakka
+import lila.common.{ Bus, Lilakka }
 import lila.core.plan.ChargeEvent
 import lila.core.misc.puzzle.DailyChange
 
@@ -13,7 +13,7 @@ final class Env(
     appConfig: Configuration,
     noteApi: lila.core.user.NoteApi,
     ws: StandaloneWSClient,
-    shutdown: akka.actor.CoordinatedShutdown,
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown,
     mode: Mode,
     lightUser: lila.core.LightUser.GetterSyncFallback,
     net: lila.core.config.NetConfig
@@ -32,5 +32,6 @@ final class Env(
       funit // don't wait for zulip aknowledgment to restart lila.
 
   // type can be inferred but clearer to leave it
-  lila.common.Bus.sub[ChargeEvent](api.charge(_))
-  lila.common.Bus.sub[DailyChange](e => api.dailyPuzzle(e.id))
+  Bus.sub[ChargeEvent](api.charge(_))
+  Bus.sub[DailyChange](e => api.dailyPuzzle(e.id))
+  Bus.sub[lila.core.msg.PayoutMessages](api.payoutNotify(_))

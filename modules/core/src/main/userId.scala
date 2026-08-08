@@ -96,4 +96,5 @@ object userId:
       if regex.matches(clean) then Some(clean.toLowerCase) else None
 
   opaque type ModId = String
-  object ModId extends OpaqueUserId[ModId]
+  object ModId extends OpaqueUserId[ModId]:
+    val lichess: ModId = UserId.lichess

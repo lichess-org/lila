@@ -1,6 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { isEmpty, type Prop, prop } from 'lib';
+import { api } from 'lib/api';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode } from 'lib/tree/types';
@@ -104,20 +105,23 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       game.division &&
       (!game.division.middle || fault.node.ply < game.division.middle)
     ) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
-        const cur = current()!;
-        const ucis: Uci[] = [];
-        res.moves.forEach(m => {
-          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
-        });
-        if (ucis.includes(fault.node.uci!)) {
-          explorerCancelPlies.push(fault.node.ply);
-          setTimeout(jumpToNext, 100);
-        } else {
-          cur.openingUcis = ucis;
-          current(cur);
-        }
-      });
+      root.explorer
+        .fetchMasterOpening(prev.node.fen)
+        .then((res: OpeningData) => {
+          const cur = current()!;
+          const ucis: Uci[] = [];
+          res.moves.forEach(m => {
+            if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
+          });
+          if (ucis.includes(fault.node.uci!)) {
+            explorerCancelPlies.push(fault.node.ply);
+            setTimeout(jumpToNext, 100);
+          } else {
+            cur.openingUcis = ucis;
+            current(cur);
+          }
+        })
+        .catch(() => {});
     }
     root.userJump(prev.path);
     safeRedraw();
@@ -149,10 +153,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  const isCevalReady = (node: TreeNode): boolean =>
-    Boolean(
-      node.ceval && (node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000),
+  const isCevalReady = (node: TreeNode): boolean => {
+    if (!node.ceval) return false;
+    return (
+      api.overrides.learnFromMistakesEvalReady?.(structuredClone(node.ceval)) ??
+      Boolean(node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000)
     );
+  };
 
   function checkCeval(): void {
     const node = root.node,

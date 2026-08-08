@@ -387,10 +387,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             for puzzles <- batchSelect(angle, reqSettings, nb)
             yield Ok(puzzles)
 
-  private def reqSettings(using req: RequestHeader) = PuzzleSettings(
-    PuzzleDifficulty.orDefault(~get("difficulty")),
-    get("color").flatMap(Color.fromName)
-  )
+  private def reqSettings(using req: RequestHeader) =
+    PuzzleSettings(PuzzleDifficulty.orDefault(~get("difficulty")), getColor())
 
   private def batchSelect(angle: PuzzleAngle, settings: PuzzleSettings, nb: Int)(using Option[Me], Perf) =
     env.puzzle.batch.nextForMe(angle, settings, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)

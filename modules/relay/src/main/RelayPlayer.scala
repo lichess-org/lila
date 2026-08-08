@@ -252,7 +252,7 @@ private final class RelayPlayerApi(
       rounds <-
         if RelayGroup.sgIsParallel(tours)
         then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
-        else tourIds.flatTraverse(roundRepo.byTourOrdered)
+        else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct

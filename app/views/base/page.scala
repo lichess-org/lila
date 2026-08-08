@@ -34,6 +34,7 @@ object page:
       s"---board-brightness:${ctx.pref.board.brightness};" +
       s"---board-contrast:${ctx.pref.board.contrast};" +
       s"---board-hue:${ctx.pref.board.hue};" +
+      s"---ui-roundness:${ctx.pref.uiRoundness}px;" +
       zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =

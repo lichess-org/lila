@@ -16,6 +16,7 @@ final class AppealUi(helpers: Helpers):
 
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
+    else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
     else
       span(
         userIdLink(UserId.lichess.some),
@@ -32,9 +33,12 @@ final class AppealUi(helpers: Helpers):
     a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text")
 
   def list(user: User, appeals: List[Appeal])(using Context) =
+    val muted = appeals.exists(_.muted)
     page(s"Appeals by ${user.username}"):
       main(cls := "box box-pad appeal")(
-        div(cls := "box__top")(h1(backLink, "Appeals by ", userIdLink(user.some))),
+        div(cls := "box__top"):
+          h1(backLink, "Appeals by ", userIdLink(user.some), muted.option(frag(nbsp, "(muted)")))
+        ,
         table(cls := "appeal-list slist")(
           thead(tr(th("Topic"), th("Status"), th("Messages"), th("Mods"), th("Created"), th("Updated"))),
           tbody:

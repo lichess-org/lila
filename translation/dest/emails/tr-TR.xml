@@ -18,6 +18,7 @@ Profil sayfanız burada: %1$s. Buradan kişiselleştirebilirsiniz: %2$s.
 Keyfini çıkarın, ve taşlarınız her zaman rakibin şahına giden yolu bulsun!</string>
   <string name="logInToLichess">Lichess.org\'a giriş yapın, %s</string>
   <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Bağlantı çalışmıyor mu? Tarayıcıya yapıştırmayı deneyin!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
   <string name="common_contact">Bizimle iletişime geçmek için lütfen bu bağlantıyı kullanın: %s</string>
 </resources>

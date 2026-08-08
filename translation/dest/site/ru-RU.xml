@@ -301,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Если вы не получили подтверждение по электронной почте, проверьте папку «Спам» или «Нежелательная почта». Настройте почту так, чтобы сообщения от lichess.org отмечались как безопасные и «не спам», так вы сможете всегда быть на связи.</string>
   <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
@@ -554,6 +555,7 @@
     <item quantity="many">подписан на %s игроков</item>
     <item quantity="other">подписан на %s игроков</item>
   </plurals>
+  <string name="less">Меньше</string>
   <string name="more">Ещё</string>
   <string name="memberSince">Дата регистрации</string>
   <string name="lastSeenActive">Был онлайн %s</string>
@@ -652,6 +654,9 @@
   <string name="replies">Ответы</string>
   <string name="replyToThisTopic">Ответить в этой теме</string>
   <string name="reply">Ответить</string>
+  <string name="reopen">Открыть заново</string>
+  <string name="quote">Цитировать</string>
+  <string name="postEdited">изменено</string>
   <string name="message">Сообщение</string>
   <string name="createTheTopic">Создать тему</string>
   <string name="reportAUser">Сообщить о пользователе</string>
@@ -664,6 +669,7 @@
   <string name="reportCheatBoostHelp">Вставьте ссылку на игру (или несколько игр) и объясните, что не так в поведении этого пользователя. Не надо просто писать «он жульничал», лучше распишите, как вы пришли к такому выводу.</string>
   <string name="reportUsernameHelp">Объясните, что в этом имени пользователя является оскорбительным. Не надо просто писать «оно оскорбительно или неподобающе», лучше расскажите, как вы пришли к такому выводу, особенно если оскорбление завуалировано, не на английском языке, является сленгом, или же является исторической или культурной отсылкой.</string>
   <string name="reportProcessedFasterInEnglish">Ваша жалоба будет рассмотрена быстрее, если она будет написана на английском языке.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Мы сможем обрабатывать ваши обращения быстрее, если вы напишете их на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
   <string name="importedByX">Импортировано %s</string>
@@ -794,6 +800,7 @@
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>
   <string name="whenCreateSimul">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Создание одновременной игры даст возможность играть против нескольких противников одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов игры, тогда каждый игрок выберет тот из них, в который он хочет сыграть с вами.</string>
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
@@ -906,10 +913,13 @@
   <string name="language">Язык (Language)</string>
   <string name="allLanguages">Все языки</string>
   <string name="background">Тема</string>
+  <string name="theme">Тема</string>
   <string name="light">Светлая</string>
   <string name="dark">Тёмная</string>
   <string name="transparent">Прозрачная</string>
+  <string name="picture">Изображение</string>
   <string name="deviceTheme">Системная</string>
+  <string name="roundness">Скругление</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
   <string name="board">Доска</string>
   <string name="size">Размер</string>
@@ -1053,7 +1063,6 @@
   <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
   <string name="youAreNowPartOfTeam">Теперь вы член клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
-  <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
   <string name="gameVsX">Игра против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
@@ -1086,6 +1095,7 @@
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
   <string name="markdownIsAvailable">%s доступен для форматирования.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Вы можете форматировать текст используя %s.</string>
   <string name="embedsAvailable">Вставьте URL игры или ссылку на студию, чтобы встроить её.</string>
   <string name="inYourLocalTimezone">В вашем часовом поясе</string>
   <string name="tournChat">Чат турнира</string>
@@ -1093,6 +1103,7 @@
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
   <string name="navigateMoveTree">Переход по ходам</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Навигация по списку ходов</string>
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>

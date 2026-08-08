@@ -179,6 +179,7 @@ object SwissJson:
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
       .add("position" -> swiss.settings.position.map(fullFen => position(fullFen.opening)))
+      .add("payouts" -> swiss.settings.payouts)
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json

@@ -11,7 +11,7 @@ final class ForumTextExpand(markdown: lila.memo.MarkdownCache)(using Executor, S
     autoLink = true,
     list = true,
     table = true,
-    header = false,
+    header = true,
     strikeThrough = true,
     blockQuote = true,
     code = true,

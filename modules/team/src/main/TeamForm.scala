@@ -97,10 +97,10 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
-    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000))
 
   val explain = Form:
-    single("explain" -> cleanText(minLength = 3, maxLength = 9000))
+    single("explain" -> cleanText(minLength = 3, maxLength = 4_000))
 
   def members = Form:
     import lila.common.Json.given
@@ -109,7 +109,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   val blocklist = Form:
     val sep = "\n"
     single:
-      "names" -> cleanText(maxLength = 9000)
+      "names" -> cleanText(maxLength = 9_000)
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   val searchDeclinedForm: Form[Option[UserStr]] = Form(

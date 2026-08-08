@@ -234,7 +234,6 @@ export interface EditChapterData {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -245,7 +244,6 @@ export interface AnaDrop {
   role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: FEN;
   path: string;
   ch?: string;
 }

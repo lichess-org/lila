@@ -87,7 +87,6 @@ def show(
               writeable = ctx.userId.exists(s.canChat),
               public = true,
               resource = lila.core.chat.PublicSource.Study(s.id),
-              voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),
           "socketUrl" -> socketUrl(s.id),
