@@ -76,12 +76,12 @@ class BsonHandlersTest extends munit.FunSuite:
     val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
     val path = root.mainlinePath
     val static = root.updateChildrenAt(path, _.copy(eval = evals.initial.copy(static = true).some)).get
-    val imported = root.updateChildrenAt(path, _.copy(eval = evals.initial.some)).get
+    val legacy = root.updateChildrenAt(path, _.copy(eval = evals.initial.some)).get
     assert(treeBson.reads(treeBson.writes(w, static)).nodeAt(path).flatMap(_.eval).exists(_.static))
-    assert(!treeBson.reads(treeBson.writes(w, imported)).nodeAt(path).flatMap(_.eval).exists(_.static))
+    assert(!treeBson.reads(treeBson.writes(w, legacy)).nodeAt(path).flatMap(_.eval).exists(_.static))
 
     val staticNode = static.nodeAt(path).collect { case branch: Branch => branch }.get
-    val importedNode = imported.nodeAt(path).collect { case branch: Branch => branch }.get
+    val legacyNode = legacy.nodeAt(path).collect { case branch: Branch => branch }.get
     val staticBson = BSONHandlers.writeBranch(staticNode)
     assertEquals(
       staticBson.getAsOpt[Bdoc]("e").flatMap(_.getAsOpt[chess.eval.Score]("st")),
@@ -89,8 +89,8 @@ class BsonHandlersTest extends munit.FunSuite:
     )
     assertEquals(staticBson.getAsOpt[Boolean]("st"), None)
     assertEquals(
-      BSONHandlers.writeBranch(importedNode).getAsOpt[chess.eval.Score]("e"),
-      importedNode.eval.flatMap(_.score)
+      BSONHandlers.writeBranch(legacyNode).getAsOpt[chess.eval.Score]("e"),
+      legacyNode.eval.flatMap(_.score)
     )
 
   test("engine continuations stay first after their shared initial branch"):
