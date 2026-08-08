@@ -4,7 +4,7 @@ import { parseUci } from 'chessops/util';
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
 import { api } from 'lib/api';
 import { winningChances, type CustomCeval } from 'lib/ceval';
-import { storedBooleanPropWithEffect } from 'lib/storage';
+import { storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
 
@@ -52,10 +52,16 @@ export interface PracticeCtrl {
   bottomColor(): Color;
   customCeval: CustomCeval;
   redraw: Redraw;
+  level: Prop<number>;
 }
 
 export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
+  // 8 = full strength, 1 = weakest. Stored so the user's choice persists.
+  const level = storedIntPropWithEffect('analyse.practice-level', 8, () => {
+    root.startCeval();
+    root.redraw();
+  });
   const variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
@@ -265,7 +271,9 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     currentNode: () => root.node,
     bottomColor: root.bottomColor,
     redraw: root.redraw,
+    level,
     customCeval: {
+      level: () => (level() < 8 ? Math.round((level() - 1) * (20 / 7)) : undefined),
       search: () =>
         masteryMode() && !isMyTurn()
           ? 60 * 1000
