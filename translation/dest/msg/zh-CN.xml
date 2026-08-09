@@ -2,7 +2,7 @@
 <resources>
   <string name="lichobileNewAppAvailable">全新 Lichess 移动应用已上线！</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">请在 %s 下载新版官方 Lichess 应用！</string>
-  <string name="modActionFeedback">您好，
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">您好，
 
 我们已经审核了您最近的举报并已采取相应措施。虽然我们无法透露具体处理细节，但感谢您的举报。
 

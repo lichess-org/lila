@@ -635,16 +635,16 @@
   <string name="error.email_acceptable">이 이메일 주소는 수용할 수 없습니다. 재확인 후 다시 시도해주세요.</string>
   <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
   <string name="error.email_different">이미 당신의 이메일 주소입니다.</string>
-  <string name="error.minLength">최소 %s자여야 합니다.</string>
-  <string name="error.maxLength">최대 %s자여야 합니다</string>
-  <string name="error.min">최소 %s자 이어야 합니다.</string>
-  <string name="error.max">최대 %s자 이어야 합니다.</string>
+  <string name="error.minLength">%s자 이상이어야 합니다</string>
+  <string name="error.maxLength">%s자 이하여야 합니다</string>
+  <string name="error.min">%s 이상이어야 합니다</string>
+  <string name="error.max">%s 이하여야 합니다</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
-  <string name="castling">캐슬링</string>
+  <string name="castling">캐슬링 권리</string>
   <string name="whiteCastlingKingside">백 O-O</string>
   <string name="blackCastlingKingside">흑 O-O</string>
   <plurals name="nbForumPosts">
@@ -708,7 +708,7 @@
   <string name="toggleGlyphAnnotations">수 주석 켜기/끄기</string>
   <string name="togglePositionAnnotations">포지션 주석 켜기/끄기</string>
   <string name="toggleObservationAnnotations">의견 주석 켜기/끄기</string>
-  <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
+  <string name="variationArrowsInfo">라인 화살표를 사용하면 수 목록을 사용하지 않고 탐색이 가능합니다.</string>
   <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 시간 제한과 변형을 지원하는 체스 토너먼트</string>
@@ -735,7 +735,7 @@
   <string name="ifYouDoNotGetTheEmail">만일 5분 이내에 이메일을 받지 않으신다면</string>
   <string name="checkAllEmailFolders">모든 쓰레기통, 스팸 폴더 등을 확인하세요</string>
   <string name="verifyYourAddress">%s이 자신의 이메일 주소가 맞는지 확인하세요</string>
-  <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
+  <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일에서 링크를 클릭해서 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">회원가입하시면 %s에 동의한 것으로 간주됩니다.</string>
   <string name="readAboutOur">%s을 읽어보세요.</string>
   <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>
@@ -795,6 +795,7 @@
   <string name="deviceTheme">기기 테마</string>
   <string name="roundness">둥글기</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
+  <string name="backgroundImageOpacity">배경 이미지 투명도:</string>
   <string name="board">보드</string>
   <string name="size">크기</string>
   <string name="opacity">투명도</string>
@@ -899,7 +900,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
-  <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
+  <string name="ultraBulletDesc">가장 빠른 대국: 30초 미만</string>
   <string name="bulletDesc">매우 빠른 대국: 3분 미만</string>
   <string name="blitzDesc">빠른 대국: 3에서 8분</string>
   <string name="rapidDesc">래피드 대국: 8 ~ 25분</string>
@@ -911,8 +912,8 @@
   <string name="inTheFAQ">FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">엔진 사용 등 부정 행위나 부적절하게 행동한 사용자는 %1$s에서 신고해주세요.</string>
   <string name="useTheReportForm">사용자 신고</string>
-  <string name="toRequestSupport">%1$s에서 문의하실 수 있습니다.</string>
-  <string name="tryTheContactPage">연락처</string>
+  <string name="toRequestSupport">도움이 필요하시다면, %1$s에서 문의하실 수 있습니다.</string>
+  <string name="tryTheContactPage">문의 페이지</string>
   <string name="makeSureToRead">%1$s을 꼭 읽으세요</string>
   <string name="theForumEtiquette">포럼 에티켓</string>
   <string name="pleaseBeNiceInTheForum">포럼을 건전히 이용해 주세요.</string>

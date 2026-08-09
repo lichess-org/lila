@@ -44,7 +44,7 @@
   <string name="whitePlays">نوبت سفید</string>
   <string name="blackPlays">نوبت سیاه</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
+    <item quantity="one">حریف شما بازی را ترک کرده است. شما می‌توانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
     <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
@@ -107,7 +107,7 @@
     <item quantity="other">در %s نیم‌حرکت مات می‌شود</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
-  <string name="noGameFound">هیچ بازی یافت نشد</string>
+  <string name="noGameFound">هیچ بازی‌ای یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به نام‌چین تنظیمات، وجود داشته باشد.</string>
   <string name="openings">گشایش‌ها</string>
@@ -115,7 +115,7 @@
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">پویشگر گشایش %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
-  <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت جلوی پیروزی را گرفت</string>
+  <string name="winPreventedBy50MoveRule">قانون 50 حرکت مانع پیروزی شد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
   <string name="lossOr50MovesByPriorMistake">باخت یا ۵٠ حرکت از اشتباه قبلی</string>
@@ -127,7 +127,7 @@
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">مَکث حینِ اشتباه</string>
-  <string name="enable">فعال سازی</string>
+  <string name="enable">فعال‌سازی</string>
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="visualMotifs">بُن‌مایه‌های بصری</string>
@@ -148,7 +148,7 @@
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="inaccuracy">نادقیق</string>
+  <string name="inaccuracy">بی‌دقتی</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
@@ -307,7 +307,7 @@
   <string name="accept">پذیرفتن</string>
   <string name="decline">رد کردن</string>
   <string name="playingRightNow">هم‌اکنون بازی می‌کنند</string>
-  <string name="eventInProgress">اکنون بازی می‌کنند</string>
+  <string name="eventInProgress">بازی در حال انجام</string>
   <string name="finished">تمام شده</string>
   <string name="abortGame">لغویدنِ بازی</string>
   <string name="gameAborted">بازی لغوید</string>
@@ -385,8 +385,8 @@
   <string name="tournaments">مسابقات</string>
   <string name="tournamentPoints">مجموع امتیازات مسابقات</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">مجموع امتیازات مسابقات:%s</item>
-    <item quantity="other">مجموع امتیازات مسابقات:%s</item>
+    <item quantity="one">%s امتیاز مسابقات</item>
+    <item quantity="other">%s امتیازات مسابقات</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s مطالعه</item>
@@ -429,7 +429,7 @@
   <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان، شطرنج بازی کنید. بدون نام‌نویسی، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">جریان‌سازی را آغازید</string>
+  <string name="startedStreaming">شروع به استریم کرده است</string>
   <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
@@ -462,7 +462,7 @@
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">بازاتصال...</string>
-  <string name="noNetwork">بُرون‌خط</string>
+  <string name="noNetwork">آفلاین</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
     <item quantity="other">%s دوست بَرخط</item>
@@ -639,7 +639,7 @@
   <string name="never">هرگز</string>
   <string name="xCompetesInY">%1$s در %2$s رقابت می‌کند.</string>
   <string name="victory">پیروزی!</string>
-  <string name="defeat">شکست!</string>
+  <string name="defeat">شکست</string>
   <string name="victoryVsYInZ">%1$s مقابل %2$s در %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -838,6 +838,7 @@
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="roundness">گِردی</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
+  <string name="backgroundImageOpacity">کدری تصویر پس‌زمینه:</string>
   <string name="board">میز</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
