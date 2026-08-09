@@ -390,7 +390,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             )
           )
         ),
-        $doc("user" -> true, "action" -> true, "date" -> true).some
+        $doc("user" -> true, "action" -> true, "date" -> true, "details" -> true).some
       )
       .sort($sort.asc("date"))
       .cursor[Modlog.UserEntry]()
