@@ -7,10 +7,10 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(burn|die|rot) in hell
+(burn|die|rot) in hel+
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
-go to hell
-(kill|hang|ne[ck]+|unalive) my ?self
+go to hel+
+(kil+|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -37,7 +37,7 @@ bozo
 brain(dea?d|les+)
 bugg+er
 bu[ck]+ake
-bull?shit
+bul+shit
 cancer
 che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
@@ -83,7 +83,7 @@ humping
 incest
 jerk
 jiz+(um|)
-kill (you|u)
+kil+ (you|u)
 labia
 lamer?
 lesbo
@@ -259,11 +259,11 @@ bolud[oa]
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)
-chupa ?pija
+chupa ?(pija|pol+a|verga)
 chupame
 cobarde
 est[úu]pid[ao]
-gilipollas
+gilipol+as
 hd(p|tpm)
 hijo de (put\w*|per+a)
 hijueputa
@@ -278,7 +278,7 @@ mierda
 moduler[ao]
 payas[ao]
 pendejo
-po(ll|y)a
+po(l+|y)a
 put[ao]
 putica
 trampa
@@ -373,22 +373,23 @@ yar+ak kafa(l[iı]|s[iı])
 
   def critical = dict("""
 (die|burn)s? irl
-(f|ph)a++g+([oi]t|)
+(f|ph)a++g+([oi]+t|t|)
 (gets?|from|of|by|on|wish|(yo)?u) cancer
-(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|suicide)
-(ho?pe|wish)(es|s)? ((yo?)?[uy](r (famil[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die|burn)
-(kill|hang|ne[ck]+|murder|unalive)s? ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|(fa|mo)ther(fucker)?)
+(go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|sui?ci?de?)
+(ho?pe|wish)(es|s)? ((yo?)?[uy](r (fami?l[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die?|burn)
+(ki?l+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
-gas the
+gas+ the
 g?kys
 gets? (bombed|shot)
-k y s
+k+ y+ s+
 (l|1|ı|\|)<ys
-(ne|)groid
-nig+er
+(ne|)gro[i\|\\]d
+n[ei]?gro?
+n[i\|\\]?g+e?r
 rap(ed?|e?ing)
 rope
-subhuman
+su?bhu?ma?n
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
