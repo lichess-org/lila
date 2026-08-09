@@ -79,6 +79,28 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       frag("Appeal paused until ", showDate(until))
   )
 
+  private def renderAccountsDisclosure(accounts: AccountsDisclosure) =
+    def row(label: String, value: Frag) =
+      div(cls := "appeal__accounts__row")(
+        span(cls := "appeal__accounts__label")(label),
+        div(cls := "appeal__accounts__value")(value)
+      )
+    div(cls := "appeal__accounts")(
+      h3("Declared accounts"),
+      row(
+        "Additional accounts",
+        if accounts.onlyThisAccount then "None (only this account)"
+        else
+          accounts.otherUsernames.fold(em("None listed")):
+            pre(cls := "appeal__accounts__text")(_)
+      ),
+      accounts.moreForgotten.option:
+        row("", "Has additional accounts but has forgotten their usernames")
+      ,
+      accounts.household.map: household =>
+        row("Household accounts", pre(cls := "appeal__accounts__text")(household))
+    )
+
   private def userAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
       div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
@@ -138,6 +160,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "mod-zone mod-zone-full none"),
+          appeal.accounts.map(renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             appeal.msgs.map: msg =>

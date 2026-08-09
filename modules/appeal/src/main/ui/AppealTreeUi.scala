@@ -17,16 +17,30 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def screeningStepsThenLeaf(id: String, name: Frag, content: Frag): Branch =
+  private def screeningStepsThenLeaf(id: String, topic: AppealTopic, name: Frag, content: Frag): Branch =
+    val withAccounts = AppealTopicApi.requiresAccounts(topic)
+    val leaf = Leaf(id, name, content, showBack = false)
+    val afterInfoTree: Node =
+      if withAccounts then
+        Branch(
+          s"accounts-$id",
+          "Declare accounts",
+          List(leaf),
+          content = accountsForm(id).some,
+          showLinks = false,
+          showBack = false
+        )
+      else leaf
     Branch(
       s"important-info-$id",
       name,
-      List(Leaf(id, name, content)),
-      content = importantInfo(id).some,
-      showLinks = false
+      List(afterInfoTree),
+      content = importantInfo(id, nextId = if withAccounts then s"accounts-$id" else id).some,
+      showLinks = false,
+      showBack = false
     )
 
-  private def importantInfo(id: String) =
+  private def importantInfo(id: String, nextId: String) =
     div(cls := "appeal-info")(
       div(cls := "appeal-info__terms")(
         p(
@@ -56,7 +70,61 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         )
       ),
       div(cls := "form-actions")(
-        a(href := s"#help-$id", cls := "button appeal-info__continue disabled")("Continue")
+        a(href := s"#help-$nextId", cls := "button appeal-info__continue disabled")("Continue")
+      )
+    )
+
+  private def accountsForm(id: String) =
+    div(cls := "appeal-accounts", attr("data-leaf") := id)(
+      div(
+        "Please share with us the usernames of your other accounts. It does not matter if they are closed now."
+      ),
+      div(cls := "appeal-accounts__choice")(
+        div(cls := "appeal-accounts__option")(
+          input(
+            tpe := "radio",
+            st.name := s"appeal-accounts-choice-$id",
+            st.id := s"appeal-accounts-only-$id",
+            value := "only",
+            cls := "appeal-accounts__only"
+          ),
+          label(`for` := s"appeal-accounts-only-$id")("I have created only this account")
+        ),
+        div(cls := "appeal-accounts__option")(
+          input(
+            tpe := "radio",
+            st.name := s"appeal-accounts-choice-$id",
+            st.id := s"appeal-accounts-others-$id",
+            value := "others",
+            cls := "appeal-accounts__others-radio"
+          ),
+          label(`for` := s"appeal-accounts-others-$id")("I have created the following accounts")
+        )
+      ),
+      textarea(
+        cls := "appeal-accounts__others",
+        rows := 3,
+        disabled,
+        placeholder := "Usernames of your other accounts"
+      ),
+      div(cls := "appeal-accounts__forgotten form-check__container")(
+        form3.nativeCheckbox(s"appeal-accounts-forgotten-$id", "forgotten", checked = false),
+        label(cls := "form-label", `for` := s"appeal-accounts-forgotten-$id")(
+          "There are more accounts but I don't remember their usernames anymore"
+        )
+      ),
+      div(
+        "Remember that an account can only be used by one person at all times.",
+        br,
+        "If members of your household play on Lichess please share their usernames and tell which account belongs to which person."
+      ),
+      textarea(
+        cls := "appeal-accounts__household",
+        rows := 3,
+        placeholder := "Household accounts (optional)"
+      ),
+      div(cls := "form-actions")(
+        a(href := s"#help-$id", cls := "button appeal-accounts__continue disabled")("Continue")
       )
     )
 
@@ -77,6 +145,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         Option.when(status.modMessage && appeals.get(AppealTopic.warning).forall(_.isOpen)):
           screeningStepsThenLeaf(
             "clean-warning",
+            AppealTopic.warning,
             "I want to discuss a warning I received",
             frag(
               p(
@@ -91,6 +160,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         Option.when(status.chatTimeout && appeals.get(AppealTopic.chat).forall(_.isOpen)):
           screeningStepsThenLeaf(
             "clean-chat-timeout",
+            AppealTopic.chat,
             "I want to discuss a chat timeout I received",
             frag(
               p(
@@ -147,6 +217,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "engine-accept",
+          AppealTopic.cheat,
           accept,
           frag(
             sendUsAnAppeal,
@@ -155,6 +226,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         ),
         screeningStepsThenLeaf(
           "engine-deny",
+          AppealTopic.cheat,
           deny,
           frag(
             engineDenyContent,
@@ -179,11 +251,13 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "boost-accept",
+          AppealTopic.boost,
           accept,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.boost)(acceptFull))
         ),
         screeningStepsThenLeaf(
           "boost-deny",
+          AppealTopic.boost,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.boost)(denyFull))
         )
@@ -222,6 +296,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "mute-accept",
+          AppealTopic.comm,
           accept,
           frag(
             p(
@@ -237,6 +312,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         ),
         screeningStepsThenLeaf(
           "mute-deny",
+          AppealTopic.comm,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.comm)(deny))
         )
@@ -259,16 +335,19 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "rankban-accept",
+          AppealTopic.rank,
           accept,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(accept))
         ),
         screeningStepsThenLeaf(
           "rankban-deny",
+          AppealTopic.rank,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(deny))
         ),
         screeningStepsThenLeaf(
           "rankban-choose",
+          AppealTopic.rank,
           chooseAccount,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.rank)(chooseAccount))
         )
@@ -286,16 +365,19 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "arena-ban-no-play",
+          AppealTopic.arena,
           noPlay,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(noPlay))
         ),
         screeningStepsThenLeaf(
           "arena-ban-not-starting",
+          AppealTopic.arena,
           noStart,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(noStart))
         ),
         screeningStepsThenLeaf(
           "arena-ban-deny",
+          AppealTopic.arena,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.arena)(deny))
         )
@@ -320,11 +402,13 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "hidden-blog-accept",
+          AppealTopic.blog,
           accept,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.blog)(accept))
         ),
         screeningStepsThenLeaf(
           "hidden-blog-deny",
+          AppealTopic.blog,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.blog)(deny))
         )
@@ -341,11 +425,13 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "prizeban-expired",
+          AppealTopic.prize,
           prizebanExpired,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.prize)(prizebanExpired))
         ),
         screeningStepsThenLeaf(
           "prizeban-deny",
+          AppealTopic.prize,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.prize)(deny))
         )
@@ -374,11 +460,13 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "reportban-accept",
+          AppealTopic.report,
           accept,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.report)(accept))
         ),
         screeningStepsThenLeaf(
           "reportban-deny",
+          AppealTopic.report,
           deny,
           frag(sendUsAnAppeal, newAppeal(AppealTopic.report)(deny))
         )
@@ -439,6 +527,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       List(
         screeningStepsThenLeaf(
           "close-appeal",
+          AppealTopic.close,
           "I want to appeal",
           newAppeal(AppealTopic.close)("")
         )
