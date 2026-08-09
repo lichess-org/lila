@@ -30,9 +30,9 @@
   <string name="toReportAPlayerUseForm">Чтобы сообщить о нарушении правил игроком, заполните форму</string>
   <string name="youCanAlsoReachReportPage">Также вы можете перейти на эту страницу, нажав %s \"Пожаловаться\" на странице профиля.</string>
   <string name="doNotReportInForum">Не пишите об игроках на форуме.</string>
-  <string name="doNotSendReportEmails">Не шлите нам электронные письма с жалобами.</string>
+  <string name="doNotSendReportEmails">Не присылайте нам обращения по электронной почте.</string>
   <string name="doNotMessageModerators">Не отправляйте личные сообщения модераторам.</string>
-  <string name="onlyReports">Сообщайте об игроках только через форму жалоб — это наиболее эффективно.</string>
+  <string name="onlyReports">Сообщайте об игроках только через форму обращений — это наиболее эффективно.</string>
   <string name="wantReportBug">Я хочу сообщить об ошибке</string>
   <string name="reportBugInForum">В разделе Обратная связь форума Lichess</string>
   <string name="reportWebsiteIssue">На странице проблем сайта Lichess на Github</string>

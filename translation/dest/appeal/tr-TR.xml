@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Hesabınız işaretlenmemiş veya kısıtlanmamıştır. Her şey yolunda!</string>
+  <string name="engineMarked">Oyunlarda motor/bilgisayar desteği kullandığınız için hesabınız kısıtlandı.</string>
   <string name="engineMarkedInfo">Bunu, rakibinize karşı haksız bir avantaj elde etmek amacıyla bilginizi ve/veya hesaplama becerilerinizi güçlendirmek için her türlü dış yardımdan yararlanmak olarak tanımlıyoruz. Daha fazla ayrıntı için %s sayfasına bakın.</string>
   <string name="arenaBanned">Hesabınızla arena turnuvalarına katılmanız yasaklanmıştır.</string>
   <string name="prizeBanned">Hesabınızla gerçek ödüllü turnuvalara katılmanız yasaklanmıştır.</string>
+  <string name="boosterMarked">Puan manipülasyonu veya hesap paylaşımı nedeniyle hesabınız kısıtlandı.</string>
   <string name="accountMuted">Hesabınız sessize alınmıştır.</string>
   <string name="accountMutedInfo">%s bölümümüzü okuyun. İletişim kurallarına uyulmaması hesapların sessize alınmasına neden olabilir.</string>
-  <string name="excludedFromLeaderboards">Hesabınız lider panolarından çıkarılmıştır.</string>
+  <string name="excludedFromLeaderboards">Hesabınız lider tablosundan çıkarılmıştır.</string>
+  <string name="onlyOneAccountOnLeaderboards">Lider tablosunda her kişi adına yalnızca bir hesap yer alabilir.</string>
   <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
+  <string name="blogRestriction">Blog kısıtlamanız bulunmaktadır.</string>
+  <string name="blogRestrictionInfo">%s\'nı okuyun; bu kuralların ihlal edilmesi farklı yaptırımlarla sonuçlanabilir.</string>
   <string name="playTimeout">Uzaklaştırma cezanız var.</string>
+  <string name="reportBanned">Moderatörlere bildirim gönderemezsiniz</string>
+  <string name="reportBannedInfo">Bildirim sistemimizi kötüye kullandığınıza dair bir durum fark ettik. Bunun nedeni; sürekli olarak yanlış kategorileri seçmek, küfürlü/uygunsuz veya saldırgan bir dil kullanmak, aşırı sayıda oyun bildirmek ya da rakibinizin kuralları neden ihlal ettiğini düşündüğünüzü açıklamamak gibi çeşitli sebepler olabilir.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Hesabınız oyun oynamaktan geçici olarak kısıtlandı.</string>
   <string name="communicationGuidelines">iletişim kuralları</string>
-  <string name="fairPlay">Fair Play</string>
+  <string name="blogEtiquette">blog görgü kuralları</string>
+  <string name="fairPlay">Adil Oyun</string>
 </resources>

@@ -36,7 +36,7 @@
   <string name="announceAllMoves">모든 수 알리기</string>
   <string name="selectAnnouncePreference">YES를 선택하면 자신의 수와 상대의 수를 모두 알 수 있고, NO를 선택하면 상대의 수만 알 수 있습니다.</string>
   <string name="announceMoveFormat">수 알림 표기법</string>
-  <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔이 쓰이는 표기법입니다.</string>
+  <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔히 쓰이는 표기법입니다.</string>
   <string name="keywords">키워드</string>
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
   <string name="debug">디버깅</string>

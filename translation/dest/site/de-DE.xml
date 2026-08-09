@@ -547,11 +547,6 @@
   <string name="biography">Profiltext</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Region</string>
   <string name="thankYou">Vielen Dank!</string>
-  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">Hallo,
-
-Wir haben deinen aktuellen Bericht überprüft und Maßnahmen ergriffen. Obwohl wir keine Details über die durchgeführten Maßnahmen teilen können, schätzen wir deinen Bericht sehr. 
-
-           Vielen Dank für deine Hilfe und dass du Lichess für einen guten Ort für alle machst.</string>
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
@@ -842,6 +837,7 @@ Wir haben deinen aktuellen Bericht überprüft und Maßnahmen ergriffen. Obwohl 
   <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="roundness">Rundheit</string>
   <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
+  <string name="backgroundImageOpacity">Deckkraft des Hintergrundbilds:</string>
   <string name="board">Brett</string>
   <string name="size">Größe</string>
   <string name="opacity">Transparenz</string>

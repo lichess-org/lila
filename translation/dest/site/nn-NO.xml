@@ -838,6 +838,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="deviceTheme">Einingstema</string>
   <string name="roundness">Avrunda hjørne</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
+  <string name="backgroundImageOpacity">Opasiteten til bakgrunnsbildet:</string>
   <string name="board">Brett</string>
   <string name="size">Storleik</string>
   <string name="opacity">Opasitet</string>

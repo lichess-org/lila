@@ -92,5 +92,5 @@ Na przykład średni ranking na poziomie 3% oznacza, że zazwyczaj kończysz w g
   <string name="onlyTitled">Tylko gracze z tytułem</string>
   <string name="onlyTitledHelp">Wymagany oficjalny tytuł, aby dołączyć do turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
-  <string name="berserkRate">Udział berserków</string>
+  <string name="berserkRate">Berserków</string>
 </resources>
