@@ -58,9 +58,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           bindForm(userForm)(
             err => BadRequest.async(renderAppealOrTree(err.some)),
             data =>
-              val isNew = appeals.get(topic).isEmpty
-              val accounts = (isNew && AppealTopicApi.requiresAccounts(topic)).so(data.accounts)
-              for _ <- env.appeal.api.post(topic, data.text, muted = appeals.muted, accounts)
+              for _ <- env.appeal.api.post(topic, data, appeals)
               yield Redirect(routes.Appeal.home).flashSuccess
           )
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))

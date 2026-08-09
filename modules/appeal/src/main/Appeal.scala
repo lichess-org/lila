@@ -110,7 +110,7 @@ object Appeal:
       createdAt = now,
       updatedAt = now,
       firstUnrepliedAt = now,
-      accounts = accounts
+      accounts = accounts.ifTrue(AppealTopicApi.requiresAccounts(topic))
     )
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
