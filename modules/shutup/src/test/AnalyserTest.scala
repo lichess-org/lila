@@ -50,7 +50,7 @@ class AnalyserTest extends munit.FunSuite:
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
-    assertEquals(find("kil killl pnis pusy quer"), List("kil", "killl", "pnis", "pusy", "quer"))
+    assertEquals(find("kil u killl u pnis pusy quer"), List("kil u", "killl u", "pnis", "pusy", "quer"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
