@@ -63,8 +63,10 @@ final class UblogApi(
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
     triggerAutomod(post).foreach: newPost =>
-      if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, newPost, blog)
+      newPost
+        .ifTrue(isFirstPublish && blog.visible)
+        .foreach:
+          sendPostToZulip(author.light, _, blog)
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
@@ -181,11 +183,7 @@ final class UblogApi(
       mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
     yield scala.util.Random.shuffle(mix).take(6)
 
-  private def sendPostToZulip(
-      user: LightUser,
-      post: UblogPost,
-      blog: UblogBlog
-  ): Funit =
+  private def sendPostToZulip(user: LightUser, post: UblogPost, blog: UblogBlog): Funit =
     val source =
       if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier"
       else post.automod.fold("unknown")(_.quality.name) + " quality"
