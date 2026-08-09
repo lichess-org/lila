@@ -133,7 +133,7 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
       idbTree.someCollapsedOf(true) &&
         action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 
-      canPrune && action(licon.Trash, 'Prune to mainline', () => ctrl.pruneToMainline(path)), // correspondence
+      canPrune && action(licon.Trash, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
 
       canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
