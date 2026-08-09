@@ -99,13 +99,13 @@ private final class UblogAutomod(
     rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>
-        Quality
-          .fromName(res.quality)
+        Quality.byName
+          .get(res.quality)
           .map: q =>
             import Quality.*
             Assessment(
               quality = q,
-              evergreen = if q == good || q == great then res.evergreen else none,
+              evergreen = res.evergreen.ifTrue(q == good),
               flagged = fixString(res.flagged),
               commercial = if q != spam then fixString(res.commercial) else none
             )

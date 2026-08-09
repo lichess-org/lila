@@ -30,17 +30,14 @@
   <string name="willBeReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
   <string name="beingReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
   <string name="requestDeclined">Lagleiaren avslo din førespurnad om å bli med.</string>
-  <string name="subToTeamMessages">Abonner på lagmeldingar</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">Ein konkurranse mellom fleire lag, kvar spelar skårar poeng for sitt eige lag</string>
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">Ei arenaturnering som berre medlemar av laget ditt kan vere med på</string>
   <string name="swissTournamentOverview">Ein monradturnering som berre medlemar av laget ditt kan vera med på</string>
-  <string name="messageAllMembers">Send melding til alle medlemmar</string>
-  <string name="messageAllMembersOverview">Send ei privat melding til alle medlemmane i laget</string>
-  <string name="messageAllMembersLongDescription">Send ei privat melding til alle gruppemedlemane.
-Du kan bruke dette til å ta kontakt med spelarar for å gjere dei merksame på ei turnering eller ein lagmatch dei kan delta på.
-Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gruppa.</string>
+  <string name="teamUpdates">Lagoppdateringar</string>
+  <string name="subToTeamUpdates">Abonner på lagmeldingar</string>
+  <string name="newTeamUpdate">Ny lagoppdatering</string>
   <string name="teamsIlead">Grupper eg er leiar av</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>

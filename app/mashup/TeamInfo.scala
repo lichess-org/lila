@@ -1,27 +1,20 @@
 package lila.app
 package mashup
-import lila.core.forum.ForumPostMiniView
-import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRepo, TeamRequestRepo }
-import lila.tournament.{ Tournament, TournamentApi }
-import lila.clas.Clas
+
 import alleycats.Zero
 
+import lila.core.forum.ForumPostMiniView
+import lila.swiss.{ Swiss, SwissApi }
+import lila.team.{ Team, TeamMember, TeamRepo }
+import lila.tournament.{ Tournament, TournamentApi }
+import lila.clas.Clas
+
 case class TeamInfo(
-    withLeaders: Team.WithLeaders,
-    member: Option[TeamMember],
-    myRequest: Option[TeamRequest],
-    subscribed: Boolean,
-    requests: List[RequestWithUser],
+    show: Team.TeamShow,
     forum: Option[List[ForumPostMiniView]],
     tours: TeamInfo.PastAndNext
 ):
-  export withLeaders.{ team, leaders, publicLeaders }
-
-  def mine = member.isDefined
-  def ledByMe = member.exists(_.perms.nonEmpty)
-
-  def hasRequests = requests.nonEmpty
+  export show.{ leaders, publicLeaders }
 
   def userIds = forum.so(_.flatMap(_.post.userId))
 
@@ -41,37 +34,23 @@ object TeamInfo:
     given Zero[PastAndNext] = Zero(PastAndNext(Nil, Nil))
 
 final class TeamInfoApi(
-    api: TeamApi,
+    teamRepo: TeamRepo,
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
-    teamRepo: TeamRepo,
-    requestRepo: TeamRequestRepo
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import TeamInfo.*
 
-  def apply(
-      team: Team.WithLeaders,
-      withForum: Option[TeamMember] => Boolean
-  )(using me: Option[Me]): Fu[TeamInfo] = for
-    member <- me.soUse(api.memberOf(team.id))
-    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
-    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
-    subscribed <- member.so(api.isSubscribed(team.team, _))
-    forumPosts <- withForum(member).optionFu(forumRecent(team.id))
-    tours <- tournaments(team.team, 5, 5)
-  yield TeamInfo(
-    withLeaders = team,
-    member = member,
-    myRequest = myRequest,
-    subscribed = subscribed,
-    requests = requests,
-    forum = forumPosts,
-    tours = tours
-  )
+  def apply(t: Team.TeamShow, withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] = for
+    forumPosts <- withForum(t.member).optionFu(forumRecent(t.team.id))
+    tours <- t.team.enabled.so(tournamentsOf(t.team, 5, 5))
+    _ <- lightUserApi.preloadMany:
+      t.publicLeaders.map(_.user) ::: forumPosts.so(_.flatMap(_.post.userId))
+  yield TeamInfo(t, forumPosts, tours)
 
-  def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
+  def tournamentsOf(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
     tourApi
       .visibleByTeam(team.id, nbPast, nbSoon)
       .zip(swissApi.visibleByTeam(team.id, nbPast, nbSoon))
@@ -87,4 +66,4 @@ final class TeamInfoApi(
 
   def clasTournaments(clas: Clas): Fu[PastAndNext] =
     (clas.isActive && clas.hasTeam.orZero).so:
-      teamRepo.byClasId(clas.id.into(TeamId)).flatMapz(tournaments(_, 1, 1))
+      teamRepo.byClasId(clas.id.into(TeamId)).flatMapz(tournamentsOf(_, 1, 1))

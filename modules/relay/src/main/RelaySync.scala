@@ -33,7 +33,7 @@ final private class RelaySync(
       chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
     appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
     groupId <- groupRepo.idByTour(rt.tour.id)
-    result = SyncResult.Ok(updates ::: appends.flatten, plan)
+    result = SyncResult.Ok(updates ::: appends.flatten, plan, rt.withStudy(study))
     _ <- tourRepo.setSyncedNow(rt.tour)
     // because studies always have a chapter,
     // broadcasts without game have an empty initial chapter.
@@ -48,6 +48,7 @@ final private class RelaySync(
       teamLeaderboard.invalidate(rt.tour.id)
   yield
     Bus.publishDyn(result, SyncResult.roundBusChannel(rt.round.id))
+    Bus.publishDyn(result, SyncResult.tourBusChannel(rt.tour.id))
     groupId.foreach(g => Bus.publishDyn(result, SyncResult.groupBusChannel(g)))
     result
 
@@ -106,15 +107,16 @@ final private class RelaySync(
   ): Fu[Unit] =
     // tail moves that are not in the source but are in the study chapter,
     // should become forced variations in the study chapter
-    chapter.root
-      .nodeAt(gameMainline)
-      .map(_.children.toList.map(gameMainline + _.id))
-      .foldMap(_.sequentiallyVoid: childPath =>
-        studyApi.forceVariation(
-          studyId = chapter.studyId,
-          position = Position(chapter, childPath).ref,
-          force = true
-        )(by))
+    gameMainline.nonEmpty.so:
+      chapter.root
+        .nodeAt(gameMainline)
+        .map(_.children.toList.map(gameMainline + _.id))
+        .foldMap(_.sequentiallyVoid: childPath =>
+          studyApi.forceVariation(
+            studyId = chapter.studyId,
+            position = Position(chapter, childPath).ref,
+            force = true
+          )(by))
 
   private def sendLastNode(study: Study, chapter: Chapter, game: RelayGame, gameMainlinePath: UciPath)(using
       Who,
@@ -293,7 +295,8 @@ final private class RelaySync(
 sealed trait SyncResult:
   val reportKey: String
 object SyncResult:
-  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan) extends SyncResult:
+  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan, in: RelayRound.WithTourAndStudy)
+      extends SyncResult:
     def nbMoves = chapters.foldLeft(0)(_ + _.newMoves)
     def hasMovesOrTags = chapters.exists(c => c.newMoves > 0 || c.tagUpdate)
     val reportKey = "ok"
@@ -306,4 +309,5 @@ object SyncResult:
   case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int, newEnd: Boolean)
 
   def roundBusChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"
+  def tourBusChannel(tourId: RelayTourId) = s"relaySyncResult:$tourId"
   def groupBusChannel(groupId: RelayGroupId) = s"relaySyncResult:$groupId"

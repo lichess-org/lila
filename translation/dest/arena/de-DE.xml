@@ -74,6 +74,10 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="rankAvgHelp">Der Platzierungs-Durchschnitt ist ein Prozentwert deiner Platzierungen. Niedriger ist besser.
 
 Ein Beispiel: Wenn man in einem Turnier von 100 Spielern Platz 3 erreicht hat = Top 3%. In einem Turnier mit 1000 Spielern den Rang 10 zu erreichen = Top 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Dein Tabellenplatz-Durchschnitt repräsentiert deine typische Tabellenplazierung im Verhältnis zur Gesamtzahl der Spieler in jedem Turnier.
+Das ist ein Maß für deine Turnierleistung, nicht deiner allgemeine Spielstärke.
+
+Zum Beispiel bedeutet ein Tabellenplatz-Durchschnitt von 3% typischerweise das Erreichen der Top 3% (also 30. Platz von 1.000 Spielern).</string>
   <string name="medians">Medianwerte</string>
   <string name="allAveragesAreX">Alle Durchschnittswerte auf dieser Seite sind %s.</string>
   <string name="total">Gesamt</string>

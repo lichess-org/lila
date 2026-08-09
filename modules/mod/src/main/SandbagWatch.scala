@@ -146,7 +146,8 @@ private object SandbagWatch:
 
   If these quick losses were unintentional, please don't worry. This is just a friendly reminder about our Fair Play policy.
 
-  Thank you for helping keep Lichess fun and fair."""
+  Thank you for helping keep Lichess fun and fair.""",
+      mustRead = true
     )
     lazy val boostAuto = MsgPreset(
       name = "Warning: possible boosting",
@@ -156,5 +157,6 @@ private object SandbagWatch:
 
   If your quick wins were the result of fair play, please don't worry. This is just a friendly reminder about our Fair Play policy.
 
-  Thank you for helping keep Lichess fun and fair."""
+  Thank you for helping keep Lichess fun and fair.""",
+      mustRead = true
     )

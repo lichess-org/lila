@@ -1028,7 +1028,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xInvitedYouToY">%1$s pakvietė jus į \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jūs jau esate komandos dalis.</string>
   <string name="youHaveJoinedTeamX">Jūs prisijungėte prie \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Kažkas, apie ką pranešėte, buvo užblokuotas</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>

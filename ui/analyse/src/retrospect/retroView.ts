@@ -180,7 +180,7 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [

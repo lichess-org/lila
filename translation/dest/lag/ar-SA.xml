@@ -5,9 +5,10 @@
   <string name="noAndYourNetworkIsGood">لا. والشبكة الخاصة بك جيدة.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">لا. و شبكتك سيئة.</string>
   <string name="yesItWillBeFixedSoon">نعم. سيتم إصلاحها قريباً!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">والآن، الجواب الطويل! يتألّف تأخر اللعبة من قيمتين غير متصلتين (الأسفل أفضل):</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">والآن، الشرح المفصّل! يتكوّن تأخر اللعب من قيمتين منفصلتين غير مرتبطتين ببعضهما (وكلما كانت القيمة أقل، كان الأداء أفضل):</string>
   <string name="lichessServerLatency">تأخير خادم Lichess</string>
   <string name="lichessServerLatencyExplanation">الوقت الذي تستغرقه معالجة حركة على الخادم. إنه نفس الوقت بالنسبة للجميع، ويعتمد فقط على تحميل الخادم. كلما زاد عدد اللاعبين وارتفع عدد المطورين، لكن مطوري ليتشس يبذلون قصارى جهدهم لإبقائه منخفضا. نادرا ما يتجاوز 10 أمتار.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">زمن معالجة النقلة على الخادم هو الوقت الذي يجتاحه السيرفر لاستقبال النقلة ومعالجتها. هذا الزمن متساوٍ لجميع اللاعبين، ويتأثر فقط بضغط الخادم. كلما زاد عدد اللاعبين، ارتفع الحمل، لكننا نعمل باستمرار على إبقائه منخفضًا، ونادرًا ما يتجاوز 10 مللي ثانية.</string>
   <string name="networkBetweenLichessAndYou">الشبكة بين ليشيس وأنت</string>
   <string name="networkBetweenLichessAndYouExplanation">الوقت الذي يستغرقه إرسال نقلة من جهاز الكمبيوتر الخاص بك إلى خادم Lichess، وإعادة الإجابة. إنها خاصة بالمسافة إلى ليشس (فرنسا)، وبنوعية اتصالك بالإنترنت. لا يمكن لمطوري Lichess إصلاح واي فاي الخاص بك أو جعل الضوء يسير بشكل أسرع.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">يمكنك العثور على هاتين القيمتين في أي وقت، بالنقر على اسم المستخدم الخاص بك في الشريط العلوي.</string>

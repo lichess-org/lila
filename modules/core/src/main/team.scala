@@ -14,7 +14,7 @@ trait TeamApi:
   def creatorOf(teamId: TeamId): Fu[Option[UserId]]
   def isMember(teamId: TeamId)(using MyId): Fu[Boolean]
   def isLeader(team: TeamId)(using MyId): Fu[Boolean]
-  def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]]
+  def filterUserIdsInTeam(teamId: TeamId, users: Iterable[UserId]): Fu[List[UserId]]
   def hasCommPerm(team: TeamId)(using MyId): Fu[Boolean]
   def cursor: reactivemongo.pekkostream.PekkoStreamCursor[TeamData]
 

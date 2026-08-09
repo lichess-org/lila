@@ -352,7 +352,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2-column line {
   move {
-    @extend %box-radius;
+    border-radius: $small-box-radius-size;
   }
 
   comment {
@@ -399,8 +399,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   move {
-    @extend %box-radius;
-
+    border-radius: $small-box-radius-size;
     margin-inline-end: 2px;
     font-size: 13px;
     font-weight: bold;

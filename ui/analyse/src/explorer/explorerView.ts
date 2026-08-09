@@ -1,11 +1,10 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import { licon } from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
-import type ExplorerCtrl from './explorerCtrl';
 import { MAX_ANALYSE_DEPTH, moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
@@ -44,7 +43,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): MaybeVNode {
             draws: data.draws,
             uci: '',
             san: 'Σ',
-          } as OpeningMoveStats,
+          },
         ]
       : data.moves;
 
@@ -129,7 +128,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
           : hl('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
               ctrl.explorer.opts.showRatings &&
                 hl(
-                  'td',
+                  'td.game-rating',
                   [game.white, game.black].map(p => hl('span', p.rating)),
                 ),
               hl(
@@ -137,9 +136,9 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
                 [game.white, game.black].map(p => hl('span', p.name)),
               ),
               hl('td', showResult(game.winner)),
-              hl('td', game.month || game.year),
+              hl('td.game-date', game.month || game.year),
               !isMasters &&
-                hl('td', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
+                hl('td.game-type', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
             ]),
       ),
     ),
@@ -204,7 +203,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
   const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
   return hl('div.data.empty', [
-    explorerTitle(ctrl.explorer),
+    explorerTitle(ctrl),
     openingTitle(ctrl, data),
     hl('div.message', [
       hl('strong', isTooDeep ? i18n.site.maxDepthReached : i18n.site.noGameFound),
@@ -249,7 +248,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     const topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = hl('div.data', [
-        explorerTitle(ctrl.explorer),
+        explorerTitle(ctrl),
         data?.opening && openingTitle(ctrl, data),
         moveTable,
         topTable,
@@ -286,47 +285,60 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   return lastShow;
 }
 
-const explorerTitle = (explorer: ExplorerCtrl) => {
+const explorerTitle = (ctrl: AnalyseCtrl) => {
+  const explorer = ctrl.explorer;
+  const config = explorer.config;
+  const configOpened = config.data.open();
+  const playerName = config.data.playerName.value();
+  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01');
   const db = explorer.db();
+  const data = explorer.current();
+  const queuePosition = data && isOpening(data) && data.queuePosition;
+
   const otherLink = (name: string, title: string) =>
     hl(
       'button.button-link',
       {
         key: name,
         attrs: { title },
-        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
+        hook: bind(
+          'click',
+          () => {
+            config.data.db(name.toLowerCase() as ExplorerDb);
+            document.querySelector('.explorer-box')?.scrollTo({
+              top: 0,
+            });
+          },
+          explorer.reload,
+        ),
       },
       name,
     );
-  const active = (nodes: LooseVNodes, title: string) =>
+  const active = (nodes: LooseVNodes, title: string, icon: LiconValue) =>
     hl(
       'span.active.text.' + db,
       {
-        attrs: { title, ...dataIcon(licon.Book) },
-        hook: db === 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
+        attrs: { title, ...dataIcon(icon) },
+        hook: db === 'player' ? bind('click', config.toggleColor, explorer.reload) : undefined,
       },
       nodes,
     );
-  const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01'),
-    lichessDbExplanation = i18n.site.lichessDbExplanation;
-  const data = explorer.current();
-  const queuePosition = data && isOpening(data) && data.queuePosition;
+
   return hl('div.explorer-title', [
     db === 'masters'
-      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation)
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, licon.Book)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], lichessDbExplanation)
-      : otherLink('Lichess', lichessDbExplanation),
+      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, licon.Logo)
+      : otherLink('Lichess', i18n.site.lichessDbExplanation),
     db === 'player'
       ? playerName
         ? active(
             [
               hl(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+              ` ${i18n.site[config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
-                !explorer.config.data.open() &&
+                !configOpened &&
                 hl('icon.ddloader', {
                   attrs: {
                     title: queuePosition
@@ -336,8 +348,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                 }),
             ],
             i18n.site.switchSides,
+            licon.User,
           )
-        : active([hl('strong', 'Player'), ' database'], '')
+        : active([hl('strong', 'Player'), ' database'], '', licon.User)
       : hl(
           'button.button-link.player',
           {
@@ -345,10 +358,10 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
             hook: bind(
               'click',
               () => {
-                explorer.config.selectPlayer(playerName || 'me');
+                config.selectPlayer(playerName || 'me');
                 if (explorer.db() !== 'player') {
-                  explorer.config.data.db('player');
-                  explorer.config.data.open(true);
+                  config.data.db('player');
+                  config.data.open(true);
                 }
               },
               explorer.reload,
@@ -356,6 +369,13 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           },
           i18n.site.player,
         ),
+    hl('button.fbt.toconf', {
+      attrs: {
+        'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+        ...dataIcon(configOpened ? licon.X : licon.Gear),
+      },
+      hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
+    }),
   ]);
 };
 
@@ -365,11 +385,11 @@ const showTitle = (variant: Variant) =>
     : i18n.site.xOpeningExplorer(variant.name);
 
 const showConfig = (ctrl: AnalyseCtrl): VNode =>
-  hl('div.config', [explorerTitle(ctrl.explorer), renderConfig(ctrl.explorer.config)]);
+  hl('div.config', [explorerTitle(ctrl), renderConfig(ctrl.explorer.config)]);
 
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
-    hl('div.title', showTitle(ctrl.data.game.variant)),
+    explorerTitle(ctrl),
     hl('div.message', [
       hl('h3', 'Oops, sorry!'),
       hl('p.explanation', ctrl.explorer.failing()?.toString()),
@@ -396,7 +416,7 @@ let lastFen: FEN = '';
 export default function (ctrl: AnalyseCtrl): MaybeVNode {
   const { explorer } = ctrl;
 
-  if (!explorer.enabled()) return;
+  if (!explorer.enabled()) return undefined;
 
   const data = explorer.current();
   const configOpened = explorer.config.data.open();
@@ -418,16 +438,6 @@ export default function (ctrl: AnalyseCtrl): MaybeVNode {
         },
       },
     },
-    [
-      hl('div.overlay'),
-      content,
-      hl('button.fbt.toconf', {
-        attrs: {
-          'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-          ...dataIcon(configOpened ? licon.X : licon.Gear),
-        },
-        hook: bind('click', () => explorer.config.toggleOpen(), ctrl.redraw),
-      }),
-    ],
+    [hl('div.overlay'), content],
   );
 }

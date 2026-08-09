@@ -132,7 +132,7 @@
   <string name="interestingMove">흥미로운 수</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">애매한 수</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">유일한 수</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">추크추방</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">추크츠방</string>
   <string name="equalPosition">동등한 포지션</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">불확실한 포지션</string>
   <string name="whiteIsSlightlyBetter">백이 미세하게 좋음</string>

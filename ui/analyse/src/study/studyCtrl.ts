@@ -328,7 +328,6 @@ export default class StudyCtrl {
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
     pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
-    pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember() && !this.relay);
     if (!this.data.chapter.features.explorer) this.ctrl.explorer.disable();
     this.ctrl.explorer.allowed(this.data.chapter.features.explorer);
   };
@@ -443,7 +442,7 @@ export default class StudyCtrl {
       n.gamebook = n.gamebook || {};
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
-    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
+    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return undefined;
     this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.redraw);
     this.vm.mode.sticky = false;
     return undefined;

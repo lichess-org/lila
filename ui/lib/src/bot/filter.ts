@@ -111,5 +111,7 @@ export function combine(v: FilterFacetValue, by: FilterBy): number {
       return Math.min(...Object.values(v));
     case 'avg':
       return Object.values(v).reduce((sum, w) => sum + w, 0) / Object.keys(v).length;
+    default:
+      return 0;
   }
 }

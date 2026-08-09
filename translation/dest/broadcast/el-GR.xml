@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή τουρνουά</string>
   <string name="definitivelyDeleteTournament">Οριστική διαγραφή αυτού του τουρνουά, όλων των γύρων του και όλων των παρτίδων του.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Θέλετε να διαγράψετε οριστικά αυτό το τουρνουά, συμπεριλαμβανομένων όλων των γύρων και των παρτίδων;</string>
   <string name="showScores">Εμφάνιση βαθμών των παικτών βάσει των παρτίδων τους</string>
   <string name="replacePlayerTags">Προαιρετικό: αντικατάσταση ονομάτων, βαθμολογιών και τίτλων παικτών</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
@@ -57,6 +58,7 @@
   <string name="subscribeTitle">Εγγραφείτε για να λαμβάνετε ειδοποίηση στην έναρξη κάθε γύρου. Μπορείτε να προσαρμόσετε τον τρόπο ειδοποίησης (bell ή push) στις ρυθμίσεις.</string>
   <string name="uploadImage">Μεταφόρτωση εικόνας τουρνουά</string>
   <string name="noBoardsYet">Δεν υπάρχουν διαθέσιμες σκακιέρες ακόμα. Θα εμφανιστούν μόλις φορτωθούν οι παρτίδες.</string>
+  <string name="noPlayersYet">Δεν υπάρχουν παίκτες. Θα εμφανιστούν όταν μεταφορτωθούν οι παρτίδες.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Οι σκακιέρες μπορούν να φορτωθούν από μια πηγή ή μέσω του %s</string>
   <string name="startsAfter">Ξεκινάει μετά από %s</string>
   <string name="startVerySoon">Η μετάδοση θα ξεκινήσει σύντομα.</string>
@@ -107,6 +109,6 @@
   <string name="tiebreaks">Μπαράζ</string>
   <string name="gameX">Παρτίδα %s</string>
   <string name="knockouts">Νοκ άουτ</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Κ%s</string>
 </resources>

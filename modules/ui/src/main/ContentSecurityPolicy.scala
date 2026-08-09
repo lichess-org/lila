@@ -22,13 +22,6 @@ case class ContentSecurityPolicy(
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 
-  def withTwitter =
-    copy(
-      scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
-      frameSrc = "https://twitter.com" :: "https://platform.twitter.com" :: frameSrc,
-      styleSrc = "https://platform.twitter.com" :: styleSrc
-    )
-
   def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
 
   def withTurnstile = copy(

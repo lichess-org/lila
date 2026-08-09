@@ -7,7 +7,7 @@ import lila.core.i18n.I18nKey.appeal as trans
 
 object AppealTopicApi:
 
-  val irrelevant = Set(AppealTopic.play, AppealTopic.chat)
+  val irrelevant = Set(AppealTopic.play, AppealTopic.chat, AppealTopic.legacy)
   val relevant = AppealTopic.values.filterNot(irrelevant).toList
 
   private val exemptFromAccountsQuestion =
@@ -35,8 +35,7 @@ object AppealTopicApi:
       .find: topic =>
         appeals.get(topic).forall(_.isOpen)
       .orElse:
-        List(AppealTopic.warning, AppealTopic.legacy)
-          .find(t => appeals.get(t).exists(_.isOpen))
+        List(AppealTopic.warning).find(t => appeals.get(t).exists(_.isOpen))
 
   def unmark(user: UserStatus, topic: AppealTopic): Option[(String, Call)] =
     candidatesFor(user)

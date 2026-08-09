@@ -4,7 +4,7 @@
   border: 1px solid $c-font-dimmer;
   height: 1em;
   width: 1.5em;
-  border-radius: 12px;
+  border-radius: $box-radius-size;
   background: $c-bg-box;
   cursor: pointer;
 }
@@ -14,7 +14,7 @@
   height: 1em;
   cursor: pointer;
   background: $c-shade;
-  border-radius: 0.5em;
+  border-radius: $box-radius-size;
 }
 
 input.range {
@@ -50,12 +50,10 @@ input.range {
 
   &::-ms-fill-lower {
     background: rgb(191 191 191 / 0.78);
-    border-radius: 11.8px;
   }
 
   &::-ms-fill-upper {
     background: rgb(214 214 214 / 0.78);
-    border-radius: 11.8px;
   }
 
   &::-ms-thumb {

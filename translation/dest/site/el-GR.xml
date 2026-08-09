@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Η αποστολή ενδέχεται να διαρκέσει λίγη ώρα.</string>
   <string name="refreshInboxAfterFiveMinutes">Περιμένετε 5 λεπτά και ανανεώστε τα εισερχόμενα email σας.</string>
   <string name="checkSpamFolder">Επίσης, ελέγξτε τον φάκελο με τα ανεπιθύμητα email. Αν το email που στείλαμε βρίσκεται εκεί, αναφέρετέ το ως μη ανεπιθύμητο.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Αν δεν λάβετε email επιβεβαίωσης, ελέγξτε τον φάκελο ανεπιθύμητης αλληλογραφίας. Προσθέστε τα μηνύματα από το lichess.org στους ασφαλείς αποστολείς και σημειώστε τα ως «όχι ανεπιθύμητα», ώστε να λαμβάνετε σημαντικές ενημερώσεις.</string>
   <string name="sendEmailForAccountVerification">Αν δεν μπορείτε να βρείτε το email επιβεβαίωσης, στείλτε ένα email στο %s και θα επιβεβαιώσουμε τον λογαριασμό σας για εσάς.</string>
   <string name="accountConfirmed">Ο λογαριασμός του χρήστη %s επαληθεύτηκε με επιτυχία.</string>
   <string name="accountCanLogin">Μπορείτε τώρα να συνδεθείτε ως %s.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s ακολουθείται</item>
     <item quantity="other">%s ακολουθούνται</item>
   </plurals>
+  <string name="less">Λιγότερα</string>
   <string name="more">Περισσότερα</string>
   <string name="memberSince">Μέλος από τις</string>
   <string name="lastSeenActive">Τελευταία είσοδος %s</string>
@@ -580,9 +582,9 @@
   <string name="replies">Απαντήσεις</string>
   <string name="replyToThisTopic">Απαντήστε σε αυτό το θέμα</string>
   <string name="reply">Απάντηση</string>
-  <string name="reopen" comment="Appears in the forum as a button. When a forum post has been closed, this gives you the option to reopen it.">Ανοίξτε ξανά</string>
-  <string name="quote" comment="An action on forum posts. When clicked, it will quote the full text of a post in the reply composition box.">Παράθεση</string>
-  <string name="postEdited" comment="Appears next to forum posts that have been edited by their author.">τροποποιήθηκε</string>
+  <string name="reopen">Ανοίξτε ξανά</string>
+  <string name="quote">Παράθεση</string>
+  <string name="postEdited">τροποποιήθηκε</string>
   <string name="message">Μήνυμα</string>
   <string name="createTheTopic">Δημιουργήστε θέμα</string>
   <string name="reportAUser">Αναφορά χρήστη</string>
@@ -595,6 +597,7 @@
   <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"Αυτοί έκλεβαν\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
   <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Θα μπορέσουμε να εξετάσουμε την αναφορά σας πιο γρήγορα αν τη γράψετε στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
@@ -719,6 +722,7 @@
   <string name="aboutSimulSettings">Τα σιμουλτανέ είναι πάντα φιλικά. Οι επαναλήψεις, ανακλήσεις κινήσεων και προσθήκες επιπλέον χρόνου έχουν απενεργοποιηθεί.</string>
   <string name="create">Δημιουργήστε</string>
   <string name="whenCreateSimul">Όταν δημιουργείτε ένα σιμουλτανέ, πρέπει να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Δημιουργώντας ένα σιμουλτανέ μπορείτε να παίξετε ταυτόχρονα εναντίον πολλών αντιπάλων.</string>
   <string name="simulVariantsHint">Εάν επιλέξετε διάφορες εκδοχές, κάθε παίκτης μπορεί να επιλέξει ποια θα παίξει.</string>
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
@@ -825,10 +829,13 @@
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
   <string name="background">Φόντο</string>
+  <string name="theme">Εμφάνιση</string>
   <string name="light">Ανοιχτόχρωμο</string>
   <string name="dark">Σκουρόχρωμο</string>
   <string name="transparent">Διάφανο</string>
+  <string name="picture">Εικόνα</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
+  <string name="roundness">Καμπυλότητα</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
   <string name="board">Σκακιέρα</string>
   <string name="size">Μέγεθος</string>
@@ -966,7 +973,6 @@
   <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στη μελέτη «%2$s».</string>
   <string name="youAreNowPartOfTeam">Είστε πλέον μέλος της ομάδας.</string>
   <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας «%1$s».</string>
-  <string name="someoneYouReportedWasBanned">Κάποιος χρήστης που αναφέρατε έχει αποκλειστεί</string>
   <string name="congratsYouWon">Συγχαρητήρια, κερδίσατε!</string>
   <string name="gameVsX">Παρτίδα εναντίον του χρήστη %1$s</string>
   <string name="resVsX">%1$s εναντίον του χρήστη %2$s</string>
@@ -998,6 +1004,7 @@
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
   <string name="markdownIsAvailable">Μπορείτε να χρησιμοποιήσετε %s για μορφοποίηση.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Μπορείτε να διαμορφώσετε το κείμενο χρησιμοποιώντας %s.</string>
   <string name="embedsAvailable">Επικολλήστε μια διεύθυνση URL παρτίδας ή ένα κεφάλαιο μελέτης για να το ενσωματώσετε.</string>
   <string name="inYourLocalTimezone">Στη δική σας ζώνη ώρας</string>
   <string name="tournChat">Δωμάτιο συνομιλίας τουρνουά</string>
@@ -1005,6 +1012,7 @@
   <string name="onlyTeamLeaders">Μόνο οι αρχηγοί ομάδων</string>
   <string name="onlyTeamMembers">Μόνο τα μέλη της ομάδας</string>
   <string name="navigateMoveTree">Πλοηγηθείτε στο δέντρο κινήσεων</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Πλοήγηση στη λίστα κινήσεων</string>
   <string name="mouseTricks">«Κόλπα» με το ποντίκι</string>
   <string name="toggleLocalAnalysis">Εναλλαγή ανάλυσης τοπικού υπολογιστή</string>
   <string name="toggleAllAnalysis">Εναλλαγή όλων των αναλύσεων υπολογιστή</string>

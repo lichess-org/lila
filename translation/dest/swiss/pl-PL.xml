@@ -137,6 +137,8 @@ Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajca
   <string name="unlimitedAndFree">Bez ograniczeń i opłat</string>
   <string name="predefinedUsers">Zezwalaj na dołączenie do turnieju tylko wstępnie zdefiniowanym użytkownikom</string>
   <string name="forbiddedUsers">Jeśli ta lista nie jest pusta, nazwy użytkowników nieobecne na niej nie będą mogły dołączyć do turnieju. Jedna nazwa użytkownika na linię.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Wprowadź po jednej nazwie użytkownika w linii. Tylko ci gracze będą mogli dołączyć.
+Pozostaw puste, aby umożliwić dołączenie wszystkim uprawnionym graczom.</string>
   <string name="playYourGames">Rozegraj swoje partie</string>
   <string name="byes">Punkty bez gry</string>
   <string name="absences">Nieobecności</string>

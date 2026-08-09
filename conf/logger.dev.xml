@@ -30,4 +30,6 @@
   <logger name="org.apache.pekko"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="reactivemongo"><appender-ref ref="STDOUT_INFO" /></logger>
 
+  <logger name="reactivemongo.core.nodeset.ChannelFactory" level="INFO"/>
+  <logger name="reactivemongo.core.actors.MongoDBSystem" level="INFO"/>
 </configuration>

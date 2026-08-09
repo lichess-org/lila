@@ -5,10 +5,11 @@
   <string name="noAndYourNetworkIsGood">नाही. आणि तुमचे नेटवर्क चांगले आहे.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">नाही. आणि आपले नेटवर्क खराब आहे.</string>
   <string name="yesItWillBeFixedSoon">होय. लवकरच निश्चित केले जाईल!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">आणि आता, लांब उत्तर! गेम लेग दोन असंबंधित मूल्यांचे बनलेले आहे (कमी चांगले आहे):</string>
-  <string name="lichessServerLatency">लीचेस सर्व्हर विलंब</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">आणि आता, लांब उत्तर! खेळ लेग दोन असंबंधित मूल्यांचे बनलेले आहे (कमी चांगले आहे):</string>
+  <string name="lichessServerLatency">Lichess सर्व्हर विलंब</string>
   <string name="lichessServerLatencyExplanation">सर्व्हरवर एका चालीची प्रक्रिया करण्यासाठी लागणारा वेळ. प्रत्येकासाठी तो समानच असतो व सर्व्हरवरील ताणावर अवलंबून असतो. जितके अधिक खेळाडू तितका जास्त वेळ लागतो, परंतु लिचेस विकसक हा वेळ कमी ठेवण्यासाठी सर्वतोपरी प्रयत्न करतात. हा क्वचितच 10 मिलीसेकंदांपेक्षा जास्त असतो.</string>
-  <string name="networkBetweenLichessAndYou">लीचेस आणि आपण दरम्यान नेटवर्क</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">सर्व्हरवर एखादी चाल प्रक्रिया करण्यास लागणारी ही कालावधी आहे. ही वेळ सर्वांसाठी सारखीच असते आणि ती सर्व्हरवरील भाराइतकावर अवलंबून असते. खेळाडूंची संख्या जितकी जास्त, तितका हा भार वाढतो; तरीही तो कमीत कमी राखण्याचा आम्ही पुरेपूर प्रयत्न करतो. ही वेळ क्वचितच १० मिलिसेकंदांपेक्षा जास्त असते.</string>
+  <string name="networkBetweenLichessAndYou">Lichess आणि आपण दरम्यान नेटवर्क</string>
   <string name="networkBetweenLichessAndYouExplanation">आपल्या संगणकावरून लिचेस सर्व्हरवर चाल पाठवण्यासाठी आणि प्रतिसाद मिळविण्यासाठी लागणारा वेळ. तो लिचेस (फ्रान्स) पासून आपले अंतर आणि आपल्या इंटरनेट जोडणीच्या दर्जावर अवलंबून आहे. लिचेस विकसक आपले वायफाय दुरूस्त करू शकत नाहीत किंवा प्रकाशाचा वेग वाढवू शकत नाहीत.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">शीर्ष पट्टीमध्ये आपल्या वापरकर्त्याच्या नावावर क्लिक करून आपण या दोन्ही मूल्ये कधीही शोधू शकता.</string>
   <string name="lagCompensation">नुकसान भरपाई</string>

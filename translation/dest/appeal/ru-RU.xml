@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Ваша учётная запись не помечена и не ограничена. Всё в порядке!</string>
-  <string name="engineMarked">Ваша учётная запись помечена как получающая стороннюю помощь в партиях.</string>
+  <string name="engineMarked">Ваша учётная запись была заблокирована за использование движков или компьютерной помощи.</string>
   <string name="engineMarkedInfo">Мы определяем это как использование любой внешней помощи для усиления ваших знаний или расчётов с целью получения несправедливого преимущества над противником. Смотрите страницу %s для более подробной информации.</string>
   <string name="arenaBanned">Ваша учётная запись заблокирована для участия на Аренах.</string>
   <string name="prizeBanned">Ваша учётная запись заблокирована для участия в турнирах с реальными призами.</string>
-  <string name="boosterMarked">Ваша учётная запись помечена за манипуляции рейтингом.</string>
-  <string name="boosterMarkedInfo">Мы определяем это как преднамеренное манипулирование рейтингом путём намеренного проигрыша партий или игрой против другого игрока, который намеренно проигрывает партии.</string>
+  <string name="boosterMarked">Эта учётная запись была заблокирована из-за манипуляций рейтингом или за совместное использование.</string>
   <string name="accountMuted">Ваша учётная запись ограничена.</string>
   <string name="accountMutedInfo">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению учётных записей.</string>
   <string name="excludedFromLeaderboards">Ваша учётная запись исключена из списка лидеров.</string>
-  <string name="excludedFromLeaderboardsInfo">Мы определяем это как использование нечестного способа попасть в список лидеров.</string>
+  <string name="onlyOneAccountOnLeaderboards">В списке лидеров может быть только одна учётная запись на человека.</string>
   <string name="closedByModerators">Ваша учётная запись была закрыта модераторами.</string>
-  <string name="hiddenBlog">Ваши блоги были скрыты модераторами.</string>
-  <string name="hiddenBlogInfo">Обязательно перечитайте наши %s.</string>
+  <string name="blogRestriction">Для вас установлено ограничение на блог.</string>
+  <string name="blogRestrictionInfo">Прочитайте наш %s, его нарушения могут привести к определённым воздействиям.</string>
   <string name="playTimeout">У вас есть таймаут.</string>
+  <string name="reportBanned">Вы не можете жаловаться на модераторов</string>
+  <string name="reportBannedInfo">Мы заметили некоторое злоупотребление нашей системой обращений. Это могло случиться по разным причинам, например, выбором неправильных категорий нарушений, использованием неуместных или оскорбительных высказываний, обращениями для чрезмерного количества игр, или, наоборот, отсутствием информации о том, что именно нарушил ваш соперник.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Ваша учётная запись временно ограничена для участия в играх.</string>
   <string name="communicationGuidelines">правила общения</string>
-  <string name="blogRules">правила ведения блогов</string>
+  <string name="blogEtiquette">этикет блога</string>
   <string name="fairPlay">Честная игра</string>
 </resources>

@@ -71,6 +71,7 @@ object LilaRouter:
   given QueryStringBindable[Color] =
     strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
   given QueryStringBindable[Uci] = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)
-  given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
+  given QueryStringBindable[BlogsBy] =
+    strQueryString[BlogsBy](BlogsBy.byName.get, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
-    strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)
+    strQueryString[BlogQualityFilter](BlogQualityFilter.byName.get, "Invalid quality", _.name)

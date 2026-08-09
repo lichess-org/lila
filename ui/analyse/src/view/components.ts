@@ -165,7 +165,7 @@ export const renderUnderboard = ({ ctrl, deps, study }: ViewContext): VNode =>
   );
 
 export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
+  if (ctrl.ongoing || !ctrl.data.userAnalysis) return undefined;
   if (ctrl.redirecting) return spinner();
   return hl('div.copyables', [
     hl('div.pair', [
@@ -211,6 +211,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
                   return undefined;
                 else if (changePgnIfDifferent()) e.preventDefault();
+                return undefined;
               });
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
             }),

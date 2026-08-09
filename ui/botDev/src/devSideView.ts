@@ -105,8 +105,6 @@ function ratingSpan(p: Bot): VNode {
 
 function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
   switch (speed) {
-    case 'classical':
-      return licon.Turtle;
     case 'rapid':
       return licon.Rabbit;
     case 'blitz':
@@ -114,6 +112,9 @@ function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
     case 'bullet':
     case 'ultraBullet':
       return licon.Bullet;
+    case 'classical':
+    default:
+      return licon.Turtle;
   }
 }
 

@@ -116,6 +116,8 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
   <string name="unlimitedAndFree">무제한이며 무료인가</string>
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">한 줄에 유저명을 하나씩 입력하세요. 해당 플레이어만 참가할 수 있습니다.
+참가 가능한 모든 유저를 허용하려면 비워두세요.</string>
   <string name="playYourGames">게임을 더 플레이하고 오세요</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>

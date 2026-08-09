@@ -7,9 +7,12 @@ import lila.core.data.Url
 enum PostResult:
   case Success, Invalid, Limited, Bounced
 
-case class MsgPreset(name: String, text: String)
+case class MsgPreset(name: String, text: String, mustRead: Boolean)
 
-case class SystemMsg(userId: UserId, text: String)
+case class SystemMsg(userId: UserId, text: String, mustRead: Boolean)
+object SystemMsg:
+  def mustRead(userId: UserId, text: String) = SystemMsg(userId, text, true)
+  def standard(userId: UserId, text: String) = SystemMsg(userId, text, false)
 
 case class PayoutMessages(
     userIds: List[UserId],
@@ -30,6 +33,7 @@ trait MsgApi:
       text: String,
       multi: Boolean = false,
       date: Instant = nowInstant,
-      ignoreSecurity: Boolean = false
+      ignoreSecurity: Boolean = false,
+      mustRead: Boolean = false
   ): Fu[PostResult]
-  def systemPost(destId: UserId, text: String): Fu[PostResult]
+  def systemPost(msg: SystemMsg): Fu[PostResult]

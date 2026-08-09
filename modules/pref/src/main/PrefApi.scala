@@ -35,12 +35,12 @@ final class PrefApi(
   def get[A](userId: UserId, pref: Pref => A): Fu[A] =
     cache.get(userId).dmap(p => pref(p | Pref.default))
 
-  def get(user: User, req: RequestHeader): Fu[Pref] =
-    get(user).dmap(RequestPref.queryParamOverride(req))
+  def getWithReq(user: User)(using RequestHeader): Fu[Pref] =
+    get(user).dmap(RequestPref.queryParamOverride)
 
-  def get(user: Option[User], req: RequestHeader): Fu[Pref] = user match
-    case Some(u) => get(u).dmap(RequestPref.queryParamOverride(req))
-    case None => fuccess(RequestPref.fromRequest(req))
+  def getWithReq(user: Option[User])(using RequestHeader): Fu[Pref] = user match
+    case Some(u) => get(u).dmap(RequestPref.queryParamOverride)
+    case None => fuccess(RequestPref.fromRequest)
 
   def byId(userId: UserId): Fu[Pref] = cache
     .get(userId)
@@ -108,6 +108,6 @@ final class PrefApi(
     )
   )
 
-  def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
-    val reqPref = RequestPref.fromRequest(req)
+  def saveNewUserPrefs(user: User)(using RequestHeader): Funit =
+    val reqPref = RequestPref.fromRequest
     (reqPref != Pref.default).so(setPref(user, reqPref.copy(id = user.id)))

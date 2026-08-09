@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">Pozdravljeni,
+
+Pregledali smo vaše nedavno poročilo in ukrepali. Čeprav ne moremo deliti podrobnosti o sprejetih ukrepih, cenimo vaše poročilo.
+
+Zahvaljujemo se vam za vašo pomoč pri ohranjanju Lichessa kot dobrega mesta za vse.</string>
+</resources>

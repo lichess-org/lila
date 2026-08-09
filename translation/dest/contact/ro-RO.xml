@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Nici unul dintre cele de mai sus</string>
   <string name="sendEmailAt">Trimite-ne un e-mail pe adresa %s.</string>
   <string name="explainYourRequest">Te rog să îți explici cererea clar și detaliat. Spune-ți numele de utilizator Lichess, și orice informație care ne poate ajuta să te ajutăm.</string>
+  <string name="monetiseNotInterested">Nu ne interesează niciun fel de a monetiza Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nu vom afișa niciodată niciun fel de reclama, nu vom stoca datele utilizatorilor noștri și nu vom vinde sau cumpăra trafic sau utilizatori.</string>
+  <string name="monetiseNoMarketingEmail">Vă rugăm să nu ne trimiteți niciun e-mail despre marketing, datele utilizatorilor sau reclame.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Încurajăm pe toată lumea să %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blocheze toate reclamele și trackerele</string>
+  <string name="broadcastTournamentOnLichess">Difuzează un turneu pe Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Dacă doriţi să difuzaţi în mod oficial un turneu pe Lichess sau aveţi întrebări despre emisiunile noastre:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Te rugăm să contactezi echipa noastră de difuzare la %1$s sau pe %2$s.</string>
+  <string name="ourDiscordServer">serverul nostru de Discord</string>
 </resources>

@@ -93,7 +93,7 @@ interface I18n {
     blogRestriction: string;
     /** Read our %s, violating these rules may result in different actions. */
     blogRestrictionInfo: I18nFormat;
-    /** Your account was restricted for rating manipulation/account sharing */
+    /** Your account was restricted for rating manipulation/account sharing. */
     boosterMarked: string;
     /** Your account is not marked or restricted. You're all good! */
     cleanAllGood: string;
@@ -359,6 +359,8 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
+    /** No players yet. They will appear once games are uploaded. */
+    noPlayersYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
     /** Official standings */
@@ -1859,6 +1861,8 @@ interface I18n {
     lichobileNewAppAvailable: string;
     /** Please download the new official Lichess app at %s. */
     lichobileNewAppDownload: I18nFormat;
+    /** Hello, */
+    modActionFeedback: string;
   };
   nvui: {
     /** Actions */
@@ -3251,6 +3255,8 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
+    /** Background image opacity: */
+    backgroundImageOpacity: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -3869,6 +3875,8 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
+    /** Less */
+    less: string;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */
@@ -4213,6 +4221,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
     permanentLinkForAnyoneToChallengeYou: string;
+    /** Picture */
+    picture: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4423,6 +4433,8 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** Roundness */
+    roundness: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
     /** Save */
@@ -4519,8 +4531,6 @@ interface I18n {
     socialMediaLinks: string;
     /** Solution */
     solution: string;
-    /** Someone you reported was banned */
-    someoneYouReportedWasBanned: string;
     /** Sorry :( */
     sorry: string;
     /** Sound */
@@ -4589,6 +4599,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** Theme */
+    theme: string;
     /** No results for "%s" */
     thereAreNoResultsForX: I18nFormat;
     /** The Lichess Terms of Service were violated on this account */
@@ -5777,12 +5789,6 @@ interface I18n {
     manuallyReviewAdmissionRequests: string;
     /** If checked, players will need to request to join the team, which you can accept or decline. */
     manuallyReviewAdmissionRequestsHelp: string;
-    /** Message all members */
-    messageAllMembers: string;
-    /** Send a private message to ALL members of the team. */
-    messageAllMembersLongDescription: string;
-    /** Send a private message to every member of the team */
-    messageAllMembersOverview: string;
     /** My teams */
     myTeams: string;
     /** %s leaders per team */
@@ -5791,6 +5797,8 @@ interface I18n {
     nbMembers: I18nPlural;
     /** New team */
     newTeam: string;
+    /** New team update */
+    newTeamUpdate: string;
     /** No team found */
     noTeamFound: string;
     /** Number of leaders per team. The sum of their score is the score of the team. */
@@ -5807,8 +5815,8 @@ interface I18n {
     quitTeam: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
-    /** Subscribe to team messages */
-    subToTeamMessages: string;
+    /** Subscribe to team updates */
+    subToTeamUpdates: string;
     /** A Swiss tournament that only members of your team can join */
     swissTournamentOverview: string;
     /** Team */
@@ -5835,6 +5843,8 @@ interface I18n {
     teamTournament: string;
     /** An Arena tournament that only members of your team can join */
     teamTournamentOverview: string;
+    /** Team updates */
+    teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
     /** Upcoming tournaments */

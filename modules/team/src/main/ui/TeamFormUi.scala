@@ -9,7 +9,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class FormUi(helpers: Helpers, bits: TeamUi)(
+final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag
 ):
   import helpers.{ *, given }
@@ -38,7 +38,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using Context, Me) =
-    TeamPage(s"Edit Team ${t.name}").markdownTextarea.js(Esm("bits.team")):
+    TeamPage(s"Edit Team ${t.name}").markdownTextarea.js(Esm("team")):
       main(cls := "page-menu page-small team-edit")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(

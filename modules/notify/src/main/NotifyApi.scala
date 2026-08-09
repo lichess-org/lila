@@ -45,7 +45,7 @@ final class NotifyApi(
       colls.pref.update.one($id(me.id), pref, upsert = true).void
 
     def allows(userId: UserId, event: PrefEvent): Fu[Allows] =
-      colls.pref
+      colls.pref.secondary
         .primitiveOne[Allows]($id(userId), event.key)
         .dmap(_ | default.allows(event))
 
@@ -125,7 +125,7 @@ final class NotifyApi(
 
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
-  def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
+  def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit = userIds.nonEmpty.so:
     NotificationPref.events
       .get(content.key)
       .so: event =>
@@ -134,6 +134,11 @@ final class NotifyApi(
           .flatMap: recips =>
             pushMany(recips.filter(_.allows.push), content)
             bellMany(recips, content)
+
+  def notifyManyUnlessUnread(userIds: Iterable[UserId], content: NotificationContent): Funit = for
+    unreadUsers <- repo.usersWithRecentUnread(content, 3.days)
+    _ <- notifyMany(userIds.filterNot(unreadUsers), content)
+  yield ()
 
   private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
     val recips = userIds.map(NotifyAllows(_, lila.notify.Allows.all))
@@ -162,9 +167,7 @@ final class NotifyApi(
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells.foreach(unreadCountCache.invalidate) // or maybe update only if getIfPresent?
     for _ <- repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
-    yield Bus.pub(
-      SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true))
-    )
+    yield Bus.pub(SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)))
 
   private def pushOne(to: NotifyAllows, content: NotificationContent) =
     pushMany(Seq(to), content)

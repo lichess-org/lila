@@ -175,7 +175,7 @@ final class ModTimelineApi(
     !r.isSpontaneous && !r.isAppeal
 
   private object modsList:
-    var all: Set[ModId] = Set(UserId.lichess.into(ModId))
+    var all: Set[ModId] = Set(ModId.lichess)
     def contains(mod: ModId): Boolean = all.contains(mod)
     scheduler.scheduleWithFixedDelay(19.seconds, 1.hour): () =>
       userRepo

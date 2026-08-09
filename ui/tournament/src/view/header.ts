@@ -19,7 +19,7 @@ const hasFreq = (freq: 'shield' | 'marathon', d: TournamentData) => d.schedule?.
 
 function clock(ctrl: TournamentController): VNode | undefined {
   const d = ctrl.data;
-  if (d.isFinished) return;
+  if (d.isFinished) return undefined;
   if (d.secondsToFinish) return h('div.clock', [h('div.time', { hook: startClock(d.secondsToFinish) })]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds)
@@ -43,8 +43,8 @@ function clock(ctrl: TournamentController): VNode | undefined {
 }
 
 function image(d: TournamentData): VNode | undefined {
-  if (d.isFinished) return;
-  if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
+  if (d.isFinished) return undefined;
+  if (hasFreq('shield', d) || hasFreq('marathon', d)) return undefined;
   const s = d.spotlight;
   if (s?.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
   return icon(s?.iconFont || licon.Trophy)('.img');

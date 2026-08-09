@@ -63,7 +63,7 @@ libraryDependencies ++= pekko.bundle ++ playWs.bundle ++ macwire.bundle ++ scala
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded, catsMtl
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, catsMtl
 ) ++ tests.bundle
 
 // influences the compilation order

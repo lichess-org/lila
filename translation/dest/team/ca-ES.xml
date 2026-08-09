@@ -30,17 +30,14 @@
   <string name="willBeReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
   <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
   <string name="requestDeclined">La teva sol·licitud ha estat declinada pel líder de l\'equip.</string>
-  <string name="subToTeamMessages">Subscriu-te als missatges de l\'equip</string>
   <string name="teamBattle">Batalla d\'equips</string>
   <string name="teamBattleOverview">Batalla de diversos equips, cada jugador puntua pel seu equip</string>
   <string name="teamTournament">Torneig d\'equip</string>
   <string name="teamTournamentOverview">Torneig Arena on només membres del teu equip poden inscriure\'s</string>
   <string name="swissTournamentOverview">Torneig Suís on només membres del teu equip es poden inscriure</string>
-  <string name="messageAllMembers">Missatge a tots els membres</string>
-  <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
-  <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
-Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'equips.
-Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
+  <string name="teamUpdates">Actualitzacions de l’equip</string>
+  <string name="subToTeamUpdates">Subscriu-te les actualitzacions de l\'equip</string>
+  <string name="newTeamUpdate">Nova actualització de l\'equip</string>
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="leadersChat">Xat de capitans</string>

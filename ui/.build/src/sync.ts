@@ -7,7 +7,7 @@ import { isGlob, isFolder, isClose } from './parse.ts';
 import { makeTask } from './task.ts';
 
 export async function sync(): Promise<void[] | undefined> {
-  if (!env.begin('sync')) return;
+  if (!env.begin('sync')) return undefined;
   return Promise.all(
     [...env.tasks('sync')].map(async ([pkg, sync]) => {
       const { root, exact } = await srcRoot(env.rootDir, sync.src);

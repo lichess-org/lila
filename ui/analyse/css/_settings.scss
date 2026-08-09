@@ -40,6 +40,7 @@
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
   height: 100%;
+  text-align: start;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;
@@ -58,7 +59,7 @@
   fieldset {
     flex: initial;
     border: 1px solid $c-border;
-    border-radius: 6px;
+    border-radius: $box-radius-size;
     background: $c-bg-mid;
     padding: 1em;
 

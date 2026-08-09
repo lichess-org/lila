@@ -22,6 +22,8 @@
 
     &__meta {
       @extend %flex-between;
+
+      padding-top: 3px;
     }
 
     &__result {
@@ -31,6 +33,7 @@
         @extend %page-text;
 
         font-size: 0.9em;
+        margin-left: 0.5em;
       }
     }
 
@@ -40,21 +43,30 @@
       visibility: hidden;
     }
 
+    cg-container {
+      outline: 3px solid transparent;
+      border-radius: $small-box-radius-size;
+    }
+
+    .good cg-container {
+      outline-color: $c-good;
+    }
+
+    .bad cg-container {
+      outline-color: $c-bad;
+    }
+
     &:hover .puz-history__round__id {
+      font-family: monospace;
       color: $c-font;
       visibility: visible;
+      font-size: 0.9em;
     }
   }
 
   good,
   bad {
-    @extend %flex-center;
-
-    color: white;
-    padding: 0 0.5em 0.1em 0.3em;
-    margin-inline-end: 1ch;
-    font-size: 0.9em;
-    opacity: 0.7;
+    @extend %flex-center, %box-radius-bottom;
 
     &::before {
       @extend %data-icon;
@@ -64,7 +76,7 @@
   }
 
   good {
-    background: $c-good;
+    color: $c-good;
 
     &::before {
       content: $licon-Checkmark;
@@ -72,7 +84,7 @@
   }
 
   bad {
-    background: $c-bad;
+    color: $c-bad;
 
     &::before {
       content: $licon-X;

@@ -108,7 +108,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
-      .csp(_.withInlineIconFont.withTwitter)
+      .csp(_.withInlineIconFont)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,

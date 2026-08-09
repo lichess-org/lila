@@ -40,7 +40,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         ).some
       )
       .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withTwitter.withInlineIconFont):
+      .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(

@@ -64,6 +64,14 @@ export default function makeRenderers(): Renderers {
         ]),
       text: n => i18n.site.youHaveJoinedTeamX(n.content.name),
     },
+    teamUpdate: {
+      html: n =>
+        generic(n, '/team/updates/' + n.content.id, licon.Group, [
+          h('span', [h('strong', n.content.name)]),
+          h('span', n.content.text),
+        ]),
+      text: _ => 'New team update',
+    },
     titledTourney: {
       html: n =>
         generic(n, '/tournament/' + n.content.id, licon.Trophy, [
@@ -75,10 +83,10 @@ export default function makeRenderers(): Renderers {
     reportedBanned: {
       html: n =>
         generic(n, undefined, licon.InfoCircle, [
-          h('span', [h('strong', i18n.site.someoneYouReportedWasBanned)]),
+          h('span', [h('strong', 'Someone you reported was banned')]),
           h('span', i18n.site.thankYou),
         ]),
-      text: _ => i18n.site.someoneYouReportedWasBanned,
+      text: _ => 'Someone you reported was banned',
     },
     gameEnd: {
       html: n => {

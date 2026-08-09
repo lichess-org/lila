@@ -951,7 +951,6 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Most már a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
   <string name="gameVsX">Játszma %1$s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>

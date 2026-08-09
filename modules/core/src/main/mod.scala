@@ -17,7 +17,7 @@ trait LogApi:
   )(using MyId): Funit
 
 trait ModApi:
-  def autoMark(suspectId: report.SuspectId, note: String)(using MyId): Funit
+  def autoEngine(suspectId: report.SuspectId, note: String)(using MyId): Funit
 
 case class MarkCheater(userId: UserId, value: Boolean)
 case class MarkBooster(userId: UserId, value: Boolean)

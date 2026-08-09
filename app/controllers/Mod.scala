@@ -13,6 +13,7 @@ import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
 import lila.core.userId.ModId
+import lila.core.msg.SystemMsg
 import lila.mod.{ Modlog, ModUserSearch }
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.mon.extensions.*
@@ -94,9 +95,10 @@ final class Mod(
     env.mod.presets.getPmPresets.named(subject).so { preset =>
       withSuspect(username): suspect =>
         for
-          _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
+          _ <- env.msg.api.systemPost(SystemMsg.mustRead(suspect.user.id, preset.text))
           _ <- env.mod.logApi.modMessage(suspect.user.id, preset.name)
           _ <- preset.isNameClose.so(env.irc.api.nameClosePreset(suspect.user.username))
+          _ <- env.mod.api.afterWarning(suspect)
         yield suspect.some
     }
   }(reportC.onModAction)

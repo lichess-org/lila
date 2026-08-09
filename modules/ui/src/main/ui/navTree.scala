@@ -52,7 +52,7 @@ object navTree:
       .map(p =>
         a(
           makeLink(p.id),
-          cls := List("back" -> true, "no-mirror" -> forceLtr),
+          cls := List("back text" -> true, "no-mirror" -> forceLtr),
           dataIcon := Icon.LessThan,
           title := "Go back"
         )
