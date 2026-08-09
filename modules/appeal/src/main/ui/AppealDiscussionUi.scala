@@ -91,8 +91,8 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         "Additional accounts",
         if accounts.onlyThisAccount then "None (only this account)"
         else
-          accounts.otherUsernames.fold[Frag](em("None listed")): names =>
-            pre(cls := "appeal__accounts__text")(names)
+          accounts.otherUsernames.fold(em("None listed")):
+            pre(cls := "appeal__accounts__text")(_)
       ),
       accounts.moreForgotten.option:
         row("", "Has additional accounts but has forgotten their usernames")

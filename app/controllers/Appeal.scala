@@ -59,10 +59,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             err => BadRequest.async(renderAppealOrTree(err.some)),
             data =>
               val isNew = appeals.get(topic).isEmpty
-              val accounts =
-                Option
-                  .when(isNew && AppealTopicApi.requiresAccounts(topic))(data.accounts)
-                  .flatten
+              val accounts = (isNew && AppealTopicApi.requiresAccounts(topic)).so(data.accounts)
               for _ <- env.appeal.api.post(topic, data.text, muted = appeals.muted, accounts)
               yield Redirect(routes.Appeal.home).flashSuccess
           )

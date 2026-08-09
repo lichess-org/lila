@@ -32,7 +32,7 @@ final class AppealApi(
       topic: AppealTopic,
       text: String,
       muted: Boolean,
-      accounts: Option[AccountsDisclosure] = None
+      accounts: Option[AccountsDisclosure]
   )(using me: Me) =
     find(me, topic).flatMap:
       case None =>
