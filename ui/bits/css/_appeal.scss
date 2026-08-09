@@ -135,13 +135,9 @@
   }
 
   .appeal-accounts {
-    p {
-      margin-bottom: 1em;
-    }
+    @extend %flex-column;
 
-    &__choice {
-      margin-bottom: 1em;
-    }
+    gap: 1em;
 
     &__option {
       @extend %flex-center;
@@ -154,7 +150,6 @@
       @extend %box-radius;
 
       width: 100%;
-      margin-bottom: 1em;
       padding: 0.6em 0.8em;
       border: $border;
       background: $c-bg-box;
@@ -163,10 +158,6 @@
       &:disabled {
         opacity: 0.5;
       }
-    }
-
-    &__forgotten {
-      margin-bottom: 1em;
     }
   }
 

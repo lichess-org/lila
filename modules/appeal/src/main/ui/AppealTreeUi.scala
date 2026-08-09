@@ -76,7 +76,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def accountsForm(id: String) =
     div(cls := "appeal-accounts", attr("data-leaf") := id)(
-      p(
+      div(
         "Please share with us the usernames of your other accounts. It does not matter if they are closed now."
       ),
       div(cls := "appeal-accounts__choice")(
@@ -113,7 +113,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           "There are more accounts but I don't remember their usernames anymore"
         )
       ),
-      p(
+      div(
         "Remember that an account can only be used by one person at all times.",
         br,
         "If members of your household play on Lichess please share their usernames and tell which account belongs to which person."
