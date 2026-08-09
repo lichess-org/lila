@@ -102,7 +102,7 @@ type SubmitForm = {
 };
 
 function rewireModPost() {
-  const modToolsContainer = document.querySelector<HTMLElement>('#mod-tools-container');
+  const modToolsContainer = document.querySelector<HTMLElement>('#ublog-mod-tools-container');
   if (!modToolsContainer?.firstElementChild) return;
   const modTools = modToolsContainer.firstElementChild as HTMLElement;
   const submitBtn = modTools.querySelector<HTMLButtonElement>('.submit')!;

@@ -54,7 +54,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             Granter
               .opt(_.ModerateBlog)
               .option:
-                div(id := "mod-tools-container")(modTools(post, isInCarousel))
+                div(id := "ublog-mod-tools-container")(modTools(post, isInCarousel))
             ,
             div(cls := "ublog-post__meta")(
               a(
@@ -192,7 +192,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     val flagged = ~am.flatMap(_.flagged)
     val comm = ~am.flatMap(_.commercial)
 
-    div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
+    div(id := "ublog-mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
         span(cls := "btn-rack")(
           lila.core.ublog.Quality.values.map: q =>
