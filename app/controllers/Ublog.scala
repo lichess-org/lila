@@ -249,17 +249,13 @@ final class Ublog(env: Env) extends LilaController(env):
         case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
         case JsSuccess(data, _) =>
           for
-            mod <- env.ublog.api.modPost(post, data)
-            featured <- env.ublog.api.setFeatured(post, data)
+            modPost <- env.ublog.api.modPost(post, data)
+            featured <- env.ublog.api.setFeatured(modPost, data)
+            newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield
-            if data.hasUpdates then logModAction(post, data.diff(post))
-            Ok.snip(
-              views.ublog.post.modTools(
-                post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),
-                carousel.has(post.id)
-              )
-            )
+            if data.hasUpdates then logModAction(newPost, data.diff(post))
+            Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
   }
 
   def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>

@@ -26,8 +26,10 @@ case class UblogPost(
     featured: Option[UblogPost.Featured],
     likes: UblogPost.Likes,
     views: UblogPost.Views,
-    similar: Option[List[UblogSimilar]],
-    automod: Option[UblogAutomod.Assessment]
+    quality: Quality = Quality.spam, // effective quality used for filtering and ordering
+    similar: Option[List[UblogSimilar]] = none,
+    automod: Option[UblogAutomod.Assessment] = none,
+    modQuality: Option[Quality] = none
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
@@ -42,6 +44,34 @@ case class UblogPost(
 
   def allows = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
+
+  def moderate(d: UblogForm.ModPostData): UblogPost =
+    def maybeCopy(v: Option[String], base: Option[String]) = v match
+      case Some("") => none // form sends empty string to unset
+      case None => base
+      case _ => v
+    if !d.hasUpdates then this
+    else
+      val base = automod.getOrElse(UblogAutomod.Assessment(quality = Quality.spam))
+      val assessment = base.copy(
+        evergreen = d.evergreen.orElse(base.evergreen),
+        flagged = maybeCopy(d.flagged, base.flagged),
+        commercial = maybeCopy(d.commercial, base.commercial)
+      )
+      copy(
+        automod = assessment.some,
+        modQuality = d.quality.orElse(modQuality),
+        quality = d.quality | quality
+      )
+
+  private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
+    val q = modQuality | automod
+      .map(_.quality)
+      .match
+        case None => if trustedAuthor then Quality.good else Quality.spam
+        case Some(Quality.good) => if trustedAuthor then Quality.good else Quality.weak
+        case Some(auto) => auto
+    copy(quality = q)
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 
