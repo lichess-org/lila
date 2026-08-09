@@ -259,6 +259,8 @@ function normalizeHeader(header) {
 function normalizeLang(lang) {
   const value = lang?.trim();
   if (!value || value.toLowerCase() === 'null') return;
+  const c = value.replaceAll('_', '-');
+  if (c === 'de' || c.startsWith('de-')) return 'de-informal';
   return value;
 }
 

@@ -5,7 +5,7 @@ const surveyLangs: Set<string> = new Set([
   'cs',
   'nl',
   'fr',
-  'de',
+  'de-informal',
   'el',
   'it',
   'pt',
@@ -26,6 +26,7 @@ function toLimeSurveyLang(code: string): string {
     return 'zh-Hans';
   if (c.startsWith('pt-PT')) return 'pt';
   if (c === 'pt' || c.startsWith('pt-BR')) return 'pt-BR';
+  if (c === 'de' || c.startsWith('de-')) return 'de-informal';
 
   if (surveyLangs.has(c)) return c;
 
