@@ -668,7 +668,7 @@
   <string name="other">Другое</string>
   <string name="reportCheatBoostHelp">Вставьте ссылку на игру (или несколько игр) и объясните, что не так в поведении этого пользователя. Не надо просто писать «он жульничал», лучше распишите, как вы пришли к такому выводу.</string>
   <string name="reportUsernameHelp">Объясните, что в этом имени пользователя является оскорбительным. Не надо просто писать «оно оскорбительно или неподобающе», лучше расскажите, как вы пришли к такому выводу, особенно если оскорбление завуалировано, не на английском языке, является сленгом, или же является исторической или культурной отсылкой.</string>
-  <string name="reportProcessedFasterInEnglish">Ваша жалоба будет рассмотрена быстрее, если она будет написана на английском языке.</string>
+  <string name="reportProcessedFasterInEnglish">Ваше обращение будет рассмотрено быстрее, если оно будет написано на английском языке.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Мы сможем обрабатывать ваши обращения быстрее, если вы напишете их на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
@@ -921,6 +921,7 @@
   <string name="deviceTheme">Системная</string>
   <string name="roundness">Скругление</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
+  <string name="backgroundImageOpacity">Непрозрачность фонового изображения:</string>
   <string name="board">Доска</string>
   <string name="size">Размер</string>
   <string name="opacity">Непрозрачность</string>

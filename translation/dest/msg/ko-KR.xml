@@ -2,7 +2,7 @@
 <resources>
   <string name="lichobileNewAppAvailable">새로운 Lichess 모바일 앱을 이용할 수 있습니다!</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">%s에서 새로운 공식 Lichess 앱을 다운로드하세요.</string>
-  <string name="modActionFeedback">안녕하십니까,
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">안녕하십니까,
 
 최근 귀하의 신고를 검토하여 조치를 취하였습니다. 취해진 조치에 대한 자세한 내용은 말씀드릴 수 없으나, 귀하의 신고에 감사드립니다.
 
