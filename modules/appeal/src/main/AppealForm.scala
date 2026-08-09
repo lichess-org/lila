@@ -18,7 +18,6 @@ object AppealForm:
 
   private val accountsMapping: Mapping[AccountsDisclosure] =
     mapping(
-      "onlyThisAccount" -> boolean,
       "otherUsernames" -> optional(cleanText(maxLength = 500)),
       "moreForgotten" -> boolean,
       "household" -> optional(cleanText(maxLength = 500))

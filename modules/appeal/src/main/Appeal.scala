@@ -119,8 +119,8 @@ object Appeal:
 case class AppealMsg(by: UserId, text: String, at: Instant)
 
 case class AccountsDisclosure(
-    onlyThisAccount: Boolean,
     otherUsernames: Option[String],
     moreForgotten: Boolean,
     household: Option[String]
-)
+):
+  def onlyThisAccount = otherUsernames.isEmpty
