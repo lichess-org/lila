@@ -113,9 +113,11 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   const els: LooseVNodes = [],
     curPly = pending ? pending.ply : ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(hl(indexTag, i + indexOffset));
-    els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
-    els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
+    els.push(
+      hl(indexTag, i + indexOffset),
+      renderMove(pairs[i][0], curPly, true, drawPlies),
+      renderMove(pairs[i][1], curPly, false, drawPlies),
+    );
   }
   els.push(renderResult(ctrl));
 

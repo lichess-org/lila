@@ -201,7 +201,7 @@ class WsSocket {
     if (t === 'move' && o.sign !== this._sign) {
       let stack: string;
       try {
-        stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
+        stack = new Error('Move error').stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }

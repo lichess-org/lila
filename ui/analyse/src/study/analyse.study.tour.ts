@@ -72,16 +72,18 @@ export function initModule(): StudyTour {
     });
 
     if (ctrl.study?.members.canContribute()) {
-      steps.push({
-        title: i18n.study.commentPositionTitle,
-        text: i18n.study.commentPositionText(iconI18nTag(licon.BubbleSpeech)),
-        attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
-      });
-      steps.push({
-        title: i18n.study.annotatePositionTitle,
-        text: i18n.study.annotatePositionText,
-        attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
-      });
+      steps.push(
+        {
+          title: i18n.study.commentPositionTitle,
+          text: i18n.study.commentPositionText(iconI18nTag(licon.BubbleSpeech)),
+          attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
+        },
+        {
+          title: i18n.study.annotatePositionTitle,
+          text: i18n.study.annotatePositionText,
+          attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
+        },
+      );
     }
 
     steps.push({

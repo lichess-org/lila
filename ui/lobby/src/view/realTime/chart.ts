@@ -91,8 +91,10 @@ function renderXAxis() {
   const tags: VNode[] = [];
   xMarks.forEach(v => {
     const l = clockX(v * 60);
-    tags.push(h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v));
-    tags.push(h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }));
+    tags.push(
+      h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v),
+      h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }),
+    );
   });
   return tags;
 }
@@ -103,8 +105,10 @@ function renderYAxis() {
   const tags: VNode[] = [];
   yMarks.forEach(function (v) {
     const b = ratingY(v);
-    tags.push(h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v));
-    tags.push(h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }));
+    tags.push(
+      h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v),
+      h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }),
+    );
   });
   return tags;
 }
