@@ -82,7 +82,6 @@ function initAccountsStep(): void {
         }
         input.value = value;
       };
-      set('accounts.onlyThisAccount', onlyRadio.checked ? 'true' : 'false');
       set('accounts.otherUsernames', othersRadio.checked ? othersText.value : '');
       set('accounts.moreForgotten', forgotten.checked ? 'true' : 'false');
       set('accounts.household', household.value);
