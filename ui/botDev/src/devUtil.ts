@@ -77,7 +77,7 @@ export function resultsString(results: Result[], uid?: string): string {
 }
 
 export function playersWithResults(results: Result[]): string[] {
-  return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
+  return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(Boolean)))];
 }
 
 export function renderRemoveButton(cls = ''): Node {

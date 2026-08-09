@@ -401,8 +401,7 @@ export const registerMultipleSelect = () => {
           if (!$selected.length) {
             return;
           }
-          html.push('[');
-          html.push(text);
+          html.push('[', text);
           if ($children.length > $selected.length) {
             const list: string[] = [];
             $selected.each(function () {
