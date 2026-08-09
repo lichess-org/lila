@@ -145,16 +145,6 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           )
         )
 
-  def markdownForAgents(post: UblogPost): String =
-    s"""---
-title: ${post.title}
-description: ${post.intro}
-image: ${ui.thumbnailUrl(post, _.Size.Large)}
----
-
-${post.markdown}
-"""
-
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),
     cls := "button button-empty text",
@@ -220,11 +210,6 @@ ${post.markdown}
               "or",
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
-        ),
-        span(cls := "ublog-mod-assess-footer")(
-          button(cls := "button button-metal assess-btn", data("url") := routes.Ublog.modAssess(post.id))(
-            if am.isDefined then "reassess" else "assess"
-          )
         )
       ),
       fieldset(cls := "submit-fields")(
@@ -244,3 +229,13 @@ ${post.markdown}
         )
       )
     )
+
+  def markdownForAgents(post: UblogPost): String =
+    s"""---
+title: ${post.title}
+description: ${post.intro}
+image: ${ui.thumbnailUrl(post, _.Size.Large)}
+---
+
+${post.markdown}
+"""
