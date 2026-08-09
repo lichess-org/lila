@@ -20,4 +20,21 @@ export function initModule(): void {
   $('form select[name="months"]').on('click', function (this: HTMLSelectElement) {
     if (this.value) (this.parentElement as HTMLFormElement).submit();
   });
+
+  initAppealInfo();
+}
+
+function initAppealInfo(): void {
+  document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
+    const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
+    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-info__continue');
+    if (!checkbox || !continueButton) return;
+
+    const sync = () => continueButton.classList.toggle('disabled', !checkbox.checked);
+    checkbox.addEventListener('change', sync);
+    continueButton.addEventListener('click', e => {
+      if (!checkbox.checked) e.preventDefault();
+    });
+    sync();
+  });
 }
