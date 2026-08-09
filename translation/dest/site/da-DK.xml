@@ -834,6 +834,7 @@
   <string name="transparent">Gennemsigtigt</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
+  <string name="backgroundImageOpacity">Baggrundbilledes gennemsigtighed:</string>
   <string name="board">Bræt</string>
   <string name="size">Størrelse</string>
   <string name="opacity">Uigennemsigtighed</string>
