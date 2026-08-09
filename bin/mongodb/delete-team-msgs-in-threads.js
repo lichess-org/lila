@@ -30,6 +30,8 @@ db.msg_msg
     if (batch) {
       total += batch.length;
       db.msg_msg.deleteMany({ _id: { $in: batch } });
-      print(`${msg.date} | ${total}`);
+      const delay = db.tmp_stuff.findOne({ _id: 'team-delete-delay' }).delay;
+      print(`${msg.date} | ${total} (${delay}ms)`);
+      sleep(delay); // preserve the oplog
     }
   });
