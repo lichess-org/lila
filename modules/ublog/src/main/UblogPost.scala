@@ -46,23 +46,18 @@ case class UblogPost(
   def canView(using Option[Me]) = live || allows.draft
 
   def moderate(d: UblogForm.ModPostData): UblogPost =
-    def maybeCopy(v: Option[String], base: Option[String]) = v match
-      case Some("") => none // form sends empty string to unset
-      case None => base
-      case _ => v
-    if !d.hasUpdates then this
-    else
-      val base = automod.getOrElse(UblogAutomod.Assessment(quality = Quality.spam))
-      val assessment = base.copy(
-        evergreen = d.evergreen.orElse(base.evergreen),
-        flagged = maybeCopy(d.flagged, base.flagged),
-        commercial = maybeCopy(d.commercial, base.commercial)
-      )
-      copy(
-        automod = assessment.some,
-        modQuality = d.quality.orElse(modQuality),
-        quality = d.quality | quality
-      )
+    def hasTags = d.evergreen.isDefined
+    val base = automod.getOrElse(UblogAutomod.Assessment(quality = Quality.spam))
+    val assessment = base.copy(
+      evergreen = d.evergreen.orElse(base.evergreen),
+      flagged = if hasTags then d.flagged else base.flagged,
+      commercial = if hasTags then d.commercial else base.commercial
+    )
+    copy(
+      automod = assessment.some,
+      modQuality = d.quality.orElse(modQuality),
+      quality = d.quality | quality
+    )
 
   private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
     val q = modQuality | automod

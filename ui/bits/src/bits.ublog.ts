@@ -2,6 +2,7 @@ import { escapeHtml } from 'lib';
 import { throttlePromiseDelay } from 'lib/async';
 import { alert, prompt, domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
+import { textRaw, form } from 'lib/xhr';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -93,7 +94,7 @@ async function showModBlogSubmitDlg(e: Event) {
 }
 
 type SubmitForm = {
-  quality?: number;
+  quality?: string;
   evergreen?: boolean;
   flagged?: string;
   commercial?: string;
@@ -107,24 +108,24 @@ function rewireModPost() {
   const modTools = modToolsContainer.firstElementChild as HTMLElement;
   const submitBtn = modTools.querySelector<HTMLButtonElement>('.submit')!;
   const submit = async (o: SubmitForm) => {
-    const rsp = await xhr.textRaw(modTools.dataset.url!, {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify(o),
+    const rsp = await textRaw(modTools.dataset.url!, {
+      method: 'post',
+      body: form(o),
     });
     if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
     modToolsContainer.innerHTML = await rsp.text();
     rewireModPost();
   };
 
-  modTools
-    .querySelectorAll<HTMLButtonElement>('.quality-btn')
-    .forEach(btn => btn.addEventListener('click', () => submit({ quality: Number(btn.value) })));
+  $(modTools)
+    .find('.quality-btn')
+    .on('click', function (this: HTMLButtonElement) {
+      submit({ quality: this.value });
+    });
 
   const submitFields = modTools.querySelector<HTMLElement>('.submit-fields')!;
   submitFields.querySelectorAll<HTMLInputElement>('input').forEach(input =>
     input.addEventListener('input', () => {
-      input.parentElement!.classList.toggle('empty', !input.value.trim());
       submitBtn.classList.remove('none');
       submitBtn.disabled = false;
     }),

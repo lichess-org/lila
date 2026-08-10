@@ -243,11 +243,11 @@ final class Ublog(env: Env) extends LilaController(env):
       yield Redirect(routes.Ublog.modShowCarousel)
   }
 
-  def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
+  def modPost(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      ctx.body.body.validate(using ModPostData.reads) match
-        case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
-        case JsSuccess(data, _) =>
+      bindForm(lila.ublog.UblogForm.modForm)(
+        jsonFormError,
+        data =>
           for
             modPost <- env.ublog.api.modPost(post, data)
             featured <- env.ublog.api.setFeatured(modPost, data)
@@ -256,6 +256,7 @@ final class Ublog(env: Env) extends LilaController(env):
           yield
             if data.hasUpdates then logModAction(newPost, data.diff(post))
             Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
+      )
   }
 
   def image(id: UblogPostId) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>

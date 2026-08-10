@@ -187,18 +187,13 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     )
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
-    val am = post.automod
-    val evergreen = ~am.flatMap(_.evergreen)
-    val flagged = ~am.flatMap(_.flagged)
-    val comm = ~am.flatMap(_.commercial)
-
     div(id := "ublog-mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
         span(cls := "btn-rack")(
           lila.core.ublog.Quality.values.map: q =>
             button(
-              cls := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.ordinal.toString
+              cls := s"quality-btn btn-rack__btn ${(post.quality == q).so("lit")}",
+              value := q.name
             )(q.name.capitalize)
         ),
         fieldset(cls := "carousel-fields")(
@@ -216,17 +211,18 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),
         span(
           "Evergreen",
-          input(id := "evergreen", tpe := "checkbox", evergreen.option(checked)),
+          input(
+            id := "evergreen",
+            tpe := "checkbox",
+            post.automod.flatMap(_.evergreen).orZero.option(checked)
+          ),
           "(for recommendations)"
         ),
-        span(cls := s"commercial ${comm.isEmpty.so("empty")}", title := comm)(
+        span(
           "Commercial",
-          input(id := "commercial", value := comm)
+          input(id := "commercial", value := ~post.automod.flatMap(_.commercial))
         ),
-        span(cls := s"flagged ${flagged.isEmpty.so("empty")}", title := flagged)(
-          "Flagged",
-          input(id := "flagged", value := flagged)
-        )
+        span("Flagged", input(id := "flagged", value := ~post.automod.flatMap(_.flagged)))
       )
     )
 
