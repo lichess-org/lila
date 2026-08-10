@@ -35,6 +35,9 @@
   <string name="teamTournament">संघ स्पर्घा</string>
   <string name="teamTournamentOverview">स्पर्धा आखाडा ज्यात फक्त तुमच्या संघातील सदस्य सामील होऊ शकतात</string>
   <string name="swissTournamentOverview">स्वीस स्पर्धा ज्यात फक्त तुमच्या संघातील सदस्य सामील होऊ शकतात</string>
+  <string name="teamUpdates">संघाची अद्यतने</string>
+  <string name="subToTeamUpdates">संघाच्या अद्यतनांची सदस्यता घ्या</string>
+  <string name="newTeamUpdate">नवीन अद्यतन</string>
   <string name="teamsIlead">मी नेतृत्व करत असलेले संघ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">तुम्हाला यातील एखाद्या स्पर्धा लिंक करायची आहे का?</string>
   <string name="leadersChat">संघनेत्यांचा गप्पाकक्ष</string>
