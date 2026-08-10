@@ -33,7 +33,7 @@
 
   &:not(.disabled):hover {
     color: $c-over;
-    background: hsl(from $c-primary h s calc(l + 7));
+    filter: brightness(1.15);
   }
 
   &:not(.disabled):focus-visible {
