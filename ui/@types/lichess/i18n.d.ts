@@ -2337,6 +2337,8 @@ interface I18n {
     winningStreak: string;
   };
   preferences: {
+    /** Always show variation tree */
+    alwaysShowVariationTree: string;
     /** Analysis settings */
     analysisSettings: string;
     /** Bell notification sound */
