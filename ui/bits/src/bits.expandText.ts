@@ -57,7 +57,7 @@ site.load.then(() => {
         src: parsed.src,
       };
     })
-    .filter(a => a) as Candidate[];
+    .filter(Boolean) as Candidate[];
 
   expandYoutubes(as.filter(a => a.type === 'youtube'));
 

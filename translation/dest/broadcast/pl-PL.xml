@@ -62,6 +62,7 @@
   <string name="subscribeTitle">Subskrybuj, aby dostawać powiadomienia o każdej rozpoczętej rundzie. W preferencjach konta możesz przełączać czy chcesz powiadomienia dźwiękowe czy wyskakujące notyfikacje tekstowe.</string>
   <string name="uploadImage">Prześlij logo turnieju</string>
   <string name="noBoardsYet">Szachownice pojawią się jak tylko załadują się partie.</string>
+  <string name="noPlayersYet">Nie ma jeszcze graczy. Pojawią się po rozpoczęciu partii.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Szachownice mogą być załadowane bezpośrednio ze źródła lub przez %s</string>
   <string name="startsAfter">Rozpoczyna się po %s</string>
   <string name="startVerySoon">Transmisja wkrótce się rozpocznie.</string>

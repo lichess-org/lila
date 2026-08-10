@@ -6,11 +6,13 @@
 #dasher_app {
   @extend %box-radius-left;
 
-  #top.scrolled & {
-    border-radius: 0 0 0 $box-radius-size;
-  }
-
   width: 225px;
+
+  @include if-transp {
+    &::before {
+      @extend %box-radius-left;
+    }
+  }
 
   .spinner {
     margin: 20px auto;
@@ -147,8 +149,16 @@
   }
 
   .zen {
-    button::before {
-      opacity: 0.5;
+    margin: 0;
+
+    button {
+      padding: 0.5rem 1rem;
+
+      &::before {
+        opacity: 0.5;
+        font-size: 18px;
+        margin-inline: 0 0.4em;
+      }
     }
 
     &:hover button::before {

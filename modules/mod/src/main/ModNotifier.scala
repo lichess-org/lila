@@ -49,4 +49,4 @@ final private class ModNotifier(
           .void
       case Some(preset) => msgApi.systemPost(SystemMsg.mustRead(user.id, preset.text)).void
 
-  private def actionTakenMessage(using Lang) = I18nKey.site.modActionFeedback.txt()
+  private def actionTakenMessage(using Lang) = I18nKey.msg.modActionFeedback.txt()

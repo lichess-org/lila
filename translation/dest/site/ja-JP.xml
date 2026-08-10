@@ -451,6 +451,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
   </plurals>
+  <string name="less">少なく表示</string>
   <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>

@@ -12,14 +12,14 @@ db.simul.createIndex({ status: 1, createdAt: -1 });
 db.simul.createIndex({ hostSeenAt: -1 }, { partialFilterExpression: { status: 10, featurable: true } });
 db.simul.createIndex({ finishedAt: -1, featurable: 1 });
 db.simul.createIndex({ hostId: 1 });
-db.ublog_post.createIndex({ blog: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ blog: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ blog: 1, 'created.at': -1 }, { partialFilterExpression: { live: false } });
 db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
-db.ublog_post.createIndex({ likers: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(

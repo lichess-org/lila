@@ -1,6 +1,6 @@
 import { Editor } from '@toast-ui/editor';
-import type { Node as NodeType, Schema as SchemaType } from 'prosemirror-model';
-import type { EditorState as EditorStateType } from 'prosemirror-state';
+import type { Node as NodeType } from 'prosemirror-model';
+import type { Selection as SelectionType } from 'prosemirror-state';
 import type { EditorView as EditorViewType } from 'prosemirror-view';
 
 import { currentTheme } from 'lib/device';
@@ -69,38 +69,39 @@ function newToast(el: HTMLElement, initialValue: string, rewire: () => void, edi
 function initProseMirror(view: EditorViewType, rewire: () => void) {
   if (!view) return;
 
-  const old = view.state.schema;
-  const imageSpec = old.nodes['image'].spec;
-  // can't import the ProseMirror javascript because toastui bundles it,
-  // so put on the gloves, reach in, and grab some constructors
-  const Schema = old.constructor as new (cfg: { nodes: any; marks: any }) => SchemaType;
-  const EditorState = view.state.constructor as typeof EditorStateType & {
-    create(cfg: any): EditorStateType;
-  };
-  const Node = view.state.doc.constructor as typeof NodeType & {
-    fromJSON(s: SchemaType, j: any): NodeType;
-  };
-  const nodes = old.spec.nodes.update('image', {
-    ...imageSpec,
-    attrs: { ...imageSpec.attrs, styleWidth: { default: null } },
+  view.setProps({
+    nodeViews: { image: imageNodeView(rewire) },
+    handleClick: clickOutsideTable,
   });
-  const schema = new Schema({ nodes, marks: old.spec.marks });
-  const newState = EditorState.create({
-    schema,
-    doc: Node.fromJSON(schema, view.state.doc.toJSON()),
-    plugins: view.state.plugins,
-  });
+}
 
-  view.updateState(newState);
-  view.setProps({ nodeViews: { image: imageNodeView(rewire) } });
-
-  let transaction = view.state.tr;
-  view.state.doc.descendants((n: NodeType, pos: number) => {
-    if (n.type?.name === 'image') {
-      transaction = transaction.setNodeMarkup(pos, n.type, n.attrs, n.marks);
-    }
+// interpret clicks outside of a document ending table's inline-end boundary as intent to advance the
+// insertion cursor past it, inserting a newline
+function clickOutsideTable(view: EditorViewType, _pos: number, event: MouseEvent) {
+  if (event.button !== 0) return false;
+  let tablePos: number | undefined;
+  view.state.doc.forEach((node: NodeType, pos: number) => {
+    if (node.type.name !== 'table') return;
+    const table = view.nodeDOM(pos);
+    if (!(table instanceof HTMLElement)) return;
+    const bounds = table.getBoundingClientRect();
+    const beyondInlineEnd =
+      window.getComputedStyle(table).direction === 'rtl'
+        ? event.clientX < bounds.left
+        : event.clientX > bounds.right;
+    if (beyondInlineEnd && event.clientY >= bounds.top && event.clientY <= bounds.bottom) tablePos = pos;
   });
-  if (transaction.docChanged) view.dispatch(transaction);
+  if (tablePos === undefined) return false;
+
+  const table = view.state.doc.nodeAt(tablePos)!;
+  const afterTable = tablePos + table.nodeSize;
+  if (view.state.doc.resolve(afterTable).nodeAfter) return false;
+  const transaction = view.state.tr.insert(afterTable, view.state.schema.nodes.paragraph.create());
+  const Selection = view.state.selection.constructor as typeof SelectionType;
+  view.dispatch(
+    transaction.setSelection(Selection.near(transaction.doc.resolve(afterTable), 1)).scrollIntoView(),
+  );
+  return true;
 }
 
 type ProseMirrorProps = { getPos: () => number | undefined; view: EditorViewType };

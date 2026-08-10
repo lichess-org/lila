@@ -42,6 +42,8 @@ $marker-margin-top: -14px;
       border-radius: 50%;
 
       &.nobg {
+        @include backdrop-blur-if-transparent;
+
         background: $c-bg-box;
         border: 2px solid $c-contours;
       }

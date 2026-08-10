@@ -879,6 +879,7 @@
   <string name="deviceTheme">Tema dispozitivului</string>
   <string name="roundness">Rotunjire colțuri</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>
+  <string name="backgroundImageOpacity">Opacitatea imaginii de fundal:</string>
   <string name="board">Tablă</string>
   <string name="size">Dimensiune</string>
   <string name="opacity">Opacitate</string>

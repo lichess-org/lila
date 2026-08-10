@@ -76,7 +76,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const view = document.createElement('div');
   view.classList.add('dialog-content');
-  if (o.class) view.classList.add(...o.class.split(/[. ]/).filter(x => x));
+  if (o.class) view.classList.add(...o.class.split(/[. ]/).filter(Boolean));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -110,14 +110,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       hl(
         `div.${o.noScrollable ? 'not-' : ''}scrollable`,
         hl(
-          'div.dialog-content' +
-            (o.class
-              ? '.' +
-                o.class
-                  .split(/[. ]/)
-                  .filter(x => x)
-                  .join('.')
-              : ''),
+          'div.dialog-content' + (o.class ? '.' + o.class.split(/[. ]/).filter(Boolean).join('.') : ''),
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {

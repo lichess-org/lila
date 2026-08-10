@@ -21,7 +21,7 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 function asHashed(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
-  return `hashed/${extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`}`;
+  return `hashed/${extPos === -1 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`}`;
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
@@ -101,7 +101,7 @@ export const loadPieces = new Promise<void>((resolve, reject) => {
           .slice(4, -1) // strip 'url(' + ... + ')'
           .replace(/\\([:/.])/g, '$1'), // webkit escapes
     )
-    .filter(x => x);
+    .filter(Boolean);
   let assetsToDecode = urls.length;
   if (assetsToDecode === 0) return resolve();
   urls.forEach(url => {

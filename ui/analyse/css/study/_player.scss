@@ -23,6 +23,7 @@ $player-height: 1.6rem;
 .study__player {
   @extend %flex-between-nowrap, %metal-bg, %box-shadow;
   @include inline-end(0);
+  @include backdrop-blur-if-transparent;
 
   position: absolute;
   font-weight: bold;

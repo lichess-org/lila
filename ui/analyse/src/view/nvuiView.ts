@@ -497,8 +497,8 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.has(g.symbol)));
   const res: Array<VNode> = [];
   COLORS.forEach(color => {
-    res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
+      hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`),
       hl(
         'select',
         {

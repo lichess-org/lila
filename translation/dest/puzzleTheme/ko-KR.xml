@@ -57,7 +57,7 @@
   <string name="enPassantDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 내 폰을 지나쳤을 경우, 그 폰을 잡을 수 있습니다.</string>
   <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 자신의 폰 바로 옆 칸으로 이동했을 경우, 그 폰을 잡을 수 있습니다.</string>
   <string name="epauletteMate">에팔레트 메이트</string>
-  <string name="epauletteMateDescription">체크된 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
+  <string name="epauletteMateDescription">체크당한 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
   <string name="exposedKing">노출된 킹</string>
   <string name="exposedKingDescription">주변에 방어자가 얼마 없는 킹에 대한 전술입니다. 종종 체크메이트가 되기도 합니다.</string>
   <string name="fork">포크</string>
@@ -146,7 +146,7 @@
   <string name="veryLongDescription">승리까지 네 수 이상이 걸립니다.</string>
   <string name="xRayAttack">X-Ray 공격</string>
   <string name="xRayAttackDescription">기물이 상대 기물 너머의 칸을 공격 또는 방어합니다.</string>
-  <string name="zugzwang">추크추방</string>
+  <string name="zugzwang">추크츠방</string>
   <string name="zugzwangDescription">상대가 둘 수 있는 수는 제한되어 있으며, 모든 수가 포지션을 악화시킵니다.</string>
   <string name="mix">골고루 섞기</string>
   <string name="mixDescription">전부 다. 무엇이 나올지 모르기 때문에 모든 것에 준비되어 있어야 합니다. 마치 진짜 게임처럼요.</string>

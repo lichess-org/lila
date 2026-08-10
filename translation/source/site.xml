@@ -547,11 +547,6 @@
   <string name="biography">Biography</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Country or region</string>
   <string name="thankYou">Thank you!</string>
-  <string name="modActionFeedback">Hello,
-
-We have reviewed your recent report and taken action. While we cannot share details about the actions taken, we appreciate your report.
-
-           Thank you for your help in keeping Lichess a good place for everyone.</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
@@ -842,6 +837,7 @@ We have reviewed your recent report and taken action. While we cannot share deta
   <string name="deviceTheme">Device theme</string>
   <string name="roundness">Roundness</string>
   <string name="backgroundImageUrl">Background image URL:</string>
+  <string name="backgroundImageOpacity">Background image opacity:</string>
   <string name="board">Board</string>
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>

@@ -183,7 +183,7 @@
     <item quantity="other">%s ván cờ</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="other">Hệ số %1$s sau %2$s ván</item>
+    <item quantity="other">Hệ số Elo %1$s sau %2$s ván</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s đánh dấu</item>
@@ -389,7 +389,7 @@
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Bộ lọc xếp hạng bị khóa vì xếp hạng của bạn không ổn định. Chơi các ván cờ có xếp hạng sẽ tăng tính ổn định.</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
-  <string name="yourPerfRatingIsTooLow">Hệ số Elo %1$s (%2$s) của bạn quá thấp</string>
+  <string name="yourPerfRatingIsTooLow">Hệ số %1$s (%2$s) của bạn quá thấp</string>
   <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Hệ số %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
@@ -796,6 +796,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="roundness">Bo tròn</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
+  <string name="backgroundImageOpacity">Độ mờ của hình nền:</string>
   <string name="board">Bàn cờ</string>
   <string name="size">Kích cỡ</string>
   <string name="opacity">Độ trong suốt</string>
@@ -818,7 +819,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Hệ số: %s</string>
+  <string name="perfRatingX">Rating: %s</string>
   <string name="yourRatingIsX">Hệ số của bạn là %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
