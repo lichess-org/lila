@@ -3,6 +3,7 @@
 cg-board {
   @extend %box-shadow, %abs-100;
   @include prevent-select;
+  @include backdrop-blur-if-transparent;
 
   top: 0;
   left: 0;
@@ -28,7 +29,6 @@ cg-board::before {
 
     @include if-transp {
       opacity: calc(var(---board-opacity) / 100);
-      filter: hue-rotate(calc(var(---board-hue) * 3.6deg)) contrast(calc(var(---board-contrast) / 100));
     }
   }
 }
