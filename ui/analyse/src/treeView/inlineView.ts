@@ -136,6 +136,7 @@ export class InlineView {
   }
 
   private parenthetical(node: TreeNode): boolean {
+    if (this.ctrl.settings.alwaysTree) return false;
     const [, second, third] = node.children;
     return !third && second && !treeOps.hasBranching(second, 6);
   }
