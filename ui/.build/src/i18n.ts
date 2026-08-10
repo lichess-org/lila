@@ -55,7 +55,7 @@ async function compileTypings(): Promise<void> {
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
 
-  if (!tstat || catStats.some(x => x)) {
+  if (!tstat || catStats.some(Boolean)) {
     dicts = new Map(
       zip(
         cats,

@@ -834,6 +834,7 @@
   <string name="deviceTheme">Device theme</string>
   <string name="roundness">Roundness</string>
   <string name="backgroundImageUrl">Background image URL:</string>
+  <string name="backgroundImageOpacity">Background image opacity:</string>
   <string name="board">Board</string>
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>

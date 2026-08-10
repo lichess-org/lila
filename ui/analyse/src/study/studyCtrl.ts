@@ -528,7 +528,7 @@ export default class StudyCtrl {
   private readonly deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
-    return i < 0 ? undefined : chs[i + delta];
+    return i === -1 ? undefined : chs[i + delta];
   };
   prevChapter = () => this.deltaChapter(-1);
   nextChapter = () => this.deltaChapter(1);
