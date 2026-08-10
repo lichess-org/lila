@@ -256,11 +256,14 @@ function normalizeHeader(header) {
     .toLowerCase();
 }
 
+const informalLangs = new Set(['cs', 'de', 'es', 'it', 'nl']);
+
 function normalizeLang(lang) {
   const value = lang?.trim();
   if (!value || value.toLowerCase() === 'null') return;
   const c = value.replaceAll('_', '-');
-  if (c === 'de' || c.startsWith('de-')) return 'de-informal';
+  const two = c.slice(0, 2);
+  if (informalLangs.has(two) && (c === two || c.startsWith(`${two}-`))) return `${two}-informal`;
   return value;
 }
 

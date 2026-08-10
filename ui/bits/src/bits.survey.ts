@@ -1,17 +1,19 @@
+const informalLangs: Set<string> = new Set(['cs', 'de', 'es', 'it', 'nl']);
+
 const surveyLangs: Set<string> = new Set([
   'en',
   'ar',
   'zh-Hans',
-  'cs',
-  'nl',
+  'cs-informal',
+  'nl-informal',
   'fr',
   'de-informal',
   'el',
-  'it',
+  'it-informal',
   'pt',
   'pt-BR',
   'ru',
-  'es',
+  'es-informal',
   'tr',
   'vi',
 ]);
@@ -26,11 +28,12 @@ function toLimeSurveyLang(code: string): string {
     return 'zh-Hans';
   if (c.startsWith('pt-PT')) return 'pt';
   if (c === 'pt' || c.startsWith('pt-BR')) return 'pt-BR';
-  if (c === 'de' || c.startsWith('de-')) return 'de-informal';
+
+  const two = c.slice(0, 2);
+  if (informalLangs.has(two) && (c === two || c.startsWith(`${two}-`))) return `${two}-informal`;
 
   if (surveyLangs.has(c)) return c;
 
-  const two = c.slice(0, 2);
   const mapped = two === 'pt' ? 'pt-BR' : two;
   return surveyLangs.has(mapped) ? mapped : 'en';
 }
