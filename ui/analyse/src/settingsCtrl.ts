@@ -15,6 +15,7 @@ export class Settings {
     public readonly showUndefendedPieces = false,
     public readonly showPinnedPieces = false,
     public readonly showCheckableKing = false,
+    public readonly alwaysTree = false,
   ) {}
 }
 
