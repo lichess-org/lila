@@ -41,7 +41,7 @@ final private class ExplorerGameApi(
 
   private def gameNodes(fromNode: Node, game: Root): List[Branch] =
     val mainline = game.mainline
-    mainline.dropRight(1).lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
+    mainline.lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
       case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
       case i => mainline.drop(i + 1)
 
