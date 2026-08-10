@@ -224,6 +224,20 @@ final class UblogApi(
             fuccess(none)
     attempt(0)
 
+  def nextToReview: Fu[Option[UblogPost]] =
+    colls.post
+      .find(
+        $doc(
+          "live" -> true,
+          "automod.quality" -> Quality.good,
+          "quality" -> Quality.weak,
+          "modQuality".$exists(false)
+        ),
+        postProjection.some
+      )
+      .sort($sort.desc("lived.at"))
+      .one[UblogPost]
+
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
       .find($inIds(ids) ++ $doc("live" -> true), lightPostProjection.some)

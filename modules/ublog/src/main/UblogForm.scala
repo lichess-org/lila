@@ -161,9 +161,7 @@ object UblogForm:
         ).flatten.mkString(", ")
 
   object ModPostData:
-    given Reads[Quality] = Reads
-      .of[Int]
-      .map(Quality.fromOrdinal)
+    given Reads[Quality] = Reads.of[Int].map(Quality.fromOrdinal)
     def reads: Reads[ModPostData] =
       (
         (JsPath \ "quality")
@@ -175,6 +173,6 @@ object UblogForm:
           .and(
             (JsPath \ "featuredUntil")
               .readNullable[Int]
-              .filter(JsonValidationError(s"bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
+              .filter(JsonValidationError("bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
           )
       )(ModPostData.apply)

@@ -68,7 +68,7 @@ case class UblogPost(
     val q = modQuality | automod
       .map(_.quality)
       .match
-        case None => if trustedAuthor then Quality.good else Quality.spam
+        case None => if trustedAuthor then Quality.good else Quality.spam // shouldn't happen
         case Some(Quality.good) => if trustedAuthor then Quality.good else Quality.weak
         case Some(auto) => auto
     copy(quality = q)
