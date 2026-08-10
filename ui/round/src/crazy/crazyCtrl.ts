@@ -21,7 +21,19 @@ export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(ctrl.chessground.state, { color, role }, e);
+  const piece = { color, role };
+  // Click-click drops: arm dropmode (same path as digit keys). Drag still works via dragNewPiece.
+  // Second click on the same pocket piece cancels selection (unless a digit key is held).
+  const dm = ctrl.chessground.state.dropmode;
+  const sameSelected =
+    !!dm.active &&
+    dm.piece?.role === role &&
+    dm.piece?.color === color &&
+    crazyKeys.length === 0;
+  if (sameSelected) cancelDropMode(ctrl.chessground.state);
+  else setDropMode(ctrl.chessground.state, piece);
+  ctrl.redraw();
+  dragNewPiece(ctrl.chessground.state, piece, e);
 }
 
 let dropWithKey = false;

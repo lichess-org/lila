@@ -18,6 +18,9 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
   const activeColor = color === ctrl.turnColor();
   const usable = activeColor && !ctrl.node.san?.endsWith('#');
+  const dropPiece = ctrl.chessground.state.dropmode.active
+    ? ctrl.chessground.state.dropmode.piece
+    : undefined;
   return h(
     `div.pocket.is2d.pocket-${position}.pos-${ctrl.bottomColor()}`,
     {
@@ -39,6 +42,9 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         h(
           'div.pocket-c2',
           h(`piece.${role}.${color}`, {
+            class: {
+              'selected-to-drop': !!dropPiece && dropPiece.role === role && dropPiece.color === color,
+            },
             attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),

@@ -55,6 +55,11 @@
     &.premove {
       background-color: #555;
     }
+
+    // Selected for click-click drop (pocket click then board square)
+    &.selected-to-drop {
+      background-color: rgba(20, 85, 30, 0.5);
+    }
   }
 
   &.usable {

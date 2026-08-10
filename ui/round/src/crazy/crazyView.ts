@@ -21,6 +21,9 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
   const captured = capturedPiece && (capturedPiece.promoted ? 'pawn' : capturedPiece.role);
+  const dropPiece = ctrl.chessground.state.dropmode.active
+    ? ctrl.chessground.state.dropmode.piece
+    : undefined;
   return h(
     'div.pocket.is2d.pocket-' + position,
     {
@@ -44,7 +47,10 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
         h(
           'div.pocket-c2',
           h('piece.' + role + '.' + color, {
-            class: { premove: activeColor && preDropRole === role },
+            class: {
+              premove: activeColor && preDropRole === role,
+              'selected-to-drop': !!dropPiece && dropPiece.role === role && dropPiece.color === color,
+            },
             attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),
