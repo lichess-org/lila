@@ -26,6 +26,7 @@ import {
   p,
   makeExoticTag,
   type VNode,
+  type MaybeVNode,
 } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
@@ -347,7 +348,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
+function inputs(ctrl: EditorCtrl, fen: FEN): MaybeVNode {
   if (ctrl.cfg.embed) return undefined;
 
   return div('.copyables', [
@@ -411,13 +412,16 @@ const piece = makeExoticTag('piece');
 
 function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
-
-  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function (role) {
-    return [color, role];
-  });
+  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(role => [color, role]);
 
   return div(
-    `.spare.spare-${position}.spare-${color}`,
+    {
+      class: {
+        spare: true,
+        ['spare-' + position]: true,
+        ['spare-' + color]: true,
+      },
+    },
     ['pointer', ...pieces, 'trash'].map((s: Selected) => {
       const className = selectedToClass(s);
       const attrs = {
