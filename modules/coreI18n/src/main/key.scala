@@ -1291,6 +1291,7 @@ object I18nKey:
     val `blindfold`: I18nKey = "preferences:blindfold"
     val `showClockOnTheLeft`: I18nKey = "preferences:showClockOnTheLeft"
     val `inlineNotation`: I18nKey = "preferences:inlineNotation"
+    val `alwaysShowVariationTree`: I18nKey = "preferences:alwaysShowVariationTree"
     val `showServerAnalysis`: I18nKey = "preferences:showServerAnalysis"
     val `showBestMoveArrows`: I18nKey = "preferences:showBestMoveArrows"
     val `showManeuverArrows`: I18nKey = "preferences:showManeuverArrows"
