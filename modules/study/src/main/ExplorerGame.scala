@@ -39,11 +39,11 @@ final private class ExplorerGameApi(
   private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
     if strict then a == b else a.simple == b.simple
 
-  private def gameNodes(fromNode: Node, game: Root, firstTry: Boolean): List[Branch] =
-    if compareFens(fromNode.fen, game.fen, firstTry) then game.mainline
-    else
-      val nodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen, firstTry))
-      if nodes.nonEmpty || !firstTry then nodes.drop(1) else gameNodes(fromNode, game, false)
+  private def gameNodes(fromNode: Node, game: Root): List[Branch] =
+    val mainline = game.mainline
+    mainline.dropRight(1).lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
+      case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
+      case i => mainline.drop(i + 1)
 
   private def merge(
       fromNode: Node,
@@ -60,7 +60,7 @@ final private class ExplorerGameApi(
             case Some(child) => dropKnown(child, path + gameNode.id, rest)
             case None => (anchor, path, nodes)
         case Nil => (anchor, path, nodes)
-    val (anchor, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game, true))
+    val (anchor, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
     replay(anchor, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
 
   private def replay(anchor: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
