@@ -8,10 +8,10 @@ import scalalib.model.Language
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
-import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
+import lila.core.i18n.LangList
 import lila.core.ublog.Quality
 
-final class UblogForm(val captcher: CaptchaApi, langList: LangList):
+final class UblogForm(captcha: CaptchaApi, langList: LangList):
 
   import UblogForm.UblogPostData
 
@@ -32,8 +32,8 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
       "move" -> text
     )(UblogPostData.apply)(unapply)
 
-  val create = Form:
-    base.verifying(lila.core.captcha.failMessage, captcher.validateSync)
+  def create = Form:
+    base.verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def edit(post: UblogPost) = Form(base).fill:
     UblogPostData(
@@ -69,30 +69,6 @@ object UblogForm:
       gameId: GameId,
       move: String
   ) extends WithCaptcha:
-
-    def create(user: User) =
-      UblogPost(
-        id = UblogPost.randomId,
-        blog = UblogBlog.Id.User(user.id),
-        title = title,
-        intro = intro,
-        markdown = markdown,
-        language = language.orElse(user.realLang.map(toLanguage)) | defaultLanguage,
-        topics = topics.so(UblogTopic.fromStrList),
-        image = none,
-        live = false,
-        discuss = Option(false),
-        sticky = Option(false),
-        ads = Option(false),
-        created = UblogPost.Recorded(user.id, nowInstant),
-        updated = none,
-        lived = none,
-        featured = none,
-        likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0),
-        similar = none,
-        automod = none
-      )
 
     def update(user: User, prev: UblogPost) =
       prev.copy(

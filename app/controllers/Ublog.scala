@@ -126,39 +126,30 @@ final class Ublog(env: Env) extends LilaController(env):
       else if allows(blog.allows) then f(user, blog)
       else Unauthorized("Not your blog to edit")
 
-  def form(username: UserStr) = Auth { ctx ?=> me ?=>
+  def getEditForm(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.edit): (user, _) =>
-        Ok.page(views.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
-  }
-
-  def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
-    NotForKids:
-      WithBlogOf(username, _.edit): (user, _) =>
-        bindForm(env.ublog.form.create)(
-          err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
-          data =>
-            limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
-              env.ublog.api
-                .create(data, user)
-                .map: post =>
-                  lila.mon.ublog.create(user.id).increment()
-                  Redirect(editUrlOfPost(post)).flashSuccess
-        )
+        env.ublog.api
+          .newPost(user)
+          .map(post => Redirect(editUrlOfPost(post)))
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        views.ublog.form.edit(post, env.ublog.form.edit(post))
+        views.ublog.form.edit(
+          post,
+          if post.isEmpty then env.ublog.form.create else env.ublog.form.edit(post),
+          post.isEmpty.option(anyCaptcha)
+        )
       .map(_.hasPersonalData)
   }
 
-  def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
+  def postEditForm(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       Found(env.ublog.api.findEditableByMe(id)): prev =>
-        bindForm(env.ublog.form.edit(prev))(
-          err => BadRequest.page(views.ublog.form.edit(prev, err)),
+        bindForm(if prev.isEmpty then env.ublog.form.create else env.ublog.form.edit(prev))(
+          err => BadRequest.page(views.ublog.form.edit(prev, err, prev.isEmpty.option(anyCaptcha))),
           data =>
             env.ublog.api.update(data, prev).flatMap { post =>
               logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
@@ -289,7 +280,7 @@ final class Ublog(env: Env) extends LilaController(env):
               .delete(post)
               .flatMap: newPost =>
                 logModAction(newPost, "delete image")
-        .inject(Redirect(urlOfPost(post)).flashSuccess)
+        .inject(Ok)
         .recover { case e: Exception =>
           BadRequest(e.getMessage)
         }

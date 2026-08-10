@@ -2,7 +2,8 @@ import { frag } from 'lib';
 import { initMiniBoard } from 'lib/view';
 
 export function initModule(): void {
-  if (document.querySelector('#fake-tv, .lobby__tv .mini-game')) return;
+  if (!document.querySelector('main.lobby') || document.querySelector('#fake-tv, .lobby__tv .mini-game'))
+    return;
 
   const ds = document.body.dataset;
   const tv = frag<HTMLElement>($html`

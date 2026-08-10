@@ -190,9 +190,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../lib
-      marked:
-        specifier: ^16.4.1
-        version: 16.4.2
       peerjs:
         specifier: ^1.5.5
         version: 1.5.5
@@ -1685,11 +1682,6 @@ packages:
   lru-cache@11.5.1:
     resolution: {integrity: sha512-RPimw/7aMdv2oqRrxKwvZXcPfwBrn/JZ2xYcY9Hus/6LaS3VOAKVWKWgNLCFSiOm1ESXinjsDlidVU7JlnCN2A==}
     engines: {node: 20 || >=22}
-
-  marked@16.4.2:
-    resolution: {integrity: sha512-TI3V8YYWvkVf3KJe1dRkpnjs68JUPyEa5vjKrp1XEEJUAOaQc+Qj+L1qWbPd0SJuAdQkFU0h73sXXqwDYxsiDA==}
-    engines: {node: '>= 20'}
-    hasBin: true
 
   mathml-tag-names@4.0.0:
     resolution: {integrity: sha512-aa6AU2Pcx0VP/XWnh8IGL0SYSgQHDT6Ucror2j2mXeFAlN3ahaNs8EZtG1YiticMkSLj3Gt6VPFfZogt7G5iFQ==}
@@ -3290,8 +3282,6 @@ snapshots:
       js-tokens: 4.0.0
 
   lru-cache@11.5.1: {}
-
-  marked@16.4.2: {}
 
   mathml-tag-names@4.0.0: {}
 

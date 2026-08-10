@@ -31,7 +31,10 @@ final class UblogPaginator(
     Paginator(
       adapter = Adapter[PreviewPost](
         collection = colls.post,
-        selector = $doc("blog" -> blog, "live" -> live),
+        selector = $doc("blog" -> blog, "live" -> live) ++
+          live.not.so(
+            $nor($doc("title" -> "", "intro" -> "", "markdown" -> "", "image" -> $doc("$exists" -> false)))
+          ),
         projection = previewPostProjection.some,
         sort = if live then userLiveSort else $doc("created.at" -> -1),
         _.sec

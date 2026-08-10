@@ -80,7 +80,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
   def newPostLink(user: User)(using Context) = a(
-    href := routes.Ublog.form(user.username),
+    href := routes.Ublog.getEditForm(user.username),
     cls := "button button-green",
     dataIcon := Icon.PlusButton,
     title := trans.ublog.newPost.txt()

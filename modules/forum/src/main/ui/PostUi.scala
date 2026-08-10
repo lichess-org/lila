@@ -132,7 +132,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
-              lila.ui.bits.markdownTextarea("forumPostBody".some):
+              lila.ui.bits.markdownEditor(lila.core.data.MarkdownRealm.forum):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",

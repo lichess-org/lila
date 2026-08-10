@@ -210,14 +210,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
         frag("Content"),
         help = trans.site.embedsAvailable().some
       ): field =>
-        frag(
-          form3.textarea(field)(),
-          div(
-            cls := "markdown-toastui",
-            attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"),
-            attr("data-image-download-origin") := imageGetOrigin
-          )
-        ),
+        bits.markdownEditor(lila.core.data.MarkdownRealm.cms):
+          form3.textarea(field)(autocomplete := "off")
+      ,
       form3.split(
         form3.checkboxGroup(form("live"), raw("Live"), half = true)
       ),
