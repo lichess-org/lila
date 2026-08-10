@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@toast-ui/editor@3.2.2': eabd348377a472431b8d5e878f133ef3f6239e98e83d4e1ca409c8892502cd0a
+  '@toast-ui/editor@3.2.2': 3c9aa5176e0c4e67d96e6cfc8928789dfb22ebcb7db6a5c68f40caf5cc9bbce9
 
 importers:
 
@@ -144,7 +144,7 @@ importers:
         version: 0.1.13(@textcomplete/core@0.1.13)
       '@toast-ui/editor':
         specifier: 3.2.2
-        version: 3.2.2(patch_hash=eabd348377a472431b8d5e878f133ef3f6239e98e83d4e1ca409c8892502cd0a)
+        version: 3.2.2(patch_hash=3c9aa5176e0c4e67d96e6cfc8928789dfb22ebcb7db6a5c68f40caf5cc9bbce9)
       '@types/canvas-confetti':
         specifier: ^1.9.0
         version: 1.9.0
@@ -2674,7 +2674,7 @@ snapshots:
 
   '@textcomplete/utils@0.1.13': {}
 
-  '@toast-ui/editor@3.2.2(patch_hash=eabd348377a472431b8d5e878f133ef3f6239e98e83d4e1ca409c8892502cd0a)':
+  '@toast-ui/editor@3.2.2(patch_hash=3c9aa5176e0c4e67d96e6cfc8928789dfb22ebcb7db6a5c68f40caf5cc9bbce9)':
     dependencies:
       dompurify: 2.5.9
       prosemirror-commands: 1.7.1
