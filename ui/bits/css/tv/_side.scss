@@ -35,6 +35,49 @@
   }
 }
 
+.tv-channel-group {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+
+  legend {
+    width: 100%;
+    background: none;
+    border: none;
+    border-top: $border;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $c-font-dim;
+    text-align: end;
+    padding: 0.5rem 2em 0.5rem 0;
+    margin-top: 0.5rem;
+
+    &:hover {
+      background: none;
+    }
+
+    &::after {
+      font-size: 12px;
+    }
+  }
+}
+
+@include mq-subnav-top {
+  .tv-channel-group {
+    display: contents;
+
+    legend {
+      display: none;
+    }
+
+    > a {
+      display: flex;
+    }
+  }
+}
+
 @include mq-subnav-top {
   .round__side {
     overflow: hidden;

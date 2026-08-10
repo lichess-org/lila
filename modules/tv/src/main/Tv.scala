@@ -211,6 +211,11 @@ object Tv:
   object Channel:
     val list = values.toList
     val byKey = values.mapBy(_.key)
+    val featured: List[Channel] = list.filter(c => c.speed.isEmpty && c.variant.isEmpty)
+    val grouped: List[(String, List[Channel])] = List(
+      "Speeds" -> list.filter(_.speed.isDefined),
+      "Variants" -> list.filter(_.variant.isDefined)
+    ).filter(_._2.nonEmpty)
 
   private def rated(min: Int) = (c: Candidate) => c.game.rated.yes && hasMinRating(c.game, IntRating(min))
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed

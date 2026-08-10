@@ -106,32 +106,49 @@ final class TvUi(helpers: lila.ui.Helpers)(
       )
 
     def channels(channel: Tv.Channel, champions: Tv.Champions, baseUrl: String)(using Context): Frag =
-      lila.ui.bits.subnav:
-        Tv.Channel.list.map: c =>
-          a(
-            href := s"$baseUrl/${c.key}",
+      lila.ui.bits.subnav(
+        Tv.Channel.featured.map(channelLink(channel, champions, baseUrl)),
+        Tv.Channel.grouped.map: (groupName, chans) =>
+          fieldset(
             cls := List(
-              "tv-channel" -> true,
-              c.key -> true,
-              "active" -> (c == channel)
+              "tv-channel-group" -> true,
+              "toggle-box" -> true,
+              "toggle-box--toggle" -> true,
+              "toggle-box--toggle-off" -> !chans.contains(channel)
             )
-          ):
-            span(dataIcon := c.icon):
-              span(
-                strong(c.translate),
-                span(cls := "champion")(
-                  champions
-                    .get(c)
-                    .fold[Frag](raw(" - ")): p =>
-                      frag(
-                        p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
-                        ratingTag(
-                          " ",
-                          p.rating
-                        )
-                      )
-                )
-              )
+          )(
+            legend(tabindex := 0)(groupName),
+            chans.map(channelLink(channel, champions, baseUrl))
+          )
+      )
+
+    private def channelLink(active: Tv.Channel, champions: Tv.Champions, baseUrl: String)(
+        c: Tv.Channel
+    )(using Context): Frag =
+      a(
+        href := s"$baseUrl/${c.key}",
+        cls := List(
+          "tv-channel" -> true,
+          c.key -> true,
+          "active" -> (c == active)
+        )
+      ):
+        span(dataIcon := c.icon):
+          span(
+            strong(c.translate),
+            span(cls := "champion")(
+              champions
+                .get(c)
+                .fold[Frag](raw(" - ")): p =>
+                  frag(
+                    p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
+                    ratingTag(
+                      " ",
+                      p.rating
+                    )
+                  )
+            )
+          )
 
     def sides(
         pov: Pov,
