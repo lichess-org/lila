@@ -53,23 +53,23 @@ final private class ExplorerGameApi(
       gameId: GameId
   ): Option[(Branch, UciPath)] =
     @annotation.tailrec
-    def dropKnown(anchor: Node, path: UciPath, nodes: List[Branch]): (Node, UciPath, List[Branch]) =
+    def dropKnown(parent: Node, path: UciPath, nodes: List[Branch]): (Node, UciPath, List[Branch]) =
       nodes match
         case gameNode :: rest =>
-          anchor.children.get(gameNode.id) match
+          parent.children.get(gameNode.id) match
             case Some(child) => dropKnown(child, path + gameNode.id, rest)
-            case None => (anchor, path, nodes)
-        case Nil => (anchor, path, nodes)
-    val (anchor, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
-    replay(anchor, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
+            case None => (parent, path, nodes)
+        case Nil => (parent, path, nodes)
+    val (parent, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
+    replay(parent, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
 
-  private def replay(anchor: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
-    val setup = chess.Position.AndFullMoveNumber(variant, anchor.fen)
+  private def replay(parent: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
+    val setup = chess.Position.AndFullMoveNumber(variant, parent.fen)
     val sources = nodes.toVector
-    val (result, error) = setup.position.foldRight(nodes.map(_.move.uci), anchor.ply)(
+    val (result, error) = setup.position.foldRight(nodes.map(_.move.uci), parent.ply)(
       none[Branch],
       (step, acc) =>
-        val source = sources((step.ply - anchor.ply - 1).value)
+        val source = sources((step.ply - parent.ply - 1).value)
         inline def branch = makeBranch(source, step.move, step.ply)
         acc.fold(branch)(branch.prependChildUnchecked).some
     )
