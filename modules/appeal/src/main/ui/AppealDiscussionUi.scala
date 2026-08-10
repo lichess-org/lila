@@ -67,7 +67,8 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             postForm(cls := "appeal__withdraw", action := routes.Appeal.withdraw(appeal.topic))(
               submitButton(
                 cls := "button button-red button-empty yes-no-confirm",
-                title := "Withdraw this appeal? This cannot be undone."
+                title :=
+                  "Withdrawing this appeal will close this request. You will not be able to appeal this restriction, and we will consider this case closed.\n\nAre you sure you want to withdraw your appeal?"
               )("Withdraw appeal")
             )
         ),
