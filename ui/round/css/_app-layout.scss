@@ -121,6 +121,10 @@
       grid-area: 5 / 2 / 11 / 3;
     }
 
+    #voice-bar {
+      margin-block-end: 2px;
+    }
+
     .expiration-top {
       display: flex;
       z-index: 1;
