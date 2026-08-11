@@ -54,6 +54,7 @@
   "browserslist": [
     "defaults",
     "not op_mini all",
-    "not kaios <= 4"
+    "not kaios <= 4",
+    "firefox >= 115"
   ]
 }
