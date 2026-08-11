@@ -67,8 +67,9 @@ $col2-panel-height: 240px;
   }
 
   .ctable {
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0.5em 0 0 0;
 
     &.active {
       display: flex;
