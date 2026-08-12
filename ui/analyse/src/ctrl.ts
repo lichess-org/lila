@@ -164,6 +164,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
+      this.data.game.variant.key,
     );
     this.motif = new MotifCtrl(this.settings);
 
@@ -574,9 +575,12 @@ export default class AnalyseCtrl implements CevalHandler {
     this.justPlayed = orig;
     this.justDropped = undefined;
     if (
-      !this.promotion.start(orig, dest, {
-        submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
-      })
+      !this.promotion.start(
+        orig,
+        dest,
+        { submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom) },
+        { premove: false, captured: capture },
+      )
     )
       this.sendMove(orig, dest, capture);
   };

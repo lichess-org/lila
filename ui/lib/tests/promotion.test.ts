@@ -5,9 +5,9 @@ import { describe, test } from 'node:test';
 
 import { PromotionCtrl } from '../src/game/promotion';
 
-function makeGround() {
+function makeGround(pieces: Array<[cg.Key, cg.Piece]> = [['e7', { color: 'white', role: 'pawn' }]]) {
   const state = {
-    pieces: new Map<cg.Key, cg.Piece>([['e7', { color: 'white', role: 'pawn' }]]),
+    pieces: new Map<cg.Key, cg.Piece>(pieces),
     turnColor: 'black' as cg.Color,
     orientation: 'white' as cg.Color,
   };
@@ -128,5 +128,78 @@ describe('promotion control', () => {
     assert.equal(ctrl.dismiss(), false);
     assert.equal(cancels, 0);
     assert.equal(autoShapes().length, 0);
+  });
+
+  test('atomic: no promotion choice when a pawn captures on the last rank', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      'atomic',
+    );
+
+    assert.equal(
+      ctrl.start(
+        'e7',
+        'e8',
+        { submit: () => assert.fail('an exploding pawn should not submit a promotion') },
+        { premove: false, captured: { color: 'black', role: 'rook' } },
+      ),
+      false,
+    );
+    assert.equal(ctrl.view(), undefined);
+  });
+
+  test('atomic: a pawn push to the last rank still promotes', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      'atomic',
+    );
+
+    assert.equal(ctrl.start('e7', 'e8', { submit: () => {} }, { premove: false }), true);
+    assert.ok(ctrl.view());
+  });
+
+  test('atomic: no promotion choice for a premoved capture on the last rank', () => {
+    const { ground } = makeGround([
+      ['e7', { color: 'white', role: 'pawn' }],
+      ['d8', { color: 'black', role: 'rook' }],
+    ]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      'atomic',
+    );
+
+    assert.equal(
+      ctrl.start('e7', 'd8', { submit: () => assert.fail('an exploding pawn should not submit') }),
+      false,
+    );
+    assert.equal(ctrl.view(), undefined);
+  });
+
+  test('a capture on the last rank still promotes outside atomic', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+    );
+
+    assert.equal(
+      ctrl.start(
+        'e7',
+        'e8',
+        { submit: () => {} },
+        { premove: false, captured: { color: 'black', role: 'rook' } },
+      ),
+      true,
+    );
+    assert.ok(ctrl.view());
   });
 });
