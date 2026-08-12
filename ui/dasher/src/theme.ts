@@ -46,7 +46,6 @@ export class ThemeCtrl extends PaneCtrl {
 
     return div('.sub.theme', [
       header(i18n.site.theme, this.close),
-      label(i18n.site.background),
       div('.selector.large', [
         this.list.map(bg => {
           return button(
