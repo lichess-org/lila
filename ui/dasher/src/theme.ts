@@ -62,6 +62,15 @@ export class ThemeCtrl extends PaneCtrl {
           );
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
+        cur === 'transp'
+          ? this.propSlider(
+              'bg-opacity',
+              i18n.site.pictureBrightness,
+              { min: 5, max: 100, step: 1 },
+              val => `${val}%`,
+              '',
+            )
+          : null,
       ]),
       cur === 'transp' ? (this.backgroundData.gallery ? this.galleryInput() : this.imageInput()) : null,
     ]);
@@ -140,13 +149,6 @@ export class ThemeCtrl extends PaneCtrl {
           );
         }),
       }),
-      this.propSlider(
-        'bg-opacity',
-        i18n.site.backgroundImageOpacity,
-        { min: 5, max: 100, step: 1 },
-        val => `${val}%`,
-        '',
-      ),
     ]);
 
   private readonly galleryInput = () => {

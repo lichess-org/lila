@@ -3255,8 +3255,6 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
-    /** Background image opacity: */
-    backgroundImageOpacity: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -4223,6 +4221,8 @@ interface I18n {
     permanentLinkForAnyoneToChallengeYou: string;
     /** Picture */
     picture: string;
+    /** Picture brightness */
+    pictureBrightness: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
