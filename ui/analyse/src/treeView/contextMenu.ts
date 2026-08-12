@@ -131,7 +131,7 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
       idbTree.someCollapsedOf(true) &&
         action(icons.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 
-      canPrune && action(icons.Trash, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+      canPrune && action(icons.Prune, 'Prune to main line', () => ctrl.pruneToMainline(path)),
 
       canPromote && action(icons.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
       !onMainline && action(icons.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
