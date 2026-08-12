@@ -129,12 +129,14 @@ object Icon:
   val Disc: Icon = "" // e06b
   val Wings: Icon = "" // e06c
   val DiscOutline: Icon = "" // e06d
+  val Handset: Icon = "" // e06e
   val ArrowThruApple: Icon = "" // e06f
   val Clipboard: Icon = "" // e070
   val Move: Icon = "" // e071
   val Ibeam: Icon = "" // e072
   val Cancel: Icon = "" // e073
   val Voice: Icon = "" // e074
+  val Prune: Icon = "" // e075
   val OneHalf: Icon = "" // e076
   val Mute: Icon = "" // e077
   val Reload: Icon = "" // e078
