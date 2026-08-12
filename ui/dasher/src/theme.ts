@@ -64,7 +64,7 @@ export class ThemeCtrl extends PaneCtrl {
         cur === 'transp'
           ? this.propSlider(
               'bg-opacity',
-              i18n.site.pictureBrightness,
+              i18n.site.imageOpacity,
               { min: 5, max: 100, step: 1 },
               val => `${val}%`,
               '',

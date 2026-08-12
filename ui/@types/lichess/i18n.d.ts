@@ -3769,6 +3769,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Image opacity */
+    imageOpacity: string;
     /** Important */
     important: string;
     /** Imported by %s */
@@ -4221,8 +4223,6 @@ interface I18n {
     permanentLinkForAnyoneToChallengeYou: string;
     /** Picture */
     picture: string;
-    /** Picture brightness */
-    pictureBrightness: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
