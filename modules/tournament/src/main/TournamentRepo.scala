@@ -262,7 +262,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def allScheduledDedup: Fu[List[Tournament]] =
     coll
-      .find(createdSelect ++ scheduledSelect)
+      .find(
+        createdSelect ++ scheduledButNotHourly ++ $doc(
+          "startsAt".$lt(nowInstant.plusDays(21))
+        )
+      )
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
       .listAll()
