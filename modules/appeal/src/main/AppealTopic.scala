@@ -14,6 +14,8 @@ object AppealTopicApi:
     Set(AppealTopic.warning, AppealTopic.blog, AppealTopic.arena, AppealTopic.report)
   def requiresAccounts(topic: AppealTopic): Boolean = !exemptFromAccountsQuestion(topic)
 
+  val usesNewAppealFlow = Set(AppealTopic.cheat)
+
   private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
     List(
