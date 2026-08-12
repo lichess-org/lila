@@ -38,7 +38,6 @@ const settings: Record<SettingKey, Setting> = {
   alwaysTree: {
     label: i18n.preferences.alwaysShowVariationTree,
     group: i18n.preferences.moveListSettings,
-    helpHtml: videoHtml('info-always-tree'),
   },
   disclosureMode: {
     label: i18n.preferences.disclosureMode,
