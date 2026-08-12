@@ -100,6 +100,8 @@ mother(fu[ck]+(er|)|)
 mthrf[ck]+r
 murder (you|u)
 na+zi+
+(ne|)gro[i\|\\]d
+n[ei]?gro?
 [nv]i+g+[ae]+[hr]?
 nonce
 noo++b
@@ -384,8 +386,6 @@ g?kys
 gets? (bombed|shot)
 k+ y+ s+
 (l|1|ı|\|)<ys
-(ne|)gro[i\|\\]d
-n[ei]?gro?
 n[i\|\\]?g+e?r
 rap(ed?|e?ing)
 rope
