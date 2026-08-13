@@ -16,10 +16,11 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       main(cls := "page-small appeal")(
         div(cls := "box box-pad")(
           h1(cls := "box__top")(
-            div(cls := "title")(span(cls := "appeal-topic")(appeal.topic.key), " Appeal in progress. Hello world")
-          ),
-        ),
+            div(cls := "title")(
+              span(cls := "appeal-topic")(appeal.topic.key),
+              " Appeal in progress. Hello world"
+            )
+          )
+        )
         // userInactiveAppeals(appeals.filter(_ != appeal))
       )
-
-

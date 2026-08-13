@@ -40,7 +40,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     topic = AppealTopicApi.select(status, appeals)
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
-    case Some(a) => if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(status, a, err | userForm, allAppeals) else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
+    case Some(a) =>
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then
+        views.appeal.flow.userFlow(status, a, err | userForm, allAppeals)
+      else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
   private def makeStatus(user: lila.core.user.User) = for

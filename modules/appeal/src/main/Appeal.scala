@@ -124,9 +124,11 @@ sealed trait AppealMsg:
 
 case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = None
-case class UserChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant) extends AppealMsg:
+case class UserChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant)
+    extends AppealMsg:
   def kind = "userChoice".some
-case class ModChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant) extends AppealMsg:
+case class ModChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant)
+    extends AppealMsg:
   def kind = "modChoice".some
 case class UserMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = "userMessage".some

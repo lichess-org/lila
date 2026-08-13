@@ -8,7 +8,7 @@ import lila.core.misc.AppealTopic
 
 lazy val ui = lila.appeal.ui.AppealUi(helpers)
 
-lazy val flow = lila.appeal.ui.AppealFlowUi(helpers,ui)
+lazy val flow = lila.appeal.ui.AppealFlowUi(helpers, ui)
 
 lazy val discussion = lila.appeal.ui.AppealDiscussionUi(helpers, ui)
 
