@@ -42,20 +42,20 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
 
 export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVariations: boolean): string {
   const filteredNodeList = nodeList.filter(node => node.san);
-  if (filteredNodeList.length === 0) return '';
-
   let variationPgn = '';
 
-  const first = filteredNodeList[0];
-  variationPgn += `${plyPrefix(first)}${first.san} `;
+  if (filteredNodeList.length) {
+    const first = filteredNodeList[0];
+    variationPgn += `${plyPrefix(first)}${first.san} `;
 
-  for (let i = 1; i < filteredNodeList.length; i++) {
-    const node = filteredNodeList[i];
-    if (node.ply % 2 === 1) {
-      variationPgn += plyToTurn(node.ply) + '. ';
+    for (let i = 1; i < filteredNodeList.length; i++) {
+      const node = filteredNodeList[i];
+      if (node.ply % 2 === 1) {
+        variationPgn += plyToTurn(node.ply) + '. ';
+      }
+
+      variationPgn += fixCrazySan(node.san!) + ' ';
     }
-
-    variationPgn += fixCrazySan(node.san!) + ' ';
   }
 
   variationPgn += renderNodesTxt(
