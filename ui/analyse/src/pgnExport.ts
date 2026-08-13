@@ -58,11 +58,7 @@ export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVaria
     }
   }
 
-  pgn += renderNodesTxt(
-    nodeList[nodeList.length - 1],
-    nonRootNodes.length === 0,
-    includeSubVariations,
-  );
+  pgn += renderNodesTxt(nodeList[nodeList.length - 1], nonRootNodes.length === 0, includeSubVariations);
 
   return pgn ? renderPgnTags(game) + pgn : '';
 }
