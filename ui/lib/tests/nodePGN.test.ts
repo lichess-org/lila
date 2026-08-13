@@ -25,12 +25,17 @@ describe('renderNodesTxt', () => {
     assert.equal(renderNodesTxt(root, true), '1. e4 e5 (1... c5 2. Nf3 (2. d4)) 2. Nf3 Nc6');
   });
 
-  test('renders through a forced variation', () => {
+  test('omits variations when asked to', () => {
+    assert.equal(renderNodesTxt(root, true, false), '1. e4 e5 2. Nf3 Nc6');
+  });
+
+  test('stops before a forced variation only when omitting variations', () => {
     const forcedRoot = {
       id: '',
       ply: 0,
       children: [node(1, 'e4', { ...node(2, 'e5', node(3, 'Nf3')), forceVariation: true })],
     } as TreeNode;
+    assert.equal(renderNodesTxt(forcedRoot, true, false), '1. e4');
     assert.equal(renderNodesTxt(forcedRoot, true), '1. e4 e5 2. Nf3');
   });
 

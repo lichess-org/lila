@@ -1,11 +1,10 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
-import { makeTree as makeTreeWrapper } from 'lib/tree';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 
 import type { Game } from '../src/interfaces';
-import { renderVariationPgn } from '../src/pgnExport';
+import { renderNodesPgn } from '../src/pgnExport';
 
 const game = { variant: { key: 'standard', name: 'Standard' } } as Game;
 
@@ -35,18 +34,27 @@ const makeForcedTree = (): TreeNode =>
     children: [node(1, 'e4', node(2, 'e5', forced(node(3, 'Nf3', node(4, 'Nc6')))))],
   }) as TreeNode;
 
-const renderFrom = (root: TreeNode, g: Game, path: TreePath, includeSubVariations: boolean) => {
-  const tree = makeTreeWrapper(root);
-  return renderVariationPgn(g, tree.getNodeList(tree.extendPath(path, !includeSubVariations)));
-};
+function nodeList(root: TreeNode, path: TreePath): TreeNode[] {
+  const nodes = [root];
+  for (let n = root; path; path = path.slice(2)) {
+    n = n.children.find(c => c.id === path.slice(0, 2))!;
+    nodes.push(n);
+  }
+  return nodes;
+}
 
-describe('renderVariationPgn', () => {
+describe('renderNodesPgn', () => {
   const root = makeTree();
   const render = (path: TreePath, includeSubVariations: boolean) =>
-    renderFrom(root, game, path, includeSubVariations).trim();
+    renderNodesPgn(game, nodeList(root, path), includeSubVariations).trim();
 
   test('renders the main line without variations', () => {
     assert.equal(render('e4e5', false), '1. e4 e5 2. Nf3 Nc6');
+  });
+
+  test('appends the sub-variations branching off the last node', () => {
+    assert.equal(render('e4', true), '1. e4 e5 (1... c5 2. Nf3 (2. d4)) 2. Nf3 Nc6');
+    assert.equal(render('e4c5', true), '1. e4 c5 2. Nf3 (2. d4)');
   });
 
   test('leaves the line leading up to the last node linear', () => {
@@ -61,14 +69,14 @@ describe('renderVariationPgn', () => {
   test('renders nothing when there are no moves', () => {
     const empty = { id: '', ply: 0, children: [] } as unknown as TreeNode;
     const fromFen = { ...game, initialFen: '4k3/8/8/8/8/8/8/4K3 w - - 0 1' } as Game;
-    assert.equal(renderFrom(empty, fromFen, '', false), '');
-    assert.equal(renderFrom(empty, fromFen, '', true), '');
+    assert.equal(renderNodesPgn(fromFen, [empty], false), '');
+    assert.equal(renderNodesPgn(fromFen, [empty], true), '');
   });
 
   test('renders the game tags', () => {
     const crazyhouse = { variant: { key: 'crazyhouse', name: 'Crazyhouse' } } as Game;
     assert.equal(
-      renderFrom(root, crazyhouse, 'e4', false).trim(),
+      renderNodesPgn(crazyhouse, nodeList(root, 'e4'), false).trim(),
       '[Variant "Crazyhouse"]\n\n1. e4 e5 2. Nf3 Nc6',
     );
   });
@@ -76,7 +84,7 @@ describe('renderVariationPgn', () => {
   describe('forced variations', () => {
     const forcedRoot = makeForcedTree();
     const renderForced = (path: TreePath, includeSubVariations: boolean) =>
-      renderFrom(forcedRoot, game, path, includeSubVariations).trim();
+      renderNodesPgn(game, nodeList(forcedRoot, path), includeSubVariations).trim();
 
     test('the main line stops before a forced variation', () => {
       assert.equal(renderForced('e4', false), '1. e4 e5');

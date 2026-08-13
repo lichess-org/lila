@@ -40,7 +40,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderVariationPgn(game: Game, nodeList: TreeNode[]): string {
+export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVariations: boolean): string {
   const filteredNodeList = nodeList.filter(node => node.san);
   if (filteredNodeList.length === 0) return '';
 
@@ -58,5 +58,11 @@ export function renderVariationPgn(game: Game, nodeList: TreeNode[]): string {
     variationPgn += fixCrazySan(node.san!) + ' ';
   }
 
-  return renderPgnTags(game) + variationPgn;
+  variationPgn += renderNodesTxt(
+    nodeList[nodeList.length - 1],
+    filteredNodeList.length === 0,
+    includeSubVariations,
+  );
+
+  return variationPgn ? renderPgnTags(game) + variationPgn : '';
 }
