@@ -116,7 +116,26 @@ object Appeal:
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
-case class AppealMsg(by: UserId, text: String, at: Instant)
+sealed trait AppealMsg:
+  def by: UserId
+  def text: String
+  def at: Instant
+  def kind: Option[String] // None = legacy message
+
+case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = None
+case class UserChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant) extends AppealMsg:
+  def kind = "userChoice".some
+case class ModChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant) extends AppealMsg:
+  def kind = "modChoice".some
+case class UserMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = "userMessage".some
+case class ModMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = "modMessage".some
+
+object AppealMsg:
+  def apply(by: UserId, text: String, at: Instant): AppealMsg =
+    LegacyMessage(by, text, at)
 
 case class AccountsDisclosure(
     otherUsernames: Option[String],
