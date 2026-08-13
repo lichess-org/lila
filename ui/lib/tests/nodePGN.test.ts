@@ -39,6 +39,16 @@ describe('renderNodesTxt', () => {
     assert.equal(renderNodesTxt(forcedRoot, true), '1. e4 e5 2. Nf3');
   });
 
+  test('numbers a black move only when a variation precedes it', () => {
+    const branchingRoot = {
+      id: '',
+      ply: 0,
+      children: [node(1, 'e4', node(2, 'e5')), node(1, 'd4')],
+    } as TreeNode;
+    assert.equal(renderNodesTxt(branchingRoot, true), '1. e4 (1. d4) 1... e5');
+    assert.equal(renderNodesTxt(branchingRoot, true, false), '1. e4 e5');
+  });
+
   test('returns nothing for a leaf', () => {
     assert.equal(renderNodesTxt(node(1, 'e4'), true), '');
   });

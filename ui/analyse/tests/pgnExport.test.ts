@@ -81,6 +81,24 @@ describe('renderNodesPgn', () => {
     );
   });
 
+  describe('black to move from the initial fen', () => {
+    const fen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1';
+    const fromFen = { ...game, initialFen: fen } as Game;
+    const blackFirst = { id: '', ply: 1, children: [node(2, 'e5', node(3, 'Nf3'))] } as TreeNode;
+
+    test('numbers the first move when the path contributes none', () => {
+      assert.equal(
+        renderNodesPgn(fromFen, nodeList(blackFirst, ''), false).trim(),
+        `[FEN "${fen}"]\n\n1... e5 2. Nf3`,
+      );
+    });
+
+    test('the empty path and the full path render the same moves', () => {
+      const render = (path: TreePath) => renderNodesPgn(game, nodeList(blackFirst, path), false).trim();
+      assert.equal(render(''), render('e5'));
+    });
+  });
+
   describe('forced variations', () => {
     const forcedRoot = makeForcedTree();
     const renderForced = (path: TreePath, includeSubVariations: boolean) =>
