@@ -26,6 +26,7 @@ object http:
   private val reqTime = timer("http.time")
   private val reqCount = counter("http.count")
   private val mobCount = counter("http.mobile.count")
+  private val agentCount = counter("http.agent.count")
 
   def time(action: String) = reqTime.withTag("action", action)
 
@@ -45,6 +46,9 @@ object http:
         "auth" -> (if auth then "auth" else "anon"),
         "os" -> os
       )
+
+  def apiAgentCount(action: String, agent: String) =
+    agentCount.withTags(tags("action" -> action, "agent" -> agent))
 
   def path(p: String) = counter("http.path.count").withTag("path", p.escape)
   val userGamesCost = counter("http.userGames.cost").withoutTags()
