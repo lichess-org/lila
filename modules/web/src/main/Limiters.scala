@@ -10,6 +10,7 @@ import lila.core.security.IsProxy
 import lila.memo.RateLimit
 import lila.common.{ HTTPRequest, ClientName }
 import lila.ui.Context
+import lila.core.perm.Granter
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 
@@ -175,13 +176,13 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     object apiGet:
       private val authLimit = 120
-      private val auth = RateLimit[UserId]((authLimit * 10) + 1, 1.minute, "broadcast.api.get.auth")
+      private val auth = RateLimit[UserId]((authLimit * 10), 1.minute, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](30, 1.minute, "broadcast.api.get.mobile")
       private val anon = RateLimit[IpAddress](10, 1.minute, "broadcast.api.get.anon")
       def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>
-            val cost = if me.isVerified then 5 else 10
+            val cost = if me.isVerified then 5 else if Granter.of(_.ApiHog)(me) then 2 else 10
             auth(me.userId, limited(limitMessage), cost)(res)
           case None if client.isMobile => mobile(ctx.ip, limited(limitMessage))(res)
           case None => anon(ctx.ip, limited(limitMessage))(res)
