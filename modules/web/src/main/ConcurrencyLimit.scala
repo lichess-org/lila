@@ -8,14 +8,16 @@ import lila.common.HTTPRequest
 
 /** only allow X streams at a time per key */
 final class ConcurrencyLimit[K](
+    maxConcurrency: Int,
     key: String,
-    ttl: FiniteDuration,
-    maxConcurrency: Int = 1,
+    ttl: FiniteDuration = 1.hour,
     limitedDefault: Int => Result = ConcurrencyLimit.limitedDefault,
     toString: K => String = (k: K) => k.toString
 )(using Executor):
 
-  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
+  import ConcurrencyLimit.{ Storage, Limiter }
+
+  private val storage = Storage(ttl, maxConcurrency, toString)
   private val monitor = lila.mon.security.concurrencyLimit(key)
 
   def compose[T](k: K)(using RequestHeader): Option[Source[T, ?] => Source[T, ?]] =
@@ -30,15 +32,16 @@ final class ConcurrencyLimit[K](
           done.onComplete: _ =>
             storage.dec(k)
 
-  def apply[T](k: K)(
-      makeSource: => Source[T, ?]
-  )(makeResult: Source[T, ?] => Result)(using req: RequestHeader): Result =
-    compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
-      makeResult(watch(makeSource))
+  def apply[T](k: K)(using RequestHeader): Limiter[T] = makeSource =>
+    makeResult =>
+      compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
+        makeResult(watch(makeSource))
 
   private def reqMsg(using req: RequestHeader) = s"${req.path} ${HTTPRequest.userAgent(req)}"
 
 object ConcurrencyLimit:
+
+  type Limiter[T] = (=> Source[T, ?]) => (Source[T, ?] => Result) => Result
 
   final class Storage[K](
       ttl: FiniteDuration,
