@@ -144,8 +144,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   )
 
   object studyDownload:
-    private val auth = ConcurrencyLimit[UserId](2, "study.download.auth")
+    private val auth = ConcurrencyLimit[UserId](3, "study.download.auth")
     private val anon = ConcurrencyLimit[IpAddress](1, "study.download.anon")
+    def perSecond(using ctx: Context) = if ctx.isAuth then 30 else 10
     def apply[T]()(using ctx: Context): ConcurrencyLimit.Limiter[PgnStr] =
       ctx.userId.fold(anon(ctx.ip))(auth(_))
 
@@ -176,7 +177,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       private val authLimit = 120
       private val auth = RateLimit[UserId]((authLimit * 10) + 1, 1.minute, "broadcast.api.get.auth")
       private val mobile = RateLimit[IpAddress](30, 1.minute, "broadcast.api.get.mobile")
-      private val anon = RateLimit[IpAddress](1, 1.minute, "broadcast.api.get.anon")
+      private val anon = RateLimit[IpAddress](10, 1.minute, "broadcast.api.get.anon")
       def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>

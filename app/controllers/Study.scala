@@ -433,7 +433,7 @@ final class Study(
         then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
         else fuccess(makeStudySource)
     ): pgnSource =>
-      Ok.chunked(pgnSource.throttle(if ctx.isAuth then 20 else 10, 1.second))
+      Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
         .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
         .as(pgnContentType)
         .withDateHeaders(lastModified(study.updatedAt))

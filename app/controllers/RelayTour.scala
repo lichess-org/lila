@@ -252,7 +252,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       limit.studyDownload()(
         env.relay.pgnStream
           .exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
-          .throttle(if ctx.isAuth then 20 else 10, 1.second)
+          .throttle(limit.studyDownload.perSecond, 1.second)
       ): source =>
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
@@ -268,8 +268,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         )
 
   def apiTop(page: Int) = Anon:
-    Reasonable(page, Max(20)):
-      JsonOk(env.relay.home.getJson(page))
+    limit.relay.apiGet(rateLimited):
+      Reasonable(page, Max(20)):
+        JsonOk(env.relay.home.getJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
