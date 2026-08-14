@@ -55,16 +55,19 @@
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
   <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
   <string name="epauletteMate">Epaulette-Matt</string>
   <string name="epauletteMateDescription">Zwei benachbarte Fluchtfelder für einen im Schach stehenden König werden von anderen Figuren besetzt.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Ein Zug, bei dem eine Figur zwei oder mehr gegnerische Figuren gleichzeitig angreift.</string>
   <string name="hangingPiece">Hängende Figur</string>
   <string name="hangingPieceDescription">Eine Taktik, bei der eine gegnerische Figur nicht oder nur unzureichend gedeckt ist und deshalb mit Vorteil geschlagen werden kann.</string>
   <string name="hookMate">Hakenmatt</string>
   <string name="hookMateDescription">Matt mit Turm, Springer und Bauer, zusammen mit einem gegnerischen Bauern, der dessen König ein Fluchtfeld nimmt.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Schachmatt mit einem Turm, Springer und Bauern, bei dem ein gegnerischer Bauer den Fluchtweg des Königs blockiert.</string>
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Ein Mattmuster, das dem Erscheinungsbild eines Schwalbenschwanzes ähnelt, ähnlich einer V-Form.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
   <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic-Matt</string>
+  <string name="vukovicMate">Vukovic-Matt</string>
   <string name="vukovicMateDescription">Ein Turm und ein Springer arbeiten zusammen, den König matt zu setzen. Der Turm setzt matt zusammen mit einer dritten Figur, und der Springer nimmt dem König die Fluchtfelder.</string>
   <string name="knightEndgame">Springerendspiel</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>

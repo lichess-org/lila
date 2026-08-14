@@ -482,7 +482,8 @@ final class PlanApi(
   private def maybeNotifyColorUnlock(before: User, after: User): Unit =
     (before, after).pairMap(_.patronTier.map(_.color.id)) match
       case (Some(tierBefore), Some(tierAfter)) if tierAfter > tierBefore =>
-        Bus.pub(lila.core.msg.SystemMsg(after.id, s"New wing unlocked! ${routeUrl(routes.Plan.index())}"))
+        Bus.pub:
+          lila.core.msg.SystemMsg.standard(after.id, s"New wing unlocked! ${routeUrl(routes.Plan.index())}")
       case _ =>
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
@@ -610,7 +611,7 @@ final class PlanApi(
     yield lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 100
-  private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
+  private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]("plan.recentChargesOf"):
     _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
       mongo.charge
         .primitive[UserId](

@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="whiteDidntMove">Biely nepotiahol</string>
   <string name="blackDidntMove">Čierny nepotiahol</string>
+  <string name="whiteAborted">Biely opustil partiu</string>
+  <string name="blackAborted">Čierny opustil partiu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
@@ -67,9 +69,9 @@
   <string name="analysis">Analýza partie</string>
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
-  <string name="loadingEngine">Zavádzanie motora ...</string>
+  <string name="loadingEngine">Šachový program sa nahráva...</string>
   <string name="calculatingMoves">Prebieha výpočet...</string>
-  <string name="engineFailed">Chyba pri načítavaní motora</string>
+  <string name="engineFailed">Chyba pri nahrávaní šachového programu</string>
   <string name="cloudAnalysis">Vzdialená analýza</string>
   <string name="goDeeper">Hlbšia analýza</string>
   <string name="showThreat">Ukázať hrozbu</string>
@@ -82,7 +84,7 @@
   <string name="expandVariations">Ukázať varianty</string>
   <string name="forceVariation">Vynútiť variant</string>
   <string name="copyVariationPgn">Kopírovať PGN variantu</string>
-  <string name="copyMainLinePgn">Kopírovať PNG hlavného variantu</string>
+  <string name="copyMainLinePgn">Kopírovať PGN hlavného variantu</string>
   <string name="move">Ťah</string>
   <string name="variantLoss">Prehrávajúci variant</string>
   <string name="variantWin">Vyhrávajúci variant</string>
@@ -894,6 +896,12 @@
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="few">Anonymní (%s)</item>
+    <item quantity="many">Anonymní (%s)</item>
+    <item quantity="other">Anonymní (%s)</item>
+  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všetky jazyky</string>
@@ -1045,7 +1053,6 @@
   <string name="xInvitedYouToY">%1$s Vás pozval(a) k \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
   <string name="youHaveJoinedTeamX">Vstúpili ste do družstva %1$s.</string>
-  <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
   <string name="gameVsX">v partii proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
@@ -1101,7 +1108,6 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="gameInProgress">Máte rozohranú partiu s %s.</string>
   <string name="abortTheGame">Zrušiť partiu</string>
   <string name="resignTheGame">Vzdať partiu</string>
-  <string name="youCantStartNewGame">Kým neukončíte túto partiu, nemôžete začať novú.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
@@ -1110,7 +1116,8 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov. Bez našej štedrej komunity by sme nedokázali udržať stránku v prevádzke. Ďakujeme, že ste sa k nám pridali!
+  </string>
   <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
   <string name="stats">Štatistiky</string>
   <string name="accessibility">Dostupnosť</string>
@@ -1124,4 +1131,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="thereAreNoResultsForX">ŽiNenašli sa žiadne výsledky pre „%s“</string>
   <string name="tags">Značky</string>
   <string name="enPassant">Právo na branie mimochodom</string>
+  <string name="settings">Nastavenia</string>
 </resources>

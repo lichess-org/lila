@@ -52,7 +52,7 @@
   <string name="knightMate">Posible izan daiteke zaldun edo alfil batekin aurkariari xake-mate ematea, aurkariak erregeaz gain beste piezaren bat badu.</string>
   <string name="noRatingPoints">Ez da puntuaziorik jaso</string>
   <string name="ratedGame">Ziurtatu puntuaziorako baliogarria den partida bat jokatu duzula. Lagunarteko partidek ez dute eraginik jokalarien puntuazioan.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
+  <string name="botRatingAbuse">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
   <string name="errorPage">Errore orrialdea</string>
   <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
   <string name="learnHowToMakeBroadcasts">Ikasi nola egin emanaldiak Lichessen</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>
   <string name="sendEmailAt">Bidali email bat hona %s.</string>
   <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
+  <string name="monetiseNotInterested">Ez dugu Lichessekin dirua irabazteko interesik.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ez dugu sekulara iragarkirik erakutsiko, ez ditugu gure jokalariak jarraituko eta ez dugu trafikorik edo erabiltzailerik saldu edo erosiko.</string>
+  <string name="monetiseNoMarketingEmail">Ez idatzi marketing, jarraipen edo iragarki kontuengatik.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Guztiok %s animatzen zaituztegu.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">iragarki eta jarraipen tresna guztiak blokeatzera</string>
+  <string name="broadcastTournamentOnLichess">Txapelketa bat zuzenean eman Lichessen</string>
+  <string name="ifYouWantToBroadcastClause1">Txapelketa bat Lichess bidez zuzenean eman nahi baduzu eta gure zuzenekoei buruzko galderak badituzu:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Jarri zaitez zure Zuzenekoen Taldearekin harremanetan %1$s edo %2$s erabiliz.</string>
+  <string name="ourDiscordServer">gure Discord zerbitzarian</string>
 </resources>

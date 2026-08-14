@@ -11,7 +11,7 @@ function loadBoardTips(rootEl: HTMLElement) {
     if (el.classList.contains('blpt')) makeBoardTip(el, e);
     else {
       const parent = el.parentNode as HTMLElement | undefined;
-      if (parent && parent.classList.contains('blpt')) makeBoardTip(parent, e);
+      if (parent?.classList?.contains('blpt')) makeBoardTip(parent, e);
     }
   });
 }

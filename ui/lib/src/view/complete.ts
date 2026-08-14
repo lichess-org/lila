@@ -30,7 +30,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
       });
     },
     selectedResult = (): Result | undefined => {
-      if (selectedIndex === null) return;
+      if (selectedIndex === null) return undefined;
       return renderedResults[selectedIndex];
     },
     moveSelection = (offset: number) => {
@@ -69,7 +69,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
       return true;
     },
     keydown(e: KeyboardEvent) {
-      if ($container.hasClass('none')) return;
+      if ($container.hasClass('none')) return undefined;
       if (e.code === 'ArrowDown') {
         moveSelection(1);
         return false;

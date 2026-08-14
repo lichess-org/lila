@@ -30,7 +30,6 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resource = lila.core.chat.PublicSource.Player(pov.gameId),
-          voiceChat = ctx.canVoiceChat,
           opponentId = pov.opponent.userId
         )
       case Right((c, res)) =>
@@ -45,6 +44,7 @@ def player(
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
+
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)
     .js:

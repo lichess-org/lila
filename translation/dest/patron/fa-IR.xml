@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">یاورانِ مشهوری که بودنِ Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
   <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
-سپس به یک توسعه‌دهنده تمام‌وقت می‌پردازیم: %s، بنیان‌گذارِ Lichess.</string>
+سپس به یک توسعه‌دهنده تمام‌وقت می‌پردازیم: %s، بنیان‌گذارِ Lichess.
+</string>
   <string name="costBreakdown">ساختار ریز هزینه را ببینید</string>
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>
   <string name="changeMonthlySupport">آیا می‌توانم پشتیبانی ماهانه خود را تغییر یا حذف نمایم؟</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">اگر پرداخت‌های‌تان با PayPal پردازش می‌شود، می‌توانید از طریق حسابِ PayPal خود، حمایت را بلغوید/تغییر دهید، یا می‌توانید %1$s را گزینید و ما می‌توانیم این کار را برای شما اَنجامیم. اگر از PayPal استفاده نکردید، پرداخت‌های‌تان با Stripe پردازش می‌شود و شما می‌توانید داشَن‌تان را بلغوید یا مبلغِ داخلِ %2$s را تغییر دهید.</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">صفحهٔ یاور</string>
+  <string name="changeSupport">اگر پرداخت‌های‌تان با PayPal پردازش می‌شود، می‌توانید از طریق حسابِ PayPal خود، حمایت را بلغوید/تغییر دهید، یا می‌توانید %1$s را گزینید و ما می‌توانیم این کار را برای شما اَنجامیم. اگر از PayPal استفاده نکردید، پرداخت‌های‌تان با Stripe پردازش می‌شود و شما می‌توانید داشَن‌تان را بلغوید یا مبلغِ داخلِ %2$s را تغییر دهید.</string>
+  <string name="patronPage">صفحهٔ یاور</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگرِ داشَنیدن؟</string>
   <string name="lichessIsRegisteredWith">وبگاه Lichess در %s ثبت شده است.</string>

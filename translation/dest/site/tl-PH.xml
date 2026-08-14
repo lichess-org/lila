@@ -871,7 +871,6 @@
   <string name="xInvitedYouToY">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ikaw ay miyembro na ng team.</string>
   <string name="youHaveJoinedTeamX">Sumali ka sa \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Yung na-report mong user ay pinagbawalan na</string>
   <string name="congratsYouWon">Tagumpay!</string>
   <string name="gameVsX">Laro laban kay %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -925,7 +924,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="gameInProgress">Mayroon kang laro na isinasagawa %s.</string>
   <string name="abortTheGame">I-abort ang laro</string>
   <string name="resignTheGame">Resign ang laro</string>
-  <string name="youCantStartNewGame">Hindi ka maaaring magsimula ng isang bagong laro hanggang sa matapos ang isang ito.</string>
   <string name="since">Mula noon</string>
   <string name="until">Hanggang</string>
   <string name="lichessDbExplanation">Na-rate na mga laro na pinakita mula sa lahat ng manlalaro ng Lichess</string>

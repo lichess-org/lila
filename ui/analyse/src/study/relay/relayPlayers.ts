@@ -268,12 +268,14 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     'div.relay-tour__players',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.players },
-      hook: {
-        insert: () => ctrl.loadFromXhr(true),
-      },
+      hook: onInsert(() => ctrl.loadFromXhr(true)),
     },
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
+
+const sortByBoth = (x?: number, y?: number) => ({
+  attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
+});
 
 export const renderPlayers = (
   ctrl: RelayPlayers,
@@ -285,9 +287,7 @@ export const renderPlayers = (
   const withRank = players.some(p => defined(p.rank));
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const tbs = players?.[0]?.tiebreaks;
-  const sortByBoth = (x?: number, y?: number) => ({
-    attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
-  });
+  const hasPlayers = players.length > 0;
   return [
     withRank &&
       hl(
@@ -295,96 +295,100 @@ export const renderPlayers = (
         { attrs: dataIcon(licon.InfoCircle) },
         i18n.broadcast.standingsDisclaimer,
       ),
-    hl(
-      'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
-      {
-        hook: onInsert(tableAugment),
-      },
-      [
-        hl(
-          'thead',
-          hl('tr', [
-            hl('th.pin', defaultSort),
-            withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
-            hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
-            withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
-            withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
-            hl('th', i18n.site.games),
-            tbs?.map(tb =>
-              hl(
-                'th.tiebreak',
-                { attrs: { 'data-sort': tb.points, title: tb.description, 'aria-label': tb.description } },
-                tb.extendedCode,
-              ),
-            ),
-          ]),
-        ),
-        hl(
-          'tbody',
-          players.map(player => {
-            const id = playerId(player);
-            const pinned = ctrl.pins.isPinned(id);
-            return hl('tr', [
-              hl(
-                'td.pin',
-                { attrs: { 'data-sort': pinned ? 1 : 0 } },
-                id &&
+    hasPlayers
+      ? hl(
+          'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
+          {
+            hook: onInsert(tableAugment),
+          },
+          [
+            hl(
+              'thead',
+              hl('tr', [
+                hl('th.pin', defaultSort),
+                withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
+                hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
+                withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
+                withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
+                hl('th', i18n.site.games),
+                tbs?.map(tb =>
                   hl(
-                    'button',
+                    'th.tiebreak',
                     {
-                      class: { pinned },
-                      attrs: {
-                        title: 'Pin player',
-                      },
-                      on: {
-                        click() {
-                          ctrl.pins.togglePin(id);
+                      attrs: { 'data-sort': tb.points, title: tb.description, 'aria-label': tb.description },
+                    },
+                    tb.extendedCode,
+                  ),
+                ),
+              ]),
+            ),
+            hl(
+              'tbody',
+              players.map(player => {
+                const id = playerId(player);
+                const pinned = ctrl.pins.isPinned(id);
+                return hl('tr', [
+                  hl(
+                    'td.pin',
+                    { attrs: { 'data-sort': pinned ? 1 : 0 } },
+                    id &&
+                      hl(
+                        'button',
+                        {
+                          class: { pinned },
+                          attrs: {
+                            title: 'Pin player',
+                          },
+                          on: {
+                            click() {
+                              ctrl.pins.togglePin(id);
+                            },
+                          },
+                        },
+                        pinIcon(),
+                      ),
+                  ),
+                  withRank &&
+                    hl('td.rank', { attrs: { 'data-sort': player.rank ? -player.rank : 0 } }, player.rank),
+                  playerTd(player, ctrl, true),
+                  withRating &&
+                    hl(
+                      'td',
+                      sortByBoth(player.rating, (player.score || 0) * 10),
+                      player.rating && ratingDiff(player),
+                    ),
+                  withScores &&
+                    hl(
+                      'td.score',
+                      {
+                        attrs: {
+                          'data-sort': player.rank
+                            ? -player.rank // so that I don't have to insert a data-sort-reverse also
+                            : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
                         },
                       },
-                    },
-                    pinIcon(),
+                      `${player.score ?? 0}`,
+                    ),
+                  hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
+                  player.tiebreaks?.map(tb =>
+                    hl(
+                      'td.tiebreak',
+                      {
+                        attrs: {
+                          'data-sort': tb.points,
+                          title: tb.description,
+                          'aria-label': tb.description,
+                        },
+                      },
+                      `${tb.points}`,
+                    ),
                   ),
-              ),
-              withRank &&
-                hl('td.rank', { attrs: { 'data-sort': player.rank ? -player.rank : 0 } }, player.rank),
-              playerTd(player, ctrl, true),
-              withRating &&
-                hl(
-                  'td',
-                  sortByBoth(player.rating, (player.score || 0) * 10),
-                  player.rating && ratingDiff(player),
-                ),
-              withScores &&
-                hl(
-                  'td.score',
-                  {
-                    attrs: {
-                      'data-sort': player.rank
-                        ? -player.rank // so that I don't have to insert a data-sort-reverse also
-                        : sortByBoth((player.score || 0) * 10, player.rating)['attrs']['data-sort'],
-                    },
-                  },
-                  `${player.score ?? 0}`,
-                ),
-              hl('td', sortByBoth(player.played, player.rating), `${player.played ?? 0}`),
-              player.tiebreaks?.map(tb =>
-                hl(
-                  'td.tiebreak',
-                  {
-                    attrs: {
-                      'data-sort': tb.points,
-                      title: tb.description,
-                      'aria-label': tb.description,
-                    },
-                  },
-                  `${tb.points}`,
-                ),
-              ),
-            ]);
-          }),
-        ),
-      ],
-    ),
+                ]);
+              }),
+            ),
+          ],
+        )
+      : hl('div.relay-tour__note', i18n.broadcast.noPlayersYet),
   ];
 };
 
@@ -392,34 +396,33 @@ const playerTipId = 'tour-player-tip';
 export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip: boolean): Hooks => {
   const id = playerId(player);
   withTip = withTip && !isTouchDevice();
-  return id
-    ? {
-        ...onInsert(el => {
-          el.addEventListener('click', e => {
-            e.preventDefault();
-            ctrl.switchTabAndShowPlayer(id);
-          });
-          if (withTip)
-            $(el).powerTip({
-              closeDelay: 200,
-              popupId: playerTipId,
-              defaultSize: [420, 150],
-              preRender() {
-                const tipEl = document.getElementById(playerTipId) as HTMLElement;
-                const patch = initSnabbdom([attributesModule]);
-                tipEl.style.visibility = 'hidden';
-                ctrl.loadPlayerWithGames(id).then(p => {
-                  const vdom = renderPlayerTipWithGames(ctrl, p);
-                  tipEl.innerHTML = '';
-                  patch(tipEl, hl(`div#${playerTipId}`, vdom));
-                  $.powerTip.reposition(el);
-                });
-              },
+  if (!id) return {};
+  return {
+    ...onInsert(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        ctrl.switchTabAndShowPlayer(id);
+      });
+      if (withTip)
+        $(el).powerTip({
+          closeDelay: 200,
+          popupId: playerTipId,
+          defaultSize: [420, 150],
+          preRender() {
+            const tipEl = document.getElementById(playerTipId) as HTMLElement;
+            const patch = initSnabbdom([attributesModule]);
+            tipEl.style.visibility = 'hidden';
+            ctrl.loadPlayerWithGames(id).then(p => {
+              const vdom = renderPlayerTipWithGames(ctrl, p);
+              tipEl.innerHTML = '';
+              patch(tipEl, hl(`div#${playerTipId}`, vdom));
+              $.powerTip.reposition(el);
             });
-        }),
-        ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) } : {}),
-      }
-    : {};
+          },
+        });
+    }),
+    ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm) } : {}),
+  };
 };
 
 export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTip: boolean): VNodeData => {

@@ -36,6 +36,10 @@ object page:
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
+  def htmlStyle(using ctx: Context) =
+    s"---ui-roundness:${ctx.pref.uiRoundness}px;" +
+      s"---bg-opacity:${ctx.pref.bgOpacity};"
+
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
     val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
@@ -50,6 +54,7 @@ object page:
       htmlTag(
         (ctx.impersonatedBy.isEmpty && !ctx.blind)
           .option(cls := ctx.pref.themeColorClass),
+        style := htmlStyle,
         topComment,
         head(
           charset,
@@ -74,17 +79,17 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option:
-            raw("""<meta content="noindex, nofollow" name="robots">""")
-          ,
+          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { loc =>
+          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgUrl).map { loc =>
             val url =
               if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
               else escapeHtmlRaw(loc).replace("&amp;", "&")
-            raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
+            raw(
+              s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
+            )
           },
           fontsPreload,
           boardPreload,

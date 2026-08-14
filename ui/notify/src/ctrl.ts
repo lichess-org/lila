@@ -36,7 +36,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   const loadPage = (page: number) =>
-    xhrJson(xhrUrl('/notify', { page: page || 1 })).then(
+    xhrJson<NotifyData>(xhrUrl('/notify', { page: page || 1 })).then(
       d => update(d),
       _ => site.announce({ msg: 'Failed to load notifications' }),
     );

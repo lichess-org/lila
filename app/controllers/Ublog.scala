@@ -43,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if !post.visibleByCrawlers && HTTPRequest.isCrawler(req).yes
+      if !post.visibleByCrawlers && ctx.req.client.isCrawler
       then notFound
       else if slug == post.slug && post.isUserBlog(username) then handlePost(post)
       else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))
@@ -54,30 +54,33 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKidsUnlessOfficial(createdBy):
       WithBlogOf(createdBy): (user, blog) =>
         (canViewBlogOf(user, blog) && post.canView).so:
-          for
-            otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
-            liked <- ctx.user.so(env.ublog.api.liked(post))
-            followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-            prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-            blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-            isInCarousel <- isGrantedOpt(_.ModerateBlog)
-              .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
-            followable = prefFollowable && !blocked
-            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
-            viewedPost = env.ublog.viewCounter(post)
-            page <- renderPage:
-              views.ublog.post.page(
-                user,
-                blog,
-                viewedPost,
-                html,
-                otherPosts,
-                liked,
-                followable,
-                followed,
-                isInCarousel
-              )
-          yield Ok(page)
+          if HTTPRequest.acceptsMarkdown
+          then Ok(views.ublog.post.markdownForAgents(post)).withHeaders(asMarkdown)
+          else
+            for
+              otherPosts <- env.ublog.api.recommend(UblogBlog.Id.User(user.id), post)
+              liked <- ctx.user.so(env.ublog.api.liked(post))
+              followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+              prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+              blocked <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+              isInCarousel <- isGrantedOpt(_.ModerateBlog)
+                .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
+              followable = prefFollowable && !blocked
+              html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
+              viewedPost = env.ublog.viewCounter(post)
+              page <- renderPage:
+                views.ublog.post.page(
+                  user,
+                  blog,
+                  viewedPost,
+                  html,
+                  otherPosts,
+                  liked,
+                  followable,
+                  followed,
+                  isInCarousel
+                )
+            yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
@@ -100,6 +103,7 @@ final class Ublog(env: Env) extends LilaController(env):
                   authorId = post.created.by
                 )
               .inject(redirect)
+
   private def WithBlogOf[U: UserIdOf](
       u: U
   )(f: (UserModel, UblogBlog) => Fu[Result])(using Context): Fu[Result] =

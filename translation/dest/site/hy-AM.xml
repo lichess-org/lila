@@ -874,7 +874,6 @@
   <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
   <string name="youAreNowPartOfTeam">Այժմ Դուք ակումբի անդամ եք։</string>
   <string name="youHaveJoinedTeamX">Դուք ընդգրկվել եք «%1$s»-ում։</string>
-  <string name="someoneYouReportedWasBanned">Ինչ-որ մենք արգելափակվել է Ձեր դիմումով</string>
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
@@ -927,7 +926,6 @@
   <string name="gameInProgress">Դուք խաղի մեջ եք %s-ի հետ։</string>
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
-  <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
   <string name="since">Սկսած</string>
   <string name="until">Մինչև</string>
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>

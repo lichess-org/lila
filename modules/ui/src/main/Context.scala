@@ -23,7 +23,6 @@ trait Context:
   def pref: Pref
   def ip: IpAddress
   def blind: Boolean
-  def troll: Boolean
   def isBot: Boolean
   def kid: KidMode
 

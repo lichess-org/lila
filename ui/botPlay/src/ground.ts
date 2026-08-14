@@ -6,7 +6,7 @@ import { h } from 'snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
-import { initMiniBoard } from 'lib/view';
+import { initMiniBoard, onInsert } from 'lib/view';
 
 import type { Board } from './chess';
 import type { Game } from './game';
@@ -95,5 +95,5 @@ export const miniBoard = (board: Board, pov: Color) =>
     attrs: {
       'data-state': `${fenOf(board)},${pov},${board.lastMove ? makeUci(board.lastMove) : ''}`,
     },
-    hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+    hook: onInsert(initMiniBoard),
   });

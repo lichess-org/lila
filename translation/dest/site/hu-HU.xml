@@ -951,7 +951,6 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Most már a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
   <string name="gameVsX">Játszma %1$s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>
@@ -1007,7 +1006,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="gameInProgress">Van egy folyamatban lévő játszmád %s ellen.</string>
   <string name="abortTheGame">Játszma elvetése</string>
   <string name="resignTheGame">Játszma feladása</string>
-  <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
   <string name="since">Ettől</string>
   <string name="until">Eddig</string>
   <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>

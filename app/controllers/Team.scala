@@ -6,9 +6,9 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.msg.SystemMsg
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 
 final class Team(env: Env) extends LilaController(env):
@@ -33,7 +33,7 @@ final class Team(env: Env) extends LilaController(env):
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
       WithTeamOrClas(id): team =>
-        if !team.notable && HTTPRequest.isCrawler(req).yes
+        if !team.notable && req.client.isCrawler
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
@@ -64,16 +64,14 @@ final class Team(env: Env) extends LilaController(env):
           yield views.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
-    team <- api.withLeaders(team)
-    info <- env.teamInfo(team, withForum = canHaveForum(team.team, asMod))
-    members <- paginator.teamMembers(team.team, page)
+    show <- api.show(team)
+    info <- env.teamInfo(show, withForum = canHaveForum(show.team, asMod))
+    members <- paginator.teamMembers(show.team, page)
     log <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat.optionFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
-    _ <- env.user.lightUserApi.preloadMany:
-      info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.optionFu(env.team.version(team.id))
-    page <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
+    page <- renderPage(views.team.show(info, members, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canEnterModView(using Context) =
@@ -82,10 +80,10 @@ final class Team(env: Env) extends LilaController(env):
   private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
   ): Boolean =
-    import info.*
-    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
-      (team.isChatFor(_.Leaders) && info.ledByMe) ||
-      (team.isChatFor(_.Members) && info.mine) ||
+    import info.show.team.isChatFor
+    info.show.team.enabled && !isChatFor(_.None) && ctx.kid.no && ctx.req.client.isHuman && {
+      (isChatFor(_.Leaders) && info.show.ledByMe) ||
+      (isChatFor(_.Members) && info.show.mine) ||
       (canEnterModView && requestModView)
     }
 
@@ -103,7 +101,7 @@ final class Team(env: Env) extends LilaController(env):
     WithEnabledTeamOrClas(teamId): team =>
       CanSeeMembers(team):
         env.teamInfo
-          .tournaments(team, 30, 30)
+          .tournamentsOf(team, 30, 30)
           .map(views.team.tournaments.page(team, _))
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
@@ -178,15 +176,13 @@ final class Team(env: Env) extends LilaController(env):
                 .flatMap:
                   _.filter(_.user.isnt(me))
                     .sequentially: change =>
-                      env.msg.api.systemPost(
-                        change.user,
-                        lila.msg.MsgPreset.newPermissions(
-                          if asMod then LightUser.fallback(UserName.lichess) else me.light,
-                          team.team.light,
-                          change.perms.map(_.name),
-                          routeUrl(routes.Team.show(team.id))
-                        )
+                      val text = lila.msg.MsgPreset.newPermissions(
+                        if asMod then LightUser.fallback(UserName.lichess) else me.light,
+                        team.team.light,
+                        change.perms.map(_.name),
+                        routeUrl(routes.Team.show(team.id))
                       )
+                      env.msg.api.systemPost(SystemMsg.mustRead(change.user, text))
                     .inject:
                       Redirect(routes.Team.leaders(team.id)).flashSuccess
           )
@@ -391,6 +387,37 @@ final class Team(env: Env) extends LilaController(env):
       )
   }
 
+  def updates(page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { _ ?=> _ ?=>
+    for
+      byTeam <- env.team.update.byTeams
+      recent <- env.team.update.allRecent(page)
+      res <- negotiate(
+        html = Ok.page(views.team.update.allRecent(recent, byTeam)),
+        json = JsonOk(env.team.update.json.allRecent(recent, byTeam))
+      )
+    yield res
+  }
+
+  def updatesOf(id: TeamId, page: Int) = AuthOrScoped(_.Team.Read, _.Web.Mobile) { ctx ?=> me ?=>
+    def orElse = Redirect(routes.Team.updates())
+    def showUpdates(team: TeamModel) =
+      api
+        .isMember(id)
+        .flatMap:
+          if _ then
+            for
+              byTeam <- env.team.update.byTeams
+              recent <- env.team.update.teamRecentAndMarkRead(team, page)
+              subscribed <- api.isSubscribed(team, me)
+              res <- negotiate(
+                html = Ok.page(views.team.update.teamRecent(recent, byTeam, team, subscribed)),
+                json = JsonOk(env.team.update.json.teamRecent(recent, byTeam, team.light, subscribed))
+              )
+            yield res
+          else orElse
+    WithEnabledTeamOrClas(id)(showUpdates, orElse)
+  }
+
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     WithEnabledTeamOrClas(id): team =>
       team.isClas.not.so:
@@ -429,44 +456,29 @@ final class Team(env: Env) extends LilaController(env):
               "members" -> team.nbMembers
             ))
 
-  def pmAll(id: TeamId) = Auth { ctx ?=> _ ?=>
+  def updateNew(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      renderPmAll(team, forms.pmAll)
+      renderUpdateForm(team, forms.pmAll)
   }
 
-  private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
+  private def renderUpdateForm(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     swiss <- env.swiss.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.team.limiter.pmAll.status(team.id)
-    page <- renderPage(views.team.admin.pmAll(team, form, tours, swiss, unsubs, limiter))
+    limiter <- env.team.update.limiter.status(team.id)
+    links = views.team.updateEventLinks(tours, swiss)
+    page <- renderPage(views.team.admin.updateForm(team, form, links, unsubs, limiter))
   yield Ok(page)
 
-  def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
+  def updateSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
-        msg =>
-          val normalized = msg.replaceAll("\r\n?", "\n")
-          env.team.limiter.pmAll
-            .dedupAndLimit(team.id, normalized): () =>
-              val url = routeUrl(routes.Team.show(team.id))
-              val full = s"""$normalized
-  ---
-  You received this because you are subscribed to messages of the team $url."""
-              env.msg.api
-                .multiPost(
-                  env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                  full
-                )
-                .addEffect(lila.mon.msg.teamBulk.record(_))
-                .void
-            .left
-            .map(forms.pmAll.withError("duplicate", _))
+        text => env.team.update.send(team, text).left.map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
-          err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
+          err => negotiate(renderUpdateForm(team, err), BadRequest(errorsAsJson(err))),
           _.flatMap: res =>
             negotiate(
               Redirect(routes.Team.show(team.id)).flashing:
@@ -481,22 +493,34 @@ final class Team(env: Env) extends LilaController(env):
         )
   }
 
-  private def WithTeamOrClas(teamId: TeamId)(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    Found(api.team(teamId)): team =>
-      env.api.clas
-        .teamClas(team)
-        .flatMap:
-          case None => f(team)
-          case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
-          case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
-          case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
+  private def WithTeamOrClas(
+      teamId: TeamId
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    api
+      .team(teamId)
+      .flatMap:
+        _.fold(orElse): team =>
+          env.api.clas
+            .teamClas(team)
+            .flatMap:
+              case None => f(team)
+              case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
+              case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
+              case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
 
   private def WithEnabledTeamOrClas(
       teamId: TeamId
-  )(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    WithTeamOrClas(teamId): team =>
-      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
-      else notFound
+  )(f: TeamModel => Fu[Result], orElse: Context ?=> Fu[Result] = notFound)(using
+      ctx: Context
+  ): Fu[Result] =
+    WithTeamOrClas(teamId)(
+      team =>
+        if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
+        else orElse,
+      orElse
+    )
 
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: (TeamModel, AsMod) => Fu[Result]

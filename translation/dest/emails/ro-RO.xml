@@ -18,6 +18,7 @@ Aici este pagina dvs. de profil: %1$s. O puteți personaliza pe %2$s.
 Distracție plăcută și fie ca piesele dvs. să își găsească mereu calea către regele adversarului!</string>
   <string name="logInToLichess">Conectează-te pe lichess.org, %s</string>
   <string name="common_orPaste">(Nu merge să dați click? Încercați să-l copiați în browser!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Link-ul nu funcționează? Încercați-l direct în browser!)</string>
   <string name="common_note">Acesta e un email legat de folosirea dumneavoastră a %s.</string>
   <string name="common_contact">Pentru a ne contacta, vă rugăm să utilizați %s.</string>
 </resources>

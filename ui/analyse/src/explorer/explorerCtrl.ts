@@ -6,7 +6,8 @@ import { replayable } from 'lib/game';
 import { pieceCount, fenColor } from 'lib/game/chess';
 import { storedBooleanProp } from 'lib/storage';
 
-import type AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '@/ctrl';
+
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { MAX_ANALYSE_DEPTH, winnerOf } from './explorerUtil';
 import { clearLastShow } from './explorerView';
@@ -42,8 +43,8 @@ export default class ExplorerCtrl {
   hovering = prop<Hovering | null>(null);
   movesAway = prop(0);
   gameMenu = prop<string | null>(null);
-  private lastStream: Sync<true> | undefined;
-  private abortController: AbortController | undefined;
+  private lastStream?: Sync<true>;
+  private abortController?: AbortController;
   private cache: Dictionary<ExplorerData> = {};
 
   constructor(
@@ -134,7 +135,7 @@ export default class ExplorerCtrl {
             .catch(onError)
             .then(_ => true),
         );
-        this.lastStream.promise.then(() => this.root.redraw());
+        if (this.db() === 'player') this.lastStream.promise.then(() => this.root.redraw());
       }
     },
     250,
@@ -216,10 +217,10 @@ export default class ExplorerCtrl {
   fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
-    if (move && move.dtz === null) throw 'unknown tablebase position';
+    if (move?.dtz === null) throw 'unknown tablebase position';
     return {
       fen,
-      best: move && move.uci,
+      best: move.uci,
       winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move),
     };
   };

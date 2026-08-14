@@ -21,7 +21,8 @@ final private[api] class GameApi(
     gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
-    crosstableApi: lila.game.CrosstableApi
+    crosstableApi: lila.game.CrosstableApi,
+    gameOpening: lila.game.GameOpening
 )(using Executor):
 
   import GameApi.WithFlags
@@ -177,9 +178,7 @@ final private[api] class GameApi(
                 .flatMap(analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none))
             )
         }),
-        "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves" -> withFlags.moves.option(g.sans.mkString(" ")),
-        "opening" -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).so {
           chess
             .Position(g.variant, initialFen)
@@ -190,6 +189,8 @@ final private[api] class GameApi(
         "winner" -> g.winnerColor.map(_.name),
         "url" -> makeUrl(g)
       )
+      .add("analysis", analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)))
+      .add("opening", withFlags.opening.so(gameOpening.quickAtPly(g)))
       .noNull
 
 object GameApi:

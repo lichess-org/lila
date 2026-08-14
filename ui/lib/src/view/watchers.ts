@@ -28,7 +28,7 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   const setWatchers = (data: Data): void => {
     watchersData = data;
 
-    if (!data || !data.nb) {
+    if (!data?.nb) {
       element.classList.add('none');
       return;
     }

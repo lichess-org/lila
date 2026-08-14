@@ -15,7 +15,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
 
   const fetchLinks = (term: string): HTMLAnchorElement[] => {
     const all = menuLinks
-      .filter(a => a.textContent && a.textContent.toLowerCase().includes(term.toLowerCase()))
+      .filter(a => a.textContent?.toLowerCase().includes(term.toLowerCase()))
       .map(a => a.cloneNode(true) as HTMLAnchorElement)
       .map(a => {
         a.classList.add('complete-result', 'complete-result--menu');
@@ -86,7 +86,7 @@ function command(q: string) {
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
-  else if (is('light dark transp system')) loadDasher().then(m => m.background.set(exec));
+  else if (is('light dark transp system')) loadDasher().then(m => m.theme.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
@@ -108,6 +108,7 @@ function help() {
     css: [{ hashed: 'cli.help' }],
     class: 'clinput-help',
     modal: true,
+    easyClose: 'clickOutside',
     show: true,
     htmlText:
       '<div><h3>Commands</h3>' +

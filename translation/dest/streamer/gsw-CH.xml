@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="pleaseAllow">Du muesch mit bis zu 72 Schtund Bearbeitigszit rächne, bis din Streamer-Badge und din Itrag genehmigt werded.</string>
   <string name="chooseYoutubeChannel">Wähl de YouTube-Kanal, wo du uf Lichess verwände wotsch.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbinde</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbindig tränne</string>
+  <string name="connect">Verbinde</string>
+  <string name="disconnect">Verbindig tränne</string>
   <string name="streamerName">Din Streamername uf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Churz fasse: Maximal %s Zeiche</item>
     <item quantity="other">Churz fasse: Maximal %s Zeiche</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sichtbar uf de Streamersite</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Sobald von den Moderatoren genehmigt</string>
+  <string name="visibility">Sichtbar uf de Streamersite</string>
+  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
   <string name="tellUsAboutTheStream">Verzell üs i eim Satz öppis über din Stream</string>
   <string name="longDescription">Ausführliche Beschreibung</string>

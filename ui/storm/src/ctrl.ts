@@ -23,6 +23,7 @@ import * as xhr from './xhr';
 export default class StormCtrl implements PuzCtrl {
   private readonly data: StormData;
   private readonly redraw: () => void;
+  readonly duration = 900;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;

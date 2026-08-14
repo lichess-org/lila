@@ -1,6 +1,6 @@
 package controllers
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -12,6 +12,7 @@ import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
 import lila.security.{ Mobile, UserAgentParser }
+import lila.web.ConcurrencyLimit
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -268,10 +269,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
-    Anon:
+    AnonOrScoped():
       WithProxy: proxy ?=>
         limit.enumeration.cloudEval(rateLimited):
-          val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
+          val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
           val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
           rateLimit(rateLimited, cost = cost):
             get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
@@ -301,6 +302,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def gameChat(gameId: GameId) = Anon:
     Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
       JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
+
+  def roomChat(roomId: RoomId) = SecuredScoped(_.ViewPrivateComms): _ ?=>
+    Found(env.chat.api.userChat.findOption(roomId.into(ChatId))): chat =>
+      JsonOk(env.chat.json.modApi(chat))
 
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
@@ -401,7 +406,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
 
-    def events(using ctx: Context) =
+    def events(using ctx: Context): ConcurrencyLimit[IpAddress] =
       if ctx.isAnon then eventsForAnon
       else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
       else eventsForUser

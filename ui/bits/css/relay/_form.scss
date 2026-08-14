@@ -36,7 +36,7 @@
 }
 
 .relay-form__warning {
-  border: 5px solid $m-brag_bg--mix-70;
+  border: 5px solid color-mix(in oklab, $c-brag 70%, $c-bg);
 
   &::before {
     color: $c-brag;
@@ -46,7 +46,7 @@
 }
 
 .relay-form__contact-us.flash-box {
-  border: 5px solid $m-secondary_bg--mix-70;
+  border: 5px solid color-mix(in oklab, $c-secondary 70%, $c-bg);
 
   &::before {
     color: $c-secondary;

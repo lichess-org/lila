@@ -4,15 +4,13 @@ import { defined } from '../index';
 import type { Work } from './types';
 
 export class Protocol {
-  public engineName: string | undefined;
+  public engineName?: string;
 
-  private work: Work | undefined;
-  private currentEval: LocalEval | undefined;
-  private gameId: string | undefined;
+  private work?: Work;
+  private currentEval?: LocalEval;
+  private gameId?: string;
   private expectedPvs = 1;
-
-  private nextWork: Work | undefined;
-
+  private nextWork?: Work;
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 

@@ -21,6 +21,8 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
+  case StudyChapterDelete(chapterIds: Seq[StudyChapterId]) // clear analysis of chapter
+  case StudyChapterOrphan(chapterIds: Seq[StudyChapterId]) // chapter has been deleted
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Fu[Int]
 

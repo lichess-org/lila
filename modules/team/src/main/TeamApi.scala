@@ -1,9 +1,7 @@
 package lila.team
 
 import java.time.Period
-import scala.util.Try
 import scalalib.actor.AsyncActorSequencers
-import play.api.libs.json.{ JsSuccess, Json, Reads }
 import play.api.mvc.RequestHeader
 
 import lila.common.Bus
@@ -11,6 +9,7 @@ import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -18,16 +17,18 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
+    updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifier: Notifier,
-    chatApi: lila.core.chat.ChatApi
+    notifyApi: NotifyApi,
+    chatApi: lila.core.chat.ChatApi,
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -52,6 +53,15 @@ final class TeamApi(
   def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
+
+  def show(team: Team)(using me: Option[Me]): Fu[Team.TeamShow] = for
+    leaders <- memberRepo.leaders(team.id)
+    member <- me.soUse(memberOf(team.id))
+    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(requestsWithUsers(team))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
+    update <- ((team.enabled && member.isDefined) || Granter.opt(_.ManageTeam))
+      .so(updateApi.teamLatest(team.id))
+  yield Team.TeamShow(team, leaders, member, myRequest, requests, update)
 
   def create(setup: TeamSetup)(using me: Me): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
@@ -89,8 +99,8 @@ final class TeamApi(
     old.copy(
       password = edit.password,
       intro = edit.intro,
-      description = edit.description,
-      descPrivate = edit.descPrivate,
+      description = edit.description.map(spam.replace),
+      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
       open = edit.isOpen,
       chat = edit.chat,
       forum = edit.forum,
@@ -211,8 +221,8 @@ final class TeamApi(
     then
       for
         _ <- requestRepo.remove(request.id)
-        userOption <- userApi.byId(request.user)
-        _ <- userOption.so(user => doJoin(team, user.id) >> notifier.acceptRequest(team, request))
+        _ <- doJoin(team, request.user)
+        _ <- notifyApi.notifyOne(request.user, NotificationContent.TeamJoined(team.id, team.name))
       yield ()
     else funit
   }.addEffect: _ =>
@@ -294,8 +304,8 @@ final class TeamApi(
       kicked <- memberRepo.get(team.id, userId)
       myself <- memberRepo.get(team.id, me)
       allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
-        myself.exists: myself =>
-          kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
+        Granter(_.ManageTeam) || myself.exists: myself =>
+          kicked.perms.isEmpty || myself.hasPerm(_.Admin)
       _ <- allowed.so:
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
@@ -305,11 +315,10 @@ final class TeamApi(
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
-    val users = parseTagifyInput(json).toList
+  def kickMembers(team: Team, users: List[UserId])(using me: Me, req: RequestHeader): Funit =
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
-      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
+      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"
     users.sequentiallyVoid(kick(team, _))
 
   object blocklist:
@@ -322,20 +331,6 @@ final class TeamApi(
     def has(team: Team, user: UserId): Fu[Boolean] =
       get(team).map: list =>
         UserStr.from(list.split("\n")).exists(_.is(user))
-
-  private case class TagifyUser(value: String)
-  private given Reads[TagifyUser] = Json.reads
-
-  private def parseTagifyInput(json: String): Set[UserId] = Try {
-    json.trim.nonEmpty.so:
-      Json.parse(json).validate[List[TagifyUser]] match
-        case JsSuccess(users, _) =>
-          users.toList
-            .flatMap(u => UserStr.read(u.value))
-            .map(_.id)
-            .toSet
-        case _ => Set.empty[UserId]
-  }.getOrElse(Set.empty)
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>

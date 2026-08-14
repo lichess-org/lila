@@ -148,6 +148,12 @@ Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la
 Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedică lichess.org să ruleze un sunet. De obicei, această restricţie este ridicată odată ce faceţi clic pe ceva. Pe unele browsere mobile, atingerea sau glisarea unei piese nu contează ca un click. În acest caz trebuie să atingeți tabla pentru a permite sunetul la începutul fiecărui joc.
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Majoritatea browserelor împiedică redarea sunetului pe paginile nou vizitate pentru a proteja utilizatorii.
+
+Iconița de sunet apare când browserul tău împiedică lichess.org să facă un sunet. Această restricție este de obicei ridicată odată ce dai clic pe ceva.
+Pe unele browsere mobile, glisarea unei piese prin atingere nu se numără ca un clic. În acest caz, trebuie un tap pe tablă pentru a permite sunetul la începutul fiecărui joc.
+
+Iti arătăm iconița roșie pentru a te alerta când se întamplă asta. Puteți permite în mod explicit lichess.org să redea sunete pe majoritatea browserelor. Aici sunt instrucţiuni pentru a permite site-ului să redea audio pe versiunile recente ale unor browsere des folosite:</string>
   <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Deschideți lichess.org
 2. Apăsați Ctrl-i în Linux/Windows sau cmd-i în MacOS
@@ -157,6 +163,10 @@ Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lu
 2. Faceți clic pe pictograma de blocare din bara de adrese
 3. Faceți clic pe Setările Site-ului
 4. Permiteți sunetul</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Mergeți la lichess.org
+2. Faceți clic pe iconița de informații a site-ului din bara de adrese
+3. Faceți clic pe Setările Site-ului
+4. Permiteți sunete</string>
   <string name="enableAutoplayForSoundsSafari">1. Mergeți la lichess.org
 2. Faceți clic pe Safari din bara de meniu
 3. Faceți clic pe Setări pentru lichess.org ...

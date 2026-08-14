@@ -26,6 +26,10 @@
         padding: 0 6px;
         border-bottom: $border;
         flex-flow: row wrap;
+
+        button {
+          @extend %box-radius;
+        }
       }
     }
 
@@ -60,7 +64,7 @@
           &-toolbar {
             &-group {
               border-radius: 2px;
-              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+              box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.08);
               background-color: #f7f9fc;
             }
           }
@@ -94,6 +98,7 @@
       border: $border;
       background-color: $c-bg-page;
       margin-left: 0;
+      overflow: hidden;
 
       @include if-light {
         background-color: $c-bg;
@@ -102,6 +107,28 @@
       button {
         text-align: center;
       }
+    }
+
+    &-popup-add-image {
+      padding-top: 20px;
+
+      &::before {
+        padding-inline: 20px;
+        content: 'Drag an edge to resize your image.';
+      }
+
+      .toastui-editor-file-name,
+      .toastui-editor-file-select-button {
+        @extend %box-radius;
+      }
+
+      .toastui-editor-file-name {
+        min-height: 32px;
+      }
+    }
+
+    &-button-container button {
+      @extend %box-radius;
     }
 
     &-ok-button {
@@ -237,14 +264,5 @@
     &-tooltip {
       @extend %base-font;
     }
-  }
-}
-
-.toastui-editor-popup-add-image {
-  padding-top: 20px;
-
-  &::before {
-    padding-inline: 20px;
-    content: 'Drag an edge to resize your image.';
   }
 }

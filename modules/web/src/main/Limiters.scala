@@ -48,13 +48,13 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val crosstable = RateLimit[IpAddress](credits = 30, duration = 10.minutes, key = "crosstable.api.ip")
 
   val relay: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 100 * 10, duration = 24.hour, key = "broadcast.round.user"),
-    RateLimit[IpAddress](credits = 100 * 10, duration = 24.hour, key = "broadcast.round.ip")
+    RateLimit[UserId](credits = 120 * 10, duration = 24.hour, key = "broadcast.round.user"),
+    RateLimit[IpAddress](credits = 120 * 10, duration = 24.hour, key = "broadcast.round.ip")
   )
 
   val relayTour: RateLimiter[(UserId, IpAddress)] = combine(
-    RateLimit[UserId](credits = 10 * 10, duration = 24.hour, key = "broadcast.tournament.user"),
-    RateLimit[IpAddress](credits = 10 * 10, duration = 24.hour, key = "broadcast.tournament.ip")
+    RateLimit[UserId](credits = 20 * 10, duration = 24.hour, key = "broadcast.tournament.user"),
+    RateLimit[IpAddress](credits = 20 * 10, duration = 24.hour, key = "broadcast.tournament.ip")
   )
 
   val eventStream = RateLimit[Bearer](30, 10.minutes, "api.stream.event.bearer")
@@ -166,7 +166,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     def opening[A]: ProxyLimit[A] = proxyLimit(openingLimiter)
 
     private val userProfileLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "user.profile.page.proxy")
-    def userProfile[A]: ProxyLimit[A] = proxyLimit(userProfileLimiter)
+    def userProfile[A]: ProxyLimitWithMsg[A] = proxyLimitWithMsg(userProfileLimiter)
 
     private val searchLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "search.proxy")
     def search[A]: ProxyLimit[A] = proxyLimit(searchLimiter)
@@ -181,6 +181,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))
 
     private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type ProxyLimitWithMsg[A] =
+      (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> String) => (=> Fu[A]) => Fu[A]
 
     private def proxyLimit[A](
         limiter: RateLimiter[IsProxy],
@@ -191,6 +193,17 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
           f =>
             if proxy.no || me.isDefined then f
             else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
+
+    private def proxyLimitWithMsg[A](
+        limiter: RateLimiter[IsProxy],
+        cost: IsProxy ?=> Int = defaultCost
+    ): ProxyLimitWithMsg[A] =
+      (proxy, req, me) ?=>
+        default =>
+          msg =>
+            f =>
+              if proxy.no || me.isDefined then f
+              else limiter(proxy, default, cost, msg = s"${HTTPRequest.ipAddressStr(req)} $msg")(f)
 
     private def defaultCost(using proxy: IsProxy): Int =
       if proxy.isFloodish then maxCost

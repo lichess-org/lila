@@ -328,7 +328,6 @@ export default class StudyCtrl {
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
     pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
-    pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember() && !this.relay);
     if (!this.data.chapter.features.explorer) this.ctrl.explorer.disable();
     this.ctrl.explorer.allowed(this.data.chapter.features.explorer);
   };
@@ -336,7 +335,7 @@ export default class StudyCtrl {
   isCevalAllowed = () =>
     (!this.relay?.tourShow() || site.blindMode) &&
     !this.isGamebookPlay() &&
-    !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    (this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
@@ -443,7 +442,7 @@ export default class StudyCtrl {
       n.gamebook = n.gamebook || {};
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
-    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
+    if (this.gamebookPlay?.chapterId === this.vm.chapterId) return undefined;
     this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.redraw);
     this.vm.mode.sticky = false;
     return undefined;
@@ -529,10 +528,10 @@ export default class StudyCtrl {
   private readonly deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
-    return i < 0 ? undefined : chs[i + delta];
+    return i === -1 ? undefined : chs[i + delta];
   };
   prevChapter = () => this.deltaChapter(-1);
-  nextChapter = () => this.deltaChapter(+1);
+  nextChapter = () => this.deltaChapter(1);
   hasNextChapter = () => {
     const chs = this.chapters.list.all();
     return chs[chs.length - 1].id !== this.vm.chapterId;
@@ -672,6 +671,7 @@ export default class StudyCtrl {
     const s = p.split('#');
     return `${s[0]}${location.search}${s[1] ? `#${s[1]}` : ''}`;
   };
+  hideMoves = () => this.ctrl.actionMenu() && !this.relay;
 
   socketHandlers: Handlers = {
     path: d => {
@@ -842,6 +842,7 @@ export default class StudyCtrl {
       this.chapters.setTags(d.chapterId, d.tags);
       if (d.chapterId !== this.vm.chapterId) return;
       this.data.chapter.tags = d.tags;
+      this.relay?.onNewTags(d.chapterId, d.tags);
       this.redraw();
     },
     deleteComment: d => {

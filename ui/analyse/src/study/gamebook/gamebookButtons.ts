@@ -8,7 +8,7 @@ import type StudyCtrl from '../studyCtrl';
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
     ctrl = study.gamebookPlay;
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   const state = ctrl.state,
     fb = state.feedback,
     myTurn = fb === 'play';
@@ -55,7 +55,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     else {
       const isAnalyse = o === 'analyse',
         ctrl = study.gamebookPlay;
-      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
+      if (isAnalyse || ctrl?.state.feedback === 'end')
         return hl(
           'a.fbt.text.preview',
           {

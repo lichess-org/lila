@@ -16,6 +16,7 @@ final class Env(
     divider: lila.core.game.Divider,
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening,
     userApi: lila.core.user.UserApi,
     flairApi: lila.core.user.FlairApi,
     explorer: lila.core.game.Explorer,
@@ -36,7 +37,7 @@ final class Env(
 )(using
     Executor,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.config.RateLimit,
     lila.core.fide.Federation.Guess,
     lila.core.fide.GetPlayer,
@@ -108,8 +109,7 @@ final class Env(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      studyIds <- studyRepo.deletePrivateByOwner(del.id)
-      _ <- chapterRepo.deleteByStudyIds(studyIds)
+      _ <- api.deletePrivateByOwner(del.id)
       _ <- studyRepo.anonymizeAllOf(del.id)
       _ <- topicApi.userTopicsDelete(del.id)
     yield ()

@@ -23,7 +23,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .graph(
+      .graph:
         OpenGraph(
           `type` = "article",
           image = imageUrl,
@@ -31,7 +31,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
           description = post.intro
         )
-      )
+      .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
       .preloadImage(imageUrl)(helpers)
       .copy(atomLinkTag =
         link(
@@ -40,7 +40,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         ).some
       )
       .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withTwitter.withInlineIconFont):
+      .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(
@@ -144,6 +144,16 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             )
           )
         )
+
+  def markdownForAgents(post: UblogPost): String =
+    s"""---
+title: ${post.title}
+description: ${post.intro}
+image: ${ui.thumbnailUrl(post, _.Size.Large)}
+---
+
+${post.markdown}
+"""
 
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),

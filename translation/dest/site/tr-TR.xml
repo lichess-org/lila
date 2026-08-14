@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Onay e-postası almazsanız, Spam veya Gereksiz klasörünüzü kontrol edin. Önemli bildirimlerden haberdar olmaya devam edebilmeniz için lichess.org adresinden gelen mesajları güvenli olarak işaretlediğinizden ve \"spam değil\" olarak belirttiğinizden emin olun.</string>
   <string name="sendEmailForAccountVerification">Doğrulama e-postanızı bulamıyorsanız, %s adresine e-posta gönderin, hesabınızı sizin için onaylayalım.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
   <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s takip ettiklerim</item>
     <item quantity="other">%s takip ettiklerim</item>
   </plurals>
+  <string name="less">Azalt</string>
   <string name="more">Daha fazla</string>
   <string name="memberSince">Üyelik tarihi</string>
   <string name="lastSeenActive">Aktif %s</string>
@@ -580,6 +582,9 @@
   <string name="replies">Cevaplar</string>
   <string name="replyToThisTopic">Bu konu hakkında cevap yaz</string>
   <string name="reply">Cevap yaz</string>
+  <string name="reopen">Yeniden aç</string>
+  <string name="quote">Alıntıla</string>
+  <string name="postEdited">düzenlendi</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Bildiri oluştur</string>
   <string name="reportAUser">Kullanıcı ihbar et</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">Oyunun (oyunların) bağlantısını yapıştırın ve kullanıcının hangi davranışı yanlış açıklayın. Sadece \"bu hile\" demeyin, bize bu sonuca nasıl vardığınızı söyleyin.</string>
   <string name="reportUsernameHelp">Bu kullanıcı adı hakkında neyin saldırganca olduğunu açıklayın. Sadece \"bu saldırganca/uygunsuz\" demeyin, bu sonuca nasıl vardığınızı söyleyin bize, özellikle de hakaret gizlenmiş, ingilizce olmayan, argo, veya tarihsel/kültürel referansalar varsa.</string>
   <string name="reportProcessedFasterInEnglish">Eğer İngilizce yazarsanız raporunuz daha hızlı işleme alınır.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">İngilizce yazarsanız bildiriminizi daha hızlı işleme alabiliriz.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
   <string name="by">%s oluşturdu</string>
   <string name="importedByX">%s tarafından yüklendi</string>
@@ -716,6 +722,7 @@
   <string name="aboutSimulSettings">Eş zamanlı gösteriler daima puansızdır. Yeniden maç teklifi göndermek, hamleyi geri almak ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Bir simultane oluşturmak, aynı anda birden fazla rakibe karşı oynamanızı sağlar.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
@@ -814,14 +821,21 @@
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonim</item>
+    <item quantity="other">Anonim (%s)</item>
+  </plurals>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
   <string name="allLanguages">Tüm diller</string>
   <string name="background">Arkaplan</string>
+  <string name="theme">Tema</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
   <string name="transparent">Şeffaf</string>
+  <string name="picture">Resim</string>
   <string name="deviceTheme">Cihaz teması</string>
+  <string name="roundness">Yuvarlaklık</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="board">Tahta</string>
   <string name="size">Boyut</string>
@@ -959,7 +973,6 @@
   <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
-  <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
   <string name="gameVsX">%1$s ile oyun</string>
   <string name="resVsX">%1$s ile %2$s karşı karşıya</string>
@@ -991,6 +1004,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="simulDescription">Eş zamanlı gösterinin açıklaması</string>
   <string name="simulDescriptionHelp">Katılımcılara söylemek istediğiniz bir şey var mı?</string>
   <string name="markdownIsAvailable">%s formatlanmak için uygun.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Metni %s kullanarak formatlayabilirsiniz.</string>
   <string name="embedsAvailable">Bir maç veya çalışma bölümü eklemek için bağlantıyı buraya yapıştırın.</string>
   <string name="inYourLocalTimezone">Yerel zaman diliminizde</string>
   <string name="tournChat">Turnuva sohbeti</string>
@@ -998,6 +1012,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="onlyTeamLeaders">Yalnızca takım liderleri</string>
   <string name="onlyTeamMembers">Yalnızca takım üyeleri</string>
   <string name="navigateMoveTree">Hamleler arasında gezin</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Hamle listesinde gezinme</string>
   <string name="mouseTricks">Fare ile yapılan numaralar</string>
   <string name="toggleLocalAnalysis">Yerel bilgisayar analizini aç/kapat</string>
   <string name="toggleAllAnalysis">Genel bilgisayar analizini aç/kapat</string>
@@ -1014,7 +1029,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="gameInProgress">Şu anda %s ile olan maçınız devam ediyor.</string>
   <string name="abortTheGame">Maçı iptal et</string>
   <string name="resignTheGame">Maçı terk et</string>
-  <string name="youCantStartNewGame">Mevcut oyun bitene kadar yeni bir oyuna başlayamazsın.</string>
+  <string name="youCantStartNewGame">Sıra sizdeyken yeni bir oyun başlatamazsınız.</string>
   <string name="since">Seçili tarihten beri</string>
   <string name="until">Seçili tarihe kadar</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
@@ -1037,4 +1052,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
+  <string name="settings">Ayarlar</string>
 </resources>

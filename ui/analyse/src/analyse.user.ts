@@ -1,5 +1,7 @@
 import { wsConnect } from 'lib/socket';
 
+import type { AnalyseOpts } from '@/interfaces';
+
 import makeBoot from './boot';
 import makeStart from './start';
 import { patch } from './view/util';
@@ -9,7 +11,7 @@ export { patch };
 const start = makeStart(patch);
 const boot = makeBoot(start);
 
-export async function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: any }) {
+export async function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: AnalyseOpts }) {
   await site.asset.loadPieces;
   if (mode === 'replay') boot(cfg);
   else userAnalysis(cfg);

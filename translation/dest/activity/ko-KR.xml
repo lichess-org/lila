@@ -12,7 +12,7 @@
     <item quantity="other">전술 문제 %s개를 해결함</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="other">%2$s를 %1$s회 플레이함</item>
+    <item quantity="other">%2$s(을)를 %1$s회 플레이함</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="other">%2$s 에 %1$s 개의 글을 게시함</item>

@@ -956,7 +956,6 @@
   <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Някого когото сте докладвали беше блокиран</string>
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
   <string name="gameVsX">Партия срещу %1$s</string>
   <string name="resVsX">%1$s срещу %2$s</string>
@@ -1010,7 +1009,6 @@
   <string name="gameInProgress">Имате текуща игра с %s.</string>
   <string name="abortTheGame">Прекъсване на играта</string>
   <string name="resignTheGame">Предаване</string>
-  <string name="youCantStartNewGame">Не можете да започнете нова игра преди тази да е приключила.</string>
   <string name="since">От</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>

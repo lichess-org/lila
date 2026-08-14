@@ -952,7 +952,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="xInvitedYouToY">%1$s te je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sad si član tima.</string>
   <string name="youHaveJoinedTeamX">Pridružio si se \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nekome koga si prijavio je zabranjen pristup</string>
   <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
@@ -1006,7 +1005,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="gameInProgress">U tijeku je igra s %s.</string>
   <string name="abortTheGame">Prekini igru</string>
   <string name="resignTheGame">Odustani od igre</string>
-  <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>

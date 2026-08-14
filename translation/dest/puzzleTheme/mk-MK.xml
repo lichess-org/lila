@@ -2,4 +2,6 @@
 <resources>
   <string name="advantage">Предност</string>
   <string name="advantageDescription">Искористете ја шансата да добиете одлучувачка предност. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="smotheredMate">Задушен мат</string>
+  <string name="smotheredMateDescription">Мат зададен од коњ при кој кралот не може да се движи бидејќи го опкружуваат (односно задушуваат) сопствените фигури.</string>
 </resources>

@@ -74,7 +74,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
     private val cache =
       cacheApi[TitleName, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
         _.expireAfterWrite(5.minutes).buildAsyncFuture: p =>
-          val token = FidePlayer.tokenize(p.name.value)
+          val token = FidePlayer.tokenize.exec(p.name.value)
           (token.sizeIs > 2).so:
             repo.playerColl
               .find($doc("token" -> token, "title" -> p.title))

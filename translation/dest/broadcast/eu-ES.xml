@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Txapelketa hau ete bere txanda eta partida guztiak betirako ezabatu?</string>
   <string name="showScores">Erakutsi jokalarien puntuazioak partiden emaitzen arabera</string>
   <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="fideFederations">FIDE federazioak</string>
@@ -57,6 +58,7 @@
   <string name="subscribeTitle">Harpidetu txanda bakoitza hastean jakinarazpena jasotzeko. Kanpaia edo push erako notifikazioak zure kontuaren hobespenetan aktibatu ditzakezu.</string>
   <string name="uploadImage">Kargatu txapelketaren irudia</string>
   <string name="noBoardsYet">Taularik ez oraindik. Partidak igotzean agertuko dira.</string>
+  <string name="noPlayersYet">Ez dago jokalaririk oraindik. Partidak kargatzean agertuko dira.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Taulak iturburu batekin edo %sren bidez kargatu daitezke</string>
   <string name="startsAfter">%sren ondoren hasiko da</string>
   <string name="startVerySoon">Zuzenekoa berehala hasiko da.</string>
@@ -107,6 +109,6 @@
   <string name="tiebreaks">Desberdinketak</string>
   <string name="gameX">%s partida</string>
   <string name="knockouts">Kanporaketak</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">&lt;%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">&lt;%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">&lt;%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">&lt;%s</string>
 </resources>

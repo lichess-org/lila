@@ -49,7 +49,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
   def ordered(page: Int, query: String, order: FidePlayerOrder)(using
       me: Option[Me]
   ): Fu[Paginator[FidePlayer.WithFollow]] =
-    val search = FidePlayer.tokenize(query).some.filter(_.size > 1)
+    val search = FidePlayer.tokenize.exec(query).some.filter(_.size > 1)
     Paginator(
       adapter = search match
         case Some(search) =>

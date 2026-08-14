@@ -3,6 +3,7 @@ package lila.ui
 import play.api.i18n.Lang
 import java.time.YearMonth
 import chess.format.Fen
+import scalalib.StringOps.addQueryParams
 
 import lila.core.i18n.Translate
 import lila.core.config.ImageGetOrigin
@@ -150,3 +151,10 @@ object bits:
     else if rel.startsWith("broadcast") then 800.some
     else if rel.startsWith("team") then 768.some // desc & private desc
     else none
+
+  def markdownAlternate(url: String, params: Map[String, String] = Map.empty) =
+    link(
+      rel := "alternate",
+      tpe := "text/markdown",
+      href := addQueryParams(url, params + ("output_format" -> "md"))
+    )

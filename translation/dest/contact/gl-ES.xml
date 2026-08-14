@@ -52,7 +52,7 @@
   <string name="knightMate">É posible dar xaque mate con só un cabalo ou un alfil se o opoñente posúe algunha peza máis no taboleiro.</string>
   <string name="noRatingPoints">Non se concederon puntos</string>
   <string name="ratedGame">Asegúrate de que xogaches unha partida puntuada. As partidas amistosas non afectan a túa puntuación.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">En certos casos, tras xogar unha partida puntuada contra unha conta de bot, pode suceder que non se concedan os puntos se determinamos que o xogador abusa do bot para conseguir puntos.</string>
+  <string name="botRatingAbuse">En certos casos, tras xogar unha partida puntuada contra unha conta de bot, pode suceder que non se concedan os puntos se determinamos que o xogador abusa do bot para conseguir puntos.</string>
   <string name="errorPage">Páxina de erro</string>
   <string name="reportErrorPage">Se unha páxina dá erro, podes reportala:</string>
   <string name="learnHowToMakeBroadcasts">Aprende a facer as túas propias retransmisións en Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Ningún dos anteriores</string>
   <string name="sendEmailAt">Envíanos un correo a %s.</string>
   <string name="explainYourRequest">Por favor explica a túa solicitude de forma clara e exhaustiva. Especifica o teu nome de usuario de Lichess e calquera información que nos poida ser útil.</string>
+  <string name="monetiseNotInterested">De ningún xeito nos interesa gañar cartos con Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Endexamais amosaremos ningún tipo de anuncio, non rastrexaremos ós nosos xogadores nin venderemos ou mercaremos tráfico ou usuarios.</string>
+  <string name="monetiseNoMarketingEmail">Por favor, non nos envíes correos de mercadotecnia, rastrexo ou propaganda.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Afoutamos a todo o mundo a %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anuncios e rastrexadores</string>
+  <string name="broadcastTournamentOnLichess">Emitir un torneo en Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Se queres realizar unha emisión oficial dun torneo en Lichess ou tes algunha dúbida sobre as emisións:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Por favor, contacta co noso Equipo de Emisións en %1$s ou %2$s.</string>
+  <string name="ourDiscordServer">no noso servidor de Discord</string>
 </resources>

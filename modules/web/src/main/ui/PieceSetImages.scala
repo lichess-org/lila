@@ -25,7 +25,7 @@ final class PieceSetImages(assets: AssetFullHelper):
             s"""<link rel="preload" as="image" href="${assets.assetUrl(path)}" />"""
           }.mkString
         if vars.exists { (path, _) => assets.manifest.hashed(path).isEmpty }
-        then lila.log("layout").error(s"$pieceSet manifest incomplete")
+        then lila.log.system.error(s"$pieceSet manifest incomplete")
         css
       }
     )

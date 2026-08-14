@@ -67,6 +67,7 @@
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
   <string name="officialStandings">Oficiálne poradie</string>
+  <string name="regulations">Smernice</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
   <string name="webmastersPage">stránke tvorcu</string>
   <string name="embedThisBroadcast">Vložiť toto vysielanie na webovú stránku</string>
@@ -110,6 +111,6 @@
   <string name="tiebreaks">Tajbrejk</string>
   <string name="gameX">Partia %s</string>
   <string name="knockouts">Play-off</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Do %s</string>
 </resources>

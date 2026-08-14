@@ -773,7 +773,7 @@
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
-  <plurals name="nbAnonymous" comment="Indicates the number of Anonymous users viewing a game or study, either one or multiple where %s is the Anonymous user count.">
+  <plurals name="nbAnonymous">
     <item quantity="other">นิรนาม(%s)</item>
   </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
@@ -918,7 +918,6 @@
   <string name="xInvitedYouToY">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
   <string name="youAreNowPartOfTeam">ตอนนี้คุณเป็นส่วนหนึ่งของทีม</string>
   <string name="youHaveJoinedTeamX">คุณได้เข้าร่วม \"%1$s\"</string>
-  <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="gameVsX">เกม vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -973,7 +972,6 @@
   <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
   <string name="abortTheGame">ทิ้งเกม</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
-  <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
   <string name="since">ตั้งแต่</string>
   <string name="until">จนถึง</string>
   <string name="lichessDbExplanation">เกมคิดคะแนนที่เล่นใน Lichess</string>

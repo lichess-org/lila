@@ -40,7 +40,7 @@ export default async function (
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
-  if (!moveCentis) return; // imported games
+  if (!moveCentis) return undefined; // imported games
   type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
   const moveSeries: PlotSeries = {
     white: [],
@@ -95,7 +95,7 @@ export default async function (
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    let label = [i18n.site.nbSeconds(Number(seconds))];
+    const label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -138,8 +138,8 @@ export default async function (
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
-        above: moveSeries ? whiteFill : 'rgba(153, 153, 153, .3)',
-        below: moveSeries ? blackFill : 'rgba(0,0,0,0.3)',
+        above: moveSeries ? whiteFill : 'rgb(153 153 153 / 0.3)',
+        below: moveSeries ? blackFill : 'rgb(0 0 0 / 0.3)',
       },
       order: moveSeries ? 2 : 1,
       datalabels: { display: false },
@@ -232,8 +232,7 @@ const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   label.text(i18n.site.duration + ' ' + formatClock(duration));
 };
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => (player.blurs?.bits ? player.blurs.bits.split('') : []);
 
 const formatClock = (centis: number) => {
   let result = '';

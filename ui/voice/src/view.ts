@@ -153,6 +153,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     css: [{ hashed: 'voice.move.help' }],
     onClose: () => ctrl.showHelp(false),
     modal: true,
+    easyClose: 'clickOutside',
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
         showMoveList(dlg);

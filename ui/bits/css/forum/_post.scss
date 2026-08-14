@@ -22,7 +22,7 @@
 
       padding: 0.2em;
       padding-inline-end: 0.8em;
-      background: $m-primary_bg--mix-12;
+      background: color-mix(in oklab, $c-primary 12%, $c-bg);
     }
 
     &__actions {
@@ -40,10 +40,6 @@
 
   &:last-child {
     border-bottom: $border;
-  }
-
-  &__message a {
-    overflow-wrap: anywhere;
   }
 
   &.erased {
@@ -120,14 +116,18 @@
 .forum-post__message {
   @extend %break-word, %zalgoverflow;
 
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: start;
+
+  a {
+    overflow-wrap: anywhere;
+  }
+
   p {
     margin-block: 0;
     overflow-wrap: anywhere;
   }
-
-  margin-top: 1em;
-  margin-bottom: 1em;
-  text-align: start;
 
   .lpv {
     margin: $block-gap auto;
@@ -137,10 +137,6 @@
     @extend %video;
 
     margin: $block-gap auto;
-  }
-
-  .twitter-tweet {
-    color-scheme: normal;
   }
 
   .hidden-quotes {
@@ -175,5 +171,13 @@
     border-left: 0.3em solid;
     unicode-bidi: plaintext;
     position: relative;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1.2em;
   }
 }

@@ -1,9 +1,9 @@
 package lila.clas
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import play.api.Mode
 
@@ -73,7 +73,7 @@ private final class ClasUserCache(name: String)(
 
   private def rebuildBloomFilter(): Unit =
     val nextBloom = BloomFilter[String](estimatedCount + 100, falsePositiveRate)
-    def logNb(nb: Int) = logger.info(s"ClasUserCache.$name.rebuild $nb")
+    def logNb(nb: Int) = lila.log.system.info(s"ClasUserCache.$name.rebuild $nb")
     source
       .runWith:
         Sink.fold[Int, UserId](0): (counter, userId) =>

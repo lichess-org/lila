@@ -71,7 +71,7 @@ export const getChessground = (node: HTMLElement): CgApi => domData.get(node, 'c
 
 export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
-    ids = nodes.map(x => initMiniGame(x)).filter(id => id);
+    ids = nodes.map(x => initMiniGame(x)).filter(Boolean);
   if (ids.length) pubsub.after('socket.hasConnected').then(() => wsSend('startWatching', ids.join(' ')));
 };
 

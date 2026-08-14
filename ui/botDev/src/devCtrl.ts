@@ -94,9 +94,9 @@ export class DevCtrl implements GameObserver {
       this.trace.push(
         `\n${white} vs ${black} ${env.game.speed} ${env.game.initial ?? ''}` +
           `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.live.initialFen}`,
+        `\nWhite: '${white}' ${env.bot.white ? this.stringify(env.bot.white) : ''}`,
+        `Black: '${black}' ${env.bot.black ? this.stringify(env.bot.black) : ''}`,
       );
-      this.trace.push(`\nWhite: '${white}' ${env.bot.white ? this.stringify(env.bot.white) : ''}`);
-      this.trace.push(`Black: '${black}' ${env.bot.black ? this.stringify(env.bot.black) : ''}`);
     }
     if (ply % 2 === 0) this.trace.push(`\n ${'-'.repeat(64)} Move ${ply / 2 + 1} ${'-'.repeat(64)}`);
     if (!env.bot[turn]) this.trace.push(`  ${ply}. '${env.game.nameOf(turn)}' at '${fen}': '${uci}'`);
@@ -118,8 +118,7 @@ export class DevCtrl implements GameObserver {
       status === statusOf('unknownFinish') &&
       `${matchup} - ${env.game.live.turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
     const result = `${matchup}:${winner ? ` ${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
-    this.trace.push(`\n ${error || result}\n`);
-    this.trace.push('='.repeat(144));
+    this.trace.push(`\n ${error || result}\n`, '='.repeat(144));
     this.traceDb(this.trace.join('\n'));
     this.trace = [];
 
@@ -182,8 +181,7 @@ export class DevCtrl implements GameObserver {
         const tourney: Matchup[] = [];
         for (let i = 0; i < players.length; i++) {
           for (let j = i + 1; j < players.length; j++) {
-            tourney.push({ white: players[i], black: players[j] });
-            tourney.push({ white: players[j], black: players[i] });
+            tourney.push({ white: players[i], black: players[j] }, { white: players[j], black: players[i] });
           }
         }
         games.push(...shuffle(tourney));
@@ -235,7 +233,7 @@ export class DevCtrl implements GameObserver {
     return this.script.games.length !== 0;
   }
 
-  private stringify(obj: any) {
+  private stringify(obj: BotInfo) {
     return JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
   }
 }

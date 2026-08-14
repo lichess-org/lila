@@ -33,7 +33,7 @@ $c-report-high-over: white;
       justify-content: center;
 
       &:hover {
-        background: $m-brag--fade-50;
+        background: rgb(from $c-brag r g b / calc(alpha * 0.5));
         color: $c-report-high-over;
       }
 
@@ -62,19 +62,19 @@ $c-report-high-over: white;
 
   .score.green {
     /* actually blue */
-    background-color: rgba(32, 119, 192, 0.4);
+    background-color: rgb(32 119 192 / 0.4);
   }
 
   .score.yellow {
-    background-color: rgba(221, 207, 63, 0.4);
+    background-color: rgb(221 207 63 / 0.4);
   }
 
   .score.orange {
-    background-color: rgba(231, 155, 100, 0.4);
+    background-color: rgb(231 155 100 / 0.4);
   }
 
   .score.red {
-    background-color: rgba(231, 59, 56, 0.4);
+    background-color: rgb(231 59 56 / 0.4);
   }
 
   table.see {
@@ -143,16 +143,43 @@ $c-report-high-over: white;
     @include user-marks;
   }
 
-  .marked-by-me {
+  .marked-by-me,
+  .participated {
     @include user-marks;
+    @extend %data-icon-top;
 
-    background: $m-brag_bg--mix-60;
+    white-space: nowrap;
+  }
+
+  .marked-by-me {
+    background: color-mix(in oklab, $c-brag 60%, $c-bg);
+  }
+
+  .participated {
+    background: color-mix(in oklab, $c-primary 45%, $c-bg);
   }
 
   .appeal-queue {
+    tr.mine {
+      background: color-mix(in oklab, $c-primary 8%, $c-bg);
+    }
+
     td p {
       margin: 0.5em 0 0 0;
       overflow-wrap: anywhere;
     }
+
+    .appeal-topic {
+      display: inline-block;
+      margin-top: 0.25em;
+    }
+  }
+
+  .appeal-topic {
+    @extend %box-neat;
+
+    border: $border;
+    padding: 0.2em 0.5em;
+    margin: 0.1em;
   }
 }

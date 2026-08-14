@@ -3,7 +3,7 @@
   @include hoverflow;
 
   background: $c-bg-box;
-  min-height: 20em;
+  min-height: 16em;
 }
 
 .daily-feed {
@@ -33,6 +33,8 @@
       border-radius: 50%;
 
       &.nobg {
+        @include backdrop-blur-if-transparent;
+
         background: $c-bg-box;
         border: 2px solid $c-contours;
       }

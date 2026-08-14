@@ -96,8 +96,8 @@ class SetupDialog {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
         this.janitor.cleanup();
       },
-      noCloseButton: true, //env.game === undefined,
-      noClickAway: env.game === undefined,
+      noCloseButton: true,
+      easyClose: env.game && 'clickOutside',
     });
     this.dialog = dlg;
     this.mainContentEl = dlg.view.querySelector('.main-content')!;

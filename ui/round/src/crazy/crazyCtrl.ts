@@ -105,7 +105,7 @@ export function init(ctrl: RoundController): void {
       iStr,
       () => {
         const idx = crazyKeys.indexOf(i);
-        if (idx >= 0) {
+        if (idx !== -1) {
           crazyKeys.splice(idx, 1);
           if (idx === crazyKeys.length) {
             setDrop();
@@ -129,7 +129,7 @@ export function init(ctrl: RoundController): void {
   window.addEventListener(
     'focus',
     e => {
-      if (e.target && (e.target as HTMLElement).localName === 'input') resetKeys();
+      if ((e.target as HTMLElement).localName === 'input') resetKeys();
     },
     { capture: true },
   );

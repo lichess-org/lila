@@ -13,8 +13,8 @@ import { RoundProxy } from './roundProxy';
 export interface GameObserver {
   hurry: boolean;
   beforeMove(uci: string): void;
-  afterMove(moveCtx: any): void;
-  onGameOver(status: any): boolean;
+  afterMove(moveCtx: GameContext): void;
+  onGameOver(status: GameStatus): boolean;
 }
 
 export class GameCtrl {

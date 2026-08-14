@@ -7,10 +7,11 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.ui.GameUi
 import lila.core.i18n.Translate
+import lila.common.ClientName
 
 final class TvUi(helpers: lila.ui.Helpers)(
     gameUi: GameUi,
-    tournamentLink: TourId => Translate ?=> Tag
+    tournamentLink: TourId => (Translate, ClientName) ?=> Tag
 ):
   import helpers.{ *, given }
 
@@ -32,7 +33,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       data: JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[Pov]
-  )(page: Page)(roundApp: Tag)(using Context) =
+  )(page: Page)(roundApp: Tag)(using Context, ClientName) =
     page
       .js(PageModule("round", Json.obj("data" -> data)))
       .css("bits.tv.single")
@@ -79,7 +80,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
 
     private val separator = " • "
 
-    def meta(pov: Pov)(using Context): Frag =
+    def meta(pov: Pov)(using Context, ClientName): Frag =
       import pov.*
       div(cls := "game__meta")(
         st.section(

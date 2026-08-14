@@ -45,8 +45,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         for
           authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
           code <- env.oAuth.authorizationApi.create(authorized)
-        yield SeeOther(authorized.redirectUrl(code))
+        yield
+          lila.mon.user.oauth.authorize("success").increment()
+          SeeOther(authorized.redirectUrl(code))
       .rescue: error =>
+        lila.oauth.logger.info:
+          s"OAuth.authorizeApply ${me.username} error: $error client: ${HTTPRequest.printClient(req)}"
+        lila.mon.user.oauth.authorize(error.error).increment()
         SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 

@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Lichess સ્ટ્રીમર પેજ તમારા સ્ટ્રીમિંગ પ્લેટફોર્મ દ્વારા પ્રદાન કરવામાં આવેલી ભાષા સાથે તમારા પ્રેક્ષકોને લક્ષ્ય બનાવે છે. તમે પ્રસારણ કરવા માટે ઉપયોગ કરો છો તે એપ્લિકેશન અથવા સેવામાં તમારા ચેસ સ્ટ્રીમ્સ માટે યોગ્ય ડિફોલ્ટ ભાષા સેટ કરો.</string>
   <string name="pleaseAllow">તમારા સ્ટ્રીમર બેજ અને સૂચિને મંજૂર કરવામાં આવે તે પહેલાં કૃપા કરીને 72 કલાક સુધીનો સમય આપો.</string>
   <string name="chooseYoutubeChannel">તમે Lichess પર જે YouTube ચેનલનો ઉપયોગ કરશો તે પસંદ કરો.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">જોડો</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ડિસ્કનેક્ટ કરો</string>
+  <string name="connect">જોડો</string>
+  <string name="disconnect">ડિસ્કનેક્ટ કરો</string>
   <string name="streamerName">Lichess પર તમારું સ્ટ્રીમર નામ</string>
   <plurals name="keepItShort">
     <item quantity="one">તેને ટૂંકું રાખો: %s અક્ષર મહત્તમ</item>
     <item quantity="other">તેને ટૂંકું રાખો: %s અક્ષરો મહત્તમ</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">સ્ટ્રીમર્સ પેજ પર દૃશ્યમાન</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">મોડરેટર્સ દ્વારા મંજૂર થયા પછી</string>
+  <string name="visibility">સ્ટ્રીમર્સ પેજ પર દૃશ્યમાન</string>
+  <string name="whenApproved">મોડરેટર્સ દ્વારા મંજૂર થયા પછી</string>
   <string name="headline">હેડલાઇન</string>
   <string name="tellUsAboutTheStream">એક વાક્યમાં તમારા સ્ટ્રીમ વિશે અમને કહો</string>
   <string name="longDescription">લાંબુ વર્ણન</string>

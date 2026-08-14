@@ -5,7 +5,7 @@ import type { RoundData } from './interfaces';
 import * as xhr from './xhr';
 
 export default class Server {
-  scheduledCheck: Timeout | undefined;
+  scheduledCheck?: Timeout;
 
   constructor(readonly getData: () => RoundData) {
     if (isPlayerPlaying(this.getData())) pubsub.on('socket.in.serverRestart', this.onServerRestart);

@@ -8,8 +8,7 @@
   }
 
   display: grid;
-  row-gap: $block-gap;
-  column-gap: $block-gap;
+  gap: $block-gap;
   grid-template-areas: 'board' 'race' 'side' 'history';
 
   @include mq-at-least-col2 {

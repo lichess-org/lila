@@ -9,6 +9,7 @@ import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
 import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringUi
+import lila.gathering.Condition.WithVerdicts
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -28,9 +29,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
   )(using ctx: Context) =
     val extraCls = tour.scheduleData.so: (freq, speed) =>
       s" tour-sched tour-sched-${freq.name} tour-speed-${speed.name} tour-variant-${tour.variant.key} tour-id-${tour.id}"
-    Page(s"${tour.name()} #${tour.id}")
-      .i18n(_.arena)
-      .i18nOpt(tour.isTeamBattle, _.team)
+    basePage(tour)
       .js:
         PageModule(
           "tournament",
@@ -41,6 +40,42 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             "showRatings" -> ctx.pref.showRatings
           )
         )
+      .csp(_.withLilaHttp):
+        main(cls := s"tour variant-${tour.variant.key}$extraCls")(
+          st.aside(cls := "tour__side"):
+            side(tour, verdicts, shieldOwner, chat._1F, streamers)
+          ,
+          div(cls := "tour__main")(div(cls := "box")),
+          tour.isCreated.option(div(cls := "tour__faq"):
+            faq(tour.rated.some, tour.isPrivate.option(tour.id)))
+        )
+
+  def restricted(tour: Tournament)(using ctx: Context) =
+    basePage(tour):
+      main(cls := s"tour variant-${tour.variant.key}")(
+        st.aside(cls := "tour__side"):
+          side(tour, WithVerdicts(Nil), none, none, emptyFrag)
+        ,
+        div(cls := "tour__main")(
+          div(cls := "tour__main"):
+            div(cls := "box")(
+              div(cls := "tour__main__header")(h1(tour.name())),
+              tour.winnerId.map: winnerId =>
+                p(cls := "box__pad")(
+                  trans.arena.tournamentWinners(),
+                  ":  ",
+                  userIdLink(winnerId.some)
+                )
+            )
+        ),
+        tour.isCreated.option(div(cls := "tour__faq"):
+          faq(tour.rated.some, tour.isPrivate.option(tour.id)))
+      )
+
+  private def basePage(tour: Tournament)(using ctx: Context) =
+    Page(s"${tour.name()} #${tour.id}")
+      .i18n(_.arena)
+      .i18nOpt(tour.isTeamBattle, _.team)
       .css:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
@@ -53,15 +88,6 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             tour.winnerId.fold("Winner is not yet decided."): winnerId =>
               s"${titleNameOrId(winnerId)} takes the prize home!"
       )
-      .csp(_.withLilaHttp):
-        main(cls := s"tour variant-${tour.variant.key}$extraCls")(
-          st.aside(cls := "tour__side"):
-            side(tour, verdicts, shieldOwner, chat._1F, streamers)
-          ,
-          div(cls := "tour__main")(div(cls := "box")),
-          tour.isCreated.option(div(cls := "tour__faq"):
-            faq(tour.rated.some, tour.isPrivate.option(tour.id)))
-        )
 
   object side:
 
@@ -121,16 +147,16 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 else trans.team.joinLichessVariantTeam(link)
               ),
           div(cls := "scrollable-content")(
-            tour.description.map: d =>
+            shieldOwner.map: owner =>
               st.section(cls := "description")(
-                shieldOwner.map: owner =>
-                  p(cls := "defender", dataIcon := Icon.Shield)(
-                    trans.arena.defender(),
-                    userIdLink(owner.some)
-                  ),
-                markdownLinksOrRichText(d)
+                p(cls := "defender", dataIcon := Icon.Shield)(
+                  trans.arena.defender(),
+                  userIdLink(owner.some)
+                )
               ),
-            gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
+            tour.description.map: d =>
+              st.section(cls := "description")(markdownLinksOrRichText(d)),
+            tour.payouts.map(gathering.payouts),
             List(
               tour.noBerserk.option(
                 div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
@@ -153,8 +179,11 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 )
               })
           ),
+          gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
           tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
-          tour.description.isDefined.option(button(cls := "disclosure"))
+          List(shieldOwner, tour.description, tour.payouts)
+            .exists(_.isDefined)
+            .option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),

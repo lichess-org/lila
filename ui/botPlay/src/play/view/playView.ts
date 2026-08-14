@@ -75,7 +75,7 @@ const viewActions = (ctrl: PlayCtrl) =>
 
 const viewResult = (ctrl: PlayCtrl) => {
   const end = ctrl.game.end;
-  if (!end) return;
+  if (!end) return undefined;
   const result = end.winner === 'white' ? '1-0' : end.winner === 'black' ? '0-1' : '½-½';
   const statusData: StatusData = {
     winner: end.winner,
@@ -108,9 +108,11 @@ const viewMoves = (ctrl: PlayCtrl) => {
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    els.push(hl('turn', i + ''));
-    els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
-    els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
+    els.push(
+      hl('turn', i),
+      viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly),
+      viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly),
+    );
   }
   els.push(viewResult(ctrl));
 
@@ -177,7 +179,7 @@ const viewOpponent = (bot: BotInfo) =>
   hl('div.bot-game__opponent', [
     hl('div.bot-game__opponent__header', [
       hl('span.bot-game__opponent__name', bot.name),
-      hl('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
+      hl('span.bot-game__opponent__rating', Bot.rating(bot, 'classical')),
     ]),
     bot.image && hl('img.bot-game__opponent__image', { attrs: { src: botAssetUrl('image', bot.image) } }),
     // hl('div.bot-game__opponent__description', bot.description),

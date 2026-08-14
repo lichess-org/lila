@@ -52,7 +52,7 @@
   <string name="knightMate">It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you have played a rated game. Casual games do not affect your rating.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">In certain circumstances when playing against a bot account, a rated game may not award points if we determine that the player is abusing the bot for rating points.</string>
+  <string name="botRatingAbuse">In certain circumstances when playing against a bot account, a rated game may not award points if we determine that the player is abusing the bot for rating points.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
   <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>

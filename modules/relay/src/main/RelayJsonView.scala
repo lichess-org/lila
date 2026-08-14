@@ -143,15 +143,25 @@ final class RelayJsonView(
         .add("url" -> routeUrl(r.call).some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> fullTour(r.tour)(using Config(html = false)),
-      "study" -> Json.obj(
-        "writeable" -> me.exists(r.study.canContribute),
-        "features" -> Json.obj(
-          "chat" -> allowed(_.chat),
-          "computer" -> (!cheatable && allowed(_.computer)),
-          "explorer" -> (!cheatable && allowed(_.explorer))
+      "study" -> Json
+        .obj(
+          "writeable" -> me.exists(r.study.canContribute),
+          "features" -> Json.obj(
+            "chat" -> allowed(_.chat),
+            "computer" -> (!cheatable && allowed(_.computer)),
+            "explorer" -> (!cheatable && allowed(_.explorer))
+          )
         )
-      )
+        .add("pinnedComment" -> r.study.description.ifTrue(r.study.settings.description))
     )
+
+  def withSpotlight(rt: RelayRound.WithTour)(using Translate): JsObject =
+    withUrl(rt, withTour = true).add:
+      "spotlight" -> rt.tour.spotlight.map: s =>
+        Json
+          .obj("language" -> s.language)
+          .add("title" -> s.title)
+          .add("tier" -> rt.tour.tier)
 
   def makeData(
       trs: RelayTour.WithRounds,
@@ -193,7 +203,7 @@ final class RelayJsonView(
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
-  def search(tours: Paginator[WithLastRound])(using Config, Translate) =
+  def search(tours: Paginator[WithLastRound | RelayCard])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
 object RelayJsonView:

@@ -11,7 +11,7 @@ import { escapeHtml } from './common';
 /* oxlint-disable no-inferrable-types */
 // Our TS config require explicit type annotation on exported code due to `isolatedDeclarations` flag.
 export const linkRegex: RegExp =
-  /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+  /(^|[\s\n\(]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;*$']*[\-A-Z0-9+\u0026@#\/%=~()_|][\-A-Z0-9+\u0026@#\/%=~(_|])/gi;
 export const newLineRegex: RegExp = /\n/g;
 export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 export const movePattern: RegExp =
@@ -67,7 +67,7 @@ export function richHTML(text: string, newLines = true): Hooks {
   return innerHTML(text, t => enrichText(t, newLines));
 }
 
-const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
+const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;*$]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
 const boardPattern = /\b(?:board|game)\s(\d+)/gi;
 

@@ -152,7 +152,7 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
     : gone !== false &&
         hl(
           'div.suggestion.opponent-left-counter',
-          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))),
+          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', gone))),
         );
 }
 

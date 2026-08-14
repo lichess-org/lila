@@ -1,12 +1,13 @@
 package lila.relay
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
+import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.{ Sync, WithTour }
@@ -28,6 +29,7 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
+    listing: RelayListing,
     playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
@@ -38,8 +40,9 @@ final class RelayApi(
     teamLeaderboard: RelayTeamLeaderboard,
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
-    picfitApi: PicfitApi
-)(using Executor, akka.stream.Materializer):
+    picfitApi: PicfitApi,
+    notifyAdmin: RelayNotifierAdmin
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import RelayJsonView.given
@@ -213,9 +216,14 @@ final class RelayApi(
       _ <- tourRepo.coll.insert.one(tour)
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
+      _ <- notifyAdmin.tourCreate(tour)
     yield tour
 
-  def tourUpdate(prev: RelayTour.WithGroupTours, data: RelayTourForm.Data)(using Me): Funit =
+  def tourUpdate(
+      prev: RelayTour.WithGroupTours,
+      data: RelayTourForm.Data,
+      impersonatedBy: Option[ModId] = None
+  )(using Me): Funit =
     val tour = data.update(prev.tour)
     import toBSONValueOption.given
     for
@@ -246,6 +254,7 @@ final class RelayApi(
       _ <- (tour.visibility != prev.tour.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
+      _ <- (prev.tour.official || tour.official).so(notifyAdmin.tourChange(prev.tour, tour, impersonatedBy))
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
@@ -358,6 +367,8 @@ final class RelayApi(
         _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
         _ <- (!round.isFinished && updated.startsAt != from.startsAt).so:
           autoStart(round.id.some)
+        _ <- (!from.isFinished && round.isFinished).so:
+          ensureAnalysisOnRoundEnd(round)
       yield
         if round.ratingAndScoringFields != from.ratingAndScoringFields then
           players.invalidate(round.tourId)
@@ -367,6 +378,12 @@ final class RelayApi(
           .foreach: event =>
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
         round
+
+  private def ensureAnalysisOnRoundEnd(round: RelayRound): Funit =
+    tourRepo
+      .hasOfficial(round.tourId :: Nil)
+      .flatMapz:
+        studyApi.analysisRequestAllChapters(round.studyId)
 
   def syncTargetsOfSource(source: RelayRound): Funit =
     (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates
@@ -482,6 +499,26 @@ final class RelayApi(
       .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
 
+  def spotlightRounds(
+      perSecond: MaxPerSecond,
+      max: Option[Max],
+      since: Option[Instant],
+      until: Option[Instant]
+  ): Source[RelayRound.WithTour, ?] =
+    Source.futureSource:
+      listing.activeTours.map: all =>
+        Source(all.map(_.tour).filter(_.spotlight.exists(_.enabled)))
+          .mapAsync(1): tour =>
+            roundRepo.byTourOrdered(tour.id).map(tour -> _)
+          .mapConcat: (tour, rounds) =>
+            for
+              round <- rounds
+              if since.forall(s => round.startsAtTime.exists(_.isAfter(s)))
+              if until.forall(u => round.startsAtTime.exists(_.isBefore(u)))
+            yield round.withTour(tour)
+          .throttle(perSecond.value, 1.second)
+          .take(max.fold(9999)(_.value))
+
   private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](32, "relay.ongoingWithoutDelay"):
     _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isInternalWithoutDelay)
 
@@ -502,15 +539,20 @@ final class RelayApi(
     def upload(
         t: RelayTour,
         picture: PicfitApi.FilePart,
-        tag: Option[String] = None
+        tag: Option[String] = None,
+        impersonatedBy: Option[ModId] = None
     )(using me: Me): Fu[RelayTour] = for
       image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
+      _ <- notifyAdmin.imageUpload(t, tag, impersonatedBy)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour, tag: Option[String] = None)(using me: Me): Fu[RelayTour] = for
+    def delete(t: RelayTour, tag: Option[String] = None, impersonatedBy: Option[ModId] = None)(using
+        me: Me
+    ): Fu[RelayTour] = for
       _ <- picfitApi.pullRef(headRef(t, tag))
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
+      _ <- notifyAdmin.imageDelete(t, tag, impersonatedBy)
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =

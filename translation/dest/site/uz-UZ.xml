@@ -209,7 +209,7 @@
   <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s %2$s mavzusida xabar qoldirdi</string>
+  <string name="xPostedInForumY">%1$s ushbu mavzuda xabar yozdi: %2$s</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
   <string name="players">Oʻyinchilar</string>
   <string name="friends">Doʻstlar</string>
@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Xat yetib kelishi uchun biroz vaqt ketishi mumkin.</string>
   <string name="refreshInboxAfterFiveMinutes">5 minut kutib e‑pochta qutingizni yangilang.</string>
   <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Agar tasdiqlash xatini olmagan boʻlsangiz, spam yoki keraksiz xatlar jildini tekshiring. Muhim xabarlardan xabardor boʻlib turish uchun lichess.org saytidan keladigan xatlarni xavfsiz va \"spam emas\" deb belgilang.</string>
   <string name="sendEmailForAccountVerification">Agar tasdiqlash xatini topa olmasangiz, %s manziliga xat yuboring va biz hisobingizni tasdiqlab beramiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s obuna</item>
     <item quantity="other">%s obuna</item>
   </plurals>
+  <string name="less">Kamroq</string>
   <string name="more">Koʻproq</string>
   <string name="memberSince">Roʻyxatdan oʻtgan kuni</string>
   <string name="lastSeenActive">%s onlayn edi</string>
@@ -580,6 +582,9 @@
   <string name="replies">Javoblar soni</string>
   <string name="replyToThisTopic">Ushbu mavzuda javob qoldirish</string>
   <string name="reply">Javob yozish</string>
+  <string name="reopen">Qayta ochish</string>
+  <string name="quote">Iqtibos qilish</string>
+  <string name="postEdited">tahrirlangan</string>
   <string name="message">Xabar</string>
   <string name="createTheTopic">Mavzuni yaratish</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">Oʻyin(lar) havolasini joylashtiring va bu foydalanuvchining xatti‑harakatlarida nima notoʻgʻri ekanligini tushuntiring. Shunchaki “gʻirromlik qilyapti” deb cheklanib qolmay, qanday qilib bu xulosaga kelganingizni ayting.</string>
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
   <string name="reportProcessedFasterInEnglish">Ingliz tilida shikoyat joʻnatsangiz, tezroq koʻrib chiqiladi.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
   <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
@@ -716,6 +722,7 @@
   <string name="aboutSimulSettings">Seanslar reytingsiz oʻynaladi. Revanshlar, yurishni ortga qaytarish va vaqt qoʻshib berish imkoniyatlari oʻchirilgan.</string>
   <string name="create">Yaratish</string>
   <string name="whenCreateSimul">Biryoʻla seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Biryoʻla oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
   <string name="simulVariantsHint">Bir nechta variant tanlasangiz, har bir oʻyinchi qaysi variantda oʻynashni oʻzi tanlaydi.</string>
   <string name="simulClockHint">Fisher soati sozlamalari. Raqiblaringiz qancha koʻp boʻlsa, sizga shuncha koʻp vaqt kerak boʻlishi mumkin.</string>
   <string name="simulAddExtraTime">Seans davomida ulgurishingiz uchun oʻz soatingizga qoʻshimcha boshlangʻich vaqt qoʻshishingiz mumkin.</string>
@@ -808,20 +815,27 @@
   </plurals>
   <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
-  <string name="xLikesY">%1$sʼga %2$s yoqdi</string>
+  <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
   <string name="liked">Yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
   <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonim</item>
+    <item quantity="other">Anonim (%s)</item>
+  </plurals>
   <string name="yourScore">Hisob: %s</string>
   <string name="language">Til</string>
   <string name="allLanguages">Barcha tillar</string>
   <string name="background">Orqa fon</string>
+  <string name="theme">Tema</string>
   <string name="light">Yorugʻ</string>
   <string name="dark">Qorongʻu</string>
   <string name="transparent">Shaffof</string>
+  <string name="picture">Rasm</string>
   <string name="deviceTheme">Qurilma temasi</string>
+  <string name="roundness">Burchaklar yumaloqligi</string>
   <string name="backgroundImageUrl">Orqa fon havolasi:</string>
   <string name="board">Taxta</string>
   <string name="size">Oʻlchami</string>
@@ -959,7 +973,6 @@
   <string name="xInvitedYouToY">%1$s sizni \"%2$s\"ga taklif qildi.</string>
   <string name="youAreNowPartOfTeam">Siz endi jamoa a‘zosisiz.</string>
   <string name="youHaveJoinedTeamX">Siz \"%1$s\" ga qo‘shildingiz.</string>
-  <string name="someoneYouReportedWasBanned">Siz shikoyat qilgan odam ban qilindi</string>
   <string name="congratsYouWon">Tabriklaymiz siz yutdingiz!</string>
   <string name="gameVsX">%1$sga qarshi o‘yin</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -991,6 +1004,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="simulDescription">Seans haqida</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
   <string name="markdownIsAvailable">Matnni formatlash uchun %sʼdan foydalanishingiz mumkin.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Matnni %s yordamida formatlashingiz mumkin.</string>
   <string name="embedsAvailable">Biriktirish uchun oʻyin yoki dars bobi havolasini qoʻying.</string>
   <string name="inYourLocalTimezone">Mahalliy vaqtingiz boʻyicha</string>
   <string name="tournChat">Turnir chati</string>
@@ -998,6 +1012,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="onlyTeamLeaders">Faqat jamoa sardorlari</string>
   <string name="onlyTeamMembers">Faqat jamoa a‘zlolari</string>
   <string name="navigateMoveTree">Yurishlar daraxti bo‘ylab harakatlaning</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Yurishlar roʻyxatida harakatlanish</string>
   <string name="mouseTricks">Sichqoncha imkoniyatlari</string>
   <string name="toggleLocalAnalysis">Oʻz kompyuteringiz tahlilini yoqing</string>
   <string name="toggleAllAnalysis">Kompyuter barcha tahlillarini ulang</string>
@@ -1014,7 +1029,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="gameInProgress">Sizni %s bilan tugallanmagan oʻyiningiz bor.</string>
   <string name="abortTheGame">O‘yinni bekor qilish</string>
   <string name="resignTheGame">Taslim boʻlish</string>
-  <string name="youCantStartNewGame">Ushbu oʻyin tugamaguncha yangisini boshlay olmaysiz.</string>
+  <string name="youCantStartNewGame">Oʻzingizning galingizda yangi oʻyin boshlay olmaysiz.</string>
   <string name="since">Shu sanadan</string>
   <string name="until">Shu sanagacha</string>
   <string name="lichessDbExplanation">Lichessʼda oʻynalgan reytingli oʻyinlar</string>
@@ -1039,4 +1054,5 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="thereAreNoResultsForX">\"%s\" boʻyicha natija yoʻq</string>
   <string name="tags">Teglar</string>
   <string name="enPassant">En passant</string>
+  <string name="settings">Sozlamalar</string>
 </resources>

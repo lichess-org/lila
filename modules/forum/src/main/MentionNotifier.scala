@@ -43,5 +43,5 @@ final class MentionNotifier(
     post.text
       .contains('@')
       .so:
-        val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
+        val m = UserName.atRegex.findAllMatchIn(post.text)
         (post.userId.foldLeft(m.map(_.group(1)).map(u => UserStr(u).id).toSet)) { _ - _ }

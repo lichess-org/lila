@@ -55,16 +55,19 @@
   <string name="endgame">Partida-bukaera</string>
   <string name="endgameDescription">Partidaren azken faseko taktika.</string>
   <string name="enPassantDescription">Igarotzean harrapatzeko arauarekin zerikusia duen taktika.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Igarotzean harrapatzeko arauarekin zerikusia duen taktika.</string>
   <string name="epauletteMate">Txarratelaren matea</string>
   <string name="epauletteMateDescription">Xakean dagoen erregearen alde bietako laukietan beste pieza batzuk daude.</string>
   <string name="exposedKing">Babesik gabeko erregea</string>
   <string name="exposedKingDescription">Pieza gutxik defenditzen duten erregearen inguruko erasoa, sarri matean amaitzen dena.</string>
   <string name="fork">Eraso bikoitza</string>
   <string name="forkDescription">Mugitzen den piezak aurkariaren bi pieza batera erasotzen dituenean.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Pieza batek aurkariaren pieza bi edo gehiago aldi berean erasotzen dituen jokaldia.</string>
   <string name="hangingPiece">Defentsarik gabeko pieza</string>
   <string name="hangingPieceDescription">Defentsarik ez duen edo defendatzaile gutxi dituen aurkariaren pieza baten ingurukoak.</string>
   <string name="hookMate">Hooken matea</string>
   <string name="hookMateDescription">Gaztelua, zalduna eta peoi batekin ematen den matea aurkariaren peoi batek bere erregearen bidea oztopatzen duelarik.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Gaztelua, zalduna eta peioa erabiliz ematen den matea, aurkariaren peoiak erregeak ihes egitea ekiditen du.</string>
   <string name="interference">Tartean sartzea</string>
   <string name="interferenceDescription">Aurkariaren bi piezaren artean pieza bat jartzea, horrela aurkariaren piezetako bat edo biak defentsarik gabe utziz.</string>
   <string name="intermezzo">Tarteko-jokaldia</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Enara-buztanaren itxura hartzen duen mate patroia, V baten itxuraren atzekoa.</string>
   <string name="triangleMate">Hirukiaren matea</string>
   <string name="triangleMateDescription">Dama eta gaztelua erregearengandik lauki batera daudela, errenkada edo zutabe berean, biak lauki batez banatuta, hiruki bat osatuz.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovicen matea</string>
+  <string name="vukovicMate">Vukovicen matea</string>
   <string name="vukovicMateDescription">Gaztelu eta zaldunak batera lan egiten dute matea emateko. Gazteluak mate ematen du hirugaren piezak lagundurik, zaldunak erregearen ihes-laukiak babesten dituen artean.</string>
   <string name="knightEndgame">Zaldunen finala</string>
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>

@@ -34,7 +34,7 @@
 
     &::after {
       content: '';
-      background: $m-accent--fade-40;
+      background: rgb(from $c-accent r g b / calc(alpha * 0.6));
       height: 2px;
       position: absolute;
       width: 96%;
@@ -238,7 +238,7 @@
     }
 
     a:hover {
-      background: $m-accent_bg--mix-20;
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
     }
 
     a:hover::before {
@@ -294,7 +294,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: $m-accent_bg--mix-20;
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
     }
 
     ul > li label.optgroup {
@@ -318,10 +318,9 @@
     overflow: visible;
 
     .top {
-      @extend %metal-bg, %box-radius-top;
+      @extend %metal-bg, %roboto;
 
-      padding: 1rem $block-gap;
-      font-weight: bold;
+      padding: 0.6rem $block-gap;
       border-bottom: $border;
 
       .utitle {
@@ -368,7 +367,7 @@
       @extend %flex-column;
     }
 
-    background: $m-primary_bg--mix-10;
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
     border: 1px solid $c-primary;
     margin-bottom: 1em;
   }
@@ -395,17 +394,18 @@
   }
 
   .game-sample {
-    margin: 2em 0 1em 0;
     border-top: $border;
     box-shadow: none;
   }
 
   .boards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 25%));
+    padding: 0.6em;
+    gap: 0.3em;
+    grid-template-columns: repeat(auto-fit, minmax(200px, calc(25% - 0.25em)));
 
     a {
-      @extend %box-radius;
+      @extend %box-bordered;
       @include transition(background);
 
       color: $c-font;
@@ -417,15 +417,14 @@
       }
 
       &:hover {
-        background: $m-accent_bg--mix-20;
+        background: color-mix(in oklab, $c-accent 20%, $c-bg);
       }
     }
 
     .vstext {
-      @extend %flex-between-nowrap, %nowrap-hidden, %box-neat;
+      @extend %flex-between-nowrap, %nowrap-hidden;
 
-      background: $c-bg-box;
-      padding: 0.3em 0.6em;
+      padding: 0.2em 0.3em 0;
 
       &__pl,
       &__op {

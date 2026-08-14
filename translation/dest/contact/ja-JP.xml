@@ -52,7 +52,7 @@
   <string name="knightMate">たとえばナイト 1 個やビショップ 1 個だけでも、相手にキング以外の駒が残っていればメイトの可能性があります。</string>
   <string name="noRatingPoints">勝ったのにレーティングが増えない</string>
   <string name="ratedGame">レート戦だったかどうか確かめてください。非レート戦ではレーティングは動きません。</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">ボットアカウントとの対戦で、ボットを利用してレーティングを操作していると判断された場合は、レーティングの点が与えられません。</string>
+  <string name="botRatingAbuse">ボットアカウントとの対戦で、ボットを利用してレーティングを操作していると判断された場合は、レーティングの点が与えられません。</string>
   <string name="errorPage">エラーページ</string>
   <string name="reportErrorPage">エラーページに出会ったら、以下で報告できます。</string>
   <string name="learnHowToMakeBroadcasts">Lichess で独自の配信を行なう方法について</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">その他</string>
   <string name="sendEmailAt">%s までメールを送ってください。</string>
   <string name="explainYourRequest">用件を明確に、詳しく説明してください。Lichess でのユーザー名と、当方の対応に役立ちそうな情報ならなんでも書いてください。</string>
+  <string name="monetiseNotInterested">私たちはどんな方法であれ Lichess の収益化に興味はありません。</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">いかなる広告も表示しないし、プレイヤーの行動も追跡しないし、トラフィックやユーザーを売買することもありません。</string>
+  <string name="monetiseNoMarketingEmail">マーケティング、トラッキング、広告についてメールを送らないでください。</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">またすべての人に %s を奨励しています。</string>
+  <string name="monetiseBlockAllAdsAndTrackers">あらゆる広告とトラッカーをブロックすること</string>
+  <string name="broadcastTournamentOnLichess">Lichess でトーナメントを配信する</string>
+  <string name="ifYouWantToBroadcastClause1">Lichess でトーナメントを公式に配信したい場合、または配信について質問がある場合、</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">%1$s か %2$s で Broadcast Team までお問い合わせください。</string>
+  <string name="ourDiscordServer">私たちの Discord サーバー</string>
 </resources>

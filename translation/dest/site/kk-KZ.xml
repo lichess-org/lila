@@ -914,7 +914,6 @@
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
-  <string name="someoneYouReportedWasBanned">Сіздің шағымыңыздан кейін біреу бұғауланды</string>
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
@@ -969,7 +968,6 @@
   <string name="gameInProgress">%s сізді қазір ойында күтіп тұр.</string>
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
-  <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
   <string name="since">Бастап</string>
   <string name="until">Дейін</string>
   <string name="lichessDbExplanation">Личес-тегі бағалы ойындар</string>

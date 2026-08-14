@@ -5,6 +5,7 @@ import play.api.mvc.*
 import lila.app.*
 import lila.cms.CmsPage
 import lila.core.id.{ CmsPageId, CmsPageKey }
+import lila.common.HTTPRequest
 
 final class Cms(env: Env) extends LilaController(env):
 
@@ -59,9 +60,9 @@ final class Cms(env: Env) extends LilaController(env):
   val tos = menuPage(CmsPageKey("tos"))
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
-    FoundPage(env.cms.render(key)): p =>
-      active.fold(views.cms.lone(p)):
-        views.site.page.withMenu(_, p)
+    negotiateCms(key): page =>
+      active.fold(views.cms.lone(page)):
+        views.site.page.withMenu(_, page)
 
   def lonePage(key: CmsPageKey) = Open:
     orCreateOrNotFound(key): page =>
@@ -72,25 +73,27 @@ final class Cms(env: Env) extends LilaController(env):
           Ok.async(views.cms.lone(page))
 
   def orCreateOrNotFound(key: CmsPageKey)(f: CmsPage.Render => Fu[Result])(using Context): Fu[Result] =
-    env.cms
-      .render(key)
-      .flatMap:
-        case Some(page) => f(page)
-        case None =>
-          import lila.ui.Context.ctxMe // no idea why this is needed here
-          if isGrantedOpt(_.Pages)
-          then Ok.async(views.cms.create(env.cms.form.create, key.some))
-          else notFound
+    negotiateCmsOption(key).getOrElse:
+      for
+        found <- env.cms.render(key)
+        res <- found match
+          case Some(page) => f(page)
+          case None =>
+            import lila.ui.Context.ctxMe // no idea why this is needed here
+            if isGrantedOpt(_.Pages)
+            then Ok.async(views.cms.create(env.cms.form.create, key.some))
+            else notFound
+      yield res
 
   def menuPage(key: CmsPageKey) = Open:
     pageHit
-    FoundPage(env.cms.render(key)):
-      views.site.page.withMenu(key.value, _)
+    negotiateCms(key): page =>
+      views.site.page.withMenu(key.value, page)
 
   def source = Open:
     pageHit
-    FoundPage(env.cms.renderKey("source")): p =>
-      views.site.ui.source(p.title, views.cms.render(p), env.web.lilaVersion)
+    negotiateCms(CmsPageKey("source")): page =>
+      views.site.ui.source(page.title, views.cms.render(page), env.web.lilaVersion)
 
   def variantHome = Open:
     negotiate(
@@ -103,5 +106,17 @@ final class Cms(env: Env) extends LilaController(env):
     (for
       variant <- Variant(key)
       perfKey <- PerfKey.byVariant(variant)
-    yield FoundPage(env.cms.renderKey(s"variant-${variant.key}")): p =>
-      views.site.variant.show(p, variant, perfKey)) | notFound
+    yield negotiateCms(CmsPageKey(s"variant-${variant.key}")): page =>
+      views.site.variant.show(page, variant, perfKey)) | notFound
+
+  private def negotiateCms(
+      key: CmsPageKey
+  )(f: CmsPage.Render => Fu[lila.ui.Page])(using Context): Fu[Result] =
+    negotiateCmsOption(key).getOrElse:
+      FoundPage(env.cms.render(key))(f)
+
+  private def negotiateCmsOption(key: CmsPageKey)(using Context): Option[Fu[Result]] =
+    HTTPRequest.acceptsMarkdown.option:
+      for text <- env.cms.api.asMarkdown(key)
+      yield text.fold(notFoundText()): text =>
+        Ok(text).withHeaders(asMarkdown)

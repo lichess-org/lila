@@ -14,7 +14,7 @@ The following games will continue to be worth double points until you fail to wi
 That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
 
 For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 × 1)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserk</string>
+  <string name="berserk">Berserk</string>
   <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
 
 Going Berserk in time controls with an increment also cancels the increment. (1+2 is an exception, it gives 1+0)
@@ -69,12 +69,16 @@ Play quickly to play more games and score more points.</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">You must join one of these teams to participate!</string>
   <string name="created">Created</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Last played</string>
+  <string name="recentlyPlayed">Last played</string>
   <string name="bestResults">Best results</string>
   <string name="tournamentStats">Tournament stats</string>
   <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
 
 For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 10 in a tournament of 1000 players = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Your rank average represents your typical finishing position, relative to the total number of players in each tournament.
+This is a measure of your tournament placement, not your general rating.
+
+For example, a rank average of 3% means you typically finish in the top 3% (such as 30th place out of 1,000 players).</string>
   <string name="medians">medians</string>
   <string name="allAveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>

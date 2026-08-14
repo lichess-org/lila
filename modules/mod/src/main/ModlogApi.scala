@@ -248,9 +248,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def modMessage(user: UserId, subject: String)(using MyId) = add:
     Modlog(user.some, Modlog.modMessage, details = subject.some)
 
-  def coachReview(coach: UserId, author: UserId)(using MyId) = add:
-    Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
-
   private def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
@@ -338,8 +335,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user" -> userId,
         "action" -> Modlog.cheatDetected,
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".$gt(nowInstant.minusMonths(6))
       )
+
+  def recentActionsOf(userId: UserId): Fu[List[String]] =
+    coll.secondary.primitive[String]($doc("user" -> userId, "date".$gt(nowInstant.minusWeeks(1))), "action")
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
@@ -390,7 +390,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             )
           )
         ),
-        $doc("user" -> true, "action" -> true, "date" -> true).some
+        $doc("user" -> true, "action" -> true, "date" -> true, "details" -> true).some
       )
       .sort($sort.asc("date"))
       .cursor[Modlog.UserEntry]()
@@ -404,7 +404,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create(m.mod.userId, m.action).increment()
-    lila.log("mod").info(m.toString)
     m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))

@@ -2,14 +2,16 @@ import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
 
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
+import { api } from 'lib/api';
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
 
-import type AnalyseCtrl from '../ctrl';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import { detectThreefold } from '../nodeFinder';
+import type AnalyseCtrl from '@/ctrl';
+import { tablebaseGuaranteed } from '@/explorer/explorerCtrl';
+import { detectThreefold } from '@/nodeFinder';
+
 import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
@@ -70,12 +72,17 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
   function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
     if (!node.ceval) return false;
+    if (api.overrides.practiceCommentReady)
+      return api.overrides.practiceCommentReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis } = node.ceval;
     return Boolean(bestmove || nodes >= 400_000 || (millis ?? 0) > 1000);
   }
 
   function playable(node: TreeNode): boolean {
     if (!node.ceval) return false;
+    if (api.overrides.practiceEvalReady) return api.overrides.practiceEvalReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis, cloud } = node.ceval;
     return masteryMode()
       ? !root.ceval.isComputing
@@ -90,8 +97,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
         }
       : { cp: 0 });
 
-  const nodeBestUci = (node: TreeNode): Uci | undefined =>
-    (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+  const nodeBestUci = (node: TreeNode): Uci | undefined => node.tbhit?.best || node.ceval?.pvs[0].moves[0];
 
   function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
     let verdict: Verdict, best: Uci | undefined;
@@ -238,7 +244,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     },
     commentShape(enable: boolean) {
       const c = comment();
-      if (!enable || !c || !c.best) hovering(null);
+      if (!enable || !c?.best) hovering(null);
       else
         hovering({
           uci: c.best.uci,
@@ -248,7 +254,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     hint() {
       const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
         prev = hinting();
-      if (!best || (prev && prev.mode === 'move')) hinting(null);
+      if (!best || prev?.mode === 'move') hinting(null);
       else
         hinting({
           mode: prev ? 'move' : 'piece',
@@ -263,7 +269,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       search: () =>
         masteryMode() && !isMyTurn()
           ? 60 * 1000
-          : { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true },
+          : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },

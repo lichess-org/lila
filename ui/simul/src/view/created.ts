@@ -3,21 +3,18 @@ import type { VNode } from 'snabbdom';
 import { licon } from 'lib/licon';
 import { domDialog, confirm, bind, hl, dataIcon } from 'lib/view';
 
-import type SimulCtrl from '../ctrl';
-import type { Applicant } from '../interfaces';
-import xhr from '../xhr';
+import type SimulCtrl from '@/ctrl';
+import type { Applicant } from '@/interfaces';
+import xhr from '@/xhr';
+
 import * as util from './util';
 
 export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
   return (ctrl: SimulCtrl) => {
-    const candidates = ctrl.candidates().sort(byName),
-      accepted = ctrl.accepted().sort(byName),
-      isHost = ctrl.createdByMe(),
-      canJoin = ctrl.data.canJoin;
-    const variantIconFor = (a: Applicant) => {
-      const variant = ctrl.data.variants.find(v => a.variant === v.key);
-      return variant && hl('td.variant', { attrs: dataIcon(variant.icon) });
-    };
+    const candidates = ctrl.candidates().sort(byName);
+    const accepted = ctrl.accepted().sort(byName);
+    const isHost = ctrl.createdByMe();
+    const canJoin = ctrl.data.canJoin;
     return [
       hl('div.box__top', [
         util.title(ctrl),
@@ -44,6 +41,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               domDialog({
                                 cash: $('.simul .continue-with'),
                                 modal: true,
+                                easyClose: 'clickOutside',
                               }).then(dlg => {
                                 $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
                                   xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
@@ -87,7 +85,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                 hl(
                   'tr',
                   hl('th', { attrs: { colspan: 3 } }, [
-                    hl('strong', `${candidates.length}`),
+                    hl('strong', candidates.length),
                     ' candidate players',
                   ]),
                 ),
@@ -100,7 +98,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                     { key: applicant.player.id, class: { me: ctrl.opts.userId === applicant.player.id } },
                     [
                       hl('td', util.player(applicant.player, ctrl)),
-                      variantIconFor(applicant),
+                      variantIconFor(ctrl, applicant),
                       hl(
                         'td.action',
                         isHost &&
@@ -121,10 +119,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
               hl('thead', [
                 hl(
                   'tr',
-                  hl('th', { attrs: { colspan: 3 } }, [
-                    hl('strong', `${accepted.length}`),
-                    ' accepted players',
-                  ]),
+                  hl('th', { attrs: { colspan: 3 } }, [hl('strong', accepted.length), ' accepted players']),
                 ),
                 isHost &&
                   candidates.length > 0 &&
@@ -139,7 +134,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                     { key: applicant.player.id, class: { me: ctrl.opts.userId === applicant.player.id } },
                     [
                       hl('td', util.player(applicant.player, ctrl)),
-                      variantIconFor(applicant),
+                      variantIconFor(ctrl, applicant),
                       hl(
                         'td.action',
                         isHost &&
@@ -202,3 +197,8 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         },
         i18n.site.cancel,
       );
+
+const variantIconFor = (ctrl: SimulCtrl, a: Applicant) => {
+  const variant = ctrl.data.variants.find(v => a.variant === v.key);
+  return variant && hl('td.variant', { attrs: dataIcon(variant.icon) });
+};

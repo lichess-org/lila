@@ -1,6 +1,5 @@
 package lila.round
 
-import com.softwaremill.tagging.*
 import scalalib.ThreadLocalRandom
 import scalalib.net.IpAddressStr
 import scala.util.matching.Regex
@@ -16,13 +15,27 @@ final class SelfReport(
     userApi: UserApi,
     proxyRepo: GameProxyRepo,
     noteApi: lila.core.user.NoteApi,
-    endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
-    markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
+    settingStore: lila.memo.SettingStore.Builder
 )(using ec: Executor, scheduler: Scheduler):
+
+  import SettingStore.Regex.given
+  val endGameSetting = settingStore[Regex](
+    "selfReportEndGame",
+    default = "-".r,
+    text = "Self reports that end the game".some,
+    perm = _.Admin
+  )
+
+  val markUserSetting = settingStore[Regex](
+    "selfReportMarkUser",
+    default = "-".r,
+    text = "Self reports that mark the user".some,
+    perm = _.Admin
+  )
 
   private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1.minute)
 
-  private val logger = lila.log("cheat").branch("jslog")
+  private lazy val logger = lila.log("cheat.jslog")
 
   def apply(userId: Option[UserId], ip: IpAddress, fullId: GameFullId, name: String): Funit =
     (name != "err").so:

@@ -8,6 +8,11 @@ val TranslatorStub = new Translator:
   val txt = new TranslatorTxt:
     def literal(key: I18nKey, args: Seq[Any], lang: Lang): String = key.value
     def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value
+  def duration(
+      duration: java.time.Duration,
+      withMinutes: Option[Boolean] = None,
+      skipDays: Boolean = false
+  )(using Lang): String = duration.toString
   val frag = new TranslatorFrag:
     import scalatags.Text.RawFrag
     def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)

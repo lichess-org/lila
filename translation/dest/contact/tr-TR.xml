@@ -52,7 +52,7 @@
   <string name="knightMate">Eğer rakipte şah dışında herhangi bir taş var ise, yalnızca at ve ya fil ile mat edilebilir.</string>
   <string name="noRatingPoints">Maçtan oyun puanı kazanmadım</string>
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Bot hesaplar ile oynanan bazı puanlı oyunlarda, bir oyuncunun puan kazanmak için botu kötüye kullandığı tespit edilirse bu oyuncu oyundan puan alamayabilir.</string>
+  <string name="botRatingAbuse">Bot hesaplar ile oynanan bazı puanlı oyunlarda, bir oyuncunun puan kazanmak için botu kötüye kullandığı tespit edilirse bu oyuncu oyundan puan alamayabilir.</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
   <string name="learnHowToMakeBroadcasts">Lichess üzerinde kendi yayınlarınızı nasıl yapacağınızı öğrenin</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
   <string name="sendEmailAt">%s üzerinden bize bir e-posta gönderin.</string>
   <string name="explainYourRequest">Lütfen talebinizi açık ve eksiksiz bir şekilde açıklayın. Lichess kullanıcı adınızı ve size yardımcı olmamıza katkıda bulunacak bilgileri belirtin.</string>
+  <string name="monetiseNotInterested">Lichess\'i herhangi bir şekilde ticarileştirmek istemiyoruz.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Hiçbir şekilde reklam göstermeyeceğiz, oyuncularımızı takip etmeyeceğiz ve trafik veya kullanıcı alıp satmayacağız.</string>
+  <string name="monetiseNoMarketingEmail">Lütfen pazarlama, takip veya reklam konularında bize e-posta göndermeyin.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Herkesi %s konusunda teşvik ediyoruz.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">tüm reklamları ve takip araçlarını engellemek</string>
+  <string name="broadcastTournamentOnLichess">Lichess\'te bir turnuva yayınla</string>
+  <string name="ifYouWantToBroadcastClause1">Bir turnuvayı Lichess\'te resmi olarak yayınlamak istiyorsanız veya yayınlarımız hakkında herhangi bir sorunuz varsa:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Lütfen %1$s adresinden veya %2$s üzerinden Yayın Ekibimizle iletişime geçin.</string>
+  <string name="ourDiscordServer">Discord sunucumuz</string>
 </resources>

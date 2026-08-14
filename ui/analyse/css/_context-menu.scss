@@ -35,7 +35,7 @@
     }
 
     &:hover {
-      background: $m-primary--fade-70;
+      background: rgb(from $c-primary r g b / calc(alpha * 0.3));
     }
   }
 

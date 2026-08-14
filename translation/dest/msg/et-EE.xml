@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">Saadaval on uus Lichessi mobiilirakendus!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Palun laadige alla uus ametlik Lichessi rakendus aadressilt %s.</string>
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">Tere!
+
+Oleme sinu hiljutise teate läbi vaadanud ja alustanud tegevusega. Kuigi me ei saa võetud meetmete üksikasju avaldada, oleme teate eest tänulikud.
+
+Täname teid abi eest, et Lichess oleks kõigile meeldiv koht.</string>
+</resources>

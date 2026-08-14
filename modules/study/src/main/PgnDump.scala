@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
@@ -79,7 +79,10 @@ final class PgnDump(
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     flags.updateTags:
       Tags:
-        val opening = chapter.opening
+        val opening =
+          chess.variant.Variant.list
+            .openingSensibleVariants(chapter.setup.variant)
+            .so(chess.opening.OpeningDb.searchInFens(chapter.root.mainline.take(40).map(_.fen.opening)))
         val genTags = List(
           Tag(_.Event, s"${study.name}: ${chapter.name}"),
           Tag(_.Variant, chapter.setup.variant.name.capitalize),
@@ -148,8 +151,9 @@ object PgnDump:
       else InitialComments.empty
     rootToPgn(root, tags, comments)
 
-  def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
+  private def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
+    lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
+      Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)

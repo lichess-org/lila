@@ -51,7 +51,7 @@ class HandOfCardsImpl {
   animFrame = 0;
   scaleFactor = 1;
   groups: Set<string | undefined>;
-  group: string | undefined;
+  group?: string;
   drag?: {
     when: number;
     card: HTMLElement;
@@ -241,8 +241,8 @@ class HandOfCardsImpl {
   selectedTransform(card: HTMLElement) {
     if (this.opts.transient || card === this.drag?.card) return false;
     const dindex = this.drops.findIndex(x => x.selected === card.id);
-    card.classList.toggle('selected', dindex >= 0);
-    if (dindex < 0) return false;
+    card.classList.toggle('selected', dindex !== -1);
+    if (dindex === -1) return false;
     const to = this.drops[dindex].el;
     const scale = to.offsetHeight / this.cardSize;
     const x = to.offsetLeft + (to.offsetWidth - this.cardSize) / 2;

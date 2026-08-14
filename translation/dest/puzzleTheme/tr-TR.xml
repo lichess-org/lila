@@ -54,17 +54,20 @@
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
-  <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
+  <string name="enPassantDescription">Rakip piyonun iki karelik başlangıç hamlesiyle yanından geçmesinin ardından geçerken alma kuralıyla yapılan bir taktiktir.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Piyonun, rakip piyonun başlangıçtaki iki karelik hamlesiyle hemen yanına geldikten sonra onu geçerken alma kuralıyla yapılan bir taktiktir.</string>
   <string name="epauletteMate">Apolet matı</string>
   <string name="epauletteMateDescription">Şahın kaçabileceği iki bitişik kare, diğer taşlar tarafından kullanılmaktadır.</string>
   <string name="exposedKing">Savunmasız şah</string>
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Bir taşın aynı anda iki veya daha fazla rakip taşa saldırdığı bir hamledir.</string>
   <string name="hangingPiece">Askıda taş</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan, yenilebilecek taşları içeren taktikler.</string>
   <string name="hookMate">Kanca matı</string>
   <string name="hookMateDescription">Bir kale, at ve piyonla beraber şahın kaçışını kısıtlayan bir rakip piyonun kullanıldığı mat.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Rakip piyonun şahın kaçışını engellediği; kale, at ve piyon kullanılarak yapılan bir mat.</string>
   <string name="interference">Yol Kesme</string>
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
   <string name="triangleMate">Üçgen matı</string>
   <string name="triangleMateDescription">Rakip şahtan bir kare uzakta olan vezir veya kale, aynı sıra veya sütunda yer alır ve aralarında bir karelik boşluk bulunur; bu da bir üçgen oluşturur.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic matı</string>
+  <string name="vukovicMate">Vukovic matı</string>
   <string name="vukovicMateDescription">Bir kale ve at, şahı mat etmek için bir araya gelir. Kale, üçüncü bir taşla desteklenerek mat eder ve at şahın kaçış karelerini engellemek için kullanılır.</string>
   <string name="knightEndgame">At oyunsonu</string>
   <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>

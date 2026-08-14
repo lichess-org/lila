@@ -55,16 +55,19 @@
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một quân tốt có thể ăn một quân tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Một chiến thuật sử dụng luật bắt tốt qua đường, trong đó một quân tốt có thể bắt quân tốt đối phương vừa di chuyển đến bên cạnh nó bằng nước đi hai ô đầu tiên.</string>
   <string name="epauletteMate">Chiếu hết kiểu cầu vai</string>
   <string name="epauletteMateDescription">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
   <string name="exposedKing">Vua bị hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Tấn công đôi</string>
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Một nước đi trong đó một quân cờ tấn công đồng thời hai hoặc nhiều quân cờ của đối thủ.</string>
   <string name="hangingPiece">Quân treo</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
   <string name="hookMate">Chiếu hết kiểu móc</string>
   <string name="hookMateDescription">Chiếu hết bằng quân xe, mã và tốt cùng với một quân tốt đối phương làm chặn đường vua chạy.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Chiếu hết bằng quân xe, mã và tốt, trong đó quân tốt của đối phương cản đường thoát của vua.</string>
   <string name="interference">Can thiệp</string>
   <string name="interferenceDescription">Di chuyển một quân cờ giữa hai quân cờ đối thủ để một hoặc cả hai quân cờ đối thủ không bị cản trở, chẳng hạn như một quân Mã trên ô vuông được bảo vệ giữa hai quân Xe.</string>
   <string name="intermezzo">Xen giữa</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Một kiểu chiếu tướng có hình dáng trực quan giống đuôi chim én, tương tự như hình chữ V.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
   <string name="triangleMateDescription">Quân hậu và quân xe, cách quân vua của đối phương một ô, nằm trên cùng một hàng, cách nhau một ô, tạo thành một hình tam giác.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Chiếu hết kiểu Vukovic</string>
+  <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>
   <string name="vukovicMateDescription">Một quân xe và mã hợp tác với vua. Quân xe thực hiện chiếu hết trong khi được hỗ trợ bởi quân thứ ba, và quân mã được sử dụng để chặn các ô thoát hiểm của vua.</string>
   <string name="knightEndgame">Tàn cuộc Mã</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>

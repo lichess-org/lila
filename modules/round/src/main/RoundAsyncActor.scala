@@ -1,6 +1,5 @@
 package lila.round
 
-import alleycats.Zero
 import chess.{ ByColor, Centis, Color }
 import play.api.libs.json.*
 import scalalib.actor.AsyncActor
@@ -149,10 +148,8 @@ final private class RoundAsyncActor(
         for
           has <- gameRepo.hasHoldAlert(pov)
           _ <- has.not.so:
-            lila
-              .log("cheat")
-              .info:
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+            logger.info:
+              s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         yield Nil
@@ -332,6 +329,8 @@ final private class RoundAsyncActor(
                   clock
                     .giveTime(g.turnColor, Centis(2000))
                     .giveTime(!g.turnColor, Centis(1000))
+        .recoverDefault: e =>
+          logger.warn(s"RoundAsyncActor LilaStop error: ${e.getMessage}")
         .tap(promise.completeWith)
 
     case WsBoot =>
@@ -469,20 +468,8 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
-
-  private[round] case class TakebackBoard(nbDeclined: Int, lastDeclined: Option[Instant]):
-
-    def decline = TakebackBoard(nbDeclined + 1, nowInstant.some)
-
-    def delaySeconds = (math.pow(nbDeclined.min(10), 2) * 10).toInt
-
-    def offerable = lastDeclined.forall { _.isBefore(nowInstant.minusSeconds(delaySeconds)) }
-
-    def reset = takebackBoardZero.zero
-
-  private[round] given takebackBoardZero: Zero[TakebackBoard] =
-    Zero(TakebackBoard(0, none))
+  private val monitor =
+    AsyncActor.Monitor(msg => logger.warn(s"round.asyncActor unhandled msg: $msg"))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

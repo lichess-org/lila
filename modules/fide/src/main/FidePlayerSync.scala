@@ -1,7 +1,7 @@
 package lila.fide
 
-import akka.stream.contrib.ZipInputStreamSource
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.contrib.ZipInputStreamSource
+import org.apache.pekko.stream.scaladsl.*
 import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
@@ -13,12 +13,15 @@ import lila.mon.extensions.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
-final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
+final private class FidePlayerSync(
+    repo: FideRepo,
+    ws: StandaloneWSClient,
+    proxy: lila.memo.HttpProxy,
+    listUrl: Url
+)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
-
-  private val listUrl = "http://ratings.fide.com/download/players_list.zip"
 
   // the file is big. We want to stream the http response into the zip reader,
   // and stream the zip output into the database as it's being extracted.
@@ -102,17 +105,22 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
 
   private object playersFromHttpFile:
     def apply(): Funit = for
-      httpStream <- ws.url(listUrl).stream()
+      req = ws.url(listUrl.value)
+      proxyServer = proxy.select()
+      _ = logger.info(s"RelayFidePlayerApi.update connecting to $listUrl through ${proxyServer.map(_.host)}")
+      proxied = proxyServer.foldLeft(req)(_ withProxyServer _)
+      httpStream <- proxied.stream()
       _ <-
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
         else
+          logger.info(s"RelayFidePlayerApi.update connected to stream")
           for
             nbUpdated <-
               ZipInputStreamSource: () =>
                 ZipInputStream(httpStream.bodyAsSource.runWith(StreamConverters.asInputStream()))
               .map(_._2)
-                .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
+                .via(Framing.delimiter(org.apache.pekko.util.ByteString("\r\n"), maximumFrameLength = 200))
                 .map(_.utf8String)
                 .drop(1) // first line is a header
                 .map(parseLine)
@@ -150,7 +158,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year = number(152, 156).filter(_ > 1000).filter(_ < nowYear)
         flags = string(158, 160)
-        token = FidePlayer.tokenize(name)
+        token = FidePlayer.tokenize.exec(name)
         if token.sizeIs > 2
       yield FidePlayer(
         id = FideId(id),
@@ -185,7 +193,6 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               .forall(i => !i.isSame(fromFide))
               .option:
                 fromFide.copy(photo = inDb.flatMap(_.photo))
-          logger.info(s"FidePlayerSync.saveIfChanged: ${changed.size} changes out of ${players.size} players")
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)
             for

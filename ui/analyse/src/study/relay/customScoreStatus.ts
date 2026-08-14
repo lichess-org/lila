@@ -11,11 +11,11 @@ const points = (point: ServerPoint) => parseFloat(point.replace('½', '.5'));
 const colorClass = (point: ServerPoint) =>
   points(point) === 1 ? 'good' : points(point) === 0 ? 'bad' : 'status';
 
-const withCustomScore = (
+export const withCustomScore = (
   point: ServerPoint,
   color: Color,
   customScoring?: CustomScoring | number,
-): VNodeChildElement => {
+): number | ServerPoint => {
   if (!defined(customScoring)) return point;
   const base = points(point);
   const p =
@@ -56,4 +56,4 @@ export const playerColoredResult = (
   );
 };
 
-const isServerPoint = (s: string): s is ServerPoint => s === '1' || s === '0' || s === '½';
+export const isServerPoint = (s: string): s is ServerPoint => s === '1' || s === '0' || s === '½';

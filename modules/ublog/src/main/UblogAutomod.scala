@@ -58,13 +58,15 @@ private final class UblogAutomod(
   val promptSetting = settingStore[Text](
     "ublogAutomodPrompt",
     text = "Ublog automod prompt".some,
-    default = Text("")
+    default = Text(""),
+    _.ModerateBlog
   )
 
   val modelSetting = settingStore[String](
     "ublogAutomodModel",
     text = "Ublog automod model".some,
-    default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
+    default = "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    _.ModerateBlog
   )
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
@@ -97,13 +99,13 @@ private final class UblogAutomod(
     rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>
-        Quality
-          .fromName(res.quality)
+        Quality.byName
+          .get(res.quality)
           .map: q =>
             import Quality.*
             Assessment(
               quality = q,
-              evergreen = if q == good || q == great then res.evergreen else none,
+              evergreen = res.evergreen.ifTrue(q == good),
               flagged = fixString(res.flagged),
               commercial = if q != spam then fixString(res.commercial) else none
             )

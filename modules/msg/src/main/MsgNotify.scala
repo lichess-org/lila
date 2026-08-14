@@ -1,6 +1,6 @@
 package lila.msg
 
-import akka.actor.Cancellable
+import org.apache.pekko.actor.Cancellable
 
 import lila.common.String.shorten
 import lila.core.notify.{ NotifyApi, NotificationContent }

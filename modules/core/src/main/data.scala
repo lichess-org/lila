@@ -38,7 +38,8 @@ object data:
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
   opaque type Url = String
-  object Url extends OpaqueString[Url]
+  object Url extends OpaqueString[Url]:
+    val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
 
   opaque type Template = String
   object Template extends OpaqueString[Template]

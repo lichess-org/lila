@@ -55,7 +55,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
     'aside.relay-tour__side',
     {
       hook: {
-        insert: gameLinksListener(study.chapterSelect),
+        ...onInsert(gameLinksListener(study.chapterSelect)),
         update: v => {
           if (resizeId) return;
           (v.elm as HTMLElement).querySelectorAll<HTMLElement>('.relay-games, .mchat').forEach(el => {
@@ -203,7 +203,7 @@ const share = (ctx: RelayViewContext) => {
   const link = (text: string, path: string, help?: VNode) =>
     hl('div.form-group', [
       hl('label.form-label', text),
-      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path, { inputAttrs: { readonly: true } }),
       help,
     ]);
   const roundName = ctx.relay.round.name;

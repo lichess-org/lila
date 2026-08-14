@@ -26,6 +26,7 @@
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
       @include prevent-select;
+      @include backdrop-blur-if-transparent;
 
       position: relative;
       overflow: hidden;
@@ -131,7 +132,7 @@
 
         &:hover,
         &:hover::before {
-          background: $m-primary_font--mix-90;
+          background: color-mix(in oklab, $c-primary 90%, $c-font);
           color: white;
         }
       }
@@ -181,7 +182,7 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-30;
+        background: color-mix(in oklab, $c-primary 30%, $c-bg);
         color: $c-font-clearer;
         box-shadow: none !important;
       }
@@ -194,7 +195,7 @@
     padding-top: 1em;
     padding-bottom: 1em;
     margin: -1em 0;
-    background: $m-primary_bg--mix-10;
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
     strong {
       @extend %roboto;
@@ -203,7 +204,7 @@
     }
 
     &.ongoing {
-      background: $m-accent_bg--mix-10;
+      background: color-mix(in oklab, $c-accent 10%, $c-bg);
       color: $c-accent;
     }
   }
@@ -667,7 +668,7 @@
       align-items: center;
       gap: 0.5em;
       background: $c-bg-zebra;
-      padding: 1em 1em;
+      padding: 1em;
 
       &.active span {
         color: $c-brag;
@@ -782,7 +783,7 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-20;
+      background: color-mix(in oklab, $c-primary 20%, $c-bg);
       color: $c-font-clearer;
     }
   }
@@ -821,6 +822,7 @@
 
 .relay-games {
   @extend %flex-column, %box-radius-bottom, %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
   flex: 1 1 auto;
@@ -844,7 +846,7 @@
   border-left: 3px solid transparent;
 
   &:hover {
-    background: $m-primary_bg--mix-12;
+    background: color-mix(in oklab, $c-primary 12%, $c-bg);
     color: $c-font-clearer;
 
     .mini-game__flag {
@@ -855,7 +857,7 @@
   }
 
   &--current {
-    background: $m-primary_bg--mix-20;
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
     border-left-color: $c-primary;
   }
 

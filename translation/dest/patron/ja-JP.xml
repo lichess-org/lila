@@ -39,8 +39,8 @@
   <string name="officialNonProfit">Lichess は公認の非営利団体ですか？</string>
   <string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
   <string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
-  <string name="changeSupport" comment="%1$s is &quot;contact us&quot; with a link to https://lichess.org/contact&#10;%2$s &quot;the patron page&quot; with a link to https://lichess.org/patron">PayPal で支払う場合は、ご自分の PayPal アカウントから寄付をキャンセル/変更できます。あるいは「%1$s」のリンクから連絡いただければ当方で対応します。 PayPal 以外からの支払いは決済代行業者の Stripe によって処理され、寄付のキャンセル/変更は %2$s から行なえます。</string>
-  <string name="patronPage" comment="Part of longer string &quot;changeSupport&quot;, appearing right at the end:&#10;&#10;&quot;If your payments are processed by PayPal, you can cancel/change your support through your own PayPal account, or you can [contact us] and we can do it for you. If you didn't use PayPal, then your payments are processed by Stripe, and you cancel your donation or change the amount on [the patron page].&quot;">パトロンのページ</string>
+  <string name="changeSupport">PayPal で支払う場合は、ご自分の PayPal アカウントから寄付をキャンセル/変更できます。あるいは「%1$s」のリンクから連絡いただければ当方で対応します。 PayPal 以外からの支払いは決済代行業者の Stripe によって処理され、寄付のキャンセル/変更は %2$s から行なえます。</string>
+  <string name="patronPage">パトロンのページ</string>
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
   <string name="lichessIsRegisteredWith">Lichess は %s に登録しています。</string>

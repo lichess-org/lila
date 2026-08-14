@@ -36,7 +36,7 @@ final class Study(
         WithProxy: proxy ?=>
           val maxLen =
             if proxy.isFloodish then 50
-            else if HTTPRequest.isCrawler(req).yes then 80
+            else if ctx.req.client.isCrawler then 80
             else if ctx.isAnon then 100
             else 200
           text.trim.nonEmptyOption.filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
@@ -163,17 +163,17 @@ final class Study(
   private def showQuery(query: Option[WithChapter])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
-        if !oldSc.study.notable && HTTPRequest.isCrawler(req).yes
+        if !oldSc.study.notable && ctx.req.client.isCrawler
         then notFound
         else
           negotiate(
             html =
-              val noCrawler = HTTPRequest.isCrawler(ctx.req).no
+              val human = ctx.req.client.isHuman
               for
                 (sc, data) <- getJsonData(oldSc, withChapters = true)
-                chat <- noCrawler.so(chatOf(sc.study))
-                sVersion <- noCrawler.so(env.study.version(sc.study.id))
-                streamers <- noCrawler.so(streamerCache.get(sc.study.id))
+                chat <- human.so(chatOf(sc.study))
+                sVersion <- human.so(env.study.version(sc.study.id))
+                streamers <- human.so(streamerCache.get(sc.study.id))
                 page <- renderPage(views.study.show(sc.study, sc.chapter, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
@@ -182,10 +182,10 @@ final class Study(
             json = for
               (sc, data) <- getJsonData(
                 oldSc,
-                withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
+                withChapters = getBool("chapters") || ctx.req.client.isLichobile
               )
-              chatOpt <- HTTPRequest.isXhr(ctx.req).not.so(chatOf(sc.study))
-              sVersion <- HTTPRequest.isLichessMobile(req).option(env.study.version(sc.study.id)).sequence
+              chatOpt <- ctx.req.client.isXhr.not.so(chatOf(sc.study))
+              sVersion <- ctx.req.client.isMobile.option(env.study.version(sc.study.id)).sequence
               jsChat = chatOpt.map: c =>
                 env.chat.json.mobile(c, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
@@ -201,7 +201,8 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (studyFromDb, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      (studyFromDb, chapterPre) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      chapter = getColor("pov").foldLeft(chapterPre)(_.withOrientation(_))
       study <- env.relay.api.reconfigureStudy(studyFromDb, chapter)
       previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
@@ -215,6 +216,7 @@ final class Study(
           chapter.root.fen.some,
           chapter.setup.orientation,
           owner = false,
+          opening = none,
           division = division
         )
       )
@@ -293,7 +295,7 @@ final class Study(
       Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
-  def apiCreate = ScopedBody(_.Study.Write) { _ ?=> me ?=>
+  def apiCreate = ScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> me ?=>
     bindForm(StudyForm.form)(
       jsonFormError,
       data =>
@@ -315,9 +317,10 @@ final class Study(
         case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
-  def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
-    Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.deleteChapter(study.id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
+  def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write, _.Web.Mobile) {
+    _ ?=> me ?=>
+      Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
+        env.study.api.deleteChapter(study.id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -347,7 +350,7 @@ final class Study(
       )
   }
 
-  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write) { ctx ?=> me ?=>
+  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write, _.Web.Mobile) { ctx ?=> me ?=>
     bindForm(StudyForm.importPgn.form)(
       jsonFormError,
       data =>
@@ -426,7 +429,7 @@ final class Study(
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
     def makeStudySource = pgnDump.chaptersOf(study, _ => flags(pgnDump.requestPgnFlags()))
-    val pgnSource = akka.stream.scaladsl.Source.futureSource:
+    val pgnSource = org.apache.pekko.stream.scaladsl.Source.futureSource:
       if study.isRelay
       then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
       else fuccess(makeStudySource)
@@ -524,7 +527,7 @@ final class Study(
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
-    AuthOrScopedBody(_.Study.Write) { _ ?=> _ ?=>
+    AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> _ ?=>
       bindForm(StudyForm.chapterTagsForm)(
         jsonFormError,
         pgn => env.study.api.updateChapterTagsFromApi(studyId, chapterId, pgn).inject(NoContent)
@@ -532,7 +535,7 @@ final class Study(
     }
 
   def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
-    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+    AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> me ?=>
       bindForm(StudyForm.replaceChapterPgnMoves)(
         jsonFormError,
         pgnStr =>
@@ -567,10 +570,7 @@ final class Study(
   def setTopics = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.topicsForm)(
       _ => Redirect(routes.Study.topics),
-      topics =>
-        import com.fasterxml.jackson.core.JsonParseException
-        try env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
-        catch case e: JsonParseException => BadRequest(e.getMessage)
+      topics => env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
     )
   }
 

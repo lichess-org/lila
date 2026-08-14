@@ -17,7 +17,7 @@ import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
-import noUiSlider, { type Options, PipsMode } from 'nouislider';
+import { create as createSlider, type Options, PipsMode } from 'nouislider';
 
 import { memoize } from 'lib';
 import { pubsub } from 'lib/pubsub';
@@ -233,11 +233,11 @@ export function initModule({ data, singlePerfName }: Opts): void {
     },
   };
   if (handlesSlider) {
-    const slider = noUiSlider.create(handlesSlider, opts);
+    const slider = createSlider(handlesSlider, opts);
     const slide = (values: (number | string)[]) => {
       $('.time-selector-buttons button').removeClass('active');
       if ($el.hasClass('panning')) return;
-      const [min, max] = values.map(v => Number(v));
+      const [min, max] = values.map(Number);
       // Downsample data for ranges > 2 years. For performance as well as aesthetics.
       const yearDiff = (max: number, min: number) => dayjs.utc(max).diff(min, 'year');
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);

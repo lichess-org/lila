@@ -52,7 +52,7 @@
   <string name="knightMate">من الممكن عمل كش مات للخص باستعمال الحصان والفيل فقط، وهذا حتى إذا كان للخصم أكثر من قطعة متبقية على الرقعة.</string>
   <string name="noRatingPoints">لم يتم منح أي نقاط تقييم</string>
   <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
+  <string name="botRatingAbuse">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
   <string name="errorPage">صفحة خطأ</string>
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
   <string name="learnHowToMakeBroadcasts">تعلم كيفية بث بطولة على Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">لا شيء مما سبق</string>
   <string name="sendEmailAt">راسلنا عبر البريد الإلكتروني %s.</string>
   <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في Lichess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
+  <string name="monetiseNotInterested">لسنا مهتمين بأي شكل من أشكال تحقيق الدخل من Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">لن نعرض أي نوع من الإعلانات أبدًا، ولن نتتبع لاعبينا، ولن نبيع أو نشتري الزيارات أو المستخدمين.</string>
+  <string name="monetiseNoMarketingEmail">يُرجى عدم مراسلتنا عبر البريد الإلكتروني بشأن التسويق أو التتبع أو الإعلانات.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">نشجّع الجميع على %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">حظر جميع الإعلانات والمتعقبين</string>
+  <string name="broadcastTournamentOnLichess">بث بطولة على ليشيس</string>
+  <string name="ifYouWantToBroadcastClause1">إذا كنت ترغب في بث بطولة رسمية على Lichess، أو لديك أي أسئلة حول بثنا:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">يرجى الاتصال بفريق البث الخاص بنا على %1$s أو على %2$s.</string>
+  <string name="ourDiscordServer">خادم ديسكورد الخاص بنا</string>
 </resources>

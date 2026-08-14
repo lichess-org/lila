@@ -39,7 +39,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
     UblogPostData(
       title = post.title,
       intro = post.intro,
-      markdown = lila.common.MarkdownToastUi.latex.removeFrom(post.markdown),
+      markdown = lila.markdown.MarkdownToastUi.latex.removeFrom(post.markdown),
       imageAlt = post.image.flatMap(_.alt),
       imageCredit = post.image.flatMap(_.credit),
       language = post.language.some,
@@ -116,7 +116,7 @@ object UblogForm:
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )

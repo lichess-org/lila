@@ -64,8 +64,8 @@ export async function hash(): Promise<void> {
 }
 
 export async function symlinkTargetHashes(newLinks?: string[]) {
-  const targetHashes = {} as Record<string, string>;
-  if (newLinks && newLinks.length === 0) return targetHashes;
+  const targetHashes: Record<string, string> = {};
+  if (newLinks?.length === 0) return targetHashes;
 
   await fs.promises.readdir(env.hashOutDir).then(files =>
     Promise.all(
@@ -86,7 +86,7 @@ export async function symlinkTargetHashes(newLinks?: string[]) {
 export function hashedBasename(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
-  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+  return extPos === -1 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }
 
 async function isLinkStale(symlink: string | undefined) {

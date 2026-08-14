@@ -11,7 +11,7 @@ import { isOutcome } from '../util';
 import { player as renderPlayer } from './util';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.playerInfoId) return;
+  if (!ctrl.playerInfoId) return undefined;
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
@@ -53,7 +53,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
           const round = ctrl.data.round - i;
           if (isOutcome(p))
             return hl('tr.' + p, { key: round }, [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td.outcome', { attrs: { colspan: 3 } }, p),
               hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
@@ -63,12 +63,12 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             {
               key: round,
               attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td', fullName(p.user)),
-              ctrl.opts.showRatings && hl('td', '' + p.rating),
+              ctrl.opts.showRatings && hl('td', p.rating),
               hl('td.is.color-icon.' + (p.c ? 'white' : 'black')),
               hl('td.result', res),
             ],

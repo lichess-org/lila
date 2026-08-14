@@ -13,8 +13,7 @@
 
   .trophy {
     margin-top: -1rem;
-    margin-inline-end: 0.2em;
-    margin-inline-start: -0.6em;
+    margin-inline: -0.6em 0.2em;
 
     &.top1 {
       filter: drop-shadow(0 0 6px $c-brag);

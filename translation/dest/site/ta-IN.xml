@@ -908,7 +908,6 @@
   <string name="xInvitedYouToY">%1$s உங்களை \"%2$s\"க்கு அழைத்துள்ளார்.</string>
   <string name="youAreNowPartOfTeam">நீங்கள் இப்போது அணியின் ஒரு பகுதியாக இருக்கிறீர்கள்.</string>
   <string name="youHaveJoinedTeamX">நீங்கள் \"%1$s\" இல் சேர்ந்துள்ளீர்கள்.</string>
-  <string name="someoneYouReportedWasBanned">நீங்கள் புகாரளித்த ஒருவர் தடை செய்யப்பட்டுள்ளார்</string>
   <string name="congratsYouWon">வாழ்த்துக்கள், நீங்கள் வெற்றி பெற்றீர்கள்!</string>
   <string name="gameVsX">ஆட்டம் vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -962,7 +961,6 @@ FEN நிலையை உருவாக்க %s ஐப் பயன்பட�
   <string name="gameInProgress">%s உடன் ஒரு கேம் நடந்து கொண்டிருக்கிறது.</string>
   <string name="abortTheGame">விளையாட்டை நிறுத்து</string>
   <string name="resignTheGame">விளையாட்டை ராஜினாமா செய்யுங்கள்</string>
-  <string name="youCantStartNewGame">இது முடியும் வரை நீங்கள் புதிய விளையாட்டைத் தொடங்க முடியாது.</string>
   <string name="since">இருந்து</string>
   <string name="until">வரை</string>
   <string name="lichessDbExplanation">Lichess இல் விளையாடிய மதிப்பிடப்பட்ட கேம்கள்</string>

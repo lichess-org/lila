@@ -111,8 +111,7 @@ object mod:
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
-            val userAppeal = appeals.find(_.isAbout(o.id))
-            val closedInfo = log.closed
+            val userAppeals = appeals.filter(_.user.is(o.id))
             tr(
               dataUsername := o.username,
               dataTitle := o.title,
@@ -146,12 +145,14 @@ object mod:
               markTd(o.marks.troll.so(1), shadowban, log.dateOf(_.troll)),
               markTd(o.marks.boost.so(1), boosting, log.dateOf(_.booster)),
               markTd(o.marks.engine.so(1), engine, log.dateOf(_.engine)),
-              closedInfo.fold(markTd(0, closed)): c =>
+              log.closed.fold(markTd(0, closed)): c =>
                 markTd(
                   1,
                   if c.byMod then modClosed else closed,
                   c.at.some
-                )(title := (if c.byMod then "Closed by mod" else "Self closed")),
+                )(title := (if c.byMod then "Closed by mod" else s"Self closed${c.forever.so(" forever")}"))(
+                  c.forever.option("∞")
+                ),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty
                 .option:
@@ -165,21 +166,27 @@ object mod:
                     )
                   )
                 .getOrElse(td(dataSort := 0)),
-              userAppeal match
-                case None => td(dataSort := 0)
-                case Some(appeal) =>
-                  td(dataSort := 1)(
+              userAppeals match
+                case Nil => td(dataSort := 0)
+                case appeals =>
+                  val nbMsgs = appeals.map(_.msgs.size).sum
+                  val closed = appeals.forall(_.isClosed)
+                  val muted = appeals.exists(_.muted)
+                  td(dataSort := nbMsgs)(
                     a(
-                      href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := Granter.opt(_.Appeals).option(routes.Appeal.modShowAll(o.id)),
                       cls := List(
                         "text" -> true,
-                        "appeal-recent" -> appeal.isRecent,
-                        "appeal-old" -> appeal.isOld,
-                        "appeal-muted" -> appeal.isMuted
+                        "appeal-recent" -> appeals.exists(_.isRecent),
+                        "appeal-old" -> appeals.forall(_.isOld),
+                        "appeal-closed" -> closed,
+                        "appeal-muted" -> muted
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
-                    )(appeal.msgs.size)
+                      title := s"${pluralize("appeal message", nbMsgs)}${
+                          if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
+                        }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
+                    )(nbMsgs)
                   )
               ,
               td(dataSort := o.createdAt.toMillis)(pastMomentServer(o.createdAt)),

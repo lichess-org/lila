@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app.{ *, given }
+import lila.oauth.OAuthScope.dgtScopes
 
 final class DgtCtrl(env: Env) extends LilaController(env):
 
@@ -36,14 +37,6 @@ final class DgtCtrl(env: Env) extends LilaController(env):
         if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
         Ok.page(views.dgt.play(t.plain.value))
   }
-
-  private val dgtScopes = lila.oauth.OAuthScope.select(
-    _.Challenge.Read,
-    _.Challenge.Write,
-    _.Preference.Read,
-    _.Msg.Write,
-    _.Board.Play
-  )
 
   private def findToken(using Me) =
     env.oAuth.tokenApi.findCompatiblePersonal(dgtScopes)

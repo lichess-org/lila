@@ -60,7 +60,7 @@ const getNumberFormatter = (): Intl.NumberFormat | null => {
 
 export const numberFormat = (n: number): string => {
   const nf = getNumberFormatter();
-  return nf ? nf.format(n) : '' + n;
+  return nf ? nf.format(n) : String(n);
 };
 
 export const currencyFormat = (n: number, currency: string, options?: Intl.NumberFormatOptions): string => {

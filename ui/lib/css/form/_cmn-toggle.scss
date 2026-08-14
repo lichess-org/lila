@@ -13,6 +13,7 @@
 .cmn-toggle label {
   @include prevent-select;
   @include transition(background box-shadow);
+  @extend %box-radius;
 
   display: block;
   position: relative;
@@ -22,7 +23,6 @@
   width: 40px;
   height: 24px;
   border: $border;
-  border-radius: 24px;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
 
@@ -31,34 +31,45 @@
     display: block;
     position: absolute;
     content: '';
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    height: 23px;
     bottom: 0;
 
     @include inline-start(0);
   }
 
   &::before {
-    @extend %data-icon;
+    @extend %data-icon, %box-radius;
     @include transition(margin color);
 
     font-size: 1em;
     z-index: 1;
     text-align: center;
-    line-height: 22px;
+    line-height: 23px;
     content: $licon-X;
     color: $c-font-dimmer;
-    border-radius: 100%;
   }
 
   &::after {
     @extend %metal;
     @include transition(margin box-shadow);
 
-    border-radius: 100%;
+    border-radius: calc($box-radius-size - 1px);
 
     @include if-transp {
-      background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
+      background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 22%), hsl(var(---site-hue) 5% 19%) 100%);
+    }
+  }
+
+  @include if-transp {
+    &:hover {
+      &::after {
+        background: linear-gradient(
+          to bottom,
+          hsl(var(---site-hue) 7% 26%),
+          hsl(var(---site-hue) 5% 23%) 100%
+        );
+      }
     }
   }
 }

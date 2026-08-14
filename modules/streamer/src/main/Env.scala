@@ -1,6 +1,6 @@
 package lila.streamer
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.core.config.NetConfig,
     langList: lila.core.i18n.LangList
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using scheduler: Scheduler)(using Executor, org.apache.pekko.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]
@@ -84,10 +84,9 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
   Bus.sub[lila.core.mod.MarkBooster]: m =>
-    api.demote(m.userId)
-  Bus.sub[lila.core.mod.Shadowban]:
-    case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
-    case lila.core.mod.Shadowban(userId, false) => repo.unignore(userId)
+    if m.value then api.demote(m.userId)
+  Bus.sub[lila.core.mod.Shadowban]: m =>
+    if m.value then api.demote(m.userId) else repo.unignore(m.userId)
 
   lila.common.Cli.handle:
     case "streamer" :: "twitch" :: "resync" :: Nil =>

@@ -13,8 +13,8 @@ class AnalyserTest extends munit.FunSuite:
   test("critical"):
     assert(grave("gets cancer"))
     assert(grave("kys"))
+    assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
-    assert(grave("murder you"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))
@@ -45,17 +45,21 @@ class AnalyserTest extends munit.FunSuite:
       Nil
     )
     assertEquals(find("computer analysis"), Nil)
-    assertEquals(find("press f for respects"), Nil)
+    assertEquals(find("hangi"), Nil)
+    assertEquals(find("Epstein Trump criminal heretic murderer felon traitor liar"), Nil)
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
-    assertEquals(find("pnis pusy quer"), List("pnis", "pusy", "quer"))
+    assertEquals(find("kil u killl u pnis pusy quer"), List("kil u", "killl u", "pnis", "pusy", "quer"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
   test("find variants"):
     assertEquals(find("cunt kunt cunting kawa kunting"), List("cunt", "kunt", "cunting", "kunting"))
-    assertEquals(find("ass as ashole"), List("ass", "ashole"))
+    assertEquals(
+      find("@$$ as 4sh0l3 groid ky5 l0s3r n1g3r 53x"),
+      List("ass", "ashole", "groid", "kys", "loser", "niger", "sex")
+    )
 
   test("find plurals"):
     assertEquals(
@@ -67,6 +71,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("I think you suck"), List("you suck"))
     assertEquals(find("you should suck my"), List("suck my"))
     assertEquals(find("neck your mom"), List("neck your mom"))
+    assertEquals(find("murder you"), List("murder you"))
 
   test("50 shades of fuck"):
     assertEquals(
@@ -92,11 +97,20 @@ class AnalyserTest extends munit.FunSuite:
   test("rat false positives"):
     assertEquals(find("test rat is rate some rates what rated"), List("rat"))
 
+  test("french inflection"):
+    assertEquals(find("blaireau connard f2p fdp"), List("blaireau", "connard", "f2p", "fdp"))
+
+  test("german inflection"):
+    assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
+
+  test("spanish inflection"):
+    assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
+
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))
 
   test("russian"):
-    assertEquals(find("сука пизда"), List("сука", "пизда"))
+    assertEquals(find("сука пидор пидорас пизда пиздюк"), List("сука", "пидор", "пидорас", "пизда", "пиздюк"))
 
   test("russian with punctuation"):
     assertEquals(find("сука! ?пизда"), List("сука", "пизда"))
@@ -107,6 +121,8 @@ class AnalyserTest extends munit.FunSuite:
   test("with slash and plural"):
     assertEquals(find("/Vigger"), List("vigger"))
     assertEquals(find("V/igger"), List("vigger"))
+    assertEquals(find("n/gger"), List("ngger"))
+    assertEquals(find("n\\gger"), List("n\\gger"))
     assertEquals(find("/vigger"), List("vigger"))
     assertEquals(find("I like /Viggers"), List("viggers"))
 

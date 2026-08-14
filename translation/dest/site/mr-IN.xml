@@ -81,7 +81,7 @@
   <string name="collapseVariations">भिन्नता लपवा</string>
   <string name="expandVariations">भिन्नता दाखवा</string>
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
-  <string name="copyVariationPgn">ओळ कॉपी करा</string>
+  <string name="copyVariationPgn">ओळ प्रत करा</string>
   <string name="copyMainLinePgn">मुख्यश्रेणीचे PGN प्रत करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">ई-मेल यायला वेळ लागू शकतो.</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनिट थांबा आणि ई-मेल इनबॉक्स रीफ्रेश करा.</string>
   <string name="checkSpamFolder">ई-मेल तुमच्या स्पॅम फोल्डर मध्ये जाऊ शकतो. जर असं झालं, तर ते \'नॉट स्पॅम\' मार्क करा.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">जर तुम्हाला पुष्टीकरण ई-मेल मिळाला नसेल, तर तुम्ही \'स्पॅम\' किंवा \'जंक\' फोल्डर तपासून बघा. माहितीपूर्ण राहण्यासाठी, lichess.org कडून येणारे संदेश सुरक्षित आणि \'स्पॅम नसलेले\' म्हणून चिन्हांकित करा. </string>
   <string name="sendEmailForAccountVerification">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
   <string name="accountConfirmed">%s ह्या वापरकर्तानावचं यशस्वीरीत्या पुष्टीकरण झालं.</string>
   <string name="accountCanLogin">तुम्ही आता %s ह्या नावानी प्रवेश करू शकता.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s अनुसरण करतात</item>
     <item quantity="other">%s अनुसरण करतात</item>
   </plurals>
+  <string name="less">कमी</string>
   <string name="more">आणखी</string>
   <string name="memberSince">या दिवसापासून सदस्य आहे</string>
   <string name="lastSeenActive">%s सक्रिय</string>
@@ -580,6 +582,9 @@
   <string name="replies">प्रतिक्रिया</string>
   <string name="replyToThisTopic">या विषयावरील प्रतिक्रिया</string>
   <string name="reply">प्रतिक्रिया</string>
+  <string name="reopen">पुन्हा उघडा</string>
+  <string name="quote">अवतरण</string>
+  <string name="postEdited">संपादित</string>
   <string name="message">संदेश</string>
   <string name="createTheTopic">विषय बनवा</string>
   <string name="reportAUser">या वापरकर्त्या विषयी तक्रार नोंदवा</string>
@@ -814,15 +819,23 @@
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">निनावी</item>
+    <item quantity="other">निनावी (%s)</item>
+  </plurals>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
+  <string name="theme">विषय</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="picture">चित्र</string>
   <string name="deviceTheme">उपकरणानुसार</string>
+  <string name="roundness">वर्तुळाकारता</string>
   <string name="backgroundImageUrl">पार्श्वभूमी चित्रासाठी URL:</string>
+  <string name="backgroundImageOpacity">पार्श्वभूमीवरच्या चित्राचे अपारदर्शकता:</string>
   <string name="board">पट</string>
   <string name="size">आकार</string>
   <string name="opacity">अपारदर्शकता</string>
@@ -925,9 +938,9 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मी हे मान्य करतो की मी एकाहून अधिक खाती चालू करणार नाही. (%s मध्ये दिलेली कारणे वगळून).</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
-  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लिट्झ</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">क्षणवेग</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">विद्युतवेग</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">वेगवान</string>
   <string name="rapid">द्रुतगती</string>
   <string name="classical">शास्त्रीय</string>
   <string name="ultraBulletDesc">अत्यंत वेगवान खेळ: ३० सेकंदांपेक्षा कमी</string>
@@ -959,7 +972,6 @@
   <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
   <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
-  <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>
   <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
@@ -1015,7 +1027,7 @@
   <string name="gameInProgress">आपला एक खेळ %s यांच्याबरोबर चालू आहे.</string>
   <string name="abortTheGame">खेळ मध्येच थांबवा</string>
   <string name="resignTheGame">खेळातून राजीनामा द्या</string>
-  <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
+  <string name="youCantStartNewGame">तुमचा डाव असताना तुम्ही नवीन खेळ चालू नाही करू शकत.</string>
   <string name="since">पासून</string>
   <string name="until">पर्यन्त</string>
   <string name="lichessDbExplanation">मानांकीत खेळ सर्व Lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
@@ -1039,4 +1051,5 @@
   <string name="thereAreNoResultsForX">\"%s\" साठी कोणताही निकाल नाही</string>
   <string name="tags">टॅंग्स</string>
   <string name="enPassant">उत्तीर्ण मध्येचे अधिकार</string>
+  <string name="settings">प्राधान्ये</string>
 </resources>

@@ -18,7 +18,7 @@ final class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter
-)(using scheduler: akka.actor.Scheduler)(using Executor):
+)(using scheduler: org.apache.pekko.actor.Scheduler)(using Executor):
 
   import Syncache.*
 
@@ -39,7 +39,7 @@ final class Syncache[K, V](
             compute(k)
               .mon(recCompute) // monitoring: record async time
               .recover { case e: Exception =>
-                logger.branch(s"syncache $name").warn(s"key=$k", e)
+                logger.warn(s"syncache $name key=$k", e)
                 cache.invalidate(k)
                 default(k)
               }

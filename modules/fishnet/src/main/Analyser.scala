@@ -11,6 +11,7 @@ import lila.fishnet.Work.{ Origin, Sender }
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
+    analyser: lila.analyse.Analyser,
     gameRepo: lila.core.game.GameRepo,
     gameApi: lila.core.game.GameApi,
     uciMemo: lila.core.game.UciMemo,
@@ -91,43 +92,53 @@ final class Analyser(
         if _ then fuccess(Analyser.Result.NoChapter)
         else
           import req.*
-          val sender = Sender(req.userId, none, mod = false, system = false)
-          val limitFu =
-            if req.official then fuccess(Analyser.Result.Ok)
-            else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)
-          limitFu.flatMap { result =>
-            if !result.ok then
-              logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
-            (result.ok && dedup(chapterId.value))
-              .so:
-                val work = makeWork(
-                  game = Work.Game(
-                    id = chapterId.value,
-                    initialFen = initialFen,
-                    studyId = studyId.some,
-                    variant = variant,
-                    moves = moves.take(maxPlies).map(_.uci).mkString(" ")
-                  ),
-                  // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-                  startPly = Ply(initialFen.map(_.colorOrWhite).so(_.fold(0, 1))),
-                  sender = sender,
-                  origin = if req.official then Origin.officialBroadcast else Origin.manualRequest
-                )
-                repo
-                  .getSimilarAnalysis(work)
-                  .flatMap:
-                    _.isEmpty.so:
-                      lila.mon.fishnet.analysis.requestCount("study").increment()
-                      evalCache
-                        .skipPositions(work.game)
-                        .monSuccess(lila.mon.fishnet.analysis.skipPositionsStudy)
-                        .withTimeout(2.seconds, s"study analysis skipPositions $work")
-                        .recoverDefault
-                        .flatMap: skipPositions =>
-                          lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                          repo.addAnalysis(work.copy(skipPositions = skipPositions))
-              .inject(result)
-          }
+          val gameWork = Work.Game(
+            id = chapterId.value,
+            initialFen = initialFen,
+            studyId = studyId.some,
+            variant = variant,
+            moves = moves.take(maxPlies).map(_.uci).mkString(" ")
+          )
+          analysisRepo
+            .byHash(gameWork.hash)
+            .flatMap:
+              case Some(found) =>
+                val id = lila.tree.Analysis.Id(studyId, chapterId)
+                lila.mon.fishnet.analysis.sameHash("study").increment()
+                for _ <- analyser.foundSameHash(id, found, gameWork.hash)
+                yield Analyser.Result.Ok
+              case None =>
+                val sender = Sender(req.userId, none, mod = false, system = false)
+                val limitFu =
+                  if req.official then fuccess(Analyser.Result.Ok)
+                  else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)
+                limitFu.flatMap { result =>
+                  if !result.ok then
+                    logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
+                  (result.ok && dedup(chapterId.value))
+                    .so:
+                      val work = makeWork(
+                        game = gameWork,
+                        // if black moves first, use 1 as startPly so the analysis doesn't get reversed
+                        startPly = Ply(initialFen.map(_.colorOrWhite).so(_.fold(0, 1))),
+                        sender = sender,
+                        origin = if req.official then Origin.officialBroadcast else Origin.manualRequest
+                      )
+                      repo
+                        .getSimilarAnalysis(work)
+                        .flatMap:
+                          _.isEmpty.so:
+                            lila.mon.fishnet.analysis.requestCount("study").increment()
+                            evalCache
+                              .skipPositions(work.game)
+                              .monSuccess(lila.mon.fishnet.analysis.skipPositionsStudy)
+                              .withTimeout(2.seconds, s"study analysis skipPositions $work")
+                              .recoverDefault
+                              .flatMap: skipPositions =>
+                                lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                                repo.addAnalysis(work.copy(skipPositions = skipPositions))
+                    .inject(result)
+                }
 
   private def makeWork(game: Game, sender: Sender, origin: Origin): Fu[Work.Analysis] =
     gameRepo.initialFen(game).zip(uciMemo.get(game)).map { (initialFen, moves) =>

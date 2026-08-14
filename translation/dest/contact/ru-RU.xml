@@ -30,9 +30,9 @@
   <string name="toReportAPlayerUseForm">Чтобы сообщить о нарушении правил игроком, заполните форму</string>
   <string name="youCanAlsoReachReportPage">Также вы можете перейти на эту страницу, нажав %s \"Пожаловаться\" на странице профиля.</string>
   <string name="doNotReportInForum">Не пишите об игроках на форуме.</string>
-  <string name="doNotSendReportEmails">Не шлите нам электронные письма с жалобами.</string>
+  <string name="doNotSendReportEmails">Не присылайте нам обращения по электронной почте.</string>
   <string name="doNotMessageModerators">Не отправляйте личные сообщения модераторам.</string>
-  <string name="onlyReports">Сообщайте об игроках только через форму жалоб — это наиболее эффективно.</string>
+  <string name="onlyReports">Сообщайте об игроках только через форму обращений — это наиболее эффективно.</string>
   <string name="wantReportBug">Я хочу сообщить об ошибке</string>
   <string name="reportBugInForum">В разделе Обратная связь форума Lichess</string>
   <string name="reportWebsiteIssue">На странице проблем сайта Lichess на Github</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Мат только слоном или конем возможен, если у противника на доске есть больше чем король.</string>
   <string name="noRatingPoints">Не были начислены рейтинговые очки</string>
   <string name="ratedGame">Убедитесь, что вы играли рейтинговую игру. Пользовательские игры не влияют на рейтинг игроков.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">В рейтинговых играх против ботов в некоторых случаях очки рейтинга не начисляются, если система считает, что игрок эксплуатирует слабости бота для набивания рейтинга.</string>
+  <string name="botRatingAbuse">В рейтинговых играх против ботов в некоторых случаях очки рейтинга не начисляются, если система считает, что игрок эксплуатирует слабости бота для набивания рейтинга.</string>
   <string name="errorPage">Сообщение об ошибке</string>
   <string name="reportErrorPage">Если вы столкнулись с сообщением об ошибке, вы можете сообщить об этом:</string>
   <string name="learnHowToMakeBroadcasts">Узнайте, как создавать свои собственные стримы на Lichess</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Ничего из перечисленного</string>
   <string name="sendEmailAt">Отправьте нам электронное письмо на %s.</string>
   <string name="explainYourRequest">Пожалуйста, подробно опишите ваш запрос. Напишите ваше имя пользователя и любую другую информацию, которая поможет нам помочь вам.</string>
+  <string name="monetiseNotInterested">Мы не заинтересованы в любых способах монетизации Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Мы никогда не будем показывать рекламу, не будем отслеживать наших игроков, и не будем продавать и покупать ни трафик, ни пользователей.</string>
+  <string name="monetiseNoMarketingEmail">Пожалуйста, не пишите нам с предложениями маркетинга, отслеживания и рекламы.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Мы призываем всех к %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">блокировке любой рекламы и трекеров</string>
+  <string name="broadcastTournamentOnLichess">Транслировать турнир на Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Если вы хотите официально транслировать турнир на Lichess, или у вас есть вопросы о наших трансляциях:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Пожалуйста, свяжитесь с нашей службой трансляций по адресу %1$s или на %2$s.</string>
+  <string name="ourDiscordServer">нашем Discord-сервере</string>
 </resources>

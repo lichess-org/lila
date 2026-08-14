@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="cleanAllGood">Your account is not marked or restricted. You're all good!</string>
-  <string name="engineMarked">Your account has been restricted for using external assistance in games.</string>
+  <string name="engineMarked">Your account was restricted for use of engine/computer assistance in games.</string>
   <string name="engineMarkedInfo">We define this as using any external help to reinforce your knowledge and/or calculation skills to gain an unfair advantage over your opponent. See the %s page for more details.</string>
   <string name="arenaBanned">Your account is banned from joining arena tournaments.</string>
   <string name="prizeBanned">Your account is banned from tournaments with real prizes.</string>
-  <string name="boosterMarked">Your account is marked for rating manipulation.</string>
-  <string name="boosterMarkedInfo">We define this as deliberately manipulating a rating by losing games on purpose or by playing against another account that is deliberately losing games.</string>
+  <string name="boosterMarked">Your account was restricted for rating manipulation/account sharing.</string>
   <string name="accountMuted">Your account is muted.</string>
   <string name="accountMutedInfo">Read our %s. Failure to comply with the communication guidelines may result in your account being muted.</string>
   <string name="excludedFromLeaderboards">Your account has been excluded from leaderboards.</string>
-  <string name="excludedFromLeaderboardsInfo">We define this as using any unfair way to get on the leaderboard.</string>
+  <string name="onlyOneAccountOnLeaderboards">Only one account per person can appear on leaderboards.</string>
   <string name="closedByModerators">Your account was closed by moderators.</string>
-  <string name="hiddenBlog">Your blogs have been hidden by moderators.</string>
-  <string name="hiddenBlogInfo">Make sure to read again our %s.</string>
+  <string name="blogRestriction">You have a blog restriction.</string>
+  <string name="blogRestrictionInfo">Read our %s, violating these rules may result in different actions.</string>
   <string name="playTimeout">You have a play timeout.</string>
+  <string name="reportBanned">You can’t send reports to moderators</string>
+  <string name="reportBannedInfo">We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Your account is temporarily restricted from playing.</string>
   <string name="communicationGuidelines">communication guidelines</string>
-  <string name="blogRules">blog rules</string>
+  <string name="blogEtiquette">blog etiquette</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

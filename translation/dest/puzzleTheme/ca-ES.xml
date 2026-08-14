@@ -15,7 +15,7 @@
   <string name="backRankMate">Mat del passadís</string>
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
   <string name="balestraMate">Mat de la balestra</string>
-  <string name="balestraMateDescription">Un alfil fa el mat, mentre una dama bloqueja les caselles d\'escapada restants</string>
+  <string name="balestraMateDescription">Un alfil fa el mat mentre la dama bloqueja la resta de caselles.</string>
   <string name="blindSwineMate">Mat del porc cec</string>
   <string name="blindSwineMateDescription">Dues torres treballen en equip per tal de fer mat al rei en una àrea de 2x2 caselles.</string>
   <string name="bishopEndgame">Final d’alfils</string>
@@ -55,16 +55,19 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tàctica durant la última fase del joc.</string>
   <string name="enPassantDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
   <string name="epauletteMate">Mat de l\'espatllera</string>
   <string name="epauletteMateDescription">Dues caselles adjacents al rei escaquejat estan ocupades per altres peces.</string>
   <string name="exposedKing">Rei exposat</string>
   <string name="exposedKingDescription">Una tàctica que involucra un rei amb alguns defensors al seu voltant, sovint acabant amb escac i mat.</string>
   <string name="fork">Doble</string>
   <string name="forkDescription">Un moviment on la peça moguda ataca dos peces de l\'oponent a la vegada.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Un moviment on una peça ataca dos o més peces oposades a la vegada.</string>
   <string name="hangingPiece">Peça penjant</string>
   <string name="hangingPieceDescription">Una tàctica que involucra una peça de l\'oponent que no està suficientment defensada i que es pot capturar.</string>
   <string name="hookMate">Mat de la cantonada</string>
   <string name="hookMateDescription">Escac i mat amb una torre, un cavall i un peó junt amb un peó enemic que limita l\'escapada del rei enemic.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Escac i mat utilitzant una torre, un cavall i un peó quan un peó rival bloqueja l\'escapada del rei rival.</string>
   <string name="interference">Interferència</string>
   <string name="interferenceDescription">Moure una peça entre dues peces de l\'oponent que deixa una o dues peces enemigues indefenses, com un cavall en una casella defensada entre dues torres.</string>
   <string name="intermezzo">Intermèdia</string>
@@ -79,7 +82,7 @@
   <string name="swallowstailMateDescription">Un mat que visualment ens recorda la forma de la cua d\'una oreneta, similar a una forma de V.</string>
   <string name="triangleMate">Mat del triangle</string>
   <string name="triangleMateDescription">La dama i la torre, a una distància del rei enemic, estan a la mateixa fila o columna separats per una casella formant un triangle.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat de Vukovic</string>
+  <string name="vukovicMate">Mat de Vukovic</string>
   <string name="vukovicMateDescription">Una torre i un cavall col·laboren per fer mat al rei. La torre dona el mat mentre està defensada per una altra peça. El cavall s\'utilitza per bloquejar les caselles de sortida del rei.</string>
   <string name="knightEndgame">Final de cavalls</string>
   <string name="knightEndgameDescription">Un final amb només cavalls i peons.</string>

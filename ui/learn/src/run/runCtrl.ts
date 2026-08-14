@@ -11,8 +11,7 @@ import { clearTimeouts } from '../timeouts';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
-
-  chessground: CgApi | undefined;
+  chessground?: CgApi;
   levelCtrl: LevelCtrl;
 
   stageStarting: Prop<boolean> = prop(false);
@@ -33,8 +32,10 @@ export class RunCtrl {
     // Helpful for debugging:
     // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
     pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground!.state.addPieceZIndex = is3d;
-      this.chessground!.redrawAll();
+      this.withGround(g => {
+        g.state.addPieceZIndex = is3d;
+        g.redrawAll();
+      });
     });
   }
 

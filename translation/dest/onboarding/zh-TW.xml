@@ -4,13 +4,13 @@
   <string name="welcome">歡迎！</string>
   <string name="welcomeToLichess">歡迎來到 Lichess！</string>
   <string name="thisIsYourProfilePage">這是你的個人資料頁面。</string>
-  <string name="enabledKidModeSuggestion">會有小孩在使用此帳號嗎？您可能需要啟用%s。</string>
+  <string name="enabledKidModeSuggestion">小孩會使用此帳號嗎？您可以選擇啟用%s。</string>
   <string name="whatNowSuggestions">現在可以作什麼？這裡有幾個建議：</string>
-  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">認識西洋棋規則。</string>
+  <string name="learnChessRules">認識西洋棋規則。</string>
   <string name="improveWithChessTacticsPuzzles">練習西洋棋戰術謎題。</string>
-  <string name="playTheArtificialIntelligence">與人工智慧對局。</string>
+  <string name="playTheArtificialIntelligence">人機對弈。</string>
   <string name="playOpponentsFromAroundTheWorld">與世界各地的對手對奕</string>
-  <string name="followYourFriendsOnLichess">跟隨在 Lichess 上的好友</string>
+  <string name="followYourFriendsOnLichess">關注在 Lichess 上的好友</string>
   <string name="playInTournaments">參加錦標賽。</string>
   <string name="learnFromXAndY">在 %1$s 與 %2$s 學習。</string>
   <string name="configureLichess">照您的喜好設定 Lichess。</string>

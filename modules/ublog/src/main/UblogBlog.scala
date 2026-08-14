@@ -26,7 +26,6 @@ object UblogBlog:
     val LOW: Tier = 2
     val NORMAL: Tier = 3
     val HIGH: Tier = 4
-    val BEST: Tier = 5
 
     def default(user: User) =
       if user.marks.troll then Tier.HIDDEN
@@ -38,8 +37,7 @@ object UblogBlog:
       UNLISTED -> "Unlisted",
       LOW -> "Low",
       NORMAL -> "Normal",
-      HIGH -> "High",
-      BEST -> "Best"
+      HIGH -> "High"
     )
 
     def name(tier: Tier) = options.collectFirst {

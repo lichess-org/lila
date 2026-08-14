@@ -168,7 +168,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             (count.seconds > 0).option(
               tr(cls := "full")(
                 th(tps.timeSpentPlaying()),
-                td(colspan := "2")(lila.core.i18n.translateDuration(count.duration))
+                td(colspan := "2")(translator.duration(count.duration))
               )
             )
           )
@@ -349,7 +349,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   ): Frag =
     div(
       div(cls := "streak")(
-        h3(title(lila.core.i18n.translateDuration(s.duration))),
+        h3(title(translator.duration(s.duration))),
         fromTo(s, u)
       )
     )

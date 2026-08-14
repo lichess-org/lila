@@ -957,7 +957,6 @@
   <string name="xInvitedYouToY">%1$s te vexwend %2$s.</string>
   <string name="youAreNowPartOfTeam">Tu niha endamê komekê yî.</string>
   <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>
-  <string name="someoneYouReportedWasBanned">Kesê ku te gilî kiribû hat qedexe kirin</string>
   <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
   <string name="gameVsX">Lîstika hemberî %1$s</string>
   <string name="resVsX">%1$s hmb %2$s</string>
@@ -1012,7 +1011,6 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="gameInProgress">Lîstika te bi %s re didûme.</string>
   <string name="abortTheGame">Lîstikê betal bike</string>
   <string name="resignTheGame">Dest ji lîstikê bikêşe</string>
-  <string name="youCantStartNewGame">Heta ev lîstik bi dawî neyê, tu nikarî dest bi lîstikeke nû bikî.</string>
   <string name="since">Ji dema</string>
   <string name="until">Heta</string>
   <string name="lichessDbExplanation">Lîstikên bipuan hatîn lîstin li ser Lichess ê</string>

@@ -22,7 +22,7 @@
   <string name="doNotAskByEmailToReopen">आम्हाला ई-मेल वरून खाते परत सुरू करण्यास सांगू नका, आम्ही ते करणार नाही.</string>
   <string name="wantChangeUsername">मला सदस्यनाव बदलायचे आहे</string>
   <string name="changeUsernameCase">तुमच्या वापरकर्तानावाच्या अक्षरांच्या प्रकाराला बदलण्यासाठी ह्या पृष्ठाला भेट द्या</string>
-  <string name="cantChangeMore">आम्ही अक्षरांच्या प्रकारापेक्षा जास्त बदलू शकत नाही. तांत्रिक कारणांसाठी हे सरळ अशक्य आहे .</string>
+  <string name="cantChangeMore">आम्ही अक्षरांच्या प्रकारापेक्षा जास्त बदलू शकत नाही. तांत्रिक कारणांसाठी हे सरळ अशक्य आहे.</string>
   <string name="orCloseAccount">तथापि, तुम्ही तुमच्या वर्तमान खात्याला बंद करू शकता, आणि नवीन बनवू शकता.</string>
   <string name="wantClearHistory">मला माझे इतिहास किंवा रेटिंग मिटवायचे आहे</string>
   <string name="cantClearHistory">तुमचा डावांचा, कोड्यांचा अथवा मानांकनाचा इतिहास पुसणे शक्य नाही.</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">फक्त घोड्याने किंवा उंटाने शहमत करणे शक्य आहे, जर विरोधकाकडे राजऐवजी आजून सोंगट्या आहेत.</string>
   <string name="noRatingPoints">मानांकनाचे गुण मिळाले नाहीत</string>
   <string name="ratedGame">तुम्ही मानांकित खेळ खेळात आहात ह्याची खात्री करा. अनौपचारिक खेळांनी खेळाडूंच्या रेटिंगमध्ये बदल होत नाही.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">काही विशिष्ट परिस्थितीत संगणक खात्याविरुद्ध खेळताना, जर खेळाडू रेटिंगसाठी संगणकाचा गैरवापर करत असेल तर तो खेळ खेळाडूला अंक देणार नाही.</string>
+  <string name="botRatingAbuse">काही विशिष्ट परिस्थितीत संगणक खात्याविरुद्ध खेळताना, जर खेळाडू रेटिंगसाठी संगणकाचा गैरवापर करत असेल तर तो खेळ खेळाडूला अंक देणार नाही.</string>
   <string name="errorPage">त्रुटी पृष्ठ</string>
   <string name="reportErrorPage">जर तुम्हाला त्रुटी पृष्ठाचा सामना करावा लागला असेल, तर तुम्ही अहवाल करू शकता:</string>
   <string name="learnHowToMakeBroadcasts">Lichess वर तुमचे स्वतःचे प्रसारण बनवायला शिका</string>
@@ -74,4 +74,10 @@
   <string name="noneOfTheAbove">वरीलपैकी काहीही नाही</string>
   <string name="sendEmailAt">आम्हाला %s वर ई-मेल पाठवा.</string>
   <string name="explainYourRequest">कृपया तुमची विनंती स्पष्ट करा. तुमचे Lichess वापरकर्तानाव सांगा, आणि काहीही माहिती जे आम्हाला व तुम्हाला मदत करेल.</string>
+  <string name="monetiseNotInterested">आम्हाला Lichess मधून कोणत्याही प्रकारे पैसे कमवण्यात आवड नाही.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">आम्ही कधीही कोणत्याही प्रकारच्या जाहिराती दाखवणार नाही व आम्ही कधीही आमच्या वापरकर्त्यांची वैयक्तिक माहिती कोणालाही विकणार नाही.</string>
+  <string name="monetiseNoMarketingEmail">कृपया जाहिरातींबाबत आम्हाला ई-मेल करू नका.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">आम्ही प्रत्येकाला प्रोत्साहित करतो कि ते %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">सर्व जाहिराती आणि देठ करणाऱ्या संस्थेंना बंद करा</string>
+  <string name="ourDiscordServer">आमचे Discord सर्व्हर</string>
 </resources>

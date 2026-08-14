@@ -343,8 +343,8 @@ export const registerMultipleSelect = () => {
           .removeClass('placeholder')
           .html(
             this.options.countSelected
-              .replace('#', selects.length + '')
-              .replace('%', this.$selectItems.length + this.$disableItems.length + ''),
+              .replace('#', String(selects.length))
+              .replace('%', String(this.$selectItems.length + this.$disableItems.length)),
           );
       } else {
         $span.removeClass('placeholder').text(selects.join(this.options.delimiter));
@@ -401,8 +401,7 @@ export const registerMultipleSelect = () => {
           if (!$selected.length) {
             return;
           }
-          html.push('[');
-          html.push(text);
+          html.push('[', text);
           if ($children.length > $selected.length) {
             const list: string[] = [];
             $selected.each(function () {

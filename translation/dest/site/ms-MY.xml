@@ -761,7 +761,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="gameInProgress">Permainan anda dengan %s masih berjalan.</string>
   <string name="abortTheGame">Batalkan permainan</string>
   <string name="resignTheGame">Menyerah kalah</string>
-  <string name="youCantStartNewGame">Anda tidak boleh memulakan permainan baru sehingga permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
   <string name="switchSides">Tukar pihak</string>

@@ -161,7 +161,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             standardFlash,
             div(cls := "box streamer")(
               bits.header(s),
-              div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
+              div(cls := "description")(richText(s.streamer.description.so(_.value))),
               ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
                 perfRatings),
               activities

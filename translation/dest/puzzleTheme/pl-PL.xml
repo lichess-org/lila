@@ -54,15 +54,19 @@
   <string name="endgame">Końcówka</string>
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
   <string name="epauletteMate">Mat naramiennikowy</string>
+  <string name="epauletteMateDescription">Oba pola ucieczki w bok są zajęte przez inne bierki.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="exposedKingDescription">Taktyka z udziałem króla z kilkoma jego obrońcami, często prowadząca do mata.</string>
   <string name="fork">Widełki</string>
   <string name="forkDescription">Ruch, w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Posunięcie, którym bierka atakuje równocześnie dwie lub więcej bierek przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
   <string name="hangingPieceDescription">Taktyka wykorzystująca możliwość zbicia niebronionej lub niedostatecznie bronionej bierki przeciwnika.</string>
   <string name="hookMate">Mat haka</string>
   <string name="hookMateDescription">Mat wieżą, skoczkiem i pionkiem z wrogim pionem blokującym ucieczkę króla.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Mat za pomocą wieży, skoczka i piona, gdzie pion przeciwnika blokuje ucieczkę króla.</string>
   <string name="interference">Przesłona</string>
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>
@@ -76,7 +80,7 @@
   <string name="swallowstailMate">Mat \"jaskółczy ogon\"</string>
   <string name="triangleMate">Mat trójkątny</string>
   <string name="triangleMateDescription">Hetman i wieża ustawione na tej samej linii matują króla przeciwnika, stojąc bezpośrednio przy nim i tworząc trójkąt.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vukovic\'a</string>
+  <string name="vukovicMate">Mat Vukovic\'a</string>
   <string name="vukovicMateDescription">Para wieża i skoczek matują króla przeciwnika. Wieża wspierana przez trzecią bierkę daje mata, podczas gdy skoczek blokuje królowi przeciwnika wszystkie pola ucieczki.</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Ein ny Lichess mobilapp er tilgjengeleg!</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Last ned den nye offisielle Lichess-appen på %s.</string>
+  <string name="lichobileNewAppAvailable">Ein ny Lichess mobilapp er tilgjengeleg!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Last ned den nye offisielle Lichess-appen på %s.</string>
+  <string name="modActionFeedback" comment="Users receive this as a message if another user they reported for poor behaviour via https://lichess.org/report has had action taken on their account.&#10;&#10;The message should be kept vague and generic, as it could be sent after infractions of various kinds.&#10;&#10;The logic is written so that users will only get this message if moderators implemented some kind of restriction on the other user's account. It will not be sent if moderators choose to take no action at all after reading a user's report.">Hei,
+
+Vi har gått gjennom den siste meldinga di og tatt affære. Sjølv om vi ikkje kan gje deg meir detaljert informasjon om kva som er gjort, set vi pris på meldinga di.
+
+ Takk for at du bidreg til at Lichess framleis kan vera ein god stad for alle.</string>
 </resources>

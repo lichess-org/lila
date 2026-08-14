@@ -91,11 +91,6 @@ export interface CevalEngine {
   destroy(): void;
 }
 
-export interface EvalMeta {
-  path: string;
-  threatMode: boolean;
-}
-
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
@@ -124,6 +119,7 @@ export interface CevalOpts {
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfoFromServer[];
   custom?: CustomCeval; // hides switch, threat, and go deeper buttons
+  hideErrors?: boolean;
 }
 
 export interface Hovering {
@@ -150,7 +146,7 @@ export interface CevalHandler {
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  showFishnetAnalysis?: () => boolean;
+  showEvaluation?: () => boolean;
 }
 
 export interface NodeEvals {

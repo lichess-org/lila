@@ -2,10 +2,10 @@ import { povChances } from 'lib/ceval/winningChances';
 import type { TreeWrapper } from 'lib/tree';
 import type { Glyph, TreeNode, TreePath } from 'lib/tree/types';
 
-const glyphs = {
-  inaccuracy: { id: 6, symbol: '?!', name: 'Inaccuracy' } as Glyph,
-  mistake: { id: 2, symbol: '?', name: 'Mistake' } as Glyph,
-  blunder: { id: 4, symbol: '??', name: 'Blunder' } as Glyph,
+const glyphs: Record<string, Glyph> = {
+  inaccuracy: { id: 6, symbol: '?!', name: 'Inaccuracy' },
+  mistake: { id: 2, symbol: '?', name: 'Mistake' },
+  blunder: { id: 4, symbol: '??', name: 'Blunder' },
 };
 
 export default class LiveAnnotate {

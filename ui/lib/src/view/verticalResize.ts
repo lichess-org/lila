@@ -3,7 +3,7 @@ import { isSafari } from '@/device';
 import { myUserId } from '@/index';
 import { storedMap } from '@/storage';
 
-import { hl, type VNode } from './snabbdom';
+import { hl, onInsert, type VNode } from './snabbdom';
 
 interface Opts {
   selector?: string; // selector for element to resize, defaults to the previous sibling
@@ -23,9 +23,7 @@ export function verticalResize(o: Opts): VNode {
     'div.vertical-resize',
     {
       hook: {
-        insert: vn => {
-          const divider = vn.elm as ResizerElement;
-
+        ...onInsert<ResizerElement>(divider => {
           function getSelectorElement(o: Opts) {
             return o.selector
               ? document.querySelector<HTMLElement>(o.selector)!
@@ -74,7 +72,7 @@ export function verticalResize(o: Opts): VNode {
             window.addEventListener('pointerup', up);
             window.addEventListener('pointercancel', up);
           });
-        },
+        }),
         destroy: vn => (vn.elm as ResizerElement).observer?.disconnect(),
       },
     },

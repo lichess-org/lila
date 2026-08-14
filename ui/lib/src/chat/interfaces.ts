@@ -1,6 +1,5 @@
 import type { VNode } from 'snabbdom';
 
-import type { Prop } from '@/index';
 import type { EnhanceOpts } from '@/richText';
 export type { ChatCtrl } from './chatCtrl';
 
@@ -39,7 +38,6 @@ export interface ChatData {
   resourceId: string; // team:<id>
   loginRequired: boolean;
   restricted: boolean;
-  voiceChat: boolean;
   hostIds?: string[];
   opponentId?: string;
 }
@@ -60,12 +58,6 @@ export interface Permissions {
   broadcast?: boolean;
   timeout?: boolean;
   shadowban?: boolean;
-}
-
-export interface VoiceChatData {
-  instance?: VoiceChat;
-  loaded: boolean;
-  enabled: Prop<boolean>;
 }
 
 export interface ViewModel {
@@ -121,8 +113,4 @@ export interface ModerationHistoryEntry {
   reason: ModerationReason;
   mod: string;
   date: number;
-}
-
-export interface VoiceChat {
-  render(): VNode | undefined;
 }

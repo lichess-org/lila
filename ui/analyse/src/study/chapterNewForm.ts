@@ -17,7 +17,7 @@ import {
   spinnerVdom,
   type Dialog,
   type VNode,
-  iconCls,
+  icon,
 } from 'lib/view';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 
@@ -48,7 +48,7 @@ export const fieldValue = (e: Event, id: string) =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
-  dialog: Dialog | undefined;
+  dialog?: Dialog;
   isOpen = toggle(false, val => {
     if (!val) this.dialog?.close();
   });
@@ -59,7 +59,7 @@ export class StudyChapterNewForm {
   isDefaultName = toggle(true);
   orientation: Color | 'automatic';
   chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
-  selectedVariant: Prop<VariantKey> = prop('standard' as VariantKey);
+  selectedVariant: Prop<VariantKey> = prop('standard');
 
   constructor(
     private readonly send: StudySocketSend,
@@ -170,7 +170,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
       dlg.show();
@@ -300,7 +299,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [iconCls(licon.Eye, 'text'), i18n.study.editor],
+                [icon(licon.Eye)('.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&

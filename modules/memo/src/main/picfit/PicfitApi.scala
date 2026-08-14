@@ -1,7 +1,7 @@
 package lila.memo
 
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -195,9 +195,8 @@ final class PicfitApi(
         .delete()
         .addEffect: res =>
           if res.status / 100 != 2 then
-            logger
-              .branch("picfit")
-              .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
+            logger.error:
+              s"picfit deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}"
         .addEffectAnyway:
           cloudflareApi.purge(image.urls)
         .void
