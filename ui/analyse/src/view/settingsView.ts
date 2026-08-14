@@ -66,6 +66,11 @@ const settings: Record<SettingKey, Setting> = {
       ${imageHtml('info-maneuver-arrows')}
       <span>${i18n.preferences.maneuverArrowsHelp}</span>`,
   },
+  showArrowRanks: {
+    // plain string, as showManeuverMoveArrows was before it got a translation key
+    label: 'Number engine lines',
+    group: i18n.preferences.boardSettings,
+  },
   showMoveAnnotationsOnBoard: {
     label: i18n.preferences.showMoveAnnotationsOnBoard,
     group: i18n.preferences.boardSettings,

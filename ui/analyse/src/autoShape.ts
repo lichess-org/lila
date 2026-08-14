@@ -3,8 +3,9 @@ import { opposite } from '@lichess-org/chessground/util';
 import { between, ray, knightAttacks } from 'chessops/attacks';
 import { parseFen } from 'chessops/fen';
 import { isDrop, type Square } from 'chessops/types';
-import { parseUci, makeSquare } from 'chessops/util';
+import { parseUci, makeSquare, squareFile, squareRank } from 'chessops/util';
 
+import { defined } from 'lib';
 import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
@@ -76,6 +77,62 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
   } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
 }
 
+// Numerals are drawn inside a 100 unit box that covers one square, so these are all
+// hundredths of a square.
+const RANK_FONT_SCALE = 2.2; // font-size tracks the brush's lineWidth...
+const RANK_FONT_MIN = 15; // ...but the faintest lines have an 8px head, so it is floored
+const RANK_OUTLINE_WIDTH = 1.35; // ~1px on a 600px board
+
+// chessground 10.1.1 svg.ts, in 64ths of a square
+const CG_LABEL_COORDS_BACK = 33; // labelCoords, back from the destination
+const CG_ARROW_MARGIN = 10; // arrowMargin, how far short of it the line stops
+const CG_PALE_BLUE_LINE_WIDTH = 15; // brushes.paleBlue.lineWidth, ie the rank 1 arrow
+// ...and in stroke-widths, of which the head's marker path `M0,0 V4 L3,2 Z` is 3 long.
+// Its refX is what catches you out: the point pinned to the line's end is inside the
+// triangle rather than at the tip.
+const CG_MARKER_REF_X = 2.05;
+const RANK_HEAD_FRACTION = 1.35; // where the numeral sits in those units: 0 base, 3 tip
+
+// Label anchor to RANK_HEAD_FRACTION along the head, in hundredths of a square. A shared
+// destination needs no special case, since labelCoords and arrowMargin both grow by
+// 10/64 and cancel; a knight boxed in by a neighbour does not, and sits behind its head.
+const headOffset = (lineWidth: number): number =>
+  ((CG_LABEL_COORDS_BACK - CG_ARROW_MARGIN + (RANK_HEAD_FRACTION - CG_MARKER_REF_X) * lineWidth) / 64) * 100;
+
+function rankShape(rank: number, uci: Uci, lineWidth: number, flip: boolean): DrawShape | undefined {
+  const move = parseUci(uci);
+  if (!move || isDrop(move)) return undefined; // a drop is a circle, not an arrow
+  const { from, to } = move;
+  // chessground user coords: x grows with file, y grows *downward*, and flipping the
+  // board negates both
+  const dx = squareFile(to) - squareFile(from),
+    dy = squareRank(from) - squareRank(to),
+    mag = Math.sqrt(dx * dx + dy * dy) || 1,
+    off = headOffset(lineWidth) * (flip ? -1 : 1),
+    x = 50 + (dx / mag) * off,
+    y = 50 + (dy / mag) * off,
+    size = Math.max(RANK_FONT_SCALE * lineWidth, RANK_FONT_MIN),
+    at = (n: number) => n.toFixed(1);
+
+  // `fill` must be a css declaration, not a presentation attribute, or var() will not
+  // substitute. Opacity is pinned so the numeral survives the faintest arrows.
+  const style =
+    `fill:var(--c-font);fill-opacity:1;stroke:#000;stroke-width:${RANK_OUTLINE_WIDTH};` +
+    `stroke-opacity:1;paint-order:stroke`;
+
+  return {
+    orig: makeSquare(from),
+    dest: makeSquare(to),
+    customSvg: {
+      html:
+        `<text x="${at(x)}" y="${at(y)}" font-family="Noto Sans,Arial,sans-serif"` +
+        ` font-weight="bold" font-size="${at(size)}" style="${style}"` +
+        ` text-anchor="middle" dominant-baseline="central">${rank}</text>`,
+      center: 'label',
+    },
+  };
+}
+
 export function makeShapesFromUci(
   color: Color,
   uci: Uci | undefined,
@@ -134,22 +191,33 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const bestPvMoves = nCeval ? nCeval.pvs[0]?.moves : undefined;
       const nextBest = bestPvMoves?.[0] || ctrl.nextNodeBest();
 
+      // one entry per ranked arrow drawn below, ranked by index into nCeval.pvs so a
+      // dropped line leaves a gap rather than renumbering the survivors
+      const ranked: { rank: number; uci: Uci; lineWidth: number }[] = [];
+
       if (nextBest) {
         drawManeuver(ctrl, color, bestPvMoves || [nextBest], 'paleBlue', shapes);
+        // first move only: with maneuver arrows on, drawManeuver draws successive moves
+        // of the same pv, which are not ranks
+        if (bestPvMoves) ranked.push({ rank: 1, uci: nextBest, lineWidth: CG_PALE_BLUE_LINE_WIDTH });
       }
 
       if (nCeval?.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
-        nCeval.pvs.forEach(function (pv) {
+        nCeval.pvs.forEach(function (pv, i) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(
-              makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
-                lineWidth: Math.round(12 - shift * 50), // 12 to 2
-              }),
-            );
+            const lineWidth = Math.round(12 - shift * 50); // 12 to 2
+            shapes = shapes.concat(makeShapesFromUci(color, pv.moves[0], 'paleGrey', { lineWidth }));
+            ranked.push({ rank: i + 1, uci: pv.moves[0], lineWidth });
           }
         });
+      }
+
+      // a lone "1" is noise. Judged on the arrows drawn, not on multiPv, which overcounts
+      if (ctrl.settings.showArrowRanks && ranked.length > 1) {
+        const flip = ctrl.bottomColor() === 'black';
+        shapes = shapes.concat(ranked.map(r => rankShape(r.rank, r.uci, r.lineWidth, flip)).filter(defined));
       }
     }
   }

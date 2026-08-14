@@ -10,6 +10,7 @@ export class Settings {
     public readonly showLiveAnnotations = false,
     public readonly showBestMoveArrows = true,
     public readonly showManeuverMoveArrows = false,
+    public readonly showArrowRanks = true,
     public readonly showVariationArrows = true,
     public readonly showMoveAnnotationsOnBoard = true,
     public readonly showUndefendedPieces = false,
