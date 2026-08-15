@@ -184,9 +184,14 @@ final class UblogApi(
     yield scala.util.Random.shuffle(mix).take(6)
 
   private def sendPostToZulip(user: LightUser, post: UblogPost, blog: UblogBlog): Funit =
-    val source =
-      if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier"
-      else post.automod.fold("unknown")(_.quality.name) + " quality"
+    val topic =
+      if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier new posts"
+      else
+        post.automod.map(_.quality) match
+          case None => "unknown quality"
+          case Some(Quality.good) if post.isPendingQuality => "good posts from unproved authors"
+          case Some(Quality.good) => "good posts from reliable authors"
+          case Some(q) => s"$q quality new posts"
     val emdashes = post.markdown.value.count(_ == '—')
     val automodNotes = post.automod.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
@@ -201,7 +206,7 @@ final class UblogApi(
       slug = post.slug,
       title = post.title,
       intro = post.intro,
-      topic = s"$source new posts",
+      topic = topic,
       automodNotes
     )
 
