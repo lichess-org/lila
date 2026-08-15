@@ -182,7 +182,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>
-            val cost = if me.isVerified then 5 else if Granter.of(_.ApiHog)(me) then 2 else 10
+            val cost = if Granter.of(_.ApiHog)(me) then 2 else if me.isVerified then 5 else 10
             auth(me.userId, limited(limitMessage), cost)(res)
           case None if client.isMobile => mobile(ctx.ip, limited(limitMessage))(res)
           case None => anon(ctx.ip, limited(limitMessage))(res)
