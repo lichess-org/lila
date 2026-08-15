@@ -106,13 +106,11 @@ final class MsgApi(
     pref <- prefApi.getMessage(userId)
   yield ContactDetailsForMods(kid, pref == lila.core.pref.Message.ALWAYS)
 
-  def delete(username: UserStr)(using me: Me): Funit =
-    val threadId = MsgThread.id(me, username.id)
-    colls.msg.update
-      .one($doc("tid" -> threadId), $addToSet("del" -> me.userId), multi = true) >>
-      colls.thread.update
-        .one($id(threadId), $addToSet("del" -> me.userId))
-        .void
+  def delete(username: UserStr)(using me: Me): Funit = for
+    threadId = MsgThread.id(me, username.id)
+    _ <- colls.msg.update.one($doc("tid" -> threadId), $addToSet("del" -> me.userId), multi = true)
+    _ <- colls.thread.update.one($id(threadId), $addToSet("del" -> me.userId))
+  yield ()
 
   def post(
       orig: UserId,
