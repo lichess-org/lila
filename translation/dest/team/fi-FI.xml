@@ -35,6 +35,9 @@
   <string name="teamTournament">Joukkueen sisäinen turnaus</string>
   <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat osallistua</string>
   <string name="swissTournamentOverview">Sveitsiläinen turnaus, johon vain joukkueesi jäsenet voivat osallistua</string>
+  <string name="teamUpdates">Joukkueilmoitukset</string>
+  <string name="subToTeamUpdates">Tilaa joukkueilmoitukset</string>
+  <string name="newTeamUpdate">Uusi joukkueilmoitus</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
   <string name="leadersChat">Johtajien keskustelu</string>

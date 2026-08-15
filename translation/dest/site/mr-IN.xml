@@ -835,7 +835,6 @@
   <string name="deviceTheme">उपकरणानुसार</string>
   <string name="roundness">वर्तुळाकारता</string>
   <string name="backgroundImageUrl">पार्श्वभूमी चित्रासाठी URL:</string>
-  <string name="backgroundImageOpacity">पार्श्वभूमीवरच्या चित्राचे अपारदर्शकता:</string>
   <string name="board">पट</string>
   <string name="size">आकार</string>
   <string name="opacity">अपारदर्शकता</string>

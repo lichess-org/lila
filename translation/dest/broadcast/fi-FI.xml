@@ -58,6 +58,7 @@
   <string name="subscribeTitle">Tilaa ilmoitukset kunkin kierroksen alkamisesta. Käyttäjätunnuksesi asetuksista voit kytkeä ääni- ja puskuilmoitukset päälle tai pois.</string>
   <string name="uploadImage">Lisää turnauksen kuva</string>
   <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
+  <string name="noPlayersYet">Pelaajia ei vielä ole. Niitä tulee sitä mukaa, kun tänne ladataan pelejä.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
   <string name="startsAfter">Alkaa %s:n jälkeen</string>
   <string name="startVerySoon">Lähetys alkaa aivan pian.</string>

@@ -55,8 +55,8 @@
   <string name="overview">概要</string>
   <string name="subscribeTitle">登録しておくと各ラウンドの開始時に通知が来ます。アカウント設定でベルやプッシュ通知の切り替えができます。</string>
   <string name="uploadImage">トーナメントの画像をアップロード</string>
-  <string name="noBoardsYet">ボードはまだありません。棋譜がアップロードされると表示されます。</string>
-  <string name="noPlayersYet">プレイヤーがまだありません。棋譜がアップロードされると表示されます。</string>
+  <string name="noBoardsYet">ボード情報はまだありません。対局が掲載されると表示されます。</string>
+  <string name="noPlayersYet">プレイヤー情報はまだありません。棋譜が掲載されると表示されます。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ボードはソースまたは %s 経由で読み込めます</string>
   <string name="startsAfter">%s 後に開始</string>
   <string name="startVerySoon">中継はまもなく始まります。</string>

@@ -18,26 +18,21 @@ object UblogAutomod:
 
   private val schemaVersion = 1
 
+  // not actually an automod assessment, as mods can edit it :-/
+  // except for the quality which now lives in UblogPost
   case class Assessment(
       quality: Quality,
       flagged: Option[String] = none,
       commercial: Option[String] = none,
       evergreen: Option[Boolean] = none,
       hash: Option[String] = none,
-      lockedBy: Option[UserId] = none,
       version: Int = schemaVersion
   ):
     def updateByLLM(llm: Assessment): Assessment =
-      if lockedBy.isDefined then
-        copy(
-          flagged = flagged.orElse(llm.flagged),
-          commercial = commercial.orElse(llm.commercial)
-        )
-      else
-        llm.copy(
-          quality = Quality.fromOrdinal:
-            llm.quality.ordinal.atLeast(quality.ordinal)
-        )
+      llm.copy(
+        quality = Quality.fromOrdinal:
+          llm.quality.ordinal.atLeast(quality.ordinal)
+      )
 
   private case class FuzzyResult(
       quality: String,

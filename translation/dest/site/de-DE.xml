@@ -837,7 +837,7 @@
   <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="roundness">Rundheit</string>
   <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
-  <string name="backgroundImageOpacity">Deckkraft des Hintergrundbilds:</string>
+  <string name="imageOpacity">Deckkraft des Bildes</string>
   <string name="board">Brett</string>
   <string name="size">Größe</string>
   <string name="opacity">Transparenz</string>
