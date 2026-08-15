@@ -34,7 +34,7 @@ import * as atomic from './atomic';
 import * as blur from './blur';
 import * as cevalSub from './cevalSub';
 import { CorresClockController } from './corresClock/corresClockCtrl';
-import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook, onDrop as crazyOnDrop } from './crazy/crazyCtrl';
 import * as ground from './ground';
 import type {
   Step,
@@ -171,6 +171,7 @@ export default class RoundController implements MoveRootCtrl {
     if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
+    crazyOnDrop(this);
   };
 
   private readonly onMove = (orig: Key, dest: Key, captured?: Piece) => {
