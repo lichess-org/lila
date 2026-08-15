@@ -36,7 +36,7 @@ final class ForumBits(helpers: Helpers):
   val dataTopic = attr("data-topic")
   val dataUnsub = attr("data-unsub")
 
-  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Translate, Context) =
+  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Context) =
     bits.markdownEditor(MarkdownRealm.forum):
       form3.textarea(field, "post-text-area")(
         rows := 10,

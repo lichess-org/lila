@@ -9,10 +9,4 @@ enum MarkdownRealm(val maxImageCount: Int, val imageDesignWidth: Int, val toastU
   def key = toString
 
 object MarkdownRealm:
-  def apply(s: String): Option[MarkdownRealm] = s.trim.toLowerCase match
-    case s if s.startsWith("broadcast") => MarkdownRealm.broadcast.some
-    case s if s.startsWith("team") => MarkdownRealm.team.some
-    case s if s.startsWith("forum") => MarkdownRealm.forum.some
-    case s if s.startsWith("blog") => MarkdownRealm.blog.some
-    case s if s.startsWith("cms") => MarkdownRealm.cms.some
-    case _ => none
+  def from(s: String): Option[MarkdownRealm] = values.find(_.key.startsWith(s))

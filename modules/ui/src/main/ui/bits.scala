@@ -117,7 +117,7 @@ object bits:
       imageGetOrigin: ImageGetOrigin
   )(using ctx: Context) =
     val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
-    val canUploadImages = ctx.me.exists(me => lila.core.security.canUploadImages(realm.key)(using me))
+    val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
     val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
     val imageUploadButton = (!realm.toastUi && canUploadImages).option:
       button(cls := "upload-image", tpe := "button", title := "Upload image")
