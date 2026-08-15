@@ -69,28 +69,6 @@ object UblogForm:
       move: String
   ) extends WithCaptcha:
 
-    def create(user: User) =
-      UblogPost(
-        id = UblogPost.randomId,
-        blog = UblogBlog.Id.User(user.id),
-        title = title,
-        intro = intro,
-        markdown = markdown,
-        language = language.orElse(user.realLang.map(toLanguage)) | defaultLanguage,
-        topics = topics.so(UblogTopic.fromStrList),
-        image = none,
-        live = false,
-        discuss = Option(false),
-        sticky = Option(false),
-        ads = Option(false),
-        created = UblogPost.Recorded(user.id, nowInstant),
-        updated = none,
-        lived = none,
-        featured = none,
-        likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0)
-      )
-
     def update(user: User, prev: UblogPost) =
       prev.copy(
         title = title,
