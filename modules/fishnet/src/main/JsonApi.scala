@@ -15,7 +15,7 @@ object JsonApi:
 
   object Request:
 
-    def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= 301)
+    def isValid(js: JsValue): Boolean = js.arr("analysis").forall(_.value.sizeIs <= Analyser.maxPlies + 1)
 
     case class Stockfish(
         flavor: Option[String]
