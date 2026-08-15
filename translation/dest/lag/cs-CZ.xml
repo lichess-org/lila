@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Je Lichess zpožďený?</string>
+  <string name="isLichessLagging">Je Lichess zpožděný?</string>
   <string name="measurementInProgressThreeDot">Probíhá měření...</string>
   <string name="noAndYourNetworkIsGood">Ne. Vaše připojení je dostatečné.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Ne. Vaše připojení není dostatečné.</string>
@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">A nyní dlouhá odpověď! Zpožďování hry se skládá ze dvou spolu nesouvisejících hodnot (nižší je lepší):</string>
   <string name="lichessServerLatency">Zpoždění Lichess serveru</string>
   <string name="lichessServerLatencyExplanation">Čas, který trvá zpracovat tah na serveru. Je stejný pro všechny a závisí pouze na vytížení serveru, čili čím více hráčů, tím větší zpoždění, ale vývojáři Lichess dělají vše pro to, aby tato hodnota zůstala co nejnižší. Zřídka přesahuje 10 ms.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">Čas, který server potřebuje ke zpracování tahu. Je stejný pro všechny a závisí pouze na zatížení serveru. Čím více hráčů je připojeno, tím je zpoždění větší, ale děláme vše pro to, aby zůstalo co nejnižší. Málokdy přesáhne 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Připojení mezi Lichessem a vámi</string>
   <string name="networkBetweenLichessAndYouExplanation">Doba, kterou trvá odeslat tah z vašeho počítači na server Lichess, a cesta zpátky. Tato hodnota závisí na vaší vzdálenosti k Lichess serverům (Francie), a kvalitě vašeho internetového připojení. Vývojáři Lichess nemají schopnosti k tomu, aby zpravili Vaší WiFi, či aby zrychlili rychlost světla.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Obě tyto hodnoty můžete zjistit kdykoli kliknutím na své uživatelské jméno v horní liště.</string>
