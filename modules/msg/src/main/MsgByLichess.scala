@@ -35,28 +35,6 @@ final class MsgByLichess(
                     yield false
                   case _ => fuccess(true)
 
-  object emailReminder:
-    def apply(userId: UserId) = cache.get(userId)
-    private val text = s"""Hello,
-
-As you have an early Lichess account, no email was required when you registered.
-
-However this makes it easy for you to lose access to your account.
-If you forget your password, or if your password is leaked from another website, or if we decide that your password is too easy-to-guess to be secure, your account will be lost.
-
-Please visit $baseUrl/account/email to set your account email address. That way, you'll be able to reset your password when needed."""
-    private val cache = mongoCache[UserId, Boolean](1024, "security:email:reminder", 10.days, _.value):
-      loader =>
-        _.expireAfterWrite(3.hours)
-          .maximumSize(8 * 1024)
-          .buildAsyncFuture:
-            loader: userId =>
-              userApi
-                .enabledById(userId)
-                .flatMap:
-                  _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
-                    for _ <- api.systemPost(SystemMsg.mustRead(user.id, text)) yield false
-
   def lichobileDeprecationMessage(user: lila.core.user.User) =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
     val text =
