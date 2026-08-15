@@ -59,6 +59,9 @@ case class UblogPost(
       quality = d.quality | quality
     )
 
+  def isPendingQuality =
+    modQuality.isEmpty && automod.exists(_.quality == Quality.good) && quality == Quality.weak
+
   private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
     val q = modQuality | automod
       .map(_.quality)

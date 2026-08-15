@@ -122,6 +122,7 @@ final class UblogPaginator(
       case QualityFilter.best => $doc("automod.quality".$gte(if offTopic then Quality.weak else Quality.good))
       case QualityFilter.weak => $doc("automod.quality".$eq(Quality.weak))
       case QualityFilter.spam => $doc("automod.quality".$eq(Quality.spam))
+      case QualityFilter.pending => pendingReviewSelect
 
   object liveByFollowed:
 

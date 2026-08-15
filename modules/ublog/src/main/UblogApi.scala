@@ -327,7 +327,7 @@ final class UblogApi(
     colls.post.update.one($id(post.id), $set(sets)).void
 
   private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
-    val nbPosts = 5
+    val nbPosts = 4
     colls.post
       .find($doc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), $doc("quality" -> true).some)
       .sort($sort.desc("lived.at"))
