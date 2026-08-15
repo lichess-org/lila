@@ -571,7 +571,7 @@
   <string name="name">Назив</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватни опис</string>
-  <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
+  <string name="descPrivateHelp">Текст који ће видети само чланови тима. Ако је постављен, замењује јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="website">Интернет страница</string>

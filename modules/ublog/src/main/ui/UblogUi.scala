@@ -472,8 +472,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       filterOpt.isDefined.option(
         span(
           "Show",
-          if Granter.opt(_.ModerateBlog) then span(cls := "btn-rack")(QualityFilter.values.map(filterBtn))
-          else span(cls := "btn-rack")(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
+          span(cls := "btn-rack"):
+            if Granter.opt(_.ModerateBlog) then QualityFilter.values.map(filterBtn)
+            else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
         )
       ),
       sortOpt.map: by =>

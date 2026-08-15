@@ -46,7 +46,6 @@ export class ThemeCtrl extends PaneCtrl {
 
     return div('.sub.theme', [
       header(i18n.site.theme, this.close),
-      label(i18n.site.background),
       div('.selector.large', [
         this.list.map(bg => {
           return button(
@@ -62,6 +61,15 @@ export class ThemeCtrl extends PaneCtrl {
           );
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
+        cur === 'transp'
+          ? this.propSlider(
+              'bg-opacity',
+              i18n.site.imageOpacity,
+              { min: 5, max: 100, step: 1 },
+              val => `${val}%`,
+              '',
+            )
+          : null,
       ]),
       cur === 'transp' ? (this.backgroundData.gallery ? this.galleryInput() : this.imageInput()) : null,
     ]);
@@ -140,13 +148,6 @@ export class ThemeCtrl extends PaneCtrl {
           );
         }),
       }),
-      this.propSlider(
-        'bg-opacity',
-        i18n.site.backgroundImageOpacity,
-        { min: 5, max: 100, step: 1 },
-        val => `${val}%`,
-        '',
-      ),
     ]);
 
   private readonly galleryInput = () => {

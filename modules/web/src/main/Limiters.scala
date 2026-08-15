@@ -166,7 +166,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     def opening[A]: ProxyLimit[A] = proxyLimit(openingLimiter)
 
     private val userProfileLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "user.profile.page.proxy")
-    def userProfile[A]: ProxyLimitWithMsg[A] = proxyLimitWithMsg(userProfileLimiter)
+    def userProfile[A]: ProxyLimitWithUri[A] = proxyLimitWithUri(userProfileLimiter)
 
     private val searchLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "search.proxy")
     def search[A]: ProxyLimit[A] = proxyLimit(searchLimiter)
@@ -181,8 +181,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))
 
     private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
-    private type ProxyLimitWithMsg[A] =
-      (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> String) => (=> Fu[A]) => Fu[A]
+    private type ProxyLimitWithUri[A] =
+      (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
     private def proxyLimit[A](
         limiter: RateLimiter[IsProxy],
@@ -194,16 +194,15 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
             if proxy.no || me.isDefined then f
             else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
 
-    private def proxyLimitWithMsg[A](
+    private def proxyLimitWithUri[A](
         limiter: RateLimiter[IsProxy],
         cost: IsProxy ?=> Int = defaultCost
-    ): ProxyLimitWithMsg[A] =
+    ): ProxyLimitWithUri[A] =
       (proxy, req, me) ?=>
         default =>
-          msg =>
-            f =>
-              if proxy.no || me.isDefined then f
-              else limiter(proxy, default, cost, msg = s"${HTTPRequest.ipAddressStr(req)} $msg")(f)
+          f =>
+            if proxy.no || me.isDefined then f
+            else limiter(proxy, default, cost, msg = s"${HTTPRequest.ipAddressStr(req)} ${req.uri}")(f)
 
     private def defaultCost(using proxy: IsProxy): Int =
       if proxy.isFloodish then maxCost

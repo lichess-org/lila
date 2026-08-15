@@ -78,6 +78,7 @@
   <string name="morphysMate">Mat Morphy\'ego</string>
   <string name="morphysMateDescription">Goniec daje mata w narożniku, a wieża blokuje pola ucieczki w sąsiedniej kolumnie.</string>
   <string name="swallowstailMate">Mat \"jaskółczy ogon\"</string>
+  <string name="swallowstailMateDescription">Wzorzec mata, który wizualnie przypomina jaskółczy ogon w kształcie litery V.</string>
   <string name="triangleMate">Mat trójkątny</string>
   <string name="triangleMateDescription">Hetman i wieża ustawione na tej samej linii matują króla przeciwnika, stojąc bezpośrednio przy nim i tworząc trójkąt.</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>

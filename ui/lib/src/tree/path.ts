@@ -16,6 +16,8 @@ export const last = (path: TreePath): string => path.slice(-2);
 
 export const contains = (p1: TreePath, p2: TreePath): boolean => p1.startsWith(p2);
 
+export const areComparable = (p1: TreePath, p2: TreePath): boolean => contains(p1, p2) || contains(p2, p1);
+
 export const fromNodeList = (nodes: TreeNode[]): TreePath => nodes.map(n => n.id).join('');
 
 export const isChildOf = (child: TreePath, parent: TreePath): boolean =>

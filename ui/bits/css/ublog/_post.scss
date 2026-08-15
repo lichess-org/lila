@@ -192,7 +192,7 @@
   }
 }
 
-#mod-tools {
+#ublog-mod-tools {
   display: flex;
   gap: 2rem;
 
@@ -282,18 +282,6 @@
       flex: none;
       width: 1.2rem;
       height: 1.2rem;
-    }
-
-    .commercial {
-      color: $c-secondary;
-    }
-
-    .flagged {
-      color: $c-bad;
-    }
-
-    .empty {
-      color: $c-font-dimmer;
     }
   }
 }

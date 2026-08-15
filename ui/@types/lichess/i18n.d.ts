@@ -3255,8 +3255,6 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
-    /** Background image opacity: */
-    backgroundImageOpacity: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -3771,6 +3769,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Image opacity */
+    imageOpacity: string;
     /** Important */
     important: string;
     /** Imported by %s */
