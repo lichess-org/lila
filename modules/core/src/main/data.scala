@@ -24,23 +24,6 @@ object data:
     extension (md: Markdown)
       def unlink: String = md.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
-  enum MarkdownRealm(val maxImageCount: Int, val imageDesignWidth: Int, val toastUi: Boolean):
-    case cms extends MarkdownRealm(100, 900, true)
-    case blog extends MarkdownRealm(10, 800, true)
-    case forum extends MarkdownRealm(5, 864, false)
-    case broadcast extends MarkdownRealm(2, 800, false)
-    case team extends MarkdownRealm(2, 768, false)
-    def key = toString
-
-  object MarkdownRealm:
-    def apply(s: String): Option[MarkdownRealm] = s.trim.toLowerCase match
-      case s if s.startsWith("broadcast") => MarkdownRealm.broadcast.some
-      case s if s.startsWith("team") => MarkdownRealm.team.some
-      case s if s.startsWith("forum") => MarkdownRealm.forum.some
-      case s if s.startsWith("blog") => MarkdownRealm.blog.some
-      case s if s.startsWith("cms") => MarkdownRealm.cms.some
-      case _ => none
-
   opaque type Html = String
   // not an OpaqueString, because we don't want the default Render[Html]
   object Html extends TotalWrapper[Html, String]:

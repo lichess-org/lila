@@ -45,7 +45,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
               form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
               div(cls := "form-group")(
-                bits.markdownEditor(lila.core.data.MarkdownRealm.blog)(
+                bits.markdownEditor(MarkdownRealm.blog)(
                   form3.textarea(form("markdown"))(autocomplete := "off")
                 )
               ),

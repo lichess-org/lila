@@ -210,7 +210,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
         frag("Content"),
         help = trans.site.embedsAvailable().some
       ): field =>
-        bits.markdownEditor(lila.core.data.MarkdownRealm.cms):
+        bits.markdownEditor(MarkdownRealm.cms):
           form3.textarea(field)(autocomplete := "off")
       ,
       form3.split(

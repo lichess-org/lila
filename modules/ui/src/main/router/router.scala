@@ -6,7 +6,6 @@ package routes:
   export chess.Color
   export chess.format.Uci
   export chess.opening.OpeningKey
-  export lila.core.data.MarkdownRealm
   export lila.core.i18n.Language
   export lila.core.id.*
   export lila.core.userId.UserStr
@@ -16,6 +15,7 @@ package routes:
   export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
   export lila.core.misc.AppealTopic
+  export lila.ui.MarkdownRealm
   export lila.ui.LilaRouter.given
 
 package router.router:
@@ -24,7 +24,6 @@ package router.router:
   export chess.Color
   export chess.format.Uci
   export chess.opening.OpeningKey
-  export lila.core.data.MarkdownRealm
   export lila.core.i18n.Language
   export lila.core.id.*
   export lila.core.userId.UserStr
@@ -33,6 +32,7 @@ package router.router:
   export lila.core.socket.Sri
   export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
+  export lila.ui.MarkdownRealm
   export lila.ui.LilaRouter.given
 
 package router.team:

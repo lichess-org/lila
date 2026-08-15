@@ -5,7 +5,6 @@ import java.time.YearMonth
 import chess.format.Fen
 import scalalib.StringOps.addQueryParams
 
-import lila.core.data.MarkdownRealm
 import lila.core.i18n.Translate
 import lila.core.config.ImageGetOrigin
 import lila.ui.ScalatagsTemplate.{ *, given }

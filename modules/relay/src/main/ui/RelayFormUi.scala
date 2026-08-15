@@ -653,7 +653,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               )
               .some
           ): field =>
-            lila.ui.bits.markdownEditor(lila.core.data.MarkdownRealm.broadcast):
+            lila.ui.bits.markdownEditor(MarkdownRealm.broadcast):
               form3.textarea(field)(rows := 10)
         ),
         form3

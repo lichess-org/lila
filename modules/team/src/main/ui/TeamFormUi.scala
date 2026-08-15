@@ -188,5 +188,5 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
         )
 
   private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Context) =
-    lila.ui.bits.markdownEditor(lila.core.data.MarkdownRealm.team):
+    lila.ui.bits.markdownEditor(MarkdownRealm.team):
       form3.textarea(field)(rows := 10)(modifiers)

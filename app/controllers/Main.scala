@@ -2,12 +2,13 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
+import scalalib.model.Language
+
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.data.MarkdownRealm
 import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
-import scalalib.model.Language
+import lila.ui.MarkdownRealm
 
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
