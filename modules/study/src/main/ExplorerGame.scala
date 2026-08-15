@@ -14,6 +14,8 @@ final private class ExplorerGameApi(
     net: lila.core.config.NetConfig
 )(using Executor):
 
+  import ExplorerGameApi.*
+
   def quote(gameId: GameId): Fu[Option[Comment]] =
     explorer(gameId).map2(gameComment)
 
@@ -36,16 +38,33 @@ final private class ExplorerGameApi(
                 position.chapter.addNode(newNode, path).map(_ -> path)
               }
 
-  private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
-    if strict then a == b else a.simple == b.simple
+  private def gameComment(game: Game) =
+    Comment(
+      id = Comment.Id.make,
+      text = CommentStr(s"${gameTitle(game)}, ${gameUrl(game.id)}"),
+      by = Comment.Author.Lichess
+    )
 
-  private def gameNodes(fromNode: Node, game: Root): List[Branch] =
-    val mainline = game.mainline
-    mainline.lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
-      case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
-      case i => mainline.drop(i + 1)
+  private def gameUrl(gameId: GameId) = s"${net.baseUrl}/$gameId"
 
-  private[study] def merge(
+  private def gameTitle(g: Game): String =
+    val tags = g.pgnImport.flatMap(pgni => Parser.tags(pgni.pgn).toOption).getOrElse(Tags.empty)
+    gameTitle(g, tags)
+
+  private def gameTitle(g: Game, tags: Tags): String =
+    val white = tags(_.White) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
+    val black = tags(_.Black) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
+    val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
+    val event: Option[String] =
+      (tags(_.Event), tags.year.map(_.toString)) match
+        case (Some(event), Some(year)) if event.contains(year) => event.some
+        case (Some(event), Some(year)) => s"$event, $year".some
+        case (eventO, yearO) => eventO.orElse(yearO)
+    s"$white - $black, $result, ${event | "-"}"
+
+private object ExplorerGameApi:
+
+  def merge(
       fromNode: Node,
       fromPath: UciPath,
       game: Root,
@@ -74,8 +93,17 @@ final private class ExplorerGameApi(
         acc.fold(branch)(branch.prependChildUnchecked).some
     )
     error.foreach: err =>
-      logger.warn(s"ExplorerGame replay ${gameUrl(gameId)} ${err.value}")
+      logger.warn(s"ExplorerGame replay /$gameId ${err.value}")
     result
+
+  private def gameNodes(fromNode: Node, game: Root): List[Branch] =
+    val mainline = game.mainline
+    mainline.lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
+      case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
+      case i => mainline.drop(i + 1)
+
+  private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
+    if strict then a == b else a.simple == b.simple
 
   private def makeBranch(source: Branch, move: chess.MoveOrDrop, ply: chess.Ply): Branch =
     source.copy(
@@ -85,27 +113,3 @@ final private class ExplorerGameApi(
       crazyData = move.after.crazyData,
       children = Branches.empty
     )
-
-  private def gameComment(game: Game) =
-    Comment(
-      id = Comment.Id.make,
-      text = CommentStr(s"${gameTitle(game)}, ${gameUrl(game.id)}"),
-      by = Comment.Author.Lichess
-    )
-
-  private def gameUrl(gameId: GameId) = s"${net.baseUrl}/$gameId"
-
-  private def gameTitle(g: Game): String =
-    val tags = g.pgnImport.flatMap(pgni => Parser.tags(pgni.pgn).toOption).getOrElse(Tags.empty)
-    gameTitle(g, tags)
-
-  private def gameTitle(g: Game, tags: Tags): String =
-    val white = tags(_.White) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
-    val black = tags(_.Black) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
-    val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
-    val event: Option[String] =
-      (tags(_.Event), tags.year.map(_.toString)) match
-        case (Some(event), Some(year)) if event.contains(year) => event.some
-        case (Some(event), Some(year)) => s"$event, $year".some
-        case (eventO, yearO) => eventO.orElse(yearO)
-    s"$white - $black, $result, ${event | "-"}"

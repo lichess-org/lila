@@ -13,8 +13,6 @@ class ExplorerGameTest extends LilaTest:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
-  private val api = new ExplorerGameApi(null, null, null, null)
-
   private def parse(pgn: PgnStr): Root = StudyPgnImport.result(pgn, Nil).toOption.get.root
 
   private val emptyChapter: (Node, UciPath) = Root.default(Standard) -> UciPath.root
@@ -32,7 +30,7 @@ class ExplorerGameTest extends LilaTest:
       game: Root,
       variant: Variant = Standard
   ): Option[(Branch, UciPath)] =
-    api.merge(cursor._1, cursor._2, game, variant, GameId("explorerG"))
+    ExplorerGameApi.merge(cursor._1, cursor._2, game, variant, GameId("explorerG"))
 
   private def mergeOrFail(cursor: (Node, UciPath), game: Root, variant: Variant = Standard)(using
       munit.Location
