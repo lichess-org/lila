@@ -921,7 +921,7 @@
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
-  <string name="backgroundImageOpacity">Прозорість фонового зображення:</string>
+  <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
   <string name="size">Розмір</string>
   <string name="opacity">Прозорість</string>

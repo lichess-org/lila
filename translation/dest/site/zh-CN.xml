@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">正在等待对手</string>
   <string name="orLetYourOpponentScanQrCode">或让对方扫描此二维码</string>
   <string name="reusableChallengeUrl">可重复使用的挑战链接</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">一个永久链接，任何人都可以使用此设定向您发起挑战。</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">任何人都可以通过该永久链接，按当前设置向您发起挑战。</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">轮到您走棋</string>
   <string name="aiNameLevelAiLevel">%1$s 级别 %2$s</string>
@@ -795,7 +795,7 @@
   <string name="deviceTheme">跟随系统</string>
   <string name="roundness">圆度</string>
   <string name="backgroundImageUrl">背景图片链接：</string>
-  <string name="backgroundImageOpacity">背景图片不透明度：</string>
+  <string name="imageOpacity">图片不透明度</string>
   <string name="board">棋盘</string>
   <string name="size">尺寸</string>
   <string name="opacity">不透明度</string>

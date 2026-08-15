@@ -837,7 +837,7 @@
   <string name="deviceTheme">Tema del dispositivo</string>
   <string name="roundness">Redondez</string>
   <string name="backgroundImageUrl">URL de imagen de fondo:</string>
-  <string name="backgroundImageOpacity">Opacidad de la imagen de fondo: </string>
+  <string name="imageOpacity">Opacidad de la imagen</string>
   <string name="board">Tablero</string>
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidad</string>

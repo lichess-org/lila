@@ -33,6 +33,7 @@
   <string name="crushing">Potrestání</string>
   <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Odtažný šach</string>
+  <string name="discoveredCheckDescription">Táhněte figurou tak, že dáte šach za ní dříve skrytou figurou. Toto často vede k získání rozhodující výhody.</string>
   <string name="doubleBishopMate">Mat dvěma střelci</string>
   <string name="doubleBishopMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi.</string>
   <string name="dovetailMate">Coziův mat</string>
@@ -54,15 +55,18 @@
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktický obrat během poslední fáze hry.</string>
   <string name="enPassantDescription">Taktický prvek obsahující braní mimochodem, v rámci kterého může pěšec vzít pěšce soupeřova, který prošel přes ohrožené pole pomocí tahu o dvě pole z druhé řady.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Taktický prvek obsahující braní mimochodem, kdy může pěšec vzít soupeřova pěšce, který se právě ocitl vedle něj pomocí tahu o dvě pole z počáteční pozice.</string>
   <string name="epauletteMate">Mat typu „Epaulette“</string>
   <string name="exposedKing">Ohrožený král</string>
   <string name="exposedKingDescription">Taktika zahrnují krále s pár obránci okolo něj, obvykle vedoucí k matu.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Tah, kterým tažená figura útočí na dvě protivníkovy figury najednou.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Tah, kterým figura současně zaútočí na dvě nebo více figur soupeře.</string>
   <string name="hangingPiece">Visící figura</string>
   <string name="hangingPieceDescription">Taktika zahrnující nechráněnou nebo nedostatečně chráněnou a zdarma získatelnou protivníkovu figuru.</string>
   <string name="hookMate">Hákový mat</string>
   <string name="hookMateDescription">Mat věží, jezdcem a pěšcem spolu s pěšcem nepřátelským, který blokuje ústup králi.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Mat pomocí věže, jezdce a pěšce když protihráčův pěšec brání králi v úniku.</string>
   <string name="interference">Překrytí</string>
   <string name="interferenceDescription">Tah figurou na pole mezi dvě soupeřovy figury, aby jedna z nich byla nechráněná, například tah jezdcem na chráněné pole mezi dvě soupeřovy věže.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -70,7 +74,9 @@
   <string name="killBoxMate">Mat ve smrtící zóně</string>
   <string name="killBoxMateDescription">Věž je vedle soupeřova krále a je podporován dámou, která též blokuje úniková políčka krále. Věž a dáma tak společně uvězní soupeřova krále ve 3 krát 3 „smrtící zóně“.</string>
   <string name="pillsburysMate">Pillsburyho mat</string>
+  <string name="pillsburysMateDescription">Věž dává mat, zatímco střelec omezuje pohyb krále.</string>
   <string name="morphysMate">Morphyův mat</string>
+  <string name="morphysMateDescription">Dejte králi šach střelcem, zatímco věž omezuje jeho pohyb.</string>
   <string name="swallowstailMate">Mat typu „Swallow\'s tail“</string>
   <string name="triangleMate">Trojúhelníkový mat</string>
   <string name="vukovicMate">Vukovicův mat</string>
@@ -102,6 +108,7 @@
   <string name="opening">Zahájení</string>
   <string name="openingDescription">Taktický obrat v zahájení.</string>
   <string name="operaMate">Mat typu „Opera“</string>
+  <string name="operaMateDescription">Dejte králi šach věží a střelcem pokryjte věž.</string>
   <string name="pawnEndgame">Pěšcové koncovky</string>
   <string name="pawnEndgameDescription">Koncovka pouze s pěšci.</string>
   <string name="pin">Vazba</string>

@@ -921,7 +921,6 @@
   <string name="deviceTheme">Системная</string>
   <string name="roundness">Скругление</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
-  <string name="backgroundImageOpacity">Непрозрачность фонового изображения:</string>
   <string name="board">Доска</string>
   <string name="size">Размер</string>
   <string name="opacity">Непрозрачность</string>
