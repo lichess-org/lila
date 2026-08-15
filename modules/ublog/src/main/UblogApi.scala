@@ -226,15 +226,7 @@ final class UblogApi(
 
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
-      .find(
-        $doc(
-          "live" -> true,
-          "automod.quality" -> Quality.good,
-          "quality" -> Quality.weak,
-          "modQuality".$exists(false)
-        ),
-        postProjection.some
-      )
+      .find($doc("live" -> true) ++ pendingReviewSelect, postProjection.some)
       .sort($sort.desc("lived.at"))
       .one[UblogPost]
 

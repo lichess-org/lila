@@ -112,6 +112,11 @@ function rewireModPost() {
       method: 'post',
       body: form(o),
     });
+    // redirect if response is a redirect
+    if (rsp.redirected) {
+      location.href = rsp.url;
+      return;
+    }
     if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
     modToolsContainer.innerHTML = await rsp.text();
     rewireModPost();

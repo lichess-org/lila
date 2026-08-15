@@ -253,9 +253,12 @@ final class Ublog(env: Env) extends LilaController(env):
             featured <- env.ublog.api.setFeatured(modPost, data)
             newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
+            next <- (newPost.modQuality.isDefined && post.isPendingQuality).so(env.ublog.api.nextToReview)
           yield
             if data.hasUpdates then logModAction(newPost, data.diff(post))
-            Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
+            next match
+              case Some(n) => Redirect(routes.Ublog.post(n.created.by, n.slug, n.id)).flashSuccess
+              case None => Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
       )
   }
 
