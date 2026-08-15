@@ -47,7 +47,7 @@ export function renderVariationPgn(game: Game, nodeList: TreeNode[]): string {
   let variationPgn = '';
 
   const first = filteredNodeList[0];
-  variationPgn += `${plyPrefix(first)}${first.san} `;
+  variationPgn += `${plyPrefix(first)}${fixCrazySan(first.san!)} `;
 
   for (let i = 1; i < filteredNodeList.length; i++) {
     const node = filteredNodeList[i];
