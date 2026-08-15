@@ -31,10 +31,12 @@ final class UblogForm(captcha: CaptchaApi, langList: LangList):
       "move" -> text
     )(UblogPostData.apply)(unapply)
 
-  def create = Form:
+  def apply(post: UblogPost) = if post.isEmpty then create else edit(post)
+
+  private def create = Form:
     base.verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(post: UblogPost) = Form(base).fill:
+  private def edit(post: UblogPost) = Form(base).fill:
     UblogPostData(
       title = post.title,
       intro = post.intro,

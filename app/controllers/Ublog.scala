@@ -12,7 +12,7 @@ import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
 import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
-import lila.ublog.UblogForm.ModPostData
+import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
 import lila.common.HTTPRequest
 
 final class Ublog(env: Env) extends LilaController(env):
@@ -137,19 +137,15 @@ final class Ublog(env: Env) extends LilaController(env):
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        views.ublog.form.edit(
-          post,
-          if post.isEmpty then env.ublog.form.create else env.ublog.form.edit(post),
-          post.isEmpty.option(anyCaptcha)
-        )
+        editView(post, env.ublog.form(post))
       .map(_.hasPersonalData)
   }
 
   def postEditForm(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       Found(env.ublog.api.findEditableByMe(id)): prev =>
-        bindForm(if prev.isEmpty then env.ublog.form.create else env.ublog.form.edit(prev))(
-          err => BadRequest.page(views.ublog.form.edit(prev, err, prev.isEmpty.option(anyCaptcha))),
+        bindForm(env.ublog.form(prev))(
+          err => BadRequest.page(editView(prev, err)),
           data =>
             env.ublog.api.update(data, prev).flatMap { post =>
               logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
@@ -157,6 +153,9 @@ final class Ublog(env: Env) extends LilaController(env):
         )
 
   }
+
+  private def editView(post: UblogPost, form: play.api.data.Form[UblogPostData])(using Context) =
+    views.ublog.form.edit(post, form, post.isEmpty.option(anyCaptcha))
 
   def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
