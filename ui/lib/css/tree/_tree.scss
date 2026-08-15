@@ -7,7 +7,8 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   .#{$name},
-  .#{$name} + lines {
+  .#{$name} + lines,
+  .#{$name} + interrupt {
     --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
   }
 
@@ -417,6 +418,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   inline::before,
   inline::after {
     vertical-align: 0.7em;
+  }
+
+  .disclosure {
+    width: 13px;
+    height: 13px;
+    margin-inline-start: 2px;
   }
 }
 
