@@ -243,36 +243,22 @@ final class Ublog(env: Env) extends LilaController(env):
       yield Redirect(routes.Ublog.modShowCarousel)
   }
 
-  def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
+  def modPost(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      ctx.body.body.validate(using ModPostData.reads) match
-        case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
-        case JsSuccess(data, _) =>
+      bindForm(lila.ublog.UblogForm.modForm)(
+        jsonFormError,
+        data =>
           for
-            mod <- env.ublog.api.modPost(post, data)
-            featured <- env.ublog.api.setFeatured(post, data)
+            modPost <- env.ublog.api.modPost(post, data)
+            featured <- env.ublog.api.setFeatured(modPost, data)
+            newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
+            next <- (newPost.modQuality.isDefined && post.isPendingQuality).so(env.ublog.api.nextToReview)
           yield
-            if data.hasUpdates then logModAction(post, data.diff(post))
-            Ok.snip(
-              views.ublog.post.modTools(
-                post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),
-                carousel.has(post.id)
-              )
-            )
-  }
-
-  def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(postId)): post =>
-      for
-        mod <- env.ublog.api.triggerAutomod(post.copy(automod = none, featured = none))
-        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
-        _ <- logModAction(post, "reassess")
-      yield Ok.snip(
-        views.ublog.post.modTools(
-          post.copy(automod = mod.orElse(post.automod), featured = none),
-          isInCarousel = false
-        )
+            if data.hasUpdates then logModAction(newPost, data.diff(post))
+            next match
+              case Some(n) => Redirect(routes.Ublog.post(n.created.by, n.slug, n.id)).flashSuccess
+              case None => Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
       )
   }
 
