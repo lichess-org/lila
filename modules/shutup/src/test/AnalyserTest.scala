@@ -117,6 +117,7 @@ class AnalyserTest extends munit.FunSuite:
 
   test("with punctuation"):
     assertEquals(find("nigger?"), List("nigger"))
+    assertEquals(find("d|e in hel"), List("d|e in hel"))
 
   test("with slash and plural"):
     assertEquals(find("/Vigger"), List("vigger"))

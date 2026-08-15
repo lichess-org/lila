@@ -310,13 +310,14 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: icon(licon.Multiboard)(),
         shouldBlurIfPrimaryClick: true,
       }),
-      toolButton({
-        ctrl,
-        tab: 'share',
-        hint: i18n.study.shareAndExport,
-        icon: icon(shareIcon())(),
-        shouldBlurIfPrimaryClick: true,
-      }),
+      ctrl.share.shareable() &&
+        toolButton({
+          ctrl,
+          tab: 'share',
+          hint: i18n.study.shareAndExport,
+          icon: icon(shareIcon())(),
+          shouldBlurIfPrimaryClick: true,
+        }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         hl('button.help', {

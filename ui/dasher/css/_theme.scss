@@ -6,7 +6,8 @@
     display: block;
   }
 
-  .ui-roundness .slider-label {
+  .ui-roundness .slider-label,
+  .bg-opacity .slider-label {
     @extend %flex-between;
 
     color: $c-font-dim;
@@ -21,6 +22,10 @@
       font-size: 0.9rem;
       font-family: monospace;
     }
+  }
+
+  .bg-opacity .slider-label {
+    border-top: none;
   }
 
   .range {
