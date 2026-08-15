@@ -47,3 +47,9 @@ private object UblogBsonHandlers:
     )
 
   val userLiveSort = $doc("sticky" -> -1, "lived.at" -> -1)
+
+  val pendingReviewSelect = $doc(
+    "automod.quality" -> Quality.good,
+    "quality" -> Quality.weak,
+    "modQuality".$exists(false)
+  )

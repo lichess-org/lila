@@ -90,7 +90,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PrizeBan extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case ModMessage extends Permission("MOD_MESSAGE", "Send mod messages")
   case Impersonate extends Permission("IMPERSONATE", "Impersonate")
-  case DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")

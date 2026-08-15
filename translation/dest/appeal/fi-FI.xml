@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Tunnustasi ei ole merkitty tai rajoitettu. Kaikki hyvin!</string>
-  <string name="engineMarked">Tunnukseesi on lisätty merkintä ulkoisen avun käytöstä peleissä.</string>
+  <string name="engineMarked">Käyttäjätunnuksellesi on asetettu rajoituksia, koska olet käyttänyt peleissäsi tietokoneen apua.</string>
   <string name="engineMarkedInfo">Määritelmämme mukaan tällä tarkoitetaan mitä tahansa ulkoista apua, jolla vahvistetaan tietojasi ja/tai laskentataitoasi ja tavoitellaan epäreilua etua vastustajaasi nähden. Lue lisää sivulta %s.</string>
   <string name="arenaBanned">Tunnuksesi on estetty liittymästä areenoihin.</string>
   <string name="prizeBanned">Tunnuksesi on estetty pelaamasta turnauksissa, joissa on oikeita palkintoja.</string>
-  <string name="boosterMarked">Tunnukseesi on lisätty merkintä vahvuusluvun manipuloinnista.</string>
-  <string name="boosterMarkedInfo">Määritelmämme mukaan tällä tarkoitetaan vahvuusluvun peukalointia joko häviämällä pelejä tahallisesti tai pelaamalla sellaista tunnusta vastaan, joka häviää pelejä tarkoituksella.</string>
+  <string name="boosterMarked">Käyttäjätunnuksellesi on asetettu rajoituksia vahvuusluvun manipuloinnin ja/tai käyttäjätunnuksen jakamisen takia.</string>
   <string name="accountMuted">Tunnuksesi on mykistetty.</string>
   <string name="accountMutedInfo">Lue meidän %s. Viestintäsääntöjen noudattamatta jättäminen voi johtaa tunnusten mykistämiseen.</string>
   <string name="excludedFromLeaderboards">Tunnuksesi on estetty näkymästä pistetaulukoissa.</string>
-  <string name="excludedFromLeaderboardsInfo">Määritelmämme mukaan tämä tarkoittaa mitä tahansa epäreilua keinoa, jolla tavoitellaan pistetaulukkoon pääsyä.</string>
+  <string name="onlyOneAccountOnLeaderboards">Vain yksi käyttäjätili per henkilö voi esiintyä pistetaulukoissa.</string>
   <string name="closedByModerators">Moderaattorit ovat sulkeneet tunnuksesi.</string>
-  <string name="hiddenBlog">Moderaattorit ovat piilottaneet blogisi.</string>
-  <string name="hiddenBlogInfo">Ole hyvä ja lue uudelleen %s.</string>
+  <string name="blogRestriction">Blogiasi on rajoitettu.</string>
+  <string name="blogRestrictionInfo">Lue %s, sääntöjen rikkominen voi johtaa erinäisiin toimenpiteisiin.</string>
   <string name="playTimeout">Sinulle on asetettu pelitauko.</string>
+  <string name="reportBanned">Et voi raportoida moderaattoreille</string>
+  <string name="reportBannedInfo">Olemme huomanneet, että väärinkäytät raportointijärjestelmäämme. Tämä voi liittyä monenlaisiin syihin, kuten jatkuvaan väärien kategorioiden valintaan, rumaan, epäsovinnaiseen tai loukkaavaan kielenkäyttöön, ylimitoitetun pelimäärän raportointiin tai siihen, ettet ole perustellut miksi vastustaja rikkoi sääntöjä.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Käyttäjätunnuksesi on tilapäisesti estetty pelaamasta.</string>
   <string name="communicationGuidelines">viestintäsääntömme</string>
-  <string name="blogRules">blogisäännöt</string>
+  <string name="blogEtiquette">blogietiketti</string>
   <string name="fairPlay">Reilu peli</string>
 </resources>

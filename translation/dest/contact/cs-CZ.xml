@@ -74,4 +74,11 @@
   <string name="noneOfTheAbove">Nic z výše uvedených</string>
   <string name="sendEmailAt">Pošlete nám e-mail na %s.</string>
   <string name="explainYourRequest">Prosím, vysvětlete svůj požadavek jasně a důkladně. Zadejte své Lichess uživatelské jméno a veškeré informace, které nám mohou pomoci s pomocí vám.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nikdy nebudeme zobrazovat žádné reklamy, nebudeme sledovat naše hráče a nebudeme prodávat ani kupovat provoz ani uživatele.</string>
+  <string name="monetiseNoMarketingEmail">Prosím, neposílejte nám e-maily o marketingu, trackingu nebo reklamě.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Všem doporučujeme %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blokovat reklamy a trackery</string>
+  <string name="broadcastTournamentOnLichess">Vysílat turnaj na Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Pokud si přejete oficiálně vysílat turnaj na Lichess, nebo máte jakékoliv dotazy ohledně našich vysílání:</string>
+  <string name="ourDiscordServer">náš Discord server</string>
 </resources>

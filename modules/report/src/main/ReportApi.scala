@@ -523,7 +523,9 @@ final class ReportApi(
           "user" -> sus.user.id,
           "atoms.0.at".$gt(nowInstant.minusDays(7)),
           "room" -> room.key
-        ),
+        ) ++ (room == Room.Other).so:
+          $doc("inquiry".$exists(false))
+        ,
         _.sec
       )
 

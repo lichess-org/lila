@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import { type Toggle, toggle } from 'lib';
-import { pubsub } from 'lib/pubsub';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
@@ -67,7 +66,6 @@ export class PieceCtrl extends PaneCtrl {
     if (!this.is3d) {
       pieceVarRules(t);
     }
-    pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {

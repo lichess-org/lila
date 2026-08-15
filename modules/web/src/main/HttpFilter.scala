@@ -60,6 +60,10 @@ final class HttpFilter(
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach: m =>
       lila.mon.http.mobileCount(actionName, m.version, m.userId.isDefined, m.osName).increment()
+    HttpFilter
+      .apiAgent(req, client)
+      .foreach: agent =>
+        lila.mon.http.apiAgentCount(actionName, agent).increment()
     result
 
   private def serveAssets(res: Fu[Result]) =
@@ -87,3 +91,20 @@ final class HttpFilter(
       && crossOriginPolicy.supportsCredentiallessIFrames(req)
     then result.withHeaders(crossOriginPolicy.credentialless*)
     else result
+
+private object HttpFilter:
+
+  import scalalib.net.UserAgent
+
+  def apiAgent(req: RequestHeader, client: ClientName): Option[String] =
+    val isApiAgent = !client.isMobile && !client.isLichobile && {
+      HTTPRequest.isApi(req) || req.path.endsWith(".pgn")
+    }
+    isApiAgent.option(apiAgent(HTTPRequest.userAgent(req)))
+
+  def apiAgent(ua: UserAgent): String = ua.value
+    .takeWhile: c =>
+      c != '/' && c != '(' && c != '@'
+    .filterNot(_.isDigit)
+    .trim
+    .toLowerCase

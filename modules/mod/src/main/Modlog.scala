@@ -72,7 +72,6 @@ case class Modlog(
     case Modlog.prizeban => "prizeban"
     case Modlog.unprizeban => "un-prizeban"
     case Modlog.modMessage => "send message"
-    case Modlog.coachReview => "disapprove coach review"
     case Modlog.cheatDetected => "game lost by cheat detection"
     case Modlog.cli => "run CLI command"
     case Modlog.garbageCollect => "garbage collect"
@@ -102,7 +101,8 @@ case class Modlog(
 
 object Modlog:
 
-  case class UserEntry(user: UserId, action: String, date: Instant)
+  case class UserEntry(user: UserId, action: String, date: Instant, details: Option[String]):
+    def foreverClose = action == Modlog.closeAccount && details.exists(_.startsWith("forever"))
 
   case class Context(text: Option[String] = None, url: Option[String] = None, id: Option[String] = None)
 
@@ -222,7 +222,6 @@ object Modlog:
   val prizeban = "prizeban"
   val unprizeban = "unprizeban"
   val modMessage = "modMessage"
-  val coachReview = "coachReview"
   val cheatDetected = "cheatDetected"
   val cli = "cli"
   val garbageCollect = "garbageCollect"

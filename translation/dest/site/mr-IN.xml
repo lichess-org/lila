@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">ई-मेल यायला वेळ लागू शकतो.</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनिट थांबा आणि ई-मेल इनबॉक्स रीफ्रेश करा.</string>
   <string name="checkSpamFolder">ई-मेल तुमच्या स्पॅम फोल्डर मध्ये जाऊ शकतो. जर असं झालं, तर ते \'नॉट स्पॅम\' मार्क करा.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">जर तुम्हाला पुष्टीकरण ई-मेल मिळाला नसेल, तर तुम्ही \'स्पॅम\' किंवा \'जंक\' फोल्डर तपासून बघा. माहितीपूर्ण राहण्यासाठी, lichess.org कडून येणारे संदेश सुरक्षित आणि \'स्पॅम नसलेले\' म्हणून चिन्हांकित करा. </string>
   <string name="sendEmailForAccountVerification">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
   <string name="accountConfirmed">%s ह्या वापरकर्तानावचं यशस्वीरीत्या पुष्टीकरण झालं.</string>
   <string name="accountCanLogin">तुम्ही आता %s ह्या नावानी प्रवेश करू शकता.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s अनुसरण करतात</item>
     <item quantity="other">%s अनुसरण करतात</item>
   </plurals>
+  <string name="less">कमी</string>
   <string name="more">आणखी</string>
   <string name="memberSince">या दिवसापासून सदस्य आहे</string>
   <string name="lastSeenActive">%s सक्रिय</string>
@@ -580,6 +582,9 @@
   <string name="replies">प्रतिक्रिया</string>
   <string name="replyToThisTopic">या विषयावरील प्रतिक्रिया</string>
   <string name="reply">प्रतिक्रिया</string>
+  <string name="reopen">पुन्हा उघडा</string>
+  <string name="quote">अवतरण</string>
+  <string name="postEdited">संपादित</string>
   <string name="message">संदेश</string>
   <string name="createTheTopic">विषय बनवा</string>
   <string name="reportAUser">या वापरकर्त्या विषयी तक्रार नोंदवा</string>
@@ -822,10 +827,13 @@
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
+  <string name="theme">विषय</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="picture">चित्र</string>
   <string name="deviceTheme">उपकरणानुसार</string>
+  <string name="roundness">वर्तुळाकारता</string>
   <string name="backgroundImageUrl">पार्श्वभूमी चित्रासाठी URL:</string>
   <string name="board">पट</string>
   <string name="size">आकार</string>

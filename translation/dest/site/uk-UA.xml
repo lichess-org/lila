@@ -301,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
   <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
   <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Якщо ви не отримали електронного листа з підтвердженням, перевірте теку зі спамом та кошик. Позначте листи від lichess.org як «не спам», щоб ви могли залишатися в курсі подій.</string>
   <string name="sendEmailForAccountVerification">Якщо ви не можете знайти лист підтвердження, відправте лист на %s, і ми підтвердимо ваш обліковий запис.</string>
   <string name="accountConfirmed">Користувач %s успішно підтверджений.</string>
   <string name="accountCanLogin">Тепер ви можете ввійти як %s.</string>
@@ -445,9 +446,9 @@
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
-    <item quantity="few">%s сеанса</item>
+    <item quantity="few">%s сеанси</item>
     <item quantity="many">%s сеансів</item>
-    <item quantity="other">%s сеансів</item>
+    <item quantity="other">%s сеансу</item>
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
@@ -554,6 +555,7 @@
     <item quantity="many">%s спостерігають</item>
     <item quantity="other">%s спостерігають</item>
   </plurals>
+  <string name="less">Менше</string>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований з</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -667,6 +669,7 @@
   <string name="reportCheatBoostHelp">Вставте посилання на гру або ігри та поясніть, що не так з поведінкою цього користувача. Не кажіть «він нечесно грав», а поясніть, як ви прийшли до такого висновку.</string>
   <string name="reportUsernameHelp">Поясніть, що саме в цьому імені користувача є образливе. Не кажіть «воно образливе/неприйнятне», а поясніть, чому ви так вважаєте, особливо коли образа заплутана, не англійською, на сленгу, чи є посиланням на щось історичне/культурне.</string>
   <string name="reportProcessedFasterInEnglish">Ваша скарга оброблятиметься швидше, якщо буде написана англійською.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Ми зможемо опрацювати вашу скаргу швидше, якщо вона буде англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
   <string name="by">від %s</string>
   <string name="importedByX">Завантажено гравцем - %s</string>
@@ -797,6 +800,7 @@
   <string name="aboutSimulSettings">Сеанси завжди нерейтингові. Опції реваншу, повернення ходу і додавання часу вимкнені.</string>
   <string name="create">Створити</string>
   <string name="whenCreateSimul">Коли Ви створите сеанс, Вам треба буде грати проти кількох суперників одночасно.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Створення сеансу дає вам змогу грати проти кількох суперників одночасно.</string>
   <string name="simulVariantsHint">Якщо Ви обираєте кілька шахових варіантів, кожен гравець буде визначатися, який із них обрати.</string>
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
@@ -909,11 +913,15 @@
   <string name="language">Мова</string>
   <string name="allLanguages">Усі мови</string>
   <string name="background">Фон</string>
+  <string name="theme">Тема</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
+  <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
+  <string name="roundness">Округлість</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
+  <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
   <string name="size">Розмір</string>
   <string name="opacity">Прозорість</string>
@@ -1087,6 +1095,7 @@
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
   <string name="markdownIsAvailable">%s доступний для форматування.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Ви можете форматувати текст за допомогою %s.</string>
   <string name="embedsAvailable">Вставте посилання на гру чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
@@ -1094,6 +1103,7 @@
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Лише члени команди</string>
   <string name="navigateMoveTree">Навігація по нотації</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Навігація по списку ходів</string>
   <string name="mouseTricks">Можливості миші</string>
   <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>
   <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>

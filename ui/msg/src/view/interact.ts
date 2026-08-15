@@ -24,7 +24,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     [
       renderTextarea(ctrl, user),
       h('button.msg-app__convo__post__submit.button', {
-        class: { connected },
+        class: { 'button-green': connected, disabled: !connected },
         attrs: {
           type: 'submit',
           'data-icon': licon.PlayTriangle,

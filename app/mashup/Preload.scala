@@ -84,7 +84,7 @@ final class Preload(
         ctx.userId
           .ifTrue(nbNotifications > 0)
           .filterNot(liveStreamApi.isStreaming)
-          .so(unreadCount.hasLichessMsg)
+          .so(unreadCount.hasMustReadLichessMsg)
     (currentGame, _) <- ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync))
       .mon(lila.mon.lobby.segment("currentGame"))

@@ -72,8 +72,9 @@ private object PrefHandlers:
         resizeHandle = r.getD("resizeHandle", d.resizeHandle),
         moveEvent = r.getD("moveEvent", d.moveEvent),
         agreement = r.getD("agreement", 0),
+        uiRoundness = r.getD("uiRoundness", d.uiRoundness),
         board = r.getD("board", d.board),
-        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | d.blogFilter,
+        blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.byName.get) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
         tags = r.getD("tags", d.tags)
@@ -120,6 +121,7 @@ private object PrefHandlers:
         "moveEvent" -> o.moveEvent,
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle" -> o.resizeHandle,
+        "uiRoundness" -> o.uiRoundness,
         "agreement" -> o.agreement,
         "usingAltSocket" -> o.usingAltSocket,
         "board" -> o.board,

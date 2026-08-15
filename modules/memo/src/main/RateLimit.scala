@@ -70,6 +70,7 @@ object RateLimit:
 
   enum LimitResult:
     case Through, Limited
+    def ok = this == Through
 
   case class Limited(key: String, msg: String, until: Instant)
 

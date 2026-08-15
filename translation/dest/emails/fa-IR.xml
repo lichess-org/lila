@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
+  <string name="emailConfirm_subject">حساب خود را در Lichess.org تایید کنید، %s</string>
   <string name="emailConfirm_intro">از نام‌نویسی‌تان در Lichess سپاسگزاریم!</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بر روی این پیوند کلیک کنید تا حساب کاربری لیچس شما پویا گردد:</string>
   <string name="emailConfirm_justIgnore">اگر در Lichess نام‌نویسی نکرده‌اید، می‌توانید آسوده این پیام را نادیده گیرید. حساب تأیید نشده و تمام ردپاهای نشانیِ رایانامه‌تان پس از ۴۸ ساعت از سامانهٔ ما خواهد حذفید.</string>
@@ -18,6 +18,7 @@
 خوش بگذرانید، و به امید آن که مهره‌های شما همیشه راه خود را به سوی شاه حریف پیدا کنند!</string>
   <string name="logInToLichess">%s، وارد lichess.org شوید.</string>
   <string name="common_orPaste">(با کلیک کردن عمل نمیکند؟ سعی کنید در مرورگر خود وارد کنید!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(پیوند کار نمی‌کند؟ آن را در مرورگر‌تان جایگذارید!)</string>
   <string name="common_note">این یک رایانامهٔ خدماتی، مربوط به استفاده‌تان از %s است.</string>
   <string name="common_contact">خواهشمندیم برای تماس با ما از %s بَهرید.</string>
 </resources>

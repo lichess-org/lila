@@ -12,6 +12,10 @@
 	<string name="timeALot">Det er mykje sjakk.</string>
 	<string name="timeReasonable">Det verkar som ei rimeleg mengd sjakk.</string>
 	<string name="timeHowManyMoves">Kor mange trekk spelte du på denne tida?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s trekk spelt</item>
+		<item quantity="other">%s trekk spelt</item>
+	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Det er %s tre flytta på!</string>
 	<string name="movesStandardPiecesWeight">Ei standardbrikke har ei vekt på omlag 40 gram</string>
 	<plurals name="nbMoves">

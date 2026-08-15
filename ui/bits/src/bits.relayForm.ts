@@ -33,5 +33,27 @@ site.load.then(() => {
 
     $source.on('change', showSource);
     showSource();
+
+    const $label = $(`label[for="form3-delay"]`);
+    const $delay = $('#form3-delay');
+    const convertDelay = () => {
+      const seconds = parseInt($delay.val() as string, 10);
+      if (isNaN(seconds) || seconds <= 0) {
+        $label.find('span').remove();
+        return;
+      }
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      const delayText = ` (${minutes}m${remainingSeconds}s)`;
+      const $span = $label.find('span');
+      if ($span.length === 0) {
+        $label.append($('<span>').text(delayText));
+      } else {
+        $span.text(delayText);
+      }
+    };
+
+    $delay.on('input', convertDelay);
+    convertDelay();
   }
 });

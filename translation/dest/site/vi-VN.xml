@@ -63,7 +63,7 @@
   <string name="computerAnalysis">Phân tích từ máy tính</string>
   <string name="computerAnalysisAvailable">Có sẵn phân tích từ máy tính</string>
   <string name="computerAnalysisDisabled">Phân tích từ máy tính bị vô hiệu hóa</string>
-  <string name="analysis">Phân tích bàn cờ</string>
+  <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
@@ -183,7 +183,7 @@
     <item quantity="other">%s ván cờ</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="other">Hệ số %1$s sau %2$s ván</item>
+    <item quantity="other">Hệ số Elo %1$s sau %2$s ván</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s đánh dấu</item>
@@ -389,7 +389,7 @@
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Bộ lọc xếp hạng bị khóa vì xếp hạng của bạn không ổn định. Chơi các ván cờ có xếp hạng sẽ tăng tính ổn định.</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
-  <string name="yourPerfRatingIsTooLow">Hệ số Elo %1$s (%2$s) của bạn quá thấp</string>
+  <string name="yourPerfRatingIsTooLow">Hệ số %1$s (%2$s) của bạn quá thấp</string>
   <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Hệ số %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
@@ -451,6 +451,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="nbFollowing">
     <item quantity="other">Đang theo dõi %s người</item>
   </plurals>
+  <string name="less">Ẩn bớt</string>
   <string name="more">Xem thêm</string>
   <string name="memberSince">Thành viên từ</string>
   <string name="lastSeenActive">Hoạt động %s</string>
@@ -712,7 +713,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
   <string name="tournamentHomeTitle">Giải đấu cờ vua với nhiều thiết lập thời gian và biến thể phong phú</string>
-  <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức hoặc tự tạo giải đấu của bạn. Cờ đạn, Cờ chớp, Cờ nhanh, Cờ chậm, Chess960, King of the Hill, Threecheck và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
+  <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức hoặc tự tạo giải đấu của bạn. Cờ đạn, Cờ chớp, Cờ nhanh, Cờ chậm, Chess960, Vua lên đồi, ba lần chiếu tướng và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
   <string name="tournamentNotFound">Không tìm thấy giải đấu</string>
   <string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
   <string name="tournamentMayHaveBeenCanceled">Giải đấu có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
@@ -787,11 +788,15 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="language">Ngôn ngữ</string>
   <string name="allLanguages">Tất cả ngôn ngữ</string>
   <string name="background">Nền</string>
+  <string name="theme">Giao diện</string>
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
+  <string name="picture">Hình ảnh</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
+  <string name="roundness">Bo tròn</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
+  <string name="imageOpacity">Độ mờ của ảnh</string>
   <string name="board">Bàn cờ</string>
   <string name="size">Kích cỡ</string>
   <string name="opacity">Độ trong suốt</string>
@@ -814,7 +819,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Hệ số: %s</string>
+  <string name="perfRatingX">Rating: %s</string>
   <string name="yourRatingIsX">Hệ số của bạn là %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>

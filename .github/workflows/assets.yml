@@ -13,7 +13,6 @@ on:
       - 'pnpm-lock.yaml'
       - '.node-version'
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/assets.yml'
       - 'public/**'
@@ -22,6 +21,7 @@ on:
       - 'pnpm-lock.yaml'
       - '.node-version'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   assets:

@@ -485,6 +485,7 @@
     <item quantity="one">Seguindo a %s xogador</item>
     <item quantity="other">Seguindo a %s xogadores</item>
   </plurals>
+  <string name="less">Menos</string>
   <string name="more">Máis</string>
   <string name="memberSince">Membro dende</string>
   <string name="lastSeenActive">Última conexión %s</string>
@@ -828,11 +829,15 @@
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Fondo</string>
+  <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="picture">Imaxe</string>
   <string name="deviceTheme">Tema do dispositivo</string>
+  <string name="roundness">Cantos arredondados</string>
   <string name="backgroundImageUrl">URL da imaxe de fondo:</string>
+  <string name="imageOpacity">Opacidade da imaxe</string>
   <string name="board">Taboleiro</string>
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidade</string>

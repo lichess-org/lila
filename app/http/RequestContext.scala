@@ -17,20 +17,20 @@ trait RequestContext(using Executor):
   def makeContext(using req: RequestHeader): Fu[Context] = for
     userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
-    pref <- env.pref.api.get(userCtx.me, req)
+    pref <- env.pref.api.getWithReq(userCtx.me)
   yield Context(req, lang, userCtx, pref)
 
   def makeBodyContext[A](using req: Request[A]): Fu[BodyContext[A]] = for
     userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
-    pref <- env.pref.api.get(userCtx.me, req)
+    pref <- env.pref.api.getWithReq(userCtx.me)
   yield BodyContext(req, lang, userCtx, pref)
 
   def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
     val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
-      .get(scoped.me, req)
+      .getWithReq(scoped.me)
       .map:
         Context(req, lang, userCtx, _)
 
@@ -38,7 +38,7 @@ trait RequestContext(using Executor):
     val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
-      .get(scoped.me, req)
+      .getWithReq(scoped.me)
       .map:
         BodyContext(req, lang, userCtx, _)
 

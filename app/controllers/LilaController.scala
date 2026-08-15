@@ -52,15 +52,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =
-    action(parse.empty)(req ?=> f(using Context.minimal(req)))
+    action(parse.empty)(f(using Context.minimal))
 
   /* Anonymous requests, with a body */
   def AnonBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
-    action(parse.anyContent)(req ?=> f(using Context.minimalBody(req)))
-
+    action(parse.anyContent)(f(using Context.minimalBody))
   /* Anonymous requests, with a body */
   def AnonBodyOf[A](parser: BodyParser[A])(f: BodyContext[A] ?=> A => Fu[Result]): EssentialAction =
-    action(parser)(req ?=> f(using Context.minimalBody(req))(req.body))
+    action(parser)(req ?=> f(using Context.minimalBody)(req.body))
 
   /* Anonymous and authenticated requests */
   def Open(f: Context ?=> Fu[Result]): EssentialAction =
@@ -112,7 +111,7 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScoped(selectors)(f)
-      else f(using Context.minimal(req))
+      else f(using Context.minimal)
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
@@ -121,7 +120,7 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScopedBody[A](selectors)(f)
-      else f(using Context.minimalBody(req))
+      else f(using Context.minimalBody)
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(

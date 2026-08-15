@@ -1,72 +1,53 @@
-import { h } from 'snabbdom';
-
 import perfIcons from 'lib/game/perfIcons';
-import { bind, type MaybeVNodes, confirm, dataIcon } from 'lib/view';
+import { bind, confirm, tr, td, span, div, button, table, thead, tbody, th, icon } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import type { Seek } from '@/interfaces';
 
-import { tds, perfNames } from './util';
+import { perfNames } from './util';
 
 function renderSeek(ctrl: LobbyController, seek: Seek) {
-  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
-  return h(
-    'tr.seek.' + klass,
+  const isJoinAction = seek.action === 'joinSeek';
+  return tr(
+    `.seek.${isJoinAction ? 'join' : 'cancel'}`,
     {
       key: seek.id,
-      attrs: {
-        role: 'button',
-        title:
-          seek.action === 'joinSeek'
-            ? i18n.site.joinTheGame + ' - ' + perfNames[seek.perf.key]
-            : i18n.site.cancel,
-        'data-id': seek.id,
-      },
+      role: 'button',
+      title: isJoinAction ? i18n.site.joinTheGame + ' - ' + perfNames[seek.perf.key] : i18n.site.cancel,
+      'data-id': seek.id,
     },
-    tds([
-      seek.rating
-        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
-        : 'Anonymous',
-      seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
-      seek.days ? i18n.site.nbDays(seek.days) : '∞',
-      h('span', [
-        h('span.varicon', { attrs: dataIcon(perfIcons[seek.perf.key]) }),
-        seek.mode === 1 ? i18n.site.rated : i18n.site.casual,
-      ]),
-    ]),
+    [
+      td(seek.rating ? span('.ulpt', { 'data-href': '/@/' + seek.username }, seek.username) : 'Anonymous'),
+      td(seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : ''),
+      td(seek.days ? i18n.site.nbDays(seek.days) : '∞'),
+      td([icon(perfIcons[seek.perf.key])('.varicon'), seek.mode === 1 ? i18n.site.rated : i18n.site.casual]),
+    ],
   );
 }
 
 function createSeek(ctrl: LobbyController) {
-  if (ctrl.me && ctrl.data.seeks.length < 8)
-    return h('div.create', [
-      h(
-        'button.button',
-        {
-          hook: bind(
-            'click',
-            () => ctrl.setupCtrl.openModal('hook', { variant: 'standard', timeMode: 'correspondence' }),
-            ctrl.redraw,
-          ),
-        },
-        i18n.site.createAGame,
-      ),
-    ]);
-  return undefined;
+  if (ctrl.me && ctrl.data.seeks.length >= 8) return undefined;
+
+  return div('.create', [
+    button(
+      '.button',
+      {
+        hook: bind(
+          'click',
+          () => ctrl.setupCtrl.openModal('hook', { variant: 'standard', timeMode: 'correspondence' }),
+          ctrl.redraw,
+        ),
+      },
+      i18n.site.createAGame,
+    ),
+  ]);
 }
 
-export default function (ctrl: LobbyController): MaybeVNodes {
+export default function (ctrl: LobbyController) {
   return [
-    h('table.hooks__list', [
-      h(
-        'thead',
-        h(
-          'tr',
-          (['player', 'rating', 'time', 'mode'] as const).map(k => h('th', i18n.site[k])),
-        ),
-      ),
-      h(
-        'tbody',
+    table('.hooks__list', [
+      thead(tr((['player', 'rating', 'time', 'mode'] as const).map(k => th(i18n.site[k])))),
+      tbody(
         {
           hook: bind('click', async e => {
             let el = e.target as HTMLElement;

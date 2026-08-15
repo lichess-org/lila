@@ -122,6 +122,8 @@
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
   <string name="forbiddedUsers">اگر این فهرست خالی نیست، کاربرانی که در فهرست نیستند اجازهٔ پیوستن ندارند. یک نام کاربری در هر خط.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">در هر خط یک نام کاربری وارد کنید. فقط این بازیکنان اجازهٔ پیوستن خواهند داشت.
+برای اجازه به همه بازیکنانِ شایسته، خالی گذارید.</string>
   <string name="playYourGames">بازی‌های خود را بازی کنید</string>
   <string name="byes">استراحت</string>
   <string name="absences">غيبت ها</string>

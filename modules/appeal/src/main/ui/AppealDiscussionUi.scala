@@ -23,23 +23,22 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
 
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
-    form3.fieldset(if isNew then "Create an appeal" else "Add something to the appeal", toggle = false.some)(
-      cls := "form-toggle"
-    ):
-      postForm(st.action := routes.Appeal.post(topic))(
-        form3.globalError(form),
-        form3.group(
-          form("text"),
-          "",
-          help = frag("Please be concise. Maximum 1000 chars.").some
-        )(f =>
-          form3.textarea(f)(
-            rows := 6,
-            maxlength := Appeal.maxLength * 1.1
-          )
-        )(cls := "appeal-textarea"),
-        form3.action(form3.submit(trans.site.send()))
-      )
+    val formContent = postForm(st.action := routes.Appeal.post(topic))(
+      form3.globalError(form),
+      form3.group(
+        form("text"),
+        "",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(f =>
+        form3.textarea(f)(
+          rows := 6,
+          maxlength := Appeal.maxLength * 1.1
+        )
+      )(cls := "appeal-textarea"),
+      form3.action(form3.submit(trans.site.send()))
+    )
+    if isNew then formContent
+    else form3.fieldset("Add something to the appeal", toggle = false.some)(cls := "form-toggle")(formContent)
 
   def userShow(status: UserStatus, appeal: Appeal, form: Form[?], appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
@@ -68,7 +67,8 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             postForm(cls := "appeal__withdraw", action := routes.Appeal.withdraw(appeal.topic))(
               submitButton(
                 cls := "button button-red button-empty yes-no-confirm",
-                title := "Withdraw this appeal? This cannot be undone."
+                title :=
+                  "Withdrawing this appeal will close this request. You will not be able to appeal this restriction, and we will consider this case closed.\n\nAre you sure you want to withdraw your appeal?"
               )("Withdraw appeal")
             )
         ),
@@ -79,6 +79,28 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     appeal.closedUntil.fold(frag("This appeal is now closed")): until =>
       frag("Appeal paused until ", showDate(until))
   )
+
+  private def renderAccountsDisclosure(accounts: AccountsDisclosure) =
+    def row(label: String, value: Frag) =
+      div(cls := "appeal__accounts__row")(
+        span(cls := "appeal__accounts__label")(label),
+        div(cls := "appeal__accounts__value")(value)
+      )
+    div(cls := "appeal__accounts")(
+      h3("Declared accounts"),
+      row(
+        "Additional accounts",
+        if accounts.onlyThisAccount then "None (only this account)"
+        else
+          accounts.otherUsernames.fold(em("None listed")):
+            pre(cls := "appeal__accounts__text")(_)
+      ),
+      accounts.moreForgotten.option:
+        row("", "Has additional accounts but has forgotten their usernames")
+      ,
+      accounts.household.map: household =>
+        row("Household accounts", pre(cls := "appeal__accounts__text")(household))
+    )
 
   private def userAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
@@ -139,6 +161,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "mod-zone mod-zone-full none"),
+          appeal.accounts.map(renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             appeal.msgs.map: msg =>

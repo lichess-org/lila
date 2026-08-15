@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Itxaron pixkatean emaila jaso arte.</string>
   <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure emailaren sarrera-ontzia.</string>
   <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta emailak. Horrela bada, esan zaborra ez dela.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Emailik jasotzen ez baduzu, kontsultatu zure Spam edo Zabor karpeta. Esan lichess.org-eko mezuak seguruak direla eta \"spam ez\" direla, komunikazio garrantzitsuen berri izateko.</string>
   <string name="sendEmailForAccountVerification">Zure baieztapen emaila ezin baduzu aurkitu, idatzi %s helbidera eta kontua baieztatu egingo dugu.</string>
   <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
   <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s Jarraituak</item>
     <item quantity="other">%s Jarraituak</item>
   </plurals>
+  <string name="less">Gutxiago</string>
   <string name="more">Gehiago</string>
   <string name="memberSince">Noiztik kidea:</string>
   <string name="lastSeenActive">Azken aldiz online: %s</string>
@@ -580,6 +582,9 @@
   <string name="replies">Erantzunak</string>
   <string name="replyToThisTopic">Gai honi erantzun</string>
   <string name="reply">Erantzun</string>
+  <string name="reopen">Berriz ireki</string>
+  <string name="quote">Aipatu</string>
+  <string name="postEdited">aldatuta</string>
   <string name="message">Mezua</string>
   <string name="createTheTopic">Gai bat sortu</string>
   <string name="reportAUser">Erabiltzaile bat salatu</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak.</string>
   <string name="reportUsernameHelp">Azaldu erabiltzaile-izen honek zer duen iraingarria. Ez esan \"iraingarria da\" soilik, eman arrazoiak, batez ere iraina ezkutatuta badago, ez bada ingelesezko hitz bat edo errefererantzia historiko edo kulturala bada.</string>
   <string name="reportProcessedFasterInEnglish">Zure mezua azkarrago kudeatuko dugu ingelesez idazten baduzu.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Ingelesez idazten badiguzu zure eskaerak azkarrago prozesatuko ditugu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
   <string name="importedByX">%s erabiltzaileak inportatuta</string>
@@ -716,6 +722,7 @@
   <string name="aboutSimulSettings">Aldibereko partidetan puntuazioak ez dira sekula aldatzen.  Ezin da errebantxarik, atzera-jokatzerik edo-eta denbora-gehitzerik erabili.</string>
   <string name="create">Sortu</string>
   <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien aurka batera jokatu behar duzu.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Aldibidereko bat sortzean, aurkari bat baino gehiagoren aurka aldi berean aritu zaitezke.</string>
   <string name="simulVariantsHint">Aldaera batzuk hautatzen badituzu, jokalari bakoitzak nahi duena aukeratuko du</string>
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
@@ -822,11 +829,15 @@
   <string name="language">Hizkuntza</string>
   <string name="allLanguages">Hizkuntza guztiak</string>
   <string name="background">Atzeko planoa</string>
+  <string name="theme">Itxura</string>
   <string name="light">Argia</string>
   <string name="dark">Iluna</string>
   <string name="transparent">Gardena</string>
+  <string name="picture">Irudia</string>
   <string name="deviceTheme">Gailuaren gaia</string>
+  <string name="roundness">Borobiltasuna</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
+  <string name="imageOpacity">Irudiaren gardentasuna</string>
   <string name="board">Taula</string>
   <string name="size">Tamaina</string>
   <string name="opacity">Gardentasuna</string>
@@ -994,6 +1005,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulDescription">Aldi-berekoaren deskribapena</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
   <string name="markdownIsAvailable">%s erabili dezakezu formatua emateko.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Zure testua %s erabiliz formateatu dezakezu.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
   <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>
@@ -1001,6 +1013,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="onlyTeamLeaders">Taldeen kapitainak bakarrik</string>
   <string name="onlyTeamMembers">Taldeen kideak bakarrik</string>
   <string name="navigateMoveTree">Nabigatu jokaldien zuhaitza</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Jokaldi-zerrendaren nabigazioa</string>
   <string name="mouseTricks">Saguaren trukuak</string>
   <string name="toggleLocalAnalysis">Aktibatu ordenagailu lokaleko analisia</string>
   <string name="toggleAllAnalysis">Aktibatu ordenagailu guztietako analisia</string>

@@ -13,6 +13,7 @@ object embed:
       page.ui.doctype,
       page.ui.htmlTag(using ctx.lang)(
         cls := ctx.bg,
+        style := page.htmlStyle,
         head(
           page.ui.charset,
           page.ui.viewport,

@@ -7,8 +7,12 @@ import lila.core.i18n.I18nKey.appeal as trans
 
 object AppealTopicApi:
 
-  val irrelevant = Set(AppealTopic.play, AppealTopic.chat)
+  val irrelevant = Set(AppealTopic.play, AppealTopic.chat, AppealTopic.legacy)
   val relevant = AppealTopic.values.filterNot(irrelevant).toList
+
+  private val exemptFromAccountsQuestion =
+    Set(AppealTopic.warning, AppealTopic.blog, AppealTopic.arena, AppealTopic.report)
+  def requiresAccounts(topic: AppealTopic): Boolean = !exemptFromAccountsQuestion(topic)
 
   private[appeal] def candidatesFor(u: UserStatus): List[AppealTopic] =
     import AppealTopic.*
@@ -20,6 +24,7 @@ object AppealTopicApi:
       u.marks.rankban.option(rank),
       u.marks.arenaBan.option(arena),
       u.marks.prizeban.option(prize),
+      u.marks.reportban.option(report),
       u.playban.option(play),
       u.chatTimeout.option(chat),
       u.ublogHidden.option(blog)
@@ -30,8 +35,7 @@ object AppealTopicApi:
       .find: topic =>
         appeals.get(topic).forall(_.isOpen)
       .orElse:
-        List(AppealTopic.warning, AppealTopic.legacy)
-          .find(t => appeals.get(t).exists(_.isOpen))
+        List(AppealTopic.warning).find(t => appeals.get(t).exists(_.isOpen))
 
   def unmark(user: UserStatus, topic: AppealTopic): Option[(String, Call)] =
     candidatesFor(user)
@@ -45,6 +49,7 @@ object AppealTopicApi:
           case AppealTopic.rank => ("Unban from leaderboards", routes.Mod.rankban(user.id, false)).some
           case AppealTopic.arena => ("Unban from arena", routes.Mod.arenaBan(user.id, false)).some
           case AppealTopic.prize => ("Unban from prize", routes.Mod.prizeban(user.id, false)).some
+          case AppealTopic.report => ("Unban from reporting", routes.Mod.reportban(user.id, false)).some
           case _ => none
 
   def markMsg(status: UserStatus, topic: AppealTopic): Option[I18nKey] =
@@ -59,6 +64,8 @@ object AppealTopicApi:
           case AppealTopic.rank => trans.excludedFromLeaderboards.some
           case AppealTopic.arena => trans.arenaBanned.some
           case AppealTopic.prize => trans.prizeBanned.some
+          case AppealTopic.report => trans.reportBanned.some
+          case AppealTopic.blog => trans.blogRestriction.some
           case AppealTopic.chat => I18nKey("15 minutes chat timeout").some
           case _ => none
 

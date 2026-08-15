@@ -28,7 +28,7 @@ export async function startConsole() {
         let val = levelAndVal[1];
         const mark = level === 'error' ? `${errorMark} ` : level === 'warn' ? `${warnMark} ` : '';
 
-        if (!Array.isArray(val)) throw new Error();
+        if (!Array.isArray(val)) throw new Error('Incorrect value');
         else if (val.length <= 1) val = val[0] ?? '';
         else if (val.every(x => typeof x !== 'object')) val = val.join(' ');
 

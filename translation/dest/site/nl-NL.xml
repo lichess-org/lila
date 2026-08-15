@@ -485,6 +485,7 @@
     <item quantity="one">%s volgend</item>
     <item quantity="other">%s volgend</item>
   </plurals>
+  <string name="less">Minder</string>
   <string name="more">Meer</string>
   <string name="memberSince">Lid sinds</string>
   <string name="lastSeenActive">%s voor het laatst gezien</string>
@@ -828,11 +829,15 @@
   <string name="language">Taal</string>
   <string name="allLanguages">Alle talen</string>
   <string name="background">Achtergrond</string>
+  <string name="theme">Thema</string>
   <string name="light">Licht</string>
   <string name="dark">Donker</string>
   <string name="transparent">Transparant</string>
+  <string name="picture">Afbeelding</string>
   <string name="deviceTheme">Apparaatthema</string>
+  <string name="roundness">Ronde hoeken</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
+  <string name="imageOpacity">Afbeeldingstransparantie</string>
   <string name="board">Bord</string>
   <string name="size">Grootte</string>
   <string name="opacity">Transparantie</string>

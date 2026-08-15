@@ -11,7 +11,6 @@
   border: none;
   cursor: pointer;
   text-align: center;
-  white-space: nowrap;
   display: inline-block;
   text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
 
@@ -34,7 +33,7 @@
 
   &:not(.disabled):hover {
     color: $c-over;
-    background: hsl(from $c-primary h s calc(l + 7));
+    filter: brightness(1.15);
   }
 
   &:not(.disabled):focus-visible {

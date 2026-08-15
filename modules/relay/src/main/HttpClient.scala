@@ -1,7 +1,7 @@
 package lila.relay
 
 import java.nio.charset.{ Charset, StandardCharsets }
-import io.mola.galimatias.URL
+import io.mola.galimatias.{ URL, Host }
 import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
 
@@ -82,10 +82,10 @@ private final class HttpClient(
             )
           .flatMap: res =>
             if res.status == 200 || res.status == 304 then fuccess(res)
-            else fufail(Status(res.status, url))
+            else fufail(Status(res.status, url.host))
           .recoverWith:
             case _: java.util.concurrent.TimeoutException =>
-              fufail(SourceTimeout(url.host.toString))
+              fufail(SourceTimeout(url.host))
 
   private def decodeResponseBody(res: StandaloneWSResponse): Body =
     val charset = Option(extractContentTypeCharsetAttribute(res.contentType))
@@ -126,8 +126,20 @@ private object charsetGuess:
 private object HttpClient:
   type Etag = String
   type Body = String
-  case class Status(code: Int, url: URL) extends LilaExceptionNoStack:
-    override val message = s"$code: $url"
+  case class Status(code: Int, host: Host) extends LilaExceptionNoStack:
+    override val message =
+      val error = code match
+        case 204 => "empty response"
+        case 404 => "games not found"
+        case 301 | 302 => "redirect, please fix the URL"
+        case 429 => "rate limited"
+        case 400 => "bad request, please fix the URL"
+        case 500 => "internal server error"
+        case 502 => "bad gateway"
+        case 503 => "unavailable or rate limited" // some sites return 503 instead of 429
+        case 407 => "connection problem - call a sysadmin" // proxy auth required
+        case _ => s"code $code"
+      s"$host: $error"
 
-  case class SourceTimeout(host: String) extends LilaExceptionNoStack:
+  case class SourceTimeout(host: Host) extends LilaExceptionNoStack:
     override val message = s"$host is not responding"

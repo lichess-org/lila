@@ -14,4 +14,5 @@ private object BsonHandlers:
     stringAnyValHandler(_.key, t => AppealTopic.byKey.getOrElse(t, AppealTopic.legacy))
 
   given BSONDocumentHandler[AppealMsg] = Macros.handler
+  given BSONDocumentHandler[AccountsDisclosure] = Macros.handler
   given BSONDocumentHandler[Appeal] = Macros.handler

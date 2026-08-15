@@ -2,6 +2,8 @@
   @extend %box-radius, %flex-center-nowrap;
   @include backdrop-blur-if-transparent;
 
+  background: $c-bg-input;
+
   &__target {
     @extend %nowrap-ellipsis, %box-radius-left;
 

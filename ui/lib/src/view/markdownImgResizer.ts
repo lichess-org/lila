@@ -134,7 +134,7 @@ export function markdownPicfitRegex(origin = ''): RegExp {
   );
 }
 
-const imageIdRe = /&path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&/i;
+const imageIdRe = /&path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})&/i;
 
 async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook, { url: unknown }>) {
   const imageId = img.src.match(imageIdRe)?.[1];

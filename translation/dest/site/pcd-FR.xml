@@ -485,6 +485,7 @@
     <item quantity="one">%s suivi</item>
     <item quantity="other">%s suivis</item>
   </plurals>
+  <string name="less">Moins de choix</string>
   <string name="more">Plus</string>
   <string name="memberSince">Membre depuis</string>
   <string name="lastSeenActive">Actif %s</string>
@@ -828,11 +829,15 @@
   <string name="language">Langue</string>
   <string name="allLanguages">Toutes les langues</string>
   <string name="background">Arrière-plan</string>
+  <string name="theme">Thème</string>
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Photo</string>
   <string name="deviceTheme">Thème de l\'appareil</string>
+  <string name="roundness">Coins arrondis</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
+  <string name="imageOpacity">Opacité de l\'image</string>
   <string name="board">Échiquier</string>
   <string name="size">Taille</string>
   <string name="opacity">Opacité</string>

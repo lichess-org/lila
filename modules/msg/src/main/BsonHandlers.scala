@@ -41,10 +41,10 @@ private object BsonHandlers:
       "tid" -> threadId
     )
 
-  def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
+  def writeThread(thread: MsgThread, delBy: List[UserId], mustRead: Boolean): Bdoc =
     threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
       ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
-  // looks weird, but maybe.. it is the way
+      ++ mustRead.so($doc("mustRead" -> true))
 
   def selectNotDeleted(using me: Me) =
     if UserId.lichess.is(me) then $empty // using "del" is too expensive

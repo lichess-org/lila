@@ -38,7 +38,8 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
-    msgApi: lila.core.msg.MsgApi
+    msgApi: lila.core.msg.MsgApi,
+    langPicker: lila.core.i18n.LangPicker
 )(using Executor, Scheduler, lila.core.i18n.Translator, org.apache.pekko.stream.Materializer):
 
   val mailerEventsUrl = appConfig.get[Url]("mailer.events.url")

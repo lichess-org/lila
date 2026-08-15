@@ -47,8 +47,16 @@
   <string name="normal">Tavaline</string>
   <string name="easier">Kerge</string>
   <string name="easiest">Väga kerge</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ühe punkti võrra madalam puslereiting kui sinul</item>
+    <item quantity="other">%s punkti võrra madalam puslereiting kui sinul</item>
+  </plurals>
   <string name="harder">Raske</string>
   <string name="hardest">Väga raske</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ühe punkti võrra kõrgem puslereiting kui sinul</item>
+    <item quantity="other">%s punkti võrra kõrgem puslereiting kui sinul</item>
+  </plurals>
   <string name="example">Näide</string>
   <string name="addAnotherTheme">Lisa teine teema</string>
   <string name="nextPuzzle">Järgmine pusle</string>
@@ -70,6 +78,10 @@
   <string name="fromMyGamesNone">Sul ei ole puslesid andmebaasis, aga oled Lichessile ikkagi tähtis.
 
 Mängi kiirmalet või klassikalist malet tõstmaks võimalusi, et lisatakse pusle sinu mängust!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">%2$s mängudest leiti üks pusle</item>
+    <item quantity="other">%2$s mängudest leiti %1$s puslet</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Treeni, analüüsi, täiusta</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s mängitud</item>

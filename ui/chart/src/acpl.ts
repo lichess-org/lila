@@ -12,7 +12,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { winningChances } from 'lib/ceval';
+import { defined } from 'lib';
+import { renderEval, winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNodeBase } from 'lib/tree/types';
@@ -152,18 +153,7 @@ export default async function (
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
               if (!ev) return ''; // Pos is mate
-              let e = 0,
-                mateSymbol = '',
-                advantageSign = '';
-              if (ev.cp) {
-                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                if (ev.cp > 0) advantageSign = '+';
-              }
-              if (ev.mate) {
-                e = ev.mate;
-                mateSymbol = '#';
-              }
-              return i18n.site.advantage + ': ' + mateSymbol + advantageSign + e;
+              return i18n.site.advantage + ': ' + (defined(ev.mate) ? '#' + ev.mate : renderEval(ev.cp!));
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },

@@ -30,17 +30,11 @@
   <string name="willBeReviewed">Ønsket ditt om å bli med vil bli vurdert av en lagleder.</string>
   <string name="beingReviewed">Ønsket ditt om å bli med blir vurdert av en lagleder.</string>
   <string name="requestDeclined">Ønsket ditt om å bli med ble avslått av en lagleder.</string>
-  <string name="subToTeamMessages">Abonner på lagmeldinger</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">En arenaturnering der bare medlemmer av laget ditt kan delta</string>
   <string name="swissTournamentOverview">En sveitserturnering der bare medlemmer av laget ditt kan delta</string>
-  <string name="messageAllMembers">Send melding til alle medlemmer</string>
-  <string name="messageAllMembersOverview">Send en privat melding til alle medlemmene i laget</string>
-  <string name="messageAllMembersLongDescription">Send en melding til alle lagmedlemmene.
-Du kan bruke dette til å oppfordre spillere til å delta i en turnering eller en lagkamp.
-Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate laget.</string>
   <string name="teamsIlead">Lag jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
   <string name="leadersChat">Ledersamtale</string>

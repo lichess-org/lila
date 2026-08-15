@@ -523,7 +523,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
 
-  def langOf(id: UserId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
+  def langOf(id: UserId): Fu[Option[LangTag]] = coll.primitiveOne[LangTag]($id(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)

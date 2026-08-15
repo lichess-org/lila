@@ -485,6 +485,7 @@
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
   </plurals>
+  <string name="less">Less</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
@@ -828,11 +829,15 @@
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
+  <string name="theme">Theme</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Picture</string>
   <string name="deviceTheme">Device theme</string>
+  <string name="roundness">Roundness</string>
   <string name="backgroundImageUrl">Background image URL:</string>
+  <string name="imageOpacity">Image opacity</string>
   <string name="board">Board</string>
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>

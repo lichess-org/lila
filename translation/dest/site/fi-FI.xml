@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
   <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
   <string name="checkSpamFolder">Tarkistathan myös roskapostikansiosi, koska se saattaa joutua sinne. Jos niin käy, merkitse, että viesti ei ole roskaposti.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Jos et saa vahvistussähköpostia, tarkista roskapostikansiosi. Muista luokitella lichess.org-osoitteesta tulevat viestit turvallisiksi ja \"ei roskapostiksi\", jotta voit pysyä ajan tasalla tärkeistä viesteistä.</string>
   <string name="sendEmailForAccountVerification">Jos et löydä vahvistussähköpostia, lähetä meille sähköposti osoitteeseen %s, niin me vahvistamme käyttäjätunnuksesi.</string>
   <string name="accountConfirmed">Käyttäjän %s vahvistaminen onnistui.</string>
   <string name="accountCanLogin">Voit nyt kirjautua sisään tunnuksella %s.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s seurattua</item>
     <item quantity="other">%s seurattua</item>
   </plurals>
+  <string name="less">Vähemmän</string>
   <string name="more">Lisää</string>
   <string name="memberSince">Liittynyt</string>
   <string name="lastSeenActive">Nähty viimeksi %s</string>
@@ -595,6 +597,7 @@
   <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
   <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
   <string name="reportProcessedFasterInEnglish">Ilmoituksesi käsitellään nopeammin, jos se on kirjoitettu englanniksi.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Voimme käsitellä ilmoituksesi nopeammin, jos kirjoitat meille englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
@@ -719,6 +722,7 @@
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat poissa käytöstä.</string>
   <string name="create">Luo</string>
   <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Kun luot simultaanin, voit pelata samanaikaisesti useaa vastustajaa vastaan.</string>
   <string name="simulVariantsHint">Jos valitset useita variantteja, jokainen pelaaja valitsee mihin osallistuu.</string>
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
@@ -825,11 +829,15 @@
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>
   <string name="background">Tausta</string>
+  <string name="theme">Teema</string>
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
   <string name="transparent">Läpinäkyvä</string>
+  <string name="picture">Kuva</string>
   <string name="deviceTheme">Laitteen teema</string>
+  <string name="roundness">Pyöreys</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
+  <string name="imageOpacity">Kuvan läpinäkyvyys</string>
   <string name="board">Lauta</string>
   <string name="size">Koko</string>
   <string name="opacity">Peittävyys</string>
@@ -998,6 +1006,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
   <string name="markdownIsAvailable">Muotoiluun voi käyttää %s-kieltä.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Voit muotoilla tekstiä käyttämällä %s-merkintäkieltä.</string>
   <string name="embedsAvailable">Voit upottaa pelin tai tutkielman kappaleen liittämällä sen URL-osoitteen.</string>
   <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
@@ -1005,6 +1014,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
   <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
   <string name="navigateMoveTree">Siirtolistalla liikkuminen</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Siirtolistalla liikkuminen</string>
   <string name="mouseTricks">Hiiritoiminnot</string>
   <string name="toggleLocalAnalysis">Paikallinen tietokoneanalyysi päälle/pois</string>
   <string name="toggleAllAnalysis">Kaikki tietokoneanalyysi päälle/pois</string>

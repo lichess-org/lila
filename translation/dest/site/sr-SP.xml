@@ -144,6 +144,11 @@
   <string name="blunder">Превид</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s превид</item>
+    <item quantity="few">%s превида</item>
+    <item quantity="other">%s превида</item>
+  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Превид</item>
     <item quantity="few">%s Грубе грешке</item>
@@ -380,7 +385,7 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s турнирски бод</item>
     <item quantity="few">%s турнирска бода</item>
-    <item quantity="other">%s турнириских бодова</item>
+    <item quantity="other">%s турнирских бодова</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s студија</item>
@@ -566,7 +571,7 @@
   <string name="name">Назив</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватни опис</string>
-  <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
+  <string name="descPrivateHelp">Текст који ће видети само чланови тима. Ако је постављен, замењује јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="website">Интернет страница</string>
@@ -787,7 +792,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Скролуј преко табле да се помераш кроз партију.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
-  <string name="primaryColorArrowsHowTo">Ctrl или Shift = црвено, command, alt или meta = плаво, по један из сваке групе = жуто.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl или shift = црвена, command; alt или meta = плава; по дугме из сваке = жута.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
@@ -934,7 +939,7 @@
   <string name="currentMatchScore">Скор тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих партија (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити поштен према другим играчима.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Слажем се да нећу отворити више налога (изузев разлога наведених у %s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Слажем се да нећу направити више налога (осим из разлога наведених у %s).</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>

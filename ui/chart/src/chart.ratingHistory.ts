@@ -237,7 +237,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     const slide = (values: (number | string)[]) => {
       $('.time-selector-buttons button').removeClass('active');
       if ($el.hasClass('panning')) return;
-      const [min, max] = values.map(v => Number(v));
+      const [min, max] = values.map(Number);
       // Downsample data for ranges > 2 years. For performance as well as aesthetics.
       const yearDiff = (max: number, min: number) => dayjs.utc(max).diff(min, 'year');
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);

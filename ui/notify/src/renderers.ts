@@ -64,6 +64,14 @@ export default function makeRenderers(): Renderers {
         ]),
       text: n => i18n.site.youHaveJoinedTeamX(n.content.name),
     },
+    teamUpdate: {
+      html: n =>
+        generic(n, '/team/updates/' + n.content.id, licon.Group, [
+          h('span', [h('strong', n.content.name)]),
+          h('span', n.content.text),
+        ]),
+      text: _ => 'New team update',
+    },
     titledTourney: {
       html: n =>
         generic(n, '/tournament/' + n.content.id, licon.Trophy, [

@@ -4,7 +4,7 @@ import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
-import { renderVariationPgn } from '@/pgnExport';
+import { renderNodesPgn } from '@/pgnExport';
 import * as studyView from '@/study/studyView';
 import { patch, nodeFullName } from '@/view/util';
 
@@ -104,9 +104,9 @@ function action(
 
 function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
   const { tree, idbTree } = ctrl;
+  const canPrune = ctrl.ongoing && path.startsWith(ctrl.initialPath); // correspondence
   const node = tree.nodeAtPath(path),
-    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path),
-    extendedPath = tree.extendPath(path, onMainline);
+    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path);
   let canPromote = !onMainline;
   for (let iter = tree.lastMainlineNode(path).children[1]; canPromote && iter; iter = iter.children[0]) {
     if (iter === node) canPromote = false;
@@ -125,6 +125,15 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
     },
     [
       hl('p.title', nodeFullName(node)),
+
+      idbTree.someCollapsedOf(false) && // with variation hiding enabled, collapse/expand all are most common
+        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+
+      idbTree.someCollapsedOf(true) &&
+        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+
+      canPrune && action(licon.Trash, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+
       canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
@@ -133,20 +142,15 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
-      idbTree.someCollapsedOf(false) &&
-        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
-      idbTree.someCollapsedOf(true) &&
-        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
-
       action(
         licon.Clipboard,
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
-            renderVariationPgn(ctrl.data.game, ctrl.tree.getNodeList(extendedPath)),
+            renderNodesPgn(ctrl.data.game, ctrl.tree.getNodeList(path), !onMainline),
           ),
-        () => ctrl.pendingCopyPath(extendedPath),
-        () => ctrl.pendingCopyPath(null),
+        () => ctrl.pendingCopy({ eventPath: path, withVariations: !onMainline }),
+        () => ctrl.pendingCopy(null),
       ),
 
       path &&

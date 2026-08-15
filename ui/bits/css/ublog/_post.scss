@@ -192,7 +192,7 @@
   }
 }
 
-#mod-tools {
+#ublog-mod-tools {
   display: flex;
   gap: 2rem;
 
@@ -213,7 +213,8 @@
   }
 
   fieldset {
-    border: $border-width $border-style $c-border;
+    border: $border;
+    border-radius: $box-radius-size;
     padding: 1rem 1.5rem 1.5rem;
   }
 
@@ -281,18 +282,6 @@
       flex: none;
       width: 1.2rem;
       height: 1.2rem;
-    }
-
-    .commercial {
-      color: $c-secondary;
-    }
-
-    .flagged {
-      color: $c-bad;
-    }
-
-    .empty {
-      color: $c-font-dimmer;
     }
   }
 }

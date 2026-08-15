@@ -24,9 +24,9 @@ object Dependencies:
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.16.Final").classifier(s"$os-$arch")
-  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0-RC1")
-  val munit = "org.scalameta" %% "munit" % "1.3.4" % Test
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.17.Final").classifier(s"$os-$arch")
+  val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
+  val munit = "org.scalameta" %% "munit" % "1.3.5" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
@@ -40,7 +40,7 @@ object Dependencies:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "17.16.0"
+    val version = "17.16.1"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -77,9 +77,9 @@ object Dependencies:
     def bundle = Seq(macros, util, tagging)
 
   object reactivemongo:
-    val rmVersion = "1.1.0-RC20"
+    val rmVersion = "1.1.0-RC21"
     // Use the Pekko actor backend instead of the default Akka one, so the whole app is Akka-free.
-    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC20")
+    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC21")
     val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
     val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
     def bundle = Seq(driver, actorsPekko, stream)

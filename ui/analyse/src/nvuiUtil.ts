@@ -53,7 +53,7 @@ export function renderCurrentNode({
     renderLineIndex(ctrl),
     !ctrl.retro && renderComments(node, moveStyle.get()),
   ]
-    .filter(x => x)
+    .filter(Boolean)
     .join(' ')
     .trim();
 }

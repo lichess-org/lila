@@ -1,12 +1,11 @@
 package lila.ublog
 
 import play.api.data.*
+import play.api.data.format.Formatter
 import play.api.data.Forms.*
-import play.api.libs.json.*
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
+import lila.common.Form.{ formatter, typeIn, cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
 import lila.core.ublog.Quality
@@ -89,9 +88,7 @@ object UblogForm:
         lived = none,
         featured = none,
         likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0),
-        similar = none,
-        automod = none
+        views = UblogPost.Views(0)
       )
 
     def update(user: User, prev: UblogPost) =
@@ -116,7 +113,7 @@ object UblogForm:
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )
@@ -162,21 +159,14 @@ object UblogForm:
             else "pull from carousel"
         ).flatten.mkString(", ")
 
-  object ModPostData:
-    given Reads[Quality] = Reads
-      .of[Int]
-      .map(Quality.fromOrdinal)
-    def reads: Reads[ModPostData] =
-      (
-        (JsPath \ "quality")
-          .readNullable[Quality]
-          .and((JsPath \ "evergreen").readNullable[Boolean])
-          .and((JsPath \ "flagged").readNullable[String].map(_.map(_.take(200))))
-          .and((JsPath \ "commercial").readNullable[String].map(_.map(_.take(200))))
-          .and((JsPath \ "featured").readNullable[Boolean])
-          .and(
-            (JsPath \ "featuredUntil")
-              .readNullable[Int]
-              .filter(JsonValidationError(s"bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
-          )
-      )(ModPostData.apply)
+  private given Formatter[Quality] = formatter.stringOptionFormatter[Quality](_.name, Quality.byName.get)
+
+  val modForm: Form[ModPostData] = Form:
+    mapping(
+      "quality" -> optional(typeIn(Quality.values.toSet)),
+      "evergreen" -> optional(boolean),
+      "flagged" -> optional(nonEmptyText),
+      "commercial" -> optional(nonEmptyText),
+      "featured" -> optional(boolean),
+      "featuredUntil" -> optional(number(1, 31))
+    )(ModPostData.apply)(unapply)
