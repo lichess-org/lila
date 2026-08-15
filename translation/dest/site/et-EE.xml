@@ -838,7 +838,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="deviceTheme">Seadme teema</string>
   <string name="roundness">Ümarus</string>
   <string name="backgroundImageUrl">Taustapildi URL:</string>
-  <string name="backgroundImageOpacity">Taustapildi läbipaistvus:</string>
   <string name="board">Laud</string>
   <string name="size">Suurus</string>
   <string name="opacity">Läbipaistmatus</string>

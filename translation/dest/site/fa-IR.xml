@@ -838,7 +838,7 @@
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="roundness">گِردی</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
-  <string name="backgroundImageOpacity">کدری تصویر پس‌زمینه:</string>
+  <string name="imageOpacity">کدریِ تصویر</string>
   <string name="board">میز</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>

@@ -17,6 +17,9 @@
   </plurals>
   <string name="noVideosForTheseTags">Žádná videa pro tyto štítky:</string>
   <string name="thatsAllWeGotForTheseTags">Vše, co máme pod těmito štítky:</string>
+  <string name="thatsAllWeGotForThisSearchX">To je vše, co jsme našli pro dotaz: \"%s\"</string>
   <string name="viewMoreTags">Zobrazit více štítků</string>
   <string name="videoNotFound">Video nenalezeno!</string>
+  <string name="xByY">%1$s od %2$s</string>
+  <string name="allNbVideoTags">Všechny %s štítky videí</string>
 </resources>
