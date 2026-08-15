@@ -350,7 +350,7 @@ final class UblogApi(
           "title" -> "",
           "intro" -> "",
           "markdown" -> "",
-          "image" -> $doc("$exists" -> false)
+          "image".$exists(false)
         )
       )
       .flatMap:

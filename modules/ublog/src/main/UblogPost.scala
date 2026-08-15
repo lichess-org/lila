@@ -100,9 +100,7 @@ object UblogPost:
       lived = none,
       featured = none,
       likes = Likes(1),
-      views = Views(0),
-      similar = none,
-      automod = none
+      views = Views(0)
     )
 
   def slug(title: String) =
