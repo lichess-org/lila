@@ -9,7 +9,7 @@ export function initModule(selector = '.infinite-scroll'): void {
 }
 
 function register(el: HTMLElement, selector: string, backoff = 500) {
-  const nav = el.querySelector<HTMLAnchorElement>('.pager');
+  const nav = el.querySelector<HTMLElement>('.pager');
   const next = nav?.querySelector<HTMLAnchorElement>('a');
   const nextUrl = next?.href;
   const scrollSelector = el.dataset.scrollSelector;
@@ -31,7 +31,11 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         );
     })
       .then(() => {
-        nav.innerHTML = spinnerHtml;
+        // in tables .pager is the <tr> - writing into it drops the cell and the spinner lands in an
+        // anonymous single-column cell
+        const cell = nav.querySelector<HTMLTableCellElement>(':scope > th, :scope > td');
+        if (cell) cell.colSpan = renderedColumns(nav);
+        (cell ?? nav).innerHTML = spinnerHtml;
         return xhr.text(nextUrl);
       })
       .then(
@@ -47,6 +51,14 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
           nav.remove();
         },
       );
+}
+
+// count the cells css actually renders - several tables drop columns at narrow widths and spanning
+// the dropped ones adds empty phantom columns that squeeze the visible ones
+function renderedColumns(pagerRow: HTMLElement) {
+  const cells = (pagerRow.previousElementSibling as HTMLTableRowElement | null)?.cells;
+  if (!cells) return 1;
+  return [...cells].reduce((n, cell) => n + (cell.getClientRects().length ? cell.colSpan : 0), 0) || 1;
 }
 
 function isVisible(el: HTMLElement) {
