@@ -45,7 +45,7 @@ final private class ExplorerGameApi(
       case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
       case i => mainline.drop(i + 1)
 
-  private def merge(
+  private[study] def merge(
       fromNode: Node,
       fromPath: UciPath,
       game: Root,
