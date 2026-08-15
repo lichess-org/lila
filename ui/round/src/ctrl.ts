@@ -34,7 +34,12 @@ import * as atomic from './atomic';
 import * as blur from './blur';
 import * as cevalSub from './cevalSub';
 import { CorresClockController } from './corresClock/corresClockCtrl';
-import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook, onDrop as crazyOnDrop } from './crazy/crazyCtrl';
+import {
+  valid as crazyValid,
+  init as crazyInit,
+  onEnd as crazyEndHook,
+  onDrop as crazyOnDrop,
+} from './crazy/crazyCtrl';
 import * as ground from './ground';
 import type {
   Step,
