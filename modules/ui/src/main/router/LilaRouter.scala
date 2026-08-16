@@ -53,7 +53,7 @@ object LilaRouter:
   )
 
   given PathBindable[AppealTopic] = strPath(AppealTopic.byKey.get, "Invalid appeal topic", _.toString)
-  given PathBindable[MarkdownRealm] = strPath(MarkdownRealm.from, "Invalid markdown realm")
+  given PathBindable[MarkdownRealm] = strPath(MarkdownRealm.byKey.get, "Invalid markdown realm")
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 

@@ -9,4 +9,4 @@ enum MarkdownRealm(val maxImageCount: Int, val imageDesignWidth: Int, val toastU
   def key = toString
 
 object MarkdownRealm:
-  def from(s: String): Option[MarkdownRealm] = values.find(_.key.startsWith(s))
+  val byKey = values.mapBy(_.key)
