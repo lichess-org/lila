@@ -100,7 +100,6 @@ function toastImageUploadHook(el: HTMLElement) {
       formData.append('dim.width', String(width));
       formData.append('dim.height', String(height));
       formData.append('image', image);
-      console.log(el.dataset.imageUploadUrl);
       const { imageUrl } = await xhrJson(el.dataset.imageUploadUrl!, {
         method: 'POST',
         body: formData,
@@ -122,7 +121,6 @@ function setupTabListeners(el: HTMLElement) {
   const toastUiPanes = () => toastUi.querySelectorAll<HTMLElement>('.toastui-editor-defaultUI > *');
 
   previewTab.addEventListener('click', async () => {
-    console.log(content.value);
     preview.innerHTML = `<div class="busy">${spinnerHtml}</div>`;
     preview.classList.remove('none');
     writeTab.classList.remove('active');
