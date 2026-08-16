@@ -179,9 +179,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     object apiGet:
       private val authLimit = 120
-      private val auth = RateLimit[UserId]((authLimit * 10), 1.minute, "broadcast.api.get.auth")
-      private val mobile = RateLimit[IpAddress](30, 1.minute, "broadcast.api.get.mobile")
-      private val anon = RateLimit[IpAddress](10, 1.minute, "broadcast.api.get.anon")
+      private val auth = RateLimit[UserId]((authLimit * 10 * 2), 2.minutes, "broadcast.api.get.auth")
+      private val mobile = RateLimit[IpAddress](30 * 2, 2.minutes, "broadcast.api.get.mobile")
+      private val anon = RateLimit[IpAddress](10 * 2, 2.minutes, "broadcast.api.get.anon")
       def apply[A](limited: String => Fu[A])(using ctx: Context, client: ClientName)(res: => Fu[A]): Fu[A] =
         ctx.me match
           case Some(me) =>
