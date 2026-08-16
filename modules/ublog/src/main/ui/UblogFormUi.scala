@@ -132,7 +132,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     )
 
   private def etiquette(using Translate) =
-    form3.fieldset(strong("Etiquette"))(
+    form3.fieldset("Etiquette")(
       p(trans.ublog.safeAndRespectfulContent()),
       p(trans.ublog.noCopyrightedImages()),
       p(trans.ublog.inappropriateContentAccountClosed()),

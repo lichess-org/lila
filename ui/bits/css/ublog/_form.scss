@@ -9,7 +9,6 @@
     padding-right: $box-padding;
   }
 
-  .toggle-box,
   .flash {
     @extend %box-margin-horiz;
   }
@@ -38,10 +37,6 @@
 
     @media (max-width: at-most($x-small)) {
       flex-direction: column;
-    }
-
-    legend {
-      padding: 4px 16px;
     }
 
     fieldset {
