@@ -26,21 +26,24 @@ final class LoginToken(
   object storedCode:
 
     private type Code = String
+    private type Creds = (NormalizedEmailAddress, UserId)
 
     private val store =
-      cacheApi.notLoadingSync[(NormalizedEmailAddress, Code), UserId](64, "loginToken.storedCode"):
+      cacheApi.notLoadingSync[(Creds, Code), UserId](64, "loginToken.storedCode"):
         _.expireAfterWrite(5.minutes).build()
 
     private val chars = (('2' to '9') ++ (('a' to 'z').toSet - 'l')).mkString
     private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
-    private def reqEmail(using RequestHeader): Option[NormalizedEmailAddress] =
-      HTTPRequest.queryStringGet("email").flatMap(EmailAddress.from).map(_.normalize)
+    private def reqEmailAndUser(using RequestHeader): Option[Creds] = for
+      email <- HTTPRequest.queryStringGet("email").flatMap(EmailAddress.from)
+      user <- HTTPRequest.queryStringGet("username").flatMap(UserStr.read)
+    yield (email.normalize, user.id)
 
     def consume()(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
-      (reqEmail, HTTPRequest.queryStringGet("code")).tupled.fold(notRateLimited): pair =>
-        limitAndFind(pair._1, cost = 1): (user, _) =>
+      (reqEmailAndUser, HTTPRequest.queryStringGet("code")).tupled.fold(notRateLimited): pair =>
+        limitAndFindCreds(pair._1, cost = 1): (user, _) =>
           if store.getIfPresent(pair).exists(_.is(user))
           then
             store.invalidate(pair)
@@ -49,10 +52,10 @@ final class LoginToken(
           else notRateLimited
 
     def createAndSend()(using RequestHeader): Fu[LimitResult] =
-      reqEmail.fold(notRateLimited): rawEmail =>
-        limitAndFind(rawEmail, cost = 1): (user, email) =>
+      reqEmailAndUser.fold(notRateLimited): creds =>
+        limitAndFindCreds(creds, cost = 1): (user, email) =>
           val code = String(Array.fill(6)(secureChar))
-          store.put(rawEmail -> code, user.id)
+          store.put(creds -> code, user.id)
           lila.mon.email.send.storedCode.increment()
           import scalatags.Text.all.*
           import Mailer.html.*
@@ -73,6 +76,13 @@ final class LoginToken(
               serviceNote
             )
           ).inject(LimitResult.Through)
+
+    private def limitAndFindCreds[A](creds: Creds, cost: Int)(
+        f: (User, EmailAddress) => Fu[A]
+    )(using RequestHeader): Fu[LimitResult | A] =
+      limitAndFind(creds._1, cost): (user, email) =>
+        if user.id == creds._2 then f(user, email)
+        else notRateLimited
 
   object magicLink:
 
