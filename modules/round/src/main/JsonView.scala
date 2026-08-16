@@ -117,6 +117,7 @@ final class JsonView(
             .add("highlight" -> pref.highlight)
             .add("destination" -> pref.destination)
             .add("enablePremove" -> pref.premove)
+            .add("multiplePremove" -> pref.multiplePremove)
             .add("showCaptured" -> pref.captured)
             .add("submitMove" -> submitMovePref(pref, game, flags.nvui))
       )

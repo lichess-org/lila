@@ -21,6 +21,7 @@ case class Pref(
     clockBar: Boolean,
     clockSound: Boolean,
     premove: Boolean,
+    multiplePremove: Boolean,
     animation: Int,
     captured: Boolean,
     follow: Boolean,
@@ -156,6 +157,17 @@ object Pref:
 
   object BooleanPref:
     val verify = (v: Int) => v == 0 || v == 1
+
+  object PremoveMode:
+    val DISABLED = 0
+    val SINGLE = 1
+    val MULTIPLE = 2
+
+    val choices = Seq(
+      MULTIPLE -> "Multiple",
+      SINGLE -> "One",
+      DISABLED -> "Disabled"
+    )
 
   object Bg:
     val LIGHT = 100
@@ -477,6 +489,7 @@ object Pref:
     clockBar = true,
     clockSound = true,
     premove = true,
+    multiplePremove = false,
     animation = Animation.NORMAL,
     captured = true,
     follow = true,

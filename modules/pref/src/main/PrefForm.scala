@@ -41,7 +41,7 @@ object PrefForm:
     val voice = "voice" -> booleanNumber
     val keyboardMove = "keyboardMove" -> booleanNumber
     val autoQueen = "autoQueen" -> checkedNumber(Pref.AutoQueen.choices)
-    val premove = "premove" -> booleanNumber
+    val premove = "premove" -> checkedNumber(Pref.PremoveMode.choices)
     val takeback = "takeback" -> checkedNumber(Pref.Takeback.choices)
     val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
     val submitMove = "submitMove" -> bitCheckedNumber(Pref.SubmitMove.choices)
@@ -173,7 +173,8 @@ object PrefForm:
         challenge = challenge,
         message = message,
         studyInvite = studyInvite | Pref.default.studyInvite,
-        premove = behavior.premove == 1,
+        premove = behavior.premove != Pref.PremoveMode.DISABLED,
+        multiplePremove = behavior.premove == Pref.PremoveMode.MULTIPLE,
         animation = display.animation,
         submitMove = behavior.submitMove.getOrElse(0),
         insightShare = insightShare,
@@ -207,7 +208,10 @@ object PrefForm:
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
-          premove = if pref.premove then 1 else 0,
+          premove =
+            if !pref.premove then Pref.PremoveMode.DISABLED
+            else if pref.multiplePremove then Pref.PremoveMode.MULTIPLE
+            else Pref.PremoveMode.SINGLE,
           takeback = pref.takeback,
           autoQueen = pref.autoQueen,
           autoThreefold = pref.autoThreefold,

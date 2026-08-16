@@ -194,6 +194,7 @@ export interface Pref {
   coords: Prefs.Coords;
   destination: boolean;
   enablePremove: boolean;
+  multiplePremove: boolean;
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;

@@ -25,6 +25,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
       categ.slug
     ):
       val booleanChoices = translatedBooleanIntChoices
+      val premoveChoices = Seq(
+        Pref.PremoveMode.MULTIPLE -> "Multiple",
+        Pref.PremoveMode.SINGLE -> "One",
+        Pref.PremoveMode.DISABLED -> "Disabled"
+      )
       div(cls := "box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
@@ -123,7 +128,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             ),
             setting(
               trp.premovesPlayingDuringOpponentTurn(),
-              radios(form("behavior.premove"), booleanChoices),
+              radios(form("behavior.premove"), premoveChoices),
               "premovesPlayingDuringOpponentTurn"
             ),
             setting(

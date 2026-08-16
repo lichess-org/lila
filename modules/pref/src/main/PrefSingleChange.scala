@@ -31,7 +31,10 @@ object PrefSingleChange:
     changing(_.autoQueen): v =>
       _.copy(autoQueen = v),
     changing(_.premove): v =>
-      _.copy(premove = v == 1),
+      _.copy(
+        premove = v != Pref.PremoveMode.DISABLED,
+        multiplePremove = v == Pref.PremoveMode.MULTIPLE
+      ),
     changing(_.takeback): v =>
       _.copy(takeback = v),
     changing(_.autoThreefold): v =>

@@ -164,7 +164,11 @@ export default class RoundController implements MoveRootCtrl {
 
   private readonly onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
     if (!this.keyboardMove?.usedSan && !this.opts.noab) ab.move(this, meta, pubsub.emit);
-    if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
+    if (this.startPromotion(orig, dest, meta)) {
+      // Promotion choice lives in Lila rather than Chessground, so a queued tail
+      // can no longer be treated as a safe continuation of the speculative chain.
+      if (meta.premove) this.chessground.cancelPremove();
+    } else this.sendMove(orig, dest, undefined, meta);
   };
 
   private readonly onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {

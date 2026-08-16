@@ -15,6 +15,8 @@ import { Premove } from './premove';
 import * as util from './util';
 import { plyStep } from './util';
 
+const multiplePremoveLimit = 10;
+
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
     hooks = ctrl.makeCgHooks(),
@@ -68,6 +70,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     },
     premovable: {
       enabled: data.pref.enablePremove,
+      maxCount: data.pref.enablePremove && data.pref.multiplePremove ? multiplePremoveLimit : 1,
       showDests: data.pref.destination && !ctrl.blindfold(),
       events: {
         set: hooks.onPremove,
