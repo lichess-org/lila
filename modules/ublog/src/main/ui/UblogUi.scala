@@ -58,7 +58,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         if showAuthor != ShowAt.none
         then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
         else if ~post.sticky
-        then span(dataIcon := Icon.Star, cls := "user-link ublog-post-card__over-image pos-top")
+        then span(iconTag(Icon.Star))(cls := "user-link ublog-post-card__over-image pos-top")
         else emptyFrag
       ),
       span(cls := "ublog-post-card__content")(
