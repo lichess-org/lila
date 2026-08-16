@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">Det finns en ny Lichess-mobilapp tillgänglig!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Vänligen ladda ner den nya officiella Lichess-appen på %s.</string>
+  <string name="modActionFeedback">Hej,
+
+Vi har granskat din senaste anmälan och ingripit. Medan vi kan inte dela detaljer om åtgärderna tagna, så uppskattar din anmälan.
+
+Tack för att du hjälper till att hålla Lichess en bra plats för alla.</string>
+</resources>

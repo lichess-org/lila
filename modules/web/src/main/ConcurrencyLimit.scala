@@ -17,20 +17,23 @@ final class ConcurrencyLimit[K](
 
   import ConcurrencyLimit.{ Storage, Limiter }
 
-  private val storage = Storage(ttl, maxConcurrency, toString)
-  private val monitor = lila.mon.security.concurrencyLimit(key)
+  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
+  private val limitedMon = lila.mon.security.concurrencyLimit(key)
+  private def levelMon(k: K) = lila.mon.security.concurrencyLevel(key, toString(k))
 
   def compose[T](k: K)(using RequestHeader): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
       lila.memo.RateLimit.logger.info(s"concurrency $key $k $reqMsg")
-      monitor.increment()
+      limitedMon.increment()
       none
     else
-      storage.inc(k)
+      val level = storage.inc(k)
+      levelMon(k).update(level)
       some:
         _.watchTermination(): (_, done) =>
           done.onComplete: _ =>
-            storage.dec(k)
+            val level = storage.dec(k)
+            levelMon(k).update(level)
 
   def apply[T](k: K)(using RequestHeader): Limiter[T] = makeSource =>
     makeResult =>
