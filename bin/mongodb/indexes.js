@@ -21,6 +21,10 @@ db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { 
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
+db.ublog_post.createIndex(
+  { 'lived.at': -1 },
+  { name: 'pendingReview', partialFilterExpression: { live: true, 'automod.quality': 2, quality: 1 } },
+);
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(
   { 'inquiry.mod': 1 },
