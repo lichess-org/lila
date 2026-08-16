@@ -19,6 +19,10 @@ class HttpFilterTest extends munit.FunSuite:
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
       "mozilla"
     )
+    agent(
+      "\"Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "mozilla"
+    )
     agent("lichess-bot/2024.9.19.1 user:Goldfish-Engine", "lichess-bot")
     agent("Endgame-Broadcast/1.0 (+https://endgame.ai/; contact:emmalie@endgame.ai)", "endgame-broadcast")
     agent("DiscoChess hello@discochess.com", "discochess hello")
@@ -28,4 +32,4 @@ class HttpFilterTest extends munit.FunSuite:
     agent("LichessWidgetsExtension/002505 CFNetwork/3860.600.12 Darwin/25.5.0", "lichesswidgetsextension")
     agent("", "-")
     agent("38298", "-")
-    agent("...", "...")
+    agent("...", "-")
