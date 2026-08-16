@@ -64,7 +64,8 @@ export function loadKeyboardMove(opts: Opts): Promise<KeyboardMoveHandler> {
   return site.asset.loadEsm('keyboardMove', { init: opts });
 }
 
-export function render(ctrl: KeyboardMove): VNode {
+export function render(ctrl?: KeyboardMove): VNode {
+  if (!ctrl) return h('div.keyboard-move');
   return h('div.keyboard-move', [
     h('input', {
       attrs: { spellcheck: 'false', autocomplete: 'off' },
