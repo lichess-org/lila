@@ -26,6 +26,6 @@ class HttpFilterTest extends munit.FunSuite:
     agent("chessever.com", "chessever.com")
     agent("Lichess Ladders (lichessladders.com)", "lichess ladders")
     agent("LichessWidgetsExtension/002505 CFNetwork/3860.600.12 Darwin/25.5.0", "lichesswidgetsextension")
-    agent("", "")
-    agent("38298", "")
+    agent("", "-")
+    agent("38298", "-")
     agent("...", "...")

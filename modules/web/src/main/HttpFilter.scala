@@ -108,3 +108,4 @@ private object HttpFilter:
     .filterNot(_.isDigit)
     .trim
     .toLowerCase
+    .nonEmptyOption | "-"
