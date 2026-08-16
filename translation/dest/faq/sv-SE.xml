@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Vanliga frågor</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Vanliga frågor</string>
   <string name="whyIsLichessCalledLichess">Varför kallas Lichess för Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess är en kombination av \"live\"/\"light\"/\"libre\" och \"chess\". Det uttalas %1$s.</string>
@@ -33,9 +33,9 @@
   <string name="gameplay">Spelet</string>
   <string name="howBulletBlitzEtcDecided">Hur bestäms Bullet, Blixt och andra tidskontroller?</string>
   <string name="basedOnGameDuration">Lichess tidskontroller är baserade på uppskattad partilängd = %1$s
- Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
-  <string name="durationFormula">(initial klocktid) + 40 · (tidstillägg)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
+  <string name="durationFormula">(initial klocktid i sekunder) + 40 * (tidstillägg)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>
@@ -65,7 +65,7 @@ Den beskrivs i avsnitt 3. (d) av %2$s:
 
 Se %3$s för detta drag för lite övning med det.</string>
   <string name="goodIntroduction">bra introduktion</string>
-  <string name="lichessTraining">Lichess träning</string>
+  <string name="lichessTraining">Lichess-träning</string>
   <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 i %2$s.</string>
@@ -130,7 +130,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="whyAreRatingHigherExplanation">Det är bäst att inte betrakta betyg som absoluta tal eller jämföra dem mot andra organisationer. Olika organisationer har olika nivåer av spelare, olika ratingsystem (Elo, Glicko, Glicko-2 eller en modifierad version av tidigarenämnda). Dessa faktorer kan drastiskt påverka absoluta tal (ratings).
 
   Det är bäst att tänka på ratings som \"relativa\" siffror (i motsats till \"absoluta\" siffror): Inom en pool av spelare, kommer deras relativa skillnader i rating hjälpa dig att beräkna vem som kommer att vinna / förlora, och hur ofta. Att säga \"Jag har X rating\" betyder ingenting om det inte finns andra spelare att jämföra denna rating med.</string>
-  <string name="howToHideRatingWhilePlaying">Hur döljer man rating medans man spelar?</string>
+  <string name="howToHideRatingWhilePlaying">Hur döljer man rating medan man spelar?</string>
   <string name="enableZenMode">Aktivera Zen-mode i %1$s, eller genom att trycka %2$s under ett parti.</string>
   <string name="displayPreferences">spelutseende-inställningar</string>
   <string name="connexionLostCanIGetMyRatingBack">Jag förlorade ett parti på grund av lagg/frånkoppling. Kan jag få tillbaka mina ratingpoäng?</string>
@@ -149,6 +149,12 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
 Den röda tystningsikonen visas när din webbläsare hindrar lichess.org från att spela ett ljud. Vanligtvis lyfts denna begränsning när du klickar på något. På vissa mobila webbläsare, att trycka-och-dra en bit räknas inte som ett klick. I så fall måste du trycka på tavlan för att tillåta ljud i början av varje spel.
 
 Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du uttryckligen tillåta lichess.org att spela ljud. Här är instruktioner för att göra det på senaste versioner av några populära webbläsare.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">De flesta webbläsare förhindrar nybesökta sidor från att spela ljud för att skydda användare.
+
+Mute-ikonen visas när din webbläsare förhindrar lichess.org från att spela ljud. Den här restriktionen är hävs vanligen om du klickar på något.
+På vissa mobilwebbläsare räknas inte dra och släppa pjäser som att klicka. I sådana fall måste du trycka på brädet för att tillåta ljud i början av varje spel.
+
+Vi visar en röd mute-ikon för att uppmärksama dig när det här händer. Du kan uttryckligen tillåta lichess.org att spela ljud på de flesta webbläsare. Här finns instruktioner för hur du tillåter webbplates att spela ljud på nyare versioner av några populära webbläsare:</string>
   <string name="desktop">skrivbord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå till lichess.org
 2. Tryck Ctrl-i på Linux/Windows eller cmd-i på MacOS
@@ -157,6 +163,10 @@ Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du utt
   <string name="enableAutoplayForSoundsChrome">1. Gå till lichess.org
 2. Klicka på låsikonen i adressfältet
 3. Klicka på Webbplatsinställningar
+4. Tillåt ljud</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gå till lichess.org
+2. Klicka på sidinformationsikonen i sökfältet
+3. Klicka på sidinställningar
 4. Tillåt ljud</string>
   <string name="enableAutoplayForSoundsSafari">1. Gå till lichess.org
 2. Klicka på Safari i menyraden
