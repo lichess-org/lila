@@ -1,6 +1,7 @@
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
 import type { MouchEvent } from '@lichess-org/chessground/types';
+import { allKeys } from '@lichess-org/chessground/util';
 
 import { isPlayerTurn } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
@@ -61,15 +62,7 @@ let dropWithKey = false;
 let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
-export function valid(data: RoundData, role: Role, key: Key): boolean {
-  if (crazyKeys.length === 0) dropWithDrag = true;
-  else {
-    dropWithKey = true;
-    if (!mouseIconsLoaded) preloadMouseIcons(data);
-  }
-
-  if (!isPlayerTurn(data)) return false;
-
+function isLegalDropSquare(data: RoundData, role: Role, key: Key): boolean {
   if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
 
   const dropStr = data.possibleDrops;
@@ -79,6 +72,25 @@ export function valid(data: RoundData, role: Role, key: Key): boolean {
   const drops = dropStr.match(/.{2}/g);
 
   return !!drops?.includes(key);
+}
+
+export function valid(data: RoundData, role: Role, key: Key): boolean {
+  if (crazyKeys.length === 0) dropWithDrag = true;
+  else {
+    dropWithKey = true;
+    if (!mouseIconsLoaded) preloadMouseIcons(data);
+  }
+
+  if (!isPlayerTurn(data)) return false;
+
+  return isLegalDropSquare(data, role, key);
+}
+
+// Squares the armed piece could legally land on, for board highlighting.
+function dropDests(ctrl: RoundController, role: Exclude<Role, 'king'>): Key[] {
+  if (!isPlayerTurn(ctrl.data)) return [];
+  const pieces = ctrl.chessground.state.pieces;
+  return allKeys.filter(key => !pieces.has(key) && isLegalDropSquare(ctrl.data, role, key));
 }
 
 export function onEnd(): void {
@@ -113,19 +125,26 @@ export function onDrop(ctrl: RoundController): void {
 export function refreshDrop(ctrl: RoundController): void {
   if (activeCursor) document.body.classList.remove(activeCursor);
   const role = activeRole();
+  const state = ctrl.chessground.state;
   if (role) {
     const color = ctrl.data.player.color,
       crazyData = ctrl.data.crazyhouse;
     if (!crazyData) return;
 
     const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
-    setDropMode(ctrl.chessground.state, nb ? { color, role } : undefined);
+    setDropMode(state, nb ? { color, role } : undefined);
     activeCursor = `cursor-${color}-${role}`;
     document.body.classList.add(activeCursor);
+    state.highlight.custom =
+      nb && ctrl.data.pref.destination && !ctrl.blindfold()
+        ? new Map(dropDests(ctrl, role).map(key => [key, 'move-dest']))
+        : undefined;
   } else {
-    cancelDropMode(ctrl.chessground.state);
+    cancelDropMode(state);
     activeCursor = undefined;
+    state.highlight.custom = undefined;
   }
+  ctrl.chessground.redrawAll();
 }
 
 export function init(ctrl: RoundController): void {
@@ -197,6 +216,6 @@ export function init(ctrl: RoundController): void {
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
-  for (const pKey of 'PNBRQ') fetch(site.asset.url(`piece/cburnett/${colorKey}${pKey}.svg`));
+  for (const pKey of 'PNBRQ') fetch(site.asset.url(`piece/cburnett-cursor/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

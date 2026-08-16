@@ -23,8 +23,14 @@ function makeCtrl(pockets: [CrazyPocket, CrazyPocket], playing = true): RoundCon
     replaying: () => false,
     isPlaying: () => playing,
     redraw: () => {},
-    chessground: { state },
-    data: { player: { color: 'white' }, crazyhouse },
+    blindfold: () => false,
+    chessground: { state, redrawAll: () => {} },
+    data: {
+      player: { color: 'white' },
+      game: { status: { id: 20, name: 'started' }, player: 'white', turns: 0 },
+      crazyhouse,
+      pref: { destination: true },
+    },
   };
   return ctrl as unknown as RoundController;
 }
@@ -74,6 +80,46 @@ describe('crazyhouse click-click drops', () => {
     assert.equal(isClicked('white', 'knight'), true);
     assert.equal(ctrl.chessground.state.dropmode.active, true);
     assert.deepEqual(ctrl.chessground.state.dropmode.piece, { color: 'white', role: 'knight' });
+  });
+
+  test('arming a piece highlights every empty square as a move-dest', () => {
+    const ctrl = makeCtrl([{ ...emptyPocket(), knight: 1 }, emptyPocket()]);
+    click(ctrl, makeEvent({ 'data-role': 'knight', 'data-color': 'white', 'data-nb': '1' }));
+
+    // Starting position: ranks 3-6 are empty, ranks 1/2/7/8 are occupied.
+    const custom = ctrl.chessground.state.highlight.custom;
+    assert.equal(custom?.size, 32);
+    assert.equal(custom?.get('e4'), 'move-dest');
+    assert.equal(custom?.get('e2'), undefined);
+  });
+
+  test('a pawn is not highlighted as droppable on the back ranks', () => {
+    const ctrl = makeCtrl([{ ...emptyPocket(), pawn: 1 }, emptyPocket()]);
+    click(ctrl, makeEvent({ 'data-role': 'pawn', 'data-color': 'white', 'data-nb': '1' }));
+
+    // Ranks 1/8 are occupied anyway in the starting position, but a pawn
+    // could never be highlighted there even on an otherwise-empty rank.
+    const custom = ctrl.chessground.state.highlight.custom;
+    assert.equal(custom?.get('e4'), 'move-dest');
+    assert.equal(custom?.get('e1'), undefined);
+  });
+
+  test('the destination pref off leaves no highlight', () => {
+    const ctrl = makeCtrl([{ ...emptyPocket(), knight: 1 }, emptyPocket()]);
+    ctrl.data.pref.destination = false;
+    click(ctrl, makeEvent({ 'data-role': 'knight', 'data-color': 'white', 'data-nb': '1' }));
+
+    assert.equal(ctrl.chessground.state.highlight.custom, undefined);
+  });
+
+  test('deselecting the armed piece clears the highlight', () => {
+    const ctrl = makeCtrl([{ ...emptyPocket(), knight: 1 }, emptyPocket()]);
+    const attrs = { 'data-role': 'knight', 'data-color': 'white', 'data-nb': '1' };
+    click(ctrl, makeEvent(attrs));
+    assert.ok(ctrl.chessground.state.highlight.custom?.size);
+
+    click(ctrl, makeEvent(attrs)); // toggle off
+    assert.equal(ctrl.chessground.state.highlight.custom, undefined);
   });
 
   test('clicking a board square completes the drop and disarms dropmode', () => {
