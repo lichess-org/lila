@@ -18,6 +18,7 @@
 Забави се и нека твоје фигуре увек нађу њихов пут ка противничком краљу!</string>
   <string name="logInToLichess">Улогуј се на lichess.org, %s</string>
   <string name="common_orPaste">(Кликање не ради? Пробај га налепити у свој претражовач!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Линк не ради? Покушај да га налепиш у претраживач!)</string>
   <string name="common_note">Ово је сервисни имејл везан за твоје коришћење %s.</string>
   <string name="common_contact">Да бисте нас контактирали, молимо Вас користите %s.</string>
 </resources>

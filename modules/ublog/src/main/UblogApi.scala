@@ -224,7 +224,7 @@ final class UblogApi(
 
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
-      .find($doc("live" -> true) ++ pendingReviewSelect, postProjection.some)
+      .find(pendingReviewSelect, postProjection.some)
       .sort($sort.desc("lived.at"))
       .one[UblogPost]
 
