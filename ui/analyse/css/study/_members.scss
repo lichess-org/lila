@@ -78,14 +78,8 @@
     opacity: 0.7;
   }
 
-  .study-list > div {
-    &:first-child {
-      @extend %box-radius-top;
-    }
-
-    &:hover .leave:hover {
-      background-color: $c-bad;
-    }
+  .study-list > div:hover .leave:hover {
+    background-color: $c-bad;
   }
 
   .add {
@@ -99,7 +93,6 @@
     @extend %box-radius-bottom;
 
     justify-content: center;
-    margin-bottom: 0.5em;
     padding-block: 2px;
   }
 
