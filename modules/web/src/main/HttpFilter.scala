@@ -103,6 +103,7 @@ private object HttpFilter:
     isApiAgent.option(apiAgent(HTTPRequest.userAgent(req)))
 
   def apiAgent(ua: UserAgent): String = ua.value
+    .dropWhile(!_.isLetterOrDigit)
     .takeWhile: c =>
       c != '/' && c != '(' && c != '@'
     .filterNot(_.isDigit)
