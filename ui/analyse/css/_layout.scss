@@ -16,7 +16,7 @@ body {
 .analyse {
   grid-area: main;
   display: grid;
-  gap: $analyse-block-gap;
+  gap: $block-gap $analyse-block-gap;
 
   ---analyse-gauge-col: #{$analyse-block-gap};
   ---analyse-gauge-offset: calc(var(---analyse-gauge-col) - #{$analyse-block-gap});
@@ -67,8 +67,6 @@ body {
   }
 
   .eval-gauge {
-    @extend %box-radius;
-
     grid-area: gauge;
     display: none;
   }
@@ -140,8 +138,8 @@ body {
     .keyboard-move {
       display: block;
       grid-area: kb-move;
-      margin: $analyse-block-gap;
-      margin: calc($analyse-block-gap / 2) 0 0 0;
+      margin: $block-gap;
+      margin: calc($block-gap / 2) 0 0 0;
     }
   }
 

@@ -18,6 +18,10 @@ $span-width: 1.5em;
   > button {
     width: 100%;
 
+    &:first-child {
+      @extend %box-radius-top;
+    }
+
     &.active,
     &:active {
       opacity: 1;
