@@ -37,7 +37,7 @@ cg-board::before {
 @each $name, $board-theme in $board-themes-3d {
   body[data-board3d='#{$name}'] .is3d .main-board {
     cg-board::before {
-      background-image: url(../images/staunton/board/#{$name}.png);
+      background-image: url(../images/staunton/board/#{$name}.webp);
     }
 
     $coord-color-white: map-get($board-theme, coord-color-white);
