@@ -145,10 +145,11 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
                 case lila.core.lilaism.LilaInvalid(msg) => UnprocessableEntity(jsonError(msg))
   }
 
-  def imageUrl(realm: MarkdownRealm, id: ImageId, width: Int) = Auth { _ ?=> _ ?=>
+  def imageUrl(realm: MarkdownRealm, id: ImageId, width: Int) = Auth { _ ?=> me ?=>
     if width < 1 then JsonBadRequest("Invalid width")
     else
-      JsonOk(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
+      limit.preview(me.userId, rateLimited):
+        JsonOk(Json.obj("imageUrl" -> env.memo.picfitUrl.resize(id, Left(width.min(realm.imageDesignWidth)))))
   }
 
   def markdownPreview(realm: MarkdownRealm) = AuthBody(parse.tolerantText) { ctx ?=> me ?=>
