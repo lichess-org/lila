@@ -368,6 +368,8 @@ object security:
       counter("security.proxy.hit").withTags(tags("proxy" -> prox, "action" -> action))
   def rateLimit(key: String) = counter("security.rateLimit.count").withTag("key", key)
   def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
+  def concurrencyLevel(key: String, client: String) =
+    gauge("security.concurrencyLimit.level").withTags(tags("key" -> key, "client" -> client))
   object dnsApi:
     val mx = future("security.dnsApi.mx.time")
   object verifyMailApi:
