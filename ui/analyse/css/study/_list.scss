@@ -3,6 +3,7 @@
   @include prevent-select;
 
   background: $c-bg-box;
+  overflow: hidden;
 
   .study-list > div,
   button {
