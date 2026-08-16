@@ -62,5 +62,5 @@
     <item quantity="one">%s timme återstår</item>
     <item quantity="other">%s timmar återstår</item>
   </plurals>
-  <string name="completed">slutfört</string>
+  <string name="completed">slutförd</string>
 </resources>
