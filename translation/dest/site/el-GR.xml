@@ -837,6 +837,7 @@
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="roundness">Καμπυλότητα</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
+  <string name="imageOpacity">Διαφάνεια εικόνας</string>
   <string name="board">Σκακιέρα</string>
   <string name="size">Μέγεθος</string>
   <string name="opacity">Αδιαφάνεια</string>

@@ -230,7 +230,7 @@ trong 2 nước!</string>
   <string name="youreGoodAtThis">Bạn giỏi quá!</string>
   <string name="nailedIt">Luyện tập tốt.</string>
   <string name="rightOn">Chính xác, tuyệt vời!</string>
-  <string name="stageXComplete">Hoàn thành chặng %s</string>
+  <string name="stageXComplete">Chặng %s hoàn thành</string>
   <string name="next">Tiếp</string>
   <string name="nextX">Tiếp theo: %s</string>
   <string name="backToMenu">Quay lại mục lục</string>

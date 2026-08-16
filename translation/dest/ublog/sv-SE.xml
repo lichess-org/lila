@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="community">Community</string>
+  <string name="community">Gemenskap</string>
+  <string name="byMonth">Efter månad</string>
+  <string name="byTopic">Efter ämne</string>
+  <string name="byLichess">Av Lichess</string>
   <string name="myFriends">Mina vänner</string>
+  <string name="myLikes">Mina gillade</string>
   <string name="myBlog">Min blogg</string>
   <string name="likedBlogs">Gillade blogginlägg</string>
   <plurals name="blogPosts">
-    <item quantity="one">Ett blogginlägg</item>
+    <item quantity="one">%s blogginlägg</item>
     <item quantity="other">%s blogginlägg</item>
   </plurals>
   <string name="continueReadingPost">Fortsätt läsa detta inlägg</string>
-  <string name="lichessBlogPostsFromXYear">Lichess blogginlägg i %s</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blogginlägg under %s</string>
   <string name="previousBlogPosts">Föregående blogginlägg</string>
   <string name="xBlog">%ss blogg</string>
   <string name="newPost">Nytt inlägg</string>
   <string name="editYourBlogPost">Redigera ditt blogginlägg</string>
   <string name="saveDraft">Spara utkast</string>
-  <string name="postTitle">Inläggets titel</string>
+  <string name="postTitle">Inläggstitel</string>
   <string name="postIntro">Inläggets intro</string>
   <string name="postBody">Brödtext</string>
   <string name="drafts">Utkast</string>

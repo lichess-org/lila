@@ -2,13 +2,13 @@
 <resources>
   <string name="lichessStreamers">Videokanaler från Lichess</string>
   <string name="lichessStreamer">Videokanal från Lichess</string>
-  <string name="live">DIREKTSÄNDNING!</string>
-  <string name="offline">FRÅNKOPPLAD</string>
-  <string name="currentlyStreaming">Direktsänder video nu: %s</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Aktuell direktsändning: %s</string>
   <string name="lastStream">Senaste videosändning %s</string>
   <string name="becomeStreamer">Börja sända video från Lichess</string>
   <string name="doYouHaveStream">Har du en kanal på Twitch eller YouTube?</string>
-  <string name="hereWeGo">Låt oss börja!</string>
+  <string name="hereWeGo">Nu kör vi!</string>
   <string name="allStreamers">Alla videokanaler</string>
   <string name="editPage">Redigera direktsändnings-sida</string>
   <string name="yourPage">Din direktsändnings-sida</string>
@@ -31,6 +31,7 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">När du är redo att lista din Lichess-kanal, %s</string>
   <string name="submitForReview">Skicka in för granskning</string>
   <string name="streamerLanguageSettings">Lichess-streamersidan är inriktad mot målgruppen med det språket som din streaming-plattform visar. Välj korrekt standardspråk för dina schackstreams i den appen eller tjänsten du använder för dina sändningar.</string>
+  <string name="connect">Koppla</string>
   <string name="streamerName">Ditt sändningsnamn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Behåll kort: max %s tecken</item>
