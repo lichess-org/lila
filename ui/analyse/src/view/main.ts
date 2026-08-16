@@ -52,7 +52,8 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     renderControls(ctrl),
     renderUnderboard(ctx),
-    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+    ctrl.data.pref.keyboardMove &&
+      (ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : hl('div.keyboard-move')),
     trainingView(ctrl),
     hl(
       'aside.analyse__side',
