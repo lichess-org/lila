@@ -145,7 +145,6 @@ food-drink.cup-with-straw
 food-drink.cupcake
 food-drink.curry-rice
 food-drink.custard
-food-drink.cut-of-meat
 food-drink.dango
 food-drink.doughnut
 food-drink.dumpling
@@ -694,7 +693,6 @@ objects.stopwatch
 objects.straight-ruler
 objects.studio-microphone
 objects.sunglasses
-objects.syringe
 objects.t-shirt
 objects.tear-off-calendar
 objects.teddy-bear
@@ -3392,7 +3390,6 @@ symbols.no-bicycles
 symbols.no-entry
 symbols.no-littering
 symbols.no-mobile-phones
-symbols.no-one-under-eighteen
 symbols.no-pedestrians
 symbols.no-smoking
 symbols.non-potable-water
