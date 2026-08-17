@@ -8,7 +8,6 @@ import lila.relay.RelayTour.WithLastRound
 
 import reactivemongo.api.bson.*
 import lila.memo.CacheApi.buildAsyncTimeout
-import scalalib.model.Page
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
