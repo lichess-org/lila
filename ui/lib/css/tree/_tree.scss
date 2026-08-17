@@ -8,7 +8,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   .#{$name},
   .#{$name} + lines,
-  .#{$name} + interrupt {
+  &-inline .#{$name} + interrupt {
     --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
   }
 
@@ -413,6 +413,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     overflow-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
+    color: var(--c-base);
   }
 
   inline::before,
