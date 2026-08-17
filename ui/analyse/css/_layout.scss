@@ -16,7 +16,6 @@ body {
 .analyse {
   grid-area: main;
   display: grid;
-  gap: $block-gap $analyse-block-gap;
 
   ---analyse-gauge-col: #{$analyse-block-gap};
   ---analyse-gauge-offset: calc(var(---analyse-gauge-col) - #{$analyse-block-gap});
@@ -144,6 +143,7 @@ body {
   }
 
   @include mq-is-col2-squeeze {
+    gap: $block-gap $analyse-block-gap;
     grid-template-columns:
       $col2-uniboard-squeeze-width var(---analyse-gauge-col)
       minmax(
@@ -153,6 +153,7 @@ body {
   }
 
   @include mq-at-least-col3 {
+    gap: $block-gap $analyse-block-gap;
     grid-template-columns:
       $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width)
       var(---analyse-gauge-col)
