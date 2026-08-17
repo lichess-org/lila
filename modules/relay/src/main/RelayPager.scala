@@ -31,7 +31,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
-                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) :::
+                List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) :::
                   tourRepo.aggregateRound(
                     colls,
                     framework,
@@ -58,7 +58,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
+                List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) ::: tourRepo
                   .aggregateRoundAndUnwind(colls, framework) ::: List(
                   Skip(offset),
                   Limit(length)
@@ -78,7 +78,7 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
-              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
+              List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) ::: tourRepo
                 .aggregateRound(
                   colls,
                   framework,
@@ -102,7 +102,7 @@ final class RelayPager(
         .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(selectors.officialInactive) -> {
-            List(Project(unsetHeavyOptionalFields), Sort(Descending("syncedAt"))) :::
+            List(Sort(Descending("syncedAt")), Project(unsetHeavyOptionalFields)) :::
               tourRepo.aggregateRoundAndUnwind(colls, framework) :::
               List(Skip(offset), Limit(length))
           }
