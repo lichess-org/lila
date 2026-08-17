@@ -12,6 +12,7 @@ import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
 import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
+import lila.core.perm.Granter
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
 import lila.common.HTTPRequest
 
@@ -243,7 +244,8 @@ final class Ublog(env: Env) extends LilaController(env):
             featured <- env.ublog.api.setFeatured(modPost, data)
             newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
-            next <- (newPost.modQuality.isDefined && post.isPendingQuality).so(env.ublog.api.nextToReview)
+            next <- (newPost.approval == UblogPost.Approval.verified && post.isPendingQuality)
+              .so(env.ublog.api.nextToReview)
           yield
             if data.hasUpdates then logModAction(newPost, data.diff(post))
             next match
@@ -366,6 +368,25 @@ final class Ublog(env: Env) extends LilaController(env):
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)
+
+  def failedAutomod(page: Int) = Secure(_.ModerateBlog) { _ ?=> me ?=>
+    env.ublog.paginator
+      .failedAutomod(page)
+      .flatMap: posts =>
+        Ok.page(views.ublog.ui.failedAutomod(posts)(views.mod.ui.menu("automod")))
+  }
+
+  def retryFailedAutomod(postId: Option[UblogPostId]) = Secure(_.ModerateBlog) { _ ?=> me ?=>
+    if postId.nonEmpty || Granter(_.Admin) then
+      env.ublog.api.retryFailedAutomod(postId).inject(Redirect(routes.Ublog.failedAutomod()))
+    else authorizationFailed
+  }
+
+  def clearFailedAutomod(postId: Option[UblogPostId]) = Secure(_.ModerateBlog) { _ ?=> me ?=>
+    if postId.nonEmpty || Granter(_.Admin) then
+      env.ublog.api.clearFailedAutomod(postId).inject(Redirect(routes.Ublog.failedAutomod()))
+    else authorizationFailed
+  }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

@@ -43,7 +43,8 @@ final class Env(
   private given UserIdOf[Report.SnoozeKey] = _.snoozerId
   private lazy val snoozer = lila.memo.Snoozer[Report.SnoozeKey]("report.snooze", cacheApi)
 
-  lazy val automod = wire[Automod]
+  lazy val automodRepo = new AutomodRepo(db(CollName("automod")))
+  lazy val automod = wire[AutomodApi]
   lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter

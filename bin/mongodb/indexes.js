@@ -4,6 +4,9 @@ db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
   { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
 );
+db.automod.createIndex({ createdAt: -1 });
+db.automod.createIndex({ jobType: 1, 'response.result': 1, 'response.date': -1 });
+db.automod.createIndex({ jobType: 1, 'response.result': 1, source: 1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
 db.swiss_pairing.createIndex({ t: 1 }, { partialFilterExpression: { t: true } });
 db.oauth2_authorization.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
@@ -18,8 +21,9 @@ db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true 
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
-db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ topics: 1, listedAt: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ listedAt: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
 db.ublog_post.createIndex(
   { 'lived.at': -1 },

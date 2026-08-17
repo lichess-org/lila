@@ -73,6 +73,16 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
+  def failedAutomod(page: Int): Fu[Paginator[UblogAutomod.Failed]] =
+    Paginator(
+      adapter = new AdapterLike[UblogAutomod.Failed]:
+        def nbResults = ublogApi.failedAutomodCount()
+        def slice(offset: Int, length: Int) = ublogApi.failedAutomod(offset, length)
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+
   def liveByTopic(
       topic: UblogTopic,
       filter: QualityFilter,
@@ -121,10 +131,10 @@ final class UblogPaginator(
 
   private def selectQuality(filter: QualityFilter, offTopic: Boolean = false): Bdoc =
     filter match
-      case QualityFilter.all => $doc("automod.quality".$gte(if offTopic then Quality.spam else Quality.weak))
-      case QualityFilter.best => $doc("automod.quality".$gte(if offTopic then Quality.weak else Quality.good))
-      case QualityFilter.weak => $doc("automod.quality".$eq(Quality.weak))
-      case QualityFilter.spam => $doc("automod.quality".$eq(Quality.spam))
+      case QualityFilter.all => $doc("quality".$gte(if offTopic then Quality.spam else Quality.weak))
+      case QualityFilter.best => $doc("quality".$gte(if offTopic then Quality.weak else Quality.good))
+      case QualityFilter.weak => $doc("quality".$eq(Quality.weak))
+      case QualityFilter.spam => $doc("quality".$eq(Quality.spam))
       case QualityFilter.pending => pendingReviewSelect
 
   object liveByFollowed:

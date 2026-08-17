@@ -11,3 +11,5 @@ POST  /report/:id/process              controllers.report.Report.process(id: Rep
 POST  /report/:id/xfiles               controllers.report.Report.xfiles(id: ReportId)
 POST  /report/:id/snooze/:dur          controllers.report.Report.snooze(id: ReportId, dur: String)
 GET   /report/:user/cheat-inquiry  controllers.report.Report.currentCheatInquiry(user: UserStr)
+GET   /report/automod                  controllers.report.Report.automodStatus
+GET   /report/automod.json             controllers.report.Report.automodStatusXhr
