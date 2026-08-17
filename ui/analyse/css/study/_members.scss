@@ -89,12 +89,11 @@
     }
   }
 
-  .admin {
-    text-align: center;
+  .admin button {
+    @extend %box-radius-bottom;
 
-    button {
-      margin-bottom: 0.5em;
-    }
+    justify-content: center;
+    padding-block: 2px;
   }
 
   m-config,

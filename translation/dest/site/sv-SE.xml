@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utmana en vän</string>
   <string name="playAgainstComputer">Spela mot dator</string>
   <string name="gameMode">Spelläge</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
   <string name="orLetYourOpponentScanQrCode">Eller låt din motståndare skanna denna QR-kod</string>
+  <string name="reusableChallengeUrl">Återanvändbar utmanings-URL</string>
   <string name="waiting">Väntar</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
@@ -795,6 +797,10 @@
   <string name="quickPairing">Snabbparning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alla språk</string>
@@ -1016,6 +1022,7 @@ Alla driftskostnader, utveckling och innehåll finansieras enbart av användardo
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Sök</string>
   <string name="clearSearch">Rensa sökning</string>
+  <string name="thereAreNoResultsForX">Inga reslutat för \"%s\"</string>
   <string name="tags">Taggar</string>
   <string name="settings">Inställningar</string>
 </resources>

@@ -1,4 +1,6 @@
 .eval-gauge {
+  @extend %box-radius;
+
   width: $block-gap;
   height: var(---cg-height, 100%);
   position: relative;
@@ -22,6 +24,8 @@
   }
 
   &::after {
+    @extend %box-radius;
+
     content: '';
     display: block;
     position: absolute;

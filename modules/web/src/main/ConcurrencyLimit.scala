@@ -28,12 +28,12 @@ final class ConcurrencyLimit[K](
       none
     else
       val level = storage.inc(k)
-      levelMon(k).update(level)
+      if level >= 3 then levelMon(k).update(level)
       some:
         _.watchTermination(): (_, done) =>
           done.onComplete: _ =>
             val level = storage.dec(k)
-            levelMon(k).update(level)
+            if level >= 2 then levelMon(k).update(level)
 
   def apply[T](k: K)(using RequestHeader): Limiter[T] = makeSource =>
     makeResult =>

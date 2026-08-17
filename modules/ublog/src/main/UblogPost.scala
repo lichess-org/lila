@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
 import lila.core.id.ImageId
+import lila.core.i18n.{ defaultLanguage, toLanguage }
 import lila.core.ublog.Quality
 
 case class UblogPost(
@@ -41,6 +42,7 @@ case class UblogPost(
   )
   def visibleByCrawlers = indexable && automod.exists(_.quality != Quality.spam)
   def allText = s"$title $intro $markdown"
+  def isEmpty = title.isEmpty && intro.isEmpty && markdown.value.isEmpty && image.isEmpty
 
   def allows = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
@@ -78,6 +80,28 @@ case class UblogSimilar(id: UblogPostId, count: Int)
 object UblogPost:
 
   export lila.core.ublog.UblogPost.*
+
+  def empty(user: User) =
+    UblogPost(
+      id = randomId,
+      blog = UblogBlog.Id.User(user.id),
+      title = "",
+      intro = "",
+      markdown = Markdown(""),
+      language = user.realLang.map(toLanguage) | defaultLanguage,
+      image = none,
+      topics = Nil,
+      live = false,
+      discuss = false.some,
+      sticky = false.some,
+      ads = false.some,
+      created = Recorded(user.id, nowInstant),
+      updated = none,
+      lived = none,
+      featured = none,
+      likes = Likes(1),
+      views = Views(0)
+    )
 
   def slug(title: String) =
     val s = scalalib.StringOps.slug(title)

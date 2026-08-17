@@ -119,7 +119,7 @@
   <string name="lossSavedBy50MoveRule">Пораз спречен правилом 50 потеза</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потеза на основу претходне грешке</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
-  <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy основним табелама.</string>
+  <string name="unknownDueToRounding">Због могућег заокруживања DTZ вредности у Syzygy табелама завршница, победа/пораз су загарантовани само ако се препоручена линија из табеле пратила од последњег узимања или пешачког потеза.</string>
   <string name="allSet">Све спремно!</string>
   <string name="importPgn">Увези PGN</string>
   <string name="delete">Избриши</string>
@@ -248,7 +248,7 @@
   <string name="error.weakPassword">Ова лозинка је изузетно честа и сувише лака да се погоди.</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="blankedPassword">Користио си исту лозинку на другом сајту и тај сајт је био хакован. Да бисмо обезбедили сигурност твог Lichess налога, неопходно је да поставимо нову лозинку. Хвала на разумевању.</string>
-  <string name="youAreLeavingLichess">Напуштате Lichess</string>
+  <string name="youAreLeavingLichess">Напушташ Lichess</string>
   <string name="neverTypeYourPassword">Никада немој користити своју Lichess лозинку на неком другом сајту!</string>
   <string name="proceedToX">Настави до %s</string>
   <string name="passwordSuggestion">Немој користити лозинку коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>

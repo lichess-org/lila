@@ -32,7 +32,3 @@ cg-board {
 .mini-game .cg-wrap {
   @extend %square;
 }
-
-.gauge-on .main-board cg-board {
-  @extend %box-radius-left;
-}
