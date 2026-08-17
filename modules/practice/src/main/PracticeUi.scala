@@ -16,6 +16,7 @@ final class PracticeUi(helpers: Helpers)(
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .i18n(_.study)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
