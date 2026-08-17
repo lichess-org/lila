@@ -31,7 +31,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         );
     })
       .then(() => {
-        nav.innerHTML = spinnerHtml;
+        if (nav.tagName !== 'TR') nav.innerHTML = spinnerHtml;
         return xhr.text(nextUrl);
       })
       .then(
