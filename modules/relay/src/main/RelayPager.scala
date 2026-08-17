@@ -8,6 +8,7 @@ import lila.relay.RelayTour.WithLastRound
 
 import reactivemongo.api.bson.*
 import lila.memo.CacheApi.buildAsyncTimeout
+import scalalib.model.Page
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
@@ -114,8 +115,12 @@ final class RelayPager(
         .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]("relayPager.firstPage"):
-      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(5.seconds).buildAsyncTimeout(): _ =>
         slice(0, maxPerPage.value)
+
+    private val otherPagesCache = cacheApi[Int, List[WithLastRound]](8, "relayPager.otherPages"):
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout():
+        slice(_, maxPerPage.value)
 
     def apply(page: Int): Fu[Paginator[WithLastRound]] =
       Paginator(
@@ -123,13 +128,11 @@ final class RelayPager(
           def nbResults: Fu[Int] = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
             if offset == 0 then firstPageCache.get({})
-            else inactive.slice(offset, length)
+            else otherPagesCache.get(offset)
         ,
         currentPage = page,
         maxPerPage = maxPerPage
       )
-
-    def firstPageResults(): Fu[List[WithLastRound]] = firstPageCache.get({})
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound | RelayCard]] =
 
