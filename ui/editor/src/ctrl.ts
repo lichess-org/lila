@@ -9,7 +9,7 @@ import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/se
 import type { Rules, Square } from 'chessops/types';
 import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
 
-import { defined, prop, type Prop } from 'lib';
+import { defined, propWithEffect, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 
 import {
@@ -54,7 +54,11 @@ export default class EditorCtrl {
   ) {
     this.options = cfg.options || {};
 
-    this.selected = prop('pointer');
+    this.selected = propWithEffect('pointer', selected => {
+      // right click paints the opposite color while a piece is selected, so shapes
+      // can only be drawn with the pointer
+      if (this.chessground) this.chessground.state.drawable.enabled = selected === 'pointer';
+    });
 
     [...(cfg.positions || []), ...(cfg.endgamePositions || [])].forEach(
       p => (p.epd = p.fen.split(' ').slice(0, 4).join(' ')),
