@@ -8,6 +8,7 @@ import lila.core.id.*
 import lila.core.study.StudyOrder as StudyOrder
 import lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
 import lila.core.misc.AppealTopic
+import lila.ui.MarkdownRealm
 
 object LilaRouter:
 
@@ -52,6 +53,7 @@ object LilaRouter:
   )
 
   given PathBindable[AppealTopic] = strPath(AppealTopic.byKey.get, "Invalid appeal topic", _.toString)
+  given PathBindable[MarkdownRealm] = strPath(MarkdownRealm.byKey.get, "Invalid markdown realm")
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 

@@ -183,9 +183,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               canModCateg.option(relocateModal(categ))
             )
           ),
-          for
-            given Me <- ctx.me
-            (form, captcha) <- formWithCaptcha
+          for (form, captcha) <- formWithCaptcha
           yield postForm(
             cls := "form3 reply",
             action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",

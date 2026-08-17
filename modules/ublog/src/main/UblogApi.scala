@@ -44,13 +44,6 @@ final class UblogApi(
     for posts <- carouselCache.get({})
     yield posts.filter(_.isLichess || kid.no)
 
-  def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
-    val post = data.create(author)
-    for
-      _ <- colls.post.insert.one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
-      _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
-    yield post
-
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
@@ -347,6 +340,26 @@ final class UblogApi(
         )
       for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
       yield featured
+
+  def newPost(author: User): Fu[UblogPost] =
+    colls.post
+      .one[UblogPost](
+        $doc(
+          "blog" -> UblogBlog.Id.User(author.id),
+          "live" -> false,
+          "title" -> "",
+          "intro" -> "",
+          "markdown" -> "",
+          "image".$exists(false)
+        )
+      )
+      .flatMap:
+        case Some(post) => fuccess(post)
+        case _ =>
+          val post = UblogPost.empty(author)
+          colls.post.insert
+            .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+            .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
     (tier <= Tier.LOW).so(unfeatureAllOf(blog))
