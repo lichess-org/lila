@@ -47,12 +47,12 @@
     <item quantity="other">Obunachilar soni %s taga koʻpaydi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s ta biryoʻla seans oʻtkazdi</item>
-    <item quantity="other">%s ta biryoʻla seans oʻtkazdi</item>
+    <item quantity="one">%s ta sinxron seans oʻtkazdi</item>
+    <item quantity="other">%s ta sinxron seans oʻtkazdi</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">%s ta biryoʻla seansda qatnashdi</item>
-    <item quantity="other">%s ta biryoʻla seansda qatnashdi</item>
+    <item quantity="one">%s ta sinxron seansda qatnashdi</item>
+    <item quantity="other">%s ta sinxron seansda qatnashdi</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s ta saboq yaratdi</item>

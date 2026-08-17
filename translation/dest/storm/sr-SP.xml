@@ -45,4 +45,9 @@
   <string name="nextRace">Следећа трка</string>
   <string name="joinRematch">Придружи се реваншу</string>
   <string name="waitingToStart">Чека се да се почне</string>
+  <string name="createNewGame">Направи нову игру</string>
+  <string name="joinPublicRace">Придружи се јавној трци</string>
+  <string name="raceYourFriends">Тркај се са пријатељима</string>
+  <string name="skip">прескочи</string>
+  <string name="skipExplanation">Прескочи овај потез да задржиш свој комбо! Само ради једном по трци.</string>
 </resources>
