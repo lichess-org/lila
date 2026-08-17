@@ -393,8 +393,8 @@
     <item quantity="other">%s saboq</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s biryoʻla seans</item>
-    <item quantity="other">%s biryoʻla seans</item>
+    <item quantity="one">%s sinxron seans</item>
+    <item quantity="other">%s sinxron seans</item>
   </plurals>
   <string name="viewTournament">Turnirni koʻrish</string>
   <string name="backToTournament">Turnirga qaytish</string>
@@ -705,24 +705,24 @@
   <string name="termsOfService">Foydalanish shartlari</string>
   <string name="titleVerification">Unvonni tasdiqlash</string>
   <string name="sourceCode">Dastur kodi</string>
-  <string name="simultaneousExhibitions">Biryoʻla seanslar</string>
+  <string name="simultaneousExhibitions">Sinxron seanslar</string>
   <string name="host">Seans oʻtkazuvchi</string>
   <string name="hostColorX">Seans oʻtkazuvchi rangi: %s</string>
   <string name="yourPendingSimuls">Kutilayotgan seanslaringiz</string>
-  <string name="createdSimuls">Yangi biryoʻla seanslar</string>
-  <string name="hostANewSimul">Yangi biryoʻla seans yaratish</string>
-  <string name="signUpToHostOrJoinASimul">Biryoʻla seans oʻtkazish yoki seansda qatnashish uchun roʻyxatdan oʻting</string>
-  <string name="noSimulFound">Biryoʻla seans topilmadi</string>
-  <string name="noSimulExplanation">Usbu biryoʻla seans mavjud emas.</string>
-  <string name="returnToSimulHomepage">Biryoʻla seanslar sahifasiga qaytish</string>
-  <string name="aboutSimul">Biryoʻla seansda bir oʻyinchi bir vaqtning oʻzida bir nechta raqibga qarshi oʻynaydi.</string>
+  <string name="createdSimuls">Yangi sinxron seanslar</string>
+  <string name="hostANewSimul">Yangi sinxron seans yaratish</string>
+  <string name="signUpToHostOrJoinASimul">Sinxron seans oʻtkazish yoki seansda qatnashish uchun roʻyxatdan oʻting</string>
+  <string name="noSimulFound">Sinxron seans topilmadi</string>
+  <string name="noSimulExplanation">Usbu sinxron seans mavjud emas.</string>
+  <string name="returnToSimulHomepage">Sinxron seanslar sahifasiga qaytish</string>
+  <string name="aboutSimul">Sinxron seansda bir oʻyinchi bir vaqtning oʻzida bir nechta raqibga qarshi oʻynaydi.</string>
   <string name="aboutSimulImage">Fisher 50 ta raqibdan 47 tasini magʻlub qilgan, 2 ta oʻyinda durang oʻynagan va bittasiga magʻlub boʻlgan.</string>
   <string name="aboutSimulRealLife">Ushbu tushuncha hayotiy voqealardan olingan. Real hayotda seans oʻtkazuvchisi stoldan‑stolga yurib bittadan yurish amalga oshiradi.</string>
   <string name="aboutSimulRules">Seans boshlanganda, har bir ishtirokchi seans oʻtkazuvchi bilan oʻyinni boshlaydi. Seans hamma oʻyinlar tugaganda yakunlanadi.</string>
   <string name="aboutSimulSettings">Seanslar reytingsiz oʻynaladi. Revanshlar, yurishni ortga qaytarish va vaqt qoʻshib berish imkoniyatlari oʻchirilgan.</string>
   <string name="create">Yaratish</string>
-  <string name="whenCreateSimul">Biryoʻla seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Biryoʻla oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
+  <string name="whenCreateSimul">Sinxron seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Sinxron oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
   <string name="simulVariantsHint">Bir nechta variant tanlasangiz, har bir oʻyinchi qaysi variantda oʻynashni oʻzi tanlaydi.</string>
   <string name="simulClockHint">Fisher soati sozlamalari. Raqiblaringiz qancha koʻp boʻlsa, sizga shuncha koʻp vaqt kerak boʻlishi mumkin.</string>
   <string name="simulAddExtraTime">Seans davomida ulgurishingiz uchun oʻz soatingizga qoʻshimcha boshlangʻich vaqt qoʻshishingiz mumkin.</string>
@@ -813,7 +813,7 @@
     <item quantity="one">%s ta tilda mavjud!</item>
     <item quantity="other">%s ta tilda mavjud!</item>
   </plurals>
-  <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
+  <string name="xHostsY">%1$s %2$s sinxron seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
   <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
@@ -997,11 +997,11 @@
 Bu faqat standart oʻyinlar uchun amal qiladi, variantlar uchun ishlamaydi.
 FEN pozitsiyani yaratish uchun %s boʻlimidan foydalanishingiz mumkin.
 Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
-  <string name="cancelSimul">Biryoʻla seansni bekor qilish</string>
-  <string name="simulHostcolor">Har bir oʻyin uchun biryoʻla seans oʻtkazuvchining rangi</string>
+  <string name="cancelSimul">Sinxron seansni bekor qilish</string>
+  <string name="simulHostcolor">Har bir oʻyin uchun sinxron seans oʻtkazuvchining rangi</string>
   <string name="estimatedStart">Taxminiy boshlanish vaqti</string>
   <string name="simulFeatured">%s mazilida koʻrsatish</string>
-  <string name="simulFeaturedHelp">Biryoʻla seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy biryoʻla seanslar uchun buni oʻchirib qoʻying.</string>
+  <string name="simulFeaturedHelp">Sinxron seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy sinxron seanslar uchun buni oʻchirib qoʻying.</string>
   <string name="simulDescription">Seans haqida</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
   <string name="markdownIsAvailable">Matnni formatlash uchun %sʼdan foydalanishingiz mumkin.</string>
