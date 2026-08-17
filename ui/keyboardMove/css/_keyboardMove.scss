@@ -27,6 +27,13 @@
   }
 }
 
+// outer coordinates hang 15px below the board, see lib/css/theme/board/_coords.scss
+@include mq-at-least-col2 {
+  .coords-out .keyboard-move {
+    margin-block-start: calc(15px + 0.5rem);
+  }
+}
+
 .keyboard-move-help {
   td.tips li {
     list-style: disc;
