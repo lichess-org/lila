@@ -156,7 +156,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        'Board',
+        i18n.site.board,
       ),
       hl(
         'a.button.text',
