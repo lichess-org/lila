@@ -104,8 +104,8 @@ final class GameUi(helpers: Helpers):
     game.abortedBy match
       case Some(chess.White) => trans.site.whiteAborted
       case Some(chess.Black) => trans.site.blackAborted
-      case _ if game.playedPlies == chess.Ply.initial => trans.site.whiteDidntMove
-      case _ => trans.site.blackDidntMove
+      case None if game.playedPlies.turn.white => trans.site.whiteDidntMove
+      case None => trans.site.blackDidntMove
 
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
