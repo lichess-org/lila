@@ -207,7 +207,20 @@ export function view(ctrl: StudyShare): VNode {
           ])
         : isPrivate || // study embed
           hl('div.form-group', [
-            hl('label.form-label', i18n.study.embedInYourWebsite),
+            hl('div.form-label', [
+              hl('label', i18n.study.embedInYourWebsite),
+              hl(
+                'a.form-help.text',
+                {
+                  attrs: {
+                    href: '/developers#embed-study',
+                    target: '_blank',
+                    ...dataIcon(licon.InfoCircle),
+                  },
+                },
+                i18n.study.readMoreAboutEmbedding,
+              ),
+            ]),
             copyMeInput(
               !isPrivate
                 ? `<iframe ${
@@ -219,17 +232,6 @@ export function view(ctrl: StudyShare): VNode {
               { inputAttrs: { readonly: true, disabled: isPrivate } },
             ),
             fromPly(ctrl),
-            hl(
-              'a.form-help.text',
-              {
-                attrs: {
-                  href: '/developers#embed-study',
-                  target: '_blank',
-                  ...dataIcon(licon.InfoCircle),
-                },
-              },
-              i18n.study.readMoreAboutEmbedding,
-            ),
           ]),
     ]),
     hl('div.form-group', [
