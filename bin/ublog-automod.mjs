@@ -28,7 +28,7 @@ overview:
     in assessment mode:      
       - if no --out option is given, results are incrementally stored in db.ublog_post
       - provide post ids, --[to/from] filters, or process all of db.ublog_post
-      - stored hashes will prevent reprocessing posts in both --out and direct db mode.
+      - existing automod jobs will prevent reprocessing posts in both --out and direct db mode.
         progress is saved and resumeable on abort. to force reprocessing, use --force
 
 required (one of these):
@@ -50,7 +50,7 @@ optional (with --key only):
   --out=<ndjson file>    # output file for { _id, automod } objects, otherwise assessments go in ublog_post
   --log=<log file>       # append errors to log file (default silent)
   --ppm=<int>            # throttle posts per minute (default 500 - https://docs.together.ai/docs/rate-limits)
-  --force                # retrieve new automod data even if hashes and versions match
+  --force                # retrieve new automod data even if an automod job or current assessment exists
 
 examples:
   ./ublog-automod.mjs --dry-run --from=2024-01-01 --print-ids
@@ -62,10 +62,10 @@ examples:
 
   ./ublog-automod.mjs --key=xyzabc1234 --force ublogId1 ublogId2
     fetches automod assessments for ublogId1 & ublogId2 and force update ublog_post
-    regardless of hashes\n`;
+    regardless of existing automod jobs or assessments\n`;
 
 const qualities = { spam: 0, weak: 1, good: 2, great: 3 }; // in sync with UblogAutomod.scala
-const schemaVersion = 1;
+const schemaVersion = 2;
 const flushEvery = 100; // bulk write after every <flushEvery> assessments
 const concurrentRequests = 32;
 
@@ -109,7 +109,7 @@ async function worker() {
     if (automod) {
       if (args.out) {
         await fs.promises.appendFile(args.out, JSON.stringify({ _id: post._id, automod }) + '\n');
-      } else if (needsUpdate(post.automod, automod.hash)) {
+      } else if (await needsUpdate(post.automod, automodId(post))) {
         bulkOps.push({ updateOne: { filter: { _id: post._id }, update: { $set: { automod } } } });
       }
     }
@@ -132,13 +132,13 @@ async function worker() {
 
 async function assess(post) {
   const content = `${post.title} ${post.intro} ${post.markdown}`.slice(0, 40_000); // UblogAutomod.scala
-  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 12);
+  const jobId = automodId(post);
   const id = post._id;
   const existing = previous[id] ?? post.automod;
   const backoff = retry[id].result !== 'network' ? 0 : 5_000 * 2 ** (retry[id].count - 1);
   const sleepTime = Math.max(0, nextAllowedAfter - Date.now()) + backoff;
 
-  if (!needsUpdate(existing, hash)) return existing;
+  if (!(await needsUpdate(existing, jobId))) return existing;
   if (args.dryRun) {
     retry[id].result = 'dirty';
     return false;
@@ -175,7 +175,6 @@ async function assess(post) {
   try {
     const data = JSON.parse(body).choices[0].message.content;
     const automod = normalize(JSON.parse(/\{[^}]+\}/.exec(data)[0]));
-    automod.hash = hash;
     retry[id].result = 'success';
     return automod;
   } catch {
@@ -204,11 +203,15 @@ function previousAutomods() {
 
 // ===========================================================================================================
 
-function needsUpdate(automod, hash) {
-  if (!automod || args.force) return true;
-  if (automod.version !== schemaVersion) return true;
-  if (automod.hash !== hash) return true;
-  return false;
+async function needsUpdate(automod, id) {
+  if (args.force) return true;
+  if (await db.collection('automod').findOne({ _id: id }, { projection: { _id: 1 } })) return false;
+  return !automod || automod.version !== schemaVersion;
+}
+
+function automodId(post) {
+  const content = `${post.title} ${post.intro} ${post.markdown}`.slice(0, 40_000); // UblogAutomod.scala
+  return `blog:${crypto.createHash('sha256').update(`blog::${content}`).digest('hex').slice(0, 16)}`; // Automod.jobId
 }
 
 // ===========================================================================================================

@@ -6,7 +6,7 @@ import lila.shutup.Analyser.highlightBad
 import lila.core.chat.PublicSource
 import lila.common.ClientName
 
-lazy val ui = ModUi(helpers)
+lazy val ui = ModUi(helpers, () => env.report.automod.health)
 lazy val userTable = ModUserTableUi(helpers, ui)
 lazy val user = ModUserUi(helpers, ui, env.mod.mailerEventsUrl)
 lazy val gamify = GamifyUi(helpers)(views.mod.ui.menu("gamify"))

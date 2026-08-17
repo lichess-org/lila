@@ -26,7 +26,7 @@ final class ReportApi(
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
-    automodApi: Automod,
+    automodApi: AutomodApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
@@ -47,7 +47,7 @@ final class ReportApi(
   val commsModelSetting = settingStore[String](
     "commsAutomodModel",
     text = "Comms automod model".some,
-    default = "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
+    default = "Qwen/Qwen3.5-9B"
   )
 
   def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
@@ -333,10 +333,13 @@ final class ReportApi(
   )(using me: Me): Funit =
     userText.trim.nonEmpty.so:
       val assessText = automodApi
-        .text(
-          userText,
-          systemPrompt = commsPromptSetting.get(),
-          model = commsModelSetting.get()
+        .apply(
+          Automod.Request.text(
+            job = Automod.Job(Automod.JobType.comms, Automod.Source(url = url.some)),
+            userText = userText,
+            prompt = commsPromptSetting.get(),
+            model = commsModelSetting.get()
+          )
         )
         .monSuccess(lila.mon.mod.report.automod.request)
       val candidate = for
