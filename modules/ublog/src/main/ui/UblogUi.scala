@@ -50,9 +50,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         )
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live =>
-          if strictDate || DAYS.between(live.at, nowInstant) < 30 then
-            semanticDate(live.at)(cls := "ublog-post-card__over-image")
+        post.listedAt.orElse(post.lived.map(_.at)).map { at =>
+          if strictDate || DAYS.between(at, nowInstant) < 30 then
+            semanticDate(at)(cls := "ublog-post-card__over-image")
           else span(cls := "ublog-post-card__over-image")("Timeless")
         },
         if showAuthor != ShowAt.none
@@ -428,6 +428,56 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         button(cls := "carousel__next", dataIcon := Icon.GreaterThan)
       )
     )
+
+  def failedAutomod(posts: Paginator[UblogAutomod.Failed])(menu: Context ?=> Frag)(using Context, Me) =
+    Page("Failed blog automod jobs")
+      .css("mod.user")
+      .css("mod.automod-status"):
+        main(cls := "page-menu")(
+          menu,
+          div(cls := "box")(
+            div(cls := "box__top")(
+              h1("Failed automod jobs"),
+              Granter(_.Admin).option:
+                div(cls := "button-group")(
+                  postForm(action := routes.Ublog.clearFailedAutomod(none))(
+                    submitButton(cls := "button button-empty button-red yes-no-confirm")("Clear all")
+                  ),
+                  postForm(action := routes.Ublog.retryFailedAutomod(none))(
+                    submitButton(cls := "button button-empty yes-no-confirm")("Retry all")
+                  )
+                )
+            ),
+            table(cls := "slist slist-pad")(
+              thead(tr(th("Blog"), th("Author"), th("Published"), th("Status"), th("Error"), th("Actions"))),
+              tbody(
+                posts.currentPageResults.map: failed =>
+                  val post = failed.post
+                  tr(
+                    td(a(href := routes.Ublog.redirect(post.id))(post.title)),
+                    td(userIdLink(post.created.by.some)),
+                    td(post.lived.map(record => momentFromNow(record.at))),
+                    td(failed.transaction.fold[Frag]("Unprocessed")(_ => "Failed")),
+                    td(title := failed.transaction.flatMap(_.response.flatMap(_.error)))(
+                      failed.transaction
+                        .flatMap(_.response.flatMap(_.error))
+                        .fold[Frag]("No automod assessment")(_.take(120))
+                    ),
+                    td(cls := "button-group")(
+                      failed.transaction.map: _ =>
+                        postForm(action := routes.Ublog.clearFailedAutomod(post.id.some))(
+                          submitButton(cls := "button button-empty button-red", dataIcon := Icon.X)
+                        ),
+                      postForm(action := routes.Ublog.retryFailedAutomod(post.id.some))(
+                        submitButton(cls := "button button-empty", dataIcon := Icon.ChasingArrows)
+                      )
+                    )
+                  )
+              )
+            ),
+            pagerNext(posts, page => routes.Ublog.failedAutomod(page).url)
+          )
+        )
 
   private def list(
       title: String,

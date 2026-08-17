@@ -24,6 +24,7 @@ final class UblogApi(
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
     ublogAutomod: UblogAutomod,
+    automod: lila.report.AutomodApi,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
@@ -52,6 +53,7 @@ final class UblogApi(
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- automod.clear(lila.report.Automod.JobType.blog, post.id.value)
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
@@ -208,19 +210,84 @@ final class UblogApi(
     def attempt(n: Int): Fu[Option[UblogPost]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
-          val result = post.automod.foldLeft(llm): (llm, prev) =>
-            prev.updateByLLM(llm)
-          for
-            trustedAuthor <- isAuthorTrusted(post.created.by)
-            newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
-            _ <- updateQualityFields(newPost)
-          yield newPost.some
+          getPost(post.id).flatMapz: current =>
+            val result = current.automod.foldLeft(llm): (llm, prev) =>
+              prev.updateByLLM(llm)
+            for
+              trustedAuthor <- isAuthorTrusted(current.created.by)
+              newPost = current.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
+              _ <- updateQualityFields(newPost, current.quality)
+            yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
-            lila.log.system.warn(s"ublog automod ${post.id} failed after $retries retry attempts", e)
+            lila.log.system.warn(s"blog automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
     attempt(0)
+
+  def failedAutomod(offset: Int, limit: Int): Fu[List[UblogAutomod.Failed]] =
+    val fetchLimit = offset + limit
+    for
+      failedSourceIds <- automod.failedSourceIds(lila.report.Automod.JobType.blog)
+      failures <- failedAutomodTransactions(fetchLimit)
+      unprocessed <- colls.post
+        .find(unprocessedAutomodSelector(failedSourceIds), postProjection.some)
+        .sort($sort.desc("updated.at"))
+        .cursor[UblogPost]()
+        .list(fetchLimit)
+    yield (failures ++ unprocessed.map(post => UblogAutomod.Failed(post)))
+      .sortBy(_.at)(using Ordering[Instant].reverse)
+      .slice(offset, fetchLimit)
+
+  private def failedAutomodTransactions(limit: Int): Fu[List[UblogAutomod.Failed]] =
+    automod
+      .failed(lila.report.Automod.JobType.blog, 0, limit)
+      .flatMap: transactions =>
+        val postIds = transactions.flatMap(_.source.id).map(UblogPostId.apply)
+        colls.post
+          .byIds[UblogPost, UblogPostId](postIds)
+          .flatMap: posts =>
+            val postsById = posts.map(post => post.id.value -> post).toMap
+            val failed = transactions.flatMap: transaction =>
+              transaction.source.id.flatMap(postsById.get).map(UblogAutomod.Failed(_, transaction.some))
+            transactions
+              .flatMap(_.source.id)
+              .filterNot(postsById.contains)
+              .distinct
+              .sequentiallyVoid(sourceId => automod.clear(lila.report.Automod.JobType.blog, sourceId))
+              .inject(failed)
+
+  def failedAutomodCount(): Fu[Int] =
+    for
+      failedSourceIds <- automod.failedSourceIds(lila.report.Automod.JobType.blog)
+      failures <- automod.failedCount(lila.report.Automod.JobType.blog)
+      unprocessed <- colls.post.countSel(unprocessedAutomodSelector(failedSourceIds))
+    yield failures + unprocessed
+
+  private def unprocessedAutomodSelector(failedSourceIds: List[String]) =
+    $doc(
+      "live" -> true,
+      "automod".$exists(false),
+      "approval".$ne(UblogPost.Approval.verified),
+      "lived.at".$gt(nowInstant.minusMonths(3)),
+      $expr($doc("$gte" -> $arr($doc("$strLenBytes" -> "$markdown"), 200)))
+    ) ++ failedSourceIds.nonEmpty.option($doc("_id".$nin(failedSourceIds))).getOrElse($empty)
+
+  def retryFailedAutomod(postId: Option[UblogPostId]): Funit = postId match
+    case Some(id) =>
+      automod.clear(lila.report.Automod.JobType.blog, id.value) >>
+        getPost(id).flatMapz(triggerAutomod).void
+    case _ =>
+      automod
+        .failedSourceIds(lila.report.Automod.JobType.blog)
+        .flatMap(
+          _.parallelN(4)(sourceId => retryFailedAutomod(UblogPostId(sourceId).some).recover(_ => ())).void
+        )
+        .recover(_ => ())
+
+  def clearFailedAutomod(postId: Option[UblogPostId]): Funit = postId match
+    case Some(id) => automod.clear(lila.report.Automod.JobType.blog, id.value)
+    case _ => automod.clearAll(lila.report.Automod.JobType.blog)
 
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
@@ -308,13 +375,19 @@ final class UblogApi(
 
   def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[UblogPost] =
     val newPost = post.moderate(d)
-    updateQualityFields(newPost).inject(newPost)
+    updateQualityFields(newPost, post.quality).inject(newPost)
 
-  private def updateQualityFields(post: UblogPost): Funit =
-    val sets = $doc("quality" -> post.quality) ++
-      post.automod.so(a => $doc("automod" -> a)) ++
-      post.modQuality.so(mq => $doc("modQuality" -> mq))
-    colls.post.update.one($id(post.id), $set(sets)).void
+  private def updateQualityFields(
+      post: UblogPost,
+      previousQuality: Quality
+  ): Funit =
+    val updated = post.refreshListedAt(previousQuality)
+    val sets = $doc("quality" -> updated.quality, "approval" -> updated.approval) ++
+      updated.listedAt.so(at => $doc("listedAt" -> at)) ++
+      updated.automod.so(a => $doc("automod" -> a))
+    colls.post.update
+      .one($id(post.id), $set(sets))
+      .void
 
   private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
     val nbPosts = 4
@@ -389,9 +462,9 @@ final class UblogApi(
       .aggregateList(length, _.sec): framework =>
         import framework.*
         val aggSort = sort match
-          case BlogsBy.oldest => Ascending("lived.at")
+          case BlogsBy.oldest => Ascending("listedAt")
           case BlogsBy.likes => Descending("likes")
-          case _ => Descending("lived.at")
+          case _ => Descending("listedAt")
         Match(select ++ $doc("live" -> true)) -> {
           Sort(aggSort) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::

@@ -198,10 +198,13 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 value := q.name
               )(q.name.capitalize)
           ),
-          post.automod
-            .ifTrue(post.modQuality.isEmpty)
-            .map: auto =>
-              span("AI thought it was ", auto.quality.name, ".")
+          post.automod match
+            case Some(auto) if auto.quality != post.quality =>
+              span(s"AI thought it was ${auto.quality.name}")
+            case None if post.approval != UblogPost.Approval.verified =>
+              span("No assessment yet")
+            case _ =>
+              emptyFrag
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),
