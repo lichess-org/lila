@@ -101,8 +101,13 @@ final class RelayPager(
       tourRepo.coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
+          // it the inactivePager db index
           Match(selectors.officialInactive) -> {
-            List(Sort(Descending("syncedAt")), Project(unsetHeavyOptionalFields)) :::
+            List(
+              Sort(Descending("syncedAt")),
+              Limit((offset + length) * 10),
+              Project(unsetHeavyOptionalFields)
+            ) :::
               tourRepo.aggregateRoundAndUnwind(colls, framework) :::
               List(Skip(offset), Limit(length))
           }
