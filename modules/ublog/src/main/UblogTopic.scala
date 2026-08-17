@@ -77,7 +77,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor,
                   ),
                   previewPostProjection.some
                 )
-                .sort(bdoc("lived.at" -> -1))
+                .sort(bdoc("listedAt" -> -1))
                 .cursor[UblogPost.PreviewPost](ReadPref.sec)
                 .list(16)
             yield UblogTopic.WithPosts(topic, shuffle(posts).take(4), count)
