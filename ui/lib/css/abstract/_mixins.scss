@@ -13,26 +13,6 @@
     0 1px 5px 0 rgb(0 0 0 / 0.1);
 }
 
-@mixin box-neat {
-  @include box-radius;
-  @include box-shadow;
-}
-
-@mixin debug-zoom-input {
-  #zoom-input {
-    display: none;
-
-    @include mq-zoom-enabled {
-      @include inline-end(3px);
-
-      display: block;
-      position: fixed;
-      bottom: 3px;
-      width: 10vw;
-    }
-  }
-}
-
 @mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
   @if type-of($prop) == 'list' and length($prop) > 1 {
     $out: ();
