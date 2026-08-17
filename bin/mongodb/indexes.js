@@ -62,6 +62,13 @@ db.relay_tour.createIndex(
 db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
 db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
+db.relay_tour.createIndex(
+  { syncedAt: -1 },
+  {
+    partialFilterExpression: { tier: { $exists: true }, visibility: 'public', active: false },
+    name: 'inactivePager',
+  },
+);
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
 db.round_alarm.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
