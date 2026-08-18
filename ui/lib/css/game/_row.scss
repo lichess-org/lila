@@ -53,8 +53,13 @@
 
         font-weight: normal;
         font-size: 1.4em;
+        line-height: 1;
         text-transform: uppercase;
         display: block;
+
+        .separator {
+          color: $c-font-dim;
+        }
       }
     }
   }
@@ -103,6 +108,10 @@
   .result {
     display: block;
     text-align: center;
+
+    .separator {
+      opacity: 0.75;
+    }
   }
 
   .win {
