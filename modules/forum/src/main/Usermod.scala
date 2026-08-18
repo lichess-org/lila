@@ -44,10 +44,8 @@ case class Usermod(
   def ownReliability(now: Instant, sunsetPeriod: FiniteDuration) =
     val cutoff = now.minusMillis(sunsetPeriod.toMillis)
     val rejected = ownReportsRejected.count(!_.isBefore(cutoff))
-    if rejected == 0 then 1d
-    else
-      val confirmed = 0.4d + ownReportsConfirmed.count(!_.isBefore(cutoff))
-      confirmed / (rejected + confirmed)
+    val confirmFactor = 0.4d + ownReportsConfirmed.count(!_.isBefore(cutoff))
+    confirmFactor / (rejected + confirmFactor)
 
   def update(action: Usermod.Action, post: ForumPost, userId: UserId): Usermod =
     val postReport = negativeReports.get(post.id)
