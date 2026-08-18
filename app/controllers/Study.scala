@@ -111,10 +111,7 @@ final class Study(
 
   def mineLikes = MyStudyPager(env.study.pager.mineLikes, views.study.list.mineLikes)
 
-  def listFormat = Open:
-    val backUrl = HTTPRequest.referer(ctx.req) | routes.Study.allDefault().url
-    val cookie = get("format").flatMap(StudyFormat.byKey.get).map(env.study.formatStore.write)
-    cookie.foldLeft(Redirect(backUrl))(_.withCookies(_))
+  def listFormat = Open(env.study.formatStore.toggle)
 
   private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
 
