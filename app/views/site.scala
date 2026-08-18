@@ -35,7 +35,7 @@ object page:
   def webmasters(using Context) =
     ui.webmasters(lila.pref.PieceSet.all.map(_.name))
 
-  def survey() =
+  def survey =
     Page(title = "User Survey")
       .flag(_.noRobots)
       .js(Esm("bits.survey"))(

@@ -89,7 +89,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def survey = Open:
     pageHit
-    Ok.page(views.site.page.survey())
+    Ok.page(views.site.page.survey)
 
   def temporarilyDisabled(@annotation.nowarn path: String) = Open:
     pageHit
