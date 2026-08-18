@@ -426,23 +426,23 @@ final class Study(
   def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
     Found(env.study.api.byId(id)): study =>
       HeadLastModifiedAt(study.updatedAt):
-        val limiter = if study.isRelay then limit.relayPgn else limit.studyPgn
-        limiter[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
-          CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
-            privateUnauthorizedFu(study),
-            privateForbiddenFu(study)
-          )
+        CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
+          privateUnauthorizedFu(study),
+          privateForbiddenFu(study)
+        )
 
-  private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
+  private def doPgn(study: StudyModel, flags: Update[WithFlags])(using ctx: Context) =
     def makeStudySource = pgnDump.chaptersOf(study, _ => flags(pgnDump.requestPgnFlags()))
-    val pgnSource = org.apache.pekko.stream.scaladsl.Source.futureSource:
-      if study.isRelay
-      then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
-      else fuccess(makeStudySource)
-    Ok.chunked(pgnSource.throttle(20, 1.second))
-      .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
-      .as(pgnContentType)
-      .withDateHeaders(lastModified(study.updatedAt))
+    limit.studyDownload()(
+      org.apache.pekko.stream.scaladsl.Source.futureSource:
+        if study.isRelay
+        then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
+        else fuccess(makeStudySource)
+    ): pgnSource =>
+      Ok.chunked(pgnSource.throttle(limit.studyDownload.perSecond, 1.second))
+        .asAttachmentStream(s"${pgnDump.filename(study)}.pgn")
+        .as(pgnContentType)
+        .withDateHeaders(lastModified(study.updatedAt))
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
