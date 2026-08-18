@@ -36,7 +36,7 @@ export async function wireMarkdownImgResizers({
     }
 
     const pointerdown = async (down: PointerEvent) => {
-      const handle = down.currentTarget as HTMLElement;
+      const handle = down.target as HTMLElement;
       const rootStyle = window.getComputedStyle(root);
       const rootPadding = parseInt(rootStyle.paddingLeft) + parseInt(rootStyle.paddingRight);
       const rootWidth = root.clientWidth - (isFinite(rootPadding) ? rootPadding : 0);

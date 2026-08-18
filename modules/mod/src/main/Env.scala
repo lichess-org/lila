@@ -113,6 +113,10 @@ final class Env(
     case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
 
+  Bus.sub[lila.core.mod.ForumTimeout]:
+    case lila.core.mod.ForumTimeout(mod, user, hours) =>
+      logApi.forumTimeout(user, hours)(using mod.into(MyId))
+
   Bus.sub[lila.core.team.TeamUpdate]: t =>
     if t.byMod then logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
 

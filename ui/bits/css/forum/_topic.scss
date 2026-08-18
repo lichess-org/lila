@@ -61,4 +61,18 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .forum-usermod-timeout {
+    @extend %box-radius;
+
+    width: 100%;
+    padding: 1.5em;
+    background: color-mix(in oklab, $c-bad 10%, $c-bg);
+    border: 1px solid $c-bad;
+
+    h2 {
+      color: $c-bad;
+      margin-bottom: 2rem;
+    }
+  }
 }

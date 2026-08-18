@@ -636,6 +636,7 @@ POST  /mod/:username/permissions       controllers.Mod.savePermissions(username:
 POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username: UserStr)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
+POST  /mod/:username/forum-timeout     controllers.Mod.forumTimeout(username: UserStr)
 GET   /mod/email-confirm               controllers.Mod.emailConfirmGet
 POST  /mod/email-confirm               controllers.Mod.emailConfirmApi
 GET   /mod/print/:fh                   controllers.Mod.print(fh)
@@ -671,7 +672,7 @@ POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: Fo
 POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
 POST  /forum/delete/:id                controllers.ForumPost.delete(id: ForumPostId)
 POST  /forum/relocate/:id              controllers.ForumPost.relocate(id: ForumPostId)
-POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean)
+POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean, reason: Option[String] ?= None)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: ForumPostId)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumPostId)
 POST  /diagnostic                      controllers.ForumTopic.diagnostic

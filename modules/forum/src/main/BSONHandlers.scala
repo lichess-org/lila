@@ -27,3 +27,19 @@ private object BSONHandlers:
 
   given BSONDocumentHandler[ForumPostMini] = Macros.handler
   given BSONDocumentHandler[ForumTopicMini] = Macros.handler
+
+  given BSONDocumentHandler[Usermod] =
+    given BSONHandler[Usermod.Reason] = quickHandler[Usermod.Reason](
+      { case BSONString(key) => Usermod.Reason(key).err(s"Unknown usermod reason $key") },
+      reason => BSONString(reason.key)
+    )
+    given complaints: BSONHandler[Map[UserId, Usermod.Reason]] =
+      typedMapHandler[UserId, Usermod.Reason]
+    given BSONDocumentHandler[Usermod.Report] = Macros.handler
+    given negative: BSONHandler[Map[ForumPostId, Usermod.Report]] =
+      typedMapHandler[ForumPostId, Usermod.Report]
+    given positiveReactions: BSONHandler[Map[UserId, Instant]] =
+      typedMapHandler[UserId, Instant]
+    given positive: BSONHandler[Map[ForumPostId, Map[UserId, Instant]]] =
+      typedMapHandler[ForumPostId, Map[UserId, Instant]]
+    Macros.handler

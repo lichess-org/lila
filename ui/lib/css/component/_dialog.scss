@@ -132,7 +132,7 @@ dialog {
       }
     }
 
-    input {
+    input:not([type='radio'], [type='checkbox']) {
       align-self: center;
       width: min(40ch, 90%);
     }
