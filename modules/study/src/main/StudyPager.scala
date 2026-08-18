@@ -165,6 +165,8 @@ final class StudyPager(
   )(using format: StudyFormat, me: Option[Me]): Fu[Seq[Study.WithChaptersAndLiked]] =
     if format.compact
     then fuccess(studies.map(Study.WithChaptersAndLiked(_, Seq.empty, false)))
+    else if format == StudyFormat.mobile
+    then withLiking(studies.map(Study.WithChapters(_, Nil)))
     else withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(
