@@ -251,7 +251,7 @@ final class GameUi(helpers: Helpers):
 
   object widgets:
 
-    val separator = " • "
+    val separator = span(" • ")(cls := "separator")
 
     def apply(g: Game, user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
@@ -370,7 +370,7 @@ final class GameUi(helpers: Helpers):
           gameEndStatus(g),
           g.winner.map: winner =>
             frag(
-              " • ",
+              span(" • ")(cls := "separator"),
               winner.color.fold(trans.site.whiteIsVictorious(), trans.site.blackIsVictorious())
             )
         )
