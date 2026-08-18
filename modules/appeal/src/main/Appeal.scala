@@ -105,7 +105,7 @@ object Appeal:
       id = Id(scalalib.ThreadLocalRandom.nextString(8)),
       user = me.userId,
       topic = topic,
-      msgs = Vector(AppealMsg(me, text, now)),
+      msgs = if text.isEmpty then Vector.empty else Vector(AppealMsg(me, text, now)),
       status = Status.unread,
       createdAt = now,
       updatedAt = now,

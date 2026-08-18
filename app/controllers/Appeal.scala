@@ -58,7 +58,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       status <- makeStatus(me)
       res <-
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
-          bindForm(userForm)(
+          // TODO: revisit
+          val textRequired =
+            appeals.get(topic).isDefined || !AppealTopicApi.usesNewAppealFlow(topic)
+          bindForm(userForm(textRequired))(
             err => BadRequest.async(renderAppealOrTree(err.some)),
             data =>
               for _ <- env.appeal.api.post(topic, data, appeals)
