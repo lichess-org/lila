@@ -46,8 +46,8 @@ case class Usermod(
     val rejected = ownReportsRejected.count(!_.isBefore(cutoff))
     if rejected == 0 then 1d
     else
-      val confirmed = ownReportsConfirmed.count(!_.isBefore(cutoff))
-      confirmed / (rejected + confirmed).toDouble
+      val confirmed = 0.4d + ownReportsConfirmed.count(!_.isBefore(cutoff))
+      confirmed / (rejected + confirmed)
 
   def update(action: Usermod.Action, post: ForumPost, userId: UserId): Usermod =
     val postReport = negativeReports.get(post.id)
