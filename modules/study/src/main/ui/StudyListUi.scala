@@ -165,26 +165,20 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
         iconTag(Icon.StudyBoard),
         p(trs.noneYet())
       )
-    else if format == StudyFormat.compact then
-      div(cls := "studies compact infinite-scroll")(
-        pager.currentPageResults.map { s =>
-          a(cls := "study compact paginated", href := routes.Study.show(s.study.id))(
-            span(cls := "study__icon")(
-              s.study.flair
-                .map(iconFlair)
-                .getOrElse(iconTag(Icon.StudyBoard))
-            ),
-            span(s.study.name.value)
-          )
-        },
-        pagerNext(pager, nextPageUrl)
-      )
     else
-      div(cls := "studies list infinite-scroll")(
-        pager.currentPageResults.map { s =>
-          div(cls := "study paginated")(bits.widget(s))
-        },
-        pagerNext(pager, np => nextPageUrl(np))
+      div(cls := List("studies infinite-scroll" -> true, "compact" -> format.compact))(
+        pager.currentPageResults.map: s =>
+          if format.compact then
+            a(cls := "study compact paginated", href := routes.Study.show(s.study.id))(
+              span(cls := "study__icon")(
+                s.study.flair
+                  .map(iconFlair)
+                  .getOrElse(iconTag(Icon.StudyBoard))
+              ),
+              span(s.study.name.value)
+            )
+          else div(cls := "study paginated")(bits.widget(s)),
+        pagerNext(pager, nextPageUrl)
       )
 
   def menu(
@@ -235,8 +229,8 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
   private def formatToggle(using format: StudyFormat) =
     postForm(action := addQueryParam(routes.Study.listFormat.url, "format", format.toggle.key)):
       button(
-        cls := List("button button-empty" -> true, "active" -> (format == StudyFormat.compact)),
-        title := (if format == StudyFormat.compact then "Switch to card view" else "Switch to list view"),
+        cls := List("button button-empty" -> true, "active" -> format.compact),
+        title := (if format.compact then "Switch to card view" else "Switch to list view"),
         dataIcon := Icon.List
       )
 

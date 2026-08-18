@@ -155,16 +155,15 @@ final class StudyPager(
         adapter = nbResults.fold(adapter): nb =>
           CachedAdapter(adapter, nb),
         currentPage = page,
-        maxPerPage = if format == StudyFormat.compact then maxPerPageCompact else maxPerPage
+        maxPerPage = if format.compact then maxPerPageCompact else maxPerPage
       )
 
   def withChaptersAndLiking(
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
   )(
       studies: Seq[Study]
-  )(using me: Option[Me])(using format: StudyFormat): Fu[Seq[Study.WithChaptersAndLiked]] =
-    if format == StudyFormat.compact then
-      fuccess(studies.map(study => Study.WithChaptersAndLiked(study, Seq.empty, false)))
+  )(using me: Option[Me], format: StudyFormat): Fu[Seq[Study.WithChaptersAndLiked]] =
+    if format.compact then fuccess(studies.map(study => Study.WithChaptersAndLiked(study, Seq.empty, false)))
     else withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(
