@@ -20,9 +20,6 @@ export const areComparable = (p1: TreePath, p2: TreePath): boolean => contains(p
 
 export const fromNodeList = (nodes: TreeNode[]): TreePath => nodes.map(n => n.id).join('');
 
-export const isChildOf = (child: TreePath, parent: TreePath): boolean =>
-  !!child && child.slice(0, -2) === parent;
-
 export const intersection = (p1: TreePath, p2: TreePath): TreePath => {
   const head1 = head(p1),
     head2 = head(p2);
