@@ -1,6 +1,6 @@
 package lila.study
 
-import scalalib.paginator.Paginator
+import scalalib.paginator.{Paginator,AdapterLike}
 
 import lila.core.i18n.I18nKey
 import lila.core.study.StudyOrder
@@ -16,7 +16,7 @@ final class StudyPager(
 )(using Executor):
 
   val maxPerPage = MaxPerPage(16)
-  val maxPerPageCompact = MaxPerPage(55)
+  val maxPerPageCompact = MaxPerPage(64)
   val defaultNbChaptersPerStudy = 4
 
   object featured:
@@ -52,18 +52,19 @@ final class StudyPager(
   }
 
   def all(order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
+    val showFeatured = (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1
+    val featuredIds = showFeatured.so(featured.setting.get())
     paginator(
-      accessSelect(),
+      accessSelect() ++ featuredIds.nonEmptyOption.so(ids => $doc("_id".$nin(ids))),
       order,
       page,
       fuccess(9999).some
     ).flatMap: pager =>
-      if (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1 then
+      if featuredIds.nonEmpty then
         for
-          studies <- studyRepo.byOrderedIds(featured.setting.get())
+          studies <- studyRepo.byOrderedIds(featuredIds)
           extra <- withChaptersAndLiking()(studies)
-        yield pager.withCurrentPageResults:
-          extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
+        yield pager.withCurrentPageResults(extra ++ pager.currentPageResults)
       else fuccess(pager)
 
   def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me], StudyFormat) =
@@ -131,9 +132,9 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll:
-    coll =>
-      val adapter = Adapter[Study](
+  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.Formatted]] =
+    studyRepo.coll: coll =>
+      val adapter: AdapterLike[Study] = Adapter[Study](
         collection = coll,
         selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
         projection = studyRepo.projection.some,
@@ -150,10 +151,12 @@ final class StudyPager(
           case StudyOrder.relevant => $sort.desc("rank")
         ,
         hint = hint
-      ).mapFutureList(withChaptersAndLiking())
+      )
+      val formatted: AdapterLike[Study.Formatted] = 
+        if format.compact then adapter.map(identity)
+        else adapter.mapFutureList(withChaptersAndLiking())
       Paginator(
-        adapter = nbResults.fold(adapter): nb =>
-          CachedAdapter(adapter, nb),
+        adapter = nbResults.fold(formatted)( CachedAdapter(formatted, _)),
         currentPage = page,
         maxPerPage = if format.compact then maxPerPageCompact else maxPerPage
       )
@@ -162,8 +165,8 @@ final class StudyPager(
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
   )(
       studies: Seq[Study]
-  )(using me: Option[Me], format: StudyFormat): Fu[Seq[Study.WithChaptersAndLiked]] =
-    if format.compact then fuccess(studies.map(study => Study.WithChaptersAndLiked(study, Seq.empty, false)))
+  )(using format: StudyFormat, me: Option[Me]): Fu[Seq[Study | Study.WithChaptersAndLiked]] =
+    if format.compact then fuccess(studies)
     else withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(

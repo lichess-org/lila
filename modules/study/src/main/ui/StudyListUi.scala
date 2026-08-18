@@ -175,7 +175,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
                   .map(iconFlair)
                   .getOrElse(iconTag(Icon.StudyBoard))
               ),
-              span(s.study.name.value)
+              span(s.study.name)
             )
           else div(cls := "study paginated")(bits.widget(s)),
         pagerNext(pager, nextPageUrl)
