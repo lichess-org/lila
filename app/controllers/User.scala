@@ -382,6 +382,9 @@ final class User(
             .zip(env.playban.api.bans(user.id))
             .map(ui.showRageSitAndPlaybans)
 
+        val usermod = isGranted(_.ModerateForum).so:
+          env.forum.usermod.get(user.id).map(views.user.mod.usermod)
+
         val actions =
           for flags <- env.user.repo.closedFlags(user)
           yield ui.actions(user, emails, flags, env.mod.presets.getPmPresets)
@@ -435,6 +438,7 @@ final class User(
             .merge(modZoneSegment(prefs, "prefs", user))
             .merge(modZoneSegment(appeal, "appeal", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
+            .merge(modZoneSegment(usermod, "usermod", user))
             .merge(modZoneSegment(otherUsers, "others", user))
             .merge(modZoneSegment(identification, "identification", user))
             .merge(modZoneSegment(kaladin, "kaladin", user))

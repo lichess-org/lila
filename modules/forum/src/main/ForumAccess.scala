@@ -6,7 +6,8 @@ import lila.core.team.Access
 
 final class ForumAccess(
     teamApi: lila.core.team.TeamApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    usermod: UsermodApi
 )(using Executor):
 
   enum Operation:
@@ -36,7 +37,16 @@ final class ForumAccess(
       me: Option[Me]
   ): Fu[Boolean] =
     if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
-    else canWriteInAnyForum.so(isGranted(categId, Operation.Write))
+    else if !canWriteInAnyForum then fuFalse
+    else if categId == ForumCateg.diagnosticId || Granter.opt(_.ModerateForum) then
+      isGranted(categId, Operation.Write)
+    else
+      me.fold(fuFalse): me =>
+        usermod
+          .isTimedOut(me.userId)
+          .flatMap: timedOut =>
+            if timedOut then fuFalse
+            else isGranted(categId, Operation.Write)
 
   private def canWriteInAnyForum(using me: Option[Me]) = me.exists: me =>
     !me.isBot && {

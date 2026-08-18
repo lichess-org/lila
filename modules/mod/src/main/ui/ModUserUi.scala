@@ -37,6 +37,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
     a(href := "#mz_assessments")("Evaluation"),
     a(href := "#mz_mod_log")("Mod log"),
     a(href := "#mz_reports")("Reports"),
+    a(href := "#mz_usermod")("Forum usermod"),
     a(href := "#identification_screen")("Identification")
   )
 
@@ -194,6 +195,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
               cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban),
               Granter(_.ReportBan).not.option(disabled)
             )("Reportban")
+        )
+      ,
+      Granter(_.ModerateForum).option:
+        div(cls := "btn-rack")(
+          postForm(
+            action := routes.Mod.forumTimeout(u.username),
+            title := "Revoke forum posting privileges for the configured timeout period.",
+            cls := "xhr"
+          ):
+            submitButton(cls := "btn-rack__btn yes-no-confirm")("Forum timeout")
         )
       ,
       Granter
