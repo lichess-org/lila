@@ -398,12 +398,3 @@ object BSONHandlers:
     def writes(w: Writer, s: Settings) = writer.writeTry(s).get
 
   given studyHandler: BSONDocumentHandler[Study] = Macros.handler
-
-  given BSONDocumentReader[Study.LightStudy] with
-    def readDocument(doc: BSONDocument) =
-      Success(
-        Study.LightStudy(
-          isPublic = doc.string("visibility").has("public"),
-          contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
-        )
-      )
