@@ -1,6 +1,6 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
@@ -79,7 +79,10 @@ final class PgnDump(
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     flags.updateTags:
       Tags:
-        val opening = chapter.opening
+        val opening =
+          chess.variant.Variant.list
+            .openingSensibleVariants(chapter.setup.variant)
+            .so(chess.opening.OpeningDb.searchInFens(chapter.root.mainline.take(40).map(_.fen.opening)))
         val genTags = List(
           Tag(_.Event, s"${study.name}: ${chapter.name}"),
           Tag(_.Variant, chapter.setup.variant.name.capitalize),

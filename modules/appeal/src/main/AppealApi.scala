@@ -11,7 +11,7 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def byTopic[U: UserIdOf](u: U): Fu[Appeal.ByTopic] =
+  def byTopic[U: UserIdOf](u: U): Fu[UserAppeals] = UserAppeals.from:
     findAll(u).map(_.groupBy(_.topic).view.mapValues(_.head).toMap)
 
   def latestBy[U: UserIdOf](u: U): Fu[Option[Appeal]] =
@@ -28,20 +28,36 @@ final class AppealApi(
 
   def exists(user: User) = coll.exists($id(user.id))
 
-  def post(topic: AppealTopic, text: String)(using me: Me) =
-    find(me, topic).flatMap:
+  def post(topic: AppealTopic, data: AppealForm.Data, appeals: UserAppeals)(using me: Me) =
+    appeals.get(topic) match
       case None =>
-        val appeal = Appeal.make(topic, text)
+        val appeal = Appeal.make(topic, data.text, data.accounts)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
-        val appeal = prev.post(text, me)
+        val appeal = prev.post(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  def reply(text: String, prev: Appeal)(using me: MyId) =
-    val appeal = prev.post(text, me)
+  def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
+
+  def modReply(text: String, prev: Appeal)(using me: MyId) =
+    val appeal = prev.post(text, me, muted = false)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
-  def countUnread = coll.countSel($doc("status" -> Appeal.Status.unread))
+  def countUnread = coll.secondary.countSel($doc("status" -> Appeal.Status.unread))
+
+  def countUnreadByTopic: Fu[Map[AppealTopic, Int]] =
+    coll
+      .aggregateList(50, _.sec): framework =>
+        import framework.*
+        Match($doc("status" -> Appeal.Status.unread)) ->
+          List(PipelineOperator($doc("$sortByCount" -> "$topic")))
+      .map: docs =>
+        for
+          doc <- docs
+          topic <- doc.getAsOpt[AppealTopic]("_id")
+          count <- doc.int("count")
+        yield topic -> count
+      .map(_.toMap)
 
   def logsOf(since: Instant, mod: ModId): Fu[List[(UserId, AppealMsg)]] =
     coll
@@ -67,7 +83,13 @@ final class AppealApi(
       $doc("status" -> Appeal.Status.unread) ++
         snoozedIds.nonEmpty.so($doc("_id".$nin(snoozedIds))) ++
         topic.so(t => $doc("topic" -> t))
-    coll.find(selector).sort($sort.asc("firstUnrepliedAt")).cursor[Appeal]().list(nb)
+    coll
+      .find(selector)
+      .sort($sort.asc("firstUnrepliedAt"))
+      .cursor[Appeal]()
+      .list(nb * 2)
+      .map(_.sortBy(a => (!a.participated(me.userId), a.firstUnrepliedAt)))
+      .map(_.take(nb))
 
   def setReadIfUnread(user: UserId, topic: AppealTopic) =
     coll
@@ -95,6 +117,18 @@ final class AppealApi(
 
   def toggleClosedAllOf(user: UserId, v: Boolean): Funit =
     findAll(user).flatMap(_.sequentiallyVoid(toggleClosed(_, v, 0)))
+
+  // just one muted appeal makes all user appeals muted
+  def toggleMute(user: UserId, v: Boolean): Funit =
+    if v then
+      coll.update
+        .one(
+          $doc("user" -> user),
+          $set("muted" -> true, "status" -> Appeal.Status.read),
+          multi = true
+        )
+        .void
+    else coll.update.one($doc("user" -> user), $unset("muted"), multi = true).void
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)

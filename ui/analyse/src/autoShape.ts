@@ -128,21 +128,17 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);
 
-  if (ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
+  if (ctrl.isCevalAllowed() && ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
-      const bestPvMoves = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0]?.moves : undefined;
+      const bestPvMoves = nCeval ? nCeval.pvs[0]?.moves : undefined;
       const nextBest = bestPvMoves?.[0] || ctrl.nextNodeBest();
 
       if (nextBest) {
         drawManeuver(ctrl, color, bestPvMoves || [nextBest], 'paleBlue', shapes);
       }
 
-      if (
-        ctrl.isCevalAllowed() &&
-        nCeval?.pvs[1] &&
-        !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
-      ) {
+      if (nCeval?.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
@@ -197,13 +193,13 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     };
 
     if (ctrl.motifEnabled()) {
-      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
+      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned), 'pin'));
       ctrl.motif
         .detectUndefended(board, epSquare)
-        .forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+        .forEach(u => addAnalysis(makeSquare(u.square), 'undefended'));
       ctrl.motif
         .detectCheckable(board, epSquare, castlingRights)
-        .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));
+        .forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
     }
   }
 

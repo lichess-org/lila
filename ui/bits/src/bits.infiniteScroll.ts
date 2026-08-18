@@ -9,19 +9,21 @@ export function initModule(selector = '.infinite-scroll'): void {
 }
 
 function register(el: HTMLElement, selector: string, backoff = 500) {
-  const nav = el.querySelector<HTMLAnchorElement>('.pager'),
-    next = nav?.querySelector<HTMLAnchorElement>('a'),
-    nextUrl = next?.href;
+  const nav = el.querySelector<HTMLAnchorElement>('.pager');
+  const next = nav?.querySelector<HTMLAnchorElement>('a');
+  const nextUrl = next?.href;
+  const scrollSelector = el.dataset.scrollSelector;
+  const scrollEl: HTMLElement | Window = (scrollSelector && document.querySelector(scrollSelector)) || window;
 
   if (nav && nextUrl)
     new Promise<void>(res => {
       if (isVisible(nav)) res();
       else
-        window.addEventListener(
+        scrollEl.addEventListener(
           'scroll',
           function scrollListener() {
             if (isVisible(nav)) {
-              window.removeEventListener('scroll', scrollListener);
+              scrollEl.removeEventListener('scroll', scrollListener);
               res();
             }
           },
@@ -29,7 +31,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         );
     })
       .then(() => {
-        nav.innerHTML = spinnerHtml;
+        if (nav.tagName !== 'TR') nav.innerHTML = spinnerHtml;
         return xhr.text(nextUrl);
       })
       .then(

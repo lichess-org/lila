@@ -143,17 +143,35 @@ $c-report-high-over: white;
     @include user-marks;
   }
 
-  .marked-by-me {
+  .marked-by-me,
+  .participated {
     @include user-marks;
+    @extend %data-icon-top;
 
     white-space: nowrap;
+  }
+
+  .marked-by-me {
     background: color-mix(in oklab, $c-brag 60%, $c-bg);
   }
 
+  .participated {
+    background: color-mix(in oklab, $c-primary 45%, $c-bg);
+  }
+
   .appeal-queue {
+    tr.mine {
+      background: color-mix(in oklab, $c-primary 8%, $c-bg);
+    }
+
     td p {
       margin: 0.5em 0 0 0;
       overflow-wrap: anywhere;
+    }
+
+    .appeal-topic {
+      display: inline-block;
+      margin-top: 0.25em;
     }
   }
 

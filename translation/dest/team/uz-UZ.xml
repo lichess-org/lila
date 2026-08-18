@@ -30,17 +30,14 @@
   <string name="willBeReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqiladi.</string>
   <string name="beingReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqilmoqda.</string>
   <string name="requestDeclined">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan rad etildi.</string>
-  <string name="subToTeamMessages">Jamoa xabarlariga obuna boʻlish</string>
   <string name="teamBattle">Jamoalar jangi</string>
   <string name="teamBattleOverview">Jamoalar oʻrtasidagi jang, unda har bir oʻyinchi oʻz jamoasi uchun ochko yigʻadi</string>
   <string name="teamTournament">Jamoa turniri</string>
   <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Arena turniri</string>
   <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan shveysarcha turnir</string>
-  <string name="messageAllMembers">Barcha aʻzolarga xabar yuborish</string>
-  <string name="messageAllMembersOverview">Jamoaning barcha aʻzolariga shaxsiy xabar yuborish</string>
-  <string name="messageAllMembersLongDescription">Jamoaning BARCHA aʻzolariga shaxsiy xabar yuborish.
-Siz buni oʻyinchilarni turnirga yoki jamoaviy jangga chaqirish uchun ishlatishingiz mumkin.
-Xabarlaringizni olishni yoqtirmaydigan oʻyinchilar jamoani tark etishlari mumkin.</string>
+  <string name="teamUpdates">Jamoa yangiliklari</string>
+  <string name="subToTeamUpdates">Jamoa yangiliklariga obuna boʻlish</string>
+  <string name="newTeamUpdate">Jamoada yangilik</string>
   <string name="teamsIlead">Men boshqaradigan jamoalar</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qoʻshasizmi?</string>
   <string name="leadersChat">Sardorlar chati</string>

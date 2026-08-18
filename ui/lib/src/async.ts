@@ -185,6 +185,7 @@ export function throttleWithFlush<T extends (...args: any[]) => void>(
     queued = undefined;
     wrapped.apply(thisArg, args);
     timerId = setTimeout(runNext, interval);
+    return timerId;
   };
 
   const throttled = function (this: any, ...args: Parameters<T>) {

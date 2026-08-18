@@ -22,7 +22,8 @@ object replay:
     replayUi.forCrawler(
       pov,
       pgn,
-      graph = views.round.ui.povOpenGraph(pov),
+      views.round.ui.povOpenGraph(pov),
+      chessground = views.round.ui.povChessground(pov),
       gameSide = views.game.side(pov, initialFen, none, simul = simul, bookmarked = false),
       crosstable = cross.map: c =>
         views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
@@ -50,8 +51,7 @@ object replay:
         timeout = c.timeout,
         withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
-        resource = lila.core.chat.PublicSource.Watcher(pov.gameId),
-        voiceChat = ctx.canVoiceChat
+        resource = lila.core.chat.PublicSource.Watcher(pov.gameId)
       ) -> views.chat.frag
 
     val side = views.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)

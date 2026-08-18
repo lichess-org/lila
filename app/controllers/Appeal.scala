@@ -33,12 +33,12 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   private def renderAppealOrTree(
-      err: Option[Form[String]] = None
+      err: Option[Form[lila.appeal.AppealForm.Data]] = None
   )(using Context)(using me: Me) = for
     appeals <- env.appeal.api.byTopic(me)
     status <- makeStatus(me)
     topic = AppealTopicApi.select(status, appeals)
-    allAppeals = appeals.values.toList
+    allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
@@ -46,8 +46,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def makeStatus(user: lila.core.user.User) = for
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
     blogHidden <- env.ublog.api.isHiddenWithPosts(user)
-    warning <- env.mod.logApi.hasRecentWarning(user.id)
-  yield lila.appeal.UserStatus(user, playban, blogHidden, warning)
+    modActions <- env.mod.logApi.recentActionsOf(user.id)
+  yield lila.appeal.UserStatus(user, playban, blogHidden, modActions)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     for
@@ -57,10 +57,20 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
           bindForm(userForm)(
             err => BadRequest.async(renderAppealOrTree(err.some)),
-            text => env.appeal.api.post(topic, text).inject(Redirect(routes.Appeal.home).flashSuccess)
+            data =>
+              for _ <- env.appeal.api.post(topic, data, appeals)
+              yield Redirect(routes.Appeal.home).flashSuccess
           )
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))
     yield res
+  }
+
+  def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
+    Found(env.appeal.api.find(me, topic)): appeal =>
+      if !appeal.isOpen then Redirect(routes.Appeal.home)
+      else
+        for _ <- env.appeal.api.withdraw(appeal)
+        yield Redirect(routes.Appeal.home).flashSuccess
   }
 
   def modQueue = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -77,16 +87,16 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def modHandle(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      Found(env.appeal.api.find(user, topic)): _ =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
         env.report.api.inquiries
           .ongoingAppealOf(user.id)
           .flatMap:
             case Some(ongoing) if ongoing.mod.isnt(me) =>
               for mod <- env.user.lightUserApi.asyncFallback(ongoing.mod.userId)
-              yield redirectToActions(username, topic).flashFailure(s"Currently processed by ${mod.name}")
+              yield Redirect(appeal.modShowUrl).flashFailure(s"Currently processed by ${mod.name}")
             case _ =>
               for _ <- env.report.api.inquiries.appeal(user, topic)
-              yield redirectToActions(username, topic)
+              yield Redirect(appeal.modShowUrl)
   }
 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -111,18 +121,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             BadRequest.page(views.appeal.discussion.modShow(appeal, err, modData)),
         (text, close, dismiss) =>
           for
-            replied <- env.appeal.api.reply(text, appeal)
+            replied <- env.appeal.api.modReply(text, appeal)
             _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
             _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
           yield
             if dismiss.orZero then Redirect(routes.Appeal.modQueue)
-            else redirectToActions(username, topic).flashSuccess("Reply sent")
+            else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
       )
   }
-
-  private def redirectToActions(username: UserStr, topic: AppealTopic) =
-    Redirect(s"${routes.Appeal.modShow(username, topic)}#appeal-actions")
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for
@@ -149,7 +156,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       for
         _ <- env.appeal.api.toggleClosed(appeal, v, sleepMonths = sleepMonths)
         _ <- v.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
-      yield Redirect(if v then routes.Appeal.modQueue else routes.Appeal.modShow(username, topic))
+      yield Redirect(if v then routes.Appeal.modQueue.url else appeal.modShowUrl)
+  }
+
+  def toggleMute(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>
+    asMod(username, topic): (appeal, _) =>
+      for _ <- env.appeal.api.toggleMute(appeal.user, v)
+      yield Redirect(appeal.modShowUrl)
   }
 
   def toggleRead(username: UserStr, topic: AppealTopic, v: Boolean) = SecureBody(_.Appeals) { _ ?=> _ ?=>

@@ -1,6 +1,6 @@
 package lila.ublog
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
@@ -10,10 +10,11 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.memo.CacheApi.buildAsyncTimeout
-import lila.core.ublog.{ BlogsBy, Quality }
+import lila.core.ublog.BlogsBy
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
 import lila.core.user.KidMode
+import lila.core.ublog.Quality
 
 final class UblogApi(
     colls: UblogColls,
@@ -31,7 +32,6 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
   import UblogBlog.Tier
-  import UblogAutomod.Assessment
 
   val carouselSizeSetting =
     settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
@@ -44,13 +44,6 @@ final class UblogApi(
     for posts <- carouselCache.get({})
     yield posts.filter(_.isLichess || kid.no)
 
-  def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
-    val post = data.create(author)
-    for
-      _ <- colls.post.insert.one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
-      _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
-    yield post
-
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
@@ -62,9 +55,11 @@ final class UblogApi(
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
-    triggerAutomod(post).foreach: res =>
-      if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, post, blog, res)
+    triggerAutomod(post).foreach: newPost =>
+      newPost
+        .ifTrue(isFirstPublish && blog.visible)
+        .foreach:
+          sendPostToZulip(author.light, _, blog)
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
@@ -181,17 +176,17 @@ final class UblogApi(
       mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
     yield scala.util.Random.shuffle(mix).take(6)
 
-  private def sendPostToZulip(
-      user: LightUser,
-      post: UblogPost,
-      blog: UblogBlog,
-      assessment: Option[UblogAutomod.Assessment]
-  ): Funit =
-    val source =
-      if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier"
-      else assessment.fold("unknown")(_.quality.name) + " quality"
+  private def sendPostToZulip(user: LightUser, post: UblogPost, blog: UblogBlog): Funit =
+    val topic =
+      if blog.tier == UblogBlog.Tier.UNLISTED then "unlisted tier new posts"
+      else
+        post.automod.map(_.quality) match
+          case None => "unknown quality"
+          case Some(Quality.good) if post.isPendingQuality => "good posts from unproved authors"
+          case Some(Quality.good) => "good posts from reliable authors"
+          case Some(q) => s"$q quality new posts"
     val emdashes = post.markdown.value.count(_ == '—')
-    val automodNotes = assessment.map: r =>
+    val automodNotes = post.automod.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n") +
         emdashes.match
@@ -204,25 +199,34 @@ final class UblogApi(
       slug = post.slug,
       title = post.title,
       intro = post.intro,
-      topic = s"$source new posts",
+      topic = topic,
       automodNotes
     )
 
-  def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
+  def triggerAutomod(post: UblogPost): Fu[Option[UblogPost]] =
     val retries = 1 // 30s, 1m, 2m, 4m, 8m
-    def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
+    def attempt(n: Int): Fu[Option[UblogPost]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
           val result = post.automod.foldLeft(llm): (llm, prev) =>
             prev.updateByLLM(llm)
-          for _ <- colls.post.updateField($id(post.id), "automod", result)
-          yield result.some
+          for
+            trustedAuthor <- isAuthorTrusted(post.created.by)
+            newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
+            _ <- updateQualityFields(newPost)
+          yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
             lila.log.system.warn(s"ublog automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
     attempt(0)
+
+  def nextToReview: Fu[Option[UblogPost]] =
+    colls.post
+      .find(pendingReviewSelect, postProjection.some)
+      .sort($sort.desc("lived.at"))
+      .one[UblogPost]
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -251,7 +255,7 @@ final class UblogApi(
     _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
   yield ()
 
-  def postCursor(user: User): AkkaStreamCursor[UblogPost] =
+  def postCursor(user: User): PekkoStreamCursor[UblogPost] =
     colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
 
   def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
@@ -302,27 +306,26 @@ final class UblogApi(
       _ <- tier.so(onTierChange(id, _))
     yield ()
 
-  def modPost(
-      post: UblogPost,
-      d: UblogForm.ModPostData
-  )(using mod: Me): Fu[Option[UblogAutomod.Assessment]] =
-    def maybeCopy(v: Option[String], base: Option[String]) =
-      v match
-        case Some("") => none // form sends empty string to unset
-        case None => base
-        case _ => v
-    if !d.hasUpdates then fuccess(post.automod)
-    else
-      val base = post.automod.getOrElse(Assessment(quality = Quality.good))
-      val assessment = Assessment(
-        quality = d.quality | base.quality,
-        evergreen = d.evergreen.orElse(base.evergreen),
-        flagged = maybeCopy(d.flagged, base.flagged),
-        commercial = maybeCopy(d.commercial, base.commercial),
-        lockedBy = mod.some
-      )
-      for _ <- colls.post.updateField($id(post.id), "automod", assessment)
-      yield assessment.some
+  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[UblogPost] =
+    val newPost = post.moderate(d)
+    updateQualityFields(newPost).inject(newPost)
+
+  private def updateQualityFields(post: UblogPost): Funit =
+    val sets = $doc("quality" -> post.quality) ++
+      post.automod.so(a => $doc("automod" -> a)) ++
+      post.modQuality.so(mq => $doc("modQuality" -> mq))
+    colls.post.update.one($id(post.id), $set(sets)).void
+
+  private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
+    val nbPosts = 4
+    colls.post
+      .find($doc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), $doc("quality" -> true).some)
+      .sort($sort.desc("lived.at"))
+      .cursor[Bdoc](ReadPref.sec)
+      .list(nbPosts)
+      .map: docs =>
+        val qualities = docs.flatMap(_.getAsOpt[Quality]("quality"))
+        qualities.size == nbPosts && qualities.forall(_ == Quality.good)
 
   def setFeatured(post: UblogPost, data: UblogForm.ModPostData)(using
       me: Me
@@ -337,6 +340,26 @@ final class UblogApi(
         )
       for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
       yield featured
+
+  def newPost(author: User): Fu[UblogPost] =
+    colls.post
+      .one[UblogPost](
+        $doc(
+          "blog" -> UblogBlog.Id.User(author.id),
+          "live" -> false,
+          "title" -> "",
+          "intro" -> "",
+          "markdown" -> "",
+          "image".$exists(false)
+        )
+      )
+      .flatMap:
+        case Some(post) => fuccess(post)
+        case _ =>
+          val post = UblogPost.empty(author)
+          colls.post.insert
+            .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+            .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
     (tier <= Tier.LOW).so(unfeatureAllOf(blog))

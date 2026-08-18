@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">البريد الإلكتروني اليومي يدرج ألعاب المراسلة الخاصة بك</string>
   <string name="notifyStreamStart">البث مباشر الآن</string>
   <string name="notifyInboxMsg">رسالة جديدة في البريد الوارد</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">رسالة خاصة جديدة</string>
   <string name="notifyForumMention">تعليق في المنتدى يشير إليك</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">التنبيهات عند الإشارة إليك في المنتدى</string>
   <string name="notifyInvitedStudy">دعوة إلى الدراسة</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">دعوات إلى الدراسة</string>
   <string name="notifyGameEvent">تحديثات مباراة المراسلة</string>
   <string name="notifyChallenge">تحديات</string>
   <string name="notifyTournamentSoon">البطولة ستبدأ قريباً</string>
-  <string name="notifyBroadcasts">البرامج التي اشتركت فيها</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">التنبيهات قبل بدء البطولات</string>
+  <string name="notifyBroadcasts">بث</string>
   <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
   <string name="notifyBell">إشعار الجرس داخل Lichess</string>
   <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>

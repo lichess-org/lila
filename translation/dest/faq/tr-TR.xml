@@ -151,6 +151,11 @@ Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını engelleyince çıkar. Genellikle bu kısıtlama birşeye tıkladığınızda kalkar. Bazı mobil tarayıcılarda, bir satranç taşını sürüklemek tıklamak olarak algılanmayabilir. O durumda her bir oyunun başlangıcında ses için tahtaya dokunmanız gerekir.
 
 Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">Çoğu tarayıcı, kullanıcıları korumak için yeni ziyaret edilen sayfalarda ses oynatılmasını engeller.
+
+Tarayıcınız lichess.org\'un ses oynatmasını engellediğinde sessize alma simgesi görünür. Bu kısıtlama genellikle bir şeye tıkladığınızda kaldırılır. Bazı mobil tarayıcılarda bir taşı dokunarak sürüklemek tıklama olarak sayılmaz. Bu durumda, her oyunun başında sesin etkinleşmesi için tahtaya dokunmanız gerekir.
+
+Bu durum gerçekleştiğinde sizi uyarmak için kırmızı sessize alma simgesini gösteririz. Çoğu tarayıcıda lichess.org\'un ses oynatmasına açıkça izin verebilirsiniz. Popüler bazı tarayıcıların güncel sürümlerinde web sitesinin ses oynatmasına izin vermek için talimatlar şunlardır:</string>
   <string name="desktop">masaüstü</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org\'a git
 2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
@@ -160,6 +165,10 @@ Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlu
 2. Adres çubuğundaki kilit simgesine tıklayın
 3. Site ayarlarına tıklayın
 4. Sese izin verin</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. lichess.org adresine gidin
+2. Adres çubuğundaki site bilgileri simgesine tıklayın
+3. Site Ayarları\'na tıklayın
+4. Ses\'e izin verin</string>
   <string name="enableAutoplayForSoundsSafari">1. lichess.org\'a gidin
 2. Menü çubuğunda Safari\'ye tıklayın
 3. lichess.org için Ayarlar\'a tıklayın...

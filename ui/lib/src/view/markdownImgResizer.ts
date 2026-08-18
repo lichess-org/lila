@@ -11,6 +11,7 @@ export type ResizeArgs = {
   update: UpdateImageHook;
   origin: string;
   designWidth: number;
+  realm: string;
 };
 
 export async function wireMarkdownImgResizers({
@@ -18,6 +19,7 @@ export async function wireMarkdownImgResizers({
   update,
   designWidth,
   origin,
+  realm,
 }: ResizeArgs): Promise<void> {
   const globalImageLinkRe = markdownPicfitRegex(origin);
   let matching = 0;
@@ -73,13 +75,13 @@ export async function wireMarkdownImgResizers({
         if (handle.hasPointerCapture(down.pointerId)) handle.releasePointerCapture(down.pointerId);
         img.style.willChange = '';
         handle.style.cursor = '';
-        if ('url' in update) return urlUpdate(img, update);
+        if ('url' in update) return urlUpdate(img, realm, update);
 
         const markdown = update.markdown();
         const link = [...markdown.matchAll(globalImageLinkRe)][index];
         if (!link?.[1] || !img.dataset.widthRatio) return;
 
-        const { imageUrl } = await xhrJson(`/image-url/${link[3]}?width=${img.dataset.resizeWidth}`);
+        const { imageUrl } = await xhrJson(`/image-url/${realm}/${link[3]}?width=${img.dataset.resizeWidth}`);
         const before = markdown.slice(0, link.index);
         const after = markdown.slice(link.index + link[0].length);
         const newMarkdown = before + `![${link[1]}](${imageUrl})` + after;
@@ -134,11 +136,15 @@ export function markdownPicfitRegex(origin = ''): RegExp {
   );
 }
 
-const imageIdRe = /&path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&/i;
+const imageIdRe = /&path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})&/i;
 
-async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook, { url: unknown }>) {
+async function urlUpdate(
+  img: HTMLImageElement,
+  realm: string,
+  update: Extract<UpdateImageHook, { url: unknown }>,
+) {
   const imageId = img.src.match(imageIdRe)?.[1];
-  const { imageUrl } = await xhrJson(`/image-url/${imageId}?width=${img.dataset.resizeWidth}`);
+  const { imageUrl } = await xhrJson(`/image-url/${realm}/${imageId}?width=${img.dataset.resizeWidth}`);
   const preloadImg = new Image();
   preloadImg.src = imageUrl;
   await preloadImg.decode();

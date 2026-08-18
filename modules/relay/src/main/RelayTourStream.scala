@@ -1,14 +1,16 @@
 package lila.relay
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ given, * }
 import lila.common.Json.given
 
-final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using akka.stream.Materializer):
+final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using
+    org.apache.pekko.stream.Materializer
+):
 
   import RelayTourRepo.selectors
 

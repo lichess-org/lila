@@ -2,6 +2,7 @@ import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
 
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
+import { api } from 'lib/api';
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -71,12 +72,17 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
   function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
     if (!node.ceval) return false;
+    if (api.overrides.practiceCommentReady)
+      return api.overrides.practiceCommentReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis } = node.ceval;
     return Boolean(bestmove || nodes >= 400_000 || (millis ?? 0) > 1000);
   }
 
   function playable(node: TreeNode): boolean {
     if (!node.ceval) return false;
+    if (api.overrides.practiceEvalReady) return api.overrides.practiceEvalReady(structuredClone(node.ceval));
+
     const { bestmove, nodes, millis, cloud } = node.ceval;
     return masteryMode()
       ? !root.ceval.isComputing
@@ -263,7 +269,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       search: () =>
         masteryMode() && !isMyTurn()
           ? 60 * 1000
-          : { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true },
+          : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },

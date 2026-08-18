@@ -41,7 +41,7 @@
       @include back-blur(6px);
 
       border: none;
-      background: hsl(0 0% 20% / 0.15);
+      background: linear-gradient(180deg, hsl(0 0% 20% / 0.25) 10%, transparent 90%);
     }
 
     .dropdown {
@@ -130,11 +130,11 @@ body.zen {
       outline-offset: -2px;
     }
 
-    @media (width <= $x-small) {
+    @media (max-width: $x-small) {
       display: none;
     }
 
-    @media (width <= $small) {
+    @media (max-width: $small) {
       body.clinput & {
         display: none;
       }

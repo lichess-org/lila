@@ -653,7 +653,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               )
               .some
           ): field =>
-            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+            lila.ui.bits.markdownEditor(MarkdownRealm.broadcast):
               form3.textarea(field)(rows := 10)
         ),
         form3
@@ -812,42 +812,43 @@ Team Dogs ; Scooby Doo"""),
                     )
                   )
                 )
-            ),
-            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
-              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.url"),
-                    "Stream URL",
-                    help = frag(
-                      p("Embed a live stream in the broadcast. Examples:"),
-                      ul(
-                        li("https://www.youtube.com/live/Lg0askmGqvo"),
-                        li("https://www.twitch.tv/tcec_chess_tv")
-                      )
-                    ).some,
-                    half = true
-                  )(form3.input(_)),
-                  form3.group(
-                    form("pinnedStream.name"),
-                    "Stream name",
-                    half = true
-                  )(form3.input(_))
-                ),
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.text"),
-                    "Stream link label",
-                    help = frag(
-                      "Optional. Show a label on the image link to your live stream.",
-                      br,
-                      "Example: 'Watch us live on YouTube!'"
-                    ).some
-                  )(form3.input(_))
-                )
-              )
+            )
           )
         else form3.hidden(form("tier")),
+        (tg.isDefined && Granter.opt(_.RelayStream)).option(
+          form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+            form3.split(
+              form3.group(
+                form("pinnedStream.url"),
+                "Stream URL",
+                help = frag(
+                  p("Embed a live stream in the broadcast. Examples:"),
+                  ul(
+                    li("https://www.youtube.com/live/Lg0askmGqvo"),
+                    li("https://www.twitch.tv/tcec_chess_tv")
+                  )
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("pinnedStream.name"),
+                "Stream name",
+                half = true
+              )(form3.input(_))
+            ),
+            form3.split(
+              form3.group(
+                form("pinnedStream.text"),
+                "Stream link label",
+                help = frag(
+                  "Optional. Show a label on the image link to your live stream.",
+                  br,
+                  "Example: 'Watch us live on YouTube!'"
+                ).some
+              )(form3.input(_))
+            )
+          )
+        ),
         form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
           form3.group(
             form("note"),
@@ -881,18 +882,24 @@ Team Dogs ; Scooby Doo"""),
 
   private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
     val tour = twg.tour
-    val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+    val isDisabled = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disable = isDisabled.option(disabled)
     def scoreGroupInput(sgIndex: Int) =
       form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
-        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disabledGroup)
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disable)
       )
     div(cls := "relay-form__grouping")(
+      isDisabled.option:
+        div(cls := "form-group"):
+          span(dataIcon := Icon.CautionTriangle, cls := "text"):
+            "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
+      ,
       form3.group(
         form("grouping.info.name"),
         "Optional: Group name",
         help = frag("Name of the overall group. Example: Dutch Championships 2025").some
       )(
-        form3.input(_)(disabledGroup)
+        form3.input(_)(disable)
       ),
       form3.group(
         form("grouping.info.tours"),
@@ -911,7 +918,7 @@ Team Dogs ; Scooby Doo"""),
           rows := 5,
           spellcheck := "false",
           cls := "monospace",
-          disabledGroup
+          disable
         )
       ),
       form3.group(

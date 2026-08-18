@@ -13,7 +13,9 @@ case class Appeal(
     // date of first player message without a mod reply
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: Instant,
-    closedUntil: Option[Instant] = None // user must wait a certain duration
+    muted: Boolean = false, // new appeal posts of the user are ignored
+    closedUntil: Option[Instant] = None, // user must wait a certain duration
+    accounts: Option[AccountsDisclosure] = None
 ):
   def isRead = status == Appeal.Status.read
   def isUnread = status == Appeal.Status.unread
@@ -26,19 +28,27 @@ case class Appeal(
     if v then copy(status = Appeal.Status.closed)
     else copy(status = Appeal.Status.read).sleep(none)
 
+  def withdraw =
+    copy(
+      msgs = msgs :+ AppealMsg(UserId.lichess, "This appeal was withdrawn by the user.", nowInstant),
+      updatedAt = nowInstant,
+      status = Appeal.Status.closed,
+      closedUntil = none
+    )
+
   def toggleRead(v: Boolean) =
     copy(status = if v then Appeal.Status.read else Appeal.Status.unread)
 
   def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
-  def post(text: String, by: UserId) =
+  def post(text: String, by: UserId, muted: Boolean) =
     val msg = AppealMsg(by, text, nowInstant)
     copy(
       msgs = msgs :+ msg,
       updatedAt = nowInstant,
       status =
         if isByMod(msg) && isUnread then Appeal.Status.read
-        else if !isByMod(msg) && isRead then Appeal.Status.unread
+        else if !isByMod(msg) && isRead && !muted then Appeal.Status.unread
         else status,
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
@@ -59,14 +69,25 @@ case class Appeal(
 
   def isByMod(msg: AppealMsg) = msg.by != user
 
-  def modIds = msgs.collect { case msg if isByMod(msg) => msg.by }.distinct.toList
+  def modIds =
+    msgs.collect { case msg if isByMod(msg) && msg.by.isnt(UserId.lichess) => msg.by }.distinct.toList
+
+  def participated(modId: UserId) = msgs.exists(_.by.is(modId))
+
+  def isLast(msg: AppealMsg) = msgs.lastOption.contains(msg)
+
+  def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
+
+opaque type UserAppeals = Map[AppealTopic, Appeal]
+object UserAppeals extends TotalWrapper[UserAppeals, Map[AppealTopic, Appeal]]:
+  extension (appeals: UserAppeals)
+    def muted = appeals.values.exists(_.muted)
+    def get = appeals.get
 
 object Appeal:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
-
-  type ByTopic = Map[AppealTopic, Appeal]
 
   given UserIdOf[Appeal] = _.user
 
@@ -78,7 +99,7 @@ object Appeal:
 
   val maxLength = 1100
 
-  def make(topic: AppealTopic, text: String)(using me: Me) =
+  def make(topic: AppealTopic, text: String, accounts: Option[AccountsDisclosure] = None)(using me: Me) =
     val now = nowInstant
     Appeal(
       id = Id(scalalib.ThreadLocalRandom.nextString(8)),
@@ -88,10 +109,18 @@ object Appeal:
       status = Status.unread,
       createdAt = now,
       updatedAt = now,
-      firstUnrepliedAt = now
+      firstUnrepliedAt = now,
+      accounts = accounts.ifTrue(AppealTopicApi.requiresAccounts(topic))
     )
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
 case class AppealMsg(by: UserId, text: String, at: Instant)
+
+case class AccountsDisclosure(
+    otherUsernames: Option[String],
+    moreForgotten: Boolean,
+    household: Option[String]
+):
+  def onlyThisAccount = otherUsernames.isEmpty

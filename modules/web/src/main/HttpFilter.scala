@@ -1,6 +1,6 @@
 package lila.web
 
-import akka.stream.Materializer
+import org.apache.pekko.stream.Materializer
 import play.api.mvc.*
 import play.api.http.Status.*
 
@@ -43,7 +43,7 @@ final class HttpFilter(
 
   private val crawlerMatcher = HTTPRequest.UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot|SeznamBot|Mwmbl|DotBot|IABot|rednote-websearch-bot|kagi-fetcher|kagibot|Bravebot""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs
@@ -60,6 +60,10 @@ final class HttpFilter(
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach: m =>
       lila.mon.http.mobileCount(actionName, m.version, m.userId.isDefined, m.osName).increment()
+    HttpFilter
+      .apiAgent(req, client)
+      .foreach: agent =>
+        lila.mon.http.apiAgentCount(actionName, agent).increment()
     result
 
   private def serveAssets(res: Fu[Result]) =
@@ -87,3 +91,22 @@ final class HttpFilter(
       && crossOriginPolicy.supportsCredentiallessIFrames(req)
     then result.withHeaders(crossOriginPolicy.credentialless*)
     else result
+
+private object HttpFilter:
+
+  import scalalib.net.UserAgent
+
+  def apiAgent(req: RequestHeader, client: ClientName): Option[String] =
+    val isApiAgent = !client.isMobile && !client.isLichobile && {
+      HTTPRequest.isApi(req) || req.path.endsWith(".pgn")
+    }
+    isApiAgent.option(apiAgent(HTTPRequest.userAgent(req)))
+
+  def apiAgent(ua: UserAgent): String = ua.value
+    .dropWhile(!_.isLetterOrDigit)
+    .takeWhile: c =>
+      c != '/' && c != '(' && c != '@'
+    .filterNot(_.isDigit)
+    .trim
+    .toLowerCase
+    .nonEmptyOption | "-"

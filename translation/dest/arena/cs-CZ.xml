@@ -40,7 +40,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
   <string name="drawStreakStandard">Série remíz: když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
-  <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hotnotu pro danou variantu.</string>
+  <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hodnotu pro danou variantu.</string>
   <string name="variant">Varianta</string>
   <string name="minimumGameLength">Minimální délka hry</string>
   <string name="history">Historie arény</string>
@@ -76,6 +76,10 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="rankAvgHelp">Průměrný rank je procento umístění. Nižší je lepší.
 
 Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístíte se 10 v turnaji o 1000 hráčích task rank je 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Vaše průměrné umístění představuje Vaše typické závěrečné umístění vzhledem k celkovému počtu hráčů v každém turnaji.
+Toto je ukazatel Vašeho umístění v turnajích, ne Váš obecný rating.
+
+Například průměrné umístění 3 % znamená, že jste obvykle skončili mezi 3 % nejlepších (např. na 30. místě z 1000 hráčů).</string>
   <string name="medians">mediány</string>
   <string name="allAveragesAreX">Všechny průměry na této stránce jsou %s.</string>
   <string name="total">Celkem</string>

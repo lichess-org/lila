@@ -8,6 +8,8 @@
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="orLetYourOpponentScanQrCode">Или допусти свом противнику да копира овај QR код</string>
+  <string name="reusableChallengeUrl">Вишекратни линк за изазов</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Трајни линк за било кога да те изазове са тачно овим подешавањима.</string>
   <string name="waiting">Чека се</string>
   <string name="yourTurn">Твој потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
@@ -54,8 +56,8 @@
   <string name="blackResigned">Црни је предао</string>
   <string name="whiteLeftTheGame">Бели је напустио партију</string>
   <string name="blackLeftTheGame">Црни је напустио партију</string>
-  <string name="whiteDidntMove">Бели се није померијо</string>
-  <string name="blackDidntMove">Црни се није померијо</string>
+  <string name="whiteDidntMove">Бели се није померио</string>
+  <string name="blackDidntMove">Црни се није померио</string>
   <string name="whiteAborted">Бели је прекинуо партију</string>
   <string name="blackAborted">Црни је прекинуо партију</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
@@ -117,7 +119,7 @@
   <string name="lossSavedBy50MoveRule">Пораз спречен правилом 50 потеза</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потеза на основу претходне грешке</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
-  <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
+  <string name="unknownDueToRounding">Због могућег заокруживања DTZ вредности у Syzygy табелама завршница, победа/пораз су загарантовани само ако се препоручена линија из табеле пратила од последњег узимања или пешачког потеза.</string>
   <string name="allSet">Све спремно!</string>
   <string name="importPgn">Увези PGN</string>
   <string name="delete">Избриши</string>
@@ -128,16 +130,25 @@
   <string name="enable">Омогући</string>
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
+  <string name="visualMotifs">Визуелни мотиви</string>
   <string name="undefendedPieces">Небрањене фигуре</string>
+  <string name="pinnedPieces">Везане фигуре</string>
   <string name="multipleLines">Више линија</string>
   <string name="searchTime">Време претраге</string>
+  <string name="threads">Нити</string>
   <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
+  <string name="memoryDescription">Више вредности могу побољшати перформансе</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
   <string name="removesTheDepthLimit">Уклања ограничење дубине и држи твој рачунар топлим</string>
   <string name="blunder">Превид</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s превид</item>
+    <item quantity="few">%s превида</item>
+    <item quantity="other">%s превида</item>
+  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Превид</item>
     <item quantity="few">%s Грубе грешке</item>
@@ -146,7 +157,7 @@
   <plurals name="numberMistakes">
     <item quantity="one">%s Грешка</item>
     <item quantity="few">%s Грешке</item>
-    <item quantity="other">%s Грешке</item>
+    <item quantity="other">%s Грешака</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Непрецизност</item>
@@ -198,6 +209,7 @@
   <string name="minutesPerSide">Минута по играчу</string>
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанте</string>
+  <string name="variantsDescription">Више начина за играње</string>
   <string name="timeControl">Временска контрола</string>
   <string name="realTime">Стварновременa</string>
   <string name="correspondence">Дописнa</string>
@@ -236,9 +248,9 @@
   <string name="error.weakPassword">Ова лозинка је изузетно честа и сувише лака да се погоди.</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="blankedPassword">Користио си исту лозинку на другом сајту и тај сајт је био хакован. Да бисмо обезбедили сигурност твог Lichess налога, неопходно је да поставимо нову лозинку. Хвала на разумевању.</string>
-  <string name="youAreLeavingLichess">Напуштате Личесс</string>
+  <string name="youAreLeavingLichess">Напушташ Lichess</string>
   <string name="neverTypeYourPassword">Никада немој користити своју Lichess лозинку на неком другом сајту!</string>
-  <string name="proceedToX">Настаби до %s</string>
+  <string name="proceedToX">Настави до %s</string>
   <string name="passwordSuggestion">Немој користити лозинку коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
   <string name="emailSuggestion">Немој користити мејл адресу коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
   <string name="emailConfirmHelp">Помоћ око потврђивања мејл адресе</string>
@@ -294,6 +306,7 @@
   <string name="standard">Стандардна</string>
   <string name="customPosition">Произвољна позиција</string>
   <string name="unlimited">Неограничена</string>
+  <string name="unlimitedDescription">Узми колико год времена ти је потребно</string>
   <string name="mode">Тип</string>
   <string name="casual">Нерангирана</string>
   <string name="rated">Рангирана</string>
@@ -345,6 +358,7 @@
     <item quantity="other">%s игра</item>
   </plurals>
   <string name="exportGames">Извези партије</string>
+  <string name="ratingFilter">Филтер за рејтинг</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дај %s секунд</item>
     <item quantity="few">Дај %s секунде</item>
@@ -371,7 +385,7 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s турнирски бод</item>
     <item quantity="few">%s турнирска бода</item>
-    <item quantity="other">%s турнириских бодова</item>
+    <item quantity="other">%s турнирских бодова</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s студија</item>
@@ -426,7 +440,7 @@
   <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
   <string name="playerNames">Имена играча</string>
-  <string name="moveAnnotations">Нотација потеза</string>
+  <string name="moveAnnotations">Анотације потеза</string>
   <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
   <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
@@ -484,6 +498,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
+  <string name="standings">Пласман</string>
   <string name="createANewTournament">Направи нови турнир</string>
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
@@ -516,6 +531,7 @@
   <string name="popularOpenings">Популарна отварања</string>
   <string name="endgamePositions">Позиције у завршници</string>
   <string name="chess960StartPosition">Почетна позиција за шах960: %s</string>
+  <string name="randomChess960Position">Насумична Шах960 позиција</string>
   <string name="startPosition">Почетна позиција</string>
   <string name="clearBoard">Очисти таблу</string>
   <string name="loadPosition">Учитај позицију</string>
@@ -555,7 +571,7 @@
   <string name="name">Назив</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватни опис</string>
-  <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
+  <string name="descPrivateHelp">Текст који ће видети само чланови тима. Ако је постављен, замењује јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="website">Интернет страница</string>
@@ -569,6 +585,9 @@
   <string name="replies">Одговора</string>
   <string name="replyToThisTopic">Одговори на ову тему</string>
   <string name="reply">Одговори</string>
+  <string name="reopen">Поново отвори</string>
+  <string name="quote">Цитирај</string>
+  <string name="postEdited">измењено</string>
   <string name="message">Порука</string>
   <string name="createTheTopic">Направи тему</string>
   <string name="reportAUser">Пријави корисника</string>
@@ -593,7 +612,9 @@
   <string name="invalidUsernameOrPassword">Неисправно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважећи аутентификациони код</string>
+  <string name="clearField">Очисти поље</string>
   <string name="orSeparator">Или</string>
+  <string name="logInByEmail">Пријави се имејлом</string>
   <string name="emailMeALink">Пошаљи ми имејл са линком</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
@@ -760,7 +781,7 @@
   <string name="verifyYourAddress">Потврди да је %s твоја имејл адреса</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо имејл на %s. Кликните линк у имејлу да промените своју лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом, слажеш се са %s.</string>
-  <string name="readAboutOur">Прочитајте о нашем %s.</string>
+  <string name="readAboutOur">Прочитајте шта је наша %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између тебе и Lichess-а</string>
   <string name="timeToProcessAMoveOnLichessServer">Време обраде потеза на Lichess-овом серверу</string>
   <string name="downloadAnnotated">Преузими са белешкама</string>
@@ -771,6 +792,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Скролуј преко табле да се помераш кроз партију.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl или shift = црвена, command; alt или meta = плава; по дугме из сваке = жута.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
   <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
@@ -801,6 +823,11 @@
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анониман</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Анониман</item>
+    <item quantity="few">Анонимна (%s)</item>
+    <item quantity="other">Анонимних (%s)</item>
+  </plurals>
   <string name="yourScore">Твој скор: %s</string>
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>
@@ -812,6 +839,7 @@
   <string name="backgroundImageUrl">Линк позадиснке слике:</string>
   <string name="board">Табла</string>
   <string name="size">Величина</string>
+  <string name="opacity">Непрозирност</string>
   <string name="brightness">Осветљеност</string>
   <string name="contrast">Контраст</string>
   <string name="hue">Нијанса</string>
@@ -893,6 +921,7 @@
     <item quantity="other">и сачувај %s предпотезних линија</item>
   </plurals>
   <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
+  <string name="clickHereToReadIt">Кликни овде да је прочиташ</string>
   <string name="sorry">Извини :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо ти дати тајм-аут на неко време.</string>
   <string name="why">Зашто?</string>
@@ -910,9 +939,11 @@
   <string name="currentMatchScore">Скор тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих партија (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити поштен према другим играчима.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Слажем се да нећу направити више налога (осим из разлога наведених у %s).</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
@@ -947,11 +978,17 @@
   <string name="gameVsX">Партија против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="lostAgainstTOSViolator">Изубио/ла си рејтинг бодове од некога ко је прекршио Lichess-ове услове коришћења услуге</string>
-  <string name="refundXpointsTimeControlY">Враћено: %1$s %2$s рејтингових поена.</string>
+  <string name="refundXpointsTimeControlY">Враћено: %1$s %2$s рејтинг поена.</string>
   <string name="timeAlmostUp">Време ускоро изтиче!</string>
   <string name="clickToRevealEmailAddress">[Притисни да откријеш имејл адресу]</string>
   <string name="download">Преузми</string>
+  <string name="cancelTournament">Откажи турнир</string>
+  <string name="tournDescription">Опис турнира</string>
   <string name="onlyMembersOfTeam">Само чланови тима</string>
+  <string name="noRestriction">Без ограничења</string>
+  <string name="minimumRatedGames">Минимално рангираних партија</string>
+  <string name="minimumRating">Минимални рејтинг</string>
+  <string name="maximumWeeklyRating">Максимални седмични рејтинг</string>
   <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
@@ -981,6 +1018,7 @@
   <string name="gameInProgress">Твоја партија са %s је у току.</string>
   <string name="abortTheGame">Прекину партију</string>
   <string name="resignTheGame">Предај партију</string>
+  <string name="youCantStartNewGame">Не можеш започети нову партију док је твој потез.</string>
   <string name="since">Од</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Бодоване партије одигране на Lichess</string>
@@ -989,8 +1027,14 @@
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
+  <string name="nothingToSeeHere">Тренутно нема ништа за видети овде.</string>
   <string name="stats">Статистике</string>
+  <string name="accessibility">Приступачност</string>
+  <string name="enableBlindMode">Укључи режим за слепе</string>
+  <string name="disableBlindMode">Искључи режим за слепе</string>
   <string name="online" comment="status of a user">на мрежи</string>
   <string name="offline" comment="status of a user">ван мреже</string>
   <string name="search">Тражи</string>
+  <string name="clearSearch">Очисти претрагу</string>
+  <string name="thereAreNoResultsForX">Нема резултата за \"%s\"</string>
 </resources>

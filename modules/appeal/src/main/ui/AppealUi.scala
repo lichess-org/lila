@@ -16,6 +16,7 @@ final class AppealUi(helpers: Helpers):
 
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
+    else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
     else
       span(
         userIdLink(UserId.lichess.some),
@@ -25,22 +26,25 @@ final class AppealUi(helpers: Helpers):
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
       strong(cls := "text inline")("Appeal status"),
-      strong(cls := "fat")(a(href := routes.Appeal.modShow(ap.user, ap.topic))(ap.status.key))
+      strong(cls := "fat")(a(href := ap.modShowUrl)(ap.status.key))
     )
 
   def backLink =
     a(href := routes.Appeal.modQueue, dataIcon := Icon.LessThan, cls := "text")
 
   def list(user: User, appeals: List[Appeal])(using Context) =
+    val muted = appeals.exists(_.muted)
     page(s"Appeals by ${user.username}"):
       main(cls := "box box-pad appeal")(
-        div(cls := "box__top")(h1(backLink, "Appeals by ", userIdLink(user.some))),
+        div(cls := "box__top"):
+          h1(backLink, "Appeals by ", userIdLink(user.some), muted.option(frag(nbsp, "(muted)")))
+        ,
         table(cls := "appeal-list slist")(
           thead(tr(th("Topic"), th("Status"), th("Messages"), th("Mods"), th("Created"), th("Updated"))),
           tbody:
             appeals.map: ap =>
               tr(
-                td(a(href := routes.Appeal.modShow(ap.user, ap.topic))(strong(ap.topic.key))),
+                td(a(href := ap.modShowUrl)(strong(ap.topic.key))),
                 td:
                   ap.closedUntil.fold[Frag](ap.status.key): until =>
                     frag("paused until ", showDate(until))

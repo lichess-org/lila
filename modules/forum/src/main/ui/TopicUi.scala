@@ -108,7 +108,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
-      .csp(_.withInlineIconFont.withTwitter)
+      .csp(_.withInlineIconFont)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,
@@ -168,7 +168,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
                 postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
                   button(cls := "button button-empty button-red")(
-                    if topic.closed then "Reopen" else "Close"
+                    if topic.closed then trans.site.reopen() else trans.site.close()
                   )
                 )
               ),
@@ -183,9 +183,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               canModCateg.option(relocateModal(categ))
             )
           ),
-          for
-            given Me <- ctx.me
-            (form, captcha) <- formWithCaptcha
+          for (form, captcha) <- formWithCaptcha
           yield postForm(
             cls := "form3 reply",
             action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",

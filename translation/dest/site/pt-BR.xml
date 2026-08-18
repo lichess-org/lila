@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Pode levar algum tempo para chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize sua caixa de entrada.</string>
   <string name="checkSpamFolder">Verifique também a sua caixa de spam. Caso esteja lá, marque como não é spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Se você não receber um e-mail de confirmação, verifique sua pasta de Spam ou a Lixeira. Certifique-se de indicar os e-mails recebidos do lichess.org como seguro e \"não é spam\", para poder se manter informado sobre comunicados importantes.</string>
   <string name="sendEmailForAccountVerification">Se você não encontrou seu email de confirmação, envie um email para %s e nós confirmaremos sua conta.</string>
   <string name="accountConfirmed">O usuário %s foi confirmado com sucesso.</string>
   <string name="accountCanLogin">Você pode acessar agora como %s.</string>
@@ -484,6 +485,7 @@
     <item quantity="one">%s seguidos</item>
     <item quantity="other">%s seguidos</item>
   </plurals>
+  <string name="less">Mostrar menos</string>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ativo %s</string>
@@ -580,6 +582,9 @@
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tópico</string>
   <string name="reply">Responder</string>
+  <string name="reopen">Reabrir</string>
+  <string name="quote">Citação</string>
+  <string name="postEdited">editado</string>
   <string name="message">Mensagem</string>
   <string name="createTheTopic">Criar tópico</string>
   <string name="reportAUser">Reportar um usuário</string>
@@ -592,6 +597,7 @@
   <string name="reportCheatBoostHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão.</string>
   <string name="reportUsernameHelp">Explique porque este nome de usuário é ofensivo. Não diga apenas \"é ofensivo/inapropriado\", mas nos diga como chegou a essa conclusão especialmente se o insulto for ofuscado, não estiver em inglês, for uma gíria, ou for uma referência histórica/cultural.</string>
   <string name="reportProcessedFasterInEnglish">A sua denúncia será processada mais rápido se for escrita em inglês.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Nós poderemos processar sua denúncia mais rápido se você escrevê-la em inglês</string>
   <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -716,6 +722,7 @@
   <string name="aboutSimulSettings">As simultâneas sempre são partidas amigáveis. Revanches, voltar jogadas e tempo adicional estão desativados.</string>
   <string name="create">Criar</string>
   <string name="whenCreateSimul">Quando cria uma simultânea, você joga com vários adversários ao mesmo tempo.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Criar uma partida simultânea permite que você jogue contra múltiplos oponentes ao mesmo tempo.</string>
   <string name="simulVariantsHint">Se você selecionar diversas variantes, cada jogador poderá escolher qual delas jogar.</string>
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
@@ -822,11 +829,15 @@
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Cor tema</string>
+  <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
+  <string name="roundness">Arredondamento das bordas</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
+  <string name="imageOpacity">Opacidade de imagem</string>
   <string name="board">Tabuleiro</string>
   <string name="size">Tamanho</string>
   <string name="opacity">Opacidade</string>
@@ -963,7 +974,6 @@
   <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
   <string name="youHaveJoinedTeamX">Você ingressou em \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Alguém que você denunciou foi banido</string>
   <string name="congratsYouWon">Parabéns, você venceu!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -996,6 +1006,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
   <string name="markdownIsAvailable">%s está disponível para formatação.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Você pode formatar seu texto usando %s.</string>
   <string name="embedsAvailable">Cole a URL de uma partida ou de um capítulo de estudo para incorporá-lo.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário</string>
   <string name="tournChat">Chat do torneio</string>
@@ -1003,6 +1014,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
   <string name="onlyTeamMembers">Apenas membros da equipe</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navegação na lista de lances</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
   <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>

@@ -22,7 +22,7 @@
   <string name="tournamentName">토너먼트 이름</string>
   <string name="tournamentDescription">짧은 토너먼트 설명</string>
   <string name="fullDescription">전체 이벤트 설명</string>
-  <string name="fullDescriptionHelp">(선택 사항) 방송에 대한 긴 설명입니다. %1$s 사용이 가능합니다. 길이는 %2$s 글자보다 짧아야 합니다.</string>
+  <string name="fullDescriptionHelp">(선택 사항) 이벤트에 대한 긴 설명입니다. %1$s 사용이 가능합니다. 길이는 %2$s 글자보다 짧아야 합니다.</string>
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">Lichess가 PGN 업데이트를 받기 위해 확인할 URL입니다. 인터넷에서 공개적으로 액세스 할 수 있어야 합니다.</string>
   <string name="sourceGameIds">Lichess 경기 ID (공백으로 분리하여, 최대 64개까지 입력할 수 있습니다.)</string>
@@ -37,6 +37,7 @@
   <string name="editRoundStudy">경기 연구 편집</string>
   <string name="deleteTournament">이 토너먼트 삭제</string>
   <string name="definitivelyDeleteTournament">토너먼트 전체의 모든 라운드와 게임을 완전히 삭제합니다.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">이 토너먼트를 모든 라운드와 게임을 포함하여 영구적으로 삭제하시겠습니까?</string>
   <string name="showScores">게임 결과에 따라 플레이어 점수 표시</string>
   <string name="replacePlayerTags">선택 사항: 플레이어 이름, 레이팅 및 타이틀 바꾸기</string>
   <string name="fideFederations">FIDE 연맹</string>
@@ -55,6 +56,7 @@
   <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 끄거나 켤 수 있습니다.</string>
   <string name="uploadImage">토너먼트 사진 업로드</string>
   <string name="noBoardsYet">아직 보드가 없습니다. 게임이 업로드되면 표시됩니다.</string>
+  <string name="noPlayersYet">아직 플레이어가 없습니다. 게임이 업로드되면 표시됩니다.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
   <string name="startsAfter">%s 후 시작</string>
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
@@ -105,6 +107,6 @@
   <string name="tiebreaks">타이브레이커</string>
   <string name="gameX">게임 %s</string>
   <string name="knockouts">녹아웃</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U-%s</string>
 </resources>

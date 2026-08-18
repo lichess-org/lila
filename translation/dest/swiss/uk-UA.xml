@@ -136,6 +136,8 @@
   <string name="unlimitedAndFree">Без обмежень та безкоштовно</string>
   <string name="predefinedUsers">Брати участь можуть лише попередньо визначені користувачі</string>
   <string name="forbiddedUsers">Якщо цей список не порожній, то користувачам, відсутнім у цьому списку, буде заборонено приєднуватися. Одне ім\'я користувача на рядок.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Уведіть імена користувачів на окремих рядках. Тільки ці гравці зможуть приєднатися.
+Залишіть порожнім, аби допустити всіх гравців.</string>
   <string name="playYourGames">Продивитися свої ігри</string>
   <string name="byes">Пропуски</string>
   <string name="absences">Неявки</string>

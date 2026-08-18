@@ -1,6 +1,6 @@
 package lila.tournament
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -325,7 +325,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       tournamentId: TourId,
       batchSize: Int,
       readPref: ReadPref = _.sec
-  ): AkkaStreamCursor[Player] =
+  ): PekkoStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
       .sort($sort.desc("m"))

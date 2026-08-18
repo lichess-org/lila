@@ -42,7 +42,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      span(cls := "post-edited")(
+                        trans.site.postEdited(),
+                        " "
+                      ),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
@@ -53,9 +56,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
                   dataIcon := Icon.Pencil
-                )(
-                  "Edit"
-                )
+                )(trans.site.edit())
               ),
               ctx.me.flatMap: me =>
                 given Me = me
@@ -64,7 +65,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
                     dataIcon := "❝"
-                  )("Quote")
+                  )(trans.site.quote())
                 )
                 if !post.erased && post.canBeEditedByMe
                 then
@@ -73,7 +74,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       submitButton(
                         cls := "forum-post__button delete button button-empty yes-no-confirm",
                         dataIcon := Icon.Trash,
-                        title := "Delete"
+                        title := trans.site.delete.txt()
                       )
                     ),
                     quoteButton
@@ -94,7 +95,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
                           dataIcon := Icon.Trash,
-                          title := "Delete"
+                          title := trans.site.delete.txt()
                         ),
                         quoteButton
                       )
@@ -131,7 +132,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
-              lila.ui.bits.markdownTextarea("forumPostBody".some):
+              lila.ui.bits.markdownEditor(MarkdownRealm.forum):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",

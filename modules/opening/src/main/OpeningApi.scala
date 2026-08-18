@@ -70,7 +70,7 @@ final class OpeningApi(
       allHistory <- allGamesHistory.get(query.config)
       games <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
       withPgn <- games.traverse: g =>
-        pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
+        pgnDump(g, None, None, PgnDump.WithFlags(evals = false)).dmap(GameWithPgn(g, _))
       history = statsOption.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
     yield makeOpeningPage(query, stats, withPgn, relHistory, wiki).some

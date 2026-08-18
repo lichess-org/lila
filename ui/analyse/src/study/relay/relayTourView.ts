@@ -55,7 +55,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
     'aside.relay-tour__side',
     {
       hook: {
-        insert: gameLinksListener(study.chapterSelect),
+        ...onInsert(gameLinksListener(study.chapterSelect)),
         update: v => {
           if (resizeId) return;
           (v.elm as HTMLElement).querySelectorAll<HTMLElement>('.relay-games, .mchat').forEach(el => {
@@ -558,7 +558,7 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
         { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
         titleAsText && i18n.broadcast.ongoing,
       )
-    : round.finished &&
+    : round.finishedAt &&
       hl(
         'span.round-state.finished',
         { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },

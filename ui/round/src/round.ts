@@ -71,7 +71,7 @@ async function boot(
           $(`.tv-channels .${channel} .champion`).html(
             player
               ? [player.title, player.name, data.pref.ratings ? player.rating : '']
-                  .filter(x => x)
+                  .filter(Boolean)
                   .join('&nbsp')
               : 'Anonymous',
           );

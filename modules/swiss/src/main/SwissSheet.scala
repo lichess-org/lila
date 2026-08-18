@@ -1,7 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 
@@ -83,7 +83,7 @@ private object SwissSheet:
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   def source(

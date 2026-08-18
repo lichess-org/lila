@@ -10,7 +10,7 @@
   <string name="whyIsLilaCalledLila">同样地，Lichess 的源代码项目 %1$s，代表 li[chess in sca]la，因为 Lichess 的核心部分是用 %2$s（一种直观的编程语言）编写的。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess 的运行依赖于赞助者的赞助和志愿者团队的努力。</string>
-  <string name="findMoreAndSeeHowHelp">您可以了解更多关于 %1$s 的信息（包括一份 %2$s）。如果您希望贡献时间和技能来帮助 Lichess，这里有很多 %3$s。</string>
+  <string name="findMoreAndSeeHowHelp">您可以了解更多关于%1$s的信息（包括一份%2$s）。如果您希望贡献时间和技能来帮助 Lichess，这里有很多%3$s。</string>
   <string name="beingAPatron">成为赞助者</string>
   <string name="breakdownOfOurCosts">我们的成本明细</string>
   <string name="otherWaysToHelp">其他帮助方式</string>
@@ -26,7 +26,7 @@
   <string name="howCanIBecomeModerator">如何成为管理员（版主）？</string>
   <string name="youCannotApply">您无法申请成为管理员。如果我们发现有人具备成为管理员的潜质，我们会直接联系他们。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
-  <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的 %s</string>
+  <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的%s</string>
   <string name="fairPlayPage">公平竞赛页面</string>
   <string name="youCanUseOpeningBookNoEngine">在 Lichess 上，通讯棋规则的主要区别是允许使用开局库。但使用引擎仍然是被禁止的，并会导致因引擎辅助而被标记。尽管 ICCF 在通讯棋中允许使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
@@ -56,29 +56,29 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
   <string name="fideHandbook">国际棋联手册</string>
   <string name="fideHandbookX">国际棋联手册 %s</string>
   <string name="discoveringEnPassant">为什么一个兵能够吃掉已经过其控制格的其他兵？（吃过路兵）</string>
-  <string name="explainingEnPassant">这是一种被称为“吃过路兵”的合法着法。维基百科文章提供了 %1$s。
+  <string name="explainingEnPassant">这是一种被称为“吃过路兵”的合法着法。维基百科文章提供了%1$s。
 
-该规则在 %2$s 的第 3.7.3.1 和 3.7.3.2 条中有描述：
+该规则在%2$s的第 3.7.3.1 和 3.7.3.2 条中有描述：
 
 “当一方兵从原始位置一次移动两格，到达与对方某个兵相邻的直行且在同一横线时，对方兵可以吃掉这个兵，就像该兵只移动了一格一样。这种吃法只能在兵移动后的下一步立即进行，称为‘吃过路兵’。”
 
-查看关于此着法的 %3$s 以进行一些练习。</string>
+查看关于此着法的 %3$s以进行一些练习。</string>
   <string name="goodIntroduction">不错的介绍</string>
   <string name="lichessTraining">Lichess 训练</string>
   <string name="watchIMRosenCheckmate">观看 IM Eric Rosen 将杀 %s。</string>
   <string name="threefoldRepetition">三次重复局面</string>
-  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，棋手可以根据 %1$s 提和。Lichess 执行 FIDE 官方规则，如 %2$s 第 9.2 条所述。</string>
+  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，棋手可以根据%1$s提和。Lichess 执行 FIDE 官方规则，如%2$s第 9.2 条所述。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
   <string name="notRepeatedMoves">我们并没有重复着法。为什么对局仍然因重复局面而判和？</string>
   <string name="repeatedPositionsThatMatters">三次重复局面指的是重复的 %1$s，而不是重复的着法。并且局面重复不需要连续发生。</string>
   <string name="positions">棋盘局面</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次局面。为什么对局没有被判和？</string>
-  <string name="threeFoldHasToBeClaimed">重复局面需要由一方棋手提出申诉。您可以通过按下显示的按钮来申诉，或者在您最后一步导致重复的着法之前提和——即使您的对手拒绝和棋提议，三次重复局面的和棋申诉仍然会被执行。您也可以 %1$s Lichess 为您自动申诉重复局面。此外，五次重复局面会立即自动结束对局。</string>
+  <string name="threeFoldHasToBeClaimed">重复局面需要由一方棋手提出申诉。您可以通过按下显示的按钮来申诉，或者在您最后一步导致重复的着法之前提和——即使您的对手拒绝和棋提议，三次重复局面的和棋申诉仍然会被执行。您也可以%1$s Lichess 为您自动申诉重复局面。此外，五次重复局面会立即自动结束对局。</string>
   <string name="configure">配置</string>
   <string name="accounts">账户</string>
   <string name="titlesAvailableOnLichess">Lichess 上有哪些头衔？</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有通过线下对局（OTB）获得的国际棋联（FIDE）头衔，以及 %1$s。以下是国际棋联头衔列表：</string>
-  <string name="showYourTitle">如果您拥有国际象棋头衔，您可以填写 %1$s 来申请在您的账户上显示该头衔，申请需包括一份清晰的身份证件/卡片图片以及您手持该证件/卡片的自拍。
+  <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有通过线下对局（OTB）获得的国际棋联（FIDE）头衔，以及%1$s。以下是国际棋联头衔列表：</string>
+  <string name="showYourTitle">如果您拥有国际象棋头衔，您可以填写%1$s来申请在您的账户上显示该头衔，申请需包括一份清晰的身份证件/卡片图片以及您手持该证件/卡片的自拍。
 
 在 Lichess 上验证为头衔棋手后，将获得参加“头衔棋手专属竞技场”赛事的资格。
 
@@ -93,7 +93,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 
 请勿主动索取 LM 头衔。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
-  <string name="usernamesNotOffensive">一般来说，用户名不应是：冒犯性的、冒充他人的或用于广告宣传的。您可以阅读更多关于 %1$s 的信息。</string>
+  <string name="usernamesNotOffensive">一般来说，用户名不应是：冒犯性的、冒充他人的或用于广告宣传的。您可以阅读更多关于%1$s的信息。</string>
   <string name="guidelines">用户名指南</string>
   <string name="canIChangeMyUsername">我可以更改我的用户名吗？</string>
   <string name="usernamesCannotBeChanged">不能，由于技术和实际原因，用户名无法更改。用户名在太多地方被固化：数据库、导出文件、日志以及人们的记忆中。但您可以调整一次用户名的大小写。</string>
@@ -117,7 +117,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
   <string name="notPlayedRecently">该棋手最近没有进行足够多的对局。根据您已进行的对局数量，如果大约一年不活动，您的等级分可能会再次变为暂定状态。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体来说，这意味着 Glicko-2 偏差值大于 110。偏差值是系统对该等级分的置信水平。偏差值越低，等级分越稳定。</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何工作的？</string>
-  <string name="inOrderToAppearsYouMust">为了登上 %1$s，您必须：</string>
+  <string name="inOrderToAppearsYouMust">为了登上%1$s，您必须：</string>
   <string name="ratingLeaderboards">排行榜</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">在特定等级分中进行了至少 30 场排位对局，</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">在过去一周内进行过该等级分的对局，</string>
@@ -129,7 +129,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 
 最好将等级分视为“相对”数值（与“绝对”数值相对）：在一群棋手中，他们等级分的相对差异将帮助您估计谁会赢/和/输，以及频率如何。说“我有 X 等级分”本身没有意义，除非有其他棋手的等级分可供比较。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏等级分？</string>
-  <string name="enableZenMode">在 %1$s 中启用“禅意模式”，或在对局过程中按 %2$s。</string>
+  <string name="enableZenMode">在%1$s中启用“禅意模式”，或在对局过程中按 %2$s。</string>
   <string name="displayPreferences">显示偏好设置</string>
   <string name="connexionLostCanIGetMyRatingBack">我因为延迟/断线输了一局。我能拿回我的等级分吗？</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">很遗憾，对于因延迟或断线而输掉的对局，我们无法归还等级分，无论问题是出在您这边还是我们这边。不过，后者情况非常罕见。另外请注意，当 Lichess 重启导致您超时输棋时，我们会中止对局以避免不公平的损失。</string>
@@ -147,6 +147,13 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 当您的浏览器阻止 lichess.org 播放声音时，会出现红色的静音图标。通常，在您点击某处后，此限制就会被解除。在某些移动浏览器上，触摸拖动棋子不算作点击。在这种情况下，您必须在每局对局开始时点击棋盘以允许播放声音。
 
 当这种情况发生时，我们会显示红色图标来提醒您。通常，您可以明确允许 lichess.org 播放声音。以下是在一些流行浏览器的最新版本上进行设置的指南。</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">大多数浏览器会阻止在新访问的页面上播放声音，以保护用户。
+
+当您的浏览器阻止 lichess.org 播放声音时，会显示静音图标。一旦您点击页面上的任何元素，此限制通常会解除。
+
+在某些移动端浏览器上，触摸拖拽棋子不算作点击操作。这种情况下，您需要在每场对局开始时点击棋盘以允许播放声音。
+
+我们显示红色静音图标是为了在发生这种情况时提醒您。您可以在大多数浏览器中显式允许 lichess.org 播放声音。以下是在一些主流浏览器的最新版本中允许网站播放音频的操作说明：</string>
   <string name="desktop">桌面端</string>
   <string name="enableAutoplayForSoundsFirefox">1. 访问 lichess.org
 2. 在 Linux/Windows 上按 Ctrl + i，或在 MacOS 上按 cmd + i
@@ -154,6 +161,10 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 4. 在 lichess.org 上允许“音频和视频”</string>
   <string name="enableAutoplayForSoundsChrome">1. 访问 lichess.org
 2. 点击地址栏中的锁形图标
+3. 点击“网站设置”
+4. 允许“播放声音”</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. 访问 lichess.org
+2. 点击地址栏中的网站信息图标
 3. 点击“网站设置”
 4. 允许“播放声音”</string>
   <string name="enableAutoplayForSoundsSafari">1. 访问 lichess.org

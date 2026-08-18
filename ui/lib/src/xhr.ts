@@ -68,10 +68,10 @@ export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> 
 /* load & inject a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
-    const nonce = document.body.getAttribute('data-nonce'),
-      el = document.createElement('script');
+    const nonce = document.body.getAttribute('data-nonce');
+    const el = document.createElement('script');
     if (nonce) el.setAttribute('nonce', nonce);
-    el.onload = resolve as () => void;
+    el.onload = () => resolve();
     el.onerror = reject;
     el.src = src;
     document.head.append(el);

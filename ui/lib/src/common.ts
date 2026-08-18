@@ -137,7 +137,7 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
-    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+    for (let d = 350; ;) yield Math.max(100, (d *= 14 / 15));
   })();
   const repeat = () => {
     f();

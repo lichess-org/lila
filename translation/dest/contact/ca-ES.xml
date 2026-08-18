@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Cap de les anteriors</string>
   <string name="sendEmailAt">Envia\'ns un correu a %s.</string>
   <string name="explainYourRequest">Expliqueu la vostra sol·licitud de manera clara i minuciosa. Indiqueu el vostre nom d’usuari de Lichess i qualsevol informació que ens pugui ajudar.</string>
+  <string name="monetiseNotInterested">No estem interessats en cap forma de monetitzar Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Mai mostrarem cap mena d\'anunci, no fem seguiment dels nostres jugadors i no comprarem o vendrem tràfic o usuaris.</string>
+  <string name="monetiseNoMarketingEmail">Si us plau, no ens envieu email de màrqueting, seguiment o publicitat.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Recomanem a tothom %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquejar els anuncis i els seguiments</string>
+  <string name="broadcastTournamentOnLichess">Retransmet un torneig a Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Si voleu retransmetre un torneig de forma oficial a Lichess o teniu algun dubte sobre les retransmissions:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Si us plau, contacta el nostre equip de retransmissions a  %1$s o %2$s.</string>
+  <string name="ourDiscordServer">al nostre servidor de Discord</string>
 </resources>

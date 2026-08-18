@@ -23,23 +23,22 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
 
   def userForm(topic: AppealTopic, form: Form[?], isNew: Boolean)(using Translate) =
-    form3.fieldset(if isNew then "Create an appeal" else "Add something to the appeal", toggle = false.some)(
-      cls := "form-toggle"
-    ):
-      postForm(st.action := routes.Appeal.post(topic))(
-        form3.globalError(form),
-        form3.group(
-          form("text"),
-          "",
-          help = frag("Please be concise. Maximum 1000 chars.").some
-        )(f =>
-          form3.textarea(f)(
-            rows := 6,
-            maxlength := Appeal.maxLength * 1.1
-          )
-        )(cls := "appeal-textarea"),
-        form3.action(form3.submit(trans.site.send()))
-      )
+    val formContent = postForm(st.action := routes.Appeal.post(topic))(
+      form3.globalError(form),
+      form3.group(
+        form("text"),
+        "",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(f =>
+        form3.textarea(f)(
+          rows := 6,
+          maxlength := Appeal.maxLength * 1.1
+        )
+      )(cls := "appeal-textarea"),
+      form3.action(form3.submit(trans.site.send()))
+    )
+    if isNew then formContent
+    else form3.fieldset("Add something to the appeal", toggle = false.some)(cls := "form-toggle")(formContent)
 
   def userShow(status: UserStatus, appeal: Appeal, form: Form[?], appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
@@ -63,7 +62,15 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 appeal.isUnread.option(p(cls := "line-center-text")("Please wait for a moderator to reply.")),
                 userForm(appeal.topic, form, isNew = false)
               )
-          )
+          ),
+          appeal.isOpen.option:
+            postForm(cls := "appeal__withdraw", action := routes.Appeal.withdraw(appeal.topic))(
+              submitButton(
+                cls := "button button-red button-empty yes-no-confirm",
+                title :=
+                  "Withdrawing this appeal will close this request. You will not be able to appeal this restriction, and we will consider this case closed.\n\nAre you sure you want to withdraw your appeal?"
+              )("Withdraw appeal")
+            )
         ),
         userInactiveAppeals(appeals.filter(_ != appeal))
       )
@@ -72,6 +79,28 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     appeal.closedUntil.fold(frag("This appeal is now closed")): until =>
       frag("Appeal paused until ", showDate(until))
   )
+
+  private def renderAccountsDisclosure(accounts: AccountsDisclosure) =
+    def row(label: String, value: Frag) =
+      div(cls := "appeal__accounts__row")(
+        span(cls := "appeal__accounts__label")(label),
+        div(cls := "appeal__accounts__value")(value)
+      )
+    div(cls := "appeal__accounts")(
+      h3("Declared accounts"),
+      row(
+        "Additional accounts",
+        if accounts.onlyThisAccount then "None (only this account)"
+        else
+          accounts.otherUsernames.fold(em("None listed")):
+            pre(cls := "appeal__accounts__text")(_)
+      ),
+      accounts.moreForgotten.option:
+        row("", "Has additional accounts but has forgotten their usernames")
+      ,
+      accounts.household.map: household =>
+        row("Household accounts", pre(cls := "appeal__accounts__text")(household))
+    )
 
   private def userAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
@@ -88,10 +117,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       .sortBy(_.updatedAt)
       .reverse
       .map: appeal =>
-        val titleTag =
-          if Granter(_.Appeals)
-          then a(href := routes.Appeal.modShow(appeal.user, appeal.topic))
-          else span
+        val titleTag = if Granter(_.Appeals) then a(href := appeal.modShowUrl) else span
         div(cls := "box box-pad appeal-closed")(
           div(cls := "box__top")(
             h1(
@@ -109,7 +135,8 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
 
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
-    val userAppeals = relatedAppeals.count(_.user.is(user))
+    val userAppeals = relatedAppeals.filter(_.user.is(user))
+    val muted = userAppeals.exists(_.muted)
     ui.page(s"Appeal by ${user.username}"):
       main(cls := "appeal")(
         div(cls := "box box-pad")(
@@ -119,9 +146,9 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               span(cls := "appeal-topic")(appeal.topic.key),
               " appeal by ",
               userIdLink(user.some),
-              (userAppeals > 1).option:
+              (userAppeals.sizeIs > 1).option:
                 a(href := routes.Appeal.modShowAll(user.username), cls := "appeal__all")(
-                  small(s" ($userAppeals appeals)")
+                  small(s" (${userAppeals.size} appeals)")
                 )
             ),
             div(cls := "actions")(
@@ -134,10 +161,14 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "mod-zone mod-zone-full none"),
+          appeal.accounts.map(renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             appeal.msgs.map: msg =>
-              div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+              div(
+                cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}",
+                id := appeal.isLast(msg).option("appeal-last-msg")
+              )(
                 div(cls := "appeal__msg__header")(
                   ui.renderUser(appeal, msg.by, asMod = true),
                   pastMomentServer(msg.at)
@@ -151,7 +182,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             ,
             if appeal.isClosed then appealIsClosed(appeal)
             else if me.is(inquiryBy) then
-              postForm(st.action := routes.Appeal.modReply(appeal.user, appeal.topic))(
+              postForm(st.action := s"${routes.Appeal.modReply(appeal.user, appeal.topic)}#appeal-last-msg")(
                 form3.globalError(form),
                 form3.split(
                   div(cls := "appeal-presets form-group form-half")(
@@ -181,7 +212,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               )
             else emptyFrag
           ),
-          div(cls := "appeal__actions", id := "appeal-actions")(
+          div(cls := "appeal__actions")(
             inquiryBy match
               case None =>
                 postForm(action := routes.Appeal.modHandle(appeal.user, appeal.topic))(
@@ -203,6 +234,17 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                   postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, true))(
                     form3.selectLowLevel("months", AppealForm.untilMonths, default = "Pause".some)
                   ),
+                  postForm(action := routes.Appeal.toggleMute(appeal.user, appeal.topic, !muted))(
+                    if muted then
+                      submitButton("Un-mute")(
+                        cls := "button button-green button-empty"
+                      )
+                    else
+                      submitButton("Mute")(
+                        title := "Mute all appeals of this user",
+                        cls := "button button-red button-empty"
+                      )
+                  ),
                   if appeal.topic == AppealTopic.blog
                   then a(href := routes.Ublog.index(user.username), cls := "button button-empty")("View blog")
                   else
@@ -210,8 +252,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                       case None =>
                         button(cls := "button button-green button-empty", disabled)("Nothing to un-mark")
                       case Some((text, call)) =>
-                        val appealUrl = routes.Appeal.modShow(appeal.user, appeal.topic).url
-                        val actionUrl = addQueryParam(call.url, "referrer", appealUrl)
+                        val actionUrl = addQueryParam(call.url, "referrer", appeal.modShowUrl)
                         postForm(action := actionUrl):
                           submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
                       ,

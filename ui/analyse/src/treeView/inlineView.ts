@@ -1,5 +1,6 @@
 import type { Classes } from 'snabbdom';
 
+import { escapeHtml } from 'lib';
 import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
 import { enrichText, innerHTML } from 'lib/richText';
@@ -48,7 +49,7 @@ export class InlineView {
   constructor(readonly ctrl: AnalyseCtrl) {}
 
   renderNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const { isMainline, parentDisclose } = args;
     return child.forceVariation && isMainline
       ? hl('interrupt', this.lines([child, ...siblings], args))
@@ -78,7 +79,7 @@ export class InlineView {
               },
               hook: innerHTML(comment.text, text =>
                 node.comments?.[1]
-                  ? `<span class="by">${authorText(comment.by)}</span> ` + enrichText(text)
+                  ? `<span class="by">${escapeHtml(authorText(comment.by))}</span> ` + enrichText(text)
                   : enrichText(text),
               ),
             }),
@@ -92,7 +93,7 @@ export class InlineView {
 
   protected lines(lines: TreeNode[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
-    if (!lines.length || parentDisclose === 'collapsed') return;
+    if (!lines.length || parentDisclose === 'collapsed') return undefined;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
@@ -107,7 +108,7 @@ export class InlineView {
   }
 
   private sidelineNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const childArgs = this.childArgs(child, args, false);
     const sideline = [
       this.moveNode(child, args),
@@ -164,7 +165,7 @@ export class InlineView {
         !currentPath && !!ctrl.gamePath && treePath.contains(path, ctrl.gamePath) && path !== ctrl.gamePath,
       'context-menu': path === ctrl.contextMenuPath,
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
-      'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
+      'pending-copy': ctrl.isPendingCopy(path, isMainline),
     };
     const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);

@@ -13,6 +13,7 @@ import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 
 import {
+  castlingRooksFromBoard,
   chess960CastlingSquares,
   chess960IdToFEN,
   fenToChess960Id,
@@ -139,9 +140,20 @@ export default class EditorCtrl {
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
+    const board = this.getBoard();
+    if (this.variant === 'chess960') {
+      const white = castlingRooksFromBoard(board, 'white'),
+        black = castlingRooksFromBoard(board, 'black');
+      return {
+        K: defined(white.rookK),
+        Q: defined(white.rookQ),
+        k: defined(black.rookK),
+        q: defined(black.rookQ),
+      };
+    }
+
     const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
-    const board = this.getBoard(),
-      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
+    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
       blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
       whiteRooks = board.rook.intersect(board.white),
       blackRooks = board.rook.intersect(board.black);

@@ -37,7 +37,7 @@
       margin: 3px 2px 0;
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
-      border-radius: 6px 6px 0 0;
+      border-radius: $box-radius-size $box-radius-size 0 0;
       background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
 
       &:not(.move) {
@@ -82,6 +82,7 @@
       display: flex;
       align-items: center;
       text-shadow: none;
+      justify-content: center;
 
       .cmn-toggle {
         margin-inline-start: 10px;
@@ -138,6 +139,9 @@
     }
 
     [data-mode]:not(.active) .bar {
+      $good-10: rgb(from $c-good r g b / 0.1);
+      $good-70: rgb(from $c-good r g b / 0.7);
+
       position: absolute;
       display: block;
       left: 0;
@@ -150,15 +154,8 @@
         opacity 0.6s ease-out;
       animation: computing 1.6s linear reverse infinite paused;
       background:
-        linear-gradient(
-            to bottom,
-            rgb(from $c-good r g b / calc(alpha * 0.1)),
-            rgb(from $c-good r g b / calc(alpha * 0.7)),
-            rgb(from $c-good r g b / calc(alpha * 0.1))
-          )
-          0 0 / 100% 100% no-repeat,
-        linear-gradient(45deg, transparent, rgb(from $c-good r g b / calc(alpha * 0.7)), transparent) -100%
-          0 / 200% 100% no-repeat;
+        linear-gradient(to bottom, $good-10, $good-70, $good-10) 0 0 / 100% 100% no-repeat,
+        linear-gradient(45deg, transparent, $good-70, transparent) -100% 0 / 200% 100% no-repeat;
     }
 
     [data-mode].computing:not([data-mode='ceval'].active) .bar {

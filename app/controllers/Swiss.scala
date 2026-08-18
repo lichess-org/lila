@@ -10,7 +10,7 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
@@ -118,13 +118,13 @@ final class Swiss(
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        Ok.page(views.swiss.form.create(env.swiss.forms.create(me), teamId))
+        Ok.page(views.swiss.form.create(env.swiss.forms.create, teamId))
   }
 
   def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        bindForm(env.swiss.forms.create(me))(
+        bindForm(env.swiss.forms.create)(
           err => BadRequest.page(views.swiss.form.create(err, teamId)),
           data =>
             tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
@@ -142,7 +142,7 @@ final class Swiss(
         .isGranted(teamId, _.Tour)
         .flatMap:
           if _ then
-            bindForm(env.swiss.forms.create(me))(
+            bindForm(env.swiss.forms.create)(
               doubleJsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
@@ -183,12 +183,12 @@ final class Swiss(
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
+      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(swiss)))
   }
 
   def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
+      bindForm(env.swiss.forms.edit(swiss))(
         err => BadRequest.page(views.swiss.form.edit(swiss, err)),
         data => for _ <- env.swiss.api.update(swiss.id, data) yield Redirect(routes.Swiss.show(id))
       )
@@ -196,8 +196,8 @@ final class Swiss(
 
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
-        err => jsonFormError(err),
+      bindForm(env.swiss.forms.edit(swiss))(
+        jsonFormError,
         data =>
           env.swiss.api.update(swiss.id, data) >>
             FoundOk(env.swiss.api.update(swiss.id, data))(apiJson)

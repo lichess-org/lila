@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">通信戦の対局をリストにした毎日のメール通知</string>
   <string name="notifyStreamStart">配信を始めた時</string>
   <string name="notifyInboxMsg">新しい着信メッセージ</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">新しいダイレクト メッセージ</string>
   <string name="notifyForumMention">フォーラムであなたの名前が出た時</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">フォーラムでのメンション</string>
   <string name="notifyInvitedStudy">研究への招待</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">研究への招待</string>
   <string name="notifyGameEvent">通信戦の進行状況</string>
   <string name="notifyChallenge">挑戦が来た時</string>
   <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
-  <string name="notifyBroadcasts">あなたがフォローしている配信</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">トーナメント開始の通知</string>
+  <string name="notifyBroadcasts">イベント中継</string>
   <string name="notifyTimeAlarm">通信戦の時間切迫</string>
   <string name="notifyBell">Lichess にいる時にベル音</string>
   <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>

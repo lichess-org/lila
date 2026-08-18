@@ -19,6 +19,8 @@ private final class RelayListing(
 
   def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
 
+  def activeTours: Fu[List[RelayTour.WithRounds]] = toursWithRounds
+
   val activeCacheTtl = 11.seconds
 
   private enum Spot:

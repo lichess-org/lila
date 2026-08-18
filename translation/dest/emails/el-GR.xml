@@ -18,6 +18,7 @@
 Διασκεδάστε και ελπίζουμε να βρίσκουν πάντα τα κομμάτια σας το δρόμο τους για τον βασιλιά του αντιπάλου σας!</string>
   <string name="logInToLichess">Συνδεθείτε στο lichess.org, %s</string>
   <string name="common_orPaste">(Δεν μπορείτε να κάνετε κλικ στους συνδέσμους; Δοκιμάστε να τους επικολλήσετε στο πρόγραμμα περιήγησής σας!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Δεν λειτουργεί ο σύνδεσμος; Δοκιμάστε να τον επικολλήσετε στον περιηγητή σας!)</string>
   <string name="common_note">Αυτή είναι μια υπηρεσία ηλεκτρονικού ταχυδρομείου που σχετίζεται με τη χρήση του %s.</string>
   <string name="common_contact">Για να επικοινωνήσετε μαζί μας, επισκεφθείτε το %s.</string>
 </resources>

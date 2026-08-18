@@ -119,6 +119,7 @@ export interface CevalOpts {
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfoFromServer[];
   custom?: CustomCeval; // hides switch, threat, and go deeper buttons
+  hideErrors?: boolean;
 }
 
 export interface Hovering {

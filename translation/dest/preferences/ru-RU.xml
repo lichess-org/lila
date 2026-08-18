@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Ежедневно присылать на почту список ваших игр по переписке</string>
   <string name="notifyStreamStart">Стример начинает трансляцию</string>
   <string name="notifyInboxMsg">Новое входящее сообщение</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Новое личное сообщение</string>
   <string name="notifyForumMention">Вас упомянули в сообщении на форуме</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Упоминания на форуме</string>
   <string name="notifyInvitedStudy">Приглашение в Студию</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Приглашение в Студию</string>
   <string name="notifyGameEvent">Обновления, касающиеся игры по переписке</string>
   <string name="notifyChallenge">Вызовы на игру</string>
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
-  <string name="notifyBroadcasts">Трансляции, на которые вы подписаны</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Напоминания о начале турниров</string>
+  <string name="notifyBroadcasts">Трансляции</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
   <string name="notifyPush">Оповещение на устройстве, когда вы не находитесь на сайте Lichess</string>
@@ -88,4 +92,5 @@
   <string name="boardSettings">Доска</string>
   <string name="analysisSettings">Настройки анализа</string>
   <string name="maneuverArrowsHelp">Последовательность предлагаемых движком ходов для одной фигуры</string>
+  <string name="hoverOverSettingLabelsForHelp">Наведите поверх метки настройки для подсказки</string>
 </resources>

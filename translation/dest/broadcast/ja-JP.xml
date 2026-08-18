@@ -37,6 +37,7 @@
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
   <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">このトーナメント（全ラウンド、全対局を含む）を完全に削除しますか？</string>
   <string name="showScores">ゲーム結果に応じてプレイヤーのスコアを表示</string>
   <string name="replacePlayerTags">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
   <string name="fideFederations">FIDE 加盟協会</string>
@@ -54,7 +55,8 @@
   <string name="overview">概要</string>
   <string name="subscribeTitle">登録しておくと各ラウンドの開始時に通知が来ます。アカウント設定でベルやプッシュ通知の切り替えができます。</string>
   <string name="uploadImage">トーナメントの画像をアップロード</string>
-  <string name="noBoardsYet">ボードはまだありません。棋譜がアップロードされると表示されます。</string>
+  <string name="noBoardsYet">ボード情報はまだありません。対局が掲載されると表示されます。</string>
+  <string name="noPlayersYet">プレイヤー情報はまだありません。棋譜が掲載されると表示されます。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ボードはソースまたは %s 経由で読み込めます</string>
   <string name="startsAfter">%s 後に開始</string>
   <string name="startVerySoon">中継はまもなく始まります。</string>
@@ -105,6 +107,6 @@
   <string name="tiebreaks">タイブレーク</string>
   <string name="gameX">局数 %s</string>
   <string name="knockouts">ノックアウト</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

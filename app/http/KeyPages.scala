@@ -33,7 +33,6 @@ final class KeyPages(val env: Env)(using Executor)
       .mon(lila.mon.lobby.segment("preloader.total"))
       .flatMap: h =>
         ctx.me.filter(_.hasTitle).foreach(env.msg.systemMsg.twoFactorReminder(_))
-        ctx.me.filterNot(_.hasEmail).foreach(env.msg.systemMsg.emailReminder(_))
         renderPage:
           lila.mon.chronoSync(lila.mon.lobby.segment("renderSync")):
             views.lobby.home(h)

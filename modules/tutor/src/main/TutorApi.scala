@@ -42,7 +42,7 @@ final class TutorApi(
     yield cache.invalidate(config)
 
   private val initialDelay = if mode.isProd then 1.minute else 5.second
-  LilaScheduler("TutorQueue", _.Every(1.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
+  LilaScheduler("TutorQueue", _.Every(2.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)

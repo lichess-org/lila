@@ -1,6 +1,6 @@
 package lila.push
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import play.api.libs.json.*
 import scalalib.data.LazyFu
 
@@ -14,7 +14,7 @@ import lila.core.round.{ Tell, RoundBus, MoveEvent }
 import lila.core.study.data.StudyName
 import lila.core.net.LichessMobileVersion
 
-final private class PushApi(
+final class PushApi(
     firebasePush: FirebasePush,
     webPush: BrowserWebPush,
     gameProxy: lila.core.game.GameProxy,
@@ -363,10 +363,22 @@ final private class PushApi(
         body = body,
         key = Key.broadcastRound,
         urgency = Urgency.Normal,
-        payload = payload("url" -> url),
-        mobileCompatible = None
+        payload = payload("type" -> "broadcast", "url" -> url),
+        mobileCompatible = LichessMobileVersion(0, 27).some
       )
     filterPushNotif(recips, _.broadcastRound, pushData)
+
+  def recap(userId: UserId, year: Int, title: String, body: String): Funit =
+    val data = LazyFu.sync:
+      Data(
+        title = title,
+        body = body,
+        key = Key.recap,
+        urgency = Urgency.Normal,
+        payload = payload("type" -> "recap", "year" -> year.toString),
+        mobileCompatible = LichessMobileVersion(0, 26).some
+      )
+    pushFirebase(userId, _.recap, data)
 
   private def maybePushNotif(
       userId: UserId,
@@ -394,6 +406,10 @@ final private class PushApi(
         firebasePush(_, data).addEffects: res =>
           monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
     yield ()
+
+  private def pushFirebase(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =
+    firebasePush(userId, data).addEffects: res =>
+      monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   // ignores notification preferences
   private def alwaysPushFirebaseData(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =

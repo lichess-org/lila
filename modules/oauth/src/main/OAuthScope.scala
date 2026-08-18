@@ -162,7 +162,14 @@ object OAuthScope:
 
   def canUseWebMod(using Option[Me]) =
     import lila.core.perm.*
-    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin, _.ApiChallengeAdmin)
+    List[Permission.Selector](
+      _.Shusher,
+      _.BoostHunter,
+      _.CheatHunter,
+      _.StudyAdmin,
+      _.ApiChallengeAdmin,
+      _.UserModView
+    )
       .exists(Granter.opt)
 
   val dgtScopes = select(_.Challenge.Read, _.Challenge.Write, _.Preference.Read, _.Msg.Write, _.Board.Play)

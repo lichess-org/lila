@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { beforeEach, describe, test } from 'node:test';
 
 import { destsToUcis, sanWriter } from 'lib/game';
-import { type Prop, propWithEffect } from 'lib/index';
+import { propWithEffect } from 'lib/index';
 
 import { makeSubmit } from '../src/keyboardSubmit.js';
 
@@ -151,7 +151,7 @@ describe('keyboardSubmit', () => {
     const submit = makeSubmit(
       {
         input: document.createElement('input'),
-        ctrl: { ...defaultCtrl, helpModalOpen: mockSetHelpModalOpen as unknown as Prop<boolean> },
+        ctrl: { ...defaultCtrl, helpModalOpen: mockSetHelpModalOpen },
       },
       mockClear,
     );

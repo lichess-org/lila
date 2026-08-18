@@ -24,7 +24,6 @@ export interface TreeWrapper {
   pathIsMainline(path: TreePath): boolean;
   pathIsForcedVariation(path: TreePath): boolean;
   lastMainlineNode(path: TreePath): TreeNode;
-  extendPath(path: TreePath, isMainline: boolean): TreePath;
   pathExists(path: TreePath): boolean;
   deleteNodeAt(path: TreePath): void;
   promoteAt(path: TreePath, toMainline: boolean): void;
@@ -97,19 +96,12 @@ export function makeTree(root: TreeNode): TreeWrapper {
   }
 
   const getNodeList = (path: TreePath): TreeNode[] =>
-    ops.collect(root, function (node: TreeNode) {
+    ops.collect(root, (node: TreeNode) => {
       const id = treePath.head(path);
-      if (id === '') return;
+      if (id === '') return undefined;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
-
-  const extendPath = (path: TreePath, isMainline: boolean): TreePath => {
-    let currNode = nodeAtPath(path);
-    while ((currNode = currNode?.children[0]) && !(isMainline && currNode.forceVariation))
-      path += currNode.id;
-    return path;
-  };
 
   function updateAt(path: TreePath, update: (node: TreeNode) => void): MaybeNode {
     const node = nodeAtPathOrNull(path);
@@ -230,7 +222,6 @@ export function makeTree(root: TreeNode): TreeWrapper {
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: TreePath): TreeNode => lastMainlineNodeFrom(root, path),
-    extendPath,
     pathExists,
     deleteNodeAt,
     promoteAt,

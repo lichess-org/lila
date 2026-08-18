@@ -1,5 +1,4 @@
-import { hyphenToCamel, type Toggle, toggle } from 'lib';
-import { debounce } from 'lib/async';
+import { type Toggle, toggle } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { bind, hl, onInsert, type VNode } from 'lib/view';
@@ -7,10 +6,8 @@ import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
 
-import { type Dimension, PaneCtrl } from './interfaces';
+import { type Dimension, PaneCtrl, type Range } from './interfaces';
 import { header, moreButton } from './util';
-
-type Range = { min: number; max: number; step: number };
 
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
@@ -117,22 +114,12 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private readonly getVar = (prop: string) =>
-    parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
-
   private readonly setVar = (prop: string, v: number) => {
     this.showReset(this.showReset() || !this.isDefault());
     document.body.style.setProperty(`---${prop}`, v.toString());
     document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
-
-  private readonly postPref = debounce((prop: string) => {
-    const body = new FormData();
-    body.set(hyphenToCamel(prop), this.getVar(prop).toString());
-    const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
-    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
-  }, 1000);
 
   private readonly set3d = async (v: boolean) => {
     if (this.is3d === v) return;
@@ -173,10 +160,9 @@ export class BoardCtrl extends PaneCtrl {
       sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
     if (document.body.dataset.theme === 'transp')
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
-    else
-      sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
-    sliders.push(this.propSlider('board-contrast', i18n.site.contrast, { min: 40, max: 200, step: 2 }));
     sliders.push(
+      this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }),
+      this.propSlider('board-contrast', i18n.site.contrast, { min: 40, max: 200, step: 2 }),
       this.propSlider(
         'board-hue',
         i18n.site.hue,

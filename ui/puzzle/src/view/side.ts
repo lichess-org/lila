@@ -149,7 +149,7 @@ const colors = [
 
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   const { replay, angle } = ctrl.data;
-  if (!replay) return;
+  if (!replay) return undefined;
   const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
   const text = i18n.puzzleTheme[angle.key];
   return hl('div.puzzle__side__replay', [

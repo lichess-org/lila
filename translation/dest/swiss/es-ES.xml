@@ -123,6 +123,8 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="unlimitedAndFree">Ilimitado y gratuito</string>
   <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
   <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Introduce un nombre de usuario por línea. Solo estos jugadores podrán entrar.
+Deja en blanco para permitir a todos los jugadores elegibles.</string>
   <string name="playYourGames">Juega tus partidas</string>
   <string name="byes">Libranzas</string>
   <string name="absences">Ausencias</string>

@@ -5,7 +5,7 @@ import { myUsername, type Prop, prop } from 'lib';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
+import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -229,7 +229,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>

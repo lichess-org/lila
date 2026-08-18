@@ -3,7 +3,7 @@ import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
-import { enter, alert } from '@/view';
+import { enter, alert, onInsert } from '@/view';
 import { userLink } from '@/view/userLink';
 
 import { licon } from '../licon';
@@ -34,8 +34,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
       {
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
-          insert(vnode) {
-            const el = vnode.elm as HTMLElement;
+          ...onInsert(el => {
             const $el = $(el).on('click', 'a.jump', (e: Event) => {
               const ply = (e.target as HTMLElement).getAttribute('data-ply');
               if (ply) pubsub.emit('jump', ply);
@@ -67,7 +66,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             });
             resizeObserver.observe(el);
             requestAnimationFrame(() => scrollToBottom(el, false));
-          },
+          }),
           postpatch: (_, vnode) => {
             if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
           },
@@ -87,7 +86,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 }
 
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
-  if (!ctrl.vm.writeable) return;
+  if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
       attrs: { placeholder: i18n.site.loginToChat, disabled: true },
@@ -105,11 +104,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
       'aria-label': 'Chat input',
     },
-    hook: {
-      insert(vnode) {
-        setupHooks(ctrl, vnode.elm as HTMLInputElement);
-      },
-    },
+    hook: onInsert<HTMLInputElement>(el => setupHooks(ctrl, el)),
   });
 }
 

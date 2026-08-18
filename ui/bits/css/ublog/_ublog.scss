@@ -98,6 +98,12 @@
     flex: auto;
     padding: 0.2em;
     gap: 0;
+    background: none;
+    border: none;
+
+    a {
+      font-size: 1.25em;
+    }
 
     div {
       gap: 0.5em;
@@ -208,16 +214,7 @@
   text-align: center;
 }
 
-.ublog-mod-assess-footer span {
-  margin-inline-start: auto;
-}
-
-.ublog-mod-assess-footer .spinner {
-  width: 2em;
-  height: 2em;
-}
-
-#mod-tools,
+#ublog-mod-tools,
 .filter-and-sort,
 .search-sort {
   .btn-rack__btn {

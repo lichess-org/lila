@@ -34,7 +34,7 @@
     order: 2;
 
     .fbt {
-      border-radius: 8px;
+      border-radius: $box-radius-size;
       flex: 3;
 
       &[data-act='first'],

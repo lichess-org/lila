@@ -1,0 +1,198 @@
+$section-margin: 3vh;
+$section-margin-more: 4vh;
+
+.team-show {
+  @extend %break-word;
+
+  overflow: hidden;
+
+  h1 {
+    @extend %break-word, %zalgoverflow, %flex-center;
+
+    unicode-bidi: plaintext;
+
+    .uflair {
+      transform: none;
+    }
+  }
+
+  .mchat {
+    @extend %box-bordered;
+
+    box-shadow: none;
+    height: 40vh;
+    margin-bottom: $section-margin;
+
+    @include if-not-light {
+      box-shadow: none;
+
+      &__tabs,
+      &__content,
+      &__say,
+      &__tab-active {
+        background: $c-bg-page !important;
+      }
+    }
+  }
+
+  .chat__members {
+    margin-bottom: $section-margin;
+    height: auto;
+  }
+
+  &__content {
+    margin: 0 $box-padding;
+
+    @media (min-width: at-least($small)) {
+      display: flex;
+
+      &__col1 {
+        flex: 0 0 30%;
+        margin-inline-end: $box-padding;
+      }
+
+      &__col2 {
+        flex: 1;
+      }
+    }
+  }
+
+  &__meta {
+    color: $c-font-dim;
+    margin-bottom: $section-margin;
+
+    &:empty {
+      display: none;
+    }
+
+    .user-link {
+      display: inline-block;
+      vertical-align: bottom;
+      padding-inline-end: 0.25em;
+    }
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    gap: 1vmin;
+    margin-bottom: $section-margin;
+
+    .button {
+      display: flex;
+      text-align: left;
+      width: 100%;
+
+      strong {
+        display: block;
+      }
+
+      em {
+        color: $c-font-dim;
+        text-transform: none;
+        white-space: normal;
+      }
+    }
+  }
+
+  &__desc {
+    @extend %box-bordered;
+    @include rendered-markdown;
+
+    padding: 0.5em 2em;
+    background: $c-bg-zebra;
+    font-size: 1.1em;
+    margin-bottom: $section-margin-more;
+    text-align: start;
+  }
+
+  &__members {
+    @media (max-width: at-most($small)) {
+      display: none;
+    }
+
+    margin-bottom: $section-margin;
+  }
+
+  &__events {
+    @extend %flex-column;
+
+    gap: $section-margin;
+  }
+
+  &__list-wrapper {
+    @extend %box-bordered;
+
+    overflow: hidden;
+
+    &:empty {
+      display: none;
+    }
+
+    .slist {
+      border-bottom: 0;
+
+      tr:first-child {
+        border-top: 0;
+      }
+    }
+  }
+
+  &__requests {
+    margin-bottom: $section-margin-more;
+
+    h2,
+    table {
+      margin: 0;
+    }
+
+    td {
+      padding: 0.5rem 0.7rem;
+    }
+
+    @include mq-subnav-top {
+      td {
+        display: block;
+      }
+    }
+  }
+
+  &__update {
+    &__last {
+      @extend %flex-column, %box-bordered;
+
+      gap: 1em;
+      background: $c-bg-zebra;
+      padding: 1em 2em;
+    }
+
+    &__meta,
+    &__more {
+      @extend %flex-center;
+
+      gap: 1em;
+      justify-content: flex-end;
+      color: $c-font-dim;
+      font-size: 0.9em;
+    }
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .userlist > li,
+  .userlist > div.paginated {
+    @include padding-direction(5px, 0, 5px, 5px);
+  }
+
+  &__log {
+    margin-bottom: 2em;
+  }
+}

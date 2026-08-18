@@ -27,7 +27,7 @@
     <item quantity="other">Đã hoàn thành %s ván cờ qua thư</item>
   </plurals>
   <plurals name="completedNbVariantGames">
-    <item quantity="other">Đã hoàn thành %1$s ván cờ qua thư %2$s</item>
+    <item quantity="other">Đã hoàn thành %1$s ván %2$s qua thư</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">Đã theo dõi %s kỳ thủ</item>

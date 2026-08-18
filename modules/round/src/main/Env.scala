@@ -1,10 +1,8 @@
 package lila.round
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 import play.api.Configuration
-import scala.util.matching.Regex
 import chess.ByColor
 
 import lila.common.autoconfig.{ *, given }
@@ -12,7 +10,6 @@ import lila.common.{ Bus, Uptime }
 import lila.core.config.*
 import lila.core.round.{ RoundBus, CurrentlyPlaying }
 import lila.game.GameRepo
-import lila.memo.SettingStore
 import lila.round.RoundGame.*
 
 @Module
@@ -51,10 +48,10 @@ final class Env(
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
     userNoteApi: lila.core.user.NoteApi,
     settingStore: lila.memo.SettingStore.Builder,
-    shutdown: akka.actor.CoordinatedShutdown
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
     Executor,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit,
     lila.game.IdGenerator
@@ -131,19 +128,6 @@ final class Env(
   scheduler.scheduleAtFixedRate(10.minute, 10.minute): () =>
     correspondenceEmail.tick()
 
-  import SettingStore.Regex.given
-  val selfReportEndGame = settingStore[Regex](
-    "selfReportEndGame",
-    default = "-".r,
-    text = "Self reports that end the game".some
-  ).taggedWith[SelfReportEndGame]
-
-  val selfReportMarkUser = settingStore[Regex](
-    "selfReportMarkUser",
-    default = "-".r,
-    text = "Self reports that mark the user".some
-  ).taggedWith[SelfReportMarkUser]
-
   lazy val selfReport = wire[SelfReport]
 
   lazy val recentTvGames = wire[RecentTvGames]
@@ -217,6 +201,3 @@ final class Env(
   def resign(pov: Pov): Unit =
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
-
-private trait SelfReportEndGame
-private trait SelfReportMarkUser

@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>
   <string name="deleteTournament">Bu turnuvayı sil</string>
   <string name="definitivelyDeleteTournament">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Bu turnuva, tüm turlar ve oyunlar dahil olmak üzere kalıcı olarak silinsin mi?</string>
   <string name="showScores">Oyuncuların puanlarını oyun sonuçlarına göre göster</string>
   <string name="replacePlayerTags">İsteğe bağlı: Oyuncu adlarını, derecelendirmelerini ve unvanlarını değiştirin</string>
   <string name="fideFederations">FIDE federasyonları</string>
@@ -56,7 +57,8 @@
   <string name="overview">Genel Bakış</string>
   <string name="subscribeTitle">Tur başladığında bildirim almak için abone olun. Hesap tercihlerinizden anlık ya da çan bildirimi tercihinizi hesap tercihlerinizden belirleyebilirsiniz.</string>
   <string name="uploadImage">Turnuva görseli yükleyin</string>
-  <string name="noBoardsYet">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
+  <string name="noBoardsYet">Henüz tahta yok. Oyunlar yüklendiğinde görünecekler.</string>
+  <string name="noPlayersYet">Henüz oyuncu yok. Oyunlar yüklendiğinde görünecekler.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tahtalar bir kaynaktan ya da %sndan yüklenebilir</string>
   <string name="startsAfter">%s\'ten sonra başlar</string>
   <string name="startVerySoon">Yayın az sonra başlayacak.</string>
@@ -107,6 +109,6 @@
   <string name="tiebreaks">Beraberlik bozma</string>
   <string name="gameX">Oyun %s</string>
   <string name="knockouts">Eleme</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

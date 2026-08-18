@@ -66,7 +66,7 @@ function timerShape(duration: number, color: string, alpha = 0.4) {
     }
   });
   return $html`
-    <svg width="100" height="100">
+    <svg width="100" height="100" class="voice-arrows">
       <circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
               stroke-width="50" stroke-opacity="${alpha}" visibility="hidden">
         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"

@@ -119,6 +119,6 @@ export function boot() {
 }
 
 function mirrorCheck() {
-  const mirrors: string[] = ['orbitofavatars.com', 'bealive.fit'];
+  const mirrors: string[] = ['bealive.fit'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

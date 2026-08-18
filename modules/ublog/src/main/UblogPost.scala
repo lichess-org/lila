@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
 import lila.core.id.ImageId
+import lila.core.i18n.{ defaultLanguage, toLanguage }
 import lila.core.ublog.Quality
 
 case class UblogPost(
@@ -26,8 +27,10 @@ case class UblogPost(
     featured: Option[UblogPost.Featured],
     likes: UblogPost.Likes,
     views: UblogPost.Views,
-    similar: Option[List[UblogSimilar]],
-    automod: Option[UblogAutomod.Assessment]
+    quality: Quality = Quality.spam, // effective quality used for filtering and ordering
+    similar: Option[List[UblogSimilar]] = none,
+    automod: Option[UblogAutomod.Assessment] = none,
+    modQuality: Option[Quality] = none
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
@@ -39,9 +42,36 @@ case class UblogPost(
   )
   def visibleByCrawlers = indexable && automod.exists(_.quality != Quality.spam)
   def allText = s"$title $intro $markdown"
+  def isEmpty = title.isEmpty && intro.isEmpty && markdown.value.isEmpty && image.isEmpty
 
   def allows = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
+
+  def moderate(d: UblogForm.ModPostData): UblogPost =
+    def hasTags = d.evergreen.isDefined
+    val base = automod.getOrElse(UblogAutomod.Assessment(quality = Quality.spam))
+    val assessment = base.copy(
+      evergreen = d.evergreen.orElse(base.evergreen),
+      flagged = if hasTags then d.flagged else base.flagged,
+      commercial = if hasTags then d.commercial else base.commercial
+    )
+    copy(
+      automod = assessment.some,
+      modQuality = d.quality.orElse(modQuality),
+      quality = d.quality | quality
+    )
+
+  def isPendingQuality =
+    modQuality.isEmpty && automod.exists(_.quality == Quality.good) && quality == Quality.weak
+
+  private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
+    val q = modQuality | automod
+      .map(_.quality)
+      .match
+        case None => if trustedAuthor then Quality.good else Quality.spam // shouldn't happen
+        case Some(Quality.good) => if trustedAuthor then Quality.good else Quality.weak
+        case Some(auto) => auto
+    copy(quality = q)
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 
@@ -50,6 +80,28 @@ case class UblogSimilar(id: UblogPostId, count: Int)
 object UblogPost:
 
   export lila.core.ublog.UblogPost.*
+
+  def empty(user: User) =
+    UblogPost(
+      id = randomId,
+      blog = UblogBlog.Id.User(user.id),
+      title = "",
+      intro = "",
+      markdown = Markdown(""),
+      language = user.realLang.map(toLanguage) | defaultLanguage,
+      image = none,
+      topics = Nil,
+      live = false,
+      discuss = false.some,
+      sticky = false.some,
+      ads = false.some,
+      created = Recorded(user.id, nowInstant),
+      updated = none,
+      lived = none,
+      featured = none,
+      likes = Likes(1),
+      views = Views(0)
+    )
 
   def slug(title: String) =
     val s = scalalib.StringOps.slug(title)

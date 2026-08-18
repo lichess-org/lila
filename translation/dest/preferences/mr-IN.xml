@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">तुमच्या दीर्घकालीन खेळांची यादी असलेली दैनिक ई-मेल सुचना</string>
   <string name="notifyStreamStart">जेव्हा स्ट्रीमर प्रसरण सुरू करतो</string>
   <string name="notifyInboxMsg">नवीन इनबॉक्स संदेश</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">नवीन थेट संदेश</string>
   <string name="notifyForumMention">मंच टिप्पणीमध्ये तुमचा उल्लेख</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">चर्चामंडळ उल्लेख</string>
   <string name="notifyInvitedStudy">अभ्यासाचे आमंत्रण</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">अभ्यासिकांसाठी आमंत्रण</string>
   <string name="notifyGameEvent">पत्रव्यवहार खेळ अद्यतने</string>
   <string name="notifyChallenge">आव्हाने</string>
   <string name="notifyTournamentSoon">लवकरच सुरू होणारी स्पर्धा</string>
-  <string name="notifyBroadcasts">प्रसरणे ज्यांचे तुम्ही सदस्यत्व घेतले आहे</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">स्पर्धा सुरू होण्याबाबतच्या आठवणी</string>
+  <string name="notifyBroadcasts">प्रसारणे</string>
   <string name="notifyTimeAlarm">पत्रव्यवहार खेळाचा वेळ संपत आहे</string>
   <string name="notifyBell">Lichess मधिल बेल सूचना</string>
   <string name="notifyPush">तुम्ही Lichess वर नसतानाच्या डिव्हाइस सूचना</string>

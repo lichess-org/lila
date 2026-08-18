@@ -1,4 +1,4 @@
-@media (width < $xx-large) {
+@media (max-width: $xx-large) {
   #main-wrap.has-mod-zone .page-menu__menu {
     display: none;
   }
@@ -359,6 +359,10 @@
 
     .appeal-closed {
       color: $c-good;
+    }
+
+    .appeal-muted {
+      color: $c-bad;
     }
 
     .add-to-note {

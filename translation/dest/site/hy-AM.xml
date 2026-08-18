@@ -874,7 +874,6 @@
   <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
   <string name="youAreNowPartOfTeam">Այժմ Դուք ակումբի անդամ եք։</string>
   <string name="youHaveJoinedTeamX">Դուք ընդգրկվել եք «%1$s»-ում։</string>
-  <string name="someoneYouReportedWasBanned">Ինչ-որ մենք արգելափակվել է Ձեր դիմումով</string>
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>

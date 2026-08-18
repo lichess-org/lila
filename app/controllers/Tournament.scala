@@ -11,7 +11,8 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
 import lila.mon.extensions.*
 
-final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
+final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Materializer)
+    extends LilaController(env):
 
   private def repo = env.tournament.tournamentRepo
   private def api = env.tournament.api

@@ -33,7 +33,7 @@ object RelayGroup:
   object Name extends OpaqueString[Name]:
     extension (name: Name)
       def shortTourName(tour: RelayTour.Name): RelayTour.Name =
-        if tour.value.startsWith(name.value)
+        if tour.value.startsWith(name.value) && tour.value != name.value
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
       def toSlug =

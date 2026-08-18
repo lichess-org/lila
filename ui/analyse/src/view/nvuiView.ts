@@ -146,13 +146,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl(
         'form#move-form',
         {
-          hook: {
-            insert(vnode) {
-              const $form = $(vnode.elm as HTMLFormElement),
-                $input = $form.find('.move').val('');
-              $form.on('submit', onSubmit(ctx, $input));
-            },
-          },
+          hook: onInsert<HTMLFormElement>(el => {
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
+            $form.on('submit', onSubmit(ctx, $input));
+          }),
         },
         [
           hl('label', [
@@ -499,8 +497,8 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.has(g.symbol)));
   const res: Array<VNode> = [];
   COLORS.forEach(color => {
-    res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
+      hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`),
       hl(
         'select',
         {

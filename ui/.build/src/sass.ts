@@ -8,7 +8,7 @@ import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable } from './parse.ts';
-import { makeTask, runTask } from './task.ts';
+import { makeTask, runTask, addIncludes } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 
@@ -22,14 +22,13 @@ export function stopSass(): void {
 }
 
 export async function sass(): Promise<string | undefined> {
-  if (!env.begin('sass')) return;
+  if (!env.begin('sass')) return undefined;
 
   await Promise.allSettled([
     fs.promises.mkdir(env.cssOutDir),
     fs.promises.mkdir(env.themeGenDir),
     fs.promises.mkdir(join(env.buildTempDir, 'css')),
   ]);
-
   let remaining: Set<string> | undefined;
 
   makeTask({
@@ -121,7 +120,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
   });
 }
 
-// recursively parse scss file and its imports to build dependency and color maps
+// recursively parse scss file and its imports to build dependency maps
 async function parseScss(src: string, processed: Set<string>) {
   if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
@@ -151,6 +150,7 @@ async function parseScss(src: string, processed: Set<string>) {
 
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
+    addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
     await parseScss(dep, processed);
   }
 }
@@ -254,6 +254,6 @@ const absTempCss = (scss: string): string => join(env.cssTempDir, `${basename(sc
 
 const isConcrete = (src: string): boolean => src.startsWith('ui/') && !basename(src).startsWith('_');
 
-const isPartial = (src: string): boolean => src.startsWith('ui/') && basename(src).startsWith('_');
+const isPartial = (src: string): boolean => basename(src).startsWith('_');
 
 const isUrlTarget = (src: string): boolean => src.startsWith('public/');

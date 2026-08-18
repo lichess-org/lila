@@ -4,10 +4,6 @@
   position: relative;
   background: $c-bg-box;
 
-  .gauge-on & {
-    @extend %box-radius-right;
-  }
-
   .ceval {
     flex: 0 0 44px;
   }
@@ -122,10 +118,12 @@
   }
 
   .fbt {
-    @extend %page-text;
-
     flex: 0 0 2.5rem;
     transition: visibility 0s;
+  }
+
+  .fbt:not(.active, :hover) {
+    @extend %page-text;
   }
 
   .active {

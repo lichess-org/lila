@@ -212,7 +212,8 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (studyFromDb, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      (studyFromDb, chapterPre) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      chapter = getColor("pov").foldLeft(chapterPre)(_.withOrientation(_))
       study <- env.relay.api.reconfigureStudy(studyFromDb, chapter)
       previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
@@ -226,6 +227,7 @@ final class Study(
           chapter.root.fen.some,
           chapter.setup.orientation,
           owner = false,
+          opening = none,
           division = division
         )
       )
@@ -304,7 +306,7 @@ final class Study(
       Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
-  def apiCreate = ScopedBody(_.Study.Write) { _ ?=> me ?=>
+  def apiCreate = ScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> me ?=>
     bindForm(StudyForm.form)(
       jsonFormError,
       data =>
@@ -326,9 +328,10 @@ final class Study(
         case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
-  def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
-    Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.deleteChapter(study.id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
+  def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write, _.Web.Mobile) {
+    _ ?=> me ?=>
+      Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
+        env.study.api.deleteChapter(study.id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -358,7 +361,7 @@ final class Study(
       )
   }
 
-  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write) { ctx ?=> me ?=>
+  def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write, _.Web.Mobile) { ctx ?=> me ?=>
     bindForm(StudyForm.importPgn.form)(
       jsonFormError,
       data =>
@@ -437,7 +440,7 @@ final class Study(
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
     def makeStudySource = pgnDump.chaptersOf(study, _ => flags(pgnDump.requestPgnFlags()))
-    val pgnSource = akka.stream.scaladsl.Source.futureSource:
+    val pgnSource = org.apache.pekko.stream.scaladsl.Source.futureSource:
       if study.isRelay
       then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
       else fuccess(makeStudySource)
@@ -535,7 +538,7 @@ final class Study(
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
-    AuthOrScopedBody(_.Study.Write) { _ ?=> _ ?=>
+    AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> _ ?=>
       bindForm(StudyForm.chapterTagsForm)(
         jsonFormError,
         pgn => env.study.api.updateChapterTagsFromApi(studyId, chapterId, pgn).inject(NoContent)
@@ -543,7 +546,7 @@ final class Study(
     }
 
   def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
-    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+    AuthOrScopedBody(_.Study.Write, _.Web.Mobile) { _ ?=> me ?=>
       bindForm(StudyForm.replaceChapterPgnMoves)(
         jsonFormError,
         pgnStr =>

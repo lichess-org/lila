@@ -2,19 +2,20 @@ name: Crowdin Pull
 
 on:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 jobs:
   download_translations:
+    if: github.repository_owner == 'lichess-org' && github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: crowdin action
-        uses: crowdin/github-action@v2
+        uses: crowdin/github-action@c7af9bc98b01694653031fef2a0dc6c7888ce9bc # v2.17.0
         with:
           upload_sources: false
           upload_translations: false
@@ -27,7 +28,7 @@ jobs:
 
           create_pull_request: true
           pull_request_title: 'New Crowdin Translations'
-          pull_request_body: 'Help translate Lichess at https://crowdin.com/project/lichess'
+          pull_request_body: 'Help contribute to these translations at https://crowdin.com/project/lichess'
           pull_request_base_branch_name: ${{ github.event.repository.default_branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

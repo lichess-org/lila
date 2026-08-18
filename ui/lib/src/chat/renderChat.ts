@@ -3,10 +3,9 @@ import { type Hooks } from 'snabbdom';
 import { type VNode, hl, bind } from '@/view';
 import { cmnToggleProp } from '@/view/cmn-toggle';
 
-import { licon } from '../licon';
 import type { ChatCtrl } from './chatCtrl';
 import discussionView from './discussion';
-import type { Tab, VoiceChat } from './interfaces';
+import type { Tab } from './interfaces';
 import { moderationView } from './moderation';
 import { noteView } from './note';
 
@@ -18,35 +17,11 @@ export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
   );
 }
 
-function renderVoiceChat(ctrl: ChatCtrl) {
-  const p = ctrl.voiceChat;
-  if (!p.enabled()) return;
-  return p.instance
-    ? p.instance.render()
-    : hl('button.mchat__tab.voicechat.voicechat-slot', {
-        attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
-        hook: bind('click', () => {
-          if (!p.loaded) {
-            p.loaded = true;
-            site.asset
-              .loadEsm<VoiceChat>('bits.voiceChat', {
-                init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
-              })
-              .then(m => {
-                p.instance = m;
-                ctrl.redraw();
-              });
-          }
-        }),
-      });
-}
-
 function normalView(ctrl: ChatCtrl) {
   const active = ctrl.getTab();
   return [
     hl('div.mchat__tabs.nb_' + ctrl.visibleTabs.length, { attrs: { role: 'tablist' } }, [
       ctrl.visibleTabs.map(t => renderTab(ctrl, t, active)),
-      renderVoiceChat(ctrl),
     ]),
     hl(
       'div.mchat__content.' + active.key,

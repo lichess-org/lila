@@ -102,24 +102,6 @@
   text-shadow: 0 1px 0 $c-clearer;
 }
 
-%metal-light {
-  background: linear-gradient(to bottom, hsl(0 0% 90%), hsl(0 0% 80%));
-  text-shadow: 0 1px 0 #fff;
-}
-
-%metal-light-hover {
-  background: linear-gradient(to bottom, hsl(0 0% 95%), hsl(0 0% 85%));
-  text-shadow: 0 1px 0 #fff;
-}
-
-%metal-dark {
-  background: linear-gradient(to bottom, hsl(37 7% 22%), hsl(37 5% 19%));
-}
-
-%metal-dark-hover {
-  background: linear-gradient(to bottom, hsl(37 7% 25%), hsl(37 5% 22%));
-}
-
 %active-inset-shadow {
   box-shadow: 0 3px 4px hsl(0 0% 0% / 0.15) inset !important;
 }
@@ -134,7 +116,9 @@
   &:not(.disabled):hover {
     @extend %active-inset-shadow;
 
-    background: hsl(from $c-accent h s calc(l + 5));
+    @media (hover: hover) {
+      background: hsl(from $c-accent h s calc(l + 5));
+    }
   }
 }
 
@@ -176,9 +160,7 @@
 }
 
 %popup-shadow {
-  @include if-transp {
-    @include back-blur;
-  }
+  @include backdrop-blur-if-transparent;
 
   box-shadow:
     0 14px 28px rgb(0 0 0 / 0.15),

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
@@ -29,11 +29,12 @@ final class Env(
     socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder,
     ircApi: lila.core.irc.IrcApi,
-    routeUrl: RouteUrl
+    routeUrl: RouteUrl,
+    teamApi: lila.core.team.TeamApi
 )(using scheduler: Scheduler)(using
     Executor,
     ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.game.IdGenerator,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit

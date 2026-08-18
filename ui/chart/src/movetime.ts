@@ -40,7 +40,7 @@ export default async function (
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
-  if (!moveCentis) return; // imported games
+  if (!moveCentis) return undefined; // imported games
   type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
   const moveSeries: PlotSeries = {
     white: [],

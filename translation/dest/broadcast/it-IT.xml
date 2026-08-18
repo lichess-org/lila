@@ -56,7 +56,7 @@
   <string name="overview">Panoramica</string>
   <string name="subscribeTitle">Iscriviti per ricevere notifiche sull\'inizio di ogni round. Puoi attivare o disattivare la campanella o le notifiche push per le dirette nelle preferenze del tuo account.</string>
   <string name="uploadImage">Carica immagine del torneo</string>
-  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Esse compariranno non appena i giochi saranno stati caricati.</string>
+  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Compariranno non appena le partite saranno state caricate.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Le scacchiere possono essere caricate con una sorgente o tramite %s</string>
   <string name="startsAfter">Inizia tra %s</string>
   <string name="startVerySoon">Questa trasmissione inizierà a breve.</string>
@@ -107,6 +107,6 @@
   <string name="tiebreaks">Tiebreak</string>
   <string name="gameX">Partita %s</string>
   <string name="knockouts">KO</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

@@ -147,6 +147,11 @@ Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de L
 L\'icône rouge de sourdine apparaît lorsque votre navigateur empêche lichess.org de jouer un son. En général, cette restriction est levée lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, faire glisser une pièce n\'est pas considéré comme un clic. Vous devez alors toucher l\'échiquier pour autoriser le son au début de chaque partie.
 
 Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souvent, vous pouvez autoriser lichess.org à jouer des sons. Voici des instructions pour le faire sur les versions récentes de certains navigateurs populaires.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">La plupart des navigateurs désactivent le son sur une page nouvellement visitée pour protéger les utilisateurs.
+
+L\'icône de sourdine s\'affiche lorsque votre navigateur empêche lichess.org de produire du son. En général, cette restriction prend fin lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, toucher et faire glisser une pièce n\'est pas considéré comme un clic. Vous devez alors toucher l\'échiquier pour activer le son au début de chaque partie.
+
+Nous affichons l\'icône de sourdine en rouge pour vous avertir lorsque cela se produit. Vous pouvez autoriser lichess.org à produire du son sur la majorité des navigateurs. Voici des instructions pour le faire sur les versions récentes de navigateurs populaires :</string>
   <string name="desktop">bureau</string>
   <string name="enableAutoplayForSoundsFirefox">1. Allez sur lichess.org
 2. Appuyez sur Ctrl-i sur Linux/Windows ou cmd-i sur MacOS
@@ -155,6 +160,10 @@ Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souven
   <string name="enableAutoplayForSoundsChrome">1. Allez sur lichess.org
 2. Cliquez sur l\'icône de verrouillage dans la barre d\'adresse
 3. Cliquez sur Paramètres du site
+4. Autorisez le son</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Allez sur lichess.org
+2. Cliquez sur l\'icône des paramètres du site dans la barre d\'adresse
+3. Cliquez sur les paramètres pour le son
 4. Autorisez le son</string>
   <string name="enableAutoplayForSoundsSafari">1. Allez sur lichess.org
 2. Cliquez sur Safari dans la barre de menu

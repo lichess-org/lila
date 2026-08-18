@@ -2,7 +2,7 @@ package lila.user
 
 import chess.{ ByColor, PlayerTitle }
 import chess.IntRating
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.core.LightUser
