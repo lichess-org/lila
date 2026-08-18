@@ -108,8 +108,7 @@ object BSONHandlers:
           case Some(f) if FlairApi.exists(f) => Some(f)
           case Some(f) => FlairApi.badFlairs.add(userId, f); None
           case None => None,
-        marks = r.getO[UserMarks](marks) | UserMarks(Nil),
-        hasEmail = r.contains(email)
+        marks = r.getO[UserMarks](marks) | UserMarks(Nil)
       )
 
     def writes(w: BSON.Writer, o: User) =

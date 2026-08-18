@@ -125,18 +125,16 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
-POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
+GET   /@/:username/blog/new            controllers.Ublog.getEditForm(username: UserStr)
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.postEditForm(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
 POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/assess         controllers.Ublog.modAssess(id: UblogPostId)
 POST  /ublog/carousel/size             controllers.Ublog.modSetCarouselSize
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
@@ -917,8 +915,9 @@ GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
-POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
-GET   /image-url/:id                   controllers.Main.imageUrl(id: ImageId, width: Int)
+POST  /upload/image/user/:realm        controllers.Main.uploadImage(realm: MarkdownRealm)
+POST  /markdown/preview/:realm         controllers.Main.markdownPreview(realm: MarkdownRealm)
+GET   /image-url/:realm/:id            controllers.Main.imageUrl(realm: MarkdownRealm, id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
 
 GET   /verify-title                    controllers.TitleVerify.index

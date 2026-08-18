@@ -3255,8 +3255,6 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
-    /** Background image opacity: */
-    backgroundImageOpacity: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -3771,6 +3769,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Image opacity */
+    imageOpacity: string;
     /** Important */
     important: string;
     /** Imported by %s */
@@ -6065,6 +6065,8 @@ interface I18n {
     nbViews: I18nPlural;
     /** New post */
     newPost: string;
+    /** Only use images that are not copyrighted by someone else. */
+    noCopyrightedImages: string;
     /** No drafts to show. */
     noDrafts: string;
     /** No posts in this blog, yet. */
@@ -6087,8 +6089,6 @@ interface I18n {
     publishOnYourBlog: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
-    /** It is safe to use images from the following websites: */
-    safeToUseImages: string;
     /** Save draft */
     saveDraft: string;
     /** Select the topics your post is about */
@@ -6101,10 +6101,6 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
-    /** Upload an image for your post */
-    uploadAnImageForYourPost: string;
-    /** You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else. */
-    useImagesYouMadeYourself: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */

@@ -9,6 +9,7 @@
   <string name="excludedFromLeaderboards">Ditt konto har uteslutits från topplistorna.</string>
   <string name="closedByModerators">Ditt konto stängdes av moderatorer.</string>
   <string name="playTimeout">Du har en timeout från att spela.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Ditt konto är tillfälligt begränsat från att spela.</string>
   <string name="communicationGuidelines">riktlinjer för kommunikation</string>
   <string name="fairPlay">Rent spel</string>
 </resources>

@@ -70,7 +70,11 @@ object RelayTeam:
         copy(players =
           players.updated(
             id,
-            players.get(id).fold(player)(rp => rp.copy(games = rp.games ++ player.games))
+            players
+              .get(id)
+              .fold(player)(rp =>
+                rp.copy(games = rp.games ++ player.games, score = rp.score |+| player.score)
+              )
           )
         )
     def points = players.values.toList.foldMap(_.score)

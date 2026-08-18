@@ -37,8 +37,7 @@ object user:
       plan: Plan,
       flair: Option[Flair] = None,
       totpSecret: Option[TotpSecret] = None,
-      marks: UserMarks = UserMarks(Nil),
-      hasEmail: Boolean
+      marks: UserMarks = UserMarks(Nil)
   ):
     import lila.core.user.UserMarks.*
     import lila.core.user.UserEnabled.*

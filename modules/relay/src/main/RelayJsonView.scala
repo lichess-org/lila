@@ -22,7 +22,7 @@ final class RelayJsonView(
     markdown: RelayMarkdown
 ):
 
-  import RelayJsonView.{ Config, given }
+  import RelayJsonView.{ Config, roundShowWriter, roundListWriter, given }
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
@@ -83,7 +83,7 @@ final class RelayJsonView(
       .obj(
         "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
-          withUrl(round.withTour(trs.tour), withTour = false)
+          withUrl(round.withTour(trs.tour), withTour = false)(using roundShowWriter)
       )
       .add("group" -> group)
       .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
@@ -94,22 +94,20 @@ final class RelayJsonView(
       Json
         .obj(
           "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)(using roundListWriter)
         )
         .add("group" -> tr.group)
     case tr: RelayCard =>
       Json
         .obj(
           "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)
+          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
         )
-        .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
+        .add("roundToLink" -> (tr.link.id != tr.display.id).option(roundListWriter.writes(tr.link)))
         .add("group" -> tr.group)
 
-  def apply(round: RelayRound)(using Translate): JsObject = Json.toJsObject(round)
-
-  def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using Translate): JsObject =
-    apply(rt.round) ++ Json
+  def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using writer: OWrites[RelayRound]): JsObject =
+    writer.writes(rt.round) ++ Json
       .obj("url" -> routeUrl(rt.call))
       .add("tour" -> withTour.option(rt.tour))
 
@@ -125,7 +123,7 @@ final class RelayJsonView(
     myRound(rt) ++ Json
       .obj("games" -> previews, "photos" -> photos)
       .add("group" -> group)
-      .add("targetRound" -> targetRound.map(withUrl(_, true)))
+      .add("targetRound" -> targetRound.map(withUrl(_, true)(using roundShowWriter)))
       .add("isSubscribed", isSubscribed)
       .add("socketVersion" -> socketVersion)
 
@@ -139,22 +137,25 @@ final class RelayJsonView(
     val cheatable = r.relay.sync.isInternalWithoutDelay && !r.relay.isFinished
 
     Json.obj(
-      "round" -> apply(r.relay)
+      "round" -> roundShowWriter
+        .writes(r.relay)
         .add("url" -> routeUrl(r.call).some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> fullTour(r.tour)(using Config(html = false)),
-      "study" -> Json.obj(
-        "writeable" -> me.exists(r.study.canContribute),
-        "features" -> Json.obj(
-          "chat" -> allowed(_.chat),
-          "computer" -> (!cheatable && allowed(_.computer)),
-          "explorer" -> (!cheatable && allowed(_.explorer))
+      "study" -> Json
+        .obj(
+          "writeable" -> me.exists(r.study.canContribute),
+          "features" -> Json.obj(
+            "chat" -> allowed(_.chat),
+            "computer" -> (!cheatable && allowed(_.computer)),
+            "explorer" -> (!cheatable && allowed(_.explorer))
+          )
         )
-      )
+        .add("pinnedComment" -> r.study.description.ifTrue(r.study.settings.description))
     )
 
   def withSpotlight(rt: RelayRound.WithTour)(using Translate): JsObject =
-    withUrl(rt, withTour = true).add:
+    withUrl(rt, withTour = true)(using roundListWriter).add:
       "spotlight" -> rt.tour.spotlight.map: s =>
         Json
           .obj("language" -> s.language)
@@ -222,21 +223,21 @@ object RelayJsonView:
 
   given OWrites[RelayRound.CustomScoring] = Json.writes
 
-  given (using Translate): OWrites[RelayRound] = OWrites: r =>
+  private def roundShowWriter(using Translate): OWrites[RelayRound] = OWrites: r =>
+    roundListWriter.writes(r).add("customScoring" -> r.customScoring)
+
+  private def roundListWriter(using Translate): OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
         "id" -> r.id,
         "name" -> r.name.translate,
-        "slug" -> r.slug,
-        "createdAt" -> r.createdAt,
-        "rated" -> r.rated
+        "slug" -> r.slug
       )
       .add("finishedAt" -> r.finishedAt)
       .add("finished" -> r.isFinished) // BC
       .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
-      .add("customScoring" -> r.customScoring)
 
   private[relay] def statsJson(stats: RelayStats.RoundStats, unique: Int) =
     Json

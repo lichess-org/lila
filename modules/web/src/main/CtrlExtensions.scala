@@ -49,5 +49,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =
       result.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
-    def asAttachment(name: String) = result.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
+    def asAttachment(name: String) =
+      val cleanName = lila.common.String.fullCleanUp(name)
+      result.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$cleanName")
     def asAttachmentStream(name: String) = result.noProxyBuffer.asAttachment(name)

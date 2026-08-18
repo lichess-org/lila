@@ -20,7 +20,7 @@ final class Analyser(
 )(using Executor, Scheduler)
     extends lila.core.fishnet.FishnetRequest:
 
-  private val maxPlies = 300
+  import Analyser.maxPlies
 
   private val dedup = OnceEvery[String](2.seconds)
 
@@ -171,6 +171,8 @@ final class Analyser(
     )
 
 object Analyser:
+
+  private[fishnet] val maxPlies = 300
 
   enum Result(val error: Option[String]):
     def ok = error.isEmpty

@@ -251,6 +251,7 @@ final class SitePages(helpers: Helpers):
               )
             )
           ),
+          br,
           st.section(cls := "box box-pad body")(rendered)
         )
 

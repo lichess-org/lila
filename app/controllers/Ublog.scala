@@ -12,7 +12,7 @@ import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
 import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
-import lila.ublog.UblogForm.ModPostData
+import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
 import lila.common.HTTPRequest
 
 final class Ublog(env: Env) extends LilaController(env):
@@ -126,39 +126,26 @@ final class Ublog(env: Env) extends LilaController(env):
       else if allows(blog.allows) then f(user, blog)
       else Unauthorized("Not your blog to edit")
 
-  def form(username: UserStr) = Auth { ctx ?=> me ?=>
+  def getEditForm(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.edit): (user, _) =>
-        Ok.page(views.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
-  }
-
-  def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
-    NotForKids:
-      WithBlogOf(username, _.edit): (user, _) =>
-        bindForm(env.ublog.form.create)(
-          err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
-          data =>
-            limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
-              env.ublog.api
-                .create(data, user)
-                .map: post =>
-                  lila.mon.ublog.create(user.id).increment()
-                  Redirect(editUrlOfPost(post)).flashSuccess
-        )
+        env.ublog.api
+          .newPost(user)
+          .map(post => Redirect(editUrlOfPost(post)))
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        views.ublog.form.edit(post, env.ublog.form.edit(post))
+        editView(post, env.ublog.form(post))
       .map(_.hasPersonalData)
   }
 
-  def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
+  def postEditForm(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       Found(env.ublog.api.findEditableByMe(id)): prev =>
-        bindForm(env.ublog.form.edit(prev))(
-          err => BadRequest.page(views.ublog.form.edit(prev, err)),
+        bindForm(env.ublog.form(prev))(
+          err => BadRequest.page(editView(prev, err)),
           data =>
             env.ublog.api.update(data, prev).flatMap { post =>
               logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
@@ -166,6 +153,9 @@ final class Ublog(env: Env) extends LilaController(env):
         )
 
   }
+
+  private def editView(post: UblogPost, form: play.api.data.Form[UblogPostData])(using Context) =
+    views.ublog.form.edit(post, form, post.isEmpty.option(anyCaptcha))
 
   def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
@@ -243,36 +233,22 @@ final class Ublog(env: Env) extends LilaController(env):
       yield Redirect(routes.Ublog.modShowCarousel)
   }
 
-  def modPost(postId: UblogPostId) = SecureBody(parse.json)(_.ModerateBlog) { ctx ?=> me ?=>
+  def modPost(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(postId)): post =>
-      ctx.body.body.validate(using ModPostData.reads) match
-        case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
-        case JsSuccess(data, _) =>
+      bindForm(lila.ublog.UblogForm.modForm)(
+        jsonFormError,
+        data =>
           for
-            mod <- env.ublog.api.modPost(post, data)
-            featured <- env.ublog.api.setFeatured(post, data)
+            modPost <- env.ublog.api.modPost(post, data)
+            featured <- env.ublog.api.setFeatured(modPost, data)
+            newPost = modPost.copy(featured = featured.orElse(modPost.featured))
             carousel <- env.ublog.api.fetchCarouselFromDb()
+            next <- (newPost.modQuality.isDefined && post.isPendingQuality).so(env.ublog.api.nextToReview)
           yield
-            if data.hasUpdates then logModAction(post, data.diff(post))
-            Ok.snip(
-              views.ublog.post.modTools(
-                post.copy(automod = mod.orElse(post.automod), featured = featured.orElse(post.featured)),
-                carousel.has(post.id)
-              )
-            )
-  }
-
-  def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(postId)): post =>
-      for
-        mod <- env.ublog.api.triggerAutomod(post.copy(automod = none, featured = none))
-        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
-        _ <- logModAction(post, "reassess")
-      yield Ok.snip(
-        views.ublog.post.modTools(
-          post.copy(automod = mod.orElse(post.automod), featured = none),
-          isInCarousel = false
-        )
+            if data.hasUpdates then logModAction(newPost, data.diff(post))
+            next match
+              case Some(n) => Redirect(routes.Ublog.post(n.created.by, n.slug, n.id)).flashSuccess
+              case None => Ok.snip(views.ublog.post.modTools(newPost, carousel.has(post.id)))
       )
   }
 
@@ -289,7 +265,7 @@ final class Ublog(env: Env) extends LilaController(env):
               .delete(post)
               .flatMap: newPost =>
                 logModAction(newPost, "delete image")
-        .inject(Redirect(urlOfPost(post)).flashSuccess)
+        .inject(Ok)
         .recover { case e: Exception =>
           BadRequest(e.getMessage)
         }

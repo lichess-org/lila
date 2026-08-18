@@ -837,6 +837,7 @@
   <string name="deviceTheme">Gailuaren gaia</string>
   <string name="roundness">Borobiltasuna</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
+  <string name="imageOpacity">Irudiaren gardentasuna</string>
   <string name="board">Taula</string>
   <string name="size">Tamaina</string>
   <string name="opacity">Gardentasuna</string>

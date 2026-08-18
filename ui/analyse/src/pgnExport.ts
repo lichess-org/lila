@@ -40,23 +40,25 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderVariationPgn(game: Game, nodeList: TreeNode[]): string {
-  const filteredNodeList = nodeList.filter(node => node.san);
-  if (filteredNodeList.length === 0) return '';
+export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVariations: boolean): string {
+  const nonRootNodes = nodeList.filter(node => node.san);
+  let pgn = '';
 
-  let variationPgn = '';
+  if (nonRootNodes.length) {
+    const first = nonRootNodes[0];
+    pgn += `${plyPrefix(first)}${first.san} `;
 
-  const first = filteredNodeList[0];
-  variationPgn += `${plyPrefix(first)}${first.san} `;
+    for (let i = 1; i < nonRootNodes.length; i++) {
+      const node = nonRootNodes[i];
+      if (node.ply % 2 === 1) {
+        pgn += plyToTurn(node.ply) + '. ';
+      }
 
-  for (let i = 1; i < filteredNodeList.length; i++) {
-    const node = filteredNodeList[i];
-    if (node.ply % 2 === 1) {
-      variationPgn += plyToTurn(node.ply) + '. ';
+      pgn += fixCrazySan(node.san!) + ' ';
     }
-
-    variationPgn += fixCrazySan(node.san!) + ' ';
   }
 
-  return renderPgnTags(game) + variationPgn;
+  pgn += renderNodesTxt(nodeList[nodeList.length - 1], nonRootNodes.length === 0, includeSubVariations);
+
+  return pgn ? renderPgnTags(game) + pgn : '';
 }

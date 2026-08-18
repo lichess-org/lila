@@ -35,7 +35,7 @@ object Quality:
   val byName = values.mapBy(_.name) + ("great" -> good)
 
 enum QualityFilter:
-  case all, best, weak, spam
+  case all, best, weak, spam, pending
   def name = toString
 
 object QualityFilter:

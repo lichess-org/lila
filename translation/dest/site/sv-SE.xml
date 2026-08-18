@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utmana en vän</string>
+  <string name="playAgainstComputer">Spela mot dator</string>
+  <string name="gameMode">Spelläge</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
   <string name="orLetYourOpponentScanQrCode">Eller låt din motståndare skanna denna QR-kod</string>
+  <string name="reusableChallengeUrl">Återanvändbar utmanings-URL</string>
   <string name="waiting">Väntar</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
@@ -119,7 +123,10 @@
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Bästa drag-pil</string>
   <string name="showVariationArrows">Visa variantpilar</string>
+  <string name="undefendedPieces">Oförsvarade pjäser</string>
   <string name="multipleLines">Flera linjer</string>
+  <string name="searchTime">Söktid</string>
+  <string name="threads">Trådar</string>
   <string name="cpus">Processorer</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
@@ -198,6 +205,7 @@
   <string name="minutesPerSide">Minuter per spelare</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
+  <string name="variantsDescription">Fler sätt att spela</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Realtid</string>
   <string name="correspondence">Korrespondens</string>
@@ -224,6 +232,7 @@
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="signupUsernameHint">Se till att välja ett familjevänligt användarnamn. Du kan inte ändra det senare och alla konton med olämpliga användarnamn kommer att stängas!</string>
+  <string name="signupEmailPromise">Vi kommer endast skicka e-post angående ditt konto och delar aldrig din e-postadress.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Byt lösenord</string>
   <string name="changeEmail">Ändra e-postadress</string>
@@ -412,6 +421,7 @@
   <string name="leaderboard">Topplista</string>
   <string name="screenshotCurrentPosition">Ta en skärmdump på den aktuella positionen</string>
   <string name="gameAsGIF">Spara som GIF</string>
+  <string name="playerNames">Spelarnamn</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
   <string name="orUploadPgnFile">Eller ladda upp en PGN-fil</string>
@@ -455,6 +465,7 @@
     <item quantity="one">följer %s</item>
     <item quantity="other">följer %s</item>
   </plurals>
+  <string name="less">Mindre</string>
   <string name="more">Visa mer</string>
   <string name="memberSince">Medlem sedan</string>
   <string name="lastSeenActive">Senast aktiv %s</string>
@@ -550,6 +561,8 @@
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svara på ämnet</string>
   <string name="reply">Svara</string>
+  <string name="quote">Citera</string>
+  <string name="postEdited">redigerad</string>
   <string name="message">Meddelande</string>
   <string name="createTheTopic">Skapa ämnet</string>
   <string name="reportAUser">Rapportera en användare</string>
@@ -562,6 +575,7 @@
   <string name="reportCheatBoostHelp">Klistra in länken till partiet/partierna och förklara vad som är fel med den här användarens beteende. Skriv inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kan komma att behandlas fortare om den är skriven på engelska.</string>
   <string name="reportUsernameHelp">Förklara hur det här användarnamnet är kränkande. Skriv inte bara \"det är stötande/olämpligt\", utan förklara hur du kom fram till denna slutsats. Detta är extra viktigt om förolämpningen är fördunklad, inte på engelska, är i slang, eller är en historisk/kulturell referens.</string>
   <string name="reportProcessedFasterInEnglish">Din rapport kommer att behandlas snabbare om den skrivs på engelska.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan behandla din anmälan snabbare om du skriver på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importerad av %s</string>
@@ -574,6 +588,9 @@
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Felaktigt lösenord</string>
   <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
+  <string name="clearField">Rensa fält</string>
+  <string name="orSeparator">Eller</string>
+  <string name="logInByEmail">Logga in med e-post</string>
   <string name="emailMeALink">Skicka en länk till min e-post</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
@@ -775,22 +792,32 @@
   <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
+  <string name="like">Gilla</string>
+  <string name="liked">Gillad</string>
   <string name="quickPairing">Snabbparning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">Anonym</item>
+    <item quantity="other">Anonym (%s)</item>
+  </plurals>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alla språk</string>
   <string name="background">Bakgrund</string>
+  <string name="theme">Tema</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
   <string name="transparent">Genomskinlig</string>
+  <string name="picture">Bild</string>
   <string name="deviceTheme">Enhetstema</string>
+  <string name="roundness">Rundhet</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="board">Bräde</string>
   <string name="size">Storlek</string>
   <string name="opacity">Genomskinlighet</string>
   <string name="brightness">Ljusstyrka</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Nyans</string>
   <string name="boardReset">Återställ färger till standard</string>
   <string name="pieceSet">Pjäsuppsättning</string>
@@ -860,6 +887,7 @@
   <string name="playVariationToCreateConditionalPremoves">Spela en variant för att skapa villkorade förhandsdrag</string>
   <string name="noConditionalPremoves">Inga villkorade förhandsdrag</string>
   <string name="playX">Spela %s</string>
+  <string name="challengeX">Utmana %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
@@ -906,6 +934,7 @@
   <string name="tryTheContactPage">prova kontaktsidan</string>
   <string name="makeSureToRead">Se till att läsa %1$s</string>
   <string name="theForumEtiquette">forumets etikett</string>
+  <string name="pleaseBeNiceInTheForum">Var trevlig på forumet.</string>
   <string name="thisTopicIsArchived">Detta ämne har arkiverats och kan inte längre besvaras.</string>
   <string name="joinTheTeamXToPost">Gå med i %1$s, för att posta i detta forum</string>
   <string name="teamNamedX">%1$s-teamet</string>
@@ -949,6 +978,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="simulFeaturedHelp">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
   <string name="simulDescription">Simultan-beskrivning</string>
   <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formatera text med %s.</string>
   <string name="embedsAvailable">Klistra in en spel-länk eller en studiekapitel-länk för att infoga den.</string>
   <string name="inYourLocalTimezone">I din egen lokala tidszon</string>
   <string name="tournChat">Turneringschatt</string>
@@ -968,9 +998,9 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
   <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
   <string name="tournamentEntryCode">Inträdeskod till turnering</string>
-  <string name="hangOn">Var god vänta!</string>
+  <string name="hangOn">Vänta lite!</string>
   <string name="gameInProgress">Du har ett pågående parti med %s.</string>
-  <string name="abortTheGame">Avbryt partiet</string>
+  <string name="abortTheGame">Lämna partiet</string>
   <string name="resignTheGame">Ge upp partiet</string>
   <string name="since">Sedan</string>
   <string name="until">Tills</string>
@@ -992,5 +1022,7 @@ Alla driftskostnader, utveckling och innehåll finansieras enbart av användardo
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Sök</string>
   <string name="clearSearch">Rensa sökning</string>
+  <string name="thereAreNoResultsForX">Inga reslutat för \"%s\"</string>
   <string name="tags">Taggar</string>
+  <string name="settings">Inställningar</string>
 </resources>

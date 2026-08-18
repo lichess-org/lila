@@ -35,18 +35,6 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       ):
         main(cls := "tour-home")(
           st.aside(cls := "tour-home__side")(
-            h2(
-              a(href := routes.Tournament.leaderboard)(trans.site.leaderboard())
-            ),
-            ul(cls := "leaderboard")(
-              winners.top.map: w =>
-                li(
-                  userIdLink(w.userId.some),
-                  a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-                    ui.scheduledTournamentNameShortHtml(w.tourName)
-                  )
-                )
-            ),
             p(cls := "tour__links")(
               ctx.me.map: me =>
                 frag(
@@ -63,6 +51,18 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 "Leagues & Streamer Battles"
               )
             ),
+            h2(
+              a(href := routes.Tournament.leaderboard)(trans.site.leaderboard())
+            ),
+            ul(cls := "leaderboard")(
+              winners.top.map: w =>
+                li(
+                  userIdLink(w.userId.some),
+                  a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                    ui.scheduledTournamentNameShortHtml(w.tourName)
+                  )
+                )
+            ),
             h2(trans.site.lichessTournaments()),
             div(cls := "scheduled")(
               scheduled.map: tour =>
@@ -73,7 +73,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                       strong(tour.name(full = false)),
                       momentFromNow(tour.startsAt)
                     )
-            )
+            ),
+            a(href := routes.Tournament.calendar)("See more tournaments on the calendar")
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(

@@ -31,7 +31,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
-                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) :::
+                List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) :::
                   tourRepo.aggregateRound(
                     colls,
                     framework,
@@ -58,7 +58,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
+                List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) ::: tourRepo
                   .aggregateRoundAndUnwind(colls, framework) ::: List(
                   Skip(offset),
                   Limit(length)
@@ -78,7 +78,7 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
-              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
+              List(Sort(Descending("createdAt")), Project(unsetHeavyOptionalFields)) ::: tourRepo
                 .aggregateRound(
                   colls,
                   framework,
@@ -101,16 +101,25 @@ final class RelayPager(
       tourRepo.coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
+          // it the inactivePager db index
           Match(selectors.officialInactive) -> {
-            List(Project(unsetHeavyOptionalFields), Sort(Descending("syncedAt"))) :::
+            List(
+              Sort(Descending("syncedAt")),
+              Limit((offset + length) * 10),
+              Project(unsetHeavyOptionalFields)
+            ) :::
               tourRepo.aggregateRoundAndUnwind(colls, framework) :::
               List(Skip(offset), Limit(length))
           }
         .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]("relayPager.firstPage"):
-      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
         slice(0, maxPerPage.value)
+
+    private val otherPagesCache = cacheApi[Int, List[WithLastRound]](8, "relayPager.otherPages"):
+      _.refreshAfterWrite(2.minutes).buildAsyncTimeout():
+        slice(_, maxPerPage.value)
 
     def apply(page: Int): Fu[Paginator[WithLastRound]] =
       Paginator(
@@ -118,13 +127,11 @@ final class RelayPager(
           def nbResults: Fu[Int] = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
             if offset == 0 then firstPageCache.get({})
-            else inactive.slice(offset, length)
+            else otherPagesCache.get(offset)
         ,
         currentPage = page,
         maxPerPage = maxPerPage
       )
-
-    def firstPageResults(): Fu[List[WithLastRound]] = firstPageCache.get({})
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound | RelayCard]] =
 

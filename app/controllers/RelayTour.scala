@@ -26,7 +26,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
-            data <- env.relay.home.get(page)
+            data <- env.relay.home.get // no pagination here
             cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
             res <- Ok.async(views.relay.tour.index(data, cms.map(_.html)))
           yield res
@@ -265,7 +265,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         )
 
   def apiTop(page: Int) = Anon:
-    Reasonable(page, Max(20)):
+    Reasonable(page, Max(5)):
       JsonOk(env.relay.home.getJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:

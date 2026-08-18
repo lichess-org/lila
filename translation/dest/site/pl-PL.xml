@@ -921,7 +921,7 @@
   <string name="deviceTheme">Motyw urządzenia</string>
   <string name="roundness">Zaokrąglone</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
-  <string name="backgroundImageOpacity">Przezroczystość obrazu w tle:</string>
+  <string name="imageOpacity">Przezroczystość obrazu</string>
   <string name="board">Szachownica</string>
   <string name="size">Rozmiar</string>
   <string name="opacity">Przezroczystość</string>

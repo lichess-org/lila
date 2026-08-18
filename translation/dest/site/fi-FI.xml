@@ -485,6 +485,7 @@
     <item quantity="one">%s seurattua</item>
     <item quantity="other">%s seurattua</item>
   </plurals>
+  <string name="less">Vähemmän</string>
   <string name="more">Lisää</string>
   <string name="memberSince">Liittynyt</string>
   <string name="lastSeenActive">Nähty viimeksi %s</string>
@@ -836,6 +837,7 @@
   <string name="deviceTheme">Laitteen teema</string>
   <string name="roundness">Pyöreys</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
+  <string name="imageOpacity">Kuvan läpinäkyvyys</string>
   <string name="board">Lauta</string>
   <string name="size">Koko</string>
   <string name="opacity">Peittävyys</string>

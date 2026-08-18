@@ -3,10 +3,6 @@ import { Position } from 'chessops';
 import { completeNode } from 'lib/tree/node';
 import type { TreeNode, TreeNodeBase } from 'lib/tree/types';
 
-export function readOnlyProp<A>(value: A): () => A {
-  return () => value;
-}
-
 export function treeReconstruct(
   parts: TreeNodeBase[],
   variant: VariantKey,
