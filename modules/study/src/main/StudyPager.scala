@@ -1,6 +1,6 @@
 package lila.study
 
-import scalalib.paginator.{Paginator,AdapterLike}
+import scalalib.paginator.Paginator
 
 import lila.core.i18n.I18nKey
 import lila.core.study.StudyOrder
@@ -132,9 +132,9 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.Formatted]] =
+  )(using Option[Me])(using format: StudyFormat): Fu[Paginator[Study.WithChaptersAndLiked]] =
     studyRepo.coll: coll =>
-      val adapter: AdapterLike[Study] = Adapter[Study](
+      val adapter = Adapter[Study](
         collection = coll,
         selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
         projection = studyRepo.projection.some,
@@ -151,12 +151,9 @@ final class StudyPager(
           case StudyOrder.relevant => $sort.desc("rank")
         ,
         hint = hint
-      )
-      val formatted: AdapterLike[Study.Formatted] = 
-        if format.compact then adapter.map(identity)
-        else adapter.mapFutureList(withChaptersAndLiking())
+      ).mapFutureList(withChaptersAndLiking())
       Paginator(
-        adapter = nbResults.fold(formatted)( CachedAdapter(formatted, _)),
+        adapter = nbResults.fold(adapter)(CachedAdapter(adapter, _)),
         currentPage = page,
         maxPerPage = if format.compact then maxPerPageCompact else maxPerPage
       )
@@ -165,8 +162,9 @@ final class StudyPager(
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
   )(
       studies: Seq[Study]
-  )(using format: StudyFormat, me: Option[Me]): Fu[Seq[Study | Study.WithChaptersAndLiked]] =
-    if format.compact then fuccess(studies)
+  )(using format: StudyFormat, me: Option[Me]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    if format.compact
+    then fuccess(studies.map(Study.WithChaptersAndLiked(_, Seq.empty, false)))
     else withChapters(studies, nbChaptersPerStudy).flatMap(withLiking)
 
   private def withChapters(

@@ -20,7 +20,7 @@ final class Env(
   val api: StudySearchApi = wire[StudySearchApi]
 
   def apply(text: String, order: StudyOrder, page: Int)(using me: Option[Me])(using format: StudyFormat) =
-    Paginator[Study.Formatted](
+    Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query =
           Query.study(

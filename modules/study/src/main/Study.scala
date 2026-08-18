@@ -133,8 +133,6 @@ object Study:
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  type Formatted = Study | WithChaptersAndLiked
-
   def makeId = StudyId(ThreadLocalRandom.nextString(8))
 
   def make(

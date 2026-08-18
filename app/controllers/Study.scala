@@ -145,7 +145,7 @@ final class Study(
         )
       yield res
 
-  private def preloadMembers(pag: Paginator[StudyModel.Formatted]) =
+  private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
       pag.currentPageResults.view
         .flatMap(_.study.members.members.values.take(StudyModel.previewNbMembers))
@@ -153,8 +153,8 @@ final class Study(
         .toSeq
     )
 
-  private def apiStudies(pager: Paginator[StudyModel.Formatted]) =
-    given Writes[StudyModel.Formatted] = Writes(env.study.jsonView.pagerData)
+  private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
+    given Writes[StudyModel.WithChaptersAndLiked] = Writes(env.study.jsonView.pagerData)
     Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
