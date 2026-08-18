@@ -9,7 +9,7 @@ import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -218,13 +218,16 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const allTeams = ctrl.computeTeamList();
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
-    ? h(
-        'select',
-        {
-          hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
-        },
-        [i18n.broadcast?.allTeams || 'All teams', ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+    ? requiresI18n('broadcast', ctrl.redraw, broadcast =>
+        h(
+          'select',
+          {
+            hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+          },
+
+          [broadcast.allTeams, ...allTeams].map((t, i) =>
+            h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+          ),
         ),
       )
     : undefined;
