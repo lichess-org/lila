@@ -54,7 +54,7 @@ final class Env(
 
   wire[TeamClasSync]
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
       for
         team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")

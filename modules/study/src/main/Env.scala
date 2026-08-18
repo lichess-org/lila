@@ -103,7 +103,7 @@ final class Env(
                 isConnected(studyId, streamer).dmap(_.option(streamer))
               .dmap(_.flatten)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "study" :: "rank" :: "reset" :: Nil =>
       studyRepo.resetAllRanks.map: count =>
         s"$count done"

@@ -140,7 +140,7 @@ final class Env(
   def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isRecentPlayer(tourId, userId)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
     //   leaderboardIndexer.generateAll inject "Done!"
     case "tournament" :: "feature" :: id :: Nil =>
