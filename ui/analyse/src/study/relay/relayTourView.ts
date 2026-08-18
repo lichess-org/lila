@@ -558,7 +558,7 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
         { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
         titleAsText && i18n.broadcast.ongoing,
       )
-    : round.finished &&
+    : round.finishedAt &&
       hl(
         'span.round-state.finished',
         { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
