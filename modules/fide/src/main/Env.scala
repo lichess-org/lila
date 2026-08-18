@@ -73,7 +73,7 @@ final class Env(
       if nowDateTime.getHour == 4
       then fideSync()
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")

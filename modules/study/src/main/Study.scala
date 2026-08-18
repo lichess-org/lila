@@ -82,8 +82,6 @@ case class Study(
 
   def withoutMembers = copy(members = StudyMembers.empty)
 
-  def light = LightStudy(isPublic, members.contributorIds)
-
   def topicsOrEmpty = topics | StudyTopics.empty
 
   def addTopics(ts: StudyTopics) =
@@ -134,8 +132,6 @@ object Study:
   case class WithChaptersAndLiked(study: Study, chapters: Seq[StudyChapterName], liked: Boolean)
 
   case class WithLiked(study: Study, liked: Boolean)
-
-  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
   def makeId = StudyId(ThreadLocalRandom.nextString(8))
 

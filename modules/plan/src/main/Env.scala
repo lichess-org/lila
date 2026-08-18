@@ -76,7 +76,7 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.ChangeEmail]:
     case lila.core.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "patron" :: "lifetime" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
     case "patron" :: "gift-month" :: user :: Nil =>

@@ -160,7 +160,7 @@ final class Env(
   Bus.sub[lila.core.relay.GetActiveRounds]:
     _.promise.completeWith(listing.active.map(_.map(_.asIdName)))
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.StudyAdmin):
     case "relay" :: "owner" :: id :: user :: Nil =>
       UserStr
         .read(user)

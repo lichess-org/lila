@@ -12,7 +12,7 @@ final private class Cli(
     gc: GarbageCollector
 )(using Executor):
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "security" :: "roles" :: uid :: Nil =>
       userRepo
         .byId(UserStr(uid))
