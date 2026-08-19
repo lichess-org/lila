@@ -15,7 +15,7 @@ object PrefJsonChange:
       write: (Pref, Option[A]) => Pref
   ) extends Change:
     def get(pref: Pref): Option[JsValue] = read(pref).map(Json.toJson(_))
-    def set(pref: Pref, value: JsValue): JsResult[Pref] = value.pp match
+    def set(pref: Pref, value: JsValue): JsResult[Pref] = value match
       case JsNull => JsSuccess(write(pref, none))
       case json => json.validate[A].map(v => write(pref, v.some))
 

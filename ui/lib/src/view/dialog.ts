@@ -287,7 +287,6 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       const first = focii[0],
         last = focii[focii.length - 1],
         focus = document.activeElement as HTMLElement;
-      console.log(focii.map(el => el.classList.toString()));
       if (focus === last && !e.shiftKey) first?.focus();
       else if (focus === first && e.shiftKey) last?.focus();
       else return;
