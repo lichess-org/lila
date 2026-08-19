@@ -8,6 +8,13 @@ import { ShortcutsCtrl, fitShortcut } from './shortcutsCtrl';
 
 const shortcutIdMimeType = 'application/x-lichess-shortcut-id';
 
+interface ShortcutDialogCtx {
+  ctrl: ShortcutsCtrl;
+  drag?: { id: string; atIndex?: number };
+}
+
+type ShortcutDialog = Dialog<ShortcutDialogCtx>;
+
 export async function initModule({
   ctrl,
   contextual,
@@ -24,6 +31,7 @@ export async function initModule({
     ctrl.loaded,
   ]);
   const dlg = await domDialog({
+    ctx: { ctrl },
     class: 'shortcuts-dialog',
     css: [{ hashed: 'lobby.shortcuts-dialog' }],
     show: true,
@@ -47,8 +55,8 @@ export async function initModule({
         <button class="button save">${i18n.site.save}</button>
       </div>`,
     insert: [
-      ...ctrl.scratch.map(s => renderShortcut(s, true)).map(node => ({ node, where: '.scratch' })),
-      ...ctrl.configured.map(s => renderShortcut(s)).map(node => ({ node, where: '.shortcuts' })),
+      ...ctrl.scratch.map(s => renderShortcut(s, true)).map(node => ({ node, selector: '.scratch' })),
+      ...ctrl.configured.map(s => renderShortcut(s)).map(node => ({ node, selector: '.shortcuts' })),
     ],
     onShow: dlg => {
       const dragFrom = dlg.view.querySelector<HTMLElement>('.shortcuts');
@@ -58,23 +66,23 @@ export async function initModule({
     actions: [
       { selector: '.save', result: 'save' },
       { selector: '.cancel', result: 'cancel' },
-      { selector: '.reset', listener: (_, dlg) => reset(dlg, ctrl) },
-      { selector: '.shortcuts .shortcut', listener: (e, dlg) => removeShortcut(e, dlg, ctrl) },
-      { selector: '.scratch .shortcut', listener: placeShortcutHandler(ctrl) },
-      { selector: '.shortcut', event: 'keydown', listener: keydownHandler(ctrl) },
+      { selector: '.reset', listener: reset },
+      { selector: '.shortcuts .shortcut', listener: (e, dlg) => removeShortcut(e, dlg) },
+      { selector: '.scratch .shortcut', listener: placeShortcut },
+      { selector: '.shortcut', event: 'keydown', listener: keydown },
       { selector: '[draggable="true"]', event: 'dragstart', listener: dragStart },
-      {
-        selector: '.slot, .shortcut, .scratch',
-        event: ['dragover', 'drop'],
-        listener: dragDropHandler(ctrl),
-      },
+      { selector: '[draggable="true"]', event: 'dragend', listener: dragEnd },
+      { selector: '.slot, .shortcuts > .shortcut', event: ['dragover', 'drop'], listener: dragOverGrid },
+      { selector: '.scratch', event: ['dragover', 'drop'], listener: dragOverScratch },
     ],
   });
-  if (dlg.returnValue === 'save') await ctrl.save();
+  if (dlg.returnValue === 'save') await dlg.ctx.ctrl.save();
 }
 
-async function reset(dlg: Dialog, ctrl: ShortcutsCtrl) {
+async function reset(_: Event, dlg: ShortcutDialog) {
   if (!(await confirm('Reset shortcuts?'))) return;
+  const { ctrl } = dlg.ctx;
+  delete dlg.ctx.drag;
   ctrl.reset();
   dlg.view.querySelectorAll('.slot, .shortcut').forEach(el => el.remove());
   dlg.view.querySelector('.scratch')?.append(...ctrl.scratch.map(s => renderShortcut(s, true)));
@@ -88,7 +96,7 @@ function renderShortcut(s: LobbyShortcut | null, scratch = false): Element {
   const { scale, text } = scratch && displayColumns() === 1 ? fitShortcut(s, 18, 48) : fitShortcut(s);
   const el = frag<Element>($html`
     <div class="shortcut" tabindex="0" role="button" draggable="true" data-id="${s.id}"
-         style="---scale: ${scale}"></div>`);
+         style="---scale: ${scale}; view-transition-name: shortcut-${CSS.escape(s.id)}"></div>`);
   if (s.iconUrl) el.append(frag(`<div class="icon"><img src="${s.iconUrl}" alt=""></div>`));
   el.append(
     ...([
@@ -102,99 +110,160 @@ function renderShortcut(s: LobbyShortcut | null, scratch = false): Element {
   return el;
 }
 
-function dragStart(e: DragEvent) {
+function dragStart(e: DragEvent, dlg: ShortcutDialog) {
   const id = (e.currentTarget as HTMLElement).dataset.id!;
   if (!id || !e.dataTransfer) return;
 
+  dlg.ctx.drag = { id };
   e.dataTransfer.setData(shortcutIdMimeType, id);
   e.dataTransfer.setData('text/plain', id);
   e.dataTransfer.effectAllowed = 'move';
 }
 
-function dragDropHandler(ctrl: ShortcutsCtrl) {
-  return (e: DragEvent, dlg: Dialog) => {
-    e.preventDefault();
-    if (e.type !== 'drop' || !e.dataTransfer) return;
+function dragEnd(_: DragEvent, dlg: ShortcutDialog) {
+  const drag = dlg.ctx.drag;
+  if (!drag) return;
 
-    const id = e.dataTransfer.getData(shortcutIdMimeType);
-    if (!id) return;
+  delete dlg.ctx.drag;
+  transition(() => {
+    restorePreview(drag.id, drag.atIndex, dlg);
+    dlg.updateActions();
+  });
+}
 
-    const target = e.currentTarget as HTMLElement;
-    if (target.matches('.scratch')) return removeShortcut(target.dataset.id!, dlg, ctrl);
+function dragOverGrid(e: DragEvent, dlg: ShortcutDialog) {
+  e.preventDefault();
+  const drag = dlg.ctx.drag;
+  if (!drag) return;
 
-    let index = 0;
-    for (let sib = target.previousElementSibling; sib; sib = sib.previousElementSibling) {
-      if (sib.classList.contains('slot') || sib.classList.contains('shortcut')) index++;
+  const target = e.currentTarget as HTMLElement;
+  let index = 0;
+  for (let sib = target.previousElementSibling; sib; sib = sib.previousElementSibling) {
+    if (sib.classList.contains('slot') || sib.classList.contains('shortcut')) index++;
+  }
+
+  const atIndex = index === dlg.ctx.ctrl.configuredIndexOf(drag.id) ? undefined : index;
+  if (e.type === 'drop') {
+    if (drag.atIndex !== atIndex) {
+      restorePreview(drag.id, drag.atIndex, dlg);
+      if (atIndex !== undefined) moveShortcut(drag.id, atIndex, dlg, true);
     }
-    if (ctrl.place(id, index)) transition(() => placeShortcut(id, index, dlg, ctrl));
-  };
+    dlg.ctx.ctrl.place(drag.id, index);
+    delete dlg.ctx.drag;
+    dlg.updateActions();
+  } else if (drag.atIndex !== atIndex) {
+    const previousIndex = drag.atIndex;
+    drag.atIndex = atIndex;
+    transition(() => {
+      restorePreview(drag.id, previousIndex, dlg);
+      if (atIndex !== undefined) moveShortcut(drag.id, atIndex, dlg, true);
+      dlg.updateActions();
+    });
+  }
 }
 
-function placeShortcutHandler(ctrl: ShortcutsCtrl) {
-  return (e: Event, dlg: Dialog) => {
-    const id = (e.currentTarget as HTMLElement).dataset.id!;
-    const insertAt = ctrl.configured.indexOf(null);
-    if (ctrl.place(id, insertAt)) transition(() => placeShortcut(id, insertAt, dlg, ctrl));
-  };
+function dragOverScratch(e: DragEvent, dlg: ShortcutDialog) {
+  e.preventDefault();
+  const drag = dlg.ctx.drag;
+  if (!drag) return;
+
+  if (e.type === 'dragover') {
+    if (drag.atIndex === undefined) return;
+    const previousIndex = drag.atIndex;
+    delete drag.atIndex;
+    transition(() => {
+      restorePreview(drag.id, previousIndex, dlg);
+      dlg.updateActions();
+    });
+  } else {
+    delete dlg.ctx.drag;
+    transition(() => {
+      restorePreview(drag.id, drag.atIndex, dlg);
+      removeShortcut(drag.id, dlg, false);
+      dlg.updateActions();
+    });
+  }
 }
 
-function keydownHandler(ctrl: ShortcutsCtrl) {
-  return (e: KeyboardEvent, dlg: Dialog) => {
-    const target = e.currentTarget as HTMLElement;
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-
-    if (target.matches('.shortcuts .shortcut')) removeShortcut(target.dataset.id!, dlg, ctrl);
-    else if (target.matches('.shortcut')) {
-      const id = target.dataset.id!;
-      const insertAt = ctrl.configured.indexOf(null);
-      if (ctrl.place(id, insertAt)) transition(() => placeShortcut(id, insertAt, dlg, ctrl));
-    }
-  };
+function placeShortcut(e: Event, dlg: ShortcutDialog) {
+  const id = (e.currentTarget as HTMLElement).dataset.id!;
+  const insertAt = dlg.ctx.ctrl.configured.indexOf(null);
+  if (dlg.ctx.ctrl.place(id, insertAt))
+    transition(() => {
+      moveShortcut(id, insertAt, dlg);
+      dlg.updateActions();
+    });
 }
 
-function removeShortcut(eventOrId: Event | string, dlg: Dialog, ctrl: ShortcutsCtrl) {
+function keydown(e: KeyboardEvent, dlg: ShortcutDialog) {
+  const target = e.currentTarget as HTMLElement;
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+
+  if (target.matches('.shortcuts .shortcut')) removeShortcut(target.dataset.id!, dlg);
+  else if (target.matches('.shortcut')) placeShortcut(e, dlg);
+}
+
+function removeShortcut(eventOrId: Event | string, dlg: ShortcutDialog, animate = true) {
   const id = typeof eventOrId === 'string' ? eventOrId : (eventOrId.currentTarget as HTMLElement).dataset.id!;
-  if (!ctrl.remove(id)) return;
+  if (!dlg.ctx.ctrl.remove(id)) return;
 
   const from = dlg.view.querySelector(`.shortcut[data-id="${id}"]`);
   if (!from) return;
 
   const scratch = dlg.view.querySelector('.scratch')!;
-  transition(() => {
+  const update = () => {
     from.replaceWith(renderShortcut(null));
-    scratch.insertBefore(from, scratch.children[ctrl.scratchIndexOf(id)]);
+    scratch.insertBefore(from, scratch.children[dlg.ctx.ctrl.scratchIndexOf(id)]);
     dlg.updateActions();
-  });
+  };
+  if (animate) transition(update);
+  else update();
 }
 
-function placeShortcut(id: string, atIndex: number, dlg: Dialog, ctrl: ShortcutsCtrl) {
+function moveShortcut(id: string, atIndex: number, dlg: ShortcutDialog, preview = false) {
   const from = dlg.view.querySelector(`.shortcut[data-id="${id}"]`);
   if (!from) return;
 
   const activeGrid = dlg.view.querySelector('.shortcuts')!;
-  const to = slotAt(activeGrid, Math.max(0, atIndex));
+  const to = activeGrid.querySelectorAll<HTMLElement>(':scope > .slot, :scope > .shortcut')[
+    Math.max(0, atIndex)
+  ];
   if (!to) return;
 
   const scratch = from.closest('.scratch');
   if (scratch) {
     activeGrid.insertBefore(from, to);
-    if (to.draggable) scratch.insertBefore(to, scratch.children[ctrl.scratchIndexOf(to.dataset.id!)]);
-    else to.remove();
+    if (to.draggable) {
+      let scratchIndex = dlg.ctx.ctrl.scratchIndexOf(to.dataset.id!);
+      if (preview && dlg.ctx.ctrl.scratchIndexOf(id) < scratchIndex) scratchIndex--;
+      scratch.insertBefore(to, scratch.children[scratchIndex]);
+    } else to.remove();
   } else {
     const swap = document.createElement('div');
     from.replaceWith(swap);
     to.replaceWith(from);
     swap.replaceWith(to);
   }
-  dlg.updateActions();
 }
 
-function slotAt(el: Element, index: number): HTMLElement | null {
-  for (const slot of el.querySelectorAll<HTMLElement>('.slot, .shortcut')) {
-    if (index <= 0) return slot;
-    index--;
+function restorePreview(id: string, atIndex: number | undefined, dlg: ShortcutDialog) {
+  if (atIndex === undefined) return;
+
+  const from = dlg.view.querySelector<HTMLElement>(`.shortcuts > .shortcut[data-id="${id}"]`);
+  if (!from) return;
+
+  const fromIndex = dlg.ctx.ctrl.configuredIndexOf(id);
+  if (!Number.isNaN(fromIndex)) return moveShortcut(id, fromIndex, dlg);
+
+  const scratch = dlg.view.querySelector('.scratch')!;
+  const displaced = dlg.ctx.ctrl.configured[atIndex];
+  const to = displaced
+    ? dlg.view.querySelector<HTMLElement>(`.scratch > .shortcut[data-id="${displaced.id}"]`)
+    : renderShortcut(null);
+  if (to) {
+    from.replaceWith(to);
+    scratch.insertBefore(from, scratch.children[dlg.ctx.ctrl.scratchIndexOf(id)]);
   }
-  return null;
 }
 
 function transition(update: () => void) {
@@ -213,8 +282,16 @@ function transition(update: () => void) {
   root.style.setProperty('---transition-clip', `inset(${rect.top}px ${right}px ${bottom}px ${rect.left}px)`);
 
   const cleanup = () => {
+    const transitionCount = Number(root.dataset.transitionCount) - 1;
+    if (transitionCount) {
+      root.dataset.transitionCount = String(transitionCount);
+      return;
+    }
+    delete root.dataset.transitionCount;
     root.classList.remove('shortcuts-transition');
     root.style.removeProperty('---transition-clip');
   };
-  document.startViewTransition(update).finished.then(cleanup, cleanup);
+  const viewTransition = document.startViewTransition(update);
+  root.dataset.transitionCount = String(Number(root.dataset.transitionCount ?? 0) + 1);
+  viewTransition.finished.then(cleanup, cleanup);
 }

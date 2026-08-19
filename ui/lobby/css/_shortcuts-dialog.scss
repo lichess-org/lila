@@ -15,6 +15,7 @@ dialog .close-button-anchor .close-button {
 .shortcuts-dialog {
   @include prevent-select;
 
+  -webkit-touch-callout: none;
   border-radius: 8px;
   border: $border;
   display: flex;
@@ -138,16 +139,20 @@ dialog .close-button-anchor .close-button {
   }
 
   .shortcut {
-    view-transition-name: match-element;
     view-transition-class: shortcut;
     gap: calc(var(---scale, 1) * 6px);
     padding: calc(var(---scale, 1) * 4px);
     overflow: hidden;
     min-width: 64px;
+    cursor: grab;
 
     * {
       line-height: unset;
     }
+  }
+
+  .shortcut:active {
+    cursor: grabbing;
   }
 
   .scratch .shortcut {
