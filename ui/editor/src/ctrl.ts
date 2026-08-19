@@ -57,7 +57,10 @@ export default class EditorCtrl {
     this.selected = propWithEffect('pointer', selected => {
       // right click paints the opposite color while a piece is selected, so shapes
       // can only be drawn with the pointer
-      if (this.chessground) this.chessground.state.drawable.enabled = selected === 'pointer';
+      if (this.chessground)
+        this.chessground.set({
+          drawable: { enabled: selected === 'pointer' },
+        });
     });
 
     [...(cfg.positions || []), ...(cfg.endgamePositions || [])].forEach(
