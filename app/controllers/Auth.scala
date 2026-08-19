@@ -403,20 +403,23 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 data =>
                   env.security.passwordReset
                     .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
+                      def redirect(email: EmailAddress) = Redirect(routes.Auth.passwordResetSent).withCookies:
+                        lila.security.PasswordReset.cookie.set(env.security.lilaCookie, email)
                       env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
                         case Some(user, storedEmail) =>
                           lila.mon.user.auth.passwordResetRequest("success").increment()
                           for _ <- env.security.passwordReset.send(user, storedEmail)
-                          yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
+                          yield redirect(storedEmail)
                         case _ =>
                           lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                          Redirect(routes.Auth.passwordResetSent(data.email.value))
+                          redirect(data.email)
                       }
               )
           else badRequest("Invalid captcha")
 
-  def passwordResetSent(email: String) = Open:
-    Ok.page(views.auth.passwordResetSent(email))
+  def passwordResetSent = Open:
+    lila.security.PasswordReset.cookie.get.so: email =>
+      Ok.page(views.auth.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
     env.security.passwordReset
