@@ -219,7 +219,7 @@ final class User(
   def ratingHistory(username: UserStr) = Open:
     EnabledUser(username): u =>
       env.history
-        .ratingChartApi(u)
+        .ratingChartApi(u, computeIfNeeded = ctx.isAuth)
         .dmap: // send an empty JSON array if no history JSON is available
           _ | lila.core.data.SafeJsonStr("[]")
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
@@ -541,7 +541,7 @@ final class User(
       negotiate(
         Ok.async:
           env.history
-            .ratingChartApi(data.user.user)
+            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
             .map:
               views.user.perfStatPage(data, _)
         ,
