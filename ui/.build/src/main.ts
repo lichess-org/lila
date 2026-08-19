@@ -123,7 +123,7 @@ if (env.watch && 'setRawMode' in ps.stdin) {
   ps.stdin.on('data', (key: Buffer) => {
     if (key[0] === 3 || key[0] === 27) {
       ps.exit(0);
-    } else if (key[0] === 32 && tasksIdle()) {
+    } else if ((key[0] === 13 || key[0] === 10) && tasksIdle()) {
       stopBuild().then(() => clean('force').then(() => build(argv.filter(x => !x.startsWith('-')))));
     }
   });
