@@ -43,13 +43,10 @@
   <plurals name="viewAllNbPosts">
     <item quantity="other">查看所有 %s 篇文章</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">上傳一張圖片</string>
   <string name="imageAlt">圖片備選文字</string>
   <string name="imageCredit">圖片來源</string>
   <string name="deleteBlog">永久刪除此部落格貼文</string>
-  <string name="safeToUseImages">從這些網站使用圖片是安全的：</string>
   <string name="selectPostTopics">選擇貼文的對應主題</string>
-  <string name="useImagesYouMadeYourself">你也可以使用你自製的圖片、自己拍的照片、自己擷取的擷圖... 任何不被他人所擁有版權的圖片。</string>
   <string name="safeAndRespectfulContent">請只貼出安全與尊重他人的內容。請勿剽取他人的內容。</string>
   <string name="inappropriateContentAccountClosed">任何不妥當的內容可能導致您的帳號被封鎖。</string>
   <string name="blogTips">寫好文章的小撇步</string>

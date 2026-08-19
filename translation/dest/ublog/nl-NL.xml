@@ -48,14 +48,12 @@
     <item quantity="one">Bekijk één bericht</item>
     <item quantity="other">Bekijk alle %s berichten</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
   <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
-  <string name="safeToUseImages">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
-  <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>
   <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
+  <string name="noCopyrightedImages">Gebruik alleen afbeeldingen waarvan het auteursrecht niet door iemand anders wordt beschermd.</string>
   <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
   <string name="blogTips">Onze simpele tips om geweldige blogberichten te schrijven</string>
   <string name="discussThisBlogPostInTheForum">Bespreek dit blogbericht in het forum</string>

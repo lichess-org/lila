@@ -135,6 +135,7 @@ mit ähnlichem Rang</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
   <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Gib ei Schpillername pro Ziili ei. Nume dene Schpiller wirds erlaubt si, teilznäh. Frei lah, wenn alli brechtite Schpiller erlaubt si.</string>
   <string name="playYourGames">Absolvier dini Schpiel</string>
   <string name="byes">Freilos</string>
   <string name="absences">Absänze</string>

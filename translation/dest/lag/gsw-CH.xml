@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt die lang Antwort! De Lag beschtaht us zwei, vonänand unabhängige, Wert (niedriger isch besser):</string>
   <string name="lichessServerLatency">Lichess Server Latänz</string>
   <string name="lichessServerLatencyExplanation">Die Zit wo benötigt wird, en Zug uf em Server z\'verarbeite. Sie isch für alli glich und hanget vu de Serverlascht ab. Vill Schpiller, bedütet höchi Serverlascht, aber eusi Entwickler gänd ihres Bescht um sie niedrig z\'halte. Sie überschtigt würklich nur sälte 10ms.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">Die Zit wo benötigt wird, en Zug uf em Server z\'verarbeite. Sie isch für alli glich und hanget vu de Serverlascht ab. Vill Schpiller, bedütet höchi Serverlascht, aber eusi Entwickler gänd ihres Bescht um sie niedrig z\'halte. Sie überschtigt würklich nur sälte 10ms.</string>
   <string name="networkBetweenLichessAndYou">Netzwerkverbindig zwüsche Lichess und dir</string>
   <string name="networkBetweenLichessAndYouExplanation">Die Zit wo benötiget wird, zum en Zug vu dim Computer zum Lichess-Server und wieder zrugg z\'sände. Sie isch abhängig vu dinere Entfernig zu Lichess (in Frankrich) und vu de Qualität vu dinere Internetverbindig. Eusi Entwickler chönd dis WLAN nöd repariere oder schnäller mache.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du findsch die Wert jederzit, indem du uf din Benutzername, i de obere Lischte klicksch.</string>

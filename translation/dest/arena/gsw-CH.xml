@@ -75,6 +75,10 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
   <string name="rankAvgHelp">De Rangdurchschnitt isch en Prozäntsatz vu dim Rang. Niedriger isch besser.
 
 Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler = 1 %.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Din Durschnittsrang repräsentiert din erwartete Endrang, abhängig vo dr totale Azahl a Schpiller.
+Da misst dini Turnierplatzierig, nid dis generelle Rating.
+
+Zm Bispiel, en Durschnittsrang vo 3% wür heisse, das du es normal würsch id top 3% vom Turnier schaffe (Aso 30er vor 1’000 Schpiller).</string>
   <string name="medians">mittleri Wert</string>
   <string name="allAveragesAreX">All Durchschnittswert uf dere Site sind %s.</string>
   <string name="total">Total</string>
