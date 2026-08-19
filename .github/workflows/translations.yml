@@ -21,8 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Install xmllint
-        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+      - name: Cache APT packages
+        uses: awalsh128/cache-apt-pkgs-action@553a35bb8ebd9fcabcb1c9451aa4c98e1b4ca8a9 # 1.6.3
+        with:
+          packages: libxml2-utils
+          version: 1.0
       - name: Validate translation files
         run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
 
