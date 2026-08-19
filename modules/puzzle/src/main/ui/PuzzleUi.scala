@@ -87,7 +87,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                   if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
                   else routes.Puzzle.show(pt.theme.key.value)
                 Json.obj(
-                  "name" -> s"${category().render} ${trans.site.sep.txt()} ${pt.theme.name().render}",
+                  "name" -> s"${category.txt()} ${trans.site.sep.txt()} ${pt.theme.name.txt()}",
                   "url" -> url.url,
                   "iconMaskUrl" -> assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")
                 )
