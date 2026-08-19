@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "lib": "workspace:*",
-    "bits": "workspace:*"
+    "bits": "workspace:*",
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/team.*ts"
