@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
+import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
@@ -54,11 +54,7 @@ export class SoundCtrl extends PaneCtrl {
             },
             hook: onInsert<HTMLInputElement>(input => {
               const setVolume = throttle(150, this.volume);
-              const preview = debounce(this.preview, 300);
-              $(input).on('input', () => {
-                setVolume(parseFloat(input.value));
-                preview();
-              });
+              $(input).on('input', () => setVolume(parseFloat(input.value)));
             }),
           }),
           h(
@@ -162,7 +158,9 @@ export class SoundCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private readonly volume = (v: number) => site.sound.setVolume(v);
-
-  private readonly preview = () => site.sound.sayOrPlay('move', 'knight F 7', true);
+  private readonly volume = (v: number) => {
+    site.sound.setVolume(v);
+    // plays a move sound if speech is off
+    site.sound.sayOrPlay('move', 'knight F 7', true);
+  };
 }
