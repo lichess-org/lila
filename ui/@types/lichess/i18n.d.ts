@@ -6135,6 +6135,8 @@ interface I18n {
     publishOnYourBlog: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
+    /** It is safe to use images from the following websites: */
+    safeToUseImages: string;
     /** Save draft */
     saveDraft: string;
     /** Select the topics your post is about */
