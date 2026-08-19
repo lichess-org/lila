@@ -215,7 +215,7 @@ function engineSelection({ ceval }: CevalHandler) {
       hl('button.button.button-red.button-empty', {
         attrs: { ...dataIcon(licon.Trash), title: 'Delete external engine' },
         hook: bind('click', async e => {
-          (e.target as HTMLElement).blur();
+          (e.currentTarget as HTMLElement).blur();
           if (await confirm('Remove external engine?'))
             ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
         }),
