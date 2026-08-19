@@ -122,6 +122,12 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 1
   )
 
+  val recapAwaitConcurrency = lila.web.FutureConcurrencyLimit[UserId](
+    key = "recap.await.concurrency.user",
+    ttl = 3.minutes,
+    maxConcurrency = 2
+  )
+
   val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
 
   val tourJoinOrResume =
