@@ -52,7 +52,7 @@ export interface RelayRound {
   name: string;
   slug: string;
   url: string;
-  finished?: boolean;
+  finishedAt?: number;
   ongoing?: boolean;
   startsAt?: number;
   startsAfterPrevious?: boolean;

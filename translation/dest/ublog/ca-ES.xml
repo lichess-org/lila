@@ -48,14 +48,12 @@
     <item quantity="one">Veure una publicació</item>
     <item quantity="other">Veure les %s publicacions</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Puja una imatge per la teva entrada</string>
   <string name="imageAlt">Text alternatiu de la imatge</string>
   <string name="imageCredit">Crèdits de la imatge</string>
   <string name="deleteBlog">Elimina aquesta entrada del blog definitivament</string>
-  <string name="safeToUseImages">Es segur utilitzar imatges dels següents llocs web: </string>
   <string name="selectPostTopics">Seleccioneu els temes dels quals tracta la vostra entrada</string>
-  <string name="useImagesYouMadeYourself">També podeu utilitzar imatges que heu fet vosaltres mateixos, fotos que heu fet, captures del lichess... Qualsevol cosa que no té drets de còpia d\'algú altre.</string>
   <string name="safeAndRespectfulContent">Si us plau, compartiu només contingut segur i respectuós. No copieu el contingut d\'algú altre.</string>
+  <string name="noCopyrightedImages">Utilitza només imatges que no tenen un copyright d\'una altra persona.</string>
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
   <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
   <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>

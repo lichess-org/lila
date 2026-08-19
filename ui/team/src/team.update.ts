@@ -1,3 +1,4 @@
+import { makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 export function initModule(): void {
@@ -8,4 +9,6 @@ export function initModule(): void {
         void xhr.formToXhr(this);
       });
   });
+
+  makeLinkPopups($('.team-update__convo__updates'));
 }

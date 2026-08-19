@@ -126,7 +126,7 @@ let gaugeTicks: VNode[];
 
 export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return undefined;
-  gaugeTicks ??= [...Array(8).keys()].map(i =>
+  gaugeTicks ??= [...Array(7).keys()].map(i =>
     hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
   const bestEv = getBestEval(ctrl);

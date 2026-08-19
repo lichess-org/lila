@@ -9,7 +9,7 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
   import play.api.data.Forms.*
   val form = play.api.data.Form(single("command" -> nonEmptyText))
 
-  def run(args: List[String]): Fu[String] =
+  def run(args: List[String])(using Me): Fu[String] =
     Bus
       .ask(CliCommand(args, _), timeout = 1.second) // quickly look for a handler
       .mapFailure:
@@ -20,7 +20,7 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
       .recover:
         case e: Exception => s"ERROR $e\n"
 
-  Cli.handle:
+  Cli.handle():
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "announce" :: words => lila.web.AnnounceApi.cli(words)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>

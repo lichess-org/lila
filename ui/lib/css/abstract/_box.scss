@@ -59,10 +59,6 @@
   border-radius: 0 0 0 $box-radius-size;
 }
 
-%box-radius-bottom-right {
-  border-radius: 0 0 $box-radius-size 0;
-}
-
 %box-shadow {
   @include box-shadow;
 }

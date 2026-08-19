@@ -6,7 +6,8 @@
     display: block;
   }
 
-  .ui-roundness .slider-label {
+  .ui-roundness .slider-label,
+  .bg-opacity .slider-label {
     @extend %flex-between;
 
     color: $c-font-dim;
@@ -23,6 +24,10 @@
     }
   }
 
+  .bg-opacity .slider-label {
+    border-top: none;
+  }
+
   .range {
     font-size: 1.5em;
     padding: 0 14px;
@@ -32,10 +37,23 @@
   .image {
     padding: 12px;
 
-    label {
+    label,
+    span {
       display: block;
       font-size: 0.9em;
       padding: 0 5px 5px 5px;
+    }
+
+    .bg-opacity {
+      margin-top: 8px;
+
+      .slider-label {
+        @extend %flex-between;
+      }
+
+      input {
+        padding: 0;
+      }
     }
   }
 
@@ -47,23 +65,26 @@
     color: #fff;
   }
 
-  #gallery {
+  #dasher-theme-gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
 
     @include inline-end(0);
     @include backdrop-blur-if-transparent;
+    @extend %box-radius;
 
+    border-top-right-radius: 0;
+    overflow: hidden;
     position: absolute;
     top: 100%;
     background-color: #000b;
 
-    #images-viewport {
+    #dasher-theme-images-viewport {
       max-height: 30vh;
       overflow: hidden auto;
     }
 
-    #images-grid {
+    #dasher-theme-images-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
 
@@ -87,23 +108,6 @@
         &.selected {
           outline: #afa 1px solid;
         }
-      }
-    }
-
-    #url {
-      padding: 0.5rem 0.5rem 0.7rem;
-      display: flex;
-      align-items: center;
-
-      label {
-        margin: 0 1rem 0 0.5rem;
-        font-size: 1rem;
-      }
-
-      input {
-        padding: 0.5rem;
-        flex: 1 1 auto;
-        background-color: #181818dd;
       }
     }
   }

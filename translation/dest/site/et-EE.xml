@@ -486,6 +486,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="one">%s jälgimine</item>
     <item quantity="other">%s jälgimist</item>
   </plurals>
+  <string name="less">Vähem</string>
   <string name="more">Rohkem</string>
   <string name="memberSince">Liitunud</string>
   <string name="lastSeenActive">Viimati nähtud %s</string>
@@ -829,10 +830,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="language">Keel</string>
   <string name="allLanguages">Kõik keeled</string>
   <string name="background">Taust</string>
+  <string name="theme">Teema</string>
   <string name="light">Hele</string>
   <string name="dark">Tume</string>
   <string name="transparent">Läbipaistev</string>
+  <string name="picture">Pilt</string>
   <string name="deviceTheme">Seadme teema</string>
+  <string name="roundness">Ümarus</string>
   <string name="backgroundImageUrl">Taustapildi URL:</string>
   <string name="board">Laud</string>
   <string name="size">Suurus</string>

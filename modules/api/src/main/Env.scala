@@ -119,7 +119,7 @@ final class Env(
   Bus.sub[lila.core.playban.RageSitClose]: close =>
     accountTermination.lichessDisable(close.userId)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "push" :: "recap" :: user :: year :: Nil =>
       for
         (title, body) <- recapEnv.translateNotif(UserId(user), year)

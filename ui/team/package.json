@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "flatpickr": "^4.6.13",
     "lib": "workspace:*",
     "bits": "workspace:*"
   },

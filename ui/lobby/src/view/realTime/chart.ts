@@ -32,9 +32,9 @@ const clockX = (dur: number) => {
   return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
 };
 
-function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, number]) {
-  const bottom = Math.max(0, ratingY(hook.rating) - translate[1]),
-    left = Math.max(0, clockX(hook.t) - translate[0]),
+function renderPlot(ctrl: LobbyController, hook: Hook) {
+  const bottom = Math.max(0, ratingY(hook.rating)),
+    left = Math.max(0, clockX(hook.t)),
     klass = [
       hook.id,
       'plot.new',
@@ -91,8 +91,10 @@ function renderXAxis() {
   const tags: VNode[] = [];
   xMarks.forEach(v => {
     const l = clockX(v * 60);
-    tags.push(h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v));
-    tags.push(h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }));
+    tags.push(
+      h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v),
+      h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }),
+    );
   });
   return tags;
 }
@@ -103,8 +105,10 @@ function renderYAxis() {
   const tags: VNode[] = [];
   yMarks.forEach(function (v) {
     const b = ratingY(v);
-    tags.push(h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v));
-    tags.push(h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }));
+    tags.push(
+      h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v),
+      h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }),
+    );
   });
   return tags;
 }
@@ -118,13 +122,6 @@ export function toggle(ctrl: LobbyController) {
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
-  let translate: [number, number] = [0, 0];
-  const chart = document.querySelector('.hooks__chart') as HTMLElement;
-  if (chart) {
-    const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
-    translate = [(fontSize / chart.clientWidth) * 95, (fontSize / chart.clientHeight) * 75];
-  }
-
   return h('div.hooks__chart', [
     h(
       'div.canvas',
@@ -138,7 +135,7 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
           ctrl.redraw,
         ),
       },
-      hooks.map(hook => renderPlot(ctrl, hook, translate)),
+      hooks.map(hook => renderPlot(ctrl, hook)),
     ),
     ...renderYAxis(),
     ...renderXAxis(),

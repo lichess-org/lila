@@ -9,8 +9,7 @@ export function formatDuration(seconds: number, glue = '<br>'): string {
   if (d > 0) {
     result.push(i18n.site.nbDays(d));
   }
-  result.push(i18n.site.nbHours(h));
-  result.push(i18n.site.nbMinutes(m));
+  result.push(i18n.site.nbHours(h), i18n.site.nbMinutes(m));
 
   return result.slice(0, 2).join(glue);
 }

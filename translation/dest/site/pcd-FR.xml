@@ -837,6 +837,7 @@
   <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="roundness">Coins arrondis</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
+  <string name="imageOpacity">Opacité de l\'image</string>
   <string name="board">Échiquier</string>
   <string name="size">Taille</string>
   <string name="opacity">Opacité</string>

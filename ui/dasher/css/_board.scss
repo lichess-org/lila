@@ -101,7 +101,7 @@
   &.d3 {
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
-        background-image: url(../images/staunton/board/#{$name}.thumbnail.png);
+        background-image: url(../images/staunton/board/#{$name}.thumbnail.webp);
       }
     }
   }

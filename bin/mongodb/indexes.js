@@ -12,15 +12,19 @@ db.simul.createIndex({ status: 1, createdAt: -1 });
 db.simul.createIndex({ hostSeenAt: -1 }, { partialFilterExpression: { status: 10, featurable: true } });
 db.simul.createIndex({ finishedAt: -1, featurable: 1 });
 db.simul.createIndex({ hostId: 1 });
-db.ublog_post.createIndex({ blog: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ blog: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ blog: 1, 'created.at': -1 }, { partialFilterExpression: { live: false } });
 db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
-db.ublog_post.createIndex({ likers: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
+db.ublog_post.createIndex(
+  { 'lived.at': -1 },
+  { name: 'pendingReview', partialFilterExpression: { live: true, 'automod.quality': 2, quality: 1 } },
+);
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(
   { 'inquiry.mod': 1 },
@@ -58,6 +62,13 @@ db.relay_tour.createIndex(
 db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
 db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
+db.relay_tour.createIndex(
+  { syncedAt: -1 },
+  {
+    partialFilterExpression: { tier: { $exists: true }, visibility: 'public', active: false },
+    name: 'inactivePager',
+  },
+);
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
 db.round_alarm.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });

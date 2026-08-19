@@ -55,16 +55,19 @@
   <string name="endgame">Ändschpil</string>
   <string name="endgameDescription">E Taktik für die letscht Fase vum Schpiel.</string>
   <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Pur cha en gägnerische Pur schlaa, wänn de ihn mit em \"Zwei-Fälder-Zug\" übergange hät.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">E Taktik, wo d\'En Passant regle griift, bi dere en buur en gegnerische Buur cha schla, wenn dise vorher isch zwei Schritt glaufe.</string>
   <string name="epauletteMate">Epaulette Matt</string>
   <string name="epauletteMateDescription">Zwei benachbarti Fluchtfälder, für en schach-g\'schtellte König, sind vu andere Figure b\'setzt.</string>
   <string name="exposedKing">Exponierte König</string>
   <string name="exposedKingDescription">E Taktik wo de König nu vu wenige Figure verteidigt wird und oft zu Schachmatt fühert.</string>
   <string name="fork">Gable</string>
   <string name="forkDescription">En Zug wobi die zogeni Figur glichzitig 2 gägnerischi Figure agrift.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">En zueg, wo e Figur zwei odr mehr gengerischi Figure glichziitig aagrift.</string>
   <string name="hangingPiece">Hängendi Figur</string>
   <string name="hangingPieceDescription">E Taktik wo e gägnerischi Figur zwenig oder gar nöd deckt isch und drum, mit Vorteil, gschlage werde cha.</string>
   <string name="hookMate">Hake Matt</string>
   <string name="hookMateDescription">Schachmatt mit Turm, Schpringer und Pur und eim gägnerische Pur, wo em König d\'Flucht verschperrt.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Es Schachmatt mit em Turm, Springer und Buur, wo en gegnerischr Buur de König vom Flüchte tuet hindere.</string>
   <string name="interference">Störig</string>
   <string name="interferenceDescription">E Figur zwüsche 2 gägnerischi Figure stelle, um einere oder beide de Schutz znäh - z. B. en Schpringer uf es verteidigts Fäld, zwüsche 2 Türm, stelle.</string>
   <string name="intermezzo">Zwüschezug</string>

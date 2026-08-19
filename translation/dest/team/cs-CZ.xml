@@ -39,8 +39,11 @@
   <string name="teamBattle">Bitva týmů</string>
   <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body pro svůj tým</string>
   <string name="teamTournament">Týmový turnaj</string>
-  <string name="teamTournamentOverview">Arena turnaj, ke kterému se mohou přidat pouze členová vašeho týmu</string>
+  <string name="teamTournamentOverview">Arena turnaj, ke kterému se mohou přidat pouze členové vašeho týmu</string>
   <string name="swissTournamentOverview">Švýcarský turnaj, ke kterému se mohou připojit pouze členové vašeho týmu</string>
+  <string name="teamUpdates">Týmové zprávy</string>
+  <string name="subToTeamUpdates">Přihlásit se k odběru týmových zpráv</string>
+  <string name="newTeamUpdate">Nová týmová zpráva</string>
   <string name="teamsIlead">Mnou vedené týmy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
   <string name="leadersChat">Chat vedoucích</string>

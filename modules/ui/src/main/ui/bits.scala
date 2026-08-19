@@ -113,44 +113,37 @@ object bits:
     )
   )
 
-  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
+  def markdownEditor(realm: MarkdownRealm)(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
-  )(using Me) =
-    val canUploadImages = lila.core.security.canUploadImages(~picfitIdPrefix)
+  )(using ctx: Context) =
+    val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
+    val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
+    val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
+    val imageUploadButton = (!realm.toastUi && canUploadImages).option:
+      button(cls := "upload-image", tpe := "button", title := "Upload image")
+    val previewStyle = realm match
+      case MarkdownRealm.blog => "ublog-post__markup"
+      case MarkdownRealm.cms => "cms-preview"
+      case _ => ""
     div(
-      cls := "markdown-textarea",
+      cls := s"markdown-editor $editorClass",
+      attr("data-markdown-realm") := realm.key,
       attr("data-image-download-origin") := imageGetOrigin,
-      attr("data-image-count-max") := picfitIdPrefix.match
-        case Some(p) if p.startsWith("forum") => 5
-        case Some(p) if p.startsWith("team") => 2
-        case _ => 1,
-      canUploadImages
-        .so(picfitIdPrefix)
-        .map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
-      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
+      attr("data-image-count-max") := realm.maxImageCount,
+      attr("data-image-design-width") := realm.imageDesignWidth,
+      uploadUrl.map(url => attr("data-image-upload-url") := url)
     )(
-      div(cls := "comment-header")(
-        button(cls := "header-tab write active", tpe := "button")("Write"),
-        button(
-          cls := "header-tab preview",
-          tpe := "button",
-          canUploadImages.option(title := "Preview and resize images")
-        )("Preview"),
-        canUploadImages.option(button(cls := "upload-image", tpe := "button", title := "Upload image"))
+      div(cls := "header")(
+        button(cls := "header-tab write-tab active", tpe := "button")("Write"),
+        button(cls := "header-tab preview-tab", tpe := "button")("Preview"),
+        imageUploadButton
       ),
-      div(cls := "comment-content")(
-        textareaTag,
-        div(cls := "comment-preview none")
+      div(cls := "content")(
+        textareaTag(cls := "markdown-content-textarea"),
+        if realm.toastUi then div(cls := "toastui-container") else emptyFrag,
+        div(cls := s"preview none $previewStyle")
       )
     )
-
-  def imageDesignWidth(rel: String) =
-    if rel.startsWith("forum") then 864.some
-    else if rel.startsWith("ublog") then 800.some
-    else if rel.startsWith("cms") then 800.some
-    else if rel.startsWith("broadcast") then 800.some
-    else if rel.startsWith("team") then 768.some // desc & private desc
-    else none
 
   def markdownAlternate(url: String, params: Map[String, String] = Map.empty) =
     link(

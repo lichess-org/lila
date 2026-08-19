@@ -101,7 +101,8 @@ case class Modlog(
 
 object Modlog:
 
-  case class UserEntry(user: UserId, action: String, date: Instant)
+  case class UserEntry(user: UserId, action: String, date: Instant, details: Option[String]):
+    def foreverClose = action == Modlog.closeAccount && details.exists(_.startsWith("forever"))
 
   case class Context(text: Option[String] = None, url: Option[String] = None, id: Option[String] = None)
 

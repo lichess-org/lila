@@ -48,13 +48,10 @@
     <item quantity="one">Ver uma publicação</item>
     <item quantity="other">Ver todas as %s publicações</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Carregar uma imagem para a tua publicação</string>
   <string name="imageAlt">Texto alternativo à imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
   <string name="deleteBlog">Eliminar esta publicação definitivamente</string>
-  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
   <string name="selectPostTopics">Seleciona os tópicos de que falas na publicação</string>
-  <string name="useImagesYouMadeYourself">Também podes utilizar imagens feita por ti, fotografias que tirastes, capturas de ecrã do Lichess... tudo o que não esteja protegido por direitos de autor de outra pessoa.</string>
   <string name="safeAndRespectfulContent">Publica apenas conteúdo seguro e respeitoso. Não copies o conteúdo de outra pessoa.</string>
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da tua conta.</string>
   <string name="blogTips">As nossas dicas simples para escrever ótimas publicações no blogue</string>

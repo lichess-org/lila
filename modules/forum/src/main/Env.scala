@@ -44,7 +44,7 @@ final class Env(
   private lazy val detectLanguage =
     DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
-  private lazy val textExpand = wire[ForumTextExpand]
+  lazy val textExpand = wire[ForumTextExpand]
 
   lazy val paginator: ForumPaginator = wire[ForumPaginator]
 

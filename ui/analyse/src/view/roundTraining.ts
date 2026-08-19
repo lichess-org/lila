@@ -141,8 +141,10 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
     !ctrl.data.analysis ||
     !ctrl.settings.showStaticAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
-  )
+  ) {
+    if (!ctrl.data.puzzle) return undefined;
     return h('div.analyse__round-training', puzzleLink(ctrl));
+  }
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';

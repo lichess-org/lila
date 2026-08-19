@@ -44,13 +44,10 @@
   <plurals name="viewAllNbPosts">
     <item quantity="other">ເບິ່ງທັງໝົດ %s ໂພສ</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">ອັບໂຫຼດຮູບພາບສຳລັບໂພສຂອງທ່ານ</string>
   <string name="imageAlt">ຂໍ້ຄວາມອະທິບາຍຮູບພາບ</string>
   <string name="imageCredit">ແຫຼ່ງທີ່ມາຂອງຮູບພາບ</string>
   <string name="deleteBlog">ລຶບໂພສບລັອກນີ້ຢ່າງຖາວອນ</string>
-  <string name="safeToUseImages">ທ່ານສາມາດໃຊ້ຮູບພາບຈາກເວັບໄຊຕໍ່ໄປນີ້ໄດ້ຢ່າງປອດໄພ: </string>
   <string name="selectPostTopics">ເລືອກຫົວຂໍ້ທີ່ກ່ຽວຂ້ອງກັບໂພສຂອງທ່ານ</string>
-  <string name="useImagesYouMadeYourself">ທ່ານຍັງສາມາດໃຊ້ຮູບພາບທີ່ທ່ານສ້າງເອງ, ຮູບທີ່ທ່ານຖ່າຍ, ຮູບຖ່າຍໜ້າຈໍຂອງ Lichess... ຫຼື ສິ່ງໃດກໍຕາມທີ່ບໍ່ຕິດລິຂະສິດຂອງຄົນອື່ນ.</string>
   <string name="safeAndRespectfulContent">ກະລຸນາໂພສສະເພາະເນື້ອຫາທີ່ປອດໄພ ແລະ ໃຫ້ກຽດກັນ. ຫ້າມຄັດລອກເນື້ອຫາຂອງຄົນອື່ນ.</string>
   <string name="inappropriateContentAccountClosed">ສິ່ງໃດກໍຕາມທີ່ບໍ່ເໝາະສົມ ອາດເຮັດໃຫ້ບັນຊີຂອງທ່ານຖືກປິດໄດ້.</string>
   <string name="blogTips">ເຄັດລັບງ່າຍໆໃນການຂຽນໂພສບລັອກໃຫ້ດີ</string>

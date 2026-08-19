@@ -27,7 +27,6 @@ object RequestPref:
         pieceSet = paramOrSession("pieceSet") | default.pieceSet,
         pieceSet3d = paramOrSession("pieceSet3d") | default.pieceSet3d,
         soundSet = paramOrSession("soundSet") | default.soundSet,
-        bgImg = paramOrSession("bgImg"),
         is3d = paramOrSession("is3d").has("true"),
         uiRoundness = paramOrSession("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
         board = default.board.copy(

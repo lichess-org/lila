@@ -11,9 +11,16 @@
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
   <string name="gameStart">Začátek hry</string>
-  <string name="announceCurrentSquare">Přečíst akutální pole.</string>
+  <string name="announceCurrentSquare">Přečíst aktuální pole.</string>
   <string name="announceLastMove">Přečíst poslední tah.</string>
   <string name="announceLastMoveCapture">Přečíst figuru sebranou v posledním tahu.</string>
+  <string name="announcePossibleMoves">Oznámit možné tahy pro vybranou figuru.</string>
+  <string name="announcePossibleCaptures">Oznámit možná braní pro vybranou figuru.</string>
+  <string name="moveWithArrows">Přejít na vedlejší pole doleva, doprava, nahoru nebo dolů.</string>
+  <string name="moveToRank">Tah do řady 1 až 8.</string>
+  <string name="moveToFile">Tah do sloupce a až h.</string>
+  <string name="movePiece">Pro tah figurou používejte algebraickou šachovou notaci.</string>
+  <string name="promotion">Pěšce lze proměnit na jinou figuru než královnu pomocí \"equals\". Například a-8-equals-n promění na jezdce.</string>
   <string name="king">král</string>
   <string name="whiteKing">bílý král</string>
   <string name="blackKing">černý král</string>

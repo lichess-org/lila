@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",
-    "@lichess-org/pgn-viewer": "^2.6.2",
+    "@lichess-org/pgn-viewer": "^2.6.3",
     "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.13.3",
@@ -16,8 +16,8 @@
     "chessops": "^0.15.1",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.4.0",
-    "oxfmt": "0.59.0",
-    "oxlint": "1.75.0",
+    "oxfmt": "0.61.0",
+    "oxlint": "1.77.0",
     "oxlint-tsgolint": "7.0.2001",
     "snabbdom": "3.5.1",
     "stylelint": "^17.11.1",
@@ -54,6 +54,7 @@
   "browserslist": [
     "defaults",
     "not op_mini all",
-    "not kaios <= 4"
+    "not kaios <= 4",
+    "firefox >= 115"
   ]
 }

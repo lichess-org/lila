@@ -108,7 +108,7 @@ case class Game(
 
   // not UCI. Only for lastMove display purposes.
   def lastMoveKeys: Option[String] =
-    history.lastMove.map(UciDump.lastMove(_, variant))
+    history.lastMove.map(UciDump.lastMove(_, position))
 
   def updatePlayer(color: Color, f: Player => Player) =
     copy(players = players.update(color, f))

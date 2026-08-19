@@ -35,9 +35,6 @@ export const childById = <T extends TreeNodeBase>(node: T, id: string): T | unde
 
 export const last = <T extends TreeNodeBase>(nodeList: T[]): T | undefined => nodeList[nodeList.length - 1];
 
-export const nodeAtPly = <T extends TreeNodeBase>(nodeList: T[], ply: number): T | undefined =>
-  nodeList.find(node => node.ply === ply);
-
 export function takePathWhile<T extends TreeNodeBase>(
   nodeList: T[],
   predicate: (node: T) => boolean,

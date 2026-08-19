@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Направи потез да почнеш</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Играш са белим фигурама у свим проблемима</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Играш са црним фигурама у свим проблемима</string>
   <string name="puzzlesSolved">проблема решено</string>
   <string name="newDailyHighscore">Нови дневни рекорд!</string>
   <string name="newWeeklyHighscore">Нови седмични рекорд!</string>
@@ -14,23 +16,39 @@
     <item quantity="other">%s рунди</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Одиграли једну рунду %2$s-а</item>
-    <item quantity="few">Одиграли %1$s рунде %2$s-а</item>
-    <item quantity="other">Одиграли %1$s рунди %2$s-а</item>
+    <item quantity="one">Одиграо/ла једну рунду %2$s-а</item>
+    <item quantity="few">Одиграо/ла %1$s рунде %2$s-а</item>
+    <item quantity="other">Одиграо/ла %1$s рунди %2$s-а</item>
   </plurals>
   <string name="highscoreX">Рекорд: %s</string>
   <string name="score">Резултат</string>
-  <string name="moves">Потеза</string>
+  <string name="moves">Потези</string>
   <string name="accuracy">Прецизност</string>
   <string name="combo">Комбо</string>
   <string name="time">Време</string>
   <string name="timePerMove">Време по потезу</string>
   <string name="highestSolved">Највиши решен</string>
   <string name="puzzlesPlayed">Одиграни проблеми</string>
-  <string name="newRun">Нова рунда (тастер: Спејс)</string>
-  <string name="endRun">Заврши рунду (тастер: Ентер)</string>
+  <string name="newRun">Нова рунда (тастер: Space)</string>
+  <string name="endRun">Заврши рунду (тастер: Enter)</string>
   <string name="highscores">Рекорди</string>
-  <string name="viewBestRuns">Погледајте најбоље рунде</string>
+  <string name="viewBestRuns">Погледај најбоље рунде</string>
   <string name="bestRunOfDay">Најбоља рунда дана</string>
   <string name="runs">Рунде</string>
+  <string name="getReady">Спреми се!</string>
+  <string name="waitingForMorePlayers">Чека се да се придружи више играча...</string>
+  <string name="raceComplete">Трка завршена!</string>
+  <string name="spectating">Посматраш</string>
+  <string name="joinTheRace">Придружи се трци!</string>
+  <string name="yourRankX">Твој ранг: %s</string>
+  <string name="waitForRematch">Сачекај реванш</string>
+  <string name="nextRace">Следећа трка</string>
+  <string name="joinRematch">Придружи се реваншу</string>
+  <string name="waitingToStart">Чека се да се почне</string>
+  <string name="createNewGame">Направи нову игру</string>
+  <string name="joinPublicRace">Придружи се јавној трци</string>
+  <string name="raceYourFriends">Тркај се са пријатељима</string>
+  <string name="skip">прескочи</string>
+  <string name="skipHelp">Можеш прескочити један потез по трци:</string>
+  <string name="skipExplanation">Прескочи овај потез да задржиш свој комбо! Само ради једном по трци.</string>
 </resources>
