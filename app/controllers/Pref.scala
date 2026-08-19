@@ -97,20 +97,12 @@ final class Pref(env: Env) extends LilaController(env):
   }
 
   def getJson(name: String) = Auth { ctx ?=> _ ?=>
-    lila.pref.PrefJsonChange.changes
-      .get(name)
-      .fold(notFound): change =>
-        change.get(ctx.pref).fold(NoContent)(JsonOk(_))
+    lila.pref.PrefJsonChange(name).so(_.read(ctx.pref).fold(NoContent)(JsonOk(_)))
   }
 
   def setJson(name: String) = AuthBody(parse.json) { ctx ?=> me ?=>
-    lila.pref.PrefJsonChange.changes
-      .get(name)
-      .fold(notFound): change =>
-        change
-          .set(ctx.pref, ctx.body.body)
-          .fold(
-            err => BadRequest(JsError.toJson(err)).toFuccess,
-            pref => api.setPref(me, pref).inject(NoContent)
-          )
+    lila.pref
+      .PrefJsonChange(name)
+      .so: change =>
+        api.setPref(me, change.write(ctx.pref, ctx.body.body)).inject(NoContent)
   }
