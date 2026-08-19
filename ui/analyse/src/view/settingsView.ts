@@ -104,7 +104,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
   return domDialog({
     class: 'analysis-settings-dialog',
     htmlText: '<h2>Analysis settings</h2>',
-    append: [{ node: settingsView(ctrl.settings) }],
+    insert: [{ node: settingsView(ctrl.settings) }],
     modal: !isTouchDevice(),
     easyClose: 'clickOutside',
     show: true,
