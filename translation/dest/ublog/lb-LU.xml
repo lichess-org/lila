@@ -46,13 +46,10 @@
     <item quantity="one">E Bäitrag uweisen</item>
     <item quantity="other">%s Bäiträg uweisen</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">E Bild fir däin Bäitrag eroplueden</string>
   <string name="imageAlt">Alternativen Bildtext</string>
   <string name="imageCredit">Bildquell</string>
   <string name="deleteBlog">Dëse Blog-Bäitrag endgülteg läschen</string>
-  <string name="safeToUseImages">Et kann een ouni Problemer Biller vun de follgende Websäiten ze benotzen: </string>
   <string name="selectPostTopics">Wiel d\'Theeme vun dengem Bäitrag</string>
-  <string name="useImagesYouMadeYourself">Du kanns och Biller benotzen, déi s du selwer gemaach hues, Fotoen, déi s du gemaach hues, Screenshotte vu Liches... Alles, wourop keen aneren Urheberrechter huet.</string>
   <string name="safeAndRespectfulContent">Wgl. post just sécher a respektvoll Inhalter. Kopéier net d\'Inhalter vun enger anerer Persoun.</string>
   <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>
   <string name="blogTips">Eis einfach Tuyaue fir flott Blog-Bäiträg ze schreiwen</string>

@@ -48,14 +48,12 @@
     <item quantity="one">Bitta postni koʻrish</item>
     <item quantity="other">Barcha %s ta postni koʻrish</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Postingiz uchun rasm yuklang</string>
   <string name="imageAlt">Rasm uchun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
   <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
-  <string name="safeToUseImages">Quyidagi veb‑saytlardagi rasmlardan foydalanish xavfsiz: </string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
-  <string name="useImagesYouMadeYourself">Oʻzingiz yaratgan yoki olgan rasm va suratlar yoki Lichess skrinshotlaridan foydalanishingiz mumkin. Faqat ular boshqa birovning mualliflik huquqi ostida boʻlmasa kifoya.</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
+  <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>
   <string name="inappropriateContentAccountClosed">Har qanday nomunosib kontent profilingiz yopilishiga sabab boʻlishi mumkin.</string>
   <string name="blogTips">Sifatli post yozish boʻyicha foydali tavsiyalar</string>
   <string name="discussThisBlogPostInTheForum">Ushbu postni forumda muhokama qilish</string>

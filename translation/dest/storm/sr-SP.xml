@@ -49,5 +49,6 @@
   <string name="joinPublicRace">Придружи се јавној трци</string>
   <string name="raceYourFriends">Тркај се са пријатељима</string>
   <string name="skip">прескочи</string>
+  <string name="skipHelp">Можеш прескочити један потез по трци:</string>
   <string name="skipExplanation">Прескочи овај потез да задржиш свој комбо! Само ради једном по трци.</string>
 </resources>
