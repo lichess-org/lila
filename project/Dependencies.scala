@@ -107,7 +107,7 @@ object Dependencies:
     val metrics = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus" % version
   object pekko:
-    val version = "1.6.0"
+    val version = "1.7.0"
     val actor = "org.apache.pekko" %% "pekko-actor" % version
     val pekkoStream = "org.apache.pekko" %% "pekko-stream" % version
     val pekkoSlf4j = "org.apache.pekko" %% "pekko-slf4j" % version
