@@ -9,8 +9,9 @@ html.transp.light {
   --c-clearer: hsl(0 0% 5%);
   --c-dimmer: hsl(0 0% 90%);
   --c-border: hsl(0 0% 80% / 0.8);
+  --c-body-gradient: hsl(var(---site-hue) 2% 86%);
+  --c-brag-hover: hsl(from var(--c-brag) h 100 70);
   --c-bg: hsl(0 0% 100% / 0.6);
-  --c-body-gradient: hsl(var(---site-hue) 12% 84%);
   --c-bg-page: hsl(var(---site-hue) 10% 92%);
   --c-bg-font: hsl(0 0% 20%);
   --c-bg-opaque: hsl(0 0% 100% / 0.9);
@@ -28,10 +29,10 @@ html.transp.light {
   --c-font-clearer: hsl(from var(--c-font) h s 7%);
   --c-font-page: hsl(from var(--c-font) h s 7%);
   --c-font-shadow: hsl(0 0% 83% / 0.66);
-  --c-metal-top: hsl(37 7% 91% / 0.56);
-  --c-metal-bottom: hsl(37 7% 91% / 0.66);
-  --c-metal-top-hover: hsl(0 0% 78% / 0.2);
-  --c-metal-bottom-hover: hsl(0 0% 78% / 0.4);
+  --c-metal-top: hsl(37 5% 96% / 0.56);
+  --c-metal-bottom: hsl(37 5% 93% / 0.66);
+  --c-metal-top-hover: hsl(0 0% 78% / 0.4);
+  --c-metal-bottom-hover: hsl(0 0% 78% / 0.45);
   --c-shade: hsl(0 0% 84%);
   --c-page-mask: hsl(0 0% 100% / 0.4);
 }

@@ -79,6 +79,10 @@
 
   &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.12), hsl(0 0% 0% / 0.1), true);
+
+    @include if-transp {
+      @include with-metal-hover-shadow(hsl(0 0% 0% / 0.06), hsl(0 0% 0% / 0.05), true);
+    }
   }
 }
 
