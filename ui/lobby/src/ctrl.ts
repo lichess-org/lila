@@ -271,12 +271,14 @@ export default class LobbyController {
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
-    this.poolKeyboardLeaveListener = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      this.leavePool();
-      this.redraw();
-    };
-    document.addEventListener('keydown', this.poolKeyboardLeaveListener);
+    if (this.poolKeyboardLeaveListener === undefined) {
+      this.poolKeyboardLeaveListener = (event: KeyboardEvent) => {
+        if (event.key !== 'Escape') return;
+        this.leavePool();
+        this.redraw();
+      };
+      document.addEventListener('keydown', this.poolKeyboardLeaveListener);
+    }
   };
 
   leavePool = () => {
