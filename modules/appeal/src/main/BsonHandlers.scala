@@ -8,6 +8,7 @@ import lila.db.dsl.{ *, given }
 private object BsonHandlers:
 
   import Appeal.Status
+  import AppealMsg.Kind
 
   given BSONHandler[Status] = stringAnyValHandler(_.toString, t => Status(t) | Status.read)
 
@@ -22,13 +23,12 @@ private object BsonHandlers:
 
   given BSONHandler[AppealMsg] = new BSON[AppealMsg]:
     def reads(r: BSON.Reader): AppealMsg =
-      r.strO("kind") match
+      r.strO("kind").flatMap(Kind.apply) match
         case None => legacyHandler.readTry(r.doc).get
-        case Some("userMessage") => userMessageHandler.readTry(r.doc).get
-        case Some("modMessage") => modMessageHandler.readTry(r.doc).get
-        case Some("userChoice") => userChoiceHandler.readTry(r.doc).get
-        case Some("modChoice") => modChoiceHandler.readTry(r.doc).get
-        case Some(other) => sys.error(s"unknown appeal msg kind: $other")
+        case Some(Kind.userMessage) => userMessageHandler.readTry(r.doc).get
+        case Some(Kind.modMessage) => modMessageHandler.readTry(r.doc).get
+        case Some(Kind.userChoice) => userChoiceHandler.readTry(r.doc).get
+        case Some(Kind.modChoice) => modChoiceHandler.readTry(r.doc).get
     def writes(w: BSON.Writer, msg: AppealMsg) =
       val doc = msg match
         case m: LegacyMessage => legacyHandler.writeTry(m).get
@@ -36,7 +36,7 @@ private object BsonHandlers:
         case m: ModMessageEvent => modMessageHandler.writeTry(m).get
         case m: UserChoiceEvent => userChoiceHandler.writeTry(m).get
         case m: ModChoiceEvent => modChoiceHandler.writeTry(m).get
-      msg.kind.fold(doc)(k => doc ++ $doc("kind" -> k))
+      msg.kind.fold(doc)(k => doc ++ $doc("kind" -> k.key))
 
   given BSONDocumentHandler[AccountsDisclosure] = Macros.handler
   given BSONDocumentHandler[Appeal] = Macros.handler
