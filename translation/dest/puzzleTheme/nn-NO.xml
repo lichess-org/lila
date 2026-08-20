@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
   <string name="pillsburysMate">Pillsburymatt</string>
   <string name="pillsburysMateDescription">Tårnet set sjakkmatt medan løparen sperrar av.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Tårnet set sjakkmatt medan løparen sperrar av.</string>
   <string name="morphysMate">Morphys matt</string>
   <string name="morphysMateDescription">Bruk løparen til å sjakke kongen, medan tårnet avgrensar rørslene til kongen.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Løparen set sjakkmatt medan tårnet sperrar av.</string>
   <string name="swallowstailMate">Svalehalematt (Swallow\'s tail mate)</string>
   <string name="swallowstailMateDescription">Eit sjakkmatt-motiv som visuelt liknar på en svalehale, dvs. ein V-form.</string>
   <string name="triangleMate">Trekantmatt</string>

@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">رُخ در کنار شاه دشمن قرار دارد و توسط یک وزیر حمایت می‌شود که همچنین مسیرهای فرار شاه را مسدود کرده است. رُخ و وزیر شاه دشمن را در یک \"جعبه مرگ\" ۳ در ۳ گیر انداخته‌اند.</string>
   <string name="pillsburysMate">ماتِ پیزبِری</string>
   <string name="pillsburysMateDescription">فیل به محدود کردنِ شاه کمک می‌کند، رُخ مات می‌کند.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">فیل به محدود کردنِ شاه کمک می‌کند، رُخ مات می‌کند.</string>
   <string name="morphysMate">ماتِ مُرفی</string>
   <string name="morphysMateDescription">رُخ به محدود کردنِ شاه کمک می‌کند، فیل مات می‌کند.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">رخ به محدود کردنِ شاه کمک می‌کند، فیل مات می‌کند.</string>
   <string name="swallowstailMate">ماتِ دُم‌پرستو</string>
   <string name="swallowstailMateDescription">الگوی ماتی که ظاهرش شبیهِ دُمِ پرستو یا عدد ۷ است.</string>
   <string name="triangleMate">ماتِ مثلث</string>

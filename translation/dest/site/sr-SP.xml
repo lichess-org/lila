@@ -82,6 +82,7 @@
   <string name="expandVariations">Рашири варијације</string>
   <string name="forceVariation">Приморај варијацијом</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
+  <string name="copyMainLinePgn">Копирај ПГН главне линије</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Пораз варијанте</string>
   <string name="variantWin">Победа варијанте</string>
@@ -133,9 +134,12 @@
   <string name="visualMotifs">Визуелни мотиви</string>
   <string name="undefendedPieces">Небрањене фигуре</string>
   <string name="pinnedPieces">Везане фигуре</string>
+  <string name="checkableKing">Краљ подложан шаху</string>
   <string name="multipleLines">Више линија</string>
+  <string name="multipleLinesDescription">Broj linija analize i strelice poteza na tabli</string>
   <string name="searchTime">Време претраге</string>
   <string name="threads">Нити</string>
+  <string name="threadsDescription">Postavite ovo ispod broja niti vašeg procesora, oznake predstavljaju dobar i bezbedan izbor</string>
   <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
   <string name="memoryDescription">Више вредности могу побољшати перформансе</string>
@@ -488,6 +492,7 @@
     <item quantity="few">%s праћења</item>
     <item quantity="other">%s праћења</item>
   </plurals>
+  <string name="less">Мање</string>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
   <string name="lastSeenActive">Активан/на %s</string>
@@ -750,6 +755,7 @@
   <string name="cyclePreviousOrNextVariation">Тренутна/претходна варијација</string>
   <string name="toggleGlyphAnnotations">Анотација потеза</string>
   <string name="togglePositionAnnotations">Анотација позиције</string>
+  <string name="toggleObservationAnnotations">Укључи/искључи коментаре посматрања</string>
   <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
   <string name="playSelectedMove">одиграј одабрани потез</string>
   <string name="newTournament">Нови турнир</string>
@@ -832,9 +838,11 @@
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>
   <string name="background">Позадина</string>
+  <string name="theme">Tema</string>
   <string name="light">Светла</string>
   <string name="dark">Тамна</string>
   <string name="transparent">Провидна</string>
+  <string name="picture">Слика</string>
   <string name="deviceTheme">Тема уређаја</string>
   <string name="backgroundImageUrl">Линк позадиснке слике:</string>
   <string name="board">Табла</string>
@@ -1037,4 +1045,5 @@
   <string name="search">Тражи</string>
   <string name="clearSearch">Очисти претрагу</string>
   <string name="thereAreNoResultsForX">Нема резултата за \"%s\"</string>
+  <string name="settings">Подешавања</string>
 </resources>

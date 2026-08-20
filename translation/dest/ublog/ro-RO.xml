@@ -54,7 +54,7 @@
   </plurals>
   <string name="imageAlt">Text alternativ imagine</string>
   <string name="imageCredit">Sursa imaginii</string>
-  <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Șterge definitiv această postare pe blog</string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
   <string name="safeAndRespectfulContent">Vă rugăm să postați numai conținut sigur și respectuos. Nu copiați conținutul altcuiva.</string>
   <string name="noCopyrightedImages">Folosiți doar imagini care nu sunt protejate de drepturi de autor de altcineva.</string>

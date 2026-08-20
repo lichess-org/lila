@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">يقف الرخ بجانب ملك العدو ويدعمه وزير يساهم أيضًا في حجب خانات هروب الملك. يقوم الرخ والوزير بمحاصرة ملك العدو داخل \"صندوق قتل\" بمساحة 3×3.</string>
   <string name="pillsburysMate">كش بيلسبوري</string>
   <string name="pillsburysMateDescription">القلعة تقوم بالكش بينما الفيل يحبس الملك</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">ينفّذ الرخ كش مات للملك، بينما يساعد الفيل على تقييد حركته.</string>
   <string name="morphysMate">كش مورفي</string>
   <string name="morphysMateDescription">استخدم الفيل لكش الملك، بينما القلعة تحبسه.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">ينفّذ الفيل كش مات للملك، بينما يساعد الرخ في تقييد حركته.</string>
   <string name="swallowstailMate">كش ذيل السنونو</string>
   <string name="swallowstailMateDescription">نمط كش يشبه بصرياً مظهر ذيل السنونو يشبه شكل V.</string>
   <string name="triangleMate">كش مثلث</string>

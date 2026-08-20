@@ -57,6 +57,7 @@
   <string name="subscribeTitle">Inscreva-se para ser notificado no início de cada rodada. Você pode configurar as notificações de transmissões nas suas preferências.</string>
   <string name="uploadImage">Enviar imagem de torneio</string>
   <string name="noBoardsYet">Sem tabuleiros ainda. Eles vão aparecer quando os jogos forem enviados.</string>
+  <string name="noPlayersYet">Sem jogadores ainda. Eles vão aparecer quando os jogos forem enviados.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tabuleiros são carregados com uma fonte ou pelo %s</string>
   <string name="startsAfter">Começa após %s</string>
   <string name="startVerySoon">A transmissão começará em breve.</string>

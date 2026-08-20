@@ -4,7 +4,7 @@
   <string name="advancedPawnDescription">A chave do tático é um peão a promover ou a ameaçar promover.</string>
   <string name="advantage">Vantagem</string>
   <string name="advantageDescription">Aproveita a oportunidade de obter uma vantagem decisiva. (200cp ≤ aval ≤ 600cp)</string>
-  <string name="anastasiaMate">Mate Anastasia</string>
+  <string name="anastasiaMate">Mate Anastásia</string>
   <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam para prender o rei inimigo entre um lado do tabuleiro e outra peça inimiga.</string>
   <string name="arabianMate">Mate Árabe</string>
   <string name="arabianMateDescription">Um cavalo e uma torre cooperam para prenderem o rei inimigo no canto do tabuleiro.</string>
@@ -32,9 +32,9 @@
   <string name="cornerMateDescription">Confinar o rei a um canto utilizando uma torre ou uma dama, enquanto um cavalo participa no xeque-mate.</string>
   <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
-  <string name="discoveredCheck">Xeque Descoberto</string>
+  <string name="discoveredCheck">Xeque descoberto</string>
   <string name="discoveredCheckDescription">Mover uma peça para revelar um xeque de uma peça atacante que estava oculta, o que frequentemente conduz a uma vantagem decisiva.</string>
-  <string name="doubleBishopMate">Mate com dois bispos</string>
+  <string name="doubleBishopMate">Mate com dois Bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="dovetailMate">Mate cauda-de-andorinha</string>
   <string name="dovetailMateDescription">Uma dama dá mate ao rei inimigo cujas jogadas de escape estão bloqueadas por peças aliadas.</string>
@@ -45,7 +45,7 @@
   <string name="clearance">Limpeza</string>
   <string name="clearanceDescription">Uma jogada, com tempo, que limpa uma casa, fila, coluna ou diagonal para uma ideia tática subsequente.</string>
   <string name="defensiveMove">Movimento defensivo</string>
-  <string name="defensiveMoveDescription">Um movimento ou sequência de movimentos precisos, necessários para evitar uma desvantagem, como por exemplo perda de material.</string>
+  <string name="defensiveMoveDescription">Um movimento ou sequência de movimentos precisos necessários para evitar perder material ou outro tipo de vantagem.</string>
   <string name="deflection">Desvio</string>
   <string name="deflectionDescription">Uma jogada que distrai uma peça do adversário de outra função, como por exemplo, proteger uma casa chave. Às vezes também é chamado de sobrecarga.</string>
   <string name="discoveredAttack">Ataque descoberto</string>
@@ -55,16 +55,19 @@
   <string name="endgame">Final de jogo</string>
   <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
   <string name="enPassantDescription">Uma tática que envolve a regra de \"en passant\", onde um peão pode capturar um peão adversário que o ignorou usando o seu primeiro movimento de duas casas.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Um tático que envolve a regra de \"en passant\", onde um peão pode capturar um peão adversário que o ignorou. Isto acontece quando o Peão se encontra na posição inicial e se move duas casas.</string>
   <string name="epauletteMate">Xeque-mate Epaulette</string>
   <string name="epauletteMateDescription">Duas casas de fuga adjacentes para um rei em xeque estão ocupadas por outras peças.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
   <string name="fork">Garfo</string>
   <string name="forkDescription">Uma jogada em que uma peça ataca duas peças do adversário simultaneamente.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Uma jogada em que uma peça ataca duas ou mais peças adversária, simultaneamente.</string>
   <string name="hangingPiece">Peça desprotegida</string>
   <string name="hangingPieceDescription">Uma tática que envolve uma peça do adversário que não está suficientemente defendida e por isso pode ser capturada.</string>
   <string name="hookMate">Mate gancho</string>
   <string name="hookMateDescription">Mate com uma torre, cavalo e peão em que o rei inimigo tem as jogadas de escape bloqueadas por um peão aliado.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Xeque-mate usando uma Torre, um Cavalo e um Peão, quando um Peão adversário bloqueia a fuga do Rei.</string>
   <string name="interference">Interferência</string>
   <string name="interferenceDescription">Jogar uma peça para uma casa entre duas peças do adversário deixando pelo menos uma delas desprotegia, como por exemplo um cavalo numa casa defendida entre duas torres.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -73,8 +76,10 @@
   <string name="killBoxMateDescription">Uma torre está ao lado do rei inimigo apoiada por uma dama que também bloqueia as casas de fuga do rei. A torre e a dama apanham o rei inimigo numa “caixa de morte” de 3 por 3.</string>
   <string name="pillsburysMate">Xeque-mate Pillsburry</string>
   <string name="pillsburysMateDescription">A Torre faz xeque-mate, enquanto o bispo ajuda a confiná-lo.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">A Torre faz xeque-mate, enquanto o Bispo ajuda a confiná-lo.</string>
   <string name="morphysMate">Xeque-mate Morphy</string>
   <string name="morphysMateDescription">Usa o bispo para fazer xeque ao rei, enquanto a tua torre ajuda a confina-lo.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Um Bispo faz xeque-mate ao rei, enquanto uma Torre ajuda a confiná-lo.</string>
   <string name="swallowstailMate">Mate da Cauda de Andorinha</string>
   <string name="swallowstailMateDescription">Um padrão de xeque-mate que se assemelha visualmente à cauda de uma andorinha, com uma forma semelhante à letra V.</string>
   <string name="triangleMate">Xeque-mate do triângulo</string>
