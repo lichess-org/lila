@@ -26,7 +26,7 @@ object RageSit:
     {
       import chess.variant.*
       (game.chess.position.materialImbalance, game.variant) match
-        case (_, Crazyhouse | Horde | Antichess) => 0
+        case (_, Horde | Antichess) => 0
         case (a, _) if a >= 4 => 1
         case (a, _) if a <= -4 => -1
         case _ => 0
