@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Och nu, det långa svaret! Spel-lagg är uppbyggt av två orelaterade värden (lägre är bättre):</string>
   <string name="lichessServerLatency">Lichess serverlatens</string>
   <string name="lichessServerLatencyExplanation">Den tid det tar att bearbeta ett drag på servern. Det är samma för alla, och beror bara på serverbelastningen. Ju fler spelare desto högre blir den, men Lichess-utvecklarna gör sitt bästa för att hålla det lågt. Det överstiger sällan 10ms.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">Tiden det tör att bearbeta ett drag på servern. Det är samma för alla och beror på serverns belastning. Ju fler spelare desto större belastning blir det, men vi gör vårt bästa för att hålla den låg. Den överstiger sällan 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Nätverk mellan Lichess och dig</string>
   <string name="networkBetweenLichessAndYouExplanation">Den tid det tar att skicka ett drag från din dator till Lichess server, och få svaret tillbaka. Det är specifikt för ditt avstlånd till Lichess (Frankrike), och till kvaliteten på din Internet-anslutning. Lichess-utvecklarna kan inte fixa ditt wifi eller få ljus att röra sig snabbare.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du kan hitta båda dessa värden när som helst, genom att klicka på ditt användarnamn i det övre fältet.</string>

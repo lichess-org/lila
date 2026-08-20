@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Runde-Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Schpiel definitiv lösche.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">S\'Turnier permanent lösche, inklusivi allne Runde und Partie?</string>
   <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="fideFederations">FIDE Wältschachverband</string>
@@ -57,12 +58,14 @@
   <string name="subscribeTitle">Mäld dich a, zum über jede Rundeschtart informiert z\'werde. Du chasch de Alarm- oder d\'Push-Benachrichtigung, für Überträgige, i dine Kontoischtellige umschalte.</string>
   <string name="uploadImage">Turnier-Bild ufelade</string>
   <string name="noBoardsYet">No kei Brätter. Die erschined, sobald Schpiel ufeglade sind.</string>
+  <string name="noPlayersYet">No chei Schpiller vorhande. Sie werdet gzeigt, sobald Partie hochglade sind.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brätter chönd mit ere Quälle oder via %s ufeglade werde</string>
   <string name="startsAfter">Schtartet nach %s</string>
   <string name="startVerySoon">Die Überträgig schtartet sehr bald.</string>
   <string name="notYetStarted">Die Überträgig hät nonig agfange.</string>
   <string name="officialWebsite">Offizielli Website</string>
   <string name="officialStandings">Offizielli Ranglischte</string>
+  <string name="regulations">Reglement</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Meh Optionen uf %s</string>
   <string name="webmastersPage">Webmaster Site</string>
   <string name="embedThisBroadcast">Nimm die Überträgig uf dini Website</string>
@@ -106,4 +109,6 @@
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Schpiel %s</string>
   <string name="knockouts">Usscheidigskämpf</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

@@ -79,5 +79,6 @@
   <string name="monetiseNoMarketingEmail">Por favor não nos mande email sobre marketing, rastreamento ou propaganda.</string>
   <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Nós encorajamos todos a %s.</string>
   <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anúncios e rastreadores</string>
+  <string name="broadcastTournamentOnLichess">Transmita um torneio em Lichess</string>
   <string name="ourDiscordServer">nosso servidor no Discord</string>
 </resources>

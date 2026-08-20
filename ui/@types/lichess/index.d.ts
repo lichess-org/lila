@@ -116,7 +116,7 @@ interface SoundI {
   sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
-  sayOrPlay(name: string, text: string): void;
+  sayOrPlay(name: string, text: string, cut?: boolean): void;
   preloadBoardSounds(): void;
   url(name: string): string;
 }

@@ -22,7 +22,7 @@ object Dependencies:
   val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.50.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
-  val lettuce = "io.lettuce" % "lettuce-core" % "7.6.0.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "7.7.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.17.Final").classifier(s"$os-$arch")
   val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
@@ -40,7 +40,7 @@ object Dependencies:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "17.16.1"
+    val version = "17.16.2"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -51,7 +51,7 @@ object Dependencies:
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
 
   object scalalib:
-    val version = "11.10.11"
+    val version = "11.10.12"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version
@@ -77,9 +77,9 @@ object Dependencies:
     def bundle = Seq(macros, util, tagging)
 
   object reactivemongo:
-    val rmVersion = "1.1.0-RC20"
+    val rmVersion = "1.1.0-RC21"
     // Use the Pekko actor backend instead of the default Akka one, so the whole app is Akka-free.
-    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC20")
+    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC21")
     val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
     val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
     def bundle = Seq(driver, actorsPekko, stream)
@@ -107,7 +107,7 @@ object Dependencies:
     val metrics = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus" % version
   object pekko:
-    val version = "1.6.0"
+    val version = "1.7.0"
     val actor = "org.apache.pekko" %% "pekko-actor" % version
     val pekkoStream = "org.apache.pekko" %% "pekko-stream" % version
     val pekkoSlf4j = "org.apache.pekko" %% "pekko-slf4j" % version

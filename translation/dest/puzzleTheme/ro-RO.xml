@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">O tură este lingă regele inamic și susținută de o regină care de asemenea blochează pătratele pe unde ar putea evada regele. Tura și regina îl prind pe rege într-o \"casetă mortală\" de 3x3.</string>
   <string name="pillsburysMate">Mat Pillsbury</string>
   <string name="pillsburysMateDescription">Tura dă mat, iar nebunul ajută la constrângerea regelui.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">O tură dă șah-mat regelui, în timp ce un nebun ajută la restrângerea lui.</string>
   <string name="morphysMate">Mat Morphy</string>
   <string name="morphysMateDescription">Folosește nebunul ca să dai șah regelui, în timp ce tura îl constrânge.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Un nebun dă șah-mat regelui, în timp ce o tură ajută la restrângerea lui.</string>
   <string name="swallowstailMate">Mat coadă de rândunică</string>
   <string name="swallowstailMateDescription">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>

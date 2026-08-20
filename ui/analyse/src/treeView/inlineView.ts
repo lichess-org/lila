@@ -165,7 +165,7 @@ export class InlineView {
         !currentPath && !!ctrl.gamePath && treePath.contains(path, ctrl.gamePath) && path !== ctrl.gamePath,
       'context-menu': path === ctrl.contextMenuPath,
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
-      'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
+      'pending-copy': ctrl.isPendingCopy(path, isMainline),
     };
     const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);

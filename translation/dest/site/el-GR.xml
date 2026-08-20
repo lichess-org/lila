@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Ρύθμιση παρτίδας</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Νέα πρόκληση</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Προκαλέστε φίλο</string>
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
   <string name="createLobbyGame">Νέα παρτίδα</string>
@@ -9,7 +9,7 @@
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
   <string name="orLetYourOpponentScanQrCode">Ή ζητήστε από τον αντίπαλό σας να σαρώσει αυτόν τον κωδικό QR</string>
-  <string name="reusableChallengeUrl">Επαναχρησιμοποιήσιμος σύνδεσμος πρόκλησης</string>
+  <string name="reusableChallengeUrl">Μόνιμος σύνδεσμος πρόκλησης</string>
   <string name="permanentLinkForAnyoneToChallengeYou">Μόνιμος σύνδεσμος που επιτρέπει σε κάποιον να σας προκαλέσει χρησιμοποιώντας τις επιλεγμένες ρυθμίσεις.</string>
   <string name="waiting">Αναμονή</string>
   <string name="yourTurn">Η σειρά σας</string>
@@ -837,6 +837,7 @@
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="roundness">Καμπυλότητα</string>
   <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
+  <string name="imageOpacity">Διαφάνεια εικόνας</string>
   <string name="board">Σκακιέρα</string>
   <string name="size">Μέγεθος</string>
   <string name="opacity">Αδιαφάνεια</string>

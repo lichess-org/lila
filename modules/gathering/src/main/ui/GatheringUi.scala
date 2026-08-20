@@ -141,7 +141,9 @@ final class GatheringFormUi(helpers: Helpers):
           help = frag(
             "Only if Lichess is responsible for the payout",
             br,
-            "Amounts in USD: e.g. $500/$250/$100/$50/$25"
+            "Amounts in USD: e.g. $500/$250/$100/$50/$25",
+            br,
+            "If set, winners will automatically be sent a DM to claim their prize via the Payment Portal"
           ).some,
           half = true
         )(form3.input(_))

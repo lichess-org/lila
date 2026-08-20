@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Ένας πύργος βρίσκεται δίπλα από τον αντίπαλο βασιλιά και υποστηρίζεται από τη βασίλισσα η οποία εμποδίζει τα τετράγωνα διαφυγής του βασιλιά. Ο πύργος και η βασίλισσα εγκλωβίζουν τον αντίπαλο βασιλιά σε ένα 3 επί 3 «κουτί εξόντωσης».</string>
   <string name="pillsburysMate">Ματ του Πίλσμπερι</string>
   <string name="pillsburysMateDescription">Ο πύργος κάνει ματ στον αντίπαλο βασιλιά, τον οποίο ένας αξιωματικός έχει περιορίσει.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Ο πύργος κάνει ματ τον βασιλιά με την βοήθεια ενός αξιωματικού.</string>
   <string name="morphysMate">Ματ του Μόρφυ</string>
   <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Ο αξιωματικός κάνει ματ στον βασιλιά που περιορίζεται από έναν πύργο.</string>
   <string name="swallowstailMate">Ματ χελιδονοουράς</string>
   <string name="swallowstailMateDescription">Ένα μοτίβο ματ που οπτικά μοιάζει με την ουρά ενός χελιδονιού, παρόμοιο με το σχήμα V.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>

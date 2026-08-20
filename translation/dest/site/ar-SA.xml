@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">ترتيب اللعبة</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">تحدي صديق</string>
-  <string name="playAgainstComputer">لعب ضد الحاسوب</string>
-  <string name="gameMode">نمط اللعب</string>
-  <string name="createLobbyGame">إنشاء ساحة لعب</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
-  <string name="gameOver">انتهت المباراة</string>
+  <string name="gameSetup">إعداد اللعبة</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">تحدَّ صديقًا</string>
+  <string name="playAgainstComputer">العب ضدّ الحاسب</string>
+  <string name="gameMode">وضع اللعب</string>
+  <string name="createLobbyGame">أنشئ لعبة ردهة</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخصٍ ما للّعب، أعطِه هذا الرابط</string>
+  <string name="gameOver">انتهت اللعبة</string>
   <string name="waitingForOpponent">في انتظار المنافس</string>
   <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="reusableChallengeUrl">رابط التحدي قابل لإعادة الاستعمال</string>
@@ -1010,7 +1010,7 @@ https://lichess. org/report.</string>
   <string name="deviceTheme">مظهر الجهاز</string>
   <string name="roundness">استدارة الزوايا</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
-  <string name="backgroundImageOpacity">درجة شفافية صورة الخلفية:</string>
+  <string name="imageOpacity">شفافية الصورة</string>
   <string name="board">اللوحة</string>
   <string name="size">الحجم</string>
   <string name="opacity">الشفافيّة</string>

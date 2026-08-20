@@ -16,10 +16,9 @@ export const last = (path: TreePath): string => path.slice(-2);
 
 export const contains = (p1: TreePath, p2: TreePath): boolean => p1.startsWith(p2);
 
-export const fromNodeList = (nodes: TreeNode[]): TreePath => nodes.map(n => n.id).join('');
+export const areComparable = (p1: TreePath, p2: TreePath): boolean => contains(p1, p2) || contains(p2, p1);
 
-export const isChildOf = (child: TreePath, parent: TreePath): boolean =>
-  !!child && child.slice(0, -2) === parent;
+export const fromNodeList = (nodes: TreeNode[]): TreePath => nodes.map(n => n.id).join('');
 
 export const intersection = (p1: TreePath, p2: TreePath): TreePath => {
   const head1 = head(p1),

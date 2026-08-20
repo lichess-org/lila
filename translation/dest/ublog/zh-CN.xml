@@ -44,14 +44,12 @@
   <plurals name="viewAllNbPosts">
     <item quantity="other">查看所有 %s 篇文章</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">为您的文章上传一张图片</string>
   <string name="imageAlt">图片备选文本</string>
   <string name="imageCredit">图片来源</string>
-  <string name="deleteBlog">永久删除此博客文章</string>
-  <string name="safeToUseImages">可以安全使用以下网站的图片：</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">永久删除此博客文章</string>
   <string name="selectPostTopics">请选择您文章涉及的主题</string>
-  <string name="useImagesYouMadeYourself">您也可以使用自己制作的图片、拍摄的照片、Lichess 的截图…任何非他人拥有版权的内容。</string>
   <string name="safeAndRespectfulContent">请仅发布安全且尊重他人的内容。请勿复制他人的内容。</string>
+  <string name="noCopyrightedImages">请仅使用不涉及他人版权的图片。</string>
   <string name="inappropriateContentAccountClosed">任何不当内容都可能导致您的账户被封禁。</string>
   <string name="blogTips">我们撰写优秀博客文章的简单技巧</string>
   <string name="discussThisBlogPostInTheForum">在论坛中讨论此博客文章</string>

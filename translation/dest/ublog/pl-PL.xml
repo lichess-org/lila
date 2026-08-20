@@ -56,14 +56,12 @@
     <item quantity="many">Zobacz %s wpisów</item>
     <item quantity="other">Zobacz %s wpisów</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Prześlij obraz do swojego wpisu</string>
   <string name="imageAlt">Tekst alternatywny obrazu</string>
   <string name="imageCredit">Prawa autorskie</string>
-  <string name="deleteBlog">Usuń bezpowrotnie ten wpis na blogu</string>
-  <string name="safeToUseImages">Można bezpieczne korzystać z obrazków dostępnych na następujących stronach internetowych: </string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Usuń bezpowrotnie ten wpis na blogu</string>
   <string name="selectPostTopics">Wybierz tematy, których dotyczy Twój post</string>
-  <string name="useImagesYouMadeYourself">Możesz również używać obrazów, które sam stworzyłeś, zdjęć, które zrobiłeś, zrzutów ekranu Lichess... czegokolwiek co nie jest chronione prawem autorskim kogoś innego.</string>
   <string name="safeAndRespectfulContent">Publikuj proszę wyłącznie wyważone i taktowne treści. Nie kopiuj materiałów od innych.</string>
+  <string name="noCopyrightedImages">Używaj tylko obrazów, które nie są chronione prawem autorskim.</string>
   <string name="inappropriateContentAccountClosed">Każda niestosowna rzecz może spowodować zamknięcie Twojego konta.</string>
   <string name="blogTips">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
   <string name="discussThisBlogPostInTheForum">Omów ten wpis na forum</string>

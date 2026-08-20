@@ -48,14 +48,12 @@
     <item quantity="one">Ver uma postagem</item>
     <item quantity="other">Ver todas as %s postagens</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Enviar uma imagem para sua postagem</string>
   <string name="imageAlt">Texto alternativo para a imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
-  <string name="deleteBlog">Excluir esta postagem definitivamente</string>
-  <string name="safeToUseImages">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Excluir esta postagem definitivamente</string>
   <string name="selectPostTopics">Selecione os assuntos da sua postagem</string>
-  <string name="useImagesYouMadeYourself">Você também pode utilizar imagens feitas por você, fotografias que tirou, capturas de tela do Lichess... qualquer coisa que não esteja protegida por direitos autorais de outra pessoa.</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
+  <string name="noCopyrightedImages">Apenas use imagens que não são protegidas por direitos autorais por outra pessoa.</string>
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
   <string name="blogTips">Nossas dicas simples para escrever ótimas postagens no blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta postagem no fórum</string>

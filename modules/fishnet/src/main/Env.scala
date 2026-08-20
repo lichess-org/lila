@@ -92,7 +92,7 @@ final class Env(
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "fishnet" :: "client" :: "create" :: name :: Nil =>
       userApi
         .enabledById(UserStr(name))

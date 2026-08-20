@@ -15,6 +15,7 @@ class AnalyserTest extends munit.FunSuite:
     assert(grave("kys"))
     assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
+    assert(grave("rope"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))
@@ -38,6 +39,7 @@ class AnalyserTest extends munit.FunSuite:
   test("find no bad words"):
     assertEquals(find(""), Nil)
     assertEquals(find("hello there"), Nil)
+    assertEquals(find("on the ropes"), Nil)
     assertEquals(
       find:
         "A sonnet is a poetic form which originated in Italy; Giacomo Da Lentini is credited with its invention."
@@ -117,6 +119,7 @@ class AnalyserTest extends munit.FunSuite:
 
   test("with punctuation"):
     assertEquals(find("nigger?"), List("nigger"))
+    assertEquals(find("d|e in hel"), List("d|e in hel"))
 
   test("with slash and plural"):
     assertEquals(find("/Vigger"), List("vigger"))

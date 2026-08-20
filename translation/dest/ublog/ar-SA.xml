@@ -64,14 +64,12 @@
     <item quantity="many">عرض %s مقالات</item>
     <item quantity="other">عرض %s مقال</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">تحميل صورة لمقالتك</string>
   <string name="imageAlt">نص بديل الصورة</string>
   <string name="imageCredit">حقوق الصورة</string>
-  <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
-  <string name="safeToUseImages">من الآمن استخدام الصور من المواقع التالية على الإنترنت: </string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
-  <string name="useImagesYouMadeYourself">يمكنك أيضًا استخدام الصور التي قمت بإنشائها بنفسك، والصور التي التقطها، ولقطات شاشة من موقعنا... وأي شيء لا يخضع لحقوق النشر لأي شخص أخر.</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
+  <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>
   <string name="inappropriateContentAccountClosed">أي شيء غير لائق من الممكن أن يتسبب بإغلاق حسابك.</string>
   <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
   <string name="discussThisBlogPostInTheForum">ناقش منشور المدونة هذا في المنتدى</string>

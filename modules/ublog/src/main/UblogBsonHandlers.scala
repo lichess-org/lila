@@ -47,3 +47,11 @@ private object UblogBsonHandlers:
     )
 
   val userLiveSort = $doc("sticky" -> -1, "lived.at" -> -1)
+
+  def pendingReviewSelect = $doc(
+    "automod.quality" -> Quality.good,
+    "quality" -> Quality.weak,
+    "modQuality".$exists(false),
+    "live" -> true,
+    "lived.at".$gt(nowInstant.minusMonths(1))
+  )

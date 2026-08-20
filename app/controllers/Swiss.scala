@@ -197,7 +197,7 @@ final class Swiss(
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
     WithEditableSwiss(id): swiss =>
       bindForm(env.swiss.forms.edit(swiss))(
-        err => jsonFormError(err),
+        jsonFormError,
         data =>
           env.swiss.api.update(swiss.id, data) >>
             FoundOk(env.swiss.api.update(swiss.id, data))(apiJson)

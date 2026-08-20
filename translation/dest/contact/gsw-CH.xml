@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Öppis anders</string>
   <string name="sendEmailAt">Schick eus e E-Mail a %s.</string>
   <string name="explainYourRequest">Bitte erchlär dini Afrag klar und dütlich. Nänn eus din Nutzername und alli Infos wo eus chönnd hälfe, dir z\'hälfe.</string>
+  <string name="monetiseNotInterested">Lichess het chais Interesse, monetisiert z\'werde.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Mir werdet niä Werbig schalte, üsi Schpiller überwache oder au Schpiller oder Verchär für\'d site choufe odr verchoufe.</string>
+  <string name="monetiseNoMarketingEmail">Bitte sind so guet und schicket eus chai Mails über Marketing, Tracking odr Werbig.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Mir motivieret alli, %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">jeglichi Tracker und Werbige z\'blockiere</string>
+  <string name="broadcastTournamentOnLichess">Es Turnier uf Lichess übertragä</string>
+  <string name="ifYouWantToBroadcastClause1">Wenn du wotsch es offiziels Turnier uf Lichess übertrage, oder jegli Fräge hesch:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Bitte chontaktier s\'Broadcast Team übr %1$s odr uf %2$s.</string>
+  <string name="ourDiscordServer">üse Discord Server</string>
 </resources>

@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">车紧邻对方王，并得到后的支持，后也同时封锁了王的逃逸格。车和后将对方王困在一个 3x3 的“杀王箱”中。</string>
   <string name="pillsburysMate">皮尔斯伯里将杀</string>
   <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">车执行将杀，同时象协助限制王移动。</string>
   <string name="morphysMate">摩菲将杀</string>
   <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">象执行将杀，同时车协助限制王移动。</string>
   <string name="swallowstailMate">燕尾杀王</string>
   <string name="swallowstailMateDescription">一种呈 V 字形、视觉上形似燕尾的将杀模式。</string>
   <string name="triangleMate">三角将杀</string>

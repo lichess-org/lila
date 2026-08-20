@@ -18,6 +18,7 @@ Zde je stránka Vašeho profilu: %1$s. Přizpůsobit si jej můžete zde – %2$
 Hodně zábavy - nechť Vaše figurky vždy najdou cestu k soupeřovu králi!</string>
   <string name="logInToLichess">Přihlaste se na lichess.org, %s</string>
   <string name="common_orPaste">(Odkaz nefunguje? Zkuste jej zkopírovat do vašeho prohlížeče!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Odkaz nefunguje? Zkuste jej zkopírovat do vašeho prohlížeče!)</string>
   <string name="common_note">Tohle je automatický e-mail související s vaším používáním %s.</string>
   <string name="common_contact">Chcete-li nás kontaktovat, použijte prosím %s.</string>
 </resources>

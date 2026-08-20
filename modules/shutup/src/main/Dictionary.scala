@@ -7,7 +7,7 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(burn|die|rot) in hel+
+(burn|d[i\|\\]e|rot) [i\|\\]n hel+
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hel+
 (kil+|hang|ne[ck]+|unalive) my ?self
@@ -23,10 +23,10 @@ arse(hole|wipe|)
 ass
 as+(hole|fag)
 autist(ic|)
-au[cs]+hwitz
+au[cs]+hw[i\|\\]tz
 bastard?
 be[ea]++t?ch
-b(iy?t?|t)ch
+b([i\|\\]y?t?|t)ch
 blow(job|)
 blumpkin
 bol+o[ck]+
@@ -35,22 +35,22 @@ boner
 boob
 bozo
 brain(dea?d|les+)
-bugg+er
+bug+er
 bu[ck]+ake
-bul+shit
+bul+sh[i\|\\]t
 cancer
 che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
-chi[ck]+en
-chink
+ch[i\|\\][ck]+en
+ch[i\|\\]nk
 chitter
-clit(oris|)
+cl[i\|\\]t(oris|)
 clown
 co[ck]+(su[ck]+(er|ing)|)
 condom
 coon
 coward?
-crip+le
+cr[i\|\\]p+le
 cry(baby|ing|)
 cu[ck]+(old|)
 cun+ilingu
@@ -62,13 +62,13 @@ douche(bag|)
 downsie?
 dumb(as+|)
 dyke
-engine
-foreskin
+eng[i\|\\]ne
+foresk[i\|\\]n
 fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|)
 gangbang(e?d|)
 gay
 go (and )?bomb
-gobshite?
+gobsh[i\|\\]te?
 gook
 gypo
 gypsy
@@ -91,7 +91,7 @@ lo++ser++
 mag+ot
 masturbat(e?[dr]+|ion|ing|)
 mf\b
-milf
+m[i\|\\]lf
 molest(e?[dr]+|ing|)
 mong
 monkey
@@ -99,8 +99,10 @@ mor+on+
 mother(fu[ck]+(er|)|)
 mthrf[ck]+r
 murder (you|u)
-na+zi+
-[nv]i+g+[ae]+[hr]?
+na+z[i\|\\]+
+(ne|)gro[i\|\\]*d
+n[ei]?gro?
+[nv][i\|\\]*g+[ae]+[hr]?
 nonce
 noo++b
 nutsa[ck]+
@@ -110,7 +112,7 @@ paki
 pathetic
 pa?ederast
 pe*nis?
-pig
+p[i\|\\]g
 pimp
 piss
 poo+f
@@ -118,16 +120,16 @@ poo+n
 poo++p(face|)
 po?rn(hub|)
 pos\b
-pri[ck]+
-prostitute
+pr[i\|\\][ck]+
+prost[i\|\\]tute
 punani
-pus+(i|y|ie|)
+pus+([i\|\\]|y|[i\|\\]e|)
 que+r
-rapist
+rap[i\|\\]st
 rat\b
 rect(al|um)
 retard(ed|)
-rimjob
+r[i\|\\]mjob
 run
 sandbag+(e[dr]+|ing|)
 scared?
@@ -139,7 +141,7 @@ semen
 se([ck]+s|x)
 shagg?(e?d|)
 she?male
-shi?t(z|e|y|ty|bag|)
+sh[i\|\\]?t(z|e|y|ty|bag|)
 sis+y
 s[ck]ank
 slag
@@ -148,18 +150,18 @@ slut
 spastic
 spaz
 sperm
-spi[ck]+
+sp[i\|\\][ck]+
 spooge
 spunk
 smurf+(e?[dr]+|ing|)
 stfu
 stupid
 subhuman
-suicided?
+su[i\|\\]c[i\|\\]ded?
 su[ck]+er
 su[ck]+(e?d|) m[ey]
 sybau
-ter+orist
+ter+or[i\|\\]st
 tit+(ies|y|)(fu[ck]+(er|)|)
 tos+er
 tran+(y|ie)
@@ -168,7 +170,7 @@ turd
 twat
 unalive (you|u)
 vag
-vagin(a|al|)
+vag[i\|\\]?n(a|al|)
 vibrator
 vulva
 w?hore
@@ -380,15 +382,13 @@ yar+ak kafa(l[iı]|s[iı])
 (ki?l+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
 gas+ the
-g?kys
+g?kys+
 gets? (bombed|shot)
 k+ y+ s+
 (l|1|ı|\|)<ys
-(ne|)gro[i\|\\]d
-n[ei]?gro?
-n[i\|\\]?g+e?r
+n[i\|\\]g+e?r
 rap(ed?|e?ing)
-rope
+rope\b
 su?bhu?ma?n
 """)
 

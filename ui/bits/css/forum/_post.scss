@@ -154,12 +154,12 @@
   display: none;
 }
 
-.comment-preview {
+.preview {
   font-size: 1.1rem;
 }
 
 .forum-topic .forum-post__message,
-.forum-topic .comment-preview {
+.forum-topic .preview {
   @include rendered-markdown(1em, 1600px);
   @include rendered-markdown-code;
   @include rendered-markdown-quote;

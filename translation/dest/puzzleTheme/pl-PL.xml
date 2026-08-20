@@ -75,9 +75,12 @@
   <string name="killBoxMateDescription">Wieża stoi obok wrogiego króla i broniona jest przez hetmana, który równocześnie blokuje wszystkie pola ucieczki tego króla. Wieża i hetman łapią króla przeciwnika w klatce 3 na 3 (tzw. \"kill box\").</string>
   <string name="pillsburysMate">Mat Pillsbury\'ego</string>
   <string name="pillsburysMateDescription">Wieża daje mata, a goniec blokuje pola ucieczki.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Wieża matuje króla, podczas gdy goniec pomaga go ograniczyć.</string>
   <string name="morphysMate">Mat Morphy\'ego</string>
   <string name="morphysMateDescription">Goniec daje mata w narożniku, a wieża blokuje pola ucieczki w sąsiedniej kolumnie.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Goniec matuje króla, podczas gdy wieża pomaga go ograniczyć.</string>
   <string name="swallowstailMate">Mat \"jaskółczy ogon\"</string>
+  <string name="swallowstailMateDescription">Wzorzec mata, który wizualnie przypomina jaskółczy ogon w kształcie litery V.</string>
   <string name="triangleMate">Mat trójkątny</string>
   <string name="triangleMateDescription">Hetman i wieża ustawione na tej samej linii matują króla przeciwnika, stojąc bezpośrednio przy nim i tworząc trójkąt.</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>

@@ -106,7 +106,7 @@ final class Env(
       jsonView.streak(puzzle = puzzle, ids = ids).dmap(some)
     }
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       opening.recomputeAll
       fuccess("started in background")

@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Et tårn står ved siden af fjendens konge og støttes af en dronning, som også blokerer kongens flugtfelter. Tårnet og dronningen fanger fjendens konge i en 3 x 3 \"kill box\".</string>
   <string name="pillsburysMate">Pillsbury\'s mat</string>
   <string name="pillsburysMateDescription">Tårnet sætter skakmat, mens løberen hjælper med at spærre af.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Et tårn sætter kongen skakmat, mens en løber er med til at indespærre den.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">En løber sætter kongen skakmat, mens et tårn er med til at indespærre den.</string>
   <string name="swallowstailMate">Svalehale-mat</string>
   <string name="swallowstailMateDescription">Et skakmatmønster, der visuelt minder om en svalehale, svarende til en V-form.</string>
   <string name="triangleMate">Trekantmat</string>

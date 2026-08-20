@@ -77,7 +77,7 @@ final class User(
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
+      limit.enumeration.userProfile(rateLimited):
         val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
         def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -115,7 +115,7 @@ final class User(
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
-        limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
+        limit.enumeration.userProfile(rateLimited):
           EnabledUser(username): u =>
             val isSearch = filter == GameFilter.search.name
             if isSearch && ctx.isAnon
@@ -219,7 +219,7 @@ final class User(
   def ratingHistory(username: UserStr) = Open:
     EnabledUser(username): u =>
       env.history
-        .ratingChartApi(u)
+        .ratingChartApi(u, computeIfNeeded = ctx.isAuth)
         .dmap: // send an empty JSON array if no history JSON is available
           _ | lila.core.data.SafeJsonStr("[]")
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
@@ -541,7 +541,7 @@ final class User(
       negotiate(
         Ok.async:
           env.history
-            .ratingChartApi(data.user.user)
+            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
             .map:
               views.user.perfStatPage(data, _)
         ,

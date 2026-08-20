@@ -48,14 +48,12 @@
     <item quantity="one">دیدن فرسته</item>
     <item quantity="other">دیدت همهٔ %s فرسته</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">بارگذاری یک تصویر برای فرسته‌تان</string>
   <string name="imageAlt">متنِ جایگزینِ تصویر</string>
   <string name="imageCredit">منبع عکس</string>
-  <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
-  <string name="safeToUseImages">استفاده از تصویرهای وبگاه‌های زیر، ایمن است: </string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">بی‌دریغ این وبنوشته را پاک کنید</string>
   <string name="selectPostTopics">موضوع‌هایی که فرسته‌تان دربارهٔ آن‌ها است را، برگزینید</string>
-  <string name="useImagesYouMadeYourself">همچنین می‌توانید از تصویرهایی که خودتان ساخته‌اید، عکس‌هایی که گرفته‌اید، عکس‌پرده‌های Lichess... هر چیزی که حق‌نشرش برای دیگری نیست، بَهرید.</string>
   <string name="safeAndRespectfulContent">لطفا فقط محتوای ایمن و محترمانه منتشر کنید. محتوای دیگران را رونویسی نکنید.</string>
+  <string name="noCopyrightedImages">فقط از تصویرهایی ببهرید که حق‌نشرشان متعلق به شخص دیگری نباشد.</string>
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکته‌های ساده‌ٔ ما، برای نوشتن وبنوشته‌های عالی</string>
   <string name="discussThisBlogPostInTheForum">درباره این وبنوشته در انجمن بحث کنید</string>
