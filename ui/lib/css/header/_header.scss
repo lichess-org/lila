@@ -41,7 +41,7 @@
       @include back-blur(6px);
 
       border: none;
-      background: linear-gradient(180deg, hsl(0 0% 20% / 0.25) 10%, transparent 90%);
+      background: linear-gradient(180deg, color-mix(in oklab, $c-bg 50%, transparent) 10%, transparent 90%);
     }
 
     .dropdown {

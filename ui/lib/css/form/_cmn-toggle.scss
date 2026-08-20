@@ -59,6 +59,10 @@
     @include if-transp {
       background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 22%), hsl(var(---site-hue) 5% 19%) 100%);
     }
+
+    @include if-transp-light {
+      background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 88%), hsl(var(---site-hue) 5% 91%) 100%);
+    }
   }
 
   @include if-transp {
@@ -68,6 +72,18 @@
           to bottom,
           hsl(var(---site-hue) 7% 26%),
           hsl(var(---site-hue) 5% 23%) 100%
+        );
+      }
+    }
+  }
+
+  @include if-transp-light {
+    &:hover {
+      &::after {
+        background: linear-gradient(
+          to bottom,
+          hsl(var(---site-hue) 7% 84%),
+          hsl(var(---site-hue) 5% 87%) 100%
         );
       }
     }

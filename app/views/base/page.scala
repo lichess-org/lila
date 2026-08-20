@@ -83,14 +83,16 @@ object page:
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgUrl).map { loc =>
-            val url =
-              if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
-              else escapeHtmlRaw(loc).replace("&amp;", "&")
-            raw(
-              s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
-            )
-          },
+          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT || pref.bg == lila.pref.Pref.Bg.TRANSPARENT_LIGHT)
+            .option(pref.bgImgUrl)
+            .map { loc =>
+              val url =
+                if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
+                else escapeHtmlRaw(loc).replace("&amp;", "&")
+              raw(
+                s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
+              )
+            },
           fontsPreload,
           boardPreload,
           manifests,

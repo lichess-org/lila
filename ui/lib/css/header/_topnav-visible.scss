@@ -32,7 +32,7 @@
         }
 
         @include if-transp {
-          text-shadow: 0.5px 1px 1px #000;
+          text-shadow: 0.5px 1px 1px $c-bg-opaque;
         }
 
         &:focus-visible {
