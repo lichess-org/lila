@@ -37,6 +37,9 @@ final class AppealApi(
         val appeal = prev.post(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
+  // TODO:
+  def event(topic: AppealTopic, appeal: Appeal): Funit = update(appeal.withdraw).void
+
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 
   def modReply(text: String, prev: Appeal)(using me: MyId) =

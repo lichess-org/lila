@@ -72,13 +72,12 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   def event(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
-    Found(env.appeal.api.find(me, topic)): _ =>
-      Redirect(routes.Appeal.home)
-    // Found(env.appeal.api.find(me, topic)): appeal =>
-      // if !appeal.isOpen then Redirect(routes.Appeal.home)
-      // else
-      //   for _ <- env.appeal.api.withdraw(appeal)
-      //   yield Redirect(routes.Appeal.home).flashSuccess
+    Found(env.appeal.api.find(me, topic)): appeal =>
+      if !appeal.isOpen then Redirect(routes.Appeal.home)
+      else
+        // bindForm()
+        for _ <- env.appeal.api.event(topic, appeal)
+        yield Redirect(routes.Appeal.home).flashSuccess
   }
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
