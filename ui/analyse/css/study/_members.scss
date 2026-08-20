@@ -1,16 +1,9 @@
 .study__members {
   @extend %study-list;
 
-  button {
-    width: 100%;
-    text-align: start;
-  }
-
   .left {
     @extend %flex-center-nowrap;
 
-    align-items: stretch;
-    flex: 0 1 auto;
     overflow: hidden;
   }
 
@@ -30,8 +23,6 @@
 
   icon {
     font-size: 1.2em;
-    opacity: 0.5;
-    transition: 2.5s;
   }
 
   .contrib icon {
@@ -82,7 +73,11 @@
     background-color: $c-bad;
   }
 
-  .add {
+  .add,
+  .button-thin {
+    width: 100%;
+    text-align: start;
+
     icon {
       font-size: 1em;
       opacity: 1;
@@ -99,10 +94,15 @@
   m-config,
   .editing {
     background: color-mix(in oklab, $c-accent 10%, $c-bg) !important;
+
+    .kick button {
+      height: 28px;
+      padding-block: 6px;
+    }
   }
 
   m-config {
     @extend %flex-between;
-    @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
+    @include padding-direction(0.4em, 0.6em, 0.8em, 0.6em);
   }
 }
