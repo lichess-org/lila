@@ -47,7 +47,6 @@ export default class LobbyController {
   private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
   private readonly alreadyWatching: string[] = [];
-  private poolKeyboardLeaveListener?: (e: KeyboardEvent) => void;
 
   constructor(
     readonly opts: LobbyOpts,
@@ -271,22 +270,19 @@ export default class LobbyController {
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
-    if (this.poolKeyboardLeaveListener === undefined) {
-      this.poolKeyboardLeaveListener = (event: KeyboardEvent) => {
-        if (event.key !== 'Escape') return;
+    site.mousetrap.bind(
+      'esc',
+      () => {
         this.leavePool();
         this.redraw();
-      };
-      document.addEventListener('keydown', this.poolKeyboardLeaveListener);
-    }
+      },
+      undefined,
+      false,
+    );
   };
 
   leavePool = () => {
     if (!this.poolMember) return;
-    if (this.poolKeyboardLeaveListener) {
-      document.removeEventListener('keydown', this.poolKeyboardLeaveListener);
-      this.poolKeyboardLeaveListener = undefined;
-    }
     this.socket.poolOut(this.poolMember);
     this.poolMember = undefined;
   };
