@@ -260,6 +260,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                     BadRequest.page(views.auth.signup(form, f.simple))
                   case FormInvalid(err) =>
                     t3Counter(_.signup.failure("form"))
+                    err.errors.headOption.foreach: err =>
+                      t3Counter(_.signup.formError(err.key, err.messages.headOption | "err"))
                     val f = forms.signup.full(simpleSignup)
                     BadRequest.page(views.auth.signup(err, f.simple))
                   case ConfirmEmail(user, email) =>
