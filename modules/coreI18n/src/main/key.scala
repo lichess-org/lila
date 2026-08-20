@@ -177,6 +177,7 @@ object I18nKey:
     val `resetRound`: I18nKey = "broadcast:resetRound"
     val `deleteRound`: I18nKey = "broadcast:deleteRound"
     val `definitivelyDeleteRound`: I18nKey = "broadcast:definitivelyDeleteRound"
+    val `permanentlyDeleteRound`: I18nKey = "broadcast:permanentlyDeleteRound"
     val `deleteAllGamesOfThisRound`: I18nKey = "broadcast:deleteAllGamesOfThisRound"
     val `editRoundStudy`: I18nKey = "broadcast:editRoundStudy"
     val `deleteTournament`: I18nKey = "broadcast:deleteTournament"

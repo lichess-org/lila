@@ -385,6 +385,8 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
+    /** Permanently delete this round and all its games? */
+    permanentlyDeleteRound: string;
     /** Permanently delete this tournament, including all rounds and games? */
     permanentlyDeleteTournament: string;
     /** Quarterfinals */
