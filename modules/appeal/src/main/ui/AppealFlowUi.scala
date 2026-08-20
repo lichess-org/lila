@@ -22,16 +22,17 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           ),
           // TODO: render user visible previous events
           (AppealFlowApi.nextNode(appeal) match
-            case Some(UserChoiceNode(question, branches)) => div(cls := "box")(
-              postForm(cls := "appeal-choice", action := routes.Appeal.event(appeal.topic))(
-                p(question),
-                form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
-                div(cls := "appeal-choice__answers")(
-                  branches.map: (answer, _) =>
-                    submitButton(cls := "button", name := "answer", value := answer)(answer)
+            case Some(UserChoiceNode(question, branches)) =>
+              div(cls := "box")(
+                postForm(cls := "appeal-choice", action := routes.Appeal.event(appeal.topic))(
+                  p(question),
+                  form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
+                  div(cls := "appeal-choice__answers")(
+                    branches.map: (answer, _) =>
+                      submitButton(cls := "button", name := "answer", value := answer)(answer)
+                  )
                 )
               )
-            )
             case _ => emptyFrag
           )
         )

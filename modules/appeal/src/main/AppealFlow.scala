@@ -40,7 +40,10 @@ object AppealFlowApi:
                     "We have determined the mark is valid.",
                     Vector(
                       ("I regret my mistake.", manyInfractions),
-                      ("I disagree with the outcome.", SystemActionNode("Decision is final.", closeNow = true))
+                      (
+                        "I disagree with the outcome.",
+                        SystemActionNode("Decision is final.", closeNow = true)
+                      )
                     )
                   )
                 ),
@@ -52,4 +55,3 @@ object AppealFlowApi:
       )
     }
   )
-

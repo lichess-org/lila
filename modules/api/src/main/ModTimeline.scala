@@ -52,7 +52,8 @@ object ModTimeline:
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
     case (p: ReportLineFlag, n: ReportLineFlag) => p.merge(n)
     case (p: PlayBans, n: PlayBans) => PlayBans(n.list ::: p.list).some
-    case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => AppealMsg(p.by, text = s"${n.text}\n\n${p.text}", p.at).some
+    case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) =>
+      AppealMsg(p.by, text = s"${n.text}\n\n${p.text}", p.at).some
     case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
     case (p: Modlog, n: Modlog) => mergeModlog(p, n)
     case _ => none

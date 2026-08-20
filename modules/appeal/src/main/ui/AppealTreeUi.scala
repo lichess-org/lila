@@ -214,8 +214,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         screeningStepsThenLeaf(
           "engine-appeal",
           AppealTopic.cheat,
-          "Appeal engine restriction.",
-          {
+          "Appeal engine restriction.", {
             val form = AppealForm.form(textRequired = false).fill(AppealForm.Data(""))
             postForm(st.action := routes.Appeal.post(AppealTopic.cheat))(
               form3.globalError(form),
