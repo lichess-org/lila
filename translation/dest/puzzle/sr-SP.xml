@@ -49,4 +49,8 @@
   <string name="history">Историја проблема</string>
   <string name="solved">решено</string>
   <string name="failed">нетачно</string>
+  <string name="streakDescription">Реши све теже проблеме и изгради победнички низ. Нема сата, тако да узми своје верме. Један погрешан потез и игра је готова! Али можеш прескочити један потез по сесији.</string>
+  <string name="yourStreakX">Твој низ: %s</string>
+  <string name="streakSkipExplanation">Прескочи овај потез да задржиш свој низ! Само ради једном по трци.</string>
+  <string name="continueTheStreak">Настави низ</string>
 </resources>

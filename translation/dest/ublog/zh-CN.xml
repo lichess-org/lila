@@ -46,7 +46,7 @@
   </plurals>
   <string name="imageAlt">图片备选文本</string>
   <string name="imageCredit">图片来源</string>
-  <string name="deleteBlog">永久删除此博客文章</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">永久删除此博客文章</string>
   <string name="selectPostTopics">请选择您文章涉及的主题</string>
   <string name="safeAndRespectfulContent">请仅发布安全且尊重他人的内容。请勿复制他人的内容。</string>
   <string name="noCopyrightedImages">请仅使用不涉及他人版权的图片。</string>

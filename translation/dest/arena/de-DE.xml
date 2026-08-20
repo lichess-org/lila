@@ -26,6 +26,7 @@ Der zusätzliche Punkt für \"Berserk\" wird nur vergeben, wenn du mindestens si
 
 Wenn zwei oder mehr Spieler die gleiche Punktzahl besitzen, entscheidet die Turnierleistung als Feinwertung.</string>
   <string name="howDoesPairingWork">Wie werden die Turnierpaarungen ermittelt?</string>
+  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Wie werden die Spieler einander zugelost?</string>
   <string name="howDoesPairingWorkAnswer">Zu Beginn des Turniers werden die Spieler auf Grundlage der Wertungszahl zugeteilt.
 Sobald du ein Spiel beendet hast, kannst du zur Turnierübersicht zurückkehren. Dir wird dann ein Spieler mit ähnlichem Rang zugeteilt. Dadurch wird eine kurze Wartezeit erreicht, allerdings kann es sein, dass du nicht gegen alle anderen Spieler in diesem Turnier spielen wirst.
 Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spielen und eine höhere Punktzahl zu erzielen.</string>

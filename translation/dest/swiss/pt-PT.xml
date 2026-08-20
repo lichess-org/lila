@@ -122,6 +122,8 @@ O mais perto que podes ter do Round Robin é jogar um torneio suiço com um núm
   <string name="unlimitedAndFree">Ilimitado e livre</string>
   <string name="predefinedUsers">Permitir que se juntem apenas utilizadores pré-definidos</string>
   <string name="forbiddedUsers">Se esta lista não estiver vazia, então os nomes de utilizador ausentes desta lista serão impedidos de entrar. Um nome de utilizador por linha.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Insere um nome de utilizador por linha. Apenas estes jogadores vão poder juntar-se.
+Deixa em branco para permitir que todos os jogadores elegíveis possam entrar.</string>
   <string name="playYourGames">Jogar os seus jogos</string>
   <string name="byes">Byes</string>
   <string name="absences">Ausências</string>

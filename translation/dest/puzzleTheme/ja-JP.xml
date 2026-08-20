@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
   <string name="pillsburysMate">ピルズベリーのメイト</string>
   <string name="pillsburysMateDescription">ルークがチェックをかけ、ビショップがルークを守っているメイト。</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">ルークがチェックし、ビショップが逃げ道を防ぐ形のメイト。</string>
   <string name="morphysMate">モーフィのメイト</string>
   <string name="morphysMateDescription">ビショップがチェックをかけ、ルークがキングの逃げ道を抑えているメイト。</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">ビショップがチェックし、ルークが逃げ道を防ぐ形のメイト。</string>
   <string name="swallowstailMate">燕尾のメイト</string>
   <string name="swallowstailMateDescription">駒がツバメの尾に似た V 字型を作るメイト。</string>
   <string name="triangleMate">三角のメイト</string>

@@ -50,9 +50,10 @@
   </plurals>
   <string name="imageAlt">Texto alternativo à imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
-  <string name="deleteBlog">Eliminar esta publicação definitivamente</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Eliminar esta publicação definitivamente</string>
   <string name="selectPostTopics">Seleciona os tópicos de que falas na publicação</string>
   <string name="safeAndRespectfulContent">Publica apenas conteúdo seguro e respeitoso. Não copies o conteúdo de outra pessoa.</string>
+  <string name="noCopyrightedImages">Usa unicamente imagens que não estejam protegidas por direitos de autor de terceiros.</string>
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da tua conta.</string>
   <string name="blogTips">As nossas dicas simples para escrever ótimas publicações no blogue</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta publicação no fórum</string>

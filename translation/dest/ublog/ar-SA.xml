@@ -66,7 +66,7 @@
   </plurals>
   <string name="imageAlt">نص بديل الصورة</string>
   <string name="imageCredit">حقوق الصورة</string>
-  <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
   <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>
