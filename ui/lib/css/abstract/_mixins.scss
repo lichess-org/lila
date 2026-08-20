@@ -208,9 +208,5 @@
         inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
         0 2px 4px 0 hsl(0 0% 0% / 0.21);
     }
-
-    @include if-transp {
-      box-shadow: none;
-    }
   }
 }
