@@ -462,7 +462,7 @@ object Pref:
 
   lazy val default = Pref(
     id = UserId(""),
-    bg = Bg.DARK,
+    bg = Bg.SYSTEM,
     bgImg = none,
     is3d = false,
     theme = Theme.default.name,
