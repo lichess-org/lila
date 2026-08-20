@@ -122,10 +122,11 @@ export default class SetupController {
     if (!this.gameType) return;
 
     // Don't persist position passed through URL
-    const storedPosition = this.forced?.fen ? this.store[this.gameType]() : undefined;
+    const prevSetup = this.forced?.fen ? this.store[this.gameType]() : undefined;
+
     this.store[this.gameType]({
-      variant: storedPosition?.variant ?? this.variant(),
-      fen: storedPosition?.fen ?? this.fen(),
+      variant: prevSetup?.variant ?? this.variant(),
+      fen: prevSetup?.fen ?? this.fen(),
       timeMode: this.timeControl.mode(),
       time: this.timeControl.time(),
       increment: this.timeControl.increment(),
