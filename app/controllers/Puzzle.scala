@@ -377,11 +377,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    val nb = getInt("nb") | 15
+    val nb = (getInt("nb") | 15).atLeast(1).atMost(50)
     val cost =
       if ctx.isMobileOauth then 0
-      else if HTTPRequest.isLichessMobile(ctx.req) then nb / 5
-      else if ctx.isAuth then nb / 3
+      else if HTTPRequest.isLichessMobile(ctx.req) then (nb / 5).atLeast(1)
+      else if ctx.isAuth then (nb / 3).atLeast(1)
       else nb
     fetchRateLimit(rateLimited, cost = cost):
       PuzzleAngle
