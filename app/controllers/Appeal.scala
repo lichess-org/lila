@@ -5,13 +5,15 @@ import play.api.data.Form
 import play.api.mvc.Result
 
 import lila.app.{ *, given }
-import lila.appeal.{ Appeal as AppealModel, AppealTopicApi }
+import lila.appeal.{ Appeal as AppealModel, AppealTopicApi, AppealMsg }
 import lila.report.Suspect
 import lila.core.misc.AppealTopic
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
+  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, messageForm }
+  import lila.appeal.AppealMsg.Kind
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
@@ -41,8 +43,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) =>
-      if AppealTopicApi.usesNewAppealFlow(a.topic) then
-        views.appeal.flow.userFlow(status, a, err | userForm, allAppeals)
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(a)
       else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
@@ -75,9 +76,28 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     Found(env.appeal.api.find(me, topic)): appeal =>
       if !appeal.isOpen then Redirect(routes.Appeal.home)
       else
-        // bindForm()
-        for _ <- env.appeal.api.event(topic, appeal)
-        yield Redirect(routes.Appeal.home).flashSuccess
+        bindForm(kindForm)(
+          _ => BadRequest,
+          Kind(_) match
+            case Some(Kind.userChoice) =>
+              bindForm(choiceForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.choiceEvent(appeal, Kind.userChoice, _)
+                yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
+              )
+            case Some(Kind.userMessage) =>
+              bindForm(messageForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.messageEvent(appeal, Kind.userMessage, _)
+                yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
+              )
+            case _ => BadRequest
+        )
+  }
+
+  def modEvent(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
+    // TODO:
+    Redirect(routes.Appeal.home).flashFailure("To do: implement")
   }
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>

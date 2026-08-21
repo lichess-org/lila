@@ -1,10 +1,14 @@
 package lila.appeal
 
-sealed trait AppealNode
+case class AnswerBranch(id: String, answer: String, nextNode: AppealNode)
 
-case class UserChoiceNode(question: String, branches: Vector[(String, AppealNode)]) extends AppealNode
-case class ModChoiceNode(question: String, branches: Vector[(String, AppealNode)]) extends AppealNode
+sealed trait AppealNode:
+  def id: String
+
+case class UserQuestionNode(id: String, question: String, branches: Vector[AnswerBranch]) extends AppealNode
+case class ModQuestionNode(id: String, question: String, branches: Vector[AnswerBranch]) extends AppealNode
 case class SystemActionNode(
+    id: String,
     text: String,
     sleepMonths: Option[Int] = None,
     closeNow: Boolean = false,
@@ -18,36 +22,63 @@ object AppealFlowApi:
 
   private val map: Map[AppealTopic, AppealNode] = Map(
     AppealTopic.cheat -> {
-      val manyInfractions = ModChoiceNode(
+      val manyInfractions = ModQuestionNode(
+        "many-infractions",
         "Does user have many infractions?",
         Vector(
-          ("Yes", SystemActionNode("You must wait 6 months.", sleepMonths = 6.some)),
-          ("No", SystemActionNode("You get a second chance, share new username."))
+          AnswerBranch(
+            "yes",
+            "Yes",
+            SystemActionNode("wait-6-months", "You must wait 6 months.", sleepMonths = 6.some)
+          ),
+          AnswerBranch(
+            "no",
+            "No",
+            SystemActionNode(
+              "second-chance",
+              "You get a second chance, share new username."
+            )
+          )
         )
       )
-      UserChoiceNode(
+      UserQuestionNode(
+        "accept-cheat-mark",
         "Do you accept this cheat mark?",
         Vector(
-          ("Yes", manyInfractions),
-          (
+          AnswerBranch("yes", "Yes", manyInfractions),
+          AnswerBranch(
+            "no",
             "No",
-            ModChoiceNode(
+            ModQuestionNode(
+              "is-mark-valid",
               "Is mark valid?",
               Vector(
-                (
+                AnswerBranch(
+                  "yes",
                   "Yes",
-                  UserChoiceNode(
+                  UserQuestionNode(
+                    "mark-is-valid",
                     "We have determined the mark is valid.",
                     Vector(
-                      ("I regret my mistake.", manyInfractions),
-                      (
+                      AnswerBranch("regret-mistake", "I regret my mistake.", manyInfractions),
+                      AnswerBranch(
+                        "disagree-with-outcome",
                         "I disagree with the outcome.",
-                        SystemActionNode("Decision is final.", closeNow = true)
+                        SystemActionNode("decision-final", "Decision is final.", closeNow = true)
                       )
                     )
                   )
                 ),
-                ("No", SystemActionNode("This was a false positive.", closeNow = true, unmark = true))
+                AnswerBranch(
+                  "no",
+                  "No",
+                  SystemActionNode(
+                    "false-positive",
+                    "This was a false positive.",
+                    closeNow = true,
+                    unmark = true
+                  )
+                )
               )
             )
           )

@@ -120,16 +120,30 @@ sealed trait AppealMsg:
   def by: UserId
   def text: String
   def at: Instant
-  def kind: Option[AppealMsg.Kind] // None = legacy message
+  def kind: Option[AppealMsg.Kind] // None = LegacyMessage
 
 case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = None
-case class UserChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant)
-    extends AppealMsg:
+case class UserChoiceEvent(
+    by: UserId,
+    nodeId: String,
+    question: String,
+    answerId: String,
+    answer: String,
+    at: Instant
+) extends AppealMsg:
   def kind = AppealMsg.Kind.userChoice.some
-case class ModChoiceEvent(by: UserId, text: String, choices: Vector[String], answer: String, at: Instant)
-    extends AppealMsg:
+  def text = s"${question}\n${answer}"
+case class ModChoiceEvent(
+    by: UserId,
+    nodeId: String,
+    question: String,
+    answerId: String,
+    answer: String,
+    at: Instant
+) extends AppealMsg:
   def kind = AppealMsg.Kind.modChoice.some
+  def text = s"${question}\n${answer}"
 case class UserMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = AppealMsg.Kind.userMessage.some
 case class ModMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:

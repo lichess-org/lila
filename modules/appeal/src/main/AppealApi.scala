@@ -1,8 +1,11 @@
 package lila.appeal
 
 import lila.appeal.Appeal.Id as AppealId
+import lila.appeal.AppealMsg.Kind as Kind
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
+import lila.appeal.AppealEventForm.ChoiceData
+import lila.appeal.AppealEventForm.MessageData
 
 final class AppealApi(
     coll: Coll,
@@ -38,7 +41,14 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
   // TODO:
-  def event(topic: AppealTopic, appeal: Appeal): Funit = update(appeal.withdraw).void
+  def choiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData): Funit = update(
+    appeal.withdraw
+  ).void
+
+  // TODO:
+  def messageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
+    appeal.withdraw
+  ).void
 
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 
