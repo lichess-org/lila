@@ -1,5 +1,6 @@
 import { attributesModule, classModule, init, type VNode } from 'snabbdom';
 
+import { displayColumns } from 'lib/device';
 import { hl } from 'lib/view';
 import { jsonSimple } from 'lib/xhr';
 
@@ -71,8 +72,12 @@ function view(status: AutomodStatus): VNode {
     status.jobsByTypeAndModel.length > 0 &&
       hl('fieldset', [
         hl('legend', 'Job types'),
-        hl(
-          'div.grid',
+        hl('div.grid', [
+          displayColumns() > 1 && [
+            hl('label'),
+            hl('label', 'model & tokens'),
+            hl('label', 'failures in past 30 days'),
+          ],
           status.jobsByTypeAndModel
             .sort(
               (left, right) =>
@@ -83,9 +88,9 @@ function view(status: AutomodStatus): VNode {
                 ? hl('a.admin', { attrs: { href: status.adminLinks[job.jobType] } }, job.jobType)
                 : hl('p', job.jobType),
               hl('p', `${job.model}: ${job.inputTokens} input / ${job.outputTokens} output`),
-              hl(`p.${job.failures ? 'yellow' : 'green'}`, `${job.failures} failed / ${job.recent} recent`),
+              hl(`p.${job.failures ? 'yellow' : 'green'}`, `${job.failures} failed / ${job.recent} total`),
             ]),
-        ),
+        ]),
       ]),
     status.recentJobs.length > 0 &&
       hl('fieldset', [

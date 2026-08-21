@@ -98,7 +98,13 @@ final class AutomodRepo(val coll: Coll)(using Executor):
               )
             )
           ),
-          Project($doc("responses" -> $doc("$slice" -> $arr("$responses", recent))))
+          Project(
+            $doc(
+              "responses" -> $doc("$slice" -> $arr("$responses", recent)),
+              "inputTokens" -> 1,
+              "outputTokens" -> 1
+            )
+          )
         )
       pending <- coll.countSel($doc("response".$exists(false)))
     yield
