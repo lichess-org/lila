@@ -50,7 +50,7 @@
   </plurals>
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
-  <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Dit blogbericht definitief verwijderen</string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
   <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
   <string name="noCopyrightedImages">Gebruik alleen afbeeldingen waarvan het auteursrecht niet door iemand anders wordt beschermd.</string>

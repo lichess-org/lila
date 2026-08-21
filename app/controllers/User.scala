@@ -216,7 +216,7 @@ final class User(
               .map: u =>
                 env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
-  def ratingHistory(username: UserStr) = Open:
+  def ratingHistory(username: UserStr) = OpenOrScoped():
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u, computeIfNeeded = ctx.isAuth)
