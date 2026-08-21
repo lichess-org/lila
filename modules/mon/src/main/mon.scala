@@ -752,9 +752,9 @@ object signedClient:
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
     def failure(reason: String)(client: String) =
       counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
-    def formError(key: String, message: String)(client: String) =
+    def formError(keys: Seq[String], messages: Seq[String])(client: String) =
       counter(s"signedClient.$name.formError").withTags:
-        tags("client" -> client, "key" -> key, "msg" -> message)
+        tags("client" -> client, "key" -> keys.mkString(","), "msg" -> messages.mkString(","))
     def alreadyLoggedIn(client: String, loggedIn: Boolean) =
       counter(s"signedClient.$name.alreadyLoggedIn").withTags:
         tags("client" -> client, "loggedIn" -> loggedIn)
