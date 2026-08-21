@@ -59,7 +59,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
   def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
-  def ensure(req: RequestHeader)(res: Result): Result =
+  def ensure(res: Result)(using req: RequestHeader): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res
     else res.withCookies(makeSessionId(using req))
 

@@ -72,7 +72,7 @@ final class Challenge(env: Env) extends LilaController(env):
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-  yield env.security.lilaCookie.ensure(ctx.req)(res)
+  yield env.security.lilaCookie.ensure(res)
 
   private def targetSuggestions(using me: Option[Me]) = me.so: me =>
     for
