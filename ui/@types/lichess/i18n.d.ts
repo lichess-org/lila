@@ -5349,6 +5349,8 @@ interface I18n {
     getTheTour: string;
     /** Good move */
     goodMove: string;
+    /** Hide moves */
+    hideMoves: string;
     /** Hide next moves */
     hideNextMoves: string;
     /** Hot */
@@ -5465,6 +5467,26 @@ interface I18n {
     public: string;
     /** Read more about embedding */
     readMoreAboutEmbedding: string;
+    /** Recall practice */
+    recall: string;
+    /** End of the line, well done! */
+    recallEndOfTheLine: string;
+    /** Recall practice quizzes you on the moves that are already stored in the chapter. */
+    recallExplanation: string;
+    /** Set the chapter mode to %1$s, enter the moves you want to remember, then switch it back to %2$s. */
+    recallHowToStoreMoves: I18nFormat;
+    /** The moves are hidden. Your attempts are checked against the chapter, and never saved to it. */
+    recallMovesAreHidden: string;
+    /** This chapter has no moves to recall yet. */
+    recallNoMovesYet: string;
+    /** Your turn: play the move you remember. */
+    recallPlayTheMoveYouRemember: string;
+    /** Correct! */
+    recallRightMove: string;
+    /** Waiting for the reply... */
+    recallWaitingForTheReply: string;
+    /** Wrong move, try again. */
+    recallWrongMove: string;
     /** Recently updated */
     recentlyUpdated: string;
     /** Relevant */
@@ -5487,6 +5509,8 @@ interface I18n {
     sharedAndSaveTitle: string;
     /** Evaluation bars */
     showEvalBar: string;
+    /** Show moves */
+    showMoves: string;
     /** Results */
     showResults: string;
     /** Spectator */
