@@ -25,18 +25,16 @@ object RageSit:
   def imbalanceInc(game: Game, loser: Color) = Update.Inc:
     {
       import chess.variant.*
+      lazy val promotion =
+        if game.chess.position
+            .genPawn(loser.seventhRank.bb, ~game.chess.position.us)
+            .exists(_.promotes)
+        then 8
+        else 0;
       (game.chess.position.materialImbalance, game.variant) match
         case (_, Horde | Antichess) => 0
-        case (a, _)
-            if a >= 4 && !game.chess.position
-              .genPawn(loser.seventhRank.bb, ~game.chess.position.us)
-              .exists(_.promotes) =>
-          1
-        case (a, _)
-            if a <= -4 && !game.chess.position
-              .genPawn(loser.seventhRank.bb, ~game.chess.position.us)
-              .exists(_.promotes) =>
-          -1
+        case (a, _) if a + promotion >= 4 => 1
+        case (a, _) if a + promotion <= -4 => -1
         case _ => 0
     } * {
       if loser.white then 1 else -1
