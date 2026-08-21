@@ -270,33 +270,29 @@ function imageHtml(path: string) {
   return `<img src="${site.asset.url('images/help/' + path + '.webp')}" alt=""><br>`;
 }
 
-async function preload(htmlWithMedia: string): Promise<Node[]> {
+async function preload(html: string): Promise<Node[]> {
   const loader = frag<HTMLElement>(
     `<div style="position: fixed; left: -100000px; top: 0; visibility: hidden"></div>`,
   );
-
-  loader.append(frag(htmlWithMedia));
+  loader.append(frag(html));
   document.body.append(loader);
 
   await Promise.all([
     ...[...loader.querySelectorAll('img')].map(img =>
       img.complete
         ? img.decode().catch(() => {})
-        : new Promise<void>(resolve => {
-            img.addEventListener('load', () => resolve(), { once: true });
-            img.addEventListener('error', () => resolve(), { once: true });
-          }),
+        : new Promise<void>(resolve =>
+            ['load', 'error'].forEach(e => img.addEventListener(e, () => resolve(), { once: true })),
+          ),
     ),
     ...[...loader.querySelectorAll<HTMLMediaElement>('audio, video')].map(media => {
       media.preload = 'auto';
       media.load();
-
       return media.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA
         ? Promise.resolve()
-        : new Promise<void>(resolve => {
-            media.addEventListener('loadeddata', () => resolve(), { once: true });
-            media.addEventListener('error', () => resolve(), { once: true });
-          });
+        : new Promise<void>(resolve =>
+            ['loadeddata', 'error'].forEach(e => media.addEventListener(e, () => resolve(), { once: true })),
+          );
     }),
   ]);
   loader.remove();
