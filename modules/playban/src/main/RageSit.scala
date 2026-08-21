@@ -27,8 +27,16 @@ object RageSit:
       import chess.variant.*
       (game.chess.position.materialImbalance, game.variant) match
         case (_, Horde | Antichess) => 0
-        case (a, _) if a >= 4 && !game.chess.position.genPawn(loser.seventhRank.bb, ~game.chess.position.us).exists(_.promotes) => 1
-        case (a, _) if a <= -4 && !game.chess.position.genPawn(loser.seventhRank.bb, ~game.chess.position.us).exists(_.promotes) => -1
+        case (a, _)
+            if a >= 4 && !game.chess.position
+              .genPawn(loser.seventhRank.bb, ~game.chess.position.us)
+              .exists(_.promotes) =>
+          1
+        case (a, _)
+            if a <= -4 && !game.chess.position
+              .genPawn(loser.seventhRank.bb, ~game.chess.position.us)
+              .exists(_.promotes) =>
+          -1
         case _ => 0
     } * {
       if loser.white then 1 else -1
