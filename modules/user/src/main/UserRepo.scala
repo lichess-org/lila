@@ -10,7 +10,7 @@ import scalalib.model.{ Days, LangTag }
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.security.HashedPassword
-import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode }
+import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode, RealName }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 
@@ -174,8 +174,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setRealName(id: UserId, name: String): Funit =
     coll.updateField($id(id), s"${F.profile}.realName", name).void
 
-  def realName(id: UserId): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(id), s"${F.profile}.realName")
+  def realName(id: UserId): Fu[Option[RealName]] =
+    coll
+      .find($id(id), $doc(s"${F.profile}.realName" -> true).some)
+      .one[Bdoc]
+      .dmap:
+        _.flatMap(_.child(F.profile).flatMap(_.getAsOpt[RealName]("realName")))
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id.is(name) then

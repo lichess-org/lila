@@ -10,7 +10,7 @@ import lila.common.Form.{
   into,
   playerTitle
 }
-import lila.core.user.{ FlagCode, Profile }
+import lila.core.user.{ FlagCode, Profile, RealName }
 
 final class UserForm:
 
@@ -36,7 +36,7 @@ final class UserForm:
       "flag" -> optional(text.into[FlagCode].verifying(Flags.codeSet contains _)),
       "location" -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 80)),
       "bio" -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 400, maxSymbols = 10)),
-      "realName" -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100)),
+      "realName" -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100).into[RealName]),
       "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating" -> optional(number(min = 0, max = 3000)),
