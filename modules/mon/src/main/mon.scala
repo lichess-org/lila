@@ -746,13 +746,15 @@ object recap:
   val puzzles = future("recap.build.puzzles.time")
 object signedClient:
   final class AuthPage(name: String):
-    def load(client: String) = counter(s"signedClient.$name.load").withTag("client", client)
+    def load(unique: Boolean)(client: String) = counter(s"signedClient.$name.load")
+      .withTags(tags("client" -> client, "unique" -> unique))
     def success(hasFailed: Boolean)(client: String) =
       counter(s"signedClient.$name.success").withTags(tags("client" -> client, "hasFailed" -> hasFailed))
     def step(s: String)(client: String) =
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
-    def failure(reason: String)(client: String) =
-      counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
+    def failure(reason: String, unique: Boolean)(client: String) =
+      counter(s"signedClient.$name.failure")
+        .withTags(tags("client" -> client, "reason" -> reason, "unique" -> unique))
     def formError(keys: Seq[String], messages: Seq[String])(client: String) =
       counter(s"signedClient.$name.formError").withTags:
         tags("client" -> client, "key" -> keys.mkString(","), "msg" -> messages.mkString(","))

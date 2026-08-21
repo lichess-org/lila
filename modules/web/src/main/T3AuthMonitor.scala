@@ -19,7 +19,8 @@ final class T3AuthMonitor(using Executor):
     private val hasFailed = scalalib.cache.ExpireSetMemo[SessionId](1.hour)
 
     def load(sid: SessionId)(client: String): Unit =
-      if !hasLoaded.get(sid) then mon.load(client).increment()
+      mon.load(unique = false)(client).increment()
+      if !hasLoaded.get(sid) then mon.load(unique = true)(client).increment()
       hasLoaded.put(sid)
 
     def fail(reason: String, formErr: Option[Form[?]] = none)(
@@ -29,7 +30,8 @@ final class T3AuthMonitor(using Executor):
       do
         formErr.foreach: f =>
           mon.formError(f.errors.map(_.key), f.errors.flatMap(_.messages.headOption))(client).increment()
-        if !hasFailed.get(sid) then mon.failure(reason)(client).increment()
+          mon.failure(reason, unique = false)(client).increment()
+        if !hasFailed.get(sid) then mon.failure(reason, unique = true)(client).increment()
         hasFailed.put(sid)
 
     def success(client: String)(using req: RequestHeader): Unit =
