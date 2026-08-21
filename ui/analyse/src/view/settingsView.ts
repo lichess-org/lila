@@ -104,7 +104,7 @@ export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {
   return domDialog({
     class: 'analysis-settings-dialog',
     htmlText: '<h2>Analysis settings</h2>',
-    insert: [{ node: settingsView(ctrl.settings) }],
+    insert: [{ nodes: settingsView(ctrl.settings) }],
     modal: !isTouchDevice(),
     easyClose: 'clickOutside',
     show: true,
@@ -170,7 +170,7 @@ function setupTouchHelp(view: HTMLElement) {
     el.addEventListener('click', () =>
       domDialog({
         class: 'setting-popup',
-        insert: [{ node: nodes }],
+        insert: [{ nodes }],
         noCloseButton: true,
         show: true,
         easyClose: 'anyClick',

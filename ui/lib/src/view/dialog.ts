@@ -27,7 +27,7 @@ export interface DialogOpts<Ctx = undefined> {
   htmlText?: string; // content, htmlText is inserted as fragment into DOM
   cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
   htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  insert?: { node: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // ??= 'child'
+  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action<Ctx> | Action<Ctx>[]; // add listeners to controls, call updateActions() to reattach
@@ -217,8 +217,8 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         () => this.close('cancel'),
       );
     for (const app of o.insert ?? []) {
-      if (app.node === view) break;
-      const nodes = Array.isArray(app.node) ? app.node : [app.node];
+      if (app.nodes === view) break;
+      const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
       const target = (app.selector ? view.querySelector(app.selector) : view)!;
       if (app.position === 'before') target.before(...nodes);
       else if (app.position === 'after') target.after(...nodes);
