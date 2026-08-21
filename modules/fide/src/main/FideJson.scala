@@ -16,8 +16,6 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
 
   given Writes[FidePlayer.Gender] = writeAs(_.value.toString)
 
-  given Writes[chess.FideTC] = writeAs(_.toString)
-
   def photosJson(photos: Map[chess.FideId, FidePlayer.PlayerPhoto]) = PhotosJson:
     JsObject:
       photos.map: (id, photo) =>

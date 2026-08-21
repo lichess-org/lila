@@ -203,7 +203,7 @@ final private class FidePlayerSync(
 private object FidePlayerSync:
 
   final class InactiveIds(sorted: Array[Int]):
-    def apply(id: Int): Boolean = java.util.Arrays.binarySearch(sorted, id) >= 0
+    def apply(id: FideId): Boolean = java.util.Arrays.binarySearch(sorted, id.value) >= 0
     def size = sorted.length
 
   /* a line of a single time control rating list. The flag column is last,
@@ -226,7 +226,7 @@ private object FidePlayerSync:
     def kFactor(start: Int) = KFactor.from(number(start, start + 2).filter(_ > 0))
     val nowYear = nowDateTime.getYear
     for
-      id <- number(0, 15)
+      id <- number(0, 15).map(FideId(_))
       name1 <- string(15, 76)
       name = name1.trim
       if name.sizeIs > 2
@@ -236,7 +236,7 @@ private object FidePlayerSync:
       token = FidePlayer.tokenize.exec(name)
       if token.sizeIs > 2
     yield FidePlayer(
-      id = FideId(id),
+      id = id,
       name = PlayerName(name),
       token = token,
       photo = none,
