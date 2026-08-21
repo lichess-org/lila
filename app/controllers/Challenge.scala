@@ -99,7 +99,7 @@ final class Challenge(env: Env) extends LilaController(env):
       isForMe(c).so:
         allow:
           api
-            .accept(c, ctx.req.sid, color)
+            .accept(c, ctx.req.sid.map(_.value), color)
             .flatMap:
               _.fold("The Challenge has already been accepted".raise): pov =>
                 negotiateApi(
@@ -390,4 +390,4 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
-    req.sid orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)
+    req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

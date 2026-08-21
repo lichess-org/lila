@@ -747,7 +747,8 @@ object recap:
 object signedClient:
   final class AuthPage(name: String):
     def load(client: String) = counter(s"signedClient.$name.load").withTag("client", client)
-    def success(client: String) = counter(s"signedClient.$name.success").withTag("client", client)
+    def success(hasFailed: Boolean)(client: String) =
+      counter(s"signedClient.$name.success").withTags(tags("client" -> client, "hasFailed" -> hasFailed))
     def step(s: String)(client: String) =
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
     def failure(reason: String)(client: String) =
@@ -758,8 +759,6 @@ object signedClient:
     def alreadyLoggedIn(client: String, loggedIn: Boolean) =
       counter(s"signedClient.$name.alreadyLoggedIn").withTags:
         tags("client" -> client, "loggedIn" -> loggedIn)
-  val login = AuthPage("login")
-  val signup = AuthPage("signup")
 
 object jvm:
   def threads() =
