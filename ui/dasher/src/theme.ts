@@ -13,13 +13,18 @@ import type { DasherCtrl } from '@/ctrl';
 import { PaneCtrl, type Range } from './interfaces';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 
+type BackgroundThemeGalleryData = {
+  images: string[];
+  montage2: string;
+  montage4: string;
+};
+
 export interface BackgroundData {
   current: string;
   image: string;
-  gallery?: {
-    images: string[];
-    montage2: string;
-    montage4: string;
+  gallery: {
+    light: BackgroundThemeGalleryData;
+    dark: BackgroundThemeGalleryData;
   };
 }
 
@@ -171,6 +176,8 @@ export class ThemeCtrl extends PaneCtrl {
     ]);
 
   private readonly galleryInput = () => {
+    const cur = this.get();
+    const light = cur.includes('light');
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {
@@ -179,9 +186,11 @@ export class ThemeCtrl extends PaneCtrl {
       this.setImage(url);
     };
 
-    const gallery = this.backgroundData.gallery!;
+    const gallery = light ? this.backgroundData.gallery?.light : this.backgroundData.gallery?.dark;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`]);
+
+    console.warn(montageUrl);
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
