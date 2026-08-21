@@ -51,16 +51,17 @@ export class InlineView {
   renderNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
     if (!child) return undefined;
     const { isMainline, parentDisclose } = args;
-    return child.forceVariation && isMainline
-      ? hl('interrupt', this.lines([child, ...siblings], args))
-      : [
-          this.moveNode(child, args),
-          parentDisclose !== 'collapsed' && [
-            this.commentNodes(child),
-            siblings[0] && hl('interrupt', this.lines(siblings, args)),
-          ],
-          this.renderNodes(this.ctrl.visibleChildren(child), this.childArgs(child, args, true)),
-        ];
+    if (isMainline && (child.forceVariation || this.ctrl.settings.alwaysTree)) {
+      return hl('interrupt', this.lines([child, ...siblings], args));
+    }
+    return [
+      this.moveNode(child, args),
+      parentDisclose !== 'collapsed' && [
+        this.commentNodes(child),
+        siblings[0] && hl('interrupt', this.lines(siblings, args)),
+      ],
+      this.renderNodes(this.ctrl.visibleChildren(child), this.childArgs(child, args, true)),
+    ];
   }
 
   commentNodes(node: TreeNode, classes: Classes = {}): LooseVNodes[] {
