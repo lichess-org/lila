@@ -82,7 +82,7 @@
   <string name="expandVariations">Рашири варијације</string>
   <string name="forceVariation">Приморај варијацијом</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
-  <string name="copyMainLinePgn">Копирај ПГН главне линије</string>
+  <string name="copyMainLinePgn">Копирај PGN главне линије</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Пораз варијанте</string>
   <string name="variantWin">Победа варијанте</string>
@@ -136,10 +136,10 @@
   <string name="pinnedPieces">Везане фигуре</string>
   <string name="checkableKing">Краљ подложан шаху</string>
   <string name="multipleLines">Више линија</string>
-  <string name="multipleLinesDescription">Broj linija analize i strelice poteza na tabli</string>
+  <string name="multipleLinesDescription">Постави број линија процене и потезних стрелица на табли</string>
   <string name="searchTime">Време претраге</string>
   <string name="threads">Нити</string>
-  <string name="threadsDescription">Postavite ovo ispod broja niti vašeg procesora, oznake predstavljaju dobar i bezbedan izbor</string>
+  <string name="threadsDescription">Постави ово испод броја нити твог процесора, ознака је добар сигуран избор</string>
   <string name="cpus">Процесора</string>
   <string name="memory">Меморија</string>
   <string name="memoryDescription">Више вредности могу побољшати перформансе</string>
@@ -157,6 +157,11 @@
     <item quantity="one">%s Превид</item>
     <item quantity="few">%s Грубе грешке</item>
     <item quantity="other">%s Грубе грешке</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s грешка</item>
+    <item quantity="few">%s грешке</item>
+    <item quantity="other">%s грешака</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Грешка</item>
@@ -755,7 +760,7 @@
   <string name="cyclePreviousOrNextVariation">Тренутна/претходна варијација</string>
   <string name="toggleGlyphAnnotations">Анотација потеза</string>
   <string name="togglePositionAnnotations">Анотација позиције</string>
-  <string name="toggleObservationAnnotations">Укључи/искључи коментаре посматрања</string>
+  <string name="toggleObservationAnnotations">Укључи/искључи анотације посматрања</string>
   <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
   <string name="playSelectedMove">одиграј одабрани потез</string>
   <string name="newTournament">Нови турнир</string>
@@ -838,7 +843,7 @@
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>
   <string name="background">Позадина</string>
-  <string name="theme">Tema</string>
+  <string name="theme">Тема</string>
   <string name="light">Светла</string>
   <string name="dark">Тамна</string>
   <string name="transparent">Провидна</string>
@@ -1004,6 +1009,7 @@
   <string name="simulFeaturedHelp">Покажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
+  <string name="markdownIsAvailable">%s je spreman za formatiranje.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
   <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
   <string name="tournChat">Чет на турниру</string>
@@ -1019,6 +1025,7 @@
   <string name="focusChat">Пређи на чет</string>
   <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
   <string name="reopenYourAccount">Поново отвори свој налог</string>
+  <string name="reopenYourAccountDescription">Ако сте затворили свој налог, али сте у међувремену променили мишљење, имате прилику да га вратите.</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>
   <string name="sentEmailWithLink">Послали смо ти мејл са линком.</string>
   <string name="tournamentEntryCode">Код за приступ турниру</string>
@@ -1035,6 +1042,7 @@
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
+  <string name="lichessPatronInfo">Личес је добротворна организација и у целости бесплатан и отворен софтвер. Зависамо од донација корисника како бисмо подржали оперативне трошкове, развој и садржај. Без наше велике заједнице не бисмо могли да одржимо рад сајта. Хвала вам што сте нам се придружили!</string>
   <string name="nothingToSeeHere">Тренутно нема ништа за видети овде.</string>
   <string name="stats">Статистике</string>
   <string name="accessibility">Приступачност</string>
