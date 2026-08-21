@@ -1,5 +1,6 @@
 .lobby__timeline {
   @extend %page-text;
+  @include backdrop-blur-if-transparent;
 
   flex: 1 1 auto;
   margin-inline-start: $block-gap;
