@@ -39,8 +39,7 @@ Options:
   -k, --kill          if another ui/build instance is running, kill it rather than bail
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
-  -d, --debug         disable noUnusedLocals, noImplicitReturns, noUnusedParameters in tsc and build
-                      assets with site.debug = true
+  -d, --debug         build assets with site.debug = true
   -l, --log=<url>     patch console logging functions in javascript manifest to POST messages to
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs

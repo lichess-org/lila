@@ -1,6 +1,5 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
-import { relative, join } from 'node:path';
 import { chdir } from 'node:process';
 
 import { definedUnique } from './algo.ts';
@@ -62,7 +61,6 @@ function monitor(pkgs: string[]) {
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/package.json' },
-      { cwd: env.typesDir, path: '*/*.d.ts' },
       { cwd: env.uiDir, path: '*/tsconfig.json' },
     ],
     debounce: 1000,
@@ -72,12 +70,10 @@ function monitor(pkgs: string[]) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
-        else await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
         build(pkgs);
-      } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
+      } else if (files.some(x => x.endsWith('tsconfig.json'))) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
-        await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
         tsc();
         esbuild();
       }
