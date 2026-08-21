@@ -22,7 +22,7 @@ final class Env(
 
   val api = wire[TitleApi]
 
-  val fideIdOf: PublicFideIdOf = api.publicFideIdOf.apply
+  val fideIdOf: PublicFideIdOf = api.publicTitle.fideId
 
   val form = TitleForm
 
