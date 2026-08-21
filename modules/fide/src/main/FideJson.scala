@@ -16,6 +16,8 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
 
   given Writes[FidePlayer.Gender] = writeAs(_.value.toString)
 
+  given Writes[chess.FideTC] = writeAs(_.toString)
+
   def photosJson(photos: Map[chess.FideId, FidePlayer.PlayerPhoto]) = PhotosJson:
     JsObject:
       photos.map: (id, photo) =>
@@ -30,7 +32,7 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
         "year" -> p.year
       )
       .add("title" -> p.title)
-      .add("inactive" -> p.inactive)
+      .add("inactive" -> p.isInactive)
       .add("standard" -> p.standard)
       .add("rapid" -> p.rapid)
       .add("blitz" -> p.blitz)
