@@ -50,9 +50,10 @@
   </plurals>
   <string name="imageAlt">Bild beskriven som text</string>
   <string name="imageCredit">Bildens upphovsmakare</string>
-  <string name="deleteBlog">Ta bort detta blogginlägg definitivt</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Ta bort detta blogginlägg definitivt</string>
   <string name="selectPostTopics">Välj de ämnen som ditt inlägg handlar om</string>
   <string name="safeAndRespectfulContent">Vänligen lägg bara upp säkert och respektfullt innehåll. Kopiera inte någon annans innehåll.</string>
+  <string name="noCopyrightedImages">Använd endast bilder som inte är upphovsrättsskyddade av något annan.</string>
   <string name="inappropriateContentAccountClosed">Olämpligt innehåll kan göra att ditt konto stängs.</string>
   <string name="blogTips">Våra enkla tips för att skriva bra blogginlägg</string>
   <string name="discussThisBlogPostInTheForum">Diskutera detta blogginlägg i forumet</string>
