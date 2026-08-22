@@ -32,7 +32,7 @@
   <string name="doNotReportInForum">Não denuncies jogadores no fórum.</string>
   <string name="doNotSendReportEmails">Não nos envies emails de denúncias.</string>
   <string name="doNotMessageModerators">Não envies mensagens diretamente aos moderadores.</string>
-  <string name="onlyReports">Só denunciar jogadores através do formulário de denúnica é que é eficaz.</string>
+  <string name="onlyReports">Só denunciar jogadores através do formulário de denúncia é que é eficaz.</string>
   <string name="wantReportBug">Quero reportar um erro</string>
   <string name="reportBugInForum">Na secção Feedback do Lichess no fórum</string>
   <string name="reportWebsiteIssue">Como um problema no sítio do Lichess no GitHub</string>
