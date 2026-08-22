@@ -1,0 +1,34 @@
+html.transp.light {
+  --c-primary: hsl(209 79% 46%);
+  --c-base: hsl(0 0% 15%);
+  --c-font: hsl(0 0% 20%);
+  --c-clearer: hsl(0 0% 5%);
+  --c-dimmer: hsl(0 0% 90%);
+  --c-border: hsl(0 0% 80% / 0.8);
+  --c-body-gradient: hsl(var(---site-hue) 2% 86% / 0.8);
+  --c-brag-hover: hsl(from var(--c-brag) h 100 30);
+  --c-bg: hsl(0 0% 100% / 0.6);
+  --c-bg-page: hsl(var(---site-hue) 10% 92%);
+  --c-bg-font: hsl(0 0% 20%);
+  --c-bg-opaque: hsl(0 0% 100% / 0.9);
+  --c-bg-low: hsl(0 0% 100% / 0.5);
+  --c-bg-mid: hsl(0 0% 85% / 0.4);
+  --c-bg-zebra: hsl(0 0% 100% / 0.2);
+  --c-bg-zebra2: hsl(0 0% 100% / 0.35);
+  --c-bg-popup: hsl(0 0% 100% / 0.6);
+  --c-bg-input: hsl(0 0% 100% / 0.7);
+  --c-bg-variation: hsl(0 0% 100% / 0.25);
+  --c-bg-header-dropdown: hsl(0 0% 100% / 0.75);
+  --c-font-dim: hsl(from var(--c-font) h s 31%);
+  --c-font-dimmer: hsl(from var(--c-font) h s 52%);
+  --c-font-clear: hsl(from var(--c-font) h s 11%);
+  --c-font-clearer: hsl(from var(--c-font) h s 7%);
+  --c-font-page: hsl(from var(--c-font) h s 7%);
+  --c-font-shadow: hsl(0 0% 83% / 0.66);
+  --c-metal-top: hsl(37 5% 96% / 0.56);
+  --c-metal-bottom: hsl(37 5% 93% / 0.66);
+  --c-metal-top-hover: hsl(0 0% 78% / 0.4);
+  --c-metal-bottom-hover: hsl(0 0% 78% / 0.45);
+  --c-shade: hsl(0 0% 84%);
+  --c-page-mask: hsl(0 0% 100% / 0.4);
+}

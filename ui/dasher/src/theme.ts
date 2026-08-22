@@ -5,6 +5,7 @@ import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { bind, button, dataIcon, label, div, onInsert, span } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -12,13 +13,18 @@ import type { DasherCtrl } from '@/ctrl';
 import { PaneCtrl, type Range } from './interfaces';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 
+type BackgroundThemeGalleryData = {
+  images: string[];
+  montage2: string;
+  montage4: string;
+};
+
 export interface BackgroundData {
   current: string;
   image: string;
-  gallery?: {
-    images: string[];
-    montage2: string;
-    montage4: string;
+  gallery: {
+    light: BackgroundThemeGalleryData;
+    dark: BackgroundThemeGalleryData;
   };
 }
 
@@ -37,12 +43,12 @@ export class ThemeCtrl extends PaneCtrl {
       { key: 'system', name: i18n.site.deviceTheme },
       { key: 'light', name: i18n.site.light },
       { key: 'dark', name: i18n.site.dark },
-      { key: 'transp', name: i18n.site.picture },
     ];
   }
 
   render(): VNode {
     const cur = this.get();
+    const isTransp = cur.includes('transp');
 
     return div('.sub.theme', [
       header(i18n.site.theme, this.close),
@@ -51,17 +57,36 @@ export class ThemeCtrl extends PaneCtrl {
           return button(
             '.text',
             {
-              class: { active: cur === bg.key },
+              class: { active: cur.includes(bg.key) },
               ...dataIcon(licon.Checkmark),
               title: bg.title || '',
               type: 'button',
-              hook: bind('click', () => this.set(bg.key)),
+              hook: bind('click', () => {
+                const current = this.get();
+                current.includes('transp') && bg.key !== 'system'
+                  ? this.set(`transp ${bg.key}`)
+                  : this.set(bg.key);
+              }),
             },
             bg.name,
           );
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),
-        cur === 'transp'
+        cmnToggleWrap({
+          id: 'background-picture-toggle',
+          name: i18n.site.backgroundImage,
+          checked: isTransp,
+          change: () => {
+            const current = this.get();
+            if (current.includes('transp')) {
+              this.set(current.includes('dark') ? 'dark' : 'light');
+            } else {
+              this.set(current === 'dark' ? 'transp dark' : 'transp light');
+            }
+          },
+          redraw: this.redraw,
+        }),
+        isTransp
           ? this.propSlider(
               'bg-opacity',
               i18n.site.imageOpacity,
@@ -71,7 +96,7 @@ export class ThemeCtrl extends PaneCtrl {
             )
           : null,
       ]),
-      cur === 'transp' ? (this.backgroundData.gallery ? this.galleryInput() : this.imageInput()) : null,
+      isTransp ? (this.backgroundData.gallery ? this.galleryInput() : this.imageInput()) : null,
     ]);
   }
 
@@ -111,14 +136,14 @@ export class ThemeCtrl extends PaneCtrl {
   };
 
   private readonly apply = () => {
-    const key = this.backgroundData.current;
+    const key = this.get();
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
     document.documentElement.className =
       key === 'system' ? (prefersLightThemeQuery().matches ? 'light' : 'dark') : key;
 
-    if (key === 'transp') {
+    if (key.includes('transp')) {
       const bgData = document.getElementById('bg-data');
-      const styleValue = `html.transp::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
+      const styleValue = `html.${key.replace(' ', '.')}::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
       if (bgData) {
         bgData.innerHTML = styleValue;
       } else {
@@ -151,6 +176,8 @@ export class ThemeCtrl extends PaneCtrl {
     ]);
 
   private readonly galleryInput = () => {
+    const cur = this.get();
+    const light = cur.includes('light');
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {
@@ -159,9 +186,11 @@ export class ThemeCtrl extends PaneCtrl {
       this.setImage(url);
     };
 
-    const gallery = this.backgroundData.gallery!;
+    const gallery = light ? this.backgroundData.gallery?.light : this.backgroundData.gallery?.dark;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`]);
+
+    console.warn(montageUrl);
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 

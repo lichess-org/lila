@@ -61,10 +61,11 @@ case class Pref(
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark = "#2e2a24"
-  def themeColor = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColor = if bg == Bg.LIGHT || bg == Bg.TRANSPARENT_LIGHT then themeColorLight else themeColorDark
   def themeColorClass =
     if bg == Bg.LIGHT then "light".some
-    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.TRANSPARENT then "transp dark".some
+    else if bg == Bg.TRANSPARENT_LIGHT then "transp light".some
     else if bg == Bg.SYSTEM then none
     else "dark".some
 
@@ -130,7 +131,8 @@ case class Pref(
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet = SoundSet(soundSet)
   def currentBg: String =
-    if bg == Pref.Bg.TRANSPARENT then "transp"
+    if bg == Pref.Bg.TRANSPARENT then "transp dark"
+    else if bg == Pref.Bg.TRANSPARENT_LIGHT then "transp light"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"
     else "dark" // dark && dark board
@@ -162,6 +164,7 @@ object Pref:
     val DARK = 200
     val DARKBOARD = 300
     val TRANSPARENT = 400
+    val TRANSPARENT_LIGHT = 401
     val SYSTEM = 500
 
     val choices = Seq(
@@ -169,6 +172,7 @@ object Pref:
       DARK -> "Dark",
       DARKBOARD -> "Dark Board",
       TRANSPARENT -> "Transparent",
+      TRANSPARENT_LIGHT -> "Transparent Light",
       SYSTEM -> "Device theme"
     )
 
@@ -176,7 +180,8 @@ object Pref:
       "light" -> LIGHT,
       "dark" -> DARK,
       "darkBoard" -> DARKBOARD,
-      "transp" -> TRANSPARENT,
+      "transp dark" -> TRANSPARENT,
+      "transp light" -> TRANSPARENT_LIGHT,
       "system" -> SYSTEM
     )
 

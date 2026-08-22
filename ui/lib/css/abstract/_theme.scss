@@ -17,6 +17,12 @@ $outline: 2px solid $c-primary;
   }
 }
 
+@mixin if-transp-light {
+  html.transp.light & {
+    @content;
+  }
+}
+
 @mixin if-not-light {
   html:not(.light) & {
     @content;
