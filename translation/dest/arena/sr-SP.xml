@@ -44,6 +44,11 @@
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
   <string name="history">Историја Арена</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Погледај тим</item>
+    <item quantity="few">Погледај сва %s тима</item>
+    <item quantity="other">Погледај свих %s тимова</item>
+  </plurals>
   <string name="newTeamBattle">Нова Борба Тимова</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>

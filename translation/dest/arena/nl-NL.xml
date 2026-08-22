@@ -25,6 +25,7 @@ Berserk geeft je enkel een extra punt als beide spelers minstens 7 zetten spelen
   <string name="howIsTheWinnerDecided">Hoe wordt de winnaar bepaald?</string>
   <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).</string>
   <string name="howDoesPairingWork">Hoe werkt het paren van spelers?</string>
+  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Hoe worden spelers gekoppeld?</string>
   <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers ingedeeld op basis van hun rating.
 Wanneer je een partij beëindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij jouw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
 Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer punten te winnen.</string>

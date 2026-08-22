@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { dataIcon } from 'lib/view';
-import { fullName, userLine, userRating } from 'lib/view/userLink';
+import { dataIcon, type MaybeVNodes } from 'lib/view';
+import { userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
 
 import type { SimplePlayer } from '../interfaces';
 
@@ -28,3 +28,9 @@ export const player = (
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );
+
+export const fullName = (p: LightUserNoId & { realName?: string }): MaybeVNodes => [
+  userTitle(p),
+  ...(p.realName ? [p.realName, h('br'), h('span.username-low', `(${p.name})`)] : [p.name]),
+  userFlair(p),
+];

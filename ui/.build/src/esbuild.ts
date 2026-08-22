@@ -176,7 +176,7 @@ const plugins = [
         esbuildLog(result.errors, true);
         esbuildLog(result.warnings);
         env.begin('esbuild');
-        env.done('esbuild', result.errors.length > 0 ? -3 : 0);
+        env.setStatus('esbuild', result.errors.length > 0 ? -3 : 0);
         if (result.errors.length === 0) bundleManifest(result.metafile);
       });
     },

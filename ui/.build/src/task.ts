@@ -145,13 +145,13 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     activeTaskCount++;
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
-    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.setStatus(t.ctx, 0);
   } catch (e) {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
     else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
-    if (t.ctx && !t.noEnvStatus) env.done(t.ctx, -1);
+    if (t.ctx && !t.noEnvStatus) env.setStatus(t.ctx, -1);
   } finally {
     activeTaskCount--;
   }

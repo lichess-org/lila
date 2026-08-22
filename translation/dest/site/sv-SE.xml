@@ -55,6 +55,8 @@
   <string name="blackLeftTheGame">Svart har lämnat partiet</string>
   <string name="whiteDidntMove">Vit flyttade ingen pjäs</string>
   <string name="blackDidntMove">Svart flyttade ingen pjäs</string>
+  <string name="whiteAborted">Vit lämnade spelet</string>
+  <string name="blackAborted">Svart lämnade spelet</string>
   <string name="requestAComputerAnalysis">Begär datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
   <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>

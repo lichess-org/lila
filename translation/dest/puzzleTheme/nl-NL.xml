@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Een toren staat naast de vijandelijke koning en wordt gedekt door een dame die ook de ontsnappingsvelden van de koning blokkeert. De toren en de dame vangen de vijandelijke koning in een dodelijk 3x3-vierkant.</string>
   <string name="pillsburysMate">Pillsbury\'s mat</string>
   <string name="pillsburysMateDescription">De toren geeft mat, terwijl de loper helpt met opsluiten.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">De toren geeft mat, terwijl een loper helpt met opsluiten.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Gebruik de loper om de koning te mat te zetten, terwijl je toren helpt om hem te de pas af te snijden.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Een loper geeft mat, terwijl een toren helpt met opsluiten.</string>
   <string name="swallowstailMate">Zwaluwstaartmat</string>
   <string name="swallowstailMateDescription">Een matpatroon dat visueel lijkt op de staart van een zwaluw, zoals de vorm van een V.</string>
   <string name="triangleMate">Driehoeksmat</string>

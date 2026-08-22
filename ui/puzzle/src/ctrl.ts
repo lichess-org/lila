@@ -126,17 +126,21 @@ export default class PuzzleCtrl implements CevalHandler {
         })) || [],
       initialFen: undefined, // always standard starting position
       emit: (ev, meta) => {
-        this.tree.updateAt(meta.path, node => {
-          if (meta.threatMode) {
-            const threat = ev;
-            if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
-          if (meta.path === this.path) {
-            this.report.checkForMultipleSolutions(ev, this, meta.threatMode);
-            this.setAutoShapes();
-            this.redraw();
-          }
-        });
+        if (!ev) {
+          this.cevalEnabled(false);
+        } else {
+          this.tree.updateAt(meta.path, node => {
+            if (meta.threatMode) {
+              const threat = ev;
+              if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
+            } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
+            if (meta.path === this.path) {
+              this.report.checkForMultipleSolutions(ev, this, meta.threatMode);
+              this.setAutoShapes();
+              this.redraw();
+            }
+          });
+        }
       },
       onUciHover: this.setAutoShapes,
     });
