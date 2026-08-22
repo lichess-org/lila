@@ -35,6 +35,10 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.moveListSettings,
     helpHtml: videoHtml('info-inline-notation'),
   },
+  alwaysTree: {
+    label: i18n.preferences.alwaysShowVariationTree,
+    group: i18n.preferences.moveListSettings,
+  },
   disclosureMode: {
     label: i18n.preferences.disclosureMode,
     group: i18n.preferences.moveListSettings,
