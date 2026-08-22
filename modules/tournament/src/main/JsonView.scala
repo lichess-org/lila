@@ -319,33 +319,26 @@ final class JsonView(
       .expireAfterWrite(1.minute)
       .maximumSize(256)
       .buildAsyncFuture: id =>
-        tournamentRepo
-          .finishedById(id)
+        cached.tourCache
+          .finished(id)
           .flatMapz: tour =>
             given GetRealName = getRealName(tour)
-            playerRepo
-              .bestByTourWithRank(id, 3)
-              .flatMap: top3 =>
-                // check that the winner is still correctly denormalized
-                top3.headOption
-                  .map(_.player.userId)
-                  .filter(w => tour.winnerId.forall(w !=))
-                  .foreach:
-                    tournamentRepo.setWinnerId(tour.id, _)
-                top3.sequentially: rp =>
-                  for
-                    sheet <- cached.sheet(tour, rp.player.userId)
-                    json <- playerJson(
-                      none,
-                      rp,
-                      streakable = tour.streakable,
-                      withScores = false
-                    )
-                  yield json ++ Json
-                    .obj("nb" -> sheetNbs(sheet))
-                    .add("performance" -> rp.player.performance)
-              .map: l =>
-                JsArray(l).some
+            for
+              top3 <- playerRepo.bestByTourWithRank(id, 3)
+              userIds = top3.map(_.player.userId)
+              // check that the winner is still correctly denormalized
+              _ = userIds.headOption
+                .filter(w => tour.winnerId.forall(w !=))
+                .foreach(tournamentRepo.setWinnerId(tour.id, _))
+              _ <- tour.realNames.so(lightUserApi.preloadRealNames(userIds))
+              list <- top3.sequentially: rp =>
+                for
+                  sheet <- cached.sheet(tour, rp.player.userId)
+                  json <- playerJson(none, rp, streakable = tour.streakable, withScores = false)
+                yield json ++ Json
+                  .obj("nb" -> sheetNbs(sheet))
+                  .add("performance" -> rp.player.performance)
+            yield JsArray(list).some
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi
@@ -421,31 +414,29 @@ final class JsonView(
     _.expireAfterWrite(5.seconds)
       .maximumSize(32)
       .buildAsyncFuture: (tourId, teamId) =>
-        cached.teamInfo
-          .get(tourId -> teamId)
-          .flatMap: info =>
-            lightUserApi
-              .preloadMany(info.topPlayers.map(_.userId))
-              .inject:
-                Json
-                  .obj(
-                    "id" -> teamId,
-                    "nbPlayers" -> info.nbPlayers,
-                    "rating" -> info.avgRating,
-                    "perf" -> info.avgPerf,
-                    "score" -> info.avgScore,
-                    "topPlayers" -> info.topPlayers.flatMap: p =>
-                      lightUserApi
-                        .sync(p.userId)
-                        .map: u =>
-                          writeNoId(u) ++
-                            Json
-                              .obj(
-                                "rating" -> p.rating,
-                                "score" -> p.score
-                              )
-                              .add("fire" -> p.fire)
-                  )
+        for
+          info <- cached.teamInfo.get(tourId -> teamId)
+          userIds = info.topPlayers.map(_.userId)
+          _ <- lightUserApi.preloadMany(userIds)
+        yield Json
+          .obj(
+            "id" -> teamId,
+            "nbPlayers" -> info.nbPlayers,
+            "rating" -> info.avgRating,
+            "perf" -> info.avgPerf,
+            "score" -> info.avgScore,
+            "topPlayers" -> info.topPlayers.flatMap: p =>
+              lightUserApi
+                .sync(p.userId)
+                .map: u =>
+                  writeNoId(u) ++
+                    Json
+                      .obj(
+                        "rating" -> p.rating,
+                        "score" -> p.score
+                      )
+                      .add("fire" -> p.fire)
+          )
 
   def teamInfo(tour: Tournament, teamId: TeamId, joined: Boolean): Fu[Option[JsObject]] =
     tour.isTeamBattle
