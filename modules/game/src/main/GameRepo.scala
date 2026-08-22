@@ -10,6 +10,7 @@ import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 import scalalib.ThreadLocalRandom
 
+import lila.common.Bus
 import lila.core.game.*
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
@@ -64,7 +65,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: GameId): Funit = coll.delete.one($id(id)).void
+  def remove(id: GameId): Funit =
+    for _ <- coll.delete.one($id(id)).void
+    yield Bus.pub(DeleteGame(id))
 
   def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
@@ -573,7 +576,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     importIds <- coll.primitive[GameId](Query.imported(id), "_id")
     allIds = aiIds ::: importIds
     _ <- coll.delete.one($inIds(allIds))
-  yield allIds
+  yield
+    allIds.foreach(id => Bus.pub(DeleteGame(id)))
+    allIds
 
   // expensive, enumerates all the player's games
   def swissIdsOf(id: UserId): Fu[Set[SwissId]] =
