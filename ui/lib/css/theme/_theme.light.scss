@@ -1,8 +1,4 @@
-@import 'theme.default';
-
 html.light {
-  @include shared-color-defs;
-
   --c-bg: hsl(0 0% 100%);
   --c-bg-page: hsl(var(---site-hue) 10% 92%);
   --c-bg-low: hsl(0 0% 89%);
@@ -31,7 +27,6 @@ html.light {
   --c-bg-input: hsl(from var(--c-bg-page) h s 97);
   --c-bg-variation: var(--c-bg-zebra2);
   --c-bg-header-dropdown: var(--c-bg);
-  --c-header-dropdown: var(--c-font);
   --c-page-input: var(--c-bg-low);
   --c-metal-top: hsl(0 0% 96%);
   --c-metal-bottom: hsl(0 0% 93%);
@@ -48,7 +43,6 @@ html.light {
   --c-chat-mention-bg: rgb(161 194 124 / 0.4);
   --c-fancy: hsl(294 61% 62%);
   --c-border-page: hsl(0 0% 80%);
-  --c-border-tour: color-mix(in oklab, hsl(0 0% 80%) 50%, var(--c-bg-page));
   --c-border-light: hsl(0 0% 80%);
   --c-patron-1: hsl(90 60% 43%);
   --c-patron-2: hsl(120 52% 52%);
@@ -59,5 +53,4 @@ html.light {
   --c-patron-7: hsl(270 62% 67%);
   --c-patron-8: hsl(310 56% 57%);
   --c-patron-9: hsl(0 52% 60%);
-  --c-patron-10: hsl(37 74% 43%);
 }

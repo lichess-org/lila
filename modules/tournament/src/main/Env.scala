@@ -22,7 +22,6 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     chatApi: lila.core.chat.ChatApi,
     roundApi: lila.core.round.RoundApi,
-    lightUserApi: lila.core.user.LightUserApi,
     onStart: lila.core.game.OnStart,
     historyApi: lila.core.history.HistoryApi,
     trophyApi: lila.core.user.TrophyApi,
@@ -37,7 +36,8 @@ final class Env(
     org.apache.pekko.stream.Materializer,
     lila.core.game.IdGenerator,
     lila.core.i18n.Translator,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.core.user.LightUserApi
 ):
 
   lazy val forms = wire[TournamentForm]

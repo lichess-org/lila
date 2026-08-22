@@ -83,16 +83,19 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
-    val switch = get("switch").orElse(get("as"))
-    t3Counter(_.login.load)
-    referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
-      case Some(url) =>
-        t3Counter(_.login.success)
-        Redirect(url.value) // redirect immediately if already logged in
-      case None =>
-        val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
-        val form = api.loginFormFilled(prefillUsername)
-        Ok.page(views.auth.login(form)).map(_.withCanonical(routes.Auth.login))
+    env.security.lilaCookie.ensureAndGet: sid =>
+      val switch = get("switch").orElse(get("as"))
+      t3Counter(_.login.load(sid))
+      referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
+        case Some(url) =>
+          t3Counter(_.login.success)
+          Redirect(url.value) // redirect immediately if already logged in
+        case None =>
+          val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
+          val form = api.loginFormFilled(prefillUsername)
+          Ok.page(views.auth.login(form))
+            .map(_.withCanonical(routes.Auth.login))
+            .map(env.security.lilaCookie.ensure)
 
   def authenticate = OpenBody:
     NoCrawlers:
@@ -132,9 +135,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                 negotiate(
                                   lila.security.LoginCandidate.totpError(err) match
                                     case None =>
-                                      t3Counter(_.login.failure("credentials"))
+                                      t3Counter(_.login.fail("credentials", err.some))
                                       Unauthorized.page(views.auth.login(err, isRemember))
                                     case Some(err) =>
+                                      t3Counter(_.login.fail("2fa"))
                                       for cookie <- env.security.turnstileCookie.create(loginData)
                                       yield Ok(err).withCookies(cookie),
                                   Unauthorized(doubleJsonFormErrorBody(err))
@@ -143,7 +147,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                               _.toOption match
                                 case None => InternalServerError("Authentication error")
                                 case Some(u) if u.enabled.no =>
-                                  t3Counter(_.login.failure("closed"))
+                                  t3Counter(_.login.fail("closed"))
                                   negotiate(
                                     env.mod.logApi.closedByTeacher(u).flatMap {
                                       if _ then
@@ -167,7 +171,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             )
                         }
                 else
-                  t3Counter(_.login.failure("turnstile"))
+                  t3Counter(_.login.fail("turnstile"))
                   BadRequest.page:
                     views.auth
                       .login(
@@ -176,10 +180,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                       )
           )
 
-  private def t3Counter(counter: lila.mon.signedClient.type => String => kamon.metric.Counter)(using
-      Option[ValidReferrer]
-  ) = simpleSignup.foreach: ss =>
-    counter(lila.mon.signedClient)(ss.client.clientId.value).increment()
+  private def t3Counter(counter: lila.web.T3AuthMonitor => String => Unit)(using Option[ValidReferrer]) =
+    simpleSignup.map(_.client.clientId.value).foreach(counter(env.web.t3AuthMonitor))
 
   private val clasLoginRateLimit =
     env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
@@ -221,9 +223,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
 
   private def serveSignup(using Context) = NoTor:
-    t3Counter(_.signup.load)
-    val form = forms.signup.full(simpleSignup)
-    Ok.page(views.auth.signup(form.form, form.simple))
+    env.security.lilaCookie.ensureAndGet: sid =>
+      t3Counter(_.signup.load(sid))
+      val form = forms.signup.full(simpleSignup)
+      Ok.page(views.auth.signup(form.form, form.simple))
 
   private def simpleSignup(using ref: Option[ValidReferrer]) =
     ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
@@ -251,17 +254,15 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .website(ctx.blind, simpleSignup)
                 .flatMap:
                   case RateLimited | ForbiddenNetwork | SimpleSignupDuplicate =>
-                    t3Counter(_.signup.failure("rateLimit"))
+                    t3Counter(_.signup.fail("rateLimit"))
                     rateLimited
                   case TurnstileFail =>
-                    t3Counter(_.signup.failure("turnstile"))
+                    t3Counter(_.signup.fail("turnstile"))
                     val f = forms.signup.full(simpleSignup)
                     val form = f.form.withGlobalError("Invalid captcha")
                     BadRequest.page(views.auth.signup(form, f.simple))
                   case FormInvalid(err) =>
-                    t3Counter(_.signup.failure("form"))
-                    t3Counter:
-                      _.signup.formError(err.errors.map(_.key), err.errors.flatMap(_.messages.headOption))
+                    t3Counter(_.signup.fail("form", err.some))
                     val f = forms.signup.full(simpleSignup)
                     BadRequest.page(views.auth.signup(err, f.simple))
                   case ConfirmEmail(user, email) =>
