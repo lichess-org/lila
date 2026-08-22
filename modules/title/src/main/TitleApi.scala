@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.core.user.UserApi
 import lila.core.LightUser
+import lila.core.user.RealName
 
 final class TitleApi(
     coll: Coll,
@@ -55,7 +56,7 @@ final class TitleApi(
 
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(
-      ("data.realName" -> BSONString(req.data.realName)).some,
+      ("data.realName" -> BSONString(req.data.realName.value)).some,
       req.data.fideId.map(id => "data.fideId" -> BSONInteger(id.value))
     ).flatten.map: (k, v) =>
       $doc(k -> v)
@@ -105,30 +106,37 @@ final class TitleApi(
     users <- userApi.enabledByIds(ids)
   yield users.sortBy(u => u.seenAt | u.createdAt).lastOption
 
-  object publicFideIdOf:
+  object publicTitle:
 
-    private val cache = cacheApi[UserId, Option[FideId]](8_192, "title.publicFideIdOf"):
-      _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
-        coll.secondary
-          .find(
-            $doc(
-              "userId" -> id,
-              s"$statusField.n" -> Status.approved.toString
-            ),
-            $doc("data.fideId" -> true, "data.public" -> true).some
-          )
-          .sort($sort.desc("createdAt"))
-          .one[Bdoc]
-          .dmap: docOpt =>
-            for
-              doc <- docOpt
-              data <- doc.child("data")
-              fideId <- data.getAsOpt[FideId]("fideId")
-              if ~data.booleanLike("public")
-            yield fideId
+    private val cache =
+      cacheApi[UserId, Option[(RealName, Option[FideId])]](8_192, "title.publicFideIdAndName"):
+        _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
+          coll.secondary
+            .find(
+              $doc(
+                "userId" -> id,
+                s"$statusField.n" -> Status.approved.toString
+              ),
+              $doc("data.fideId" -> true, "data.public" -> true, "data.realName" -> true).some
+            )
+            .sort($sort.desc("createdAt"))
+            .one[Bdoc]
+            .dmap: docOpt =>
+              for
+                doc <- docOpt
+                data <- doc.child("data")
+                if ~data.booleanLike("public")
+                realName <- data.getAsOpt[RealName]("realName")
+                fideId = data.getAsOpt[FideId]("fideId")
+              yield (realName, fideId)
 
-    def apply(user: LightUser): Fu[Option[FideId]] =
-      (user.title.isDefined && !user.isBot).so(cache.get(user.id))
+    private def titled(u: LightUser): Boolean = u.title.isDefined && !u.isBot
+
+    def fideId(user: LightUser): Fu[Option[FideId]] =
+      titled(user).so(cache.get(user.id)).dmap(_.flatMap(_._2))
+
+    def realName(user: LightUser): Fu[Option[RealName]] =
+      titled(user).so(cache.get(user.id)).map2(_._1)
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""

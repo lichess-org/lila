@@ -4,17 +4,17 @@ import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import chess.IntRating
+import scalalib.data.Preload
 
 import lila.common.Json.given
 import lila.common.Json.lightUser.writeNoId
 import lila.common.Uptime
 import lila.core.LightUser
 import lila.core.chess.Rank
-import scalalib.data.Preload
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
-import lila.core.user.LightUserApi
+import lila.core.user.{ LightUserApi, RealName }
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.gathering.GatheringJson.*
 import lila.memo.CacheApi.*
@@ -22,7 +22,6 @@ import lila.memo.SettingStore
 import lila.rating.PerfType
 
 final class JsonView(
-    lightUserApi: LightUserApi,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
@@ -37,10 +36,11 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(using Executor, lila.core.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator)(using lightUserApi: LightUserApi):
 
   import JsonView.{ *, given }
   import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
+
   private given Ordering[TeamId] = stringOrdering
 
   def apply(
@@ -65,15 +65,7 @@ final class JsonView(
       pauseDelay = me.flatMap: me =>
         pause.remainingDelay(me.userId, tour)
       full = !partial
-      stand <- standingApi(
-        tour,
-        (myInfo, page) match
-          case (_, Some(p)) => p
-          case (Some(i), _) => i.page
-          case _ => 1
-        ,
-        withScores = withScores
-      )
+      stand <- standingApi(tour, page.orElse(myInfo.map(_.page)) | 1, withScores = withScores)
       playerInfoJson <- playerInfoExt.traverse:
         playerInfoExtended(tour, _)
       verdicts <- full.optionFu:
@@ -176,8 +168,11 @@ final class JsonView(
     ranking <- cached.ranking(tour)
     sheet <- cached.sheet(tour, info.userId)
     user <- lightUserApi.asyncFallback(info.userId)
-    _ <- lightUserApi.preloadMany(info.recentPovs.flatMap(_.opponent.userId))
+    opponentIds = info.recentPovs.flatMap(_.opponent.userId)
+    _ <- lightUserApi.preloadMany(opponentIds)
+    _ <- tour.realNames.so(lightUserApi.preloadRealNames(opponentIds))
   yield
+    given realName: GetRealName = getRealName(tour)
     import info.*
     val isPlaying = recentPovs.headOption.so(_.game.playable)
     val povScores: List[(LightPov, Option[arena.Sheet.Score])] = recentPovs.zip:
@@ -196,6 +191,7 @@ final class JsonView(
           .add("provisional" -> player.provisional)
           .add("withdraw" -> player.withdraw)
           .add("team" -> player.team)
+          .add("realName" -> realName(user.id))
       },
       "pairings" -> povScores.map: (pov, score) =>
         Json
@@ -309,11 +305,14 @@ final class JsonView(
       .add("fullId", i.fullId)
       .add("pauseDelay", delay)
 
-  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean): JsObject =
+  private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean)(using
+      realName: GetRealName
+  ): JsObject =
     userId.flatMap(lightUserApi.sync).so(writeNoId) ++
       Json
         .obj("rating" -> rating)
         .add("berserk" -> berserk)
+        .add("realName" -> userId.flatMap(realName))
 
   private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson"):
     _.expireAfterAccess(15.seconds)
@@ -323,6 +322,7 @@ final class JsonView(
         tournamentRepo
           .finishedById(id)
           .flatMapz: tour =>
+            given GetRealName = getRealName(tour)
             playerRepo
               .bestByTourWithRank(id, 3)
               .flatMap: top3 =>
@@ -336,7 +336,6 @@ final class JsonView(
                   for
                     sheet <- cached.sheet(tour, rp.player.userId)
                     json <- playerJson(
-                      lightUserApi,
                       none,
                       rp,
                       streakable = tour.streakable,
@@ -516,13 +515,11 @@ object JsonView:
         .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
 
   def playerJson(
-      lightUserApi: LightUserApi,
       sheets: Map[UserId, arena.Sheet],
       streakable: Boolean,
       withScores: Boolean
-  )(rankedPlayer: RankedPlayer)(using Executor): Fu[JsObject] =
+  )(rankedPlayer: RankedPlayer)(using Executor, LightUserApi, GetRealName): Fu[JsObject] =
     playerJson(
-      lightUserApi,
       sheets.get(rankedPlayer.player.userId),
       rankedPlayer,
       streakable = streakable,
@@ -530,12 +527,11 @@ object JsonView:
     )
 
   private[tournament] def playerJson(
-      lightUserApi: LightUserApi,
       sheet: Option[arena.Sheet],
       rankedPlayer: RankedPlayer,
       streakable: Boolean,
       withScores: Boolean
-  )(using Executor): Fu[JsObject] =
+  )(using Executor)(using lightUserApi: LightUserApi, getRealName: GetRealName): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi
       .asyncFallback(p.userId)
@@ -551,6 +547,7 @@ object JsonView:
             .add("provisional" -> p.provisional)
             .add("withdraw" -> p.withdraw)
             .add("team" -> p.team)
+            .add("realName" -> getRealName(p.userId))
 
   private[tournament] def sheetJson(streakFire: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json
