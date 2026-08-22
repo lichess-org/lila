@@ -5,7 +5,7 @@ export type TreeNodeId = string;
 export type TreePath = string;
 
 interface ClientEvalBase extends EvalScore {
-  bestmove?: Uci;
+  bestmove?: Uci | '(none)';
   ponder?: Uci;
   fen: FEN;
   depth: number;
