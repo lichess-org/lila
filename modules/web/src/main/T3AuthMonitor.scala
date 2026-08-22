@@ -29,7 +29,9 @@ final class T3AuthMonitor(using Executor):
       for sid <- LilaCookie.sid(req)
       do
         formErr.foreach: f =>
-          mon.formError(f.errors.map(_.key), f.errors.flatMap(_.messages.headOption))(client).increment()
+          mon
+            .formError(listStr(f.errors.map(_.key)), listStr(f.errors.flatMap(_.messages.headOption)))(client)
+            .increment()
           mon.failure(reason, unique = false)(client).increment()
         if !hasFailed.get(sid) then mon.failure(reason, unique = true)(client).increment()
         hasFailed.put(sid)
@@ -39,3 +41,5 @@ final class T3AuthMonitor(using Executor):
 
     def step(s: String)(client: String): Unit =
       mon.step(s)(client).increment()
+
+    private def listStr(list: Seq[String]): String = list.mkString(",").nonEmptyOption | "-"
