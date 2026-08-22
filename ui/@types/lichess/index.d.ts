@@ -266,7 +266,7 @@ declare namespace PowerTip {
   type BasePlacement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se';
   type Placement = BasePlacement | 'n-alt' | 'e-alt' | 's-alt' | 'w-alt';
   interface Options {
-    preRender?: (el: HTMLElement) => void;
+    render?: (el: HTMLElement) => Promise<void>;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;
