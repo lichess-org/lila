@@ -34,7 +34,7 @@ export class PromotionCtrl {
     private readonly withGround: WithGround,
     private readonly onCancel: () => void,
     private readonly redraw: Redraw,
-    private readonly variant: VariantKey = 'standard',
+    private readonly variant: () => VariantKey = () => 'standard',
     private readonly autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 
@@ -48,10 +48,13 @@ export class PromotionCtrl {
           (dest[1] === '1' && g.state.turnColor === 'white'))
       ) {
         if (
-          this.variant === 'atomic' &&
+          this.variant() === 'atomic' &&
           (premovePiece ? g.state.pieces.get(dest)?.color === opposite(premovePiece.color) : !!meta?.captured)
-        )
-          return false;
+        ) {
+          if (premovePiece) this.setPrePromotion(dest, 'queen');
+          else this.doPromote({ orig, dest, hooks }, 'queen');
+          return true;
+        }
         if (this.prePromotionRole && meta?.premove) {
           this.doPromote({ orig, dest, hooks }, this.prePromotionRole);
           return true;
