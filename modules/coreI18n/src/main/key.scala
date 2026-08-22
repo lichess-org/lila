@@ -2324,6 +2324,8 @@ object I18nKey:
     val `perfRatingX`: I18nKey = "perfRatingX"
     val `yourRatingIsX`: I18nKey = "yourRatingIsX"
     val `practiceWithComputer`: I18nKey = "practiceWithComputer"
+    val `opponentStrength`: I18nKey = "opponentStrength"
+    val `fullStrength`: I18nKey = "fullStrength"
     val `anotherWasX`: I18nKey = "anotherWasX"
     val `bestWasX`: I18nKey = "bestWasX"
     val `youBrowsedAway`: I18nKey = "youBrowsedAway"
