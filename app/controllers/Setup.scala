@@ -7,6 +7,7 @@ import play.api.mvc.{ EssentialAction, Result }
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.socket.Sri
+import lila.core.id.SessionId
 import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
@@ -56,7 +57,7 @@ final class Setup(
                   (origUser, ctx.req.sid)
                     .match
                       case (Some(orig), _) => toRegistered(orig).some
-                      case (_, Some(sid)) => Challenger.Anonymous(sid).some
+                      case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
                       case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
                       case _ => none
                     .so: challenger =>
@@ -162,7 +163,7 @@ final class Setup(
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
               case None =>
                 config
-                  .hook(reqSri | sri, me, sid = sri.value.some, lila.core.pool.Blocking(blocking))
+                  .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
                   .match
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):

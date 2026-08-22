@@ -58,7 +58,7 @@
   </plurals>
   <string name="imageAlt">Текстовий опис зображення</string>
   <string name="imageCredit">Права на зображення</string>
-  <string name="deleteBlog">Остаточно видалити цей допис</string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Остаточно видалити цей допис</string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="noCopyrightedImages">Використовуйте лише ті зображення, які не мають авторських прав.</string>

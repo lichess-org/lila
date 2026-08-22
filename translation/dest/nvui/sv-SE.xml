@@ -8,6 +8,7 @@
   <string name="actions">Åtgärder</string>
   <string name="yourClock">Din klocka</string>
   <string name="gameStart">Spelstart</string>
+  <string name="announcePossibleMoves">Meddela möjliga drag för den valda pjäsen.</string>
   <string name="king">kung</string>
   <string name="whiteKing">vit kung</string>
   <string name="blackKing">svart kung</string>

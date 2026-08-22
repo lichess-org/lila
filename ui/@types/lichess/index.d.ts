@@ -188,7 +188,7 @@ interface LightUserNoId {
   name: string;
   title?: string;
   flair?: Flair;
-  patron?: boolean;
+  patron?: boolean; // BC
   patronColor?: PatronColor;
 }
 

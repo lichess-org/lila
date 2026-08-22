@@ -13,6 +13,7 @@ import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.core.security.IsProxy
+import lila.core.perf.UserWithPerfs
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -31,6 +32,8 @@ final class User(
   import env.relation.api as relationApi
   import env.gameSearch.userGameSearch
   import env.user.lightUserApi
+
+  private given Conversion[UserWithPerfs, UserModel] = _.user
 
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
@@ -216,7 +219,7 @@ final class User(
               .map: u =>
                 env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
-  def ratingHistory(username: UserStr) = Open:
+  def ratingHistory(username: UserStr) = OpenOrScoped():
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u, computeIfNeeded = ctx.isAuth)

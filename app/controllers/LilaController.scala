@@ -24,6 +24,7 @@ abstract private[controllers] class LilaController(val env: Env)
     with lila.web.ResponseHeaders
     with lila.web.ResponseWriter
     with lila.web.CtrlExtensions
+    with lila.web.CtrlGivens
     with http.CtrlFilters(using env.executor)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
