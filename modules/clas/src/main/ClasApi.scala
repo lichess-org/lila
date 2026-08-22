@@ -11,7 +11,7 @@ import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.{ MsgApi, SystemMsg }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.KidMode
+import lila.core.user.{ KidMode, RealName }
 import lila.common.Bus
 import lila.core.perm.Granter
 
@@ -152,7 +152,7 @@ final class ClasApi(
 
     /* Only if userId and I have a class in common,
      * wether we're teachers or students */
-    def realName(userId: UserId)(using me: Me): Fu[Option[String]] =
+    def realName(userId: UserId)(using me: Me): Fu[Option[RealName]] =
       if me.is(userId) then fuccess(none)
       else if isTeacher(userId)
       then userRepo.realName(userId)
@@ -164,7 +164,7 @@ final class ClasApi(
             else
               isStudent(me.userId).so:
                 matesCache.findMateStudent(userId).map2(_.realName)
-          .map2(_.value)
+          .map2(_.into(RealName))
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(isStudent(kid1) && isStudent(kid2)) >>&

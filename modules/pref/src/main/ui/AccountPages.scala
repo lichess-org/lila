@@ -134,7 +134,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   private lazy val flagPairs = flagApi.all.map: c =>
     c.code -> c.name
 
-  def profile(u: User, form: Form[?])(using ctx: Context) =
+  def profile(u: User, form: Form[?], fixedRealName: Boolean)(using ctx: Context) =
     AccountPage(s"${u.username} - ${trans.site.editProfile.txt()}", "editProfile"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.editProfile()),
@@ -167,7 +167,13 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
+            form3.group(
+              form("realName"),
+              trans.site.realName(),
+              half = true,
+              help = fixedRealName.option("Publicly titled profiles cannot change their real name")
+            ): field =>
+              form3.input(field)(fixedRealName.option(disabled))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>
