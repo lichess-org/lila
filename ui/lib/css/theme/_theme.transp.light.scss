@@ -1,8 +1,4 @@
-@import 'theme.light';
-
 html.transp.light {
-  @include shared-color-defs;
-
   --c-primary: hsl(209 79% 46%);
   --c-base: hsl(0 0% 15%);
   --c-font: hsl(0 0% 20%);

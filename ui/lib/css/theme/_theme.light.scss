@@ -1,8 +1,4 @@
-@import 'theme.default';
-
 html.light {
-  @include shared-color-defs;
-
   --c-bg: hsl(0 0% 100%);
   --c-bg-page: hsl(var(---site-hue) 10% 92%);
   --c-bg-low: hsl(0 0% 89%);
