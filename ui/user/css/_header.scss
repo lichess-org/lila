@@ -1,6 +1,8 @@
 .user-show__header {
   background: $c-bg-zebra;
   padding: 2em 1.5em 2em 1.5em;
+  display: flex;
+  align-items: center;
   flex-flow: row nowrap;
 
   h1 {
