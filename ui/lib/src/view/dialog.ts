@@ -27,7 +27,7 @@ export interface DialogOpts<Ctx = undefined> {
   htmlText?: string; // content, htmlText is inserted as fragment into DOM
   cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
   htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  insert?: { node: Node; selector?: string; position?: 'child' | 'before' | 'after' }[]; // default is 'child'
+  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action<Ctx> | Action<Ctx>[]; // add listeners to controls, call updateActions() to reattach
@@ -217,11 +217,12 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         () => this.close('cancel'),
       );
     for (const app of o.insert ?? []) {
-      if (app.node === view) break;
+      if (app.nodes === view) break;
+      const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
       const target = (app.selector ? view.querySelector(app.selector) : view)!;
-      if (app.position === 'before') target.before(app.node);
-      else if (app.position === 'after') target.after(app.node);
-      else target.appendChild(app.node);
+      if (app.position === 'before') target.before(...nodes);
+      else if (app.position === 'after') target.after(...nodes);
+      else target.append(...nodes);
     }
     this.updateActions();
     this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
