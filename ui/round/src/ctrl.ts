@@ -125,7 +125,7 @@ export default class RoundController implements MoveRootCtrl {
         xhr.reload(this.data).then(this.reload, site.reload);
       },
       this.redraw,
-      d.game.variant.key,
+      () => d.game.variant.key,
       d.pref.autoQueen,
     );
 

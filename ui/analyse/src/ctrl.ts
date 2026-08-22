@@ -158,7 +158,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
-      this.data.game.variant.key,
+      () => this.variantKey,
     );
     this.motif = new MotifCtrl(this.settings);
 
