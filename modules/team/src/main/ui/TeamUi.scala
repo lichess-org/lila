@@ -1,6 +1,7 @@
 package lila.team
 package ui
 
+import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
 import lila.ui.*
@@ -123,11 +124,23 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       )
 
     def mine(teams: List[Team.WithMyLeadership])(using ctx: Context) =
-      TeamPage(trt.myTeams.txt()):
+      TeamPage(trt.myTeams.txt()).js(
+        esmInitBit(
+          "addToShortcuts",
+          "selector" -> ".team-shortcuts",
+          "contextual" -> JsArray(
+            teams.map: team =>
+              Json.obj("name" -> team.name, "url" -> routes.Team.show(team.id).url, "iconKey" -> "Group")
+          )
+        )
+      ):
         main(cls := "team-list page-menu")(
           menu("mine".some),
           div(cls := "page-menu__content box")(
-            h1(cls := "box__top")(trt.myTeams()),
+            h1(cls := "box__top")(
+              trt.myTeams(),
+              button(cls := "button button-empty team-shortcuts", dataIcon := Icon.StarOutline)
+            ),
             standardFlash.map(div(cls := "box__pad")(_)),
             ctx.me.filter(me => Team.maxJoin(me) < teams.size).map { me =>
               flashMessage("failure"):
