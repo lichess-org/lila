@@ -48,12 +48,16 @@ export async function tsc(): Promise<void> {
       const loc = /^(.*)\((\d+),(\d+)\): (error|warning) TS(\d+): (.*)$/.exec(line);
       const global = /^(error|warning) TS(\d+): (.*)$/.exec(line);
       if (loc) {
-        tscLog(
-          { file: loc[1], line: loc[2], col: loc[3], code: Number(loc[5]), text: loc[6] },
-          loc[4] === 'warning',
-        );
+        tscLog({
+          file: loc[1],
+          line: loc[2],
+          col: loc[3],
+          warning: loc[4] === 'warning',
+          code: Number(loc[5]),
+          text: loc[6],
+        });
       } else if (global) {
-        tscLog({ code: Number(global[2]), text: global[3] }, global[1] === 'warning');
+        tscLog({ warning: global[1] === 'warning', code: Number(global[2]), text: global[3] });
       } else {
         const summary = /^Found (\d+) errors?\./.exec(line);
         if (summary) {
@@ -98,10 +102,11 @@ interface Diagnostic {
   file?: string;
   line?: string;
   col?: string;
+  warning?: boolean;
 }
 
-function tscLog({ code, text, file, line, col }: Diagnostic, isWarn = false): void {
-  const prelude = `${isWarn ? warnMark : errorMark} ts${code} `;
+function tscLog({ code, text, file, line, col, warning }: Diagnostic): void {
+  const prelude = `${warning ? warnMark : errorMark} ts${code} `;
   let loc = '';
   if (file) {
     loc = `${c.grey('in')} '${c.cyan(relative(env.uiDir, resolve(env.rootDir, file)))}`;
