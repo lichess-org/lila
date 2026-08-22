@@ -47,6 +47,10 @@ final class IrcApi(
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
+  def forumTimeout(user: LightUser, posts: List[String]): Funit =
+    zulip(_.mod.commsPrivate, "forum timeouts"):
+      s"${markdown.userLink(user)} timed out for:\n  ${posts.mkString("\n  ")}"
+
   def inquiry(user: LightUser, domain: ModDomain, room: String)(using mod: LightUser.Me): Funit =
     val stream = domain match
       case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
