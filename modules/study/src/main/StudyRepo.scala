@@ -199,6 +199,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     _ <- coll(_.update.one($id(study), $set("ownerId" -> userId)))
   yield ()
 
+  def setMemberLastChapter(study: Study, userId: UserId, chapterId: StudyChapterId): Funit =
+    coll:
+      _.update.one(
+        $id(study.id),
+        $set(s"members.$userId.lastChapterId" -> chapterId)
+      )
+    .void
+
   def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
     coll(_.primitiveOne[Bdoc]($id(id), "members"))
 
