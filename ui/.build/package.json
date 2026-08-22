@@ -22,7 +22,7 @@
     "fast-xml-parser": "5.10.1",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "node --no-warnings src/main.ts $@"
