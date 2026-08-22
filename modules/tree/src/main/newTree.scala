@@ -145,7 +145,7 @@ object NewTree:
       node.shapes,
       node.comments,
       node.gamebook,
-      node.glyphs,
+      node.glyphs.toBase,
       node.clock,
       node.crazyData
     )

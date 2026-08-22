@@ -55,7 +55,7 @@ object NewTreeBuilder:
               advice
                 .map(_.makeComment(false))
                 .toList
-                .map(TreeBuilder.makeLichessComment)
+                .map(TreeBuilder.makeLichessComment(_, false))
           )
         )
       )
