@@ -1,8 +1,4 @@
-@import 'theme.default';
-
 html.transp {
-  @include shared-color-defs;
-
   --c-bg-font: hsl(0 0% 80%);
   --c-bg: hsl(0 0% 0% / 0.6);
   --c-bg-opaque: hsl(0 0% 0% / 0.9);
