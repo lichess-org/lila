@@ -75,6 +75,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="rankAvgHelp">A média da classificação é uma percentagem da tua classificação. Menor é melhor.
 
 Por exemplo, ficar em 3º lugar num torneio de 100 jogadores = 3%. Estar em 10º lugar num torneio de 1000 jogadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">A tua classificação média representa a tua classificação final habitual, em relação ao número total de jogadores em cada torneio.
+É uma medida da tua posição no torneio, e não da tua pontuação geral.
+
+Por exemplo, uma classificação média de 3% significa que, normalmente, terminas no top 3% (por exemplo, em 30º lugar entre 1000 jogadores).</string>
   <string name="medians">médias</string>
   <string name="allAveragesAreX">Todas as médias desta página são %s.</string>
   <string name="total">Total</string>

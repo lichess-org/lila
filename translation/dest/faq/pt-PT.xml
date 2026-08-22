@@ -165,6 +165,10 @@ Mostramos o ícone vermelho de silêncio para te avisar quando isso acontece. Po
 2. Clique no ícone do cadeado na barra de endereços
 3. Clique em Configurações do Site
 4. Permitir Som</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Vai ao lichess.org
+2. Clica no ícone do cadeado na barra de endereços
+3. Clica em Configurações do Site
+4. Permitir Som</string>
   <string name="enableAutoplayForSoundsSafari">1. Vá para lichess.org
 2. Clique em Safari na barra de menu
 3. Clique em Configurações para lichess.org ...

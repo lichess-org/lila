@@ -35,6 +35,7 @@ final class Env(
   val memo: lila.memo.Env = wire[lila.memo.Env]
   val socket: lila.socket.Env = wire[lila.socket.Env]
   val user: lila.user.Env = wire[lila.user.Env]
+  import user.given
   val mailer: lila.mailer.Env = wire[lila.mailer.Env]
   val oAuth: lila.oauth.Env = wire[lila.oauth.Env]
   val security: lila.security.Env = wire[lila.security.Env]
