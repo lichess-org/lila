@@ -59,7 +59,9 @@
     grid-template-areas: 'side  app   app' 'uchat under .';
 
     &:has(.keyboard-move) {
-      grid-template-rows: calc(var(---col3-uniboard-width) + #{$block-gap} + #{$kb-move-height}) fit-content(0);
+      grid-template-rows:
+        calc(var(---col3-uniboard-width) + #{$block-gap} + #{$kb-move-height})
+        fit-content(0);
     }
 
     &__app {
