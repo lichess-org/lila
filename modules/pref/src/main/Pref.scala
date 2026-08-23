@@ -163,7 +163,6 @@ object Pref:
   object Bg:
     val LIGHT = 100
     val DARK = 200
-    val DARKBOARD = 300
     val TRANSPARENT = 400
     val TRANSPARENT_LIGHT = 401
     val SYSTEM = 500
@@ -172,7 +171,6 @@ object Pref:
     val choices = Seq(
       LIGHT -> "Light",
       DARK -> "Dark",
-      DARKBOARD -> "Dark Board",
       TRANSPARENT -> "Transparent",
       TRANSPARENT_LIGHT -> "Transparent Light",
       SYSTEM -> "Device theme",
@@ -182,7 +180,6 @@ object Pref:
     val fromString = Map(
       "light" -> LIGHT,
       "dark" -> DARK,
-      "darkBoard" -> DARKBOARD,
       "transp dark" -> TRANSPARENT,
       "transp light" -> TRANSPARENT_LIGHT,
       "transp system" -> TRANSPARENT_SYSTEM,
