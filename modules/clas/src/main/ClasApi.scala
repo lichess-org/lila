@@ -115,17 +115,16 @@ final class ClasApi(
       )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      (isStudent(student) && isTeacher(teacher)).so:
-        colls.student
-          .aggregateExists(_.sec): framework =>
-            import framework.*
-            Match($doc("userId" -> student)) -> List(
-              Project($doc("clasId" -> true)),
-              PipelineOperator(lookupClasOfTeacher(teacher)),
-              Match("clasId".$ne($arr())),
-              Limit(1),
-              Project($id(true))
-            )
+      (isTeacher(teacher) && isStudent(student)).so:
+        colls.student.aggregateExists(_.sec): framework =>
+          import framework.*
+          Match($doc("userId" -> student)) -> List(
+            Project($doc("clasId" -> true)),
+            PipelineOperator(lookupClasOfTeacher(teacher)),
+            Match("clasId".$ne($arr())),
+            Limit(1),
+            Project($id(true))
+          )
 
     def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
       filters
@@ -154,17 +153,18 @@ final class ClasApi(
      * wether we're teachers or students */
     def realName(userId: UserId)(using me: Me): Fu[Option[RealName]] =
       if me.is(userId) then fuccess(none)
-      else if isTeacher(userId)
-      then userRepo.realName(userId)
       else
-        isStudent(userId)
-          .so:
-            if isTeacher(me.userId)
-            then myPotentialStudentNames(List(userId)).map(_.get(userId))
-            else
-              isStudent(me.userId).so:
-                matesCache.findMateStudent(userId).map2(_.realName)
-          .map2(_.into(RealName))
+        isTeacherOf(userId, me.userId).flatMap:
+          if _ then userRepo.realName(userId)
+          else
+            isStudent(userId)
+              .so:
+                if isTeacher(me.userId)
+                then myPotentialStudentNames(List(userId)).map(_.get(userId))
+                else
+                  isStudent(me.userId).so:
+                    matesCache.findMateStudent(userId).map2(_.realName)
+              .map2(_.into(RealName))
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(isStudent(kid1) && isStudent(kid2)) >>&
