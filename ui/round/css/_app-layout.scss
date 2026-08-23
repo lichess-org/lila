@@ -152,6 +152,12 @@
 
   @include mq-at-least-col3 {
     grid-template-columns: var(---col3-uniboard-width) $col3-uniboard-table;
+
+    .keyboard-move {
+      grid-area: board;
+      translate: 0 var(---col3-uniboard-width);
+      height: $kb-move-height;
+    }
   }
 
   @include mq-is-col2-squeeze {

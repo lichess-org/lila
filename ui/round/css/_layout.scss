@@ -55,8 +55,16 @@
 
   @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side var(---col3-uniboard-width) $col3-uniboard-table;
-    grid-template-rows: fit-content(0);
+    grid-template-rows: var(---col3-uniboard-width) fit-content(0);
     grid-template-areas: 'side  app   app' 'uchat under .';
+
+    &:has(.keyboard-move) {
+      grid-template-rows: calc(var(---col3-uniboard-width) + #{$block-gap} + #{$kb-move-height}) fit-content(0);
+    }
+
+    &__app {
+      align-self: start;
+    }
 
     @include crosstable-large;
   }
