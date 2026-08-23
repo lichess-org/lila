@@ -4,7 +4,6 @@ import lila.core.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
-import lila.study.Helpers.*
 import lila.tree.{ Node, Root }
 
 import BSONHandlers.given
