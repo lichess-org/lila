@@ -176,7 +176,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def realName(id: UserId): Fu[Option[RealName]] =
     coll
-      .find($id(id), $doc(s"${F.profile}.realName" -> true).some)
+      .find($id(id) ++ enabledSelect, $doc(s"${F.profile}.realName" -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.child(F.profile).flatMap(_.getAsOpt[RealName]("realName")))
