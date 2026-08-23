@@ -117,7 +117,7 @@ case class Pref(
       )
 
   def simpleBoard =
-    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && (board.opacity == 100 || bg != Bg.DARK_TRANSP)
+    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && board.opacity == 100
 
   def currentTheme = Theme(theme)
   def currentTheme3d = Theme3d(theme3d)
