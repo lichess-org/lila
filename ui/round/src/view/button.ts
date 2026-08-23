@@ -139,7 +139,7 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
     ? hl('div.suggestion', [
         hl('p', { hook: onSuggestionHook }, i18n.site.opponentLeftChoices),
         hl(
-          'button.button',
+          'button.button.button-green',
           { hook: bind('click', () => ctrl.socket.sendLoading('resign-force')) },
           i18n.site.forceResignation,
         ),
