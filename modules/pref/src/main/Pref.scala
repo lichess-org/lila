@@ -84,7 +84,7 @@ case class Pref(
       case _ => 70
 
   def bgImgUrlOpt = bgImg.map(_.takeWhile(_ != ' ')).filter(_.nonEmpty)
-  def bgImgUrl = bgImgUrlOpt | Pref.defaultBgImgUrl
+  def bgImgUrl = bgImgUrlOpt | defaultBgImgUrl
   def setBgImgUrl(url: String) = copy(bgImg = s"${~url.some.filterNot(_.isBlank)} $bgOpacity".some)
   def bgOpacity = bgImg.flatMap(_.split(" ").lift(1)).flatMap(_.toIntOption).getOrElse(defaultBgOpacity)
   def setBgOpacity(opacity: Int) = copy(bgImg = s"${~bgImgUrlOpt} $opacity".some)
@@ -132,9 +132,9 @@ case class Pref(
     else if bg == Bg.SYSTEM_TRANSP then "transp system"
     else "dark"
 
-  def forceDarkBg = copy(bg = Pref.Bg.DARK)
+  def forceDarkBg = copy(bg = Bg.DARK)
 
-  def isTransparentBg = bg == Pref.Bg.DARK_TRANSP || bg == Pref.Bg.LIGHT_TRANSP || bg == Pref.Bg.SYSTEM_TRANSP
+  def isTransparentBg = bg == Bg.DARK_TRANSP || bg == Bg.LIGHT_TRANSP || bg == Bg.SYSTEM_TRANSP
 
 object Pref:
 
