@@ -312,6 +312,7 @@ sparati
 bh?o?sdi?ke?
 chut(iy[ae]|)
 gaa?ndu?
+laude ka?rle
 """)
 
   def fr = dict("""
