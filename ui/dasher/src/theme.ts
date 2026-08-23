@@ -47,8 +47,7 @@ export class ThemeCtrl extends PaneCtrl {
   }
 
   render(): VNode {
-    const cur = this.get();
-    const isTransp = cur.includes('transp');
+    const { theme, isTransp } = this.getThemeData();
 
     return div('.sub.theme', [
       header(i18n.site.theme, this.close),
@@ -57,7 +56,7 @@ export class ThemeCtrl extends PaneCtrl {
           return button(
             '.text',
             {
-              class: { active: cur.includes(bg.key) },
+              class: { active: theme.includes(bg.key) },
               ...dataIcon(licon.Checkmark),
               title: bg.title || '',
               type: 'button',
@@ -75,15 +74,8 @@ export class ThemeCtrl extends PaneCtrl {
           name: i18n.site.backgroundImage,
           checked: isTransp,
           change: () => {
-            const current = this.get();
-            const isTransp = current.includes('transp');
-            if (current.includes('system')) {
-              this.set(isTransp ? 'system' : 'transp system');
-            } else if (current.includes('light')) {
-              this.set(isTransp ? 'light' : 'transp light');
-            } else {
-              this.set(isTransp ? 'dark' : 'transp dark');
-            }
+            const { theme, isTransp } = this.getThemeData();
+            this.set(isTransp ? theme.replace('transp ', '') : `transp ${theme}`);
           },
           redraw: this.redraw,
         }),
@@ -125,6 +117,16 @@ export class ThemeCtrl extends PaneCtrl {
     if ($('canvas').length) site.reload();
   };
 
+  private readonly getThemeData = () => {
+    const theme = this.get();
+    return {
+      theme,
+      isTransp: theme.includes('transp'),
+      isSystem: theme.includes('system'),
+      systemPrefersLight: prefersLightThemeQuery().matches,
+    };
+  };
+
   private readonly get = () => this.backgroundData.current;
   private readonly getImage = () => this.backgroundData.image;
   private readonly setImage = (i: string) => {
@@ -137,18 +139,11 @@ export class ThemeCtrl extends PaneCtrl {
   };
 
   private readonly apply = () => {
-    const key = this.get();
-    const isTransp = key.includes('transp');
-    const systemPrefersLight = prefersLightThemeQuery().matches;
-
-    document.body.dataset.theme = key;
+    const { theme, isTransp, isSystem, systemPrefersLight } = this.getThemeData();
+    document.body.dataset.theme = theme;
 
     if (isTransp) {
-      const documentClasses = key.includes('system')
-        ? systemPrefersLight
-          ? 'transp light'
-          : 'transp dark'
-        : key;
+      const documentClasses = isSystem ? (systemPrefersLight ? 'transp light' : 'transp dark') : theme;
       document.documentElement.className = documentClasses;
 
       const bgData = document.getElementById('bg-data');
@@ -159,10 +154,10 @@ export class ThemeCtrl extends PaneCtrl {
         $('head').append(`<style id="bg-data">${styleValue}</style>`);
       }
     } else {
-      document.documentElement.className = key === 'system' ? (systemPrefersLight ? 'light' : 'dark') : key;
+      document.documentElement.className = isSystem ? (systemPrefersLight ? 'light' : 'dark') : theme;
     }
 
-    pubsub.emit('theme', key);
+    pubsub.emit('theme', theme);
   };
 
   private readonly imageInput = () =>
@@ -188,8 +183,8 @@ export class ThemeCtrl extends PaneCtrl {
     ]);
 
   private readonly galleryInput = () => {
-    const cur = this.get();
-    const light = cur.includes('system') ? prefersLightThemeQuery().matches : cur.includes('light');
+    const { theme, isSystem, systemPrefersLight } = this.getThemeData();
+    const light = isSystem ? systemPrefersLight : theme.includes('light');
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {
