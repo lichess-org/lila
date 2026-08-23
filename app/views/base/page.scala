@@ -83,7 +83,7 @@ object page:
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT || pref.bg == lila.pref.Pref.Bg.TRANSPARENT_LIGHT || pref.bg == lila.pref.Pref.Bg.TRANSPARENT_SYSTEM)
+          (pref.bg == lila.pref.Pref.Bg.DARK_TRANSP || pref.bg == lila.pref.Pref.Bg.TRANSPARENT_LIGHT || pref.bg == lila.pref.Pref.Bg.TRANSPARENT_SYSTEM)
             .option(pref.bgImgUrl)
             .map { loc =>
               val url =
@@ -100,8 +100,8 @@ object page:
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
           lichessFontFaceCss,
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
-          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.TRANSPARENT_SYSTEM || ctx.impersonatedBy.isDefined)
-            .so(systemThemeScript(ctx.nonce, ctx.pref.bg === lila.pref.Pref.Bg.TRANSPARENT_SYSTEM))
+          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP || ctx.impersonatedBy.isDefined)
+            .so(systemThemeScript(ctx.nonce, ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP))
         ).pipe(p.transformHead),
         st.body(
           cls := {

@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 def toJson(p: Pref, lichobileCompat: Boolean) = Json.obj(
   "dark" -> (p.bg != Pref.Bg.LIGHT),
-  "transp" -> (p.bg == Pref.Bg.TRANSPARENT || p.bg == Pref.Bg.TRANSPARENT_LIGHT || p.bg == Pref.Bg.TRANSPARENT_SYSTEM),
+  "transp" -> (p.bg == Pref.Bg.DARK_TRANSP || p.bg == Pref.Bg.LIGHT_TRANSP || p.bg == Pref.Bg.SYSTEM_TRANSP),
   "bgImg" -> p.bgImgUrl,
   "is3d" -> p.is3d,
   "theme" -> p.theme,

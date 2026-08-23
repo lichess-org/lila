@@ -61,11 +61,11 @@ case class Pref(
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark = "#2e2a24"
-  def themeColor = if bg == Bg.LIGHT || bg == Bg.TRANSPARENT_LIGHT then themeColorLight else themeColorDark
+  def themeColor = if bg == Bg.LIGHT || bg == Bg.LIGHT_TRANSP then themeColorLight else themeColorDark
   def themeColorClass =
     if bg == Bg.LIGHT then "light".some
-    else if bg == Bg.TRANSPARENT then "transp dark".some
-    else if bg == Bg.TRANSPARENT_LIGHT then "transp light".some
+    else if bg == Bg.DARK_TRANSP then "transp dark".some
+    else if bg == Bg.LIGHT_TRANSP then "transp light".some
     else if bg == Bg.SYSTEM then none
     else "dark".some
 
@@ -123,7 +123,7 @@ case class Pref(
       )
 
   def simpleBoard =
-    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
+    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && (board.opacity == 100 || bg != Bg.DARK_TRANSP)
 
   def currentTheme = Theme(theme)
   def currentTheme3d = Theme3d(theme3d)
@@ -131,11 +131,11 @@ case class Pref(
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet = SoundSet(soundSet)
   def currentBg: String =
-    if bg == Pref.Bg.TRANSPARENT then "transp dark"
-    else if bg == Pref.Bg.TRANSPARENT_LIGHT then "transp light"
+    if bg == Pref.Bg.DARK_TRANSP then "transp dark"
+    else if bg == Pref.Bg.LIGHT_TRANSP then "transp light"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"
-    else if bg == Pref.Bg.TRANSPARENT_SYSTEM then "transp system"
+    else if bg == Pref.Bg.SYSTEM_TRANSP then "transp system"
     else "dark" // dark && dark board
 
   def forceDarkBg = copy(bg = Pref.Bg.DARK)
@@ -163,26 +163,26 @@ object Pref:
   object Bg:
     val LIGHT = 100
     val DARK = 200
-    val TRANSPARENT = 400
-    val TRANSPARENT_LIGHT = 401
+    val DARK_TRANSP = 400
+    val LIGHT_TRANSP = 401
     val SYSTEM = 500
-    val TRANSPARENT_SYSTEM = 501
+    val SYSTEM_TRANSP = 501
 
     val choices = Seq(
       LIGHT -> "Light",
       DARK -> "Dark",
-      TRANSPARENT -> "Transparent",
-      TRANSPARENT_LIGHT -> "Transparent Light",
+      DARK_TRANSP -> "Transparent Dark",
+      LIGHT_TRANSP -> "Transparent Light",
       SYSTEM -> "Device theme",
-      TRANSPARENT_SYSTEM -> "Transparent Device theme"
+      SYSTEM_TRANSP -> "Transparent Device theme"
     )
 
     val fromString = Map(
       "light" -> LIGHT,
       "dark" -> DARK,
-      "transp dark" -> TRANSPARENT,
-      "transp light" -> TRANSPARENT_LIGHT,
-      "transp system" -> TRANSPARENT_SYSTEM,
+      "transp dark" -> DARK_TRANSP,
+      "transp light" -> LIGHT_TRANSP,
+      "transp system" -> SYSTEM_TRANSP,
       "system" -> SYSTEM
     )
 
