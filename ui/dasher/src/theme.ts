@@ -144,11 +144,15 @@ export class ThemeCtrl extends PaneCtrl {
     document.body.dataset.theme = key;
 
     if (isTransp) {
-      document.documentElement.className =
-        key === 'system' ? (systemPrefersLight ? 'transp light' : 'transp dark') : key;
+      const documentClasses = key.includes('system')
+        ? systemPrefersLight
+          ? 'transp light'
+          : 'transp dark'
+        : key;
+      document.documentElement.className = documentClasses;
 
       const bgData = document.getElementById('bg-data');
-      const styleValue = `html.${key.replace(' ', '.')}::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
+      const styleValue = `html.${documentClasses.replace(' ', '.')}::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
       if (bgData) {
         bgData.innerHTML = styleValue;
       } else {
@@ -185,7 +189,7 @@ export class ThemeCtrl extends PaneCtrl {
 
   private readonly galleryInput = () => {
     const cur = this.get();
-    const light = cur.includes('light');
+    const light = cur.includes('system') ? prefersLightThemeQuery().matches : cur.includes('light');
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {
