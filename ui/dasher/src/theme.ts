@@ -202,7 +202,6 @@ export class ThemeCtrl extends PaneCtrl {
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`]);
 
-    console.warn(montageUrl);
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
