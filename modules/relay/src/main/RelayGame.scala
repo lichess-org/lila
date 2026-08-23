@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.{ Centis, Outcome }
+import chess.{ Outcome }
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
@@ -44,13 +44,13 @@ case class RelayGame(
     else
       val mainlinePath = root.mainlinePath
       val turn = root.lastMainlineNode.ply.turn
-      val lastTwoPathsAndTagClocks: List[(UciPath, Centis)] = List(
+      val newRoot = List(
         mainlinePath.nonEmpty.option(mainlinePath.parent) -> turn,
         mainlinePath.some -> !turn
       ).flatMap:
         case (Some(path), color) => clocks(color).map(path -> _)
         case _ => none
-      val newRoot = lastTwoPathsAndTagClocks.foldLeft(root):
+      .foldLeft(root):
         case (root, (path, centis)) =>
           root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
