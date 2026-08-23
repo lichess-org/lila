@@ -4,6 +4,7 @@ package fide
 import _root_.chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
 import play.api.libs.json.JsObject
+
 import lila.core.userId.UserId
 
 object Federation:

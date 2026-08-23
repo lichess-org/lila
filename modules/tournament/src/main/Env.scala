@@ -37,7 +37,8 @@ final class Env(
     lila.core.game.IdGenerator,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit,
-    lila.core.user.LightUserApi
+    lila.core.user.LightUserApi,
+    lila.core.user.PublicTitleOf
 ):
 
   lazy val forms = wire[TournamentForm]

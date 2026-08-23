@@ -3,6 +3,7 @@ package lila.core
 import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
+import _root_.chess.FideId
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -367,7 +368,9 @@ object user:
   type GameUser = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
 
-  type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]
+  type PublicFideIdOf = LightUser => Fu[Option[FideId]]
+  type PublicTitle = (RealName, Option[FideId])
+  type PublicTitleOf = LightUser => Fu[Option[PublicTitle]]
 
   object TrophyKind:
     val marathonWinner = "marathonWinner"

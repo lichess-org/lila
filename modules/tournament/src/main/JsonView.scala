@@ -14,7 +14,7 @@ import lila.core.chess.Rank
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
-import lila.core.user.{ LightUserApi, RealName }
+import lila.core.user.{ LightUserApi, RealName, PublicTitleOf }
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.gathering.GatheringJson.*
 import lila.memo.CacheApi.*
@@ -36,7 +36,7 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(using Executor, lila.core.i18n.Translator)(using lightUserApi: LightUserApi):
+)(using Executor, lila.core.i18n.Translator, PublicTitleOf)(using lightUserApi: LightUserApi):
 
   import JsonView.{ *, given }
   import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
