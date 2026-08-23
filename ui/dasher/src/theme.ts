@@ -63,9 +63,7 @@ export class ThemeCtrl extends PaneCtrl {
               type: 'button',
               hook: bind('click', () => {
                 const current = this.get();
-                current.includes('transp') && bg.key !== 'system'
-                  ? this.set(`transp ${bg.key}`)
-                  : this.set(bg.key);
+                current.includes('transp') ? this.set(`transp ${bg.key}`) : this.set(bg.key);
               }),
             },
             bg.name,
@@ -78,10 +76,13 @@ export class ThemeCtrl extends PaneCtrl {
           checked: isTransp,
           change: () => {
             const current = this.get();
-            if (current.includes('transp')) {
-              this.set(current.includes('dark') ? 'dark' : 'light');
+            const isTransp = current.includes('transp');
+            if (current.includes('system')) {
+              this.set(isTransp ? 'system' : 'transp system');
+            } else if (current.includes('light')) {
+              this.set(isTransp ? 'light' : 'transp light');
             } else {
-              this.set(current === 'dark' ? 'transp dark' : 'transp light');
+              this.set(isTransp ? 'dark' : 'transp dark');
             }
           },
           redraw: this.redraw,
@@ -137,11 +138,15 @@ export class ThemeCtrl extends PaneCtrl {
 
   private readonly apply = () => {
     const key = this.get();
-    document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
-    document.documentElement.className =
-      key === 'system' ? (prefersLightThemeQuery().matches ? 'light' : 'dark') : key;
+    const isTransp = key.includes('transp');
+    const systemPrefersLight = prefersLightThemeQuery().matches;
 
-    if (key.includes('transp')) {
+    document.body.dataset.theme = key;
+
+    if (isTransp) {
+      document.documentElement.className =
+        key === 'system' ? (systemPrefersLight ? 'transp light' : 'transp dark') : key;
+
       const bgData = document.getElementById('bg-data');
       const styleValue = `html.${key.replace(' ', '.')}::before{background-image:url(${this.backgroundData.image});opacity:calc(var(---bg-opacity)/100);}`;
       if (bgData) {
@@ -149,7 +154,10 @@ export class ThemeCtrl extends PaneCtrl {
       } else {
         $('head').append(`<style id="bg-data">${styleValue}</style>`);
       }
+    } else {
+      document.documentElement.className = key === 'system' ? (systemPrefersLight ? 'light' : 'dark') : key;
     }
+
     pubsub.emit('theme', key);
   };
 

@@ -28,10 +28,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeScript(nonce: Option[Nonce]) =
+  def systemThemeScript(nonce: Option[Nonce], isTransparent: Boolean = false) =
     embedJsUnsafe(
-      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-        "document.documentElement.classList.add('light');"
+      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) {" +
+        "document.documentElement.classList.add('light');" +
+        "}" +
+        (if isTransparent then "document.documentElement.classList.add('transp');"
+         else "")
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 

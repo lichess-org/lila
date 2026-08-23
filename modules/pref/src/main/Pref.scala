@@ -135,6 +135,7 @@ case class Pref(
     else if bg == Pref.Bg.TRANSPARENT_LIGHT then "transp light"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"
+    else if bg == Pref.Bg.TRANSPARENT_SYSTEM then "transp system"
     else "dark" // dark && dark board
 
   def forceDarkBg = copy(bg = Pref.Bg.DARK)
@@ -166,6 +167,7 @@ object Pref:
     val TRANSPARENT = 400
     val TRANSPARENT_LIGHT = 401
     val SYSTEM = 500
+    val TRANSPARENT_SYSTEM = 501
 
     val choices = Seq(
       LIGHT -> "Light",
@@ -173,7 +175,8 @@ object Pref:
       DARKBOARD -> "Dark Board",
       TRANSPARENT -> "Transparent",
       TRANSPARENT_LIGHT -> "Transparent Light",
-      SYSTEM -> "Device theme"
+      SYSTEM -> "Device theme",
+      TRANSPARENT_SYSTEM -> "Transparent Device theme"
     )
 
     val fromString = Map(
@@ -182,6 +185,7 @@ object Pref:
       "darkBoard" -> DARKBOARD,
       "transp dark" -> TRANSPARENT,
       "transp light" -> TRANSPARENT_LIGHT,
+      "transp system" -> TRANSPARENT_SYSTEM,
       "system" -> SYSTEM
     )
 
