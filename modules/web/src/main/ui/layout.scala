@@ -33,8 +33,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) {" +
         "document.documentElement.classList.add('light');" +
         "}" +
-        (if isTransparent then "document.documentElement.classList.add('transp');"
-         else "")
+        isTransparent.so("document.documentElement.classList.add('transp');")
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
