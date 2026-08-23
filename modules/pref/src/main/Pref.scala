@@ -62,12 +62,6 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark = "#2e2a24"
   def themeColor = if bg == Bg.LIGHT || bg == Bg.LIGHT_TRANSP then themeColorLight else themeColorDark
-  def themeColorClass =
-    if bg == Bg.LIGHT then "light".some
-    else if bg == Bg.DARK_TRANSP then "transp dark".some
-    else if bg == Bg.LIGHT_TRANSP then "transp light".some
-    else if bg == Bg.SYSTEM then none
-    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -131,14 +125,16 @@ case class Pref(
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet = SoundSet(soundSet)
   def currentBg: String =
-    if bg == Pref.Bg.DARK_TRANSP then "transp dark"
-    else if bg == Pref.Bg.LIGHT_TRANSP then "transp light"
-    else if bg == Pref.Bg.LIGHT then "light"
-    else if bg == Pref.Bg.SYSTEM then "system"
-    else if bg == Pref.Bg.SYSTEM_TRANSP then "transp system"
-    else "dark" // dark && dark board
+    if bg == Bg.DARK_TRANSP then "transp dark"
+    else if bg == Bg.LIGHT_TRANSP then "transp light"
+    else if bg == Bg.LIGHT then "light"
+    else if bg == Bg.SYSTEM then "system"
+    else if bg == Bg.SYSTEM_TRANSP then "transp system"
+    else "dark"
 
   def forceDarkBg = copy(bg = Pref.Bg.DARK)
+
+  def isTransparentBg = bg == Pref.Bg.DARK_TRANSP || bg == Pref.Bg.LIGHT_TRANSP || bg == Pref.Bg.SYSTEM_TRANSP
 
 object Pref:
 
