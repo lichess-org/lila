@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.{ Outcome }
+import chess.Outcome
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
@@ -51,8 +51,8 @@ case class RelayGame(
         case (Some(path), color) => clocks(color).map(path -> _)
         case _ => none
       .foldLeft(root):
-        case (root, (path, centis)) =>
-          root.setClockAt(Clock(centis, true.some).some, path) | root
+          case (root, (path, centis)) =>
+            root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
   def showResult = Outcome.showPoints(points)
