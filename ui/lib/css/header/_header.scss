@@ -38,10 +38,10 @@
     }
 
     @include if-transp {
-      @include back-blur(6px);
+      @include back-blur;
 
       border: none;
-      background: linear-gradient(180deg, color-mix(in oklab, $c-bg 50%, transparent) 10%, transparent 90%);
+      background: linear-gradient(180deg, color-mix(in oklab, $c-bg 60%, transparent) 20%, transparent 90%);
     }
 
     .dropdown {
