@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="downloadOnAppleAppStore">Am Apple App Store eroflueden</string>
+  <string name="downloadOnGooglePlay">Op Google Play eroflueden</string>
+  <string name="downloadOnFdroid">Op F-Droid eroflueden</string>
+</resources>

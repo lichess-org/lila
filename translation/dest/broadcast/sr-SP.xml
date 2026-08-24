@@ -21,4 +21,7 @@
   <string name="fullDescriptionHelp">Опциони дуги опис турнира. %1$s је доступан. Дужина мора бити мања од %2$s знакова.</string>
   <string name="sourceUrlHelp">Линк који ће Lichess проверити да добије ажурирања PGN-а. Мора бити јавно доступан са интернета.</string>
   <string name="startDateHelp">Опционо, ако знаш када почиње догађај</string>
+  <string name="currentGameUrl">Линк тренутне партије</string>
+  <string name="resetRound">Ресетуј ову рунду</string>
+  <string name="deleteRound">Избриши ову рунду</string>
 </resources>
