@@ -54,6 +54,5 @@ trait IrcApi:
       tpe: "arena" | "event",
       name: String,
       url: Call,
-      from: Instant,
-      to: Option[Instant]
+      diff: String
   ): Funit

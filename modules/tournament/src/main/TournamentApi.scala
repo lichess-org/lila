@@ -797,16 +797,23 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    next.homepageSince.map: start =>
-      if prev.forall(_.homepageSince != start.some) then
-        ircApi.bbb(
-          me,
-          "arena",
-          next.name,
-          routes.Tournament.show(next.id),
-          start,
-          next.finishesAt.some
-        )
+    val ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId")
+    val diff = prev match
+      case None =>
+        next.productElementNames
+          .zip(next.productIterator)
+          .collect:
+            case (name, value) if !ignoredFields(name) => s"+ $name: $value"
+          .mkString("\n")
+      case Some(old) =>
+        old.productElementNames
+          .zip(old.productIterator)
+          .zip(next.productIterator)
+          .collect:
+            case ((name, prevVal), nextVal) if !ignoredFields(name) && prevVal != nextVal =>
+              s"- $name: $prevVal\n+ $name: $nextVal"
+          .mkString("\n")
+    if diff.nonEmpty then ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), diff)
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
