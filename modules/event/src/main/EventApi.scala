@@ -98,22 +98,7 @@ final class EventApi(
       startsAt = nowInstant.plusDays(7)
     )
 
-  private val bbbIgnoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt")
-
   private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
-    val diff = prev match
-      case None =>
-        next.productElementNames
-          .zip(next.productIterator)
-          .collect:
-            case (name, value) if !bbbIgnoredFields(name) => s"+ $name: $value"
-          .mkString("\n")
-      case Some(old) =>
-        old.productElementNames
-          .zip(old.productIterator)
-          .zip(next.productIterator)
-          .collect:
-            case ((name, prevVal), nextVal) if !bbbIgnoredFields(name) && prevVal != nextVal =>
-              s"- $name: $prevVal\n+ $name: $nextVal"
-          .mkString("\n")
+    val ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt")
+    val diff = lila.common.ProductDiff(prev, next, ignoredFields)
     if diff.nonEmpty then ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), diff)

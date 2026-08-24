@@ -76,31 +76,15 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
 
   def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
     val ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note")
-    val changes = prev.productElementNames
-      .zip(prev.productIterator)
-      .zip(tour.productIterator)
-      .flatMap:
-        case ((name, _), _) if ignoredFields(name) => Nil
-        case ((_, prevVal), nextVal) if prevVal == nextVal => Nil
-        case (("info", prevInfo: RelayTour.Info), nextInfo: RelayTour.Info) =>
-          prevInfo.productElementNames
-            .zip(prevInfo.productIterator)
-            .zip(nextInfo.productIterator)
-            .collect:
-              case ((k, pv), nv) if pv != nv =>
-                s"- info.$k: ${truncate(pv.toString)}\n+ info.$k: ${truncate(nv.toString)}"
-            .toList
-        case ((name, prevVal), nextVal) =>
-          List(s"- $name: ${truncate(prevVal.toString)}\n+ $name: ${truncate(nextVal.toString)}")
-      .toList
-    changes.nonEmpty.so:
-      irc.broadcastTourUpdate(
-        tour.name.value,
-        tour.slug,
-        tour.id,
-        changes.mkString("\n"),
-        impersonatedBy
-      )
+    val diff = lila.common.ProductDiff(
+      prev.some,
+      tour,
+      ignoredFields,
+      nestedFields = Set("info", "spotlight"),
+      maxLength = 300
+    )
+    diff.nonEmpty.so:
+      irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, diff, impersonatedBy)
 
   def imageDelete(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
     t.official.so:
@@ -113,6 +97,3 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
       val fieldName = tag | "image"
       val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)"
       irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
-
-  private def truncate(s: String): String =
-    if s.length <= 300 then s else s.take(300) + "..."

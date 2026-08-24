@@ -798,21 +798,12 @@ final class TournamentApi(
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
     val ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId")
-    val diff = prev match
-      case None =>
-        next.productElementNames
-          .zip(next.productIterator)
-          .collect:
-            case (name, value) if !ignoredFields(name) => s"+ $name: $value"
-          .mkString("\n")
-      case Some(old) =>
-        old.productElementNames
-          .zip(old.productIterator)
-          .zip(next.productIterator)
-          .collect:
-            case ((name, prevVal), nextVal) if !ignoredFields(name) && prevVal != nextVal =>
-              s"- $name: $prevVal\n+ $name: $nextVal"
-          .mkString("\n")
+    val diff = lila.common.ProductDiff(
+      prev,
+      next,
+      ignoredFields,
+      nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
+    )
     if diff.nonEmpty then ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), diff)
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
