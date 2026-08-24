@@ -182,7 +182,7 @@ final class UblogApi(
       else
         post.automod.map(_.quality) match
           case None => "unknown quality"
-          case Some(Quality.good) if post.isPendingQuality => "good posts from unproved authors"
+          case Some(Quality.good) if post.isPendingQuality => "good posts from unproven authors"
           case Some(Quality.good) => "good posts from reliable authors"
           case Some(q) => s"$q quality new posts"
     val emdashes = post.markdown.value.count(_ == '—')
