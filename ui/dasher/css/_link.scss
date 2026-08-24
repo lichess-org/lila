@@ -76,4 +76,31 @@
       opacity: 0.9;
     }
   }
+
+  .subs .sub {
+    display: flex;
+    align-items: center;
+    height: 34px;
+
+    &.language::before {
+      content: '🌐️';
+    }
+
+    &::before {
+      margin-inline-end: 0.4em; // match .links line::before
+      font-size: 1.2em;
+    }
+
+    &::after {
+      font-family: lichess;
+      margin-inline-start: auto;
+      color: $c-dasher;
+      content: $licon-GreaterThan;
+    }
+
+    &:hover::after {
+      color: $c-over;
+      opacity: 0.9;
+    }
+  }
 }
