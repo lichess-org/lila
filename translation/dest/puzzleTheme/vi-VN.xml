@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Một quân xe ở cạnh vua địch và được hỗ trợ bởi quân hậu cũng chặn các ô trốn thoát của vua địch. Xe và hậu bắt vua địch trong ô \"kill box\" chết chóc 3 x 3.</string>
   <string name="pillsburysMate">Chiếu hết kiểu Pillsbury</string>
   <string name="pillsburysMateDescription">Quân xe chiếu hết, trong khi quân tượng giúp khống chế nước đi đó.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Quân xe chiếu hết vua, trong khi quân tượng giúp kìm hãm vua.</string>
   <string name="morphysMate">Chiếu hết kiểu Morphy</string>
   <string name="morphysMateDescription">Dùng quân tượng để chiếu vua, trong khi quân xe giúp kìm hãm vua.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Quân tượng chiếu hết vua, trong khi quân xe giúp kìm hãm vua.</string>
   <string name="swallowstailMate">Chiếu hết kiểu đuôi chim én</string>
   <string name="swallowstailMateDescription">Một kiểu chiếu tướng có hình dáng trực quan giống đuôi chim én, tương tự như hình chữ V.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
