@@ -32,7 +32,7 @@
   <string name="youPlayTheWhitePieces">Играш белим фигурама</string>
   <string name="youPlayTheBlackPieces">Играш црним фигурама</string>
   <string name="itsYourTurn">Твој је потез!</string>
-  <string name="cheatDetected">Детектована превара</string>
+  <string name="cheatDetected">Варање Откривено</string>
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трка се завршила</string>
@@ -182,6 +182,7 @@
   <string name="flipBoard">Окрени таблу</string>
   <string name="threefoldRepetition">Троструко поновљена позиција</string>
   <string name="claimADraw">Прогласи реми</string>
+  <string name="drawClaimed">Реми проглашен</string>
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
@@ -721,7 +722,7 @@
   <string name="aboutX">О %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, шаховски сервер без реклама, са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
-  <string name="contribute">Добринеси</string>
+  <string name="contribute">Допринеси</string>
   <string name="termsOfService">Услови коришћења Услуге</string>
   <string name="titleVerification">Верификација титуле</string>
   <string name="sourceCode">Изворни Код</string>
@@ -806,7 +807,7 @@
   <string name="downloadAllGames">Преузми све партије</string>
   <string name="crosstable">Таблица сусрета</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Скролуј преко табле да се помераш кроз партију.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Скролуј преко рачунарских варијација да их прегледаш.</string>
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
   <string name="primaryColorArrowsHowTo">Ctrl или shift = црвена, command; alt или meta = плава; по дугме из сваке = жута.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
@@ -998,7 +999,7 @@
   <string name="lostAgainstTOSViolator">Изубио/ла си рејтинг бодове од некога ко је прекршио Lichess-ове услове коришћења услуге</string>
   <string name="refundXpointsTimeControlY">Повратак: %1$s %2$s рејтинг бодова.</string>
   <string name="timeAlmostUp">Време је скоро истекло!</string>
-  <string name="clickToRevealEmailAddress">[Притисни да откријеш имејл адресу]</string>
+  <string name="clickToRevealEmailAddress">[Кликни да откријеш имејл адресу]</string>
   <string name="download">Преузми</string>
   <string name="cancelTournament">Откажи турнир</string>
   <string name="tournDescription">Опис турнира</string>
@@ -1015,6 +1016,7 @@
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
   <string name="markdownIsAvailable">%s је доступан за форматирање.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Форматирајте текст помоћу %s.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
   <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
   <string name="tournChat">Чет на турниру</string>
