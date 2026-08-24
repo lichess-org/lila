@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.core.user.UserApi
 import lila.core.LightUser
-import lila.core.user.RealName
+import lila.core.user.{ RealName, PublicTitle }
 
 final class TitleApi(
     coll: Coll,
@@ -109,7 +109,7 @@ final class TitleApi(
   object publicTitle:
 
     private val cache =
-      cacheApi[UserId, Option[(RealName, Option[FideId])]](8_192, "title.publicFideIdAndName"):
+      cacheApi[UserId, Option[PublicTitle]](8_192, "title.publicFideIdAndName"):
         _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
           coll.secondary
             .find(
@@ -130,13 +130,13 @@ final class TitleApi(
                 fideId = data.getAsOpt[FideId]("fideId")
               yield (realName, fideId)
 
-    private def titled(u: LightUser): Boolean = u.title.isDefined && !u.isBot
+    private def titled(u: LightUser): Boolean = u.title.exists(_.isFederation)
 
-    def fideId(user: LightUser): Fu[Option[FideId]] =
-      titled(user).so(cache.get(user.id)).dmap(_.flatMap(_._2))
+    def get(user: LightUser): Fu[Option[PublicTitle]] = titled(user).so(cache.get(user.id))
 
-    def realName(user: LightUser): Fu[Option[RealName]] =
-      titled(user).so(cache.get(user.id)).map2(_._1)
+    def fideId(user: LightUser): Fu[Option[FideId]] = get(user).dmap(_.flatMap(_._2))
+
+    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_.map(_._1))
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""

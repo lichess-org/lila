@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
-import lila.core.user.UserApi
+import lila.core.user.{ UserApi, PublicTitleOf }
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.rating.PerfType
@@ -15,7 +15,7 @@ object TournamentCondition:
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
-      titled: Option[Titled.type],
+      titled: Option[Titled],
       teamMember: Option[TeamMember],
       accountAge: Option[AccountAge],
       allowList: Option[AllowList],
@@ -32,7 +32,8 @@ object TournamentCondition:
         Executor,
         GetMaxRating,
         GetMyTeamIds,
-        GetAge
+        GetAge,
+        PublicTitleOf
     ): Fu[WithVerdicts] =
       listWithBots
         .parallel:
@@ -40,6 +41,7 @@ object TournamentCondition:
           case c: FlatCond => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c: AccountAge => c.apply.map { c.withVerdict(_) }
+          case c: Titled => c.apply.map { c.withVerdict(_) }
         .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
@@ -65,6 +67,8 @@ object TournamentCondition:
 
     def allowsBots = bots.exists(_.allowed)
 
+    def withPublicTitle = if titled.isDefined then copy(titled = Titled(true).some) else this
+
   object All:
     val empty = All(none, none, none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
@@ -86,7 +90,9 @@ object TournamentCondition:
 
   final class Verify(historyApi: HistoryApi, userApi: UserApi)(using Executor):
 
-    def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
+    def apply(all: All, perfType: PerfType)(using
+        me: Me
+    )(using GetMyTeamIds, PublicTitleOf, Perf): Fu[WithVerdicts] =
       given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
       given GetAge = me => userApi.accountAge(me.userId)
       all.withVerdicts(perfType)
@@ -94,7 +100,9 @@ object TournamentCondition:
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =
       all.withRejoinVerdicts
 
-    def canEnter(perfType: PerfType)(conditions: All)(using Me, GetMyTeamIds, Perf): Fu[Boolean] =
+    def canEnter(perfType: PerfType)(
+        conditions: All
+    )(using Me, GetMyTeamIds, PublicTitleOf, Perf): Fu[Boolean] =
       apply(conditions, perfType).dmap(_.accepted)
 
   import reactivemongo.api.bson.*
