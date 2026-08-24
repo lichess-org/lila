@@ -10,6 +10,7 @@ html.transp {
   --c-bg-input: hsl(0 0% 0% / 0.7);
   --c-bg-variation: hsl(0 0% 0% / 0.25);
   --c-bg-header-dropdown: hsl(0 0% 0% / 0.75);
+  --c-body-gradient: hsl(var(---site-hue) 8% 16% / 0.8);
   --c-font-dim: hsl(from var(--c-font) h s 69%);
   --c-font-dimmer: hsl(from var(--c-font) h s 48%);
   --c-font-clear: hsl(from var(--c-font) h s 89%);
@@ -17,6 +18,6 @@ html.transp {
   --c-font-page: hsl(from var(--c-font) h s 97%);
   --c-metal-top: hsl(37 7% 19% / 0.56);
   --c-metal-bottom: hsl(37 7% 19% / 0.66);
-  --c-metal-top-hover: hsl(0 0% 42% / 0.3);
-  --c-metal-bottom-hover: hsl(0 0% 42% / 0.35);
+  --c-metal-top-hover: hsl(0 0% 42% / 0.4);
+  --c-metal-bottom-hover: hsl(0 0% 42% / 0.45);
 }

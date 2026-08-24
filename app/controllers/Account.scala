@@ -135,18 +135,6 @@ final class Account(
         "nbMyTurn" -> all.value.count(_.isMyTurn)
       )
 
-  def dasher = Auth { _ ?=> me ?=>
-    negotiateJson:
-      env.pref.api
-        .get(me)
-        .map: prefs =>
-          Ok:
-            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> lila.pref.toJson(prefs, lichobileCompat = false)
-            )
-  }
-
   def passwd = Auth { _ ?=> me ?=>
     env.security.forms.passwdChange.flatMap: form =>
       Ok.page(pages.password(form))

@@ -61,12 +61,7 @@ case class Pref(
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark = "#2e2a24"
-  def themeColor = if bg == Bg.LIGHT then themeColorLight else themeColorDark
-  def themeColorClass =
-    if bg == Bg.LIGHT then "light".some
-    else if bg == Bg.TRANSPARENT then "transp".some
-    else if bg == Bg.SYSTEM then none
-    else "dark".some
+  def themeColor = if bg == Bg.LIGHT || bg == Bg.LIGHT_TRANSP then themeColorLight else themeColorDark
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -89,7 +84,7 @@ case class Pref(
       case _ => 70
 
   def bgImgUrlOpt = bgImg.map(_.takeWhile(_ != ' ')).filter(_.nonEmpty)
-  def bgImgUrl = bgImgUrlOpt | Pref.defaultBgImgUrl
+  def bgImgUrl = bgImgUrlOpt | defaultBgImgUrl
   def setBgImgUrl(url: String) = copy(bgImg = s"${~url.some.filterNot(_.isBlank)} $bgOpacity".some)
   def bgOpacity = bgImg.flatMap(_.split(" ").lift(1)).flatMap(_.toIntOption).getOrElse(defaultBgOpacity)
   def setBgOpacity(opacity: Int) = copy(bgImg = s"${~bgImgUrlOpt} $opacity".some)
@@ -122,7 +117,7 @@ case class Pref(
       )
 
   def simpleBoard =
-    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
+    board.hue == 0 && board.brightness == 100 && board.contrast == 100 && board.opacity == 100
 
   def currentTheme = Theme(theme)
   def currentTheme3d = Theme3d(theme3d)
@@ -130,12 +125,16 @@ case class Pref(
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet = SoundSet(soundSet)
   def currentBg: String =
-    if bg == Pref.Bg.TRANSPARENT then "transp"
-    else if bg == Pref.Bg.LIGHT then "light"
-    else if bg == Pref.Bg.SYSTEM then "system"
-    else "dark" // dark && dark board
+    if bg == Bg.DARK_TRANSP then "transp dark"
+    else if bg == Bg.LIGHT_TRANSP then "transp light"
+    else if bg == Bg.LIGHT then "light"
+    else if bg == Bg.SYSTEM then "system"
+    else if bg == Bg.SYSTEM_TRANSP then "transp system"
+    else "dark"
 
-  def forceDarkBg = copy(bg = Pref.Bg.DARK)
+  def forceDarkBg = copy(bg = Bg.DARK)
+
+  def isTransparentBg = bg == Bg.DARK_TRANSP || bg == Bg.LIGHT_TRANSP || bg == Bg.SYSTEM_TRANSP
 
 object Pref:
 
@@ -160,23 +159,26 @@ object Pref:
   object Bg:
     val LIGHT = 100
     val DARK = 200
-    val DARKBOARD = 300
-    val TRANSPARENT = 400
+    val DARK_TRANSP = 400
+    val LIGHT_TRANSP = 401
     val SYSTEM = 500
+    val SYSTEM_TRANSP = 501
 
     val choices = Seq(
       LIGHT -> "Light",
       DARK -> "Dark",
-      DARKBOARD -> "Dark Board",
-      TRANSPARENT -> "Transparent",
-      SYSTEM -> "Device theme"
+      DARK_TRANSP -> "Transparent Dark",
+      LIGHT_TRANSP -> "Transparent Light",
+      SYSTEM -> "Device theme",
+      SYSTEM_TRANSP -> "Transparent Device theme"
     )
 
     val fromString = Map(
       "light" -> LIGHT,
       "dark" -> DARK,
-      "darkBoard" -> DARKBOARD,
-      "transp" -> TRANSPARENT,
+      "transp dark" -> DARK_TRANSP,
+      "transp light" -> LIGHT_TRANSP,
+      "transp system" -> SYSTEM_TRANSP,
       "system" -> SYSTEM
     )
 

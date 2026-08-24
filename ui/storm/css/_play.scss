@@ -34,3 +34,12 @@
     }
   }
 }
+
+.puz-side__control {
+  margin-bottom: 0.5em;
+  gap: 0.5em;
+
+  .button {
+    padding-inline: 1.25em;
+  }
+}

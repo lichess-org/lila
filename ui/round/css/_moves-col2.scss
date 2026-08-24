@@ -82,7 +82,11 @@
   }
 
   .board-menu {
-    border-radius: 0 0 $box-radius-size $box-radius-size;
+    &,
+    &::before {
+      border-radius: 0 0 $box-radius-size $box-radius-size;
+    }
+
     top: $buttons-height;
     border-top: 2px solid $c-secondary;
   }
