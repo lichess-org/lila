@@ -80,7 +80,7 @@ object BSONHandlers:
         payouts = r.getO[Payouts]("payouts"),
         hasChat = r.boolO("chat").getOrElse(true)
       )
-      if tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
+      if false && tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
 
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
