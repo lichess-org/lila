@@ -35,7 +35,7 @@ function isElementInDOM(element: Element | null): element is TooltipElement {
 function mergeOptions(overrides?: Partial<TooltipOptions>): TooltipOptions {
   const merged = Object.assign({}, DEFAULTS);
   if (!overrides) return merged;
-  Object.keys(overrides).forEach(function (key) {
+  Object.keys(overrides).forEach(key => {
     if (overrides[key] !== undefined) merged[key] = overrides[key];
   });
   return merged;
@@ -70,9 +70,7 @@ function nudgeIntoViewport(position: { top: number; left: number }, width: numbe
 }
 
 function dataAttributeToDatasetKey(attributeName: string) {
-  return attributeName.slice(5).replace(/-([a-z])/g, function (_match: string, letter: string) {
-    return letter.toUpperCase();
-  });
+  return attributeName.slice(5).replace(/-([a-z])/g, (_: string, letter: string) => letter.toUpperCase());
 }
 
 function readElementAttribute(element: TooltipElement, attributeName: string) {
@@ -171,7 +169,7 @@ TooltipInstance.prototype.show = function () {
   tipElement.style.display = 'block';
   document.body.appendChild(tipElement);
 
-  const targetPosition = elementOffset(this.element);
+  const { top, left, width, height } = elementOffset(this.element);
   const tipWidth = tipElement.offsetWidth;
   const tipHeight = tipElement.offsetHeight;
   const gravity = normalizeGravity(maybeCall(options.gravity, this.element));
@@ -181,32 +179,32 @@ TooltipInstance.prototype.show = function () {
   switch (gravity.charAt(0)) {
     case 'n':
       tooltipPosition = {
-        top: targetPosition.top + targetPosition.height + offset,
-        left: targetPosition.left + targetPosition.width / 2 - tipWidth / 2,
+        top: top + height + offset,
+        left: left + width / 2 - tipWidth / 2,
       };
       break;
     case 's':
       tooltipPosition = {
-        top: targetPosition.top - tipHeight - offset,
-        left: targetPosition.left + targetPosition.width / 2 - tipWidth / 2,
+        top: top - tipHeight - offset,
+        left: left + width / 2 - tipWidth / 2,
       };
       break;
     case 'e':
       tooltipPosition = {
-        top: targetPosition.top + targetPosition.height / 2 - tipHeight / 2,
-        left: targetPosition.left - tipWidth - offset,
+        top: top + height / 2 - tipHeight / 2,
+        left: left - tipWidth - offset,
       };
       break;
     case 'w':
       tooltipPosition = {
-        top: targetPosition.top + targetPosition.height / 2 - tipHeight / 2,
-        left: targetPosition.left + targetPosition.width + offset,
+        top: top + height / 2 - tipHeight / 2,
+        left: left + width + offset,
       };
       break;
     default:
       tooltipPosition = {
-        top: targetPosition.top + targetPosition.height + offset,
-        left: targetPosition.left + targetPosition.width / 2 - tipWidth / 2,
+        top: top + height + offset,
+        left: left + width / 2 - tipWidth / 2,
       };
   }
 
@@ -215,14 +213,14 @@ TooltipInstance.prototype.show = function () {
     const primary = gravity.charAt(0);
     if (primary === 'n' || primary === 's') {
       if (secondary === 'w') {
-        tooltipPosition.left = targetPosition.left + targetPosition.width / 2 - 15;
+        tooltipPosition.left = left + width / 2 - 15;
       } else if (secondary === 'e') {
-        tooltipPosition.left = targetPosition.left + targetPosition.width / 2 - tipWidth + 15;
+        tooltipPosition.left = left + width / 2 - tipWidth + 15;
       }
     } else if (secondary === 'n') {
-      tooltipPosition.top = targetPosition.top + targetPosition.height / 2 - 15;
+      tooltipPosition.top = top + height / 2 - 15;
     } else if (secondary === 's') {
-      tooltipPosition.top = targetPosition.top + targetPosition.height / 2 - tipHeight + 15;
+      tooltipPosition.top = top + height / 2 - tipHeight + 15;
     }
   }
 
@@ -354,11 +352,10 @@ function getInstance(
     }
     return element._hcgTooltip;
   }
-  const TooltipInstanceConstructor = TooltipInstance as unknown as new (
+  const instance = new (TooltipInstance as unknown as new (
     element: TooltipElement,
     options: TooltipOptions,
-  ) => TooltipInstance;
-  const instance = new TooltipInstanceConstructor(element, mergeOptions(options));
+  ) => TooltipInstance)(element, mergeOptions(options));
   instance.liveBound = source === 'live';
   element._hcgTooltip = instance;
   INSTANCES.push(instance);

@@ -86,7 +86,7 @@ interface LichessPowertip {
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
-// file://./../../site/src/hcg-tooltip.ts
+// file://./../../site/src/hcgTooltip.ts
 interface LichessHcgTooltip {
   (
     target: string | TooltipElement | ArrayLike<Node> | null | undefined,
