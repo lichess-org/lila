@@ -13,6 +13,7 @@ interface Site {
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
+  hcgTooltip: LichessHcgTooltip; // file://./../../site/src/hcgTooltip.ts
   asset: {
     // file://./../../site/src/asset.ts
     baseUrl(): string;
@@ -83,6 +84,87 @@ interface LichessPowertip {
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
+}
+
+interface LichessHcgTooltip {
+  (
+    target: string | TooltipElement | ArrayLike<Node> | null | undefined,
+    options?: string | true | Partial<TooltipOptions>,
+  ): TooltipInstance | (TooltipInstance | null)[] | null;
+  defaults: TooltipOptions;
+  get(target: string | TooltipElement): TooltipInstance | null;
+  initFromData(
+    root?: string | Element | Document | null,
+    overrides?: Partial<TooltipOptions>,
+  ): (TooltipInstance | null)[];
+  revalidate(): void;
+  destroyAll(): void;
+}
+
+interface TooltipInstance {
+  element: TooltipElement;
+  options: TooltipOptions;
+  enabled: boolean;
+  hoverState: 'in' | 'out' | null;
+  tipElement: TooltipTipElement | null;
+  showTimer: number | null;
+  hideTimer: number | null;
+  liveBound?: boolean;
+  boundEnterHandler: EventListener;
+  boundLeaveHandler: EventListener;
+  fixTitle(): void;
+  getTitle(): string;
+  createTipElement(): TooltipTipElement;
+  detachTip(): void;
+  show(): void;
+  hide(): void;
+  clearTimers(): void;
+  schedule(hoverState: 'in' | 'out', callback: () => void, delay: number): void;
+  onEnter(): void;
+  onLeave(): void;
+  enable(): TooltipInstance;
+  disable(): TooltipInstance;
+  toggleEnabled(): TooltipInstance;
+  destroy(): void;
+}
+
+type TooltipElement = HTMLElement & {
+  _hcgTooltip?: TooltipInstance;
+};
+
+type TooltipTipElement = HTMLDivElement & {
+  bodyElement: HTMLDivElement;
+  arrowElement: HTMLDivElement;
+  _hcgTooltipPointee?: TooltipElement;
+};
+
+type TooltipOptionValue =
+  | string
+  | number
+  | boolean
+  | ((element: TooltipElement) => string | number | boolean);
+
+interface TooltipOptions {
+  className: TooltipOptionValue | null;
+  delayIn: number;
+  delayOut: number;
+  fallback: string;
+  gravity: TooltipOptionValue;
+  html: boolean;
+  live: boolean;
+  offset: number;
+  opacity: number;
+  title: TooltipOptionValue;
+  trigger: string;
+  [key: string]: TooltipOptionValue | null | undefined;
+}
+
+interface TooltipDelegate {
+  selector: string;
+  options: TooltipOptions;
+  trigger: string;
+  onEnter?: (event: MouseEvent | FocusEvent) => void;
+  onLeave?: (event: MouseEvent | FocusEvent) => void;
 }
 
 type SoundMoveOpts = {

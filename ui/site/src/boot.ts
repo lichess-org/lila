@@ -15,6 +15,7 @@ import { display as announceDisplay } from './announce';
 import { upgradeNag } from './browserSupport';
 import { addDomHandlers } from './domHandlers';
 import OnlineFriends from './friends';
+import hcgTooltip from './hcgTooltip';
 import powertip from './powertip';
 import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
 import serviceWorker from './serviceWorker';
@@ -47,6 +48,11 @@ export function boot() {
     });
 
     powertip.watchMouse();
+    hcgTooltip('[title]', {
+      delayIn: 300,
+      opacity: 1,
+      live: true,
+    });
 
     addDomHandlers();
 
