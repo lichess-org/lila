@@ -47,6 +47,8 @@ export async function build(pkgs: string[]): Promise<void> {
 }
 
 export function stopBuild(): Promise<any> {
+  env.mustSucceed.clear();
+  env.onSuccess.clear();
   stopTask();
   stopSass();
   stopManifest(true);
@@ -60,19 +62,21 @@ function monitor(pkgs: string[]) {
     includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
-      { cwd: env.typesDir, path: 'lichess/*.d.ts' },
+      { cwd: env.typesDir, path: '*/*.d.ts' },
       { cwd: env.uiDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/tsconfig.json' },
     ],
     debounce: 1000,
     monitorOnly: true,
     execute: async files => {
+      const cleanTsc = files.some(name => name.endsWith('tsconfig.json') || name.endsWith('.d.ts'));
       if (files.some(name => name.endsWith('package.json'))) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
+        else if (cleanTsc) await clean(['ui/*/tsconfig.tsbuildinfo']);
         build(pkgs);
-      } else if (files.some(name => name.endsWith('.d.ts') || name.endsWith('tsconfig.json'))) {
+      } else if (cleanTsc) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
         await clean(['ui/*/tsconfig.tsbuildinfo']);
