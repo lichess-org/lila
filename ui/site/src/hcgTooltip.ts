@@ -4,24 +4,19 @@
  * @license MIT
  */
 
-'use strict';
-
 const INSTANCES: TooltipInstance[] = [];
 const LIVE_DELEGATES: TooltipDelegate[] = [];
-const liveOptOutElements: TooltipElement[] = [];
 const DATA_TOOLTIP_ATTR = 'data-hcg-tooltip';
 const TOOLTIP_FADE_DURATION = 150;
 
 let activeInstance: TooltipInstance | null = null;
 
 const DEFAULTS: TooltipOptions = {
-  className: null,
   delayIn: 0,
   delayOut: 0,
   fallback: '',
   gravity: 'n',
   html: false,
-  live: false,
   offset: 0,
   opacity: 0.8,
   title: 'title',
@@ -37,20 +32,6 @@ function isElementInDOM(element: Element | null): element is TooltipElement {
   return element.isConnected;
 }
 
-function toElements(target: string | TooltipElement | ArrayLike<Node> | null | undefined): TooltipElement[] {
-  if (!target) return [];
-  if (typeof target === 'string') {
-    return Array.from(document.querySelectorAll<HTMLElement>(target));
-  }
-  if ('nodeType' in target && target.nodeType === 1) return [target];
-  if ('length' in target) {
-    return Array.prototype.slice.call(target).filter(function (node): node is TooltipElement {
-      return node?.nodeType === 1;
-    });
-  }
-  return [];
-}
-
 function mergeOptions(overrides?: Partial<TooltipOptions>): TooltipOptions {
   const merged = Object.assign({}, DEFAULTS);
   if (!overrides) return merged;
@@ -63,21 +44,6 @@ function mergeOptions(overrides?: Partial<TooltipOptions>): TooltipOptions {
 function normalizeGravity(value: TooltipOptionValue): string {
   const gravity = String(value == null ? '' : value).toLowerCase();
   return /^(n|s|e|w|nw|ne|sw|se)$/.test(gravity) ? gravity : String(DEFAULTS.gravity);
-}
-
-function applyCustomClass(
-  tipElement: TooltipTipElement,
-  className: TooltipOptions['className'],
-  targetElement: TooltipElement,
-) {
-  const classValue = className == null ? '' : maybeCall(className, targetElement);
-  if (!classValue) return;
-  String(classValue)
-    .trim()
-    .split(/\s+/)
-    .forEach(function (classToken) {
-      if (classToken) tipElement.classList.add(classToken);
-    });
 }
 
 function elementOffset(element: TooltipElement) {
@@ -123,21 +89,6 @@ function hideOtherActiveTooltip(exceptInstance: TooltipInstance | null) {
     activeInstance.clearTimers();
     activeInstance.hide();
   }
-}
-
-function hasLiveOptOut(element: TooltipElement) {
-  return liveOptOutElements.includes(element);
-}
-
-function addLiveOptOut(element: TooltipElement) {
-  if (!liveOptOutElements.includes(element)) {
-    liveOptOutElements.push(element);
-  }
-}
-
-function removeLiveOptOut(element: TooltipElement) {
-  const index = liveOptOutElements.indexOf(element);
-  if (index !== -1) liveOptOutElements.splice(index, 1);
 }
 
 function TooltipInstance(this: TooltipInstance, element: TooltipElement, options: TooltipOptions) {
@@ -281,7 +232,6 @@ TooltipInstance.prototype.show = function () {
   tipElement.style.top = tooltipPosition.top + 'px';
   tipElement.style.left = tooltipPosition.left + 'px';
   tipElement.classList.add('hcg-tooltip--' + gravity);
-  applyCustomClass(tipElement, options.className, this.element);
   tipElement.arrowElement.className = 'hcg-tooltip-arrow hcg-tooltip-arrow-' + gravity.charAt(0);
   tipElement.arrowElement.style.transform = `translate(${originalTooltipPosition.left - tooltipPosition.left}px, ${
     originalTooltipPosition.top - tooltipPosition.top
@@ -366,7 +316,6 @@ TooltipInstance.prototype.destroy = function () {
   this.hide();
   this.detachTip();
   const element = this.element;
-  if (this.liveBound) addLiveOptOut(element);
   if (element._hcgTooltip === this) delete element._hcgTooltip;
   unbindTriggers(element, this);
   const index = INSTANCES.indexOf(this);
@@ -393,7 +342,6 @@ function getInstance(
   options: Partial<TooltipOptions> | undefined,
   source: 'direct' | 'live',
 ) {
-  if (source === 'live' && hasLiveOptOut(element)) return null;
   if (element._hcgTooltip) {
     if (options !== undefined) {
       const existingInstance = element._hcgTooltip;
@@ -403,7 +351,6 @@ function getInstance(
     }
     if (source === 'direct') {
       element._hcgTooltip.liveBound = false;
-      removeLiveOptOut(element);
     }
     return element._hcgTooltip;
   }
@@ -419,7 +366,6 @@ function getInstance(
 }
 
 function bindInstance(element: TooltipElement, options: TooltipOptions) {
-  removeLiveOptOut(element);
   const instance = getInstance(element, options, 'direct');
   if (!instance) return null;
   unbindTriggers(element, instance);
@@ -451,14 +397,14 @@ function removeLiveDelegatesForSelector(selector: string) {
 }
 
 function createLiveDelegate(selector: string, options: TooltipOptions) {
-  const existingDelegate = LIVE_DELEGATES.find(function (delegate) {
-    return delegate.selector === selector && delegate.trigger === options.trigger;
-  });
+  const existingDelegate = LIVE_DELEGATES.find(
+    delegate => delegate.selector === selector && delegate.trigger === options.trigger,
+  );
 
   if (existingDelegate) {
     existingDelegate.options = mergeOptions(options);
 
-    document.querySelectorAll<HTMLElement>(selector).forEach(function (element) {
+    document.querySelectorAll<HTMLElement>(selector).forEach(element => {
       const tooltipElement = element as TooltipElement;
       const instance = tooltipElement._hcgTooltip;
 
@@ -473,7 +419,6 @@ function createLiveDelegate(selector: string, options: TooltipOptions) {
   removeLiveDelegatesForSelector(selector);
 
   const events = getTriggerEvents(options.trigger, true);
-
   const delegate = {
     selector,
     options: mergeOptions(options),
@@ -586,48 +531,22 @@ function initFromData(
   const scope = root == null ? document : typeof root === 'string' ? document.querySelector(root) : root;
   if (!scope?.querySelectorAll) return [];
 
-  return elementsWithDataTooltip(scope).map(function (element) {
-    return bindInstance(element, mergeOptions(Object.assign({}, overrides, optionsFromDataset(element))));
-  });
+  return elementsWithDataTooltip(scope).map(element =>
+    bindInstance(element, mergeOptions(Object.assign({}, overrides, optionsFromDataset(element)))),
+  );
 }
 
 function hcgTooltip(
   target: string | TooltipElement | ArrayLike<Node> | null | undefined,
-  options: true | string | Partial<TooltipOptions> = {},
+  options: Partial<TooltipOptions> = {},
 ) {
-  if (options === true) {
-    const element = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
-    const tooltipElement = element && 'nodeType' in element ? (element as TooltipElement) : null;
-    return tooltipElement?._hcgTooltip ? tooltipElement._hcgTooltip : null;
-  }
-
-  if (typeof options === 'string') {
-    const elements = toElements(target);
-    elements.forEach(function (element) {
-      const instance = element._hcgTooltip;
-      const method = instance && (instance as unknown as Record<string, unknown>)[options];
-      if (typeof method === 'function') method.call(instance);
-    });
-    return elements.length === 1
-      ? (elements[0]?._hcgTooltip ?? null)
-      : elements.map(element => element._hcgTooltip ?? null);
-  }
-
-  const mergedOptions = mergeOptions(options);
-
-  if (mergedOptions.live) {
-    if (typeof target !== 'string') {
-      console.warn('hcg-tooltip: live mode requires a selector string.');
-      return [];
-    }
-    createLiveDelegate(target, mergedOptions);
+  if (typeof target !== 'string') {
+    console.warn('hcg-tooltip: live mode requires a selector string.');
     return [];
   }
 
-  const instances = toElements(target).map(function (element) {
-    return bindInstance(element, mergedOptions);
-  });
-  return instances.length === 1 ? instances[0] : instances;
+  createLiveDelegate(target, mergeOptions(options));
+  return [];
 }
 
 hcgTooltip.defaults = DEFAULTS;
@@ -659,7 +578,7 @@ function syncInstanceAfterTipRemoval(tipElement: TooltipTipElement, targetElemen
 }
 
 hcgTooltip.revalidate = function () {
-  document.querySelectorAll<HTMLDivElement>('.hcg-tooltip').forEach(function (element) {
+  document.querySelectorAll<HTMLDivElement>('.hcg-tooltip').forEach(element => {
     const tipElement = element as TooltipTipElement;
     const targetElement = tipElement._hcgTooltipPointee ?? null;
     if (targetElement && isElementInDOM(targetElement)) return;
@@ -670,14 +589,9 @@ hcgTooltip.revalidate = function () {
 
 hcgTooltip.destroyAll = function () {
   activeInstance = null;
-  LIVE_DELEGATES.slice().forEach(function (delegate) {
-    removeLiveDelegateListeners(delegate);
-  });
+  LIVE_DELEGATES.slice().forEach(delegate => removeLiveDelegateListeners(delegate));
   LIVE_DELEGATES.length = 0;
-  INSTANCES.slice().forEach(function (instance) {
-    instance.destroy();
-  });
-  liveOptOutElements.length = 0;
+  INSTANCES.slice().forEach(instance => instance.destroy());
 };
 
 export default hcgTooltip;

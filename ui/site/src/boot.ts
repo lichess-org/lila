@@ -51,7 +51,6 @@ export function boot() {
     hcgTooltip('[title]', {
       delayIn: 300,
       opacity: 1,
-      live: true,
     });
 
     addDomHandlers();

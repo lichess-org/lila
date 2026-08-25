@@ -86,10 +86,11 @@ interface LichessPowertip {
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
+// file://./../../site/src/hcg-tooltip.ts
 interface LichessHcgTooltip {
   (
     target: string | TooltipElement | ArrayLike<Node> | null | undefined,
-    options?: string | true | Partial<TooltipOptions>,
+    options?: Partial<TooltipOptions>,
   ): TooltipInstance | (TooltipInstance | null)[] | null;
   defaults: TooltipOptions;
   get(target: string | TooltipElement): TooltipInstance | null;
@@ -145,13 +146,11 @@ type TooltipOptionValue =
   | ((element: TooltipElement) => string | number | boolean);
 
 interface TooltipOptions {
-  className: TooltipOptionValue | null;
   delayIn: number;
   delayOut: number;
   fallback: string;
   gravity: TooltipOptionValue;
   html: boolean;
-  live: boolean;
   offset: number;
   opacity: number;
   title: TooltipOptionValue;
