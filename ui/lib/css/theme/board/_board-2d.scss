@@ -4,12 +4,20 @@
   body[data-board='#{$name}'] .is2d {
     cg-board {
       $file-ext: map-get($board-theme, file-ext);
+      $file-ext-2: map-get($board-theme, file-ext-2);
       $name-override: map-get($board-theme, name-override);
       $file-name: if($name-override, $name-override, $name);
       $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
 
       &::before {
-        background-image: url(../images/#{$dir-name}/#{$file-name}.#{$file-ext});
+        @if $file-ext-2 {
+          background-image: image-set(
+            url(../images/#{$dir-name}/#{$file-name}.#{$file-ext}) type('image/#{$file-ext}'),
+            url(../images/#{$dir-name}/#{$file-name}.#{$file-ext-2}) type('image/#{$file-ext-2}')
+          );
+        } @else {
+          background-image: url(../images/#{$dir-name}/#{$file-name}.#{$file-ext});
+        }
       }
     }
 

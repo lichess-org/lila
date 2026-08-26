@@ -83,6 +83,7 @@
     @each $name, $theme in $board-themes-2d {
       .#{$name} {
         $file-ext: map-get($theme, file-ext);
+        $file-ext-2: map-get($theme, file-ext-2);
         $name-override: map-get($theme, name-override);
         $file-name: if($name-override, $name-override, $name);
 
@@ -91,6 +92,11 @@
         @if $file-ext == 'svg' {
           background-image: url(../images/board/svg/#{$file-name}.svg);
           background-size: 256px;
+        } @else if $file-ext-2 {
+          background-image: image-set(
+            url(../images/board/#{$file-name}.thumbnail.#{$file-ext}) type('image/#{$file-ext}'),
+            url(../images/board/#{$file-name}.thumbnail.#{$file-ext-2}) type('image/#{$file-ext-2}')
+          );
         } @else {
           background-image: url(../images/board/#{$file-name}.thumbnail.#{$file-ext});
         }
