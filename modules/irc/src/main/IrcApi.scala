@@ -124,7 +124,8 @@ final class IrcApi(
 
   def bbb(by: MyId, tpe: "arena" | "event", name: String, url: Call, diff: String): Funit =
     val link = markdown.lichessLink(url.url, name)
-    val text = s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n```spoiler changes\n```diff\n$diff\n```\n```"
+    val text =
+      s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n```spoiler changes\n```diff\n$diff\n```\n```"
     zulip(_.bbb, "log")(text)
 
   def ublogPost(
