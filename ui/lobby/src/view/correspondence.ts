@@ -26,7 +26,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek) {
 }
 
 function createSeek(ctrl: LobbyController) {
-  if (ctrl.me && ctrl.data.seeks.length >= 8) return undefined;
+  if (!ctrl.me || ctrl.data.seeks.length >= 8) return undefined;
 
   return div('.create', [
     button(
