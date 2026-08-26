@@ -46,7 +46,7 @@ final class AppealApi(
         .equals(data.nodeId))
         .so:
           node match
-            case questionNode @ QuestionNode(nodeId, Answerer.User, question, branches)
+            case questionNode @ ChoiceNode(nodeId, Answerer.User, question, branches)
                 if kind == Kind.userChoice =>
               questionNode
                 .getAnswerBranch(data.answerId)

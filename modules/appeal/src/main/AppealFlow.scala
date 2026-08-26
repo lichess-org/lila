@@ -16,7 +16,7 @@ enum AppealEffect:
 sealed trait AppealNode:
   def id: NodeId
 
-case class QuestionNode(
+case class ChoiceNode(
     id: NodeId,
     answerer: Answerer,
     question: String,
@@ -47,7 +47,7 @@ object AppealFlow:
   private val appealFlows: Map[AppealTopic, AppealFlow] = Map(
     AppealTopic.cheat -> AppealFlow.make(
       NonEmptyList.of(
-        QuestionNode(
+        ChoiceNode(
           NodeId("accept-cheat-mark"),
           Answerer.User,
           "Do you accept this cheat mark?",
@@ -56,7 +56,7 @@ object AppealFlow:
             AnswerBranch(AnswerId("no"), "No", NodeId("is-mark-valid"))
           )
         ),
-        QuestionNode(
+        ChoiceNode(
           NodeId("many-infractions"),
           Answerer.Mod,
           "Does user have many infractions?",
@@ -65,7 +65,7 @@ object AppealFlow:
             AnswerBranch(AnswerId("no"), "No", NodeId("second-chance"))
           )
         ),
-        QuestionNode(
+        ChoiceNode(
           NodeId("is-mark-valid"),
           Answerer.Mod,
           "Is mark valid?",
@@ -74,7 +74,7 @@ object AppealFlow:
             AnswerBranch(AnswerId("no"), "No", NodeId("false-positive"))
           )
         ),
-        QuestionNode(
+        ChoiceNode(
           NodeId("mark-is-valid"),
           Answerer.User,
           "We have determined the mark is valid.",
