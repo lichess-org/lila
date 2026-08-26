@@ -4,8 +4,7 @@ import lila.appeal.Appeal.Id as AppealId
 import lila.appeal.AppealMsg.Kind as Kind
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
-import lila.appeal.AppealEventForm.ChoiceData
-import lila.appeal.AppealEventForm.MessageData
+import lila.appeal.AppealEventForm.{ ChoiceData, MessageData }
 
 final class AppealApi(
     coll: Coll,
@@ -37,15 +36,19 @@ final class AppealApi(
         val appeal = Appeal.make(topic, data.text, data.accounts)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
-        val appeal = prev.post(data.text, me, appeals.muted)
+        val appeal = prev.postLegacyMessage(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
   // TODO:
-  def choiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData): Funit = update(
-    appeal.withdraw
-  ).void
+  def postChoiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
+    appeal.nextNode.so: node =>
+      (node.id == data.nodeId).so:
+        kind match
+          case Kind.userChoice =>
+            val updated = appeal.post(UserChoiceEvent(me, data.nodeId, "", data.answerId, "", nowInstant))
+            for _ <- coll.update.one($id(updated.id), updated) yield updated.some
+          case _ => fuccess(none)
 
-  // TODO:
   def messageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
     appeal.withdraw
   ).void
@@ -53,7 +56,7 @@ final class AppealApi(
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 
   def modReply(text: String, prev: Appeal)(using me: MyId) =
-    val appeal = prev.post(text, me, muted = false)
+    val appeal = prev.postLegacyMessage(text, me, muted = false)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
   def countUnread = coll.secondary.countSel($doc("status" -> Appeal.Status.unread))

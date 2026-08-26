@@ -26,15 +26,16 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               div(cls := "box")(s"${question}\n${by}: ${answer}")
             case UserMessageEvent(by, text, _) => div(cls := "box")(s"${by}: ${text}")
             case ModMessageEvent(by, text, _) => div(cls := "box")(s"${by}: ${text}")),
-          (AppealFlowApi.nextNode(appeal) match
-            case Some(UserQuestionNode(_, question, branches)) =>
+          (AppealFlow.nextNode(appeal) match
+            case Some(UserQuestionNode(nodeId, question, branches)) =>
               div(cls := "box")(
                 postForm(cls := "appeal-choice", action := routes.Appeal.event(appeal.topic))(
                   p(question),
                   form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
+                  form3.hidden("nodeId", nodeId),
                   div(cls := "appeal-choice__answers")(
                     branches.map: b =>
-                      submitButton(cls := "button", name := "answer", value := b.id)(b.answer)
+                      submitButton(cls := "button", name := "answerId", value := b.id)(b.answer)
                   )
                 )
               )

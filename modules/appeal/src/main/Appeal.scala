@@ -41,7 +41,7 @@ case class Appeal(
 
   def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
-  def post(text: String, by: UserId, muted: Boolean) =
+  def postLegacyMessage(text: String, by: UserId, muted: Boolean) =
     val msg = AppealMsg(by, text, nowInstant)
     copy(
       msgs = msgs :+ msg,
@@ -53,6 +53,14 @@ case class Appeal(
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
         else firstUnrepliedAt
+    )
+
+  def post(event: AppealMsg) =
+    copy(
+      msgs = msgs :+ event,
+      updatedAt = nowInstant
+      // status
+      // firstUnrepliedAt =
     )
 
   def canAddMsg: Boolean =
@@ -75,6 +83,8 @@ case class Appeal(
   def participated(modId: UserId) = msgs.exists(_.by.is(modId))
 
   def isLast(msg: AppealMsg) = msgs.lastOption.contains(msg)
+
+  def nextNode: Option[AppealNode] = AppealFlow.nextNode(this)
 
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
 
@@ -124,6 +134,7 @@ sealed trait AppealMsg:
 
 case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = None
+// TODO: can I combine these two case classes ?
 case class UserChoiceEvent(
     by: UserId,
     nodeId: String,

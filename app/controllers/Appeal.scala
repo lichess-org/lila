@@ -77,21 +77,29 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       if !appeal.isOpen then Redirect(routes.Appeal.home)
       else
         bindForm(kindForm)(
-          _ => BadRequest,
-          Kind(_) match
-            case Some(Kind.userChoice) =>
-              bindForm(choiceForm)(
-                _ => BadRequest,
-                for _ <- env.appeal.api.choiceEvent(appeal, Kind.userChoice, _)
-                yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
-              )
-            case Some(Kind.userMessage) =>
-              bindForm(messageForm)(
-                _ => BadRequest,
-                for _ <- env.appeal.api.messageEvent(appeal, Kind.userMessage, _)
-                yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
-              )
-            case _ => BadRequest
+          _ =>
+            pp("first bad request")
+            BadRequest
+          ,
+          k =>
+            pp("got past first bind form")
+            Kind(k) match
+              case Some(Kind.userChoice) =>
+                bindForm(choiceForm)(
+                  _ =>
+                    pp("second bad request")
+                    BadRequest
+                  ,
+                  for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.userChoice, _)
+                  yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
+                )
+              case Some(Kind.userMessage) =>
+                bindForm(messageForm)(
+                  _ => BadRequest,
+                  for _ <- env.appeal.api.messageEvent(appeal, Kind.userMessage, _)
+                  yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
+                )
+              case _ => BadRequest
         )
   }
 

@@ -15,7 +15,7 @@ case class SystemActionNode(
     unmark: Boolean = false
 ) extends AppealNode
 
-object AppealFlowApi:
+object AppealFlow:
 
   def nextNode(appeal: Appeal): Option[AppealNode] =
     if appeal.msgs.isEmpty then map(appeal.topic).some else None
