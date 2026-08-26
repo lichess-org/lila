@@ -42,12 +42,14 @@ final class AppealApi(
   // TODO:
   def postChoiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
     appeal.nextNode.so: node =>
-      (node.id == data.nodeId).so:
-        kind match
-          case Kind.userChoice =>
-            val updated = appeal.post(UserChoiceEvent(me, data.nodeId, "", data.answerId, "", nowInstant))
-            for _ <- coll.update.one($id(updated.id), updated) yield updated.some
-          case _ => fuccess(none)
+      (node.id
+        .equals(data.nodeId))
+        .so:
+          kind match
+            case Kind.userChoice =>
+              val updated = appeal.post(UserChoiceEvent(me, data.nodeId, "", data.answerId, "", nowInstant))
+              for _ <- coll.update.one($id(updated.id), updated) yield updated.some
+            case _ => fuccess(none)
 
   def messageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
     appeal.withdraw
