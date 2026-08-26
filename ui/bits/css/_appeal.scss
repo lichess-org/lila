@@ -61,6 +61,69 @@
     }
   }
 
+  // TODO: revisit styling
+  &__choice {
+    @extend %box-neat;
+
+    padding: 1.5em;
+    margin-bottom: 2em;
+    background: $c-bg-zebra;
+
+    &__question {
+      font-size: 1.15em;
+      font-weight: bold;
+      margin: 0 0 1.2em;
+    }
+
+    &__answers {
+      @extend %flex-center;
+
+      gap: 1em;
+
+      .button {
+        flex: 1 1 10em;
+      }
+    }
+  }
+
+  &__choice-event {
+    margin-bottom: 2em;
+    padding: 0 0 1.5em;
+    padding-inline-start: 1em;
+    border-bottom: $border;
+    border-inline-start: 3px solid $c-border;
+
+    &__question {
+      color: $c-font-dim;
+      margin: 0 0 0.8em;
+    }
+
+    &__selection {
+      @extend %flex-center;
+
+      gap: 0.8em 1.2em;
+    }
+
+    &__answer {
+      @extend %box-radius;
+
+      display: inline-block;
+      max-width: 100%;
+      padding: 0.5em 1em;
+      background: $c-secondary;
+      color: $c-over;
+      font-weight: 500;
+    }
+
+    &__meta {
+      @extend %flex-center;
+
+      gap: 0.35em;
+      color: $c-font-dim;
+      font-size: 0.9em;
+    }
+  }
+
   &__actions {
     display: flex;
     padding-top: 2em;

@@ -18,30 +18,55 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               " Appeal in progress."
             )
           ),
-          appeal.msgs.map(_ match
-            case LegacyMessage(by, text, _) => div(cls := "box")(s"${by}: ${text}")
-            case UserChoiceEvent(by, _, question, _, answer, _) =>
-              div(cls := "box")(s"${question}\n${by}: ${answer}")
-            case ModChoiceEvent(by, _, question, _, answer, _) =>
-              div(cls := "box")(s"${question}\n${by}: ${answer}")
-            case UserMessageEvent(by, text, _) => div(cls := "box")(s"${by}: ${text}")
-            case ModMessageEvent(by, text, _) => div(cls := "box")(s"${by}: ${text}")),
-          (AppealFlow.nextNode(appeal) match
-            case Some(ChoiceNode(nodeId, Answerer.User, question, branches)) =>
-              div(cls := "box")(
-                postForm(cls := "appeal-choice", action := routes.Appeal.event(appeal.topic))(
-                  p(question),
-                  form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
-                  form3.hidden("nodeId", nodeId),
-                  div(cls := "appeal-choice__answers")(
-                    branches.toList.map: b =>
-                      submitButton(cls := "button", name := "answerId", value := b.id)(b.answer)
-                  )
-                )
-              )
-            case _ => emptyFrag
+          div(cls := "body")(
+            appeal.msgs.map(renderMsg(appeal)),
+            renderNextNode(appeal)
           )
         )
-        // TODO: reimplement somehow the below
+        // TODO: reimplement the below
         // userInactiveAppeals(appeals.filter(_ != appeal))
       )
+
+  private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
+    msg match
+      case UserChoiceEvent(by, _, question, _, answer, at) =>
+        renderChoiceEvent(appeal, by, question, answer, at)
+      case ModChoiceEvent(by, _, question, _, answer, at) =>
+        renderChoiceEvent(appeal, by, question, answer, at)
+      case _ =>
+        div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+          div(cls := "appeal__msg__header")(
+            ui.renderUser(appeal, msg.by, asMod = false),
+            momentFromNowOnce(msg.at)
+          ),
+          div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+        )
+
+  private def renderChoiceEvent(appeal: Appeal, by: UserId, question: String, answer: String, at: Instant)(
+      using Context
+  ) =
+    div(cls := "appeal__choice-event")(
+      p(cls := "appeal__choice-event__question")(question),
+      div(cls := "appeal__choice-event__selection")(
+        span(cls := "appeal__choice-event__answer text")(answer),
+        span(cls := "appeal__choice-event__meta")(
+          ui.renderUser(appeal, by, asMod = false),
+          span(" · "),
+          momentFromNowOnce(at)
+        )
+      )
+    )
+
+  private def renderNextNode(appeal: Appeal) =
+    AppealFlow.nextNode(appeal) match
+      case Some(ChoiceNode(nodeId, Answerer.User, question, branches)) =>
+        postForm(cls := "appeal__choice", action := routes.Appeal.event(appeal.topic))(
+          p(cls := "appeal__choice__question")(question),
+          form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
+          form3.hidden("nodeId", nodeId),
+          div(cls := "appeal__choice__answers")(
+            branches.toList.map: b =>
+              submitButton(cls := "button button-no-upper", name := "answerId", value := b.id)(b.answer)
+          )
+        )
+      case _ => emptyFrag
