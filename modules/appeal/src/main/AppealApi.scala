@@ -45,13 +45,21 @@ final class AppealApi(
       (node.id
         .equals(data.nodeId))
         .so:
-          kind match
-            case Kind.userChoice =>
-              val updated = appeal.post(UserChoiceEvent(me, data.nodeId, "", data.answerId, "", nowInstant))
-              for _ <- coll.update.one($id(updated.id), updated) yield updated.some
+          node match
+            case questionNode @ QuestionNode(nodeId, Answerer.User, question, branches)
+                if kind == Kind.userChoice =>
+              questionNode
+                .getAnswerBranch(data.answerId)
+                .so: answerBranch =>
+                  val updated =
+                    appeal.post(
+                      UserChoiceEvent(me, nodeId, question, data.answerId, answerBranch.answer, nowInstant)
+                    )
+                  for _ <- coll.update.one($id(updated.id), updated) yield updated.some
             case _ => fuccess(none)
 
-  def messageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
+  // TODO:
+  def postMessageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
     appeal.withdraw
   ).void
 

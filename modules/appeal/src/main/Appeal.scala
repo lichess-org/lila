@@ -137,9 +137,9 @@ case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMs
 // TODO: can I combine these two case classes ?
 case class UserChoiceEvent(
     by: UserId,
-    nodeId: String,
+    nodeId: NodeId,
     question: String,
-    answerId: String,
+    answerId: AnswerId,
     answer: String,
     at: Instant
 ) extends AppealMsg:
@@ -147,9 +147,9 @@ case class UserChoiceEvent(
   def text = s"${question}\n${answer}"
 case class ModChoiceEvent(
     by: UserId,
-    nodeId: String,
+    nodeId: NodeId,
     question: String,
-    answerId: String,
+    answerId: AnswerId,
     answer: String,
     at: Instant
 ) extends AppealMsg:

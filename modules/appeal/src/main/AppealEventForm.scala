@@ -2,16 +2,17 @@ package lila.appeal
 
 import play.api.data.*
 import play.api.data.Forms.*
+import lila.common.Form.into
 
 object AppealEventForm:
 
   val kindForm = Form(single("kind" -> nonEmptyText))
 
-  case class ChoiceData(nodeId: String, answerId: String)
+  case class ChoiceData(nodeId: NodeId, answerId: AnswerId)
   val choiceForm = Form(
     mapping(
-      "nodeId" -> nonEmptyText,
-      "answerId" -> nonEmptyText
+      "nodeId" -> nonEmptyText.into[NodeId],
+      "answerId" -> nonEmptyText.into[AnswerId]
     )(ChoiceData.apply)(unapply)
   )
 

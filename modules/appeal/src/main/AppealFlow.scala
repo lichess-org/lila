@@ -21,7 +21,9 @@ case class QuestionNode(
     answerer: Answerer,
     question: String,
     branches: NonEmptyList[AnswerBranch]
-) extends AppealNode
+) extends AppealNode:
+  def hasAnswer(answerId: AnswerId) = branches.exists(_.id == answerId)
+  def getAnswerBranch(answerId: AnswerId) = branches.find(_.id == answerId)
 case class ActionNode(
     id: NodeId,
     text: String,
