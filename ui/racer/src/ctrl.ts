@@ -143,6 +143,7 @@ export default class RacerCtrl implements PuzCtrl {
       : undefined;
 
   end = (): void => {
+    this.run.unfinishedId = this.run.current.puzzle.id;
     this.pushToHistory(false); // add last unsolved puzzle
     this.setGround();
     this.redraw();
