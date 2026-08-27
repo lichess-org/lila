@@ -44,6 +44,8 @@ final class IrcApi(
     def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
     def time(t: Instant) = s"<time:$t>"
     def diff(diff: DiffStr) = s"```diff\n$diff\n```"
+    def spoiler(heading: String, content: String) = s"```spoiler $heading\n$content\n```"
+    def quote(content: String) = s"```quote\n$content\n```"
 
   def commReportBurst(user: LightUser): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
@@ -127,7 +129,7 @@ final class IrcApi(
   def bbb(by: MyId, tpe: "arena" | "event", name: String, url: Call, diff: DiffStr): Funit =
     val link = markdown.lichessLink(url.url, name)
     val text =
-      s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n```spoiler changes\n```${markdown.diff(diff)}\n```"
+      s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n${markdown.spoiler("changes", markdown.diff(diff))}"
     zulip(_.bbb, "log")(text)
 
   def ublogPost(
@@ -159,7 +161,7 @@ final class IrcApi(
 
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
-      s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
+      s"${markdown.userLink(lightUser(senderId))}:\n${markdown.quote(content)}"
 
   def broadcastTourUpdate(
       tourName: String,
