@@ -5,6 +5,7 @@ import com.github.blemale.scaffeine.Cache
 import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
 import lila.core.userId.ModId
+import lila.core.data.DiffStr
 
 private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, previewApi: ChapterPreviewApi)(
     using
@@ -71,48 +72,28 @@ private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, p
 
   def tourCreate(tour: RelayTour)(using Me): Funit =
     tour.official.so:
-      val diff = s"+ tier: ${tour.tier.fold("(none)")(_.toString)}"
+      val diff = DiffStr(s"+ tier: ${tour.tier.fold("(none)")(_.toString)}")
       irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, diff)
 
   def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
-    val ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note")
-    val changes = prev.productElementNames
-      .zip(prev.productIterator)
-      .zip(tour.productIterator)
-      .flatMap:
-        case ((name, _), _) if ignoredFields(name) => Nil
-        case ((_, prevVal), nextVal) if prevVal == nextVal => Nil
-        case (("info", prevInfo: RelayTour.Info), nextInfo: RelayTour.Info) =>
-          prevInfo.productElementNames
-            .zip(prevInfo.productIterator)
-            .zip(nextInfo.productIterator)
-            .collect:
-              case ((k, pv), nv) if pv != nv =>
-                s"- info.$k: ${truncate(pv.toString)}\n+ info.$k: ${truncate(nv.toString)}"
-            .toList
-        case ((name, prevVal), nextVal) =>
-          List(s"- $name: ${truncate(prevVal.toString)}\n+ $name: ${truncate(nextVal.toString)}")
-      .toList
-    changes.nonEmpty.so:
-      irc.broadcastTourUpdate(
-        tour.name.value,
-        tour.slug,
-        tour.id,
-        changes.mkString("\n"),
-        impersonatedBy
+    lila.common
+      .ProductDiff(
+        prev.some,
+        tour,
+        ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note"),
+        nestedFields = Set("info", "spotlight"),
+        maxLength = 300
       )
+      .so(irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, _, impersonatedBy))
 
   def imageDelete(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
     t.official.so:
       val fieldName = tag | "image"
-      val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)"
+      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)")
       irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
 
   def imageUpload(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
     t.official.so:
       val fieldName = tag | "image"
-      val diff = s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)"
+      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)")
       irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
-
-  private def truncate(s: String): String =
-    if s.length <= 300 then s else s.take(300) + "..."

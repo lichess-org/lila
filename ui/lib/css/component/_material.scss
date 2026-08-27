@@ -38,11 +38,11 @@
     }
 
     @include if-transp {
-      filter: drop-shadow(0 1px 1px $c-font-shadow);
+      filter: brightness(1.3) drop-shadow(0 1px 1px $c-font-shadow);
+    }
 
-      @include if-not-light {
-        filter: brightness(1.3) drop-shadow(0 1px 1px $c-font-shadow);
-      }
+    @include if-transp-light {
+      filter: brightness(0.7) drop-shadow(0 1px 1px $c-font-shadow);
     }
   }
 

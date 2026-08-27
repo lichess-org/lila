@@ -61,7 +61,7 @@
   }
 
   .header-tab.active.write-tab::after {
-    background-color: $c-bg-input;
+    background-color: hsl(from var(--c-bg-input) h s l / 100);
   }
 
   .content {

@@ -56,6 +56,10 @@
       outline-color: $c-bad;
     }
 
+    .unfinished cg-container {
+      outline-color: $c-font-dim;
+    }
+
     &:hover .puz-history__round__id {
       font-family: monospace;
       color: $c-font;
@@ -65,7 +69,8 @@
   }
 
   good,
-  bad {
+  bad,
+  unfinished {
     @extend %flex-center, %box-radius-bottom;
 
     &::before {
@@ -88,6 +93,14 @@
 
     &::before {
       content: $licon-X;
+    }
+  }
+
+  unfinished {
+    color: $c-font-dim;
+
+    &::before {
+      content: $licon-Clock;
     }
   }
 }
