@@ -6,6 +6,7 @@ import play.api.mvc.Call
 import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
 import lila.core.userId.{ UserId, MyId, ModId, UserName }
 import lila.core.study.data.StudyChapterName
+import lila.core.data.DiffStr
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other
@@ -46,7 +47,7 @@ trait IrcApi:
       tourName: String,
       tourSlug: String,
       tourId: RelayTourId,
-      diff: String,
+      diff: DiffStr,
       impersonatedBy: Option[ModId] = None
   )(using MyId): Funit
   def bbb(
@@ -54,5 +55,5 @@ trait IrcApi:
       tpe: "arena" | "event",
       name: String,
       url: Call,
-      diff: String
+      diff: DiffStr
   ): Funit

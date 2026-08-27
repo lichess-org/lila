@@ -1,5 +1,7 @@
 package lila.common
 
+import lila.core.data.DiffStr
+
 object ProductDiff:
 
   private def truncate(max: Int)(s: String): String =
@@ -15,8 +17,8 @@ object ProductDiff:
       next: A,
       ignoredFields: Set[String] = Set.empty,
       nestedFields: Set[String] = Set.empty,
-      maxLength: Int = Int.MaxValue
-  ): String =
+      maxLength: Int = 20_000
+  ): Option[DiffStr] =
     val trunc = truncate(maxLength)
 
     def fieldLine(prefix: String)(name: String, value: Any) =
@@ -48,14 +50,13 @@ object ProductDiff:
             .toList
       else List(fieldLine("+")(name, value))
 
-    prev match
+    val lineIterator = prev match
       case None =>
         next.productElementNames
           .zip(next.productIterator)
           .collect:
             case (name, value) if !ignoredFields(name) => newLines(name, value)
           .flatten
-          .mkString("\n")
       case Some(old) =>
         old.productElementNames
           .zip(old.productIterator)
@@ -65,4 +66,5 @@ object ProductDiff:
             case ((_, prevVal), nextVal) if prevVal == nextVal => Nil
             case ((name, prevVal), nextVal) if nestedFields(name) => nestedDiff(name, prevVal, nextVal)
             case ((name, prevVal), nextVal) => List(changedLine(name, prevVal, nextVal))
-          .mkString("\n")
+
+    lineIterator.mkString("\n").nonEmptyOption.map(DiffStr.apply)

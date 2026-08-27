@@ -99,6 +99,6 @@ final class EventApi(
     )
 
   private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
-    val ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt")
-    val diff = lila.common.ProductDiff(prev, next, ignoredFields)
-    if diff.nonEmpty then ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), diff)
+    lila.common
+      .ProductDiff(prev, next, ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt"))
+      .foreach(ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), _))

@@ -797,14 +797,14 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    val ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId")
-    val diff = lila.common.ProductDiff(
-      prev,
-      next,
-      ignoredFields,
-      nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
-    )
-    if diff.nonEmpty then ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), diff)
+    lila.common
+      .ProductDiff(
+        prev,
+        next,
+        ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
+        nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
+      )
+      .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
@@ -836,9 +836,7 @@ final class TournamentApi(
       tournamentTop(tourId).map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
-          Bus.pub(
-            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync))
-          )
+          Bus.pub(lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)))
           lastPublished.put(tourId, top.hashCode)
       }
 
