@@ -7,6 +7,15 @@
   td:first-child {
     @extend %flex-column;
 
-    gap: 1ch;
+    gap: 8px;
+    line-height: 1;
+
+    time {
+      color: $c-font-dim;
+    }
+
+    pre {
+      font-size: 13px;
+    }
   }
 }

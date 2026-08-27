@@ -209,6 +209,22 @@ final class SitePages(helpers: Helpers):
           }
         )
 
+  private val repoRoot = "https://github.com/lichess-org/lila"
+  private val pullRequestRegex = raw"#(\d+)".r
+
+  private def versionMessage(message: String): Frag =
+    pullRequestRegex.findFirstMatchIn(message) match
+      case None => message
+      case Some(m) =>
+        frag(
+          message.substring(0, m.start),
+          a(
+            href := s"$repoRoot/pull/${m.group(1)}",
+            target := "_blank"
+          )(m.matched),
+          message.substring(m.end)
+        )
+
   def source(title: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
       Context
   ) =
@@ -231,12 +247,12 @@ final class SitePages(helpers: Helpers):
                     td(
                       span("Server"),
                       timeTag(v.date),
-                      span(a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
+                      span(a(href := s"$repoRoot/commits/${v.commit}"):
                         pre(v.commit.take(7)))
                     ),
-                    td(v.message),
+                    td(versionMessage(v.message)),
                     td:
-                      a(href := s"https://github.com/lichess-org/lila/compare/${v.commit}...master"):
+                      a(href := s"$repoRoot/compare/${v.commit}...master"):
                         pre("...")
                   ),
                 tr(
