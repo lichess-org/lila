@@ -207,9 +207,8 @@ function setAssetInfo() {
   $('#asset-version-message').text(site.info.message);
 
   $('.github-auto-link').each(function (this: HTMLElement) {
-    const text = this.textContent || '';
-    const html = githubAutoLinks(text);
-    this.innerHTML = html;
+    if (!this.textContent) return;
+    this.innerHTML = githubAutoLinks(this.textContent);
   });
 }
 
