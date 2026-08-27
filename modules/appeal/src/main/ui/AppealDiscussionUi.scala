@@ -53,7 +53,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               h2(cls := "appeal__mark")(msg()),
           standardFlash,
           div(cls := "body")(
-            userAppealMessages(appeal),
+            ui.userAppealMessages(appeal),
             if appeal.isClosed then appealIsClosed(appeal)
             else if !appeal.canAddMsg then
               p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")
@@ -72,7 +72,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               )("Withdraw appeal")
             )
         ),
-        userInactiveAppeals(appeals.filter(_ != appeal))
+        ui.userInactiveAppeals(appeals.filter(_ != appeal))
       )
 
   private def appealIsClosed(appeal: Appeal)(using Translate) = p(cls := "line-center-text")(
@@ -101,37 +101,6 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       accounts.household.map: household =>
         row("Household accounts", pre(cls := "appeal__accounts__text")(household))
     )
-
-  private def userAppealMessages(appeal: Appeal)(using Context) =
-    appeal.msgs.map: msg =>
-      div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
-        div(cls := "appeal__msg__header")(
-          ui.renderUser(appeal, msg.by, asMod = false),
-          momentFromNowOnce(msg.at)
-        ),
-        div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
-      )
-
-  def userInactiveAppeals(appeals: List[Appeal])(using Context, Me) =
-    appeals
-      .sortBy(_.updatedAt)
-      .reverse
-      .map: appeal =>
-        val titleTag = if Granter(_.Appeals) then a(href := appeal.modShowUrl) else span
-        div(cls := "box box-pad appeal-closed")(
-          div(cls := "box__top")(
-            h1(
-              span(cls := "appeal-topic")(appeal.topic.key),
-              nbsp,
-              titleTag:
-                if appeal.isClosed then
-                  appeal.closedUntil.fold[Frag]("Appeal closed"): until =>
-                    frag("Appeal paused until ", showDate(until))
-                else "Appeal on hold"
-            )
-          ),
-          userAppealMessages(appeal)
-        )
 
   def modShow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
@@ -274,5 +243,5 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )(submitButton(cls := "button button-empty")("Send to Zulip"))
           )
         ),
-        userInactiveAppeals(relatedAppeals.filter(_.user.is(user)).filter(_ != appeal))
+        ui.userInactiveAppeals(relatedAppeals.filter(_.user.is(user)).filter(_ != appeal))
       )

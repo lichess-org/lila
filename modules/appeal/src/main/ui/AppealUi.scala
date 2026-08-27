@@ -3,8 +3,9 @@ package ui
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.config.NetDomain
 
-final class AppealUi(helpers: Helpers):
+final class AppealUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
 
   def page(title: String)(using Context) =
@@ -56,3 +57,34 @@ final class AppealUi(helpers: Helpers):
               )
         )
       )
+
+  def userAppealMessages(appeal: Appeal)(using Context) =
+    appeal.msgs.map: msg =>
+      div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+        div(cls := "appeal__msg__header")(
+          renderUser(appeal, msg.by, asMod = false),
+          momentFromNowOnce(msg.at)
+        ),
+        div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+      )
+
+  def userInactiveAppeals(appeals: List[Appeal])(using Context, Me) =
+    appeals
+      .sortBy(_.updatedAt)
+      .reverse
+      .map: appeal =>
+        val titleTag = if Granter(_.Appeals) then a(href := appeal.modShowUrl) else span
+        div(cls := "box box-pad appeal-closed")(
+          div(cls := "box__top")(
+            h1(
+              span(cls := "appeal-topic")(appeal.topic.key),
+              nbsp,
+              titleTag:
+                if appeal.isClosed then
+                  appeal.closedUntil.fold[Frag]("Appeal closed"): until =>
+                    frag("Appeal paused until ", showDate(until))
+                else "Appeal on hold"
+            )
+          ),
+          userAppealMessages(appeal)
+        )

@@ -8,7 +8,7 @@ import lila.core.config.NetDomain
 final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.*
 
-  def userFlow(appeal: Appeal)(using Context, Me) =
+  def userFlow(appeal: Appeal, appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
       main(cls := "page-small appeal")(
         div(cls := "box box-pad")(
@@ -22,9 +22,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             appeal.msgs.map(renderMsg(appeal)),
             renderNextNode(appeal)
           )
-        )
-        // TODO: reimplement the below
-        // userInactiveAppeals(appeals.filter(_ != appeal))
+        ),
+        ui.userInactiveAppeals(appeals.filter(_ != appeal))
       )
 
   private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
@@ -57,7 +56,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       )
     )
 
-  private def renderNextNode(appeal: Appeal) =
+  private def renderNextNode(appeal: Appeal)(using Me) =
     AppealFlow.nextNode(appeal) match
       case Some(ChoiceNode(nodeId, Answerer.User, question, branches)) =>
         postForm(cls := "appeal__choice", action := routes.Appeal.event(appeal.topic))(
@@ -69,4 +68,5 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               submitButton(cls := "button button-no-upper", name := "answerId", value := b.id)(b.answer)
           )
         )
-      case _ => emptyFrag
+      case _ =>
+        p(cls := "")("Your appeal is under review. You will receive a message when there is an update.")

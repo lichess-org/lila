@@ -43,7 +43,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) =>
-      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(a)
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(a, allAppeals)
       else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
