@@ -142,6 +142,8 @@ export class ChatCtrl {
   };
 
   private readonly onMessage = (line: Line): void => {
+    const previous = this.data.lines[this.data.lines.length - 1];
+    if (line.hidden && previous?.hidden) return;
     this.data.lines.push(line);
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {

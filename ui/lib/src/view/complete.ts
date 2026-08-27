@@ -56,7 +56,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
   const update = () => {
     const term = opts.input.value.trim();
     if (term.length >= minLength && (!opts.regex || term.match(opts.regex)))
-      fetchResults(term).then(renderResults, console.log);
+      fetchResults(term).then(renderResults, site.debug ? console.log : () => {});
     else $container.addClass('none');
   };
 

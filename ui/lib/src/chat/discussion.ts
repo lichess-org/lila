@@ -18,6 +18,17 @@ const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
 let resizeObserver: ResizeObserver | null = null;
 
+export function isChatVisible(): boolean {
+  const el = document.querySelector<HTMLElement>('.mchat');
+  const rect = el?.getBoundingClientRect();
+  return Boolean(
+    el &&
+    rect &&
+    el.querySelector('.mchat__messages') &&
+    Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0) >= 48,
+  );
+}
+
 const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
   if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
   else if (el.scrollTop + el.clientHeight < el.scrollHeight)

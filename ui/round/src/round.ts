@@ -1,6 +1,7 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 
 import { myUserId } from 'lib';
+import { isChatVisible } from 'lib/chat/discussion';
 import standaloneChat from 'lib/chat/standalone';
 import { finished, type TourPlayer } from 'lib/game';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
@@ -131,8 +132,16 @@ async function boot(
           if (
             line.u === 'lichess' &&
             (startsWithPrefix(line.t, 'warning') || startsWithPrefix(line.t, 'reminder'))
-          )
+          ) {
             alert(line.t);
+          } else if (data.opponent.user && !data.player.spectator) {
+            if (line.hidden) {
+              line.t = i18n.site.xCannotSeeYourChatRightNow(data.opponent.user.username);
+              chat.instance?.redraw();
+            } else if (line.u?.toLowerCase() === chat.data.opponentId && !isChatVisible()) {
+              pubsub.emit('socket.send', 'chatHidden');
+            }
+          }
         });
     }
   }

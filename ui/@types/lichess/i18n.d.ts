@@ -4901,6 +4901,8 @@ interface I18n {
     withNobody: string;
     /** Write a private note about this user */
     writeAPrivateNoteAboutThisUser: string;
+    /** %s cannot see your chat right now. */
+    xCannotSeeYourChatRightNow: I18nFormat;
     /** %1$s competes in %2$s */
     xCompetesInY: I18nFormat;
     /** %1$s created team %2$s */

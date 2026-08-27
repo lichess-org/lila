@@ -18,6 +18,7 @@
   <string name="strength">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="chat">Chat</string>
+  <string name="xCannotSeeYourChatRightNow">%s cannot see your chat right now.</string>
   <string name="resign">Resign</string>
   <string name="checkmate">Checkmate</string>
   <string name="stalemate">Stalemate</string>
