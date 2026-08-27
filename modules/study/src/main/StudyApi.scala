@@ -766,7 +766,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              parsed <- chapterMaker.toStudyPgn(study, pgn, strict = true)
+              parsed <- chapterMaker.toStudyPgn(study, pgn, me.userId, strict = true)
               newChapter = chapter.copy(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
