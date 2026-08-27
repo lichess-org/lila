@@ -1,12 +1,14 @@
 package lila.appeal
 package ui
 
+import play.api.data.Form
+
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
 final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
-  import helpers.*
+  import helpers.{ *, given }
 
   def userFlow(appeal: Appeal, appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
@@ -24,6 +26,28 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           )
         ),
         ui.userInactiveAppeals(appeals.filter(_ != appeal))
+      )
+
+  // TODO:
+  def modFlow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
+    import modData.*
+    ui.page(s"Appeal by ${user.username}"):
+      main(cls := "appeal")(
+        div(cls := "box box-pad")(
+          ui.modHeader(appeal, modData),
+          div(cls := "mod-zone mod-zone-full none"),
+          appeal.accounts.map(ui.renderAccountsDisclosure),
+          otherUsers(cls := "mod-zone communication__logins"),
+          div(cls := "body")(
+            ui.modAppealMessages(appeal),
+            standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
+            if appeal.isClosed then ui.appealIsClosed(appeal)
+            // else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
+            else emptyFrag
+          ),
+          ui.modActions(appeal, modData)
+        ),
+        ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
 
   private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =

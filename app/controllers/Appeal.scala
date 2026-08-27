@@ -138,7 +138,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
       getModData(appeal, suspect).flatMap: modData =>
-        Ok.page(views.appeal.discussion.modShow(appeal, modForm, modData))
+        Ok.page(if AppealTopicApi.usesNewAppealFlow(topic) then
+          views.appeal.flow.modFlow(appeal, modForm, modData)
+        else views.appeal.discussion.modShow(appeal, modForm, modData))
   }
 
   def modShowAll(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>

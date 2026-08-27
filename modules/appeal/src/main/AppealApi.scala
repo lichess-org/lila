@@ -39,7 +39,7 @@ final class AppealApi(
         val appeal = prev.postLegacyMessage(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  // TODO:
+  // TODO: more cases
   def postChoiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
     appeal.nextNode.so: node =>
       (node.id
@@ -58,7 +58,7 @@ final class AppealApi(
                   for _ <- coll.update.one($id(updated.id), updated) yield updated.some
             case _ => fuccess(none)
 
-  // TODO:
+  // TODO: stub
   def postMessageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
     appeal.withdraw
   ).void
