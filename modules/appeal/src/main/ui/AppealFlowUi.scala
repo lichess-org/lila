@@ -53,9 +53,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
 
   private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
     msg match
-      case UserChoiceEvent(by, _, question, _, answer, at) =>
-        renderChoiceEvent(appeal, by, question, answer, at)
-      case ModChoiceEvent(by, _, question, _, answer, at) =>
+      case ChoiceEvent(by, _, question, _, answer, at) =>
         renderChoiceEvent(appeal, by, question, answer, at)
       case _ =>
         div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
@@ -101,10 +99,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                  else routes.Appeal.event(appeal.topic))
     )(
       p(cls := "appeal__choice__question")(cn.question),
-      form3.hidden(
-        "kind",
-        if isMod then AppealMsg.Kind.modChoice.toString else AppealMsg.Kind.userChoice.toString
-      ),
+      form3.hidden("kind", AppealMsg.Kind.choice.toString),
       form3.hidden("nodeId", cn.id),
       div(cls := "appeal__choice__answers")(
         cn.branches.toList.map: b =>

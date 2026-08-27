@@ -16,26 +16,20 @@ private object BsonHandlers:
     stringAnyValHandler(_.key, t => AppealTopic.byKey.getOrElse(t, AppealTopic.legacy))
 
   given legacyHandler: BSONDocumentHandler[LegacyMessage] = Macros.handler
-  given userMessageHandler: BSONDocumentHandler[UserMessageEvent] = Macros.handler
-  given modMessageHandler: BSONDocumentHandler[ModMessageEvent] = Macros.handler
-  given userChoiceHandler: BSONDocumentHandler[UserChoiceEvent] = Macros.handler
-  given modChoiceHandler: BSONDocumentHandler[ModChoiceEvent] = Macros.handler
+  given choiceHandler: BSONDocumentHandler[ChoiceEvent] = Macros.handler
+  given messageHandler: BSONDocumentHandler[MessageEvent] = Macros.handler
 
   given BSONHandler[AppealMsg] = new BSON[AppealMsg]:
     def reads(r: BSON.Reader): AppealMsg =
       r.strO("kind").flatMap(Kind.apply) match
         case None => legacyHandler.readTry(r.doc).get
-        case Some(Kind.userMessage) => userMessageHandler.readTry(r.doc).get
-        case Some(Kind.modMessage) => modMessageHandler.readTry(r.doc).get
-        case Some(Kind.userChoice) => userChoiceHandler.readTry(r.doc).get
-        case Some(Kind.modChoice) => modChoiceHandler.readTry(r.doc).get
+        case Some(Kind.choice) => choiceHandler.readTry(r.doc).get
+        case Some(Kind.message) => messageHandler.readTry(r.doc).get
     def writes(w: BSON.Writer, msg: AppealMsg) =
       val doc = msg match
         case m: LegacyMessage => legacyHandler.writeTry(m).get
-        case m: UserMessageEvent => userMessageHandler.writeTry(m).get
-        case m: ModMessageEvent => modMessageHandler.writeTry(m).get
-        case m: UserChoiceEvent => userChoiceHandler.writeTry(m).get
-        case m: ModChoiceEvent => modChoiceHandler.writeTry(m).get
+        case m: MessageEvent => messageHandler.writeTry(m).get
+        case m: ChoiceEvent => choiceHandler.writeTry(m).get
       msg.kind.fold(doc)(k => doc ++ $doc("kind" -> k.key))
 
   given BSONDocumentHandler[AccountsDisclosure] = Macros.handler

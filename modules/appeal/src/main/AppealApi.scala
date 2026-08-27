@@ -1,7 +1,6 @@
 package lila.appeal
 
 import lila.appeal.Appeal.Id as AppealId
-import lila.appeal.AppealMsg.Kind as Kind
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.appeal.AppealEventForm.{ ChoiceData, MessageData }
@@ -39,40 +38,19 @@ final class AppealApi(
         val appeal = prev.postLegacyMessage(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  // TODO: more cases
-  def postChoiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
-    val isMod = appeal.user.isnt(me)
-    appeal.nextNode.so: node =>
-      (node.id
-        .equals(data.nodeId))
-        .so:
-          node match
-            case choiceNode @ ChoiceNode(nodeId, answerer, question, branches)
-                if answerer == (if isMod then Answerer.Mod
-                                else Answerer.User) && kind == (if isMod then Kind.modChoice
-                                                                else Kind.userChoice) =>
-              choiceNode
-                .getAnswerBranch(data.answerId)
-                .so: answerBranch =>
-                  val updated =
-                    appeal.post(if isMod then
-                      ModChoiceEvent(me, nodeId, question, data.answerId, answerBranch.answer, nowInstant)
-                    else
-                      UserChoiceEvent(
-                        me,
-                        nodeId,
-                        question,
-                        data.answerId,
-                        answerBranch.answer,
-                        nowInstant
-                      ))
-                  for _ <- coll.update.one($id(updated.id), updated) yield updated.some
-            case _ => fuccess(none)
+  def postChoiceEvent(appeal: Appeal, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
+    val expectedAnswerer = if appeal.user.isnt(me) then Answerer.Mod else Answerer.User
+    appeal.nextNode.so:
+      case cn: ChoiceNode if cn.id == data.nodeId && cn.answerer == expectedAnswerer =>
+        cn.getAnswerBranch(data.answerId)
+          .so: branch =>
+            val updated =
+              appeal.post(ChoiceEvent(me, cn.id, cn.question, data.answerId, branch.answer, nowInstant))
+            for _ <- coll.update.one($id(updated.id), updated) yield updated.some
+      case _ => fuccess(none)
 
   // TODO: stub
-  def postMessageEvent(appeal: Appeal, kind: Kind, data: MessageData): Funit = update(
-    appeal.withdraw
-  ).void
+  def postMessageEvent(appeal: Appeal, data: MessageData): Funit = update(appeal.withdraw).void
 
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 

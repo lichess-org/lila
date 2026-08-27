@@ -72,38 +72,28 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield res
   }
 
-  private def handleEvent(appeal: AppealModel)(using BodyContext[?])(using me: Me) =
+  private def handleEvent(appeal: AppealModel)(using BodyContext[?])(using me: Me): Fu[Result] =
     if !appeal.isOpen then Redirect(routes.Appeal.home)
     else
+      val redirect =
+        if appeal.user.isnt(me) then Redirect(routes.Appeal.modShow(appeal.user, appeal.topic))
+        else Redirect(routes.Appeal.home)
       bindForm(kindForm)(
         _ => BadRequest,
         k =>
-          val isMod = appeal.user.isnt(me)
           Kind(k) match
-            // TODO: probably want to combine choice and message
-            case Some(Kind.userChoice) if !isMod =>
+            case Some(Kind.choice) =>
               bindForm(choiceForm)(
                 _ => BadRequest,
-                for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.userChoice, _)
-                yield Redirect(routes.Appeal.home).flashSuccess
+                choiceData =>
+                  for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
+                  yield r.fold(BadRequest)(_ => redirect.flashSuccess)
               )
-            case Some(Kind.userMessage) if !isMod =>
+            case Some(Kind.message) =>
               bindForm(messageForm)(
                 _ => BadRequest,
-                for _ <- env.appeal.api.postMessageEvent(appeal, Kind.userMessage, _)
-                yield Redirect(routes.Appeal.home).flashSuccess
-              )
-            case Some(Kind.modChoice) if isMod =>
-              bindForm(choiceForm)(
-                _ => BadRequest,
-                for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.modChoice, _)
-                yield Redirect(routes.Appeal.modShow(appeal.user, appeal.topic)).flashSuccess
-              )
-            case Some(Kind.modMessage) if isMod =>
-              bindForm(messageForm)(
-                _ => BadRequest,
-                for _ <- env.appeal.api.postMessageEvent(appeal, Kind.modMessage, _)
-                yield Redirect(routes.Appeal.modShow(appeal.user, appeal.topic)).flashSuccess
+                for _ <- env.appeal.api.postMessageEvent(appeal, _)
+                yield redirect.flashSuccess
               )
             case _ => BadRequest
       )

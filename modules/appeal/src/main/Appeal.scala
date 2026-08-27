@@ -59,6 +59,7 @@ case class Appeal(
     copy(
       msgs = msgs :+ event,
       updatedAt = nowInstant
+      // TODO:
       // status
       // firstUnrepliedAt =
     )
@@ -134,8 +135,7 @@ sealed trait AppealMsg:
 
 case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = None
-// TODO: can I combine these two case classes ?
-case class UserChoiceEvent(
+case class ChoiceEvent(
     by: UserId,
     nodeId: NodeId,
     question: String,
@@ -143,27 +143,15 @@ case class UserChoiceEvent(
     answer: String,
     at: Instant
 ) extends AppealMsg:
-  def kind = AppealMsg.Kind.userChoice.some
+  def kind = AppealMsg.Kind.choice.some
   def text = s"${question}\n${answer}"
-case class ModChoiceEvent(
-    by: UserId,
-    nodeId: NodeId,
-    question: String,
-    answerId: AnswerId,
-    answer: String,
-    at: Instant
-) extends AppealMsg:
-  def kind = AppealMsg.Kind.modChoice.some
-  def text = s"${question}\n${answer}"
-case class UserMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
-  def kind = AppealMsg.Kind.userMessage.some
-case class ModMessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
-  def kind = AppealMsg.Kind.modMessage.some
+case class MessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = AppealMsg.Kind.message.some
 
 object AppealMsg:
 
   enum Kind:
-    case userChoice, modChoice, userMessage, modMessage
+    case choice, message
     def key = toString
   object Kind:
     def apply(key: String): Option[Kind] = values.find(_.key == key)

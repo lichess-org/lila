@@ -45,9 +45,7 @@ object AppealFlow:
     else
       appeal.msgs.lastOption.flatMap: msg =>
         (msg match
-          // TODO:
-          case event: UserChoiceEvent => (event.nodeId, event.answerId).some
-          case event: ModChoiceEvent => (event.nodeId, event.answerId).some
+          case event: ChoiceEvent => (event.nodeId, event.answerId).some
           case _ => none
         ).flatMap: (nodeId, answerId) =>
           appealFlows
