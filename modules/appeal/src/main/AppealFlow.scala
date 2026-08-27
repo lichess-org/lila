@@ -37,8 +37,9 @@ case class AppealFlow(rootId: NodeId, nodes: Map[NodeId, AppealNode]):
 
 object AppealFlow:
 
-  private def make(appealNodes: NonEmptyList[AppealNode]) =
-    AppealFlow(appealNodes.head.id, appealNodes.toList.mapBy(_.id))
+  def findNodeById(topic: AppealTopic, id: NodeId): Option[AppealNode] = appealFlows
+    .get(topic)
+    .flatMap(_.nodes.get(id))
 
   def nextNode(appeal: Appeal): Option[AppealNode] =
     if appeal.msgs.isEmpty then appealFlows.get(appeal.topic).map(_.root)
@@ -61,6 +62,9 @@ object AppealFlow:
                         .flatMap: branch =>
                           flow.nodes.get(branch.nextNodeId)
                     case _ => none
+
+  private def make(appealNodes: NonEmptyList[AppealNode]) =
+    AppealFlow(appealNodes.head.id, appealNodes.toList.mapBy(_.id))
 
   private val appealFlows: Map[AppealTopic, AppealFlow] = Map(
     AppealTopic.cheat -> AppealFlow.make(

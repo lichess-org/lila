@@ -55,7 +55,7 @@ case class Appeal(
         else firstUnrepliedAt
     )
 
-  def post(event: AppealMsg) =
+  def postEvent(event: AppealMsg) =
     copy(
       msgs = msgs :+ event,
       updatedAt = nowInstant
@@ -147,11 +147,13 @@ case class ChoiceEvent(
   def text = s"${question}\n${answer}"
 case class MessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
   def kind = AppealMsg.Kind.message.some
+case class ActionEvent(by: UserId, nodeId: NodeId, text: String, at: Instant) extends AppealMsg:
+  def kind = AppealMsg.Kind.action.some
 
 object AppealMsg:
 
   enum Kind:
-    case choice, message
+    case choice, message, action
     def key = toString
   object Kind:
     def apply(key: String): Option[Kind] = values.find(_.key == key)
