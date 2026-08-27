@@ -94,13 +94,17 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       case _ => emptyFrag
 
   private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode)(using me: Me) =
+    val isMod = me.isnt(appeal.user)
     postForm(
       cls := "appeal__choice",
-      action := (if me.is(appeal.user) then routes.Appeal.event(appeal.topic)
-                 else routes.Appeal.modEvent(me.username, appeal.topic))
+      action := (if isMod then routes.Appeal.modEvent(appeal.user, appeal.topic)
+                 else routes.Appeal.event(appeal.topic))
     )(
       p(cls := "appeal__choice__question")(cn.question),
-      form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
+      form3.hidden(
+        "kind",
+        if isMod then AppealMsg.Kind.modChoice.toString else AppealMsg.Kind.userChoice.toString
+      ),
       form3.hidden("nodeId", cn.id),
       div(cls := "appeal__choice__answers")(
         cn.branches.toList.map: b =>

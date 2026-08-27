@@ -41,20 +41,31 @@ final class AppealApi(
 
   // TODO: more cases
   def postChoiceEvent(appeal: Appeal, kind: Kind, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
+    val isMod = appeal.user.isnt(me)
     appeal.nextNode.so: node =>
       (node.id
         .equals(data.nodeId))
         .so:
           node match
-            case questionNode @ ChoiceNode(nodeId, Answerer.User, question, branches)
-                if kind == Kind.userChoice =>
-              questionNode
+            case choiceNode @ ChoiceNode(nodeId, answerer, question, branches)
+                if answerer == (if isMod then Answerer.Mod
+                                else Answerer.User) && kind == (if isMod then Kind.modChoice
+                                                                else Kind.userChoice) =>
+              choiceNode
                 .getAnswerBranch(data.answerId)
                 .so: answerBranch =>
                   val updated =
-                    appeal.post(
-                      UserChoiceEvent(me, nodeId, question, data.answerId, answerBranch.answer, nowInstant)
-                    )
+                    appeal.post(if isMod then
+                      ModChoiceEvent(me, nodeId, question, data.answerId, answerBranch.answer, nowInstant)
+                    else
+                      UserChoiceEvent(
+                        me,
+                        nodeId,
+                        question,
+                        data.answerId,
+                        answerBranch.answer,
+                        nowInstant
+                      ))
                   for _ <- coll.update.one($id(updated.id), updated) yield updated.some
             case _ => fuccess(none)
 

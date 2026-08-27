@@ -97,13 +97,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
               bindForm(choiceForm)(
                 _ => BadRequest,
                 for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.modChoice, _)
-                yield Redirect(routes.Appeal.home).flashSuccess
+                yield Redirect(routes.Appeal.modShow(appeal.user, appeal.topic)).flashSuccess
               )
             case Some(Kind.modMessage) if isMod =>
               bindForm(messageForm)(
                 _ => BadRequest,
                 for _ <- env.appeal.api.postMessageEvent(appeal, Kind.modMessage, _)
-                yield Redirect(routes.Appeal.home).flashSuccess
+                yield Redirect(routes.Appeal.modShow(appeal.user, appeal.topic)).flashSuccess
               )
             case _ => BadRequest
       )
