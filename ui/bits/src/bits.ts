@@ -1,3 +1,4 @@
+import { githubAutoLinks } from 'lib';
 import { spinnerHtml } from 'lib/view';
 import { text } from 'lib/xhr';
 
@@ -203,21 +204,13 @@ function setAssetInfo() {
     .find('pre')
     .text('...');
 
-  const text = site.info.message;
-  const match = text.match(/#(\d+)/);
+  $('#asset-version-message').text(site.info.message);
 
-  if (match?.index === undefined) {
-    $('#asset-version-message').text(text);
-  } else {
-    $('#asset-version-message').append(
-      document.createTextNode(text.slice(0, match.index)),
-      $('<a>')
-        .attr('href', repoRoot + '/pull/' + match[1])
-        .attr('target', '_blank')
-        .text(match[0]),
-      document.createTextNode(text.slice(match.index + match[0].length)),
-    );
-  }
+  $('.github-auto-link').each(function (this: HTMLElement) {
+    const text = this.textContent || '';
+    const html = githubAutoLinks(text);
+    this.innerHTML = html;
+  });
 }
 
 function streamerSubscribe() {

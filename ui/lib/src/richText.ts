@@ -16,6 +16,7 @@ export const newLineRegex: RegExp = /\n/g;
 export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 export const movePattern: RegExp =
   /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQK\u2654\u2655\u2656\u2657\u2658]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
+export const githubRefPattern: RegExp = /(^|[^\w#])#(\d+)\b/g;
 /* oxlint-enable no-inferrable-types */
 
 // looks like it has a @mention or #gameid or a url.tld
@@ -56,6 +57,14 @@ export const userLinkReplace = (_: string, prefix: string, user: string): string
   prefix + linkReplace('/@/' + user, '@' + user);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
+
+const githubRepoRoot = 'https://github.com/lichess-org/lila';
+
+const githubRefReplace = (_: string, prefix: string, id: string): string =>
+  prefix + linkHtml(`${githubRepoRoot}/issues/${id}`, `#${id}`);
+
+export const githubAutoLinks = (text: string): string =>
+  escapeHtml(text).replace(githubRefPattern, githubRefReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {
   let html = autolink(escapeHtml(text), toLink);
