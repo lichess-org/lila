@@ -203,22 +203,19 @@ function setAssetInfo() {
     .find('pre')
     .text('...');
 
-  const text = 'Merge pull request #21394 from Simek/ui-small-tweaks-for-transparent-themes';
+  const text = site.info.message;
   const match = text.match(/#(\d+)/);
 
   if (match?.index === undefined) {
     $('#asset-version-message').text(text);
   } else {
-    const before = text.slice(0, match.index);
-    const after = text.slice(match.index + match[0].length);
-
     $('#asset-version-message').append(
-      document.createTextNode(before),
+      document.createTextNode(text.slice(0, match.index)),
       $('<a>')
         .attr('href', repoRoot + '/pull/' + match[1])
         .attr('target', '_blank')
         .text(match[0]),
-      document.createTextNode(after),
+      document.createTextNode(text.slice(match.index + match[0].length)),
     );
   }
 }
