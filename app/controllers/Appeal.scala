@@ -72,7 +72,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield res
   }
 
-  private def handleEvent(appeal: AppealModel)(using BodyContext[?])(using me: Me): Fu[Result] =
+  private def event(appeal: AppealModel)(using BodyContext[?])(using me: Me): Fu[Result] =
     if !appeal.isOpen then Redirect(routes.Appeal.home)
     else
       val redirect =
@@ -98,15 +98,15 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             case _ => BadRequest
       )
 
-  def event(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
+  def userEvent(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
     Found(env.appeal.api.find(me, topic)): appeal =>
-      handleEvent(appeal)
+      event(appeal)
   }
 
   def modEvent(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
       Found(env.appeal.api.find(user, topic)): appeal =>
-        handleEvent(appeal)
+        event(appeal)
   }
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
