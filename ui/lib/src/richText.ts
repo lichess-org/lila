@@ -58,7 +58,7 @@ export const userLinkReplace = (_: string, prefix: string, user: string): string
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
-const githubRepoRoot = 'https://github.com/lichess-org/lila';
+export const githubRepoRoot = 'https://github.com/lichess-org/lila';
 
 const githubRefReplace = (_: string, prefix: string, id: string): string =>
   prefix + linkHtml(`${githubRepoRoot}/issues/${id}`, `#${id}`);

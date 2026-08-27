@@ -1,4 +1,4 @@
-import { githubAutoLinks } from 'lib';
+import { githubAutoLinks, githubRepoRoot } from 'lib';
 import { spinnerHtml } from 'lib/view';
 import { text } from 'lib/xhr';
 
@@ -190,16 +190,14 @@ function relayForm() {
 }
 
 function setAssetInfo() {
-  const repoRoot = 'https://github.com/lichess-org/lila';
-
   $('#asset-version-date').text(site.info.date);
   $('#asset-version-commit')
-    .attr('href', repoRoot + '/commits/' + site.info.commit)
+    .attr('href', githubRepoRoot + '/commits/' + site.info.commit)
     .attr('target', '_blank')
     .find('pre')
     .text(site.info.commit.slice(0, 7));
   $('#asset-version-upcoming')
-    .attr('href', repoRoot + '/compare/' + site.info.commit + '...master')
+    .attr('href', githubRepoRoot + '/compare/' + site.info.commit + '...master')
     .attr('target', '_blank')
     .find('pre')
     .text('...');
