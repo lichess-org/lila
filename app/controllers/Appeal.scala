@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.mvc.Result
 
 import lila.app.{ *, given }
-import lila.appeal.{ Appeal as AppealModel, AppealTopicApi, AppealMsg }
+import lila.appeal.{ Appeal as AppealModel, AppealTopicApi }
 import lila.report.Suspect
 import lila.core.misc.AppealTopic
 
@@ -72,33 +72,51 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield res
   }
 
+  private def handleEvent(appeal: AppealModel)(using BodyContext[?])(using me: Me) =
+    if !appeal.isOpen then Redirect(routes.Appeal.home)
+    else
+      bindForm(kindForm)(
+        _ => BadRequest,
+        k =>
+          val isMod = appeal.user.isnt(me)
+          Kind(k) match
+            // TODO: probably want to combine choice and message
+            case Some(Kind.userChoice) if !isMod =>
+              bindForm(choiceForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.userChoice, _)
+                yield Redirect(routes.Appeal.home).flashSuccess
+              )
+            case Some(Kind.userMessage) if !isMod =>
+              bindForm(messageForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.postMessageEvent(appeal, Kind.userMessage, _)
+                yield Redirect(routes.Appeal.home).flashSuccess
+              )
+            case Some(Kind.modChoice) if isMod =>
+              bindForm(choiceForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.modChoice, _)
+                yield Redirect(routes.Appeal.home).flashSuccess
+              )
+            case Some(Kind.modMessage) if isMod =>
+              bindForm(messageForm)(
+                _ => BadRequest,
+                for _ <- env.appeal.api.postMessageEvent(appeal, Kind.modMessage, _)
+                yield Redirect(routes.Appeal.home).flashSuccess
+              )
+            case _ => BadRequest
+      )
+
   def event(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
     Found(env.appeal.api.find(me, topic)): appeal =>
-      if !appeal.isOpen then Redirect(routes.Appeal.home)
-      else
-        bindForm(kindForm)(
-          _ => BadRequest,
-          k =>
-            Kind(k) match
-              case Some(Kind.userChoice) =>
-                bindForm(choiceForm)(
-                  _ => BadRequest,
-                  for _ <- env.appeal.api.postChoiceEvent(appeal, Kind.userChoice, _)
-                  yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
-                )
-              case Some(Kind.userMessage) =>
-                bindForm(messageForm)(
-                  _ => BadRequest,
-                  for _ <- env.appeal.api.postMessageEvent(appeal, Kind.userMessage, _)
-                  yield fuccess(Redirect(routes.Appeal.home).flashSuccess)
-                )
-              case _ => BadRequest
-        )
+      handleEvent(appeal)
   }
 
-  def modEvent(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
-    // TODO:
-    Redirect(routes.Appeal.home).flashFailure("To do: implement")
+  def modEvent(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
+        handleEvent(appeal)
   }
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>

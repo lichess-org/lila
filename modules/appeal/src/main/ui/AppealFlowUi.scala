@@ -85,16 +85,20 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     val isUser = me.is(appeal.user)
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
-        if isUser then renderChoiceForm(appeal.topic, cn) else renderPendingUserChoice(cn)
+        if isUser then renderChoiceForm(appeal, cn) else renderPendingUserChoice(cn)
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod && !isUser =>
-        renderChoiceForm(appeal.topic, cn)
+        renderChoiceForm(appeal, cn)
       case _ if isUser =>
         p(cls := "line-center-text"):
           "Your appeal is under review. You will receive a message when there is an update."
       case _ => emptyFrag
 
-  private def renderChoiceForm(topic: AppealTopic, cn: ChoiceNode) =
-    postForm(cls := "appeal__choice", action := routes.Appeal.event(topic))(
+  private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode)(using me: Me) =
+    postForm(
+      cls := "appeal__choice",
+      action := (if me.is(appeal.user) then routes.Appeal.event(appeal.topic)
+                 else routes.Appeal.modEvent(me.username, appeal.topic))
+    )(
       p(cls := "appeal__choice__question")(cn.question),
       form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
       form3.hidden("nodeId", cn.id),
