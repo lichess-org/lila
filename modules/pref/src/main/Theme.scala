@@ -23,7 +23,7 @@ sealed trait ThemeObject:
 object Theme extends ThemeObject:
 
   val all = List(
-    Theme("brown", "brown.webp", Featured.Yes), // 52/1 poll votes [for]/[against]
+    Theme("brown", "brown.png", Featured.Yes), // 52/1 poll votes [for]/[against]
     Theme("wood", "wood.jpg"), // 14/20
     Theme("wood2", "wood2.jpg"), // 7/26
     Theme("wood3", "wood3.jpg"), // 13/17
@@ -32,22 +32,22 @@ object Theme extends ThemeObject:
     Theme("maple2", "maple2.jpg"), // 9/20
     Theme("horsey", "horsey.jpg", Featured.Yes), // 20/11
     Theme("leather", "leather.jpg"), // 6/24
-    Theme("blue", "blue.webp", Featured.Yes), // 29/4
+    Theme("blue", "blue.png", Featured.Yes), // 29/4
     Theme("blue2", "blue2.jpg", Featured.Yes), // 18/13
     Theme("blue3", "blue3.jpg", Featured.Yes), // 23/9
     Theme("canvas", "canvas2.jpg"), // 14/17
     Theme("blue-marble", "blue-marble.jpg"), // 8/23
-    Theme("ic", "ic.webp"), // 13/17
-    Theme("green", "green.webp", Featured.Yes), // 26/5
+    Theme("ic", "ic.png"), // 13/17
+    Theme("green", "green.png", Featured.Yes), // 26/5
     Theme("marble", "marble.jpg", Featured.Yes), // 17/14
-    Theme("green-plastic", "green-plastic.webp"), // 12/20
+    Theme("green-plastic", "green-plastic.png"), // 12/20
     Theme("olive", "olive.jpg", Featured.Yes), // 21/11
     Theme("grey", "grey.jpg", Featured.Yes), // 20/13
     Theme("metal", "metal.jpg", Featured.Yes), // 17/14
     Theme("newspaper", "svg/newspaper.svg", Featured.Yes), // 19/13
-    Theme("purple", "purple.webp", Featured.Yes), // 19/11
-    Theme("purple-diag", "purple-diag.webp", Featured.Yes), // 20/11
-    Theme("pink", "pink-pyramid.webp") // 12/18
+    Theme("purple", "purple.png", Featured.Yes), // 19/11
+    Theme("purple-diag", "purple-diag.png", Featured.Yes), // 20/11
+    Theme("pink", "pink-pyramid.png") // 12/18
   )
 
 object Theme3d extends ThemeObject:
