@@ -41,8 +41,28 @@ object AppealFlow:
     AppealFlow(appealNodes.head.id, appealNodes.toList.mapBy(_.id))
 
   def nextNode(appeal: Appeal): Option[AppealNode] =
-    appeal.msgs.isEmpty.so:
-      appealFlows.get(appeal.topic).map(_.root)
+    if appeal.msgs.isEmpty then appealFlows.get(appeal.topic).map(_.root)
+    else
+      appeal.msgs.lastOption.flatMap: msg =>
+        (msg match
+          // TODO:
+          case event: UserChoiceEvent => (event.nodeId, event.answerId).some
+          case event: ModChoiceEvent => (event.nodeId, event.answerId).some
+          case _ => none
+        ).flatMap: (nodeId, answerId) =>
+          appealFlows
+            .get(appeal.topic)
+            .flatMap: flow =>
+              flow.nodes
+                .get(nodeId)
+                .flatMap:
+                  _ match
+                    case cn: ChoiceNode =>
+                      cn.branches
+                        .find(_.id == answerId)
+                        .flatMap: branch =>
+                          flow.nodes.get(branch.nextNodeId)
+                    case _ => none
 
   private val appealFlows: Map[AppealTopic, AppealFlow] = Map(
     AppealTopic.cheat -> AppealFlow.make(

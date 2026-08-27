@@ -82,6 +82,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
       )
 
+  // TODO: revisit to see which of these need to stay here
   def modAppealMessages(appeal: Appeal)(using Context) =
     appeal.msgs.map: msg =>
       div(

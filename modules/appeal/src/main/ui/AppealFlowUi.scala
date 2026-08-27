@@ -39,7 +39,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            ui.modAppealMessages(appeal),
+            appeal.msgs.map(renderMsg(appeal)),
+            renderNextNode(appeal),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             // else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
@@ -80,17 +81,35 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       )
     )
 
-  private def renderNextNode(appeal: Appeal)(using Me) =
+  private def renderNextNode(appeal: Appeal)(using me: Me) =
+    val isUser = me.is(appeal.user)
     AppealFlow.nextNode(appeal) match
-      case Some(ChoiceNode(nodeId, Answerer.User, question, branches)) =>
-        postForm(cls := "appeal__choice", action := routes.Appeal.event(appeal.topic))(
-          p(cls := "appeal__choice__question")(question),
-          form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
-          form3.hidden("nodeId", nodeId),
-          div(cls := "appeal__choice__answers")(
-            branches.toList.map: b =>
-              submitButton(cls := "button button-no-upper", name := "answerId", value := b.id)(b.answer)
-          )
-        )
-      case _ =>
-        p(cls := "")("Your appeal is under review. You will receive a message when there is an update.")
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
+        if isUser then renderChoiceForm(appeal.topic, cn) else renderPendingUserChoice(cn)
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod && !isUser =>
+        renderChoiceForm(appeal.topic, cn)
+      case _ if isUser =>
+        p(cls := "line-center-text"):
+          "Your appeal is under review. You will receive a message when there is an update."
+      case _ => emptyFrag
+
+  private def renderChoiceForm(topic: AppealTopic, cn: ChoiceNode) =
+    postForm(cls := "appeal__choice", action := routes.Appeal.event(topic))(
+      p(cls := "appeal__choice__question")(cn.question),
+      form3.hidden("kind", AppealMsg.Kind.userChoice.toString),
+      form3.hidden("nodeId", cn.id),
+      div(cls := "appeal__choice__answers")(
+        cn.branches.toList.map: b =>
+          submitButton(cls := "button button-no-upper", name := "answerId", value := b.id)(b.answer)
+      )
+    )
+
+  private def renderPendingUserChoice(cn: ChoiceNode) =
+    div(cls := "appeal__choice appeal__choice--pending")(
+      p(cls := "appeal__choice__waiting")("Awaiting the user's answer"),
+      p(cls := "appeal__choice__question")(cn.question),
+      div(cls := "appeal__choice__answers")(
+        cn.branches.toList.map: b =>
+          span(cls := "appeal__choice__option")(b.answer)
+      )
+    )

@@ -69,6 +69,17 @@
     margin-bottom: 2em;
     background: $c-bg-zebra;
 
+    &--pending {
+      background: $c-bg-box;
+      border: $border;
+    }
+
+    &__waiting {
+      margin: 0 0 0.8em;
+      color: $c-font-dim;
+      font-style: italic;
+    }
+
     &__question {
       font-size: 1.15em;
       font-weight: bold;
@@ -80,9 +91,20 @@
 
       gap: 1em;
 
-      .button {
+      .button,
+      .appeal__choice__option {
         flex: 1 1 10em;
       }
+    }
+
+    &__option {
+      @extend %box-radius;
+
+      padding: 0.6em 1em;
+      text-align: center;
+      border: $border;
+      color: $c-font-dim;
+      background: $c-bg-zebra;
     }
   }
 
