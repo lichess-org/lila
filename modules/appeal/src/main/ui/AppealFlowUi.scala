@@ -51,10 +51,9 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
 
-  private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
+  private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
     msg match
-      case ChoiceEvent(by, _, question, _, answer, at) =>
-        renderChoiceEvent(appeal, by, question, answer, at)
+      case event: ChoiceEvent => renderChoiceEvent(appeal, event)
       case _ =>
         div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
           div(cls := "appeal__msg__header")(
@@ -64,20 +63,24 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
         )
 
-  private def renderChoiceEvent(appeal: Appeal, by: UserId, question: String, answer: String, at: Instant)(
-      using Context
+  private def renderChoiceEvent(appeal: Appeal, event: ChoiceEvent)(using
+      ctx: Context,
+      me: Me
   ) =
-    div(cls := "appeal__choice-event")(
-      p(cls := "appeal__choice-event__question")(question),
-      div(cls := "appeal__choice-event__selection")(
-        span(cls := "appeal__choice-event__answer text")(answer),
-        span(cls := "appeal__choice-event__meta")(
-          ui.renderUser(appeal, by, asMod = false),
-          span(" · "),
-          momentFromNowOnce(at)
+    val isMod = appeal.user.isnt(me)
+    if !isMod && event.by.isnt(me) then emptyFrag
+    else
+      div(cls := "appeal__choice-event")(
+        p(cls := "appeal__choice-event__question")(event.question),
+        div(cls := "appeal__choice-event__selection")(
+          span(cls := "appeal__choice-event__answer text")(event.answer),
+          span(cls := "appeal__choice-event__meta")(
+            ui.renderUser(appeal, event.by, asMod = isMod),
+            span(" · "),
+            momentFromNowOnce(event.at)
+          )
         )
       )
-    )
 
   private def renderNextNode(appeal: Appeal)(using me: Me) =
     val isUser = me.is(appeal.user)
