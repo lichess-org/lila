@@ -1647,6 +1647,7 @@ object I18nKey:
     val `strength`: I18nKey = "strength"
     val `toggleTheChat`: I18nKey = "toggleTheChat"
     val `chat`: I18nKey = "chat"
+    val `xCannotSeeYourChatRightNow`: I18nKey = "xCannotSeeYourChatRightNow"
     val `resign`: I18nKey = "resign"
     val `checkmate`: I18nKey = "checkmate"
     val `stalemate`: I18nKey = "stalemate"
