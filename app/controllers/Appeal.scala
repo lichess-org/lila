@@ -87,13 +87,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
                 _ => BadRequest,
                 choiceData =>
                   for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
-                  yield r.fold(BadRequest)(_ => redirect.flashSuccess)
+                  yield r.fold(BadRequest)(_ => redirect)
               )
             case Some(Kind.message) =>
               bindForm(messageForm)(
                 _ => BadRequest,
                 for _ <- env.appeal.api.postMessageEvent(appeal, _)
-                yield redirect.flashSuccess
+                yield redirect
               )
             case _ => BadRequest
       )

@@ -40,7 +40,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             appeal.msgs.map(renderMsg(appeal)),
-            renderNextNode(appeal),
+            renderNextNode(appeal, modData.some),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             // else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
@@ -82,31 +82,38 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         )
       )
 
-  private def renderNextNode(appeal: Appeal)(using me: Me) =
-    val isUser = me.is(appeal.user)
+  private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using me: Me) =
+    val isMod = me.isnt(appeal.user)
+    val isHandledByMe = me.is(modData.flatMap(_.inquiryBy))
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
-        if isUser then renderChoiceForm(appeal, cn) else renderPendingUserChoice(cn)
-      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod && !isUser =>
-        renderChoiceForm(appeal, cn)
-      case _ if isUser =>
+        if isMod then renderPendingUserChoice(cn)
+        else renderChoiceForm(appeal, cn)
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod && isMod =>
+        renderChoiceForm(appeal, cn, isHandledByMe)
+      case _ if !isMod =>
         p(cls := "line-center-text"):
           "Your appeal is under review. You will receive a message when there is an update."
       case _ => emptyFrag
 
-  private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode)(using me: Me) =
+  private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
     val isMod = me.isnt(appeal.user)
     postForm(
       cls := "appeal__choice",
       action := (if isMod then routes.Appeal.modEvent(appeal.user, appeal.topic)
-                 else routes.Appeal.event(appeal.topic))
+                 else routes.Appeal.userEvent(appeal.topic))
     )(
       p(cls := "appeal__choice__question")(cn.question),
       form3.hidden("kind", AppealMsg.Kind.choice.toString),
       form3.hidden("nodeId", cn.id),
       div(cls := "appeal__choice__answers")(
         cn.branches.toList.map: b =>
-          submitButton(cls := "button button-no-upper", name := "answerId", value := b.id)(b.answer)
+          submitButton(
+            cls := "button button-no-upper",
+            (!enabled).option(disabled := true),
+            name := "answerId",
+            value := b.id
+          )(b.answer)
       )
     )
 
