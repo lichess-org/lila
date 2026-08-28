@@ -24,6 +24,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     byIds,
     byIdAs,
     me,
+    meWithConfirmedEmail,
     email,
     emailOrPrevious,
     pair,

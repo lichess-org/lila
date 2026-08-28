@@ -50,7 +50,7 @@
   </plurals>
   <string name="imageAlt">Rasm uchun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Ushbu blog postini butunlay oʻchirib tashlash</string>
+  <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
   <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>

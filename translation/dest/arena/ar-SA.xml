@@ -22,7 +22,7 @@
   <string name="howIsTheWinnerDecidedAnswer">اللاعب (اللاعبون) ذو النقاط الأعلى في نهاية الوقت المحدد للبطولة يتم إعلانه/م فائز/ين.
 عندما يحصل لاعبان أو أكثر على نفس عدد النقاط، يكون معدل الأداء في البطولة هو كسر التعادل.</string>
   <string name="howDoesPairingWork">كيف يتم تحديد الخصوم؟</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">كيف يتم إقران اللاعبين؟</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">كيف يتم إقران اللاعبين؟</string>
   <string name="howDoesPairingWorkAnswer">في بداية البطولة، يتم إزواج اللاعبين على أساس تقييمهم. بمجرد الانتهاء من مباراتك، والعودة إلى بهو البطولة: سيتم ازواجك مع لاعب قريب من ترتيبك. وهذا ما يضمن وقت إنتظار أقل،بأي حال قد لا تواجه سائر اللاعبين في هذه البطولة. العب سريعًا وعد إلى المسابقة للعب مباريات أكثر واكسب المزيد من النقاط.</string>
   <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
   <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
