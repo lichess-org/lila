@@ -30,8 +30,9 @@ final class OAuthServer(
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
       MissingScope(accepted, at.scopes)
-    u <- userApi.me(at.userId)
+    u <- userApi.meWithConfirmedEmail(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
+    u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
       .filter: req =>

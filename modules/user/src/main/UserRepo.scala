@@ -19,7 +19,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   import lila.user.BSONFields as F
   export lila.user.BSONHandlers.given
 
-  private def recoverDeleted(user: Fu[Option[User]]): Fu[Option[User]] =
+  private def recoverDeleted[A](user: Fu[Option[A]]): Fu[Option[A]] =
     user.recover:
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
@@ -62,8 +62,18 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         Left(LightUser.ghost).some
       }
 
-  def me(id: UserId): Fu[Option[Me]] = enabledById(id).dmap(Me.from(_))
-  def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] = enabledById(u.id).dmap(Me.from(_))
+
+  def meWithConfirmedEmail(id: UserId): Fu[Option[Either[Unit, Me]]] =
+    recoverDeleted:
+      for opt <- coll.one[Bdoc](enabledSelect ++ $id(id))
+      yield
+        for
+          doc <- opt
+          user <- doc.asOpt[User]
+        yield
+          if doc.contains(F.mustConfirmEmail) then Left(())
+          else Right(Me(user))
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
@@ -474,7 +484,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         for
           doc <- maybeDoc
           storedEmail <- anyEmail(doc)
-          user <- summon[BSONHandler[User]].readOpt(doc)
+          user <- doc.asOpt[User]
         yield (user, storedEmail)
 
   def prevEmail(id: UserId): Fu[Option[EmailAddress]] =
