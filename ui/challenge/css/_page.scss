@@ -75,6 +75,10 @@
     ---font: #{$c-secondary};
     ---bg: #{color-mix(in oklab, $c-secondary 10%, $c-bg)};
 
+    @include if-transp {
+      ---bg: #{color-mix(in oklab, $c-secondary 10%, transparent)};
+    }
+
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
     font-size: 1.5em;

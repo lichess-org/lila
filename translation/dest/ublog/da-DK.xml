@@ -50,7 +50,7 @@
   </plurals>
   <string name="imageAlt">Billede alternativ tekst</string>
   <string name="imageCredit">Billedkreditering</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Slet dette blogindlæg for altid</string>
+  <string name="deleteBlog">Slet dette blogindlæg for altid</string>
   <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
   <string name="safeAndRespectfulContent">Skriv kun sikkert og respektfuldt indhold. Kopiér ikke andres indhold.</string>
   <string name="noCopyrightedImages">Brug kun billeder, der ikke er beskyttet af andres ophavsret.</string>

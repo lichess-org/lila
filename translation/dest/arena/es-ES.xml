@@ -27,7 +27,7 @@ El modo berserk sólo proporciona un punto adicional por cada victoria si juegas
   <string name="howIsTheWinnerDecided">¿Cómo se decide el ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ganará el jugador (o jugadores) que tenga más puntos al término del torneo.</string>
   <string name="howDoesPairingWork">¿Cómo se realizan los emparejamientos?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">¿Cómo se empareja a los jugadores?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">¿Cómo se empareja a los jugadores?</string>
   <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con una puntuación similar a la tuya. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
 Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos.</string>
   <string name="howDoesItEnd">¿Cuándo termina?</string>

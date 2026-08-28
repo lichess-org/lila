@@ -11,7 +11,6 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
 
   &__side {
     grid-area: side;
-    z-index: -1;
   }
 
   &__table,

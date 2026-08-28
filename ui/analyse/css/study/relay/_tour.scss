@@ -14,8 +14,6 @@
   &__side {
     @extend %flex-column;
 
-    overflow: hidden;
-
     &__preload {
       @extend %box-neat;
 

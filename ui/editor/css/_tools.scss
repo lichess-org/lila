@@ -3,6 +3,8 @@
     @extend %flex-column;
 
     cursor: default;
+    grid-area: tools;
+    align-self: center;
 
     button,
     .button,
@@ -23,15 +25,13 @@
       cursor: not-allowed;
     }
 
-    grid-area: tools;
-    align-self: center;
-
     > * {
       margin: 0.5rem 0;
     }
 
     select {
       @extend %page-link !optional;
+      @include backdrop-blur-if-transparent;
 
       width: 100%;
 
@@ -105,7 +105,7 @@
     }
 
     .actions {
-      @extend %flex-column;
+      @extend %flex-column, %box-radius;
       @include backdrop-blur-if-transparent;
 
       justify-content: stretch;

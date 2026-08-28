@@ -72,6 +72,7 @@ final class RelayUi(helpers: Helpers)(
 
   def showPreload(rt: WithTourAndStudy, data: RelayJsonView.JsData)(using Translate): Tag =
     main(cls := "analyse is-relay has-relay-tour")(
+      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload")),
       div(cls := "box relay-tour")(
         div(cls := "relay-tour__header")(
           div(cls := "relay-tour__header__content")(
@@ -85,8 +86,7 @@ final class RelayUi(helpers: Helpers)(
             rt.tour.image.map: imgId =>
               img(src := thumbnail.url(imgId, _.Size.Large))
         )
-      ),
-      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
+      )
     )
 
   object thumbnail:

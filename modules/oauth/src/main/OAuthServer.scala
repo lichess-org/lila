@@ -30,8 +30,9 @@ final class OAuthServer(
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
       MissingScope(accepted, at.scopes)
-    u <- userApi.me(at.userId)
+    u <- userApi.meWithConfirmedEmail(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
+    u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
       .filter: req =>
@@ -87,6 +88,7 @@ object OAuthServer:
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
+  case object EmailUnconfirmed extends AuthError("Please check your email for a confirmation link")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(

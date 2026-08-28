@@ -96,7 +96,7 @@ def show(
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
     .graph(
       OpenGraph(
         title = s.name.value,
