@@ -83,7 +83,9 @@
     height: 34px;
 
     &.language::before {
-      content: '🌐️';
+      font-family: lichess;
+      color: $c-link;
+      content: $licon-Language;
     }
 
     &::before {
