@@ -82,10 +82,15 @@
     align-items: center;
     height: 34px;
 
-    &.language::before {
-      font-family: lichess;
-      color: $c-link;
-      content: $licon-Language;
+    &.language {
+      &::before {
+        font-family: lichess;
+        color: $c-link;
+        content: $licon-Language;
+      }
+      &:hover::before {
+        color: $c-over;
+      }
     }
 
     &::before {
