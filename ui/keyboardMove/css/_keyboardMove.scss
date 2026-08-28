@@ -4,13 +4,14 @@
   height: fit-content;
 
   input {
+    @include transition;
+    @include backdrop-blur-if-transparent;
+
     width: 4.5em;
     font-size: 1.1em;
     font-weight: bold;
     margin-inline-end: 1rem;
     border: $border;
-
-    @include transition;
 
     &.wrong {
       background: $c-bad;
