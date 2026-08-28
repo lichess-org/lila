@@ -72,8 +72,8 @@ final class EventStream(
       override def postStop() =
         super.postStop()
         channels.foreach(Bus.unsubscribeActorRefDyn(self, _))
-        Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
-        Bus.subscribeActorRef[NegativeEvent](self)
+        Bus.unsubscribeActorRef[lila.core.challenge.PositiveEvent](self)
+        Bus.unsubscribeActorRef[NegativeEvent](self)
         queue.complete()
 
       self ! SetOnline
