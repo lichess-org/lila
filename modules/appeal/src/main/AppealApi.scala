@@ -80,8 +80,8 @@ final class AppealApi(
       case AppealEffect.Unmark => Bus.pub(lila.core.mod.UndoMark(appeal.user, appeal.topic))
       case _ => ()
 
-  // TODO: stub
-  def postMessageEvent(appeal: Appeal, data: MessageData): Funit = fuccess(none)
+  def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
+    update(appeal.postEvent(MessageEvent(me, data, nowInstant)))
 
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 
