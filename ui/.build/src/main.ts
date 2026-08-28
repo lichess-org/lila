@@ -17,7 +17,6 @@ const args: Record<string, string> = {
   '--no-color': '',
   '--no-time': '',
   '--no-context': '',
-  '--no-corepack': '',
   '--help': 'h',
   '--watch': 'w',
   '--prod': 'p',
@@ -34,7 +33,7 @@ const usage = `Usage:
 
 Options:
   -h, --help          show this help and exit
-  -w, --watch         build and watch for changes
+  -w, --watch         build and watch for changes. press <space> while watching to trigger a clean rebuild
   -c, --clean         clean all build artifacts and build fresh
   -k, --kill          if another ui/build instance is running, kill it rather than bail
   -p, --prod          build minified assets (prod builds)
@@ -47,7 +46,6 @@ Options:
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
-  --no-corepack       don't use corepack to install pnpm (protect or restricted system node installs)
 
 Exclusive Options:    (any of these will disable other functions)
   --tsc               run tsc on {package}/tsconfig.json and dependencies
@@ -122,7 +120,7 @@ if (env.watch && 'setRawMode' in ps.stdin) {
   ps.stdin.on('data', (key: Buffer) => {
     if (key[0] === 3 || key[0] === 27) {
       ps.exit(0);
-    } else if ((key[0] === 13 || key[0] === 10) && tasksIdle()) {
+    } else if (key[0] === 32 && tasksIdle()) {
       stopBuild().then(() => clean('force').then(() => build(argv.filter(x => !x.startsWith('-')))));
     }
   });
