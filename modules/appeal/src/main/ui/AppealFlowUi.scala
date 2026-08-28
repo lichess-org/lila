@@ -64,7 +64,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           p(cls := "line-center-text"):
             "Your appeal is under review. You will receive a message when there is an update."
       case _ =>
-        if (isMod && isHandledByMe) || (!isMod && appeal.canAddMsg) then renderMessageForm(appeal)
+        if (isMod && isHandledByMe && appeal.isOpen) || (!isMod && appeal.canAddMsg) then
+          renderMessageForm(appeal)
         else emptyFrag
 
   private def renderMessageForm(appeal: Appeal)(using ctx: Context, me: Me) =

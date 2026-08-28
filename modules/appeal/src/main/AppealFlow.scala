@@ -110,12 +110,12 @@ object AppealFlow:
         ActionNode(NodeId("second-chance"), "You get a second chance. Please share your new username."),
         ActionNode(
           NodeId("decision-final"),
-          "The decision is final. You are not allowed to create another account.",
+          "We regret to inform you that the decision is final and will not be changed.",
           List(AppealEffect.Close).some
         ),
         ActionNode(
           NodeId("false-positive"),
-          "This was a false positive.",
+          "This was a false positive. Your account has been unmarked.",
           List(AppealEffect.Unmark, AppealEffect.Close).some
         )
       )
