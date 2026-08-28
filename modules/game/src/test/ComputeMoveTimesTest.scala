@@ -10,7 +10,7 @@ import lila.game.GameExt.computeMoveTimes
 
 class ComputeMoveTimesTest extends munit.FunSuite:
 
-  private val startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+  private val startFen = Fen.initial.board
 
   /* Builds a game with an arbitrary clock history, so that computeMoveTimes can be
    * exercised without replaying an actual game.
