@@ -110,8 +110,12 @@ object AppealFlow:
           )
         ),
         ActionNode(NodeId("wait-6-months"), "You must wait 6 months.", List(AppealEffect.Sleep(6)).some),
-        ActionNode(NodeId("second-chance"), "You get a second chance, share new username."),
-        ActionNode(NodeId("decision-final"), "Decision is final.", List(AppealEffect.Close).some),
+        ActionNode(NodeId("second-chance"), "You get a second chance. Please share your new username."),
+        ActionNode(
+          NodeId("decision-final"),
+          "The decision is final. You are not allowed to create another account.",
+          List(AppealEffect.Close).some
+        ),
         ActionNode(
           NodeId("false-positive"),
           "This was a false positive.",

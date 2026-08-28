@@ -21,7 +21,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "body")(
-            appeal.msgs.map(renderMsg(appeal)),
+            appeal.msgs.map(ui.renderMsg(appeal)),
             renderNextNode(appeal)
           )
         ),
@@ -39,7 +39,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            appeal.msgs.map(renderMsg(appeal)),
+            appeal.msgs.map(ui.renderMsg(appeal)),
             renderNextNode(appeal, modData.some),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
@@ -49,37 +49,6 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           ui.modActions(appeal, modData)
         ),
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
-      )
-
-  private def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
-    msg match
-      case event: ChoiceEvent => renderChoiceEvent(appeal, event)
-      case _ =>
-        div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
-          div(cls := "appeal__msg__header")(
-            ui.renderUser(appeal, msg.by, asMod = false),
-            momentFromNowOnce(msg.at)
-          ),
-          div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
-        )
-
-  private def renderChoiceEvent(appeal: Appeal, event: ChoiceEvent)(using
-      ctx: Context,
-      me: Me
-  ) =
-    val isMod = appeal.user.isnt(me)
-    if !isMod && event.by.isnt(me) then emptyFrag
-    else
-      div(cls := "appeal__choice-event")(
-        p(cls := "appeal__choice-event__question")(event.question),
-        div(cls := "appeal__choice-event__selection")(
-          span(cls := "appeal__choice-event__answer text")(event.answer),
-          span(cls := "appeal__choice-event__meta")(
-            ui.renderUser(appeal, event.by, asMod = isMod),
-            span(" · "),
-            momentFromNowOnce(event.at)
-          )
-        )
       )
 
   private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using me: Me) =

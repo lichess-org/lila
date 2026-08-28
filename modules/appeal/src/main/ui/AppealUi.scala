@@ -72,14 +72,37 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def userAppealMessages(appeal: Appeal)(using Context) =
-    appeal.msgs.map: msg =>
-      div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
-        div(cls := "appeal__msg__header")(
-          renderUser(appeal, msg.by, asMod = false),
-          momentFromNowOnce(msg.at)
-        ),
-        div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+  def userAppealMessages(appeal: Appeal)(using Context, Me) =
+    appeal.msgs.map(renderMsg(appeal))
+
+  def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
+    msg match
+      case event: ChoiceEvent => renderChoiceEvent(appeal, event)
+      case _ => renderLegacyMsg(appeal)(msg)
+
+  private def renderLegacyMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
+    div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+      div(cls := "appeal__msg__header")(
+        renderUser(appeal, msg.by, asMod = false),
+        momentFromNowOnce(msg.at)
+      ),
+      div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+    )
+
+  private def renderChoiceEvent(appeal: Appeal, event: ChoiceEvent)(using ctx: Context, me: Me) =
+    val isMod = appeal.user.isnt(me)
+    if !isMod && event.by.isnt(me) then emptyFrag
+    else
+      div(cls := "appeal__choice-event")(
+        p(cls := "appeal__choice-event__question")(event.question),
+        div(cls := "appeal__choice-event__selection")(
+          span(cls := "appeal__choice-event__answer text")(event.answer),
+          span(cls := "appeal__choice-event__meta")(
+            renderUser(appeal, event.by, asMod = isMod),
+            span(" · "),
+            momentFromNowOnce(event.at)
+          )
+        )
       )
 
   // TODO: revisit to see which of these need to stay here
