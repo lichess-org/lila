@@ -836,6 +836,7 @@
   <string name="picture">Kuva</string>
   <string name="deviceTheme">Laitteen teema</string>
   <string name="roundness">Pyöreys</string>
+  <string name="backgroundImage">Taustakuva</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
   <string name="imageOpacity">Kuvan läpinäkyvyys</string>
   <string name="board">Lauta</string>

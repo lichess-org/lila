@@ -13,6 +13,6 @@
   <string name="twoFactorEnabled">Ikki bosqichli autentifikatsiya yoqilgan</string>
   <string name="twoFactorToDisable">Ikki bosqichli autentifikatsiyani oʻchirish uchun parolingiz va autentifikatsiya kodini kiriting.</string>
   <string name="openTwoFactorApp">Autentifikatsiya kodini koʻrish va shaxsingizni tasdiqlash uchun qurilmangizdagi ikki bosqichli autentifikatsiya ilovasini oching.</string>
-  <string name="setupReminder" comment="Sent as a direct message by the Lichess account when a user gets one of these special responsibilities, encouraging them to enable 2FA.">Akkauntingiz xavfsizligini ta’minlash uchun https://lichess.org/account/twofactor sahifasida ikki bosqichli autentifikatsiyani yoqing.
+  <string name="setupReminder">Akkauntingiz xavfsizligini ta’minlash uchun https://lichess.org/account/twofactor sahifasida ikki bosqichli autentifikatsiyani yoqing.
 Siz bu xabarni akkauntingizda maxsus masʼuliyatlar (unvonli oʻyinchi, jamoa sardori, murabbiy, oʻqituvchi yoki strimer) boʻlgani uchun oldingiz.</string>
 </resources>

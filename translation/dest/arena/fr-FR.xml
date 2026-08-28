@@ -24,7 +24,7 @@ L\'option Berserk ne rapporte de point supplémentaire que si vous jouez au moin
 
 En cas d\'égalité au nombre de points, les joueurs sont départagés par leur cote de performance lors du tournoi.</string>
   <string name="howDoesPairingWork">Comment sont déterminés les appariements ?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Comment les joueurs sont-ils appariés?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Comment les joueurs sont-ils appariés?</string>
   <string name="howDoesPairingWorkAnswer">Au début du tournoi, les joueurs sont appariés en fonction de leur cote.
 Dès que vous avez terminé votre partie, retournez à la page d\'accueil du tournoi : vous serez alors apparié avec un joueur qui possède un classement proche du vôtre. Cela garantit un temps d\'attente minimum entre les parties, toutefois il est possible que vous n\'affrontiez pas tous les autres joueurs du tournoi.
 Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de parties et gagner plus de points.</string>

@@ -48,7 +48,7 @@
   </plurals>
   <string name="imageAlt">Alternativen Bildtext</string>
   <string name="imageCredit">Bildquell</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Dëse Blog-Bäitrag endgülteg läschen</string>
+  <string name="deleteBlog">Dëse Blog-Bäitrag endgülteg läschen</string>
   <string name="selectPostTopics">Wiel d\'Theeme vun dengem Bäitrag</string>
   <string name="safeAndRespectfulContent">Wgl. post just sécher a respektvoll Inhalter. Kopéier net d\'Inhalter vun enger anerer Persoun.</string>
   <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>

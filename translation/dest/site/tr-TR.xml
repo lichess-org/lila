@@ -836,7 +836,9 @@
   <string name="picture">Resim</string>
   <string name="deviceTheme">Cihaz teması</string>
   <string name="roundness">Yuvarlaklık</string>
+  <string name="backgroundImage">Arka plan resmi</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
+  <string name="imageOpacity">Resim saydamlığı</string>
   <string name="board">Tahta</string>
   <string name="size">Boyut</string>
   <string name="opacity">Opaklık</string>
