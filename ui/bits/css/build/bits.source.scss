@@ -4,9 +4,23 @@
 @import '../page';
 
 #version {
+  th:first-child,
   td:first-child {
-    @extend %flex-column;
+    width: 1px;
+    white-space: nowrap;
+  }
 
-    gap: 1ch;
+  td:last-child {
+    width: 1px;
+  }
+
+  td:first-child {
+    line-height: 1;
+
+    time {
+      color: $c-font-dim;
+      float: left;
+      margin-top: 8px;
+    }
   }
 }

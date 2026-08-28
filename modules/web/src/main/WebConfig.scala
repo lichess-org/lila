@@ -63,10 +63,9 @@ object WebConfig:
     logRequests = c.get[Boolean]("net.http.log")
   )
 
-  final class LilaVersion(val date: String, val commit: String, val message: String)
+  final class LilaVersion(val date: String, val commit: String)
 
   def lilaVersion(c: Configuration): Option[LilaVersion] = (
     c.getOptional[String]("app.version.date"),
-    c.getOptional[String]("app.version.commit"),
-    c.getOptional[String]("app.version.message")
+    c.getOptional[String]("app.version.commit")
   ).mapN(LilaVersion.apply)
