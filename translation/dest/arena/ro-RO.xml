@@ -27,7 +27,7 @@ Modul Berserk îți va oferi un punct în plus doar dacă vei juca cel puțin 7 
 
 Când doi sau mai mulți jucători au același număr de puncte, departajarea se va face pe baza performanței în turneu.</string>
   <string name="howDoesPairingWork">Cum funcționează potrivirea jucătorilor?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Cum sunt asociați jucătorii?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Cum sunt asociați jucătorii?</string>
   <string name="howDoesPairingWorkAnswer">La începutul competiției, jucătorii sunt asociați în funcție de scorul lor.
 De îndată ce termini un meci și te întorci la lobby-ul competiției, vei fi asociat cu un jucător al cărui scor este apropiat de scorul tău. Aceasta asigură un timp de așteptare minim, totuși este posibil să nu joci cu toți jucătorii din competiție.
 Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentru a câștiga mai multe puncte.</string>

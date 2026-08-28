@@ -46,7 +46,7 @@
   </plurals>
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Xóa dứt khoát bài blog này</string>
+  <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai.</string>
   <string name="noCopyrightedImages">Chỉ sử dụng những hình ảnh không thuộc bản quyền của người khác.</string>

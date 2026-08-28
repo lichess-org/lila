@@ -58,7 +58,7 @@
   </plurals>
   <string name="imageAlt">Tekst alternatywny obrazu</string>
   <string name="imageCredit">Prawa autorskie</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Usuń bezpowrotnie ten wpis na blogu</string>
+  <string name="deleteBlog">Usuń bezpowrotnie ten wpis na blogu</string>
   <string name="selectPostTopics">Wybierz tematy, których dotyczy Twój post</string>
   <string name="safeAndRespectfulContent">Publikuj proszę wyłącznie wyważone i taktowne treści. Nie kopiuj materiałów od innych.</string>
   <string name="noCopyrightedImages">Używaj tylko obrazów, które nie są chronione prawem autorskim.</string>

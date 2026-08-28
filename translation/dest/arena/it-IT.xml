@@ -32,7 +32,7 @@ Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mos
 
 Se due o più giocatori hanno lo stesso numero di punti, lo spareggio avverrà in base alla performance del torneo, valutata dal Tournament Performance Rating, calcolato come [Somma dei punteggi degli avversari + 400×(Vittorie - Sconfitte)] / Partite giocate.</string>
   <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Come si accoppiano i giocatori?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Come si accoppiano i giocatori?</string>
   <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
 Non appena finisci una partita, ritorna nella lobby del torneo e attendi: verrai nuovamente accoppiato con un altro giocatore con un punteggio simile al tuo. Il tempo di attesa è minimo; tuttavia, potresti non affrontare tutti i giocatori partecipanti al torneo.
 Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più partite e ottenere più punti.</string>
