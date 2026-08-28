@@ -48,13 +48,10 @@
     <item quantity="one">Bir gönderiyi görüntüle</item>
     <item quantity="other">%s gönderinin hepsini görüntüle</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Gönderinize bir görsel ekleyin</string>
   <string name="imageAlt">Alternatif resim metni</string>
   <string name="imageCredit">Resim kaynağı</string>
   <string name="deleteBlog">Bu blog gönderisini kalıcı olarak sil</string>
-  <string name="safeToUseImages">Aşağıda verilen sitelerde bulunan resimleri dilediğiniz gibi kullanabilirsiniz: </string>
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
-  <string name="useImagesYouMadeYourself">Kendi oluşturduğunuz görseller, çektiğiniz fotoğraflar veya Lichess ekran görüntüleri gibi telif hakkı başkasına ait olmayan herhangi bir resmi de kullanabilirsiniz.</string>
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
   <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>

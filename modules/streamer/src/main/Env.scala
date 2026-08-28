@@ -88,7 +88,7 @@ final class Env(
   Bus.sub[lila.core.mod.Shadowban]: m =>
     if m.value then api.demote(m.userId) else repo.unignore(m.userId)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "streamer" :: "twitch" :: "resync" :: Nil =>
       twitchApi.syncAll.inject("done")
     case "streamer" :: "twitch" :: "resub" :: Nil =>

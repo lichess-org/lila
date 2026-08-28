@@ -24,6 +24,7 @@ abstract private[controllers] class LilaController(val env: Env)
     with lila.web.ResponseHeaders
     with lila.web.ResponseWriter
     with lila.web.CtrlExtensions
+    with lila.web.CtrlGivens
     with http.CtrlFilters(using env.executor)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
@@ -249,13 +250,13 @@ abstract private[controllers] class LilaController(val env: Env)
       oauthBodyContext(scoped).flatMap: ctx =>
         f(using ctx)(using scoped.me)
 
-  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using
-      req: RequestHeader
-  )(f: OAuthScope.Scoped => Fu[Result]) =
+  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(f: OAuthScope.Scoped => Fu[Result])(
+      using RequestHeader
+  ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     allow:
       for
-        scoped <- env.security.api.oauthScoped(req, accepted)
+        scoped <- env.security.api.oauthScoped(accepted)
         res <- f(scoped)
       yield OAuthServer.responseHeaders(accepted, scoped.scopes)(res)
     .rescue(handleScopedFail(accepted, _))

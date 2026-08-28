@@ -171,6 +171,8 @@ interface I18n {
     editTournament: string;
     /** Arena History */
     history: string;
+    /** How are players paired? */
+    howArePlayersPaired: string;
     /** How are scores calculated? */
     howAreScoresCalculated: string;
     /** A win has a base score of 2 points, a draw 1 point, and a loss is worth no points. */
@@ -2873,6 +2875,8 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so be ready for anything! Just like in real games. */
     mixDescription: string;
+    /** A bishop delivers checkmate to the king, while a rook helps confine it. */
+    morphyMateBishopAndRookDescription: string;
     /** Morphy's mate */
     morphysMate: string;
     /** Use the bishop to check the king, while your rook helps to confine it. */
@@ -2893,6 +2897,8 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** A rook delivers checkmate to the king, while a bishop helps confine it. */
+    pillsburyMateRookAndBishopDescription: string;
     /** Pillsbury's mate */
     pillsburysMate: string;
     /** The rook delivers checkmate, while the bishop helps to confine it. */
@@ -3255,6 +3261,8 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
+    /** Background image */
+    backgroundImage: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -6065,6 +6073,8 @@ interface I18n {
     nbViews: I18nPlural;
     /** New post */
     newPost: string;
+    /** Only use images that are not copyrighted by someone else. */
+    noCopyrightedImages: string;
     /** No drafts to show. */
     noDrafts: string;
     /** No posts in this blog, yet. */
@@ -6087,8 +6097,6 @@ interface I18n {
     publishOnYourBlog: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
-    /** It is safe to use images from the following websites: */
-    safeToUseImages: string;
     /** Save draft */
     saveDraft: string;
     /** Select the topics your post is about */
@@ -6101,10 +6109,6 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
-    /** Upload an image for your post */
-    uploadAnImageForYourPost: string;
-    /** You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else. */
-    useImagesYouMadeYourself: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */

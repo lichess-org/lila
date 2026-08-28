@@ -248,4 +248,36 @@ describe('premoves', () => {
       );
     }
   });
+
+  test('castled king cannot premove castling onto rook in standard chess', () => {
+    const kingsideExpectedPremoves = new Map<cg.Key, Set<cg.Key>>([
+      ['g1', new Set(['f2', 'g2', 'h2', 'h1'])],
+      ['f1', new Set(['f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'e1', 'd1', 'c1', 'b1'])],
+      ['a1', new Set(['a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'b1', 'c1', 'd1', 'e1'])],
+    ]);
+    testPosition(
+      fen.read('4k3/8/8/8/8/8/8/R4RK1 b - - 0 1'),
+      'black',
+      undefined,
+      kingsideExpectedPremoves,
+      true,
+      false,
+      'standard',
+    );
+
+    const queensideExpectedPremoves = new Map<cg.Key, Set<cg.Key>>([
+      ['c1', new Set(['b1', 'b2', 'c2', 'd2'])],
+      ['d1', new Set(['d2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'e1', 'f1', 'g1'])],
+      ['h1', new Set(['h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8', 'g1', 'f1', 'e1'])],
+    ]);
+    testPosition(
+      fen.read('4k3/8/8/8/8/8/8/2KR3R b - - 0 1'),
+      'black',
+      undefined,
+      queensideExpectedPremoves,
+      true,
+      false,
+      'standard',
+    );
+  });
 });

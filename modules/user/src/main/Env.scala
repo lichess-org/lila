@@ -23,7 +23,7 @@ final class Env(
 
   val api = wire[UserApi]
 
-  val lightUserApi: LightUserApi = wire[LightUserApi]
+  given lightUserApi: LightUserApi = wire[LightUserApi]
 
   export lightUserApi.{
     async as lightUser,

@@ -56,6 +56,8 @@
   <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
   <string name="whiteDidntMove">Wäiss huet net gezunn</string>
   <string name="blackDidntMove">Schwaarz huet net gezunn</string>
+  <string name="whiteAborted">Wäiss huet d\'Partie ofgebrach</string>
+  <string name="blackAborted">Schwaarz huet d\'Partie ofgebrach</string>
   <string name="requestAComputerAnalysis">Eng Computeranalys ufroen</string>
   <string name="computerAnalysis">Computeranalys</string>
   <string name="computerAnalysisAvailable">Computeranalys disponibel</string>
@@ -63,7 +65,7 @@
   <string name="analysis">Analysebriet</string>
   <string name="depthX">Déift %s</string>
   <string name="usingServerAnalysis">Serveranalys gëtt benotzt</string>
-  <string name="loadingEngine">Engine luet...</string>
+  <string name="loadingEngine">Engine gëtt gelueden...</string>
   <string name="calculatingMoves">Zich ginn gerechent...</string>
   <string name="engineFailed">Feeler beim Lueden</string>
   <string name="cloudAnalysis">Cloudanalys</string>

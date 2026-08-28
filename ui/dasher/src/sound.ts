@@ -161,6 +161,6 @@ export class SoundCtrl extends PaneCtrl {
   private readonly volume = (v: number) => {
     site.sound.setVolume(v);
     // plays a move sound if speech is off
-    site.sound.sayOrPlay('move', 'knight F 7');
+    site.sound.sayOrPlay('move', 'knight F 7', true);
   };
 }

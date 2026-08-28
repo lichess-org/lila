@@ -841,7 +841,7 @@ final class StudyApi(
           .so: settings =>
             val newStudy = study
               .copy(
-                name = data.studyName,
+                name = data.studyName | study.name,
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
                 visibility = data.visibility,

@@ -16,7 +16,7 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def authReq(req: RequestHeader, accepted: EndpointScopes): AccessFu =
+  def authReq(accepted: EndpointScopes)(using req: RequestHeader): AccessFu =
     val res = for
       bearer <- HTTPRequest.bearer(req).raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)

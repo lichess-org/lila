@@ -68,6 +68,10 @@
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.24), hsl(0 0% 0% / 0.21));
 
     background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+
+    @include if-transp {
+      @include with-metal-hover-shadow(hsl(0 0% 0% / 0.15), hsl(0 0% 0% / 0.12));
+    }
   }
 }
 
@@ -79,6 +83,10 @@
 
   &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.12), hsl(0 0% 0% / 0.1), true);
+
+    @include if-transp {
+      @include with-metal-hover-shadow(hsl(0 0% 0% / 0.06), hsl(0 0% 0% / 0.05), true);
+    }
   }
 }
 
@@ -100,24 +108,6 @@
   );
   color: color-mix(in oklab, $c-dimmer 90%, $c-font);
   text-shadow: 0 1px 0 $c-clearer;
-}
-
-%metal-light {
-  background: linear-gradient(to bottom, hsl(0 0% 90%), hsl(0 0% 80%));
-  text-shadow: 0 1px 0 #fff;
-}
-
-%metal-light-hover {
-  background: linear-gradient(to bottom, hsl(0 0% 95%), hsl(0 0% 85%));
-  text-shadow: 0 1px 0 #fff;
-}
-
-%metal-dark {
-  background: linear-gradient(to bottom, hsl(37 7% 22%), hsl(37 5% 19%));
-}
-
-%metal-dark-hover {
-  background: linear-gradient(to bottom, hsl(37 7% 25%), hsl(37 5% 22%));
 }
 
 %active-inset-shadow {
@@ -170,6 +160,8 @@
 }
 
 %dropdown-shadow {
+  @include backdrop-blur-if-transparent;
+
   @include if-transp {
     @include back-blur;
   }

@@ -17,7 +17,9 @@ final class Recap(env: Env) extends LilaController(env):
       html = Ok.page(views.recap.home(data, user)),
       json = data match
         case Availability.Available(data) => Ok(data).toFuccess
-        case Availability.Queued(_) => env.recap.api.awaiter(user)(getCosts).map(Ok(_))
+        case Availability.Queued(_) =>
+          limit.recapAwaitConcurrency(user.id, rateLimited):
+            env.recap.api.awaiter(user)(getCosts).map(Ok(_))
     )
   }
 

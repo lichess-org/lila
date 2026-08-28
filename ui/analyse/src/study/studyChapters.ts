@@ -5,7 +5,7 @@ import type Sortable from 'sortablejs';
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { licon } from 'lib/licon';
-import { type VNode, bind, hl, alert, icon } from 'lib/view';
+import { type VNode, bind, hl, alert, icon, button } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
@@ -182,18 +182,6 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         hook: {
           insert(vnode) {
-            (vnode.elm as HTMLElement).addEventListener('click', async e => {
-              const target = e.target as HTMLElement;
-              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-              if (!id) return;
-              if (target.className === 'act') {
-                const chapter = ctrl.chapters.list.get(id);
-                if (chapter) ctrl.chapters.editForm.toggle(chapter);
-              } else {
-                await ctrl.setChapter(id);
-              }
-              blurIfPrimaryClick(e);
-            });
             vnode.data!.li = {};
             ctrl.chapters.scroller.request('instant');
             onListUpdate(ctrl, vnode);
@@ -217,12 +205,31 @@ export function view(ctrl: StudyCtrl): VNode {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
             class: { active, editing, draggable: canContribute },
+            on: {
+              click: e => {
+                ctrl.setChapter(chapter.id);
+                blurIfPrimaryClick(e);
+              },
+            },
           },
           [
             hl('span', i + 1),
             hl('h3', chapter.name),
             chapter.status && hl('res', chapter.status),
-            canContribute && icon(licon.Gear)('.act', { title: i18n.study.editChapter }),
+            canContribute &&
+              button(
+                '.act',
+                {
+                  on: {
+                    click: e => {
+                      ctrl.chapters.editForm.toggle(chapter);
+                      e.stopPropagation();
+                      blurIfPrimaryClick(e);
+                    },
+                  },
+                },
+                icon(licon.Gear)({ title: i18n.study.editChapter }),
+              ),
           ],
         );
       }),

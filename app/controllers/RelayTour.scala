@@ -26,7 +26,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
-            data <- env.relay.home.get(page)
+            data <- env.relay.home.get // no pagination here
             cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
             res <- Ok.async(views.relay.tour.index(data, cms.map(_.html)))
           yield res
@@ -234,22 +234,25 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   yield page
 
   def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    Found(env.relay.api.tourById(id)): tour =>
-      if !tour.canView && !isGrantedOpt(_.StudyAdmin)
-      then Unauthorized(jsonError("This tournament is private"))
-      else
-        for
-          trs <- env.relay.api.withRounds(tour)
-          group <- env.relay.api.withTours.get(tour.id)
-          photos <- env.relay.playerApi.photosJson(tour.id)
-          json = env.relay.jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
-        yield Ok(json)
+    limit.relay.apiGet(rateLimited):
+      Found(env.relay.api.tourById(id)): tour =>
+        if !tour.canView && !isGrantedOpt(_.StudyAdmin)
+        then Unauthorized(jsonError("This tournament is private"))
+        else
+          for
+            trs <- env.relay.api.withRounds(tour)
+            group <- env.relay.api.withTours.get(tour.id)
+            photos <- env.relay.playerApi.photosJson(tour.id)
+            json = env.relay.jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
+          yield Ok(json)
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
       val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
-      apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
+      limit.studyDownload()(
+        env.relay.pgnStream
+          .exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
+          .throttle(limit.studyDownload.perSecond, 1.second)
       ): source =>
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
@@ -265,7 +268,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         )
 
   def apiTop(page: Int) = Anon:
-    Reasonable(page, Max(20)):
+    Reasonable(page, Max(5)):
       JsonOk(env.relay.home.getJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
@@ -313,4 +316,4 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    limit.relayTour(me.userId -> req.ipAddress, fail, cost = cost)(create)
+    limit.relay.tourCreate(me.userId -> req.ipAddress, fail, cost = cost)(create)

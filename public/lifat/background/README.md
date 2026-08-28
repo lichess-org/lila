@@ -1,9 +1,16 @@
+### Prerequistes
+
+* Git LFS setup and gallery assets fetched
+* ImageMagic
+* Fontconfig (`lila-docker` only)
+
 ### To create/update a background image gallery:
 
 - First arrange the image files in `lifat/background/gallery`. The alphanumeric sort order of the filenames will become the gallery order.
-- Then run `make-gallery.js`
-- That script uses imagemagick to build `columns-2.webp` and `columns-4.webp`. These generated images are a montage of thumbnails rendered at 160x90 each in 2 & 4 column grids.
-- It also spits out a `gallery.json` which is an ordered array of image asset URLs corresponding to gallery position.
+- Then execute `node make-gallery.js`
+- That script uses imagemagick to build `montage2.webp` and `montage4.webp`. These generated images are a montage of thumbnails rendered at 160x90 each in 2 & 4 column grids.
+- It also spits out a `gallery.json` which contains a datasets for light and dark themes, with 
+an ordered array of image asset URLs corresponding to gallery position.
 
 ### At runtime:
 

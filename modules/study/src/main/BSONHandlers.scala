@@ -13,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Clock }
+import lila.tree.{ Branch, Branches, Root, Clock }
 
 object BSONHandlers:
 
@@ -156,38 +156,6 @@ object BSONHandlers:
       forceVariation = forceVariation
     )
 
-  // shallow read, as not reading children
-  private[study] def readNewBranch(doc: Bdoc): Option[NewBranch] =
-    import Node.BsonFields as F
-    for
-      ply <- doc.getAsOpt[Ply](F.ply)
-      uci <- doc.getAsOpt[Uci](F.uci)
-      san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Full](F.fen)
-      shapes = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
-      comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
-      gamebook = doc.getAsOpt[Gamebook](F.gamebook)
-      glyphs = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
-      clock = doc.getAsOpt[Clock](F.clock)
-      crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
-      forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
-    yield NewBranch(
-      forceVariation = forceVariation,
-      move = Uci.WithSan(uci, san),
-      metas = Metas(
-        ply = ply,
-        fen = fen,
-        shapes = shapes,
-        comments = comments,
-        gamebook = gamebook,
-        glyphs = glyphs,
-        eval = eval,
-        clock = clock,
-        crazyData = crazyData
-      )
-    )
-
   // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
     import Node.BsonFields as F
@@ -204,24 +172,6 @@ object BSONHandlers:
       F.score -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation)
-    )
-
-  private[study] def writeNewBranch(n: NewBranch) =
-    import Node.BsonFields as F
-    val w = new Writer
-    $doc(
-      F.ply -> n.metas.ply,
-      F.uci -> n.move.uci,
-      F.san -> n.move.san,
-      F.fen -> n.metas.fen,
-      F.shapes -> n.metas.shapes.value.nonEmpty.option(n.metas.shapes),
-      F.comments -> n.metas.comments.value.nonEmpty.option(n.metas.comments),
-      F.gamebook -> n.metas.gamebook,
-      F.glyphs -> n.metas.glyphs.nonEmpty,
-      F.score -> n.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
-      F.clock -> n.metas.clock,
-      F.crazy -> n.metas.crazyData,
       F.forceVariation -> w.boolO(n.forceVariation)
     )
 
@@ -258,40 +208,6 @@ object BSONHandlers:
       }
     )
 
-  private[study] given BSON[NewRoot] with
-    import Node.BsonFields as F
-    def reads(fullReader: Reader) =
-      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
-      val r = Reader(rootNode)
-      NewRoot(
-        Metas(
-          ply = r.get[Ply](F.ply),
-          fen = r.get[Fen.Full](F.fen),
-          shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
-          comments = r.getO[Comments](F.comments) | Comments.empty,
-          gamebook = r.getO[Gamebook](F.gamebook),
-          glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-          eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
-          clock = r.getO[Clock](F.clock),
-          crazyData = r.getO[Crazyhouse.Data](F.crazy)
-        ),
-        tree = StudyFlatTree.reader.newRoot(fullReader.doc)
-      )
-    def writes(w: Writer, r: NewRoot) = $doc(
-      StudyFlatTree.writer.newRootChildren(r).appended {
-        UciPathDb.rootDbKey -> $doc(
-          F.ply -> r.metas.ply,
-          F.fen -> r.metas.fen,
-          F.shapes -> r.metas.shapes.value.nonEmpty.option(r.metas.shapes),
-          F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
-          F.gamebook -> r.metas.gamebook,
-          F.glyphs -> r.metas.glyphs.nonEmpty,
-          F.score -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
-          F.clock -> r.metas.clock,
-          F.crazy -> r.metas.crazyData
-        )
-      }
-    )
   given BSONHandler[Variant] = variantByIdHandler
 
   given BSONHandler[Tag] = tryHandler[Tag](
@@ -398,12 +314,3 @@ object BSONHandlers:
     def writes(w: Writer, s: Settings) = writer.writeTry(s).get
 
   given studyHandler: BSONDocumentHandler[Study] = Macros.handler
-
-  given BSONDocumentReader[Study.LightStudy] with
-    def readDocument(doc: BSONDocument) =
-      Success(
-        Study.LightStudy(
-          isPublic = doc.string("visibility").has("public"),
-          contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
-        )
-      )

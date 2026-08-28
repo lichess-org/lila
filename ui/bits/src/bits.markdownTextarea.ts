@@ -1,14 +1,11 @@
-import { marked } from 'marked';
-
 import { frag } from 'lib';
 import { alert, info, spinnerHtml } from 'lib/view';
 import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
-import { json as xhrJson, ValidationError } from 'lib/xhr';
+import { text as xhrText, json as xhrJson, ValidationError } from 'lib/xhr';
 
 // also see markdownTextarea.ts
 
 site.load.then(() => {
-  marked.setOptions({ gfm: true, breaks: true });
   for (const markdown of document.querySelectorAll<HTMLElement>('.markdown-textarea')) {
     wireMarkdownTextarea(markdown);
   }
@@ -18,17 +15,28 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const textarea = markdown.querySelector<HTMLTextAreaElement>('textarea');
   if (!textarea) return;
 
-  const previewTab = markdown.querySelector<HTMLButtonElement>('.preview')!;
-  const writeTab = markdown.querySelector<HTMLButtonElement>('.write')!;
+  const previewTab = markdown.querySelector<HTMLButtonElement>('.preview-tab')!;
+  const writeTab = markdown.querySelector<HTMLButtonElement>('.write-tab')!;
   const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image');
-  const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
+  const preview = markdown.querySelector<HTMLElement>('.preview')!;
 
   previewTab.addEventListener('click', async () => {
-    preview.innerHTML = await marked.parse(textarea.value ?? '');
+    preview.innerHTML = `<div class="busy">${spinnerHtml}</div>`;
     preview.classList.remove('none');
     uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
+    const rendered = frag<HTMLElement>(
+      await xhrText(`/markdown/preview/${markdown.dataset.formatKey ?? 'forum'}`, {
+        method: 'POST',
+        body: textarea.value,
+      }),
+    );
+    await Promise.all([
+      rendered.querySelector('.lpv--autostart') && site.asset.loadEsm('bits.lpv', { init: { el: rendered } }),
+      rendered.querySelector('a') && site.asset.loadEsm('bits.expandText', { init: rendered }),
+    ]);
+    preview.replaceChildren(rendered);
     if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
       await info('Drag a side or bottom edge to resize an image.');
       localStorage.setItem('markdown.rtfm', '1');
@@ -40,15 +48,16 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       },
       origin: markdown.dataset.imageDownloadOrigin!,
       designWidth: Number(markdown.dataset.imageDesignWidth),
+      realm: markdown.dataset.markdownRealm!,
     });
   });
 
   writeTab.addEventListener('click', () => {
     previewTab.classList.remove('active');
     writeTab.classList.add('active');
-    preview.classList.add('none');
     uploadBtn?.classList.remove('none');
     preview.innerHTML = '';
+    preview.classList.add('none');
     textarea.focus();
   });
   if (!markdown.dataset.imageUploadUrl) return;
@@ -85,7 +94,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       if (count >= Number(markdown.dataset.imageCountMax)) {
         throw `You can only upload ${markdown.dataset.imageCountMax} images here.`;
       }
-      preview.innerHTML = `<div class="uploading"><span>Uploading image...</span>${spinnerHtml}</div>`;
+      preview.innerHTML = `<div class="busy"><span>Uploading image...</span>${spinnerHtml}</div>`;
       preview.classList.remove('none');
       const { width, height } = await naturalSize(image);
       const body = new FormData();

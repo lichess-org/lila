@@ -290,7 +290,7 @@
   <string name="decline">Từ chối</string>
   <string name="playingRightNow">Đang đánh</string>
   <string name="eventInProgress">Đang diễn ra</string>
-  <string name="finished">Hoàn thành</string>
+  <string name="finished">Đã hoàn thành</string>
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>

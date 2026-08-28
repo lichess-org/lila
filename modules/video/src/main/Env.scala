@@ -45,7 +45,7 @@ final class Env(
     api = api
   )
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "video" :: "sheet" :: Nil =>
       sheet.fetchAll.map { nb => s"Processed $nb videos" }
 

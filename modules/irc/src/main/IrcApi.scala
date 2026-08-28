@@ -8,6 +8,7 @@ import lila.core.id.*
 import lila.core.irc.*
 import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
+import lila.core.data.DiffStr
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -42,6 +43,9 @@ final class IrcApi(
     def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
     def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")
     def time(t: Instant) = s"<time:$t>"
+    def diff(diff: DiffStr) = s"```diff\n$diff\n```"
+    def spoiler(heading: String, content: String) = s"```spoiler $heading\n$content\n```"
+    def quote(content: String) = s"```quote\n$content\n```"
 
   def commReportBurst(user: LightUser): Funit =
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
@@ -122,17 +126,10 @@ final class IrcApi(
     zulip(_.mod.commsPublic, "forum-log"):
       s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  def bbb(
-      by: MyId,
-      tpe: "arena" | "event",
-      name: String,
-      url: Call,
-      from: Instant,
-      to: Option[Instant]
-  ): Funit =
+  def bbb(by: MyId, tpe: "arena" | "event", name: String, url: Call, diff: DiffStr): Funit =
     val link = markdown.lichessLink(url.url, name)
-    val times = s"${markdown.time(from)} → ${to.fold("?")(markdown.time)}"
-    val text = s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link $times"
+    val text =
+      s"${markdown.userLink(lightUser(by.userId))} [$tpe] $link\n${markdown.spoiler("changes", markdown.diff(diff))}"
     zulip(_.bbb, "log")(text)
 
   def ublogPost(
@@ -164,13 +161,13 @@ final class IrcApi(
 
   def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
     zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
-      s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
+      s"${markdown.userLink(lightUser(senderId))}:\n${markdown.quote(content)}"
 
   def broadcastTourUpdate(
       tourName: String,
       tourSlug: String,
       tourId: RelayTourId,
-      diff: String,
+      diff: DiffStr,
       impersonatedBy: Option[ModId] = None
   )(using
       userId: MyId
@@ -179,7 +176,7 @@ final class IrcApi(
     val impersonator = impersonatedBy.map(id => lightUser(id.userId))
     val channelUser = impersonator.getOrElse(user)
     zulip(_.broadcastLogs, s"/${channelUser.name}"):
-      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n```diff\n$diff\n```"
+      s"${markdown.userLink(user.name)}${impersonatedByText(impersonator)} updated ${markdown.lichessLink(s"/broadcast/$tourSlug/$tourId", tourName)}\n${markdown.diff(diff)}"
 
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):

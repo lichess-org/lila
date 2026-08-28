@@ -48,13 +48,10 @@
     <item quantity="one">એક પોસ્ટ જુઓ</item>
     <item quantity="other">બધી %s પોસ્ટ્સ જુઓ</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">તમારી પોસ્ટ માટે એક છબી અપલોડ કરો</string>
   <string name="imageAlt">છબી વૈકલ્પિક ટેક્સ્ટ</string>
   <string name="imageCredit">છબી ક્રેડિટ</string>
   <string name="deleteBlog">આ બ્લોગ પોસ્ટને ચોક્કસપણે કાઢી નાખો</string>
-  <string name="safeToUseImages">નીચેની વેબસાઇટ્સમાંથી છબીઓનો ઉપયોગ કરવો સલામત છે:</string>
   <string name="selectPostTopics">તમારી પોસ્ટ કયા વિષયો વિશે છે તે પસંદ કરો</string>
-  <string name="useImagesYouMadeYourself">તમે તમારા દ્વારા બનાવેલી છબીઓ, તમે લીધેલા ચિત્રો, Lichess ના સ્ક્રીનશોટનો પણ ઉપયોગ કરી શકો છો... કંઈપણ જે અન્ય કોઈ દ્વારા કૉપિરાઇટ નથી.</string>
   <string name="safeAndRespectfulContent">કૃપા કરીને ફક્ત સલામત અને આદરપૂર્ણ સામગ્રી પોસ્ટ કરો. અન્ય કોઈની સામગ્રીની કૉપિ કરશો નહીં.</string>
   <string name="inappropriateContentAccountClosed">કંઈપણ અયોગ્ય હોય તો તમારું એકાઉન્ટ બંધ થઈ શકે છે.</string>
   <string name="blogTips">મહાન બ્લોગ પોસ્ટ્સ લખવા માટેની અમારી સરળ ટિપ્સ</string>

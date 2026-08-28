@@ -270,6 +270,15 @@ export default class LobbyController {
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
+    site.mousetrap.bind(
+      'esc',
+      () => {
+        this.leavePool();
+        this.redraw();
+      },
+      undefined,
+      false,
+    );
   };
 
   leavePool = () => {

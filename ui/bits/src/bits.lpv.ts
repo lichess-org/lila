@@ -4,21 +4,27 @@ import type PgnViewer from '@lichess-org/pgn-viewer/pgnViewer';
 
 import { text as xhrText } from 'lib/xhr';
 
-export default async function (opts?: { el: HTMLElement; url: string; lpvOpts: LpvOpts }): Promise<void> {
-  return opts ? loadPgnAndStart(opts.el, opts.url, opts.lpvOpts) : autostart();
+export default async function (
+  opts: { el: HTMLElement; url?: string; lpvOpts?: LpvOpts } = { el: document.body },
+): Promise<void> {
+  const { el, url, lpvOpts } = opts;
+  await site.asset.loadCssPath('bits.lpv');
+  if (!url) return autostart(el);
+  const pgn = await xhrText(url, { headers: { Accept: 'application/x-chess-pgn' } });
+  Lpv(el, { ...lpvOpts, lichess: location.origin, pgn });
 }
 
-async function autostart() {
-  await site.asset.loadCssPath('bits.lpv');
-  $('.lpv--autostart').each(function (this: HTMLElement) {
-    const pgn = this.dataset['pgn']!.replace(/<br>/g, '\n');
+async function autostart(contextEl: HTMLElement = document.body) {
+  contextEl.querySelectorAll<HTMLElement>('.lpv--autostart').forEach(el => {
+    if (!el.dataset.pgn) return; // already processed
+    const pgn = el.dataset['pgn'].replace(/<br>/g, '\n');
     const gamebook = pgn.includes('[ChapterMode "gamebook"]');
-    const rawPly = this.dataset['ply'];
+    const rawPly = el.dataset['ply'];
     const initialPly =
       rawPly === 'last' ? 'last' : rawPly !== undefined ? parseInt(rawPly, 10) || 0 : undefined;
     const config: Partial<LpvOpts> = {
       pgn,
-      orientation: this.dataset['orientation'] as Color | undefined,
+      orientation: el.dataset['orientation'] as Color | undefined,
       lichess: location.origin,
       initialPly: initialPly ?? (gamebook ? 0 : 'last'),
       ...(gamebook
@@ -32,7 +38,7 @@ async function autostart() {
         : {}),
     };
     try {
-      const lpv = Lpv(this, config);
+      const lpv = Lpv(el, config);
       if (typeof initialPly === 'number') {
         const rootPly = (lpv.game.mainline[0]?.ply ?? 1) - 1;
         const relativePly = Math.max(0, initialPly - rootPly);
@@ -40,24 +46,10 @@ async function autostart() {
       }
       if (gamebook) toGamebook(lpv);
     } catch (e) {
-      const url = this.dataset['url'];
-      if (url) this.innerHTML = `<a href="${url}">${location.host}${url}</a>`;
+      const url = el.dataset['url'];
+      if (url) el.innerHTML = `<a href="${url}">${location.host}${url}</a>`;
       console.warn(`LPV refused to load ${url}: ${e}`);
     }
-  });
-}
-
-async function loadPgnAndStart(el: HTMLElement, url: string, opts: LpvOpts) {
-  await site.asset.loadCssPath('bits.lpv');
-  const pgn = await xhrText(url, {
-    headers: {
-      Accept: 'application/x-chess-pgn',
-    },
-  });
-  Lpv(el, {
-    ...opts,
-    lichess: location.origin,
-    pgn,
   });
 }
 

@@ -116,7 +116,7 @@ interface SoundI {
   sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
-  sayOrPlay(name: string, text: string): void;
+  sayOrPlay(name: string, text: string, cut?: boolean): void;
   preloadBoardSounds(): void;
   url(name: string): string;
 }
@@ -188,7 +188,7 @@ interface LightUserNoId {
   name: string;
   title?: string;
   flair?: Flair;
-  patron?: boolean;
+  patron?: boolean; // BC
   patronColor?: PatronColor;
 }
 
@@ -266,7 +266,7 @@ declare namespace PowerTip {
   type BasePlacement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se';
   type Placement = BasePlacement | 'n-alt' | 'e-alt' | 's-alt' | 'w-alt';
   interface Options {
-    preRender?: (el: HTMLElement) => void;
+    render?: (el: HTMLElement) => Promise<void>;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;

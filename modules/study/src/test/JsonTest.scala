@@ -4,8 +4,7 @@ import lila.core.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
-import lila.study.Helpers.*
-import lila.tree.{ NewRoot, Node, Root }
+import lila.tree.{ Node, Root }
 
 import BSONHandlers.given
 import play.api.libs.json.Json
@@ -19,22 +18,12 @@ class JsonTest extends munit.FunSuite:
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
         val result = StudyPgnImport.result(pgn, List(user)).toOption.get
-        val imported = result.root.cleanCommentIds
+        val imported = result.root.normalizeForJsonFixture
         val json = writeTree(imported)
         assertEquals(json, expected)
 
-  test("NewTree Json writes".ignore):
-    PgnFixtures.roundTrip
-      .zip(JsonFixtures.all)
-      .foreach: (pgn, expected) =>
-        val result = StudyPgnImportNew(pgn, List(user)).toOption.get
-        val imported = result.root.cleanup
-        val json = writeTree(imported)
-        assertEquals(Json.parse(json), Json.parse(expected))
-
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson = summon[BSON[Root]]
-  val newTreeBson = summon[BSON[NewRoot]]
   val w = new Writer
 
   test("Json writes with BSONHandlers"):
@@ -42,20 +31,10 @@ class JsonTest extends munit.FunSuite:
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
         val result = StudyPgnImport.result(pgn, List(user)).toOption.get
-        val imported = result.root.cleanCommentIds
+        val imported = result.root.normalizeForJsonFixture
         val afterBson = treeBson.reads(treeBson.writes(w, imported))
         val json = writeTree(afterBson)
         assertEquals(json, expected)
-
-  test("NewTree Json writes with BSONHandlers".ignore):
-    PgnFixtures.roundTrip
-      .zip(JsonFixtures.all)
-      .foreach: (pgn, expected) =>
-        val result = StudyPgnImportNew(pgn, List(user)).toOption.get
-        val imported = result.root
-        val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported))
-        val json = writeTree(afterBson.cleanup)
-        assertEquals(Json.parse(json), Json.parse(expected))
 
   test("forceVariation and node ordering"):
     // 1. e2e4 (e7e5 FV) d7d5
@@ -113,11 +92,15 @@ class JsonTest extends munit.FunSuite:
     assertEquals(json, expectedJson)
 
   extension (root: Root)
-    def cleanCommentIds: Root =
-      root.toNewRoot.cleanup.toRoot
+    def normalizeForJsonFixture: Root =
+      root.copy(
+        comments = cleanCommentIds(root.comments),
+        children = root.children.updateAllWith: branch =>
+          branch.copy(clock = none, comments = cleanCommentIds(branch.comments))
+      )
+
+  private def cleanCommentIds(comments: Node.Comments): Node.Comments =
+    Node.Comments(comments.value.map(_.copy(id = Node.Comment.Id("i"))))
 
   def writeTree(tree: Root): String =
     Node.partitionTreeWriter(tree, false).toString
-
-  def writeTree(tree: NewRoot): String =
-    NewRoot.partitionTreeJsonWriter.writes(tree).toString

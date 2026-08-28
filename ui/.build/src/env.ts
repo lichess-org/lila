@@ -121,7 +121,7 @@ export const env = new (class {
     return this.status[ctx] !== false;
   }
 
-  done(ctx: Context, code: number | undefined): void {
+  setStatus(ctx: Context, code: number | undefined): void {
     if (code !== undefined && code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
       this.log(
         `${code === 0 ? 'Done' : c.red('Failed')}${this.watch ? ` - ${c.grey('Watching')}...` : ''}`,
@@ -132,7 +132,7 @@ export const env = new (class {
     if (this.buildOk()) {
       if (this.startTime) {
         const doneMsg = `Done in ${c.green(String((Date.now() - this.startTime) / 1000))}s`;
-        this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean and rebuild` : ''));
+        this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<enter>')} to clean and rebuild` : ''));
       }
       this.onSuccess.forEach(yay => yay());
       this.startTime = undefined;

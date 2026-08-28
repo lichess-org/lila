@@ -207,7 +207,7 @@ export default new (class implements SoundI {
 
   saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
-  sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
+  sayOrPlay = (name: string, text: string, cut = false) => this.say(text, cut) || this.play(name);
 
   changeSet = (s: string) => {
     if (isIos()) this.ctx?.resume();

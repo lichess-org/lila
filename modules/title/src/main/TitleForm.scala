@@ -3,13 +3,14 @@ package lila.title
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, fideId, playerTitle, stringIn, url }
+import lila.common.Form.{ cleanNonEmptyText, fideId, playerTitle, stringIn, url, into }
+import lila.core.user.RealName
 
 object TitleForm:
 
   val create = Form:
     mapping(
-      "realName" -> cleanNonEmptyText(minLength = 3, maxLength = 120),
+      "realName" -> cleanNonEmptyText(minLength = 3, maxLength = 120).into[RealName],
       "title" -> playerTitle.field,
       "fideId" -> optional(fideId.field),
       "federationUrl" -> optional(url.field),

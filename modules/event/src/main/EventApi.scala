@@ -99,12 +99,6 @@ final class EventApi(
     )
 
   private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
-    if prev.map(_.featureDates).forall(_ != next.featureDates) then
-      ircApi.bbb(
-        me,
-        "event",
-        next.title,
-        routes.Event.show(next.id),
-        next.featureSince,
-        next.featureUntil.some
-      )
+    lila.common
+      .ProductDiff(prev, next, ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt"))
+      .foreach(ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), _))

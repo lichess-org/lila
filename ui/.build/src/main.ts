@@ -39,8 +39,7 @@ Options:
   -k, --kill          if another ui/build instance is running, kill it rather than bail
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
-  -d, --debug         disable noUnusedLocals, noImplicitReturns, noUnusedParameters in tsc and build
-                      assets with site.debug = true
+  -d, --debug         build assets with site.debug = true
   -l, --log=<url>     patch console logging functions in javascript manifest to POST messages to
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs
@@ -123,7 +122,7 @@ if (env.watch && 'setRawMode' in ps.stdin) {
   ps.stdin.on('data', (key: Buffer) => {
     if (key[0] === 3 || key[0] === 27) {
       ps.exit(0);
-    } else if (key[0] === 32 && tasksIdle()) {
+    } else if ((key[0] === 13 || key[0] === 10) && tasksIdle()) {
       stopBuild().then(() => clean('force').then(() => build(argv.filter(x => !x.startsWith('-')))));
     }
   });

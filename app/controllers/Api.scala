@@ -334,7 +334,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
-      .data(username, perfKey, computeIfNeeded = true)
+      .data(username, perfKey, computeIfNeeded = false)
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 
@@ -411,42 +411,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
       else eventsForUser
 
-    private val eventsForAnon = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.events.anon",
-      ttl = 1.hour,
-      maxConcurrency = 4
-    )
-    private val eventsForUser = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.events.user",
-      ttl = 1.hour,
-      maxConcurrency = 8
-    )
-    private val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.events.verified",
-      ttl = 1.hour,
-      maxConcurrency = 16
-    )
-    val download = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.download",
-      ttl = 1.hour,
-      maxConcurrency = 2
-    )
-    val generous = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.generous",
-      ttl = 1.hour,
-      maxConcurrency = 20
-    )
+    private val eventsForAnon = ConcurrencyLimit[IpAddress](4, "api.ip.events.anon")
+    private val eventsForUser = ConcurrencyLimit[IpAddress](8, "api.ip.events.user")
+    private val eventsForVerifiedUser = ConcurrencyLimit[IpAddress](16, "api.ip.events.verified")
+    val download = ConcurrencyLimit[IpAddress](2, "api.ip.download")
+    val generous = ConcurrencyLimit[IpAddress](20, "api.ip.generous")
 
-  private[controllers] val GlobalConcurrencyLimitUser = lila.web.ConcurrencyLimit[UserId](
-    key = "api.user",
-    ttl = 1.hour,
-    maxConcurrency = 2
-  )
-  private[controllers] val GlobalConcurrencyLimitUserMobile = lila.web.ConcurrencyLimit[UserId](
-    key = "api.user.mobile",
-    ttl = 1.hour,
-    maxConcurrency = 3
-  )
+  private[controllers] val GlobalConcurrencyLimitUser = ConcurrencyLimit[UserId](2, "api.user")
+  private[controllers] val GlobalConcurrencyLimitUserMobile = ConcurrencyLimit[UserId](3, "api.user.mobile")
   private[controllers] def GlobalConcurrencyLimitPerUserOption[T](using
       ctx: Context
   ): Option[SourceIdentity[T]] =

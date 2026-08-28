@@ -35,6 +35,9 @@
   <string name="teamTournament">Team-Turnier</string>
   <string name="teamTournamentOverview">Es Arena Turnier, wo nur Mitglider vu dim Team biträte chönd</string>
   <string name="swissTournamentOverview">Es Turnier nach \"Schweizer System\", wo nur Mitglider vu dim Team biträte chönd</string>
+  <string name="teamUpdates">Team updates</string>
+  <string name="subToTeamUpdates">Team-Updates abonnierä</string>
+  <string name="newTeamUpdate">Es Neus Teamupdate</string>
   <string name="teamsIlead">Teams wo ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Wottsch eis vu de kommende Turnier verlinke?</string>
   <string name="leadersChat">Teamleiter-Chat</string>

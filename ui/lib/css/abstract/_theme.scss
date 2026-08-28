@@ -17,14 +17,14 @@ $outline: 2px solid $c-primary;
   }
 }
 
-@mixin if-not-light {
-  html:not(.light) & {
+@mixin if-transp-light {
+  html.transp.light & {
     @content;
   }
 }
 
-@mixin if-not-transp {
-  html:not(.transp) & {
+@mixin if-not-light {
+  html:not(.light) & {
     @content;
   }
 }

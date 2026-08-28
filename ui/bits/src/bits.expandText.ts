@@ -20,7 +20,7 @@ function toYoutubeEmbedUrl(url: string): string | undefined {
   return embedYoutubeUrl(result);
 }
 
-site.load.then(() => {
+export async function initModule(el?: HTMLElement): Promise<void> {
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return undefined;
     const yt = toYoutubeEmbedUrl(a.href);
@@ -45,8 +45,8 @@ site.load.then(() => {
         .find('iframe')
         .on('load', () => setTimeout(() => expandYoutubes(as, wait + 200), wait));
   }
-
-  const as = Array.from(document.querySelectorAll<HTMLAnchorElement>('.expand-text a'))
+  const [scope, selector] = [el ?? document, el ? 'a' : '.expand-text a'];
+  const as = Array.from(scope.querySelectorAll<HTMLAnchorElement>(selector))
     .map(el => {
       const parsed = parseLink(el);
       if (!parsed) return false;
@@ -61,5 +61,7 @@ site.load.then(() => {
 
   expandYoutubes(as.filter(a => a.type === 'youtube'));
 
-  if ($('.lpv--autostart').length) site.asset.loadEsm('bits.lpv');
-});
+  if (!el && $('.lpv--autostart').length) await site.asset.loadEsm('bits.lpv');
+}
+
+site.load.then(() => initModule());

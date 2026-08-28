@@ -10,7 +10,6 @@ import lila.common.Json.given
 import lila.core.game.FinishGame
 import lila.game.GameRepo
 import lila.game.actorApi.MoveGameEvent
-import chess.variant.Variant
 
 final class ApiMoveStream(
     gameRepo: GameRepo,
@@ -60,7 +59,7 @@ final class ApiMoveStream(
                     yield ByColor(white, black)
                     queue.offer(
                       toJson(
-                        game.variant,
+                        s,
                         Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
                         s.history.lastMove,
                         clk
@@ -94,7 +93,7 @@ final class ApiMoveStream(
 
   private def toJson(game: Game, fen: Fen.Full, lastMove: Option[Uci]): JsObject =
     toJson(
-      game.variant,
+      game.position,
       fen,
       lastMove,
       game.clock.map: clk =>
@@ -102,7 +101,7 @@ final class ApiMoveStream(
     )
 
   private def toJson(
-      variant: Variant,
+      position: Position,
       fen: Fen.Full,
       lastMove: Option[Uci],
       clock: Option[ByColor[Centis]]
@@ -110,6 +109,6 @@ final class ApiMoveStream(
     clock.foldLeft(
       Json
         .obj("fen" -> fen)
-        .add("lm" -> lastMove.map(UciDump.lastMove(_, variant)))
+        .add("lm" -> lastMove.map(UciDump.lastMove(_, position)))
     ): (js, clk) =>
       js ++ Json.obj("wc" -> clk.white.roundSeconds, "bc" -> clk.black.roundSeconds)

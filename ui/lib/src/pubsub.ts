@@ -12,7 +12,7 @@ export interface PubsubEvents {
   'analysis.change': (fen: FEN, path: TreePath) => void;
   'analysis.chart.click': (index: number) => void;
   'analysis.comp.toggle': (enabled: boolean) => void;
-  'analysis.eval': (ev: ClientEval, meta: EvalMeta) => void;
+  'analysis.eval': (ev: ClientEval | undefined, meta: EvalMeta) => void;
   'analysis.server.progress': (analyseData: any) => void;
   'board.change': (is3d: boolean) => void;
   'challenge-app.open': () => void;

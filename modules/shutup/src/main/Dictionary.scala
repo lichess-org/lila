@@ -312,6 +312,7 @@ sparati
 bh?o?sdi?ke?
 chut(iy[ae]|)
 gaa?ndu?
+laude ka?rle
 """)
 
   def fr = dict("""
@@ -382,13 +383,13 @@ yar+ak kafa(l[iı]|s[iı])
 (ki?l+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
 gas+ the
-g?kys
+g?kys+
 gets? (bombed|shot)
 k+ y+ s+
 (l|1|ı|\|)<ys
 n[i\|\\]g+e?r
 rap(ed?|e?ing)
-rope
+rope\b
 su?bhu?ma?n
 """)
 

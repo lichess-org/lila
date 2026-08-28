@@ -125,12 +125,11 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
-POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
+GET   /@/:username/blog/new            controllers.Ublog.getEditForm(username: UserStr)
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.postEditForm(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
 POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
@@ -238,6 +237,7 @@ GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyO
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
+POST  /study/list-format               controllers.Study.listFormat
 GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
@@ -577,7 +577,7 @@ GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token
 POST  /signup/confirm/:token           controllers.Auth.signupConfirmEmailPost(token)
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset/send             controllers.Auth.passwordResetApply
-GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email)
+GET   /password/reset/sent             controllers.Auth.passwordResetSent
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token)
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)
@@ -916,8 +916,9 @@ GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
-POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
-GET   /image-url/:id                   controllers.Main.imageUrl(id: ImageId, width: Int)
+POST  /upload/image/user/:realm        controllers.Main.uploadImage(realm: MarkdownRealm)
+POST  /markdown/preview/:realm         controllers.Main.markdownPreview(realm: MarkdownRealm)
+GET   /image-url/:realm/:id            controllers.Main.imageUrl(realm: MarkdownRealm, id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
 
 GET   /verify-title                    controllers.TitleVerify.index
@@ -960,6 +961,7 @@ GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key: Cm
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Cms.source
+GET   /survey                          controllers.Main.survey
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
 GET   /page/:key                       controllers.Cms.lonePage(key: CmsPageKey)
 

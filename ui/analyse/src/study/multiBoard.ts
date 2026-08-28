@@ -9,7 +9,7 @@ import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -53,6 +53,14 @@ export class MultiBoardCtrl {
       (!t || c.players?.white.team === t || c.players?.black.team === t)
     );
   };
+  private readonly chapterTeamPov = (c: ChapterPreview) => {
+    const t = this.teamSelect();
+    return t && c.players?.white.team === t
+      ? 'white'
+      : t && c.players?.black.team === t
+        ? 'black'
+        : undefined;
+  };
   private readonly chapterSorter = (pins: RelayPlayerPin) => (a: ChapterPreview, b: ChapterPreview) => {
     const aPinned = pins.isChapterPinned(a);
     const bPinned = pins.isChapterPinned(b);
@@ -68,9 +76,13 @@ export class MultiBoardCtrl {
   pager = (): Paginator<ChapterPreview> => {
     const maxPerPage = this.maxPerPage();
     const filteredResults = this.chapters.all().filter(this.chapterFilter);
+    const withTeamPOV = filteredResults.map(c => ({
+      ...c,
+      orientation: this.chapterTeamPov(c) ?? c.orientation,
+    }));
     const sortedResults = this.relay?.players.pins.anyPinned()
-      ? filteredResults.sort(this.chapterSorter(this.relay.players.pins))
-      : filteredResults;
+      ? withTeamPOV.sort(this.chapterSorter(this.relay.players.pins))
+      : withTeamPOV;
     const currentPageResults = sortedResults.slice((this.page - 1) * maxPerPage, this.page * maxPerPage);
     const nbResults = sortedResults.length;
     const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
@@ -206,13 +218,16 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const allTeams = ctrl.computeTeamList();
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
-    ? h(
-        'select',
-        {
-          hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
-        },
-        [i18n.broadcast?.allTeams || 'All teams', ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+    ? requiresI18n('broadcast', ctrl.redraw, broadcast =>
+        h(
+          'select',
+          {
+            hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+          },
+
+          [broadcast.allTeams, ...allTeams].map((t, i) =>
+            h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+          ),
         ),
       )
     : undefined;

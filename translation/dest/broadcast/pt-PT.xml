@@ -39,6 +39,7 @@
   <string name="editRoundStudy">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Eliminar permanentemente esse torneio, incluindo todas as rondas e jogos?</string>
   <string name="showScores">Mostra as pontuações dos jogadores com base nos resultados dos jogos</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogadores, avaliações e títulos</string>
   <string name="fideFederations">Federações FIDE</string>
@@ -57,6 +58,7 @@
   <string name="subscribeTitle">Subscreva para ser notificado quando cada ronda começar. Podes ativar o sino ou as notificações push para transmissões nas preferências da tua conta.</string>
   <string name="uploadImage">Carregar imagem do torneio</string>
   <string name="noBoardsYet">Ainda não há tabuleiros. Estes aparecerão assim que os jogos forem carregados.</string>
+  <string name="noPlayersYet">Nenhum jogador ainda. Eles aparecerão quando os jogos foram carregados.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os tabuleiros podem ser carregados com uma fonte ou através do %s</string>
   <string name="startsAfter">Começa após %s</string>
   <string name="startVerySoon">A transmissão terá início muito em breve.</string>

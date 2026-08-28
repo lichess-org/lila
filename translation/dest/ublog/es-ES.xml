@@ -48,14 +48,12 @@
     <item quantity="one">Ver una entrada</item>
     <item quantity="other">Ver las %s entradas</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Subir una imagen para tu entrada</string>
   <string name="imageAlt">Texto alternativo de la imagen</string>
   <string name="imageCredit">Créditos de la imagen</string>
-  <string name="deleteBlog">Eliminar esta entrada del blog definitivamente</string>
-  <string name="safeToUseImages">Es seguro usar imágenes de los siguientes sitios web: </string>
+  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Eliminar esta entrada del blog definitivamente</string>
   <string name="selectPostTopics">Selecciona los temas sobre los que trata tu entrada</string>
-  <string name="useImagesYouMadeYourself">También puedes usar imágenes que has hecho tú mismo, imágenes que has tomado, capturas de pantalla de Lichess... cualquier cosa que no tenga derechos de autor de otra persona.</string>
   <string name="safeAndRespectfulContent">Por favor, publica solo contenido seguro y respetuoso. No copies el contenido de otra persona.</string>
+  <string name="noCopyrightedImages">Solo utiliza imágenes que no tengan derechos de autor.</string>
   <string name="inappropriateContentAccountClosed">Cualquier cosa inapropiada puede causar el cierre de tu cuenta.</string>
   <string name="blogTips">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta publicación en el foro</string>
