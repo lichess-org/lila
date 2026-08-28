@@ -87,8 +87,9 @@
     }
 
     &::before {
+      margin: 0;
       margin-inline-end: 0.4em; // match .links line::before
-      font-size: 1.2em;
+      font-size: 1em;
     }
 
     &::after {
