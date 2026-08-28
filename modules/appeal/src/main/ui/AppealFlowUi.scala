@@ -51,19 +51,42 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
 
-  private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using me: Me) =
+  private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using ctx: Context, me: Me) =
     val isMod = me.isnt(appeal.user)
     val isHandledByMe = me.is(modData.flatMap(_.inquiryBy))
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
         if isMod then renderPendingUserChoice(cn)
         else renderChoiceForm(appeal, cn)
-      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod && isMod =>
-        renderChoiceForm(appeal, cn, isHandledByMe)
-      case _ if !isMod =>
-        p(cls := "line-center-text"):
-          "Your appeal is under review. You will receive a message when there is an update."
-      case _ => emptyFrag
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod =>
+        if isMod then renderChoiceForm(appeal, cn, isHandledByMe)
+        else
+          p(cls := "line-center-text"):
+            "Your appeal is under review. You will receive a message when there is an update."
+      case _ =>
+        if (isMod && isHandledByMe) || (!isMod && appeal.canAddMsg) then renderMessageForm(appeal)
+        else emptyFrag
+
+  private def renderMessageForm(appeal: Appeal)(using ctx: Context, me: Me) =
+    val isMod = me.isnt(appeal.user)
+    postForm(
+      cls := "",
+      action := (if isMod then routes.Appeal.modEvent(appeal.user, appeal.topic)
+                 else routes.Appeal.userEvent(appeal.topic))
+    )(
+      form3.hidden("kind", AppealMsg.Kind.message.toString),
+      form3.group(
+        AppealEventForm.messageForm("text"),
+        "",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(f =>
+        form3.textarea(f)(
+          rows := 6,
+          maxlength := Appeal.maxLength * 1.1
+        )
+      )(cls := "appeal-textarea"),
+      form3.action(form3.submit("Send"))
+    )
 
   private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
     val isMod = me.isnt(appeal.user)

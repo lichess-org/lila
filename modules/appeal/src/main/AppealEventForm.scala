@@ -2,7 +2,7 @@ package lila.appeal
 
 import play.api.data.*
 import play.api.data.Forms.*
-import lila.common.Form.into
+import lila.common.Form.{ cleanNonEmptyText, into }
 
 object AppealEventForm:
 
@@ -17,4 +17,4 @@ object AppealEventForm:
   )
 
   type MessageData = String
-  val messageForm = Form(single("text" -> nonEmptyText))
+  val messageForm = Form(single("text" -> cleanNonEmptyText(minLength = 2, maxLength = Appeal.maxLength)))

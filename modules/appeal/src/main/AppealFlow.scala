@@ -44,24 +44,21 @@ object AppealFlow:
   def nextNode(appeal: Appeal): Option[AppealNode] =
     if appeal.msgs.isEmpty then appealFlows.get(appeal.topic).map(_.root)
     else
-      appeal.msgs.lastOption.flatMap: msg =>
-        (msg match
-          case event: ChoiceEvent => (event.nodeId, event.answerId).some
-          case _ => none
-        ).flatMap: (nodeId, answerId) =>
+      appeal.msgs.lastOption.so:
+        case event: ChoiceEvent =>
           appealFlows
             .get(appeal.topic)
             .flatMap: flow =>
               flow.nodes
-                .get(nodeId)
-                .flatMap:
-                  _ match
-                    case cn: ChoiceNode =>
-                      cn.branches
-                        .find(_.id == answerId)
-                        .flatMap: branch =>
-                          flow.nodes.get(branch.nextNodeId)
-                    case _ => none
+                .get(event.nodeId)
+                .so:
+                  case cn: ChoiceNode =>
+                    cn.branches
+                      .find(_.id == event.answerId)
+                      .flatMap: branch =>
+                        flow.nodes.get(branch.nextNodeId)
+                  case _ => none
+        case _ => none
 
   private def make(appealNodes: NonEmptyList[AppealNode]) =
     AppealFlow(appealNodes.head.id, appealNodes.toList.mapBy(_.id))
