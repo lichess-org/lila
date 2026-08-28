@@ -319,9 +319,11 @@ h1 {
         color: $c-clas-light;
         font-weight: bold;
 
-        .dashboard-teacher-overview &,
-        .dashboard-teacher-progress & {
-          background: $c-bg-zebra;
+        @include if-not-transp {
+          .dashboard-teacher-overview &,
+          .dashboard-teacher-progress & {
+            background: $c-bg-zebra;
+          }
         }
       }
     }

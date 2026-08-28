@@ -29,6 +29,12 @@ $outline: 2px solid $c-primary;
   }
 }
 
+@mixin if-not-transp {
+  html:not(.transp) & {
+    @content;
+  }
+}
+
 @mixin theme-style {
   html.transp::before {
     content: ' ';
