@@ -92,8 +92,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             case Some(Kind.message) =>
               bindForm(messageForm)(
                 _ => BadRequest,
-                for r <- env.appeal.api.postMessageEvent(appeal, _)
-                yield r.fold(BadRequest)(_ => redirect)
+                for _ <- env.appeal.api.postMessageEvent(appeal, _)
+                yield redirect
               )
             case _ => BadRequest
       )
