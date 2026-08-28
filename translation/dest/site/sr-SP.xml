@@ -67,9 +67,9 @@
   <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
   <string name="usingServerAnalysis">Користи се серверска анализа</string>
-  <string name="loadingEngine">Рачунар се учитава...</string>
+  <string name="loadingEngine">Учитавање рачунара...</string>
   <string name="calculatingMoves">Израчунавам потезе...</string>
-  <string name="engineFailed">Грешка при учитавању машине</string>
+  <string name="engineFailed">Грешка при учитавању рачунара</string>
   <string name="cloudAnalysis">Анализа у облаку</string>
   <string name="goDeeper">Иди дубље</string>
   <string name="showThreat">Покажи претњу</string>
@@ -108,7 +108,7 @@
     <item quantity="other">Мат у %s полупотеза</item>
   </plurals>
   <string name="dtzWithRounding">Заокружен DTZ50, на основу броја полупотеза до следећег узимања фигуре или потеза пешаком</string>
-  <string name="noGameFound">Ниједна партија нађена</string>
+  <string name="noGameFound">Нема пронађених партија</string>
   <string name="maxDepthReached">Достигнут максимални број потеза!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључи више партија из менија за префенсе?</string>
   <string name="openings">Отварања</string>
@@ -277,6 +277,7 @@
   <string name="emailCanTakeSomeTime">Треба мало времена док не стигне.</string>
   <string name="refreshInboxAfterFiveMinutes">Сачекај 5 минута и освежи своје поштанско сандуче.</string>
   <string name="checkSpamFolder">Такође провери фасциклу са спам порукама, можда је тамо. Ако је ту, обележи поруку тако да није спам.</string>
+  <string name="sendEmailForAccountVerification">Ако не можеш пронаћи твој имејл за потврду, пошали имејл на %s и ми ћемо потврдити твој налог за тебе.</string>
   <string name="accountConfirmed">Корисник %s је потврђен.</string>
   <string name="accountCanLogin">Можеш се сада пријавити као %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Није ти потребан мејл потврде.</string>
@@ -531,7 +532,7 @@
   <string name="startingIn" comment="Displayed above a timer">Почиње за</string>
   <string name="standByX">Причекај %s, упарујемо играче, спреми се!</string>
   <string name="pause">Заустави</string>
-  <string name="resume">Настаби</string>
+  <string name="resume">Настави</string>
   <string name="youArePlaying">Играш!</string>
   <string name="winRate">Проценат победа</string>
   <string name="performance">Перформанса</string>
@@ -855,7 +856,7 @@
   <string name="transparent">Провидна</string>
   <string name="picture">Слика</string>
   <string name="deviceTheme">Тема уређаја</string>
-  <string name="backgroundImageUrl">Линк позадиснке слике:</string>
+  <string name="backgroundImageUrl">Линк позадинске слике:</string>
   <string name="board">Табла</string>
   <string name="size">Величина</string>
   <string name="opacity">Непрозирност</string>
@@ -1001,13 +1002,20 @@
   <string name="timeAlmostUp">Време је скоро истекло!</string>
   <string name="clickToRevealEmailAddress">[Кликни да откријеш имејл адресу]</string>
   <string name="download">Преузми</string>
+  <string name="coachManager">Тренерски менаџер</string>
+  <string name="streamerManager">Стримерски менаџер</string>
   <string name="cancelTournament">Откажи турнир</string>
   <string name="tournDescription">Опис турнира</string>
+  <string name="tournDescriptionHelp">Желиш ли нешто посебно поручити учесницима? Покушај да буде кратко. Доступни су Markdown линкови: [назив](https://url)</string>
   <string name="onlyMembersOfTeam">Само чланови тима</string>
   <string name="noRestriction">Без ограничења</string>
   <string name="minimumRatedGames">Минимално рангираних партија</string>
   <string name="minimumRating">Минимални рејтинг</string>
   <string name="maximumWeeklyRating">Максимални седмични рејтинг</string>
+  <string name="positionInputHelp">Налепи важећи FEN да почнеш сваку партију из задате позиције.
+Ради само за стандардне партије, не са варијантама.
+Можеш користити %s да створиш FEN позицију, затим је налепити овде.
+Остави празно да започнеш партије из нормалне почетне позиције.</string>
   <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
@@ -1016,7 +1024,7 @@
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
   <string name="markdownIsAvailable">%s је доступан за форматирање.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Форматирајте текст помоћу %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Можеш форматирати текст користећи %s.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
   <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
   <string name="tournChat">Чет на турниру</string>
@@ -1045,7 +1053,7 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Бодоване партије одигране на Lichess</string>
   <string name="switchSides">Промени страну</string>
-  <string name="closingAccountWithdrawAppeal">Ако затвриш налог, твоја жалба ће бити поништена</string>
+  <string name="closingAccountWithdrawAppeal">Затварање твог налога ће повући твоју жалбу</string>
   <string name="ourEventTips">Наши савети за организовање догађаја</string>
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>

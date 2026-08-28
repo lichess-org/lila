@@ -53,6 +53,7 @@
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
+  <string name="noCopyrightedImages">Beste norbaiteen copyrighta ez duten irudiak erabili bakarrik.</string>
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
   <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>

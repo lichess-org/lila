@@ -125,10 +125,12 @@
   <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="showVariationArrows">o sitelen linja e tawa ante</string>
+  <string name="undefendedPieces">>ijo musi pi awen ala</string>
   <string name="multipleLines">mute linja</string>
   <string name="searchTime">o alasa e tenpo</string>
   <string name="cpus">pilin pi ilo sona</string>
   <string name="memory">awen sona ilo</string>
+  <string name="memoryDescription">nanpa suli li ken pana pona e ilo</string>
   <string name="infiniteAnalysis">alasa sona pi pini ala</string>
   <string name="removesTheDepthLimit">ni li weka e pini pi alasa sona. ilo sona sina li ken kama seli a</string>
   <string name="blunder">pakala suli</string>
@@ -255,6 +257,7 @@
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
   <string name="checkSpamFolder">o lukin e poki pi lipu jaki. ken la lipu mi li lon ni. ona li lon ni la o toki e ni tawa ilo sina: lipu mi li jaki ala.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">sina jo ala e lipu pi jan sina, la o lukin e toki mute ike anu jaki pi ma ona. o sitelen e ni. lipu pi \"lichess.org\" li pona li toki mute ike ala, la sina ken sona e ale tawa toki suli.</string>
   <string name="sendEmailForAccountVerification">sina lukin ala a e lipu mi la o pana e lipu tawa poki %s. ni la mi ken e sina.</string>
   <string name="accountConfirmed">jan %s li lon</string>
   <string name="accountCanLogin">sina ken kama lon lipu sina kepeken nimi %s.</string>

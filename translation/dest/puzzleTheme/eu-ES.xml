@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">Gaztelua aurkariaren erregearen ondoan dago damaren laguntzarekin, honek gainera erregearen ihes-laukiak babesten ditu. Gazteluak eta damak erregea 3x3ko \"hilkutxa\" baten harrapatu dezakete.</string>
   <string name="pillsburysMate">Pillsburyren matea</string>
   <string name="pillsburysMateDescription">Gazteluak ematen du matea, alfilak erregea baztertuta mantentzen duen bitartean.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Gazteluak ematen du matea, alfilak erregea baztertuta mantentzen duen bitartean.</string>
   <string name="morphysMate">Morphyren matea</string>
   <string name="morphysMateDescription">Erabili alfila erregeari mate emateko gazteluak erregea baztertuta mantentzen duen artean.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Alfilak ematen du matea, gazteluak erregea baztertuta mantentzen duen bitartean.</string>
   <string name="swallowstailMate">Enara-buztanaren matea</string>
   <string name="swallowstailMateDescription">Enara-buztanaren itxura hartzen duen mate patroia, V baten itxuraren atzekoa.</string>
   <string name="triangleMate">Hirukiaren matea</string>
