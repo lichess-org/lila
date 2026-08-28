@@ -81,7 +81,7 @@
     }
 
     &__question {
-      font-size: 1.15em;
+      font-size: 1.4em;
       font-weight: bold;
       margin: 0 0 1.2em;
     }
@@ -94,6 +94,7 @@
       .button,
       .appeal__choice__option {
         flex: 1 1 10em;
+        font-size: 1.3em;
       }
     }
 
@@ -113,11 +114,12 @@
     padding: 0 0 1.5em;
     padding-inline-start: 1em;
     border-bottom: $border;
-    border-inline-start: 3px solid $c-border;
+    border-inline-start: 5px solid $c-border;
 
     &__question {
       color: $c-font-dim;
       margin: 0 0 0.8em;
+      font-size: 1.4em;
     }
 
     &__selection {
@@ -132,7 +134,7 @@
       display: inline-block;
       max-width: 100%;
       padding: 0.5em 1em;
-      background: $c-secondary;
+      background: $c-accent;
       color: $c-over;
       font-weight: 500;
     }
