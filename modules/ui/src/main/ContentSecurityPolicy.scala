@@ -29,8 +29,6 @@ case class ContentSecurityPolicy(
     frameSrc = "https://challenges.cloudflare.com" :: frameSrc
   )
 
-  def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
-
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
