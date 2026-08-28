@@ -797,14 +797,16 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    lila.common
-      .ProductDiff(
-        prev,
-        next,
-        ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
-        nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
-      )
-      .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
+    if next.schedule.isDefined then
+      lila.common
+        .ProductDiff(
+          prev,
+          next,
+          ignoredFields =
+            Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
+          nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
+        )
+        .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
