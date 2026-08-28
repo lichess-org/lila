@@ -87,6 +87,7 @@ object OAuthServer:
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
+  case object EmailUnconfirmed extends AuthError("Please check your email for a confirmation link")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(
