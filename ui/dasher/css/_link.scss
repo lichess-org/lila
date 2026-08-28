@@ -82,19 +82,13 @@
     align-items: center;
     height: 34px;
 
-    &.language {
-      &::before {
-        font-family: lichess;
-        color: $c-link;
-        content: $licon-Language;
-      }
-
-      &:hover::before {
-        color: $c-over;
-      }
+    &.language::before {
+      color: $c-link;
+      content: $licon-Language;
     }
 
     &::before {
+      font-family: lichess;
       margin: 0;
       margin-inline-end: 0.4em; // match .links line::before
       font-size: 1.2em;
@@ -107,7 +101,8 @@
       content: $licon-GreaterThan;
     }
 
-    &:hover::after {
+    &:hover::after,
+    &:hover::before {
       color: $c-over;
       opacity: 0.9;
     }
