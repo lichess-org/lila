@@ -11,7 +11,6 @@ body {
 
 %msg-input-focus {
   outline: 0;
-  border-color: $c-bg-zebra2;
 
   &:focus {
     border-color: color-mix(in oklab, $c-secondary 50%, $c-bg);

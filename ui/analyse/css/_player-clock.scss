@@ -33,6 +33,7 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
+  @include backdrop-blur-if-transparent;
   @extend %metal-bg;
 
   padding: 0 0.5em;
