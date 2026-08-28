@@ -93,6 +93,7 @@ function toastImageUploadHook(el: HTMLElement) {
         throw `You can only upload ${el.dataset.imageCountMax} images here.`;
       }
       const name = image instanceof File ? image.name : 'image';
+      const desc = el.querySelector<HTMLInputElement>('#toastuiAltTextInput')?.value;
       const { width, height } = await naturalSize(image);
       if (!width || !height) throw `Unsupported image '${name}'`;
       const formData = new FormData();
@@ -104,7 +105,7 @@ function toastImageUploadHook(el: HTMLElement) {
         method: 'POST',
         body: formData,
       });
-      setUrlCallback(imageUrl, name);
+      setUrlCallback(imageUrl, desc || name);
     } catch (e) {
       setUrlCallback('');
       alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
