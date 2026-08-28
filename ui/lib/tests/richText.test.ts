@@ -2,14 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
 import { each } from '../../.test/helpers.mts';
-import {
-  enhance,
-  type EnhanceOpts,
-  githubAutoLinks,
-  linkRegex,
-  movePattern,
-  userPattern,
-} from '../src/richText';
+import { enhance, type EnhanceOpts, linkRegex, movePattern, userPattern } from '../src/richText';
 
 describe('test regex patterns', () => {
   test('username mentions', () => {
@@ -81,43 +74,6 @@ describe('test regex patterns', () => {
     assert.strictEqual(
       enhance(`see ${url}`),
       `see <a target="_blank" rel="nofollow noreferrer" href="//${linked}">${linked}</a>`,
-    );
-  });
-});
-
-describe('githubAutoLinks', () => {
-  const link = (id: string) =>
-    `<a target="_blank" rel="nofollow noreferrer" href="https://github.com/lichess-org/lila/issues/${id}">#${id}</a>`;
-
-  test('links an issue/PR', () => {
-    assert.strictEqual(githubAutoLinks('fixes #123'), `fixes ${link('123')}`);
-  });
-
-  test('link merged PR', () => {
-    assert.strictEqual(githubAutoLinks('Merge pull request #21393'), `Merge pull request ${link('21393')}`);
-  });
-
-  test('links multiple refs', () => {
-    assert.strictEqual(githubAutoLinks('see #1 and #22'), `see ${link('1')} and ${link('22')}`);
-  });
-
-  test('leaves plain text untouched', () => {
-    assert.strictEqual(githubAutoLinks('no references here'), 'no references here');
-  });
-
-  test('does not link a bare hash', () => {
-    assert.strictEqual(githubAutoLinks('c# is a language'), 'c# is a language');
-  });
-
-  test('only matches digits', () => {
-    assert.strictEqual(githubAutoLinks('color#123456'), 'color#123456');
-    assert.strictEqual(githubAutoLinks('#123abc'), '#123abc');
-  });
-
-  test('escapes surrounding html', () => {
-    assert.strictEqual(
-      githubAutoLinks('<script>alert(1)</script> #123'),
-      `&lt;script&gt;alert(1)&lt;/script&gt; ${link('123')}`,
     );
   });
 });

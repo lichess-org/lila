@@ -1,4 +1,3 @@
-import { githubAutoLinks, githubRepoRoot } from 'lib';
 import { spinnerHtml } from 'lib/view';
 import { text } from 'lib/xhr';
 
@@ -189,6 +188,8 @@ function relayForm() {
   showSource();
 }
 
+const githubRepoRoot = 'https://github.com/lichess-org/lila';
+
 function setAssetInfo() {
   $('#asset-version-date').text(site.info.date);
   $('#asset-version-commit')
@@ -201,13 +202,6 @@ function setAssetInfo() {
     .attr('target', '_blank')
     .find('pre')
     .text('...');
-
-  $('#asset-version-message').text(site.info.message);
-
-  $('.github-auto-link').each(function (this: HTMLElement) {
-    if (!this.textContent) return;
-    this.innerHTML = githubAutoLinks(this.textContent);
-  });
 }
 
 function streamerSubscribe() {
