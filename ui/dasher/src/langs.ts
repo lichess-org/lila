@@ -50,6 +50,6 @@ export class LangsCtrl extends PaneCtrl {
 
   private readonly list = () => [
     ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
-    ...this.data.list,
+    ...this.data.list.filter(lang => !this.data.accepted.includes(lang[0])),
   ];
 }
