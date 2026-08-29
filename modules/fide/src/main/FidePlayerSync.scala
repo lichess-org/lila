@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 import java.time.YearMonth
-import scala.collection.mutable.ArrayBuilder
 
 import lila.mon.extensions.*
 import lila.core.fide.Federation
@@ -57,28 +56,23 @@ final private class FidePlayerSync(
 
   private object inactivityFromHttpFiles:
 
-    def apply(): Fu[Map[FideTC, InactiveIds]] =
-      FideTC.values.toList.sequentially(tc => fetch(tc).dmap(tc -> _)).dmap(_.toMap)
+    def apply(): Fu[InactiveIds] =
+      FideTC.values.toList.sequentially(tc => fetch(tc).map(tc -> _)).map(_.toMap)
 
-    private def fetch(tc: FideTC): Fu[InactiveIds] = for
+    private def fetch(tc: FideTC): Fu[Set[Int]] = for
       source <- lineSource(Url(s"${ratingListsUrl.value}${tc}_rating_list.zip"))
-      (builder, nbLines) <- source.runFold(ArrayBuilder.ofInt() -> 0):
-        case ((builder, nbLines), line) =>
-          parseInactiveId(line).foreach(builder.addOne)
-          (builder, nbLines + 1)
+      (inactiveIds, nbLines) <- source.runFold(Set.empty[Int] -> 0):
+        case ((inactiveIds, nbLines), line) =>
+          parseInactiveId(line).foldLeft(inactiveIds)(_ + _) -> (nbLines + 1)
       _ <-
         if nbLines < 100_000
         then
-          // As of 2026-08-21, the smallest rating list (blitz) has over 300k lines,
-          // so this is a broken download.
+          // As of 2026-08-21, the smallest rating list (blitz) has over 300k lines, so this is a broken download.
           fufail(s"FidePlayerSync the $tc rating list only has $nbLines lines")
         else funit
-      ids = builder.result()
     yield
-      java.util.Arrays.sort(ids)
-      val inactive = InactiveIds(ids)
-      logger.info(s"FidePlayerSync $tc: ${inactive.size} inactive players out of $nbLines")
-      inactive
+      logger.info(s"FidePlayerSync $tc: ${inactiveIds.size} inactive players out of $nbLines")
+      inactiveIds
 
   private object federationsFromPlayers:
     def apply(): Funit = for
@@ -154,7 +148,7 @@ final private class FidePlayerSync(
     yield ()
 
   private object playersFromHttpFile:
-    def apply(inactiveIds: Map[FideTC, InactiveIds]): Funit = for
+    def apply(inactiveIds: InactiveIds): Funit = for
       source <- lineSource(listUrl)
       nbUpdated <- source
         .map(parseLine(inactiveIds))
@@ -202,9 +196,7 @@ final private class FidePlayerSync(
 
 private object FidePlayerSync:
 
-  final class InactiveIds(sorted: Array[Int]):
-    def apply(id: FideId): Boolean = java.util.Arrays.binarySearch(sorted, id.value) >= 0
-    def size = sorted.length
+  type InactiveIds = Map[FideTC, Set[Int]]
 
   /* a line of a single time control rating list. The flag column is last,
    * and holds "", "i" (inactive), "w" (woman) or "wi".
@@ -218,7 +210,7 @@ private object FidePlayerSync:
 6502938        Acevedo Mendez, Lisseth                                      ISL F   WIM  WIM                     1795  0   20 1767  14  20 1740  0   20 1993  w
 6504450        Acevedo Mendez, Oscar                                        CRC M                                1779  0   40              1640  0   20 1994  i
    */
-  def parseLine(inactiveIds: Map[FideTC, InactiveIds])(line: String): Option[FidePlayer] =
+  def parseLine(inactiveIds: InactiveIds)(line: String): Option[FidePlayer] =
     def char(at: Int) = line.substring(at, at + 1).headOption
     def string(start: Int, end: Int) = line.substring(start, end).trim.nonEmptyOption
     def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
@@ -250,7 +242,7 @@ private object FidePlayerSync:
       blitzK = kFactor(149),
       year = year,
       gender = FidePlayer.Gender.from(char(80)),
-      inactive = FideTC.values.view.filter(tc => inactiveIds(tc)(id)).toSet
+      inactive = FideTC.values.view.filter(tc => inactiveIds.get(tc).exists(_.contains(id.value))).toSet
     )
 
   def validatePlayer(p: FidePlayer): Boolean =
