@@ -797,7 +797,7 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    if next.schedule.isDefined then
+    if next.isScheduled then
       lila.common
         .ProductDiff(
           prev,
