@@ -54,7 +54,7 @@
   <string name="boards">棋盘</string>
   <string name="overview">概览</string>
   <string name="subscribeTitle">订阅以便在每个轮次开始时收到通知。您可以在账户设置中开启或关闭转播的铃声/推送通知。</string>
-  <string name="uploadImage">上传锦标赛图片</string>
+  <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无棋盘。上传对局后，棋盘将在此显示。</string>
   <string name="noPlayersYet">尚无棋手。上传对局后，棋手将在此显示。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可通过源文件或 %s 加载棋盘。</string>

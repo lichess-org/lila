@@ -1009,6 +1009,7 @@ https://lichess. org/report.</string>
   <string name="picture">صورة</string>
   <string name="deviceTheme">مظهر الجهاز</string>
   <string name="roundness">استدارة الزوايا</string>
+  <string name="backgroundImage">صورة الخلفية</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="imageOpacity">شفافية الصورة</string>
   <string name="board">اللوحة</string>

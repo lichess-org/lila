@@ -94,7 +94,7 @@ export function taskOk(ctx?: Context): boolean {
 
 export const tasksIdle = (): boolean => activeTaskCount === 0;
 
-export function addIncludes(includes: CwdPath | CwdPath[], key: TaskKey): void {
+export async function addIncludes(includes: CwdPath[], key: TaskKey): Promise<void> {
   const t = tasks.get(key);
   if (!t) return;
 
@@ -104,7 +104,11 @@ export function addIncludes(includes: CwdPath | CwdPath[], key: TaskKey): void {
     if (mm.isMatch(join(include.cwd, include.path), existing)) continue;
 
     t.includes.push(include);
-    if (env.watch) watchGlob(include, key);
+    if (!env.watch) continue;
+
+    const globs = await fg.glob(include.path, { cwd: include.cwd, absolute: true });
+    await Promise.all(globs.map(async f => t.fileTimes.set(f, await cachedFileTime(f))));
+    watchGlob(include, key);
   }
 }
 

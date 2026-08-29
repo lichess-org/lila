@@ -795,6 +795,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="picture">Hình ảnh</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="roundness">Bo tròn</string>
+  <string name="backgroundImage">Hình ảnh nền</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
   <string name="imageOpacity">Độ mờ của ảnh</string>
   <string name="board">Bàn cờ</string>

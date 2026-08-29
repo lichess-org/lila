@@ -189,6 +189,7 @@ object user:
     def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
     def byIdAs[U: BSONDocumentReader](id: String, proj: BSONDocument): Fu[Option[U]]
     def me[U: UserIdOf](u: U): Fu[Option[Me]]
+    def meWithConfirmedEmail(u: UserId): Fu[Option[Either[Unit, Me]]]
     def email(id: UserId): Fu[Option[EmailAddress]]
     def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
     def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]

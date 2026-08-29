@@ -76,6 +76,7 @@
   <string name="killBoxMateDescription">Rakip şahının yanında bir kale bulunur ve bir vezir tarafından desteklenir ve bu kale aynı zamanda şahın kaçış karelerini de engeller. Kale ve vezir, düşman şahını 3\'e 3\'lük bir \"kafeste\" sıkıştırır.</string>
   <string name="pillsburysMate">Pillsbury matı</string>
   <string name="pillsburysMateDescription">Fil şahı sınırlarken, kale matı gerçekleştirir.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Bir kale şah için mat yapar, bu arada bir fil onu sınırlamaya yardımcı olur.</string>
   <string name="morphysMate">Morphy matı</string>
   <string name="morphysMateDescription">Kale şahı sınırlarken, fil matı gerçekleştirir.</string>
   <string name="swallowstailMate">Kırlangıç kuyruğu matı</string>
