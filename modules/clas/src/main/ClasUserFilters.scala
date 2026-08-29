@@ -59,17 +59,15 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
 private trait CacheBackend[A]:
   def mightContain(a: A): Boolean
   def add(a: A): Unit
-  def dispose(): Unit
 
 // Stick to [String], it does unsafe operations that don't play well with opaque types
 private final class BloomFilterCache(estimatedCount: Int) extends CacheBackend[String]:
   private val bloom: BloomFilter[String] = BloomFilter[String](estimatedCount + 100, 0.00003)
   export bloom.{ contains as mightContain, add }
-  override def dispose(): Unit = ()
 
 private final class SetCache[A] extends CacheBackend[A]:
   private val set = scala.collection.mutable.Set.empty[A]
-  export set.{ contains as mightContain, clear as dispose }
+  export set.contains as mightContain
   def add(a: A): Unit = set.add(a)
 
 private def makeCacheBackend(estimatedCount: Int): CacheBackend[String] =
@@ -99,7 +97,6 @@ private final class ClasUserCache(name: String)(
       .addEffect: nb =>
         logNb(nb)
         lila.mon.clas.bloomFilter(name).count.update(nb)
-        backend.dispose()
         backend = nextBackend
       .monSuccess(lila.mon.clas.bloomFilter(name).fu)
 
