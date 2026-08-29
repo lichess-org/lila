@@ -80,22 +80,21 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         else Redirect(routes.Appeal.home)
       bindForm(kindForm)(
         _ => BadRequest,
-        k =>
-          Kind(k) match
-            case Some(Kind.choice) =>
-              bindForm(choiceForm)(
-                _ => BadRequest,
-                choiceData =>
-                  for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
-                  yield r.fold(BadRequest)(_ => redirect)
-              )
-            case Some(Kind.message) =>
-              bindForm(messageForm)(
-                _ => BadRequest,
-                for _ <- env.appeal.api.postMessageEvent(appeal, _)
-                yield redirect
-              )
-            case _ => BadRequest
+        {
+          case Kind.choice =>
+            bindForm(choiceForm)(
+              _ => BadRequest,
+              choiceData =>
+                for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
+                yield r.fold(BadRequest)(_ => redirect)
+            )
+          case Kind.message =>
+            bindForm(messageForm)(
+              _ => BadRequest,
+              for _ <- env.appeal.api.postMessageEvent(appeal, _)
+              yield redirect
+            )
+        }
       )
 
   def userEvent(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
