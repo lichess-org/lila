@@ -8,3 +8,4 @@
 - Make details and gaps clear at small icon sizes.
 - Usually set the `viewBox` to the smallest rectangle containing the artwork. It may be adjusted for visual center of gravity.
 - Use at most one decimal place. Remove redundant points and commands.
+- Run bin/gen/icons.py to generate scala, typescript, and scss integration sources after adding a new icon.
