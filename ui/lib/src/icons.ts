@@ -129,4 +129,3 @@ export const icons = {
 export type Icons = typeof icons;
 export type IconKey = keyof Icons;
 export type Icon = Icons[IconKey];
-export type IconName = Icon;

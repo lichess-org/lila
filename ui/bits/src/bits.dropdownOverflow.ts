@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import { icons, type IconName } from 'lib/icons';
+import { icons, type Icon } from 'lib/icons';
 import { domIcon } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
@@ -12,7 +12,7 @@ type Menu = {
 
 type MenuItem = {
   label: string;
-  icon: IconName;
+  icon: Icon;
   href: string;
   category?: string;
   cssClass?: string;

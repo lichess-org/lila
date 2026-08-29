@@ -61,8 +61,7 @@ def typescript_source(icons: list[Icon]) -> str:
 export const icons = {{\n{entries}\n}} as const;
 export type Icons = typeof icons;
 export type IconKey = keyof Icons;
-export type Icon = Icons[IconKey];
-export type IconName = Icon;\n"""
+export type Icon = Icons[IconKey];\n"""
 
 
 def scala_source(icons: list[Icon]) -> str:
