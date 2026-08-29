@@ -60,7 +60,7 @@ final private class FidePlayerSync(
       FideTC.values.toList.sequentially(tc => fetch(tc).map(tc -> _)).map(_.toMap)
 
     private def fetch(tc: FideTC): Fu[Set[Int]] = for
-      source <- lineSource(Url(s"${ratingListsUrl.value}${tc}_rating_list.zip"))
+      source <- lineSource(Url(s"$ratingListsUrl${tc}_rating_list.zip"))
       (inactiveIds, nbLines) <- source.runFold(Set.empty[Int] -> 0):
         case ((inactiveIds, nbLines), line) =>
           parseInactiveId(line).foldLeft(inactiveIds)(_ + _) -> (nbLines + 1)
