@@ -186,12 +186,9 @@
     margin-bottom: 1.3rem;
     font-size: 1.3em;
 
-    &:target::before {
-      font-family: lichess;
-      font-size: 0.9em;
-      margin-inline-end: 0.4em;
-      vertical-align: middle;
-      content: $licon-GreaterThan;
+    &:target {
+      color: $c-accent;
+      font-weight: bold;
     }
 
     @media (min-width: at-least($x-small)) {
