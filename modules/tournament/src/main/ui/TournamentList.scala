@@ -69,9 +69,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 tour.schedule
                   .exists(_.freq != Freq.Hourly)
                   .option:
-                    a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
-                      strong(tour.name(full = false)),
-                      momentFromNow(tour.startsAt)
+                    a(href := routes.Tournament.show(tour.id), iconEl := ui.tournamentIcon(tour))(
+                      div(strong(tour.name(full = false)), momentFromNow(tour.startsAt))
                     )
             ),
             a(href := routes.Tournament.calendar)("See more tournaments on the calendar")
@@ -84,7 +83,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   a(
                     href := routes.Tournament.form,
                     cls := "button button-green text",
-                    dataIcon := Icon.PlusButton
+                    iconEl := Icon.PlusButton
                   )(trans.site.createANewTournament())
                 )
               )
@@ -153,9 +152,9 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
-                spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
+                spot.iconFont.fold[Frag](iconEl(Icon.Trophy)(cls := "img")) {
                   case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-                  case i => iconTag(i)(cls := "img")
+                  case i => iconEl(i)(cls := "img")
                 }
               },
             span(cls := "content")(
@@ -177,12 +176,12 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       }
       .getOrElse(
         a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
-          iconTag(tour.perfType.icon)(cls := "img"),
+          iconEl(tour.perfType.icon)(cls := "img"),
           span(cls := "content")(
             span(cls := "name")(
               tour.name(),
               tour.isTeamRelated.option(
-                iconTag(Icon.Group)(
+                iconEl(Icon.Group)(
                   cls := "tour-team-icon",
                   title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
                 )
@@ -224,7 +223,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     private def freqWinners(fws: FreqWinners, perfType: PerfType, name: String)(using Translate) =
       section(
-        h2(cls := "text", dataIcon := perfType.icon)(name),
+        h2(cls := "text", iconEl := perfType.icon)(name),
         ul(
           fws.yearly.map: w =>
             freqWinner(w, "Yearly"),
@@ -239,7 +238,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def apply(winners: AllWinners)(using Context) =
       def eliteWinners = section(
-        h2(cls := "text", dataIcon := Icon.CrownElite)("Elite Arena"),
+        h2(cls := "text", iconEl := Icon.CrownElite)("Elite Arena"),
         ul(
           winners.elite.map: w =>
             li(
@@ -249,7 +248,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
       )
       def marathonWinners = section(
-        h2(cls := "text", dataIcon := Icon.Globe)("Marathon"),
+        h2(cls := "text", iconEl := Icon.Globe)("Marathon"),
         ul(
           winners.marathon.map { w =>
             li(
@@ -303,7 +302,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   section(
                     h2(
                       a(href := routes.Tournament.categShields(categ.key))(
-                        span(cls := "shield-trophy")(categ.icon),
+                        span(cls := "shield-trophy")(iconEl(categ.icon)),
                         categ.name
                       )
                     ),
@@ -327,13 +326,13 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
             div(cls := "page-menu__content box")(
               boxTop(
                 h1(
-                  a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
+                  a(href := routes.Tournament.shields, iconEl := Icon.LessThan, cls := "text"),
                   frag(categ.name, " • ", trans.arena.tournamentShields())
                 )
               ),
               ol(awards.map { aw =>
                 li(
-                  span(cls := "shield-trophy")(categ.icon),
+                  span(cls := "shield-trophy")(iconEl(categ.icon)),
                   userIdLink(aw.owner.some),
                   a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
                 )

@@ -21,9 +21,9 @@
         margin-inline-end: 1vw;
       }
 
-      &::before {
-        font-size: 3.5rem;
-        margin-inline-end: 1vw;
+      .svg-icon {
+        width: 2.8rem;
+        margin-inline: 1vw;
         color: $c-font-dim;
       }
 
@@ -292,9 +292,8 @@
     }
 
     &::before {
-      @extend %data-icon;
+      @include icon-mask($icon-ThumbsUp);
 
-      content: $licon-ThumbsUp;
       font-size: 1.3em;
     }
 

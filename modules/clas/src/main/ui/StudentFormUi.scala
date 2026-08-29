@@ -12,7 +12,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
   import clasUi.ClasPage
 
   private def maxStudentsWarning(using Translate) =
-    p(dataIcon := Icon.InfoCircle, cls := "text")(
+    p(iconEl := Icon.InfoCircle, cls := "text")(
       trans.clas.maxStudentsNote(
         Clas.maxStudents,
         a(href := routes.Clas.form)(trans.clas.createMoreClasses())

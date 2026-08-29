@@ -39,12 +39,13 @@ $chat-height: calc(90vh - 300px);
   section {
     margin-bottom: $block-gap;
 
-    &[data-icon] {
+    &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
     }
 
-    &::before {
-      font-size: 3rem;
+    > .svg-icon:first-child {
+      width: 3rem;
+      height: 3rem;
       margin-inline-end: 4%;
     }
 

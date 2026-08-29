@@ -1,6 +1,6 @@
 import { memoize } from 'lib';
-import { licon } from 'lib/licon';
-import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
+import { icons } from 'lib/icons';
+import { hl, bind, onInsert, snabIcon, type MaybeVNode } from 'lib/view';
 
 import type StudyCtrl from '../studyCtrl';
 import { studySideNodes } from '../studyView';
@@ -16,10 +16,8 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
         contributor &&
           hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
             hl('h2', [
-              hl('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-              hl('a', {
-                attrs: { href: `/broadcast/round/${study.data.id}/edit`, 'data-icon': licon.Gear },
-              }),
+              hl('span.text', [snabIcon(icons.RadioTower), 'Broadcast manager']),
+              hl('a', { attrs: { href: `/broadcast/round/${study.data.id}/edit` } }, [snabIcon(icons.Gear)]),
             ]),
             sync?.url || sync?.ids || sync?.urls || sync?.users
               ? (sync.ongoing ? stateOn : stateOff)(ctrl)
@@ -42,11 +40,10 @@ function renderLog(ctrl: RelayCtrl) {
     .map(e => {
       const err =
         e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
-      return hl(
-        'div' + (err ? '.err' : ''),
-        { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },
-        [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
-      );
+      return hl('div' + (err ? '.err' : ''), { key: e.at }, [
+        snabIcon(err ? icons.CautionCircle : icons.Checkmark),
+        hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))]),
+      ]);
     });
   if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('icon.ddloader'), 'Polling source...']));
   return hl('div.log', logLines);
@@ -54,42 +51,35 @@ function renderLog(ctrl: RelayCtrl) {
 
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
-  return hl(
-    'button.state.on.clickable',
-    { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
-    [
-      hl('span', [
-        'Connected ',
-        sync && [
-          !!sync.delay && `with ${sync.delay}s delay `,
-          sync.url
-            ? ['to', hl('br'), 'single URL source']
-            : sync.ids
-              ? ['to', hl('br'), sync.ids.length, ' game(s)']
-              : sync.users
-                ? [
-                    'to',
-                    hl('br'),
-                    sync.users.length > 4 ? `${sync.users.length} users` : sync.users.join(' '),
-                  ]
-                : sync.urls && ['to', hl('br'), sync.urls.length, ' sources'],
-          !!sync.filter && ` (round ${sync.filter})`,
-          !!sync.slices && ` (slice ${sync.slices})`,
-        ],
-      ]),
-    ],
-  );
+  return hl('button.state.on.clickable', { hook: bind('click', _ => ctrl.setSync(false)) }, [
+    snabIcon(icons.ChasingArrows),
+    hl('span', [
+      'Connected ',
+      sync && [
+        !!sync.delay && `with ${sync.delay}s delay `,
+        sync.url
+          ? ['to', hl('br'), 'single URL source']
+          : sync.ids
+            ? ['to', hl('br'), sync.ids.length, ' game(s)']
+            : sync.users
+              ? ['to', hl('br'), sync.users.length > 4 ? `${sync.users.length} users` : sync.users.join(' ')]
+              : sync.urls && ['to', hl('br'), sync.urls.length, ' sources'],
+        !!sync.filter && ` (round ${sync.filter})`,
+        !!sync.slices && ` (slice ${sync.slices})`,
+      ],
+    ]),
+  ]);
 }
 
 const stateOff = (ctrl: RelayCtrl) =>
-  hl(
-    'button.state.off.clickable',
-    { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
-    [hl('span.fat', 'Connect to source')],
-  );
+  hl('button.state.off.clickable', { hook: bind('click', _ => ctrl.setSync(true)) }, [
+    snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+    hl('span.fat', 'Connect to source'),
+  ]);
 
 const statePush = (ctrl: RelayCtrl) =>
-  hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
+  hl('div.state.push', [
+    snabIcon(icons.UploadCloud),
     hl('span', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),

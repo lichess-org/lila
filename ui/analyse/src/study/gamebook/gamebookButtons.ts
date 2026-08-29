@@ -1,5 +1,5 @@
-import { licon } from 'lib/licon';
-import { bind, dataIcon, type VNode, hl } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, snabIcon, type VNode, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 
@@ -17,19 +17,19 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       hl(
         'button.fbt.text.back',
         {
-          attrs: { 'data-icon': licon.LessThan, type: 'button' },
+          attrs: { type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        i18n.study.back,
+        [snabIcon(icons.LessThan, 'mirror-rtl'), i18n.study.back],
       ),
     myTurn &&
       hl(
         'button.fbt.text.solution',
         {
-          attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
+          attrs: { type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        i18n.site.viewTheSolution,
+        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.viewTheSolution],
       ),
     overrideButton(study),
   ]);
@@ -43,14 +43,14 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: { 'data-icon': licon.Eye, type: 'button' },
+          attrs: { type: 'button' },
           hook: bind(
             'click',
             () => study.setGamebookOverride(o === 'play' ? undefined : 'play'),
             study.redraw,
           ),
         },
-        'Preview',
+        [snabIcon(icons.Eye), 'Preview'],
       );
     else {
       const isAnalyse = o === 'analyse',
@@ -60,14 +60,13 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
           'a.fbt.text.preview',
           {
             class: { active: isAnalyse },
-            attrs: dataIcon(licon.Microscope),
             hook: bind(
               'click',
               () => study.setGamebookOverride(isAnalyse ? undefined : 'analyse'),
               study.redraw,
             ),
           },
-          i18n.site.analysis,
+          [snabIcon(icons.Microscope), i18n.site.analysis],
         );
     }
   }

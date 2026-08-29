@@ -13,7 +13,6 @@ import lila.core.i18n.{ I18nKey, Translate }
 // collection of lila attrs
 trait ScalatagsAttrs:
   val dataTag = attr("data-tag")
-  val dataIcon = attr("data-icon")
   val dataHref = attr("data-href")
   val dataCount = attr("data-count")
   val dataColor = attr("data-color")
@@ -54,8 +53,6 @@ trait ScalatagsSnippets:
   val nbsp: Frag = raw("&nbsp;")
   val amp: Frag = raw("&amp;")
   val iconTag: Tag = tag("icon")
-  def iconTag(i: Icon): Tag = iconTag(dataIcon := i)
-  def iconTag(i: Icon, text: Frag): Tag = iconTag(dataIcon := i, cls := "text")(text)
   val styleTag = tag("style")
   val ratingTag = tag("rating")
   val countTag = tag("count")
@@ -83,6 +80,30 @@ trait ScalatagsSnippets:
     targetBlank,
     title := "Coordinated Universal Time"
   )("UTC")
+
+  object iconEl:
+    private val mirrored = Set(
+      Icon.Wings,
+      Icon.PlayTriangle,
+      Icon.GreaterThan,
+      Icon.LessThan,
+      Icon.JumpFirst,
+      Icon.JumpPrev,
+      Icon.JumpNext,
+      Icon.JumpLast
+    )
+
+    def apply(i: Icon): Tag =
+      span(
+        cls := List("svg-icon" -> true, s"icon-${i.name}" -> true, "mirror-rtl" -> mirrored(i)),
+        aria("hidden") := "true"
+      )
+
+    def apply(i: Icon, text: Frag): Tag = span(cls := "text")(apply(i), text)
+
+    def :=(icon: Icon): Modifier = (builder: Builder) => builder.addChild(RawFrag(apply(icon).render))
+    def :=(icon: Option[Icon]): Modifier =
+      (builder: Builder) => icon.foreach(i => builder.addChild(RawFrag(apply(i).render)))
 
 // basic imports from scalatags
 trait ScalatagsBundle extends Attrs with scalatags.text.Tags
@@ -125,7 +146,6 @@ trait ScalatagsExtensions:
   export Context.ctxMe
   export lila.core.perm.Granter
 
-  given Render[Icon] = _.value
   given Render[URL] = _.toString
 
   given [A](using Render[A]): Conversion[A, Frag] = a => StringFrag(a.render)

@@ -101,17 +101,16 @@
     [data-mode]::before,
     [data-mode]::after {
       font-size: 1.3em;
-      font-family: lichess;
     }
 
     [data-mode='practice']::before {
-      content: $licon-Bullseye;
+      @include icon-mask($icon-Bullseye);
+
       padding-inline-end: 8px;
     }
 
     [data-mode='retro']::before {
-      font-size: 1.5em;
-      content: $licon-GraduateCap;
+      @include icon-mask($icon-GraduateCap, 1.5em);
     }
 
     [data-mode='practice'].active::after,
@@ -119,13 +118,14 @@
       position: absolute;
       top: -2px;
       right: 1px;
-      font-size: 0.9em;
       color: color-mix(in oklab, $c-bg 50%, $c-secondary);
-      content: $licon-X;
+
+      @include icon-mask($icon-X, 0.9em);
     }
 
     [data-mode='ceval']::after {
-      content: $licon-Cogs;
+      @include icon-mask($icon-Cogs);
+
       color: $c-font-dimmer;
       padding-inline-end: 10px;
     }

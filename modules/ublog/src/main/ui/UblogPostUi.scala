@@ -39,8 +39,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withInlineIconFont):
+      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(
@@ -62,7 +61,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 href := routes.Ublog.index(user.username),
                 dataHref := routes.User.show(user.username)
               )(userLinkContent(user)),
-              iconTag(Icon.InfoCircle)(
+              iconEl(Icon.InfoCircle)(
                 cls := "ublog-post__meta__disclaimer",
                 st.title := "Opinions expressed by Lichess contributors are their own."
               ),
@@ -96,7 +95,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                       "from" -> "ublog"
                     )
                   ),
-                  dataIcon := Icon.CautionTriangle
+                  iconEl := Icon.CautionTriangle
                 )
               ,
               langList.nameByLanguage(post.language)
@@ -106,7 +105,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
-              div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
+              div(iconEl := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
                 "Contains sponsored content, affiliate links or commercial advertisement"
               )
             ),
@@ -123,7 +122,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(
                   href := routes.Ublog.discuss(post.id),
                   cls := "button text ublog-post__discuss",
-                  dataIcon := Icon.BubbleConvo
+                  iconEl := Icon.BubbleConvo
                 )(trans.ublog.discussThisBlogPostInTheForum())
               ),
               (ctx.isAuth && ctx.isnt(user)).option(
@@ -148,7 +147,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),
     cls := "button button-empty text",
-    dataIcon := Icon.Pencil
+    iconEl := Icon.Pencil
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =

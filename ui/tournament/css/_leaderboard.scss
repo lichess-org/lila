@@ -69,7 +69,6 @@ $user-list-width: 35ch;
   height: 80px;
   background: url('../images/trophy/shield-gold.png') no-repeat;
   background-size: contain;
-  font-family: lichess !important;
   font-size: 40px;
   line-height: 76px;
   text-align: center;
@@ -77,6 +76,11 @@ $user-list-width: 35ch;
   color: #333;
   text-shadow: 0 0 6px #fff;
   filter: drop-shadow(0 0 10px $c-brag);
+
+  > .svg-icon {
+    width: 1em;
+    height: 1em;
+  }
 
   @media (max-width: at-most($small)) {
     width: 50.25px;

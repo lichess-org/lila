@@ -575,10 +575,7 @@ h1 {
       margin: 0;
 
       &::before {
-        @extend %data-icon;
-
-        content: $licon-Shield;
-        font-size: 3em;
+        @include icon-mask($icon-Shield, 3em);
       }
     }
 

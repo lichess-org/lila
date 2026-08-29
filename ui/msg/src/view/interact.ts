@@ -2,8 +2,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { blurIfEscape } from 'lib';
 import { throttle } from 'lib/async';
-import { licon } from 'lib/licon';
-import { bindSubmit, alert, testId, onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bindSubmit, alert, testId, onInsert, snabIcon } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';
 import type { User } from '../interfaces';
@@ -23,15 +23,14 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     },
     [
       renderTextarea(ctrl, user),
-      h('button.msg-app__convo__post__submit.button', {
-        class: { 'button-green': connected, disabled: !connected },
-        attrs: {
-          type: 'submit',
-          'data-icon': licon.PlayTriangle,
-          disabled: !connected,
-          ...testId('msg-send-button'),
+      h(
+        'button.msg-app__convo__post__submit.button',
+        {
+          class: { 'button-green': connected, disabled: !connected },
+          attrs: { type: 'submit', disabled: !connected, ...testId('msg-send-button') },
         },
-      }),
+        [snabIcon(icons.PlayTriangle, 'mirror-rtl')],
+      ),
     ],
   );
 }

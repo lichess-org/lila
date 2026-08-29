@@ -60,11 +60,9 @@
       padding: 0.3em 0.8em;
 
       &::before {
-        @extend %data-icon;
+        @include icon-mask($icon-CautionTriangle, 1.5em);
 
-        font-size: 1.5em;
         margin-inline: 0 0.2em;
-        content: $licon-CautionTriangle;
         color: $c-over;
       }
     }

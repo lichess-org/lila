@@ -1,6 +1,6 @@
 import { view as cevalView } from 'lib/ceval';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, hl, type LooseVNode, type VNode } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, hl, snabIcon, type LooseVNode, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import explorerView from '@/explorer/explorerView';
@@ -50,7 +50,6 @@ const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
     ? hl(
         'button.fbt.relay-back-to-live.text',
         {
-          attrs: dataIcon(licon.PlayTriangle),
           hook: bind(
             'click',
             () => {
@@ -60,6 +59,6 @@ const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
             ctrl.redraw,
           ),
         },
-        i18n.broadcast.backToLiveMove,
+        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.broadcast.backToLiveMove],
       )
     : undefined;

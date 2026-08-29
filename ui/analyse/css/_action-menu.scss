@@ -47,14 +47,15 @@
 
     button,
     > a {
+      gap: 8px;
       color: $c-font;
       display: flex;
       align-items: center;
       min-height: 4em;
 
-      &::before {
-        padding-inline-end: 8px;
-        font-size: 1.7em;
+      .svg-icon {
+        width: 22px;
+        height: 22px;
       }
 
       &:hover {

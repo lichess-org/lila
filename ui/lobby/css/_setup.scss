@@ -61,6 +61,10 @@ $c-slider: $c-setup;
 
       .icon {
         padding-inline-end: 0;
+
+        .svg-icon {
+          width: 1em;
+        }
       }
 
       .name {

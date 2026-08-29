@@ -42,12 +42,12 @@
     }
   }
 
-  .icon span {
-    font-size: 4em;
+  .svg-icon {
+    width: 4em;
     opacity: 0.7;
   }
 
-  .scheduled .icon span {
+  .scheduled .svg-icon {
     color: $c-brag;
     opacity: 0.8;
   }

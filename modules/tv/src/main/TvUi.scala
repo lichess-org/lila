@@ -84,7 +84,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       import pov.*
       div(cls := "game__meta")(
         st.section(
-          div(cls := "game__meta__infos", dataIcon := gameUi.gameIcon(game))(
+          div(cls := "game__meta__infos", iconEl := gameUi.gameIcon(game))(
             div(cls := "header")(
               div(cls := "setup")(
                 gameUi.widgets.showClock(game),
@@ -116,7 +116,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
               "active" -> (c == channel)
             )
           ):
-            span(dataIcon := c.icon):
+            span(iconEl := c.icon):
               span(
                 strong(c.translate),
                 span(cls := "champion")(

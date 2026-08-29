@@ -48,7 +48,7 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
               crowd.value.some
                 .filter(_ > 2)
                 .map: nb =>
-                  span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
+                  span(cls := "relay-card__crowd text", iconEl := Icon.User)(nb.localize)
             )
           else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow(_))
         ),
@@ -88,9 +88,9 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
       span(cls := "relay-card__info")(
         t.dates.map: dates =>
           span(showDate(dates.start)),
-        if ~t.live then span(cls := "relay-card__live text", dataIcon := Icon.Disc)("LIVE")
+        if ~t.live then span(cls := "relay-card__live text", iconEl := Icon.Disc)("LIVE")
         else if !t.active then
-          span(cls := "relay-card__finished text", dataIcon := Icon.Checkmark)(trans.site.finished())
+          span(cls := "relay-card__finished text", iconEl := Icon.Checkmark)(trans.site.finished())
         else emptyFrag
       ),
       h3(cls := "relay-card__title")(name.translate),

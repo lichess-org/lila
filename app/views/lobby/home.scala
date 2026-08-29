@@ -12,7 +12,7 @@ object home:
     import homepage.*
     val donateLink =
       a(cls := "lobby__support-link", href := routes.Plan.index())(
-        iconTag(patronIconChar),
+        iconEl(patronIconChar),
         span(cls := "lobby__support-link__text")(
           strong(trans.patron.donate()),
           span(trans.patron.becomePatron())
@@ -20,7 +20,7 @@ object home:
       )
     val swagLink =
       a(cls := "lobby__support-link", href := "/swag")(
-        iconTag(Icon.Tshirt),
+        iconEl(Icon.Tshirt),
         span(cls := "lobby__support-link__text")(
           strong("Swag Store"),
           span(trans.site.playChessInStyle())
@@ -86,7 +86,7 @@ object home:
             classes.nonEmpty.option:
               div(cls := "lobby__classes"):
                 classes.map: clas =>
-                  a(href := routes.Clas.show(clas.id), dataIcon := Icon.Group)(clas.name)
+                  a(href := routes.Clas.show(clas.id), iconEl := Icon.Group)(clas.name)
             ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(

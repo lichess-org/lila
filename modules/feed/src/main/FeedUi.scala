@@ -38,7 +38,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                 a(
                   href := routes.Feed.createForm,
                   cls := "button button-green",
-                  dataIcon := Icon.PlusButton
+                  iconEl := Icon.PlusButton
                 )
               ),
             atomUi.atomLink(routes.Feed.atom)
@@ -141,7 +141,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                     a(
                       href := routes.Feed.edit(update.id),
                       cls := "button button-green button-empty button-thin text",
-                      dataIcon := Icon.Pencil
+                      iconEl := Icon.Pencil
                     ),
                     (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))

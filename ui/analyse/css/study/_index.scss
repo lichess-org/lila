@@ -23,6 +23,11 @@ $top-height: 3.2rem;
       margin: 0 0 1rem 0;
     }
 
+    .button {
+      display: flex;
+      align-items: center;
+    }
+
     .search {
       flex: 3 1 auto;
       display: flex;
@@ -71,8 +76,8 @@ $top-height: 3.2rem;
       height: $top-height;
       padding: 0 1em;
 
-      &::before {
-        font-size: 2em;
+      .svg-icon {
+        width: 1.6em;
       }
     }
   }

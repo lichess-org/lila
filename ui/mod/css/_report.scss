@@ -150,9 +150,12 @@ $c-report-high-over: white;
   .marked-by-me,
   .participated {
     @include user-marks;
-    @extend %data-icon-top;
 
     white-space: nowrap;
+
+    &::before {
+      vertical-align: text-top;
+    }
   }
 
   .marked-by-me {

@@ -26,6 +26,11 @@
       font-family: monospace;
       font-size: 0.8rem;
     }
+
+    .text {
+      display: flex;
+      align-items: center;
+    }
   }
 
   tbody tr:nth-child(even) {

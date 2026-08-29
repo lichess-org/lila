@@ -90,7 +90,7 @@
       aspect-ratio: 1;
     }
 
-    [data-icon] {
+    :has(> .svg-icon) {
       @extend %flex-center;
     }
   }

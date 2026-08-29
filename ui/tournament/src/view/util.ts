@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { dataIcon, type MaybeVNodes } from 'lib/view';
+import { icons } from 'lib/icons';
+import { snabIcon, type MaybeVNodes } from 'lib/view';
 import { userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
 
 import type { SimplePlayer } from '../interfaces';
@@ -20,11 +20,11 @@ export const player = (
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [
-      h(
-        'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
-        defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
-        [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)],
-      ),
+      h('span.name' + (defender ? '.defender' : leader ? '.leader' : ''), [
+        defender ? snabIcon(icons.Shield) : leader ? snabIcon(icons.Crown) : null,
+        p.patronColor && userLine({ patronColor: p.patronColor }),
+        ...fullName(p),
+      ]),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );

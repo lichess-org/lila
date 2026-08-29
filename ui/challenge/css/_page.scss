@@ -154,14 +154,13 @@
   }
 
   .mobile-instructions::before {
-    font-family: lichess;
-    font-size: 3rem;
+    @include icon-mask($icon-ShareAndroid, 3rem);
+
     padding-inline-end: 1rem;
-    content: $licon-ShareAndroid;
   }
 
   .mobile-instructions.is-ios::before {
-    content: $licon-ShareIos;
+    @include icon-mask($icon-ShareIos);
   }
 
   &.challenge--declined .details {

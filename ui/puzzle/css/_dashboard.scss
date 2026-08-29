@@ -156,8 +156,8 @@
         align-items: center;
       }
 
-      icon {
-        font-size: 4em;
+      .svg-icon {
+        width: 4em;
         opacity: 0.8;
         color: $c-over;
       }

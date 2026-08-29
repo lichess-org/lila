@@ -15,28 +15,20 @@
   .subs .sub {
     @extend %nowrap-hidden;
 
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     width: 100%;
     text-align: start;
   }
 
-  .links a::before,
-  .links button::before {
-    position: relative;
-    bottom: 0.05em;
-  }
+  .links .line::before {
+    display: inline-block;
+    margin-inline: 0 0.4em;
+    width: 1.2em;
 
-  .links .line {
-    width: auto;
-
-    &::before {
-      display: inline-block;
-      margin-inline: 0 0.4em;
-
-      @include if-rtl {
-        transform: scaleX(-1);
-      }
+    @include if-rtl {
+      transform: scaleX(-1);
     }
   }
 
@@ -64,46 +56,47 @@
   }
 
   .sub {
-    &::before {
-      float: inline-end;
-      font-size: 80%;
-      margin-top: 0.25rem;
-      color: $c-dasher;
+    justify-content: start;
+
+    > .svg-icon {
+      width: 1.2em;
+      margin-inline-end: 0.4em;
     }
 
-    &:hover::before {
-      color: $c-over;
-      opacity: 0.9;
-    }
-  }
-
-  .subs .sub {
-    display: flex;
-    align-items: center;
-    height: 34px;
-
-    &.language::before {
-      content: $licon-Language;
-    }
-
-    &::before {
-      font-family: lichess;
-      margin: 0;
-      margin-inline-end: 0.4em; // match .links line::before
-      font-size: 1.2em;
-    }
-
-    &::after {
-      font-family: lichess;
+    > .svg-icon:last-child {
+      width: 0.8em;
       margin-inline-start: auto;
       color: $c-dasher;
-      content: $licon-GreaterThan;
     }
 
-    &:hover::after,
-    &:hover::before {
+    &:hover > .svg-icon {
       color: $c-over;
       opacity: 0.9;
     }
   }
+
+  // .subs .sub {
+  //   display: flex;
+  //   align-items: center;
+  //   height: 34px;
+
+  //   .svg {
+  //     margin: 0;
+  //     margin-inline-end: 0.4em; // match .links line::before
+  //     font-size: 1.2em;
+  //   }
+
+  //   &::after {
+  //     font-family: lichess;
+  //     margin-inline-start: auto;
+  //     color: $c-dasher;
+  //     content: $licon-GreaterThan;
+  //   }
+
+  //   &:hover::after,
+  //   &:hover::before {
+  //     color: $c-over;
+  //     opacity: 0.9;
+  //   }
+  // }
 }

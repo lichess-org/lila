@@ -101,7 +101,7 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
                   value := search,
                   placeholder := trans.search.search.txt()
                 ),
-                submitButton(cls := "button", dataIcon := Icon.Search)
+                submitButton(cls := "button", iconEl := Icon.Search)
               )
             )
           ),

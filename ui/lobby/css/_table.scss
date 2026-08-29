@@ -28,26 +28,25 @@
 
       &::before {
         @include transition(color);
-        @extend %data-icon;
 
         font-size: 32px;
         color: $c-font-dimmer;
       }
 
       &--hook.button::before {
-        content: $licon-Group;
+        @include icon-mask($icon-Group);
       }
 
       &--friend.button::before {
-        content: $licon-User;
+        @include icon-mask($icon-User);
       }
 
       &--ai.button::before {
-        content: $licon-Cpu;
+        @include icon-mask($icon-Cpu);
       }
 
       &--friend-user.button::before {
-        content: $licon-Swords;
+        @include icon-mask($icon-Swords);
       }
 
       @media (hover: hover) {

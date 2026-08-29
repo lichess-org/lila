@@ -17,13 +17,12 @@
         margin: 0;
       }
 
-      icon {
+      .svg-icon {
         flex: 0 0 2em;
-        margin-inline-end: 2.5rem;
-        text-align: center;
-        font-size: 2.5em;
+        margin-inline-end: 2rem;
+        width: 3em;
+        height: 3em;
         color: $c-brag;
-        font-weight: bold;
       }
     }
 
@@ -33,7 +32,14 @@
       .faq {
         @extend %flex-center-nowrap;
 
-        margin-bottom: 4em;
+        gap: 3em;
+
+        &::before {
+          content: '?';
+          font-size: 3em;
+          font-weight: bold;
+          color: $c-brag;
+        }
 
         strong {
           display: block;
@@ -90,19 +96,19 @@
     }
 
     .players {
-      @extend %data-icon-top;
-
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: end;
       font-weight: bold;
       margin-top: 0.2em;
       color: $c-brag;
     }
 
     .icon {
-      text-align: center;
+      width: 10%;
 
-      icon {
-        font-size: 2.5em;
+      .svg-icon {
+        width: 2.5em;
         color: $c-brag;
       }
     }
