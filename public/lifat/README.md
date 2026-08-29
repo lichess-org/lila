@@ -26,6 +26,10 @@ horde-28173ddccabe.nnue | fsf_14
 kingofthehill-978b86d0e6a4.nnue | fsf_14
 racingkings-636b95f085e3.nnue | fsf_14
 
+## maia
+
+Human sparring networks from https://lczero.org/play/networks/sparring-nets/, used by the mobile app.
+
 ## Licensing
 
 - vosk models are Apache 2.0 licensed and are rearchived versions of https://alphacephei.com/vosk/models.
