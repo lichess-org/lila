@@ -5,7 +5,7 @@ import chess.rating.Elo
 
 class FidePlayerSyncTest extends munit.FunSuite:
 
-  import FidePlayerSync.{ InactiveIds, parseInactiveId, parseLine }
+  import FidePlayerSync.{ parseInactiveId, parseLine }
 
   // real lines from the august 2026 blitz_rating_list.txt
   val blitzInactiveMan =
@@ -36,13 +36,8 @@ class FidePlayerSyncTest extends munit.FunSuite:
     assertEquals(parseInactiveId("ID Number      Name"), None)
     assertEquals(parseInactiveId(""), None)
 
-  def sync(inactive: Map[FideTC, List[Int]]) = parseLine:
-    FideTC.values.view
-      .map(tc => tc -> InactiveIds(inactive.getOrElse(tc, Nil).toArray.sorted))
-      .toMap
-
   test("parseLine reads the combined list"):
-    val player = sync(Map.empty)(combinedLeko).get
+    val player = parseLine(Map.empty)(combinedLeko).get
     assertEquals(player.id, FideId(703303))
     assertEquals(player.name.value, "Leko, Peter")
     assertEquals(player.title, Some(PlayerTitle.GM))
@@ -52,18 +47,18 @@ class FidePlayerSyncTest extends munit.FunSuite:
     assertEquals(player.blitz, Some(Elo(2738)))
 
   test("parseLine takes inactivity from the rating lists, not from the combined line"):
-    assertEquals(sync(Map.empty)(combinedLeko).get.inactive, Set.empty[FideTC])
-    val player = sync(Map(FideTC.blitz -> List(1, 703303, 999999)))(combinedLeko).get
+    assertEquals(parseLine(Map.empty)(combinedLeko).get.inactive, Set.empty[FideTC])
+    val player = parseLine(Map(FideTC.blitz -> Set(1, 703303, 999999)))(combinedLeko).get
     assertEquals(player.inactive, Set(FideTC.blitz))
     assert(player.isInactiveForTc(FideTC.blitz))
     assert(!player.isInactiveForTc(FideTC.standard))
     assert(!player.isInactiveForTc(FideTC.rapid))
 
   test("parseLine flags every time control the player is inactive in"):
-    val all = FideTC.values.view.map(_ -> List(703303)).toMap
-    assertEquals(sync(all)(combinedLeko).get.inactive, FideTC.values.toSet)
+    val all = FideTC.values.view.map(_ -> Set(703303)).toMap
+    assertEquals(parseLine(all)(combinedLeko).get.inactive, FideTC.values.toSet)
 
-  val leko = sync(Map.empty)(combinedLeko).get
+  val leko = parseLine(Map.empty)(combinedLeko).get
 
   test("isInactive needs every rated time control to be flagged"):
     assert(!leko.copy(inactive = Set.empty).isInactive)
