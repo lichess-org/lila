@@ -13,7 +13,8 @@ import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
 import scalalib.json.Json.given
 
-import Node.{ Comments, Comment, Gamebook, Shapes }
+import lila.tree.Node.{ Comments, Comment, Gamebook, Shapes }
+import lila.core.LightUser
 
 /* The mainline is the first node. If the first node has `forceVariation` then all nodes are variations.
  * problem: we need to reorder the nodes when a variation is promoted to mainline.
@@ -415,6 +416,8 @@ object Node:
       def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
+
+    def author(u: LightUser) = Author.User(u.id, u.titleName)
 
     def clk(text: CommentStr) = parseTime(clockRegex, text)
     def emt(text: CommentStr) = parseTime(emtRegex, text)

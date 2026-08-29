@@ -515,11 +515,7 @@ final class StudyApi(
           lightUserApi
             .async(who.u)
             .flatMapz: author =>
-              val comment = Comment(
-                id = Comment.Id.make,
-                text = text,
-                by = Comment.Author.User(author.id, author.titleName)
-              )
+              val comment = Comment(Comment.Id.make, text, Comment.author(author))
               doSetComment(study, Position(chapter, position.path), comment, who)
 
   private def doSetComment(study: Study, position: Position, comment: Comment, who: Who): Funit =

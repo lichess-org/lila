@@ -40,8 +40,7 @@ object StudyPgnImport:
 
   def result(importResult: ImportResult, contributors: List[LightUser], importer: Option[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
-    val annotator = findAnnotator(parsed, contributors).orElse:
-      importer.map(user => Comment.Author.User(user.id, user.titleName))
+    val annotator = findAnnotator(parsed, contributors).orElse(importer.map(Comment.author))
 
     val timeControl = parsed.tags.timeControl
     val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
@@ -112,9 +111,7 @@ object StudyPgnImport:
       contributors
         .find: c =>
           c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
-        .map: c =>
-          Comment.Author.User(c.id, c.titleName)
-        .getOrElse(Comment.Author.External(a))
+        .fold(Comment.Author.External(a))(Comment.author)
     }
 
   def endComment(end: Ending): Comment =
@@ -139,7 +136,7 @@ object StudyPgnImport:
                 comments
                   .findBy(author)
                   .fold(comments + Comment(Comment.Id.make, text, author)): existing =>
-                    comments.set(existing.copy(text = CommentStr(s"${text.value}\n${existing.text.value}")))
+                    comments.set(existing.copy(text = CommentStr(s"$text\n${existing.text}")))
             )
 
   private def makeBranches(
