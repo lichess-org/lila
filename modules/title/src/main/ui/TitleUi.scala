@@ -190,6 +190,6 @@ Today's date is [current date]""")
     def apply(image: Option[ImageId], height: Int): Tag =
       image.fold(fallback): id =>
         img(cls := "title-image", src := url(id, height))
-    def fallback = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
+    def fallback = iconEl(Icon.UploadCloud)(cls := "title-image--fallback")
     def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
     def raw(id: ImageId) = picfitUrl.raw(id)

@@ -23,7 +23,7 @@ final class RelationUi(helpers: Helpers):
         val isLong = name.sizeIs > 8
         a(
           cls := s"btn-rack__btn relation-button${(!isLong).so(" text")}",
-          dataIcon := Icon.ThumbsUp,
+          iconEl := Icon.ThumbsUp,
           href := s"${routes.Relation.follow(userId)}?mini=1",
           title := isLong.option(name)
         )((!isLong).option(name))
@@ -32,14 +32,14 @@ final class RelationUi(helpers: Helpers):
           cls := "btn-rack__btn relation-button text",
           title := trans.site.unfollow.txt(),
           href := s"${routes.Relation.unfollow(userId)}?mini=1",
-          dataIcon := Icon.ThumbsUp
+          iconEl := Icon.ThumbsUp
         )(trans.site.following())
       case Some(Relation.Block) =>
         a(
           cls := "btn-rack__btn relation-button text",
           title := trans.site.unblock.txt(),
           href := s"${routes.Relation.unblock(userId)}?mini=1",
-          dataIcon := Icon.NotAllowed
+          iconEl := Icon.NotAllowed
         )(trans.site.blocked())
       case _ => emptyFrag
 
@@ -127,7 +127,7 @@ final class RelationUi(helpers: Helpers):
       frag(
         boxTop(
           h1(
-            a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
+            a(href := routes.User.show(u.username), iconEl := Icon.LessThan, cls := "text"),
             trans.site.friends()
           )
         ),
@@ -149,7 +149,7 @@ final class RelationUi(helpers: Helpers):
       frag(
         boxTop:
           h1(
-            a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
+            a(href := routes.User.show(u.username), iconEl := Icon.LessThan, cls := "text"),
             trans.site.favoriteOpponents(),
             " (",
             trans.site.nbGames.pluralSame(lila.core.game.favOpponentOverGames),

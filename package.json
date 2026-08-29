@@ -45,7 +45,7 @@
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "icon-files-gen": "python3 bin/gen/licon.py",
+    "icon-files-gen": "python3 bin/gen/icons.py",
     "multilog": "pnpm serverlog & ui/build -w",
     "workspace-check": "pnpx @manypkg/cli check",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",

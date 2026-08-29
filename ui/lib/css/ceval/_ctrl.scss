@@ -11,6 +11,11 @@
     visibility: visible;
   }
 
+  button {
+    display: flex;
+    align-items: center;
+  }
+
   .cmn-toggle {
     @extend %flex-center;
 
@@ -55,17 +60,16 @@
     }
 
     .info {
-      display: block;
+      display: flex;
+      align-items: center;
       white-space: nowrap;
     }
 
     .deeper {
+      display: inline-flex;
+      align-items: center;
       color: $c-primary;
       margin-inline-end: 4px;
-
-      &::before {
-        vertical-align: top;
-      }
     }
   }
 

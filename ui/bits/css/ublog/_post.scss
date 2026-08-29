@@ -84,11 +84,12 @@
     &::before {
       margin-right: 0.4em;
       color: $c-bad;
-      content: $licon-HeartOutline;
+
+      @include icon-mask($icon-HeartOutline);
     }
 
     &.ublog-post__like--liked::before {
-      content: $licon-Heart;
+      @include icon-mask($icon-Heart);
     }
 
     &--mini {
@@ -183,11 +184,12 @@
   &__follow {
     &::before {
       color: $c-primary;
-      content: $licon-ThumbsUp;
+
+      @include icon-mask($icon-ThumbsUp);
     }
 
     &.ublog-post__follow__followed::before {
-      content: $licon-Checkmark;
+      @include icon-mask($icon-Checkmark);
     }
   }
 }

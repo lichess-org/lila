@@ -1,6 +1,7 @@
 import { frag } from 'lib';
 import type { Sound } from 'lib/bot/types';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
+import { domIcon } from 'lib/view';
 
 import { env } from './devEnv';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
@@ -14,9 +15,11 @@ export class SoundEventPane extends Pane {
   constructor(p: PaneArgs) {
     super(p);
     this.template = (p.parent!.info as SoundsInfo).template!;
-    this.label.prepend(
-      frag(`<icon role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
+    const add = frag<HTMLButtonElement>(
+      '<button type="button" data-action="add" title="Add sound" aria-label="Add sound">',
     );
+    add.append(domIcon(icons.PlusButton));
+    this.label.prepend(add);
     this.label.append(frag(`<span class="hide-disabled"><hr><span class="total-chance dim"></span></span>`));
     this.value?.forEach((_, index) => this.makeSound(index));
   }
@@ -25,10 +28,11 @@ export class SoundEventPane extends Pane {
 
   async update(e?: Event): Promise<void> {
     if (!(e?.target instanceof HTMLElement)) return;
+    const target = e.target.closest<HTMLElement>('[data-action], [data-type]') ?? e.target;
     const index = this.index(e);
-    if (e.target.dataset.type === 'sound') this.updateField(index, e.target as HTMLInputElement);
-    else if (e.target.dataset.action === 'remove') this.removeSound(index);
-    else if (e.target.dataset.action === 'add') {
+    if (target.dataset.type === 'sound') this.updateField(index, target as HTMLInputElement);
+    else if (target.dataset.action === 'remove') this.removeSound(index);
+    else if (target.dataset.action === 'add') {
       const s = await this.host.assetDialog('sound');
       if (!s) return;
       if (!this.value) this.setProperty([]);
@@ -59,9 +63,10 @@ export class SoundEventPane extends Pane {
           'mix controls the volume relationship between this and the standard board sound.\nvalues from 0 to 0.5 adjust this sound from mute to full.\nvalues from 0.5 to 1 adjust the standard board sound from full to mute.\nwhen either sound is played below full volume, the other is played at full.',
         )}
       </fieldset>`);
-    const buttonEl = frag(
-      `<button class="button button-empty preview-sound icon-btn" data-icon="${licon.PlayTriangle}"></button>`,
+    const buttonEl = frag<HTMLButtonElement>(
+      '<button class="button button-empty preview-sound icon-btn" type="button" title="Preview sound" aria-label="Preview sound"></button>',
     );
+    buttonEl.append(domIcon(icons.PlayTriangle, 'mirror-rtl'));
     const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);

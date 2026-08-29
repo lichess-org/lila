@@ -29,9 +29,8 @@
 
     color: $c-font;
 
-    &::before {
-      width: 2em;
-      text-align: center;
+    .svg-icon {
+      margin: 0.5em;
     }
 
     &:hover {

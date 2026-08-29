@@ -1,30 +1,29 @@
-import { licon, type LiconValue } from 'lib/licon';
+import { icons, type Icon } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
-import { type Attrs, hl, type VNode, bind } from 'lib/view';
+import { type Attrs, hl, type VNode, bind, snabIcon } from 'lib/view';
 import { userLine } from 'lib/view/userLink';
 
 import { type Mode, PaneCtrl } from './interfaces';
 
 export class LinksCtrl extends PaneCtrl {
   render = (): VNode => {
-    const modeCfg = this.modeCfg;
     return hl('div', [
       this.userLinks(),
       hl('div.subs', [
-        hl('button.sub.language', modeCfg('langs'), i18n.site.language),
-        hl('button.sub', modeCfg('sound'), i18n.site.sound),
-        hl('button.sub', modeCfg('theme'), i18n.site.theme),
-        hl('button.sub', modeCfg('board'), i18n.site.board),
-        hl('button.sub', modeCfg('piece'), i18n.site.pieceSet),
+        this.modeButton('langs', i18n.site.language, icons.Language),
+        this.modeButton('sound', i18n.site.sound),
+        this.modeButton('theme', i18n.site.theme),
+        this.modeButton('board', i18n.site.board),
+        this.modeButton('piece', i18n.site.pieceSet),
         this.root.opts.zenable &&
           hl('div.zen.selector', [
             hl(
               'button.text',
               {
-                attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
+                attrs: { title: 'Keyboard: z', type: 'button' },
                 hook: bind('click', () => pubsub.emit('zen')),
               },
-              i18n.preferences.zenMode,
+              [snabIcon(icons.DiscBigOutline), i18n.preferences.zenMode],
             ),
           ]),
       ]),
@@ -37,8 +36,7 @@ export class LinksCtrl extends PaneCtrl {
   }
 
   private userLinks(): VNode | null {
-    const d = this.data,
-      linkCfg = this.linkCfg;
+    const d = this.data;
     return d.user
       ? hl('div.links', [
           hl('a.user-link.online', { attrs: { href: `/@/${d.user.name}` } }, [
@@ -46,32 +44,33 @@ export class LinksCtrl extends PaneCtrl {
             i18n.site.profile,
           ]),
 
-          hl('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
+          this.link('/inbox', icons.Envelope, i18n.site.inbox),
 
-          hl(
-            'a.text',
-            linkCfg(
-              '/account/profile',
-              licon.Gear,
-              this.root.opts.playing ? { target: '_blank' } : undefined,
-            ),
+          this.link(
+            '/account/profile',
+            icons.Gear,
             i18n.preferences.preferences,
+            this.root.opts.playing ? { target: '_blank' } : undefined,
           ),
 
-          d.coach && hl('a.text', linkCfg('/coach/edit', licon.GraduateCap), i18n.site.coachManager),
+          d.coach && this.link('/coach/edit', icons.GraduateCap, i18n.site.coachManager),
 
-          d.streamer && hl('a.text', linkCfg('/streamer/edit', licon.Mic), i18n.site.streamerManager),
+          d.streamer && this.link('/streamer/edit', icons.Mic, i18n.site.streamerManager),
 
           hl('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-            hl('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, i18n.site.logOut),
+            hl('button.text', { attrs: { type: 'submit' } }, [snabIcon(icons.Power), i18n.site.logOut]),
           ]),
         ])
       : null;
   }
 
-  private readonly modeCfg = (m: Mode) => ({ hook: bind('click', () => this.root.setMode(m)) });
+  private readonly modeButton = (mode: Mode, label: string, icon?: Icon) =>
+    hl('button.sub', { hook: bind('click', () => this.root.setMode(mode)), attrs: { type: 'button' } }, [
+      icon && snabIcon(icon),
+      label,
+      snabIcon(icons.GreaterThan, 'mirror-rtl'),
+    ]);
 
-  private readonly linkCfg = (href: string, icon: LiconValue, more?: Attrs) => ({
-    attrs: { href, 'data-icon': icon, ...more },
-  });
+  private readonly link = (href: string, icon: Icon, label: string, more?: Attrs) =>
+    hl('a.text', { attrs: { href, ...more } }, [snabIcon(icon), label]);
 }

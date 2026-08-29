@@ -44,7 +44,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
             postForm(cls := "form3", action := routes.Tournament.webCreate)(
               div(cls := "form-group")(
                 a(
-                  dataIcon := Icon.InfoCircle,
+                  iconEl := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
@@ -78,7 +78,10 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
             br,
             br,
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm"):
+              submitButton(
+                iconEl := Icon.CautionCircle,
+                cls := "text button button-red yes-no-confirm"
+              ):
                 trans.site.cancelTournament()
           )
         )
@@ -270,7 +273,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
                 a(
                   cls := "button button-green",
                   href := routes.TournamentCrud.form,
-                  dataIcon := Icon.PlusButton
+                  iconEl := Icon.PlusButton
                 )
               )
             ),
@@ -302,7 +305,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
                     td(
                       a(
                         href := routes.Tournament.show(tour.id),
-                        dataIcon := Icon.Eye,
+                        iconEl := Icon.Eye,
                         title := "View on site"
                       )
                     )

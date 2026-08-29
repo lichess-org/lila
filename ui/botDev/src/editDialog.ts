@@ -5,9 +5,9 @@ import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
-import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
+import { domDialog, type Dialog, type Action, confirm, alert, domIcon } from 'lib/view';
 
 import { AssetDialog, type AssetType } from './assetDialog';
 import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
@@ -309,11 +309,12 @@ export class EditDialog {
       <div class="dev-view json-dialog">
         <textarea class="json" autocomplete="false" spellcheck="false">${stringify(deadStrip(this.editing()), { indent: 2, maxLength: 80 })}</textarea>
         <div class="actions">
-          <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
+          <button class="button button-empty button-dim" data-action="copy" title="Copy JSON" aria-label="Copy JSON"></button>
           <button class="button button-empty button-red" data-action="cancel">cancel</button>
           <button class="button button-empty" data-action="save">save</button>
           </div>
       </div>`);
+    view.querySelector('[data-action="copy"]')?.append(domIcon(icons.Clipboard));
     const dlg = await domDialog({
       insert: [{ nodes: view }],
       easyClose: 'clickOutside',
@@ -325,9 +326,8 @@ export class EditDialog {
           selector: '[data-action="copy"]',
           listener: async () => {
             await navigator.clipboard.writeText(view.querySelector<HTMLTextAreaElement>('.json')!.value);
-            const copied = frag<HTMLElement>(
-              `<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`,
-            );
+            const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
+            copied.prepend(domIcon(icons.Checkmark));
             view.querySelector('[data-action="copy"]')?.before(copied);
             setTimeout(() => copied.remove(), 2000);
           },

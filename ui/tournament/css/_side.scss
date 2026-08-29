@@ -9,9 +9,7 @@
     cursor: pointer;
 
     &::before {
-      content: $licon-UpTriangle;
-      font-family: lichess;
-      font-size: 1em;
+      @include icon-mask($icon-UpTriangle);
     }
 
     &:hover {
@@ -21,7 +19,7 @@
 
   &.collapsed {
     .disclosure::before {
-      content: $licon-DownTriangle;
+      @include icon-mask($icon-DownTriangle);
     }
 
     .tour__meta > * {
@@ -63,12 +61,12 @@
   section {
     padding: 0 $block-gap;
 
-    &[data-icon] {
+    &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
     }
 
-    &::before {
-      font-size: 3rem;
+    > .svg-icon:first-child {
+      width: 3rem;
       margin-inline-end: 4%;
     }
 

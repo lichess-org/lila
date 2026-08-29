@@ -4,7 +4,7 @@ import { displayColumns } from 'lib/device';
 import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import viewStatus from 'lib/game/view/status';
-import { licon, type LiconKey } from 'lib/licon';
+import { icons, type IconKey } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
@@ -13,7 +13,7 @@ import {
   type LooseVNode,
   hl,
   onInsert,
-  dataIcon,
+  snabIcon,
 } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -134,12 +134,12 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
       {
         class: { text: !!forecastCount },
         attrs: {
+          'aria-label': i18n.site.analysis,
           title: i18n.site.analysis,
           href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-          'data-icon': licon.Microscope,
         },
       },
-      !!forecastCount && String(forecastCount),
+      [snabIcon(icons.Microscope), !!forecastCount && String(forecastCount)],
     )
   );
 }
@@ -166,21 +166,25 @@ function renderButtons(ctrl: RoundController) {
       ['JumpPrev', ctrl.ply - 1],
       ['JumpNext', ctrl.ply + 1],
       ['JumpLast', lastPly],
-    ].map((b: [LiconKey, number], i) => {
+    ].map((b: [IconKey, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return hl('button.fbt.repeatable', {
-        class: { glowing: i === 3 && ctrl.isLate() },
-        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(el =>
-          addPointerListeners(el, {
-            click: e => {
-              goThroughMoves(ctrl, e);
-              blurIfPrimaryClick(e);
-            },
-            hold: 'click',
-          }),
-        ),
-      });
+      return hl(
+        'button.fbt.repeatable',
+        {
+          class: { glowing: i === 3 && ctrl.isLate() },
+          attrs: { disabled: !enabled, 'data-ply': enabled ? b[1] : '-' },
+          hook: onInsert(el =>
+            addPointerListeners(el, {
+              click: e => {
+                goThroughMoves(ctrl, e);
+                blurIfPrimaryClick(e);
+              },
+              hold: 'click',
+            }),
+          ),
+        },
+        [snabIcon(icons[b[0]], 'mirror-rtl')],
+      );
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
   ]);
@@ -193,7 +197,8 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
+    hl('div.message', [
+      snabIcon(icons.InfoCircle),
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
@@ -202,11 +207,15 @@ function initMessage(ctrl: RoundController) {
   );
 }
 
-const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
-  hl('button.fbt', {
-    attrs: { disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
-  });
+const col1Button = (ctrl: RoundController, dir: number, icon: IconKey, disabled: boolean) =>
+  hl(
+    'button.fbt',
+    {
+      attrs: { disabled, 'data-ply': ctrl.ply + dir },
+      hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
+    },
+    [snabIcon(icons[icon], 'mirror-rtl')],
+  );
 
 export function render(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
@@ -251,9 +260,9 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (displayColumns() === 1
           ? hl('div.col1-moves', [
-              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply === util.firstPly(d)),
+              col1Button(ctrl, -1, 'JumpPrev', ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,
-              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply === util.lastPly(d)),
+              col1Button(ctrl, 1, 'JumpNext', ctrl.ply === util.lastPly(d)),
             ])
           : renderMovesOrResult),
     ])

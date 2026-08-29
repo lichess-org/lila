@@ -2,8 +2,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, onInsert, snabDialog, snabIcon } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -65,9 +65,9 @@ export class SoundCtrl extends PaneCtrl {
                 {
                   hook: bind('click', () => this.set(s[0])),
                   class: { active: this.getCurrent() === s[0] },
-                  attrs: { ...dataIcon(licon.Checkmark), type: 'button' },
+                  attrs: { type: 'button' },
                 },
-                [s[1], s[0] === 'speech' ? '...' : ''],
+                [snabIcon(icons.Checkmark), s[1], s[0] === 'speech' ? '...' : ''],
               ),
             ),
           ),
@@ -119,12 +119,9 @@ export class SoundCtrl extends PaneCtrl {
                     this.redraw();
                   }),
                   class: { active: name === selectedVoice?.name },
-                  attrs: {
-                    ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
-                    type: 'button',
-                  },
+                  attrs: { type: 'button' },
                 },
-                name,
+                name === selectedVoice?.name ? [snabIcon(icons.Checkmark), name] : [name],
               ),
             ),
         );

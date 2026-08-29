@@ -1,13 +1,12 @@
 import { memoize, type Toggle } from 'lib';
-import { licon } from 'lib/licon';
-import { bind, hl, type VNode } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, hl, snabIcon, type VNode } from 'lib/view';
 
 export const header = (name: string, close: () => void): VNode =>
-  hl(
-    'button.head.text',
-    { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
+  hl('button.head.text', { attrs: { type: 'button' }, hook: bind('click', close) }, [
+    snabIcon(icons.LessThan, 'mirror-rtl'),
     name,
-  );
+  ]);
 
 export const moreButton = (toggle: Toggle): VNode =>
   hl(

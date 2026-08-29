@@ -96,7 +96,6 @@ object page:
           manifests,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
-          lichessFontFaceCss,
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce, ctx.pref.isTransparentBg))

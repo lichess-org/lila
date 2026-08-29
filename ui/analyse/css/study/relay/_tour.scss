@@ -80,15 +80,17 @@
       font-weight: bold;
 
       &::before {
-        @extend %data-icon;
+        @include icon-mask($icon-LessThan, 1.5em);
 
-        content: $licon-LessThan;
-        font-size: 1.5em;
         color: $c-font-dim;
+
+        @include if-rtl {
+          transform: scaleX(-1);
+        }
       }
 
       main.has-relay-tour &::before {
-        content: $licon-RadioTower;
+        @include icon-mask($icon-RadioTower);
       }
     }
 
@@ -434,14 +436,11 @@
     white-space: pre-line;
 
     &::before {
-      @extend %data-icon;
-
-      content: $licon-InfoCircle;
-      font-size: 2.5em;
+      @include icon-mask($icon-InfoCircle, 2.5em);
     }
 
     &.pinned::before {
-      content: $licon-RadioTower;
+      @include icon-mask($icon-RadioTower);
     }
 
     small {

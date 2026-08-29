@@ -38,7 +38,7 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
               a(
                 href := routes.Coach.show(c.user.username),
                 cls := "button button-empty text",
-                dataIcon := Icon.Eye
+                iconEl := Icon.Eye
               )("Preview coach page")
             ),
             div(cls := "overview")(
@@ -147,6 +147,6 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
                 )(form3.textarea(_)(rows := 6))
               )
             ),
-            div(cls := "status text", dataIcon := Icon.Checkmark)("Your changes have been saved.")
+            div(cls := "status text", iconEl := Icon.Checkmark)("Your changes have been saved.")
           )
         )

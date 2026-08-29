@@ -10,7 +10,7 @@ def apply(u: UserWithPerfs, as: Iterable[lila.activity.ActivityView])(using ctx:
     ctx.kid.no.option:
       activity.ublogPosts.map: posts =>
         ui.entryTag(
-          iconTag(Icon.InkQuill),
+          iconEl(Icon.InkQuill),
           div(
             trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
             ui.subTag(posts.map: post =>

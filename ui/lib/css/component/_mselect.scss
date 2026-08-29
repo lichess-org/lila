@@ -19,10 +19,8 @@ $c-mselect: $c-primary;
     cursor: pointer;
 
     &::after {
-      @extend %data-icon;
+      @include icon-mask($icon-MoreTriangle, 0.7rem);
 
-      content: $licon-MoreTriangle;
-      font-size: 70%;
       color: $c-mselect;
       margin-inline: 0.4em 0;
     }
@@ -81,6 +79,8 @@ $c-mselect: $c-primary;
   }
 
   &__item {
+    align-items: center;
+    gap: 0.5em;
     white-space: nowrap;
     display: block;
     padding: 0.3em 1em;
@@ -104,10 +104,6 @@ $c-mselect: $c-primary;
     &:focus-visible {
       outline: $outline;
       outline-offset: -2px;
-    }
-
-    &::before {
-      margin-inline-end: 0.4em;
     }
   }
 }

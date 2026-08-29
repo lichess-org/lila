@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
 import { hookMobileMousedown } from 'lib/device';
-import { licon } from 'lib/licon';
-import { dataIcon } from 'lib/view';
+import { icons } from 'lib/icons';
+import { snabIcon } from 'lib/view';
 import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
 import type MsgCtrl from '@/ctrl';
@@ -17,10 +17,9 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo', { key: user.id }, [
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__left', [
-        h('span.msg-app__convo__head__back', {
-          attrs: dataIcon(licon.LessThan),
-          hook: hookMobileMousedown(ctrl.showSide),
-        }),
+        h('span.msg-app__convo__head__back', { hook: hookMobileMousedown(ctrl.showSide) }, [
+          snabIcon(icons.LessThan, 'mirror-rtl'),
+        ]),
         contactLink(user, ctrl),
         convo.modDetails?.kid ? h('bad', 'KID') : undefined,
         convo.modDetails?.openInbox === false ? h('bad', "doesn't want messages") : undefined,
@@ -48,4 +47,4 @@ const contactLink = (user: User, ctrl: MsgCtrl): VNode => {
 };
 
 const blocked = (msg: string) =>
-  h('div.msg-app__convo__reply__block.text', { attrs: dataIcon(licon.NotAllowed) }, msg);
+  h('div.msg-app__convo__reply__block.text', [snabIcon(icons.NotAllowed), msg]);

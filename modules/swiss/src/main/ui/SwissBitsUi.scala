@@ -12,7 +12,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   def link(swissId: SwissId)(using ClientName): Tag = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Tag =
     a(
-      dataIcon := Icon.Trophy,
+      iconEl := Icon.Trophy,
       cls := "text",
       href := routes.Swiss.show(swissId).url
     )(name)
@@ -42,7 +42,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
 
   def homepageSpotlight(s: Swiss)(using Translate) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
-      iconTag(s.perfType.icon)(cls := "img icon"),
+      iconEl(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
         span(cls := "more")(
@@ -60,7 +60,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         "soon" -> s.isNowOrSoon
       )
     )(
-      td(cls := "icon")(iconTag(s.perfType.icon)),
+      td(cls := "icon")(iconEl(s.perfType.icon)),
       td(cls := "header")(
         a(href := routes.Swiss.show(s.id))(
           span(cls := "name")(s.name),
@@ -80,5 +80,5 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         br,
         if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
       ),
-      td(cls := "text", dataIcon := Icon.User)(s.nbPlayers.localize)
+      td(cls := "text", iconEl := Icon.User)(s.nbPlayers.localize)
     )

@@ -1,10 +1,10 @@
 import type { ChartGame, AcplChart } from 'chart';
 
 import { escapeHtml } from 'lib';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
-import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
+import { spinnerHtml, domDialog, alert, confirm, htmlIcon } from 'lib/view';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
@@ -169,7 +169,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '</pre><br />' +
         iframe +
         '<br /><br />' +
-        `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
+        `<a class="text" href="/developers#embed-game">${htmlIcon(icons.InfoCircle)}Read more about embedding games</a></div>`,
     });
   });
 

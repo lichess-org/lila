@@ -1,4 +1,4 @@
-import type { LiconValue } from 'lib/licon';
+import type { Icon } from 'lib/icons';
 import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
@@ -13,7 +13,7 @@ export interface Variant {
   id: number;
   key: VariantKey;
   name: string;
-  icon: LiconValue;
+  icon: Icon;
   description: string;
 }
 

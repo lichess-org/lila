@@ -46,7 +46,7 @@ final class UserBits(helpers: Helpers):
             cls := "btn-rack__btn relation-button text aclose",
             title := trans.site.unblock.txt(),
             href := s"${routes.Relation.unblock(u.id)}?mini=1",
-            dataIcon := Icon.NotAllowed
+            iconEl := Icon.NotAllowed
           )(trans.site.blocked())
         ),
       relation
@@ -56,7 +56,7 @@ final class UserBits(helpers: Helpers):
             cls := "btn-rack__btn relation-button text aclose",
             title := trans.site.unfollow.txt(),
             href := s"${routes.Relation.unfollow(u.id)}?mini=1",
-            dataIcon := Icon.ThumbsUp
+            iconEl := Icon.ThumbsUp
           )(trans.site.following())
         )
     )

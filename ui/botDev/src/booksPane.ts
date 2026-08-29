@@ -2,7 +2,8 @@ import { opposite } from 'chessops';
 
 import { frag } from 'lib';
 import type { Book } from 'lib/bot/types';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
+import { domIcon } from 'lib/view';
 
 import { env } from './devEnv';
 import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
@@ -14,9 +15,11 @@ export class BooksPane extends Pane {
   template: RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
-    this.label?.prepend(
-      frag(`<icon role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
+    const add = frag<HTMLButtonElement>(
+      '<button type="button" data-action="add" title="Add book" aria-label="Add book">',
     );
+    add.append(domIcon(icons.PlusButton));
+    this.label?.prepend(add);
     this.template = {
       type: 'range',
       class: ['setting', 'book'],
@@ -28,7 +31,7 @@ export class BooksPane extends Pane {
 
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
-    if (e.target.dataset.action === 'add') {
+    if (e.target.closest<HTMLElement>('[data-action]')?.dataset.action === 'add') {
       this.host.assetDialog('book').then(b => {
         if (!b) return;
         this.value.push({ key: b, weight: this.template?.value ?? 1 });

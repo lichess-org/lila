@@ -16,9 +16,12 @@
 }
 
 .trophy.award {
-  font-family: lichess;
-  speak: none;
   line-height: 100%;
+
+  > .svg-icon {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .trophy {
@@ -164,8 +167,12 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  font-family: lichess;
   text-align: center;
+
+  > .svg-icon {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .shield-trophy {

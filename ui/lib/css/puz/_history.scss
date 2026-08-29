@@ -74,8 +74,6 @@
     @extend %flex-center, %box-radius-bottom;
 
     &::before {
-      @extend %data-icon;
-
       margin-inline: 0 0.2em;
     }
   }
@@ -84,7 +82,7 @@
     color: $c-good;
 
     &::before {
-      content: $licon-Checkmark;
+      @include icon-mask($icon-Checkmark);
     }
   }
 
@@ -92,7 +90,7 @@
     color: $c-bad;
 
     &::before {
-      content: $licon-X;
+      @include icon-mask($icon-X);
     }
   }
 
@@ -100,7 +98,7 @@
     color: $c-font-dim;
 
     &::before {
-      content: $licon-Clock;
+      @include icon-mask($icon-Clock);
     }
   }
 }

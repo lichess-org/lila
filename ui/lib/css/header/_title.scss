@@ -36,6 +36,10 @@
     display: none;
     font-size: 24px;
 
+    .svg-icon {
+      display: block;
+    }
+
     @media (min-height: at-least($tall)) {
       font-size: 36px;
     }
