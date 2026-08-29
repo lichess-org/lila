@@ -133,6 +133,10 @@
     height: var(---header-height);
     background: $c-bg-zebra;
 
+    @include if-transp {
+      background: $c-bg-box;
+    }
+
     h2 {
       line-height: var(---header-height);
     }
