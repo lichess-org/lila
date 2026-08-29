@@ -27,7 +27,7 @@ case class ChoiceNode(
 case class ActionNode(
     id: NodeId,
     text: String,
-    effects: Option[List[AppealEffect]] = None
+    effects: List[AppealEffect] = Nil
 ) extends AppealNode
 
 case class AnswerBranch(id: AnswerId, answer: String, nextNodeId: NodeId)
@@ -106,17 +106,17 @@ object AppealFlow:
             )
           )
         ),
-        ActionNode(NodeId("wait-6-months"), "You must wait 6 months.", List(AppealEffect.Sleep(6)).some),
+        ActionNode(NodeId("wait-6-months"), "You must wait 6 months.", List(AppealEffect.Sleep(6))),
         ActionNode(NodeId("second-chance"), "You get a second chance. Please share your new username."),
         ActionNode(
           NodeId("decision-final"),
           "We regret to inform you that the decision is final and will not be changed.",
-          List(AppealEffect.Close).some
+          List(AppealEffect.Close)
         ),
         ActionNode(
           NodeId("false-positive"),
           "This was a false positive. Your account has been unmarked.",
-          List(AppealEffect.Unmark, AppealEffect.Close).some
+          List(AppealEffect.Unmark, AppealEffect.Close)
         )
       )
     )

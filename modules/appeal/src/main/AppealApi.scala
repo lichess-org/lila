@@ -63,10 +63,9 @@ final class AppealApi(
   private def autoAdvance(appeal: Appeal): (Appeal, List[AppealEffect]) =
     appeal.nextNode match
       case Some(node: ActionNode) =>
-        val effects = node.effects.getOrElse(Nil)
         val newAppeal = appeal.postEvent(ActionEvent(UserId.lichess, node.id, node.text, nowInstant))
-        val appealAfterEffects = effects.foldLeft(newAppeal)(applyEffect)
-        (appealAfterEffects, effects)
+        val appealAfterEffects = node.effects.foldLeft(newAppeal)(applyEffect)
+        (appealAfterEffects, node.effects)
       case _ => (appeal, Nil)
 
   private def applyEffect(appeal: Appeal, effect: AppealEffect): Appeal =
