@@ -8,6 +8,7 @@
   <string name="accountMutedInfo">Leggi le nostre %s. Il mancato rispetto delle linee guida di comunicazione può comportare che il tuo account sia silenziato.</string>
   <string name="excludedFromLeaderboards">Il tuo account è stato escluso dalle leaderboard.</string>
   <string name="closedByModerators">Il tuo account è stato chiuso dai moderatori.</string>
+  <string name="blogRestriction">Hai una restrizione del blog.</string>
   <string name="playTimeout">Hai un timeout di gioco.</string>
   <string name="communicationGuidelines">linee guida di comunicazione</string>
   <string name="fairPlay">Fair Play</string>

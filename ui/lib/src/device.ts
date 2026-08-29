@@ -11,7 +11,7 @@ export const prefersLightThemeQuery = (): MediaQueryList =>
 export const currentTheme = (): 'light' | 'dark' => {
   const dataTheme = document.body.dataset.theme!;
   if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
-  return dataTheme === 'light' ? 'light' : 'dark';
+  return dataTheme.includes('light') ? 'light' : 'dark';
 };
 
 let colCache: number | undefined;

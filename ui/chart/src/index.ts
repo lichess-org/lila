@@ -87,9 +87,9 @@ export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
   };
 }
 
-export function selectPly(this: Chart, ply: number, onMainline: boolean): void {
+export function selectPly<T extends 'line' | 'bar'>(this: Chart<T>, ply: number, onMainline: boolean): void {
   const index = this.data.datasets.findIndex(dataset => dataset.label === 'ply');
-  this.data.datasets[index] = plyLine(ply, onMainline);
+  this.data.datasets[index] = plyLine(ply, onMainline) as ChartDataset<T>;
   this.update('none');
 }
 

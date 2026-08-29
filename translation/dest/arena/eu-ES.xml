@@ -25,6 +25,7 @@ Berserk-ek puntu gehigarria emango dizu paridan gutxienez 7 jokaldi egiten badit
   <string name="howIsTheWinnerDecided">Nola erabakitzen da garailea?</string>
   <string name="howIsTheWinnerDecidedAnswer">Txapelketari ezarritako denbora-muga heltzean puntu gehien duten jokalariak, garaile izendatuko dira.</string>
   <string name="howDoesPairingWork">Nola funtzionatzen dute parekatzeek?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Nola parekatzen dira jokalariak?</string>
   <string name="howDoesPairingWorkAnswer">Txapelketaren hasieran jokalariak beren sailkapenaren arabera parekatuko dira.
 Partida bat bukatu bezain laster, itzuli txapelketaren egongelara: jarraian zure sailkapenaren antzekoa duen beste jokalari baten aurka jokatuko duzu. Horrela ahalik eta denbora gutxien itxarotea lortzen da nahiz eta ez jokatu txapelketako beste jokalari guztiekin.
 Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazteko.</string>

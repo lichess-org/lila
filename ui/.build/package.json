@@ -1,7 +1,7 @@
 {
   "name": "build",
   "type": "module",
-  "packageManager": "pnpm@11.15.0",
+  "packageManager": "pnpm@11.22.0",
   "engines": {
     "node": ">=24",
     "pnpm": "11"
@@ -22,7 +22,7 @@
     "fast-xml-parser": "5.10.1",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "node --no-warnings src/main.ts $@"

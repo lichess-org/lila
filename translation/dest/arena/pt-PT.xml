@@ -27,7 +27,7 @@ O modo frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no 
 
 Quando dois ou mais jogadores tiverem o mesmo número de pontos, o desempenho no torneio é o critério de desempate.</string>
   <string name="howDoesPairingWork">Como é que funciona o emparelhamento?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">Como são os jogadores emparelhados?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Como são os jogadores emparelhados?</string>
   <string name="howDoesPairingWorkAnswer">No inicio do torneio, os jogadores são emparelhados com base na sua pontuação. Assim que terminares um jogo, volta ao vestíbulo do torneio: então, serás emparelhado com um jogador com uma classificação próxima à tua. Isto garante o mínimo tempo de espera, contudo poderás não jogar contra todos os jogadores no torneio.
 Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais pontos.</string>
   <string name="howDoesItEnd">Como é que termina?</string>
@@ -75,6 +75,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="rankAvgHelp">A média da classificação é uma percentagem da tua classificação. Menor é melhor.
 
 Por exemplo, ficar em 3º lugar num torneio de 100 jogadores = 3%. Estar em 10º lugar num torneio de 1000 jogadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">A tua classificação média representa a tua classificação final habitual, em relação ao número total de jogadores em cada torneio.
+É uma medida da tua posição no torneio, e não da tua pontuação geral.
+
+Por exemplo, uma classificação média de 3% significa que, normalmente, terminas no top 3% (por exemplo, em 30º lugar entre 1000 jogadores).</string>
   <string name="medians">médias</string>
   <string name="allAveragesAreX">Todas as médias desta página são %s.</string>
   <string name="total">Total</string>

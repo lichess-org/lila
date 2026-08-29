@@ -46,8 +46,8 @@ object ConditionForm:
   val minRating = optional:
     mapping("rating" -> numberIn(minRatings).into[IntRating])(MinRating.apply)(_.rating.some)
 
-  val titled: Mapping[Option[Titled.type]] =
-    optional(boolean).transform(_.contains(true).option(Titled), _.isDefined.option(true))
+  val titled: Mapping[Option[Titled]] =
+    optional(boolean).transform(_.contains(true).option(Titled()), _.isDefined.option(true))
 
   val bots: Mapping[Option[Bots]] =
     optional(boolean).transform(_.contains(true).option(Bots(true)), _.exists(_.allowed).option(true))

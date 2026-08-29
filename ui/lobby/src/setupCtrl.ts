@@ -118,11 +118,15 @@ export default class SetupController {
     }
   };
 
-  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) =>
-    this.gameType &&
+  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) => {
+    if (!this.gameType) return;
+
+    // Don't persist position passed through URL
+    const prevSetup = this.forced?.fen ? this.store[this.gameType]() : undefined;
+
     this.store[this.gameType]({
-      variant: this.variant(),
-      fen: this.fen(),
+      variant: prevSetup?.variant ?? this.variant(),
+      fen: prevSetup?.fen ?? this.fen(),
       timeMode: this.timeControl.mode(),
       time: this.timeControl.time(),
       increment: this.timeControl.increment(),
@@ -134,6 +138,7 @@ export default class SetupController {
       aiLevel: this.aiLevel(),
       ...override,
     });
+  };
 
   private readonly savePropsToStoreExceptRating = () =>
     this.gameType &&

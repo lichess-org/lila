@@ -50,7 +50,7 @@
   </plurals>
   <string name="imageAlt">Description de l\'image</string>
   <string name="imageCredit">Source de l\'image</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Supprimer définitivement ce message</string>
+  <string name="deleteBlog">Supprimer définitivement ce message</string>
   <string name="selectPostTopics">Choisir les sujets de votre message</string>
   <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
   <string name="noCopyrightedImages">N\'utilisez que des images sans droits d\'auteur.</string>

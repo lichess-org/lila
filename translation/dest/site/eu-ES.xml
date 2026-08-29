@@ -836,6 +836,7 @@
   <string name="picture">Irudia</string>
   <string name="deviceTheme">Gailuaren gaia</string>
   <string name="roundness">Borobiltasuna</string>
+  <string name="backgroundImage">Atzeko planoko irudia</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
   <string name="imageOpacity">Irudiaren gardentasuna</string>
   <string name="board">Taula</string>

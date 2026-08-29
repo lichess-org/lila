@@ -134,7 +134,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         .flag(_.zoom)
         .flag(_.noRobots)
         .csp:
-          cspExternalEngine.compose(_.withPeer.withInlineIconFont.withChessDbCn)
+          cspExternalEngine.compose(_.withInlineIconFont.withChessDbCn)
 
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)

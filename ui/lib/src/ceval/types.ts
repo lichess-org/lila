@@ -14,6 +14,7 @@ export interface EvalMeta {
   path: TreePath;
   ply: number;
   threatMode: boolean;
+  error?: string;
 }
 
 export interface Work extends EvalMeta {
@@ -27,7 +28,7 @@ export interface Work extends EvalMeta {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: LocalEval, meta: EvalMeta) => void;
+  emit: (ev: LocalEval | undefined, meta: EvalMeta) => void;
 }
 
 export interface BaseEngineInfo {
@@ -113,7 +114,7 @@ export interface CustomCeval extends CustomSearch {
 export interface CevalOpts {
   variant: Variant;
   initialFen?: string;
-  emit: (ev: LocalEval, meta: EvalMeta) => void;
+  emit: (ev: LocalEval | undefined, meta: EvalMeta) => void;
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   onSelectEngine?: () => void;

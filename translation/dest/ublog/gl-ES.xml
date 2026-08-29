@@ -50,7 +50,7 @@
   </plurals>
   <string name="imageAlt">Texto alternativo da imaxe</string>
   <string name="imageCredit">Créditos da imaxe</string>
-  <string name="deleteBlog" comment="This used to say &quot;definitively&quot;, and was changed to say &quot;permanently&quot;.">Borra para sempre esta publicación</string>
+  <string name="deleteBlog">Borra para sempre esta publicación</string>
   <string name="selectPostTopics">Selecciona os temas dos que trata este artigo</string>
   <string name="safeAndRespectfulContent">Por favor, publica só contido seguro e respectuoso. Non copies o contido doutra persoa.</string>
   <string name="noCopyrightedImages">Emprega soamente imaxes que non teñan dereitos de autor doutra persoa.</string>

@@ -35,7 +35,7 @@
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
   <string name="cheatDetected">부정행위 감지됨</string>
   <string name="kingInTheCenter">킹이 중앙에 도달</string>
-  <string name="threeChecks">세 번의 체크</string>
+  <string name="threeChecks">체크 세 번</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
   <string name="variantEnding">변형 종료</string>
   <string name="newOpponent">새로운 상대</string>
@@ -794,6 +794,7 @@
   <string name="picture">사진</string>
   <string name="deviceTheme">기기 테마</string>
   <string name="roundness">둥글기</string>
+  <string name="backgroundImage">배경 이미지</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
   <string name="imageOpacity">이미지 불투명도</string>
   <string name="board">보드</string>

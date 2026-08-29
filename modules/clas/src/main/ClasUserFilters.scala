@@ -46,7 +46,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   )
 
   val teacher = ClasUserCache("teacher")(
-    estimatedCount = if mode == Mode.Dev then 50 else 5_000,
+    estimatedCount = if mode == Mode.Dev then 50 else 4_000,
     source = colls.clas
       .find($doc("archived".$exists(false)), $doc("teachers" -> true, "_id" -> false).some)
       .cursor[Bdoc](ReadPref.sec)
@@ -56,35 +56,50 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
     initialDelay = if loadImmediately then 1.second else 33.seconds
   )
 
+private trait CacheBackend[A]:
+  def mightContain(a: A): Boolean
+  def add(a: A): Unit
+  def dispose(): Unit
+
+// Stick to [String], it does unsafe operations that don't play well with opaque types
+private final class BloomFilterCache(estimatedCount: Int) extends CacheBackend[String]:
+  private val bloom: BloomFilter[String] = BloomFilter[String](estimatedCount + 100, 0.00003)
+  export bloom.{ mightContain, add, dispose }
+
+private final class SetCache[A] extends CacheBackend[A]:
+  private val set = scala.collection.mutable.Set.empty[A]
+  export set.{ contains as mightContain, clear as dispose }
+  def add(a: A): Unit = set.add(a)
+
+private def makeCacheBackend(estimatedCount: Int): CacheBackend[String] =
+  if estimatedCount < 8_000 then SetCache[String]()
+  else BloomFilterCache(estimatedCount)
+
 private final class ClasUserCache(name: String)(
     estimatedCount: Int,
     source: Source[UserId, ?],
     initialDelay: FiniteDuration
 )(using scheduler: Scheduler)(using Executor, Materializer):
 
-  private val falsePositiveRate = 0.00003
-  // Stick to [String], it does unsafe operations that don't play well with opaque types
-  private var bloomFilter: BloomFilter[String] =
-    BloomFilter[String](100, falsePositiveRate) // temporary empty filter
+  private var backend: CacheBackend[String] = makeCacheBackend(0) // temporary empty filter
 
-  def apply(userId: UserId) = bloomFilter.mightContain(userId.value)
-
-  def add(userId: UserId): Unit = bloomFilter.add(userId.value)
+  def apply(userId: UserId) = backend.mightContain(userId.value)
+  def add(userId: UserId): Unit = backend.add(userId.value)
 
   private def rebuildBloomFilter(): Unit =
-    val nextBloom = BloomFilter[String](estimatedCount + 100, falsePositiveRate)
+    val nextBackend = makeCacheBackend(estimatedCount)
     def logNb(nb: Int) = lila.log.system.info(s"ClasUserCache.$name.rebuild $nb")
     source
       .runWith:
         Sink.fold[Int, UserId](0): (counter, userId) =>
-          if counter % 10_000 == 0 then logNb(counter)
-          nextBloom.add(userId.value)
+          if counter % 5_000 == 0 then logNb(counter)
+          nextBackend.add(userId.value)
           counter + 1
       .addEffect: nb =>
         logNb(nb)
         lila.mon.clas.bloomFilter(name).count.update(nb)
-        bloomFilter.dispose()
-        bloomFilter = nextBloom
+        backend.dispose()
+        backend = nextBackend
       .monSuccess(lila.mon.clas.bloomFilter(name).fu)
 
   scheduler.scheduleWithFixedDelay(initialDelay, 7.days): () =>

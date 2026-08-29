@@ -27,7 +27,7 @@
 
 두 플레이어가 같은 점수일 경우에는, 토너먼트 내에서의 퍼포먼스 레이팅으로 승자를 가릅니다.</string>
   <string name="howDoesPairingWork">대전 매칭은 어떻게 이루어집니까?</string>
-  <string name="howArePlayersPaired" comment="Appears as a heading on the Arena tournament FAQ.&#10;URL: https://lichess.org/tournament/help&#10;&#10;Replaces old string howDoesPairingWork">플레이어들이 어떤 방식으로 매칭되나요?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">플레이어들이 어떤 방식으로 매칭되나요?</string>
   <string name="howDoesPairingWorkAnswer">토너먼트가 시작할 때에는, 레이팅을 기준으로 플레이어들이 매칭됩니다.
 게임을 끝내면 바로 토너먼토 로비에 돌아오십시오. 그러면 자신의 토너먼트 순위와 제일 가까운 플레이어와 매칭될 것입니다. 이 방법에 따르면 기다리는 시간이 최소화되지만, 토너먼트 내의 모든 플레이어와 만날 수 없을 수도 있습니다.
 빠르게 두고 로비에 나와 많은 게임을 플레이하여 더 많은 점수를 얻으십시오.</string>

@@ -187,6 +187,12 @@
   <string name="queenOverBishop">Узми фигуру
 са највишом вредношћу!
 Дама &gt; Ловац</string>
+  <string name="pieceValueExchange">Узми фигуру са највећом вредношћу!
+Немој разменити
+фигуру веће вредности за мање вредну.</string>
+  <string name="pieceValueLegal">Узми фигуру
+са највишом вредношћу!
+Побрини се да је твој потез правилан!</string>
   <string name="takeThePieceWithTheHighestValue">Узми фигуру
 са највишом вредношћу!</string>
   <string name="pieceValueComplete">Честитке! Знаш вредност материјала!

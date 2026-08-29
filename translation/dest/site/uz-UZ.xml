@@ -836,6 +836,7 @@
   <string name="picture">Rasm</string>
   <string name="deviceTheme">Qurilma temasi</string>
   <string name="roundness">Burchaklar yumaloqligi</string>
+  <string name="backgroundImage">Orqa fon rasmi</string>
   <string name="backgroundImageUrl">Orqa fon havolasi:</string>
   <string name="imageOpacity">Rasm shaffofligi</string>
   <string name="board">Taxta</string>

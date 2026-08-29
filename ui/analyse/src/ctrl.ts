@@ -21,7 +21,7 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import { CevalCtrl, isFirstEvalBetter, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { CevalCtrl, useFirstEval, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
@@ -721,10 +721,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as LocalEval;
-        if (!node.threat || isFirstEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+        if (!node.threat || useFirstEval(threat, node.threat, this.ceval.search.multiPv))
           node.threat = threat;
       } else if (
-        (!node.ceval || isFirstEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        (!node.ceval || useFirstEval(ev, node.ceval, this.ceval.search.multiPv)) &&
         !(ev.cloud && this.ceval.engines.external)
       ) {
         node.ceval = ev;
@@ -752,7 +752,10 @@ export default class AnalyseCtrl implements CevalHandler {
     const opts: CevalOpts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      emit: (ev, meta) => this.onNewCeval(ev, meta.path, meta.threatMode),
+      emit: (ev, meta) => {
+        if (ev) this.onNewCeval(ev, meta.path, meta.threatMode);
+        else this.cevalEnabled(false);
+      },
       onUciHover: this.setAutoShapes,
       redraw: this.redraw,
       externalEngines:

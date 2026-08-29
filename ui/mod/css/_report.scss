@@ -15,6 +15,10 @@ $c-report-high-over: white;
       margin: 0.4rem 0.8rem;
       background: no-repeat url('../images/icons/octopus.svg') left center;
       opacity: 0.6;
+
+      @include if-light {
+        filter: invert(1);
+      }
     }
   }
 

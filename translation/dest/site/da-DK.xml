@@ -836,6 +836,7 @@
   <string name="picture">Billede</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="roundness">Afrunding</string>
+  <string name="backgroundImage">Baggrundsbillede</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="imageOpacity">Billede gennemsigtighed</string>
   <string name="board">Bræt</string>

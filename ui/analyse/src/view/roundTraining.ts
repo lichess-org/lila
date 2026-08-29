@@ -142,7 +142,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
     !ctrl.settings.showStaticAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
   ) {
-    if (!ctrl.data.puzzle) return undefined;
+    if (!ctrl.data.puzzle) return h('div.analyse__round-training');
     return h('div.analyse__round-training', puzzleLink(ctrl));
   }
 

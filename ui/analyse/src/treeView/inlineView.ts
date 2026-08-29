@@ -1,6 +1,5 @@
 import type { Classes } from 'snabbdom';
 
-import { escapeHtml } from 'lib';
 import { isSafari } from 'lib/device';
 import { playable } from 'lib/game';
 import { enrichText, innerHTML } from 'lib/richText';
@@ -70,19 +69,21 @@ export class InlineView {
         this.ctrl.retro?.hideComputerLine(node) && this.isLichessComment(comment)
           ? hl('comment', i18n.site.learnFromThisMistake)
           : (!this.isLichessComment(comment) || this.ctrl.settings.showStaticAnalysis) &&
-            hl('comment', {
-              class: {
-                inaccuracy: comment.text.startsWith('Inaccuracy.'),
-                mistake: comment.text.startsWith('Mistake.'),
-                blunder: comment.text.startsWith('Blunder.'),
-                ...classes,
+            hl(
+              'comment',
+              {
+                class: {
+                  inaccuracy: comment.text.startsWith('Inaccuracy.'),
+                  mistake: comment.text.startsWith('Mistake.'),
+                  blunder: comment.text.startsWith('Blunder.'),
+                  ...classes,
+                },
               },
-              hook: innerHTML(comment.text, text =>
-                node.comments?.[1]
-                  ? `<span class="by">${escapeHtml(authorText(comment.by))}</span> ` + enrichText(text)
-                  : enrichText(text),
-              ),
-            }),
+              [
+                Boolean(node.comments?.[1]) && [hl('span.by', authorText(comment.by)), ' '],
+                hl('span', { hook: innerHTML(comment.text, enrichText) }),
+              ],
+            ),
       )
       .filter(Boolean);
   }

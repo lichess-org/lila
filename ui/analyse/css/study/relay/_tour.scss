@@ -14,8 +14,6 @@
   &__side {
     @extend %flex-column;
 
-    overflow: hidden;
-
     &__preload {
       @extend %box-neat;
 
@@ -91,10 +89,6 @@
 
       main.has-relay-tour &::before {
         content: $licon-RadioTower;
-      }
-
-      main.has-relay-tour & {
-        background: $c-bg-zebra;
       }
     }
 

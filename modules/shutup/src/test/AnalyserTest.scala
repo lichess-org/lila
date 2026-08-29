@@ -105,6 +105,9 @@ class AnalyserTest extends munit.FunSuite:
   test("german inflection"):
     assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
 
+  test("hindi inflection"):
+    assertEquals(find("laude krle"), List("laude krle"))
+
   test("spanish inflection"):
     assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
 

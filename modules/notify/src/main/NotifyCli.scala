@@ -9,7 +9,7 @@ import lila.ui.Icon
 
 final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor):
 
-  lila.common.Cli.handle():
+  lila.common.Cli.handle(_.Admin):
     case "notify" :: "url" :: "users" :: users :: url :: words =>
       val userIds = users.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
       notifyUrlTo(Source(userIds), url, words)

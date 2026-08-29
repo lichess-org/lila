@@ -17,12 +17,17 @@ object StudyPgnImport:
       ply: Ply
   )
 
-  def result(pgn: PgnStr, contributors: List[LightUser], strict: Boolean = false): Either[ErrorStr, Result] =
+  def result(
+      pgn: PgnStr,
+      contributors: List[LightUser],
+      strict: Boolean = false,
+      importer: Option[LightUser] = None
+  ): Either[ErrorStr, Result] =
     if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
     else
       for
         parsed <- ParseImport.full(pgn)
-        full = result(parsed, contributors)
+        full = result(parsed, contributors, importer)
         valid <-
           if full.root.children.countRecursive > Chapter.maxNodes
           then Left(ErrorStr("PGN has too many moves/nodes"))
@@ -31,8 +36,11 @@ object StudyPgnImport:
       yield valid
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =
+    result(importResult, contributors, None)
+
+  def result(importResult: ImportResult, contributors: List[LightUser], importer: Option[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
-    val annotator = findAnnotator(parsed, contributors)
+    val annotator = findAnnotator(parsed, contributors).orElse(importer.map(Comment.author))
 
     val timeControl = parsed.tags.timeControl
     val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
@@ -103,9 +111,7 @@ object StudyPgnImport:
       contributors
         .find: c =>
           c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
-        .map: c =>
-          Comment.Author.User(c.id, c.titleName)
-        .getOrElse(Comment.Author.External(a))
+        .fold(Comment.Author.External(a))(Comment.author)
     }
 
   def endComment(end: Ending): Comment =
@@ -125,8 +131,12 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              str.trimNonEmpty.fold(comments): com =>
-                comments + Comment(Comment.Id.make, com, annotator | Comment.Author.Lichess)
+              str.trimNonEmpty.fold(comments): text =>
+                val author = annotator | Comment.Author.Lichess
+                comments
+                  .findBy(author)
+                  .fold(comments + Comment(Comment.Id.make, text, author)): existing =>
+                    comments.set(existing.copy(text = CommentStr(s"$text\n${existing.text}")))
             )
 
   private def makeBranches(
