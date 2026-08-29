@@ -27,6 +27,7 @@ O modo Berserk só garante un punto adicional no caso de que se realicen polo me
 
 Se dous ou máis xogadores empatan a puntos o criterio de desempate é o rendemento no torneo.</string>
   <string name="howDoesPairingWork">Como funcionan os emparellamentos?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Como se emparellan os xogadores?</string>
   <string name="howDoesPairingWorkAnswer">Ao comezo do torneo os xogadores son emparellados segundo a súa puntuación.
 Así que rematas unha partida e voltas á sala de espera serás emparellado cun novo opoñente que estea preto na clasificación. Isto garante un mínimo tempo de espera. Así e todo pode que non xogues contra todos os participantes do torneo.
 Xoga rápido para disputar máis partidas e gañar máis puntos.</string>

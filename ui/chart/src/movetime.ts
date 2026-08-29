@@ -42,6 +42,7 @@ export default async function (
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return undefined; // imported games
   type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
+  type MovetimeDataset = ChartDataset<'line'> | ChartDataset<'bar', MovePoint[]>;
   const moveSeries: PlotSeries = {
     white: [],
     black: [],
@@ -121,7 +122,7 @@ export default async function (
   const totalSeriesMax = colorSeriesMax(totalSeries);
   const moveSeriesMax = colorSeriesMax(moveSeries);
 
-  const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset[] =>
+  const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset<'line'>[] =>
     COLORS.map(color => ({
       type: 'line',
       data: series[color].map(point => ({
@@ -145,7 +146,7 @@ export default async function (
       datalabels: { display: false },
     }));
 
-  const moveSeriesSet: ChartDataset[] = showTotal
+  const moveSeriesSet: MovetimeDataset[] = showTotal
     ? COLORS.map(color => ({
         type: 'bar',
         data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
@@ -160,7 +161,7 @@ export default async function (
       }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(data.game.division);
-  const datasets: ChartDataset[] = [...moveSeriesSet];
+  const datasets: MovetimeDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);
 
@@ -171,7 +172,7 @@ export default async function (
      */,
     data: {
       labels,
-      datasets,
+      datasets: datasets as ChartDataset[],
     },
     options: {
       maintainAspectRatio: false,

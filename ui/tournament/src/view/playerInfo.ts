@@ -1,13 +1,12 @@
 import { status } from 'lib/game';
 import { licon } from 'lib/licon';
 import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
-import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 import { teamName } from './battle';
-import { player as renderPlayer } from './util';
+import { fullName, player as renderPlayer } from './util';
 
 const playerTitle = (player: Player, tourId: string) =>
   hl('h2', [

@@ -2309,6 +2309,7 @@ object I18nKey:
     val `picture`: I18nKey = "picture"
     val `deviceTheme`: I18nKey = "deviceTheme"
     val `roundness`: I18nKey = "roundness"
+    val `backgroundImage`: I18nKey = "backgroundImage"
     val `backgroundImageUrl`: I18nKey = "backgroundImageUrl"
     val `imageOpacity`: I18nKey = "imageOpacity"
     val `board`: I18nKey = "board"

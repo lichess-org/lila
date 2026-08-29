@@ -122,6 +122,12 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 1
   )
 
+  val recapAwaitConcurrency = lila.web.FutureConcurrencyLimit[UserId](
+    key = "recap.await.concurrency.user",
+    ttl = 3.minutes,
+    maxConcurrency = 2
+  )
+
   val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
 
   val tourJoinOrResume =
@@ -172,7 +178,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     object stream:
       private val auth = ConcurrencyLimit[UserId](8, "broadcast.stream.auth")
-      private val verified = ConcurrencyLimit[UserId](16, "broadcast.stream.verified")
+      private val verified = ConcurrencyLimit[UserId](32, "broadcast.stream.verified")
       private val anon = ConcurrencyLimit[IpAddress](2, "broadcast.stream.anon")
       def apply[T]()(using ctx: Context): ConcurrencyLimit.Limiter[PgnStr] = ctx.me match
         case None => anon(ctx.ip)

@@ -49,6 +49,7 @@
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
   <string name="selectPostTopics">ブログ投稿に合ったトピックを選ぶ</string>
   <string name="safeAndRespectfulContent">投稿できるのは安全で他者の権利を尊重したコンテンツだけです。他の人のコンテンツをコピーしてはいけません。</string>
+  <string name="noCopyrightedImages">使えるのは他の人が著作権を持っていない画像だけです。</string>
   <string name="inappropriateContentAccountClosed">不適切な内容の場合、あなたのアカウントを停止することがあります。</string>
   <string name="blogTips">すばらしいブログを書くための簡単なヒント</string>
   <string name="discussThisBlogPostInTheForum">このブログ記事についてフォーラムで話す</string>

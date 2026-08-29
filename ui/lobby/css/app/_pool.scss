@@ -12,6 +12,10 @@
 
   @include fluid-size('font-size', 14px, 25px);
 
+  @include if-transp {
+    backdrop-filter: none;
+  }
+
   .spinner {
     flex: 0 0 auto;
     margin: 0.1em 0 0.6em 0;
@@ -51,6 +55,7 @@
 .lpool {
   @extend %flex-column, %box-radius, %break-word;
   @include transition;
+  @include backdrop-blur-if-transparent;
 
   justify-content: center;
   align-items: center;

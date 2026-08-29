@@ -90,6 +90,10 @@ $c-slider: $c-setup;
     padding: 1.8rem 1.2rem;
     gap: 1.8rem;
     background: $c-bg-zebra;
+
+    .tabs-horiz {
+      backdrop-filter: none;
+    }
   }
 
   .disabled {

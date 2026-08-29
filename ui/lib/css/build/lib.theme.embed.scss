@@ -1,9 +1,4 @@
 @import '../theme/font-face';
 @import '../theme/theme.default';
-@import '../theme/pieces';
-
-:root {
-  @include shared-color-defs;
-}
-
 @import '../theme/theme.light';
+@import '../theme/pieces';

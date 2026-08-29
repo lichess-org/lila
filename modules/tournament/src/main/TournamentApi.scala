@@ -51,7 +51,8 @@ final class TournamentApi(
     org.apache.pekko.actor.ActorSystem,
     org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.core.user.PublicTitleOf
 ):
 
   export tournamentRepo.byId as get
@@ -796,16 +797,16 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    next.homepageSince.map: start =>
-      if prev.forall(_.homepageSince != start.some) then
-        ircApi.bbb(
-          me,
-          "arena",
-          next.name,
-          routes.Tournament.show(next.id),
-          start,
-          next.finishesAt.some
+    if next.isScheduled then
+      lila.common
+        .ProductDiff(
+          prev,
+          next,
+          ignoredFields =
+            Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
+          nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
         )
+        .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]
@@ -837,9 +838,7 @@ final class TournamentApi(
       tournamentTop(tourId).map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
-          Bus.pub(
-            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync))
-          )
+          Bus.pub(lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)))
           lastPublished.put(tourId, top.hashCode)
       }
 

@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">La tour, protégée par la dame, met le roi adverse en échec et la dame bloque la seule case de fuite du roi (le roi est enfermé dans une boîte de 3 cases par 3 cases formée par la tour et la dame).</string>
   <string name="pillsburysMate">Mat de Pillsbury</string>
   <string name="pillsburysMateDescription">La tour met le roi adverse mat avec l\'aide du fou.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">La tour met le roi mat avec l\'aide du fou.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Le fou met le roi adverse échec et mat avec l\'aide de la tour.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Le fou met le roi mat avec l\'aide de la tour.</string>
   <string name="swallowstailMate">Mat du guéridon</string>
   <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>

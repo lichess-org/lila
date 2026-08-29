@@ -24,6 +24,7 @@ Divane açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli d
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Oyuncular nasıl eşleştiriliyor?</string>
   <string name="howDoesPairingWorkAnswer">Turnuvanın başında eşleştirmeler oyuncuların puanlarına göre yapılır. Oyunu bitirip lobiye döndüğünüz anda ise kendi sıralamanıza yakın bir rakip ile eşleştirilirsiniz. Böylece bekleme süresi en aza indirgenmiş olur fakat turnuvadaki tüm oyuncularla karşılaşamayabilirsiniz.
 
 Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lobiye dönün.</string>

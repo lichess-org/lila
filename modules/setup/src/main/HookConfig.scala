@@ -7,6 +7,7 @@ import scalalib.model.Days
 
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
+import lila.core.id.SessionId
 import lila.lobby.{ Hook, Seek, TriColor }
 import lila.rating.RatingRange.withinLimits
 
@@ -46,7 +47,7 @@ case class HookConfig(
   def hook(
       sri: lila.core.socket.Sri,
       user: Option[UserWithPerfs],
-      sid: Option[String],
+      sid: Option[SessionId],
       blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =
     timeMode match

@@ -17,7 +17,6 @@ const args: Record<string, string> = {
   '--no-color': '',
   '--no-time': '',
   '--no-context': '',
-  '--no-corepack': '',
   '--help': 'h',
   '--watch': 'w',
   '--prod': 'p',
@@ -34,13 +33,12 @@ const usage = `Usage:
 
 Options:
   -h, --help          show this help and exit
-  -w, --watch         build and watch for changes
+  -w, --watch         build and watch for changes. press <space> while watching to trigger a clean rebuild
   -c, --clean         clean all build artifacts and build fresh
   -k, --kill          if another ui/build instance is running, kill it rather than bail
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
-  -d, --debug         disable noUnusedLocals, noImplicitReturns, noUnusedParameters in tsc and build
-                      assets with site.debug = true
+  -d, --debug         build assets with site.debug = true
   -l, --log=<url>     patch console logging functions in javascript manifest to POST messages to
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs
@@ -48,7 +46,6 @@ Options:
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
-  --no-corepack       don't use corepack to install pnpm (protect or restricted system node installs)
 
 Exclusive Options:    (any of these will disable other functions)
   --tsc               run tsc on {package}/tsconfig.json and dependencies

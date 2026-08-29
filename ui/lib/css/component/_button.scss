@@ -73,7 +73,7 @@
       hsl(from $c-bad h s calc(l + 32)),
       hsl(from $c-bad h s calc(l - 15)),
       hsl(from $c-bad h s calc(l + 44)),
-      hsl(from $c-bad h s calc(l - 12))
+      hsl(from $c-bad h s calc(l - 10))
     );
 
     background: $c-bad;

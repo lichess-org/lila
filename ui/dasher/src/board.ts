@@ -158,7 +158,7 @@ export class BoardCtrl extends PaneCtrl {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
-    if (document.body.dataset.theme === 'transp')
+    if (document.body.dataset.theme?.includes('transp'))
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     sliders.push(
       this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }),

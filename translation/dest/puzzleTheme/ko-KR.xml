@@ -46,7 +46,7 @@
   <string name="clearanceDescription">이어지는 전술적 아이디어를 위해 칸, 파일 또는 대각선을 비우는 수입니다.</string>
   <string name="defensiveMove">방어적인 수</string>
   <string name="defensiveMoveDescription">기물을 잃거나 다른 손실을 피하기 위해 필요한 정확한 수입니다.</string>
-  <string name="deflection">굴절</string>
+  <string name="deflection">디플렉션</string>
   <string name="deflectionDescription">중요한 칸을 수비하는 등 다른 역할을 수행하는 상대 기물의 주의를 분산시키는 수입니다. \"과부하\"라고도 불립니다.</string>
   <string name="discoveredAttack">디스커버드 어택</string>
   <string name="discoveredAttackDescription">장거리 기물(예: 룩)의 길을 막고 있는 기물(예: 나이트)을 이동시켜 공격합니다.</string>
@@ -76,8 +76,10 @@
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
   <string name="pillsburysMate">필즈버리 메이트</string>
   <string name="pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
   <string name="morphysMate">모피 메이트</string>
   <string name="morphysMateDescription">룩으로 킹의 퇴로를 차단하고, 비숍으로 킹에게 체크합니다.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">룩이 킹을 가두어두는 동안 비숍을 이용해 메이트를 합니다.</string>
   <string name="swallowstailMate">스왈로우테일 메이트</string>
   <string name="swallowstailMateDescription">V자 모양인 제비의 꼬리를 시각적으로 닮은 체크메이트 패턴입니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>

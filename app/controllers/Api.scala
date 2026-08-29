@@ -334,7 +334,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
-      .data(username, perfKey, computeIfNeeded = true)
+      .data(username, perfKey, computeIfNeeded = false)
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 

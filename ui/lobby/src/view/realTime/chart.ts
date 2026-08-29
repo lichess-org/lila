@@ -51,7 +51,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
           closeDelay: 200,
           defaultSize: [120, 80],
           popupId: 'hook',
-          preRender() {
+          async render() {
             $('#hook')
               .html(renderHook(ctrl, hook))
               .find('.inner-clickable')

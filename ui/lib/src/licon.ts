@@ -121,6 +121,7 @@ export const licon = {
   Disc: '' as const, // e06b
   Wings: '' as const, // e06c
   DiscOutline: '' as const, // e06d
+  Language: '' as const, // e06e
   ArrowThruApple: '' as const, // e06f
   Clipboard: '' as const, // e070
   Move: '' as const, // e071

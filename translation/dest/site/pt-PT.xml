@@ -838,6 +838,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="roundness">Arredondamento</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
+  <string name="imageOpacity">Opacidade da imagem</string>
   <string name="board">Tabuleiro</string>
   <string name="size">Tamanho</string>
   <string name="opacity">Opacidade</string>
@@ -1013,6 +1014,7 @@ Deixa em branco para iniciar jogos da posição inicial normal.</string>
   <string name="onlyTeamLeaders">Apenas líderes da equipa</string>
   <string name="onlyTeamMembers">Apenas membros da equipa</string>
   <string name="navigateMoveTree">Navegar pela árvore de movimentos</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Mover lista de navegação</string>
   <string name="mouseTricks">Movimentos do rato</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local no computador</string>
   <string name="toggleAllAnalysis">Alternar todas as análises no computador</string>

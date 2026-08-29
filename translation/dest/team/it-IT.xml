@@ -35,6 +35,8 @@
   <string name="teamTournament">Torneo nel team</string>
   <string name="teamTournamentOverview">Un torneo Arena a cui solo i membri della tua squadra possono partecipare</string>
   <string name="swissTournamentOverview">Un torneo svizzero a cui posso unirsi solo i membri del tuo team</string>
+  <string name="teamUpdates">Aggiornamenti di squadra</string>
+  <string name="newTeamUpdate">Nuovo aggiornamento del team</string>
   <string name="teamsIlead">Squadre che conduco</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
   <string name="leadersChat">Chat dei leader</string>

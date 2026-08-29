@@ -27,6 +27,7 @@
 
 当两名或多名棋手得分相同时，以锦标赛表现分作为破同分依据。</string>
   <string name="howDoesPairingWork">配对如何运作？</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">棋手之间如何配对？</string>
   <string name="howDoesPairingWorkAnswer">锦标赛开始时，棋手根据其等级分进行配对。
 一旦您结束一局对局，请返回锦标赛大厅：您将被与排名相近的棋手配对。这确保了最短的等待时间，但您可能不会遇到锦标赛中的所有其他棋手。
 快速对弈并返回大厅，以进行更多对局并赢得更多分数。</string>
