@@ -47,7 +47,7 @@ final private class ChapterMaker(
       importerId: UserId,
       strict: Boolean
   ): Fu[StudyPgnImport.Result] = for
-    contributors <- lightUser.asyncMany((study.members.contributorIds + importerId).toList).map(_.flatten)
+    contributors <- lightUser.asyncMany(study.members.contributorIds.toList).map(_.flatten)
     importer = contributors.find(_.id == importerId)
     parsed <- StudyPgnImport
       .result(pgn, contributors, strict = strict, importer = importer)
