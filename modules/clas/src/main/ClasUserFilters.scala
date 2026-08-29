@@ -2,7 +2,7 @@ package lila.clas
 
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.*
-import bloomfilter.mutable.BloomFilter
+import se.thanh.pds.bloomfilter.BloomFilter
 import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import play.api.Mode
@@ -64,7 +64,8 @@ private trait CacheBackend[A]:
 // Stick to [String], it does unsafe operations that don't play well with opaque types
 private final class BloomFilterCache(estimatedCount: Int) extends CacheBackend[String]:
   private val bloom: BloomFilter[String] = BloomFilter[String](estimatedCount + 100, 0.00003)
-  export bloom.{ mightContain, add, dispose }
+  export bloom.{ contains as mightContain, add }
+  override def dispose(): Unit = ()
 
 private final class SetCache[A] extends CacheBackend[A]:
   private val set = scala.collection.mutable.Set.empty[A]
