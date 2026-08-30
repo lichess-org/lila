@@ -1,9 +1,9 @@
+import autoprefixer from 'autoprefixer';
 import cps from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
-import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 
 import { c, env, errorMark, trimLines } from './env.ts';
