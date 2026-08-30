@@ -5,7 +5,6 @@
   <plurals name="nbBroadcasts">
     <item quantity="one">הקרנה %s</item>
     <item quantity="two">%s הקרנות</item>
-    <item quantity="many">%s הקרנות</item>
     <item quantity="other">%s הקרנות</item>
   </plurals>
   <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>

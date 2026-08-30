@@ -278,7 +278,9 @@
   <string name="ok">确定</string>
   <string name="cancel">取消</string>
   <string name="whiteTimeOut">白方超时</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">白方超时</string>
   <string name="blackTimeOut">黑方超时</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">黑方超时</string>
   <string name="drawOfferSent">和棋请求已发送</string>
   <string name="drawOfferAccepted">对方同意和棋</string>
   <string name="whiteOffersDraw">白方提出和棋</string>
@@ -387,6 +389,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">您的 %s 等级分为暂定状态</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">由于您的等级分尚不稳定，等级分筛选已被锁定。进行排位对局将提高稳定性。</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">由于您的等级分尚不稳定，暂时无法按等级分进行筛选。
+进行排位对局将提高稳定性。</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分 (%2$s) 过高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 等级分 (%2$s) 过高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分 (%2$s) 过低</string>
@@ -408,6 +412,7 @@
   <string name="save">保存</string>
   <string name="leaderboard">排行榜</string>
   <string name="screenshotCurrentPosition">保存当前局面为图片</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">将局面显示为图片</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
   <string name="playerNames">棋手名称</string>
   <string name="moveAnnotations">着法评注</string>
@@ -688,6 +693,7 @@
   <string name="simulClockHint">菲舍尔制时钟设置。您接受的对手越多，您可能需要的时间就越多。</string>
   <string name="simulAddExtraTime">您可以为自己增加额外的初始时间，以帮助您应对车轮战。</string>
   <string name="simulHostExtraTime">主持人额外初始时间</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">主持人额外时间：</string>
   <string name="simulAddExtraTimePerPlayer">为每位加入车轮战的棋手增加您时钟的初始时间。</string>
   <string name="simulHostExtraTimePerPlayer">每加入位对手时获得的额外时间</string>
   <string name="lichessTournaments">Lichess 锦标赛</string>
@@ -820,6 +826,7 @@
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">等级分：%s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">等级分：%s。</string>
   <string name="yourRatingIsX">您的等级分是 %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">剩余 %s 秒走首步棋</item>
@@ -876,6 +883,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">您收到了一条来自 Lichess 的私信。</string>
   <string name="clickHereToReadIt">点击此处阅读</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">阅读消息</string>
   <string name="sorry">抱歉 :(</string>
   <string name="weHadToTimeYouOutForAWhile">我们不得不暂时将您封禁一段时间。</string>
   <string name="why">为什么？</string>

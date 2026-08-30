@@ -278,7 +278,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
   <string name="whiteTimeOut">Bên trắng hết giờ</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Bên trắng hết giờ</string>
   <string name="blackTimeOut">Bên đen hết giờ</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Bên đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
   <string name="whiteOffersDraw">Bên trắng đề nghị hòa</string>
@@ -387,6 +389,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Bộ lọc xếp hạng bị khóa vì xếp hạng của bạn không ổn định. Chơi các ván cờ có xếp hạng sẽ tăng tính ổn định.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Không thể lọc theo hệ số vì hệ số của bạn không ổn định.
+Chơi các trận đấu có xếp hạng sẽ giúp tăng tính ổn định của hệ số.</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
   <string name="yourPerfRatingIsTooLow">Hệ số %1$s (%2$s) của bạn quá thấp</string>
@@ -408,6 +412,7 @@
   <string name="save">Lưu</string>
   <string name="leaderboard">Bảng dẫn đầu</string>
   <string name="screenshotCurrentPosition">Chụp màn hình thế cờ hiện tại</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Ảnh chụp thế cờ hiện tại</string>
   <string name="gameAsGIF">Ván cờ dưới dạng ảnh GIF</string>
   <string name="playerNames">Tên người chơi</string>
   <string name="moveAnnotations">Chú thích nước đi</string>
@@ -689,6 +694,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể cộng thêm thời gian ban đầu của mình để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian cộng thêm ban đầu cho người chủ trì</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Thời gian cộng thêm cho người chủ trì:</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu của bạn khi đấu với mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian cộng thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
@@ -820,7 +826,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingX">Hệ số: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Hệ số: %s.</string>
   <string name="yourRatingIsX">Hệ số của bạn là %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
@@ -877,6 +884,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   </plurals>
   <string name="showUnreadLichessMessage">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
   <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Đọc tin nhắn</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
   <string name="why">Tại sao?</string>

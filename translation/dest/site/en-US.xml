@@ -97,6 +97,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
+  <string name="minRatingX">Minimum rating of %s</string>
+  <string name="maxRatingX">Maximum rating of %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
   <string name="masterDbExplanation">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
@@ -483,6 +485,7 @@
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
   </plurals>
+  <string name="less">Less</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
@@ -835,6 +838,7 @@
   <string name="roundness">Roundness</string>
   <string name="backgroundImage">Background image</string>
   <string name="backgroundImageUrl">Background image URL:</string>
+  <string name="imageOpacity">Image opacity</string>
   <string name="board">Board</string>
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>
@@ -1027,6 +1031,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="gameInProgress">You have a game in progress with %s.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
+  <string name="youCantStartNewGame">You can\'t start a new game while it\'s your turn.</string>
   <string name="since">Since</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
@@ -1050,4 +1055,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="thereAreNoResultsForX">No results for \"%s\"</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
+  <string name="settings">Settings</string>
 </resources>

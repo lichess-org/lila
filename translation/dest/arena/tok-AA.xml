@@ -28,6 +28,7 @@ sina pali e tawa luka tu wan lon musi la musi pi tenpo lili li pana e nanpa poka
 
 jan mute li jo e nanpa sama la utala musi li kama sama.</string>
   <string name="howDoesPairingWork">jan li poka kepeken nasin seme?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">nasin seme la sina lon kulupu tu?</string>
   <string name="howDoesPairingWorkAnswer">nanpa wawa jan li sama la jan ni li poka lon open pi utala musi.
 sina pini e musi la o tawa tawa tomo awen. ilo li poka e sina e jan pi nanpa wawa sama. tan ni la sina awen lon tenpo lili. ken la sina li utala musi e jan ale ala.
 o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li ken kama jo e nanpa mute.</string>
@@ -41,6 +42,7 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
   </plurals>
   <string name="thisIsPrivate">jan pona taso li ken musi e utala musi ni</string>
   <string name="shareUrl">o pana e nimi open tawa jan la jan li ken kama: %s</string>
+  <string name="drawStreakStandard">anpa ala mute: tenpo pi jan anpa ala mute lon utala</string>
   <string name="variant">musi pi nasin ante</string>
   <string name="minimumGameLength">tenpo lili musi</string>
   <string name="history">ma utala pi tenpo pini</string>

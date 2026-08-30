@@ -8,7 +8,7 @@
   <string name="materialDifference">Material desoreka</string>
   <string name="boardHighlights">Taulan markak erakutsi (azken jokaldia eta xakea)</string>
   <string name="pieceDestinations">Piezen norakoak (jokaldi zuzenak eta aurre-jokaldiak)</string>
-  <string name="boardCoordinates">Taularen koordinatutak (A-H, 1-8)</string>
+  <string name="boardCoordinates">Taularen koordinatuak (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
   <string name="chessPieceSymbol">Xake piezen ikurra</string>

@@ -22,6 +22,7 @@
   <string name="teamRead">Ler a información privada do equipo</string>
   <string name="teamWrite">Unirse e saír de equipos</string>
   <string name="teamLead">Administrar os equipos que lideres: enviar mensaxes privadas, expulsar aos membros</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Administrar os equipos que lideres: enviar mensaxes privadas, expulsar aos membros</string>
   <string name="followRead">Ver os xogadores ós que segues</string>
   <string name="followWrite">Seguir e deixar de seguir a outros xogadores</string>
   <string name="msgWrite">Enviar mensaxes privadas a outros xogadores</string>

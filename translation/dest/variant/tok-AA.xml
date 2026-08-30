@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">nasin Standard</string>
+  <string name="standardTitle">lawa pi musi pi lawa mije moli (FIDE)</string>
+  <string name="chess960">nasin Chess960</string>
+  <string name="chess960Title">nasin pi lon open li nasin ala.</string>
+  <string name="kingOfTheHill">nasin pi nena pi jan lawa</string>
+  <string name="kingOfTheHillTitle">o tawa e jan lawa sina tawa insa la sina pini pona.</string>
+  <string name="threeCheck">nasin Three-Check</string>
+  <string name="threeCheckTitle">o ken moli 3 e jan ante pi lawa mije la sina pini pona.</string>
+  <string name="antichess">nasin Antichess</string>
+  <string name="antichessTitle">o weka e ijo musi ale sina (sina o ken ala tawa) la sina pini pona.</string>
+  <string name="atomic">nasin Atomic</string>
+  <string name="atomicTitle">o pakala suli e lawa mije pi jan ante la sina pini pona.</string>
+  <string name="horde">nasin Horde</string>
+  <string name="hordeTitle">jan wan li jo e jan utala lili, jan ante li jo e jan mute utala pi nasa ala.</string>
+  <string name="racingKings">nasin pi lawa mije tawa wawa</string>
+  <string name="racingKingsTitle">o tawa e lawa mije sina tawa poka ante la sina pini pona.</string>
+  <string name="crazyhouse">nasin Crazyhouse</string>
+  <string name="crazyhouseTitle">sina tawa ala e ijo musi la ijo musi weka li ken kama sin.</string>
+  <string name="fromPosition">tan lon</string>
+  <string name="fromPositionTitle">musi pi lawa mije moli lon lon wan</string>
+</resources>

@@ -22,6 +22,7 @@
   <string name="teamRead">Preberite informacije o zasebni ekipi</string>
   <string name="teamWrite">Pridružite se, zapustite in upravljajte ekipo</string>
   <string name="teamLead">Upravljajte ekipe, ki jih vodite: pošljite ZS, izbrišite člane</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Upravljajte ekipe, ki jih vodite: pošiljajte neposredna sporočila, izključujte člane</string>
   <string name="followRead">Preberi spremljane igralce</string>
   <string name="followWrite">Sledite in prenehajte slediti drugim igralcem</string>
   <string name="msgWrite">Pošlji zasebno sporočilo drugim igralcem</string>
