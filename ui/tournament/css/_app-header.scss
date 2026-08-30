@@ -5,17 +5,17 @@
     letter-spacing: 2px;
   }
 
-  .tour-shed-weekly & icon::before {
-    font-size: 35px;
+  .tour-shed-weekly & .img.svg-icon {
+    width: 35px;
   }
 
-  .tour-shed-monthly & icon::before,
-  .tour-shed-weekend & icon::before {
-    font-size: 40px;
+  .tour-shed-monthly & .img.svg-icon,
+  .tour-shed-weekend & .img.svg-icon {
+    width: 40px;
   }
 
-  .tour-shed-yearly & icon::before {
-    font-size: 45px;
+  .tour-shed-yearly & .img.svg-icon {
+    width: 45px;
   }
 
   .tour-shed-weekend & h1,

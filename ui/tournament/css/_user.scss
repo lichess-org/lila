@@ -62,10 +62,8 @@
       text-align: right;
     }
 
-    th span {
-      &::before {
-        font-size: 2em;
-      }
+    th span .svg-icon {
+      width: 2em;
     }
   }
 }

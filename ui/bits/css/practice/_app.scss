@@ -43,7 +43,7 @@
     @include if-light {
       color: $c-font;
 
-      icon {
+      .svg-icon {
         filter: brightness(0.15);
       }
     }

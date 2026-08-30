@@ -80,11 +80,6 @@
     margin: 20px;
     display: flex;
 
-    icon {
-      font-size: 45px;
-      margin-inline-end: 15px;
-    }
-
     code {
       font-weight: bold;
       font-size: 1.5em;
@@ -251,8 +246,8 @@
       vertical-align: bottom;
       color: $c-font-dim;
 
-      icon {
-        font-size: 2em;
+      .svg-icon {
+        width: 2em;
         display: block;
       }
     }

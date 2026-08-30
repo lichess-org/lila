@@ -66,9 +66,9 @@
             padding: 0.2em 0.6em;
             color: $c-header-dropdown;
 
-            &::before {
+            > .svg-icon {
               margin-inline: 0 0.5rem;
-              font-size: 1.4em;
+              width: 1.4em;
             }
           }
         }

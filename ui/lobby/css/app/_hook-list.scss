@@ -86,13 +86,13 @@
       padding-inline-start: 2em;
     }
 
-    &:last-child ::before {
+    &:last-child .svg-icon {
       margin-inline-end: 8px;
       line-height: 0.9;
-      font-size: 1.6em;
+      width: 1.6em;
     }
 
-    ::before {
+    .svg-icon {
       opacity: 0.6;
     }
 

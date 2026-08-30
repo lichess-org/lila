@@ -32,7 +32,7 @@
     &:focus,
     &.complete-selected {
       &,
-      & icon {
+      & .svg-icon {
         color: $c-font-clearer !important;
       }
 

@@ -98,11 +98,6 @@
       }
     }
 
-    [data-mode]::before,
-    [data-mode]::after {
-      font-size: 1.3em;
-    }
-
     [data-mode='practice']::before {
       @include icon-mask($icon-Bullseye);
 

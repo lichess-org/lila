@@ -30,24 +30,23 @@
       &::before {
         @include transition(color);
 
-        font-size: 32px;
         color: $c-font-dimmer;
       }
 
       &--hook.button::before {
-        @include icon-mask($icon-Group);
+        @include icon-mask($icon-Group, 32px);
       }
 
       &--friend.button::before {
-        @include icon-mask($icon-User);
+        @include icon-mask($icon-User, 32px);
       }
 
       &--ai.button::before {
-        @include icon-mask($icon-Cpu);
+        @include icon-mask($icon-Cpu, 32px);
       }
 
       &--friend-user.button::before {
-        @include icon-mask($icon-Swords);
+        @include icon-mask($icon-Swords, 32px);
       }
 
       @media (hover: hover) {

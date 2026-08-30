@@ -141,11 +141,11 @@
         box-shadow: none;
         opacity: 1;
 
-        icon {
+        .svg-icon {
           opacity: 1;
           color: color-mix(in oklab, $c-primary 70%, $c-bg);
           position: absolute;
-          font-size: 5.5em !important;
+          width: 5.5em !important;
           margin-bottom: 0.2em;
         }
       }
@@ -223,8 +223,8 @@
     }
 
     .puzzle-dashboard__metric--fix {
-      icon {
-        font-size: 1.6em;
+      .svg-icon {
+        width: 1.6em;
         margin-inline-start: 0.3em;
       }
     }
