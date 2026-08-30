@@ -154,9 +154,9 @@ final private class FidePlayerSync(
         .map(parseLine(inactiveIds))
         .mapConcat(_.toList)
         .filter(validatePlayer)
-        .grouped(200)
+        .grouped(500)
         .map(_.toList)
-        .mapAsync(1)(saveIfChanged)
+        .mapAsync(4)(saveIfChanged)
         .runWith(lila.common.LilaStream.sinkSum)
         .monSuccess(lila.mon.fideSync.time)
       nbAll <- repo.player.countAll
