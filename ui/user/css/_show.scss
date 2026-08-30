@@ -117,9 +117,9 @@
             text-align: start;
             color: $c-header-dropdown;
 
-            &::before {
+            .svg-icon {
               margin-inline: 0 1rem;
-              font-size: 1.4em;
+              width: 1.4em;
             }
           }
 

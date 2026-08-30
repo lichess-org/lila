@@ -41,8 +41,8 @@
   .header {
     @extend %flex-center;
 
-    &::before {
-      font-size: 3em;
+    .svg-icon {
+      width: 3em;
       opacity: 0.7;
       margin-inline-end: 0.7rem;
     }
