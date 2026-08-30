@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.libs.ws.StandaloneWSClient
-import se.thanh.pds.bloomfilter.BloomFilter
+import bloomfilter.mutable.BloomFilter
 import org.apache.pekko.stream.scaladsl.*
 import scalalib.net.Domain
 
@@ -35,13 +35,14 @@ final class DisposableEmailDomain(
                 nextBloom.add(domain)
                 nb + 1
       .map: nb =>
+        bloomFilter.dispose()
         bloomFilter = nextBloom
         lila.mon.email.disposableDomain.update(nb)
 
   def isDisposable(domain: Domain): Boolean =
     val all = expandDomains(domain)
     !all.exists(DisposableEmailDomain.whitelisted) && all.exists: d =>
-      bloomFilter.contains(d.lower.value) ||
+      bloomFilter.mightContain(d.lower.value) ||
         domainFragmentRegex.find(d.lower.value)
 
   // foo.bar.aaa.com -> List(aaa.com, bar.aaa.com, foo.bar.aaa.com)
