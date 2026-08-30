@@ -5,6 +5,7 @@ package lila.ui
 opaque type Icon = String
 object Icon:
   extension (icon: Icon) def name: String = icon
+  def unsafe(str: String): Icon = str
   given scalalib.Iso.StringIso[Icon] = scalalib.Iso.string(identity, _.name)
   given play.api.libs.json.Writes[Icon] =
     play.api.libs.json.Writes(icon => play.api.libs.json.JsString(icon.name))
