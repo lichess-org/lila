@@ -23,6 +23,7 @@
     border-inline-end: $border;
     color: $c-font;
     white-space: nowrap;
+    gap: 1ch; // 9c3f5e75a17b2f637b0cadd6e752445ba433973f
 
     &:hover {
       color: $c-font;
