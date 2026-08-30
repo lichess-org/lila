@@ -204,8 +204,8 @@ body {
   gap: 3rem;
   padding: 0 2rem;
 
-  icon {
-    font-size: 3em;
+  .svg-icon {
+    width: 3em;
   }
 
   strong {
@@ -222,8 +222,8 @@ body {
 .recap__slide--patron {
   gap: 2em;
 
-  icon {
-    font-size: 3em;
+  .svg-icon {
+    width: 3em;
   }
 
   .cta {

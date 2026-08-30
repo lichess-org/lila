@@ -95,8 +95,8 @@
     span {
       margin-bottom: 1em;
 
-      &::before {
-        font-size: 1.6em;
+      .svg-icon {
+        width: 1.6em;
         margin-inline-end: 0.1em;
       }
     }
@@ -115,8 +115,8 @@
       display: flex;
     }
 
-    icon {
-      font-size: 40px;
+    .svg-icon {
+      width: 40px;
       margin-bottom: 10px;
     }
   }

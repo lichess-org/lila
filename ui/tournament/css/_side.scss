@@ -82,14 +82,14 @@
       opacity: 1;
     }
 
-    .defender::before {
-      font-size: 1.6em;
+    .defender .svg-icon {
+      width: 1.6em;
       vertical-align: -0.26em;
       margin: 0 0.15em 0 -0.15em;
     }
 
     &.conditions {
-      &::before {
+      > .svg-icon:first-child {
         opacity: 0.7;
       }
 

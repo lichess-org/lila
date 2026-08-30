@@ -109,7 +109,7 @@
   &:hover {
     background: $c-bg-zebra;
 
-    icon {
+    .svg-icon {
       color: $c-link;
       opacity: 0.9;
     }
@@ -118,7 +118,7 @@
   &.new {
     background: color-mix(in oklab, $c-secondary 27%, $c-bg-popup);
 
-    icon {
+    .svg-icon {
       color: $c-secondary;
       opacity: 0.7;
     }
@@ -126,14 +126,14 @@
     &:hover {
       background: color-mix(in oklab, $c-secondary 36%, $c-bg-popup);
 
-      icon {
+      .svg-icon {
         opacity: 1;
       }
     }
   }
 
-  icon {
-    font-size: 2em;
+  .svg-icon {
+    width: 2em;
     opacity: 0.5;
     margin-inline-end: 1rem;
   }

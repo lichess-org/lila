@@ -19,9 +19,8 @@
 
   &::before,
   &::after {
-    @include icon-mask($icon-Swords);
+    @include icon-mask($icon-Swords, 2rem);
 
-    font-size: 2rem;
     position: absolute;
     top: 30px;
   }

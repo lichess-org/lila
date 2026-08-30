@@ -79,15 +79,6 @@
     }
   }
 
-  form.delete {
-    text-align: right;
-    margin-top: 6px;
-
-    .button::before {
-      font-size: 1.2em;
-    }
-  }
-
   .cmn-toggle-wrap {
     @extend %flex-center-nowrap;
 

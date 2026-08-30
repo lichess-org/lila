@@ -98,9 +98,9 @@
 
         @extend %flex-center, %roboto;
 
-        &::before {
+        > .svg-icon {
           color: var(---font);
-          font-size: 6rem;
+          width: 6rem;
           margin-inline-end: 0.2em;
 
           @media (max-width: at-most($xx-small)) {

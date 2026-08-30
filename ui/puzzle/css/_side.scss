@@ -89,8 +89,8 @@
         font-size: 2.2rem;
         margin-bottom: 1rem;
 
-        &::before {
-          font-size: 1.5em;
+        .svg-icon {
+          width: 1.5em;
         }
       }
     }
@@ -103,8 +103,8 @@
       justify-content: center;
       font-size: 4em;
 
-      &::before {
-        font-size: 0.9em;
+      > .svg-icon {
+        width: 0.9em;
       }
     }
   }
@@ -292,9 +292,7 @@
     }
 
     &::before {
-      @include icon-mask($icon-ThumbsUp);
-
-      font-size: 1.3em;
+      @include icon-mask($icon-ThumbsUp, 1.3em);
     }
 
     &.vote-down::before {
