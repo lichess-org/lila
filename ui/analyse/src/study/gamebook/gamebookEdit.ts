@@ -54,7 +54,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           h('p', 'Introduce the gamebook with a comment'),
         ]),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
-          snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+          snabIcon(icons.PlayTriangle),
           h('p', "Put the opponent's first move on the board."),
         ]),
       ];
@@ -79,7 +79,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hasVariation
           ? null
           : h('div.legend.clickable', { hook: bind('click', ctrl.navigate.prev, ctrl.redraw) }, [
-              snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+              snabIcon(icons.PlayTriangle),
               h('p', 'Add variation moves to explain why specific other moves are wrong.'),
             ]),
         renderDeviation(ctrl),

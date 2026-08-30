@@ -226,7 +226,7 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
           attrs: { href: '/tournament/' + d.tournament.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.backToTournament],
+        [snabIcon(icons.PlayTriangle), i18n.site.backToTournament],
       ),
       hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
         hl('button.text.fbt.weak', [snabIcon(icons.Pause), i18n.site.pause]),
@@ -247,7 +247,7 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
           attrs: { href: '/swiss/' + d.swiss.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.backToTournament],
+        [snabIcon(icons.PlayTriangle), i18n.site.backToTournament],
       ),
       analysisButton(ctrl),
     ])

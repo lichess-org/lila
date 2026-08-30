@@ -37,9 +37,7 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: Icon, effect: string, disabled: boolean, glowing = false): VNode {
-  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect } }, [
-    snabIcon(icon, 'mirror-rtl'),
-  ]);
+  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect } }, [snabIcon(icon)]);
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {

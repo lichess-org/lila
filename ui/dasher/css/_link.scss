@@ -22,16 +22,6 @@
     text-align: start;
   }
 
-  .links .line > .svg-icon {
-    display: inline-block;
-    margin-inline: 0 0.4em;
-    width: 1.2em;
-
-    @include if-rtl {
-      transform: scaleX(-1);
-    }
-  }
-
   .links a:hover,
   .links button:hover,
   .subs .sub:hover {

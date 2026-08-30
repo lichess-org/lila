@@ -129,7 +129,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   const d = ctrl.data;
   if (!ctrl.opts.userId)
     return hl('a.fbt.text.highlight', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
-      snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+      snabIcon(icons.PlayTriangle),
       i18n.site.signIn,
     ]);
 
@@ -153,7 +153,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   if (d.me && d.status !== 'finished')
     return d.me.absent
       ? hl('button.fbt.text.highlight', { hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) }, [
-          snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+          snabIcon(icons.PlayTriangle),
           i18n.site.join,
         ])
       : hl('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
@@ -166,7 +166,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     {
       hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
     },
-    [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.join],
+    [snabIcon(icons.PlayTriangle), i18n.site.join],
   );
 }
 

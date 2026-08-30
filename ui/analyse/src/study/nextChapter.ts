@@ -15,6 +15,6 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
           hook: bind('click', ctrl.study.goToNextChapter),
           class: { highlighted: !!ctrl.node.outcome() || ctrl.node === treeOps.last(ctrl.mainline) },
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.study.nextChapter],
+        [snabIcon(icons.PlayTriangle), i18n.study.nextChapter],
       )
     : null;

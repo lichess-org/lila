@@ -129,3 +129,14 @@ export const icons = {
 export type Icons = typeof icons;
 export type IconKey = keyof Icons;
 export type Icon = Icons[IconKey];
+
+export const rtlMirroredIcons: ReadonlySet<Icon> = new Set([
+  icons.GreaterThan,
+  icons.JumpFirst,
+  icons.JumpLast,
+  icons.JumpNext,
+  icons.JumpPrev,
+  icons.LessThan,
+  icons.PlayTriangle,
+  icons.Wings,
+]);

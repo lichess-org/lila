@@ -73,7 +73,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               ),
             },
             [
-              snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+              snabIcon(icons.PlayTriangle),
               h(
                 'button.del',
                 {

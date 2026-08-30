@@ -29,7 +29,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
           class: { 'button-green': connected, disabled: !connected },
           attrs: { type: 'submit', disabled: !connected, ...testId('msg-send-button') },
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl')],
+        [snabIcon(icons.PlayTriangle)],
       ),
     ],
   );

@@ -108,7 +108,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               class: { active: !!ctrl.retro },
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.learnFromYourMistakes],
+            [snabIcon(icons.PlayTriangle), i18n.site.learnFromYourMistakes],
           ),
       playerTable(ctrl, 'black'),
     ],

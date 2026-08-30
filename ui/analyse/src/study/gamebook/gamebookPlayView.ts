@@ -47,7 +47,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     );
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
-      hl('span.text', [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.study.next]),
+      hl('span.text', [snabIcon(icons.PlayTriangle), i18n.study.next]),
       hl('kbd', 'space'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
@@ -80,7 +80,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
           attrs: { type: 'button' },
           hook: bind('click', study.goToNextChapter),
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.study.nextChapter],
+        [snabIcon(icons.PlayTriangle), i18n.study.nextChapter],
       ),
     hl(
       'button.retry',

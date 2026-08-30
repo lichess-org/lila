@@ -66,7 +66,7 @@ export class SoundEventPane extends Pane {
     const buttonEl = frag<HTMLButtonElement>(
       '<button class="button button-empty preview-sound icon-btn" type="button" title="Preview sound" aria-label="Preview sound"></button>',
     );
-    buttonEl.append(domIcon(icons.PlayTriangle, 'mirror-rtl'));
+    buttonEl.append(domIcon(icons.PlayTriangle));
     const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);

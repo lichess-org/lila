@@ -161,7 +161,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
             addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' }),
           ),
         },
-        [snabIcon(icons[b[0]], 'mirror-rtl')],
+        [snabIcon(icons[b[0]])],
       );
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),

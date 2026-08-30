@@ -48,7 +48,7 @@ class SetupDialog {
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
-            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon(icons.GreaterThan, 'mirror-rtl')}</button>
+            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon(icons.GreaterThan)}</button>
           </div>
           <div class="from-position is2d snap-pane">
             <div class="editor"></div>
@@ -56,7 +56,7 @@ class SetupDialog {
               <button class="button button-metal standard">Standard</button>
               <button class="button button-metal chess960">Chess960</button>
             </div>
-            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon(icons.LessThan, 'mirror-rtl')}</button>
+            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon(icons.LessThan)}</button>
           </div>
         </div>
         <div class="chin">

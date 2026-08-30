@@ -14,7 +14,7 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
-    snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+    snabIcon(icons.PlayTriangle),
     i18n.site.next,
   ]);
 

@@ -231,7 +231,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.importPgn],
+            [snabIcon(icons.PlayTriangle), i18n.site.importPgn],
           ),
         hl('div.bottom-item.bottom-error', { class: { 'is-error': !!ctrl.pgnError } }, [
           snabIcon(icons.CautionTriangle),

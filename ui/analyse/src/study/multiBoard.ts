@@ -231,7 +231,7 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
 
 function pagerButton(icon: Icon, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
   return h('button.fbt', { attrs: { disabled: !enable }, hook: bind('mousedown', click, ctrl.redraw) }, [
-    snabIcon(icon, 'mirror-rtl'),
+    snabIcon(icon),
   ]);
 }
 

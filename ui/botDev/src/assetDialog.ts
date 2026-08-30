@@ -358,7 +358,7 @@ export class AssetDialog {
         const buttonEl = frag<HTMLButtonElement>(
           `<button class="button button-empty preview-sound" type="button" data-play="${key}" title="Preview sound"><span>0.00s</span></button>`,
         );
-        buttonEl.prepend(domIcon(icons.PlayTriangle, 'mirror-rtl'));
+        buttonEl.prepend(domIcon(icons.PlayTriangle));
         buttonEl.addEventListener('click', e => {
           audioEl.play();
           e.stopPropagation();
