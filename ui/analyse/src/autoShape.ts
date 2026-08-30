@@ -1,5 +1,5 @@
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
-import { opposite } from '@lichess-org/chessground/util';
+import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import { between, ray, knightAttacks } from 'chessops/attacks';
 import { parseFen } from 'chessops/fen';
 import { isDrop, type Square } from 'chessops/types';
@@ -218,12 +218,13 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   for (const [i, node] of visible.entries()) {
-    const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
+    const [orig, dest] = uciToMove(node.uci)!;
+    const existing = autoShapes.find(s => !s.piece && s.orig === orig && s.dest === dest);
     if (existing) existing.modifiers = { hilite: i === ctrl.fork.selectedIndex ? 'white' : undefined };
     else
       autoShapes.push({
-        orig: node.uci!.slice(0, 2) as Key,
-        dest: node.uci?.slice(2, 4) as Key,
+        orig,
+        dest,
         brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
         modifiers: { hilite: i === ctrl.fork.selectedIndex ? '#3291ff' : '#aaa' },
         below: true,
