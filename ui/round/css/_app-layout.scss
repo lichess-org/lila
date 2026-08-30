@@ -181,8 +181,8 @@ body.streamer {
     &.playing {
       height: 100vh;
       overflow: hidden !important;
-      margin: 0px;
-      padding: 0px;
+      margin: 0;
+      padding: 0;
     }
 
     .rclock .time {
@@ -195,7 +195,7 @@ body.streamer {
       height: 36px;
       min-width: 8rem;
       justify-content: center;
-      padding: 0px 0rem;
+      padding: 0 0;
     }
   
     /*
@@ -203,15 +203,16 @@ body.streamer {
     * to vertically center on expanded clock
     */
     .rclock-top .time, .rclock-top a.moretime {
-      margin-top: 0px;
+      margin-top: 0;
     }
 
   /* Layout to re-align board */
   .round {
     --chat-top-margin: calc(30px - 0.5rem);
+
     grid-template-areas: "side app app" "uchat app app";
     grid-template-rows: calc(var(--chat-top-margin) + var(---cg-height)) 30px;
-    grid-row-gap: 0;
+    row-gap: 0;
   }
 
   /* Remove underboard scoresheet */
@@ -245,38 +246,47 @@ body.streamer {
     margin-top: .2em;
     margin-bottom: -.5em;
   }
+
   .round__app .rclock-top, .round__app .rclock-bottom {
     grid-area: 1 / 1 / 2 / 2;
   }
+
   .round__app .rclock-bottom {
     transform: translateY(calc(var(---cg-height) + 30px));
   }
+
   .round__app .round__app__table {
     grid-area: 4 / 2 / 6 / 3;
   }
+
   .rclock {
     /* that weird shit is required so the clock goes above the player since they share the same grid cell */
     justify-self: flex-end;
     z-index: 1;
   }
+
   .rclock .tour-rank,
   .rclock .moretime,
   .rclock .berserked {
     order: -1;
   }
+
   .rclock .bar {
     display: none;
   }
+
   .rclock .time {
     font-size: 1.7em !important;
     line-height: 30px;
     background: none;
   }
+
   .ruser {
     font-size: 1.4em ;
     padding: 0 .3em;
     line-height: 30px;
   }
+
   .ruser a {
     flex: none;
   }
@@ -289,7 +299,7 @@ body.streamer {
   /* Horizontally align board between different views (game vs puzzle) */
   cg-container {
     right: auto;
-    left: 0px;
+    left: 0;
   }
 
   .analyse__player_strip, .rclock {
