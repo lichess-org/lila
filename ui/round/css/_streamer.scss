@@ -1,0 +1,132 @@
+body.streamer {
+  .round__app {
+    &__board {
+      z-index: 2;
+    }
+  }
+
+  @include mq-at-least-col3 {
+    &.playing {
+      height: 100vh;
+      overflow: hidden !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    .rclock {
+      .time {
+        /*
+      * TODO: needs !important because of setting later on
+      * This should be refactored at some point when the narrower
+      * layout gets updates
+      */
+        line-height: 36px !important;
+        height: 36px;
+        min-width: 8rem;
+        justify-content: center;
+        padding: 0 0;
+      }
+
+      /*
+      * Re-align the top "more time" plus button
+      * to vertically center on expanded clock
+      */
+      &-top {
+        .time,
+        a.moretime {
+          margin-top: 0;
+        }
+      }
+    }
+
+    /* Layout to re-align board */
+    .round {
+      --chat-top-margin: calc(30px - 0.5rem);
+
+      grid-template-areas: 'side app app' 'uchat app app';
+      grid-template-rows: calc(var(--chat-top-margin) + var(---cg-height)) 30px;
+      row-gap: 0;
+
+      /* Remove underboard scoresheet */
+      &__underboard {
+        display: none;
+      }
+
+      /* Re-align left sidebar to top of board */
+      &__side {
+        margin-top: var(--chat-top-margin);
+      }
+
+      /* Vertically center list of spectators underneath chat */
+      &__underchat {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .chat__members {
+      height: auto !important;
+    }
+  }
+
+  @include mq-at-least-col2 {
+    .round__app {
+      grid-template-columns: minmax(
+          calc(70vmin * var(---board-scale)),
+          calc(
+            100vh * var(---board-scale) - calc(var(---site-header-height) + var(---site-header-margin)) - 3rem
+          )
+        ) minmax(240px, 400px);
+      grid-template-rows: 30px 1fr auto min-content auto auto min-content auto 1fr 30px;
+      grid-template-areas: 'user-top .' 'board .' 'board mat-top' 'board expi-top' 'board moves' 'board controls' 'board expi-bot' 'board mat-bot' 'board .' 'user-bot .' 'kb-move .';
+      margin-top: 0.2em;
+      margin-bottom: -0.5em;
+
+      .rclock {
+        /* that weird shit is required so the clock goes above the player since they share the same grid cell */
+        justify-self: flex-end;
+        z-index: 1;
+
+        &-top,
+        &-bottom {
+          grid-area: 1 / 1 / 2 / 2;
+        }
+
+        &-bottom {
+          transform: translateY(calc(var(---cg-height) + 30px));
+        }
+
+        .tour-rank,
+        .moretime,
+        .berserked {
+          order: -1;
+        }
+
+        .bar {
+          display: none;
+        }
+
+        .time {
+          font-size: 1.7em !important;
+          line-height: 30px;
+          background: none;
+        }
+      }
+
+      &__table {
+        grid-area: 4 / 2 / 6 / 3;
+      }
+    }
+
+    .ruser {
+      font-size: 1.4em;
+      padding: 0 0.3em;
+      line-height: 30px;
+
+      a {
+        flex: none;
+      }
+    }
+  }
+}
