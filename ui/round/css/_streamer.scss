@@ -1,15 +1,9 @@
 body.streamer {
-  .round__app {
-    &__board {
-      z-index: 2;
-    }
-  }
-
-  .round__underboard {
-    display: none;
-  }
-
   @include mq-at-least-col2 {
+    .round__underboard {
+      display: none;
+    }
+
     .round__app {
       grid-template-columns: minmax(
           calc(70vmin * var(---board-scale)),
@@ -19,6 +13,10 @@ body.streamer {
         ) minmax(240px, 400px);
       grid-template-rows: 30px 1fr auto min-content auto auto min-content auto 1fr 30px;
       grid-template-areas: 'user-top .' 'board .' 'board mat-top' 'board expi-top' 'board moves' 'board controls' 'board expi-bot' 'board mat-bot' 'board .' 'user-bot .' 'kb-move .';
+
+      &__board {
+        z-index: 2;
+      }
 
       &__table {
         grid-area: 4 / 2 / 8 / 3;
