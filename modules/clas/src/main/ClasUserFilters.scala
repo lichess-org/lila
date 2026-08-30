@@ -2,7 +2,7 @@ package lila.clas
 
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.*
-import se.thanh.pds.bloomfilter.BloomFilter
+import bloomfilter.mutable.BloomFilter
 import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import play.api.Mode
@@ -59,15 +59,16 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
 private trait CacheBackend[A]:
   def mightContain(a: A): Boolean
   def add(a: A): Unit
+  def dispose(): Unit
 
 // Stick to [String], it does unsafe operations that don't play well with opaque types
 private final class BloomFilterCache(estimatedCount: Int) extends CacheBackend[String]:
   private val bloom: BloomFilter[String] = BloomFilter[String](estimatedCount + 100, 0.00003)
-  export bloom.{ contains as mightContain, add }
+  export bloom.{ mightContain, add, dispose }
 
 private final class SetCache[A] extends CacheBackend[A]:
   private val set = scala.collection.mutable.Set.empty[A]
-  export set.contains as mightContain
+  export set.{ contains as mightContain, clear as dispose }
   def add(a: A): Unit = set.add(a)
 
 private def makeCacheBackend(estimatedCount: Int): CacheBackend[String] =
@@ -97,6 +98,7 @@ private final class ClasUserCache(name: String)(
       .addEffect: nb =>
         logNb(nb)
         lila.mon.clas.bloomFilter(name).count.update(nb)
+        backend.dispose()
         backend = nextBackend
       .monSuccess(lila.mon.clas.bloomFilter(name).fu)
 
