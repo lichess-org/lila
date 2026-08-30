@@ -5,45 +5,38 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">צפו בסיבוב</item>
     <item quantity="two">צפו בכל %s הסיבובים</item>
-    <item quantity="many">צפו בכל %s הסיבובים</item>
     <item quantity="other">צפו בכל %s הסיבובים</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">סבב %s</item>
     <item quantity="two">%s סבבים</item>
-    <item quantity="many">%s סבבים</item>
     <item quantity="other">%s סבבים</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">טורניר שוויצרי עם סבב %s</item>
     <item quantity="two">טורניר שוויצרי עם %s סבבים</item>
-    <item quantity="many">טורניר שוויצרי עם %s סבבים</item>
     <item quantity="other">טורניר שוויצרי עם %s סבבים</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">סיבוב אחד ליום</item>
     <item quantity="two">סיבוב אחד כל %s ימים</item>
-    <item quantity="many">סיבוב אחד כל %s ימים</item>
     <item quantity="other">סיבוב אחד כל %s ימים</item>
   </plurals>
   <string name="roundsAreStartedManually">סבבים מתחילים באופן ידני</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">שנייה %s בין סבבים</item>
     <item quantity="two">%s שניות בין סבבים</item>
-    <item quantity="many">%s שניות בין סבבים</item>
     <item quantity="other">%s שניות בין סבבים</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">דקה %s בין סבבים</item>
     <item quantity="two">%s דקות בין סבבים</item>
-    <item quantity="many">%s דקות בין סבבים</item>
     <item quantity="other">%s דקות בין סבבים</item>
   </plurals>
   <string name="nextRound">הסבב הבא</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">משחק נוכחי</item>
     <item quantity="two">משחקים נוכחיים</item>
-    <item quantity="many">משחקים נוכחיים</item>
     <item quantity="other">משחקים נוכחיים</item>
   </plurals>
   <string name="tournStartDate">תאריך תחילת הטורניר</string>

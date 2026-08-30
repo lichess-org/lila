@@ -79,6 +79,7 @@
   <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Bir kale şah için mat yapar, bu arada bir fil onu sınırlamaya yardımcı olur.</string>
   <string name="morphysMate">Morphy matı</string>
   <string name="morphysMateDescription">Kale şahı sınırlarken, fil matı gerçekleştirir.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Fil, şahı mat ederken kale şahın hareket alanını kısıtlar.</string>
   <string name="swallowstailMate">Kırlangıç kuyruğu matı</string>
   <string name="swallowstailMateDescription">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
   <string name="triangleMate">Üçgen matı</string>

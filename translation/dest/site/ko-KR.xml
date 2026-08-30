@@ -278,7 +278,9 @@
   <string name="ok">확인</string>
   <string name="cancel">취소</string>
   <string name="whiteTimeOut">백 시간 초과</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">백 시간 초과</string>
   <string name="blackTimeOut">흑 시간 초과</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">흑 시간 초과</string>
   <string name="drawOfferSent">무승부 요청함</string>
   <string name="drawOfferAccepted">무승부 요청 수락됨</string>
   <string name="whiteOffersDraw">백이 무승부를 제안합니다</string>
@@ -387,6 +389,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">당신의 %s 레이팅은 임시 레이팅입니다</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 레이팅이 안정적이지 않기 때문에 레이팅 필터가 잠겨 있습니다. 레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">귀하의 레이팅이 안정적이지 않기 때문에 레이팅으로 필터링할 수 없습니다. 
+레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
   <string name="yourPerfRatingIsTooHigh">당신의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">당신의 주간 최고 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourPerfRatingIsTooLow">당신의 %1$s 레이팅(%2$s)은 너무 낮습니다.</string>
@@ -408,6 +412,7 @@
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
   <string name="screenshotCurrentPosition">스크린샷 찍기</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">포지션 이미지</string>
   <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="playerNames">플레이어명</string>
   <string name="moveAnnotations">수 주석</string>
@@ -688,6 +693,7 @@
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">다면기를 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
   <string name="simulHostExtraTime">다면기 시작 시 주최자의 추가 시간</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">주최자 추가 시간:</string>
   <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
   <string name="simulHostExtraTimePerPlayer">플레이어 당 주최자의 추가 시간</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
@@ -820,6 +826,7 @@
   <string name="notifications">알림</string>
   <string name="notificationsX">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">레이팅: %s.</string>
   <string name="yourRatingIsX">당신의 레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
@@ -876,6 +883,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Lichess로부터 비공개 메시지를 받았습니다.</string>
   <string name="clickHereToReadIt">클릭하여 읽기</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">메시지 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
   <string name="why">왜 그런가요?</string>

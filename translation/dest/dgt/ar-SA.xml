@@ -21,6 +21,7 @@
   <string name="asALastResort">كملاذ أخير، اعد اللوحة بشكل متطابق مع Lichess، ثم %s</string>
   <string name="reloadThisPage">أعد تحويل هذه الصفحة</string>
   <string name="dgtConfigure">تهيئة رقعة DGT</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">إعداد لوحة DGT الخاصة بك</string>
   <string name="lichessConnectivity">الربط بليتشيس</string>
   <string name="validDgtOauthToken">يجب أن يكون لديك رمز OAuth مناسب لتشغيل رقعة DGT.</string>
   <string name="dgtPlayMenuEntryAdded">يضيف إدخال %s المباراة إلى أعلى قائمة المباريات الخاصة بك.</string>

@@ -67,6 +67,7 @@
   <string name="editTournament">تعديل البطولة</string>
   <string name="editTeamBattle">تعديل معركة الفريق</string>
   <string name="defender">مدافع</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">المدافع:</string>
   <string name="pickYourTeam">اختر فريقك</string>
   <string name="whichTeamWillYouRepresentInThisBattle">أي فريق ستمثله في هذه المعركة؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">يجب أن تنضم إلى أحد هذه الفرق للمشاركة!</string>

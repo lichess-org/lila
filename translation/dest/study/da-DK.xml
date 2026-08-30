@@ -66,6 +66,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet for at indlejre</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet eller på din Lichess-blog for at indlejre kapitlet.</string>
   <string name="startAtInitialPosition">Start ved indledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside eller blog</string>
@@ -188,7 +189,9 @@
   <string name="customPositionTitle">Brugerdefineret stilling</string>
   <string name="customPositionText">Opstil brættet på din måde.&lt;br&gt;Nyttigt til at udforske slutspil.</string>
   <string name="loadExistingLichessGameTitle">Indlæs et eksisterende lichess-parti</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Indlæs et parti fra nettet</string>
   <string name="loadExistingLichessGameText">Indsæt en URL for et lichess-parti&lt;br&gt;(som lichess.org/7fHIU0XI)&lt;br&gt;for at indlæse partiets træk i kapitlet.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Indsæt en parti-URL&lt;br&gt;(som lichess.org/7fHIU0XI)&lt;br&gt;for at indlæse partitræk i kapitlet.</string>
   <string name="fromFenStringTitle">Fra en FEN-streng</string>
   <string name="fromFenStringText">Indsæt en position i FEN-format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;for at starte kapitlet fra en stilling.</string>
   <string name="fromPgnGameTitle">Fra et PGN-parti</string>

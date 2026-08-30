@@ -5,6 +5,11 @@
   <string name="freeAccount">Бесплатан налог</string>
   <string name="becomePatron">Постани Lichess Покровитељ</string>
   <string name="xBecamePatron">%s је постао/ла Lichess Покровитељ</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s је Lichess Покровитељ %2$s месец</item>
+    <item quantity="few">%1$s је Lichess Покровитељ %2$s месеца</item>
+    <item quantity="other">%1$s је Lichess Покровитељ %2$s месеци</item>
+  </plurals>
   <string name="newPatrons">Нови Покровитељи</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="noAdsNoSubs">Нема реклама, нема претплата; само отворен изворни код и страст.</string>

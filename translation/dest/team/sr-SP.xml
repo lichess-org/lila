@@ -41,4 +41,5 @@
   <string name="closeTeam">Распусти тим</string>
   <string name="closeTeamDescription">Заувек распушта тим.</string>
   <string name="teamAlreadyExists">Овај тим већ постоји.</string>
+  <string name="completedTourns">Завршени турнири</string>
 </resources>

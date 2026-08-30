@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Możesz jednak zamknąć swoje bieżące konto i utworzyć nowe.</string>
   <string name="wantClearHistory">Chcę wyczyścić swoją historię lub swój ranking</string>
   <string name="cantClearHistory">Nie jest możliwe wyczyszczenie Twojej historii i rankingu.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Nie można wyczyścić historii Twoich partii, historii rozwiązywanych zadań ani zresetować rankingu.</string>
   <string name="wantReport">Chcę zgłosić gracza</string>
   <string name="toReportAPlayerUseForm">Aby zgłosić gracza, użyj formularza</string>
   <string name="youCanAlsoReachReportPage">Możesz również dotrzeć do tej strony klikając przycisk raportu %s na stronie profilowej.</string>

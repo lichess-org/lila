@@ -296,7 +296,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
   <string name="whiteTimeOut">Zeitüberschreitung von Weiß</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Zeitüberschreitung von Weiß</string>
   <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Zeitüberschreitung von Schwarz</string>
   <string name="drawOfferSent">Remisangebot gesendet</string>
   <string name="drawOfferAccepted">Remisangebot angenommen</string>
   <string name="whiteOffersDraw">Weiß bietet Remis</string>
@@ -418,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deine %s Wertung ist provisorisch</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Die Filter nach Wertungszahl sind gesperrt, da deine Wertungszahl nicht stabil ist. Gewertete Partien zu spielen erhöht die Stabilität deiner Wertung.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Es ist nicht möglich nach Wertung zu filtern, da deine Wertungszahl nicht stabil genug ist.
+Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
@@ -439,6 +443,7 @@
   <string name="save">Speichern</string>
   <string name="leaderboard">Rangliste</string>
   <string name="screenshotCurrentPosition">Eine Bildschirmaufnahme der aktuellen Stellung anfertigen</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stellung als Bild</string>
   <string name="gameAsGIF">Partie als GIF</string>
   <string name="playerNames">Spielernamen</string>
   <string name="moveAnnotations">Zugnotation</string>
@@ -727,6 +732,7 @@
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
   <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Zusätzliche Bedenkzeit für den Ausrichter:</string>
   <string name="simulAddExtraTimePerPlayer">Füge deiner Uhr für jeden Spieler, der deinem Simultan beitritt, zu Beginn zusätzliche Bedenkzeit hinzu.</string>
   <string name="simulHostExtraTimePerPlayer">Teile jedem Spieler zusätzliche Bedenkzeit zu</string>
   <string name="lichessTournaments">Lichess Turniere</string>
@@ -862,6 +868,7 @@
   <string name="notifications">Benachrichtigungen</string>
   <string name="notificationsX">Benachrichtigungen: %1$s</string>
   <string name="perfRatingX">Wertung: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Wertung: %s.</string>
   <string name="yourRatingIsX">Deine Wertungszahl beträgt %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
@@ -921,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Du hast eine private Nachricht von Lichess erhalten.</string>
   <string name="clickHereToReadIt">Hier klicken zum Lesen</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Nachricht lesen</string>
   <string name="sorry">Entschuldigung :(</string>
   <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
   <string name="why">Warum?</string>

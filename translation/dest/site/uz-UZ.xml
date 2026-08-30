@@ -296,7 +296,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Bekor qilish</string>
   <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Oqlarning vaqti tugadi</string>
   <string name="blackTimeOut">Qoralar vaqti tugadi</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Qoralarning vaqti tugadi</string>
   <string name="drawOfferSent">Durang taklifi yuborildi</string>
   <string name="drawOfferAccepted">Durang taklifi qabul qilindi</string>
   <string name="whiteOffersDraw">Oqlar durang taklif qilishdi</string>
@@ -439,6 +441,7 @@
   <string name="save">Saqlash</string>
   <string name="leaderboard">Peshqadamlar jadvali</string>
   <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozitsiya rasm sifatida</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
   <string name="moveAnnotations">Yurish annotatsiyalari</string>
@@ -862,6 +865,7 @@
   <string name="notifications">Bildirishnomalar</string>
   <string name="notificationsX">%1$s ta bildirishnoma</string>
   <string name="perfRatingX">Reyting: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Reyting: %s.</string>
   <string name="yourRatingIsX">Sizning reytingingiz %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish qilish uchun %s sekund qoldi</item>

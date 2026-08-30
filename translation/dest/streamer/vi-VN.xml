@@ -29,6 +29,7 @@
   <string name="pendingReview">Luồng của bạn đang được các điều hành viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một ảnh.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Khi bạn sẵn sàng trờ thành Lichess Streamer, %s.</string>
   <string name="submitForReview">Gửi để xem xét</string>
   <string name="streamerLanguageSettings">Trang Streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
   <string name="pleaseAllow">Vui lòng chờ tối đa 72 giờ trước khi huy hiệu streamer và danh sách của bạn được chấp thuận.</string>

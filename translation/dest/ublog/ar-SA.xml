@@ -67,6 +67,8 @@
   <string name="imageAlt">نص بديل الصورة</string>
   <string name="imageCredit">حقوق الصورة</string>
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
+  <string name="safeToUseImages">من الآمن استخدام الصور من المواقع الإلكترونية التالية: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">توفر المواقع الإلكترونية التالية صورًا مجانية. يُرجى التأكد من الالتزام بشروط ترخيص الصورة التي تستخدمها.</string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
   <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>
