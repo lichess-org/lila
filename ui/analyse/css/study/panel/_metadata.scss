@@ -26,6 +26,8 @@
     }
 
     .liking {
+      @extend %flex-center;
+
       margin-inline-start: 1rem;
       font-weight: bold;
       cursor: pointer;
