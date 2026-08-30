@@ -93,10 +93,6 @@ object Icon:
 def scss_source(icons: list[Icon]) -> str:
     constants = "\n".join(f"$icon-{icon.key}: '{icon.name}';" for icon in icons)
     urls = "\n".join(f"  $icon-{icon.key}: url('../images/svg-icons/{icon.name}.svg')," for icon in icons)
-    classes = "\n\n".join(
-        f".icon-{icon.name} {{\n  ---icon-src: #{{icon-url($icon-{icon.key})}};\n}}"
-        for icon in icons
-    )
     return f"""{preamble}
 @use 'sass:map';
 
@@ -108,7 +104,15 @@ $icon-urls: (
 @function icon-url($icon) {{
   @return map.get($icon-urls, $icon);
 }}
+"""
 
+
+def scss_classes_source(icons: list[Icon]) -> str:
+        classes = "\n\n".join(
+                f".icon-{icon.name} {{\n  ---icon-src: url('../images/svg-icons/{icon.name}.svg');\n}}"
+                for icon in icons
+        )
+        return f"""{preamble}
 {classes}
 """
 
@@ -174,6 +178,7 @@ def main() -> None:
     outputs = [
         root / "modules/ui/src/main/Icons.scala",
         root / "ui/lib/css/abstract/_icons.scss",
+        root / "ui/lib/css/theme/_icons.scss",
         root / "ui/lib/src/icons.ts",
         root / "public/oops/icons.html",
     ]
@@ -184,7 +189,13 @@ def main() -> None:
     if len({icon.key for icon in icons}) != len(icons):
         raise ValueError("Icon filenames must have unique PascalCase keys")
 
-    sources = scala_source(icons), scss_source(icons), typescript_source(icons), html_source(icons)
+    sources = (
+        scala_source(icons),
+        scss_source(icons),
+        scss_classes_source(icons),
+        typescript_source(icons),
+        html_source(icons),
+    )
     for output, source in zip(outputs, sources):
         write_changed(output, source)
     print(f"Wrote {len(icons)} icons from {relpath(source_dir)}/*.svg to:")
