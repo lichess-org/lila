@@ -144,7 +144,7 @@ export default class RoundController implements MoveRootCtrl {
 
     setTimeout(this.showExpiration, 350);
 
-    setTimeout(() => this.streamerMode(this.streamer()), 350)
+    setTimeout(() => this.streamerMode(this.streamer()), 350);
 
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
@@ -221,10 +221,10 @@ export default class RoundController implements MoveRootCtrl {
     return true;
   };
 
-  streamerMode = (v : boolean): void => {
-    const body = $("body");
-    this.streamer(v) ? body.addClass("streamer") : body.removeClass("streamer");
-  } 
+  streamerMode = (v: boolean): void => {
+    const body = $('body');
+    this.streamer(v) ? body.addClass('streamer') : body.removeClass('streamer');
+  };
 
   lastPly = (): number => util.lastPly(this.data);
 

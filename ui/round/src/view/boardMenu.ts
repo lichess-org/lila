@@ -34,7 +34,7 @@ export default function (ctrl: RoundController): LooseVNode {
             redraw: ctrl.redraw,
           }),
         !portraitMobile &&
-            cmnToggleWrap({
+          cmnToggleWrap({
             id: 'streamer',
             name: 'Streamer mode',
             checked: ctrl.streamer(),
