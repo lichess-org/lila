@@ -26,6 +26,7 @@
   <string name="orCloseAccount">그러나 현재 계정을 폐쇄하고 새 계정을 만들 수 있습니다.</string>
   <string name="wantClearHistory">레이팅과 기록을 초기화하고 싶습니다</string>
   <string name="cantClearHistory">게임 이력, 퍼즐 이력, 레이팅을 초기화 할 수 없습니다.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">게임 이력 및 퍼즐 이력을 지우거나 레이팅을 초기화할 수 없습니다.</string>
   <string name="wantReport">이용자 신고하기</string>
   <string name="toReportAPlayerUseForm">플레이어를 신고하려면 신고 양식을 사용하세요</string>
   <string name="youCanAlsoReachReportPage">프로필 페이지에서 %s 신고 버튼을 눌러 해당 페이지로 이동할 수도 있습니다.</string>

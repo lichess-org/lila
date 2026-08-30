@@ -314,7 +314,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Anulare</string>
   <string name="whiteTimeOut">Timpul pentru alb a expirat</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Albul a rămas fără timp</string>
   <string name="blackTimeOut">Timpul pentru negru a expirat</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Negrul a rămas fără timp</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
   <string name="drawOfferAccepted">Propunere de remiză acceptată</string>
   <string name="whiteOffersDraw">Albul a oferit remiza</string>

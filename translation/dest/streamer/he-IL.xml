@@ -37,7 +37,6 @@
   <plurals name="keepItShort">
     <item quantity="one">עד תו %s</item>
     <item quantity="two">עד %s תווים</item>
-    <item quantity="many">עד %s תווים</item>
     <item quantity="other">עד %s תווים</item>
   </plurals>
   <string name="visibility">גלוי בעמוד השדרנים</string>
