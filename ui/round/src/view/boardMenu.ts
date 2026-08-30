@@ -33,6 +33,14 @@ export default function (ctrl: RoundController): LooseVNode {
             change: v => ctrl.vibration(v),
             redraw: ctrl.redraw,
           }),
+        !portraitMobile &&
+            cmnToggleWrap({
+            id: 'streamer',
+            name: 'Streamer mode',
+            checked: ctrl.streamer(),
+            change: v => ctrl.streamerMode(v),
+            redraw: ctrl.redraw,
+          }),
         portraitMobile &&
           cmnToggleWrap({
             id: 'swapClock',
