@@ -13,7 +13,7 @@
   .delete,
   .settings {
     position: absolute;
-    top: 0;
+    top: 2px;
     padding: 0.5rem;
   }
 
@@ -50,7 +50,7 @@
     padding: 0.5rem;
     text-align: center;
 
-    &.disabled::before {
+    &.disabled .svg-icon {
       opacity: 0.3;
     }
 
