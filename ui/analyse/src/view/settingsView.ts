@@ -174,6 +174,7 @@ function setupTouchHelp(view: HTMLElement) {
         noCloseButton: true,
         show: true,
         easyClose: 'anyClick',
+        onShow: dlg => dlg.view.querySelector('video')?.play(),
       }),
     );
   });
