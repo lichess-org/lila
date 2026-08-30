@@ -1,8 +1,10 @@
+import autoprefixer from 'autoprefixer';
 import cps from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
+import postcss from 'postcss';
 
 import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -111,13 +113,23 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
       sassPs = undefined;
-      if (code === 0) resolveWithErrors([]);
+      if (code === 0)
+        Promise.all(sources.map(addVendorPrefixes))
+          .then(() => resolveWithErrors([]))
+          .catch(() => resolveWithErrors(sources));
       else
         Promise.all(sources.map(async s => ({ s, exists: await readable(absTempCss(s)) })))
           .then(srcExists => resolveWithErrors(srcExists.filter(({ exists }) => !exists).map(({ s }) => s)))
           .catch(() => resolveWithErrors(sources));
     });
   });
+}
+
+async function addVendorPrefixes(src: string): Promise<void> {
+  const cssPath = absTempCss(src);
+  const css = await fs.promises.readFile(cssPath, 'utf8');
+  const result = await postcss([autoprefixer]).process(css, { from: cssPath });
+  await fs.promises.writeFile(cssPath, result.css);
 }
 
 // recursively parse scss file and its imports to build dependency maps
