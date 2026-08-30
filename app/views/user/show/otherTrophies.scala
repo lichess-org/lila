@@ -8,18 +8,21 @@ object otherTrophies:
 
   import bits.awards.*
 
+  private def trophyLinkIfIcon(trophy: Trophy) =
+    trophy.kind.icon.map: icon =>
+      maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(trophy.kind.name)):
+        iconEl(icon)
+
   def apply(info: lila.app.mashup.UserInfo)(using ctx: Context) =
     frag(
       info.trophies.trophies
         .filter(_.kind.klass.has("fire-trophy"))
         .nonEmptyOption
         .map: trophies =>
-          div(cls := "stacked")(
-            trophies.sorted.map: trophy =>
-              trophy.kind.icon.map: iconChar =>
-                maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(s"${trophy.kind.name}")):
-                  raw(iconChar)
-          ),
+          div(cls := "stacked"):
+            trophies.sorted.flatMap(trophyLinkIfIcon)
+      ,
+
       info.trophies.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",
@@ -43,11 +46,7 @@ object otherTrophies:
         ):
           img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
       },
-      info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
-        trophy.kind.icon.map: iconChar =>
-          maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(trophy.kind.name)):
-            raw(iconChar)
-      },
+      info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.flatMap(trophyLinkIfIcon),
       info.isCoach.option(
         a(
           href := routes.Coach.show(info.user.username),

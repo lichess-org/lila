@@ -1,19 +1,15 @@
 const replacements = [
-  ['marathonWinner', ''],
-  ['marathonTopTen', ''],
-  ['marathonTopFifty', ''],
-  ['marathonTopHundred', ''],
-  ['marathonSurvivor', ','],
-  ['developer', ''],
-  ['moderator', ''],
-  ['verified', ''],
-  ['marathonTopFivehundred', ''],
-  ['contentTeam', ''],
-  ['secAdvisor', ''],
-  ['broadcastTeam', ''],
+  ['', 'globe'],
+  ['', 'tools'],
+  ['', 'agent'],
+  ['', 'checkmark'],
+  ['', 'ink-quill'],
+  ['', 'shield'],
+  ['', 'radio-tower'],
+  ['', 'berserk'],
 ];
 
-replacements.forEach(([kind, icon]) => {
-  print(kind, icon);
-  db.trophyKind.updateOne({ _id: kind }, { $set: { icon } });
+replacements.forEach(([char, svg]) => {
+  print(char, svg);
+  db.trophyKind.updateMany({ icon: char }, { $set: { icon: svg } });
 });
