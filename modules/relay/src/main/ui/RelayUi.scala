@@ -98,7 +98,7 @@ final class RelayUi(helpers: Helpers)(
           heightA := size(RelayTour.thumbnail).height,
           src := url(id, size)
         )
-    def fallback = iconEl(Icon.RadioTower)(cls := "relay-image--fallback")
+    def fallback = iconTag(cls := "relay-image--fallback")(iconEl(Icon.RadioTower))
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
