@@ -81,15 +81,14 @@
   }
 
   &__like {
-    &::before {
-      margin-right: 0.4em;
+    .svg-icon {
       color: $c-bad;
-
-      @include icon-mask($icon-HeartOutline);
     }
 
-    &.ublog-post__like--liked::before {
-      @include icon-mask($icon-Heart);
+    > span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     &--mini {
@@ -171,6 +170,7 @@
 
     .button {
       padding: 0.8em 1.5em;
+      flex-direction: column;
 
       &-label {
         display: block;
@@ -181,16 +181,8 @@
     }
   }
 
-  &__follow {
-    &::before {
-      color: $c-primary;
-
-      @include icon-mask($icon-ThumbsUp);
-    }
-
-    &.ublog-post__follow__followed::before {
-      @include icon-mask($icon-Checkmark);
-    }
+  &__follow .svg-icon {
+    color: $c-primary;
   }
 }
 

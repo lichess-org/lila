@@ -152,6 +152,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if liked then trans.site.liked.txt() else trans.site.like.txt()
+    val icon = if liked then Icon.Heart else Icon.HeartOutline
     button(
       tpe := "button",
       cls := List(
@@ -163,18 +164,14 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       dataRel := post.id,
       title := text
     )(
-      span(cls := "ublog-post__like__nb")(post.likes.value.localize),
-      showText.option(
-        span(
-          cls := "button-label"
-        )(text)
-      )
+      span(iconEl(icon), span(cls := "ublog-post__like__nb")(post.likes.value.localize)),
+      showText.option(span(cls := "button-label")(text))
     )
 
   private def followButton(user: User, followed: Boolean)(using Context) =
-    val (text, route) =
-      if followed then (trans.site.unfollowX, routes.Relation.unfollow)
-      else (trans.site.followX, routes.Relation.follow)
+    val (text, route, icon) =
+      if followed then (trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark)
+      else (trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
     button(
       cls := List(
         "ublog-post__follow button button-metal is" -> true,
@@ -182,6 +179,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       ),
       dataRel := s"${route(user.id)}?mini=1"
     )(
+      iconEl(icon),
       span(cls := "button-label", attr("data-username") := user.titleUsername)(text(user.titleUsername))
     )
 
