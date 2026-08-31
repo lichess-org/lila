@@ -197,7 +197,7 @@ function boardEventsHook(
   $board.on('click', 'button', e => nv.selectionHandler(() => opposite(ctrl.pov))(e));
   $board.on('keydown', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-    else if (e.key.match(/^x$/i))
+    else if (/^x$/i.test(e.key))
       scanDirectionsHandler(
         ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
         ground.state.pieces,
@@ -209,8 +209,8 @@ function boardEventsHook(
     } else if (['o'].includes(e.key)) nv.boardCommandsHandler()(e);
     else if (e.key.startsWith('Arrow'))
       nv.arrowKeyHandler(ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov, borderSound)(e);
-    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (/^Digit([1-8])$/.test(e.code)) nv.positionJumpHandler()(e);
+    else if (/^[kqrbnp]$/i.test(e.key)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm') nv.possibleMovesHandler(ctrl.pov, ground, 'standard', steps)(e);
     else if (e.key === 'c') nv.lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())();
     else if (e.key === 'i') {

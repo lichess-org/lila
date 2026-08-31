@@ -40,7 +40,7 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       const $boardLive = $('.boardstatus');
       const promotionPiece = ev.key.toLowerCase();
       const promotionChoice = isAntichess ? /^[kqnrb]$/ : /^[qnrb]$/;
-      if (!promotionPiece.match(promotionChoice)) {
+      if (!promotionChoice.test(promotionPiece)) {
         const msg = 'Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop';
         $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
         return;
@@ -290,10 +290,10 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
       role: charToRole(cleaned[0]) || 'pawn',
       key: cleaned.split('@')[1].slice(0, 2) as Key,
     };
-  if (cleaned.match(promotionRegex)) {
+  if (promotionRegex.test(cleaned)) {
     uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
     promotion = cleaned.slice(-1);
-  } else if (cleaned.match(uciPromotionRegex)) {
+  } else if (uciPromotionRegex.test(cleaned)) {
     uci = cleaned.slice(0, -1);
     promotion = cleaned.slice(-1);
   } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
