@@ -78,7 +78,8 @@ export default class EditorCtrl {
         })
         .bind('a', () => {
           const state = this.getState();
-          if (state.legalFen) window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
+          if (state.legalFen)
+            window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
         });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
