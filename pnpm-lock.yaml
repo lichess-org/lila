@@ -44,6 +44,9 @@ importers:
       oxlint:
         specifier: 1.78.0
         version: 1.78.0(oxlint-tsgolint@7.0.2001)
+      oxlint-plugin-golden:
+        specifier: ^0.1.2
+        version: 0.1.2
       oxlint-tsgolint:
         specifier: 7.0.2001
         version: 7.0.2001
@@ -1061,6 +1064,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@oxlint/plugins@1.80.0':
+    resolution: {integrity: sha512-QRgH1XqQEYNHa4f1vvPQ5fAdNdncHGIUG1ZWLlGIZHky3qwCEeAKYitZNbZMtaXtAQAAFFTOwqUfzESvimqZNA==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
   '@playwright/test@1.60.0':
     resolution: {integrity: sha512-O71yZIbAh/PxDMNGns37GHBIfrVkEVyn+AXyIa5dOTfb4/xNvRWV+Vv/NMbNCtODB/pO7vLlF2OTmMVLhmr7Ag==}
     engines: {node: '>=18'}
@@ -1891,6 +1898,9 @@ packages:
         optional: true
       vite-plus:
         optional: true
+
+  oxlint-plugin-golden@0.1.2:
+    resolution: {integrity: sha512-YebI2BXPi2TSHwj/IeuQg82s3ZY66g3JFg3YwVoMKyM6tuTh1UXyVxP8T7iuF8IJFgqsU0gbyO1RLo4Hr1qHSw==}
 
   oxlint-tsgolint@7.0.2001:
     resolution: {integrity: sha512-KjK/XLcXr1DSyonKhsuFqJRiuKqcyG9j3LJ8nkOsrLzGvodBPqzHOKauy10asLMDI0sUpvb+1sxlzff3udZvfg==}
@@ -2743,6 +2753,8 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.78.0':
     optional: true
 
+  '@oxlint/plugins@1.80.0': {}
+
   '@playwright/test@1.60.0':
     dependencies:
       playwright: 1.60.0
@@ -3500,6 +3512,10 @@ snapshots:
       '@oxfmt/binding-linux-x64-musl': 0.61.0
       '@oxfmt/binding-win32-arm64-msvc': 0.61.0
       '@oxfmt/binding-win32-x64-msvc': 0.61.0
+
+  oxlint-plugin-golden@0.1.2:
+    dependencies:
+      '@oxlint/plugins': 1.80.0
 
   oxlint-tsgolint@7.0.2001:
     optionalDependencies:

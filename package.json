@@ -19,6 +19,7 @@
     "oxfmt": "0.61.0",
     "oxlint": "1.78.0",
     "oxlint-tsgolint": "7.0.2001",
+    "oxlint-plugin-golden": "^0.1.2",
     "snabbdom": "3.5.1",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",

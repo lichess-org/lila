@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["import", "promise", "typescript", "unicorn"],
+  "jsPlugins": [{ "name": "golden", "specifier": "oxlint-plugin-golden" }],
   "env": {
     "builtin": true
   },
@@ -42,6 +43,9 @@
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "prefer-spread": "error",
+    "golden/no-object-parameters": "error",
+    "golden/no-redundant-optional-undefined": "error",
+    "golden/no-unknown-returns": "error",
     "import/default": "error",
     "import/namespace": "error",
     "import/no-cycle": "error",
