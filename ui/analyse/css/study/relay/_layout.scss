@@ -31,10 +31,13 @@ body {
 
 main.is-relay {
   .relay-tour {
-    @include back-blur;
-
     grid-area: relay-tour;
-    backdrop-filter: none;
+
+    @include if-transp {
+      @include back-blur;
+
+      backdrop-filter: none;
+    }
 
     &__side {
       grid-area: side;
