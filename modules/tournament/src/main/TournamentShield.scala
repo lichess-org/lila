@@ -131,7 +131,7 @@ object TournamentShield:
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""".some,
     spotlight = Spotlight(
-      iconFont = Icon.Shield.some,
+      icon = Icon.Shield.some,
       headline = s"Battle for the $name Shield",
       homepageHours = 6.some
     ).some

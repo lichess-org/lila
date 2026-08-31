@@ -152,7 +152,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
-                spot.iconFont.fold[Frag](iconEl(Icon.Trophy)(cls := "img")) {
+                spot.icon.fold[Frag](iconEl(Icon.Trophy)(cls := "img")) {
                   case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
                   case i => iconEl(i)(cls := "img")
                 }

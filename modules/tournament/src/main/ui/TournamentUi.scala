@@ -161,4 +161,4 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
 
   def tournamentIcon(tour: Tournament): Icon =
     if tour.isMarathon then Icon.Globe
-    else tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon
+    else tour.spotlight.flatMap(_.icon) | tour.perfType.icon
