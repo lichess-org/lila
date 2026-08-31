@@ -112,6 +112,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     color: ctrl.chessground.state.orientation,
                   })
                 : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
+              'data-icon': licon.Pencil,
+              title: 'Hotkey: b',
               ...linkAttrs,
             },
           },
