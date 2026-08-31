@@ -1,6 +1,6 @@
 import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
-import { isChrome } from '@/device';
+import { isChrome, isMobile } from '@/device';
 import { onClickAway } from '@/index';
 import { licon } from '@/licon';
 import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDialog } from '@/view';
@@ -8,7 +8,8 @@ import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDial
 import type { CevalCtrl } from '../ctrl';
 import { fewerCores } from '../util';
 
-const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
+const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+if (!isMobile()) allSearchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
   const ceval = ctrl.ceval;
