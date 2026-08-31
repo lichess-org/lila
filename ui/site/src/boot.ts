@@ -106,9 +106,7 @@ export function boot() {
                   }),
               )
               .append(
-                $('<a class="text">')
-                  .attr('href', url)
-                  .append(domIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.resume),
+                $('<a class="text">').attr('href', url).append(domIcon(icons.PlayTriangle), i18n.site.resume),
               ),
           ),
       );

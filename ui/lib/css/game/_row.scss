@@ -82,6 +82,10 @@
       text-align: right;
     }
 
+    .player.white .user-link {
+      justify-content: end;
+    }
+
     .player.black {
       text-align: left;
     }

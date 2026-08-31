@@ -20,7 +20,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        [snabIcon(icons.LessThan, 'mirror-rtl'), i18n.study.back],
+        [snabIcon(icons.LessThan), i18n.study.back],
       ),
     myTurn &&
       hl(
@@ -29,7 +29,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.viewTheSolution],
+        [snabIcon(icons.PlayTriangle), i18n.site.viewTheSolution],
       ),
     overrideButton(study),
   ]);

@@ -183,7 +183,7 @@ function renderButtons(ctrl: RoundController) {
             }),
           ),
         },
-        [snabIcon(icons[b[0]], 'mirror-rtl')],
+        [snabIcon(icons[b[0]])],
       );
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -214,7 +214,7 @@ const col1Button = (ctrl: RoundController, dir: number, icon: IconKey, disabled:
       attrs: { disabled, 'data-ply': ctrl.ply + dir },
       hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
     },
-    [snabIcon(icons[icon], 'mirror-rtl')],
+    [snabIcon(icons[icon])],
   );
 
 export function render(ctrl: RoundController): LooseVNode {

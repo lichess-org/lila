@@ -52,14 +52,14 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                           })
                         : {},
                     },
-                    [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.join],
+                    [snabIcon(icons.PlayTriangle), i18n.site.join],
                   )
             : hl(
                 'a.button.text',
                 {
                   attrs: { href: '/login?referrer=' + window.location.pathname },
                 },
-                [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.site.signIn],
+                [snabIcon(icons.PlayTriangle), i18n.site.signIn],
               ),
         ),
       ]),
@@ -187,7 +187,7 @@ const randomButton = (ctrl: SimulCtrl) =>
 const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
   accepted.length > 1
     ? hl('a.button.button-green.text', { hook: bind('click', () => xhr.start(ctrl.data.id)) }, [
-        snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+        snabIcon(icons.PlayTriangle),
         `Start (${accepted.length})`,
       ])
     : hl(

@@ -59,7 +59,7 @@ dialog {
     cursor: pointer;
 
     .svg-icon {
-      width: 20px;
+      width: 18px;
     }
 
     &:not(:focus) {
@@ -80,6 +80,10 @@ dialog {
 
       @include if-rtl {
         transform: translate(-18px, -18px);
+      }
+
+      .svg-icon {
+        width: 14px;
       }
 
       &:hover {

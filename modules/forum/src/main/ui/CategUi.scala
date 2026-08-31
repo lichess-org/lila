@@ -52,8 +52,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               a(href := s"${routes.ForumTopic.show(categ.id, topic.slug, topic.lastPage)}#${post.id}")(
                 momentFromNow(post.createdAt)
               ),
-              br,
-              trans.site.by(bits.authorLink(post))
+              span(trans.site.by(bits.authorLink(post)))
             )
         )
       )
@@ -147,8 +146,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
                 td(
                   a(href := postUrl)(momentFromNow(post.createdAt)),
-                  br,
-                  trans.site.by(bits.authorLink(post))
+                  span(trans.site.by(bits.authorLink(post)))
                 )
               )
     )

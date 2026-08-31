@@ -59,6 +59,6 @@ const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
             ctrl.redraw,
           ),
         },
-        [snabIcon(icons.PlayTriangle, 'mirror-rtl'), i18n.broadcast.backToLiveMove],
+        [snabIcon(icons.PlayTriangle), i18n.broadcast.backToLiveMove],
       )
     : undefined;

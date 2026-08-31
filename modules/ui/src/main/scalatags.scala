@@ -82,20 +82,9 @@ trait ScalatagsSnippets:
   )("UTC")
 
   object iconEl:
-    private val mirrored = Set(
-      Icon.Wings,
-      Icon.PlayTriangle,
-      Icon.GreaterThan,
-      Icon.LessThan,
-      Icon.JumpFirst,
-      Icon.JumpPrev,
-      Icon.JumpNext,
-      Icon.JumpLast
-    )
-
     def apply(i: Icon): Tag =
       span(
-        cls := List("svg-icon" -> true, s"icon-${i.name}" -> true, "mirror-rtl" -> mirrored(i)),
+        cls := List("svg-icon" -> true, s"icon-${i.name}" -> true, "mirror-rtl" -> Icon.rtlMirrored(i)),
         aria("hidden") := "true"
       )
 

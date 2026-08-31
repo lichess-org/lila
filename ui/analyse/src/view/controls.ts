@@ -155,8 +155,6 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
 }
 
 const jumpButton = (icon: Icon, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect } }, [
-    snabIcon(icon, 'mirror-rtl'),
-  ]);
+  hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect } }, [snabIcon(icon)]);
 
 const isMobileUi = (): boolean => displayColumns() === 1 && isTouchDevice();

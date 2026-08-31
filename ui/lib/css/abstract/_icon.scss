@@ -40,3 +40,10 @@
 html[dir='rtl'] .svg-icon.mirror-rtl {
   transform: scaleX(-1);
 }
+
+html[dir='rtl'] {
+  .svg-icon.mirror-rtl.no-mirror,
+  .no-mirror .svg-icon.mirror-rtl {
+    transform: none;
+  }
+}

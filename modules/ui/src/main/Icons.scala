@@ -134,3 +134,14 @@ object Icon:
   val Wings: Icon = "wings"
   val X: Icon = "x"
   val ZoomIn: Icon = "zoom-in"
+
+  val rtlMirrored: Set[Icon] = Set(
+    GreaterThan,
+    JumpFirst,
+    JumpLast,
+    JumpNext,
+    JumpPrev,
+    LessThan,
+    PlayTriangle,
+    Wings
+  )

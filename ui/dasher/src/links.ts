@@ -68,7 +68,7 @@ export class LinksCtrl extends PaneCtrl {
     hl('button.sub', { hook: bind('click', () => this.root.setMode(mode)), attrs: { type: 'button' } }, [
       icon && snabIcon(icon),
       label,
-      snabIcon(icons.GreaterThan, 'mirror-rtl'),
+      snabIcon(icons.GreaterThan),
     ]);
 
   private readonly link = (href: string, icon: Icon, label: string, more?: Attrs) =>

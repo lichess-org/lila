@@ -73,7 +73,7 @@ function stateOn(ctrl: RelayCtrl) {
 
 const stateOff = (ctrl: RelayCtrl) =>
   hl('button.state.off.clickable', { hook: bind('click', _ => ctrl.setSync(true)) }, [
-    snabIcon(icons.PlayTriangle, 'mirror-rtl'),
+    snabIcon(icons.PlayTriangle),
     hl('span.fat', 'Connect to source'),
   ]);
 

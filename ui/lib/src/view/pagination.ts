@@ -38,7 +38,7 @@ function navButton(text: string, icon: Icon, click: () => void, enable: boolean,
       attrs: { disabled: !enable, title: text },
       hook: bind('mousedown', click, redraw),
     },
-    [snabIcon(icon, 'mirror-rtl')],
+    [snabIcon(icon)],
   );
 }
 

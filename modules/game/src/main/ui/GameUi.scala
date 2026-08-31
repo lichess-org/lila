@@ -325,7 +325,6 @@ final class GameUi(helpers: Helpers):
           .map: (userId, rating) =>
             frag(
               userIdLink(userId.some, withOnline = false),
-              br,
               player.berserk.option(berserkIconSpan),
               ctx.pref.showRatings.option(
                 frag(
