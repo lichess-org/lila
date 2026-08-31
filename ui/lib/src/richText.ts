@@ -4,6 +4,8 @@
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import type { Hooks, VNode } from 'snabbdom';
 
+import { profileUrl } from '@/view/userLink';
+
 import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
@@ -53,7 +55,7 @@ export function linkReplace(href: string, body?: string, expandable = true): str
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>
-  prefix + linkReplace('/@/' + user, '@' + user);
+  prefix + linkReplace(profileUrl(user), '@' + user);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
