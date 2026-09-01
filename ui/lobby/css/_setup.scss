@@ -76,9 +76,15 @@ $c-slider: $c-setup;
         white-space: normal;
       }
 
-      &:hover * {
-        background: $c-primary;
-        color: $c-over;
+      &:hover {
+        * {
+          background: $c-primary;
+          color: $c-over;
+        }
+
+        .svg-icon {
+          background: $c-over;
+        }
       }
     }
   }
