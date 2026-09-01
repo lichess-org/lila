@@ -62,6 +62,7 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="editTournament">Edita el torneig</string>
   <string name="editTeamBattle">Edita la lluita d\'equips</string>
   <string name="defender">Defensor</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Defensor:</string>
   <string name="pickYourTeam">Tria el teu equip</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Quin equip vols representar en aquesta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Heu d\'unir-vos a un d\'aquests equips per participar!</string>

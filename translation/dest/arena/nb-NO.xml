@@ -21,6 +21,7 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="howIsTheWinnerDecided">Hvordan kåres vinneren?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren eller spillerene med flest poeng ved slutten av turneringens frist vil bli annonsert som vinner(e).</string>
   <string name="howDoesPairingWork">Hvordan fungerer paringen?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Hvordan pares spillerne?</string>
   <string name="howDoesPairingWorkAnswer">I begynnelsen av turneringen, er spillere sammensatt basert på sin rating. Så snart du er ferdig med et spill, gå tilbake til turneringslobbyen: du vil da bli sammensatt med en spiller nær din rangering på turneringsstigen. Dette sikrer minimal ventetid, men du møter ikke nødvendigvis alle andre spillere i turneringen. Spill raskt og gå tilbake til lobbyen for å spille flere parti og vinne flere poeng.</string>
   <string name="howDoesItEnd">Hvordan avsluttes den?</string>
   <string name="howDoesItEndAnswer">Turneringen har en nedtellingsklokke. Når den når null, fryses turneringsrangeringen, og vinneren blir kunngjort. Partier som allerede foregår, må spilles ferdig, men de teller ikke for turneringen.</string>
@@ -57,6 +58,7 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="editTournament">Rediger turnering</string>
   <string name="editTeamBattle">Rediger lagkamp</string>
   <string name="defender">Forsvarer</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Tittelforsvarer:</string>
   <string name="pickYourTeam">Velg lag</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket lag vil du spille for i denne kampen?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du må bli med i et av disse lagene for å kunne delta!</string>
@@ -67,6 +69,10 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="rankAvgHelp">Prosentrangering er plasseringen din uttrykt som en prosentverdi. Lavere er bedre.
 
 For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En tiendeplass i en turnering med 1000 spillere tilsvarer 1 %.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Prosentrangeringen din viser den typiske sluttplasseringen din i forhold til det totale antallet spillere i hver turnering.
+Dette er et mål på turneringsplasseringene dine, ikke den generelle ratingen din.
+
+En prosentrangering på 3 % betyr for eksempel at du vanligvis ender blant de beste 3 % (for eksempel på 30. plass av 1 000 spillere).</string>
   <string name="medians">medianer</string>
   <string name="allAveragesAreX">Alle snittverdiene på denne siden er %s.</string>
   <string name="total">Totalt</string>

@@ -22,6 +22,7 @@ The board will auto connect to any game that is already on course or any new gam
   <string name="asALastResort">Als laatste redmiddel, stel het bord identiek in zoals op Lichess, en %s</string>
   <string name="reloadThisPage">Herlaad deze pagina</string>
   <string name="dgtConfigure">DGT - Instellen</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configureer je DGT-bord</string>
   <string name="lichessConnectivity">Lichess verbinding</string>
   <string name="validDgtOauthToken">Je hebt een OAuth token geschikt voor DGT spellen.</string>
   <string name="dgtPlayMenuEntryAdded">Een %s item is toegevoegd aan je PLAY menu aan de bovenkant.</string>

@@ -50,6 +50,11 @@
     <item quantity="other">Погледај свих %s тимова</item>
   </plurals>
   <string name="newTeamBattle">Нова Борба Тимова</string>
+  <string name="customStartDate">Прилагођени почетни датум</string>
+  <string name="customStartDateHelp">У твојој локалној временској зони. Ово надјачава \"Време пре него што турнир започне\" поставку</string>
+  <string name="allowBerserk">Дозволи Берсерк</string>
+  <string name="allowBerserkHelp">Допусти играчима да преполове своје време сата да добију додатни бод</string>
+  <string name="allowChatHelp">Допусти играчима да дискутују у соби за ћаскање</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>
 </resources>

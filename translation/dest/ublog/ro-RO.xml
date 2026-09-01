@@ -55,6 +55,8 @@
   <string name="imageAlt">Text alternativ imagine</string>
   <string name="imageCredit">Sursa imaginii</string>
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
+  <string name="safeToUseImages">Este în regulă să folosiți imagini de pe următoarele site-uri: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Următoarele site-uri web oferă imagini gratuit. Asigurați-vă că respectați condițiile de licențiere pentru imaginea pe care o folosiți.</string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
   <string name="safeAndRespectfulContent">Vă rugăm să postați numai conținut sigur și respectuos. Nu copiați conținutul altcuiva.</string>
   <string name="noCopyrightedImages">Folosiți doar imagini care nu sunt protejate de drepturi de autor de altcineva.</string>
