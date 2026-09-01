@@ -55,7 +55,7 @@ export function linkReplace(href: string, body?: string, expandable = true): str
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>
-  prefix + linkReplace(profileUrl(user), profileUrl(user));
+  prefix + linkReplace(profileUrl(user), '@' + user);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
