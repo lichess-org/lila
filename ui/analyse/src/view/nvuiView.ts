@@ -41,6 +41,7 @@ import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
 import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, onInsert } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 import { text as xhrText } from 'lib/xhr';
 
 import type { AnalyseNvuiContext } from '../analyse.nvui';
@@ -561,7 +562,7 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
     ? hl('span', [
         hl(
           'a',
-          { attrs: { href: '/@/' + user.username } },
+          { attrs: { href: profileUrl(user.username) } },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,

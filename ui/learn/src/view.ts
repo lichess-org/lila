@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
 import { icon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type { LearnCtrl } from './ctrl';
 import { hashHref } from './hashRouting';
@@ -76,7 +77,7 @@ function whatNext(ctrl: LearnCtrl) {
     h('div.categ_stages', [
       userId
         ? makeStage(
-            '/@/' + userId,
+            profileUrl(userId),
             'beams-aura',
             i18n.learn.register,
             i18n.learn.getAFreeLichessAccount,

@@ -10,6 +10,7 @@ import { commands, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import renderCorresClock from '../corresClock/corresClockView';
 import type RoundController from '../ctrl';
@@ -522,7 +523,7 @@ function playerHtml(ctrl: RoundController, player: Player) {
     ? hl('span', [
         hl(
           'a',
-          { attrs: { href: '/@/' + user.username } },
+          { attrs: { href: profileUrl(user.username) } },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,
