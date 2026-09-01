@@ -3,6 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { timeago } from 'lib/i18n';
 import { icons, type Icon } from 'lib/icons';
 import { icon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type { Notification, Renderer, Renderers } from './interfaces';
 
@@ -169,7 +170,7 @@ export default function makeRenderers(): Renderers {
 
 const jobDone = (name: string): Renderer => ({
   html: n =>
-    generic(n, '/@/' + n.content.user!.name + '?mod', icons.Agent, [
+    generic(n, profileUrl(n.content.user!.name) + '?mod', icons.Agent, [
       h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
       h('span', `${name} job complete!`),
     ]),

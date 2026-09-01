@@ -1,7 +1,7 @@
 import { icons, type Icon } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { type Attrs, hl, type VNode, bind, snabIcon } from 'lib/view';
-import { userLine } from 'lib/view/userLink';
+import { userLine, profileUrl } from 'lib/view/userLink';
 
 import { type Mode, PaneCtrl } from './interfaces';
 
@@ -39,7 +39,7 @@ export class LinksCtrl extends PaneCtrl {
     const d = this.data;
     return d.user
       ? hl('div.links', [
-          hl('a.user-link.online', { attrs: { href: `/@/${d.user.name}` } }, [
+          hl('a.user-link.online', { attrs: { href: profileUrl(d.user.name) } }, [
             userLine(d.user),
             i18n.site.profile,
           ]),

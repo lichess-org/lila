@@ -63,7 +63,7 @@ export class DevBotCtrl extends BotLoader {
     return move?.uci !== '0000' ? move : undefined;
   }
 
-  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+  setUids({ white, black }: { white?: string; black?: string }): void {
     this.uids.white = white;
     this.uids.black = black;
     this.reset();

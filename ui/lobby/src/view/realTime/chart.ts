@@ -3,6 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import perfIcons from 'lib/game/perfIcons';
 import { icons } from 'lib/icons';
 import { bind, onInsert, snabIcon, htmlIcon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import type { Hook } from '@/interfaces';
@@ -74,7 +75,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
 function renderHook(ctrl: LobbyController, hook: Hook): string {
   let html = '<div class="inner">';
   if (hook.rating) {
-    html += '<a class="opponent ulpt is color-icon" href="/@/' + hook.u + '">';
+    html += `<a class="opponent ulpt is color-icon" href="${hook.u ? profileUrl(hook.u) : '#'}">`;
     html += ' ' + hook.u;
     if (ctrl.opts.showRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
     html += '</a>';

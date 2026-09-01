@@ -4,6 +4,7 @@ import type { ChatPlugin } from 'lib/chat/interfaces';
 import type { Team, TourPlayer } from 'lib/game';
 import { icons } from 'lib/icons';
 import { onInsert, snabIcon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;
@@ -29,7 +30,7 @@ export const tourStandingCtrl = (
             h('tr.' + p.n, [
               h('td.name', [
                 h('span.rank', i + 1),
-                h('a.user-link.ulpt', { attrs: { href: `/@/${p.n}` } }, (p.t ? p.t + ' ' : '') + p.n),
+                h('a.user-link.ulpt', { attrs: { href: profileUrl(p.n) } }, (p.t ? p.t + ' ' : '') + p.n),
               ]),
               h('td.total', p.f ? { class: { 'is-gold': true } } : {}, [
                 p.f ? snabIcon(icons.Fire) : null,

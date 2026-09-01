@@ -49,7 +49,7 @@ export const bindNonPassive = <K extends keyof GlobalEventHandlersEventMap>(
   redraw?: Redraw,
 ): Hooks => bind(eventName, f, redraw, false);
 
-export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void): Hooks {
+export function bindSubmit(f: (e: SubmitEvent) => void, redraw?: () => void): Hooks {
   return bind(
     'submit',
     e => {

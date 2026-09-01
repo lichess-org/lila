@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
 import { bind, confirm, onInsert, snabIcon } from '@/view';
-import { userLink } from '@/view/userLink';
+import { profileUrl, userLink } from '@/view/userLink';
 
 import { icons } from '../icons';
 import type {
@@ -91,7 +91,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.name + '?mod',
+                  href: profileUrl(data.name) + '?mod',
                 },
               },
               'profile',

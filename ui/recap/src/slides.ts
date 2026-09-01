@@ -5,7 +5,7 @@ import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 import { icons } from 'lib/icons';
 import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, icon } from 'lib/view';
-import { fullName, userFlair, userTitle } from 'lib/view/userLink';
+import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
@@ -107,7 +107,7 @@ export const opponents = (r: Recap): VNode => {
 };
 
 const opponentLink = (o: LightUser): VNode =>
-  hl('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
+  hl('a', { attrs: { href: profileUrl(o.name) } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
 
 const userFallbackFlair = new Map<string, string>();
 const noFlair = (o: LightUser): VNode => {

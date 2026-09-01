@@ -1,6 +1,7 @@
 import perfIcons from 'lib/game/perfIcons';
 import { icons } from 'lib/icons';
 import { bind, tr, span, td, button, th, thead, tbody, icon, table, snabIcon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import * as hookRepo from '@/hookRepo';
@@ -24,8 +25,8 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     },
     [
       td(
-        ctrl.me
-          ? span('.ulink.ulpt.mobile-powertip', { 'data-href': '/@/' + hook.u }, hook.u)
+        ctrl.me && hook.u
+          ? span('.ulink.ulpt.mobile-powertip', { 'data-href': profileUrl(hook.u) }, hook.u)
           : i18n.site.anonymous,
       ),
       !ctrl.me ? null : td(!ctrl.opts.showRatings ? '' : [hook.rating + (hook.prov ? '?' : '')]),

@@ -286,10 +286,7 @@
 
 %fullscreen-mask {
   position: fixed;
-  top: -100vh;
-  left: -100vw;
-  width: 300vw;
-  height: 300vh;
+  inset: 0;
   background: $c-page-mask;
   z-index: $z-fullscreen-mask-110;
 }

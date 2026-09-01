@@ -3,7 +3,7 @@ import { h, thunk, type VNode } from 'snabbdom';
 import { getPlayer } from 'lib/game';
 import { icons } from 'lib/icons';
 import { bind, onInsert, snabIcon } from 'lib/view';
-import { ratingDiff } from 'lib/view/userLink';
+import { ratingDiff, profileUrl } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
@@ -21,7 +21,7 @@ interface Advice {
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
   const player = getPlayer(data, color);
   if (player.user)
-    return h('a.user-link.ulpt', { attrs: { href: '/@/' + player.user.username } }, [
+    return h('a.user-link.ulpt', { attrs: { href: profileUrl(player.user.username) } }, [
       player.user.username,
       ' ',
       ratingDiff(player),

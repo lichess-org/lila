@@ -30,12 +30,6 @@ $c-mselect: $c-primary;
     }
   }
 
-  &__toggle:checked ~ .mselect__label {
-    @include transition(opacity);
-
-    opacity: 0;
-  }
-
   &__toggle:focus-visible ~ .mselect__label {
     outline: $outline;
   }
@@ -60,7 +54,7 @@ $c-mselect: $c-primary;
 
       @media (max-width: $small) {
         position: fixed;
-        top: 50%;
+        top: calc(50vh - $site-header-height);
         transform: translateY(-50%) scale(1, 1);
 
         dialog & {

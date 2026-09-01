@@ -5,6 +5,7 @@ import { defined, escapeHtml } from 'lib';
 import { domDialog, alert, enter } from 'lib/view';
 import { complete, type CompleteOpts } from 'lib/view/complete';
 import { checkDebouncedResultAgainstTerm, fetchUsers, renderUserEntry } from 'lib/view/userComplete';
+import { profileUrl } from 'lib/view/userLink';
 
 type Entry = LightUserOnline | HTMLAnchorElement;
 
@@ -60,11 +61,11 @@ export function initModule({ input }: { input: HTMLInputElement }) {
 function execute(e: string | Entry) {
   if (!e) return;
   if (typeof e !== 'string' && isLink(e)) location.href = e.href;
-  else if (isUser(e)) location.href = '/@/' + e.name;
+  else if (isUser(e)) location.href = profileUrl(e.name);
   else if (e.startsWith('/')) command(e.replace(/\//g, ''));
   // 5kr1/p1p2p2/2b2Q2/3q2r1/2p4p/2P4P/P2P1PP1/1R1K3R b - - 1 23
-  else if (e.match(/^([1-8pnbrqk]+\/){7}.*/i)) location.href = '/analysis/standard/' + e.replace(/ /g, '_');
-  else if (e.match(/^[a-zA-Z0-9_-]{2,30}$/)) location.href = '/@/' + e;
+  else if (/^([1-8pnbrqk]+\/){7}.*/i.test(e)) location.href = '/analysis/standard/' + e.replace(/ /g, '_');
+  else if (/^[a-zA-Z0-9_-]{2,30}$/.test(e)) location.href = profileUrl(e);
   else location.href = '/player/search/' + e;
 }
 

@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { icons } from 'lib/icons';
 import { snabIcon, type MaybeVNodes } from 'lib/view';
-import { userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
+import { profileUrl, userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
 
 import type { SimplePlayer } from '../interfaces';
 
@@ -12,11 +12,12 @@ export const player = (
   withRating: boolean,
   defender = false,
   leader = false,
-) =>
-  h(
+) => {
+  const profileHref = profileUrl(p.name);
+  return h(
     'a.ulpt.user-link.online' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
-      attrs: asLink || 'ontouchstart' in window ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
+      attrs: asLink || 'ontouchstart' in window ? { href: profileHref } : { 'data-href': profileHref },
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [
@@ -28,6 +29,7 @@ export const player = (
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );
+};
 
 export const fullName = (p: LightUserNoId & { realName?: string }): MaybeVNodes => [
   userTitle(p),

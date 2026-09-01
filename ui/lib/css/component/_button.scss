@@ -150,6 +150,12 @@
     &:not(.disabled):hover {
       color: $c-font;
     }
+
+    @include if-light {
+      &:hover {
+        filter: none;
+      }
+    }
   }
 
   &.button-inverse {
