@@ -29,6 +29,7 @@
   <string name="pendingReview">Zure emanaldia moderatzaileak ikuskatzeko zain dago.</string>
   <string name="pleaseFillIn">Bete zure esatari-informazioa eta kargatu irudia.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess esatari gisa zerrendatzeko prest zaudenean, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Lichess esatari gisa zerrendatzeko prest zaudenean, %s.</string>
   <string name="submitForReview">Eskatu errebisatzeko</string>
   <string name="streamerLanguageSettings">Lichess esatariaren orriak zure audientzia du helburu zure streaming plataformak ematen duen hizkuntzarekin. Ezarri zure xake emanaldien hizkuntza emanaldiak egiteko erabiltzen duzun app edo zerbitzuan.</string>
   <string name="pleaseAllow">Itxaron 72 ordu zure streamer etiketa eta zerrendatzea onartu arte.</string>

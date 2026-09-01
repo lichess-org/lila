@@ -278,7 +278,9 @@
   <string name="ok">OK</string>
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">白が時間切れになりました</string>
   <string name="blackTimeOut">黒時間切れ</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">黒が時間切れになりました</string>
   <string name="drawOfferSent">ドローの提案を送信しました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
@@ -387,6 +389,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">あなたの %s レーティングは仮レートです</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">あなたのレーティングが不安定なため、レーティングフィルタは使用できません。レート戦をプレイすると安定度が上がります。</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">あなたのレーティングが不安定なため、レーティングフィルタは使えません。レート戦をプレイすると安定度が上がります。</string>
   <string name="yourPerfRatingIsTooHigh">%1$s レーティング (%2$s) が高すぎます</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
@@ -408,6 +411,7 @@
   <string name="save">保存</string>
   <string name="leaderboard">ランキング</string>
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">局面を画像として保存</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
   <string name="moveAnnotations">手の注釈を表示</string>
@@ -689,6 +693,7 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">ホストのための追加時間：</string>
   <string name="simulAddExtraTimePerPlayer">同時対局の参加者 1 人につき何分の形で自分の持時間を増やせます。</string>
   <string name="simulHostExtraTimePerPlayer">ホスト延長時間（人数比例）</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
@@ -818,6 +823,7 @@
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">レーティング: %s。</string>
   <string name="yourRatingIsX">あなたのレーティングは %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -874,6 +880,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Lichess からプライベートメッセージが来ました。</string>
   <string name="clickHereToReadIt">ここをクリックして読む</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">メッセージを読む</string>
   <string name="sorry">残念です :(</string>
   <string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
   <string name="why">どうして？</string>

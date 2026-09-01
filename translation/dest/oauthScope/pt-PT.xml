@@ -22,6 +22,7 @@
   <string name="teamRead">Ler informações privadas da equipa</string>
   <string name="teamWrite">Participar e sair das equipas</string>
   <string name="teamLead">Administre as equipas que lideras: envie MPs, exclua membros</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Administrar as equipas que lideras: enviar mensagens diretas, expulsar membros</string>
   <string name="followRead">Ler jogadores seguidos</string>
   <string name="followWrite">Seguir e deixar de seguir outros jogadores</string>
   <string name="msgWrite">Enviar mensagens privadas a outros jogadores</string>

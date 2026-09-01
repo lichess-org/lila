@@ -296,7 +296,9 @@
   <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
   <string name="whiteTimeOut">Τέλος χρόνου για τα λευκά</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Τελείωσε ο χρόνος των λευκών</string>
   <string name="blackTimeOut">Τέλος χρόνου για τα μαύρα</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Τελείωσε ο χρόνος των μαύρων</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>
   <string name="whiteOffersDraw">Τα λευκά προσφέρουν ισοπαλία</string>
@@ -439,6 +441,7 @@
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
   <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Αποτύπωση θέσης ως εικόνα</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="playerNames">Ονόματα παικτών</string>
   <string name="moveAnnotations">Σχολιασμός κινήσεων</string>
@@ -727,6 +730,7 @@
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Επιπλέον χρόνος για τον διοργανωτή:</string>
   <string name="simulAddExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου στο ρολόι σας για κάθε παίκτη που συμμετέχει στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
@@ -862,6 +866,7 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Βαθμολογία: %s.</string>
   <string name="yourRatingIsX">Η βαθμολογία σας είναι %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -921,6 +926,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Έχετε λάβει ένα προσωπικό μήνυμα από το Lichess.</string>
   <string name="clickHereToReadIt">Κάντε κλικ εδώ για να το δείτε</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Διαβάστε το μήνυμα</string>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ο λογαριασμός σας έχει αποκλειστεί προσωρινά.</string>
   <string name="why">Γιατί;</string>

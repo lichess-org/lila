@@ -812,7 +812,7 @@
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
   <string name="primaryColorArrowsHowTo">Ctrl или shift = црвена, command; alt или meta = плава; по дугме из сваке = жута.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
-  <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
+  <string name="receiveForumNotifications">Прими обавештења када се поменеш на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
   <string name="withNobody">Ни са ким</string>
   <string name="withFriends">Са пријатељима</string>

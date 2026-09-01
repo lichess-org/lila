@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Două piese opuse se înfruntă una pe cealaltă, iar una mută de-a lungul liniei de atac fără a captura piesa inamică.</string>
   <string name="cornerMate">Mat în colț</string>
   <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Blochează regele în colț folosind o tură sau o regină și folosește un cal pentru a da șah mat.</string>
   <string name="crushing">Zdrobitor</string>
   <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Șah prin descoperire</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">O tactică cu blocări, unde o piesă nu se poate mișca fără a descoperi un atac asupra unei piese mai valoroase.</string>
   <string name="promotion">Promovare</string>
   <string name="promotionDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promovează unul dintre pionii tăi într-o regină, o tură sau o piesă minoră.</string>
   <string name="queenEndgame">Final cu regine</string>
   <string name="queenEndgameDescription">Un final de partidă doar cu regine și pioni.</string>
   <string name="queenRookEndgame">Final cu regine și turnuri</string>

@@ -296,7 +296,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Ezeztatu</string>
   <string name="whiteTimeOut">Zuriaren denbora agortu egin da</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Zuriaren denbora agortu egin da</string>
   <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Beltzaren denbora agortu egin da</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
   <string name="drawOfferAccepted">Berdintzeko eskaintza onartu da</string>
   <string name="whiteOffersDraw">Zuriak berdinketa eskaintzen du</string>
@@ -418,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Zure %s sailkapena behin-behinekoa</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Zure puntuazioa egonkorra ez denez, filtroak blokeatuta daude. Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Ezin da puntuazioaren arabera fltratu, zure puntuazioa ez delako egonkorra.
+Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="yourPerfRatingIsTooHigh">Zure %1$s sailkapena (%2$s) altuegia da</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Zure asteko %1$s sailkapen onena (%2$s) altuegia da</string>
   <string name="yourPerfRatingIsTooLow">Zure %1$s sailkapena (%2$s) baxuegia da</string>
@@ -439,6 +443,7 @@
   <string name="save">Gorde</string>
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="screenshotCurrentPosition">Uneko posizioaren irudia</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Posizioa irudi gisa</string>
   <string name="gameAsGIF">Partida GIF gisa</string>
   <string name="playerNames">Jokalarien izenak</string>
   <string name="moveAnnotations">Jokaldien komentarioak</string>
@@ -727,6 +732,7 @@
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
   <string name="simulHostExtraTime">Denbora gehitu erlojuan</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ostatatzailearentzat denbora gehigarria:</string>
   <string name="simulAddExtraTimePerPlayer">Aldibereko partidara sartzen den jokalari bakoitzagatik denbora gehitu zure erlojuan.</string>
   <string name="simulHostExtraTimePerPlayer">Jokalari bakoitzeko denbora gehigarria</string>
   <string name="lichessTournaments">Lichess txapelketak</string>
@@ -862,6 +868,7 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="notificationsX">Jakinarazpenak: %1$s</string>
   <string name="perfRatingX">Sailkapena: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Puntuazioa: %s.</string>
   <string name="yourRatingIsX">Zure puntuazioa %s da</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
@@ -921,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Lichessek bidalitako mezu pribatu bat jaso duzu.</string>
   <string name="clickHereToReadIt">Egin klik hemen irakurtzeko</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Irakurri mezua</string>
   <string name="sorry">Barkatu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
   <string name="why">Zergatik?</string>

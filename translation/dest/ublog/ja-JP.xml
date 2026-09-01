@@ -47,6 +47,8 @@
   <string name="imageAlt">画像代替テキスト</string>
   <string name="imageCredit">画像クレジット</string>
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
+  <string name="safeToUseImages">以下のウェブサイトの画像を使うのが安全です: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">以下のウェブサイトは画像を無料で提供しています。使用する画像のライセンス条件に従ってください。</string>
   <string name="selectPostTopics">ブログ投稿に合ったトピックを選ぶ</string>
   <string name="safeAndRespectfulContent">投稿できるのは安全で他者の権利を尊重したコンテンツだけです。他の人のコンテンツをコピーしてはいけません。</string>
   <string name="noCopyrightedImages">使えるのは他の人が著作権を持っていない画像だけです。</string>

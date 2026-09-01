@@ -22,6 +22,7 @@
   <string name="teamRead">Citește informațiile private legate de echipă</string>
   <string name="teamWrite">Alătură-te, părăsește sau condu o echipă</string>
   <string name="teamLead">Gestionați echipele pe care le conduceți: trimiteți mesaje personale, dați afară membrii</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Gestionează echipele pe care le conduci: trimite mesaje directe, exclude membri</string>
   <string name="followRead">Citește jucători urmăriți</string>
   <string name="followWrite">Urmărește sau nu mai urmări alți jucători</string>
   <string name="msgWrite">Trimite mesaj privat altor jucători</string>
