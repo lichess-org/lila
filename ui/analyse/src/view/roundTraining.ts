@@ -1,7 +1,6 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
-import { icons } from 'lib/icons';
 import { bind, onInsert, snabIcon } from 'lib/view';
 import { ratingDiff, profileUrl } from 'lib/view/userLink';
 
@@ -108,7 +107,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               class: { active: !!ctrl.retro },
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            [snabIcon(icons.PlayTriangle), i18n.site.learnFromYourMistakes],
+            [snabIcon('PlayTriangle'), i18n.site.learnFromYourMistakes],
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -127,7 +126,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
           href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
       },
-      [snabIcon(icons.ArcheryTarget), 'Recommended puzzle training', h('br'), puzzle.name],
+      [snabIcon('ArcheryTarget'), 'Recommended puzzle training', h('br'), puzzle.name],
     ),
   );
 }

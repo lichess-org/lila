@@ -1,6 +1,5 @@
 import type { VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { domDialog, confirm, bind, hl, snabIcon } from 'lib/view';
 
 import type SimulCtrl from '@/ctrl';
@@ -52,14 +51,14 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                           })
                         : {},
                     },
-                    [snabIcon(icons.PlayTriangle), i18n.site.join],
+                    [snabIcon('PlayTriangle'), i18n.site.join],
                   )
             : hl(
                 'a.button.text',
                 {
                   attrs: { href: '/login?referrer=' + window.location.pathname },
                 },
-                [snabIcon(icons.PlayTriangle), i18n.site.signIn],
+                [snabIcon('PlayTriangle'), i18n.site.signIn],
               ),
         ),
       ]),
@@ -105,7 +104,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               attrs: { title: 'Accept', 'aria-label': 'Accept' },
                               hook: bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
                             },
-                            [snabIcon(icons.Checkmark)],
+                            [snabIcon('Checkmark')],
                           ),
                       ),
                     ],
@@ -145,7 +144,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                               attrs: { title: 'Reject', 'aria-label': 'Reject' },
                               hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
                             },
-                            [snabIcon(icons.X)],
+                            [snabIcon('X')],
                           ),
                       ),
                     ],
@@ -181,13 +180,13 @@ const randomButton = (ctrl: SimulCtrl) =>
         xhr.accept(randomCandidate.player.id)(ctrl.data.id);
       }),
     },
-    [snabIcon(icons.Checkmark), 'Accept random candidate'],
+    [snabIcon('Checkmark'), 'Accept random candidate'],
   );
 
 const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
   accepted.length > 1
     ? hl('a.button.button-green.text', { hook: bind('click', () => xhr.start(ctrl.data.id)) }, [
-        snabIcon(icons.PlayTriangle),
+        snabIcon('PlayTriangle'),
         `Start (${accepted.length})`,
       ])
     : hl(
@@ -197,7 +196,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
             if (await confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },
-        [snabIcon(icons.X), i18n.site.cancel],
+        [snabIcon('X'), i18n.site.cancel],
       );
 
 const variantIconFor = (ctrl: SimulCtrl, a: Applicant) => {

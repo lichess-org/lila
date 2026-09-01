@@ -4,7 +4,7 @@ import { renderVoiceBar } from 'voice';
 
 import { view as cevalView } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
@@ -62,10 +62,10 @@ function controls(ctrl: PuzzleCtrl): VNode {
         ),
       },
       [
-        jumpButton(icons.JumpFirst, 'first', !node.ply),
-        jumpButton(icons.JumpPrev, 'prev', !node.ply),
-        jumpButton(icons.JumpNext, 'next', !nextNode),
-        jumpButton(icons.JumpLast, 'last', !nextNode, notOnLastMove),
+        jumpButton('JumpFirst', 'first', !node.ply),
+        jumpButton('JumpPrev', 'prev', !node.ply),
+        jumpButton('JumpNext', 'next', !nextNode),
+        jumpButton('JumpLast', 'last', !nextNode, notOnLastMove),
         boardMenuToggleButton(ctrl.menu, i18n.site.menu),
       ],
     ),

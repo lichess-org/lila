@@ -5,7 +5,6 @@ import { definedMap, clamp } from 'lib/algo';
 import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
 import { fen960 } from 'lib/game/chess';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog, htmlIcon } from 'lib/view';
 import { json } from 'lib/xhr';
@@ -44,11 +43,11 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <button type="button" class="z-remove" title="Remove player" aria-label="Remove player">${htmlIcon(icons.X)}</button>
+                <button type="button" class="z-remove" title="Remove player" aria-label="Remove player">${htmlIcon('X')}</button>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
-            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon(icons.GreaterThan)}</button>
+            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon('GreaterThan')}</button>
           </div>
           <div class="from-position is2d snap-pane">
             <div class="editor"></div>
@@ -56,7 +55,7 @@ class SetupDialog {
               <button class="button button-metal standard">Standard</button>
               <button class="button button-metal chess960">Chess960</button>
             </div>
-            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon(icons.LessThan)}</button>
+            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon('LessThan')}</button>
           </div>
         </div>
         <div class="chin">

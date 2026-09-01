@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
 import { type VNode, bind, hl, requiresI18n, onInsert, snabIcon } from 'lib/view';
 
@@ -43,11 +42,11 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       { attrs: { type: 'button' }, hook: bind('click', ctrl.retry) },
-      [snabIcon(icons.Reload), hl('span', i18n.site.retry)],
+      [snabIcon('Reload'), hl('span', i18n.site.retry)],
     );
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
-      hl('span.text', [snabIcon(icons.PlayTriangle), i18n.study.next]),
+      hl('span.text', [snabIcon('PlayTriangle'), i18n.study.next]),
       hl('kbd', 'space'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
@@ -80,7 +79,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
           attrs: { type: 'button' },
           hook: bind('click', study.goToNextChapter),
         },
-        [snabIcon(icons.PlayTriangle), i18n.study.nextChapter],
+        [snabIcon('PlayTriangle'), i18n.study.nextChapter],
       ),
     hl(
       'button.retry',
@@ -88,7 +87,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         attrs: { type: 'button' },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
-      [snabIcon(icons.Reload), i18n.study.playAgain],
+      [snabIcon('Reload'), i18n.study.playAgain],
     ),
     !study.vm.gamebookOverride &&
       hl(
@@ -97,7 +96,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
           attrs: { type: 'button' },
           hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
         },
-        [snabIcon(icons.Microscope), i18n.site.analysis],
+        [snabIcon('Microscope'), i18n.site.analysis],
       ),
   ]);
 }

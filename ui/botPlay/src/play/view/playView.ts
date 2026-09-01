@@ -7,7 +7,7 @@ import { type TopOrBottom } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
-import { icons, type IconKey } from 'lib/icons';
+import type { Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
@@ -62,11 +62,11 @@ const viewActions = (ctrl: PlayCtrl) =>
   hl('div.bot-game__actions', [
     ctrl.game.end && hl('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
     hl('button.bot-game__close.text', { hook: bind('click', ctrl.opts.close) }, [
-      snabIcon(icons.Back),
+      snabIcon('Back'),
       'More opponents',
     ]),
     hl('button.bot-game__restart.text', { hook: bind('click', ctrl.opts.rematch) }, [
-      snabIcon(icons.Reload),
+      snabIcon('Reload'),
       'New game',
     ]),
   ]);
@@ -150,7 +150,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
       ['JumpPrev', ctrl.board.onPly - 1],
       ['JumpNext', ctrl.board.onPly + 1],
       ['JumpLast', ctrl.game.ply()],
-    ].map((b: [IconKey, number], i) => {
+    ].map((b: [Icon, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return hl(
         'button.fbt.repeatable',
@@ -161,7 +161,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
             addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' }),
           ),
         },
-        [snabIcon(icons[b[0]])],
+        [snabIcon(b[0])],
       );
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),

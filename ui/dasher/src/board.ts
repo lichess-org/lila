@@ -1,5 +1,4 @@
 import { type Toggle, toggle } from 'lib';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { bind, hl, onInsert, snabIcon, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
@@ -40,7 +39,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(false)),
           },
-          [snabIcon(icons.Checkmark), '2D'],
+          [snabIcon('Checkmark'), '2D'],
         ),
         hl(
           'button.text',
@@ -49,7 +48,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(true)),
           },
-          [snabIcon(icons.Checkmark), '3D'],
+          [snabIcon('Checkmark'), '3D'],
         ),
       ]),
       this.propSliders(),
@@ -60,7 +59,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', this.reset),
           },
-          [snabIcon(icons.Back), i18n.site.boardReset],
+          [snabIcon('Back'), i18n.site.boardReset],
         ),
       hl(
         'div.list',

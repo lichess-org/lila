@@ -3,7 +3,6 @@ import stringify from 'json-stringify-pretty-compact';
 
 import { frag, escapeHtml, myUserId } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import { icons } from 'lib/icons';
 import { domDialog, type Dialog, domIcon } from 'lib/view';
 
 import { env } from './devEnv';
@@ -41,7 +40,7 @@ class HistoryDialog {
           <button class="button button-empty button-dim" data-action="copy" title="Copy JSON" aria-label="Copy JSON"></button>
         </div>
       </div>`);
-    this.view.querySelector('[data-action="copy"]')?.append(domIcon(icons.Clipboard));
+    this.view.querySelector('[data-action="copy"]')?.append(domIcon('Clipboard'));
     await this.updateHistory();
     this.dlg = await domDialog({
       insert: [{ nodes: this.view }],
@@ -82,7 +81,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(domIcon(icons.Checkmark, 'live'));
+      if (isLive) span.appendChild(domIcon('Checkmark', 'live'));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }
@@ -121,7 +120,7 @@ class HistoryDialog {
   copy = async () => {
     await navigator.clipboard.writeText(stringify(this.selected!));
     const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
-    copied.prepend(domIcon(icons.Checkmark));
+    copied.prepend(domIcon('Checkmark'));
     this.view.querySelector('[data-action="copy"]')?.before(copied);
     setTimeout(() => copied.remove(), 2000);
   };

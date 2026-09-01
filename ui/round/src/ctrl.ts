@@ -18,7 +18,6 @@ import { game as gameRoute } from 'lib/game/router';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { playing } from 'lib/game/status';
 import viewStatus from 'lib/game/view/status';
-import { icons } from 'lib/icons';
 import notify from 'lib/notification';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
@@ -699,13 +698,13 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: i18n.site.yourOpponentOffersADraw,
-        yes: { action: () => this.socket.send('draw-yes'), icon: icons.OneHalf },
+        yes: { action: () => this.socket.send('draw-yes'), icon: 'OneHalf' },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
         prompt: i18n.site.yourOpponentProposesATakeback,
-        yes: { action: this.takebackYes, icon: icons.Back },
+        yes: { action: this.takebackYes, icon: 'Back' },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
@@ -755,7 +754,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`.game__meta .player.${color} .user-link`).append(domIcon(icons.Berserk));
+    $(`.game__meta .player.${color} .user-link`).append(domIcon('Berserk'));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {

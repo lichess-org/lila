@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { bind, snabIcon, type VNode, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -20,7 +19,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        [snabIcon(icons.LessThan), i18n.study.back],
+        [snabIcon('LessThan'), i18n.study.back],
       ),
     myTurn &&
       hl(
@@ -29,7 +28,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        [snabIcon(icons.PlayTriangle), i18n.site.viewTheSolution],
+        [snabIcon('PlayTriangle'), i18n.site.viewTheSolution],
       ),
     overrideButton(study),
   ]);
@@ -50,7 +49,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
             study.redraw,
           ),
         },
-        [snabIcon(icons.Eye), 'Preview'],
+        [snabIcon('Eye'), 'Preview'],
       );
     else {
       const isAnalyse = o === 'analyse',
@@ -66,7 +65,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               study.redraw,
             ),
           },
-          [snabIcon(icons.Microscope), i18n.site.analysis],
+          [snabIcon('Microscope'), i18n.site.analysis],
         );
     }
   }

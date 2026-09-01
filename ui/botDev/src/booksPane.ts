@@ -2,7 +2,6 @@ import { opposite } from 'chessops';
 
 import { frag } from 'lib';
 import type { Book } from 'lib/bot/types';
-import { icons } from 'lib/icons';
 import { domIcon } from 'lib/view';
 
 import { env } from './devEnv';
@@ -18,7 +17,7 @@ export class BooksPane extends Pane {
     const add = frag<HTMLButtonElement>(
       '<button type="button" data-action="add" title="Add book" aria-label="Add book">',
     );
-    add.append(domIcon(icons.PlusButton));
+    add.append(domIcon('PlusButton'));
     this.label?.prepend(add);
     this.template = {
       type: 'range',

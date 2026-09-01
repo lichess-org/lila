@@ -1,6 +1,5 @@
 import { frag } from 'lib';
 import type { Sound } from 'lib/bot/types';
-import { icons } from 'lib/icons';
 import { domIcon } from 'lib/view';
 
 import { env } from './devEnv';
@@ -18,7 +17,7 @@ export class SoundEventPane extends Pane {
     const add = frag<HTMLButtonElement>(
       '<button type="button" data-action="add" title="Add sound" aria-label="Add sound">',
     );
-    add.append(domIcon(icons.PlusButton));
+    add.append(domIcon('PlusButton'));
     this.label.prepend(add);
     this.label.append(frag(`<span class="hide-disabled"><hr><span class="total-chance dim"></span></span>`));
     this.value?.forEach((_, index) => this.makeSound(index));
@@ -66,7 +65,7 @@ export class SoundEventPane extends Pane {
     const buttonEl = frag<HTMLButtonElement>(
       '<button class="button button-empty preview-sound icon-btn" type="button" title="Preview sound" aria-label="Preview sound"></button>',
     );
-    buttonEl.append(domIcon(icons.PlayTriangle));
+    buttonEl.append(domIcon('PlayTriangle'));
     const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);

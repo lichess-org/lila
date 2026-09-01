@@ -2,7 +2,6 @@
 
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
-import { icons } from '@/icons';
 import { frag } from '@/index';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
@@ -77,7 +76,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
     const closeButton = frag<Element>(`<button class="close-button" aria-label="Close"></button>`);
-    closeButton.append(domIcon(icons.X));
+    closeButton.append(domIcon('X'));
     anchor.append(closeButton);
     dialog.appendChild(anchor);
   }
@@ -113,7 +112,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
       o.noCloseButton ||
         hl(
           'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon(icons.X)]),
+          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon('X')]),
         ),
       hl(
         'div',

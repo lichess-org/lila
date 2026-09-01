@@ -1,7 +1,7 @@
 import { repeater, blurIfPrimaryClick } from 'lib';
 import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import { type VNode, type LooseVNode, onInsert, hl, snabIcon } from 'lib/view';
 
@@ -27,10 +27,10 @@ export function renderControls(ctrl: AnalyseCtrl) {
     },
     [
       hl('div.jumps', [
-        jumpButton(icons.JumpFirst, 'first', canJumpPrev),
-        jumpButton(icons.LessThan, 'prev', canJumpPrev),
-        jumpButton(icons.GreaterThan, 'next', canJumpNext),
-        jumpButton(icons.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        jumpButton('JumpFirst', 'first', canJumpPrev),
+        jumpButton('LessThan', 'prev', canJumpPrev),
+        jumpButton('GreaterThan', 'next', canJumpNext),
+        jumpButton('JumpLast', 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
       ctrl.study?.practice
         ? hl(
@@ -38,7 +38,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             {
               attrs: { 'aria-label': i18n.site.analysis, title: i18n.site.analysis, 'data-act': 'analysis' },
             },
-            [snabIcon(icons.Microscope)],
+            [snabIcon('Microscope')],
           )
         : [
             displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
@@ -55,7 +55,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                   active: ctrl.activeControlBarTool() === 'opening-explorer',
                 },
               },
-              [snabIcon(icons.Book)],
+              [snabIcon('Book')],
             ),
             displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
@@ -67,7 +67,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
               class: { active: ctrl.activeControlBarTool() === 'action-menu' },
               attrs: { 'aria-label': i18n.site.menu, title: i18n.site.menu, 'data-act': 'menu' },
             },
-            [snabIcon(icons.Hamburger)],
+            [snabIcon('Hamburger')],
           ),
     ],
   );
@@ -88,7 +88,7 @@ const renderPracticeTab = (ctrl: AnalyseCtrl): LooseVNode =>
         latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
       },
     },
-    [snabIcon(icons.Bullseye)],
+    [snabIcon('Bullseye')],
   );
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {

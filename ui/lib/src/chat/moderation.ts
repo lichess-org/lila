@@ -5,7 +5,6 @@ import { pubsub } from '@/pubsub';
 import { bind, confirm, onInsert, snabIcon } from '@/view';
 import { profileUrl, userLink } from '@/view/userLink';
 
-import { icons } from '../icons';
 import type {
   ModerationCtrl,
   ModerationOpts,
@@ -72,7 +71,7 @@ async function reportUserText(resourceId: string, username: string, text: string
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = (): VNode => h('action.mod', [snabIcon(icons.Agent)]);
+export const lineAction = (): VNode => h('action.mod', [snabIcon('Agent')]);
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return undefined;
@@ -121,7 +120,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h('strong', 'Timeout 15 minutes for'),
           ...ctrl.opts.reasons.map(r =>
             h('a.text', { hook: bind('click', () => ctrl.timeout(r, data.text)) }, [
-              snabIcon(icons.Clock),
+              snabIcon('Clock'),
               r.name,
             ]),
           ),
@@ -129,7 +128,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       : h('div.timeout.block', [
           h('strong', 'Moderation'),
           h('a.text', { hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)) }, [
-            snabIcon(icons.Clock),
+            snabIcon('Clock'),
             'Timeout 15 minutes',
           ]),
           h(
@@ -140,7 +139,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
               }),
             },
-            [snabIcon(icons.Clock), 'Timeout and report to Lichess'],
+            [snabIcon('Clock'), 'Timeout and report to Lichess'],
           ),
         ]);
 
@@ -168,8 +167,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h('span.text', [snabIcon(icons.Agent), userLink(data)]),
-      h('a', { hook: bind('click', ctrl.close) }, [snabIcon(icons.X)]),
+      h('span.text', [snabIcon('Agent'), userLink(data)]),
+      h('a', { hook: bind('click', ctrl.close) }, [snabIcon('X')]),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

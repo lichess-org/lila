@@ -1,6 +1,5 @@
 import { frag } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import { icons } from 'lib/icons';
 import { domDialog, htmlIcon, type Dialog } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -223,7 +222,7 @@ function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
   const setting = settings[key];
   const label =
     setting.helpHtml && isTouchDevice()
-      ? `<button class="help-button" data-key="${key}">${htmlIcon(icons.InfoCircle)}${setting.label}</button>`
+      ? `<button class="help-button" data-key="${key}">${htmlIcon('InfoCircle')}${setting.label}</button>`
       : `<span>${setting.label}</span>`;
   return $html`
     <span class="setting${setting.helpHtml ? ' hover-help' : ''}" data-key="${key}">

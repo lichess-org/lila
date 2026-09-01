@@ -12,7 +12,7 @@
   width: $icon-size;
   aspect-ratio: 1;
 
-  @include icon-mask-only(icon-url($icon));
+  @include icon-mask-only($icon);
 }
 
 .svg-icon {

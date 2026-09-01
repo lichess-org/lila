@@ -5,7 +5,6 @@ import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog, type Action, confirm, alert, domIcon } from 'lib/view';
 
@@ -314,7 +313,7 @@ export class EditDialog {
           <button class="button button-empty" data-action="save">save</button>
           </div>
       </div>`);
-    view.querySelector('[data-action="copy"]')?.append(domIcon(icons.Clipboard));
+    view.querySelector('[data-action="copy"]')?.append(domIcon('Clipboard'));
     const dlg = await domDialog({
       insert: [{ nodes: view }],
       easyClose: 'clickOutside',
@@ -327,7 +326,7 @@ export class EditDialog {
           listener: async () => {
             await navigator.clipboard.writeText(view.querySelector<HTMLTextAreaElement>('.json')!.value);
             const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
-            copied.prepend(domIcon(icons.Checkmark));
+            copied.prepend(domIcon('Checkmark'));
             view.querySelector('[data-action="copy"]')?.before(copied);
             setTimeout(() => copied.remove(), 2000);
           },

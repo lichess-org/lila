@@ -3,7 +3,7 @@ import * as co from 'chessops';
 import { definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
 import { type VNode, hl, onInsert, bind, domDialog, icon, snabIcon } from 'lib/view';
 
@@ -48,7 +48,7 @@ function player(color: Color): VNode {
               e.stopPropagation();
             }),
           },
-          [snabIcon(icons.Cancel)],
+          [snabIcon('Cancel')],
         ),
       hl('img', { attrs: { src: imgUrl } }),
       (!(env.bot.white || env.bot.black) || (p && !('level' in p))) &&
@@ -110,15 +110,15 @@ function ratingSpan(p: Bot): VNode {
 function speedIcon(speed: LocalSpeed = env.game.speed): Icon {
   switch (speed) {
     case 'rapid':
-      return icons.Rabbit;
+      return 'Rabbit';
     case 'blitz':
-      return icons.Fire;
+      return 'Fire';
     case 'bullet':
     case 'ultraBullet':
-      return icons.Bullet;
+      return 'Bullet';
     case 'classical':
     default:
-      return icons.Turtle;
+      return 'Turtle';
   }
 }
 
@@ -199,7 +199,7 @@ function dashboard() {
           attrs: { title: 'Report', 'aria-label': 'Report' },
           hook: bind('click', () => report()),
         },
-        [snabIcon(icons.ShareIos)],
+        [snabIcon('ShareIos')],
       ),
       hl(
         `button.board-action.button.button-metal`,
@@ -210,7 +210,7 @@ function dashboard() {
             env.redraw();
           }),
         },
-        [snabIcon(icons.Switch)],
+        [snabIcon('Switch')],
       ),
       hl(
         `button.board-action.button.button-metal`,
@@ -223,7 +223,7 @@ function dashboard() {
             }),
           ),
         },
-        [snabIcon(icons.Reload)],
+        [snabIcon('Reload')],
       ),
       renderPlayPause(),
     ]),
@@ -243,7 +243,7 @@ function progress() {
               env.redraw();
             }),
           },
-          [snabIcon(icons.Cancel)],
+          [snabIcon('Cancel')],
         ),
       playersWithResults(env.dev.log).map(p => {
         const bot = env.bot.info(p)!;

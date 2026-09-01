@@ -2,7 +2,6 @@
 
 import { h } from 'snabbdom';
 
-import { icons } from '@/icons';
 import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
 import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
@@ -26,7 +25,7 @@ export const toggleButton = (toggle: Toggle, title: string): VNode =>
         }),
       ),
     },
-    [snabIcon(icons.Hamburger)],
+    [snabIcon('Hamburger')],
   );
 
 export const boardMenu = (
@@ -55,7 +54,7 @@ export class BoardMenu {
         attrs: { title: 'Hotkey: f' },
         hook: onInsert(el => addPointerListeners(el, { click: onChange })),
       },
-      [snabIcon(icons.ChasingArrows), name],
+      [snabIcon('ChasingArrows'), name],
     );
 
   zenMode = (enabled = true): VNode =>

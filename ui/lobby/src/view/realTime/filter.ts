@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { bind, onInsert, snabIcon } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
@@ -76,7 +75,7 @@ export function toggle({ filter, redraw }: LobbyController, nbFiltered: number) 
       hook: bind('click', filter.toggle, redraw),
       attrs: { title: label, 'aria-label': label },
     },
-    [snabIcon(filter.open ? icons.X : icons.Gear)],
+    [snabIcon(filter.open ? 'X' : 'Gear')],
   );
 }
 

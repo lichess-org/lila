@@ -1,5 +1,4 @@
 import { prop } from 'lib';
-import { icons } from 'lib/icons';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, hl, copyMeInput, domIcon, snabIcon, type MaybeVNode } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
@@ -48,7 +47,7 @@ function fromPly(ctrl: StudyShare): MaybeVNode {
 }
 
 function youCanPasteThis() {
-  return hl('p.form-help.text', [snabIcon(icons.InfoCircle), i18n.study.youCanPasteThisInTheForumToEmbed]);
+  return hl('p.form-help.text', [snabIcon('InfoCircle'), i18n.study.youCanPasteThisInTheForumToEmbed]);
 }
 
 function copyChapterPgn(url: string, text: string) {
@@ -63,11 +62,9 @@ function copyChapterPgn(url: string, text: string) {
         const target = event.currentTarget as HTMLElement;
         const url = target.dataset['url']!;
         const iconFeedback = (success: boolean) => {
-          target
-            .querySelector(':scope > .svg-icon')
-            ?.replaceWith(domIcon(success ? icons.Checkmark : icons.X));
+          target.querySelector(':scope > .svg-icon')?.replaceWith(domIcon(success ? 'Checkmark' : 'X'));
           setTimeout(
-            () => target.querySelector(':scope > .svg-icon')?.replaceWith(domIcon(icons.Clipboard)),
+            () => target.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Clipboard')),
             1000,
           );
         };
@@ -80,7 +77,7 @@ function copyChapterPgn(url: string, text: string) {
         );
       }),
     },
-    [snabIcon(icons.Clipboard), text],
+    [snabIcon('Clipboard'), text],
   );
 }
 
@@ -97,7 +94,7 @@ export function view(ctrl: StudyShare): VNode {
     hl('div.downloads', [
       ctrl.cloneable() &&
         hl('a.button.text', { attrs: { href: `/study/${studyId}/clone` } }, [
-          snabIcon(icons.StudyBoard),
+          snabIcon('StudyBoard'),
           i18n.study.cloneStudy,
         ]),
       relay &&
@@ -109,7 +106,7 @@ export function view(ctrl: StudyShare): VNode {
               download: true,
             },
           },
-          [snabIcon(icons.Download), i18n.broadcast.downloadAllRounds],
+          [snabIcon('Download'), i18n.broadcast.downloadAllRounds],
         ),
       hl(
         'a.button.text',
@@ -119,7 +116,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        [snabIcon(icons.Download), relay ? i18n.site.downloadAllGames : i18n.study.studyPgn],
+        [snabIcon('Download'), relay ? i18n.site.downloadAllGames : i18n.study.studyPgn],
       ),
       hl(
         'a.button.text',
@@ -129,7 +126,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        [snabIcon(icons.Download), relay ? i18n.study.downloadGame : i18n.study.chapterPgn],
+        [snabIcon('Download'), relay ? i18n.study.downloadGame : i18n.study.chapterPgn],
       ),
       copyChapterPgn(`/study/${studyId}/${chapter.id}.pgn`, i18n.study.copyChapterPgn),
       copyChapterPgn(
@@ -151,7 +148,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        [snabIcon(icons.Download), i18n.site.board],
+        [snabIcon('Download'), i18n.site.board],
       ),
       hl(
         'a.button.text',
@@ -165,7 +162,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        [snabIcon(icons.Download), 'GIF'],
+        [snabIcon('Download'), 'GIF'],
       ),
     ]),
     hl('form.form3', [
@@ -194,7 +191,7 @@ export function view(ctrl: StudyShare): VNode {
               inputAttrs: { readonly: true },
             }),
             hl('a.form-help.text', { attrs: { href: `${relay.roundPath()}#overview` } }, [
-              snabIcon(icons.InfoCircle),
+              snabIcon('InfoCircle'),
               'More options for embedding a broadcast',
             ]),
           ])
@@ -210,7 +207,7 @@ export function view(ctrl: StudyShare): VNode {
                     target: '_blank',
                   },
                 },
-                [snabIcon(icons.InfoCircle), i18n.study.readMoreAboutEmbedding],
+                [snabIcon('InfoCircle'), i18n.study.readMoreAboutEmbedding],
               ),
             ]),
             copyMeInput(

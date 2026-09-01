@@ -1,4 +1,4 @@
-import { icons, type Icon } from './icons';
+import { type Icon } from './icons';
 import { memoize } from './index';
 import { bind, type Hooks } from './view/snabbdom';
 
@@ -65,7 +65,7 @@ const webkitVersion = memoize<string | false>(
     false,
 );
 
-export const shareIcon: () => Icon = () => (isApple() ? icons.ShareIos : icons.ShareAndroid);
+export const shareIcon: () => Icon = () => (isApple() ? 'ShareIos' : 'ShareAndroid');
 
 export type Feature =
   | 'wasm'

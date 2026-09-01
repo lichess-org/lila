@@ -1,5 +1,4 @@
 import { view as cevalView } from 'lib/ceval';
-import { icons } from 'lib/icons';
 import { bind, hl, snabIcon, type LooseVNode, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -59,6 +58,6 @@ const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
             ctrl.redraw,
           ),
         },
-        [snabIcon(icons.PlayTriangle), i18n.broadcast.backToLiveMove],
+        [snabIcon('PlayTriangle'), i18n.broadcast.backToLiveMove],
       )
     : undefined;

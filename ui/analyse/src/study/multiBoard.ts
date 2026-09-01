@@ -7,7 +7,7 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { storage, storedBooleanProp } from 'lib/storage';
 import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, snabIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
@@ -154,7 +154,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h('div.empty-boards-note.text', [snabIcon(icons.InfoCircle), i18n.broadcast.sinceHideResults])
+      ? h('div.empty-boards-note.text', [snabIcon('InfoCircle'), i18n.broadcast.sinceHideResults])
       : undefined,
     h(
       'div.now-playing',
@@ -194,11 +194,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton(icons.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(icons.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    pagerButton('JumpFirst', () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton('JumpPrev', ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(icons.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(icons.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton('JumpNext', ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton('JumpLast', ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',

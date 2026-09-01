@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { domIcon } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
@@ -127,7 +127,7 @@ function renderMenu(container: HTMLElement): void {
       menuContainer.classList.remove('btn-rack');
       dropdownDiv.classList.remove('btn-rack__btn');
       moreButton.textContent = '';
-      moreButton.append(domIcon(icons.Hamburger));
+      moreButton.append(domIcon('Hamburger'));
     }
 
     const dropdownWindow = document.createElement('div');

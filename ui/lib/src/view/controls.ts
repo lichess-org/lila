@@ -2,7 +2,6 @@
 
 import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
-import { icons } from '@/icons';
 import { toggle as baseToggle, type Toggle } from '@/index';
 import { snabIcon } from '@/view/makeIcon';
 import { onInsert } from '@/view/snabbdom';
@@ -48,7 +47,7 @@ export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On
       on: opts.on,
     }),
     h('button.copy-me__button.button.button-metal', { attrs: { title: i18n.site.copyToClipboard } }, [
-      snabIcon(icons.Clipboard),
+      snabIcon('Clipboard'),
     ]),
   ]);
 }

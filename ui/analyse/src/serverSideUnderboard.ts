@@ -1,7 +1,6 @@
 import type { ChartGame, AcplChart } from 'chart';
 
 import { escapeHtml } from 'lib';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 import { spinnerHtml, domDialog, alert, confirm, htmlIcon } from 'lib/view';
@@ -169,7 +168,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '</pre><br />' +
         iframe +
         '<br /><br />' +
-        `<a class="text" href="/developers#embed-game">${htmlIcon(icons.InfoCircle)}Read more about embedding games</a></div>`,
+        `<a class="text" href="/developers#embed-game">${htmlIcon('InfoCircle')}Read more about embedding games</a></div>`,
     });
   });
 

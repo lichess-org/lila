@@ -1,7 +1,6 @@
 import type { Tablesort } from 'tablesort';
 
 import { memoize, throttle } from 'lib';
-import { icons } from 'lib/icons';
 import { hl, onInsert, requiresI18n, spinnerVdom, snabIcon, type VNode } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
@@ -74,7 +73,7 @@ export default class RelayTeamLeaderboard {
           [
             hl('thead', [
               hl('tr', [
-                hl('th.text', [snabIcon(icons.Group), i18n.team.team]),
+                hl('th.text', [snabIcon('Group'), i18n.team.team]),
                 hl('th', i18n.broadcast.matches),
                 hl('th', { attrs: { 'data-sort-default': 1 } }, i18n.broadcast.matchPoints),
                 hl('th', i18n.broadcast.gamePoints),
@@ -108,7 +107,7 @@ export default class RelayTeamLeaderboard {
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
         hl('h2.relay-tour__team-summary__header.text', [
-          !this.looksLikeFederationTournament() && snabIcon(icons.Group),
+          !this.looksLikeFederationTournament() && snabIcon('Group'),
           this.teamNameNode(foundTeam),
         ]),
         hl(
@@ -146,7 +145,7 @@ export default class RelayTeamLeaderboard {
                 hl(
                   'td.game-link',
                   hl('a.game-link text', { attrs: { href: `/broadcast/-/-/${match.roundId}#teams` } }, [
-                    snabIcon(icons.StudyBoard),
+                    snabIcon('StudyBoard'),
                     `${i + 1}`,
                   ]),
                 ),

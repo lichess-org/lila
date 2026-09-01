@@ -1,6 +1,5 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts, povMessage } from 'lib/puz/run';
 import { getNow } from 'lib/puz/util';
@@ -76,15 +75,15 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         title: i18n.site.flipBoard + ' (Keyboard: f)',
         hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
       },
-      [snabIcon(icons.ChasingArrows)],
+      [snabIcon('ChasingArrows')],
     ),
     a('/storm')('.puz-side__control__reload.button.button-empty', { title: i18n.storm.newRun }, [
-      snabIcon(icons.Trash),
+      snabIcon('Trash'),
     ]),
     button(
       '.puz-side__control__end.button.button-empty',
       { title: i18n.storm.endRun, hook: onInsert(el => el.addEventListener('click', ctrl.endNow)) },
-      [snabIcon(icons.FlagOutline)],
+      [snabIcon('FlagOutline')],
     ),
   ]);
 
@@ -94,7 +93,7 @@ const startNode = div('.puz-side__top.puz-side__start', [
 
 const renderReload = (text: string) =>
   div('.storm.storm--reload.box.box-pad', [
-    icon(icons.Storm)(),
+    icon('Storm')(),
     p(text),
     a('/storm')('.storm--dup__reload.button', i18n.storm.clickToReload),
   ]);

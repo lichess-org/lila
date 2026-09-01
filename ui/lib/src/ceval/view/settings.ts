@@ -1,7 +1,6 @@
 import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
 import { isChrome } from '@/device';
-import { icons } from '@/icons';
 import { onClickAway } from '@/index';
 import { type VNode, onInsert, bind, hl, rangeConfig, confirm, domDialog, snabIcon } from '@/view';
 
@@ -222,7 +221,7 @@ function engineSelection({ ceval }: CevalHandler) {
               ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
           }),
         },
-        [snabIcon(icons.Trash)],
+        [snabIcon('Trash')],
       ),
     hl(
       'button.engine-info-button',
@@ -232,7 +231,7 @@ function engineSelection({ ceval }: CevalHandler) {
           click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')),
         },
       },
-      [snabIcon(icons.InfoCircle)],
+      [snabIcon('InfoCircle')],
     ),
   ]);
 }

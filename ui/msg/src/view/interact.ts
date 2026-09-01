@@ -2,7 +2,6 @@ import { h, type VNode } from 'snabbdom';
 
 import { blurIfEscape } from 'lib';
 import { throttle } from 'lib/async';
-import { icons } from 'lib/icons';
 import { bindSubmit, alert, testId, onInsert, snabIcon } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';
@@ -29,7 +28,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
           class: { 'button-green': connected, disabled: !connected },
           attrs: { type: 'submit', disabled: !connected, ...testId('msg-send-button') },
         },
-        [snabIcon(icons.PlayTriangle)],
+        [snabIcon('PlayTriangle')],
       ),
     ],
   );

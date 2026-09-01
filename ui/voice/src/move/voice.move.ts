@@ -3,7 +3,7 @@ import { charToRole } from 'chessops';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
 import type { QuestionOpts } from 'lib/types';
 import { jsonSimple } from 'lib/xhr';
@@ -545,11 +545,11 @@ export function initModule({
       no: { action: () => command?.action?.(false), key: 'no' },
     });
     return command?.key === 'resign'
-      ? mkOpts('Confirm resignation', icons.FlagOutline)
+      ? mkOpts('Confirm resignation', 'FlagOutline')
       : command?.key === 'draw'
-        ? mkOpts('Confirm draw offer', icons.OneHalf)
+        ? mkOpts('Confirm draw offer', 'OneHalf')
         : command?.key === 'takeback'
-          ? mkOpts('Confirm takeback request', icons.Back)
+          ? mkOpts('Confirm takeback request', 'Back')
           : false;
   }
 

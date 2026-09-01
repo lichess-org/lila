@@ -8,7 +8,6 @@ import {
   type TournamentRanks,
 } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
-import { icons } from 'lib/icons';
 import { type LooseVNode, hl, bind, snabIcon } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
@@ -51,7 +50,7 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? hl('div.berserked.' + position, [snabIcon(icons.Berserk)]) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, [snabIcon('Berserk')]) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
@@ -65,7 +64,7 @@ const goBerserk = (ctrl: RoundController, color: Color) =>
       },
       hook: bind('click', ctrl.goBerserk),
     },
-    [snabIcon(icons.Berserk)],
+    [snabIcon('Berserk')],
   );
 
 const clockSide = (

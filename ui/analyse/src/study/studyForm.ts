@@ -1,7 +1,6 @@
 import flairPickerLoader from 'bits/flairPicker';
 
 import { toggle } from 'lib';
-import { icons } from 'lib/icons';
 import {
   snabDialog,
   confirm,
@@ -231,10 +230,10 @@ export function view(ctrl: StudyForm): VNode {
             href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
           },
         },
-        [snabIcon(icons.RadioTower), 'Tournament settings'],
+        [snabIcon('RadioTower'), 'Tournament settings'],
       ),
       hl('a.text', { attrs: { href: `/broadcast/round/${data.id}/edit` } }, [
-        snabIcon(icons.RadioTower),
+        snabIcon('RadioTower'),
         'Round settings',
       ]),
     ]);
