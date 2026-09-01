@@ -1,5 +1,7 @@
 import { Picker } from 'emoji-mart';
 
+import { currentTheme } from 'lib/device';
+
 type Config = {
   element: HTMLElement;
   close: (e: PointerEvent) => void;
@@ -8,12 +10,6 @@ type Config = {
 
 export async function initModule(cfg: Config): Promise<void> {
   if (cfg.element.classList.contains('emoji-done')) return;
-  const theme =
-    document.body.dataset.theme === 'system'
-      ? 'auto'
-      : document.body.dataset.theme === 'light'
-        ? 'light'
-        : 'dark';
   const opts = {
     ...cfg,
     onClickOutside: cfg.close,
@@ -23,7 +19,7 @@ export async function initModule(cfg: Config): Promise<void> {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
-    theme,
+    theme: currentTheme(),
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new Picker(opts);
