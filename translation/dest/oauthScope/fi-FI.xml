@@ -22,6 +22,7 @@
   <string name="teamRead">Lue yksityisen joukkueen tiedot</string>
   <string name="teamWrite">Liity joukkueeseen, poistu joukkueesta ja hallitse joukkuetta</string>
   <string name="teamLead">Hallitse johtamiasi joukkueita: lähetä yksityisviestejä, erota jäseniä</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Hallitse johtamiasi joukkueita: lähetä suoria viestejä, erota jäseniä</string>
   <string name="followRead">Lue seuratut pelaajat</string>
   <string name="followWrite">Seuraa muita pelaajia ja lopeta pelaajien seuraaminen</string>
   <string name="msgWrite">Lähetä yksityisviesti muille pelaajille</string>

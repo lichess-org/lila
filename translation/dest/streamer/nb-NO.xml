@@ -29,6 +29,7 @@
   <string name="pendingReview">Strømmen din blir nå vurdert av moderatorne.</string>
   <string name="pleaseFillIn">Vennligst fyll inn informasjon om strømmen din og last opp et bilde.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Når du er klar til å bli oppført som Lichess-strømmer, kan du %s.</string>
   <string name="submitForReview">Send inn for gjennomgang</string>
   <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
   <string name="pleaseAllow">Det kan ta opptil 72 timer før strømmermerket og -oppføringen din blir godkjent.</string>

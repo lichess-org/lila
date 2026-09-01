@@ -296,7 +296,9 @@
   <string name="ok">D\'acord</string>
   <string name="cancel">Cancel·lar</string>
   <string name="whiteTimeOut">Les blanques han exhaurit el seu temps</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">El blanc s\'ha quedat sense temps</string>
   <string name="blackTimeOut">Les negres perden per temps</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">El negre s\'ha quedat sense temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferAccepted">Oferta de taules acceptada</string>
   <string name="whiteOffersDraw">Blanques ofereixen taules</string>
@@ -418,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">La teva puntuació de %s és provisional</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">El filtres de puntuació estan bloquejats perquè la teva puntuació no és estable. Juga més partides per incrementar l\'estabilitat.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">No és possible filtrar per puntuació perquè la teva puntuació no és estable. 
+Juga partides puntuades per augmentar l\'estabilitat.</string>
   <string name="yourPerfRatingIsTooHigh">La teva puntuació de %1$s (%2$s) és massa alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La teva puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La teva puntuació de %1$s (%2$s) és massa baixa</string>
@@ -439,6 +443,7 @@
   <string name="save">Desar</string>
   <string name="leaderboard">Tauló de líders</string>
   <string name="screenshotCurrentPosition">Fes una captura de pantalla de la posició actual</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Posició com a imatge</string>
   <string name="gameAsGIF">Partida com a GIF</string>
   <string name="playerNames">Noms dels jugadors</string>
   <string name="moveAnnotations">Anotacions de les jugades</string>
@@ -727,6 +732,7 @@
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Temps extra per l\'amfitrió:</string>
   <string name="simulAddExtraTimePerPlayer">Afegir temps inicial al vostre rellotge per cada jugador que entri a la simultània.</string>
   <string name="simulHostExtraTimePerPlayer">Temps extra de l\'amfitrió per jugador</string>
   <string name="lichessTournaments">Tornejos de Lichess</string>
@@ -860,6 +866,7 @@
   <string name="notifications">Avisos</string>
   <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Puntuació: %s.</string>
   <string name="yourRatingIsX">La teva puntuació és de %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>
@@ -919,6 +926,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Has rebut un missatge privat de Lichess.</string>
   <string name="clickHereToReadIt">Fes clic aquí per llegir-lo</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Llegeix el missatge</string>
   <string name="sorry">Ho sentim :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
   <string name="why">Perquè?</string>

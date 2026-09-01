@@ -868,7 +868,7 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="notifications">Notificaciones</string>
   <string name="notificationsX">Notificaciones: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Puntuación: %s.</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Valoración: %s.</string>
   <string name="yourRatingIsX">Tu valoración es %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para hacer el primer movimiento</item>

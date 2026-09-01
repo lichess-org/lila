@@ -189,6 +189,7 @@
   <string name="customPositionText">Στήστε τη σκακιέρα όπως εσείς θέλετε.&lt;br&gt;
 Ιδανική επιλογή για την εξερεύνηση και τη μελέτη φινάλε.</string>
   <string name="loadExistingLichessGameTitle">Φόρτωση παρτίδας από το lichess</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Φορτώστε παρτίδα από το διαδίκτυο</string>
   <string name="loadExistingLichessGameText">Επικολλήστε τη διεύθυνση URL μιας παρτίδας στο Lichess&lt;br&gt;(π.χ. lichess.org/7fHIU0XI)&lt;br&gt;για να φορτώσετε τις κινήσεις της σε αυτό το κεφάλαιο.</string>
   <string name="fromFenStringTitle">Θέση από FEN</string>
   <string name="fromFenStringText">Φορτώστε μία θέση επικολλώντας το αντίστοιχο FEN&lt;br&gt;&lt;i&gt;(π.χ. 4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w)&lt;/i&gt;&lt;br&gt;αν θέλετε το κεφάλαιο της μελέτης να ξεκινά από αυτή τη θέση.</string>

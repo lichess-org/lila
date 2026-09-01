@@ -21,6 +21,7 @@
   <string name="asALastResort">Azken aukera gisa, jarri partida Lichessen bezala eta ondoren %s</string>
   <string name="reloadThisPage">birkargatu orrialde hau</string>
   <string name="dgtConfigure">DGT Ezarpenak</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfiguratu zuren DGT taula</string>
   <string name="lichessConnectivity">Lichessekin konektatu</string>
   <string name="validDgtOauthToken">DGTrekin jokatzeko bhear den OAuth token bat duzu.</string>
   <string name="dgtPlayMenuEntryAdded">Jokatu menuan %s sarrera bat gehitu da.</string>
