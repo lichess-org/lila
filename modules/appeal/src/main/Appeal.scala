@@ -41,7 +41,7 @@ case class Appeal(
 
   def sleep(months: Option[Int]) = copy(closedUntil = months.map(nowInstant.plusMonths))
 
-  def post(text: String, by: UserId, muted: Boolean) =
+  def postLegacyMessage(text: String, by: UserId, muted: Boolean) =
     val msg = AppealMsg(by, text, nowInstant)
     copy(
       msgs = msgs :+ msg,
@@ -53,6 +53,15 @@ case class Appeal(
       firstUnrepliedAt =
         if isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
         else firstUnrepliedAt
+    )
+
+  def postEvent(event: AppealMsg) =
+    copy(
+      msgs = msgs :+ event,
+      updatedAt = nowInstant
+      // TODO:
+      // status
+      // firstUnrepliedAt =
     )
 
   def canAddMsg: Boolean =
@@ -75,6 +84,8 @@ case class Appeal(
   def participated(modId: UserId) = msgs.exists(_.by.is(modId))
 
   def isLast(msg: AppealMsg) = msgs.lastOption.contains(msg)
+
+  def nextNode: Option[AppealNode] = AppealFlow.nextNode(this)
 
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
 
@@ -105,7 +116,7 @@ object Appeal:
       id = Id(scalalib.ThreadLocalRandom.nextString(8)),
       user = me.userId,
       topic = topic,
-      msgs = Vector(AppealMsg(me, text, now)),
+      msgs = if text.isEmpty then Vector.empty else Vector(AppealMsg(me, text, now)),
       status = Status.unread,
       createdAt = now,
       updatedAt = now,
@@ -116,7 +127,39 @@ object Appeal:
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Id)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
-case class AppealMsg(by: UserId, text: String, at: Instant)
+sealed trait AppealMsg:
+  def by: UserId
+  def text: String
+  def at: Instant
+  def kind: Option[AppealMsg.Kind] // None = LegacyMessage
+
+case class LegacyMessage(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = None
+case class ChoiceEvent(
+    by: UserId,
+    nodeId: NodeId,
+    question: String,
+    answerId: AnswerId,
+    answer: String,
+    at: Instant
+) extends AppealMsg:
+  def kind = AppealMsg.Kind.choice.some
+  def text = s"${question}\n${answer}"
+case class MessageEvent(by: UserId, text: String, at: Instant) extends AppealMsg:
+  def kind = AppealMsg.Kind.message.some
+case class ActionEvent(by: UserId, nodeId: NodeId, text: String, at: Instant) extends AppealMsg:
+  def kind = AppealMsg.Kind.action.some
+
+object AppealMsg:
+
+  enum Kind:
+    case choice, message, action
+    def key = toString
+  object Kind:
+    def apply(key: String): Option[Kind] = values.find(_.key == key)
+
+  def apply(by: UserId, text: String, at: Instant): AppealMsg =
+    LegacyMessage(by, text, at)
 
 case class AccountsDisclosure(
     otherUsernames: Option[String],

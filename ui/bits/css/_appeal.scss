@@ -61,6 +61,93 @@
     }
   }
 
+  // TODO: revisit styling
+  &__choice {
+    @extend %box-neat;
+
+    padding: 1.5em;
+    margin-bottom: 2em;
+    background: $c-bg-zebra;
+
+    &--pending {
+      background: $c-bg-box;
+      border: $border;
+    }
+
+    &__waiting {
+      margin: 0 0 0.8em;
+      color: $c-font-dim;
+      font-style: italic;
+    }
+
+    &__question {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin: 0 0 1.2em;
+    }
+
+    &__answers {
+      @extend %flex-center;
+
+      gap: 1em;
+
+      .button,
+      .appeal__choice__option {
+        flex: 1 1 10em;
+        font-size: 1.3em;
+      }
+    }
+
+    &__option {
+      @extend %box-radius;
+
+      padding: 0.6em 1em;
+      text-align: center;
+      border: $border;
+      color: $c-font-dim;
+      background: $c-bg-zebra;
+    }
+  }
+
+  &__choice-event {
+    margin-bottom: 2em;
+    padding: 0 0 1.5em;
+    padding-inline-start: 1em;
+    border-bottom: $border;
+    border-inline-start: 5px solid $c-border;
+
+    &__question {
+      color: $c-font-dim;
+      margin: 0 0 0.8em;
+      font-size: 1.4em;
+    }
+
+    &__selection {
+      @extend %flex-center;
+
+      gap: 0.8em 1.2em;
+    }
+
+    &__answer {
+      @extend %box-radius;
+
+      display: inline-block;
+      max-width: 100%;
+      padding: 0.5em 1em;
+      background: $c-accent;
+      color: $c-over;
+      font-weight: 500;
+    }
+
+    &__meta {
+      @extend %flex-center;
+
+      gap: 0.35em;
+      color: $c-font-dim;
+      font-size: 0.9em;
+    }
+  }
+
   &__actions {
     display: flex;
     padding-top: 2em;

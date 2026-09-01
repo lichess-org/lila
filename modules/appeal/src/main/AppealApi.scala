@@ -1,8 +1,10 @@
 package lila.appeal
 
 import lila.appeal.Appeal.Id as AppealId
+import lila.common.Bus
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
+import lila.appeal.AppealEventForm.{ ChoiceData, MessageData }
 
 final class AppealApi(
     coll: Coll,
@@ -34,13 +36,56 @@ final class AppealApi(
         val appeal = Appeal.make(topic, data.text, data.accounts)
         coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
-        val appeal = prev.post(data.text, me, appeals.muted)
+        val appeal = prev.postLegacyMessage(data.text, me, appeals.muted)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
+
+  def postChoiceEvent(appeal: Appeal, data: ChoiceData)(using me: MyId): Fu[Option[Appeal]] =
+    validateChoiceEvent(appeal, data).so: event =>
+      postEvent(appeal, event).map(_.some)
+
+  private def validateChoiceEvent(appeal: Appeal, data: ChoiceData)(using me: MyId): Option[ChoiceEvent] =
+    val expectedAnswerer = if appeal.user.isnt(me) then Answerer.Mod else Answerer.User
+    appeal.nextNode
+      .so:
+        case cn: ChoiceNode if cn.id == data.nodeId && cn.answerer == expectedAnswerer =>
+          cn.getAnswerBranch(data.answerId)
+            .map: b =>
+              ChoiceEvent(me, cn.id, cn.question, data.answerId, b.answer, nowInstant)
+        case _ => none
+
+  private def postEvent(appeal: Appeal, event: AppealMsg): Fu[Appeal] =
+    val (advancedAppeal, effects) = autoAdvance(appeal.postEvent(event))
+    for savedAppeal <- update(advancedAppeal)
+    yield
+      effects.foreach(publishEffect(savedAppeal, _))
+      savedAppeal
+
+  private def autoAdvance(appeal: Appeal): (Appeal, List[AppealEffect]) =
+    appeal.nextNode match
+      case Some(node: ActionNode) =>
+        val newAppeal = appeal.postEvent(ActionEvent(UserId.lichess, node.id, node.text, nowInstant))
+        val appealAfterEffects = node.effects.foldLeft(newAppeal)(applyEffect)
+        (appealAfterEffects, node.effects)
+      case _ => (appeal, Nil)
+
+  private def applyEffect(appeal: Appeal, effect: AppealEffect): Appeal =
+    effect match
+      case AppealEffect.Sleep(months) => appeal.toggleClosed(true).sleep(months.some)
+      case AppealEffect.Close => appeal.toggleClosed(true)
+      case AppealEffect.Unmark => appeal
+
+  private def publishEffect(appeal: Appeal, effect: AppealEffect): Unit =
+    effect match
+      case AppealEffect.Unmark => Bus.pub(lila.core.mod.UndoMark(appeal.user, appeal.topic))
+      case _ => ()
+
+  def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
+    update(appeal.postEvent(MessageEvent(me, data, nowInstant)))
 
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 
   def modReply(text: String, prev: Appeal)(using me: MyId) =
-    val appeal = prev.post(text, me, muted = false)
+    val appeal = prev.postLegacyMessage(text, me, muted = false)
     for _ <- coll.update.one($id(appeal.id), appeal) yield appeal
 
   def countUnread = coll.secondary.countSel($doc("status" -> Appeal.Status.unread))

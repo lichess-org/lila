@@ -12,6 +12,8 @@ import lila.core.misc.AppealTopic
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
+  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, messageForm }
+  import lila.appeal.AppealMsg.Kind
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
@@ -40,7 +42,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     topic = AppealTopicApi.select(status, appeals)
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
-    case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
+    case Some(a) =>
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(a, allAppeals)
+      else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
   private def makeStatus(user: lila.core.user.User) = for
@@ -55,7 +59,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       status <- makeStatus(me)
       res <-
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
-          bindForm(userForm)(
+          // TODO: revisit
+          val textRequired =
+            appeals.get(topic).isDefined || !AppealTopicApi.usesNewAppealFlow(topic)
+          bindForm(userForm(textRequired))(
             err => BadRequest.async(renderAppealOrTree(err.some)),
             data =>
               for _ <- env.appeal.api.post(topic, data, appeals)
@@ -63,6 +70,42 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           )
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))
     yield res
+  }
+
+  private def event(appeal: AppealModel)(using BodyContext[?])(using me: Me): Fu[Result] =
+    if !appeal.isOpen then Redirect(routes.Appeal.home)
+    else
+      val redirect =
+        if appeal.user.isnt(me) then Redirect(routes.Appeal.modShow(appeal.user, appeal.topic))
+        else Redirect(routes.Appeal.home)
+      bindForm(kindForm)(
+        _ => BadRequest,
+        {
+          case Kind.choice =>
+            bindForm(choiceForm)(
+              _ => BadRequest,
+              choiceData =>
+                for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
+                yield r.fold(BadRequest)(_ => redirect)
+            )
+          case Kind.message =>
+            bindForm(messageForm)(
+              _ => BadRequest,
+              for _ <- env.appeal.api.postMessageEvent(appeal, _)
+              yield redirect
+            )
+        }
+      )
+
+  def userEvent(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
+    Found(env.appeal.api.find(me, topic)): appeal =>
+      event(appeal)
+  }
+
+  def modEvent(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
+        event(appeal)
   }
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
@@ -102,7 +145,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
       getModData(appeal, suspect).flatMap: modData =>
-        Ok.page(views.appeal.discussion.modShow(appeal, modForm, modData))
+        Ok.page(if AppealTopicApi.usesNewAppealFlow(topic) then
+          views.appeal.flow.modFlow(appeal, modForm, modData)
+        else views.appeal.discussion.modShow(appeal, modForm, modData))
   }
 
   def modShowAll(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>

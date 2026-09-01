@@ -6,8 +6,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
-    newAppeal: AppealTopic => String => Context ?=> Frag,
-    inactiveAppeals: List[Appeal] => (Context, Me) ?=> Frag
+    newAppeal: AppealTopic => String => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -191,47 +190,21 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       ).flatten
     )
 
-  private val engineDenyContent = frag(
-    p("You may send us an appeal, and a moderator will review it as soon as possible."),
-    p(strong("What should I write in my appeal?")),
-    p("Be honest and tell us the truth."),
-    p(
-      "Include everything that you think matters for your case. Only send your appeal once, and don't send any additional messages if they don't add anything important to your appeal. Sending additional messages will not get your appeal dealt with any sooner."
-    ),
-    p(
-      "It is important to be honest from the start. If at first you deny doing anything wrong, we'll treat your appeal accordingly, and we will simply disregard any changes in your position. In other words, don't try to deny things at first only to confess to something later on."
-    ),
-    p(
-      "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
-    )
-  )
-
   private def engineMenu(using Context): Branch =
-    val accept =
-      "I accept that I used external assistance in my games."
-    val deny =
-      "I deny having used external assistance in my games."
     Branch(
       "root",
       tap.engineMarked(),
       List(
         screeningStepsThenLeaf(
-          "engine-accept",
+          "engine-appeal",
           AppealTopic.cheat,
-          accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.cheat)(accept)
-          )
-        ),
-        screeningStepsThenLeaf(
-          "engine-deny",
-          AppealTopic.cheat,
-          deny,
-          frag(
-            engineDenyContent,
-            newAppeal(AppealTopic.cheat)(deny)
-          )
+          "Appeal engine restriction.", {
+            val form = AppealForm.form(textRequired = false).fill(AppealForm.Data(""))
+            postForm(st.action := routes.Appeal.post(AppealTopic.cheat))(
+              form3.globalError(form),
+              form3.action(form3.submit("Start appeal"))
+            )
+          }
         )
       ),
       content = tap.engineMarkedInfo(a(href := cmsPageUrl("fair-play"))(tap.fairPlay())).some
@@ -576,7 +549,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        inactiveAppeals(appeals.value.values.toList)
+        ui.userInactiveAppeals(appeals.value.values.toList)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
