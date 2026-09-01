@@ -18,6 +18,7 @@
     "lint-staged": "^17.4.1",
     "oxfmt": "0.61.0",
     "oxlint": "1.79.0",
+    "oxlint-plugin-golden": "^0.1.2",
     "oxlint-tsgolint": "7.0.2001",
     "snabbdom": "3.5.1",
     "stylelint": "^17.14.1",
