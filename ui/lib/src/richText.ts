@@ -25,7 +25,7 @@ const linkHtml = (href: string, content: string, expandable = true): string =>
   `<a${expandable ? '' : ' class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
 
 export function toLink(url: string): string {
-  if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
+  if (!/^[A-Za-z]+:\/\//.test(url)) url = 'https://' + url;
   return linkHtml(url, url.replace(/https?:\/\//, ''));
 }
 
@@ -85,7 +85,7 @@ const addPlies = (html: string) => html.replace(movePattern, moveReplacer);
 const addBoards = (html: string) => html.replace(boardPattern, boardReplacer);
 
 const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
-  user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
+  pawnDropPattern.test(user) ? orig : userLinkReplace(orig, prefix, user);
 
 export interface EnhanceOpts {
   plies?: boolean;
