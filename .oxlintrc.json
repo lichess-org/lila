@@ -30,15 +30,16 @@
     "no-useless-constructor": "error",
     "no-useless-return": "error",
     "no-useless-spread": "error",
+    "no-unreachable-loop": "error",
     "no-unused-vars": [
-      "warn",
+      "error",
       {
         "varsIgnorePattern": "^_",
         "argsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
-    "no-var": "warn",
+    "no-var": "error",
     "object-shorthand": "error",
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
@@ -50,7 +51,6 @@
     "import/namespace": "error",
     "import/no-cycle": "error",
     "import/no-duplicates": "error",
-    "import/no-named-as-default": "error",
     "import/no-named-as-default-member": "error",
     "import/no-self-import": "error",
     "promise/no-callback-in-promise": "error",
@@ -103,6 +103,7 @@
     "unicorn/prefer-math-min-max": "error",
     "unicorn/prefer-native-coercion-functions": "error",
     "unicorn/prefer-node-protocol": "error",
+    "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-set-has": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error",
     "unicorn/prefer-single-call": "error",

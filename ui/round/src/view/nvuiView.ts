@@ -299,7 +299,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
 
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-    else if (e.key.match(/^x$/i))
+    else if (/^x$/i.test(e.key))
       scanDirectionsHandler(
         ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
         ctrl.chessground.state.pieces,
@@ -319,8 +319,8 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
         pieceStyle.get(),
         prefixStyle.get(),
       )();
-    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-    else if (e.key.match(/^[kqrbnp]$/i))
+    else if (/^Digit([1-8])$/.test(e.code)) nv.positionJumpHandler()(e);
+    else if (/^[kqrbnp]$/i.test(e.key))
       nv.pieceJumpingHandler(selectSound, errorSound, ctrl.data.game.variant.key === 'antichess')(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(
