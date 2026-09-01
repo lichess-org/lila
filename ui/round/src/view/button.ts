@@ -128,7 +128,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    ctrl.nvui ? [hintFn()] : [hl('span', [snabIcon(icon)])],
+    ctrl.nvui ? [hintFn()] : [snabIcon(icon)],
   );
 }
 
