@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { initMiniBoard } from 'lib/view';
+import { icons } from 'lib/icons';
+import { initMiniBoard, snabIcon } from 'lib/view';
 
 import type SetupController from '@/setupCtrl';
 
@@ -22,13 +22,17 @@ export const fenInput = (ctrl: SetupController) => {
         hook: { insert: ctrl.validateFen },
         class: { failure: ctrl.fenError },
       }),
-      h('a.button.button-empty', {
-        attrs: {
-          'data-icon': licon.Pencil,
-          title: i18n.site.boardEditor,
-          href: '/editor' + (fen && !ctrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
+      h(
+        'a.button.button-empty',
+        {
+          attrs: {
+            title: i18n.site.boardEditor,
+            'aria-label': i18n.site.boardEditor,
+            href: '/editor' + (fen && !ctrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
+          },
         },
-      }),
+        [snabIcon(icons.Pencil)],
+      ),
     ]),
     h(
       'a.fen__board',

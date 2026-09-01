@@ -7,9 +7,9 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import { licon } from 'lib/licon';
+import { icons, type Icon } from 'lib/icons';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, snabIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -154,11 +154,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h(
-          'div.empty-boards-note.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          i18n.broadcast.sinceHideResults,
-        )
+      ? h('div.empty-boards-note.text', [snabIcon(icons.InfoCircle), i18n.broadcast.sinceHideResults])
       : undefined,
     h(
       'div.now-playing',
@@ -198,11 +194,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    pagerButton(icons.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(icons.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(icons.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(icons.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -233,11 +229,10 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
     : undefined;
 };
 
-function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
-  return h('button.fbt', {
-    attrs: { 'data-icon': icon, disabled: !enable },
-    hook: bind('mousedown', click, ctrl.redraw),
-  });
+function pagerButton(icon: Icon, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
+  return h('button.fbt', { attrs: { disabled: !enable }, hook: bind('mousedown', click, ctrl.redraw) }, [
+    snabIcon(icon),
+  ]);
 }
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({

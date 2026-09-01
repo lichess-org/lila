@@ -91,9 +91,9 @@
       opacity: 0;
 
       &::before {
+        @include icon-mask($icon-Link);
+
         color: $c-font-dimmer;
-        content: $licon-Link;
-        font-family: lichess;
         margin-left: -3rem;
         width: 3rem;
         position: absolute;

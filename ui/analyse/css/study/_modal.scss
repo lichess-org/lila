@@ -20,14 +20,9 @@
   h2 {
     margin-bottom: 0.5em;
 
-    icon {
-      font-size: 0.6em;
-
-      &,
-      &::before {
-        vertical-align: top;
-      }
-
+    .svg-icon {
+      width: 0.6em;
+      vertical-align: top;
       margin-inline-start: 1rem;
       opacity: 0.5;
       cursor: pointer;

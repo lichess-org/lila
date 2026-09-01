@@ -56,9 +56,9 @@
     align-items: center;
     margin: 1em;
 
-    &::before {
+    > .svg-icon {
       color: $c-font-dim;
-      font-size: 3em;
+      width: 3em;
       margin-inline-end: 12px;
     }
   }

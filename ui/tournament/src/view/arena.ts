@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { bind, dataIcon, icon, type MaybeVNodes } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, icon, type MaybeVNodes, snabIcon } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { userLine, userLinkData } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
@@ -48,7 +48,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
-      h('td.rank', player.withdraw ? icon(licon.Pause)({ title: i18n.site.pause }) : player.rank),
+      h('td.rank', player.withdraw ? icon(icons.Pause)({ title: i18n.site.pause }) : player.rank),
       h('td.player', [
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
@@ -56,7 +56,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       h('td.sheet', renderScoreString(player.sheet.scores, !ctrl.data.noStreak)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
-          ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, player.score)
+          ? h('strong.is-gold', [snabIcon(icons.Fire), player.score])
           : h('strong', player.score),
       ]),
     ],

@@ -41,14 +41,14 @@
     .icon {
       text-align: center;
 
-      icon {
-        font-size: 2em;
+      .svg-icon {
+        width: 2em;
         opacity: 0.6;
       }
     }
 
     .enterable {
-      .icon icon {
+      .icon .svg-icon {
         color: $c-brag;
         opacity: 1;
       }
@@ -81,8 +81,7 @@
           &.text {
             padding-bottom: 1em;
 
-            &::before {
-              content: attr(data-icon);
+            > .svg-icon:first-child {
               margin-right: 0;
             }
           }

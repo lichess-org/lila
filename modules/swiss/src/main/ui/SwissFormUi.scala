@@ -29,7 +29,7 @@ final class SwissFormUi(helpers: Helpers)(
             postForm(cls := "form3", action := routes.Swiss.create(teamId))(
               div(cls := "form-group")(
                 a(
-                  dataIcon := Icon.InfoCircle,
+                  iconEl := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
@@ -71,7 +71,10 @@ final class SwissFormUi(helpers: Helpers)(
               )
             ),
             postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
+              submitButton(
+                iconEl := Icon.CautionCircle,
+                cls := "text button button-red yes-no-confirm"
+              )(
                 trans.site.cancelTournament()
               )
             )

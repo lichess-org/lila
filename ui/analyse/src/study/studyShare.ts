@@ -1,7 +1,7 @@
 import { prop } from 'lib';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import type { TreeNode } from 'lib/tree/types';
-import { type VNode, bind, dataIcon, hl, copyMeInput, type MaybeVNode } from 'lib/view';
+import { type VNode, bind, hl, copyMeInput, domIcon, snabIcon, type MaybeVNode } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 
@@ -48,11 +48,7 @@ function fromPly(ctrl: StudyShare): MaybeVNode {
 }
 
 function youCanPasteThis() {
-  return hl(
-    'p.form-help.text',
-    { attrs: dataIcon(licon.InfoCircle) },
-    i18n.study.youCanPasteThisInTheForumToEmbed,
-  );
+  return hl('p.form-help.text', [snabIcon(icons.InfoCircle), i18n.study.youCanPasteThisInTheForumToEmbed]);
 }
 
 function copyChapterPgn(url: string, text: string) {
@@ -60,16 +56,20 @@ function copyChapterPgn(url: string, text: string) {
     'a.button.text',
     {
       attrs: {
-        ...dataIcon(licon.Clipboard),
         tabindex: '0',
         'data-url': url,
       },
       hook: bind('click', async event => {
-        const target = event.target as HTMLElement;
+        const target = event.currentTarget as HTMLElement;
         const url = target.dataset['url']!;
         const iconFeedback = (success: boolean) => {
-          target.setAttribute('data-icon', success ? licon.Checkmark : licon.X);
-          setTimeout(() => target.setAttribute('data-icon', licon.Clipboard), 1000);
+          target
+            .querySelector(':scope > .svg-icon')
+            ?.replaceWith(domIcon(success ? icons.Checkmark : icons.X));
+          setTimeout(
+            () => target.querySelector(':scope > .svg-icon')?.replaceWith(domIcon(icons.Clipboard)),
+            1000,
+          );
         };
         writeTextClipboard(url).then(
           () => iconFeedback(true),
@@ -80,7 +80,7 @@ function copyChapterPgn(url: string, text: string) {
         );
       }),
     },
-    text,
+    [snabIcon(icons.Clipboard), text],
   );
 }
 
@@ -96,44 +96,40 @@ export function view(ctrl: StudyShare): VNode {
   return hl('div.study__share', [
     hl('div.downloads', [
       ctrl.cloneable() &&
-        hl(
-          'a.button.text',
-          { attrs: { ...dataIcon(licon.StudyBoard), href: `/study/${studyId}/clone` } },
+        hl('a.button.text', { attrs: { href: `/study/${studyId}/clone` } }, [
+          snabIcon(icons.StudyBoard),
           i18n.study.cloneStudy,
-        ),
+        ]),
       relay &&
         hl(
           'a.button.text',
           {
             attrs: {
-              ...dataIcon(licon.Download),
               href: `/api/broadcast/${relay.data.tour.id}.pgn`,
               download: true,
             },
           },
-          i18n.broadcast.downloadAllRounds,
+          [snabIcon(icons.Download), i18n.broadcast.downloadAllRounds],
         ),
       hl(
         'a.button.text',
         {
           attrs: {
-            ...dataIcon(licon.Download),
             href: relay ? `${relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
             download: true,
           },
         },
-        relay ? i18n.site.downloadAllGames : i18n.study.studyPgn,
+        [snabIcon(icons.Download), relay ? i18n.site.downloadAllGames : i18n.study.studyPgn],
       ),
       hl(
         'a.button.text',
         {
           attrs: {
-            ...dataIcon(licon.Download),
             href: `/study/${studyId}/${chapter.id}.pgn`,
             download: true,
           },
         },
-        relay ? i18n.study.downloadGame : i18n.study.chapterPgn,
+        [snabIcon(icons.Download), relay ? i18n.study.downloadGame : i18n.study.chapterPgn],
       ),
       copyChapterPgn(`/study/${studyId}/${chapter.id}.pgn`, i18n.study.copyChapterPgn),
       copyChapterPgn(
@@ -144,7 +140,6 @@ export function view(ctrl: StudyShare): VNode {
         'a.button.text',
         {
           attrs: {
-            ...dataIcon(licon.Download),
             href: xhrUrl(site.asset.baseUrl() + '/export/fen.gif', {
               fen: currentNode.fen,
               color: ctrl.bottomColor(),
@@ -156,13 +151,12 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        i18n.site.board,
+        [snabIcon(icons.Download), i18n.site.board],
       ),
       hl(
         'a.button.text',
         {
           attrs: {
-            ...dataIcon(licon.Download),
             href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
               theme: document.body.dataset.board,
               piece: document.body.dataset.pieceSet,
@@ -171,7 +165,7 @@ export function view(ctrl: StudyShare): VNode {
             download: true,
           },
         },
-        'GIF',
+        [snabIcon(icons.Download), 'GIF'],
       ),
     ]),
     hl('form.form3', [
@@ -199,11 +193,10 @@ export function view(ctrl: StudyShare): VNode {
             copyMeInput(relayIframe(`${relay.roundPath()}/${chapter.id}`), {
               inputAttrs: { readonly: true },
             }),
-            hl(
-              'a.form-help.text',
-              { attrs: { ...dataIcon(licon.InfoCircle), href: `${relay.roundPath()}#overview` } },
+            hl('a.form-help.text', { attrs: { href: `${relay.roundPath()}#overview` } }, [
+              snabIcon(icons.InfoCircle),
               'More options for embedding a broadcast',
-            ),
+            ]),
           ])
         : isPrivate || // study embed
           hl('div.form-group', [
@@ -215,10 +208,9 @@ export function view(ctrl: StudyShare): VNode {
                   attrs: {
                     href: '/developers#embed-study',
                     target: '_blank',
-                    ...dataIcon(licon.InfoCircle),
                   },
                 },
-                i18n.study.readMoreAboutEmbedding,
+                [snabIcon(icons.InfoCircle), i18n.study.readMoreAboutEmbedding],
               ),
             ]),
             copyMeInput(

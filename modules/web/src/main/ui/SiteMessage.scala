@@ -12,9 +12,12 @@ final class SiteMessage(helpers: Helpers):
     Page(title).wrap: body =>
       main(cls := "box box-pad")(
         boxTop(
-          h1(dataIcon := icon.ifTrue(back.isEmpty), cls := List("text" -> (icon.isDefined && back.isEmpty)))(
+          h1(
+            iconEl := icon.ifTrue(back.isEmpty),
+            cls := List("text" -> (icon.isDefined && back.isEmpty))
+          )(
             back.map: url =>
-              a(href := url, dataIcon := Icon.LessThan, cls := "text"),
+              a(href := url, iconEl := Icon.LessThan, cls := "text"),
             title
           )
         ),

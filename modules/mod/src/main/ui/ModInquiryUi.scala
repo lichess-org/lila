@@ -20,7 +20,7 @@ final class ModInquiryUi(helpers: Helpers)(
   def apply(in: Inquiry)(using Context, Me, ClientName) =
     val presets = getPmPresets.byTags
     div(id := "inquiry", data("username") := in.user.user.username)(
-      iconTag(title := "Costello the Inquiry Octopus", cls := "costello"),
+      span(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user.user, withPerfRating = in.user.perfs.some, params = "?mod"),
         div(cls := "docs reports")(
@@ -220,7 +220,7 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def dropperButtons(in: Inquiry)(using Me) =
     div(cls := "dropper more buttons")(
-      iconTag(Icon.MoreTriangle),
+      iconEl(Icon.MoreTriangle),
       div(
         Granter(_.SendToZulip).option:
           val url =
@@ -260,7 +260,7 @@ final class ModInquiryUi(helpers: Helpers)(
         title := "Dismiss this report as processed. (Hotkey: d)",
         cls := "process"
       )(
-        submitButton(dataIcon := Icon.Checkmark, cls := "fbt"),
+        submitButton(iconEl := Icon.Checkmark, cls := "fbt"),
         autoNextInput
       ),
       postForm(
@@ -268,7 +268,7 @@ final class ModInquiryUi(helpers: Helpers)(
         title := "Cancel the inquiry, re-instore the report",
         cls := "cancel"
       ):
-        submitButton(dataIcon := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
+        submitButton(iconEl := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
     )
 
   private def autoNextInput = form3.hidden("next", "1")(cls := "auto-next")
@@ -317,8 +317,8 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def markButton(active: Boolean, icon: Either[Icon, String]) = submitButton(
     cls := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
-    dataIcon := icon.left.toOption
-  )(icon.toOption.map(str => frag(iconTag(str), " ")))
+    iconEl := icon.left.toOption
+  )(icon.toOption.map(str => frag(span(str), " ")))
 
   private def presetForms(in: Inquiry)(presets: List[PmPreset])(using Me) =
     (Granter(_.ModMessage) && presets.nonEmpty).option:
@@ -326,7 +326,9 @@ final class ModInquiryUi(helpers: Helpers)(
         div(cls := "separator"),
         presets.map: preset =>
           postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-            submitButton(cls := "fbt text", title := preset.text, dataIcon := Icon.Envelope)(preset.name),
+            submitButton(cls := "fbt text", title := preset.text, iconEl := Icon.Envelope)(
+              preset.name
+            ),
             autoNextInput
           )
       )

@@ -64,7 +64,7 @@ object edit:
     ui(s, form, modZone)
 
   private def modLog(log: List[lila.mod.Modlog])(using Context) = frag(
-    strong(cls := "text", dataIcon := Icon.CautionTriangle)(
+    strong(cls := "text", iconEl := Icon.CautionTriangle)(
       "Moderation history",
       log.isEmpty.option(": nothing to show.")
     ),
@@ -84,7 +84,7 @@ object edit:
   )
 
   private def modNotes(notes: List[lila.user.Note])(using Context) = frag(
-    strong(cls := "text", dataIcon := Icon.CautionTriangle)(
+    strong(cls := "text", iconEl := Icon.CautionTriangle)(
       "Moderator notes",
       notes.isEmpty.option(": nothing to show.")
     ),

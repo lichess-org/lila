@@ -13,7 +13,6 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
   def index(categs: List[CategView])(using Context) =
     Page(trans.site.forum.txt())
       .css("bits.forum")
-      .csp(_.withInlineIconFont)
       .graph(
         title = "Lichess community forum",
         url = routeUrl(routes.ForumCateg.index),
@@ -22,7 +21,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         val (teamCategs, globalCategs) = categs.partition(_.categ.isTeam)
         main(cls := "forum index box")(
           boxTop(
-            h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
+            h1(iconEl := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
             bits.searchForm()
           ),
           showCategs(globalCategs),
@@ -53,15 +52,13 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               a(href := s"${routes.ForumTopic.show(categ.id, topic.slug, topic.lastPage)}#${post.id}")(
                 momentFromNow(post.createdAt)
               ),
-              br,
-              trans.site.by(bits.authorLink(post))
+              span(trans.site.by(bits.authorLink(post)))
             )
         )
       )
 
     Page(categ.name)
       .css("bits.forum")
-      .csp(_.withInlineIconFont)
       .js(infiniteScrollEsmInit)
       .graph(
         title = s"Forum: ${categ.name}",
@@ -73,7 +70,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             h1(
               a(
                 href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-                dataIcon := Icon.LessThan,
+                iconEl := Icon.LessThan,
                 cls := "text"
               ),
               categ.team.fold(frag(categ.name))(teamLink(_, true))
@@ -91,7 +88,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 a(
                   href := routes.ForumTopic.form(categ.id),
                   cls := "button button-empty button-green text",
-                  dataIcon := Icon.Pencil
+                  iconEl := Icon.Pencil
                 )(trans.site.createANewTopic())
               )
             )
@@ -149,8 +146,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
                 td(
                   a(href := postUrl)(momentFromNow(post.createdAt)),
-                  br,
-                  trans.site.by(bits.authorLink(post))
+                  span(trans.site.by(bits.authorLink(post)))
                 )
               )
     )
@@ -162,14 +158,13 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
     paginationByQuery(routes.ForumCateg.modFeed(categ.id, 1), posts, showPost = true)
     Page(categ.name)
       .css("bits.forum")
-      .csp(_.withInlineIconFont)
       .js(infiniteScrollEsmInit):
         main(cls := "forum forum-mod-feed box")(
           boxTop(
             h1(
               a(
                 href := routes.ForumCateg.show(categ.id),
-                dataIcon := Icon.LessThan,
+                iconEl := Icon.LessThan,
                 cls := "text"
               )(categ.name),
               " mod feed"

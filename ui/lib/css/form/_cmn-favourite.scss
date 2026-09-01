@@ -22,13 +22,11 @@ $star-width: 1.4rem;
   height: $star-width;
 
   &::before {
-    @extend %data-icon;
+    @include icon-mask($icon-StarOutline, $star-width);
     @include inline-start(0);
 
-    content: $licon-StarOutline;
     display: block;
     position: absolute;
-    font-size: $star-width;
     z-index: 1;
     text-align: center;
   }
@@ -40,7 +38,8 @@ $star-width: 1.4rem;
 
 .cmn-favourite input:checked + label {
   &::before {
-    content: $licon-Star;
+    @include icon-mask($icon-Star);
+
     color: $c-brag;
   }
 }

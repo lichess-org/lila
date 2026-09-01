@@ -84,7 +84,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   def top(clas: Clas, s: Student.WithUserLike)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
-        h1(dataIcon := Icon.User)(
+        h1(iconEl := Icon.User)(
           span(
             strong(s.user.username),
             em(s.student.realName)

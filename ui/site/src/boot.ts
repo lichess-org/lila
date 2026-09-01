@@ -4,10 +4,17 @@ import * as ab from 'ab/site';
 import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { prefersLightThemeQuery } from 'lib/device';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
-import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame, toggleBoxInit } from 'lib/view';
+import {
+  domIcon,
+  initMiniBoards,
+  initMiniGames,
+  updateMiniGame,
+  finishMiniGame,
+  toggleBoxInit,
+} from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 import { text as xhrText } from 'lib/xhr';
 
@@ -85,13 +92,13 @@ export function boot() {
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
-          .append($(`<a data-icon="${licon.Trophy}" class="text">`).attr('href', url).text(data.name))
+          .append($('<a class="text">').attr('href', url).append(domIcon(icons.Trophy), data.name))
           .append(
             $('<div class="actions">')
               .append(
-                $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
+                $('<a class="withdraw text">')
                   .attr('href', url + '/withdraw')
-                  .text(i18n.site.pause)
+                  .append(domIcon(icons.Pause), i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
                     xhrText(this.href, { method: 'post' });
                     $('#announce').remove();
@@ -99,9 +106,7 @@ export function boot() {
                   }),
               )
               .append(
-                $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
-                  .attr('href', url)
-                  .text(i18n.site.resume),
+                $('<a class="text">').attr('href', url).append(domIcon(icons.PlayTriangle), i18n.site.resume),
               ),
           ),
       );

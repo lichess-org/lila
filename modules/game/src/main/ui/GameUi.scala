@@ -224,7 +224,7 @@ final class GameUi(helpers: Helpers):
             p(cls := "explanation")(
               trans.site.importGameExplanation(),
               br,
-              a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
+              a(cls := "text", iconEl := Icon.InfoCircle, href := routes.Study.allDefault(1)):
                 trans.site.importGameDataPrivacyWarning()
             ),
             standardFlash,
@@ -262,7 +262,7 @@ final class GameUi(helpers: Helpers):
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(miniBoard(Pov(g, firstPlayer))(span)),
         div(cls := "game-row__infos")(
-          div(cls := "header", dataIcon := gameIcon(g))(
+          div(cls := "header", iconEl := gameIcon(g))(
             div(cls := "header__text")(
               source(g),
               g.pgnImport.flatMap(_.date).fold[Frag](pastMomentWithPreload(g.createdAt))(frag(_)),
@@ -271,13 +271,15 @@ final class GameUi(helpers: Helpers):
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := Icon.Swords),
+            div(cls := "swords", iconEl := Icon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           result(g, fromPlayer),
           if g.playedPlies > 0 && ctx.isAuth then opening(g) else frag(br, br),
           g.metadata.analysed.option(
-            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
+            div(cls := "metadata text", iconEl := Icon.BarChart)(
+              trans.site.computerAnalysisAvailable()
+            )
           ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))

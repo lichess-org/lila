@@ -35,14 +35,15 @@ $c-study-button: $c-accent;
     opacity: 0.8;
 
     icon::before {
-      font-size: 1.4em;
-      content: $licon-X;
+      @include icon-mask($icon-X, 1.2em);
+
       color: $c-bad;
       margin-inline-end: 0.2rem;
     }
 
     &.on icon::before {
-      content: $licon-Checkmark;
+      @include icon-mask($icon-Checkmark);
+
       color: $c-good;
     }
 

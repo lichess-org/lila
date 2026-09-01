@@ -21,10 +21,10 @@
     border-bottom: $border;
     min-height: 3.5em;
 
-    &::before {
+    > .svg-icon {
       @extend %flex-center;
 
-      font-size: 1.3em;
+      width: 1.3em;
       margin: 0 0.5em 0 0.8em;
     }
 
@@ -71,9 +71,9 @@
 
       margin: 4px 0;
 
-      &::before {
+      > .svg-icon {
         color: $c-good;
-        font-size: 1.3em;
+        width: 1.3em;
         margin-inline-end: 0.5em;
       }
     }

@@ -3,9 +3,9 @@ import { h, type VNode } from 'snabbdom';
 import { defined, notNull } from 'lib';
 import { plyColor } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import type { TreePath } from 'lib/tree/types';
-import { icon, type MaybeVNode, type MaybeVNodes } from 'lib/view';
+import { snabIcon, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
@@ -83,7 +83,7 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
         ? [baseStr]
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
   if (opts.pause) {
-    return [icon(licon.Pause)(), ...timeNodes];
+    return [snabIcon(icons.Pause), ...timeNodes];
   }
   return timeNodes;
 }

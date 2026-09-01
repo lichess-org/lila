@@ -88,7 +88,7 @@ final class JsonView(
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
       "key" -> v.key,
-      "icon" -> lila.rating.PerfType(v, speed).icon.toString,
+      "icon" -> lila.rating.PerfType(v, speed).icon.name,
       "name" -> v.name
     )
 

@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
-import { bind, onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, onInsert, snabIcon, htmlIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
@@ -42,30 +42,34 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
       hook.ra ? 'rated' : 'casual',
       hook.action === 'cancel' ? 'cancel' : '',
     ].join('.');
-  return h('span#' + klass, {
-    key: hook.id,
-    attrs: { 'data-icon': perfIcons[hook.perf], style: `bottom:${percents(bottom)};left:${percents(left)}` },
-    hook: {
-      ...onInsert(el => {
-        $(el).powerTip({
-          placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
-          closeDelay: 200,
-          defaultSize: [120, 80],
-          popupId: 'hook',
-          async render() {
-            $('#hook')
-              .html(renderHook(ctrl, hook))
-              .find('.inner-clickable')
-              .on('click', () => ctrl.clickHook(hook.id));
-          },
-        });
-        setTimeout(() => {
-          el.classList.remove('new');
-        }, 20);
-      }),
-      destroy: vnode => $.powerTip.destroy(vnode.elm),
+  return h(
+    'span#' + klass,
+    {
+      key: hook.id,
+      attrs: { style: `bottom:${percents(bottom)};left:${percents(left)}` },
+      hook: {
+        ...onInsert(el => {
+          $(el).powerTip({
+            placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
+            closeDelay: 200,
+            defaultSize: [120, 80],
+            popupId: 'hook',
+            async render() {
+              $('#hook')
+                .html(renderHook(ctrl, hook))
+                .find('.inner-clickable')
+                .on('click', () => ctrl.clickHook(hook.id));
+            },
+          });
+          setTimeout(() => {
+            el.classList.remove('new');
+          }, 20);
+        }),
+        destroy: vnode => $.powerTip.destroy(vnode.elm),
+      },
     },
-  });
+    [snabIcon(perfIcons[hook.perf])],
+  );
 }
 
 function renderHook(ctrl: LobbyController, hook: Hook): string {
@@ -80,8 +84,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html +=
-    '<icon data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</icon>';
+  html += `<span>${htmlIcon(perfIcons[hook.perf])} ${i18n.site[hook.ra ? 'rated' : 'casual']}</span>`;
   html += '</div></div>';
   return html;
 }
@@ -115,11 +118,15 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('button.toggle', {
-    key: 'set-mode-list',
-    attrs: { title: i18n.site.list, 'data-icon': licon.List },
-    hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
-  });
+  return h(
+    'button.toggle',
+    {
+      key: 'set-mode-list',
+      attrs: { title: i18n.site.list, 'aria-label': i18n.site.list },
+      hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
+    },
+    [snabIcon(icons.List)],
+  );
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
@@ -130,8 +137,8 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
         hook: bind(
           'click',
           e => {
-            if ((e.target as HTMLElement).classList.contains('plot'))
-              ctrl.clickHook((e.target as HTMLElement).id);
+            const plot = (e.target as HTMLElement).closest<HTMLElement>('.plot');
+            if (plot) ctrl.clickHook(plot.id);
           },
           ctrl.redraw,
         ),

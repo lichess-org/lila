@@ -2,11 +2,12 @@
 
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
+import { icons } from '@/icons';
 import { frag } from '@/index';
-import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
 
+import { domIcon, snabIcon } from './makeIcon';
 import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog<Ctx = undefined> {
@@ -75,7 +76,9 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
-    anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
+    const closeButton = frag<Element>(`<button class="close-button" aria-label="Close"></button>`);
+    closeButton.append(domIcon(icons.X));
+    anchor.append(closeButton);
     dialog.appendChild(anchor);
   }
 
@@ -110,7 +113,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
       o.noCloseButton ||
         hl(
           'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
+          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon(icons.X)]),
         ),
       hl(
         'div',

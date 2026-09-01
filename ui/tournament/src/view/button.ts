@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { spinnerVdom, bind, dataIcon, onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { spinnerVdom, bind, onInsert, snabIcon } from 'lib/view';
 
 import type TournamentController from '../ctrl';
 
@@ -12,14 +12,10 @@ function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
 export function withdraw(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
     const pause = ctrl.data.isStarted;
-    return h(
-      'button.fbt.text',
-      {
-        attrs: dataIcon(pause ? licon.Pause : licon.FlagOutline),
-        hook: bind('click', ctrl.withdraw, ctrl.redraw),
-      },
+    return h('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
+      snabIcon(pause ? icons.Pause : icons.FlagOutline),
       i18n.site[pause ? 'pause' : 'withdraw'],
-    );
+    ]);
   });
 }
 
@@ -30,10 +26,10 @@ export function join(ctrl: TournamentController): VNode {
     const button = h(
       'button' + (joinable ? '.button.button-green' : '.fbt.text'),
       {
-        attrs: { disabled: !joinable, 'data-icon': licon.PlayTriangle },
+        attrs: { disabled: !joinable },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
-      i18n.site.join,
+      [snabIcon(icons.PlayTriangle), i18n.site.join],
     );
     return delay
       ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
@@ -59,11 +55,10 @@ export function join(ctrl: TournamentController): VNode {
 
 export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   if (!ctrl.opts.userId)
-    return h(
-      'a.button.button-green',
-      { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
+    return h('a.button.button-green', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
+      snabIcon(icons.PlayTriangle),
       i18n.site.signIn,
-    );
+    ]);
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);
   return undefined;
 }

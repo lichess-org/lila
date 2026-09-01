@@ -98,8 +98,8 @@ h1 {
       background: $c-clas-lighter !important;
     }
 
-    &::before {
-      font-size: 3em;
+    > .svg-icon {
+      width: 3em;
     }
   }
 
@@ -116,11 +116,11 @@ h1 {
       padding: 2em $box-padding;
       position: relative;
 
-      &::before {
+      > .svg-icon {
         @include transition;
 
         color: $c-clas-lighter;
-        font-size: 5em;
+        width: 5em;
         margin-inline-end: 0.4em;
 
         @media (max-width: at-most($xx-small)) {
@@ -131,7 +131,7 @@ h1 {
       &:hover {
         background: color-mix(in oklab, $c-clas 10%, $c-bg);
 
-        &::before {
+        > .svg-icon {
           color: $c-clas-light;
         }
       }
@@ -526,8 +526,8 @@ h1 {
 
       margin-bottom: 0.6em;
 
-      &::before {
-        font-size: 2.5em;
+      > .svg-icon {
+        width: 2.5em;
         margin-inline-end: 0.4em;
       }
 
@@ -575,10 +575,7 @@ h1 {
       margin: 0;
 
       &::before {
-        @extend %data-icon;
-
-        content: $licon-Shield;
-        font-size: 3em;
+        @include icon-mask($icon-Shield, 3em);
       }
     }
 
@@ -606,7 +603,7 @@ h1 {
       padding: 2em;
 
       &::before {
-        font-size: 3em;
+        width: 3em;
       }
     }
 
@@ -779,8 +776,8 @@ h1 {
       color: $c-font-dim;
     }
 
-    icon {
-      font-size: 0.8em;
+    .svg-icon {
+      width: 0.8em;
       color: $c-bad;
       text-align: center;
       margin-top: 1rem;

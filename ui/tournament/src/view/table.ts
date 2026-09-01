@@ -1,6 +1,6 @@
 import { opposite } from '@lichess-org/chessground/util';
 
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { type VNode, bind, onInsert, hl, initMiniGames, icon } from 'lib/view';
 
 import type TournamentController from '../ctrl';
@@ -14,7 +14,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
     hl('span.mini-game__user', [
       hl('strong', '#' + player.rank),
       renderPlayer(player, true, opts.showRatings, false),
-      player.berserk && icon(licon.Berserk)('.berserk', { title: 'Berserk' }),
+      player.berserk && icon(icons.Berserk)('.berserk', { title: 'Berserk' }),
     ]),
     game.c
       ? hl(`span.mini-game__clock.mini-game__clock--${color}`, {

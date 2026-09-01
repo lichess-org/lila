@@ -9,6 +9,8 @@
 .user-link {
   @extend %nowrap-hidden;
 
+  display: inline-flex;
+  align-items: center;
   color: $c-font;
 
   &.online .line {
@@ -16,7 +18,7 @@
     color: $c-good;
 
     &::before {
-      content: $licon-Disc;
+      @include icon-mask($icon-Disc);
     }
 
     &.patron {
@@ -25,14 +27,12 @@
   }
 
   .line {
-    @extend %data-icon;
-
     color: $c-font;
     opacity: 0.5;
-    display: inline-block;
     width: 1.5em;
     text-align: center;
-    vertical-align: text-top;
+    display: inline-flex;
+    align-items: center;
 
     &.patron {
       opacity: 0.7;
@@ -43,15 +43,15 @@
     }
 
     &::before {
-      content: $licon-DiscOutline;
+      @include icon-mask($icon-DiscOutline);
     }
 
     &.patron::before {
-      content: $licon-Wings !important;
+      @include icon-mask($icon-Wings);
     }
 
     &.moderator::before {
-      content: $licon-Agent;
+      @include icon-mask($icon-Agent);
     }
   }
 

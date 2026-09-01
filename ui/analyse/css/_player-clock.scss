@@ -56,8 +56,8 @@ $clock-height: 20px;
     font-size: 80%;
   }
 
-  icon {
-    font-size: 0.7em;
+  .svg-icon {
+    width: 0.7em;
     margin-inline-end: 0.4em;
     color: $c-accent;
   }

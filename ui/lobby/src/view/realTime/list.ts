@@ -1,6 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, tr, span, td, button, th, thead, tbody, icon, table } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, tr, span, td, button, th, thead, tbody, icon, table, snabIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
@@ -31,7 +31,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       ),
       !ctrl.me ? null : td(!ctrl.opts.showRatings ? '' : [hook.rating + (hook.prov ? '?' : '')]),
       td(hook.clock),
-      td(span({ ...dataIcon(perfIcons[hook.perf]) }, i18n.site[hook.ra ? 'rated' : 'casual'])),
+      td(span([snabIcon(perfIcons[hook.perf]), i18n.site[hook.ra ? 'rated' : 'casual']])),
     ],
   );
 }
@@ -43,12 +43,16 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 const isNotMine = (hook: Hook) => !isMine(hook);
 
 export const toggle = (ctrl: LobbyController) =>
-  button('.toggle', {
-    key: 'set-mode-chart',
-    title: i18n.site.graph,
-    ...dataIcon(licon.LineGraph),
-    hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
-  });
+  button(
+    '.toggle',
+    {
+      key: 'set-mode-chart',
+      title: i18n.site.graph,
+      'aria-label': i18n.site.graph,
+      hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
+    },
+    [snabIcon(icons.LineGraph)],
+  );
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
   const mine = allHooks.find(isMine);
@@ -84,7 +88,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
                 class: { sortable: true, sort: ctrl.sort === 'rating' },
                 hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
               },
-              [icon(licon.DownTriangle)('.is'), i18n.site.rating],
+              [icon(icons.DownTriangle)('.is'), i18n.site.rating],
             )
           : null,
         th(
@@ -97,7 +101,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             : {
                 key: 'time-header-without-rating',
               },
-          [icon(licon.DownTriangle)('.is'), i18n.site.time],
+          [icon(icons.DownTriangle)('.is'), i18n.site.time],
         ),
         th(i18n.site.mode),
       ]),

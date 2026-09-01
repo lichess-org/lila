@@ -1,6 +1,6 @@
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
+import { bind, hl, snabIcon, type VNode, spinnerVdom as spinner } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../view/components';
@@ -14,7 +14,7 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
-    icon(licon.PlayTriangle)(),
+    snabIcon(icons.PlayTriangle),
     i18n.site.next,
   ]);
 
@@ -187,10 +187,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     hl('div.title', [
       hl('span', i18n.site.learnFromYourMistakes),
       hl('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      hl('button.fbt', {
-        hook: bind('click', root.toggleRetro, root.redraw),
-        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
-      }),
+      hl(
+        'button.fbt',
+        {
+          hook: bind('click', root.toggleRetro, root.redraw),
+          attrs: { 'aria-label': 'Close learn window' },
+        },
+        [snabIcon(icons.X)],
+      ),
     ]),
     hl('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);

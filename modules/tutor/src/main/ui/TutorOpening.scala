@@ -41,7 +41,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
         div(cls := "tutor-header box")(
           boxTop(
             h1(
-              a(href := full.url.angle(perfReport.perf, "opening"), dataIcon := Icon.LessThan),
+              a(href := full.url.angle(perfReport.perf, "opening"), iconEl := Icon.LessThan),
               bits.perfSelector(full, perfReport.perf, "opening".some),
               openingSelector(perfReport, report, as)(using full.config),
               bits.otherUser(full.user)
@@ -69,18 +69,18 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
               div(cls := "mascot-says__buttons")(
                 a(
                   cls := "button button-no-upper text",
-                  dataIcon := Icon.InfoCircle,
+                  iconEl := Icon.InfoCircle,
                   href := bits.openingUrl(report.family.anyOpening)
                 )("Learn about this opening"),
                 a(
                   cls := "button button-no-upper text",
-                  dataIcon := Icon.Book,
+                  iconEl := Icon.Book,
                   href := s"${routes.UserAnalysis
                       .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${full.user}"
                 )("Personal opening explorer"),
                 a(
                   cls := "button button-no-upper text",
-                  dataIcon := Icon.ArcheryTarget,
+                  iconEl := Icon.ArcheryTarget,
                   href := routes.Puzzle.angleAndColor(report.family.key.value, as.name)
                 )("Train with puzzles")
               )
@@ -103,7 +103,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
         div(cls := "tutor-header box")(
           boxTop(
             h1(
-              a(href := full.config.url.perf(report.perf), dataIcon := Icon.LessThan),
+              a(href := full.config.url.perf(report.perf), iconEl := Icon.LessThan),
               bits.perfSelector(full, report.perf, "opening".some),
               bits.reportSelector(report, "opening"),
               bits.otherUser(full.user)
@@ -143,7 +143,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
             }),
             a(
               cls := "tutor__openings__color__explorer button button-no-upper text",
-              dataIcon := Icon.Book,
+              iconEl := Icon.Book,
               href := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${full.user}"
             )("Personal explorer as ", color.name)
           )

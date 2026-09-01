@@ -2,8 +2,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { playable } from 'lib/game';
 import { fixCrazySan } from 'lib/game/chess';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, spinnerVdom as spinner } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, spinnerVdom as spinner, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
@@ -19,10 +19,10 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
   return h(
     'button.on-my-turn.button.text',
     {
-      attrs: dataIcon(licon.Checkmark),
       hook: bind('click', () => fctrl.playAndSave(firstNode)),
     },
     [
+      snabIcon(icons.Checkmark),
       h('span', [
         h('strong', i18n.site.playX(fixCrazySan(cNodes[0].san))),
         lines.length
@@ -58,7 +58,6 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           h(
             'button.entry.text',
             {
-              attrs: dataIcon(licon.PlayTriangle),
               hook: bind(
                 'click',
                 () =>
@@ -74,10 +73,15 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               ),
             },
             [
-              h('button.del', {
-                hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
-                attrs: { ...dataIcon(licon.X), type: 'button' },
-              }),
+              snabIcon(icons.PlayTriangle),
+              h(
+                'button.del',
+                {
+                  hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
+                  attrs: { 'aria-label': i18n.site.delete, type: 'button' },
+                },
+                [snabIcon(icons.X)],
+              ),
               h('sans', renderNodesHtml(nodes)),
             ],
           ),
@@ -87,10 +91,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         'button.add.text',
         {
           class: { enabled: isCandidate },
-          attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
           hook: bind('click', () => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
         },
         [
+          snabIcon(isCandidate ? icons.PlusButton : icons.InfoCircle),
           isCandidate
             ? h('span', [h('span', i18n.site.addCurrentVariation), h('sans', renderNodesHtml(cNodes))])
             : h('span', i18n.site.playVariationToCreateConditionalPremoves),

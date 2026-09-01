@@ -45,19 +45,20 @@
   }
 
   .head {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 1rem;
     border-bottom: $border;
     width: 100%;
     text-align: start;
   }
 
-  .head::before {
+  .head > .svg-icon {
     color: $c-dasher;
     opacity: 0.8;
   }
 
-  .head:hover::before {
+  .head:hover > .svg-icon {
     opacity: 1;
   }
 
@@ -107,7 +108,6 @@
     margin: 0.5rem 0;
 
     button {
-      display: block;
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
@@ -125,9 +125,10 @@
         color: $c-over !important;
       }
 
-      &::before {
+      .svg-icon {
         margin-inline: 0 8px;
         font-size: 19px;
+        width: 15px;
         justify-content: center;
         align-items: center;
         opacity: 0;
@@ -137,7 +138,7 @@
 
       // don't show checkmarks on inactive selectors.
 
-      &.active::before {
+      &.active .svg-icon {
         opacity: 1;
         color: $c-over !important;
       }
@@ -154,14 +155,14 @@
     button {
       padding: 0.5rem 1rem;
 
-      &::before {
+      .svg-icon {
         opacity: 0.5;
         font-size: 18px;
         margin-inline: 0 0.4em;
       }
     }
 
-    &:hover button::before {
+    &:hover button .svg-icon {
       opacity: 1;
     }
   }
@@ -202,6 +203,7 @@
   .button.more {
     @extend %box-radius-bottom-left;
 
+    // justify-content: center;
     width: 100%;
     color: $c-over;
     font-size: 1.2em;

@@ -8,7 +8,7 @@ import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -19,8 +19,8 @@ import {
   bind,
   bindNonPassive,
   onInsert,
-  dataIcon,
   hl,
+  snabIcon,
   spinnerVdom as spinner,
 } from 'lib/view';
 import stepwiseScroll from 'lib/view/stepwiseScroll';
@@ -226,19 +226,17 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           hl(
             'button.button.button-thin.bottom-item.bottom-action.text',
             {
-              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => {
                 const pgn = $('.copyables .pgn textarea').val() as string;
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            i18n.site.importPgn,
+            [snabIcon(icons.PlayTriangle), i18n.site.importPgn],
           ),
-        hl(
-          'div.bottom-item.bottom-error',
-          { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
+        hl('div.bottom-item.bottom-error', { class: { 'is-error': !!ctrl.pgnError } }, [
+          snabIcon(icons.CautionTriangle),
           renderPgnError(ctrl.pgnError),
-        ),
+        ]),
       ]),
     ]),
   ]);

@@ -34,7 +34,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
       frag(
         editButton(page.id),
         (!page.live).option(
-          span(cls := "cms__draft text", dataIcon := Icon.Eye)(
+          span(cls := "cms__draft text", iconEl := Icon.Eye)(
             "This draft is not published"
           )
         ),
@@ -51,7 +51,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
             a(
               href := routes.Cms.createForm(p.key.some),
               cls := "button button-empty text",
-              dataIcon := Icon.Pencil
+              iconEl := Icon.Pencil
             )("Create this page")
           )
 
@@ -65,7 +65,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
         a(
           href := routes.Cms.edit(p),
           cls := "button button-empty text",
-          dataIcon := Icon.Pencil
+          iconEl := Icon.Pencil
         )("Edit")
       )
 
@@ -86,7 +86,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
             a(
               href := routes.Cms.createForm(none),
               cls := "button button-green",
-              dataIcon := Icon.PlusButton
+              iconEl := Icon.PlusButton
             )
           )
         ),
@@ -117,8 +117,8 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
               td(shorten(page.markdown.unlink, 140)),
               td(cls := "lang")(page.language.value.toUpperCase),
               td(
-                if page.live then goodTag(iconTag(Icon.Checkmark))
-                else badTag(iconTag(Icon.X))
+                if page.live then goodTag(iconEl(Icon.Checkmark))
+                else badTag(iconEl(Icon.X))
               ),
               td(dataSort := page.at.toMillis)(
                 userIdLink(page.by.some, withOnline = false, withTitle = false),
@@ -150,7 +150,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
                 page.language.value
               ),
               cls := "button button-green",
-              dataIcon := Icon.Eye
+              iconEl := Icon.Eye
             )
         ),
         standardFlash,

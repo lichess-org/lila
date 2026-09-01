@@ -1,6 +1,6 @@
 import { api as lichess } from 'lib/api';
-import { licon } from 'lib/licon';
-import { profileUrl } from 'lib/view/userLink';
+import { icons } from 'lib/icons';
+import { htmlIcon } from 'lib/view';
 
 type TitleName = string;
 
@@ -59,14 +59,14 @@ export default class OnlineFriends {
   };
   renderFriend = (friend: Friend) => {
     const patronCls = friend.patronColor ? ` patron paco${friend.patronColor}` : '';
-    const icon = `<icon class="line${patronCls}"></icon>`;
-    const titleTag = friend.title
-      ? `<span class="utitle"${friend.title === 'BOT' ? ' data-bot' : ''}>${friend.title}</span>&nbsp;`
-      : '';
-    const url = profileUrl(friend.name);
-    const tvButton = friend.playing
-      ? `<a data-icon="${licon.AnalogTv}" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
-      : '';
+    const icon = `<icon class="line${patronCls}"></icon>`,
+      titleTag = friend.title
+        ? `<span class="utitle"${friend.title === 'BOT' ? ' data-bot' : ''}>${friend.title}</span>&nbsp;`
+        : '',
+      url = '/@/' + friend.name,
+      tvButton = friend.playing
+        ? `<a class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}">${htmlIcon(icons.AnalogTv)}</a>`
+        : '';
     return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };
 

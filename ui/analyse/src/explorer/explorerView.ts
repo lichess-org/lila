@@ -1,7 +1,7 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import { licon, type LiconValue } from 'lib/licon';
-import { bind, dataIcon, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, icon } from 'lib/view';
+import { icons, type Icon } from 'lib/icons';
+import { bind, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
@@ -138,7 +138,11 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
               hl('td', showResult(game.winner)),
               hl('td.game-date', game.month || game.year),
               !isMasters &&
-                hl('td.game-type', game.speed && icon(perfIcons[game.speed])({ title: ucfirst(game.speed) })),
+                hl(
+                  'td.game-type',
+                  game.speed &&
+                    hl('span', { attrs: { title: ucfirst(game.speed) } }, [snabIcon(perfIcons[game.speed])]),
+                ),
             ]),
       ),
     ),
@@ -166,39 +170,31 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
         `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
       ),
       hl('div.menu', [
-        hl(
-          'a.text',
-          { attrs: dataIcon(licon.Eye), hook: bind('click', () => openGame(ctrl, game.id)) },
-          'View',
-        ),
+        hl('a.text', { hook: bind('click', () => openGame(ctrl, game.id)) }, [snabIcon(icons.Eye), 'View']),
         ctrl.study &&
-          hl(
-            'a.text',
-            { attrs: dataIcon(licon.BubbleSpeech), hook: bind('click', () => send(false), ctrl.redraw) },
+          hl('a.text', { hook: bind('click', () => send(false), ctrl.redraw) }, [
+            snabIcon(icons.BubbleSpeech),
             'Cite',
-          ),
+          ]),
         ctrl.study &&
-          hl(
-            'a.text',
-            { attrs: dataIcon(licon.PlusButton), hook: bind('click', () => send(true), ctrl.redraw) },
+          hl('a.text', { hook: bind('click', () => send(true), ctrl.redraw) }, [
+            snabIcon(icons.PlusButton),
             'Insert',
-          ),
-        hl(
-          'a.text',
-          { attrs: dataIcon(licon.X), hook: bind('click', () => ctrl.explorer.gameMenu(null), ctrl.redraw) },
+          ]),
+        hl('a.text', { hook: bind('click', () => ctrl.explorer.gameMenu(null), ctrl.redraw) }, [
+          snabIcon(icons.X),
           'Close',
-        ),
+        ]),
       ]),
     ]),
   ]);
 }
 
 const closeButton = (ctrl: AnalyseCtrl): VNode =>
-  hl(
-    'button.button.button-empty.text',
-    { attrs: dataIcon(licon.X), hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) },
+  hl('button.button.button-empty.text', { hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) }, [
+    snabIcon(icons.X),
     i18n.site.close,
-  );
+  ]);
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
   const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
@@ -218,7 +214,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [icon(licon.InfoCircle)(), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [snabIcon(icons.InfoCircle), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -314,22 +310,22 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
       },
       name,
     );
-  const active = (nodes: LooseVNodes, title: string, icon: LiconValue) =>
+  const active = (nodes: LooseVNodes, title: string, icon: Icon) =>
     hl(
       'span.active.text.' + db,
       {
-        attrs: { title, ...dataIcon(icon) },
+        attrs: { title },
         hook: db === 'player' ? bind('click', config.toggleColor, explorer.reload) : undefined,
       },
-      nodes,
+      [snabIcon(icon), nodes],
     );
 
   return hl('div.explorer-title', [
     db === 'masters'
-      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, licon.Book)
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, icons.Book)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, licon.Logo)
+      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, icons.Logo)
       : otherLink('Lichess', i18n.site.lichessDbExplanation),
     db === 'player'
       ? playerName
@@ -348,9 +344,9 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
                 }),
             ],
             i18n.site.switchSides,
-            licon.User,
+            icons.User,
           )
-        : active([hl('strong', 'Player'), ' database'], '', licon.User)
+        : active([hl('strong', 'Player'), ' database'], '', icons.User)
       : hl(
           'button.button-link.player',
           {
@@ -369,13 +365,16 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
           },
           i18n.site.player,
         ),
-    hl('button.fbt.toconf', {
-      attrs: {
-        'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-        ...dataIcon(configOpened ? licon.X : licon.Gear),
+    hl(
+      'button.fbt.toconf',
+      {
+        attrs: {
+          'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+        },
+        hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
       },
-      hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
-    }),
+      [snabIcon(configOpened ? icons.X : icons.Gear)],
+    ),
   ]);
 };
 
@@ -402,11 +401,10 @@ const showAnon = (ctrl: AnalyseCtrl) =>
     hl('div.title', i18n.site.openingExplorer),
     hl('div.message', [
       hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
-      hl(
-        'a.button.button-empty.text',
-        { attrs: { ...dataIcon(licon.Checkmark), href: '/signup' } },
+      hl('a.button.button-empty.text', { attrs: { href: '/signup' } }, [
+        snabIcon(icons.Checkmark),
         i18n.site.signUp,
-      ),
+      ]),
       closeButton(ctrl),
     ]),
   ]);

@@ -1,6 +1,6 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { makeCgOpts, povMessage } from 'lib/puz/run';
 import { getNow } from 'lib/puz/util';
@@ -8,7 +8,7 @@ import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
-import { onInsert, icon, div, main, button, dataIcon, a, strong, span, p, type VNode } from 'lib/view';
+import { onInsert, icon, div, main, button, a, strong, span, p, type VNode, snabIcon } from 'lib/view';
 
 import config from '@/config';
 import type StormCtrl from '@/ctrl';
@@ -69,21 +69,23 @@ const renderSolved = ({ countWins }: StormCtrl): VNode =>
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   div('.puz-side__control', [
-    button('.puz-side__control__flip.button', {
-      class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
-      ...dataIcon(licon.ChasingArrows),
-      title: i18n.site.flipBoard + ' (Keyboard: f)',
-      hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
-    }),
-    a('/storm')('.puz-side__control__reload.button.button-empty', {
-      ...dataIcon(licon.Trash),
-      title: i18n.storm.newRun,
-    }),
-    button('.puz-side__control__end.button.button-empty', {
-      ...dataIcon(licon.FlagOutline),
-      title: i18n.storm.endRun,
-      hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
-    }),
+    button(
+      '.puz-side__control__flip.button',
+      {
+        class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
+        title: i18n.site.flipBoard + ' (Keyboard: f)',
+        hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
+      },
+      [snabIcon(icons.ChasingArrows)],
+    ),
+    a('/storm')('.puz-side__control__reload.button.button-empty', { title: i18n.storm.newRun }, [
+      snabIcon(icons.Trash),
+    ]),
+    button(
+      '.puz-side__control__end.button.button-empty',
+      { title: i18n.storm.endRun, hook: onInsert(el => el.addEventListener('click', ctrl.endNow)) },
+      [snabIcon(icons.FlagOutline)],
+    ),
   ]);
 
 const startNode = div('.puz-side__top.puz-side__start', [
@@ -92,7 +94,7 @@ const startNode = div('.puz-side__top.puz-side__start', [
 
 const renderReload = (text: string) =>
   div('.storm.storm--reload.box.box-pad', [
-    icon(licon.Storm)(),
+    icon(icons.Storm)(),
     p(text),
     a('/storm')('.storm--dup__reload.button', i18n.storm.clickToReload),
   ]);

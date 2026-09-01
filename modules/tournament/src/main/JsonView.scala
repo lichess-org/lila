@@ -562,7 +562,7 @@ object JsonView:
     Json
       .obj("headline" -> s.headline)
       .add("iconImg" -> s.iconImg)
-      .add("iconFont" -> s.iconFont)
+      .add("iconFont" -> s.icon)
 
   private[tournament] given (using Translate): OWrites[PerfType] =
     OWrites: pt =>

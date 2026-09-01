@@ -61,7 +61,7 @@ final class DgtUi(helpers: Helpers):
       frag(
         div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
         div(cls := "dgt__play__help")(
-          h2(iconTag(Icon.InfoCircle, trd.ifMoveNotDetected())),
+          h2(iconEl(Icon.InfoCircle, trd.ifMoveNotDetected())),
           p(trd.checkYouHaveMadeOpponentsMove()),
           p(
             trd.asALastResort(
@@ -79,7 +79,7 @@ final class DgtUi(helpers: Helpers):
           st.section(
             h2(trd.lichessConnectivity()),
             if token.isDefined then
-              p(cls := "text", dataIcon := Icon.Checkmark)(
+              p(cls := "text", iconEl := Icon.Checkmark)(
                 trd.validDgtOauthToken(),
                 br,
                 br,

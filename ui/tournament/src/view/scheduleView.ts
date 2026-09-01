@@ -2,8 +2,8 @@ import dragscroll from 'dragscroll';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
-import { dataIcon, icon, onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { icon, onInsert, snabIcon } from 'lib/view';
 
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
@@ -132,7 +132,7 @@ function tournamentClass(tour: Tournament): Classes {
 }
 
 const iconOf = (tour: Tournament) =>
-  tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
+  tour.schedule?.freq === 'shield' ? icons.Shield : perfIcons[tour.perf.key];
 
 let mousedownAt: number[] | undefined;
 
@@ -183,7 +183,7 @@ function renderTournament(tour: Tournament) {
             tour.position ? 'Thematic ' : null,
             i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
-          tour.nbPlayers ? h('span.nb-players', { attrs: dataIcon(licon.User) }, tour.nbPlayers) : null,
+          tour.nbPlayers ? h('span.nb-players', [snabIcon(icons.User), tour.nbPlayers]) : null,
         ]),
       ]),
     ],

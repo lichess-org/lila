@@ -1,8 +1,8 @@
 import { wireCropDialog } from 'bits/crop';
 
 import { frag } from 'lib';
-import { licon } from 'lib/licon';
-import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+import { icons } from 'lib/icons';
+import { domDialog, type Dialog, alert, confirm, domIcon } from 'lib/view';
 
 import { env } from './devEnv';
 import { renderRemoveButton } from './devUtil';
@@ -101,11 +101,11 @@ export class AssetDialog {
     if (!this.isChooser) {
       if (localOnly || env.canPost) wrap.append(renderRemoveButton('upper-right'));
       if (localOnly && env.canPost) {
-        wrap.append(
-          frag(
-            `<button class="button button-empty icon-btn upper-left" tabindex="0" data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`,
-          ),
+        const push = frag<HTMLButtonElement>(
+          '<button class="button button-empty icon-btn upper-left" type="button" data-action="push" title="Upload asset to server" aria-label="Upload asset to server">',
         );
+        push.append(domIcon(icons.UploadCloud));
+        wrap.append(push);
       }
     }
     wrap.querySelector('.asset-preview')!.prepend(this.active.preview(key));
@@ -355,9 +355,10 @@ export class AssetDialog {
       preview: (key: string) => {
         const soundEl = document.createElement('span');
         const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
-        const buttonEl = frag(
-          `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
+        const buttonEl = frag<HTMLButtonElement>(
+          `<button class="button button-empty preview-sound" type="button" data-play="${key}" title="Preview sound"><span>0.00s</span></button>`,
         );
+        buttonEl.prepend(domIcon(icons.PlayTriangle));
         buttonEl.addEventListener('click', e => {
           audioEl.play();
           e.stopPropagation();
@@ -365,7 +366,7 @@ export class AssetDialog {
         soundEl.append(audioEl);
         soundEl.append(buttonEl);
         audioEl.onloadedmetadata = () => {
-          buttonEl.textContent = audioEl.duration.toFixed(2) + 's';
+          buttonEl.querySelector('span')!.textContent = audioEl.duration.toFixed(2) + 's';
         };
         return soundEl;
       },

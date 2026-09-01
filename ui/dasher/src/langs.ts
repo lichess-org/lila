@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { onInsert, snabIcon } from 'lib/view';
 
 import { PaneCtrl } from './interfaces';
 import { header } from './util';
@@ -37,11 +37,10 @@ export class LangsCtrl extends PaneCtrl {
           ),
         ),
       ),
-      h(
-        'a.help.text',
-        { attrs: { href: 'https://crowdin.com/project/lichess', 'data-icon': licon.Heart } },
+      h('a.help.text', { attrs: { href: 'https://crowdin.com/project/lichess' } }, [
+        snabIcon(icons.Heart),
         'Help translate Lichess',
-      ),
+      ]),
     ]);
 
   private get data() {

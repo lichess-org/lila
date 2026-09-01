@@ -29,8 +29,11 @@
   text-align: center;
 
   .patron-icon--shiny {
-    font-size: 3.2em;
-    margin: 0.7rem 0.4rem 1.2rem 0.4rem;
+    margin: 1rem 0.4rem;
+
+    .svg-icon {
+      width: 4rem;
+    }
   }
 
   &--selectable {
@@ -50,15 +53,13 @@
       position: relative;
 
       &::after {
-        @extend %data-icon;
+        @include icon-mask($icon-Padlock, 2.5rem);
 
-        content: $licon-Padlock;
         position: absolute;
         opacity: 1;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 3.4rem;
       }
     }
   }
@@ -69,7 +70,7 @@
     box-shadow: 0 0 15px rgb(255 255 255 / 0.5);
 
     .patron-icon--shiny {
-      margin-top: calc(0.7rem - 4px);
+      margin-top: calc(1rem - 4px);
     }
   }
 

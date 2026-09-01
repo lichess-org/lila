@@ -40,7 +40,7 @@ def communication(
                     p(cls := "title")(
                       strong(userLink(modConvo.contact)),
                       modConvo.contact.marks.troll.option:
-                        span(cls := "user_marks")(iconTag(Icon.BubbleSpeech))
+                        span(cls := "user_marks")(iconEl(Icon.BubbleSpeech))
                       ,
                       modConvo.relations.in
                         .exists(_.isFollow)
