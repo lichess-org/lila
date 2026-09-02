@@ -127,7 +127,6 @@ enum Icon(val name: String):
   case Wings extends Icon("wings")
   case X extends Icon("x")
   case ZoomIn extends Icon("zoom-in")
-  def key: String = productPrefix
 
 object Icon:
   import play.api.libs.json.*
