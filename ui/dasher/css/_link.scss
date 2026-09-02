@@ -20,27 +20,31 @@
     padding: 0.5rem 1rem;
     width: 100%;
     text-align: start;
+    gap: 0.5em;
   }
 
   .links a:hover,
   .links button:hover,
   .subs .sub:hover {
     background: $c-dasher;
-    color: $c-over !important;
+    color: $c-over;
     opacity: 1;
+
+    .line {
+      color: $c-over;
+    }
   }
 
-  .links a:hover .line {
-    color: $c-over;
+  .links a .line {
+    width: 16px;
+
+    &::before {
+      width: 11px;
+    }
   }
 
   .logout button:hover {
     background: $c-error;
-  }
-
-  .links button {
-    width: 100%;
-    text-align: start;
   }
 
   .subs:not(:first-child) {
@@ -49,16 +53,20 @@
 
   .sub {
     justify-content: start;
+    gap: 0.5em;
 
     > .svg-icon {
       width: 1.2em;
-      margin-inline-end: 0.4em;
+
+      &.icon-language {
+        color: $c-dasher;
+      }
     }
 
-    > .svg-icon:last-child {
+    > .icon-greater-than {
       width: 0.8em;
-      margin-inline-start: auto;
       color: $c-dasher;
+      margin-left: auto;
     }
 
     &:hover > .svg-icon {

@@ -91,11 +91,12 @@
 
     .help {
       color: $c-link;
-      display: block;
+      display: flex;
+      align-items: center;
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
-        @extend %box-radius-bottom;
+        @extend %box-radius-bottom-left;
 
         background: $c-link;
         color: $c-over;
@@ -121,26 +122,26 @@
       }
 
       &.active {
-        background: $c-dasher !important;
-        color: $c-over !important;
+        background: $c-dasher;
+        color: $c-over;
       }
 
       .svg-icon {
+        @include transition(opacity);
+
         margin-inline: 0 8px;
         font-size: 19px;
         width: 15px;
         justify-content: center;
         align-items: center;
         opacity: 0;
-
-        @include transition(opacity);
       }
 
       // don't show checkmarks on inactive selectors.
 
       &.active .svg-icon {
         opacity: 1;
-        color: $c-over !important;
+        color: $c-over;
       }
     }
 
