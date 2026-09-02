@@ -95,3 +95,14 @@ final class Pref(env: Env) extends LilaController(env):
       )
     yield Redirect(routes.Pref.network)
   }
+
+  def getJson(name: String) = Auth { ctx ?=> _ ?=>
+    lila.pref.PrefJsonChange(name).so(_.read(ctx.pref).fold(NoContent)(JsonOk(_)))
+  }
+
+  def setJson(name: String) = AuthBody(parse.json) { ctx ?=> me ?=>
+    lila.pref
+      .PrefJsonChange(name)
+      .so: change =>
+        api.setPref(me, change.write(ctx.pref, ctx.body.body)).inject(NoContent)
+  }
