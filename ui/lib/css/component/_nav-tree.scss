@@ -20,12 +20,16 @@
   }
 
   .node .back {
-    width: 1em;
-    display: inline-block;
     opacity: 0.6;
 
     &:hover {
       opacity: 1;
+    }
+
+    .svg-icon {
+      font-size: 80%;
+      position: relative;
+      top: 4px;
     }
   }
 
