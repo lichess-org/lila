@@ -130,7 +130,7 @@ enum Icon(val name: String):
 
 object Icon:
   import play.api.libs.json.*
-  given Writes[Icon] = Writes(icon => JsString(icon.name))
+  given Writes[Icon] = Writes(icon => JsString(icon.productPrefix))
 
   private val byName = values.mapBy(_.name)
 
