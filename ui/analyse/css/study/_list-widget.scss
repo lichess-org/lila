@@ -42,7 +42,7 @@
       unicode-bidi: plaintext;
       display: flex;
 
-      &::before {
+      .svg-icon {
         color: $c-font-dimmer;
       }
     }
@@ -51,6 +51,7 @@
       @extend %flex-center-nowrap, %break-word, %roboto;
 
       gap: 1rem;
+      margin-bottom: 0.5em;
 
       .study-name {
         @extend %nowrap-ellipsis;
@@ -76,15 +77,15 @@
       .study-meta {
         display: flex;
         align-items: center;
-        gap: 0.5em;
+        gap: 0.25em;
       }
 
       .study__icon {
         flex: 0 0 auto;
-        color: color-mix(in oklab, $c-primary 80%, $c-bg);
 
         .svg-icon {
           width: 3em;
+          background-color: color-mix(in oklab, $c-primary 80%, $c-bg 20%);
         }
 
         img {
@@ -102,7 +103,7 @@
     &:hover {
       background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
-      .top::before {
+      .top .svg-icon {
         color: $c-link;
       }
     }
