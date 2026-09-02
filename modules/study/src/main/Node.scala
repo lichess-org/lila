@@ -15,6 +15,8 @@ object Node:
     val gamebook = "ga"
     val glyphs = "g"
     val score = "e"
+    val static = "st"
     val clock = "l"
     val crazy = "z"
     val forceVariation = "fv"
+    val comp = "cp"

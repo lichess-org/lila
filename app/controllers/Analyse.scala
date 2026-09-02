@@ -1,7 +1,11 @@
 package controllers
 
+import chess.{ Division, Ply }
 import chess.format.Fen
-import play.api.libs.json.{ Json, JsArray }
+import chess.format.pgn.SanStr
+import chess.variant.Variant
+import chess.json.Json.given
+import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -9,7 +13,8 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.tree.ExportOptions
+import lila.study.Study.WithChapter
+import lila.tree.{ ExportOptions, Analysis }
 
 final class Analyse(
     env: Env,
@@ -49,7 +54,7 @@ final class Analyse(
           val opening = pgnFlags.opening.so(env.game.gameOpening.atPly(pov.game, _))
           (
             env.analyse.analyser.get(pov.game),
-            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.metadata.analysed.not.so(env.fishnet.api.userAnalysisExists(Analysis.Id(pov.gameId))),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
@@ -188,3 +193,80 @@ final class Analyse(
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id).elseNotFound(jsonOkResult)
   }
+
+  private def WithStudyContributor(id: Analysis.Id)(
+      f: lila.study.Chapter => Fu[Result]
+  )(using Context, Me): Fu[Result] = id match
+    case Analysis.Id.Study(studyId, chapterId) =>
+      Found(env.study.api.byIdWithChapter(studyId, chapterId)):
+        case WithChapter(study, chapter) =>
+          if study.canContribute(summon[Me]) then f(chapter) else forbiddenJson()
+    case Analysis.Id.Game(_) => fuccess(BadRequest("Study analysis required"))
+
+  def postAnalysisXhr = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body.validate[lila.analyse.Analysis] match
+      case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
+      case JsSuccess(uploaded, _) =>
+        WithStudyContributor(uploaded.id): chapter =>
+          val moves = chess.format
+            .UciDump(
+              moves = chapter.root.mainline.map(_.move.san),
+              initialFen = chapter.root.fen.some,
+              variant = chapter.setup.variant
+            )
+            .toOption
+            .map(_.flatMap(chess.format.Uci.apply).map(_.uci).mkString(" ")) | ""
+          for
+            requested <- env.fishnet.api.userAnalysisExists(uploaded.id)
+            result <-
+              if requested then fuccess(Locked)
+              else
+                env.analyse.analyser
+                  .save(
+                    uploaded,
+                    (() => Analysis.positionHash(chapter.setup.variant, chapter.root.fen.some, moves)).some
+                  )
+                  .inject(Ok)
+          yield result
+  }
+
+  def deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId) = Auth { _ ?=> me ?=>
+    WithStudyContributor(Analysis.Id(studyId, chapterId)): _ =>
+      env.study.serverEvalMerger.remove(studyId, chapterId).inject(NoContent)
+  }
+
+  def divisionXhr = OpenBodyOf(parse.json): ctx ?=>
+    val json = ctx.body.body
+    val parsed = for
+      variantKey <- (json \ "variant").validate[String]
+      variant <- Variant(Variant.LilaKey(variantKey)).fold[JsResult[Variant]](
+        JsError(s"Invalid variant: $variantKey")
+      )(JsSuccess(_))
+      initialFen <- (json \ "initialFen")
+        .validateOpt[String]
+        .map(_.map(fen => Fen.Full.clean(fen): Fen.Full))
+      sans <- (json \ "moves").validate[Vector[String]].map(_.map(SanStr(_)))
+    yield env.game.divider(sans, variant, initialFen)
+    parsed.fold(errs => BadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))
+
+  def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
+    val json = ctx.body.body
+    val parsed = for
+      analysis <- (json \ "analysis").validate[lila.analyse.Analysis]
+      middle <- (json \ "division" \ "middle").validateOpt[Int]
+      end <- (json \ "division" \ "end").validateOpt[Int]
+    yield
+      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply.initial)
+      val absoluteDivision = division.copy(
+        middle = division.middle.map(_ + analysis.startPly),
+        end = division.end.map(_ + analysis.startPly)
+      )
+      Json.obj(
+        "summary" -> env.analyse.jsonView.bothPlayers(
+          analysis.startPly,
+          analysis,
+          division = absoluteDivision
+        ),
+        "moves" -> env.analyse.jsonView.moves(analysis)
+      )
+    parsed.fold(errs => BadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))

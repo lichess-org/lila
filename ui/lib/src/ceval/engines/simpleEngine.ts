@@ -49,7 +49,7 @@ export class SimpleEngine implements CevalEngine {
     this.protocol.compute(undefined);
   }
 
-  engineName(): string | undefined {
+  version(): string | undefined {
     return this.protocol.engineName;
   }
 

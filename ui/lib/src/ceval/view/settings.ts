@@ -22,25 +22,22 @@ import {
 } from '@/view';
 
 import type { CevalCtrl } from '../ctrl';
-import { fewerCores } from '../util';
 
-const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
-if (!isMobile()) allSearchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
+export const searchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+if (!isMobile()) searchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
   const ceval = ctrl.ceval;
-
-  if (!ceval.showEnginePrefs()) {
+  const info = ceval.info();
+  const engine = ceval.engines.active();
+  if (!ceval.showEnginePrefs() || !engine || !info) {
     return null;
   }
 
-  const minThreads = ceval.engines.active()?.minThreads ?? 1;
-  const maxThreads = ceval.maxThreads;
-  const threads = ceval.info()?.threads ?? 1;
-  const hashSize = ceval.info()?.hashSize ?? 4;
-  const searchTicks = allSearchTicks.filter(
-    x => x * 1000 <= (ceval.engines.active()?.maxMovetime ?? Infinity),
-  );
+  const minThreads = engine.minThreads;
+  const maxThreads = engine.maxThreads;
+  const threads = info.threads;
+  const hashSize = info.hashSize;
 
   let observer: ResizeObserver;
 
@@ -56,7 +53,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
 
   function searchTick() {
     return clamp(
-      allSearchTicks.findIndex(tickSecs => tickSecs * 1000 >= ceval.storedMovetime()),
+      searchTicks.findIndex(tickSecs => tickSecs * 1000 >= ceval.storedMovetime()),
       { min: 0, max: searchTicks.length - 1 },
     );
   }
@@ -118,7 +115,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               '.setting',
               {
                 title:
-                  fewerCores() && !ceval.engines.external
+                  isMobile() && !ceval.engines.external()
                     ? i18n.site.threadsDescriptionMobile
                     : i18n.site.threadsDescription,
               },
@@ -148,7 +145,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                         destroy: () => observer?.disconnect(),
                       },
                     },
-                    !ceval.engines.external && [threadsTick('up'), threadsTick('down')],
+                    !ceval.engines.external() && [threadsTick('up'), threadsTick('down')],
                   ),
                 ]),
                 div('.range_value', `${threads} / ${maxThreads}`),
@@ -160,7 +157,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
             label({ for: id }, i18n.site.memory),
             input('range')(`#${id}`, {
               min: 4,
-              max: Math.floor(Math.log2(ceval.engines.active()?.maxHash ?? 4)),
+              max: Math.floor(Math.log2(engine.maxHash ?? 32)),
               step: 1,
               'aria-valuetext': formatHashSize(hashSize),
               hook: rangeConfig(
@@ -185,12 +182,14 @@ function formatHashSize(v: number) {
 }
 
 function setupTick(v: VNode, ceval: CevalCtrl) {
+  const engine = ceval.engines.active();
+  if (!engine) return;
+
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active()?.minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
-  const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
+  const tickRatio = (ceval.recommendedThreads - engine.minThreads) / (engine.maxThreads - engine.minThreads);
   const tickLeft = Math.floor(thumbWidth / 2 + trackWidth * tickRatio);
 
   tick.style.left = `${tickLeft}px`;
@@ -204,7 +203,7 @@ function engineSelection(ctrl: CevalHandler) {
     rules: ceval.rules,
     nonStandardMaterial: ceval.nonStandardMaterial,
   });
-  const external = ceval.engines.external;
+  const external = ceval.engines.external();
 
   return div('.setting', [
     label({ for: 'select-engine' }, 'Engine:'),

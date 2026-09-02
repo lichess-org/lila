@@ -12,7 +12,7 @@ extension (score: Score)
       Ev.Cp(Int.MaxValue)
     )
 
-case class Eval(score: Option[WhiteScore], best: Option[Uci]):
+case class Eval(score: Option[WhiteScore], best: Option[Uci], static: Boolean = false):
 
   def cp: Option[Ev.Cp] = score.flatMap(_.white.cp)
   def mate: Option[Ev.Mate] = score.flatMap(_.white.mate)
@@ -44,6 +44,7 @@ object evals:
           .add("cp" -> score.white.cp)
           .add("mate" -> score.white.mate)
           .add("best" -> eval.best)
+          .add("static" -> eval.static.option(true))
 
 opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]

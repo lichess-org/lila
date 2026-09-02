@@ -16,11 +16,12 @@ final class Divider(using Executor) extends lila.core.game.Divider:
     apply(game.id, game.sans, game.variant, initialFen)
 
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division =
-    if !Variant.list.divisionSensibleVariants(variant) then Division.empty
-    else cache.get(id, _ => noCache(sans, variant, initialFen))
+    cache.get(id, _ => apply(sans, variant, initialFen))
 
-  private def noCache(sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]) =
-    chess
-      .Position(variant, initialFen)
-      .playBoards(sans)
-      .fold(_ => Division.empty, chess.Divider.apply)
+  def apply(sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division =
+    if !Variant.list.divisionSensibleVariants(variant) then Division.empty
+    else
+      chess
+        .Position(variant, initialFen)
+        .playBoards(sans)
+        .fold(_ => Division.empty, chess.Divider.apply)
