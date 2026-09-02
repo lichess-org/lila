@@ -10,7 +10,7 @@ private object Dictionary:
 (burn|d[i\|\\]e|rot) [i\|\\]n hel+
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hel+
-(kil+|hang|ne[ck]+|unalive) my ?self
+(k[il]+|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -83,7 +83,7 @@ humping
 incest
 jerk
 jiz+(um|)
-kil+ (you|u)
+k[il]+ (you|u)
 labia
 lamer?
 lesbo
