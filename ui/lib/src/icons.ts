@@ -92,6 +92,7 @@ export const icons = {
   PlayTriangle: 'play-triangle',
   PlusButton: 'plus-button',
   Power: 'power',
+  Prune: 'prune',
   Rabbit: 'rabbit',
   RadioTower: 'radio-tower',
   RandomColor: 'random-color',

@@ -94,6 +94,7 @@ enum Icon(val name: String):
   case PlayTriangle extends Icon("play-triangle")
   case PlusButton extends Icon("plus-button")
   case Power extends Icon("power")
+  case Prune extends Icon("prune")
   case Rabbit extends Icon("rabbit")
   case RadioTower extends Icon("radio-tower")
   case RandomColor extends Icon("random-color")
