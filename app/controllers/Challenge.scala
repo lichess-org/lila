@@ -227,7 +227,7 @@ final class Challenge(env: Env) extends LilaController(env):
                               val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
                               allow:
                                 for
-                                  access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                  access <- env.oAuth.server.auth(bearer -> none, required, ctx.req.some)
                                   _ <- raiseIf(!pov.opponent.isUser(access.me)):
                                     OAuthServer.AuthError("Not the opponent token")
                                 yield
@@ -254,6 +254,7 @@ final class Challenge(env: Env) extends LilaController(env):
             if game.hasAi
             then
               getAs[Bearer]("token1")
+                .map(_ -> none)
                 .traverse(env.oAuth.server.auth(_, accepted, req.some))
                 .map:
                   _.exists(a => game.hasUserId(a.scoped.user.id)).option(startNow)
