@@ -98,10 +98,10 @@ object LangList extends lila.core.i18n.LangList:
     Lang("kn", "IN") -> "ಕನ್ನಡ",
     Lang("ml", "IN") -> "മലയാളം",
     Lang("th", "TH") -> "ไทย",
-    Lang("zh", "CN") -> "简体中文",
     Lang("ja", "JP") -> "日本語",
-    Lang("zh", "TW") -> "繁體中文",
-    Lang("ko", "KR") -> "한국어"
+    Lang("ko", "KR") -> "한국어",
+    Lang("zh", "CN") -> "简体中文",
+    Lang("zh", "TW") -> "繁體中文"
   )
 
   private[i18n] val defaultRegions = Map[String, Lang](
