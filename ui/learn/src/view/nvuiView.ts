@@ -351,8 +351,8 @@ function boardEventsHook(ctx: LearnNvuiContext, ground: Api, el: HTMLElement): v
   });
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.key.startsWith('Arrow')) nv.arrowKeyHandler(pov, borderSound)(e);
-    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
-    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
+    else if (/^[kqrbnp]$/i.test(e.key)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (/^Digit([1-8])$/.test(e.code)) nv.positionJumpHandler()(e);
     else if (e.key === 'o') nv.boardCommandsHandler()(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(pov, ground, 'standard', [{ fen: fen() }])(e);
