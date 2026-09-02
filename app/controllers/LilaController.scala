@@ -7,7 +7,6 @@ import play.api.libs.json.Writes
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
@@ -87,7 +86,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: Context ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScoped(selectors)(_ ?=> _ ?=> f)
       else handleOpen(f)
 
@@ -101,7 +100,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: BodyContext[A] ?=> Fu[Result]
   ): EssentialAction =
     action(parser): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScopedBody[A](selectors)(ctx ?=> _ ?=> f(using ctx))
       else handleOpenBody(f)
 
@@ -110,7 +109,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: Context ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScoped(selectors)(f)
       else f(using Context.minimal)
 
@@ -119,7 +118,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: BodyContext[A] ?=> Fu[Result]
   ): EssentialAction =
     action(parser): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScopedBody[A](selectors)(f)
       else f(using Context.minimalBody)
 
@@ -128,7 +127,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: Context ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScoped(selectors)(f)
       else handleAuth(f)
 
@@ -142,7 +141,7 @@ abstract private[controllers] class LilaController(val env: Env)
       selectors: OAuthScope.Selector*
   )(f: BodyContext[A] ?=> Me ?=> Fu[Result]): EssentialAction =
     action(parser): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then handleScopedBody(selectors)(f)
       else handleAuthBody(f)
 
@@ -290,7 +289,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: Context ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then
         handleScoped(Seq.empty) { _ ?=> _ ?=>
           IfGranted(perm)(f)
@@ -305,7 +304,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.anyContent): req ?=>
-      if HTTPRequest.isOAuth(req)
+      if hasOAuthBearer
       then
         handleScopedBody(Seq.empty) { _ ?=> _ ?=>
           IfGranted(perm)(f)
@@ -377,6 +376,9 @@ abstract private[controllers] class LilaController(val env: Env)
       then bindPatchForm(form)
       else form.bindFromRequest()
     bound.fold(error, success)
+
+  protected def hasOAuthBearer(using req: RequestHeader) =
+    req.headers.get(HeaderNames.AUTHORIZATION).exists(_.startsWith("Bearer "))
 
   private def bindPatchForm[T](form: Form[T])(using req: Request[?], formBinding: FormBinding): Form[T] =
     form.bind:
