@@ -380,7 +380,7 @@ yar+ak kafa(l[iı]|s[iı])
 (gets?|from|of|by|on|wish|(yo)?u) cancer
 (go(es|s)?|pl(ea)?[sz]e?) (a?nd)? ?(die|burn|sui?ci?de?)
 (ho?pe|wish)(es|s)? ((yo?)?[uy](r (fami?l[yi]|dad|m[ou]m|mother)s?)?( and )?)++ (die?|burn)
-(ki?l+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
+(k[il]+|hang|ne[ck]+|murder|una?live?)s? ?(yo?)?[uyi]r? ?(self|fami?l[yi]|m[ou]m|(fa|mo)ther(fucker)?)
 cancers? (for|to)
 gas+ the
 g?kys+
