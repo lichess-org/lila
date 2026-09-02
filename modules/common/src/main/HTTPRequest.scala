@@ -106,8 +106,6 @@ object HTTPRequest:
     if authorization.startsWith(prefix)
   yield Bearer(authorization.stripPrefix(prefix))
 
-  def isOAuth(req: RequestHeader) = bearer(req).isDefined
-
   private val webXhrAccepts = "application/web.lichess+json"
   def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
