@@ -19,6 +19,8 @@
     "libReplacement": false,
     "moduleResolution": "bundler",
     "module": "ESNext",
+    "jsx": "react",
+    "jsxFactory": "jsx",
     "target": "ES2021",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "types": ["lichess"],

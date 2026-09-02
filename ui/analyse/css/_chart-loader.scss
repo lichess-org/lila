@@ -2,6 +2,72 @@
   cursor: pointer;
 }
 
+.analysis-chart {
+  position: relative;
+
+  canvas {
+    transition: opacity 150ms;
+  }
+
+  &:has(#acpl-chart-container-loader) .analysis-chart-actions {
+    display: none;
+  }
+
+  &:has(.analysis-chart-action.delete:hover) {
+    background-color: color-mix(in oklab, $c-bad 20%, $c-bg-box);
+
+    canvas {
+      opacity: 0.35;
+    }
+  }
+}
+
+.analysis-chart-actions {
+  position: absolute;
+  border-radius: $box-radius-size;
+  box-sizing: border-box;
+  pointer-events: none;
+  inset: 0;
+  padding: 4px;
+  display: flex;
+  align-items: start;
+  justify-content: end;
+  gap: 4px;
+
+  i,
+  button {
+    pointer-events: auto;
+    padding: 5px;
+    border-radius: $box-radius-size;
+    border: $border;
+    background: $c-dimmer;
+    color: $c-font-dim;
+    opacity: 0.8;
+    font-size: 0.9em;
+  }
+
+  .delete {
+    color: $c-bad;
+  }
+
+  @include mq-has-hover {
+    :where(i, button):hover {
+      opacity: 1;
+      color: $c-primary;
+      border-color: $c-primary;
+
+      &.delete {
+        color: $c-bad;
+        border-color: $c-bad;
+      }
+    }
+  }
+
+  &:has(.delete:hover) {
+    outline: 1px solid hsl(from $c-bad h s l / 0.5);
+  }
+}
+
 #acpl-chart-container-loader {
   @include padding-direction(7px, 10px, 7px, 0);
 

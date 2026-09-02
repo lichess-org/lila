@@ -223,6 +223,11 @@ GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
 GET   /embed/analysis                  controllers.UserAnalysis.embed
+POST  /analysis/publish                controllers.Analyse.postAnalysisXhr
+DELETE /analysis/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Analyse.deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId)
+POST  /analysis/division               controllers.Analyse.divisionXhr
+POST  /analysis/review                 controllers.Analyse.reviewXhr
+
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)

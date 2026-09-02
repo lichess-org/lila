@@ -8,7 +8,7 @@ import { ratingDiff, profileUrl } from 'lib/view/userLink';
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
 
-import type { AnalysisSide, GamePhase } from '../interfaces';
+import type { AnalysisMetaSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -50,7 +50,7 @@ const phaseLabels: Record<GamePhase, string> = {
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const sideData = ctrl.data.analysis![color];
+  const sideData = ctrl.staticAnalysis![color];
 
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`icon.is.color-icon.${color}.text`), renderPlayer(ctrl, color)]),
@@ -67,7 +67,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
 const accuracyClass = (accuracy: number): string =>
   accuracy >= 85 ? 'good' : accuracy >= 70 ? 'inaccuracy' : accuracy >= 55 ? 'mistake' : 'blunder';
 
-const renderPhases = (side: AnalysisSide): VNode[] => {
+const renderPhases = (side: AnalysisMetaSide): VNode[] => {
   return [
     h(`div.advice-summary__phase`, [h('strong', [side.accuracy, '%']), h('span', i18n.site.accuracy)]),
     ...phaseOrder
@@ -138,7 +138,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.study?.practice) return undefined;
 
   if (
-    !ctrl.data.analysis ||
+    !ctrl.staticAnalysis ||
     !ctrl.settings.showStaticAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
   ) {
@@ -147,8 +147,8 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
   }
 
   // don't cache until the analysis is complete!
-  const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro;
+  const buster = ctrl.staticAnalysis.partial ? Math.random() : '';
+  let cacheKey = String(buster) + !!ctrl.retro + Boolean(ctrl.idbTree.hasLocalAnalysis);
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [

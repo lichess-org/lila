@@ -133,16 +133,36 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                   div(cls := "analyse__underboard__panels")(
                     analysable.option(
                       div(cls := "computer-analysis")(
-                        if hasAnalysis then div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                        else
-                          postForm(
-                            cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
-                            action := routes.Analyse.requestAnalysis(gameId)
-                          ):
-                            submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                                trans.site.requestAComputerAnalysis()
+                        if hasAnalysis then
+                          div(id := "acpl-chart-container", cls := "analysis-chart")(
+                            div(cls := "analysis-chart-actions")(
+                              i(
+                                cls := "analysis-editor",
+                                role := "button",
+                                title := trans.study.analysisEditor.txt(),
+                                dataIcon := Icon.Cogs
                               )
+                            ),
+                            canvas(id := "acpl-chart")
+                          )
+                        else
+                          frag(
+                            postForm(
+                              cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
+                              action := routes.Analyse.requestAnalysis(gameId)
+                            )(
+                              submitButton(cls := "button text")(
+                                span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                  trans.study.requestAServerAnalysis()
+                                )
+                              )
+                            ),
+                            button(cls := "button text analysis-editor", tpe := "button")(
+                              span(cls := "is3 text", dataIcon := Icon.Cogs)(
+                                trans.study.deviceLocalAnalysis()
+                              )
+                            )
+                          )
                       )
                     ),
                     div(cls := "move-times")(

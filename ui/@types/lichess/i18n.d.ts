@@ -1844,6 +1844,76 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analyse */
+    analyse: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** Broadcast */
+    broadcast: string;
+    /** Same as official broadcast tournaments. Five times stronger than standard. */
+    broadcastQuality: string;
+    /** Cannot publish */
+    cannotPublish: string;
+    /** Current analysis */
+    currentAnalysis: string;
+    /** Done in %s seconds */
+    doneInX: I18nFormat;
+    /** Keep mine */
+    keepMine: string;
+    /** Keep this browser tab active during analysis. */
+    keepThisBrowserTabActive: string;
+    /** Local */
+    local: string;
+    /** Local analysis */
+    localAnalysis: string;
+    /** Looks like a similar or better analysis already exists. */
+    looksLikeASimilar: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes per move */
+    nodesPerMove: string;
+    /** This should outperform broadcast quality at %s seconds per move. */
+    outperformBroadcastXSeconds: I18nFormat;
+    /** Projected */
+    projected: string;
+    /** Publish */
+    publish: string;
+    /** Published */
+    published: string;
+    /** Quality */
+    quality: string;
+    /** The server already has analysis of this strength. */
+    serverAlreadyHas: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Same as normal Lichess server analysis */
+    standardQuality: string;
+    /** Starting position */
+    startingPosition: string;
+    /** Timed */
+    timed: string;
+    /** Use your current engine settings. */
+    timedQuality: string;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Use theirs */
+    useTheirs: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %s analysis */
+    XAnalysis: I18nFormat;
+    /** %s nodes per move */
+    xNodesPerMove: I18nFormat;
+    /** %1$sx %2$s quality */
+    xTimesYQuality: I18nFormat;
+    /** Your current local analysis can be published */
+    youCanPublish: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;
@@ -5187,6 +5257,8 @@ interface I18n {
     allSyncMembersRemainOnTheSamePosition: string;
     /** Alphabetical */
     alphabetical: string;
+    /** Analysis editor */
+    analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
@@ -5225,6 +5297,10 @@ interface I18n {
     clearAnnotations: string;
     /** Clear chat */
     clearChat: string;
+    /** Clear local analysis? */
+    clearLocal: string;
+    /** Clear published analysis? */
+    clearPublished: string;
     /** Clear variations */
     clearVariations: string;
     /** Clone */
@@ -5281,6 +5357,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
+    /** Device local analysis */
+    deviceLocalAnalysis: string;
     /** Double defeat */
     doubleDefeat: string;
     /** Download game */
@@ -5315,8 +5393,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the main line. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
@@ -5337,6 +5413,8 @@ interface I18n {
     inviteOnly: string;
     /** Invite to the study */
     inviteToTheStudy: string;
+    /** Analysis */
+    justTheWordAnalysis: string;
     /** Kick */
     kick: string;
     /** Leave the study */
@@ -5443,6 +5521,8 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */
