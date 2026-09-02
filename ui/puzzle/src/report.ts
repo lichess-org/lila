@@ -1,7 +1,6 @@
 import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
-import { icons } from 'lib/icons';
 import { type StoredProp, storedIntProp } from 'lib/storage';
 import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
 import { domDialog, htmlIcon } from 'lib/view';
@@ -106,8 +105,8 @@ export default class Report {
         '</p><br />' +
         hideButtonDiv +
         '<br /><br />' +
-        `<button type="reset" class="button button-empty button-red text reset">${htmlIcon(icons.X)}No</button>` +
-        `<button type="submit" class="button button-green text apply">${htmlIcon(icons.Checkmark)}Yes</button>`,
+        `<button type="reset" class="button button-empty button-red text reset">${htmlIcon('X')}No</button>` +
+        `<button type="submit" class="button button-green text apply">${htmlIcon('Checkmark')}Yes</button>`,
     }).then(dlg => {
       $('.switch-report-puzzle', dlg.view).on('click', () => {
         const input = hideDialogInput();

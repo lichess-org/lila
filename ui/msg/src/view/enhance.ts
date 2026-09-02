@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { escapeHtml } from 'lib/index';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'lib/richText';
 import { domIcon } from 'lib/view';
@@ -91,7 +90,7 @@ function expandGames(games: Expandable[]): void {
     games.forEach(game => {
       game.element.title = 'Click to expand';
       game.element.classList.add('text');
-      game.element.prepend(domIcon(icons.Expand));
+      game.element.prepend(domIcon('Expand'));
       game.element.addEventListener('click', e => {
         if (e.button === 0) {
           e.preventDefault();

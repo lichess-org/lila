@@ -4,7 +4,6 @@ import type { Tablesort } from 'tablesort';
 import { defined } from 'lib';
 import { isTouchDevice } from 'lib/device';
 import perfIcons from 'lib/game/perfIcons';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { type VNode, hl, onInsert, spinnerVdom as spinner, snabIcon, type LooseVNodes } from 'lib/view';
@@ -214,7 +213,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                       hl('tr', [
                         hl('th', 'Team'),
                         hl('td.text', [
-                          snabIcon(icons.Group),
+                          snabIcon('Group'),
                           hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
                         ]),
                       ]),
@@ -289,7 +288,7 @@ export const renderPlayers = (
   return [
     withRank &&
       hl('p.relay-tour__standings--disclaimer.text', [
-        snabIcon(icons.InfoCircle),
+        snabIcon('InfoCircle'),
         i18n.broadcast.standingsDisclaimer,
       ]),
     hasPlayers
@@ -303,7 +302,7 @@ export const renderPlayers = (
               'thead',
               hl('tr', [
                 hl('th.pin', defaultSort),
-                withRank && hl('th.rank', defaultSort, [snabIcon(icons.Trophy)]),
+                withRank && hl('th.rank', defaultSort, [snabIcon('Trophy')]),
                 hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
                 withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
                 withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),

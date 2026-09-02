@@ -2,7 +2,6 @@ import type { ChartGame, AcplChart } from 'chart';
 import { h, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNode } from 'lib/tree/types';
 import { bind, onInsert, spinnerVdom, snabIcon } from 'lib/view';
@@ -84,7 +83,7 @@ function requestButton(ctrl: ServerEval) {
                 attrs: { disabled: root.mainline.length < 5 },
                 hook: bind('click', ctrl.request, root.redraw),
               },
-              [snabIcon(icons.BarChart), i18n.site.requestAComputerAnalysis],
+              [snabIcon('BarChart'), i18n.site.requestAComputerAnalysis],
             ),
           ],
   );

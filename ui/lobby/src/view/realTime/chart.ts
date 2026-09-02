@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { icons } from 'lib/icons';
 import { bind, onInsert, snabIcon, htmlIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
@@ -125,7 +124,7 @@ export function toggle(ctrl: LobbyController) {
       attrs: { title: i18n.site.list, 'aria-label': i18n.site.list },
       hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
     },
-    [snabIcon(icons.List)],
+    [snabIcon('List')],
   );
 }
 

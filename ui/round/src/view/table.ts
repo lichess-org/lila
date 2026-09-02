@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import { icons as svgIcons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, snabIcon } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -52,9 +52,8 @@ const prompt = (ctrl: RoundController) => {
       ? hl('button', { hook: bind('click', action) }, text)
       : hl(`a.${tpe}`, { attrs: { 'aria-label': text }, hook: bind('click', action) }, [snabIcon(icon)]);
 
-  const noBtn = o.no && btn('no', o.no.icon || svgIcons.X, o.no.text || i18n.site.decline, o.no.action);
-  const yesBtn =
-    o.yes && btn('yes', o.yes.icon || svgIcons.Checkmark, o.yes.text || i18n.site.accept, o.yes.action);
+  const noBtn = o.no && btn('no', o.no.icon || 'X', o.no.text || i18n.site.decline, o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || 'Checkmark', o.yes.text || i18n.site.accept, o.yes.action);
 
   return {
     promptVNode: hl('div.question', { key: o.prompt }, [noBtn, hl('p', o.prompt), yesBtn]),
@@ -71,11 +70,11 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
         ? []
         : [
             abortable(d)
-              ? button.standard(ctrl, undefined, svgIcons.X, i18n.site.abortGame, 'abort')
+              ? button.standard(ctrl, undefined, 'X', i18n.site.abortGame, 'abort')
               : button.standard(
                   ctrl,
                   d => ({ enabled: takebackable(d) }),
-                  svgIcons.Back,
+                  'Back',
                   i18n.site.proposeATakeback,
                   'takeback-yes',
                   ctrl.takebackYes,
@@ -96,7 +95,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                       enabled: ctrl.canOfferDraw(),
                       overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     }),
-                    svgIcons.OneHalf,
+                    'OneHalf',
                     i18n.site.offerDraw,
                     'draw-yes',
                     () => ctrl.offerDraw(true),
@@ -106,7 +105,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
               : button.standard(
                   ctrl,
                   d => ({ enabled: resignable(d) }),
-                  svgIcons.FlagOutline,
+                  'FlagOutline',
                   i18n.site.resign,
                   'resign',
                   () => ctrl.resign(true),

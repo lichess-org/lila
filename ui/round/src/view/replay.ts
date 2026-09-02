@@ -4,7 +4,7 @@ import { displayColumns } from 'lib/device';
 import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import viewStatus from 'lib/game/view/status';
-import { icons, type IconKey } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
@@ -139,7 +139,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
           href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
         },
       },
-      [snabIcon(icons.Microscope), !!forecastCount && String(forecastCount)],
+      [snabIcon('Microscope'), !!forecastCount && String(forecastCount)],
     )
   );
 }
@@ -166,7 +166,7 @@ function renderButtons(ctrl: RoundController) {
       ['JumpPrev', ctrl.ply - 1],
       ['JumpNext', ctrl.ply + 1],
       ['JumpLast', lastPly],
-    ].map((b: [IconKey, number], i) => {
+    ].map((b: [Icon, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return hl(
         'button.fbt.repeatable',
@@ -183,7 +183,7 @@ function renderButtons(ctrl: RoundController) {
             }),
           ),
         },
-        [snabIcon(icons[b[0]])],
+        [snabIcon(b[0])],
       );
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -198,7 +198,7 @@ function initMessage(ctrl: RoundController) {
     d.game.turns === 0 &&
     !d.player.spectator &&
     hl('div.message', [
-      snabIcon(icons.InfoCircle),
+      snabIcon('InfoCircle'),
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
@@ -207,14 +207,14 @@ function initMessage(ctrl: RoundController) {
   );
 }
 
-const col1Button = (ctrl: RoundController, dir: number, icon: IconKey, disabled: boolean) =>
+const col1Button = (ctrl: RoundController, dir: number, icon: Icon, disabled: boolean) =>
   hl(
     'button.fbt',
     {
       attrs: { disabled, 'data-ply': ctrl.ply + dir },
       hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
     },
-    [snabIcon(icons[icon])],
+    [snabIcon(icon)],
   );
 
 export function render(ctrl: RoundController): LooseVNode {

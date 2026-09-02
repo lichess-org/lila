@@ -1,5 +1,4 @@
 import { memoize } from 'lib';
-import { icons } from 'lib/icons';
 import { hl, bind, onInsert, snabIcon, type MaybeVNode } from 'lib/view';
 
 import type StudyCtrl from '../studyCtrl';
@@ -16,8 +15,8 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
         contributor &&
           hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
             hl('h2', [
-              hl('span.text', [snabIcon(icons.RadioTower), 'Broadcast manager']),
-              hl('a', { attrs: { href: `/broadcast/round/${study.data.id}/edit` } }, [snabIcon(icons.Gear)]),
+              hl('span.text', [snabIcon('RadioTower'), 'Broadcast manager']),
+              hl('a', { attrs: { href: `/broadcast/round/${study.data.id}/edit` } }, [snabIcon('Gear')]),
             ]),
             sync?.url || sync?.ids || sync?.urls || sync?.users
               ? (sync.ongoing ? stateOn : stateOff)(ctrl)
@@ -41,7 +40,7 @@ function renderLog(ctrl: RelayCtrl) {
       const err =
         e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
       return hl('div' + (err ? '.err' : ''), { key: e.at }, [
-        snabIcon(err ? icons.CautionCircle : icons.Checkmark),
+        snabIcon(err ? 'CautionCircle' : 'Checkmark'),
         hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))]),
       ]);
     });
@@ -52,7 +51,7 @@ function renderLog(ctrl: RelayCtrl) {
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
   return hl('button.state.on.clickable', { hook: bind('click', _ => ctrl.setSync(false)) }, [
-    snabIcon(icons.ChasingArrows),
+    snabIcon('ChasingArrows'),
     hl('span', [
       'Connected ',
       sync && [
@@ -73,13 +72,13 @@ function stateOn(ctrl: RelayCtrl) {
 
 const stateOff = (ctrl: RelayCtrl) =>
   hl('button.state.off.clickable', { hook: bind('click', _ => ctrl.setSync(true)) }, [
-    snabIcon(icons.PlayTriangle),
+    snabIcon('PlayTriangle'),
     hl('span.fat', 'Connect to source'),
   ]);
 
 const statePush = (ctrl: RelayCtrl) =>
   hl('div.state.push', [
-    snabIcon(icons.UploadCloud),
+    snabIcon('UploadCloud'),
     hl('span', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),

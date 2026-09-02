@@ -7,7 +7,6 @@ import getMinutes from 'date-fns/getMinutes';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { icons } from 'lib/icons';
 import { snabIcon } from 'lib/view';
 
 import type { Tournament } from '../interfaces';
@@ -24,8 +23,7 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) =>
-  tour.schedule?.freq === 'shield' ? icons.Shield : perfIcons[tour.perf.key];
+const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? 'Shield' : perfIcons[tour.perf.key]);
 
 const startDirection = () => (document.dir === 'rtl' ? 'right' : 'left');
 

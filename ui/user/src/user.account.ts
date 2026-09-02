@@ -1,7 +1,6 @@
 import flairPickerLoader from 'bits/flairPicker';
 import { createSelectSearch } from 'bits/selectSearch';
 
-import { icons } from 'lib/icons';
 import { storage } from 'lib/storage';
 import { addPasswordVisibilityToggleListener, confirm, domIcon } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -63,7 +62,7 @@ site.load.then(() => {
       submit.toggleClass('button-red', isDanger);
       const button = submit[0];
       if (button) {
-        const icon = domIcon(isDanger ? icons.CautionTriangle : icons.Checkmark);
+        const icon = domIcon(isDanger ? 'CautionTriangle' : 'Checkmark');
         const currentIcon = button.querySelector(':scope > .svg-icon');
         if (currentIcon) currentIcon.replaceWith(icon);
         else button.prepend(icon);

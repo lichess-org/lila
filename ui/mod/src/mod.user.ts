@@ -1,6 +1,5 @@
 import { debounce } from 'lib/async';
 import { commonDateFormat, toDate } from 'lib/i18n';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { extendTablesortNumber, sortTable } from 'lib/tablesort';
 import { confirm, domIcon, spinnerHtml } from 'lib/view';
@@ -154,7 +153,7 @@ site.load.then(() => {
             .find('td.ips-prints')
             .addClass('add-to-note text')
             .attr('title', 'Add to note')
-            .each((_, el) => el.prepend(domIcon(icons.Clipboard)));
+            .each((_, el) => el.prepend(domIcon('Clipboard')));
         }
       }
     });

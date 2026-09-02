@@ -1,5 +1,4 @@
 import { status } from 'lib/game';
-import { icons } from 'lib/icons';
 import { spinnerVdom as spinner, type VNode, bind, hl, snabIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
@@ -35,7 +34,7 @@ export default function (ctrl: TournamentController): VNode {
       : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     hl('button.close', { hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw) }, [
-      snabIcon(icons.X),
+      snabIcon('X'),
     ]),
     hl('div.stats', [
       playerTitle(data.player, ctrl.data.id),
@@ -92,4 +91,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? hl('td.berserk', { attrs: { title: 'Berserk' } }, [snabIcon(icons.Berserk)]) : hl('td.berserk');
+  b ? hl('td.berserk', { attrs: { title: 'Berserk' } }, [snabIcon('Berserk')]) : hl('td.berserk');

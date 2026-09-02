@@ -6,7 +6,7 @@ import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
 import { fenToEpd } from 'lib/game/chess';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import {
   copyMeInput,
   domDialog,
@@ -62,7 +62,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         disabled: !state.legalFen,
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      [snabIcon(icons.StudyBoard), i18n.site.toStudy],
+      [snabIcon('StudyBoard'), i18n.site.toStudy],
     ),
   ]);
 }
@@ -165,7 +165,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [snabIcon(icons.DieSix)],
+              [snabIcon('DieSix')],
             ),
           ]),
         ]);
@@ -285,8 +285,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
-            controlsButtonStart(ctrl, icons.Reload),
-            controlsButtonClear(ctrl, icons.Trash),
+            controlsButtonStart(ctrl, 'Reload'),
+            controlsButtonClear(ctrl, 'Trash'),
             button(
               '.button.button-empty.text',
               {
@@ -297,7 +297,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [snabIcon(icons.ChasingArrows), i18n.site.flipBoard],
+              [snabIcon('ChasingArrows'), i18n.site.flipBoard],
             ),
             a(state.legalFen ? ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) : '')(
               {
@@ -309,7 +309,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              [snabIcon(icons.Microscope), i18n.site.analysis],
+              [snabIcon('Microscope'), i18n.site.analysis],
             ),
             button(
               {
@@ -327,7 +327,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [span('.text', [snabIcon(icons.Swords), i18n.site.continueFromHere])],
+              [span('.text', [snabIcon('Swords'), i18n.site.continueFromHere])],
             ),
             studyButton(ctrl, state),
           ]),

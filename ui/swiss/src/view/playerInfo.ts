@@ -1,6 +1,5 @@
 import type { VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { spinnerVdom, bind, hl, snabIcon } from 'lib/view';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
@@ -28,7 +27,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
         attrs: { title: i18n.site.close, 'aria-label': i18n.site.close },
         hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
       },
-      [snabIcon(icons.X)],
+      [snabIcon('X')],
     ),
     hl('div.stats', [
       hl('h2', [hl('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),

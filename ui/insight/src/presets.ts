@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { bind, snabIcon } from 'lib/view';
 
 import type Ctrl from './ctrl';
@@ -16,7 +15,7 @@ export default function (ctrl: Ctrl) {
           class: { active: ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl() },
           hook: bind('click', () => ctrl.setQuestion(p)),
         },
-        [snabIcon(icons.Target), p.name],
+        [snabIcon('Target'), p.name],
       ),
     ),
   );

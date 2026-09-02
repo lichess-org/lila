@@ -1,6 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { bind, type MaybeVNode, type LooseVNodes, type VNode, hl, onInsert, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
@@ -170,19 +170,19 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
         `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
       ),
       hl('div.menu', [
-        hl('a.text', { hook: bind('click', () => openGame(ctrl, game.id)) }, [snabIcon(icons.Eye), 'View']),
+        hl('a.text', { hook: bind('click', () => openGame(ctrl, game.id)) }, [snabIcon('Eye'), 'View']),
         ctrl.study &&
           hl('a.text', { hook: bind('click', () => send(false), ctrl.redraw) }, [
-            snabIcon(icons.BubbleSpeech),
+            snabIcon('BubbleSpeech'),
             'Cite',
           ]),
         ctrl.study &&
           hl('a.text', { hook: bind('click', () => send(true), ctrl.redraw) }, [
-            snabIcon(icons.PlusButton),
+            snabIcon('PlusButton'),
             'Insert',
           ]),
         hl('a.text', { hook: bind('click', () => ctrl.explorer.gameMenu(null), ctrl.redraw) }, [
-          snabIcon(icons.X),
+          snabIcon('X'),
           'Close',
         ]),
       ]),
@@ -192,7 +192,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
 
 const closeButton = (ctrl: AnalyseCtrl): VNode =>
   hl('button.button.button-empty.text', { hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) }, [
-    snabIcon(icons.X),
+    snabIcon('X'),
     i18n.site.close,
   ]);
 
@@ -214,7 +214,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [snabIcon(icons.InfoCircle), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [snabIcon('InfoCircle'), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -322,10 +322,10 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
 
   return hl('div.explorer-title', [
     db === 'masters'
-      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, icons.Book)
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, 'Book')
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, icons.Logo)
+      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, 'Logo')
       : otherLink('Lichess', i18n.site.lichessDbExplanation),
     db === 'player'
       ? playerName
@@ -344,9 +344,9 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
                 }),
             ],
             i18n.site.switchSides,
-            icons.User,
+            'User',
           )
-        : active([hl('strong', 'Player'), ' database'], '', icons.User)
+        : active([hl('strong', 'Player'), ' database'], '', 'User')
       : hl(
           'button.button-link.player',
           {
@@ -373,7 +373,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
         },
         hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
       },
-      [snabIcon(configOpened ? icons.X : icons.Gear)],
+      [snabIcon(configOpened ? 'X' : 'Gear')],
     ),
   ]);
 };
@@ -402,7 +402,7 @@ const showAnon = (ctrl: AnalyseCtrl) =>
     hl('div.message', [
       hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
       hl('a.button.button-empty.text', { attrs: { href: '/signup' } }, [
-        snabIcon(icons.Checkmark),
+        snabIcon('Checkmark'),
         i18n.site.signUp,
       ]),
       closeButton(ctrl),

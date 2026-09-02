@@ -3,7 +3,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import { game as gameRoute } from 'lib/game/router';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import {
   spinnerVdom as spinner,
@@ -73,7 +73,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
           attrs: { 'aria-label': i18n.site.decline, title: i18n.site.decline },
           hook: bind('click', () => ctrl.socket.send('rematch-no')),
         },
-        ctrl.nvui ? i18n.site.decline : [snabIcon(icons.X)],
+        ctrl.nvui ? i18n.site.decline : [snabIcon('X')],
       ),
     hl(
       'button.fbt.rematch.white',
@@ -163,7 +163,7 @@ const fbtCancel = (f: (v: boolean) => void) =>
       attrs: { 'aria-label': i18n.site.cancel, title: i18n.site.cancel },
       hook: bind('click', () => f(false)),
     },
-    [snabIcon(icons.X)],
+    [snabIcon('X')],
   );
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
@@ -174,7 +174,7 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
         attrs: { 'aria-label': i18n.site.resign, title: i18n.site.resign },
         hook: bind('click', () => ctrl.resign(true)),
       },
-      [snabIcon(icons.FlagOutline)],
+      [snabIcon('FlagOutline')],
     ),
     fbtCancel(ctrl.resign),
   ]);
@@ -187,7 +187,7 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
         attrs: { 'aria-label': i18n.site.offerDraw, title: i18n.site.offerDraw },
         hook: bind('click', () => ctrl.offerDraw(true)),
       },
-      [snabIcon(icons.OneHalf)],
+      [snabIcon('OneHalf')],
     ),
     fbtCancel(ctrl.offerDraw),
   ]);
@@ -226,10 +226,10 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
           attrs: { href: '/tournament/' + d.tournament.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon(icons.PlayTriangle), i18n.site.backToTournament],
+        [snabIcon('PlayTriangle'), i18n.site.backToTournament],
       ),
       hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        hl('button.text.fbt.weak', [snabIcon(icons.Pause), i18n.site.pause]),
+        hl('button.text.fbt.weak', [snabIcon('Pause'), i18n.site.pause]),
       ]),
       analysisButton(ctrl),
     ])
@@ -247,7 +247,7 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
           attrs: { href: '/swiss/' + d.swiss.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon(icons.PlayTriangle), i18n.site.backToTournament],
+        [snabIcon('PlayTriangle'), i18n.site.backToTournament],
       ),
       analysisButton(ctrl),
     ])
@@ -270,7 +270,7 @@ export function moretime(ctrl: RoundController): LooseVNode {
         },
         hook: bind('click', ctrl.socket.moreTime),
       },
-      [snabIcon(icons.PlusButton)],
+      [snabIcon('PlusButton')],
     )
   );
 }

@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, onInsert, snabIcon } from 'lib/view';
 
@@ -20,12 +19,12 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
   const nb = pager.currentPageResults.length;
   return [
     hl('div.pager.prev', { class: { disabled: !pager.previousPage }, hook: clickHook(ctrl.previousPage) }, [
-      snabIcon(icons.UpTriangle),
+      snabIcon('UpTriangle'),
     ]),
     hl(
       'a.settings.button.button-empty',
       { attrs: { href: '/account/preferences/notification', title: 'Notification Settings' } },
-      [snabIcon(icons.Gear)],
+      [snabIcon('Gear')],
     ),
     nb === 0
       ? empty()
@@ -33,13 +32,12 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
           hl(
             'button.delete.button.button-empty',
             { attrs: { title: 'Clear' }, hook: clickHook(ctrl.clear) },
-            [snabIcon(icons.Trash)],
+            [snabIcon('Trash')],
           ),
           recentNotifications(d, ctrl.scrolling()),
         ],
 
-    pager.nextPage &&
-      hl('div.pager.next', { hook: clickHook(ctrl.nextPage) }, [snabIcon(icons.DownTriangle)]),
+    pager.nextPage && hl('div.pager.next', { hook: clickHook(ctrl.nextPage) }, [snabIcon('DownTriangle')]),
 
     !('Notification' in window)
       ? hl('div.browser-notification', 'Browser does not support notification popups')
@@ -79,5 +77,5 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 }
 
 function empty() {
-  return hl('div.empty.text', [snabIcon(icons.InfoCircle), 'No notifications.']);
+  return hl('div.empty.text', [snabIcon('InfoCircle'), 'No notifications.']);
 }

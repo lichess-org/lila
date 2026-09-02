@@ -15,10 +15,8 @@ final class TrophyApi(
 )(using Executor)
     extends lila.core.user.TrophyApi:
 
-  private given BSONHandler[Icon] = lila.db.dsl.quickHandler[Icon](
-    { case BSONString(s) => Icon.unsafe(s) },
-    i => BSONString(i.name)
-  )
+  private given BSONHandler[Icon] =
+    BSONStringHandler.as[lila.ui.Icon](lila.ui.Icon.unsafeExplodesIfMissingArrrgh, _.name)
 
   val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",

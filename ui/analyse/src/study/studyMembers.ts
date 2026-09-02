@@ -1,5 +1,4 @@
 import { prop, type Prop, scrollTo } from 'lib';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
 import { type VNode, bind, onInsert, bindNonPassive, hl, snabIcon, button } from 'lib/view';
@@ -149,7 +148,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      snabIcon(contrib ? icons.User : icons.Eye),
+      snabIcon(contrib ? 'User' : 'Eye'),
     );
   }
 
@@ -164,7 +163,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        snabIcon(icons.Gear),
+        snabIcon('Gear'),
       );
     if (!isOwner && user.id === members.opts.myId)
       return button(
@@ -173,7 +172,7 @@ export function view(ctrl: StudyCtrl): VNode {
           title: i18n.study.leaveTheStudy,
           hook: bind('click', members.leave, ctrl.redraw),
         },
-        snabIcon(icons.InternalArrow),
+        snabIcon('InternalArrow'),
       );
     return undefined;
   }
@@ -198,7 +197,7 @@ export function view(ctrl: StudyCtrl): VNode {
           button(
             '.button.button-red.button-empty.text',
             { hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
-            [snabIcon(icons.X), i18n.study.kick],
+            [snabIcon('X'), i18n.study.kick],
           ),
         ),
       ],
@@ -224,7 +223,7 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner &&
       ordered.length < members.max &&
       button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        snabIcon(icons.PlusButton),
+        snabIcon('PlusButton'),
         hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&

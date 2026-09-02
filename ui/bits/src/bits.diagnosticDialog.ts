@@ -1,6 +1,5 @@
 import { escapeHtml, myUserId, myUsername } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import { icons } from 'lib/icons';
 import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
 import { domDialog, htmlIcon } from 'lib/view';
@@ -47,7 +46,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
       </form>`
     : '';
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
-  const copy = `<button class="button copy">${htmlIcon(icons.Clipboard)} copy</button>`;
+  const copy = `<button class="button copy">${htmlIcon('Clipboard')} copy</button>`;
   const dlg = await domDialog({
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
@@ -69,7 +68,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   $('.clear', dlg.view).on('click', () => log.clear().then(() => dlg.close()));
   $('.copy', dlg.view).on('click', () =>
     navigator.clipboard.writeText(text).then(() => {
-      const copied = $(`<div class="good">${htmlIcon(icons.Checkmark)} COPIED</div>`);
+      const copied = $(`<div class="good">${htmlIcon('Checkmark')} COPIED</div>`);
       $('.copy', dlg.view).before(copied);
       setTimeout(() => copied.remove(), 2000);
     }),

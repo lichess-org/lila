@@ -3,7 +3,6 @@ import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
 import perfIcons from 'lib/game/perfIcons';
-import { icons } from 'lib/icons';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
 import { type Dialog, snabDialog, bind, snabIcon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
@@ -150,7 +149,7 @@ export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
   h(
     'section.save',
     h('button.button.button-green.text', { hook: bind('click', ctrl.toggleOpen) }, [
-      snabIcon(icons.Checkmark),
+      snabIcon('Checkmark'),
       i18n.site.allSet,
     ]),
   ),
@@ -181,7 +180,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
           {
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          [snabIcon(icons.ChasingArrows), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
+          [snabIcon('ChasingArrows'), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
         ),
       ]),
     ]),
@@ -365,7 +364,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
                     attrs: { 'aria-label': i18n.site.delete },
                     hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
                   },
-                  [snabIcon(icons.X)],
+                  [snabIcon('X')],
                 )
               : null,
           ]),

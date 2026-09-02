@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { snabIcon, type MaybeVNodes } from 'lib/view';
 import { profileUrl, userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
 
@@ -22,7 +21,7 @@ export const player = (
     },
     [
       h('span.name' + (defender ? '.defender' : leader ? '.leader' : ''), [
-        defender ? snabIcon(icons.Shield) : leader ? snabIcon(icons.Crown) : null,
+        defender ? snabIcon('Shield') : leader ? snabIcon('Crown') : null,
         p.patronColor && userLine({ patronColor: p.patronColor }),
         ...fullName(p),
       ]),

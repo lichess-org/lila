@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import { icons, type Icon } from 'lib/icons';
+import { type Icon } from 'lib/icons';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, snabIcon } from 'lib/view';
 
@@ -126,23 +126,23 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
       hl('p.title', nodeFullName(node)),
 
       idbTree.someCollapsedOf(false) && // with variation hiding enabled, collapse/expand all are most common
-        action(icons.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+        action('MinusButton', 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
 
       idbTree.someCollapsedOf(true) &&
-        action(icons.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+        action('PlusButton', 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 
-      canPrune && action(icons.Trash, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+      canPrune && action('Trash', 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
 
-      canPromote && action(icons.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-      !onMainline && action(icons.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
+      canPromote && action('UpTriangle', i18n.site.promoteVariation, () => ctrl.promote(path, false)),
+      !onMainline && action('Checkmark', i18n.site.makeMainLine, () => ctrl.promote(path, true)),
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       path &&
         onMainline &&
-        action(icons.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
+        action('InternalArrow', i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
       action(
-        icons.Clipboard,
+        'Clipboard',
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
@@ -154,7 +154,7 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
 
       path &&
         action(
-          icons.Trash,
+          'Trash',
           i18n.site.deleteFromHere,
           () => ctrl.deleteNode(path),
           () => ctrl.pendingDeletionPath(path),

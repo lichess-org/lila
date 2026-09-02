@@ -1,5 +1,4 @@
 import { onClickAway } from 'lib';
-import { icons } from 'lib/icons';
 import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, domIcon, snabIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
@@ -19,7 +18,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       hl(
         'button#voice-help-button',
         { attrs: { title: 'Voice help' }, hook: bind('click', () => ctrl.showHelp(true), undefined, false) },
-        [snabIcon(icons.InfoCircle)],
+        [snabIcon('InfoCircle')],
       ),
       hl(
         'button#voice-settings-button',
@@ -28,7 +27,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
           class: { active: ctrl.showPrefs() },
           hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
         },
-        [snabIcon(icons.Gear)],
+        [snabIcon('Gear')],
       ),
     ]),
     ctrl.showPrefs() &&
@@ -49,7 +48,7 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
     voiceBtn.toggleClass('error', tpe === 'error');
     voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
     if (ctrl.mic.isBusy) voiceBtn.html('<span class="ddloader"></span>');
-    else voiceBtn[0]?.replaceChildren(domIcon(tpe === 'error' ? icons.Cancel : icons.Voice));
+    else voiceBtn[0]?.replaceChildren(domIcon(tpe === 'error' ? 'Cancel' : 'Voice'));
 
     if (tpe !== 'partial') el.innerText = txt;
   };

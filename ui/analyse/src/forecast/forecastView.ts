@@ -2,7 +2,6 @@ import { h, type VNode } from 'snabbdom';
 
 import { playable } from 'lib/game';
 import { fixCrazySan } from 'lib/game/chess';
-import { icons } from 'lib/icons';
 import { bind, spinnerVdom as spinner, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
@@ -22,7 +21,7 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
       hook: bind('click', () => fctrl.playAndSave(firstNode)),
     },
     [
-      snabIcon(icons.Checkmark),
+      snabIcon('Checkmark'),
       h('span', [
         h('strong', i18n.site.playX(fixCrazySan(cNodes[0].san))),
         lines.length
@@ -73,14 +72,14 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               ),
             },
             [
-              snabIcon(icons.PlayTriangle),
+              snabIcon('PlayTriangle'),
               h(
                 'button.del',
                 {
                   hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
                   attrs: { 'aria-label': i18n.site.delete, type: 'button' },
                 },
-                [snabIcon(icons.X)],
+                [snabIcon('X')],
               ),
               h('sans', renderNodesHtml(nodes)),
             ],
@@ -94,7 +93,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           hook: bind('click', () => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
         },
         [
-          snabIcon(isCandidate ? icons.PlusButton : icons.InfoCircle),
+          snabIcon(isCandidate ? 'PlusButton' : 'InfoCircle'),
           isCandidate
             ? h('span', [h('span', i18n.site.addCurrentVariation), h('sans', renderNodesHtml(cNodes))])
             : h('span', i18n.site.playVariationToCreateConditionalPremoves),

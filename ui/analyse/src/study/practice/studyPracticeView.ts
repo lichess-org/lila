@@ -1,6 +1,5 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, snabIcon, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
@@ -129,9 +128,7 @@ export function side(ctrl: StudyCtrl): VNode {
             },
             [
               h('span.status.' + completion, [
-                snabIcon(
-                  (loading || active) && completion === 'ongoing' ? icons.PlayTriangle : icons.Checkmark,
-                ),
+                snabIcon((loading || active) && completion === 'ongoing' ? 'PlayTriangle' : 'Checkmark'),
               ]),
               h('h3', name),
             ],
@@ -141,7 +138,7 @@ export function side(ctrl: StudyCtrl): VNode {
     ),
     h('div.finally', [
       h('a.back', { attrs: { 'aria-label': 'More practice', href: '/practice', title: 'More practice' } }, [
-        snabIcon(icons.LessThan),
+        snabIcon('LessThan'),
       ]),
       thunk('select.selector', selector, [data]),
     ]),

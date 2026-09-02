@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { initMiniBoard, snabIcon } from 'lib/view';
 
 import type SetupController from '@/setupCtrl';
@@ -31,7 +30,7 @@ export const fenInput = (ctrl: SetupController) => {
             href: '/editor' + (fen && !ctrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
           },
         },
-        [snabIcon(icons.Pencil)],
+        [snabIcon('Pencil')],
       ),
     ]),
     h(

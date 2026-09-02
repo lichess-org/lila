@@ -1,20 +1,20 @@
-import { icons, type Icon } from '@/icons';
+import { type Icon } from '@/icons';
 
 const perfIcons: Record<Exclude<Perf, 'fromPosition'>, Icon> = {
-  ultraBullet: icons.UltraBullet,
-  bullet: icons.Bullet,
-  blitz: icons.FlameBlitz,
-  rapid: icons.Rabbit,
-  classical: icons.Turtle,
-  correspondence: icons.PaperAirplane,
-  chess960: icons.DieSix,
-  kingOfTheHill: icons.FlagKingHill,
-  antichess: icons.Antichess,
-  atomic: icons.Atom,
-  threeCheck: icons.ThreeCheckStack,
-  horde: icons.Keypad,
-  racingKings: icons.FlagRacingKings,
-  crazyhouse: icons.Crazyhouse,
+  ultraBullet: 'UltraBullet',
+  bullet: 'Bullet',
+  blitz: 'FlameBlitz',
+  rapid: 'Rabbit',
+  classical: 'Turtle',
+  correspondence: 'PaperAirplane',
+  chess960: 'DieSix',
+  kingOfTheHill: 'FlagKingHill',
+  antichess: 'Antichess',
+  atomic: 'Atom',
+  threeCheck: 'ThreeCheckStack',
+  horde: 'Keypad',
+  racingKings: 'FlagRacingKings',
+  crazyhouse: 'Crazyhouse',
 };
 
 export default perfIcons;

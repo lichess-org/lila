@@ -1,7 +1,6 @@
 import { wireCropDialog } from 'bits/crop';
 
 import { frag } from 'lib';
-import { icons } from 'lib/icons';
 import { domDialog, type Dialog, alert, confirm, domIcon } from 'lib/view';
 
 import { env } from './devEnv';
@@ -104,7 +103,7 @@ export class AssetDialog {
         const push = frag<HTMLButtonElement>(
           '<button class="button button-empty icon-btn upper-left" type="button" data-action="push" title="Upload asset to server" aria-label="Upload asset to server">',
         );
-        push.append(domIcon(icons.UploadCloud));
+        push.append(domIcon('UploadCloud'));
         wrap.append(push);
       }
     }
@@ -358,7 +357,7 @@ export class AssetDialog {
         const buttonEl = frag<HTMLButtonElement>(
           `<button class="button button-empty preview-sound" type="button" data-play="${key}" title="Preview sound"><span>0.00s</span></button>`,
         );
-        buttonEl.prepend(domIcon(icons.PlayTriangle));
+        buttonEl.prepend(domIcon('PlayTriangle'));
         buttonEl.addEventListener('click', e => {
           audioEl.play();
           e.stopPropagation();

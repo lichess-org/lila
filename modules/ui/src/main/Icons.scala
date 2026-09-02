@@ -2,138 +2,139 @@
 
 package lila.ui
 
-opaque type Icon = String
-object Icon:
-  extension (icon: Icon) def name: String = icon
-  def unsafe(str: String): Icon = str
-  given scalalib.Iso.StringIso[Icon] = scalalib.Iso.string(identity, _.name)
-  given play.api.libs.json.Writes[Icon] =
-    play.api.libs.json.Writes(icon => play.api.libs.json.JsString(icon.name))
+enum Icon(val name: String):
+  case AccountCircle extends Icon("account-circle")
+  case Agent extends Icon("agent")
+  case AnalogTv extends Icon("analog-tv")
+  case Antichess extends Icon("antichess")
+  case ArcheryTarget extends Icon("archery-target")
+  case ArrowDownRight extends Icon("arrow-down-right")
+  case ArrowThruApple extends Icon("arrow-thru-apple")
+  case ArrowUpRight extends Icon("arrow-up-right")
+  case Atom extends Icon("atom")
+  case Back extends Icon("back")
+  case BarChart extends Icon("bar-chart")
+  case BarGraph extends Icon("bar-graph")
+  case BellOutline extends Icon("bell-outline")
+  case Berserk extends Icon("berserk")
+  case Book extends Icon("book")
+  case BubbleConvo extends Icon("bubble-convo")
+  case BubbleSpeech extends Icon("bubble-speech")
+  case Bullet extends Icon("bullet")
+  case Bullseye extends Icon("bullseye")
+  case Cancel extends Icon("cancel")
+  case CautionCircle extends Icon("caution-circle")
+  case CautionTriangle extends Icon("caution-triangle")
+  case ChasingArrows extends Icon("chasing-arrows")
+  case Checkmark extends Icon("checkmark")
+  case Clipboard extends Icon("clipboard")
+  case Clock extends Icon("clock")
+  case Cogs extends Icon("cogs")
+  case Cpu extends Icon("cpu")
+  case Crazyhouse extends Icon("crazyhouse")
+  case CrownElite extends Icon("crown-elite")
+  case Crown extends Icon("crown")
+  case DieSix extends Icon("die-six")
+  case DiscBigOutline extends Icon("disc-big-outline")
+  case DiscBig extends Icon("disc-big")
+  case DiscOutline extends Icon("disc-outline")
+  case Disc extends Icon("disc")
+  case DownTriangle extends Icon("down-triangle")
+  case Download extends Icon("download")
+  case Envelope extends Icon("envelope")
+  case Expand extends Icon("expand")
+  case ExternalArrow extends Icon("external-arrow")
+  case Eye extends Icon("eye")
+  case Feather extends Icon("feather")
+  case Fire extends Icon("fire")
+  case FlagChessboard extends Icon("flag-chessboard")
+  case FlagKingHill extends Icon("flag-king-hill")
+  case FlagOutline extends Icon("flag-outline")
+  case FlagRacingKings extends Icon("flag-racing-kings")
+  case FlameBlitz extends Icon("flame-blitz")
+  case Forward extends Icon("forward")
+  case Funnel extends Icon("funnel")
+  case Gear extends Icon("gear")
+  case Globe extends Icon("globe")
+  case GraduateCap extends Icon("graduate-cap")
+  case GreaterThan extends Icon("greater-than")
+  case Group extends Icon("group")
+  case Hamburger extends Icon("hamburger")
+  case HeartOutline extends Icon("heart-outline")
+  case Heart extends Icon("heart")
+  case Ibeam extends Icon("ibeam")
+  case InfoCircle extends Icon("info-circle")
+  case InkQuill extends Icon("ink-quill")
+  case InternalArrow extends Icon("internal-arrow")
+  case JumpFirst extends Icon("jump-first")
+  case JumpLast extends Icon("jump-last")
+  case JumpNext extends Icon("jump-next")
+  case JumpPrev extends Icon("jump-prev")
+  case Keypad extends Icon("keypad")
+  case Language extends Icon("language")
+  case LessThan extends Icon("less-than")
+  case LineGraph extends Icon("line-graph")
+  case Link extends Icon("link")
+  case List extends Icon("list")
+  case Logo extends Icon("logo")
+  case Mic extends Icon("mic")
+  case Microscope extends Icon("microscope")
+  case MinusButton extends Icon("minus-button")
+  case MoreTriangle extends Icon("more-triangle")
+  case Move extends Icon("move")
+  case Multiboard extends Icon("multiboard")
+  case Mute extends Icon("mute")
+  case NotAllowed extends Icon("not-allowed")
+  case OneHalf extends Icon("one-half")
+  case Padlock extends Icon("padlock")
+  case PaperAirplane extends Icon("paper-airplane")
+  case Pause extends Icon("pause")
+  case Pencil extends Icon("pencil")
+  case PhoneMobile extends Icon("phone-mobile")
+  case PlayTriangle extends Icon("play-triangle")
+  case PlusButton extends Icon("plus-button")
+  case Power extends Icon("power")
+  case Rabbit extends Icon("rabbit")
+  case RadioTower extends Icon("radio-tower")
+  case RandomColor extends Icon("random-color")
+  case Reload extends Icon("reload")
+  case RssFeed extends Icon("rss-feed")
+  case ScreenDesktop extends Icon("screen-desktop")
+  case Search extends Icon("search")
+  case ShareAndroid extends Icon("share-android")
+  case ShareIos extends Icon("share-ios")
+  case Shield extends Icon("shield")
+  case StarOutline extends Icon("star-outline")
+  case Star extends Icon("star")
+  case Storm extends Icon("storm")
+  case StudyBoard extends Icon("study-board")
+  case Switch extends Icon("switch")
+  case Swords extends Icon("swords")
+  case Tag extends Icon("tag")
+  case Target extends Icon("target")
+  case ThreeCheckStack extends Icon("three-check-stack")
+  case ThumbsUp extends Icon("thumbs-up")
+  case Tools extends Icon("tools")
+  case Trash extends Icon("trash")
+  case Trophy extends Icon("trophy")
+  case Tshirt extends Icon("tshirt")
+  case Turtle extends Icon("turtle")
+  case UltraBullet extends Icon("ultra-bullet")
+  case UpTriangle extends Icon("up-triangle")
+  case UploadCloud extends Icon("upload-cloud")
+  case User extends Icon("user")
+  case Voice extends Icon("voice")
+  case Wings extends Icon("wings")
+  case X extends Icon("x")
+  case ZoomIn extends Icon("zoom-in")
 
-  val AccountCircle: Icon = "account-circle"
-  val Agent: Icon = "agent"
-  val AnalogTv: Icon = "analog-tv"
-  val Antichess: Icon = "antichess"
-  val ArcheryTarget: Icon = "archery-target"
-  val ArrowDownRight: Icon = "arrow-down-right"
-  val ArrowThruApple: Icon = "arrow-thru-apple"
-  val ArrowUpRight: Icon = "arrow-up-right"
-  val Atom: Icon = "atom"
-  val Back: Icon = "back"
-  val BarChart: Icon = "bar-chart"
-  val BarGraph: Icon = "bar-graph"
-  val BellOutline: Icon = "bell-outline"
-  val Berserk: Icon = "berserk"
-  val Book: Icon = "book"
-  val BubbleConvo: Icon = "bubble-convo"
-  val BubbleSpeech: Icon = "bubble-speech"
-  val Bullet: Icon = "bullet"
-  val Bullseye: Icon = "bullseye"
-  val Cancel: Icon = "cancel"
-  val CautionCircle: Icon = "caution-circle"
-  val CautionTriangle: Icon = "caution-triangle"
-  val ChasingArrows: Icon = "chasing-arrows"
-  val Checkmark: Icon = "checkmark"
-  val Clipboard: Icon = "clipboard"
-  val Clock: Icon = "clock"
-  val Cogs: Icon = "cogs"
-  val Cpu: Icon = "cpu"
-  val Crazyhouse: Icon = "crazyhouse"
-  val CrownElite: Icon = "crown-elite"
-  val Crown: Icon = "crown"
-  val DieSix: Icon = "die-six"
-  val DiscBigOutline: Icon = "disc-big-outline"
-  val DiscBig: Icon = "disc-big"
-  val DiscOutline: Icon = "disc-outline"
-  val Disc: Icon = "disc"
-  val DownTriangle: Icon = "down-triangle"
-  val Download: Icon = "download"
-  val Envelope: Icon = "envelope"
-  val Expand: Icon = "expand"
-  val ExternalArrow: Icon = "external-arrow"
-  val Eye: Icon = "eye"
-  val Feather: Icon = "feather"
-  val Fire: Icon = "fire"
-  val FlagChessboard: Icon = "flag-chessboard"
-  val FlagKingHill: Icon = "flag-king-hill"
-  val FlagOutline: Icon = "flag-outline"
-  val FlagRacingKings: Icon = "flag-racing-kings"
-  val FlameBlitz: Icon = "flame-blitz"
-  val Forward: Icon = "forward"
-  val Funnel: Icon = "funnel"
-  val Gear: Icon = "gear"
-  val Globe: Icon = "globe"
-  val GraduateCap: Icon = "graduate-cap"
-  val GreaterThan: Icon = "greater-than"
-  val Group: Icon = "group"
-  val Hamburger: Icon = "hamburger"
-  val HeartOutline: Icon = "heart-outline"
-  val Heart: Icon = "heart"
-  val Ibeam: Icon = "ibeam"
-  val InfoCircle: Icon = "info-circle"
-  val InkQuill: Icon = "ink-quill"
-  val InternalArrow: Icon = "internal-arrow"
-  val JumpFirst: Icon = "jump-first"
-  val JumpLast: Icon = "jump-last"
-  val JumpNext: Icon = "jump-next"
-  val JumpPrev: Icon = "jump-prev"
-  val Keypad: Icon = "keypad"
-  val Language: Icon = "language"
-  val LessThan: Icon = "less-than"
-  val LineGraph: Icon = "line-graph"
-  val Link: Icon = "link"
-  val List: Icon = "list"
-  val Logo: Icon = "logo"
-  val Mic: Icon = "mic"
-  val Microscope: Icon = "microscope"
-  val MinusButton: Icon = "minus-button"
-  val MoreTriangle: Icon = "more-triangle"
-  val Move: Icon = "move"
-  val Multiboard: Icon = "multiboard"
-  val Mute: Icon = "mute"
-  val NotAllowed: Icon = "not-allowed"
-  val OneHalf: Icon = "one-half"
-  val Padlock: Icon = "padlock"
-  val PaperAirplane: Icon = "paper-airplane"
-  val Pause: Icon = "pause"
-  val Pencil: Icon = "pencil"
-  val PhoneMobile: Icon = "phone-mobile"
-  val PlayTriangle: Icon = "play-triangle"
-  val PlusButton: Icon = "plus-button"
-  val Power: Icon = "power"
-  val Rabbit: Icon = "rabbit"
-  val RadioTower: Icon = "radio-tower"
-  val RandomColor: Icon = "random-color"
-  val Reload: Icon = "reload"
-  val RssFeed: Icon = "rss-feed"
-  val ScreenDesktop: Icon = "screen-desktop"
-  val Search: Icon = "search"
-  val ShareAndroid: Icon = "share-android"
-  val ShareIos: Icon = "share-ios"
-  val Shield: Icon = "shield"
-  val StarOutline: Icon = "star-outline"
-  val Star: Icon = "star"
-  val Storm: Icon = "storm"
-  val StudyBoard: Icon = "study-board"
-  val Switch: Icon = "switch"
-  val Swords: Icon = "swords"
-  val Tag: Icon = "tag"
-  val Target: Icon = "target"
-  val ThreeCheckStack: Icon = "three-check-stack"
-  val ThumbsUp: Icon = "thumbs-up"
-  val Tools: Icon = "tools"
-  val Trash: Icon = "trash"
-  val Trophy: Icon = "trophy"
-  val Tshirt: Icon = "tshirt"
-  val Turtle: Icon = "turtle"
-  val UltraBullet: Icon = "ultra-bullet"
-  val UpTriangle: Icon = "up-triangle"
-  val UploadCloud: Icon = "upload-cloud"
-  val User: Icon = "user"
-  val Voice: Icon = "voice"
-  val Wings: Icon = "wings"
-  val X: Icon = "x"
-  val ZoomIn: Icon = "zoom-in"
+object Icon:
+  import play.api.libs.json.*
+  given Writes[Icon] = Writes(icon => JsString(icon.name))
+
+  private val byName = values.mapBy(_.name)
+
+  def unsafeExplodesIfMissingArrrgh = byName.apply
 
   val rtlMirrored: Set[Icon] = Set(
     GreaterThan,

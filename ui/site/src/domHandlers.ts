@@ -1,5 +1,4 @@
 import { blurIfPrimaryClick } from 'lib';
-import { icons } from 'lib/icons';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm, domIcon } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
@@ -29,10 +28,10 @@ export function addDomHandlers() {
     .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
       blurIfPrimaryClick(e);
       const showCheckmark = () => {
-        this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon(icons.Checkmark));
+        this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Checkmark'));
         $(this).removeClass('button-metal');
         setTimeout(() => {
-          this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon(icons.Clipboard));
+          this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Clipboard'));
           $(this).addClass('button-metal');
         }, 1000);
       };

@@ -1,7 +1,6 @@
 import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { spinnerVdom, initMiniBoard, onInsert, icon, snabIcon } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
@@ -85,11 +84,11 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
           },
           hook: onClick(ctrl.onRedirect),
         },
-        [snabIcon(icons.Checkmark)],
+        [snabIcon('Checkmark')],
       ),
     ]);
   const viewElement = () =>
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon(icons.Eye)]);
+    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('Eye')]);
 
   return [
     viewInsteadOfAccept ? viewElement() : acceptElement(),
@@ -99,7 +98,7 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
         attrs: { type: 'submit', title: i18n.site.decline },
         hook: onClick(() => ctrl.decline(c.id, 'generic')),
       },
-      [snabIcon(icons.X)],
+      [snabIcon('X')],
     ),
     h(
       'select.decline-reason',
@@ -118,10 +117,10 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
 const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
     h('span.waiting', i18n.site.waiting),
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon(icons.Eye)]),
+    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('Eye')]),
   ]),
   h('button.button.decline', { attrs: { title: i18n.site.cancel }, hook: onClick(() => ctrl.cancel(c.id)) }, [
-    snabIcon(icons.X),
+    snabIcon('X'),
   ]),
 ];
 
@@ -147,7 +146,7 @@ const renderLag = (u?: ChallengeUser) =>
   u &&
   h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('icon', { class: { off: u.lag! < i } })));
 
-const empty = (): VNode => h('div.empty.text', [snabIcon(icons.InfoCircle), i18n.site.noChallenges]);
+const empty = (): VNode => h('div.empty.text', [snabIcon('InfoCircle'), i18n.site.noChallenges]);
 
 const onClick = (f: (e: Event) => void) =>
   onInsert<HTMLElement>(elem => {

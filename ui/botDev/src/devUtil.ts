@@ -2,7 +2,6 @@ import * as co from 'chessops';
 
 import { frag } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import { icons } from 'lib/icons';
 import { domIcon } from 'lib/view';
 
 import type { Result } from './devCtrl';
@@ -85,7 +84,7 @@ export function renderRemoveButton(cls = ''): Node {
   const button = frag<HTMLButtonElement>(
     `<button class="button button-empty button-red icon-btn ${cls}" type="button" data-action="remove" title="Remove" aria-label="Remove">`,
   );
-  button.append(domIcon(icons.Cancel));
+  button.append(domIcon('Cancel'));
   return button;
 }
 

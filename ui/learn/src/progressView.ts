@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { a, div, icon, span } from 'lib/view';
 
 import { hashHref } from './hashRouting';
@@ -9,7 +8,7 @@ import type { Level } from './stage/list';
 export function makeStars(level: Level, score: number) {
   const rank = getLevelRank(level, score);
   const stars = [];
-  for (let i = 3; i >= rank; i--) stars.push(icon(icons.Star)());
+  for (let i = 3; i >= rank; i--) stars.push(icon('Star')());
   return span(`.stars.st${stars.length}`, stars);
 }
 

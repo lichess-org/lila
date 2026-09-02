@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { ops as treeOps } from 'lib/tree/tree';
 import { bind, snabIcon } from 'lib/view';
 
@@ -15,6 +14,6 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
           hook: bind('click', ctrl.study.goToNextChapter),
           class: { highlighted: !!ctrl.node.outcome() || ctrl.node === treeOps.last(ctrl.mainline) },
         },
-        [snabIcon(icons.PlayTriangle), i18n.study.nextChapter],
+        [snabIcon('PlayTriangle'), i18n.study.nextChapter],
       )
     : null;

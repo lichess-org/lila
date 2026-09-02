@@ -1,6 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
 import { bind, confirm, snabIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
@@ -53,7 +52,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
                   }
                 }),
               },
-              [snabIcon(icons.Trash)],
+              [snabIcon('Trash')],
             )
           : null,
         authorDom(by),

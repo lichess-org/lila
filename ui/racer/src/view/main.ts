@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { povMessage } from 'lib/puz/run';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
@@ -134,7 +133,7 @@ const renderControls = (ctrl: RacerCtrl) =>
         title: i18n.site.flipBoard + ' (Keyboard: f)',
         hook: bind('click', ctrl.flip),
       },
-      [snabIcon(icons.ChasingArrows)],
+      [snabIcon('ChasingArrows')],
     ),
   );
 

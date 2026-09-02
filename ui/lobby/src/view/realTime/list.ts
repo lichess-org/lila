@@ -1,5 +1,4 @@
 import perfIcons from 'lib/game/perfIcons';
-import { icons } from 'lib/icons';
 import { bind, tr, span, td, button, th, thead, tbody, icon, table, snabIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
@@ -51,7 +50,7 @@ export const toggle = (ctrl: LobbyController) =>
       'aria-label': i18n.site.graph,
       hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
     },
-    [snabIcon(icons.LineGraph)],
+    [snabIcon('LineGraph')],
   );
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
@@ -88,7 +87,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
                 class: { sortable: true, sort: ctrl.sort === 'rating' },
                 hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
               },
-              [icon(icons.DownTriangle)('.is'), i18n.site.rating],
+              [icon('DownTriangle')('.is'), i18n.site.rating],
             )
           : null,
         th(
@@ -101,7 +100,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             : {
                 key: 'time-header-without-rating',
               },
-          [icon(icons.DownTriangle)('.is'), i18n.site.time],
+          [icon('DownTriangle')('.is'), i18n.site.time],
         ),
         th(i18n.site.mode),
       ]),

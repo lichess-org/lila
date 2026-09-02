@@ -1,4 +1,3 @@
-import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
 import { type VNode, bind, onInsert, hl, confirm, snabIcon } from 'lib/view';
 
@@ -46,7 +45,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               attrs: { 'aria-label': 'Edit', title: 'Edit' },
               hook: bind('click', () => (desc.edit = true), desc.redraw),
             },
-            [snabIcon(icons.Pencil)],
+            [snabIcon('Pencil')],
           ),
         hl(
           'a',
@@ -56,7 +55,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               if (await confirm('Delete permanent description?')) desc.save('');
             }),
           },
-          [snabIcon(icons.Trash)],
+          [snabIcon('Trash')],
         ),
       ]),
     isEmpty
@@ -79,7 +78,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
           attrs: { 'aria-label': 'Save and close', title: 'Save and close' },
           hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
         },
-        [snabIcon(icons.Checkmark)],
+        [snabIcon('Checkmark')],
       ),
     ]),
     hl('form.form3', [

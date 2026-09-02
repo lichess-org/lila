@@ -2,7 +2,6 @@ import { h, type VNode } from 'snabbdom';
 
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
-import { icons } from 'lib/icons';
 import { bind, onInsert, snabDialog, snabIcon } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
@@ -67,7 +66,7 @@ export class SoundCtrl extends PaneCtrl {
                   class: { active: this.getCurrent() === s[0] },
                   attrs: { type: 'button' },
                 },
-                [snabIcon(icons.Checkmark), s[1], s[0] === 'speech' ? '...' : ''],
+                [snabIcon('Checkmark'), s[1], s[0] === 'speech' ? '...' : ''],
               ),
             ),
           ),
@@ -121,7 +120,7 @@ export class SoundCtrl extends PaneCtrl {
                   class: { active: name === selectedVoice?.name },
                   attrs: { type: 'button' },
                 },
-                name === selectedVoice?.name ? [snabIcon(icons.Checkmark), name] : [name],
+                name === selectedVoice?.name ? [snabIcon('Checkmark'), name] : [name],
               ),
             ),
         );

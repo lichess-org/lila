@@ -3,7 +3,6 @@ import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
 
 import { defined, prop, type Prop, toggle } from 'lib';
-import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { storedProp } from 'lib/storage';
 import {
@@ -177,7 +176,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       activeTab !== 'edit' &&
         hl('h2', [
           i18n.study.newChapter,
-          hl('span.help', { hook: bind('click', ctrl.startTour) }, [snabIcon(icons.InfoCircle)]),
+          hl('span.help', { hook: bind('click', ctrl.startTour) }, [snabIcon('InfoCircle')]),
         ]),
       hl(
         'form.form3',
@@ -298,7 +297,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [snabIcon(icons.Eye, '.text'), i18n.study.editor],
+                [snabIcon('Eye', '.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&
@@ -409,7 +408,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       ctrl.redraw();
                     }),
                   },
-                  [snabIcon(icons.DieSix)],
+                  [snabIcon('DieSix')],
                 ),
               ]),
             ]),

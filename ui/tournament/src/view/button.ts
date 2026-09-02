@@ -1,6 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { icons } from 'lib/icons';
 import { spinnerVdom, bind, onInsert, snabIcon } from 'lib/view';
 
 import type TournamentController from '../ctrl';
@@ -13,7 +12,7 @@ export function withdraw(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
     const pause = ctrl.data.isStarted;
     return h('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
-      snabIcon(pause ? icons.Pause : icons.FlagOutline),
+      snabIcon(pause ? 'Pause' : 'FlagOutline'),
       i18n.site[pause ? 'pause' : 'withdraw'],
     ]);
   });
@@ -29,7 +28,7 @@ export function join(ctrl: TournamentController): VNode {
         attrs: { disabled: !joinable },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
-      [snabIcon(icons.PlayTriangle), i18n.site.join],
+      [snabIcon('PlayTriangle'), i18n.site.join],
     );
     return delay
       ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
@@ -56,7 +55,7 @@ export function join(ctrl: TournamentController): VNode {
 export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   if (!ctrl.opts.userId)
     return h('a.button.button-green', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
-      snabIcon(icons.PlayTriangle),
+      snabIcon('PlayTriangle'),
       i18n.site.signIn,
     ]);
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);

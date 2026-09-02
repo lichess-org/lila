@@ -4,7 +4,6 @@ import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import { icons } from 'lib/icons';
 import type { TreeNode, TreePath } from 'lib/tree/types';
 import { type VNode, bind, type LooseVNodes, onInsert, hl, snabIcon } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
@@ -109,7 +108,7 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
             click: () => ctrl.search.open(true),
           },
         },
-        [snabIcon(icons.Search)],
+        [snabIcon('Search')],
       ),
     ctrl.members.isOwner() &&
       hl(
@@ -120,7 +119,7 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
             click: () => ctrl.toggleStudyFormIfAllowed(),
           },
         },
-        [snabIcon(icons.Hamburger)],
+        [snabIcon('Hamburger')],
       ),
   ]);
 
@@ -143,7 +142,7 @@ export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VN
               ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
             }),
           },
-          [snabIcon(icons.BubbleSpeech), i18n.study.commentThisMove],
+          [snabIcon('BubbleSpeech'), i18n.study.commentThisMove],
         ),
         hl(
           'a',
@@ -278,7 +277,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'tags',
         hint: i18n.study.pgnTags,
-        icon: snabIcon(icons.Tag),
+        icon: snabIcon('Tag'),
         shouldBlurIfPrimaryClick: true,
       }),
       canContribute &&
@@ -286,7 +285,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'comments',
           hint: i18n.study.commentThisPosition,
-          icon: snabIcon(icons.BubbleSpeech),
+          icon: snabIcon('BubbleSpeech'),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
           },
@@ -306,7 +305,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'serverEval',
           hint: i18n.site.computerAnalysis,
-          icon: snabIcon(icons.BarChart),
+          icon: snabIcon('BarChart'),
           count: root.data.analysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
@@ -314,7 +313,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'multiBoard',
         hint: 'Multiboard',
-        icon: snabIcon(icons.Multiboard),
+        icon: snabIcon('Multiboard'),
         shouldBlurIfPrimaryClick: true,
       }),
       ctrl.share.shareable() &&
@@ -333,7 +332,7 @@ function buttons(root: AnalyseCtrl): VNode {
             attrs: { 'aria-label': i18n.study.getTheTour, title: i18n.study.getTheTour },
             hook: bind('click', ctrl.startTour),
           },
-          [snabIcon(icons.InfoCircle)],
+          [snabIcon('InfoCircle')],
         ),
     ]),
     gbButton && hl('div.right', gbButton),
@@ -358,7 +357,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        [snabIcon(d.liked ? icons.Heart : icons.HeartOutline), d.likes],
+        [snabIcon(d.liked ? 'Heart' : 'HeartOutline'), d.likes],
       ),
     ]),
     topicsView(ctrl),
