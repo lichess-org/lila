@@ -698,13 +698,13 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: i18n.site.yourOpponentOffersADraw,
-        yes: { action: () => this.socket.send('draw-yes'), icon: 'OneHalf' },
+        yes: { action: () => this.socket.send('draw-yes'), icon: 'oneHalf' },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
         prompt: i18n.site.yourOpponentProposesATakeback,
-        yes: { action: this.takebackYes, icon: 'Back' },
+        yes: { action: this.takebackYes, icon: 'back' },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
@@ -754,7 +754,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`.game__meta .player.${color} .user-link`).append(domIcon('Berserk'));
+    $(`.game__meta .player.${color} .user-link`).append(domIcon('berserk'));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {

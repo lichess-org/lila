@@ -106,13 +106,13 @@
     }
 
     [data-mode='practice']::before {
-      @include icon-mask($icon-Bullseye);
+      @include icon-mask($icon-bullseye);
 
       padding-inline-end: 8px;
     }
 
     [data-mode='retro']::before {
-      @include icon-mask($icon-GraduateCap, 1.5em);
+      @include icon-mask($icon-graduateCap, 1.5em);
     }
 
     [data-mode='practice'].active::after,
@@ -122,11 +122,11 @@
       right: 1px;
       color: color-mix(in oklab, $c-bg 50%, $c-secondary);
 
-      @include icon-mask($icon-X, 0.9em);
+      @include icon-mask($icon-x, 0.9em);
     }
 
     [data-mode='ceval']::after {
-      @include icon-mask($icon-Cogs);
+      @include icon-mask($icon-cogs);
 
       color: $c-font-dimmer;
       width: 18px;

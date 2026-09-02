@@ -117,7 +117,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     )
 
   private def iconByVariant(variant: Variant): Icon =
-    PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
+    PerfKey.byVariant(variant).fold(Icon.crownElite)(_.perfIcon)
 
   def titleFull(pov: Pov)(using ctx: Context) =
     val openingName = gameOpening(pov.game, ctx.isAuth).fold(trans.site.analysis.txt())(_.name)

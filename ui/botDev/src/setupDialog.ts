@@ -43,11 +43,11 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <button type="button" class="z-remove" title="Remove player" aria-label="Remove player">${htmlIcon('X')}</button>
+                <button type="button" class="z-remove" title="Remove player" aria-label="Remove player">${htmlIcon('x')}</button>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
-            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon('GreaterThan')}</button>
+            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon('greaterThan')}</button>
           </div>
           <div class="from-position is2d snap-pane">
             <div class="editor"></div>
@@ -55,7 +55,7 @@ class SetupDialog {
               <button class="button button-metal standard">Standard</button>
               <button class="button button-metal chess960">Chess960</button>
             </div>
-            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon('LessThan')}</button>
+            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon('lessThan')}</button>
           </div>
         </div>
         <div class="chin">

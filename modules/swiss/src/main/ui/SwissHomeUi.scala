@@ -20,13 +20,13 @@ final class SwissHomeUi(helpers: Helpers):
           ),
           div(cls := "box swiss-home__infos")(
             div(cls := "box__pad main-point")(
-              iconEl(Icon.InfoCircle),
+              iconEl(Icon.infoCircle),
               p:
                 trans.swiss.swissDescription:
                   a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
             ),
             div(cls := "box__pad main-point")(
-              iconEl(Icon.Group),
+              iconEl(Icon.group),
               p:
                 trans.swiss.teamOnly:
                   a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -67,7 +67,7 @@ final class SwissHomeUi(helpers: Helpers):
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", iconEl := Icon.User)(s.nbPlayers.localize)
+              span(cls := "players text", iconEl := Icon.user)(s.nbPlayers.localize)
             )
           )
     )

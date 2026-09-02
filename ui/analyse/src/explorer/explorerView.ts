@@ -170,19 +170,19 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
         `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
       ),
       hl('div.menu', [
-        hl('a.text', { hook: bind('click', () => openGame(ctrl, game.id)) }, [snabIcon('Eye'), 'View']),
+        hl('a.text', { hook: bind('click', () => openGame(ctrl, game.id)) }, [snabIcon('eye'), 'View']),
         ctrl.study &&
           hl('a.text', { hook: bind('click', () => send(false), ctrl.redraw) }, [
-            snabIcon('BubbleSpeech'),
+            snabIcon('bubbleSpeech'),
             'Cite',
           ]),
         ctrl.study &&
           hl('a.text', { hook: bind('click', () => send(true), ctrl.redraw) }, [
-            snabIcon('PlusButton'),
+            snabIcon('plusButton'),
             'Insert',
           ]),
         hl('a.text', { hook: bind('click', () => ctrl.explorer.gameMenu(null), ctrl.redraw) }, [
-          snabIcon('X'),
+          snabIcon('x'),
           'Close',
         ]),
       ]),
@@ -192,7 +192,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
 
 const closeButton = (ctrl: AnalyseCtrl): VNode =>
   hl('button.button.button-empty.text', { hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) }, [
-    snabIcon('X'),
+    snabIcon('x'),
     i18n.site.close,
   ]);
 
@@ -214,7 +214,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [
     hl('div.title', i18n.site.gameOver),
-    hl('div.message', [snabIcon('InfoCircle'), hl('h3', title), closeButton(ctrl)]),
+    hl('div.message', [snabIcon('infoCircle'), hl('h3', title), closeButton(ctrl)]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -322,10 +322,10 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
 
   return hl('div.explorer-title', [
     db === 'masters'
-      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, 'Book')
+      ? active([hl('strong', 'Masters'), ' database'], masterDbExplanation, 'book')
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
     db === 'lichess'
-      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, 'Logo')
+      ? active([hl('strong', 'Lichess'), ' database'], i18n.site.lichessDbExplanation, 'logo')
       : otherLink('Lichess', i18n.site.lichessDbExplanation),
     db === 'player'
       ? playerName
@@ -344,9 +344,9 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
                 }),
             ],
             i18n.site.switchSides,
-            'User',
+            'user',
           )
-        : active([hl('strong', 'Player'), ' database'], '', 'User')
+        : active([hl('strong', 'Player'), ' database'], '', 'user')
       : hl(
           'button.button-link.player',
           {
@@ -373,7 +373,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
         },
         hook: bind('click', () => config.toggleOpen(), ctrl.redraw),
       },
-      [snabIcon(configOpened ? 'X' : 'Gear')],
+      [snabIcon(configOpened ? 'x' : 'gear')],
     ),
   ]);
 };
@@ -402,7 +402,7 @@ const showAnon = (ctrl: AnalyseCtrl) =>
     hl('div.message', [
       hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
       hl('a.button.button-empty.text', { attrs: { href: '/signup' } }, [
-        snabIcon('Checkmark'),
+        snabIcon('checkmark'),
         i18n.site.signUp,
       ]),
       closeButton(ctrl),

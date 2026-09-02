@@ -3,7 +3,7 @@ import { bind, hl, snabIcon, type VNode } from 'lib/view';
 
 export const header = (name: string, close: () => void): VNode =>
   hl('button.head.text', { attrs: { type: 'button' }, hook: bind('click', close) }, [
-    snabIcon('LessThan'),
+    snabIcon('lessThan'),
     name,
   ]);
 

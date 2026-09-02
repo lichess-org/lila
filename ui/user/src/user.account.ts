@@ -62,7 +62,7 @@ site.load.then(() => {
       submit.toggleClass('button-red', isDanger);
       const button = submit[0];
       if (button) {
-        const icon = domIcon(isDanger ? 'CautionTriangle' : 'Checkmark');
+        const icon = domIcon(isDanger ? 'cautionTriangle' : 'checkmark');
         const currentIcon = button.querySelector(':scope > .svg-icon');
         if (currentIcon) currentIcon.replaceWith(icon);
         else button.prepend(icon);

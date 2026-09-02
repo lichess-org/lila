@@ -5,7 +5,7 @@ th[role='columnheader']:not([data-sort-method='none']) {
 }
 
 th[role='columnheader']:not([data-sort-method='none'])::after {
-  @include icon-mask($icon-UpTriangle, 14px);
+  @include icon-mask($icon-upTriangle, 14px);
   @include prevent-select;
 
   margin-inline-start: 0.5em;
@@ -15,7 +15,7 @@ th[role='columnheader']:not([data-sort-method='none'])::after {
 }
 
 th[aria-sort='descending']:not([data-sort-method='none'])::after {
-  @include icon-mask($icon-DownTriangle);
+  @include icon-mask($icon-downTriangle);
 }
 
 th[aria-sort]:not([data-sort-method='none']) {

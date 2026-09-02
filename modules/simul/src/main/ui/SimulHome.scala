@@ -63,7 +63,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
                 tr(cls := "scheduled")(
                   simTd(sim),
                   simHost(sim),
-                  td(cls := "players text", iconEl := Icon.User)(sim.applicants.size)
+                  td(cls := "players text", iconEl := Icon.user)(sim.applicants.size)
                 )
             )
           )
@@ -80,7 +80,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", iconEl := Icon.User)(sim.applicants.size)
+              td(cls := "players text", iconEl := Icon.user)(sim.applicants.size)
             ),
           tr(cls := "create")(
             td(colspan := "4")(
@@ -106,7 +106,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", iconEl := Icon.User)(sim.pairings.size)
+                td(cls := "players text", iconEl := Icon.user)(sim.pairings.size)
               )
           )
         ),
@@ -122,7 +122,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", iconEl := Icon.User)(sim.pairings.size)
+              td(cls := "players text", iconEl := Icon.user)(sim.pairings.size)
             )
         )
       )

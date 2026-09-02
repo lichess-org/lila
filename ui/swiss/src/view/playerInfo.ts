@@ -27,7 +27,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
         attrs: { title: i18n.site.close, 'aria-label': i18n.site.close },
         hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
       },
-      [snabIcon('X')],
+      [snabIcon('x')],
     ),
     hl('div.stats', [
       hl('h2', [hl('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),

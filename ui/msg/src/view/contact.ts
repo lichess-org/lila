@@ -33,7 +33,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
             { class: { 'msg-app__side__contact__msg--new': isNew } },
             msg.text,
           ),
-          isNew ? icon('BellOutline')('.msg-app__side__contact__new') : null,
+          isNew ? icon('bellOutline')('.msg-app__side__contact__new') : null,
         ]),
       ]),
     ],

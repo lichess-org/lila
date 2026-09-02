@@ -18,12 +18,12 @@ final class StudyUi(helpers: Helpers):
       p(
         submitButton(
           cls := "submit button large text",
-          iconEl := Icon.StudyBoard,
+          iconEl := Icon.studyBoard,
           style := "margin: 30px auto; display: block; font-size: 2em;"
         )("Clone the study")
       ),
       p(
-        a(href := routes.Study.show(s.id), cls := "text", iconEl := Icon.LessThan)(trans.site.cancel())
+        a(href := routes.Study.show(s.id), cls := "text", iconEl := Icon.lessThan)(trans.site.cancel())
       )
     )
 
@@ -53,7 +53,7 @@ final class StudyUi(helpers: Helpers):
             name := "as",
             value := "study",
             cls := "submit button large new text",
-            iconEl := Icon.StudyBoard
+            iconEl := Icon.studyBoard
           )(trans.study.createStudy())
         ),
         div(cls := "studies")(

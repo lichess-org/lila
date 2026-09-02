@@ -82,7 +82,7 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
         ? [baseStr]
         : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
   if (opts.pause) {
-    return [snabIcon('Pause'), ...timeNodes];
+    return [snabIcon('pause'), ...timeNodes];
   }
   return timeNodes;
 }

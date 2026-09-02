@@ -76,7 +76,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
     const closeButton = frag<Element>(`<button class="close-button" aria-label="Close"></button>`);
-    closeButton.append(domIcon('X'));
+    closeButton.append(domIcon('x'));
     anchor.append(closeButton);
     dialog.appendChild(anchor);
   }
@@ -112,7 +112,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
       o.noCloseButton ||
         hl(
           'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon('X')]),
+          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon('x')]),
         ),
       hl(
         'div',

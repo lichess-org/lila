@@ -34,7 +34,7 @@ export default function (ctrl: TournamentController): VNode {
       : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     hl('button.close', { hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw) }, [
-      snabIcon('X'),
+      snabIcon('x'),
     ]),
     hl('div.stats', [
       playerTitle(data.player, ctrl.data.id),
@@ -91,4 +91,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? hl('td.berserk', { attrs: { title: 'Berserk' } }, [snabIcon('Berserk')]) : hl('td.berserk');
+  b ? hl('td.berserk', { attrs: { title: 'berserk' } }, [snabIcon('berserk')]) : hl('td.berserk');

@@ -15,8 +15,8 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
         contributor &&
           hl('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
             hl('h2', [
-              hl('span.text', [snabIcon('RadioTower'), 'Broadcast manager']),
-              hl('a', { attrs: { href: `/broadcast/round/${study.data.id}/edit` } }, [snabIcon('Gear')]),
+              hl('span.text', [snabIcon('radioTower'), 'Broadcast manager']),
+              hl('a', { attrs: { href: `/broadcast/round/${study.data.id}/edit` } }, [snabIcon('gear')]),
             ]),
             sync?.url || sync?.ids || sync?.urls || sync?.users
               ? (sync.ongoing ? stateOn : stateOff)(ctrl)
@@ -40,7 +40,7 @@ function renderLog(ctrl: RelayCtrl) {
       const err =
         e.error && hl('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
       return hl('div' + (err ? '.err' : ''), { key: e.at }, [
-        snabIcon(err ? 'CautionCircle' : 'Checkmark'),
+        snabIcon(err ? 'cautionCircle' : 'checkmark'),
         hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))]),
       ]);
     });
@@ -51,7 +51,7 @@ function renderLog(ctrl: RelayCtrl) {
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
   return hl('button.state.on.clickable', { hook: bind('click', _ => ctrl.setSync(false)) }, [
-    snabIcon('ChasingArrows'),
+    snabIcon('chasingArrows'),
     hl('span', [
       'Connected ',
       sync && [
@@ -72,13 +72,13 @@ function stateOn(ctrl: RelayCtrl) {
 
 const stateOff = (ctrl: RelayCtrl) =>
   hl('button.state.off.clickable', { hook: bind('click', _ => ctrl.setSync(true)) }, [
-    snabIcon('PlayTriangle'),
+    snabIcon('playTriangle'),
     hl('span.fat', 'Connect to source'),
   ]);
 
 const statePush = (ctrl: RelayCtrl) =>
   hl('div.state.push', [
-    snabIcon('UploadCloud'),
+    snabIcon('uploadCloud'),
     hl('span', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),

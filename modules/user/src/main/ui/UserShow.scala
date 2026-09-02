@@ -51,7 +51,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           (myId.isnt(u.id) && u.enabled.yes).option(
             div(cls := "upt__actions btn-rack")(
               a(
-                iconEl := Icon.AnalogTv,
+                iconEl := Icon.analogTv,
                 cls := "btn-rack__btn",
                 title := trans.site.watchGames.txt(),
                 href := routes.User.tv(u.username)
@@ -59,13 +59,13 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               (!blocked).option(
                 frag(
                   a(
-                    iconEl := Icon.BubbleSpeech,
+                    iconEl := Icon.bubbleSpeech,
                     cls := "btn-rack__btn",
                     title := trans.site.chat.txt(),
                     href := routes.Msg.convo(u.username)
                   ),
                   a(
-                    iconEl := Icon.Swords,
+                    iconEl := Icon.swords,
                     cls := "btn-rack__btn",
                     title := trans.challenge.challengeToPlay.txt(),
                     href := s"${routes.Lobby.home}?user=${u.username}#friend"

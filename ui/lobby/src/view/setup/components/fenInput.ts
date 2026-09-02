@@ -30,7 +30,7 @@ export const fenInput = (ctrl: SetupController) => {
             href: '/editor' + (fen && !ctrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
           },
         },
-        [snabIcon('Pencil')],
+        [snabIcon('pencil')],
       ),
     ]),
     h(

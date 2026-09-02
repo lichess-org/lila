@@ -75,7 +75,7 @@ export function toggle({ filter, redraw }: LobbyController, nbFiltered: number) 
       hook: bind('click', filter.toggle, redraw),
       attrs: { title: label, 'aria-label': label },
     },
-    [snabIcon(filter.open ? 'X' : 'Gear')],
+    [snabIcon(filter.open ? 'x' : 'gear')],
   );
 }
 

@@ -85,7 +85,7 @@ object Tv:
     case Best
         extends Channel(
           name = "Top Rated",
-          icon = Icon.CrownElite,
+          icon = Icon.crownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -196,14 +196,14 @@ object Tv:
     case Bot
         extends Channel(
           name = "Bot",
-          icon = Icon.Cogs,
+          icon = Icon.cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case Computer
         extends Channel(
           name = "Computer",
-          icon = Icon.Cogs,
+          icon = Icon.cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )

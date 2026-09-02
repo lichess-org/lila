@@ -50,7 +50,7 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? hl('div.berserked.' + position, [snabIcon('Berserk')]) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, [snabIcon('berserk')]) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
@@ -64,7 +64,7 @@ const goBerserk = (ctrl: RoundController, color: Color) =>
       },
       hook: bind('click', ctrl.goBerserk),
     },
-    [snabIcon('Berserk')],
+    [snabIcon('berserk')],
   );
 
 const clockSide = (

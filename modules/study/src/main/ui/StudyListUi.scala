@@ -162,7 +162,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
     val nextPageUrl = (np: Int) => addQueryParam(url.url, "page", np.toString)
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
-        iconEl(Icon.StudyBoard),
+        iconEl(Icon.studyBoard),
         p(trs.noneYet())
       )
     else
@@ -173,7 +173,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
               span(cls := "study__icon")(
                 s.study.flair
                   .map(iconFlair)
-                  .getOrElse(iconEl(Icon.StudyBoard))
+                  .getOrElse(iconEl(Icon.studyBoard))
               ),
               span(s.study.name)
             )
@@ -214,7 +214,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       ,
       a(activeCls(StudyGroup.staffPicks), href := routes.Study.staffPicks)("Staff picks"),
       a(
-        iconEl := Icon.InfoCircle,
+        iconEl := Icon.infoCircle,
         href := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
       )(trs.whatAreStudies())
     )
@@ -223,7 +223,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
     form(cls := "search", action := routes.Study.search(), method := "get")(
       form3.hidden("order", order.key),
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
-      submitButton(cls := "button", iconEl := Icon.Search)
+      submitButton(cls := "button", iconEl := Icon.search)
     )
 
   private def formatToggle(using format: StudyFormat) =
@@ -231,7 +231,7 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
       button(
         cls := List("button button-empty" -> true, "active" -> format.compact),
         title := (if format.compact then "Switch to card view" else "Switch to list view"),
-        iconEl := Icon.List
+        iconEl := Icon.list
       )
 
   object topic:

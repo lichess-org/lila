@@ -67,7 +67,7 @@ trait GameHelper:
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     namer.gameVsTextBlocking(game, withRatings)(using lightUserSync)
 
-  val berserkIconSpan = iconEl(lila.ui.Icon.Berserk)
+  val berserkIconSpan = iconEl(lila.ui.Icon.berserk)
 
   def playerLink(
       player: Player,
