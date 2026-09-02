@@ -135,6 +135,8 @@ export class ThreadedEngine implements CevalEngine {
     this.protocol?.compute(undefined);
   }
 
+  version = (): string | undefined => this.protocol?.engineName;
+
   destroy(): void {
     this.module?.postMessage('quit');
     this.module = undefined;

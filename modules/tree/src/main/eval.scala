@@ -4,8 +4,9 @@ import chess.format.Uci
 import chess.Position
 import chess.eval.{ Eval as Ev, * }
 
-case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
-
+case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci], static: Boolean = false):
+  // expose static as a bool indicating "this eval is from a full mainline analysis"
+  // in mongo it's a property key in an eval object, so different evals could be tracked.
   def isEmpty = cp.isEmpty && mate.isEmpty
 
   def dropBest = copy(best = None)
@@ -29,7 +30,14 @@ object evals:
   import scalalib.json.Json.given
   import chess.json.Json.given
 
-  given jsonWrites: Writes[Eval] = Json.writes[Eval]
+  given Reads[Eval] = Json.reads[Eval]
+  given jsonWrites: Writes[Eval] = Writes: eval =>
+    Json
+      .obj()
+      .add("cp", eval.cp)
+      .add("mate", eval.mate)
+      .add("best", eval.best)
+      .add("static", eval.static.option(eval.static))
 
 opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]

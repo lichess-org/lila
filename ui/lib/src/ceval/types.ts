@@ -10,6 +10,7 @@ import type { CevalCtrl } from './ctrl';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
+export type FishnetEfficiency = Partial<Record<'chess' | 'variant', number>>;
 
 export interface EvalMeta {
   path: TreePath;
@@ -39,19 +40,19 @@ export interface BaseEngineInfo {
   url?: string;
   variants?: Rules[];
   supportsNonStandardMaterial?: boolean;
-  minThreads?: number;
-  maxThreads?: number;
+  minThreads: number;
+  maxThreads: number;
   maxHash?: number;
   maxMovetime?: number;
   requires?: Feature[];
   supportsPuzzleReport?: boolean;
   supportsCloudEval?: boolean;
+  nodeEfficiencyVsFishnet?: FishnetEfficiency; // analysis strength per node compared to fishnet's big dogs
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
   variants: Rules[];
   maxHash: number;
-  maxThreads: number;
   providerData?: string;
   clientSecret: string;
   officialStockfish?: boolean;
@@ -91,6 +92,7 @@ export enum CevalState {
 export interface CevalEngine {
   getInfo(): EngineInfo;
   getState(): CevalState;
+  version?(): string | undefined;
   start(work: Work): void;
   stop(): void;
   destroy(): void;
@@ -107,7 +109,8 @@ export interface EngineArgs {
 
 export interface CustomSearch {
   engine?: EngineArgs;
-  search?: () => Search | Millis; // pass number as millis to cap user defined search
+  search?: () => Search | { maxMultiPv?: number; maxMovetime?: Millis };
+  canBackground?: boolean;
 }
 
 export interface CustomCeval extends CustomSearch {
