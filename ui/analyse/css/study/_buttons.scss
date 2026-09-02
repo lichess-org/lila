@@ -13,6 +13,14 @@ $c-study-button: $c-accent;
     flex: 9 1 auto;
     justify-content: flex-start;
     border-bottom: 0;
+    padding-top: 5px;
+
+    a,
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .right {
@@ -57,5 +65,5 @@ $c-study-button: $c-accent;
 /* reused by context menu */
 .glyph-icon::before {
   content: '⁉';
-  font-size: 1.2em;
+  font-weight: bold;
 }

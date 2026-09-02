@@ -18,7 +18,7 @@
     color: $c-good;
 
     &::before {
-      @include icon-mask($icon-Disc);
+      @include icon-mask($icon-Disc, 12px);
     }
 
     &.patron {
@@ -29,8 +29,8 @@
   .line {
     color: $c-font;
     opacity: 0.5;
-    width: 1.5em;
-    text-align: center;
+    width: 24px;
+    justify-content: center;
     display: inline-flex;
     align-items: center;
 
@@ -43,15 +43,17 @@
     }
 
     &::before {
-      @include icon-mask($icon-DiscOutline);
+      @include icon-mask($icon-DiscOutline, 12px);
+
+      height: 18px;
     }
 
     &.patron::before {
-      @include icon-mask($icon-Wings);
+      @include icon-mask($icon-Wings, 18px);
     }
 
     &.moderator::before {
-      @include icon-mask($icon-Agent);
+      @include icon-mask($icon-Agent, 15px);
     }
   }
 

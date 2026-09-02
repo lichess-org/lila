@@ -60,7 +60,7 @@ function pushTalkSetting(ctrl: VoiceCtrl) {
     hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
       'Push ',
-      hl('strong', 'shift'),
+      hl('kbd', 'shift'),
       ' key to talk',
     ]),
   ]);
