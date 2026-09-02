@@ -18,7 +18,7 @@ export class LinksCtrl extends PaneCtrl {
         this.root.opts.zenable &&
           hl('div.zen.selector', [
             hl(
-              'button.text',
+              'button',
               {
                 attrs: { title: 'Keyboard: z', type: 'button' },
                 hook: bind('click', () => pubsub.emit('zen')),
@@ -58,7 +58,7 @@ export class LinksCtrl extends PaneCtrl {
           d.streamer && this.link('/streamer/edit', 'Mic', i18n.site.streamerManager),
 
           hl('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-            hl('button.text', { attrs: { type: 'submit' } }, [snabIcon('Power'), i18n.site.logOut]),
+            hl('button', { attrs: { type: 'submit' } }, [snabIcon('Power'), i18n.site.logOut]),
           ]),
         ])
       : null;
@@ -72,5 +72,5 @@ export class LinksCtrl extends PaneCtrl {
     ]);
 
   private readonly link = (href: string, icon: Icon, label: string, more?: Attrs) =>
-    hl('a.text', { attrs: { href, ...more } }, [snabIcon(icon), label]);
+    hl('a', { attrs: { href, ...more } }, [snabIcon(icon), label]);
 }
