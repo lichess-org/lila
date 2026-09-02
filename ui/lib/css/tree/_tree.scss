@@ -1,4 +1,4 @@
-$c-annotation-border: var(--c-annotation-border, rgb(from $c-font r g b / calc(alpha * 0.12)));
+$c-annotation-border: var(--c-annotation-border, rgb(from $c-font r g b / calc(alpha * 0.2)));
 $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 @mixin annotation-color($name) {
@@ -10,6 +10,10 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   .#{$name} + lines,
   &-inline .#{$name} + interrupt {
     --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
+
+    & interrupt {
+      --c-annotation-border: #{$c-annotation-border};
+    }
   }
 
   .#{$name}.active {
