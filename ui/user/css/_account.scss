@@ -234,17 +234,13 @@
       }
 
       div {
-        background: transparent;
+        @extend %flex-center-center;
+
         color: color-mix(in oklab, $c-font 50%, $c-dimmer);
       }
 
       div.always-on {
         color: $c-good;
-      }
-
-      div.toggle {
-        display: flex;
-        justify-content: center;
       }
     }
 
@@ -253,8 +249,9 @@
       color: $c-font-dim;
 
       .svg-icon {
-        width: 2em;
+        width: 1.75em;
         display: block;
+        margin: 0.5em auto 0;
       }
     }
   }
