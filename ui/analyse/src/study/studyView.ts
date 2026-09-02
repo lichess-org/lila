@@ -146,14 +146,14 @@ export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VN
           [snabIcon(icons.BubbleSpeech), i18n.study.commentThisMove],
         ),
         hl(
-          'a.glyph-icon',
+          'a',
           {
             hook: bind('click', () => {
               ctrl.vm.toolTab('glyphs');
               ctrl.ctrl.userJump(path);
             }),
           },
-          i18n.study.annotateWithGlyphs,
+          [hl('span.glyph-icon'), i18n.study.annotateWithGlyphs],
         ),
       ]
     : [];
